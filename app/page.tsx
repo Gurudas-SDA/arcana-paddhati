@@ -80,7 +80,7 @@ export default function Home() {
       {/* Main content area */}
       <main className="flex-1 overflow-y-auto">
         {/* Mobile header */}
-        <div className="sticky top-0 z-30 lg:hidden flex items-center gap-3 px-4 py-3 bg-[#FDF8F0]/95 backdrop-blur-sm border-b border-[#E8DCC8]">
+        <div className="sticky top-0 z-30 lg:hidden flex items-center gap-3 px-4 py-3 bg-white/95 backdrop-blur-sm border-b border-[#ddd]">
           <button
             onClick={() => setMobileMenuOpen(true)}
             className="p-2 rounded-lg hover:bg-[#F5E6C8] transition-colors"
@@ -102,8 +102,8 @@ export default function Home() {
             </svg>
           </button>
           <h1
-            className="text-sm font-semibold truncate"
-            style={{ color: "#B8860B" }}
+            className="text-sm font-semibold truncate text-[#1a1a1a]"
+            style={{ fontFamily: "var(--font-noto-serif, Georgia, serif)" }}
           >
             Arcana Paddhati
           </h1>
