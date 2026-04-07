@@ -1495,15 +1495,15 @@
         {
           "type": "instruction",
           "content": "While ringing a bell, chant:"
-            },
-            {
-              "type": "verse",
-              "sanskrit": "eṣa puṣpāñjali klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
-              "translation": ""
-            },
-            {
-              "type": "instruction",
-              "content": "Offer flower petals to Their Lordship's lotus feet."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "eṣa puṣpāñjali klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+          "translation": ""
+        },
+        {
+          "type": "instruction",
+          "content": "Offer flower petals to Their Lordship's lotus feet."
         }
       ],
       "subsections": [
