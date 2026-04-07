@@ -67,7 +67,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "tridandīnām bhakta-śiromaṇiṁ ca\nśrī-kṛṣṇa-padābja-dhṛtaika-hṛdi\ncaitanya-līlāmṛta-sāra-sāraṁ\nnārāyāṇaṁ tvaṁ satataṁ prapadye\nŚrīla Nārāyaṇa Gosvāmī, the jewel among tridaṇḍī-sannyāsīs, holds the\nlotus feet of Rādhā and Kṛṣṇa within his heart and experiences supreme\nbliss when Kṛṣṇa renders service to Śrīmatī Rādhikā. He is always\nabsorbed in thoughts of Śrī Caitanya Mahāprabhu and the confidential\nreasons for His divine descent. With deep reverence, I offer my\nprostrated obeisances at the lotus feet of Śrīla Nārāyaṇa Gosvāmī, who\nis endowed with innumerable transcendental qualities.",
+              "sanskrit": "tridandīnām bhakta-śiromaṇiṁ ca\nśrī-kṛṣṇa-padābja-dhṛtaika-hṛdi\ncaitanya-līlāmṛta-sāra-sāraṁ\nnārāyāṇaṁ tvaṁ satataṁ prapadye",
               "translation": "Śrīla Nārāyaṇa Gosvāmī, the jewel among tridaṇḍī-sannyāsīs, holds the lotus feet of Rādhā and Kṛṣṇa within his heart and experiences supreme bliss when Kṛṣṇa renders service to Śrīmatī Rādhikā. He is always absorbed in thoughts of Śrī Caitanya Mahāprabhu and the confidential reasons for His divine descent. With deep reverence, I offer my prostrated obeisances at the lotus feet of Śrīla Nārāyaṇa Gosvāmī, who is endowed with innumerable transcendental qualities."
             }
           ]
@@ -245,7 +245,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "śrīmān rāsa-rasārambhī vaṁśīvaṭa-taṭa-sthitaḥ\nkarṣan veṇu-svanair gopīr gopīnāthaḥ śriye 'stu naḥ\nStanding on the river-bank at Vaṁśīvaṭa, Śrī Gopīnātha, the initiator of",
+              "sanskrit": "śrīmān rāsa-rasārambhī vaṁśīvaṭa-taṭa-sthitaḥ\nkarṣan veṇu-svanair gopīr gopīnāthaḥ śriye 'stu naḥ",
               "translation": "Standing on the river-bank at Vaṁśīvaṭa, Śrī Gopīnātha, the initiator of the transcendental mellow of the rāsa-dance, attracts all the gopīs with the sound of His veṇu flute. May He confer auspiciousness upon us."
             }
           ]
@@ -278,7 +278,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "śrī-kṛṣṇa-caitanya prabhu-nityānanda\nśrī-advaita gadādhara śrīvāsādi-gaura-bhakta-vṛnda\nMahā-mantra\nhare kṛṣṇa hare kṛṣṇa kṛṣṇa kṛṣṇa hare hare\nhare rāma hare rāma rāma rāma hare hare",
+              "sanskrit": "śrī-kṛṣṇa-caitanya prabhu-nityānanda\nśrī-advaita gadādhara śrīvāsādi-gaura-bhakta-vṛnda",
               "translation": ""
             }
           ]
@@ -350,8 +350,12 @@
               "content": "Long nails are dirty and contaminated. Therefore, it is a general practice of pūjārīs to keep their fingernails short, to avoid contaminating the bhoga and other articles meant for offering to the Lord. Even during the four months of Cāturmāsya, pūjārīs keep their nails short. Brush their teeth even on fast days."
             },
             {
+              "type": "subtitle",
+              "content": "Mantra for taking bath by mind (mānasa-snāna)"
+            },
+            {
               "type": "verse",
-              "sanskrit": "oṁ apavitraḥ pavitro vā\nsarvāvasthāṁ gato 'pi vā\nyaḥ smaret puṇḍarīkākṣaṁ\nsa bāhyābhyantara-śuciḥ\nWhether one is contaminated, pure or in any condition or stage of life,",
+              "sanskrit": "oṁ apavitraḥ pavitro vā\nsarvāvasthāṁ gato 'pi vā\nyaḥ smaret puṇḍarīkākṣaṁ\nsa bāhyābhyantara-śuciḥ",
               "translation": "Whether one is contaminated, pure or in any condition or stage of life, if one remembers the lotus-eyed Lord, Puṇḍarīkākṣa, Śrī Kṛṣṇa, one becomes pure both externally and internally. [Garuḍa Purāṇa]"
             },
             {
@@ -373,7 +377,7 @@
           "title": "Calling of the Holy Rivers",
           "content": [
             {
-              "type": "text",
+              "type": "subtitle",
               "content": "Tīrtha-āvāhana-mantra"
             },
             {
@@ -412,8 +416,12 @@
               "content": "Starting from the centre of the eyebrows, form two vertical lines on the forehead that reach up to the beginning of the hairline. There must be a clean space in the middle of the ūrdhva-puṇḍra. From just below the centre of the eyebrows extending to three-quarters of the way down the nose is called the nāsāmūla. [This is where one forms the shape of a tulasī leaf.]"
             },
             {
+              "type": "text",
+              "content": "The mantra to invoke remembrance of the twelve names of the Lord (dvādaśa-nāma-smaraṇa-mantra) is as follows:"
+            },
+            {
               "type": "verse",
-              "sanskrit": "lalāṭe keśavaṁ dhyāyen\nnārāyaṇam athodare\nvakṣaḥ-sthale mādhavaṁ tu\ngovindaṁ kaṇṭha-kūpake\nviṣṇuṁ ca dakṣiṇe kukṣau\nbāhau ca madhusūdanam\ntrivikramaṁ kandhare tu\nvāmanaṁ vāma-pārśvake\nśrīdharaṁ vāma-bāhau tu\nhṛṣīkeśaṁ ca kandhare\npṛṣṭhe tu padmanābhaṁ ca\nkaṭyāṁ dāmodaraṁ nyaset\ntat prakṣālana-toyaṁ tu\nvāsudevāya mūrdhani\nWhen one marks the forehead with tilaka, one must remember Keśava. When",
+              "sanskrit": "lalāṭe keśavaṁ dhyāyen\nnārāyaṇam athodare\nvakṣaḥ-sthale mādhavaṁ tu\ngovindaṁ kaṇṭha-kūpake\nviṣṇuṁ ca dakṣiṇe kukṣau\nbāhau ca madhusūdanam\ntrivikramaṁ kandhare tu\nvāmanaṁ vāma-pārśvake\nśrīdharaṁ vāma-bāhau tu\nhṛṣīkeśaṁ ca kandhare\npṛṣṭhe tu padmanābhaṁ ca\nkaṭyāṁ dāmodaraṁ nyaset\ntat prakṣālana-toyaṁ tu\nvāsudevāya mūrdhani",
               "translation": "When one marks the forehead with tilaka, one must remember Keśava. When one marks the lower abdomen, one must remember Nārāyaṇa. When marking the chest, one should remember Mādhava, and when marking the hollow of the neck one should remember Govinda. Viṣṇu should be remembered while marking the right side of the belly, and Madhusūdana should be remembered when marking the right arm. Trivikrama should be remembered when marking the right shoulder, and Vāmana should be remembered when marking the left side of the belly. Śrīdhara should be remembered while marking the left arm, and Hṛṣīkeśa should be remembered when marking the left shoulder. Padmanābha and Dāmodara should be remembered when marking the upper and lower back, and Vāsudeva should be remembered when marking the top of the head."
             },
             {
@@ -452,7 +460,7 @@
               "content": "After applying tilaka, one should perform ācamana. Vaiṣṇava ācamana is of two kinds: ordinary (sādhāraṇa) and specific (viśeṣa). Before performing any devotional activity, ordinary ācamana will suffice. However, at the time of bathing the deity or at the time of pūjā, viśeṣa-ācamana is to be performed."
             },
             {
-              "type": "text",
+              "type": "subtitle",
               "content": "Sādhāraṇa-ācamana"
             },
             {
@@ -468,7 +476,7 @@
               "content": "Repeat the above process of ācamana, this time while chanting oṁ nārāyaṇāya namaḥ and then again while chanting oṁ mādhavāya namaḥ."
             },
             {
-              "type": "text",
+              "type": "subtitle",
               "content": "Viśeṣa-ācamana"
             },
             {
@@ -490,6 +498,10 @@
             {
               "type": "text",
               "content": "oṁ vāsudevāya namaḥ — touch your upper and lower lips with the tips of the fingers of your right hand.\noṁ saṅkarṣaṇāya namaḥ — touch your right nostril with your right thumb and forefinger.\noṁ pradyumnāya namaḥ — touch your left nostril with your right thumb and forefinger.\noṁ aniruddhāya namaḥ — touch your right eye with your right thumb and ring finger.\noṁ puruṣottamāya namaḥ — touch your left eye with your right thumb and ring finger.\noṁ adhokṣajāya namaḥ — touch your right ear with your right thumb and forefinger.\noṁ nṛsiṁhāya namaḥ — touch your left ear with your right thumb and forefinger.\noṁ acyutāya namaḥ — touch your navel with your right thumb and little finger.\noṁ janārdanāya namaḥ — touch your heart with the palm of your right hand.\noṁ upendrāya namaḥ — touch your head with all the finger tips of your right hand.\noṁ haraye namaḥ — touch your right upper arm with the fingertips of your left hand.\noṁ kṛṣṇāya namaḥ — touch your left upper arm with the fingertips of your right hand."
+            },
+            {
+              "type": "instruction",
+              "content": "Now chant the following mantra from the Ṛig Veda while showing the praṇāma-mudrā (palms together in front of your heart):"
             },
             {
               "type": "verse",
@@ -535,17 +547,21 @@
           "title": "3:40 a.m. Waking the Lord",
           "content": [
             {
+              "type": "subtitle",
+              "content": "Prayers to be chanted upon entering the Deity room"
+            },
+            {
               "type": "instruction",
               "content": "Remaining outside the Deity room, ring the bell. Reciting following verses, pray to the Lord to awaken."
             },
             {
               "type": "verse",
-              "sanskrit": "so 'sāv adabhra-karuṇo bhagavān vivṛddha-prema-smitena nayanāmburuhaṁ vijṛmbhan\nutthāya viśva-vijayāya ca no viṣādaṁ\nmādhvyā girāpanayatāt puruṣaḥ purāṇaḥ\nŚrī Bhagavān, who is supreme and primeval, is unlimitedly merciful. I\npray that He bless me with His smiling glance by opening His lotus eyes.",
+              "sanskrit": "so 'sāv adabhra-karuṇo bhagavān vivṛddha-\nprema-smitena nayanāmburuhaṁ vijṛmbhan\nutthāya viśva-vijayāya ca no viṣādaṁ\nmādhvyā girāpanayatāt puruṣaḥ purāṇaḥ",
               "translation": "Śrī Bhagavān, who is supreme and primeval, is unlimitedly merciful. I pray that He bless me with His smiling glance by opening His lotus eyes. He can uplift the entire cosmic creation and remove our grief and sorrow with the sweet words of instruction emanating from His lotus mouth. [SB 3.9.25]"
             },
             {
               "type": "verse",
-              "sanskrit": "deva prapannārti-hara prasādaṁ kuru keśava\navalokana-dānena bhūyo māṁ parayācyuta\nKeśava, O infallible one, O remover of the distress of the surrendered\nsouls, kindly bestow Your mercy upon me by again awarding me with Your\ntranscendental glance.\njaya jaya kṛpamaya jagatera nātha\nsarva jagatere koro śubha-dṛṣṭī-pāta",
+              "sanskrit": "deva prapannārti-hara prasādaṁ kuru keśava\navalokana-dānena bhūyo māṁ parayācyuta",
               "translation": "Keśava, O infallible one, O remover of the distress of the surrendered souls, kindly bestow Your mercy upon me by again awarding me with Your transcendental glance."
             },
             {
@@ -556,6 +572,10 @@
             {
               "type": "instruction",
               "content": "Then knock on the door and enter the Deity room. Turn on a soft light and sit down on the āsana. Perform Sādhāraṇa-ācamana (ordinary ācamana) and, while ringing the bell, proceed to the place where Sri Gurudeva is resting. Awaken him by touching his feet and chant the following prayers."
+            },
+            {
+              "type": "subtitle",
+              "content": "Prayers in Deity's room"
             },
             {
               "type": "verse",
@@ -647,6 +667,10 @@
             {
               "type": "instruction",
               "content": "4:55 a.m. Offer scent. Clean floor."
+            },
+            {
+              "type": "text",
+              "content": "Dressing Their Lordships (in progress)"
             }
           ]
         },
@@ -733,7 +757,7 @@
               "content": "After the noontime ārati, remove the crowns, flute from Deities, and pray to Them to lay down on Their bed to take rest (śayana) by saying:"
             },
             {
-              "type": "text",
+              "type": "subtitle",
               "content": "Rādhā-Krsna"
             },
             {
@@ -742,7 +766,7 @@
               "translation": "O Keśava, kindly come to Your bed along with Your beloved Śrīmatī Rādhikā. O Mādhava, this effulgent bed of fragrant flowers is made for Your joyful sporting."
             },
             {
-              "type": "text",
+              "type": "subtitle",
               "content": "Lord Caitanya Mahāprabhu"
             },
             {
@@ -751,13 +775,17 @@
               "translation": "O Lord Gaurāṅga, please come to Your resting place along with Your associates. O Lord, rest comfortably for a moment, enjoying Your pastimes."
             },
             {
-              "type": "text",
+              "type": "subtitle",
               "content": "Guru"
             },
             {
               "type": "verse",
               "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha śrī-guro\naing gurave namaḥ",
               "translation": "O Gurudeva, kindly come to your resting place along with all your associates."
+            },
+            {
+              "type": "instruction",
+              "content": "Chant prayers for putting Deities to rest while touching Their lotus feet."
             }
           ]
         },
@@ -947,6 +975,10 @@
           "title": "Requesting the Spiritual Master's and Previous Ācāryas' Blessings (guru-paṅkti-namaskāra)",
           "content": [
             {
+              "type": "subtitle",
+              "content": "Preliminary Worship"
+            },
+            {
               "type": "instruction",
               "content": "Begin the arcana of Śrī Rādhā-Kṛṣṇa by seeking the permission and mercy of Sri Guru and Śrī Gaurāṅga. Chant: Tvaṁ gopikā vṛṣa-raves tanayāntike ‘si..., Oṁ ajñāna-timirāndhasya..., Nāma-śreṣṭhaṁ manum api śacī-putram atra svarūpaṁ..., Vāñchā-kalpa-tarubhyaś ca..., Maha mantra"
             },
@@ -964,7 +996,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "aing gurave namaḥ\noṁ parama-gurave namaḥ\nklīng gaurāya svāhā\noṁ nityanandāya namaḥ\nśrīng klīng rādhā-kṛṣṇābhyām namaḥ\nklīṁ kṛṣṇāya govindāya gopī-jana-vallabhāya svāhā\nklīṁ govardhanāya namaḥ\noṁ tulasyai namaḥ\nDeities Mūla-mantra\nPrepāration for Worship (pūrvāṅga-karma)\nRequired Paraphernalia\nTo avoid interrupting the worship, see to it that the following items\nare present before beginning:\npañca-pātra, containing fresh water and a spoon\nbathing conch shell",
+              "sanskrit": "aing gurave namaḥ",
               "translation": "I offer obeisances to my spiritual master."
             },
             {
@@ -1009,7 +1041,12 @@
             },
             {
               "type": "verse",
-              "sanskrit": "oṁ astrāya phaṭ\noṁ puṣpe puṣpe mahā-puṣpe su-puṣpe puṣpa-sambhave puṣpe cayavākīrṇe ca huṁ phaṭ svāhā",
+              "sanskrit": "oṁ astrāya phaṭ",
+              "translation": ""
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ puṣpe puṣpe mahā-puṣpe\nsu-puṣpe puṣpa-sambhave\npuṣpe cayavākīrṇe ca\nhuṁ phaṭ svāhā",
               "translation": "O flowers, O great and auspicious flowers who have appeared from a budding creeper, may you be purified."
             }
           ]
@@ -1029,12 +1066,16 @@
           "title": "Purifying the bodily elements (bhūta-śuddhi)",
           "content": [
             {
+              "type": "subtitle",
+              "content": "Purifying the bodily elements by identifying oneself as the eternal servant of the servant of Lord Kṛṣṇa"
+            },
+            {
               "type": "text",
               "content": "Before arcana, one purifies oneself by thinking: \"By constitution I am an eternal servant of Śrī Kṛṣṇa, but by some misfortune, I became averse to Him since time immemorial. Having thus identified myself as a material body in this illusory existence and having been trapped in this repeated cycle of birth and death, I was burning in the blazing fire of the threefold miseries. However, by great fortune -- that is, by the mercy of Sri Guru -- I have come to understand my identity as a minute, atomic spiritual particle, an eternal servant of Śrī Kṛṣṇa, completely aloof from the gross and subtle bodies. Now, by the order of Sri Gurudeva, under his shelter, I have obtained the fortune of serving Śrī Guru-Gaurāṅga and Śrī Rādhā-Vinoda-Bihārījī.\""
             },
             {
               "type": "verse",
-              "sanskrit": "nāhaṁ vipro na ca nara-patir nāpi vaiśyo na śūdro\nnāhaṁ varṇī na ca gṛha-patir no vana-stho yatir vā\nkintu prodyan-nikhila-paramānanda-pūrṇāmṛtābdher\ngopī-bhartuḥ pada-kamālāyor dāsa-dāsānudāsaḥ\n\"I am not a brāhmaṇa, kṣatriya, vaiśya or śūdra, nor am I a brahmacārī,\ngṛhastha, vānaprastha or sannyāsī. Being transcendental to this gross",
+              "sanskrit": "nāhaṁ vipro na ca nara-patir nāpi vaiśyo na śūdro\nnāhaṁ varṇī na ca gṛha-patir no vana-stho yatir vā\nkintu prodyan-nikhila-paramānanda-pūrṇāmṛtābdher\ngopī-bhartuḥ pada-kamālāyor dāsa-dāsānudāsaḥ",
               "translation": "I am not a brāhmaṇa, kṣatriya, vaiśya or śūdra, nor am I a brahmacārī, gṛhastha, vānaprastha or sannyāsī. Being transcendental to this gross and subtle body, I am the servant of the servant of the servant of the lotus feet of the master of the gopīs, Śrī Kṛṣṇa, who is the ultimate shelter of everyone, full of transcendental bliss and an ocean of unlimited nectar. [Padyāvalī 74]"
             }
           ]
@@ -1064,7 +1105,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "ete gandha-puspe oṁ jaya-dhuani-mantra-matāh svāhā\nAttach the flower petal to the body of the bell with a chandana.",
+              "sanskrit": "ete gandha-puspe oṁ jaya-dhuani-mantra-matāh svāhā",
               "translation": ""
             },
             {
@@ -1107,7 +1148,7 @@
           "title": "Worshipping Lord Caitanya and Śrī Śrī Rādhā-Kṛṣṇa with sixteen upacāras (bāhya-pūjā)",
           "content": [
             {
-              "type": "text",
+              "type": "subtitle",
               "content": "Meditation on Śrī Vṛndāvana-dhāma"
             },
             {
@@ -1116,7 +1157,7 @@
               "translation": "Meditate on a great golden throne studded with jewels within the divine realm of Śrī Vṛndāvana-dhāma. A place of ever-increasing bliss, Vṛndāvana-dhāma is served by breezes cooled by the touch of the Yamunā's waves and is decorated with various types of flowers, creepers and trees. Its splendour is equal to that of millions of suns, and it is ever free from the six waves of material nature (namely, lust, anger, greed, envy, false ego and illusion)."
             },
             {
-              "type": "text",
+              "type": "subtitle",
               "content": "Meditation on Śrī Rādhā-Kṛṣṇa"
             },
             {
@@ -1147,6 +1188,10 @@
         {
           "type": "instruction",
           "content": "After meditating in this way, chant Sri Gāndhārvikā-Giridhārī Sri Rādhā-Vinoda-Bihārījī kī jaya. First perform worship within the mind (mānasa-pūjā), and then, with external items, perform worship of the Divine Couple -- in the form of the Deity. Offer each item first to Lord Śrī Kṛṣṇa, then Śrīmatī Rādhārānī."
+        },
+        {
+          "type": "subtitle",
+          "content": "Reception"
         },
         {
           "type": "instruction",
@@ -1250,7 +1295,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "idaṁ punar-ācamanīyaṁ klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām\nnamaḥ\nAgain, offer water for sipping.\nBathing and Dressing\n8\\) Snāna (bath)\nMūrti-śuddhi: carefully remove the Deities' clothes and ornaments being\ncareful not to scratch or harm Them in any way. Do not drag the clothes\nacross Their faces. Cleanse Their Lordships with a soft cloth or sponge\ndampened with warm water, wiping off the candana, tulasī leaves, and so\non.\nidaṁ sugandha-tailam klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām\nnamaḥ\nMassage Their Lordships with fragrant oil.\nidaṁ snānīyam klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ\nBathe Their Lordships by pouring water from the conch (filling it at\nleast three times with water) while ringing the bell and chanting the\nBrahma-saṁhitā and other appropriate prayers.\nidaṁ aṅga-vastram klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ\nDry Their Lordships with soft cloths.\nidaṁ ācamanīyaṁ klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "idaṁ punar-ācamanīyaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -1264,12 +1309,16 @@
           "title": "8) Snāna (bath)",
           "content": [
             {
+              "type": "subtitle",
+              "content": "Bathing and Dressing"
+            },
+            {
               "type": "instruction",
               "content": "Mūrti-śuddhi: carefully remove the Deities' clothes and ornaments being careful not to scratch or harm Them in any way. Do not drag the clothes across Their faces. Cleanse Their Lordships with a soft cloth or sponge dampened with warm water, wiping off the candana, tulasī leaves, and so on."
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ sugandha-tailam klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām\nnamaḥ\nMassage Their Lordships with fragrant oil.\nidaṁ snānīyam klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ\nBathe Their Lordships by pouring water from the conch (filling it at\nleast three times with water) while ringing the bell and chanting the\nBrahma-saṁhitā and other appropriate prayers.\nidaṁ aṅga-vastram klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ\nDry Their Lordships with soft cloths.\nidaṁ ācamanīyaṁ klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "idaṁ sugandha-tailam klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -1278,7 +1327,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ snānīyam klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ\nBathe Their Lordships by pouring water from the conch (filling it at\nleast three times with water) while ringing the bell and chanting the\nBrahma-saṁhitā and other appropriate prayers.\nidaṁ aṅga-vastram klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ\nDry Their Lordships with soft cloths.\nidaṁ ācamanīyaṁ klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "idaṁ snānīyam klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -1287,7 +1336,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ aṅga-vastram klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ\nDry Their Lordships with soft cloths.\nidaṁ ācamanīyaṁ klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "idaṁ aṅga-vastram klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -1317,6 +1366,15 @@
             {
               "type": "instruction",
               "content": "Offer fresh clothing to Their Lordships. (dhoti)"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ ācamanīyaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Offer Their Lordships water for sipping."
             },
             {
               "type": "verse",
@@ -1366,7 +1424,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ kaṅkaṇam śrīng klīng rādhā-kṛṣṇābhyām namaḥ\nComb, arrange, and decorate Their hair.",
+              "sanskrit": "idaṁ kaṅkaṇam śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -1379,6 +1437,10 @@
           "id": "11-gandha",
           "title": "11) Gandha (scented candana)",
           "content": [
+            {
+              "type": "subtitle",
+              "content": "Worship"
+            },
             {
               "type": "verse",
               "sanskrit": "eṣa gandhaḥ klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
@@ -1463,14 +1525,22 @@
               "content": "Offer respect, glorification and obeisances. Silently chant the gopāla-mantra and the kāma-gāyatrī ten times each, and then chant the rādhā-gāyatrī ten times."
             },
             {
+              "type": "subtitle",
+              "content": "Śrī rādhā-mantra"
+            },
+            {
               "type": "verse",
               "sanskrit": "rāṁ rādhāyai namaḥ",
-              "translation": "Śrī rādhā-mantra"
+              "translation": ""
+            },
+            {
+              "type": "subtitle",
+              "content": "Śrī rādhā-gāyatrī"
             },
             {
               "type": "verse",
               "sanskrit": "rāṁ rādhikāyai vidmahe prema-rūpāyai dhīmahi tan no rādhā praco-dayāt",
-              "translation": "Śrī rādhā-gāyatrī"
+              "translation": ""
             },
             {
               "type": "verse",
@@ -1536,7 +1606,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "aing gurave namaḥ\noṁ parama-gurave namaḥ\nklīng gaurāya svāhā\noṁ nityanandāya namaḥ\nśrīng klīng rādhā-kṛṣṇābhyām namaḥ\nklīṁ kṛṣṇāya govindāya gopī-jana-vallabhāya svāhā\nklīṁ govardhanāya namaḥ\noṁ tulasyai namaḥ\nDeities Mūla-mantra\nPrepāration for Worship (pūrvāṅga-karma)\nRequired Paraphernalia\nTo avoid interrupting the worship, see to it that the following items\nare present before beginning:\npañca-pātra, containing fresh water and a spoon\nbathing conch shell",
+              "sanskrit": "aing gurave namaḥ",
               "translation": "I offer obeisances to my spiritual master."
             },
             {
@@ -1606,7 +1676,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ ācamanīyaṁ aing gurave namaḥ\nidaṁ ācamanīyaṁ klīng gaurāya svāhā\nidaṁ ācamanīyaṁ śrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ\n**NOTE:** Ācamana is offered by tipping a spoonful of water from the\npañca-pātra into an empty container (visarjanīya-pātra), while ringing",
+              "sanskrit": "idaṁ ācamanīyaṁ aing gurave namaḥ",
               "translation": "(5) ācamanīya (mouthwash) — Offer water into the throw-out pot."
             },
             {
@@ -1616,7 +1686,12 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ snānīyaṁ aing gurave namaḥ\nbathe śrī gurudeva with fragrant water poured from the conch shell into",
+              "sanskrit": "idaṁ punar ācamanīyaṁ aing gurave namaḥ",
+              "translation": "Offer water into the throw-out pot."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ snānīyaṁ aing gurave namaḥ",
               "translation": "(7) snāna (bath) — Bathe śrī gurudeva with fragrant water poured from the conch shell."
             },
             {
@@ -1628,6 +1703,11 @@
               "type": "verse",
               "sanskrit": "idaṁ upavītaṁ aing gurave namaḥ",
               "translation": "(9) upavīta (sacred thread) — Offer the sacred thread or a flower."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ tilakaṁ aing gurave namaḥ",
+              "translation": "Draw the tilaka mark on śrī gurudeva [or meditate on doing so]."
             },
             {
               "type": "verse",
@@ -1646,12 +1726,17 @@
             },
             {
               "type": "verse",
-              "sanskrit": "eṣa dhūpaḥ aing gurave namaḥ\n\\[To signify the offering of incense\\] offer water into the throw-out\npot.\n\\(14\\) dīpa (ghee lamp)\neṣa dīpaḥ aing gurave namaḥ\n\\[To signify the offering of a ghee lamp\\] offer water into the\nthrow-out pot.\n\\(15\\) naivedya (foodstuffs)\nAgain offer an āsana, pādya and ācamana as before, and then offer\nfoodstuffs (naivedya).\nNote: One can offer actual foodstuffs, or as a substitute, offer water\ninto the throw-out pot, while saying the mantras below.\nidaṁ naivedyaṁ aing gurave namaḥ",
+              "sanskrit": "etat tulasī patraṁ aing gurave namaḥ",
+              "translation": "Place tulasī in his right hand. [If necessary, use candana to make it adhere.]"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "eṣa dhūpaḥ aing gurave namaḥ",
               "translation": "(13) dhūpa (incense) — Offer water to signify incense."
             },
             {
               "type": "verse",
-              "sanskrit": "eṣa dīpaḥ aing gurave namaḥ\n\\[To signify the offering of a ghee lamp\\] offer water into the\nthrow-out pot.\n\\(15\\) naivedya (foodstuffs)\nAgain offer an āsana, pādya and ācamana as before, and then offer\nfoodstuffs (naivedya).\nNote: One can offer actual foodstuffs, or as a substitute, offer water\ninto the throw-out pot, while saying the mantras below.\nidaṁ naivedyaṁ aing gurave namaḥ",
+              "sanskrit": "eṣa dīpaḥ aing gurave namaḥ",
               "translation": "(14) dīpa (ghee lamp) — Offer water to signify a ghee lamp."
             },
             {
@@ -1680,6 +1765,10 @@
               "translation": "O Gurudeva! You are immersed in an ocean of bliss and you can award transcendental service. You are a dear most gopikā of Śrīmatī Rādhikā. Please bestow upon me the shelter of your lotus feet, so that I can be blissfully engaged in the transcendental service of the Queen of Vraja, Śrīmatī Rādhārāṇī."
             },
             {
+              "type": "subtitle",
+              "content": "Obeisances to Śrī Gurudeva"
+            },
+            {
               "type": "verse",
               "sanskrit": "oṁ ajñāna-timirāndhasya jñānāñjana-śalākayā\ncakṣur unmīlitaṁ yena tasmai śrī-gurave namaḥ",
               "translation": "I offer my most humble daṇḍavat-praṇāma to śrī guru, who has opened my eyes, blinded by the darkness of ignorance, with the torchlight of knowledge."
@@ -1695,9 +1784,17 @@
               "translation": "I bow down to the beautiful lotus feet of my spiritual master, by whose causeless mercy I have obtained the supreme holy name, the divine mantra; the service of the son of Sacīmātā; the association of Śrīla Svarūpa Dāmodara, Rūpa Gosvāmī, and his older brother, Sanātana Gosvāmī; the supreme abode of Mathurā; the blissful abode of Vṛndāvana; the divine Rādhā-kuṇḍa and Govardhana Hill; and the desire within my heart for the loving service of Śrī Rādhikā and Mādhava in Vṛndāvana."
             },
             {
+              "type": "subtitle",
+              "content": "Obeisances to the Vaiṣṇavas"
+            },
+            {
               "type": "verse",
               "sanskrit": "vāñchā-kalpa-tarubhyaś ca kṛpā-sindhubhya eva ca\npatitānāṁ pāvanebhyo vaiṣṇavebhyo namo namaḥ",
               "translation": "I offer praṇāma to the Vaiṣṇavas, who, just like desire trees, can fulfil the desires of everyone and who are full of compassion for the conditioned souls."
+            },
+            {
+              "type": "subtitle",
+              "content": "Mahā-mantra"
             },
             {
               "type": "verse",
@@ -1830,6 +1927,32 @@
               "content": "Note: It should be understood that by the mercy of the spiritual master, we are able to engage in the service of the Lord in His Arcā-vigraha, like offering bhoga."
             }
           ]
+        },
+        {
+          "id": "concluding-duties",
+          "title": "Concluding duties",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "After the food offering, while singing the Holy name of the Lord in a mood of servitude, clean the Deity room with water. Then clean the paraphernalia used in the worship of the Lord."
+            },
+            {
+              "type": "instruction",
+              "content": "After the bhoga offering, place the crown and flute back on the Deities, open Deity curtains and perform ārati."
+            },
+            {
+              "type": "text",
+              "content": "Note: It should be understood that by the mercy of the spiritual master, we are able to engage in the service of the Lord in His Arcā-vigraha, like offering bhoga."
+            },
+            {
+              "type": "subtitle",
+              "content": "Other variations"
+            },
+            {
+              "type": "text",
+              "content": "idaṁ naivedyaṁ\nidaṁ pānīya-jalam\nidaṁ anna-vyañjana-pānīyādikaṁ sarvaṁ\nidaṁ miṣṭānna-pānīyādikam"
+            }
+          ]
         }
       ]
     },
@@ -1934,14 +2057,34 @@
               "content": "Preparation of Snana vedi: Wash and decorate the Snāna vedi, the place of bathing well with cloths, fruits and flowers. Draw a Goloka yantra at the place where the Deities will be bathed and offer flowers and Tulasī to the place where the Deities will stand."
             },
             {
+              "type": "subtitle",
+              "content": "Bell worship (ghanta-puja)"
+            },
+            {
+              "type": "instruction",
+              "content": "Offer flower petals with sandalwood paste to the bell ringer and repeat:"
+            },
+            {
               "type": "verse",
-              "sanskrit": "ete gandha-puspe oṁ jaya-dhuani-mantra-matāh svāhā\nAttach the flower petal to the body of the bell with a chandana.",
-              "translation": "Bell worship (ghanta-puja)"
+              "sanskrit": "ete gandha-puspe oṁ jaya-dhuani-mantra-matāh svāhā",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Attach the flower petal to the body of the bell with a chandana. Then ring the bell lightly with the left hand and place it on the plate, while thinking of the bell as a servant of the Lord."
+            },
+            {
+              "type": "subtitle",
+              "content": "Worship of the Conch shell (sarkha-puja)"
+            },
+            {
+              "type": "instruction",
+              "content": "Offer flower petals with sandalwood paste to the shell and repeat:"
             },
             {
               "type": "verse",
               "sanskrit": "ete gandha-puspe\noṁ hum hum hum namah maha-sankhaya svāhā",
-              "translation": "Conch worship (sarkha-puja)"
+              "translation": ""
             }
           ]
         },
@@ -2043,8 +2186,12 @@
       "subsections": [
         {
           "id": "short-version-forgiveness",
-          "title": "Short Version Begging Forgiveness for Offenses (aparādha-sodhana)",
+          "title": "Short Version Begging Forgiveness for Offenses",
           "content": [
+            {
+              "type": "subtitle",
+              "content": "aparādha-sodhana"
+            },
             {
               "type": "verse",
               "sanskrit": "anga-hinam kriya-hinam\nvidhi-hinam cayad bhavet\nastu tat sarvam acchidram\nkrsna-karsna-prasadatah\nyat kincid vaigunyam jatam\ntad dosa-prasamanasya\nsri-krsna-smaranam karomi",

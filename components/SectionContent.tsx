@@ -20,6 +20,7 @@ interface Subsection {
 interface Section {
   id: string;
   title: string;
+  subtitle?: string | null;
   page: string;
   content: ContentItem[];
   subsections: Subsection[];
@@ -50,6 +51,17 @@ function ContentBlock({ item, index }: { item: ContentItem; index: number }) {
             </p>
           )}
         </div>
+      );
+
+    case "subtitle":
+      return (
+        <p
+          className="text-[15px] leading-7 text-[#555] my-4 italic"
+          key={index}
+          style={{ fontFamily: "var(--font-noto-serif, Georgia, serif)" }}
+        >
+          {item.content}
+        </p>
       );
 
     case "instruction":
@@ -115,6 +127,14 @@ export default function SectionContent({ section }: SectionContentProps) {
         >
           {section.title}
         </h1>
+        {section.subtitle && (
+          <p
+            className="text-base text-[#555] mt-2 italic"
+            style={{ fontFamily: "var(--font-noto-serif, Georgia, serif)" }}
+          >
+            {section.subtitle}
+          </p>
+        )}
         <div className="mt-3 h-px bg-[#ccc]" />
       </header>
 
