@@ -9,6 +9,7 @@ interface ContentItem {
   translation?: string;
   src?: string;
   alt?: string;
+  items?: { label: string; value: string }[];
 }
 
 interface Subsection {
@@ -36,14 +37,18 @@ function ContentBlock({ item, index }: { item: ContentItem; index: number }) {
       return (
         <div className="my-5" key={index}>
           {item.sanskrit && (
-            <p className="sanskrit text-base leading-relaxed text-[#1a1a1a] mb-2">
-              {item.sanskrit.split('\n').map((line, i, arr) => (
-                <React.Fragment key={i}>
-                  {line}
-                  {i < arr.length - 1 && <br />}
-                </React.Fragment>
+            <div className="sanskrit text-base leading-relaxed text-[#1a1a1a] mb-2">
+              {item.sanskrit.split('\n\n').map((stanza, si, sarr) => (
+                <p key={si} className={si < sarr.length - 1 ? "mb-3" : ""}>
+                  {stanza.split('\n').map((line, li, larr) => (
+                    <React.Fragment key={li}>
+                      {line}
+                      {li < larr.length - 1 && <br />}
+                    </React.Fragment>
+                  ))}
+                </p>
               ))}
-            </p>
+            </div>
           )}
           {item.translation && (
             <p className="translation text-[15px] leading-relaxed mt-1 pl-4 border-l border-[#999] ml-1">
@@ -72,6 +77,18 @@ function ContentBlock({ item, index }: { item: ContentItem; index: number }) {
         >
           &#9656; {item.content}
         </p>
+      );
+
+    case "paired-list":
+      return (
+        <div className="my-4" key={index}>
+          {item.items?.map((pair, i) => (
+            <div key={i} className="flex gap-4 py-1">
+              <span className="font-bold shrink-0 min-w-[200px] sanskrit">{pair.label}</span>
+              <span className="text-[15px]">{pair.value}</span>
+            </div>
+          ))}
+        </div>
       );
 
     case "image":

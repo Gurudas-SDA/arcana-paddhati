@@ -421,7 +421,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "lalāṭe keśavaṁ dhyāyen\nnārāyaṇam athodare\nvakṣaḥ-sthale mādhavaṁ tu\ngovindaṁ kaṇṭha-kūpake\nviṣṇuṁ ca dakṣiṇe kukṣau\nbāhau ca madhusūdanam\ntrivikramaṁ kandhare tu\nvāmanaṁ vāma-pārśvake\nśrīdharaṁ vāma-bāhau tu\nhṛṣīkeśaṁ ca kandhare\npṛṣṭhe tu padmanābhaṁ ca\nkaṭyāṁ dāmodaraṁ nyaset\ntat prakṣālana-toyaṁ tu\nvāsudevāya mūrdhani",
+              "sanskrit": "lalāṭe keśavaṁ dhyāyen\nnārāyaṇam athodare\nvakṣaḥ-sthale mādhavaṁ tu\ngovindaṁ kaṇṭha-kūpake\n\nviṣṇuṁ ca dakṣiṇe kukṣau\nbāhau ca madhusūdanam\ntrivikramaṁ kandhare tu\nvāmanaṁ vāma-pārśvake\n\nśrīdharaṁ vāma-bāhau tu\nhṛṣīkeśaṁ ca kandhare\npṛṣṭhe tu padmanābhaṁ ca\nkaṭyāṁ dāmodaraṁ nyaset\n\ntat prakṣālana-toyaṁ tu\nvāsudevāya mūrdhani",
               "translation": "When one marks the forehead with tilaka, one must remember Keśava. When one marks the lower abdomen, one must remember Nārāyaṇa. When marking the chest, one should remember Mādhava, and when marking the hollow of the neck one should remember Govinda. Viṣṇu should be remembered while marking the right side of the belly, and Madhusūdana should be remembered when marking the right arm. Trivikrama should be remembered when marking the right shoulder, and Vāmana should be remembered when marking the left side of the belly. Śrīdhara should be remembered while marking the left arm, and Hṛṣīkeśa should be remembered when marking the left shoulder. Padmanābha and Dāmodara should be remembered when marking the upper and lower back, and Vāsudeva should be remembered when marking the top of the head."
             },
             {
@@ -429,8 +429,21 @@
               "content": "In accordance with the aforementioned smaraṇa-mantra, chant the following mantras while touching each part of the body, either while applying the tilaka mark or after the tilaka has already been applied:"
             },
             {
-              "type": "text",
-              "content": "Forehead: oṁ keśavāya namaḥ\nBelly: oṁ nārāyaṇāya namaḥ\nChest: oṁ mādhavāya namaḥ\nHollow of the neck: oṁ govindāya namaḥ\nRight side of the abdomen: oṁ viṣṇave namaḥ\nRight arm: oṁ madhusūdanāya namaḥ\nRight shoulder: oṁ trivikramāya namaḥ\nLeft side of the abdomen: oṁ vāmanāya namaḥ\nLeft arm: oṁ śrīdharāya namaḥ\nLeft shoulder: oṁ hṛṣīkeśāya namaḥ\nUpper back: oṁ padmanābhāya namaḥ\nLower back: oṁ dāmodarāya namaḥ"
+              "type": "paired-list",
+              "items": [
+                { "label": "Forehead:", "value": "oṁ keśavāya namaḥ" },
+                { "label": "Belly:", "value": "oṁ nārāyaṇāya namaḥ" },
+                { "label": "Chest:", "value": "oṁ mādhavāya namaḥ" },
+                { "label": "Hollow of the neck:", "value": "oṁ govindāya namaḥ" },
+                { "label": "Right side of the abdomen:", "value": "oṁ viṣṇave namaḥ" },
+                { "label": "Right arm:", "value": "oṁ madhusūdanāya namaḥ" },
+                { "label": "Right shoulder:", "value": "oṁ trivikramāya namaḥ" },
+                { "label": "Left side of the abdomen:", "value": "oṁ vāmanāya namaḥ" },
+                { "label": "Left arm:", "value": "oṁ śrīdharāya namaḥ" },
+                { "label": "Left shoulder:", "value": "oṁ hṛṣīkeśāya namaḥ" },
+                { "label": "Upper back:", "value": "oṁ padmanābhāya namaḥ" },
+                { "label": "Lower back:", "value": "oṁ dāmodarāya namaḥ" }
+              ]
             },
             {
               "type": "instruction",
@@ -488,16 +501,42 @@
               "content": "With an ācamana-pātra filled with water clean both hands by sprinkling them with water; holding the ācamana spoon in your left hand, pour a few drops into the right palm. While looking at the water chant the appropriate mantra and then silently sip the water from the base of the right thumb (the brāhma-tīrtha)."
             },
             {
-              "type": "text",
-              "content": "oṁ keśavāya namaḥ — sip water from the brāhma-tīrtha of your right hand.\noṁ nārāyaṇāya namaḥ — sip water from the brāhma-tīrtha of your right hand.\noṁ mādhavāya namaḥ — sip water from the brāhma-tīrtha of your right hand.\noṁ govindāya namaḥ — sprinkle water on your right hand.\noṁ viṣṇave namaḥ — sprinkle water on your left hand.\noṁ madhusūdanāya namaḥ — touch your right cheek with the fingers of your right hand.\noṁ trivikramāya namaḥ — touch your left cheek with the fingers of your right hand.\noṁ vāmanāya namaḥ — wipe above your upper lip with the base of your right thumb.\noṁ śrīdharāya namaḥ — wipe below your lower lip with the base of your right thumb.\noṁ hṛṣīkeśāya namaḥ — sprinkle water on both hands.\noṁ padmanābhāya namaḥ — sprinkle water on your feet.\noṁ dāmodarāya namaḥ — sprinkle water on the top of your head."
+              "type": "paired-list",
+              "items": [
+                { "label": "oṁ keśavāya namaḥ", "value": "sip water from the brāhma-tīrtha of your right hand." },
+                { "label": "oṁ nārāyaṇāya namaḥ", "value": "sip water from the brāhma-tīrtha of your right hand." },
+                { "label": "oṁ mādhavāya namaḥ", "value": "sip water from the brāhma-tīrtha of your right hand." },
+                { "label": "oṁ govindāya namaḥ", "value": "sprinkle water on your right hand." },
+                { "label": "oṁ viṣṇave namaḥ", "value": "sprinkle water on your left hand." },
+                { "label": "oṁ madhusūdanāya namaḥ", "value": "touch your right cheek with the fingers of your right hand." },
+                { "label": "oṁ trivikramāya namaḥ", "value": "touch your left cheek with the fingers of your right hand." },
+                { "label": "oṁ vāmanāya namaḥ", "value": "wipe above your upper lip with the base of your right thumb." },
+                { "label": "oṁ śrīdharāya namaḥ", "value": "wipe below your lower lip with the base of your right thumb." },
+                { "label": "oṁ hṛṣīkeśāya namaḥ", "value": "sprinkle water on both hands." },
+                { "label": "oṁ padmanābhāya namaḥ", "value": "sprinkle water on your feet." },
+                { "label": "oṁ dāmodarāya namaḥ", "value": "sprinkle water on the top of your head." }
+              ]
             },
             {
               "type": "instruction",
               "content": "While chanting the following mantras, perform the hand motions:"
             },
             {
-              "type": "text",
-              "content": "oṁ vāsudevāya namaḥ — touch your upper and lower lips with the tips of the fingers of your right hand.\noṁ saṅkarṣaṇāya namaḥ — touch your right nostril with your right thumb and forefinger.\noṁ pradyumnāya namaḥ — touch your left nostril with your right thumb and forefinger.\noṁ aniruddhāya namaḥ — touch your right eye with your right thumb and ring finger.\noṁ puruṣottamāya namaḥ — touch your left eye with your right thumb and ring finger.\noṁ adhokṣajāya namaḥ — touch your right ear with your right thumb and forefinger.\noṁ nṛsiṁhāya namaḥ — touch your left ear with your right thumb and forefinger.\noṁ acyutāya namaḥ — touch your navel with your right thumb and little finger.\noṁ janārdanāya namaḥ — touch your heart with the palm of your right hand.\noṁ upendrāya namaḥ — touch your head with all the finger tips of your right hand.\noṁ haraye namaḥ — touch your right upper arm with the fingertips of your left hand.\noṁ kṛṣṇāya namaḥ — touch your left upper arm with the fingertips of your right hand."
+              "type": "paired-list",
+              "items": [
+                { "label": "oṁ vāsudevāya namaḥ", "value": "touch your upper and lower lips with the tips of the fingers of your right hand." },
+                { "label": "oṁ saṅkarṣaṇāya namaḥ", "value": "touch your right nostril with your right thumb and forefinger." },
+                { "label": "oṁ pradyumnāya namaḥ", "value": "touch your left nostril with your right thumb and forefinger." },
+                { "label": "oṁ aniruddhāya namaḥ", "value": "touch your right eye with your right thumb and ring finger." },
+                { "label": "oṁ puruṣottamāya namaḥ", "value": "touch your left eye with your right thumb and ring finger." },
+                { "label": "oṁ adhokṣajāya namaḥ", "value": "touch your right ear with your right thumb and forefinger." },
+                { "label": "oṁ nṛsiṁhāya namaḥ", "value": "touch your left ear with your right thumb and forefinger." },
+                { "label": "oṁ acyutāya namaḥ", "value": "touch your navel with your right thumb and little finger." },
+                { "label": "oṁ janārdanāya namaḥ", "value": "touch your heart with the palm of your right hand." },
+                { "label": "oṁ upendrāya namaḥ", "value": "touch your head with all the finger tips of your right hand." },
+                { "label": "oṁ haraye namaḥ", "value": "touch your right upper arm with the fingertips of your left hand." },
+                { "label": "oṁ kṛṣṇāya namaḥ", "value": "touch your left upper arm with the fingertips of your right hand." }
+              ]
             },
             {
               "type": "instruction",
@@ -505,7 +544,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "oṁ tad viṣṇoḥ paramaṁ padaṁ\nsadā paśyanti sūrayaḥ\ndivīva cakṣur-ātatam\ntad viprāso vipanyavo\njāgṛvaṁ saḥ samindhate\nviṣṇor yat paramaṁ padam",
+              "sanskrit": "oṁ tad viṣṇoḥ paramaṁ padaṁ\nsadā paśyanti sūrayaḥ\ndivīva cakṣur-ātatam\n\ntad viprāso vipanyavo\njāgṛvaṁ saḥ samindhate\nviṣṇor yat paramaṁ padam",
               "translation": "Just as those with ordinary vision see the sun's rays in the sky, so the wise and learned devotees always see the supreme abode of Lord Vishnu. Because those highly praise-worthy and spiritually awake brāhmaṇas can see that abode, they can also reveal it to others. [Rig Veda Samhita]"
             }
           ]
@@ -2159,7 +2198,7 @@
         },
         {
           "type": "verse",
-          "sanskrit": "yad-dattaṁ bhakti-mātreṇa\npatraṁ puṣpaṁ phalaṁ jalam\nāveditaṁ nivedyan tu\ntad gṛhāṇānukampayā\nOut of Your causeless mercy, please accept a leaf, flower, water, fruit,\nfoodstuff or whatever has been offered with devotion.\nvidhi-hīnaṁ mantra-hīnaṁ\nyat kiñcid upapāditam\nkriyā-mantra-vihīnaṁ vā\ntat sarvaṁ kṣantum arhasi",
+          "sanskrit": "yad-dattaṁ bhakti-mātreṇa\npatraṁ puṣpaṁ phalaṁ jalam\nāveditaṁ nivedyan tu\ntad gṛhāṇānukampayā",
           "translation": "Out of Your causeless mercy, please accept a leaf, flower, water, fruit, foodstuff or whatever has been offered with devotion."
         },
         {
@@ -2169,12 +2208,12 @@
         },
         {
           "type": "verse",
-          "sanskrit": "ajñānād athavā jñānād\naśubhaṁ yan mayā kṛtam\nkṣantum arhasi tat sarvaṁ\ndāsyenaiva gṛhāṇa mām\nsthitiḥ sevā gatir yātrā\nsmṛtiś cintā stutir vacaḥ\nbhūyāt sarvātmanā viṣṇo\nmadīyaṁ tvayi ceṣṭitam\nPlease forgive whatever inauspicious acts I have performed due to my",
+          "sanskrit": "ajñānād athavā jñānād\naśubhaṁ yan mayā kṛtam\nkṣantum arhasi tat sarvaṁ\ndāsyenaiva gṛhāṇa mām\n\nsthitiḥ sevā gatir yātrā\nsmṛtiś cintā stutir vacaḥ\nbhūyāt sarvātmanā viṣṇo\nmadīyaṁ tvayi ceṣṭitam",
           "translation": "Please forgive whatever inauspicious acts I have performed due to my being without proper knowledge or due to my performing them unknowingly and accept me as Your insignificant servant. Let my normal condition be service, let my movement be holy pilgrimage, let my thought be remembrance of You and let my words be glorification of You. O Viṣṇu, let the activities of my entire mind, body and soul, be engaged in You."
         },
         {
           "type": "verse",
-          "sanskrit": "aparādha-sahasrāṇi\nkriyante 'har-niśaṁ mayā\ndāso 'ham iti māṁ matvā\nkṣamasva madhusūdana\nThousands of offences are committed by me day and night. But think of me",
+          "sanskrit": "aparādha-sahasrāṇi\nkriyante 'har-niśaṁ mayā\ndāso 'ham iti māṁ matvā\nkṣamasva madhusūdana",
           "translation": "Thousands of offences are committed by me day and night. But think of me as Your servant and kindly forgive them, O Madhusūdana."
         },
         {
@@ -2194,7 +2233,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "anga-hinam kriya-hinam\nvidhi-hinam cayad bhavet\nastu tat sarvam acchidram\nkrsna-karsna-prasadatah\nyat kincid vaigunyam jatam\ntad dosa-prasamanasya\nsri-krsna-smaranam karomi",
+              "sanskrit": "anga-hinam kriya-hinam\nvidhi-hinam cayad bhavet\nastu tat sarvam acchidram\nkrsna-karsna-prasadatah\n\nyat kincid vaigunyam jatam\ntad dosa-prasamanasya\nsri-krsna-smaranam karomi",
               "translation": "May the mercy of Krsna and His devotees nullify all the mistakes we have made in our observance of the rules of worship and in our performance of the acts of worship. I now remember Krsna to nullify whatever faults there may be. [Sat-kriya-sara-dipika]"
             },
             {
@@ -2218,16 +2257,53 @@
           "title": "The Sixteen Basic Upacāras (Reference)",
           "content": [
             {
-              "type": "text",
-              "content": "Reception:\nidaṁ āsanam — seat\netat pādyaṁ — footwash\nidaṁ arghyam — water in conch\nidaṁ ācamanīyaṁ — water for sipping\neṣa madhuparkaḥ — madhuparka drink\nidaṁ punar-ācamanīyaṁ — second ācamana"
+              "type": "subtitle",
+              "content": "Reception:"
             },
             {
-              "type": "text",
-              "content": "Bathing & Dressing:\nidaṁ sugandha-tailam — scented oil\nidaṁ snānīyam — bath\nidaṁ vastram — clothes\nidaṁ upavītam — sacred thread\nidaṁ tilakam — tilaka\netat tulasī-pātram or etāni tulasī-patrāni — tulasi leaves\nidaṁ ābharaṇam or imāni ābharaṇāni — ornaments"
+              "type": "paired-list",
+              "items": [
+                { "label": "idaṁ āsanam", "value": "seat" },
+                { "label": "etat pādyaṁ", "value": "footwash" },
+                { "label": "idaṁ arghyam", "value": "water in conch" },
+                { "label": "idaṁ ācamanīyaṁ", "value": "water for sipping" },
+                { "label": "eṣa madhuparkaḥ", "value": "madhuparka drink" },
+                { "label": "idaṁ punar-ācamanīyaṁ", "value": "second ācamana" }
+              ]
             },
             {
-              "type": "text",
-              "content": "Worship:\neṣa puṣpāñjaliḥ — flower petals\nete gandha-puṣpe — sandalwood paste & flowers\neṣa gandhaḥ — sandalwood paste & scents\neṣa dhūpaḥ — incense\neṣa dīpaḥ — ghee lamp\nidaṁ naivedyaṁ — offer bhoga\nidaṁ malyam or ime mālye — flower garland\nidaṁ sarvam — represents pleasing articles\nidaṁ pranāma — offer prayer & obeisances"
+              "type": "subtitle",
+              "content": "Bathing & Dressing:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                { "label": "idaṁ sugandha-tailam", "value": "scented oil" },
+                { "label": "idaṁ snānīyam", "value": "bath" },
+                { "label": "idaṁ vastram", "value": "clothes" },
+                { "label": "idaṁ upavītam", "value": "sacred thread" },
+                { "label": "idaṁ tilakam", "value": "tilaka" },
+                { "label": "etat tulasī-pātram / etāni tulasī-patrāni", "value": "tulasī leaves" },
+                { "label": "idaṁ ābharaṇam / imāni ābharaṇāni", "value": "ornaments" }
+              ]
+            },
+            {
+              "type": "subtitle",
+              "content": "Worship:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                { "label": "eṣa puṣpāñjaliḥ", "value": "flower petals" },
+                { "label": "ete gandha-puṣpe", "value": "sandalwood paste & flowers" },
+                { "label": "eṣa gandhaḥ", "value": "sandalwood paste & scents" },
+                { "label": "eṣa dhūpaḥ", "value": "incense" },
+                { "label": "eṣa dīpaḥ", "value": "ghee lamp" },
+                { "label": "idaṁ naivedyaṁ", "value": "offer bhoga" },
+                { "label": "idaṁ malyam / ime mālye", "value": "flower garland" },
+                { "label": "idaṁ sarvam", "value": "represents pleasing articles" },
+                { "label": "idaṁ praṇāma", "value": "offer prayer & obeisances" }
+              ]
             }
           ]
         },
@@ -2236,12 +2312,37 @@
           "title": "Ārati Ceremony",
           "content": [
             {
-              "type": "text",
-              "content": "Order of Worship:\nSpiritual Master — aing gurave namaḥ\nSpiritual Masters — oṁ parama-gurave namaḥ\nLord Caitanya — klīng gaurāya svāhā\nLord Nityananda — oṁ nityanandāya namaḥ\nŚrī Śrī Rādhā-Kṛṣṇa — śrīng klīng rādhā-kṛṣṇābhyām namaḥ\nŚālagrāma Silas — klīṁ kṛṣṇāya govindāya gopī-jana-vallabhāya svāhā\nŚrī Govardhana-śilā — klīṁ govardhanāya namaḥ\nŚrī tulasī Devī — oṁ tulasyai namaḥ"
+              "type": "subtitle",
+              "content": "Order of Worship:"
             },
             {
-              "type": "text",
-              "content": "Ārati items and showings:\nIncense (eṣa dhūpaḥ) — Full ārati: Feet 4, Waist 2, Body 7\nGhee Lamp (eṣa dīpaḥ) — Full ārati: Feet 4, Waist 2, Head 3, Body 7\nWater in conch (idaṁ arghyam) — 7 circles around body\nHandkerchief (idaṁ vastram) — Feet 4, Waist 2, Head 3, Body 7\nFlowers (etāni puṣpāni) — Feet 4, Body 7\nCamara (eṣā cāmara-sevā) — According to available time\nPeacock Fan (eṣā vyajñana-sevā) — According to available time"
+              "type": "paired-list",
+              "items": [
+                { "label": "Spiritual Master", "value": "aing gurave namaḥ" },
+                { "label": "Spiritual Masters", "value": "oṁ parama-gurave namaḥ" },
+                { "label": "Lord Caitanya", "value": "klīng gaurāya svāhā" },
+                { "label": "Lord Nityananda", "value": "oṁ nityanandāya namaḥ" },
+                { "label": "Śrī Śrī Rādhā-Kṛṣṇa", "value": "śrīng klīng rādhā-kṛṣṇābhyām namaḥ" },
+                { "label": "Śālagrāma Śilās", "value": "klīṁ kṛṣṇāya govindāya gopī-jana-vallabhāya svāhā" },
+                { "label": "Śrī Govardhana-śilā", "value": "klīṁ govardhanāya namaḥ" },
+                { "label": "Śrī Tulasī Devī", "value": "oṁ tulasyai namaḥ" }
+              ]
+            },
+            {
+              "type": "subtitle",
+              "content": "Ārati items and showings:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                { "label": "Incense (eṣa dhūpaḥ)", "value": "Full ārati: Feet 4, Waist 2, Body 7" },
+                { "label": "Ghee Lamp (eṣa dīpaḥ)", "value": "Full ārati: Feet 4, Waist 2, Head 3, Body 7" },
+                { "label": "Water in conch (idaṁ arghyam)", "value": "7 circles around body" },
+                { "label": "Handkerchief (idaṁ vastram)", "value": "Feet 4, Waist 2, Head 3, Body 7" },
+                { "label": "Flowers (etāni puṣpāni)", "value": "Feet 4, Body 7" },
+                { "label": "Cāmara (eṣā cāmara-sevā)", "value": "According to available time" },
+                { "label": "Peacock Fan (eṣā vyajñana-sevā)", "value": "According to available time" }
+              ]
             }
           ]
         },
