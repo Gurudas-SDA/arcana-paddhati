@@ -1,26 +1,105 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-cream: #FDF8F0;
+  --color-cream-dark: #F5E6C8;
+  --color-brown: #2C1810;
+  --color-brown-light: #5C3D2E;
+  --color-gold: #B8860B;
+  --color-gold-light: #F5E6C8;
+  --color-gold-muted: #D4A843;
+  --color-verse-bg: #FAF3E8;
+  --color-instruction-border: #B8860B;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-cream: var(--color-cream);
+  --color-cream-dark: var(--color-cream-dark);
+  --color-brown: var(--color-brown);
+  --color-brown-light: var(--color-brown-light);
+  --color-gold: var(--color-gold);
+  --color-gold-light: var(--color-gold-light);
+  --color-gold-muted: var(--color-gold-muted);
+  --color-verse-bg: var(--color-verse-bg);
+  --color-instruction-border: var(--color-instruction-border);
+  --font-serif: var(--font-noto-serif);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #FDF8F0;
+  color: #2C1810;
+  font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+}
+
+/* Custom scrollbar for sidebar */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background-color: #D4A843;
+  border-radius: 3px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: #B8860B;
+}
+
+/* Firefox scrollbar */
+.sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #D4A843 transparent;
+}
+
+/* Sanskrit text styling */
+.sanskrit {
+  font-family: var(--font-serif, 'Noto Serif', Georgia, serif);
+  font-style: italic;
+  line-height: 1.8;
+}
+
+/* Verse card */
+.verse-card {
+  background-color: #FAF3E8;
+  border-left: 3px solid #B8860B;
+  border-radius: 0 8px 8px 0;
+  padding: 1.25rem 1.5rem;
+}
+
+/* Instruction step */
+.instruction-step {
+  border-left: 3px solid #D4A843;
+  padding-left: 1.25rem;
+  margin-left: 0.5rem;
+}
+
+/* Smooth transitions */
+.sidebar-transition {
+  transition: transform 300ms ease-in-out;
+}
+
+/* Mobile overlay backdrop */
+.sidebar-backdrop {
+  transition: opacity 300ms ease-in-out;
+}
+
+/* Selection color */
+::selection {
+  background-color: #F5E6C8;
+  color: #2C1810;
 }
