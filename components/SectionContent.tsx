@@ -36,11 +36,16 @@ function ContentBlock({ item, index }: { item: ContentItem; index: number }) {
         <div className="my-5" key={index}>
           {item.sanskrit && (
             <p className="sanskrit text-base leading-relaxed text-[#1a1a1a] mb-2">
-              {item.sanskrit}
+              {item.sanskrit.split('\n').map((line, i, arr) => (
+                <React.Fragment key={i}>
+                  {line}
+                  {i < arr.length - 1 && <br />}
+                </React.Fragment>
+              ))}
             </p>
           )}
           {item.translation && (
-            <p className="translation text-[15px] leading-relaxed mt-1">
+            <p className="translation text-[15px] leading-relaxed mt-1 pl-4 border-l border-[#999] ml-1">
               {item.translation}
             </p>
           )}
