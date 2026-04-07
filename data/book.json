@@ -2270,14 +2270,6 @@
             {
               "type": "text",
               "content": "Then at the end, after the offering, we meditate that your spiritual master, where appropriate, are taking the remnants both in Kṛṣṇa-līlā and Gaura-līlā after all the associates have taken."
-            },
-            {
-              "type": "instruction",
-              "content": "After the food offering, while singing the Holy name of the Lord in a mood of servitude, clean the Deity room with water. Then clean the paraphernalia used in the worship of the Lord. After the bhoga offering, place the crown and flute back on the Deities, open Deity curtains and perform ārati."
-            },
-            {
-              "type": "text",
-              "content": "Note: It should be understood that by the mercy of the spiritual master, we are able to engage in the service of the Lord in His Arcā-vigraha, like offering bhoga."
             }
           ]
         },
@@ -2777,7 +2769,7 @@
           "content": [
             {
               "type": "text",
-              "content": "pañca-pātra, containing fresh water and a spoon; bathing conch shell; a small bell on a plate; Dūpa, incense; Dīpa, ghee lamp; Visarjanīya-pātra, throw-out pot; Pūjā-pātra for the deity; Snāna-pātra bathing receptacle for the deity; Pūjā-pātra for śrī gurudeva; Snāna-pātra, bathing receptacle for śrī gurudeva; Water-pot; Flowers; Tulasī leaves; Candana; Madhuparka, sugar, ghee and honey; Blowing conch shell; āsana for the deity; āsana for the pujārī"
+              "content": "pañca-pātra, containing fresh water and a spoon; bathing conch shell; a small bell on a plate; Dūpa, incense; Dīpa, ghee lamp; Visarjanīya-pātra, throw-out pot; Pūjā-pātra for the deity; Snāna-pātra bathing receptacle for the deity; Pūjā-pātra for śrī gurudeva; Snāna-pātra, bathing receptacle for śrī gurudeva; Water-pot; Flowers; Tulasī leaves; Candana; Madhuparka, sugar, ghee and honey; Blowing conch shell; āsana for the deity; āsana for the pujārī; If polishing metal Deities, powdered gopīcandana mixed with water; If marble Deities, soft cloth for washing; either cotton wool or a soft cloth for polishing; a soft cloth for wiping off the candana; aila (fragrant oil); a receptacle for caraṇāmṛta; a towel and gāmchā (cloth worn prior to dressing); clothing, underclothing, and pins; ornaments and blutack; gandha (sandalwood paste); flowers and flower garlands; tulasī leaves and mañjarīs (buds); incense and ghee lamp; naivedya (fruits and/or sweets); a picture of your spiritual master and a receptacle for offerings"
             }
           ]
         },
@@ -2787,11 +2779,94 @@
           "content": [
             {
               "type": "instruction",
-              "content": "Outside the Deity room, perform ācamana and offer obeisances to your spiritual master. In the Deity room, clean the area and place an āsana. Arrange paraphernalia (pātra-sthāpana). Purify hands (kara-śuddhi). Purify flowers (puṣpa-śuddhi) with: oṁ astrāya phaṭ, oṁ puṣpe puṣpe mahā-puṣpe... Purify paraphernalia (dravya-śuddhi). Purify bodily elements (bhūta-śuddhi) by meditating on one's identity as eternal servant. Recite ātma-dhyāna-mantra."
+              "content": "Outside the Deity room, perform ācamana and offer obeisances to your spiritual master."
+            },
+            {
+              "type": "instruction",
+              "content": "In the Deity room, clean the area where you will do the worship and place an āsana in position for performing the worship. While thinking of your spiritual master sitting on an āsana to perform the worship, sit on your own āsana."
+            },
+            {
+              "type": "subtitle",
+              "content": "Arranging the Paraphernalia for Worship (pātra-sthāpana)"
+            },
+            {
+              "type": "instruction",
+              "content": "Arrange the items in such a way that you can easily reach them without touching offered to un-offered items:"
             },
             {
               "type": "text",
-              "content": "Note: In brief, before one begins arcana, one should clean the altar and the paraphernalia. It is important to sanctify the water in the pañca-pātra with the mantra \"gaṅge ca yamune caiva...\" and to purify flowers with the mantra \"puṣpe puṣpe mahā-puṣpe...\". Pādya, arghya and ācamanīya are usually substituted with pure water from the pañca-pātra."
+              "content": "Place the bell on a plate to your left, and place the bathing conch on a stand so you can easily lift and replace it several times.\nThe waterpot, flowers, candana, and tulasī leaves should be within easy reach.\nUse the throw-out pot (visarjanīya-pātra) for offered ācamana and arghya, or you may pour these liquids into the bathing receptacle (snāna-pātra) if it is a receptacle which has a drain. You may use a second visarjanīya-pātra for offered flower petals, cotton swabs, and so on.\nBathing towels should be placed on a tray, table or the altar, not on your lap or directly on the floor."
+            },
+            {
+              "type": "subtitle",
+              "content": "Purifying Hands (kara-śuddhi)"
+            },
+            {
+              "type": "instruction",
+              "content": "Wash your hands with water or smear them lightly with candana."
+            },
+            {
+              "type": "subtitle",
+              "content": "Purifying the Flowers (puṣpa-śuddhi)"
+            },
+            {
+              "type": "instruction",
+              "content": "Sprinkle the flowers with samānya-arghya water while chanting:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ astrāya phaṭ"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ puṣpe puṣpe mahā-puṣpe\nsu-puṣpe puṣpa-sambhave\npuṣpe cayavākīrṇe ca\nhuṁ phaṭ svāhā",
+              "translation": "O flowers, O great and auspicious flowers who have appeared from a budding creeper, may you be purified."
+            },
+            {
+              "type": "subtitle",
+              "content": "Purifying the Lord’s Paraphernalia (dravya-śuddhi)"
+            },
+            {
+              "type": "instruction",
+              "content": "Sprinkle all the paraphernalia lightly with samānya-arghya water while chanting:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ astrāya phaṭ"
+            },
+            {
+              "type": "subtitle",
+              "content": "Purifying the Bodily Elements (bhūta-śuddhi)"
+            },
+            {
+              "type": "instruction",
+              "content": "Do prokṣaṇa by sprinkling yourself lightly with samānya-arghya water while chanting the Gopāla-mantra (the sixth guru-given mantra) once. Recite the following prayers, meditating on their meaning:"
+            },
+            {
+              "type": "text",
+              "content": "\"By constitution I am an eternal servant of Śrī Kṛṣṇa, but by some misfortune, I became averse to Him since time immemorial. Having thus identified myself as a material body in this illusory existence and having been trapped in this repeated cycle of birth and death, I was burning in the blazing fire of the threefold miseries. However, by great fortune -- that is, by the mercy of śrī guru -- I have come to understand my identity as a minute, atomic spiritual particle, an eternal servant of Śrī Kṛṣṇa, completely aloof from the gross and subtle bodies. Now, by the order of śrī gurudeva, under his shelter, I have obtained the fortune of serving Śrī Guru-Gaurāṅga and Śrī Rādhā-Vinoda-bihārījī.\""
+            },
+            {
+              "type": "instruction",
+              "content": "With this mood, while meditating on the soul within, recite the mantra for purification of oneself. (bhūta-śuddhi-mantra)"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "nāhaṁ vipro na ca nara-patir nāpi vaiśyo na śūdro\nnāhaṁ varṇī na ca gṛha-patir no vana-stho yatir vā\nkintu prodyan-nikhila-paramānanda-pūrṇāmṛtābdher\ngopī-bhartuḥ pada-kamālāyor dāsa-dāsānudāsaḥ",
+              "translation": "\"I am not a brāhmaṇa, kṣatriya, vaiśya or śūdra, nor am I a brahmacārī, gṛhastha, vānaprastha or sannyāsī. Being transcendental to this gross and subtle body, I am the servant of the servant of the servant of the lotus feet of the master of the gopīs, Śrī Kṛṣṇa, who is the ultimate shelter of everyone, full of transcendental bliss and an ocean of unlimited nectar.\" [Padyāvalī 74]"
+            },
+            {
+              "type": "subtitle",
+              "content": "Meditation on the self (ātma-dhyāna-mantra)"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "divyaṁ śrī-hari-mandirāḍhya-tilakaṁ kaṇṭhaṁ sumālānvitaṁ\nvakṣaḥ śrī-harināma-varṇa-subhagaṁ śrī-khaṇḍa-liptaṁ punaḥ\npūtaṁ sūkṣmaṁ navāmbaraṁ vimalatāṁ nityaṁ vahantīṁ tanuṁ\ndhyāyet śrī-guru-pāda-padma-nikaṭe sevotsukaṁ cātmanaḥ",
+              "translation": "I meditate on myself as being surrendered at the lotus feet of śrī guru and possessing great determination to serve him. I meditate on myself, with my forehead adorned with beautiful tilaka, representing the temple of Śrī Hari. I am wearing a beautiful necklace of tulasī beads. My chest is marked with the holy name and anointed with sandalwood pulp. I am dressed in fine and pure cloth, and within, I am constantly absorbed in ever-fresh spiritual sentiments."
+            },
+            {
+              "type": "text",
+              "content": "Note: In brief, before one begins arcana, one should clean the altar and the paraphernalia. Place the articles in a convenient place. It is important to sanctify the water in the pañca-pātra with the mantra \"gaṅge ca yamune caiva...\" and to purify flowers with the mantra \"puṣpe puṣpe mahā-puṣpe...\". Pādya, arghya and ācamanīya are usually substituted with pure water from the pañca-pātra. Similarly, if any item cannot be procured, it can be substituted by meditation and the offering of water from the pañca-pātra or conch shell."
             }
           ]
         }
