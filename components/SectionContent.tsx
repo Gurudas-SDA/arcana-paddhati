@@ -61,7 +61,7 @@ function ContentBlock({ item, index }: { item: ContentItem; index: number }) {
     case "subtitle":
       return (
         <p
-          className="text-[15px] leading-7 text-[#555] my-4 italic"
+          className="text-lg leading-7 text-[#1a1a1a] my-4 font-bold"
           key={index}
           style={{ fontFamily: "var(--font-noto-serif, Georgia, serif)" }}
         >
@@ -119,7 +119,7 @@ function SubsectionBlock({ subsection }: { subsection: Subsection }) {
   return (
     <div id={subsection.id} className="mt-10 scroll-mt-6">
       <h3
-        className="text-lg font-bold mb-3 pb-2 border-b border-[#ccc] text-[#1a1a1a]"
+        className="text-xl font-normal mb-4 text-[#1a1a1a]"
         style={{ fontFamily: "var(--font-noto-serif, Georgia, serif)" }}
       >
         {subsection.title}
@@ -137,7 +137,7 @@ export default function SectionContent({ section }: SectionContentProps) {
       {/* Section title */}
       <header className="mb-8">
         <h1
-          className="text-2xl sm:text-3xl font-bold text-[#1a1a1a]"
+          className="text-2xl sm:text-3xl font-semibold text-[#1a1a1a]"
           style={{
             fontFamily: "var(--font-noto-serif, Georgia, serif)",
           }}
