@@ -111,7 +111,14 @@ function ContentBlock({ item, index }: { item: ContentItem; index: number }) {
           className="text-[15px] leading-7 text-[#1a1a1a] my-3"
           key={index}
         >
-          {item.content}
+          {item.content && item.content.includes('\n')
+            ? item.content.split('\n').map((line, li, arr) => (
+                <React.Fragment key={li}>
+                  {line}
+                  {li < arr.length - 1 && <br />}
+                </React.Fragment>
+              ))
+            : item.content}
         </p>
       );
   }
