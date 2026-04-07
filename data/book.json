@@ -413,11 +413,7 @@
             },
             {
               "type": "text",
-              "content": "Starting from the centre of the eyebrows, form two vertical lines on the forehead that reach up to the beginning of the hairline. There must be a clean space in the middle of the ūrdhva-puṇḍra. From just below the centre of the eyebrows extending to three-quarters of the way down the nose is called the nāsāmūla. [This is where one forms the shape of a tulasī leaf.]"
-            },
-            {
-              "type": "text",
-              "content": "The mantra to invoke remembrance of the twelve names of the Lord (dvādaśa-nāma-smaraṇa-mantra) is as follows:"
+              "content": "Starting from the centre of the eyebrows, form two vertical lines on the forehead that reach up to the beginning of the hairline. There must be a clean space in the middle of the ūrdhva-puṇḍra. From just below the centre of the eyebrows extending to three-quarters of the way down the nose is called the nāsāmūla. [This is where one forms the shape of a tulasī leaf.] The mantra to invoke remembrance of the twelve names of the Lord (dvādaśa-nāma-smaraṇa-mantra) is as follows:"
             },
             {
               "type": "verse",
@@ -482,11 +478,6 @@
               ]
             },
             {
-              "type": "image",
-              "src": "Tilak.png",
-              "alt": "Tilaka application diagram"
-            },
-            {
               "type": "instruction",
               "content": "Drop a spoonful of water from the pañca-pātra into the hand, to mix with the remnant gopī-candana. Wipe the candana on top of the head, while chanting oṁ vāsudevāya namaḥ."
             },
@@ -497,6 +488,11 @@
             {
               "type": "text",
               "content": "A pujari who chants twelve names of Vishnu always remembers only Rādhārani."
+            },
+            {
+              "type": "image",
+              "src": "Tilak.png",
+              "alt": "Tilaka application diagram"
             }
           ]
         },
@@ -514,15 +510,35 @@
             },
             {
               "type": "instruction",
-              "content": "Drop a spoonful of water [from the pañca-pātra, or ācamana cup] into the centre of the palm of the right hand (known as the brāhma-tīrtha) and chant oṁ keśavāya namaḥ. Sip a little of the water [from the end of the palm] and throw the rest to the ground."
+              "content": "Drop a spoonful of water [from the pañca-pātra, or ācamana cup] into the centre of the palm of the right hand (known as the brāhma-tīrtha) and chant"
             },
             {
-              "type": "instruction",
+              "type": "verse",
+              "sanskrit": "oṁ keśavāya namaḥ"
+            },
+            {
+              "type": "text",
+              "content": "Sip a little of the water [from the end of the palm] and throw the rest to the ground."
+            },
+            {
+              "type": "text",
               "content": "Purify the right hand [by dropping a new spoonful of water in the palm of the right hand and then throwing that water to the ground]."
             },
             {
-              "type": "instruction",
-              "content": "Repeat the above process of ācamana, this time while chanting oṁ nārāyaṇāya namaḥ and then again while chanting oṁ mādhavāya namaḥ."
+              "type": "text",
+              "content": "Repeat the above process of ācamana, this time while chanting"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ nārāyaṇāya namaḥ"
+            },
+            {
+              "type": "text",
+              "content": "and then again while chanting"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ mādhavāya namaḥ"
             },
             {
               "type": "subtitle",
@@ -534,7 +550,7 @@
             },
             {
               "type": "instruction",
-              "content": "With an ācamana-pātra filled with water clean both hands by sprinkling them with water; holding the ācamana spoon in your left hand, pour a few drops into the right palm. While looking at the water chant the appropriate mantra and then silently sip the water from the base of the right thumb (the brāhma-tīrtha)."
+              "content": "With an ācamana-pātra filled with water clean both hands by sprinkling them with water; holding the ācamana spoon in your left hand, pour a few drops into the right palm. While looking at the water chant the appropriate mantra and then silently sip the water from the base of the right thumb (the brāhma-tīrtha). The procedure for basic ācamana consists of the first three steps below. If time and circumstances permit, you may perform the complete ācamana:"
             },
             {
               "type": "paired-list",
@@ -699,7 +715,11 @@
             },
             {
               "type": "instruction",
-              "content": "Remaining outside the Deity room, ring the bell. Reciting following verses, pray to the Lord to awaken."
+              "content": "Remaining outside the Deity room, ring the bell."
+            },
+            {
+              "type": "instruction",
+              "content": "Reciting following verses, pray to the Lord to awaken."
             },
             {
               "type": "verse",
@@ -718,11 +738,23 @@
             },
             {
               "type": "instruction",
-              "content": "Then knock on the door and enter the Deity room. Turn on a soft light and sit down on the āsana. Perform Sādhāraṇa-ācamana (ordinary ācamana) and, while ringing the bell, proceed to the place where Sri Gurudeva is resting. Awaken him by touching his feet and chant the following prayers."
+              "content": "Then knock on the door and enter the Deity room."
+            },
+            {
+              "type": "instruction",
+              "content": "Turn on a soft light and sit down on the āsana."
+            },
+            {
+              "type": "instruction",
+              "content": "Perform Sādhāraṇa-ācamana (ordinary ācamana) and, while ringing the bell, proceed to the place where Srī Gurudeva is resting. Awaken him by touching his feet and chant the following prayers."
             },
             {
               "type": "subtitle",
               "content": "Prayers in Deity's room"
+            },
+            {
+              "type": "instruction",
+              "content": "Touching the feet of Śrī Gurudev, awaken Him by chanting:"
             },
             {
               "type": "verse",
@@ -730,9 +762,17 @@
               "translation": "O most merciful Gurudeva, please arise, please arise and give up your sleep."
             },
             {
+              "type": "instruction",
+              "content": "Then, touching the feet of Śrī Gaurāṅga, awaken Him by chanting:"
+            },
+            {
               "type": "verse",
               "sanskrit": "uttiṣṭhottiṣṭha gaurāṅga\njahi nidrāṁ mahāprabho\nśubha-dṛṣṭi pradānena\ntrailokya-maṅgalaṁ kuru\nklīng gaurāya svāhā",
               "translation": "O Gaurāṅga Mahāprabhu, please arise, please arise and give up Your sleep. Please benedict the three worlds with Your auspicious glance."
+            },
+            {
+              "type": "instruction",
+              "content": "Next, while touching the lotus feet of Śrī Rādhā Krsna awaken Them by chanting:"
             },
             {
               "type": "verse",
@@ -741,7 +781,19 @@
             },
             {
               "type": "instruction",
-              "content": "Afterward, meditate that these personalities have risen and taken their seat on the altar. (Physically place the Deities on the altar if They were removed from there the previous night and placed in a bed.) Carefully replace the Chota Deities on the altar, put crown on Deities. Clean and cover the bed."
+              "content": "Afterward, meditate that these personalities have risen and taken their seat on the altar."
+            },
+            {
+              "type": "text",
+              "content": "(Physically place the Deities on the altar if They were removed from there the previous night and placed in a bed.)"
+            },
+            {
+              "type": "instruction",
+              "content": "Carefully replace the Chota Deities on the altar, put crown on Deities."
+            },
+            {
+              "type": "instruction",
+              "content": "Clean and cover the bed."
             }
           ]
         },
@@ -887,11 +939,27 @@
             },
             {
               "type": "instruction",
-              "content": "12:55 p.m. Finish ārati. Sweep and wash the floor. Close curtains. Uncover beds."
+              "content": "12:55 p.m. Finish ārati."
+            },
+            {
+              "type": "instruction",
+              "content": "Sweep and wash the floor."
+            },
+            {
+              "type": "instruction",
+              "content": "Close curtains."
+            },
+            {
+              "type": "instruction",
+              "content": "Uncover beds."
             },
             {
               "type": "instruction",
               "content": "After this, offer fragrant drinks, tāmbūla with camphor, a garland and some flowers. [Or one may simply place a fresh glass of water before the Deities.]"
+            },
+            {
+              "type": "instruction",
+              "content": "Chant prayers for putting Deities to rest while touching Their lotus feet."
             }
           ]
         },
@@ -926,13 +994,13 @@
               "content": "Guru"
             },
             {
+              "type": "instruction",
+              "content": "Then invite Srī Gurudeva to his resting place with the following mantra:"
+            },
+            {
               "type": "verse",
               "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha śrī-guro\naing gurave namaḥ",
               "translation": "O Gurudeva, kindly come to your resting place along with all your associates."
-            },
-            {
-              "type": "instruction",
-              "content": "Chant prayers for putting Deities to rest while touching Their lotus feet."
             }
           ]
         },
@@ -1026,7 +1094,35 @@
             },
             {
               "type": "instruction",
-              "content": "8:45 p.m. Close curtains. Remove Tulasī devi from altar. Remove flowers and garlands. Undress Deities. Dress simply with little jewellery. Small Deities putting to bed. Bring in and offer kheer and water. Put Deities to rest with prayers and mantras."
+              "content": "8:45 p.m. Close curtains."
+            },
+            {
+              "type": "instruction",
+              "content": "Remove Tulasī devi from altar."
+            },
+            {
+              "type": "instruction",
+              "content": "Remove flowers and garlands."
+            },
+            {
+              "type": "instruction",
+              "content": "Undress Deities."
+            },
+            {
+              "type": "instruction",
+              "content": "Dress simply with little jewellery."
+            },
+            {
+              "type": "instruction",
+              "content": "Small Deities putting to bed."
+            },
+            {
+              "type": "instruction",
+              "content": "Bring in and offer kheer and water."
+            },
+            {
+              "type": "instruction",
+              "content": "Put Deities to rest with prayers and mantras."
             }
           ]
         },
@@ -1039,14 +1135,30 @@
               "content": "After the evening ārati, remove the crowns, flute from Deities, and pray to Them to lay down on Their bed to take rest (śayana) by saying:"
             },
             {
+              "type": "subtitle",
+              "content": "Rādhā-Krsna"
+            },
+            {
               "type": "verse",
               "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "O Keśava, kindly come to Your bed along with Your beloved Śrīmatī Rādhikā. O Mādhava, this effulgent bed of fragrant flowers is made for Your joyful sporting."
             },
             {
+              "type": "subtitle",
+              "content": "Lord Caitanya Mahāprabhu"
+            },
+            {
               "type": "verse",
               "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīng gaurāya svāhā",
               "translation": "O Lord Gaurāṅga, please come to Your resting place along with Your associates. O Lord, rest comfortably for a moment, enjoying Your pastimes."
+            },
+            {
+              "type": "subtitle",
+              "content": "Guru"
+            },
+            {
+              "type": "instruction",
+              "content": "Then invite Srī Gurudeva to his resting place with the following mantra:"
             },
             {
               "type": "verse",
@@ -1069,7 +1181,11 @@
       "content": [
         {
           "type": "instruction",
-          "content": "Outside the Deity room (Pujari room) perform ācamana and offer obeisances to your spiritual master. Pujari collects the necessary paraphernalia for the worship of Deities."
+          "content": "Outside the Deity room (Pujari room) perform ācamana and offer obeisances to your spiritual master."
+        },
+        {
+          "type": "instruction",
+          "content": "Pujari collects the necessary paraphernalia for the worship of Deities."
         }
       ],
       "subsections": [
@@ -1094,7 +1210,15 @@
           "content": [
             {
               "type": "instruction",
-              "content": "Enter in the Deity room, clean the area where you will do the worship and place an asana on the floor. Carry all required paraphernalia into the Deity room. Place the asana in position for performing the worship and, while kneeling, with joined palms (pranama-mudra) chant:"
+              "content": "Enter in the Deity room, clean the area where you will do the worship and place an asana on the floor."
+            },
+            {
+              "type": "instruction",
+              "content": "Carry all required paraphernalia into the Deity room."
+            },
+            {
+              "type": "instruction",
+              "content": "Place the asana in position for performing the worship and, while kneeling, with joined palms (pranama-mudra) chant:"
             },
             {
               "type": "verse",
@@ -1113,7 +1237,19 @@
           "content": [
             {
               "type": "instruction",
-              "content": "Arrange the items in such a way that you can easily reach them without touching offered to un-offered items. Place the bell (on a plate) to your left and place the bathing conch on a stand so you can easily lift and replace it several times. The waterpot, flowers, candana, and tulasī leaves should be within easy reach. Use the throw-out pot (visarjanīya-pātra) for offered ācamana and arghya, or you may pour these liquids into the bathing receptacle (snāna-pātra) if it is a receptacle which has a drain. Bathing towels should be placed on a tray, table or the altar, not on your lap or directly on the floor."
+              "content": "Arrange the items in such a way that you can easily reach them without touching offered to un-offered items."
+            },
+            {
+              "type": "text",
+              "content": "Place the bell (on a plate) to your left and place the bathing conch on a stand so you can easily lift and replace it several times. The waterpot, flowers, candana, and tulasī leaves should be within easy reach."
+            },
+            {
+              "type": "text",
+              "content": "Use the throw-out pot (visarjanīya-pātra) for offered ācamana and arghya, or you may pour these liquids into the bathing receptacle (snāna-pātra) if it is a receptacle which has a drain. You may use a second visarjanīya-pātra for offered flower petals, cotton swabs, etc."
+            },
+            {
+              "type": "text",
+              "content": "Bathing towels should be placed on a tray, table or the altar, not on your lap or directly on the floor. This applies to all paraphernalia; nothing should be placed on the lower cloth or the floor."
             }
           ]
         },
@@ -1127,7 +1263,11 @@
             },
             {
               "type": "instruction",
-              "content": "Begin the arcana of Śrī Rādhā-Kṛṣṇa by seeking the permission and mercy of Sri Guru and Śrī Gaurāṅga. Chant: Tvaṁ gopikā vṛṣa-raves tanayāntike ‘si..., Oṁ ajñāna-timirāndhasya..., Nāma-śreṣṭhaṁ manum api śacī-putram atra svarūpaṁ..., Vāñchā-kalpa-tarubhyaś ca..., Maha mantra"
+              "content": "Begin the arcana of Śrī Rādhā-Kṛṣṇa by seeking the permission and mercy of Sri Guru and Śrī Gaurāṅga:"
+            },
+            {
+              "type": "instruction",
+              "content": "Chant: Tvaṁ gopikā vṛṣa-raves tanayāntike ‘si..., Oṁ ajñāna-timirāndhasya..., Nāma-śreṣṭhaṁ manum api śacī-putram atra svarūpaṁ..., Vāñchā-kalpa-tarubhyaś ca..., Maha mantra"
             },
             {
               "type": "text",
@@ -1135,11 +1275,19 @@
             },
             {
               "type": "instruction",
-              "content": "Draw the attention of your spiritual master by placing flowers before him while chanting: eṣa puṣpāñjaliḥ aing gurave namaḥ"
+              "content": "Draw the attention of your spiritual master by placing flowers before him while chanting"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "eṣa puṣpāñjaliḥ aing gurave namaḥ"
             },
             {
               "type": "instruction",
-              "content": "Then, meditating on your spiritual master's service to the previous ācāryas, show the praṇāma-mudrā (joined palms) and pray for his blessings to assist in the worship of the Lord. Offer praṇāma to the guru-paramparā, situated on the altar, then recite:"
+              "content": "Then, meditating on your spiritual master's service to the previous ācāryas, show the praṇāma-mudrā (joined palms) and pray for his blessings to assist in the worship of the Lord."
+            },
+            {
+              "type": "instruction",
+              "content": "Offer praṇāma to the guru-paramparā, situated on the altar, then recite:"
             },
             {
               "type": "verse",
@@ -1204,7 +1352,11 @@
           "content": [
             {
               "type": "instruction",
-              "content": "Sprinkle all the paraphernalia lightly with samānya-arghya water while chanting: oṁ astrāya phaṭ"
+              "content": "Sprinkle all the paraphernalia lightly with samānya-arghya water while chanting:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ astrāya phaṭ"
             }
           ]
         },
@@ -1342,7 +1494,16 @@
         },
         {
           "type": "instruction",
-          "content": "While ringing a bell, chant: eṣa puṣpāñjali klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ. Offer flower petals to Their Lordship's lotus feet."
+          "content": "While ringing a bell, chant:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "eṣa puṣpāñjali klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Offer flower petals to Their Lordship's lotus feet."
         }
       ],
       "subsections": [
@@ -1809,17 +1970,17 @@
             {
               "type": "verse",
               "sanskrit": "prabho! kṛpayā svāgataṁ kuru aing gurave namaḥ",
-              "translation": "(2) svāgata (a welcome) — With folded hands, invite śrī gurudeva to sit on the āsana."
+              "translation": "(2) svāgata (a welcome) — With folded hands, invite śrī gurudeva to sit on the āsana situated in the snāna-pātra."
             },
             {
               "type": "verse",
               "sanskrit": "etat pādyaṁ aing gurave namaḥ",
-              "translation": "(3) pādya (footbath) — Offer water at his lotus feet."
+              "translation": "(3) pādya (footbath) — Offer water by means of a blade of kuśa grass [or with the pañca-pātra] at his lotus feet, into the snāna-pātra."
             },
             {
               "type": "verse",
               "sanskrit": "idaṁ arghyaṁ aing gurave namaḥ",
-              "translation": "(4) arghya — Offer arghya (candana, flowers and water)."
+              "translation": "(4) arghya — Offer arghya (candana, flowers and water) into the snāna-pātra."
             },
             {
               "type": "verse",
@@ -1839,17 +2000,30 @@
             {
               "type": "verse",
               "sanskrit": "idaṁ snānīyaṁ aing gurave namaḥ",
-              "translation": "(7) snāna (bath) — Bathe śrī gurudeva with fragrant water poured from the conch shell."
+              "translation": "(7) snāna (bath) — Bathe śrī gurudeva with fragrant water poured from the conch shell into the snāna-pātra."
+            },
+            {
+              "type": "text",
+              "content": "Note: One can dry the limbs of śrī gurudeva by mind, or wave a cloth in front of him in ārati fashion."
             },
             {
               "type": "verse",
               "sanskrit": "idaṁ sottarīya-vastraṁ aing gurave namaḥ",
-              "translation": "(8) vastra (cloth) — Offer two flowers for the purpose of offering upper and lower garments."
+              "translation": "(8) vastra (cloth) — Offer two flowers into the throw-out pot for the purpose of offering an upper and lower garment."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ ācamanīyaṁ aing gurave namaḥ",
+              "translation": "Offer water into the throw-out pot."
+            },
+            {
+              "type": "text",
+              "content": "After this, meditate upon śrī gurudeva sitting at his place on the altar. Touch his feet and chant the guru-mantra eight times. This is called prasādhana [meaning that the bathing of śrī gurudeva and offering cloth to him is complete]."
             },
             {
               "type": "verse",
               "sanskrit": "idaṁ upavītaṁ aing gurave namaḥ",
-              "translation": "(9) upavīta (sacred thread) — Offer the sacred thread or a flower."
+              "translation": "(9) upavīta (sacred thread) — Offer the sacred thread (upavīta) to śrī gurudeva, or in its absence, a flower."
             },
             {
               "type": "verse",
@@ -1982,11 +2156,39 @@
           "content": [
             {
               "type": "instruction",
-              "content": "First purify yourself by performing ācaman by reciting: oṁ keśavāya namaḥ, oṁ nārāyaṇāya namaḥ, oṁ mādhavāya namaḥ."
+              "content": "First purify yourself by performing ācaman by reciting the following mantras:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ keśavāya namaḥ"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ nārāyaṇāya namaḥ"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ mādhavāya namaḥ"
             },
             {
               "type": "instruction",
-              "content": "Make bhoga plates. Close Deity curtains, wipe tables with wet cloth. Clean floor. Remove crown and flute, place asanas, put flower petals on them. Bring in offering plates."
+              "content": "Make bhoga plates."
+            },
+            {
+              "type": "instruction",
+              "content": "Close Deity curtains, wipe tables with wet cloth."
+            },
+            {
+              "type": "instruction",
+              "content": "Clean floor."
+            },
+            {
+              "type": "instruction",
+              "content": "Remove crown and flute, place asanas, put flower petals on them."
+            },
+            {
+              "type": "instruction",
+              "content": "Bring in offering plates."
             },
             {
               "type": "instruction",

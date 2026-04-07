@@ -33,11 +33,12 @@ interface SectionContentProps {
 
 function ContentBlock({ item, index }: { item: ContentItem; index: number }) {
   switch (item.type) {
-    case "verse":
+    case "verse": {
+      const isInlineMantra = item.translation === undefined;
       return (
-        <div className="my-5" key={index}>
+        <div className={`${isInlineMantra ? 'my-2' : 'my-5'}`} key={index}>
           {item.sanskrit && (
-            <div className="sanskrit text-base leading-relaxed text-[#1a1a1a] mb-2">
+            <div className={`sanskrit text-base leading-relaxed text-[#1a1a1a] ${isInlineMantra ? 'ml-8' : ''} mb-2`}>
               {item.sanskrit.split('\n\n').map((stanza, si, sarr) => (
                 <p key={si} className={si < sarr.length - 1 ? "mb-3" : ""}>
                   {stanza.split('\n').map((line, li, larr) => (
@@ -50,13 +51,14 @@ function ContentBlock({ item, index }: { item: ContentItem; index: number }) {
               ))}
             </div>
           )}
-          {item.translation && (
+          {item.translation !== undefined && item.translation !== "" && (
             <p className="translation text-[15px] leading-relaxed mt-1 pl-4 border-l border-[#999] ml-1">
               {item.translation}
             </p>
           )}
         </div>
       );
+    }
 
     case "subtitle":
       return (
