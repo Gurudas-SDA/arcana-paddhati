@@ -431,19 +431,60 @@
             {
               "type": "paired-list",
               "items": [
-                { "label": "Forehead:", "value": "oṁ keśavāya namaḥ" },
-                { "label": "Belly:", "value": "oṁ nārāyaṇāya namaḥ" },
-                { "label": "Chest:", "value": "oṁ mādhavāya namaḥ" },
-                { "label": "Hollow of the neck:", "value": "oṁ govindāya namaḥ" },
-                { "label": "Right side of the abdomen:", "value": "oṁ viṣṇave namaḥ" },
-                { "label": "Right arm:", "value": "oṁ madhusūdanāya namaḥ" },
-                { "label": "Right shoulder:", "value": "oṁ trivikramāya namaḥ" },
-                { "label": "Left side of the abdomen:", "value": "oṁ vāmanāya namaḥ" },
-                { "label": "Left arm:", "value": "oṁ śrīdharāya namaḥ" },
-                { "label": "Left shoulder:", "value": "oṁ hṛṣīkeśāya namaḥ" },
-                { "label": "Upper back:", "value": "oṁ padmanābhāya namaḥ" },
-                { "label": "Lower back:", "value": "oṁ dāmodarāya namaḥ" }
+                {
+                  "label": "Forehead:",
+                  "value": "oṁ keśavāya namaḥ"
+                },
+                {
+                  "label": "Belly:",
+                  "value": "oṁ nārāyaṇāya namaḥ"
+                },
+                {
+                  "label": "Chest:",
+                  "value": "oṁ mādhavāya namaḥ"
+                },
+                {
+                  "label": "Hollow of the neck:",
+                  "value": "oṁ govindāya namaḥ"
+                },
+                {
+                  "label": "Right side of the abdomen:",
+                  "value": "oṁ viṣṇave namaḥ"
+                },
+                {
+                  "label": "Right arm:",
+                  "value": "oṁ madhusūdanāya namaḥ"
+                },
+                {
+                  "label": "Right shoulder:",
+                  "value": "oṁ trivikramāya namaḥ"
+                },
+                {
+                  "label": "Left side of the abdomen:",
+                  "value": "oṁ vāmanāya namaḥ"
+                },
+                {
+                  "label": "Left arm:",
+                  "value": "oṁ śrīdharāya namaḥ"
+                },
+                {
+                  "label": "Left shoulder:",
+                  "value": "oṁ hṛṣīkeśāya namaḥ"
+                },
+                {
+                  "label": "Upper back:",
+                  "value": "oṁ padmanābhāya namaḥ"
+                },
+                {
+                  "label": "Lower back:",
+                  "value": "oṁ dāmodarāya namaḥ"
+                }
               ]
+            },
+            {
+              "type": "image",
+              "src": "Tilak.png",
+              "alt": "Tilaka application diagram"
             },
             {
               "type": "instruction",
@@ -456,11 +497,6 @@
             {
               "type": "text",
               "content": "A pujari who chants twelve names of Vishnu always remembers only Rādhārani."
-            },
-            {
-              "type": "image",
-              "src": "Tilak.png",
-              "alt": "Tilaka application diagram"
             }
           ]
         },
@@ -503,18 +539,54 @@
             {
               "type": "paired-list",
               "items": [
-                { "label": "oṁ keśavāya namaḥ", "value": "sip water from the brāhma-tīrtha of your right hand." },
-                { "label": "oṁ nārāyaṇāya namaḥ", "value": "sip water from the brāhma-tīrtha of your right hand." },
-                { "label": "oṁ mādhavāya namaḥ", "value": "sip water from the brāhma-tīrtha of your right hand." },
-                { "label": "oṁ govindāya namaḥ", "value": "sprinkle water on your right hand." },
-                { "label": "oṁ viṣṇave namaḥ", "value": "sprinkle water on your left hand." },
-                { "label": "oṁ madhusūdanāya namaḥ", "value": "touch your right cheek with the fingers of your right hand." },
-                { "label": "oṁ trivikramāya namaḥ", "value": "touch your left cheek with the fingers of your right hand." },
-                { "label": "oṁ vāmanāya namaḥ", "value": "wipe above your upper lip with the base of your right thumb." },
-                { "label": "oṁ śrīdharāya namaḥ", "value": "wipe below your lower lip with the base of your right thumb." },
-                { "label": "oṁ hṛṣīkeśāya namaḥ", "value": "sprinkle water on both hands." },
-                { "label": "oṁ padmanābhāya namaḥ", "value": "sprinkle water on your feet." },
-                { "label": "oṁ dāmodarāya namaḥ", "value": "sprinkle water on the top of your head." }
+                {
+                  "label": "oṁ keśavāya namaḥ",
+                  "value": "sip water from the brāhma-tīrtha of your right hand."
+                },
+                {
+                  "label": "oṁ nārāyaṇāya namaḥ",
+                  "value": "sip water from the brāhma-tīrtha of your right hand."
+                },
+                {
+                  "label": "oṁ mādhavāya namaḥ",
+                  "value": "sip water from the brāhma-tīrtha of your right hand."
+                },
+                {
+                  "label": "oṁ govindāya namaḥ",
+                  "value": "sprinkle water on your right hand."
+                },
+                {
+                  "label": "oṁ viṣṇave namaḥ",
+                  "value": "sprinkle water on your left hand."
+                },
+                {
+                  "label": "oṁ madhusūdanāya namaḥ",
+                  "value": "touch your right cheek with the fingers of your right hand."
+                },
+                {
+                  "label": "oṁ trivikramāya namaḥ",
+                  "value": "touch your left cheek with the fingers of your right hand."
+                },
+                {
+                  "label": "oṁ vāmanāya namaḥ",
+                  "value": "wipe above your upper lip with the base of your right thumb."
+                },
+                {
+                  "label": "oṁ śrīdharāya namaḥ",
+                  "value": "wipe below your lower lip with the base of your right thumb."
+                },
+                {
+                  "label": "oṁ hṛṣīkeśāya namaḥ",
+                  "value": "sprinkle water on both hands."
+                },
+                {
+                  "label": "oṁ padmanābhāya namaḥ",
+                  "value": "sprinkle water on your feet."
+                },
+                {
+                  "label": "oṁ dāmodarāya namaḥ",
+                  "value": "sprinkle water on the top of your head."
+                }
               ]
             },
             {
@@ -524,18 +596,54 @@
             {
               "type": "paired-list",
               "items": [
-                { "label": "oṁ vāsudevāya namaḥ", "value": "touch your upper and lower lips with the tips of the fingers of your right hand." },
-                { "label": "oṁ saṅkarṣaṇāya namaḥ", "value": "touch your right nostril with your right thumb and forefinger." },
-                { "label": "oṁ pradyumnāya namaḥ", "value": "touch your left nostril with your right thumb and forefinger." },
-                { "label": "oṁ aniruddhāya namaḥ", "value": "touch your right eye with your right thumb and ring finger." },
-                { "label": "oṁ puruṣottamāya namaḥ", "value": "touch your left eye with your right thumb and ring finger." },
-                { "label": "oṁ adhokṣajāya namaḥ", "value": "touch your right ear with your right thumb and forefinger." },
-                { "label": "oṁ nṛsiṁhāya namaḥ", "value": "touch your left ear with your right thumb and forefinger." },
-                { "label": "oṁ acyutāya namaḥ", "value": "touch your navel with your right thumb and little finger." },
-                { "label": "oṁ janārdanāya namaḥ", "value": "touch your heart with the palm of your right hand." },
-                { "label": "oṁ upendrāya namaḥ", "value": "touch your head with all the finger tips of your right hand." },
-                { "label": "oṁ haraye namaḥ", "value": "touch your right upper arm with the fingertips of your left hand." },
-                { "label": "oṁ kṛṣṇāya namaḥ", "value": "touch your left upper arm with the fingertips of your right hand." }
+                {
+                  "label": "oṁ vāsudevāya namaḥ",
+                  "value": "touch your upper and lower lips with the tips of the fingers of your right hand."
+                },
+                {
+                  "label": "oṁ saṅkarṣaṇāya namaḥ",
+                  "value": "touch your right nostril with your right thumb and forefinger."
+                },
+                {
+                  "label": "oṁ pradyumnāya namaḥ",
+                  "value": "touch your left nostril with your right thumb and forefinger."
+                },
+                {
+                  "label": "oṁ aniruddhāya namaḥ",
+                  "value": "touch your right eye with your right thumb and ring finger."
+                },
+                {
+                  "label": "oṁ puruṣottamāya namaḥ",
+                  "value": "touch your left eye with your right thumb and ring finger."
+                },
+                {
+                  "label": "oṁ adhokṣajāya namaḥ",
+                  "value": "touch your right ear with your right thumb and forefinger."
+                },
+                {
+                  "label": "oṁ nṛsiṁhāya namaḥ",
+                  "value": "touch your left ear with your right thumb and forefinger."
+                },
+                {
+                  "label": "oṁ acyutāya namaḥ",
+                  "value": "touch your navel with your right thumb and little finger."
+                },
+                {
+                  "label": "oṁ janārdanāya namaḥ",
+                  "value": "touch your heart with the palm of your right hand."
+                },
+                {
+                  "label": "oṁ upendrāya namaḥ",
+                  "value": "touch your head with all the finger tips of your right hand."
+                },
+                {
+                  "label": "oṁ haraye namaḥ",
+                  "value": "touch your right upper arm with the fingertips of your left hand."
+                },
+                {
+                  "label": "oṁ kṛṣṇāya namaḥ",
+                  "value": "touch your left upper arm with the fingertips of your right hand."
+                }
               ]
             },
             {
@@ -2263,12 +2371,30 @@
             {
               "type": "paired-list",
               "items": [
-                { "label": "idaṁ āsanam", "value": "seat" },
-                { "label": "etat pādyaṁ", "value": "footwash" },
-                { "label": "idaṁ arghyam", "value": "water in conch" },
-                { "label": "idaṁ ācamanīyaṁ", "value": "water for sipping" },
-                { "label": "eṣa madhuparkaḥ", "value": "madhuparka drink" },
-                { "label": "idaṁ punar-ācamanīyaṁ", "value": "second ācamana" }
+                {
+                  "label": "idaṁ āsanam",
+                  "value": "seat"
+                },
+                {
+                  "label": "etat pādyaṁ",
+                  "value": "footwash"
+                },
+                {
+                  "label": "idaṁ arghyam",
+                  "value": "water in conch"
+                },
+                {
+                  "label": "idaṁ ācamanīyaṁ",
+                  "value": "water for sipping"
+                },
+                {
+                  "label": "eṣa madhuparkaḥ",
+                  "value": "madhuparka drink"
+                },
+                {
+                  "label": "idaṁ punar-ācamanīyaṁ",
+                  "value": "second ācamana"
+                }
               ]
             },
             {
@@ -2278,13 +2404,34 @@
             {
               "type": "paired-list",
               "items": [
-                { "label": "idaṁ sugandha-tailam", "value": "scented oil" },
-                { "label": "idaṁ snānīyam", "value": "bath" },
-                { "label": "idaṁ vastram", "value": "clothes" },
-                { "label": "idaṁ upavītam", "value": "sacred thread" },
-                { "label": "idaṁ tilakam", "value": "tilaka" },
-                { "label": "etat tulasī-pātram / etāni tulasī-patrāni", "value": "tulasī leaves" },
-                { "label": "idaṁ ābharaṇam / imāni ābharaṇāni", "value": "ornaments" }
+                {
+                  "label": "idaṁ sugandha-tailam",
+                  "value": "scented oil"
+                },
+                {
+                  "label": "idaṁ snānīyam",
+                  "value": "bath"
+                },
+                {
+                  "label": "idaṁ vastram",
+                  "value": "clothes"
+                },
+                {
+                  "label": "idaṁ upavītam",
+                  "value": "sacred thread"
+                },
+                {
+                  "label": "idaṁ tilakam",
+                  "value": "tilaka"
+                },
+                {
+                  "label": "etat tulasī-pātram / etāni tulasī-patrāni",
+                  "value": "tulasī leaves"
+                },
+                {
+                  "label": "idaṁ ābharaṇam / imāni ābharaṇāni",
+                  "value": "ornaments"
+                }
               ]
             },
             {
@@ -2294,15 +2441,42 @@
             {
               "type": "paired-list",
               "items": [
-                { "label": "eṣa puṣpāñjaliḥ", "value": "flower petals" },
-                { "label": "ete gandha-puṣpe", "value": "sandalwood paste & flowers" },
-                { "label": "eṣa gandhaḥ", "value": "sandalwood paste & scents" },
-                { "label": "eṣa dhūpaḥ", "value": "incense" },
-                { "label": "eṣa dīpaḥ", "value": "ghee lamp" },
-                { "label": "idaṁ naivedyaṁ", "value": "offer bhoga" },
-                { "label": "idaṁ malyam / ime mālye", "value": "flower garland" },
-                { "label": "idaṁ sarvam", "value": "represents pleasing articles" },
-                { "label": "idaṁ praṇāma", "value": "offer prayer & obeisances" }
+                {
+                  "label": "eṣa puṣpāñjaliḥ",
+                  "value": "flower petals"
+                },
+                {
+                  "label": "ete gandha-puṣpe",
+                  "value": "sandalwood paste & flowers"
+                },
+                {
+                  "label": "eṣa gandhaḥ",
+                  "value": "sandalwood paste & scents"
+                },
+                {
+                  "label": "eṣa dhūpaḥ",
+                  "value": "incense"
+                },
+                {
+                  "label": "eṣa dīpaḥ",
+                  "value": "ghee lamp"
+                },
+                {
+                  "label": "idaṁ naivedyaṁ",
+                  "value": "offer bhoga"
+                },
+                {
+                  "label": "idaṁ malyam / ime mālye",
+                  "value": "flower garland"
+                },
+                {
+                  "label": "idaṁ sarvam",
+                  "value": "represents pleasing articles"
+                },
+                {
+                  "label": "idaṁ praṇāma",
+                  "value": "offer prayer & obeisances"
+                }
               ]
             }
           ]
@@ -2318,14 +2492,38 @@
             {
               "type": "paired-list",
               "items": [
-                { "label": "Spiritual Master", "value": "aing gurave namaḥ" },
-                { "label": "Spiritual Masters", "value": "oṁ parama-gurave namaḥ" },
-                { "label": "Lord Caitanya", "value": "klīng gaurāya svāhā" },
-                { "label": "Lord Nityananda", "value": "oṁ nityanandāya namaḥ" },
-                { "label": "Śrī Śrī Rādhā-Kṛṣṇa", "value": "śrīng klīng rādhā-kṛṣṇābhyām namaḥ" },
-                { "label": "Śālagrāma Śilās", "value": "klīṁ kṛṣṇāya govindāya gopī-jana-vallabhāya svāhā" },
-                { "label": "Śrī Govardhana-śilā", "value": "klīṁ govardhanāya namaḥ" },
-                { "label": "Śrī Tulasī Devī", "value": "oṁ tulasyai namaḥ" }
+                {
+                  "label": "Spiritual Master",
+                  "value": "aing gurave namaḥ"
+                },
+                {
+                  "label": "Spiritual Masters",
+                  "value": "oṁ parama-gurave namaḥ"
+                },
+                {
+                  "label": "Lord Caitanya",
+                  "value": "klīng gaurāya svāhā"
+                },
+                {
+                  "label": "Lord Nityananda",
+                  "value": "oṁ nityanandāya namaḥ"
+                },
+                {
+                  "label": "Śrī Śrī Rādhā-Kṛṣṇa",
+                  "value": "śrīng klīng rādhā-kṛṣṇābhyām namaḥ"
+                },
+                {
+                  "label": "Śālagrāma Śilās",
+                  "value": "klīṁ kṛṣṇāya govindāya gopī-jana-vallabhāya svāhā"
+                },
+                {
+                  "label": "Śrī Govardhana-śilā",
+                  "value": "klīṁ govardhanāya namaḥ"
+                },
+                {
+                  "label": "Śrī Tulasī Devī",
+                  "value": "oṁ tulasyai namaḥ"
+                }
               ]
             },
             {
@@ -2335,13 +2533,34 @@
             {
               "type": "paired-list",
               "items": [
-                { "label": "Incense (eṣa dhūpaḥ)", "value": "Full ārati: Feet 4, Waist 2, Body 7" },
-                { "label": "Ghee Lamp (eṣa dīpaḥ)", "value": "Full ārati: Feet 4, Waist 2, Head 3, Body 7" },
-                { "label": "Water in conch (idaṁ arghyam)", "value": "7 circles around body" },
-                { "label": "Handkerchief (idaṁ vastram)", "value": "Feet 4, Waist 2, Head 3, Body 7" },
-                { "label": "Flowers (etāni puṣpāni)", "value": "Feet 4, Body 7" },
-                { "label": "Cāmara (eṣā cāmara-sevā)", "value": "According to available time" },
-                { "label": "Peacock Fan (eṣā vyajñana-sevā)", "value": "According to available time" }
+                {
+                  "label": "Incense (eṣa dhūpaḥ)",
+                  "value": "Full ārati: Feet 4, Waist 2, Body 7"
+                },
+                {
+                  "label": "Ghee Lamp (eṣa dīpaḥ)",
+                  "value": "Full ārati: Feet 4, Waist 2, Head 3, Body 7"
+                },
+                {
+                  "label": "Water in conch (idaṁ arghyam)",
+                  "value": "7 circles around body"
+                },
+                {
+                  "label": "Handkerchief (idaṁ vastram)",
+                  "value": "Feet 4, Waist 2, Head 3, Body 7"
+                },
+                {
+                  "label": "Flowers (etāni puṣpāni)",
+                  "value": "Feet 4, Body 7"
+                },
+                {
+                  "label": "Cāmara (eṣā cāmara-sevā)",
+                  "value": "According to available time"
+                },
+                {
+                  "label": "Peacock Fan (eṣā vyajñana-sevā)",
+                  "value": "According to available time"
+                }
               ]
             }
           ]
