@@ -81,12 +81,12 @@ function ContentBlock({ item, index }: { item: ContentItem; index: number }) {
 
     case "paired-list":
       return (
-        <div className="my-4" key={index}>
+        <div className="my-4 grid gap-y-0.5" style={{ gridTemplateColumns: "auto 1fr" }} key={index}>
           {item.items?.map((pair, i) => (
-            <div key={i} className="flex gap-4 py-1">
-              <span className="font-bold shrink-0 min-w-[200px] sanskrit">{pair.label}</span>
-              <span className="text-[15px]">{pair.value}</span>
-            </div>
+            <React.Fragment key={i}>
+              <span className="pr-8 py-0.5 text-[15px]">{pair.label}</span>
+              <span className="py-0.5 text-[15px]">{pair.value}</span>
+            </React.Fragment>
           ))}
         </div>
       );
