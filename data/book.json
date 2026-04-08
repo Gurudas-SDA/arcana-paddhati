@@ -603,7 +603,8 @@
                   "label": "oṁ dāmodarāya namaḥ",
                   "value": "sprinkle water on the top of your head."
                 }
-              ]
+              ],
+              "layout": "vertical"
             },
             {
               "type": "instruction",
@@ -660,7 +661,8 @@
                   "label": "oṁ kṛṣṇāya namaḥ",
                   "value": "touch your left upper arm with the fingertips of your right hand."
                 }
-              ]
+              ],
+              "layout": "vertical"
             },
             {
               "type": "instruction",
