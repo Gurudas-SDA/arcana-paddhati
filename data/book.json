@@ -478,6 +478,11 @@
               ]
             },
             {
+              "type": "image",
+              "src": "Tilak.png",
+              "alt": "Tilaka application diagram"
+            },
+            {
               "type": "instruction",
               "content": "Drop a spoonful of water from the pañca-pātra into the hand, to mix with the remnant gopī-candana. Wipe the candana on top of the head, while chanting oṁ vāsudevāya namaḥ."
             },
@@ -488,11 +493,6 @@
             {
               "type": "text",
               "content": "A pujari who chants twelve names of Vishnu always remembers only Rādhārani."
-            },
-            {
-              "type": "image",
-              "src": "Tilak.png",
-              "alt": "Tilaka application diagram"
             }
           ]
         },
