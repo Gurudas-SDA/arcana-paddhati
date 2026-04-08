@@ -5,6 +5,7 @@ import Image from "next/image";
 import bookData from "@/data/book.json";
 import Sidebar from "@/components/Sidebar";
 import SectionContent from "@/components/SectionContent";
+import InstallButton from "@/components/InstallButton";
 
 export default function Home() {
   const [selectedSectionId, setSelectedSectionId] = useState<string | null>(
@@ -176,6 +177,11 @@ function LandingView() {
           (arcana) in the Vaishnava tradition. Select a section from the
           table of contents to begin reading.
         </p>
+
+        {/* Install PWA button */}
+        <div className="mt-6 flex justify-center">
+          <InstallButton />
+        </div>
 
         {/* Arrow hint for desktop */}
         <div className="hidden lg:flex items-center justify-center gap-2 mt-8 text-[#B8860B]/50">
