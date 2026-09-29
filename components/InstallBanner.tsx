@@ -1,7 +1,18 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useSyncExternalStore,
+} from "react";
 
 type Platform = "ios" | "android" | "unknown";
+
+/** Chrome/Edge `beforeinstallprompt` event (not in the TS DOM lib). */
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+}
 
 function detectPlatform(): Platform {
   if (typeof navigator === "undefined") return "unknown";
@@ -18,11 +29,33 @@ function detectPlatform(): Platform {
   return "unknown";
 }
 
+/** Whether the banner may be shown at all (client only; false on the server). */
+function isEligible(): boolean {
+  // Already installed — never show
+  if (window.matchMedia("(display-mode: standalone)").matches) return false;
+  // Previously dismissed — don't show
+  try {
+    if (localStorage.getItem("installDismissed") === "true") return false;
+  } catch {
+    // storage unavailable — treat as not dismissed
+  }
+  return true;
+}
+
+const noopSubscribe = () => () => {};
+
 export default function InstallBanner() {
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-  const [visible, setVisible] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] =
+    useState<BeforeInstallPromptEvent | null>(null);
+  const [hidden, setHidden] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [platform, setPlatform] = useState<Platform>("unknown");
+  const eligible = useSyncExternalStore(noopSubscribe, isEligible, () => false);
+  const platform = useSyncExternalStore<Platform>(
+    noopSubscribe,
+    detectPlatform,
+    () => "unknown"
+  );
+  const visible = eligible && !hidden;
 
   useEffect(() => {
     // Register service worker
@@ -30,29 +63,16 @@ export default function InstallBanner() {
       navigator.serviceWorker.register("/arcana-paddhati/sw.js");
     }
 
-    // Already installed — never show
-    if (window.matchMedia("(display-mode: standalone)").matches) {
-      return;
-    }
-
-    // Previously dismissed — don't show
-    if (localStorage.getItem("installDismissed") === "true") {
-      return;
-    }
-
-    setPlatform(detectPlatform());
-    setVisible(true);
-
     // Listen for native install prompt (Chrome / Edge / Android Chrome)
     const handler = (e: Event) => {
       e.preventDefault();
-      setDeferredPrompt(e);
+      setDeferredPrompt(e as BeforeInstallPromptEvent);
     };
     window.addEventListener("beforeinstallprompt", handler);
 
     // Hide banner after successful install
     const installedHandler = () => {
-      setVisible(false);
+      setHidden(true);
     };
     window.addEventListener("appinstalled", installedHandler);
 
@@ -67,7 +87,7 @@ export default function InstallBanner() {
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       if (outcome === "accepted") {
-        setVisible(false);
+        setHidden(true);
       }
       setDeferredPrompt(null);
     } else {
@@ -77,8 +97,12 @@ export default function InstallBanner() {
   }, [deferredPrompt]);
 
   const handleDismiss = useCallback(() => {
-    localStorage.setItem("installDismissed", "true");
-    setVisible(false);
+    try {
+      localStorage.setItem("installDismissed", "true");
+    } catch {
+      // ignore
+    }
+    setHidden(true);
   }, []);
 
   if (!visible) return null;
@@ -90,7 +114,7 @@ export default function InstallBanner() {
         style={{
           background: "linear-gradient(90deg, #D4A843, #B8860B)",
         }}
-        className="flex items-center justify-between gap-2 px-3 py-2.5 sm:px-4 sm:py-2.5 text-white text-sm"
+        className="no-print flex items-center justify-between gap-2 px-3 py-2.5 sm:px-4 sm:py-2.5 text-white text-sm"
       >
         <span
           className="truncate text-xs sm:text-sm leading-tight"

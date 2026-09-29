@@ -19,7 +19,6 @@
   --color-gold-light: var(--color-gold-light);
   --color-gold-muted: var(--color-gold-muted);
   --font-serif: var(--font-noto-serif);
-  --font-sans: var(--font-geist-sans);
 }
 
 * {
@@ -100,4 +99,26 @@ body {
 ::selection {
   background-color: #F5E6C8;
   color: #2C1810;
+}
+
+/* Print: only the section content */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  html,
+  body,
+  .app-shell {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .app-shell {
+    display: block !important;
+  }
+
+  .app-main {
+    overflow: visible !important;
+  }
 }

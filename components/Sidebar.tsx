@@ -1,55 +1,129 @@
 "use client";
 
-import React from "react";
-
-interface ContentItem {
-  type: string;
-  content?: string;
-  sanskrit?: string;
-  translation?: string;
-}
-
-interface Subsection {
-  id: string;
-  title: string;
-  content: ContentItem[];
-}
-
-interface Section {
-  id: string;
-  title: string;
-  page: string;
-  content: ContentItem[];
-  subsections: Subsection[];
-}
+import React, { useMemo } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { normalizeText, type SearchEntry, type TocSection } from "@/lib/book";
 
 interface SidebarProps {
-  sections: Section[];
-  selectedId: string | null;
-  onSelect: (id: string) => void;
+  sections: TocSection[];
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  onSearchFocus: () => void;
+  /** Full-text index; null while not (yet) loaded — then titles are searched. */
+  searchEntries: SearchEntry[] | null;
   onClose: () => void;
+}
+
+interface PreparedEntry {
+  entry: SearchEntry;
+  nTitle: string;
+  nText: string;
+  /** nText[i] came from entry.text[map[i]] */
+  map: number[];
+}
+
+interface Snippet {
+  before: string;
+  match: string;
+  after: string;
+}
+
+interface SearchResult {
+  entry: SearchEntry;
+  snippet: Snippet;
+}
+
+const MAX_RESULTS = 50;
+const SNIPPET_BEFORE = 50;
+const SNIPPET_AFTER = 80;
+
+function prepare(entry: SearchEntry): PreparedEntry {
+  let nText = "";
+  const map: number[] = [];
+  for (let i = 0; i < entry.text.length; i++) {
+    const n = normalizeText(entry.text[i]);
+    for (let k = 0; k < n.length; k++) map.push(i);
+    nText += n;
+  }
+  return { entry, nTitle: normalizeText(entry.title), nText, map };
+}
+
+function makeSnippet(p: PreparedEntry, pos: number, qLen: number): Snippet {
+  const text = p.entry.text;
+  if (pos < 0) {
+    // Title-only match: show the beginning of the text.
+    const limit = SNIPPET_BEFORE + SNIPPET_AFTER;
+    if (text.length <= limit) return { before: "", match: "", after: text };
+    return {
+      before: "",
+      match: "",
+      after: text.slice(0, limit).replace(/\s+\S*$/, "") + "…",
+    };
+  }
+  const mStart = p.map[pos];
+  const mEnd = p.map[pos + qLen - 1] + 1;
+  let start = Math.max(0, mStart - SNIPPET_BEFORE);
+  let end = Math.min(text.length, mEnd + SNIPPET_AFTER);
+  // Snap to word boundaries.
+  if (start > 0) {
+    const sp = text.indexOf(" ", start);
+    if (sp !== -1 && sp < mStart) start = sp + 1;
+  }
+  if (end < text.length) {
+    const sp = text.lastIndexOf(" ", end);
+    if (sp > mEnd) end = sp;
+  }
+  return {
+    before: (start > 0 ? "…" : "") + text.slice(start, mStart),
+    match: text.slice(mStart, mEnd),
+    after: text.slice(mEnd, end) + (end < text.length ? "…" : ""),
+  };
+}
+
+function sectionHref(sectionId: string, anchor?: string) {
+  return `/${sectionId}/${anchor ? `#${anchor}` : ""}`;
 }
 
 export default function Sidebar({
   sections,
-  selectedId,
-  onSelect,
   searchQuery,
   onSearchChange,
+  onSearchFocus,
+  searchEntries,
   onClose,
 }: SidebarProps) {
-  const normalizeText = (text: string) =>
-    text
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
+  const pathname = usePathname();
+  const selectedId = pathname.split("/").filter(Boolean)[0] ?? null;
 
-  const normalizedQuery = normalizeText(searchQuery);
+  const prepared = useMemo(
+    () => (searchEntries ? searchEntries.map(prepare) : null),
+    [searchEntries]
+  );
 
+  const normalizedQuery = normalizeText(searchQuery.trim());
+
+  // Full-text results (once the index is loaded).
+  const results = useMemo<SearchResult[] | null>(() => {
+    if (!normalizedQuery || !prepared) return null;
+    const titleHits: SearchResult[] = [];
+    const textHits: SearchResult[] = [];
+    for (const p of prepared) {
+      const inTitle = p.nTitle.includes(normalizedQuery);
+      const pos = p.nText.indexOf(normalizedQuery);
+      if (!inTitle && pos < 0) continue;
+      const hit = {
+        entry: p.entry,
+        snippet: makeSnippet(p, pos, normalizedQuery.length),
+      };
+      (inTitle ? titleHits : textHits).push(hit);
+    }
+    return [...titleHits, ...textHits].slice(0, MAX_RESULTS);
+  }, [prepared, normalizedQuery]);
+
+  // Title-only filtering (before the index has loaded, or if it failed).
   const filteredSections = sections.filter((section) => {
-    if (!searchQuery.trim()) return true;
+    if (!normalizedQuery) return true;
     const matchesTitle = normalizeText(section.title).includes(normalizedQuery);
     const matchesSubsection = section.subsections?.some((sub) =>
       normalizeText(sub.title).includes(normalizedQuery)
@@ -126,6 +200,7 @@ export default function Sidebar({
             placeholder="Search sections..."
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
+            onFocus={onSearchFocus}
             className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-[#E8DCC8] bg-[#FDF8F0] text-[#2C1810] placeholder-[#B8860B]/50 focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B]/30 transition-colors"
           />
           {searchQuery && (
@@ -152,9 +227,47 @@ export default function Sidebar({
         </div>
       </div>
 
-      {/* Sections list */}
+      {/* Sections list / search results */}
       <nav className="flex-1 overflow-y-auto sidebar-scroll py-2">
-        {filteredSections.length === 0 ? (
+        {results ? (
+          results.length === 0 ? (
+            <p className="px-5 py-4 text-sm text-[#5C3D2E] italic">
+              No results found
+            </p>
+          ) : (
+            <ul className="space-y-0.5">
+              {results.map(({ entry, snippet }) => (
+                <li key={`${entry.section}#${entry.anchor ?? ""}`}>
+                  <Link
+                    href={sectionHref(entry.section, entry.anchor)}
+                    onClick={onClose}
+                    className="block w-full text-left px-5 py-3 border-l-3 border-transparent hover:bg-[#FDF8F0] transition-colors"
+                  >
+                    <span className="block text-sm leading-snug text-[#2C1810]">
+                      {entry.title}
+                    </span>
+                    {entry.anchor && (
+                      <span className="block text-xs text-[#B8860B]/80 mt-0.5">
+                        {entry.sectionTitle}
+                      </span>
+                    )}
+                    {(snippet.before || snippet.match || snippet.after) && (
+                      <span className="block text-xs leading-relaxed text-[#5C3D2E] mt-1">
+                        {snippet.before}
+                        {snippet.match && (
+                          <mark className="bg-[#F5E6C8] text-[#2C1810] rounded-sm">
+                            {snippet.match}
+                          </mark>
+                        )}
+                        {snippet.after}
+                      </span>
+                    )}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )
+        ) : filteredSections.length === 0 ? (
           <p className="px-5 py-4 text-sm text-[#5C3D2E] italic">
             No sections found
           </p>
@@ -164,11 +277,10 @@ export default function Sidebar({
               const isSelected = selectedId === section.id;
               return (
                 <li key={section.id}>
-                  <button
-                    onClick={() => {
-                      onSelect(section.id);
-                      onClose();
-                    }}
+                  <Link
+                    href={sectionHref(section.id)}
+                    onClick={onClose}
+                    aria-current={isSelected ? "page" : undefined}
                     className={`w-full text-left px-5 py-3 flex items-start justify-between gap-2 transition-colors ${
                       isSelected
                         ? "bg-[#FAF3E8] border-l-3 border-[#B8860B]"
@@ -189,27 +301,22 @@ export default function Sidebar({
                         {section.page}
                       </span>
                     )}
-                  </button>
+                  </Link>
 
-                  {/* Subsections - show when selected or search matches */}
+                  {/* Subsections - show when selected */}
                   {isSelected &&
                     section.subsections &&
                     section.subsections.length > 0 && (
                       <ul className="ml-6 border-l border-[#E8DCC8]">
                         {section.subsections.map((sub) => (
                           <li key={sub.id}>
-                            <button
-                              onClick={() => {
-                                const el = document.getElementById(sub.id);
-                                if (el) {
-                                  el.scrollIntoView({ behavior: "smooth" });
-                                }
-                                onClose();
-                              }}
-                              className="w-full text-left px-4 py-2 text-xs text-[#5C3D2E] hover:text-[#B8860B] hover:bg-[#FDF8F0] transition-colors"
+                            <Link
+                              href={sectionHref(section.id, sub.id)}
+                              onClick={onClose}
+                              className="block w-full text-left px-4 py-2 text-xs text-[#5C3D2E] hover:text-[#B8860B] hover:bg-[#FDF8F0] transition-colors"
                             >
                               {sub.title}
-                            </button>
+                            </Link>
                           </li>
                         ))}
                       </ul>

@@ -1,32 +1,5 @@
-"use client";
-
 import React from "react";
-
-interface ContentItem {
-  type: string;
-  content?: string;
-  sanskrit?: string;
-  translation?: string;
-  src?: string;
-  alt?: string;
-  items?: { label: string; value: string }[];
-  layout?: string;
-}
-
-interface Subsection {
-  id: string;
-  title: string;
-  content: ContentItem[];
-}
-
-interface Section {
-  id: string;
-  title: string;
-  subtitle?: string | null;
-  page: string;
-  content: ContentItem[];
-  subsections: Subsection[];
-}
+import type { ContentItem, Section, Subsection } from "@/lib/book";
 
 interface SectionContentProps {
   section: Section;
@@ -39,7 +12,7 @@ function ContentBlock({ item, index }: { item: ContentItem; index: number }) {
       return (
         <div className={`${isInlineMantra ? 'my-2' : 'my-5'}`} key={index}>
           {item.sanskrit && (
-            <div className={`sanskrit text-base leading-relaxed text-[#1a1a1a] ${isInlineMantra ? 'ml-8' : ''} mb-2`}>
+            <div lang="sa-Latn" className={`sanskrit text-base leading-relaxed text-[#1a1a1a] ${isInlineMantra ? 'ml-8' : ''} mb-2`}>
               {item.sanskrit.split('\n\n').map((stanza, si, sarr) => (
                 <p key={si} className={si < sarr.length - 1 ? "mb-3" : ""}>
                   {stanza.split('\n').map((line, li, larr) => (
@@ -88,7 +61,7 @@ function ContentBlock({ item, index }: { item: ContentItem; index: number }) {
           <div className="my-4 space-y-4" key={index}>
             {item.items?.map((pair, i) => (
               <div key={i}>
-                <p className="sanskrit text-base leading-relaxed text-[#1a1a1a]">{pair.label}</p>
+                <p lang="sa-Latn" className="sanskrit text-base leading-relaxed text-[#1a1a1a]">{pair.label}</p>
                 <p className="translation text-[14px] leading-relaxed ml-8">{pair.value}</p>
               </div>
             ))}

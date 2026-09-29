@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
 import { Noto_Serif } from "next/font/google";
-import { Geist } from "next/font/google";
+import AppShell from "@/components/AppShell";
+import { getToc } from "@/lib/book";
 import "./globals.css";
 
 const notoSerif = Noto_Serif({
   variable: "--font-noto-serif",
   subsets: ["latin", "latin-ext"],
   display: "swap",
-});
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -31,11 +27,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${notoSerif.variable} ${geistSans.variable} h-full`}
-    >
-      <body className="h-full antialiased">{children}</body>
+    <html lang="en" className={`${notoSerif.variable} h-full`}>
+      <body className="h-full antialiased">
+        <AppShell sections={getToc()}>{children}</AppShell>
+      </body>
     </html>
   );
 }

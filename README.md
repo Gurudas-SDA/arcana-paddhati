@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Arcana Paddhati
 
-## Getting Started
+A reading app (installable PWA) for the temple manual *Arcana Paddhati — The Process of Deity Worship*.
+Every section of the book has its own URL (`/arcana-paddhati/<section-id>/`, subsections as `#<subsection-id>` anchors),
+and the sidebar search covers titles and the full text, ignoring diacritics.
 
-First, run the development server:
+Built with Next.js (App Router) as a fully static export and hosted on GitHub Pages.
+
+## Where the content lives
+
+- **`data/book.json`** — the whole book: `{ title, subtitle, sections: [{ id, title, subtitle, page, content, subsections: [{ id, title, content }] }] }`.
+  Content blocks: `verse` (`sanskrit`, optional `translation`), `instruction`, `text`, `subtitle`, `paired-list` (`items`, `layout`), `image` (`src`, `alt`).
+- `public/images/` — images referenced by `image` blocks.
+- `lib/book.ts` — TypeScript types for the book and helpers.
+
+Section and subsection `id`s become URLs and anchors — changing one breaks existing links.
+
+## Editing and building
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm ci            # install dependencies
+npm run dev       # local preview at http://localhost:3000/arcana-paddhati/
+npm run lint
+npm run build     # static site in out/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`npm run build` / `npm run dev` first run `scripts/build-search-index.mjs`, which writes the search index
+`public/search-index.json` from `data/book.json` (generated, not committed).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploying
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Push to `main`. The workflow `.github/workflows/deploy.yml` builds the site and publishes `out/` to GitHub Pages.
