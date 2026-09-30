@@ -35,5 +35,5 @@ export default async function LangSectionPage({
   if (!isPrefixedLang(lang)) notFound();
   const section = getSection(lang, id);
   if (!section) notFound();
-  return <SectionContent section={section} />;
+  return <SectionContent section={section} ui={getUi(lang)} />;
 }

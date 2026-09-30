@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import InstallBanner from "@/components/InstallBanner";
@@ -191,7 +192,13 @@ export default function AppShell({
             className="text-sm font-semibold truncate text-[#1a1a1a]"
             style={{ fontFamily: "var(--font-noto-serif, Georgia, serif)" }}
           >
-            {t(ui, "header.title")}
+            <Link
+              href={localeHref(lang)}
+              title={t(ui, "sidebar.cover")}
+              className="hover:text-[#B8860B] transition-colors"
+            >
+              {t(ui, "header.title")}
+            </Link>
           </h1>
           <div className="ml-auto">
             <LanguageSwitcher {...switcherProps} />

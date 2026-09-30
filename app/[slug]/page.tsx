@@ -44,5 +44,5 @@ export default async function SlugPage({ params }: PageProps<"/[slug]">) {
   if (isPrefixedLang(slug)) return <HomePage lang={slug} />;
   const section = getSection(DEFAULT_LANG, slug);
   if (!section) notFound();
-  return <SectionContent section={section} />;
+  return <SectionContent section={section} ui={getUi(DEFAULT_LANG)} />;
 }

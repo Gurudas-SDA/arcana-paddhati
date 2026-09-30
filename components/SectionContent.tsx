@@ -1,5 +1,7 @@
 import React from "react";
 import type { ContentItem, Section, Subsection } from "@/lib/book";
+import { t, type UiDict } from "@/lib/i18n";
+import CollapsibleVerse from "@/components/CollapsibleVerse";
 
 /** Sanskrit is given in IAST or (Russian/Ukrainian editions) in Cyrillic. */
 function sanskritLang(text: string | undefined) {
@@ -8,6 +10,8 @@ function sanskritLang(text: string | undefined) {
 
 interface SectionContentProps {
   section: Section;
+  /** UI strings of the page's language (verse translation indicator). */
+  ui: UiDict;
 }
 
 /** Heading scale, one weight + size per level, used everywhere:
@@ -43,32 +47,47 @@ function NumberedList({ content }: { content: string }) {
 function ContentBlock({
   item,
   index,
+  hint,
   separated = false,
 }: {
   item: ContentItem;
   index: number;
+  /** Label of the collapsed-translation indicator. */
+  hint: string;
   /** Draw a rule above this block (used for h3 groups in long content). */
   separated?: boolean;
 }) {
   switch (item.type) {
     case "verse": {
       const isInlineMantra = item.translation === undefined;
+      const sanskrit = item.sanskrit && (
+        <div lang={sanskritLang(item.sanskrit)} className={`sanskrit text-base leading-relaxed text-[#1a1a1a] ${isInlineMantra ? 'ml-8' : ''} mb-2`}>
+          {item.sanskrit.split('\n\n').map((stanza, si, sarr) => (
+            <p key={si} className={si < sarr.length - 1 ? "mb-3" : ""}>
+              {stanza.split('\n').map((line, li, larr) => (
+                <React.Fragment key={li}>
+                  {line}
+                  {li < larr.length - 1 && <br />}
+                </React.Fragment>
+              ))}
+            </p>
+          ))}
+        </div>
+      );
+      // Verse with a translation: collapsed, the Sanskrit toggles it.
+      if (sanskrit && item.translation) {
+        return (
+          <CollapsibleVerse
+            key={index}
+            sanskrit={sanskrit}
+            translation={item.translation}
+            hint={hint}
+          />
+        );
+      }
       return (
         <div className={`${isInlineMantra ? 'my-2' : 'my-5'}`} key={index}>
-          {item.sanskrit && (
-            <div lang={sanskritLang(item.sanskrit)} className={`sanskrit text-base leading-relaxed text-[#1a1a1a] ${isInlineMantra ? 'ml-8' : ''} mb-2`}>
-              {item.sanskrit.split('\n\n').map((stanza, si, sarr) => (
-                <p key={si} className={si < sarr.length - 1 ? "mb-3" : ""}>
-                  {stanza.split('\n').map((line, li, larr) => (
-                    <React.Fragment key={li}>
-                      {line}
-                      {li < larr.length - 1 && <br />}
-                    </React.Fragment>
-                  ))}
-                </p>
-              ))}
-            </div>
-          )}
+          {sanskrit}
           {item.translation !== undefined && item.translation !== "" && (
             <p className="translation text-[15px] leading-relaxed mt-1 pl-4 border-l border-[#999] ml-1">
               {item.translation}
@@ -160,7 +179,7 @@ function ContentBlock({
   }
 }
 
-function ContentBlocks({ items }: { items: ContentItem[] }) {
+function ContentBlocks({ items, hint }: { items: ContentItem[]; hint: string }) {
   const long = items.length >= LONG_CONTENT_BLOCKS;
   return (
     <>
@@ -169,6 +188,7 @@ function ContentBlocks({ items }: { items: ContentItem[] }) {
           key={idx}
           item={item}
           index={idx}
+          hint={hint}
           separated={long && idx > 0 && item.type === "subtitle"}
         />
       ))}
@@ -179,8 +199,10 @@ function ContentBlocks({ items }: { items: ContentItem[] }) {
 function SubsectionBlock({
   subsection,
   separated,
+  hint,
 }: {
   subsection: Subsection;
+  hint: string;
   /** Rule above the subsection (every subsection but the page's first element). */
   separated: boolean;
 }) {
@@ -193,12 +215,13 @@ function SubsectionBlock({
       <h2 className={`${H2_CLASS} mb-4`} style={HEADING_FONT}>
         {subsection.title}
       </h2>
-      <ContentBlocks items={subsection.content} />
+      <ContentBlocks items={subsection.content} hint={hint} />
     </section>
   );
 }
 
-export default function SectionContent({ section }: SectionContentProps) {
+export default function SectionContent({ section, ui }: SectionContentProps) {
+  const hint = t(ui, "verse.translationHint");
   return (
     <article className="max-w-3xl mx-auto px-6 py-8 sm:px-10 sm:py-12">
       {/* Section title */}
@@ -220,7 +243,7 @@ export default function SectionContent({ section }: SectionContentProps) {
       {/* Main content */}
       {section.content.length > 0 && (
         <div>
-          <ContentBlocks items={section.content} />
+          <ContentBlocks items={section.content} hint={hint} />
         </div>
       )}
 
@@ -231,6 +254,7 @@ export default function SectionContent({ section }: SectionContentProps) {
           <SubsectionBlock
             key={sub.id}
             subsection={sub}
+            hint={hint}
             separated={i > 0 || section.content.length > 0}
           />
         ))}

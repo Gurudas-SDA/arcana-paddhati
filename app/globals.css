@@ -138,3 +138,46 @@ body {
 .sidebar-link:focus-visible {
   outline-offset: -2px;
 }
+
+/* Collapsible verse translations (components/CollapsibleVerse.tsx) */
+.verse-toggle:focus-visible {
+  outline-offset: 4px;
+}
+
+.verse-chevron {
+  transition: transform 150ms ease-out;
+}
+
+.verse-translation:not([hidden]) {
+  animation: verse-reveal 180ms ease-out;
+}
+
+@keyframes verse-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .verse-translation:not([hidden]) {
+    animation: none;
+  }
+  .verse-chevron {
+    transition: none;
+  }
+}
+
+/* Print: translations always expanded, no indicators */
+@media print {
+  .verse-translation[hidden] {
+    display: block !important;
+  }
+  .verse-indicator {
+    display: none !important;
+  }
+}

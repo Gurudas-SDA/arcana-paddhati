@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { normalizeText, type SearchEntry, type TocSection } from "@/lib/book";
 import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
+import { setShowAllTranslations, useShowAllTranslations } from "@/lib/translationsPref";
 
 interface SidebarProps {
   sections: TocSection[];
@@ -210,6 +211,7 @@ export default function Sidebar({
     [selectedSection]
   );
   const [activeSubId, selectSub] = useActiveSubsection(pathname, subIds);
+  const showAllTranslations = useShowAllTranslations();
 
   // Clicking the open (current) section collapses / re-expands its
   // subsection list; navigating to another section opens that one.
@@ -261,8 +263,14 @@ export default function Sidebar({
     <aside className="flex flex-col h-full bg-white border-r border-[#E8DCC8]">
       {/* Header */}
       <div className="flex items-center justify-between gap-3 px-5 py-4 border-b border-[#E8DCC8]">
-        <div className="flex items-center gap-2 min-w-0">
+        <Link
+          href={localeHref(lang)}
+          onClick={onClose}
+          title={t(ui, "sidebar.cover")}
+          className="flex items-center gap-2 min-w-0 rounded-sm hover:opacity-80 transition-opacity"
+        >
           <svg
+            aria-hidden="true"
             width="20"
             height="20"
             viewBox="0 0 24 24"
@@ -281,7 +289,7 @@ export default function Sidebar({
           >
             {t(ui, "sidebar.contents")}
           </h2>
-        </div>
+        </Link>
         {/* Language menu (mobile has it in the page header instead) */}
         <div className="hidden lg:block">{languageSwitcher}</div>
         {/* Mobile close button */}
@@ -355,6 +363,31 @@ export default function Sidebar({
         </div>
       </div>
 
+      {/* Verse translations: collapsed by default, this switch expands all */}
+      <div className="px-5 py-2 border-b border-[#E8DCC8]">
+        <button
+          type="button"
+          role="switch"
+          aria-checked={showAllTranslations}
+          onClick={() => setShowAllTranslations(!showAllTranslations)}
+          className="flex w-full items-center justify-between gap-3 py-1 text-xs text-[#5C3D2E] hover:text-[#2C1810] transition-colors"
+        >
+          <span>{t(ui, "sidebar.showAllTranslations")}</span>
+          <span
+            aria-hidden="true"
+            className={`relative inline-flex h-4 w-7 shrink-0 items-center rounded-full transition-colors ${
+              showAllTranslations ? "bg-[#B8860B]" : "bg-[#E8DCC8]"
+            }`}
+          >
+            <span
+              className={`inline-block h-3 w-3 rounded-full bg-white shadow-sm transition-transform ${
+                showAllTranslations ? "translate-x-3.5" : "translate-x-0.5"
+              }`}
+            />
+          </span>
+        </button>
+      </div>
+
       {/* Sections list / search results */}
       <nav className="flex-1 overflow-y-auto sidebar-scroll py-2">
         {results ? (
@@ -401,6 +434,46 @@ export default function Sidebar({
           </p>
         ) : (
           <ul className="space-y-0.5">
+            {/* Book cover (the language's home page) */}
+            {!normalizedQuery && (
+              <li>
+                <Link
+                  href={localeHref(lang)}
+                  onClick={onClose}
+                  aria-current={selectedId === null ? "page" : undefined}
+                  className={`sidebar-link w-full text-left px-5 py-3 flex items-center gap-2 transition-colors ${
+                    selectedId === null
+                      ? "bg-[#FAF3E8] border-l-3 border-[#B8860B]"
+                      : "hover:bg-[#FDF8F0] border-l-3 border-transparent"
+                  }`}
+                >
+                  <svg
+                    aria-hidden="true"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#B8860B"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="shrink-0"
+                  >
+                    <path d="M3 10.5 12 3l9 7.5" />
+                    <path d="M5 9.5V21h14V9.5" />
+                  </svg>
+                  <span
+                    className={`text-sm leading-snug ${
+                      selectedId === null
+                        ? "font-semibold text-[#B8860B]"
+                        : "text-[#2C1810]"
+                    }`}
+                  >
+                    {t(ui, "sidebar.cover")}
+                  </span>
+                </Link>
+              </li>
+            )}
             {filteredSections.map((section) => {
               const isSelected = selectedId === section.id;
               const hasSubs = (section.subsections?.length ?? 0) > 0;
