@@ -15,7 +15,7 @@ const languages = JSON.parse(
 function blockText(block) {
   switch (block.type) {
     case "verse":
-      return [block.sanskrit, block.translation].filter(Boolean).join(" ");
+      return [block.sanskrit, block.wbw, block.translation].filter(Boolean).join(" ");
     case "paired-list":
       return (block.items ?? [])
         .map((p) => `${p.label} ${p.value}`)

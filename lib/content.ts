@@ -80,6 +80,20 @@ export function getToc(lang: string): TocSection[] {
   });
 }
 
+/**
+ * True if any verse of the book as shown in `lang` (incl. English fallback
+ * sections) has word-by-word meanings. Decides whether the sidebar offers
+ * the "Show all word-by-word" switch.
+ */
+export function hasWordByWord(lang: string): boolean {
+  return getSectionIds().some((id) => {
+    const s = getSection(lang, id)!;
+    return [s.content, ...(s.subsections ?? []).map((sub) => sub.content)].some(
+      (blocks) => blocks.some((b) => b.type === "verse" && !!b.wbw)
+    );
+  });
+}
+
 /** UI strings for `lang`, each missing key falling back to English. */
 export function getUi(lang: string): UiDict {
   const en = readJson<UiDict>(`ui.${DEFAULT_LANG}.json`) ?? {};
@@ -102,7 +116,7 @@ export function getLocales(): Record<string, LocaleData> {
     if (code !== DEFAULT_LANG && !hasBook(code) && !readJson(`ui.${code}.json`)) {
       continue;
     }
-    out[code] = { toc: getToc(code), ui: getUi(code) };
+    out[code] = { toc: getToc(code), ui: getUi(code), hasWbw: hasWordByWord(code) };
   }
   return out;
 }

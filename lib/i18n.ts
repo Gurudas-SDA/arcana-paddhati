@@ -19,6 +19,8 @@ export type UiDict = Record<string, string>;
 export interface LocaleData {
   toc: TocSection[];
   ui: UiDict;
+  /** True if any verse shown in this language has word-by-word meanings. */
+  hasWbw: boolean;
 }
 
 export const LANGUAGES = languages as Language[];

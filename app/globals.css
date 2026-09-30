@@ -139,16 +139,17 @@ body {
   outline-offset: -2px;
 }
 
-/* Collapsible verse translations (components/CollapsibleVerse.tsx) */
-.verse-toggle:focus-visible {
-  outline-offset: 4px;
+/* Collapsible verse panels: word-by-word + translation (components/CollapsibleVerse.tsx) */
+.verse-toggle:focus-visible,
+.verse-chip:focus-visible {
+  outline-offset: 2px;
 }
 
 .verse-chevron {
   transition: transform 150ms ease-out;
 }
 
-.verse-translation:not([hidden]) {
+.verse-panel:not([hidden]) {
   animation: verse-reveal 180ms ease-out;
 }
 
@@ -164,7 +165,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .verse-translation:not([hidden]) {
+  .verse-panel:not([hidden]) {
     animation: none;
   }
   .verse-chevron {
@@ -172,12 +173,12 @@ body {
   }
 }
 
-/* Print: translations always expanded, no indicators */
+/* Print: all verse panels expanded, no chips */
 @media print {
-  .verse-translation[hidden] {
+  .verse-panel[hidden] {
     display: block !important;
   }
-  .verse-indicator {
+  .verse-chips {
     display: none !important;
   }
 }

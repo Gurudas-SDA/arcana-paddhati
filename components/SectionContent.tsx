@@ -1,16 +1,17 @@
 import React from "react";
-import type { ContentItem, Section, Subsection } from "@/lib/book";
+import { sanskritLang, type ContentItem, type Section, type Subsection } from "@/lib/book";
 import { t, type UiDict } from "@/lib/i18n";
 import CollapsibleVerse from "@/components/CollapsibleVerse";
 
-/** Sanskrit is given in IAST or (Russian/Ukrainian editions) in Cyrillic. */
-function sanskritLang(text: string | undefined) {
-  return text && /[Ѐ-ӿ]/.test(text) ? "sa-Cyrl" : "sa-Latn";
+/** Localised labels of the verse panel chips. */
+interface VerseLabels {
+  translation: string;
+  wbw: string;
 }
 
 interface SectionContentProps {
   section: Section;
-  /** UI strings of the page's language (verse translation indicator). */
+  /** UI strings of the page's language (verse panel chips). */
   ui: UiDict;
 }
 
@@ -47,13 +48,12 @@ function NumberedList({ content }: { content: string }) {
 function ContentBlock({
   item,
   index,
-  hint,
+  labels,
   separated = false,
 }: {
   item: ContentItem;
   index: number;
-  /** Label of the collapsed-translation indicator. */
-  hint: string;
+  labels: VerseLabels;
   /** Draw a rule above this block (used for h3 groups in long content). */
   separated?: boolean;
 }) {
@@ -74,14 +74,16 @@ function ContentBlock({
           ))}
         </div>
       );
-      // Verse with a translation: collapsed, the Sanskrit toggles it.
-      if (sanskrit && item.translation) {
+      // Verse with a translation and/or word-by-word: collapsible panels.
+      if (sanskrit && (item.translation || item.wbw)) {
         return (
           <CollapsibleVerse
             key={index}
             sanskrit={sanskrit}
-            translation={item.translation}
-            hint={hint}
+            translation={item.translation || undefined}
+            wbw={item.wbw || undefined}
+            translationLabel={labels.translation}
+            wbwLabel={labels.wbw}
           />
         );
       }
@@ -179,7 +181,7 @@ function ContentBlock({
   }
 }
 
-function ContentBlocks({ items, hint }: { items: ContentItem[]; hint: string }) {
+function ContentBlocks({ items, labels }: { items: ContentItem[]; labels: VerseLabels }) {
   const long = items.length >= LONG_CONTENT_BLOCKS;
   return (
     <>
@@ -188,7 +190,7 @@ function ContentBlocks({ items, hint }: { items: ContentItem[]; hint: string }) 
           key={idx}
           item={item}
           index={idx}
-          hint={hint}
+          labels={labels}
           separated={long && idx > 0 && item.type === "subtitle"}
         />
       ))}
@@ -199,10 +201,10 @@ function ContentBlocks({ items, hint }: { items: ContentItem[]; hint: string }) 
 function SubsectionBlock({
   subsection,
   separated,
-  hint,
+  labels,
 }: {
   subsection: Subsection;
-  hint: string;
+  labels: VerseLabels;
   /** Rule above the subsection (every subsection but the page's first element). */
   separated: boolean;
 }) {
@@ -215,13 +217,16 @@ function SubsectionBlock({
       <h2 className={`${H2_CLASS} mb-4`} style={HEADING_FONT}>
         {subsection.title}
       </h2>
-      <ContentBlocks items={subsection.content} hint={hint} />
+      <ContentBlocks items={subsection.content} labels={labels} />
     </section>
   );
 }
 
 export default function SectionContent({ section, ui }: SectionContentProps) {
-  const hint = t(ui, "verse.translationHint");
+  const labels: VerseLabels = {
+    translation: t(ui, "verse.translationHint"),
+    wbw: t(ui, "verse.wbwHint"),
+  };
   return (
     <article className="max-w-3xl mx-auto px-6 py-8 sm:px-10 sm:py-12">
       {/* Section title */}
@@ -243,7 +248,7 @@ export default function SectionContent({ section, ui }: SectionContentProps) {
       {/* Main content */}
       {section.content.length > 0 && (
         <div>
-          <ContentBlocks items={section.content} hint={hint} />
+          <ContentBlocks items={section.content} labels={labels} />
         </div>
       )}
 
@@ -254,7 +259,7 @@ export default function SectionContent({ section, ui }: SectionContentProps) {
           <SubsectionBlock
             key={sub.id}
             subsection={sub}
-            hint={hint}
+            labels={labels}
             separated={i > 0 || section.content.length > 0}
           />
         ))}

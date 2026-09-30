@@ -5,13 +5,20 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { normalizeText, type SearchEntry, type TocSection } from "@/lib/book";
 import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
-import { setShowAllTranslations, useShowAllTranslations } from "@/lib/translationsPref";
+import {
+  setShowAllTranslations,
+  setShowAllWbw,
+  useShowAllTranslations,
+  useShowAllWbw,
+} from "@/lib/translationsPref";
 
 interface SidebarProps {
   sections: TocSection[];
   /** Language of the current URL (links stay in it). */
   lang: string;
   ui: UiDict;
+  /** The language's book has word-by-word data (else its switch is hidden). */
+  hasWbw: boolean;
   languageSwitcher: React.ReactNode;
   searchQuery: string;
   onSearchChange: (query: string) => void;
@@ -192,10 +199,46 @@ function useActiveSubsection(
   return [active, select];
 }
 
+/** A small on/off switch row of the sidebar. */
+function PrefSwitch({
+  label,
+  checked,
+  onChange,
+}: {
+  label: string;
+  checked: boolean;
+  onChange: (value: boolean) => void;
+}) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={checked}
+      onClick={() => onChange(!checked)}
+      className="flex w-full items-center justify-between gap-3 py-1 text-xs text-[#5C3D2E] hover:text-[#2C1810] transition-colors"
+    >
+      <span>{label}</span>
+      <span
+        aria-hidden="true"
+        className={`relative inline-flex h-4 w-7 shrink-0 items-center rounded-full transition-colors ${
+          checked ? "bg-[#B8860B]" : "bg-[#E8DCC8]"
+        }`}
+      >
+        <span
+          className={`inline-block h-3 w-3 rounded-full bg-white shadow-sm transition-transform ${
+            checked ? "translate-x-3.5" : "translate-x-0.5"
+          }`}
+        />
+      </span>
+    </button>
+  );
+}
+
 export default function Sidebar({
   sections,
   lang,
   ui,
+  hasWbw,
   languageSwitcher,
   searchQuery,
   onSearchChange,
@@ -212,6 +255,7 @@ export default function Sidebar({
   );
   const [activeSubId, selectSub] = useActiveSubsection(pathname, subIds);
   const showAllTranslations = useShowAllTranslations();
+  const showAllWbw = useShowAllWbw();
 
   // Clicking the open (current) section collapses / re-expands its
   // subsection list; navigating to another section opens that one.
@@ -363,29 +407,20 @@ export default function Sidebar({
         </div>
       </div>
 
-      {/* Verse translations: collapsed by default, this switch expands all */}
+      {/* Verse panels: collapsed by default, these switches expand all */}
       <div className="px-5 py-2 border-b border-[#E8DCC8]">
-        <button
-          type="button"
-          role="switch"
-          aria-checked={showAllTranslations}
-          onClick={() => setShowAllTranslations(!showAllTranslations)}
-          className="flex w-full items-center justify-between gap-3 py-1 text-xs text-[#5C3D2E] hover:text-[#2C1810] transition-colors"
-        >
-          <span>{t(ui, "sidebar.showAllTranslations")}</span>
-          <span
-            aria-hidden="true"
-            className={`relative inline-flex h-4 w-7 shrink-0 items-center rounded-full transition-colors ${
-              showAllTranslations ? "bg-[#B8860B]" : "bg-[#E8DCC8]"
-            }`}
-          >
-            <span
-              className={`inline-block h-3 w-3 rounded-full bg-white shadow-sm transition-transform ${
-                showAllTranslations ? "translate-x-3.5" : "translate-x-0.5"
-              }`}
-            />
-          </span>
-        </button>
+        {hasWbw && (
+          <PrefSwitch
+            label={t(ui, "sidebar.showAllWbw")}
+            checked={showAllWbw}
+            onChange={setShowAllWbw}
+          />
+        )}
+        <PrefSwitch
+          label={t(ui, "sidebar.showAllTranslations")}
+          checked={showAllTranslations}
+          onChange={setShowAllTranslations}
+        />
       </div>
 
       {/* Sections list / search results */}
