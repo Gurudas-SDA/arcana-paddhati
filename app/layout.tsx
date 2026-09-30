@@ -21,6 +21,9 @@ export const metadata: Metadata = {
     apple: "/arcana-paddhati/apple-touch-icon.png",
   },
   manifest: "/arcana-paddhati/manifest.json",
+  other: {
+    google: "notranslate",
+  },
 };
 
 // The root layout has no route params, so it always renders lang="en".
@@ -35,6 +38,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      translate="no"
       className={`${notoSerif.variable} h-full`}
       suppressHydrationWarning
     >
