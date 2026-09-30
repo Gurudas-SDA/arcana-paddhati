@@ -1,0 +1,2878 @@
+{
+  "title": "Der Vorgang der Verehrung der Bildgestalt",
+  "subtitle": "Arcana Paddhati — Tempelhandbuch v.1",
+  "sections": [
+    {
+      "id": "introduction",
+      "title": "Einleitung",
+      "subtitle": null,
+      "page": "III",
+      "content": [
+        {
+          "type": "verse",
+          "sanskrit": "arcye viṣṇau śilā-dhīr guruṣu nara-matir vaiṣṇave jāti-buddhir\nviṣṇor vā vaiṣṇavānāṁ kali-mala-mathane pāda-tīrthe 'mbu-buddhiḥ\nśrī-viṣṇor nāmni mantre sakala-kaluṣa-he śabda-sāmānya-buddhir\nviṣṇau sarveśvareśe tad-itara-sama-dhīr yasya vā nārakī saḥ",
+          "translation": "Wer die Bildgestalt im Tempel für aus Holz oder Stein gefertigt hält, wer den spirituellen Meister in der Schülernachfolge für einen gewöhnlichen Menschen hält, wer glaubt, der Vaiṣṇava im Acyuta-gotra gehöre einer bestimmten Kaste oder Glaubensgemeinschaft an, oder wer caraṇāmṛta oder Gangeswasser für gewöhnliches Wasser hält, gilt als Bewohner der Hölle. (Padma Purāṇa)"
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "id": "mangalacarana",
+      "title": "Maṅgalācaraṇa",
+      "subtitle": "Gebete zur Anrufung des Segens",
+      "page": "IV",
+      "content": [
+        {
+          "type": "verse",
+          "sanskrit": "vande 'haṁ śrī-guroḥ śrī-yuta-pada-kamalaṁ śrī-gurūn vaiṣṇavāṁś ca\nśrī-rūpaṁ sāgrajātaṁ saha-gaṇa-raghunāthānvitaṁ taṁ sa-jīvam\nsādvaitaṁ sāvadhūtaṁ parijana-sahitaṁ kṛṣṇa-caitanya-devaṁ\nśrī-rādhā-kṛṣṇa-pādān saha-gaṇa-lalitā-śrī-viśākhānvitāṁś ca",
+          "translation": "Ich bringe den Lotosfüßen meiner [śikṣā- und dīkṣā-]gurus, meiner gesamten guru-varga und allen Vaiṣṇavas praṇāma dar, ebenso Śrīla Rūpa Gosvāmī, seinem älteren Bruder Śrīla Sanātana Gosvāmī, Śrīla Raghunātha dāsa Gosvāmī, Śrīla Jīva Gosvāmī und all ihren Gefährten, Śrī Advaita Ācārya, dem avadhūta Nityānanda Prabhu, Śrī Kṛṣṇa Caitanya Mahāprabhu und all ihren Gefährten sowie den Lotosfüßen von Śrī Rādhā-Kṛṣṇa und Ihren Gefährtinnen, Śrī Lalitā, Śrī Viśākhā und allen anderen sakhīs."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "glorification-sri-guru",
+          "title": "Verherrlichung Śrī Gurus",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "oṁ ajñāna-timirāndhasya jñānāñjana-śalākayā\ncakṣur unmīlitaṁ yena tasmai śrī-gurave namaḥ",
+              "translation": "Ich bin von der Dunkelheit der Unwissenheit geblendet, doch śrī guru hat mir barmherzig die Augen geöffnet, indem er sie mit der Salbe göttlichen Wissens bestrich. Diesem śrī gurudeva bringe ich praṇāma dar."
+            }
+          ]
+        },
+        {
+          "id": "prayers-prem-prayojana-prabhu",
+          "title": "Gebete an Prem Prayojana Prabhu",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "nārāyaṇa-parāyaṇa jadāhaṅkāra-nāśana\nrūpānugāmṛta prema prayojanāya te namaḥ",
+              "translation": "O du, der du stets in liebevollen Dienst für deinen spirituellen Meister, Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī, vertieft bist! O du, dessen grundlose Barmherzigkeit das träge materielle Ego vollständig vernichtet! Du bist die Verkörperung des unsterblichen Nektars reiner göttlicher Liebe (prema) in der Nachfolge Śrīla Rūpa Gosvāmīs, die das höchste Ziel des Lebens (prayojana) ist. Dir, Śrī Prema Prayojana Prabhu, bringe ich mein praṇāma dar."
+            }
+          ]
+        },
+        {
+          "id": "prayers-narayana-gosvami-maharaja",
+          "title": "Gebete an Śrī Śrīmad Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "nama oṁ viṣṇu-pādāya rādhikāyaḥ-priyātmane\nśrī-śrīmad-bhaktivedānta-nārāyaṇa iti nāmine",
+              "translation": "Ich bringe oṁ viṣṇupāda Śrī Śrīmad Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja, der Śrīmatī Rādhikā sehr lieb ist, praṇāma dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "śrī-kṛṣṇa-līlā-kathane su-dakṣam\naudārya-mādhurya-guṇaiś ca yuktam\nvaraṁ vareṇyaṁ puruṣaṁ mahāntaṁ\nnārāyaṇaṁ tvāṁ śirasā namāmi",
+              "translation": "O Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja, du bist überaus erfahren darin, kṛṣṇa-līlā zu beschreiben, und in vollem Maße mit Großherzigkeit und Lieblichkeit ausgestattet. Du bist der Beste aller großen Seelen. Ich neige mein Haupt vor dir."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "tridandīnām bhakta-śiromaṇiṁ ca\nśrī-kṛṣṇa-padābja-dhṛtaika-hṛdi\ncaitanya-līlāmṛta-sāra-sāraṁ\nnārāyāṇaṁ tvaṁ satataṁ prapadye",
+              "translation": "Śrīla Nārāyaṇa Gosvāmī, das Juwel unter den tridaṇḍī-sannyāsīs, trägt die Lotosfüße Rādhās und Kṛṣṇas in seinem Herzen und erfährt höchste Glückseligkeit, wenn Kṛṣṇa Śrīmatī Rādhikā dient. Er ist stets in Gedanken an Śrī Caitanya Mahāprabhu und die vertraulichen Gründe für Sein göttliches Herabsteigen vertieft. In tiefer Ehrfurcht bringe ich den Lotosfüßen Śrīla Nārāyaṇa Gosvāmīs, der mit unzähligen transzendentalen Eigenschaften ausgestattet ist, meine ausgestreckten Ehrerbietungen dar."
+            }
+          ]
+        },
+        {
+          "id": "prayers-svami-maharaja",
+          "title": "Gebete an Śrī Śrīmad Bhaktivedānta Svāmī Mahārāja",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "nama oṁ viṣṇu-pādāya kṛṣṇa-preṣṭhāya bhūtale\nśrīmate bhaktivedānta-svāmin iti nāmine",
+              "translation": "Ich bringe oṁ viṣṇupāda Śrī Śrīmad Bhaktivedānta Svāmī Mahārāja (Śrīla Prabhupāda), der Śrī Kṛṣṇa in dieser Welt am liebsten ist, praṇāma dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "namas te sārasvate deve gaura-vāṇī-pracāriṇe\nnirviśeṣa-śūnyavādi-pāścātya-deśa-tāriṇe",
+              "translation": "Meine achtungsvollen Ehrerbietungen gelten dir, o Diener Sarasvatī Gosvāmīs. Du predigst die Botschaft Śrī Gaurāṅgas und befreist so die westlichen Länder, die von Leerheitslehre und Unpersönlichkeitslehre erfüllt sind."
+            }
+          ]
+        },
+        {
+          "id": "prayers-kesava-gosvami-maharaja",
+          "title": "Gebete an Śrī Śrīmad Bhakti Prajñāna Keśava Gosvāmī Mahārāja",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "nama oṁ viṣṇu-pādāya ācārya-siṁha-rūpiṇe\nśrī-śrīmad-bhakti-prajñāna-keśava iti nāmine",
+              "translation": "Ich bringe dem löwengleichen ācārya, oṁ viṣṇupāda Śrī Śrīmad Bhakti Prajñāna Keśava Gosvāmī Mahārāja, praṇāma dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "atimartya-caritrāya svāśritānāṁ ca pāline\njīva-duḥkhe sadārttāya śrī-nāma-prema-dāyine",
+              "translation": "Sein Charakter und seine Tätigkeiten sind transzendental zu den Erscheinungsweisen der Natur, und er beschützt und nährt jene, die bei ihm Zuflucht suchen. Beim Anblick des Leids der Lebewesen ist er stets tief betrübt, und er schenkt Liebe zu śrī nāma."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "gaurāśraya-vigrahāya kṛṣṇa-kāmaika-cāriṇe\nrūpānuga-pravarāya vinodeti-svarūpiṇe",
+              "translation": "Er ist die Zuflucht der Liebe zu Gaurāṅga, und jede seiner Handlungen dient einzig dazu, die Wünsche Śrī Kṛṣṇas zu erfüllen. Er ist der Beste unter den Nachfolgern Śrīla Rūpa Gosvāmīs, und seine innere Identität ist die Vinoda Mañjarīs."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "prabhupādāntaraṅgāya sarva-sad-guṇa-śāline\nmāyāvada-tamo-ghnāya vedāntārtha-vāde namaḥ",
+              "translation": "Er ist ein vertrauter Gefährte Śrīla Bhaktisiddhānta Sarasvatī Prabhupādas und mit allen glückverheißenden Eigenschaften ausgestattet. Er beseitigt die Dunkelheit des māyāvada und offenbart die wahre Bedeutung des Vedānta. Ihm bringe ich praṇāma dar."
+            }
+          ]
+        },
+        {
+          "id": "prayers-bhaktisiddhanta-sarasvati",
+          "title": "Gebete an Śrī Śrīmad Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "nama oṁ viṣṇu-pādāya kṛṣṇa-preṣṭhāya bhūtale\nśrīmate bhaktisiddhānta-sarasvatīti-nāmine",
+              "translation": "Ich bringe oṁ viṣṇupāda Śrī Śrīmad Bhaktisiddhānta Sarasvatī Gosvāmī Ṭhākura Prabhupāda, der Kṛṣṇa in dieser Welt am liebsten ist, praṇāma dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "śrī-vārṣabhānavī-devī-dayitāya kṛpābdhaye\nkṛṣṇa-sambandha-vijñāna-dāyine prabhave namaḥ",
+              "translation": "Ich bringe Śrī Vārṣabhānavī-dayita dāsa, der Verkörperung eines Ozeans der Barmherzigkeit, der Erkenntnis über unsere ewige Beziehung zu Śrī Kṛṣṇa gewährt, praṇāma dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "mādhuryojjvala-premāḍhya-śrī-rūpānuga-bhakti-da\nśrī-gaura-karuṇā-śakti-vigrahāya namo 'stu te",
+              "translation": "O Śrīla Sarasvatī Ṭhākura, du schenkst śrī rūpānuga-bhakti, die von ujjvala-mādhurya-prema erfüllt ist. Du bist die Verkörperung der Barmherzigkeitskraft Śrī Gaurāṅgas. Dir bringe ich praṇāma dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "namas te gaura-vāṇī-śrī-mūrtaye dīna-tāriṇe\nrūpānuga-viruddhāpasiddhānta-dhvānta-hāriṇe",
+              "translation": "Ich bringe dir, der Verkörperung der Botschaft Śrī Gaurāṅgas, Ehrerbietungen dar. Du befreist die Gefallenen und vertreibst die Dunkelheit philosophischer Irrtümer, die den von Śrīla Rūpa Gosvāmī gelehrten Grundsätzen entgegenstehen."
+            }
+          ]
+        },
+        {
+          "id": "prayer-gaura-kisora-dasa-babaji",
+          "title": "Gebet an Śrīla Gaura-kiśora dāsa Bābājī Mahārāja",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "namo gaura-kiśorāya sākṣād-vairāgya-mūrtaye\nvipralambha-rasāmbhodhe! pādāmbujāya te namaḥ",
+              "translation": "Ich bringe Śrī Gaura-kiśora dāsa Bābājī Mahārāja, der die unmittelbare Verkörperung der Entsagung ist, praṇāma dar. O du, der du ein Ozean des vipralambha-rasa bist, deinen Lotosfüßen bringe ich praṇāma dar."
+            }
+          ]
+        },
+        {
+          "id": "prayer-bhaktivinoda-thakura",
+          "title": "Gebet an Śrīla Bhaktivinoda Ṭhākura",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "namo bhaktivinodāya sac-cid-ānanda-nāmine\ngaura-śakti-svarūpāya rūpānuga-varāya te",
+              "translation": "Ich bringe dir, Śrīla Saccidānanda Bhaktivinoda Ṭhākura, dem Führenden unter den rūpānugas und der persönlichen Manifestation von Śrī Gaurāṅgas śakti [Gadādhara Paṇḍita], praṇāma dar."
+            }
+          ]
+        },
+        {
+          "id": "prayer-jagannatha-dasa-babaji",
+          "title": "Gebet an Śrīla Jagannātha dāsa Bābājī Mahārāja",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "gaurāvirbhāva-bhūmes tvaṁ nirdeṣṭā sajjana-priyaḥ\nvaiṣṇava-sārvabhauma śrī-jagannāthāya te namaḥ",
+              "translation": "Du hast den Ort des Erscheinens Śrī Gaurāṅgas angezeigt und bist den Heiligen überaus lieb. O Śrīla Jagannātha dāsa Bābājī Mahārāja, Führer der Vaiṣṇavas, dir bringe ich praṇāma dar."
+            }
+          ]
+        },
+        {
+          "id": "prayer-vaisnavas",
+          "title": "Gebet an die Vaiṣṇavas",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "vāñchā-kalpa-tarubhyaś ca kṛpā-sindhubhya eva ca\npatitānāṁ pāvanebhyo vaiṣṇavebhyo namo namaḥ",
+              "translation": "Immer wieder bringe ich den Vaiṣṇavas praṇāma dar, die die Retter der Gefallenen sind, Wunschbäumen gleichen und Ozeane der Barmherzigkeit sind."
+            }
+          ]
+        },
+        {
+          "id": "prayer-gauranga",
+          "title": "Gebet an Śrī Gaurāṅga",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "namo mahā-vadānyāya kṛṣṇa-prema-pradāya te\nkṛṣṇāya kṛṣṇa-caitanya-nāmne gaura-tviṣe namaḥ",
+              "translation": "Ich bringe jenem überaus großmütigen Herrn, der kṛṣṇa-prema schenkt, praṇāma dar. Er ist Kṛṣṇa Selbst, der eine goldene Hautfarbe angenommen und den Namen Śrī Kṛṣṇa Caitanya erhalten hat."
+            }
+          ]
+        },
+        {
+          "id": "prayer-sri-krsna",
+          "title": "Gebet an Śrī Kṛṣṇa",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "he kṛṣṇa karuṇā-sindho dīna-bandho jagat-pate\ngopeśa gopikā-kānta rādhā-kānta namo 'stu te",
+              "translation": "O Śrī Kṛṣṇa, Du bist ein Ozean der Barmherzigkeit, der Freund der Gefallenen, der Herr des Universums, der Gebieter der Kuhhirten, der Geliebte der gopīs und [vor allem] der Geliebte Śrī Rādhās. Dir bringe ich praṇāma dar."
+            }
+          ]
+        },
+        {
+          "id": "prayer-sri-radha",
+          "title": "Gebet an Śrī Rādhā",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "tapta-kāñcana-gaurāṅgi rādhe vṛndāvaneśvari\nvṛṣabhānu-sute devi praṇamāmi hari-priye",
+              "translation": "O Śrī Rādhā, o Gaurāṅgi, deren Hautfarbe geschmolzenem Gold gleicht, Du bist die Königin von Vṛndāvana, die Tochter Vṛṣabhānus und die göttliche Göttin, die Śrī Hari am liebsten ist. Dir bringe ich praṇāma dar."
+            }
+          ]
+        },
+        {
+          "id": "prayer-radha-madana-mohana",
+          "title": "Gebet an die vorherrschende Bildgestalt des Sambandha, Śrī Rādhā-Madana-mohana",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "jayatāṁ su-ratau paṅgor mama manda-mater gatī\nmat-sarvasva padāmbhojau rādhā-madana-mohanau",
+              "translation": "Alle Ehre sei dem höchst barmherzigen Śrī Rādhā-Madana-mohana! Obwohl ich lahm und töricht bin, sind Sie meine einzige Zuflucht. Ihre Lotosfüße bedeuten mir alles."
+            }
+          ]
+        },
+        {
+          "id": "prayer-radha-govinda",
+          "title": "Gebet an die vorherrschende Bildgestalt des Abhidheya, Śrī Rādhā-Govinda",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "dīvyad-vṛndāraṇya-kalpa-drumādhaḥ\nśrīmad-ratnāgāra-siṁhāsana-sthau\nśrīmad-rādhā-śrīla-govinda-devau\npreṣṭhālībhiḥ sevyamānau smarāmi",
+              "translation": "Im strahlenden Land Śrī Vṛndāvanas, in einem aus Juwelen erbauten Tempel, sitzen Śrī Rādhā-Govinda auf einem leuchtenden Thron unter einem kalpa-vṛkṣa-Baum und nehmen den Dienst Ihrer geliebten sakhīs entgegen. Ich meditiere über Sie."
+            }
+          ]
+        },
+        {
+          "id": "prayer-radha-gopinatha",
+          "title": "Gebet an die vorherrschende Bildgestalt des Prayojana, Śrī Rādhā-Gopīnātha",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "śrīmān rāsa-rasārambhī vaṁśīvaṭa-taṭa-sthitaḥ\nkarṣan veṇu-svanair gopīr gopīnāthaḥ śriye 'stu naḥ",
+              "translation": "Am Flussufer bei Vaṁśīvaṭa stehend, zieht Śrī Gopīnātha, der Urheber des transzendentalen rasa des rāsa-Tanzes, mit dem Klang Seiner veṇu-Flöte alle gopīs an. Möge Er uns Segen gewähren."
+            }
+          ]
+        },
+        {
+          "id": "prayer-tulasi-devi",
+          "title": "Gebet an Śrī Tulasī-devī",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "vṛndāyai tulasī-devyai priyāyai keśavasya ca\nkṛṣṇa-bhakti-prade devi! satyavatyai namo namaḥ",
+              "translation": "Immer wieder bringe ich Śrīmatī Tulasī-devī, die Śrī Keśava am liebsten ist und auch als Vṛndā-devī und Satyavatī bekannt ist, praṇāma dar. O Devī, du schenkst kṛṣṇa-bhakti."
+            }
+          ]
+        },
+        {
+          "id": "prayer-panca-tattva",
+          "title": "Gebet an Śrī Pañca-tattva",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "pañca-tattvātmakaṁ kṛṣṇaṁ bhakta-rūpa-svarūpakam\nbhaktāvatāraṁ bhaktākhyaṁ namāmi bhakta-śaktikam",
+              "translation": "Ich bringe Śrī Kṛṣṇa Caitanya Mahāprabhu in Seinen fünf Aspekten als bhakta-rūpa (Mahāprabhu), bhakta-svarūpa (Nityānanda Prabhu), bhakta-avatāra (Advaita Ācārya), bhakta (Śrīvāsa Ṭhākura) und bhakta-śakti (Gadādhara Paṇḍita) praṇāma dar."
+            }
+          ]
+        },
+        {
+          "id": "panca-tattva-mantra",
+          "title": "Śrī Pañca-tattva-mantra",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "śrī-kṛṣṇa-caitanya prabhu-nityānanda\nśrī-advaita gadādhara śrīvāsādi-gaura-bhakta-vṛnda",
+              "translation": ""
+            }
+          ]
+        },
+        {
+          "id": "maha-mantra",
+          "title": "Mahā-mantra",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "hare kṛṣṇa hare kṛṣṇa kṛṣṇa kṛṣṇa hare hare\nhare rāma hare rāma rāma rāma hare hare",
+              "translation": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "daily-duties-brahma-muhurta",
+      "title": "Tägliche Pflichten während des brāhma-muhūrta",
+      "subtitle": null,
+      "page": "1",
+      "content": [
+        {
+          "type": "instruction",
+          "content": "Chante unmittelbar nach dem Erwachen das praṇāma-mantra für deinen gurudeva."
+        },
+        {
+          "type": "text",
+          "content": "Śrī Śrī Guru-Gaurāṅga Gāndhārvikā-Giridhārī Rādhā-Vinoda-Bihārījī kī jaya"
+        },
+        {
+          "type": "instruction",
+          "content": "Chante außerdem das pañca-tattva-mantra und das mahā-mantra. Chante mit inniger Hingabe die folgenden Gebete:"
+        }
+      ],
+      "subsections": [
+        {
+          "id": "morning-prayers",
+          "title": "Morgengebete",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "jayati jana-nivāso devakī-janma-vādo\nyadu-vara-pariṣat svair dorbhir asyann adharmam\nsthira-cara-vṛjina-ghnaḥ su-smita-śrī-mukhena\nvraja-pura-vanitānāṁ vardhayan kāmadevam",
+              "translation": "Alle Ehre sei jenem Yaśodā-nandana – um den eine Kontroverse entstand, weil Er scheinbar aus Devakīs Schoß geboren wurde, obwohl dies später wieder ungewiss wurde –, der im Herzen aller weilt. Seine Versammlung wird durch die Anwesenheit der erhabenen Yādavas geschmückt, und Er vernichtet Irreligiosität durch Seine eigene Kraft und mithilfe Seiner Gottgeweihten. Das Chanten Seines Namens beseitigt alles Unheil für sämtliche Lebewesen, sowohl die sich bewegenden als auch die unbeweglichen. Alle Ehre sei Vrajendra-nandana Śrī Kṛṣṇa, dessen sanft lächelndes Lotosantlitz stets das transzendentale Liebesverlangen der vraja-gopīs steigert. [Śrīmad-Bhāgavatam 10.90.48]"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "vidagdha-gopāla-vilāsinīnāṁ\nsambhoga-cihnāṅkita-sarva-gātram\npavitram āmnāya girām agamyaṁ\nbrahma prapadye navanīta-cauram",
+              "translation": "Ich suche Zuflucht bei Ihm, dessen Genuss von rasa unübertroffen ist, der Höchsten Absoluten Wahrheit, Gopāla Śrī Kṛṣṇa, der an verschiedenen Stellen Seines Körpers die Zeichen liebender Vereinigung mit den erfahrenen gopīs trägt, der Butter stiehlt und durch vedische Aussagen nicht zu erfassen ist."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "udgāyatīnām aravinda-locananaṁ\nvrajāṅganānāṁ divam aspṛśad dhvaniḥ\ndadhnaś ca nirmanthana-śabda-miśrito\nnirasyate yena diśām amaṅgalam",
+              "translation": "Während er sich mit dem Geräusch des Butterrührens vermischt, durchdringt der laute Gesang der vraja-gopīs, die süße und melodische Lieder zur Verherrlichung des Namens, der Gestalt, der Eigenschaften und der Spiele des lotosäugigen Śrī Kṛṣṇa singen, die gesamte Atmosphäre und beseitigt in allen Richtungen alles Unheil."
+            }
+          ]
+        },
+        {
+          "id": "taking-bath",
+          "title": "Nimm ein Bad",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Nach dem Stuhlgang sollte man sich die Zähne putzen, das Gesicht waschen, anschließend baden und saubere Kleidung anlegen. Pūjārīs gehen nicht in sauberer Kleidung zur Toilette!"
+            },
+            {
+              "type": "text",
+              "content": "Lange Fingernägel sind schmutzig und verunreinigt. Daher ist es für pūjārīs allgemein üblich, ihre Fingernägel kurz zu halten, um den bhoga und andere Gegenstände, die dem Herrn dargebracht werden sollen, nicht zu verunreinigen. Selbst während der vier Monate des Cāturmāsya halten pūjārīs ihre Fingernägel kurz. Auch an Fastentagen putzen sie sich die Zähne."
+            },
+            {
+              "type": "subtitle",
+              "content": "Mantra für das Baden im Geist (mānasa-snāna)"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ apavitraḥ pavitro vā\nsarvāvasthāṁ gato 'pi vā\nyaḥ smaret puṇḍarīkākṣaṁ\nsa bāhyābhyantara-śuciḥ",
+              "translation": "Ob man verunreinigt oder rein ist oder sich in welchem Zustand oder Lebensstadium auch immer befindet – wenn man sich an den lotosäugigen Herrn, Puṇḍarīkākṣa, Śrī Kṛṣṇa, erinnert, wird man sowohl äußerlich als auch innerlich rein. [Garuḍa Purāṇa]"
+            },
+            {
+              "type": "instruction",
+              "content": "Kämme nach dem Baden das Haar und binde die śikhā, während du dich an das brahma-gāyatrī zusammen mit der Silbe oṁ erinnerst."
+            },
+            {
+              "type": "text",
+              "content": "Die śikhā wird weder geflochten noch offen und zerzaust getragen. Vorzugsweise bindet man sie mit einem Laufknoten zusammen."
+            },
+            {
+              "type": "instruction",
+              "content": "Betritt den Bildgestaltenraum oder die Küche nicht in verunreinigter Kleidung und berühre weder die Utensilien der Bildgestalt noch die Küchengefäße. Reinige die Utensilien der Bildgestalt nicht und wasche ihre Gefäße nicht, während du Kleidung trägst, in der du deine Notdurft verrichtet oder in der vorherigen Nacht geschlafen hast."
+            }
+          ]
+        },
+        {
+          "id": "tirtha-avahana",
+          "title": "Anrufung der heiligen Flüsse",
+          "content": [
+            {
+              "type": "subtitle",
+              "content": "Tīrtha-āvāhana-mantra"
+            },
+            {
+              "type": "instruction",
+              "content": "Stelle ein leeres pañca-pātra an seinen Platz und fülle es mit frischem Wasser. Gieße einige Tropfen Wasser aus dem ācamana-pātra oder einem Wassergefäß mit Ausguss auf die Finger deiner rechten Hand und reinige das pañca-pātra dann durch prokṣaṇa:"
+            },
+            {
+              "type": "instruction",
+              "content": "Während du oṁ astrāya phaṭ chantest, besprenge das pañca-pātra mit Wasser."
+            },
+            {
+              "type": "instruction",
+              "content": "Rufe die Gaṅgā und die anderen heiligen Flüsse an, indem du die aṅkuśamudrā zeigst und chantest:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "gaṅge ca yamune caiva\ngodāvari sarasvati\nnarmade sindho kāveri\njale 'smin sannidhiṁ kuru",
+              "translation": "O Ganges, o Yamunā, o Godāvarī, o Sarasvatī, o Narmadā, o Sindhu, o Kāverī, bitte werdet in diesem Wasser gegenwärtig."
+            }
+          ]
+        },
+        {
+          "id": "applying-tilaka",
+          "title": "Das Auftragen von tilaka",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Nachdem du auf einem sauberen āsana (Sitz) Platz genommen hast, gieße Gangeswasser in das pañca-pātra. Wenn kein Gangeswasser vorhanden ist, fülle frisches Wasser in das pañca-pātra. Berühre dann dieses Wasser, während du dich an die Ganges und die anderen heiligen Flüsse erinnerst, und chante das tīrtha-āvāhana-mantra."
+            },
+            {
+              "type": "instruction",
+              "content": "Verwende dieses Wasser und gopī-candana, um in der linken Hand eine Paste herzustellen. Trage dann mit den zwölf mantras, beginnend mit oṁ keśavāya namaḥ, tilaka auf die zwölf verschiedenen Körperstellen auf. Beginne mit der Stirn und zeichne das ūrdhva-puṇḍra (zwei senkrechte Linien), das den Tempel Śrī Haris darstellt."
+            },
+            {
+              "type": "text",
+              "content": "Ziehe von der Mitte der Augenbrauen ausgehend zwei senkrechte Linien auf der Stirn, die bis zum Haaransatz reichen. In der Mitte des ūrdhva-puṇḍra muss ein sauberer Zwischenraum verbleiben. Der Bereich, der sich von knapp unterhalb der Mitte der Augenbrauen bis zu drei Vierteln der Nase erstreckt, wird nāsāmūla genannt. [Hier zeichnet man die Form eines tulasī-Blattes.] Das mantra zur Erinnerung an die zwölf Namen des Herrn (dvādaśa-nāma-smaraṇa-mantra) lautet wie folgt:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "lalāṭe keśavaṁ dhyāyen\nnārāyaṇam athodare\nvakṣaḥ-sthale mādhavaṁ tu\ngovindaṁ kaṇṭha-kūpake\n\nviṣṇuṁ ca dakṣiṇe kukṣau\nbāhau ca madhusūdanam\ntrivikramaṁ kandhare tu\nvāmanaṁ vāma-pārśvake\n\nśrīdharaṁ vāma-bāhau tu\nhṛṣīkeśaṁ ca kandhare\npṛṣṭhe tu padmanābhaṁ ca\nkaṭyāṁ dāmodaraṁ nyaset\n\ntat prakṣālana-toyaṁ tu\nvāsudevāya mūrdhani",
+              "translation": "Wenn man die Stirn mit tilaka kennzeichnet, muss man sich an Keśava erinnern. Wenn man den Unterbauch kennzeichnet, muss man sich an Nārāyaṇa erinnern. Beim Kennzeichnen der Brust sollte man sich an Mādhava erinnern und beim Kennzeichnen der Halsgrube an Govinda. Während man die rechte Seite des Bauches kennzeichnet, sollte man sich an Viṣṇu erinnern, und beim Kennzeichnen des rechten Arms an Madhusūdana. Beim Kennzeichnen der rechten Schulter sollte man sich an Trivikrama erinnern und beim Kennzeichnen der linken Seite des Bauches an Vāmana. Während man den linken Arm kennzeichnet, sollte man sich an Śrīdhara erinnern und beim Kennzeichnen der linken Schulter an Hṛṣīkeśa. Beim Kennzeichnen des oberen und unteren Rückens sollte man sich an Padmanābha beziehungsweise Dāmodara erinnern und beim Kennzeichnen des Scheitels an Vāsudeva."
+            },
+            {
+              "type": "instruction",
+              "content": "Chante gemäß dem zuvor erwähnten smaraṇa-mantra die folgenden mantras, während du die jeweilige Körperstelle berührst – entweder beim Auftragen des tilaka-Zeichens oder nachdem das tilaka bereits aufgetragen wurde:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "Stirn:",
+                  "value": "oṁ keśavāya namaḥ"
+                },
+                {
+                  "label": "Bauch:",
+                  "value": "oṁ nārāyaṇāya namaḥ"
+                },
+                {
+                  "label": "Brust:",
+                  "value": "oṁ mādhavāya namaḥ"
+                },
+                {
+                  "label": "Halsgrube:",
+                  "value": "oṁ govindāya namaḥ"
+                },
+                {
+                  "label": "Rechte Seite des Bauches:",
+                  "value": "oṁ viṣṇave namaḥ"
+                },
+                {
+                  "label": "Rechter Arm:",
+                  "value": "oṁ madhusūdanāya namaḥ"
+                },
+                {
+                  "label": "Rechte Schulter:",
+                  "value": "oṁ trivikramāya namaḥ"
+                },
+                {
+                  "label": "Linke Seite des Bauches:",
+                  "value": "oṁ vāmanāya namaḥ"
+                },
+                {
+                  "label": "Linker Arm:",
+                  "value": "oṁ śrīdharāya namaḥ"
+                },
+                {
+                  "label": "Linke Schulter:",
+                  "value": "oṁ hṛṣīkeśāya namaḥ"
+                },
+                {
+                  "label": "Oberer Rücken:",
+                  "value": "oṁ padmanābhāya namaḥ"
+                },
+                {
+                  "label": "Unterer Rücken:",
+                  "value": "oṁ dāmodarāya namaḥ"
+                }
+              ]
+            },
+            {
+              "type": "image",
+              "src": "Tilak.png",
+              "alt": "Diagramm zum Auftragen von tilaka"
+            },
+            {
+              "type": "instruction",
+              "content": "Gib einen Löffel Wasser aus dem pañca-pātra in die Hand, um es mit dem verbliebenen gopī-candana zu vermischen. Verreibe das candana auf dem Scheitel, während du oṁ vāsudevāya namaḥ chantest."
+            },
+            {
+              "type": "text",
+              "content": "Hinweis: Die tilaka-Paste muss jedes Mal frisch zubereitet werden. Trage tilaka nicht im Badezimmer auf."
+            },
+            {
+              "type": "text",
+              "content": "Ein pūjārī, der die zwölf Namen Viṣṇus chantet, erinnert sich stets einzig und allein an Rādhārāṇī."
+            }
+          ]
+        },
+        {
+          "id": "sadhararana-acamana",
+          "title": "Ācamana ausführen, Wasser zur Reinigung schlürfen",
+          "content": [
+            {
+              "type": "text",
+              "content": "Nach dem Auftragen von tilaka sollte man ācamana ausführen. Vaiṣṇava-ācamana ist von zweierlei Art: gewöhnliches (sādhāraṇa) und besonderes (viśeṣa). Vor jeder hingebungsvollen Tätigkeit genügt gewöhnliches ācamana. Beim Baden der Bildgestalt oder zur Zeit der pūjā ist jedoch viśeṣa-ācamana auszuführen."
+            },
+            {
+              "type": "subtitle",
+              "content": "Sādhāraṇa-ācamana"
+            },
+            {
+              "type": "instruction",
+              "content": "Gib einen Löffel Wasser [aus dem pañca-pātra oder dem ācamana-Becher] in die Mitte der rechten Handfläche (die als brāhma-tīrtha bekannt ist) und chante"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ keśavāya namaḥ"
+            },
+            {
+              "type": "text",
+              "content": "Schlürfe ein wenig von dem Wasser [vom Rand der Handfläche] und schütte den Rest auf den Boden."
+            },
+            {
+              "type": "text",
+              "content": "Reinige die rechte Hand [indem du einen neuen Löffel Wasser in die rechte Handfläche gibst und dieses Wasser dann auf den Boden schüttest]."
+            },
+            {
+              "type": "text",
+              "content": "Wiederhole den oben beschriebenen Vorgang des ācamana, wobei du diesmal chantest"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ nārāyaṇāya namaḥ"
+            },
+            {
+              "type": "text",
+              "content": "und dann nochmals, während du chantest"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ mādhavāya namaḥ"
+            },
+            {
+              "type": "subtitle",
+              "content": "Viśeṣa-ācamana"
+            },
+            {
+              "type": "instruction",
+              "content": "Führe stets ācamana aus, bevor du den Bildgestaltenraum betrittst, um den Herrn zu verehren."
+            },
+            {
+              "type": "instruction",
+              "content": "Reinige beide Hände mit einem mit Wasser gefüllten ācamana-pātra, indem du sie mit Wasser besprengst. Halte den ācamana-Löffel in der linken Hand und gieße einige Tropfen in die rechte Handfläche. Blicke auf das Wasser, chante das entsprechende mantra und schlürfe das Wasser dann schweigend vom Ansatz des rechten Daumens (dem brāhma-tīrtha). Die ersten drei der nachstehenden Schritte bilden die Grundform des ācamana. Wenn Zeit und Umstände es erlauben, kannst du das vollständige ācamana ausführen:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "oṁ keśavāya namaḥ",
+                  "value": "schlürfe Wasser aus dem brāhma-tīrtha deiner rechten Hand."
+                },
+                {
+                  "label": "oṁ nārāyaṇāya namaḥ",
+                  "value": "schlürfe Wasser aus dem brāhma-tīrtha deiner rechten Hand."
+                },
+                {
+                  "label": "oṁ mādhavāya namaḥ",
+                  "value": "schlürfe Wasser aus dem brāhma-tīrtha deiner rechten Hand."
+                },
+                {
+                  "label": "oṁ govindāya namaḥ",
+                  "value": "besprenge deine rechte Hand mit Wasser."
+                },
+                {
+                  "label": "oṁ viṣṇave namaḥ",
+                  "value": "besprenge deine linke Hand mit Wasser."
+                },
+                {
+                  "label": "oṁ madhusūdanāya namaḥ",
+                  "value": "berühre mit den Fingern deiner rechten Hand deine rechte Wange."
+                },
+                {
+                  "label": "oṁ trivikramāya namaḥ",
+                  "value": "berühre mit den Fingern deiner rechten Hand deine linke Wange."
+                },
+                {
+                  "label": "oṁ vāmanāya namaḥ",
+                  "value": "streiche mit dem Ansatz deines rechten Daumens über deine Oberlippe."
+                },
+                {
+                  "label": "oṁ śrīdharāya namaḥ",
+                  "value": "streiche mit dem Ansatz deines rechten Daumens unter deiner Unterlippe entlang."
+                },
+                {
+                  "label": "oṁ hṛṣīkeśāya namaḥ",
+                  "value": "besprenge beide Hände mit Wasser."
+                },
+                {
+                  "label": "oṁ padmanābhāya namaḥ",
+                  "value": "besprenge deine Füße mit Wasser."
+                },
+                {
+                  "label": "oṁ dāmodarāya namaḥ",
+                  "value": "besprenge deinen Scheitel mit Wasser."
+                }
+              ],
+              "layout": "vertical"
+            },
+            {
+              "type": "instruction",
+              "content": "Führe beim Chanten der folgenden mantras die Handbewegungen aus:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "oṁ vāsudevāya namaḥ",
+                  "value": "berühre mit den Fingerspitzen deiner rechten Hand deine Ober- und Unterlippe."
+                },
+                {
+                  "label": "oṁ saṅkarṣaṇāya namaḥ",
+                  "value": "berühre mit deinem rechten Daumen und Zeigefinger dein rechtes Nasenloch."
+                },
+                {
+                  "label": "oṁ pradyumnāya namaḥ",
+                  "value": "berühre mit deinem rechten Daumen und Zeigefinger dein linkes Nasenloch."
+                },
+                {
+                  "label": "oṁ aniruddhāya namaḥ",
+                  "value": "berühre mit deinem rechten Daumen und Ringfinger dein rechtes Auge."
+                },
+                {
+                  "label": "oṁ puruṣottamāya namaḥ",
+                  "value": "berühre mit deinem rechten Daumen und Ringfinger dein linkes Auge."
+                },
+                {
+                  "label": "oṁ adhokṣajāya namaḥ",
+                  "value": "berühre mit deinem rechten Daumen und Zeigefinger dein rechtes Ohr."
+                },
+                {
+                  "label": "oṁ nṛsiṁhāya namaḥ",
+                  "value": "berühre mit deinem rechten Daumen und Zeigefinger dein linkes Ohr."
+                },
+                {
+                  "label": "oṁ acyutāya namaḥ",
+                  "value": "berühre mit deinem rechten Daumen und kleinen Finger deinen Nabel."
+                },
+                {
+                  "label": "oṁ janārdanāya namaḥ",
+                  "value": "berühre mit der Handfläche deiner rechten Hand dein Herz."
+                },
+                {
+                  "label": "oṁ upendrāya namaḥ",
+                  "value": "berühre mit allen Fingerspitzen deiner rechten Hand deinen Kopf."
+                },
+                {
+                  "label": "oṁ haraye namaḥ",
+                  "value": "berühre mit den Fingerspitzen deiner linken Hand deinen rechten Oberarm."
+                },
+                {
+                  "label": "oṁ kṛṣṇāya namaḥ",
+                  "value": "berühre mit den Fingerspitzen deiner rechten Hand deinen linken Oberarm."
+                }
+              ],
+              "layout": "vertical"
+            },
+            {
+              "type": "instruction",
+              "content": "Chante nun das folgende mantra aus dem Ṛig Veda, während du die praṇāma-mudrā zeigst (die Handflächen vor dem Herzen zusammengelegt):"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ tad viṣṇoḥ paramaṁ padaṁ\nsadā paśyanti sūrayaḥ\ndivīva cakṣur-ātatam\n\ntad viprāso vipanyavo\njāgṛvaṁ saḥ samindhate\nviṣṇor yat paramaṁ padam",
+              "translation": "So wie Menschen mit gewöhnlicher Sehkraft die Sonnenstrahlen am Himmel sehen, so sehen die weisen und gelehrten Gottgeweihten stets die höchste Wohnstatt des Herrn Viṣṇu. Weil jene höchst lobenswerten und spirituell erwachten brāhmaṇas diese Wohnstatt sehen können, können sie sie auch anderen offenbaren. [Rig Veda Samhita]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "daily-deity-schedule",
+      "title": "Täglicher Zeitplan für die Bildgestalten",
+      "subtitle": "Vorgehensweise zum Wecken der Bildgestalten",
+      "page": "10",
+      "content": [
+        {
+          "type": "instruction",
+          "content": "Der pūjārī sollte spätestens um 3:20 Uhr eintreffen."
+        },
+        {
+          "type": "instruction",
+          "content": "Führen Sie Viśeṣa-ācamana (vollständiges ācamana) aus."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "preparations",
+          "title": "Vorbereitungen",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Bereiten Sie ein Tablett vor mit: Süßigkeiten, Milchreis, einer Tasse Wasser und einer Tasse Milch. Hinweis: Legen Sie auf jede Speise tulasī."
+            },
+            {
+              "type": "instruction",
+              "content": "Bereiten Sie das āratī-Tablett vor mit: Räucherwerk, Ghee-Lampe, Blumen, Taschentuch, Wasser und einem Wattestäbchen für Duftöl."
+            }
+          ]
+        },
+        {
+          "id": "waking-the-lord",
+          "title": "3:40 Uhr: Den Herrn wecken",
+          "content": [
+            {
+              "type": "subtitle",
+              "content": "Gebete, die beim Betreten des Bildgestaltenraums zu rezitieren sind"
+            },
+            {
+              "type": "instruction",
+              "content": "Bleiben Sie außerhalb des Bildgestaltenraums und läuten Sie die Glocke."
+            },
+            {
+              "type": "instruction",
+              "content": "Rezitiere die folgenden Verse und bitte den Herrn, zu erwachen."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "so 'sāv adabhra-karuṇo bhagavān vivṛddha-\nprema-smitena nayanāmburuhaṁ vijṛmbhan\nutthāya viśva-vijayāya ca no viṣādaṁ\nmādhvyā girāpanayatāt puruṣaḥ purāṇaḥ",
+              "translation": "Śrī Bhagavān, der höchste und ursprüngliche Herr, ist unbegrenzt barmherzig. Ich bete darum, dass Er mich segnet, indem Er Seine Lotosaugen öffnet und mir Seinen lächelnden Blick schenkt. Mit den süßen Unterweisungen, die Seinem Lotosmund entströmen, kann Er die gesamte kosmische Schöpfung emporheben und unseren Kummer und unser Leid beseitigen. [SB 3.9.25]"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "deva prapannārti-hara prasādaṁ kuru keśava\navalokana-dānena bhūyo māṁ parayācyuta",
+              "translation": "O Keśava, o Unfehlbarer, o Du, der Du die Not der hingegebenen Seelen beseitigst, erweise mir bitte Deine Barmherzigkeit, indem Du mir erneut Deinen transzendentalen Blick schenkst."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jaya jaya kṛpamaya jagatera nātha\nsarva jagatere koro śubha-dṛṣṭī-pāta",
+              "translation": "O Bhagavān! Alle Ehre, alle Ehre sei Dir! O barmherziger Herr des Universums, richte bitte Deinen glückverheißenden Blick auf alle Welten."
+            },
+            {
+              "type": "instruction",
+              "content": "Klopfen Sie dann an die Tür und betreten Sie den Bildgestaltenraum."
+            },
+            {
+              "type": "instruction",
+              "content": "Schalten Sie ein gedämpftes Licht ein und setzen Sie sich auf den āsana."
+            },
+            {
+              "type": "instruction",
+              "content": "Führen Sie Sādhāraṇa-ācamana (gewöhnliches ācamana) aus und begeben Sie sich, während Sie die Glocke läuten, zu dem Ort, an dem Srī Gurudeva ruht. Wecken Sie Ihn, indem Sie Seine Füße berühren und die folgenden Gebete rezitieren."
+            },
+            {
+              "type": "subtitle",
+              "content": "Gebete im Bildgestaltenraum"
+            },
+            {
+              "type": "instruction",
+              "content": "Berühren Sie die Füße Śrī Gurudevs und wecken Sie Ihn mit den Worten:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "uttiṣṭhottiṣṭha śrī guro\ntyaja nidrāṁ kṛpāmaya\naing gurave namaḥ",
+              "translation": "O barmherzigster Gurudeva, bitte erhebe Dich, bitte erhebe Dich und gib Deinen Schlaf auf."
+            },
+            {
+              "type": "instruction",
+              "content": "Berühren Sie dann die Füße Śrī Gaurāṅgas und wecken Sie Ihn mit den Worten:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "uttiṣṭhottiṣṭha gaurāṅga\njahi nidrāṁ mahāprabho\nśubha-dṛṣṭi pradānena\ntrailokya-maṅgalaṁ kuru\nklīng gaurāya svāhā",
+              "translation": "O Gaurāṅga Mahāprabhu, bitte erhebe Dich, bitte erhebe Dich und gib Deinen Schlaf auf. Bitte segne die drei Welten mit Deinem glückverheißenden Blick."
+            },
+            {
+              "type": "instruction",
+              "content": "Berühren Sie als Nächstes die Lotosfüße Śrī Rādhā Krsnas und wecken Sie Sie mit den Worten:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "go-gopa-gokulānanda\nyaśodānanda vardhana\nuttiṣṭha rādhayā sārddhaṁ\nprātar āsīj jagat-pate\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "O Freude Gokulas, der Kuhhirtenjungen und der Kühe; o Du, der Du die Glückseligkeit Mutter Yaśodās vermehrst; o Herr des Universums, bitte erhebe Dich gemeinsam mit Śrī Rādhā, denn der Morgen naht bereits."
+            },
+            {
+              "type": "instruction",
+              "content": "Meditieren Sie anschließend darüber, dass diese Persönlichkeiten aufgestanden sind und auf dem Altar Platz genommen haben."
+            },
+            {
+              "type": "text",
+              "content": "(Stellen Sie die Bildgestalten tatsächlich auf den Altar, falls Sie am Vorabend von dort genommen und in ein Bett gelegt wurden.)"
+            },
+            {
+              "type": "instruction",
+              "content": "Stellen Sie die Chota-Bildgestalten vorsichtig wieder auf den Altar und setzen Sie den Bildgestalten Ihre Kronen auf."
+            },
+            {
+              "type": "instruction",
+              "content": "Reinigen und bedecken Sie das Bett."
+            }
+          ]
+        },
+        {
+          "id": "washing-mouth",
+          "title": "Den Mund des Herrn waschen",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Während Sie nun die folgenden mantras rezitieren, bringen Sie zunächst Sri Guru und der Bildgestalt ācamana (Wasser zum Reinigen des Mundes) dar. Bringen Sie anschließend einen Zweig zum Reinigen der Zähne (danta-kāṣṭha) und danach erneut ācamana dar:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ ācamanīyaṁ aing gurave namaḥ\nidaṁ ācamanīyaṁ klīng gaurāya svāhā\nidaṁ ācamanīyaṁ śrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "text",
+              "content": "Hinweis: Ācamana wird dargebracht, indem man einen Löffel Wasser aus dem pañca-pātra in ein leeres Gefäß (visarjanīya-pātra) gießt, während man die Glocke läutet und den jeweiligen mantra spricht."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "eṣa danta-kāṣṭhaḥ aing gurave namaḥ\neṣa danta-kāṣṭhaḥ klīng gaurāya svāhā\neṣa danta-kāṣṭhaḥ śrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "text",
+              "content": "Die obigen mantras bezeichnen die Darbringung eines Zweiges zum Reinigen der Zähne (danta-kāṣṭha). Dieser Gegenstand wird im Geist dargebracht, statt den tatsächlichen Gegenstand darzubringen. Wenn ein Gegenstand nicht vorhanden ist, kann man im Allgemeinen über den betreffenden Gegenstand meditieren und, während man den entsprechenden mantra spricht, Wasser aus dem pañca-pātra in das Entsorgungsgefäß gießen."
+            },
+            {
+              "type": "instruction",
+              "content": "Bringen Sie nun wie zuvor ācamana dar, jedoch zwölfmal. (Dreimal ist ebenfalls annehmbar.)"
+            }
+          ]
+        },
+        {
+          "id": "cleaning-deities-altar",
+          "title": "Die Bildgestalten und den Altar reinigen",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Wischen Sie Gesicht, Hände und Füße jeder Bildgestalt mit einem sauberen Tuch ab. Entfernen Sie die alten Girlanden, tulasī-Blätter und Blumen, reinigen Sie den Altar und reinigen Sie danach Ihre Hände. Bringen Sie tulasī dar und schmücken Sie jede Bildgestalt mit der entsprechenden Krone, Flöte und den entsprechenden Schmuckstücken, während Sie den jeweils zugehörigen mūla-mantra rezitieren. Führen Sie anschließend maṅgala-ārati aus."
+            },
+            {
+              "type": "instruction",
+              "content": "Setzen Sie die Kronen wieder auf und legen Sie Kṛṣṇas Stab sowie die Wasserbecher zurück. Richten Sie das Bett her. Legen Sie Sitzmatten für die Darbringung von bhoga aus und reinigen Sie die Darbringungstische."
+            }
+          ]
+        },
+        {
+          "id": "morning-bhoga-arati",
+          "title": "Morgendliche Darbringung von bhoga und Maṅgala-ārati",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "4:10 Uhr: Bringen Sie bhoga dar (folgen Sie der Vorgehensweise für die Darbringung von bhoga)."
+            },
+            {
+              "type": "instruction",
+              "content": "4:25 Uhr: Bringen Sie ācamanīyaṁ dar. Entfernen Sie die Teller. Reinigen Sie die Tische. Bringen Sie das āratī-Tablett herein. Zünden Sie die Kerze an. Legen Sie Kṛṣṇas Flöte zurück."
+            },
+            {
+              "type": "instruction",
+              "content": "4:30 Uhr: Blasen Sie das Muschelhorn, öffnen Sie den Vorhang und bringen Sie ārati dar."
+            },
+            {
+              "type": "instruction",
+              "content": "4:50 Uhr: Beenden Sie ārati und blasen Sie das Muschelhorn. Reichen Sie den Gottgeweihten prasād-Blumen. Reinigen Sie das āratī-Tablett und räumen Sie es weg."
+            },
+            {
+              "type": "instruction",
+              "content": "4:55 Uhr: Bringen Sie Duftstoff dar. Reinigen Sie den Boden."
+            },
+            {
+              "type": "text",
+              "content": "Ihre Herrschaften ankleiden (in Arbeit)"
+            }
+          ]
+        },
+        {
+          "id": "srngara-arati",
+          "title": "Śṛṅgāra-ārati — Begrüßung der Bildgestalten",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "7:10 Uhr: Die kleinen Bildgestalten und Tulasī werden auf den Altar gestellt. Reinigen Sie den Boden. Zünden Sie Räucherwerk an und bringen Sie es dar. Bringen Sie den Spiegel dar."
+            },
+            {
+              "type": "instruction",
+              "content": "7:15 Uhr: Blasen Sie das Muschelhorn und öffnen Sie den Vorhang. Bringen Sie cāmara und Pfauenfederfächer dar (nicht im Winter)."
+            }
+          ]
+        },
+        {
+          "id": "breakfast-offering",
+          "title": "Darbringung des Frühstücks",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "7:50 Uhr: Bereiten Sie einen Teller vor mit: 2 Stück der täglichen Süßspeise; halava; kitchari; subji; je 2 puris; Milch; Wasser; Obstsalat."
+            },
+            {
+              "type": "instruction",
+              "content": "8:00 Uhr: Schließen Sie den Vorhang der Bildgestalten und verwenden Sie während des Unterrichts die kleine Glocke. Reinigen Sie die Tische und den Boden, legen Sie die Sitzmatten aus und bringen Sie die Opfergabe herein. Entfernen Sie Kṛṣṇas Flöte."
+            },
+            {
+              "type": "instruction",
+              "content": "8:10 Uhr: Darbringung des Frühstücks (folgen Sie der Vorgehensweise für die Darbringung von bhoga)."
+            },
+            {
+              "type": "instruction",
+              "content": "8:25 Uhr: Bringen Sie den Bildgestalten ācamanīyaṁ dar. Entfernen Sie die Teller, räumen Sie den asana weg, legen Sie Kṛṣṇas Flöte zurück und bringen Sie Räucherwerk sowie den Blumenteller für ārati herein."
+            },
+            {
+              "type": "instruction",
+              "content": "8:30 Uhr: Dhūpa-ārati. Öffnen Sie den Vorhang der Bildgestalten. Bringen Sie Räucherwerk, Blumen, cāmara und Pfauenfederfächer dar (nicht im Winter), 10 Min. lang. Reinigen Sie den Altar."
+            }
+          ]
+        },
+        {
+          "id": "raja-bhoga-offering",
+          "title": "Darbringung von Rāja-bhoga und ārati",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "11:40 Uhr: Der pūjārī bereitet die bhoga-Teller vor."
+            },
+            {
+              "type": "instruction",
+              "content": "11:50 Uhr: Schließen Sie den Vorhang der Bildgestalten und wischen Sie die Tische mit einem feuchten Tuch ab. Reinigen Sie den Boden. Entfernen Sie die Flöte, stellen Sie die asanas auf und legen Sie Blütenblätter darauf. Bringen Sie die Teller mit der Opfergabe herein."
+            },
+            {
+              "type": "instruction",
+              "content": "11:55 Uhr: Bringen Sie bhoga dar (siehe Vorgehensweise für die Darbringung). Bereiten Sie vollständige āratī-Tabletts vor mit: Räucherwerk; Kampferlampe; Ghee-Lampe; Wasser; Taschentuch; Blumen; cāmara und Pfauenfederfächer (nicht im Winter)."
+            },
+            {
+              "type": "instruction",
+              "content": "12:25 Uhr: Klopfen Sie an die Tür, betreten Sie den Altarraum, entfernen Sie die Teller und legen Sie die Flöte zurück."
+            },
+            {
+              "type": "instruction",
+              "content": "12:30 Uhr: Blasen Sie das Muschelhorn und öffnen Sie die Vorhänge. Bringen Sie ein vollständiges ārati dar."
+            },
+            {
+              "type": "instruction",
+              "content": "12:55 Uhr: Beenden Sie ārati."
+            },
+            {
+              "type": "instruction",
+              "content": "Fegen und wischen Sie den Boden."
+            },
+            {
+              "type": "instruction",
+              "content": "Schließen Sie die Vorhänge."
+            },
+            {
+              "type": "instruction",
+              "content": "Decken Sie die Betten auf."
+            },
+            {
+              "type": "instruction",
+              "content": "Bringen Sie danach wohlriechende Getränke, tāmbūla mit Kampfer, eine Girlande und einige Blumen dar. [Oder man kann einfach ein frisches Glas Wasser vor die Bildgestalten stellen.]"
+            },
+            {
+              "type": "instruction",
+              "content": "Rezitiere die Gebete, mit denen die Bildgestalten zur Ruhe gebettet werden, während Sie Ihre Lotosfüße berühren."
+            }
+          ]
+        },
+        {
+          "id": "putting-deities-to-rest-noon",
+          "title": "Vorgehensweise, um die Bildgestalten zur Ruhe zu betten (mittags)",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Nehmen Sie den Bildgestalten nach dem mittäglichen ārati die Kronen und die Flöte ab und bitten Sie Sie mit den folgenden Worten, Sich auf Ihr Bett zu legen und zu ruhen (śayana):"
+            },
+            {
+              "type": "subtitle",
+              "content": "Rādhā-Krsna"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "O Keśava, begib Dich bitte gemeinsam mit Deiner geliebten Śrīmatī Rādhikā zu Deinem Bett. O Mādhava, dieses strahlende Bett aus duftenden Blumen ist für Deine freudvollen Spiele bereitet."
+            },
+            {
+              "type": "subtitle",
+              "content": "Herr Caitanya Mahāprabhu"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīng gaurāya svāhā",
+              "translation": "O Herr Gaurāṅga, begib Dich bitte gemeinsam mit Deinen Gefährten zu Deiner Ruhestätte. O Herr, ruhe für einen Augenblick behaglich und genieße Deine Spiele."
+            },
+            {
+              "type": "subtitle",
+              "content": "Guru"
+            },
+            {
+              "type": "instruction",
+              "content": "Laden Sie danach Srī Gurudeva mit dem folgenden mantra zu Seiner Ruhestätte ein:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha śrī-guro\naing gurave namaḥ",
+              "translation": "O Gurudeva, begib Dich bitte gemeinsam mit all Deinen Gefährten zu Deiner Ruhestätte."
+            }
+          ]
+        },
+        {
+          "id": "afternoon-schedule",
+          "title": "Zeitplan für den Nachmittag",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "15:15 Uhr: Schneiden Sie das Obst und bereiten Sie die bhoga-Opfergabe vor. Bereiten Sie den Teller für die Darbringung vor: 2 Kekse; 3 Schalen Obst; 1 Getränk; Wasser (1 Schale Honig für Balarāma)."
+            },
+            {
+              "type": "instruction",
+              "content": "15:35 Uhr: Wecken Sie die Bildgestalten (siehe morgendliche Vorgehensweise)."
+            },
+            {
+              "type": "instruction",
+              "content": "15:40 Uhr: Bringen Sie die Opfergabe dar (siehe Vorgehensweise für die Darbringung)."
+            },
+            {
+              "type": "instruction",
+              "content": "15:55 Uhr: Entfernen Sie den Teller. Bringen Sie den Bildgestalten ācamana dar. Entfernen Sie die asanas und reinigen Sie die Tische, den Boden usw."
+            },
+            {
+              "type": "instruction",
+              "content": "16:00 Uhr: Dhūpa-ārati: Öffnen Sie die Vorhänge und bringen Sie Räucherwerk, Blumen, cāmara und Pfauenfederfächer dar (nicht im Winter)."
+            },
+            {
+              "type": "instruction",
+              "content": "16:10 Uhr: Beenden Sie ārati, räumen Sie auf, wischen Sie den Boden usw."
+            }
+          ]
+        },
+        {
+          "id": "sandhya-arati",
+          "title": "Sandhyā-ārati und Darbringung",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "18:10 Uhr: Bereiten Sie den Teller für die Darbringung vor: 3 subjis; 4 puris; 1 halava; 1 Milch; Wasser; 2 tägliche Süßspeisen."
+            },
+            {
+              "type": "instruction",
+              "content": "18:30 Uhr: Schließen Sie die Vorhänge. Stellen Sie die asanas usw. für die Darbringung auf."
+            },
+            {
+              "type": "instruction",
+              "content": "18:40 Uhr: Bringen Sie bhoga dar und bereiten Sie vollständige āratī-Tabletts vor."
+            },
+            {
+              "type": "instruction",
+              "content": "18:55 Uhr: Entfernen Sie die Teller. Bringen Sie den Bildgestalten ācamana dar. Entfernen Sie die asanas und reinigen Sie die Tische, den Boden usw."
+            },
+            {
+              "type": "instruction",
+              "content": "19:00 Uhr: Sandhya ārati."
+            },
+            {
+              "type": "instruction",
+              "content": "19:25 Uhr: Beenden Sie ārati."
+            }
+          ]
+        },
+        {
+          "id": "ratri-kalina-arati",
+          "title": "Rātri-kālīna-ārati und Darbringung",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "19:45 Uhr: Bereiten Sie den Teller für die Darbringung vor: 1 subji; 2 puris; 1 halava; 1 Milch; Wasser; 2 tägliche Süßspeisen."
+            },
+            {
+              "type": "instruction",
+              "content": "20:00 Uhr: Schließen Sie die Vorhänge und bereiten Sie die Darbringung vor."
+            },
+            {
+              "type": "instruction",
+              "content": "20:10 Uhr: Bringen Sie bhoga dar."
+            },
+            {
+              "type": "instruction",
+              "content": "20:25 Uhr: Entfernen Sie den Teller. Bringen Sie den Bildgestalten ācamana dar. Entfernen Sie die asanas und reinigen Sie die Tische, den Boden usw."
+            },
+            {
+              "type": "instruction",
+              "content": "20:30 Uhr: Dhūpa-ārati: Räucherwerk; Blumen; cāmara; Pfauenfederfächer (nicht im Winter)."
+            },
+            {
+              "type": "instruction",
+              "content": "20:40 Uhr: Beenden Sie ārati und verteilen Sie die Girlanden."
+            },
+            {
+              "type": "instruction",
+              "content": "20:45 Uhr: Schließen Sie die Vorhänge."
+            },
+            {
+              "type": "instruction",
+              "content": "Nehmen Sie Tulasī devi vom Altar."
+            },
+            {
+              "type": "instruction",
+              "content": "Entfernen Sie die Blumen und Girlanden."
+            },
+            {
+              "type": "instruction",
+              "content": "Entkleiden Sie die Bildgestalten."
+            },
+            {
+              "type": "instruction",
+              "content": "Kleiden Sie Sie schlicht und mit wenig Schmuck an."
+            },
+            {
+              "type": "instruction",
+              "content": "Die kleinen Bildgestalten zur Ruhe betten."
+            },
+            {
+              "type": "instruction",
+              "content": "Bringen Sie kheer und Wasser herein und bringen Sie beides dar."
+            },
+            {
+              "type": "instruction",
+              "content": "Betten Sie die Bildgestalten mit Gebeten und mantras zur Ruhe."
+            }
+          ]
+        },
+        {
+          "id": "putting-deities-to-rest-evening",
+          "title": "Vorgehensweise, um die Bildgestalten zur Ruhe zu betten (abends)",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Nehmen Sie den Bildgestalten nach dem abendlichen ārati die Kronen und die Flöte ab und bitten Sie Sie mit den folgenden Worten, Sich auf Ihr Bett zu legen und zu ruhen (śayana):"
+            },
+            {
+              "type": "subtitle",
+              "content": "Rādhā-Krsna"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "O Keśava, begib Dich bitte gemeinsam mit Deiner geliebten Śrīmatī Rādhikā zu Deinem Bett. O Mādhava, dieses strahlende Bett aus duftenden Blumen ist für Deine freudvollen Spiele bereitet."
+            },
+            {
+              "type": "subtitle",
+              "content": "Herr Caitanya Mahāprabhu"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīng gaurāya svāhā",
+              "translation": "O Herr Gaurāṅga, begib Dich bitte gemeinsam mit Deinen Gefährten zu Deiner Ruhestätte. O Herr, ruhe für einen Augenblick behaglich und genieße Deine Spiele."
+            },
+            {
+              "type": "subtitle",
+              "content": "Guru"
+            },
+            {
+              "type": "instruction",
+              "content": "Laden Sie danach Srī Gurudeva mit dem folgenden mantra zu Seiner Ruhestätte ein:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha śrī-guro\naing gurave namaḥ",
+              "translation": "O Gurudeva, begib Dich bitte gemeinsam mit all Deinen Gefährten zu Deiner Ruhestätte."
+            },
+            {
+              "type": "instruction",
+              "content": "Rezitiere mantras um Vergebung (Gebete, in denen um Vergebung für Vergehen gebeten wird)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "worship-sixteen-articles",
+      "title": "Verehrung von Herrn Caitanya und Śrī Śrī Rādhā-Kṛṣṇa mit sechzehn Gegenständen",
+      "subtitle": "Ṣoḍaśopacāra-pūjā",
+      "page": "20",
+      "content": [
+        {
+          "type": "instruction",
+          "content": "Führe außerhalb des Bildgestaltenraums (pūjārī-Raum) ācamana aus und bringe deinem spirituellen Meister Ehrerbietungen dar."
+        },
+        {
+          "type": "instruction",
+          "content": "Der pūjārī stellt die für die Verehrung der Bildgestalten erforderlichen Utensilien zusammen."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "required-paraphernalia",
+          "title": "Erforderliche Utensilien",
+          "content": [
+            {
+              "type": "text",
+              "content": "Um die Verehrung nicht unterbrechen zu müssen, vergewissere dich vor Beginn, dass folgende Gegenstände vorhanden sind:"
+            },
+            {
+              "type": "image",
+              "src": "Parafernalia.png",
+              "alt": "Abbildung der Utensilien für die Verehrung"
+            },
+            {
+              "type": "text",
+              "content": "eine kleine Glocke auf einem Teller;\nein Pañca-pātra mit frischem Wasser und einem Löffel;\nein mit Wasser gefülltes Wassergefäß mit Deckel und Ausguss;\nein Entsorgungsgefäß (Visarjanīya-pātra);\npulverisiertes, mit Zitronensaft vermischtes Gopī-candana (für Bildgestalten aus Messing);\nTaila (Duftöl);\nein Wassermuschelhorn auf einem Ständer;\nein Badegefäß (Snāna-pātra);\nein Gefäß für caraṇāmṛta;\nGewänder und Nadeln;\nSchmuck und Klebemasse;\nGandha (Sandelholzpaste);\nBlumen und Blumengirlanden;\ntulasī-Blätter;\nPadya-pātra, Argya-pātra, Ācamana-pātra (eines für den Herrn und eines für dich), Madhuparka-pātra;\nRäucherwerk und 1 Ghee-Lampe;\nZubereitungen auf dem bhoga-Teller, naivedya - Süßigkeiten; Früchte und Wasser\nein Bild deines spirituellen Meisters und ein Gefäß für Opfergaben;\nBlumengirlanden, 2 bereits angefertigte Girlanden für Rādhā-Śyāmasundara, 1 bereits angefertigte Girlande für Herrn Caitanya;\nBadetücher\nGamchas für die Bildgestalten"
+            }
+          ]
+        },
+        {
+          "id": "asana-sthapana",
+          "title": "Einrichten eines Ortes für die Verehrung (āsana-sthāpana)",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Betritt den Bildgestaltenraum, reinige den Bereich, in dem du die Verehrung ausführen wirst, und lege ein āsana auf den Boden."
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe alle erforderlichen Utensilien in den Bildgestaltenraum."
+            },
+            {
+              "type": "instruction",
+              "content": "Stelle das āsana an den Platz, an dem du die Verehrung ausführst, knie dich nieder und rezitiere mit gefalteten Händen (praṇāma-mudrā):"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "pṛthvi tvayā dhṛtā lokā\ndevi tvaṃ viṣṇunā dhṛtā\ntvaṃ ca dhāraya māṃ nityaṃ\npavitraṃ kuru cāsanam",
+              "translation": "O Mutter Erde, o Göttin, du trägst alle Menschen der Welt, und Herr Viṣṇu erhält dich; sei heute bitte barmherzig und trage mich, während ich sitze, um den Herrn zu verehren."
+            },
+            {
+              "type": "instruction",
+              "content": "Denke daran, wie dein spiritueller Meister auf einem āsana an dem Platz sitzt, an dem die Verehrung ausgeführt wird, und setze dich dann auf dein eigenes āsana."
+            }
+          ]
+        },
+        {
+          "id": "patra-sthapana",
+          "title": "Anordnen der Utensilien für die Verehrung (pātra-sthāpana)",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Ordne die Gegenstände so an, dass du sie leicht erreichen kannst, ohne dargebrachte und noch nicht dargebrachte Gegenstände miteinander in Berührung zu bringen."
+            },
+            {
+              "type": "text",
+              "content": "Stelle die Glocke (auf einem Teller) links von dir auf und platziere das Bademuschelhorn so auf einem Ständer, dass du es mehrmals mühelos anheben und wieder abstellen kannst. Das Wassergefäß, die Blumen, das candana und die tulasī-Blätter sollten leicht erreichbar sein."
+            },
+            {
+              "type": "text",
+              "content": "Verwende das Entsorgungsgefäß (visarjanīya-pātra) für dargebrachtes ācamana und arghya; du kannst diese Flüssigkeiten auch in das Badegefäß (snāna-pātra) gießen, sofern es einen Abfluss besitzt. Für dargebrachte Blütenblätter, Wattestäbchen usw. kannst du ein zweites visarjanīya-pātra verwenden."
+            },
+            {
+              "type": "text",
+              "content": "Badetücher sollten auf ein Tablett, einen Tisch oder den Altar gelegt werden, nicht auf deinen Schoß oder unmittelbar auf den Boden. Dies gilt für alle Utensilien; nichts darf auf das Untertuch oder den Boden gelegt werden."
+            }
+          ]
+        },
+        {
+          "id": "guru-pankti-namaskara",
+          "title": "Die Segnungen des spirituellen Meisters und der vorangegangenen Ācāryas erbitten (guru-paṅkti-namaskāra)",
+          "content": [
+            {
+              "type": "subtitle",
+              "content": "Vorbereitende Verehrung"
+            },
+            {
+              "type": "instruction",
+              "content": "Beginne das arcana von Śrī Rādhā-Kṛṣṇa, indem du Śrī Guru und Śrī Gaurāṅga um Erlaubnis und Barmherzigkeit bittest:"
+            },
+            {
+              "type": "instruction",
+              "content": "Rezitiere: Tvaṁ gopikā vṛṣa-raves tanayāntike ‘si..., Oṁ ajñāna-timirāndhasya..., Nāma-śreṣṭhaṁ manum api śacī-putram atra svarūpaṁ..., Vāñchā-kalpa-tarubhyaś ca..., das mahā-mantra"
+            },
+            {
+              "type": "text",
+              "content": "Śrī Gurudeva ist ein vertrauter Diener und eine innige Freundin (sakhī) Śrī Rādhā-Kṛṣṇas. Gurudeva ist im unmittelbaren Dienst Śrī Rādhā-Kṛṣṇas beschäftigt. Vertieft in diese Meditation und der eigenen Unfähigkeit eingedenk, führe arcana aus."
+            },
+            {
+              "type": "instruction",
+              "content": "Lenke die Aufmerksamkeit deines spirituellen Meisters auf dich, indem du Blumen vor ihn legst und dabei rezitierst"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "eṣa puṣpāñjaliḥ aing gurave namaḥ"
+            },
+            {
+              "type": "instruction",
+              "content": "Meditiere dann über den Dienst deines spirituellen Meisters für die vorangegangenen ācāryas, zeige die praṇāma-mudrā (gefaltete Hände) und bitte ihn um seinen Segen, dich bei der Verehrung des Herrn zu unterstützen."
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe der auf dem Altar befindlichen guru-paramparā praṇāma dar und rezitiere dann:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "aing gurave namaḥ",
+              "translation": "Ich bringe meinem spirituellen Meister Ehrerbietungen dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "aing parama-gurave namaḥ",
+              "translation": "Ich bringe dem spirituellen Meister meines spirituellen Meisters Ehrerbietungen dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "aing parameṣṭhi gurave namaḥ",
+              "translation": "Ich bringe dem spirituellen Meister des spirituellen Meisters meines spirituellen Meisters Ehrerbietungen dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "aing śrī guru-paramparāyai namaḥ",
+              "translation": "Ich bringe der śrī guru-paramparā Ehrerbietungen dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ sarva-gurūttamāya śrī kṛṣṇa-caitanyāya namaḥ",
+              "translation": "Ich bringe dem höchsten aller gurus, Śrī Kṛṣṇa Caitanya, Ehrerbietungen dar."
+            }
+          ]
+        },
+        {
+          "id": "kara-suddhi",
+          "title": "Reinigung der Hände (kara-śuddhi)",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Wasche deine Hände mit Wasser aus dem Wassergefäß."
+            }
+          ]
+        },
+        {
+          "id": "puspa-suddhi",
+          "title": "Reinigung der Blumen (puṣpa-śuddhi)",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Besprenge die Blumen mit Samānya-arghya-Wasser (Wasser der heiligen Flüsse), während du rezitierst:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ astrāya phaṭ",
+              "translation": ""
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ puṣpe puṣpe mahā-puṣpe\nsu-puṣpe puṣpa-sambhave\npuṣpe cayavākīrṇe ca\nhuṁ phaṭ svāhā",
+              "translation": "O Blumen, o große und glückverheißende Blumen, die ihr aus einer knospenden Kletterpflanze hervorgegangen seid, möget ihr geläutert werden."
+            }
+          ]
+        },
+        {
+          "id": "dravya-suddhi",
+          "title": "Reinigung der Utensilien des Herrn (dravya-śuddhi)",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Besprenge alle Utensilien leicht mit samānya-arghya-Wasser, während du rezitierst:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ astrāya phaṭ"
+            }
+          ]
+        },
+        {
+          "id": "bhuta-suddhi",
+          "title": "Reinigung der körperlichen Elemente (bhūta-śuddhi)",
+          "content": [
+            {
+              "type": "subtitle",
+              "content": "Reinigung der körperlichen Elemente, indem man sich als ewiger Diener des Dieners von Herrn Kṛṣṇa erkennt"
+            },
+            {
+              "type": "text",
+              "content": "Vor dem arcana reinigt man sich durch folgenden Gedanken: \"Meiner wesensgemäßen Stellung nach bin ich ein ewiger Diener Śrī Kṛṣṇas, doch durch ein Missgeschick bin ich Ihm seit unvordenklicher Zeit abgeneigt. Da ich mich in diesem täuschenden Dasein mit einem materiellen Körper identifiziert hatte und im sich wiederholenden Kreislauf von Geburt und Tod gefangen war, brannte ich im lodernden Feuer der dreifachen Leiden. Durch großes Glück jedoch -- das heißt durch die Barmherzigkeit Śrī Gurus -- habe ich meine Identität als winziges, atomares spirituelles Teilchen, als ewiger Diener Śrī Kṛṣṇas, erkannt, das vom grob- und feinstofflichen Körper völlig verschieden ist. Nun habe ich auf Anweisung Śrī Gurudevas und unter seinem Schutz das Glück erlangt, Śrī Guru-Gaurāṅga und Śrī Rādhā-Vinoda-Bihārījī dienen zu dürfen.\""
+            },
+            {
+              "type": "verse",
+              "sanskrit": "nāhaṁ vipro na ca nara-patir nāpi vaiśyo na śūdro\nnāhaṁ varṇī na ca gṛha-patir no vana-stho yatir vā\nkintu prodyan-nikhila-paramānanda-pūrṇāmṛtābdher\ngopī-bhartuḥ pada-kamālāyor dāsa-dāsānudāsaḥ",
+              "translation": "Ich bin weder ein brāhmaṇa, kṣatriya, vaiśya noch ein śūdra, noch bin ich ein brahmacārī, gṛhastha, vānaprastha oder sannyāsī. Da ich jenseits dieses grob- und feinstofflichen Körpers stehe, bin ich der Diener des Dieners des Dieners der Lotosfüße des Meisters der gopīs, Śrī Kṛṣṇa, der die endgültige Zuflucht aller ist, von transzendentaler Glückseligkeit erfüllt und ein Ozean unbegrenzten Nektars. [Padyāvalī 74]"
+            }
+          ]
+        },
+        {
+          "id": "atma-dhyana",
+          "title": "Meditation über das Selbst (ātma-dhyāna-mantra)",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "divyaṁ śrī-hari-mandirāḍhya-tilakaṁ kaṇṭhaṁ sumālānvitaṁ\nvakṣaḥ śrī-harināma-varṇa-subhagaṁ śrī-khaṇḍa-liptaṁ punaḥ\npūtaṁ sūkṣmaṁ navāmbaraṁ vimalatāṁ nityaṁ vahantīṁ tanuṁ\ndhyāyet śrī-guru-pāda-padma-nikaṭe sevotsukaṁ cātmanaḥ",
+              "translation": "Ich meditiere darüber, wie ich mich den Lotosfüßen Śrī Gurus hingegeben habe und fest entschlossen bin, ihm zu dienen. Ich meditiere über mich selbst, meine Stirn mit schönem tilaka geschmückt, das den Tempel Śrī Haris darstellt. Ich trage eine schöne Halskette aus tulasī-Perlen. Meine Brust ist mit dem heiligen Namen gezeichnet und mit Sandelholzpaste gesalbt. Ich bin in feine, reine Gewänder gekleidet und in meinem Innern unablässig in immer neue spirituelle Empfindungen vertieft."
+            },
+            {
+              "type": "text",
+              "content": "Anmerkung: Kurz gesagt sollte man vor Beginn des arcana den Altar und die Utensilien reinigen. Stelle die Gegenstände an einem zweckmäßigen Ort auf. Es ist wichtig, das Wasser im pañca-pātra mit dem mantra \"gaṅge ca yamune caiva...\" zu heiligen und die Blumen mit dem mantra \"puṣpe puṣpe mahā-puṣpe...\" zu reinigen. Pādya, arghya und ācamanīya werden gewöhnlich durch reines Wasser aus dem pañca-pātra ersetzt. Wenn ein Gegenstand nicht beschafft werden kann, kann er entsprechend durch Meditation und das Darbringen von Wasser aus dem pañca-pātra oder dem Muschelhorn ersetzt werden."
+            }
+          ]
+        },
+        {
+          "id": "ghanta-puja",
+          "title": "Verehrung der Glocke des Herrn (ghanta-puja)",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Während du der Glocke ein in candana getauchtes Blütenblatt darbringst, rezitiere:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "ete gandha-puspe oṁ jaya-dhuani-mantra-matāh svāhā",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Befestige nun das Blütenblatt mit dem candana am Körper der Glocke. Läute die Glocke dann kurz mit der linken Hand und stelle sie wieder auf den Teller, wobei du die ganze Zeit daran denkst, dass die Glocke eine Dienerin des Herrn ist."
+            }
+          ]
+        },
+        {
+          "id": "sankha-puja",
+          "title": "Verehrung des Bademuschelhorns des Herrn (sarkha-puja)",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Während du dem Bademuschelhorn des Herrn Blumen und candana darbringst, rezitiere:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "ete gandha-puspe\noṁ hum hum hum namah maha-sankhaya svāhā",
+              "translation": ""
+            }
+          ]
+        },
+        {
+          "id": "guru-puja-ref",
+          "title": "Verehrung des spirituellen Meisters (guru-puja)",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Siehe den Abschnitt \"Arcana für Śrī Guru\"."
+            },
+            {
+              "type": "instruction",
+              "content": "Chante dann das prema-dhvani für deinen spirituellen Meister: jaya oṁ viṣṇupāda [Name deines spirituellen Meisters] kī jaya."
+            }
+          ]
+        },
+        {
+          "id": "bahya-puja",
+          "title": "Verehrung von Herrn Caitanya und Śrī Śrī Rādhā-Kṛṣṇa mit sechzehn upacāras (bāhya-pūjā)",
+          "content": [
+            {
+              "type": "subtitle",
+              "content": "Meditation über Śrī Vṛndāvana-dhāma"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "tato vṛndāvanaṁ dhyāyet paramānanda-vardhanam\nkālindī-jala-kallola- saṅgi-māruta-sevitam\nnānā-puṣpa-latā-baddha- vṛkṣa-ṣaṇḍaiś ca maṇḍitam\nkoṭi-sūrya-samābhāsaṁ vimuktaṁ ṣaṭ-taraṅgakaiḥ\ntan-madhye ratna-khacitaṁ svarṇa-siṁhāsanaṁ mahat",
+              "translation": "Meditiere über einen großen goldenen, mit Juwelen besetzten Thron im göttlichen Reich Śrī Vṛndāvana-dhāmas. Als ein Ort immerzu wachsender Glückseligkeit wird Vṛndāvana-dhāma von Lüften umspielt, die durch die Berührung mit den Wellen der Yamunā gekühlt werden, und ist mit verschiedenartigen Blumen, Kletterpflanzen und Bäumen geschmückt. Seine Pracht gleicht der von Millionen Sonnen, und es ist ewig von den sechs Wellen der materiellen Natur frei (nämlich Lust, Zorn, Gier, Neid, falschem Ego und Illusion)."
+            },
+            {
+              "type": "subtitle",
+              "content": "Meditation über Śrī Rādhā-Kṛṣṇa"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "dīvyad-vṛndāraṇya-kalpa-drumādhaḥ\nśrīmad-ratnāgāra-siṁhāsana-sthau\nśrī-śrī-rādhā-śrīla-govinda-devau\npreṣṭhālībhiḥ sevyamānau smarāmi",
+              "translation": "Im strahlenden Land Śrī Vṛndāvanas, in einem aus Juwelen bestehenden Tempel, sitzen Śrī Rādhā-Govinda unter einem kalpa-vṛkṣa-Baum auf einem leuchtenden Thron und nehmen den Dienst Ihrer geliebten sakhīs entgegen. Ich meditiere über Sie. [Śrī Caitanya-caritāmṛta Ādi-līlā 1.16]"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "sat-puṇḍarīka-nayanaṁ meghābhaṁ vaidyutāmbaram\ndvi-bhujaṁ veṇu-vaktrābjaṁ vana-mālinam īśvaram\ndivyālaṅkāraṇopetaṁ sakhībhiḥ pariveṣṭitam\ncid-ānanda-ghanaṁ kṛṣṇaṁ rādhāliṅgita-vigraham",
+              "translation": "Ich meditiere über Śrī Kṛṣṇa (der auf dem juwelenbesetzten Thron sitzt), der wunderschöne Lotosaugen besitzt, dessen Körperfarbe der einer frischen Regenwolke gleicht, der einen gelben seidenen dhotī trägt, zwei Arme hat, Flöte spielt, schöne Waldblumengirlanden trägt, mit funkelndem Schmuck geschmückt und von den gopīs umgeben ist, Śrīmatī Rādhikā umarmt und dessen Körper aus transzendentalem Bewusstsein und transzendentaler Glückseligkeit besteht."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "śrī kṛṣṇaṁ śrī-ghana-śyāmaṁ\npūrṇānanda-kalevaram\ndvi-bhujaṁ sarva-deveśaṁ\nrādhāliṅgita-vigraham",
+              "translation": "Ich meditiere über Śrī Kṛṣṇa, dessen blauschwarze Farbe der einer frischen Regenwolke gleicht, dessen Körper von transzendentaler Glückseligkeit erfüllt ist, der eine zweiarmige Gestalt besitzt, der Herr aller Halbgötter ist und von Śrīmatī Rādhikā umarmt wird."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arcana-procedure",
+      "title": "Arcana-Verfahren",
+      "subtitle": null,
+      "page": "30",
+      "content": [
+        {
+          "type": "instruction",
+          "content": "Nachdem du auf diese Weise meditiert hast, chante Sri Gāndhārvikā-Giridhārī Sri Rādhā-Vinoda-Bihārījī kī jaya. Führe zuerst die Verehrung im Geist (mānasa-pūjā) aus und verehre dann mit äußeren Utensilien das Göttliche Paar -- in Form der Bildgestalt. Bringe jeden Gegenstand zuerst dem Herrn Śrī Kṛṣṇa und dann Śrīmatī Rādhārānī dar."
+        },
+        {
+          "type": "subtitle",
+          "content": "Empfang"
+        },
+        {
+          "type": "instruction",
+          "content": "Läute eine Glocke und chante dabei:"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "eṣa puṣpāñjali klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+          "translation": ""
+        },
+        {
+          "type": "instruction",
+          "content": "Bringe den Lotosfüßen Ihrer Herrschaften Blütenblätter dar."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "1-asana",
+          "title": "1) Āsana (Sitz)",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ āsanaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe Ihren Herrschaften ein āsana dar, auf dem Sie Platz nehmen können. Geleite Sie mit einer Geste deiner Hände zum Ort der Verehrung. Lege eine in candana getauchte Blume in das Badegefäß (snāna-pātra), um ein āsana darzubringen."
+            }
+          ]
+        },
+        {
+          "id": "2-svagata",
+          "title": "2) Svāgata (Willkommensgruß)",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "svāgataṁ su-svāgatam klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām\nnamaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Heiße Ihre Herrschaften mit gefalteten Händen willkommen und sorge für Ihr Wohlbefinden."
+            }
+          ]
+        },
+        {
+          "id": "3-padya",
+          "title": "3) Padya (Fußbad)",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "etat pādyaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe Ihren Herrschaften padya-Wasser dar, um Ihre Lotosfüße zu waschen."
+            }
+          ]
+        },
+        {
+          "id": "4-arghya",
+          "title": "4) Arghya (eine symbolische Opfergabe)",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ arghyam klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe Ihren Herrschaften arghya in Ihre Hände dar, damit Sie es über Ihre Häupter sprenkeln können."
+            }
+          ]
+        },
+        {
+          "id": "5-acamana",
+          "title": "5) Ācamana (Mundspülung)",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ ācamanīyaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe Ihren Herrschaften Wasser zum Nippen dar."
+            }
+          ]
+        },
+        {
+          "id": "6-madhuparka",
+          "title": "6) Madhuparka (süße flüssige Speise)",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "eṣa madhuparkaḥ klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe Ihren Herrschaften Becher mit madhuparka dar."
+            }
+          ]
+        },
+        {
+          "id": "7-punar-acamana",
+          "title": "7) Punar-ācamana (Mundspülung)",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ punar-ācamanīyaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe erneut Wasser zum Nippen dar."
+            }
+          ]
+        },
+        {
+          "id": "8-snana",
+          "title": "8) Snāna (Bad)",
+          "content": [
+            {
+              "type": "subtitle",
+              "content": "Baden und Ankleiden"
+            },
+            {
+              "type": "instruction",
+              "content": "Mūrti-śuddhi: Entferne behutsam die Kleidung und den Schmuck der Bildgestalten und achte darauf, Sie dabei keinesfalls zu zerkratzen oder zu beschädigen. Ziehe die Kleidung nicht über Ihre Gesichter. Reinige Ihre Herrschaften mit einem weichen Tuch oder Schwamm, das bzw. der mit warmem Wasser angefeuchtet wurde, und wische candana, tulasī-Blätter usw. ab."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ sugandha-tailam klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Massiere Ihre Herrschaften mit duftendem Öl."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ snānīyam klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Bade Ihre Herrschaften, indem du Wasser aus dem Muschelhorn über Sie gießt (fülle es mindestens dreimal mit Wasser), während du die Glocke läutest und die Brahma-saṁhitā sowie andere geeignete Gebete chantest."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ aṅga-vastram klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Trockne Ihre Herrschaften mit weichen Tüchern ab."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ ācamanīyaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe Ihren Herrschaften Wasser zum Nippen dar."
+            }
+          ]
+        },
+        {
+          "id": "9-vastra",
+          "title": "9) Vastra (Tuch)",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ vastram klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe Ihren Herrschaften frische Kleidung dar. (dhoti)"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ ācamanīyaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe Ihren Herrschaften Wasser zum Nippen dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ upavītam klīng gaurāya svāhā klīṁ kṛṣṇāya namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe Herrn Caitanya und Sri Kṛṣṇa ein upavīta dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ tilakam klīng gaurāya svāhā klīṁ kṛṣṇāya namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe Herrn Caitanya und Sri Kṛṣṇa ūrdhva-puṇḍra tilaka dar, bevor du das Obergewand anlegst."
+            },
+            {
+              "type": "text",
+              "content": "Hinweis: Beim Darbringen von tilaka kannst du auch die Namen von Viṣṇu chanten, wie beim Auftragen von tilaka auf dich selbst: oṁ keśavāya namaḥ für die Stirn usw."
+            }
+          ]
+        },
+        {
+          "id": "10-abharana",
+          "title": "10) Ābharaṇa (Schmuck)",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "imāni ābharaṇāni klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe Ihren Herrschaften Schmuck dar und schmücke Sie."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ malyam klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe Blumengirlanden dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ kaṅkaṇam śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Kämme, ordne und schmücke Ihr Haar."
+            }
+          ]
+        },
+        {
+          "id": "11-gandha",
+          "title": "11) Gandha (duftendes candana)",
+          "content": [
+            {
+              "type": "subtitle",
+              "content": "Verehrung"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "eṣa gandhaḥ klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Trage je nach Jahreszeit mit Duftstoffen vermischtes candana auf die Lotosfüße, Hände und Häupter Ihrer Herrschaften auf."
+            }
+          ]
+        },
+        {
+          "id": "12-puspa",
+          "title": "12) Puṣpa (Blumen)",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "etāni puṣpāni klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe den Lotosfüßen Ihrer Herrschaften duftende Blumen oder in candana getauchte Blütenblätter dar, während du eine Glocke läutest. Zu diesem Zeitpunkt kannst du weitere Blumen zur Verzierung darbringen."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "etat tulasī-pātram (for one leaf) or etāni tulasī-patrāṇi (for several\nleaves) klīṁ kṛṣṇāya namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe Kṛṣṇas Lotosfüßen tulasī-Blätter und mañjarīs mit candana dar. Lege Rādhā ein tulasī-Blatt in die rechte Hand, damit Sie es Kṛṣṇa darbringen kann."
+            }
+          ]
+        },
+        {
+          "id": "13-dhupa",
+          "title": "13) Dhūpa (Räucherwerk)",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "eṣa dhūpaḥ klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe Räucherwerk dar."
+            }
+          ]
+        },
+        {
+          "id": "14-dipa",
+          "title": "14) Dīpa (Ghee-Lampe)",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "eṣa dīpaḥ klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe eine Ghee-Lampe dar."
+            }
+          ]
+        },
+        {
+          "id": "15-naivedya",
+          "title": "15) Naivedya (Speisen)",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Siehe Abschnitt \"Darbringung von bhoga\"."
+            }
+          ]
+        },
+        {
+          "id": "16-pranama",
+          "title": "16) Praṇāma (Ehrerbietungen)",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Erweise Achtung, bringe Lobpreisungen und Ehrerbietungen dar. Chante still je zehnmal das gopāla-mantra und die kāma-gāyatrī und chante danach zehnmal die rādhā-gāyatrī."
+            },
+            {
+              "type": "subtitle",
+              "content": "Śrī rādhā-mantra"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "rāṁ rādhāyai namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "subtitle",
+              "content": "Śrī rādhā-gāyatrī"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "rāṁ rādhikāyai vidmahe prema-rūpāyai dhīmahi tan no rādhā praco-dayāt",
+              "translation": ""
+            },
+            {
+              "type": "verse",
+              "sanskrit": "he kṛṣṇa karuṇā-sindho dīna-bandho jagat-pate\ngopeśa gopikā-kānta rādhā-kānta namo 'stu te",
+              "translation": "Ich bringe Śrī Kṛṣṇa praṇāma dar. Er ist ein Ozean der Barmherzigkeit, der Freund der Notleidenden und der Ursprung der Schöpfung. Er ist der Herr der gopas und der Geliebte der gopīs, an deren Spitze Śrīmatī Rādhikā steht."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "tapta-kāṣcana-gaurāṅgi\nrādhe vṛndāvaneśvari\nvṛṣabhānu-sute devi\npraṇamāmi hari-priye",
+              "translation": "Ich bringe Śrīmatī Rādhikā praṇāma dar, deren Körperfarbe geschmolzenem Gold gleicht und die die Königin von Vṛndāvana ist. Sie ist die Tochter von Vṛṣabhānu mahārāja und Śrī Hari sehr lieb."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "mahābhāva-svarūpā tvaṁ\nkṛṣṇa-priyā-varīyasi\nprema-bhakti-prade devi\nrādhike tvāṁ namāmy aham",
+              "translation": "O Śrīmatī Rādhikā, da Du die Verkörperung von mahābhāva bist, bist Du Śrī Kṛṣṇas liebste Geliebte. O Göttin, Du allein kannst reine Liebe zu Śrī Kṛṣṇa gewähren. Daher bringe ich Dir meine demütigen Ehrerbietungen dar."
+            }
+          ]
+        },
+        {
+          "id": "offering-maha-prasada",
+          "title": "Darbringung von mahā-prasāda",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Nachdem die Verehrung der Bildgestalt abgeschlossen ist, bringe śrī guru und den Vaiṣṇavas das mahā-prasāda sowie jegliche prasādī (übriggebliebenen) Blumen oder Girlanden dar, indem du die folgenden mantras chantest:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ mahā-prasādaṁ nirmālyādikam aing śrī gurave namaḥ\nidaṁ pānīyaṁ aing śrī gurave namaḥ\nidaṁ ācamanīyaṁ aing śrī gurave namaḥ\nidaṁ sarvaṁ oṁ sarva-sakhībhyo namaḥ\nidaṁ sarvaṁ oṁ sarva-vaiṣṇavebhyo namaḥ\nidaṁ sarvaṁ oṁ śrī paurṇamāsyai namaḥ\nidaṁ sarvaṁ oṁ sarva-vraja-vāsibhyo namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Chante die aparādha-śodhana mantras (Gebete um Vergebung für Vergehen)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arcana-sri-guru",
+      "title": "Arcana für Śrī Guru",
+      "subtitle": null,
+      "page": "38",
+      "content": [
+        {
+          "type": "text",
+          "content": "Mit dieser Vorstellung im Herzen soll man śrī gurudeva seinen Möglichkeiten entsprechend mit sechzehn Utensilien verehren."
+        },
+        {
+          "type": "text",
+          "content": "Śrī Gaurasundara sitzt auf einem juwelenbesetzten Altar am Yogapīṭha in Māyāpura, das zum transzendentalen Reich von Śrī Navadvīpa-dhāma gehört. Śrī Nityānanda Prabhu steht zu Seiner Rechten, Śrī Gadādhara zu Seiner Linken, Śrī Advaita Prabhu steht mit gefalteten Händen vor Ihm, und Śrīvāsa Paṇḍita steht hinter Ihm und hält einen Schirm. [Unmittelbar unter dem juwelenbesetzten Altar Śrī Gaurasundaras befindet sich ein weiterer Altar, auf dem śrī gurudeva sitzt.]"
+        }
+      ],
+      "subsections": [
+        {
+          "id": "guru-varga-obeisances",
+          "title": "Ehrerbietungen an Śrī Guru-varga",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Bringe der guru-paramparā, die sich auf dem Altar links von der Bildgestalt befindet, praṇāma dar und rezitiere dann:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "aing gurave namaḥ",
+              "translation": "Ich bringe meinem spirituellen Meister Ehrerbietungen dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "aing parama-gurave namaḥ",
+              "translation": "Ich bringe dem spirituellen Meister meines spirituellen Meisters Ehrerbietungen dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "aing parameṣṭhi gurave namaḥ",
+              "translation": "Ich bringe dem spirituellen Meister des spirituellen Meisters meines spirituellen Meisters Ehrerbietungen dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "aing śrī guru-paramparāyai namaḥ",
+              "translation": "Ich bringe der śrī guru-paramparā Ehrerbietungen dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ sarva-gurūttamāya śrī kṛṣṇa-caitanyāya namaḥ",
+              "translation": "Ich bringe dem höchsten aller gurus, Śrī Kṛṣṇa Caitanya, Ehrerbietungen dar."
+            }
+          ]
+        },
+        {
+          "id": "guru-meditation",
+          "title": "Mantra zur Meditation über Śrī Gurudeva",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "prātaḥ śrīman navadvīpe\ndvi-netraṁ dvi-bhujaṁ gurum\nvarābhaya-pradaṁ śāntaṁ\nsmaret tan nāma-pūrvakam",
+              "translation": "Am frühen Morgen soll man den Namen von śrī gurudeva chanten und sich dabei daran erinnern, dass er sich in Śrī Navadvīpa oder Śrī Vṛndāvana-dhāma aufhält und zwei Augen und zwei Arme besitzt. Er schenkt Furchtlosigkeit und ist die Verkörperung des Friedens."
+            },
+            {
+              "type": "instruction",
+              "content": "Nachdem man dieses mantra rezitiert hat, soll man dreimal den Namen seines eigenen śrī gurudeva aussprechen und jedes Mal anschließend 'jaya!' sagen. Zuerst verehrt man śrī gurudeva im Geist (mānasa-pūjā). Dann bittet man um seine Barmherzigkeit und verehrt ihn mit den äußeren Utensilien, während man das bei der dīkṣā empfangene guru-mantra rezitiert."
+            }
+          ]
+        },
+        {
+          "id": "guru-arcana-procedure",
+          "title": "Vorgehensweise bei der arcana für Śrī Guru",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Während man die folgenden Utensilien darbringt, meditiert man darüber, dass man śrī gurudeva gebeten hat, im Badegefäß (snāna-pātra) Platz zu nehmen, und ihn nun badet."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ āsanaṁ aing gurave namaḥ",
+              "translation": "(1) āsana (Sitz) — Bringe eine in candana getauchte Blume im Badegefäß (snāna-pātra) dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "prabho! kṛpayā svāgataṁ kuru aing gurave namaḥ",
+              "translation": "(2) svāgata (Begrüßung) — Lade śrī gurudeva mit gefalteten Händen ein, auf dem im Badegefäß (snāna-pātra) befindlichen āsana Platz zu nehmen."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "etat pādyaṁ aing gurave namaḥ",
+              "translation": "(3) pādya (Fußbad) — Bringe mithilfe eines kuśa-Grashalms [oder mit dem pañca-pātra] Wasser an seinen Lotusfüßen in das Badegefäß (snāna-pātra) dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ arghyaṁ aing gurave namaḥ",
+              "translation": "(4) arghya — Bringe arghya (candana, Blumen und Wasser) im Badegefäß (snāna-pātra) dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ ācamanīyaṁ aing gurave namaḥ",
+              "translation": "(5) ācamanīya (Mundspülung) — Bringe Wasser im Entsorgungsgefäß dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "eṣa madhuparkaḥ aing gurave namaḥ",
+              "translation": "(6) madhuparka — Bringe madhuparka im Badegefäß (snāna-pātra) dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ punar ācamanīyaṁ aing gurave namaḥ",
+              "translation": "Bringe Wasser im Entsorgungsgefäß dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ snānīyaṁ aing gurave namaḥ",
+              "translation": "(7) snāna (Bad) — Bade śrī gurudeva mit duftendem Wasser, das aus dem Muschelhorn in das Badegefäß (snāna-pātra) gegossen wird."
+            },
+            {
+              "type": "text",
+              "content": "Anmerkung: Man kann die Glieder śrī gurudevas im Geist abtrocknen oder vor ihm ein Tuch in der Art einer ārati schwenken."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ sottarīya-vastraṁ aing gurave namaḥ",
+              "translation": "(8) vastra (Kleidung) — Bringe zwei Blumen als Darbringung eines Ober- und eines Untergewandes im Entsorgungsgefäß dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ ācamanīyaṁ aing gurave namaḥ",
+              "translation": "Bringe Wasser im Entsorgungsgefäß dar."
+            },
+            {
+              "type": "text",
+              "content": "Meditiere danach über śrī gurudeva, der an seinem Platz auf dem Altar sitzt. Berühre seine Füße und chante achtmal das guru-mantra. Dies wird prasādhana genannt [was bedeutet, dass das Baden śrī gurudevas und das Darbringen von Kleidung an ihn abgeschlossen sind]."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ upavītaṁ aing gurave namaḥ",
+              "translation": "(9) upavīta (heilige Schnur) — Bringe śrī gurudeva die heilige Schnur (upavīta) dar oder, falls keine vorhanden ist, eine Blume."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ tilakaṁ aing gurave namaḥ",
+              "translation": "Zeichne das tilaka-Zeichen auf śrī gurudeva [oder meditiere darüber, dies zu tun]."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ ābharaṇaṁ aing gurave namaḥ",
+              "translation": "(10) bhūṣaṇa (Schmuck) — Bringe eine Blume dar, um ihn mit Schmuck zu verzieren."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "eṣa gandhaḥ aing gurave namaḥ",
+              "translation": "(11) gandha — Bringe gandha an den Lotusfüßen śrī gurudevas dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ sagandhaṁ puṣpaṁ aing gurave namaḥ",
+              "translation": "(12) puṣpa (Blumen) — Bringe eine in candana getauchte Blume an seinen Lotusfüßen dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "etat tulasī patraṁ aing gurave namaḥ",
+              "translation": "Lege tulasī in seine rechte Hand. [Verwende nötigenfalls candana, damit sie haften bleibt.]"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "eṣa dhūpaḥ aing gurave namaḥ",
+              "translation": "(13) dhūpa (Räucherwerk) — Bringe stellvertretend für Räucherwerk Wasser dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "eṣa dīpaḥ aing gurave namaḥ",
+              "translation": "(14) dīpa (Ghee-Lampe) — Bringe stellvertretend für eine Ghee-Lampe Wasser dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ naivedyaṁ aing gurave namaḥ\nidaṁ pānīyaṁ aing gurave namaḥ\nidaṁ punar ācamanīyaṁ aing gurave namaḥ",
+              "translation": "(15) naivedya (Speisen) — Bringe Speisen, Wasser und ācamana dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ tāmbūlaṁ aing gurave namaḥ\nidaṁ mālyaṁ aing gurave namaḥ\nidaṁ sarvaṁ aing gurave namaḥ",
+              "translation": "(16) mālya (Girlande) — Bringe tāmbūla, eine Girlande und alle übrigen Utensilien dar."
+            },
+            {
+              "type": "instruction",
+              "content": "Chante danach zehnmal die guru-gāyatrī und bringe ihm Gebete und Ehrerbietungen dar."
+            }
+          ]
+        },
+        {
+          "id": "guru-stuti",
+          "title": "Gebete an Śrī Gurudeva (stuti)",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "tvaṁ gopikā vṛṣa-raves tanayāntike 'si\nsevādhikāriṇi guro nija-pāda-padme\ndāsyaṁ pradāya kuru māṁ vraja-kānane\nśrī rādhāṅghri-sevana-rase sukhinīṁ sukhābdhau",
+              "translation": "O Gurudeva! Du bist in einen Ozean der Glückseligkeit versunken und kannst transzendentalen Dienst verleihen. Du bist eine überaus geliebte gopikā Śrīmatī Rādhikās. Bitte gewähre mir die Zuflucht deiner Lotusfüße, damit ich voller Glück im transzendentalen Dienst für die Königin von Vraja, Śrīmatī Rādhārāṇī, beschäftigt sein kann."
+            },
+            {
+              "type": "subtitle",
+              "content": "Ehrerbietungen an Śrī Gurudeva"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ ajñāna-timirāndhasya jñānāñjana-śalākayā\ncakṣur unmīlitaṁ yena tasmai śrī-gurave namaḥ",
+              "translation": "Ich bringe śrī guru in tiefster Demut mein daṇḍavat-praṇāma dar, denn er hat meine von der Dunkelheit der Unwissenheit geblendeten Augen mit der Fackel des Wissens geöffnet."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "rādhā-sammukha-saṁsaktiṁ\nsakhī-saṅga-nivāsinīm\ntvām ahaṁ satataṁ vande\nmādhavāśraya-vigraham",
+              "translation": "O spiritueller Meister, ich bringe dir fortwährend meine Ehrerbietungen dar, denn du weilst stets in der Gegenwart Śrīmatī Rādhārāṇīs und bist Ihr zutiefst ergeben. Du hältst dich immer in der Gemeinschaft Ihrer vertrauten Gefährtinnen, der gopīs, auf und bist die Wohnstätte liebevoller Hingabe an Śrī Mādhava."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "nāma-śreṣṭhaṁ manum api śacī-putram atra svarūpaṁ\nrūpaṁ tasyāgrajam uru-purīṁ māthurīṁ goṣṭhavāṭīm\nrādhā-kuṇḍaṁ giri-varam aho rādhikā-mādhavāśāṁ\nprāpto yasya prathita-kṛpayā śrī-guruṁ taṁ nato 'smi",
+              "translation": "Ich verneige mich vor den wunderschönen Lotusfüßen meines spirituellen Meisters, durch dessen grundlose Barmherzigkeit ich den höchsten heiligen Namen, das göttliche mantra, erlangt habe; den Dienst für den Sohn Sacīmātās; die Gemeinschaft mit Śrīla Svarūpa Dāmodara, Rūpa Gosvāmī und dessen älterem Bruder, Sanātana Gosvāmī; die höchste Wohnstätte Mathurā; die glückselige Wohnstätte Vṛndāvana; den göttlichen Rādhā-kuṇḍa und den Govardhana-Hügel; sowie in meinem Herzen den Wunsch nach liebevollem Dienst für Śrī Rādhikā und Mādhava in Vṛndāvana."
+            },
+            {
+              "type": "subtitle",
+              "content": "Ehrerbietungen an die Vaiṣṇavas"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "vāñchā-kalpa-tarubhyaś ca kṛpā-sindhubhya eva ca\npatitānāṁ pāvanebhyo vaiṣṇavebhyo namo namaḥ",
+              "translation": "Ich bringe den Vaiṣṇavas praṇāma dar, die wie Wunschbäume die Wünsche eines jeden erfüllen können und voller Mitgefühl für die bedingten Seelen sind."
+            },
+            {
+              "type": "subtitle",
+              "content": "Mahā-mantra"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "hare kṛṣṇa hare kṛṣṇa kṛṣṇa kṛṣṇa hare hare\nhare rāma hare rāma rāma rāma hare hare",
+              "translation": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "offering-bhoga",
+      "title": "Vorgehensweise beim Darbringen von bhoga",
+      "subtitle": null,
+      "page": "48",
+      "content": [
+        {
+          "type": "text",
+          "content": "Die Vorgehensweise beim Darbringen von Speisen (bhoga) ist den ganzen Tag über dieselbe."
+        },
+        {
+          "type": "text",
+          "content": "Der Gottgeweihte sollte sich als gefallen und unwürdig ansehen und sich nicht für befähigt halten, dem Herrn bhoga darzubringen. Er sollte jedoch zu Gurudev beten, im Wissen, dass dieser ein würdiger Diener ist. Man sollte Gurudev ein āsana darbringen und ihm zurufen: \"Bitte bring diesen bhoga den Bildgestalten dar, die du verehrst.\" (Wir bitten den Guru, Rādhā und Kṛṣṇa die Speisen darzubringen, doch wir bringen sie ihm nicht zum Essen dar)."
+        },
+        {
+          "type": "text",
+          "content": "Obwohl der guru die Speisen darbringt, meditiert der Schüler, während er die mantras chantet, darüber, dass er dabei von ihm unterstützt wird. Das gaura-mūla-mantra wird stets zusammen mit dem mūla-mantra von Śrī Śrī Rādhā Kṛṣṇa gechantet, selbst wenn der vigraha des Herrn Caitanya nicht anwesend ist."
+        },
+        {
+          "type": "text",
+          "content": "Wir sollten den bhoga in dem Bewusstsein darbringen, dass śrī gurudeva selbst den bhoga Śrīman Mahāprabhu und Śrī Śrī Rādhā-Kṛṣṇa darbringt."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "bhoga-procedure",
+          "title": "Ablauf der bhoga-Darbringung",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Reinige dich zunächst, indem du ācamana ausführst und dabei die folgenden mantras rezitierst:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ keśavāya namaḥ"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ nārāyaṇāya namaḥ"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ mādhavāya namaḥ"
+            },
+            {
+              "type": "instruction",
+              "content": "Bereite die bhoga-Teller vor."
+            },
+            {
+              "type": "instruction",
+              "content": "Schließe die Vorhänge der Bildgestalten und wische die Tische mit einem feuchten Tuch ab."
+            },
+            {
+              "type": "instruction",
+              "content": "Reinige den Boden."
+            },
+            {
+              "type": "instruction",
+              "content": "Nimm Krone und Flöte ab, lege āsanas hin und streue Blütenblätter darauf."
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe die Teller mit den Opfergaben herein."
+            },
+            {
+              "type": "instruction",
+              "content": "Während du die Glocke läutest und die folgenden mantras chantest, lade die Bildgestalten ein, auf dem āsanaṁ Platz zu nehmen. Bringe den Lotusfüßen jeder Bildgestalt puṣpāñjali (einige Blütenblätter) dar:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "eṣa puṣpāñjaliḥ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ āsanaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "Bringe āsana (einen Sitzplatz) dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "etat pādyaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "Bringe pādya (Wasser zum Waschen der Lotusfüße) dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ ācamanīyaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "Bringe ācamana (Wasser zum Schlürfen) dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ naivedyaṁ sa tulasī pānīya jalam klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "Bringe naivedya mit tulasī und Wasser dar."
+            },
+            {
+              "type": "instruction",
+              "content": "Lege auf jedes dargebrachte Gericht ein Tulasī-Blatt. Halte die rechte Hand über den bhoga-Teller, lege die linke Hand auf die rechte und wiederhole das gopāla-mantra achtmal."
+            },
+            {
+              "type": "instruction",
+              "content": "Verlasse den Bildgestaltenraum. Chante die gaura-gāyatrī zehnmal sowie die kāma-gāyatrī zehnmal und warte einige Zeit, damit der Herr Seine Mahlzeit zu Sich nehmen kann."
+            }
+          ]
+        },
+        {
+          "id": "after-lords-meal",
+          "title": "Nach der Mahlzeit des Herrn",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Nach einiger Zeit klopft der pūjārī an die Tür und betritt den Bildgestaltenraum. Lade die Bildgestalten mit den folgenden mantras ein, Ihren Mund auszuspülen:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ ācamanīyaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "Bringe Wasser zum Ausspülen des Mundes dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ tāmbūlaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "Bringe tāmbūla (Betel) dar."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ āsanaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "Bringe āsana (einen Sitzplatz) dar."
+            }
+          ]
+        },
+        {
+          "id": "maha-prasad-distribution",
+          "title": "Bringe Gurudev und den anderen mahā-prasāda dar",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ mahā-prasādaṁ aing gurave namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva sakhibhiyo namaḥ\nidaṁ mahā-prasādaṁ oṁ vrindayai namaḥ\nidaṁ mahā-prasādaṁ oṁ paurnamasyai namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vaiṣṇavebhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vaiṣṇavībhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vrajavāsībhyo namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "text",
+              "content": "Dann meditieren wir zum Schluss nach der Darbringung darüber, dass dein spiritueller Meister, soweit jeweils zutreffend, sowohl in der Kṛṣṇa-līlā als auch in der Gaura-līlā die Überreste zu sich nimmt, nachdem alle Gefährten davon genommen haben."
+            }
+          ]
+        },
+        {
+          "id": "concluding-duties",
+          "title": "Abschließende Pflichten",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Reinige nach der Speiseopfergabe den Bildgestaltenraum mit Wasser, während du den heiligen Namen des Herrn in einer Haltung des Dienens singst. Reinige anschließend die Utensilien, die bei der Verehrung des Herrn verwendet wurden."
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe nach dem Darbringen des bhoga Krone und Flöte wieder an den Bildgestalten an, öffne die Vorhänge der Bildgestalten und führe ārati aus."
+            },
+            {
+              "type": "text",
+              "content": "Anmerkung: Es sollte verstanden werden, dass wir durch die Barmherzigkeit des spirituellen Meisters in der Lage sind, dem Herrn in Seiner Arcā-vigraha-Gestalt zu dienen, wie etwa durch das Darbringen von bhoga."
+            },
+            {
+              "type": "subtitle",
+              "content": "Weitere Varianten"
+            },
+            {
+              "type": "text",
+              "content": "idaṁ naivedyaṁ\nidaṁ pānīya-jalam\nidaṁ anna-vyañjana-pānīyādikaṁ sarvaṁ\nidaṁ miṣṭānna-pānīyādikam"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mantras-honouring-caranamrita",
+      "title": "Mantras zur Ehrung von Caraṇāmṛta",
+      "subtitle": null,
+      "page": "52",
+      "content": [
+        {
+          "type": "text",
+          "content": "Der Sanskritbegriff Caraṇāmṛta bedeutet „der Nektar der Füße“. Er bezeichnet das heilige Wasser oder die heilige Flüssigkeit, mit der die Füße einer Bildgestalt, eines spirituellen Meisters oder eines Heiligen gewaschen wurden. Es gilt als höchst läuternd und spirituell kraftvoll und ist von göttlichen Segnungen durchdrungen."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "general-caranamrita",
+          "title": "Allgemeines mantra zur Ehrung von caraṇāmṛta",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "akāla-mṛtyu-haraṇaṁ\nsarva-vyādhi-vināśanam\nviṣṇoḥ pādodakaṁ pītvā\nśirasā dhārayāmy aham",
+              "translation": "Ich trinke das Wasser von den Lotusfüßen Śrī Viṣṇus, das alle Krankheiten vernichtet und die Möglichkeit eines vorzeitigen Todes ausschließt, und nehme dieses Wasser auch auf mein Haupt."
+            }
+          ]
+        },
+        {
+          "id": "guru-caranamrita",
+          "title": "Mantra zur Ehrung des caraṇāmṛta von Śrī Gurudeva",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "aśeṣa-kleśa-niḥśeṣa-kāraṇaṁ śuddha-bhakti-dam\nguroḥ pādodakaṁ pītvā\nśirasā dhārayāmy aham",
+              "translation": "Ich trinke das Wasser von den Lotusfüßen von śrī gurudeva, das reine bhakti gewährt und grenzenlose Leiden und Schmerzen vernichtet. Ich nehme dieses Wasser auch auf mein Haupt."
+            }
+          ]
+        },
+        {
+          "id": "gauranga-caranamrita",
+          "title": "Mantra zur Ehrung des caraṇāmṛta von Śrī Gaurāṅgadeva",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "aśeṣa-kleśa-niḥśeṣa-kāraṇaṁ śuddha-bhakti-dam\ngaura-pādodakaṁ pītvā\nśirasā dhārayāmy aham",
+              "translation": "Ich trinke das Wasser von den Lotusfüßen Śrī Gaurasundaras, das reine bhakti gewährt und grenzenlose Leiden und Schmerzen vernichtet. Ich nehme dieses Wasser auch auf mein Haupt."
+            }
+          ]
+        },
+        {
+          "id": "radha-krsna-caranamrita",
+          "title": "Mantra zur Ehrung des caraṇāmṛta von Śrī Rādhā-Kṛṣṇa",
+          "content": [
+            {
+              "type": "verse",
+              "sanskrit": "śrī-rādhā-kṛṣṇa-pādodakaṁ\nprema-bhakti-daṁ mudā\nbhakti-bhareṇa vai pītvā\nśirasā dhārayāmy aham",
+              "translation": "Das Wasser von den Lotusfüßen Śrī Rādhā-Kṛṣṇas ist die Quelle reiner bhakti für Sie. Nachdem ich dieses Wasser mit großer Freude und Hingabe getrunken habe, nehme ich es auch auf mein Haupt."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "maha-abhiseka",
+      "title": "Maha Abhiseka",
+      "subtitle": null,
+      "page": "54",
+      "content": [
+        {
+          "type": "instruction",
+          "content": "Bevor das abhiṣeka beginnt, bitte die versammelten Gottgeweihten, kīrtana zu singen, und weise die kīrtana-Sänger darauf hin, dass der kīrtana zu Beginn und am Ende des abhiṣeka laut sein soll."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "abhiseka-paraphernalia",
+          "title": "Vorbereitende Tätigkeiten",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Bereite alle Utensilien vor (vorher waschen und trocknen): Kannen für die Flüssigkeiten; großer Behälter für caraṇāmṛta; Tisch für das Baden, Snana Vedi; Ständer für die Bildgestalten; Muschelhörner zum Baden; Rundstab, Sahasra-dhara; Fruchtgirlanden; Ständer und Matten; Papierservietten für die Hände; ācamana, cāmara und Glocke; Tablett mit 9 Dochten und 9 Sockeln (aus Teig – Mehl, Milch, Zucker), in Lotusform angeordnet und mit Blumen geschmückt, Pishta-pradipa; eine Mischung aus getrocknetem Bananenpulver (1), Reismehl (1), Mehl (0.5), Gerstenmehl (1), urad dal-Mehl (1) sowie kunkum und sindur (1); Reinigungsbürste; eine Schale mit frischen tulasī-Blättern; Becher mit Sandelholzpaste; Blütenblätter von 5 Blumenarten, Puṣpa."
+            },
+            {
+              "type": "instruction",
+              "content": "Bereite die Flüssigkeiten vor: madhuparka in einem Becher mit einem Löffel; Duftöl, Tailam; eine Mischung aus gemahlenem Sesam (Sesam) und Wasser, Tila-udvartanam; Milch (3 Liter) aufkochen und abkühlen lassen; Joghurt (3 Liter) bei Raumtemperatur, zu einer glatten Flüssigkeit verrühren; Ghee-Butter (50 mm), geschmolzen; Honig (0.5 L), geschmolzen, kann mit etwas Wasser vermischt werden; Zuckersirup (2-3 L, 1 Liter Wasser / 18 Messlöffel Zucker aufkochen) bei Raumtemperatur; süße Säfte (3-4 Liter); Wasser (5-6 Liter) bei Raumtemperatur; Kokoswasser (oder frische Kokosnüsse); Rosenwasser (1 Liter)."
+            },
+            {
+              "type": "instruction",
+              "content": "Gib allen Zutaten für das abhiṣeka tulasī bei. Ziehe den Bildgestalten im pūjārī-Raum (hinter den geschlossenen Vorhängen des Altars) gamchas an und lege ihnen die Tagesgirlanden an."
+            }
+          ]
+        },
+        {
+          "id": "abhiseka-purification",
+          "title": "Reinigung und Vorbereitung",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Reinigung der Utensilien (dravya-śuddhi): Besprenge die Utensilien leicht mit Wasser aus dem ācamana und wiederhole: oṁ astrāya phaṭ"
+            },
+            {
+              "type": "instruction",
+              "content": "Vorbereitung der Snana vedi: Wasche die Snāna vedi, den Badeplatz, und schmücke sie sorgfältig mit Tüchern, Früchten und Blumen. Zeichne an dem Ort, an dem die Bildgestalten gebadet werden, ein Goloka yantra, und bringe an dem Platz, an dem die Bildgestalten stehen werden, Blumen und tulasī dar."
+            },
+            {
+              "type": "subtitle",
+              "content": "Verehrung der Glocke (ghanta-puja)"
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe dem Glockengriff Blütenblätter mit Sandelholzpaste dar und wiederhole:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "ete gandha-puspe oṁ jaya-dhuani-mantra-matāh svāhā",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Befestige das Blütenblatt mit candana am Glockenkörper. Läute dann mit der linken Hand sanft die Glocke und stelle sie auf den Teller, wobei du die Glocke als eine Dienerin des Herrn betrachtest."
+            },
+            {
+              "type": "subtitle",
+              "content": "Verehrung des Muschelhorns (sarkha-puja)"
+            },
+            {
+              "type": "instruction",
+              "content": "Bringe dem Muschelhorn Blütenblätter mit Sandelholzpaste dar und wiederhole:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "ete gandha-puspe\noṁ hum hum hum namah maha-sankhaya svāhā",
+              "translation": ""
+            }
+          ]
+        },
+        {
+          "id": "abhiseka-bathing",
+          "title": "Ablauf des abhiṣeka-Bades",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Öffne die Vorhänge des Altars und geleite die Bildgestalten unter Glockenklang und dem Blasen der Muschelhörner zur Snana vedi. Bringe dar: esa puspanjalih..., idaṁ āsanaṁ..., etat pādyaṁ..., idaṁ arghyam..., idaṁ acamaniyam..., esa madhuparkah..., idaṁ punar-acamaniya..."
+            },
+            {
+              "type": "instruction",
+              "content": "Willkommens-ārati - Pista dipa: Bringe den Bildgestalten unter Glockenklang und dem Blasen der Muschelhörner Pista-pradipah dar."
+            },
+            {
+              "type": "instruction",
+              "content": "Massage: Nimm den Bildgestalten die Blumengirlanden ab. Reibe die Bildgestalten mit Öl ein (idaṁ sugandha-tailam...). Reibe die Bildgestalten dann mit 3/4 der Sesampaste ein (idaṁ tila-udvartanam...). Wasche die Bildgestalten über dem Ausguss mit Wasser und dem verbleibenden 1/4 der Sesampaste (idaṁ til-snaniyam...). Bringe den Bildgestalten Fruchtgirlanden dar (idaṁ phala-malayam...)."
+            },
+            {
+              "type": "instruction",
+              "content": "Panchamrta snana: Milch (idaṁ ksira-snaniyam...), Joghurt (idaṁ dadhi-snaniyam...), Ghee (idaṁ ghrta-snaniyam...), Honig (idaṁ madhu-snaniyam...), Zuckersirup (idaṁ sita-snaniyam...)."
+            },
+            {
+              "type": "instruction",
+              "content": "Pulver: Trage mit einem Kuhschwanz als Bürste eine Pulvermischung auf die Bildgestalten auf. Reinige die Bildgestalten mit einer Bürste. Wasche die Bildgestalten mit klarem Wasser (idaṁ jala-snaniyam...)."
+            },
+            {
+              "type": "instruction",
+              "content": "Phalam: Bade die Bildgestalten mit Fruchtsäften (vorzugsweise 5 süßen Sorten) (idaṁ phala-snaniyam...)."
+            },
+            {
+              "type": "instruction",
+              "content": "Zuckerpulver: Trage mit einem Kuhschwanz als Bürste Zuckerpulver auf die Bildgestalten auf. Reinige sie mit einer Bürste. Wasche sie mit klarem Wasser (idaṁ jala-snaniyam...)."
+            },
+            {
+              "type": "instruction",
+              "content": "Gandha: Bedecke den Körper des Herrn mit Sandelholzpaste (idaṁ gandha...). Bade ihn mit Wasser, das mit Sandelholzpaste vermischt wurde (idaṁ gandha-snaniyam...)."
+            },
+            {
+              "type": "instruction",
+              "content": "Sahasrada dhar-Duschen: Bringe mithilfe einer Dusche reines Wasser dar (idaṁ sahasrada-snaniyam...)."
+            },
+            {
+              "type": "instruction",
+              "content": "Abschließende Tätigkeiten: Trockne die Bildgestalten mit Handtüchern ab und hülle sie ein (idaṁ anga-vastram...). Besprenge sie mit Blütenblättern von 5 Blumenarten (idaṁ puspa-snaniyam...). Bringe ācamana dar (idaṁ acamaniyam...). Geleite die Bildgestalten unter Glockenklang und dem Blasen der Muschelhörner in den pūjārī-Raum. Rezitiere die mantras um Vergebung für Vergehen. Entferne alles vom Badeplatz. Reinige und bade die Bildgestalten im pūjārī-Raum und kleide sie ein. Bringe den Bildgestalten den bhoga-Teller und ārati dar."
+            }
+          ]
+        },
+        {
+          "id": "jaya-dhvani",
+          "title": "Jaya-dhvani",
+          "content": [
+            {
+              "type": "text",
+              "content": "Gāndharvikā-Giridhārī-Rādhā-Vinoda-bihārījī kī jaya!\nOṁ viṣṇupāda aṣṭottara-śata śrī rūpanugācārya Śrī Prema Prayojana Prabhu\nNitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja kī jaya!\nNitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Svāmī Mahārāja kī jaya!\nNitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhakti Prajñāna Keśava Gosvāmī Mahārāja kī jaya!\nNitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīla Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda kī jaya!\nNitya-līlā-praviṣṭa parama-bhāgavat-pravara Śrī Śrīla Gaurakiśora dāsa Bābāji Mahārāja kī jaya!\nNitya-līlā-praviṣṭa Śrī Śrīla Saccidānanda Bhaktivinoda Ṭhākura kī jaya!\nNitya-līlā-praviṣṭa vaiṣṇava-sārvabhauma Śrī Śrīla Jagannātha dāsa Bābājī Mahārāja kī jaya!\nŚrī gauḍīya-vedāntācārya Śrī Śrīla Baladeva Vidyābhūṣaṇa Prabhu kī jaya!\nŚrīla Viśvanātha Cakravartī Ṭhākura kī jaya!\nŚrīla Narottama, Śrīnivāsa, Śyāmānanda Prabhu-traya kī jaya!\nŚrīla Kṛṣṇadāsa Kavirāja Gosvāmī Prabhu kī jaya!\nŚrī Rūpa, Sanātana, Bhaṭṭa Raghunātha, Śrī Jīva, Gopāla-bhaṭṭa, dāsa Raghunātha ṣaḍ-gosvāmī-prabhu kī jaya!\nŚrī Śvarūpa Dāmodara, Rāya Rāmānandādi Śrī Gaura-pārṣada-vṛnda kī jaya!\nNāmācārya Śrīla Haridāsa Ṭhākura kī jaya!\nPrema se kaho Śrī Kṛṣṇa Caitanya, Prabhu Nityānanda, Śrī Advaita, Gadādhara, Śrīvāsādi Gaura-bhakta-vṛnda kī jaya!\nŚrī Antardvīpa Māyāpura, Sīmantadvīpa, Godrumadvīpa, Madhyadvīpa, Koladvīpa, Ṛtudvīpa, Jahnudvīpa, Modradrumadvīpa, Rudradvīpātmaka Śrī Navadvīpa-dhāma kī jaya!\nŚrī Śrī Rādhā-Kṛṣṇa gopa, gopī, go, Govardhana, dvādaśa vanātmaka Śrī Vraja-maṇḍala kī jaya!\nŚrī Rādhā-kuṇḍa, Śyāma-kuṇḍa, Gaṅgā, Yamunā, Tulasī, Bhakti-devī kī jaya!\nŚrīmatī Vṛndā-devī kī jaya!\nŚrī Paurṇamāsī Yogamāyā kī jaya!\nŚrī Gopīśvara Mahādeva kī jaya!\nŚrī Jagannātha, Baladeva, Subhadrā, Sudarśana Cakra jiu kī jaya!\nŚrī Kṣetra-maṇḍala kī jaya!\nSarva-vighna-vināśakārī Śrī Nṛsiṁhadeva kī jaya!\nBhakta-pravara Śrī Prahlāda Mahārāja kī jaya!\nCāri-dhāma kī jaya!\nCāri-sampradāya kī jaya!\nCāri-ācārya kī jaya!\nGrantha-rāja Śrīmad-Bhāgavatam kī jaya!\nŚrī Harināma-saṅkīrtana kī jaya!\nAnanta-koṭi vaiṣṇava-vṛnda kī jaya!\nSamāgata bhakta-vṛnda kī jaya!\nŚrī Nitāi-Gaura-premānande! Hari Hari bol!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prayers-forgiveness",
+      "title": "Gebete um Vergebung für Vergehen",
+      "subtitle": "aparādha-kṣamāpana-mantras",
+      "page": "60",
+      "content": [
+        {
+          "type": "verse",
+          "sanskrit": "oṁ mantra-hīnaṁ kriyā-hīnaṁ\nbhakti-hīnaṁ janārdana\nyat pūjitaṁ mayā deva\nparipūrṇaṁ tad astu me",
+          "translation": "O mein Herr, o Janārdana, bitte lass die wenige pūjā, die ich ausgeführt habe, vollkommen werden, obwohl es mir an Hingabe mangelt, ich außerstande bin, die mantras richtig zu chanten, und sie unvollkommen ausgeführt habe."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "yad-dattaṁ bhakti-mātreṇa\npatraṁ puṣpaṁ phalaṁ jalam\nāveditaṁ nivedyan tu\ntad gṛhāṇānukampayā",
+          "translation": "Nimm bitte aus Deiner grundlosen Barmherzigkeit ein Blatt, eine Blume, Wasser, eine Frucht, Speisen oder was auch immer mit Hingabe dargebracht wurde, an."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "vidhi-hīnaṁ mantra-hīnaṁ\nyat kiñcid upapāditam\nkriyā-mantra-vihīnaṁ vā\ntat sarvaṁ kṣantum arhasi",
+          "translation": "Falls die mantras nicht richtig gechantet oder die vorgeschriebenen Verfahren unvollkommen ausgeführt worden sind, vergib mir bitte gütigerweise."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "ajñānād athavā jñānād\naśubhaṁ yan mayā kṛtam\nkṣantum arhasi tat sarvaṁ\ndāsyenaiva gṛhāṇa mām\n\nsthitiḥ sevā gatir yātrā\nsmṛtiś cintā stutir vacaḥ\nbhūyāt sarvātmanā viṣṇo\nmadīyaṁ tvayi ceṣṭitam",
+          "translation": "Bitte vergib alle unheilvollen Handlungen, die ich aufgrund mangelnden rechten Wissens oder unwissentlich begangen habe, und nimm mich als Deinen unbedeutenden Diener an. Möge mein natürlicher Zustand Dienst sein, möge jede meiner Bewegungen eine heilige Pilgerreise sein, möge mein Denken Erinnerung an Dich sein und mögen meine Worte Deine Verherrlichung sein. O Viṣṇu, mögen alle Tätigkeiten meines Geistes, meines Körpers und meiner Seele Dir gewidmet sein."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "aparādha-sahasrāṇi\nkriyante 'har-niśaṁ mayā\ndāso 'ham iti māṁ matvā\nkṣamasva madhusūdana",
+          "translation": "Tausende von Vergehen werden von mir Tag und Nacht begangen. Doch betrachte mich als Deinen Diener und vergib sie mir gütigerweise, o Madhusūdana."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "pratijñā tava govinda\nna me bhaktaḥ praṇaśyati\niti saṁsmṛtya saṁsmṛtya\nprāṇān samdhārayāmy aham",
+          "translation": "O Govinda, Du versprichst, dass Dein Gottgeweihter niemals zugrunde gehen wird. Indem ich mich immer wieder daran erinnere, vermag ich meine Lebenslüfte zu bewahren."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "short-version-forgiveness",
+          "title": "Kurzfassung der Bitte um Vergebung für Vergehen",
+          "content": [
+            {
+              "type": "subtitle",
+              "content": "aparādha-sodhana"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "anga-hinam kriya-hinam\nvidhi-hinam cayad bhavet\nastu tat sarvam acchidram\nkrsna-karsna-prasadatah\n\nyat kincid vaigunyam jatam\ntad dosa-prasamanasya\nsri-krsna-smaranam karomi",
+              "translation": "Möge die Barmherzigkeit von Krsna und Seinen Gottgeweihten alle Fehler zunichtemachen, die uns bei der Befolgung der Regeln der Verehrung und bei der Ausführung der Verehrungshandlungen unterlaufen sind. Ich erinnere mich nun an Krsna, um alle etwaigen Mängel zunichtezumachen. [Sat-kriya-sara-dipika]"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "hare kṛṣṇa hare kṛṣṇa kṛṣṇa kṛṣṇa hare hare\nhare rāma hare rāma rāma rāma hare hare",
+              "translation": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "main-worship-sixteen-items",
+      "title": "Die Hauptverehrung mit sechzehn Upacāras",
+      "subtitle": "ṣoḍaśopacāra-pūjā",
+      "page": "64",
+      "content": [],
+      "subsections": [
+        {
+          "id": "sixteen-basic-upacaras-reference",
+          "title": "Die sechzehn grundlegenden Upacāras (Übersicht)",
+          "content": [
+            {
+              "type": "subtitle",
+              "content": "Empfang:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "idaṁ āsanam",
+                  "value": "Sitzplatz"
+                },
+                {
+                  "label": "etat pādyaṁ",
+                  "value": "Fußwaschwasser"
+                },
+                {
+                  "label": "idaṁ arghyam",
+                  "value": "Wasser im Muschelhorn"
+                },
+                {
+                  "label": "idaṁ ācamanīyaṁ",
+                  "value": "Wasser zum Nippen"
+                },
+                {
+                  "label": "eṣa madhuparkaḥ",
+                  "value": "madhuparka-Trank"
+                },
+                {
+                  "label": "idaṁ punar-ācamanīyaṁ",
+                  "value": "zweites ācamana"
+                }
+              ]
+            },
+            {
+              "type": "subtitle",
+              "content": "Baden und Kleiden:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "idaṁ sugandha-tailam",
+                  "value": "Duftöl"
+                },
+                {
+                  "label": "idaṁ snānīyam",
+                  "value": "Bad"
+                },
+                {
+                  "label": "idaṁ vastram",
+                  "value": "Kleidung"
+                },
+                {
+                  "label": "idaṁ upavītam",
+                  "value": "heilige Schnur"
+                },
+                {
+                  "label": "idaṁ tilakam",
+                  "value": "tilaka"
+                },
+                {
+                  "label": "etat tulasī-pātram / etāni tulasī-patrāni",
+                  "value": "tulasī-Blätter"
+                },
+                {
+                  "label": "idaṁ ābharaṇam / imāni ābharaṇāni",
+                  "value": "Schmuck"
+                }
+              ]
+            },
+            {
+              "type": "subtitle",
+              "content": "Verehrung:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "eṣa puṣpāñjaliḥ",
+                  "value": "Blütenblätter"
+                },
+                {
+                  "label": "ete gandha-puṣpe",
+                  "value": "Sandelholzpaste und Blumen"
+                },
+                {
+                  "label": "eṣa gandhaḥ",
+                  "value": "Sandelholzpaste und Duftstoffe"
+                },
+                {
+                  "label": "eṣa dhūpaḥ",
+                  "value": "Räucherwerk"
+                },
+                {
+                  "label": "eṣa dīpaḥ",
+                  "value": "Ghee-Lampe"
+                },
+                {
+                  "label": "idaṁ naivedyaṁ",
+                  "value": "bhoga darbringen"
+                },
+                {
+                  "label": "idaṁ malyam / ime mālye",
+                  "value": "Blumengirlande"
+                },
+                {
+                  "label": "idaṁ sarvam",
+                  "value": "symbolisiert alle erfreulichen Gegenstände"
+                },
+                {
+                  "label": "idaṁ praṇāma",
+                  "value": "Gebete und Ehrerbietungen darbringen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "arati-ceremony",
+          "title": "Ārati-Zeremonie",
+          "content": [
+            {
+              "type": "subtitle",
+              "content": "Reihenfolge der Verehrung:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "Spiritueller Meister",
+                  "value": "aing gurave namaḥ"
+                },
+                {
+                  "label": "Spirituelle Meister",
+                  "value": "oṁ parama-gurave namaḥ"
+                },
+                {
+                  "label": "Herr Caitanya",
+                  "value": "klīng gaurāya svāhā"
+                },
+                {
+                  "label": "Herr Nityananda",
+                  "value": "oṁ nityanandāya namaḥ"
+                },
+                {
+                  "label": "Śrī Śrī Rādhā-Kṛṣṇa",
+                  "value": "śrīng klīng rādhā-kṛṣṇābhyām namaḥ"
+                },
+                {
+                  "label": "Śālagrāma Śilās",
+                  "value": "klīṁ kṛṣṇāya govindāya gopī-jana-vallabhāya svāhā"
+                },
+                {
+                  "label": "Śrī Govardhana-śilā",
+                  "value": "klīṁ govardhanāya namaḥ"
+                },
+                {
+                  "label": "Śrī Tulasī Devī",
+                  "value": "oṁ tulasyai namaḥ"
+                }
+              ]
+            },
+            {
+              "type": "subtitle",
+              "content": "Ārati-Gegenstände und Darbringungsweise:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "Räucherwerk (eṣa dhūpaḥ)",
+                  "value": "Vollständige ārati: Füße 4, Taille 2, Körper 7"
+                },
+                {
+                  "label": "Ghee-Lampe (eṣa dīpaḥ)",
+                  "value": "Vollständige ārati: Füße 4, Taille 2, Kopf 3, Körper 7"
+                },
+                {
+                  "label": "Wasser im Muschelhorn (idaṁ arghyam)",
+                  "value": "7 Kreise um den Körper"
+                },
+                {
+                  "label": "Taschentuch (idaṁ vastram)",
+                  "value": "Füße 4, Taille 2, Kopf 3, Körper 7"
+                },
+                {
+                  "label": "Blumen (etāni puṣpāni)",
+                  "value": "Füße 4, Körper 7"
+                },
+                {
+                  "label": "Cāmara (eṣā cāmara-sevā)",
+                  "value": "Je nach verfügbarer Zeit"
+                },
+                {
+                  "label": "Pfauenfederfächer (eṣā vyajñana-sevā)",
+                  "value": "Je nach verfügbarer Zeit"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "main-worship-paraphernalia",
+          "title": "Benötigte Utensilien",
+          "content": [
+            {
+              "type": "text",
+              "content": "pañca-pātra mit frischem Wasser und einem Löffel\nBademuschelhorn\neine kleine Glocke auf einem Teller\nDūpa, Räucherwerk\nDīpa, Ghee-Lampe\nVisarjanīya-pātra, Entsorgungsgefäß\nPūjā-pātra für die Bildgestalt\nSnāna-pātra, Badegefäß für die Bildgestalt\nPūjā-pātra für śrī gurudeva\nSnāna-pātra, Badegefäß für śrī gurudeva\nWassergefäß\nBlumen\nTulasī-Blätter\nCandana\nMadhuparka, Zucker, Ghee und Honig\nMuschelhorn zum Blasen\nāsana für die Bildgestalt\nāsana für den pūjārī\nZum Polieren von Bildgestalten aus Metall: mit Wasser vermischtes gopī-candana-Pulver\nFür Bildgestalten aus Marmor: ein weiches Tuch zum Waschen\nentweder Watte oder ein weiches Tuch zum Polieren\nein weiches Tuch zum Abwischen des candana\naila (Duftöl)\nein Gefäß für caraṇāmṛta\nein Handtuch und ein gāmchā (Tuch, das vor dem Ankleiden getragen wird)\nKleidung, Unterkleidung und Nadeln\nSchmuck und Klebeknete\ngandha (Sandelholzpaste)\nBlumen und Blumengirlanden\ntulasī-Blätter und mañjarīs (Knospen)\nRäucherwerk und Ghee-Lampe\nnaivedya (Früchte und/oder Süßigkeiten)\nein Bild deines spirituellen Meisters und ein Gefäß für Opfergaben"
+            }
+          ]
+        },
+        {
+          "id": "main-worship-preliminary",
+          "title": "Vorbereitende Verfahren der Verehrung",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Führe außerhalb des Bildgestaltenraums ācamana aus und bringe deinem spirituellen Meister Ehrerbietungen dar."
+            },
+            {
+              "type": "instruction",
+              "content": "Reinige im Bildgestaltenraum den Bereich, in dem du die Verehrung ausführen wirst, und stelle dort ein āsana für die Verehrung auf. Stelle dir vor, wie dein spiritueller Meister auf einem āsana sitzt, um die Verehrung auszuführen, und setze dich dann auf dein eigenes āsana."
+            },
+            {
+              "type": "subtitle",
+              "content": "Anordnen der Utensilien für die Verehrung (pātra-sthāpana)"
+            },
+            {
+              "type": "instruction",
+              "content": "Ordne die Gegenstände so an, dass du sie leicht erreichen kannst, ohne bereits dargebrachte Gegenstände mit noch nicht dargebrachten in Berührung zu bringen:"
+            },
+            {
+              "type": "text",
+              "content": "Stelle die Glocke auf einem Teller zu deiner Linken auf und platziere das Bademuschelhorn so auf einem Ständer, dass du es mehrmals leicht anheben und wieder abstellen kannst.\nDas Wassergefäß, die Blumen, candana und die tulasī-Blätter sollten leicht erreichbar sein.\nVerwende das Entsorgungsgefäß (visarjanīya-pātra) für dargebrachtes ācamana und arghya. Du kannst diese Flüssigkeiten auch in das Badegefäß (snāna-pātra) gießen, sofern es einen Abfluss besitzt. Für dargebrachte Blütenblätter, Wattestäbchen und Ähnliches kannst du ein zweites visarjanīya-pātra verwenden.\nBadetücher sollten auf ein Tablett, einen Tisch oder den Altar gelegt werden, nicht auf deinen Schoß oder unmittelbar auf den Boden."
+            },
+            {
+              "type": "subtitle",
+              "content": "Reinigung der Hände (kara-śuddhi)"
+            },
+            {
+              "type": "instruction",
+              "content": "Wasche deine Hände mit Wasser oder bestreiche sie leicht mit candana."
+            },
+            {
+              "type": "subtitle",
+              "content": "Reinigung der Blumen (puṣpa-śuddhi)"
+            },
+            {
+              "type": "instruction",
+              "content": "Besprenge die Blumen mit samānya-arghya-Wasser und chante dabei:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ astrāya phaṭ"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ puṣpe puṣpe mahā-puṣpe\nsu-puṣpe puṣpa-sambhave\npuṣpe cayavākīrṇe ca\nhuṁ phaṭ svāhā",
+              "translation": "O Blumen, o große und glückverheißende Blumen, die ihr einer knospenden Kletterpflanze entsprossen seid, möget ihr gereinigt werden."
+            },
+            {
+              "type": "subtitle",
+              "content": "Reinigung der Utensilien des Herrn (dravya-śuddhi)"
+            },
+            {
+              "type": "instruction",
+              "content": "Besprenge alle Utensilien leicht mit samānya-arghya-Wasser und chante dabei:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ astrāya phaṭ"
+            },
+            {
+              "type": "subtitle",
+              "content": "Reinigung der körperlichen Elemente (bhūta-śuddhi)"
+            },
+            {
+              "type": "instruction",
+              "content": "Führe prokṣaṇa aus, indem du dich leicht mit samānya-arghya-Wasser besprengst und dabei einmal den gopāla-mantra (den sechsten vom Guru gegebenen mantra) chantest. Rezitiere die folgenden Gebete und meditiere über ihre Bedeutung:"
+            },
+            {
+              "type": "text",
+              "content": "\"Von Natur aus bin ich ein ewiger Diener Śrī Kṛṣṇas, doch durch ein Missgeschick bin ich Ihm seit unvordenklicher Zeit abgeneigt. Da ich mich in dieser illusionären Existenz mit dem materiellen Körper identifizierte und im sich wiederholenden Kreislauf von Geburt und Tod gefangen war, brannte ich im lodernden Feuer der dreifachen Leiden. Durch großes Glück jedoch -- das heißt durch die Barmherzigkeit von śrī guru -- habe ich meine Identität als winziges, atomares spirituelles Teilchen erkannt, als ewiger Diener Śrī Kṛṣṇas, der vom grob- und feinstofflichen Körper völlig verschieden ist. Nun habe ich auf Anweisung von śrī gurudeva und unter seinem Schutz das Glück erlangt, Śrī Guru-Gaurāṅga und Śrī Rādhā-Vinoda-bihārījī zu dienen.\""
+            },
+            {
+              "type": "instruction",
+              "content": "Rezitiere in dieser Haltung und während du über die Seele in deinem Inneren meditierst den mantra zur Reinigung des Selbst. (bhūta-śuddhi-mantra)"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "nāhaṁ vipro na ca nara-patir nāpi vaiśyo na śūdro\nnāhaṁ varṇī na ca gṛha-patir no vana-stho yatir vā\nkintu prodyan-nikhila-paramānanda-pūrṇāmṛtābdher\ngopī-bhartuḥ pada-kamālāyor dāsa-dāsānudāsaḥ",
+              "translation": "\"Ich bin weder ein brāhmaṇa, kṣatriya, vaiśya oder śūdra, noch bin ich ein brahmacārī, gṛhastha, vānaprastha oder sannyāsī. Da ich transzendental zu diesem grob- und feinstofflichen Körper bin, bin ich der Diener des Dieners des Dieners der Lotusfüße des Gebieters der gopīs, Śrī Kṛṣṇa, der die endgültige Zuflucht aller, von transzendentaler Glückseligkeit erfüllt und ein Ozean unbegrenzten Nektars ist.\" [Padyāvalī 74]"
+            },
+            {
+              "type": "subtitle",
+              "content": "Meditation über das Selbst (ātma-dhyāna-mantra)"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "divyaṁ śrī-hari-mandirāḍhya-tilakaṁ kaṇṭhaṁ sumālānvitaṁ\nvakṣaḥ śrī-harināma-varṇa-subhagaṁ śrī-khaṇḍa-liptaṁ punaḥ\npūtaṁ sūkṣmaṁ navāmbaraṁ vimalatāṁ nityaṁ vahantīṁ tanuṁ\ndhyāyet śrī-guru-pāda-padma-nikaṭe sevotsukaṁ cātmanaḥ",
+              "translation": "Ich meditiere darüber, dass ich mich den Lotusfüßen von śrī guru hingegeben habe und fest entschlossen bin, ihm zu dienen. Ich meditiere über mich selbst, wobei meine Stirn mit schönem tilaka geschmückt ist, das den Tempel Śrī Haris darstellt. Ich trage eine schöne Halskette aus tulasī-Perlen. Meine Brust trägt die Zeichen des heiligen Namens und ist mit Sandelholzpaste gesalbt. Ich bin in feine, reine Gewänder gekleidet und innerlich fortwährend in immer neue spirituelle Empfindungen vertieft."
+            },
+            {
+              "type": "text",
+              "content": "Anmerkung: Kurz gesagt sollte man den Altar und die Utensilien reinigen, bevor man mit arcana beginnt. Stelle die Gegenstände an einem geeigneten Ort auf. Es ist wichtig, das Wasser im pañca-pātra mit dem mantra \"gaṅge ca yamune caiva...\" zu heiligen und die Blumen mit dem mantra \"puṣpe puṣpe mahā-puṣpe...\" zu reinigen. Pādya, arghya und ācamanīya werden gewöhnlich durch reines Wasser aus dem pañca-pātra ersetzt. Wenn ein Gegenstand nicht beschafft werden kann, kann er ebenso durch Meditation und die Darbringung von Wasser aus dem pañca-pātra oder dem Muschelhorn ersetzt werden."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
