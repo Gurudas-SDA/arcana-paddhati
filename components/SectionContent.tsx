@@ -1,6 +1,11 @@
 import React from "react";
 import type { ContentItem, Section, Subsection } from "@/lib/book";
 
+/** Sanskrit is given in IAST or (Russian/Ukrainian editions) in Cyrillic. */
+function sanskritLang(text: string | undefined) {
+  return text && /[Ѐ-ӿ]/.test(text) ? "sa-Cyrl" : "sa-Latn";
+}
+
 interface SectionContentProps {
   section: Section;
 }
@@ -12,7 +17,7 @@ function ContentBlock({ item, index }: { item: ContentItem; index: number }) {
       return (
         <div className={`${isInlineMantra ? 'my-2' : 'my-5'}`} key={index}>
           {item.sanskrit && (
-            <div lang="sa-Latn" className={`sanskrit text-base leading-relaxed text-[#1a1a1a] ${isInlineMantra ? 'ml-8' : ''} mb-2`}>
+            <div lang={sanskritLang(item.sanskrit)} className={`sanskrit text-base leading-relaxed text-[#1a1a1a] ${isInlineMantra ? 'ml-8' : ''} mb-2`}>
               {item.sanskrit.split('\n\n').map((stanza, si, sarr) => (
                 <p key={si} className={si < sarr.length - 1 ? "mb-3" : ""}>
                   {stanza.split('\n').map((line, li, larr) => (
@@ -61,7 +66,7 @@ function ContentBlock({ item, index }: { item: ContentItem; index: number }) {
           <div className="my-4 space-y-4" key={index}>
             {item.items?.map((pair, i) => (
               <div key={i}>
-                <p lang="sa-Latn" className="sanskrit text-base leading-relaxed text-[#1a1a1a]">{pair.label}</p>
+                <p lang={sanskritLang(pair.label)} className="sanskrit text-base leading-relaxed text-[#1a1a1a]">{pair.label}</p>
                 <p className="translation text-[14px] leading-relaxed ml-8">{pair.value}</p>
               </div>
             ))}

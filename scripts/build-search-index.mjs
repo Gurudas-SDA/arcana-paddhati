@@ -1,12 +1,16 @@
-// Builds public/search-index.json from data/book.json.
+// Builds public/search-index.<lang>.json for every language in lib/languages.json
+// whose book exists (data/book.json for English, data/book.<lang>.json otherwise).
 // One entry per section (its own body) and per subsection, with plain text.
+// A language without a book has no index; the app then searches the English one.
 // Runs automatically before `npm run build` / `npm run dev` (prebuild/predev).
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const book = JSON.parse(readFileSync(join(root, "data", "book.json"), "utf8"));
+const languages = JSON.parse(
+  readFileSync(join(root, "lib", "languages.json"), "utf8")
+);
 
 function blockText(block) {
   switch (block.type) {
@@ -31,25 +35,41 @@ function plain(blocks) {
     .trim();
 }
 
-const entries = [];
-for (const s of book.sections) {
-  entries.push({
-    section: s.id,
-    title: s.title,
-    sectionTitle: s.title,
-    text: plain([...(s.subtitle ? [{ type: "text", content: s.subtitle }] : []), ...s.content]),
-  });
-  for (const sub of s.subsections ?? []) {
+function buildEntries(book) {
+  const entries = [];
+  for (const s of book.sections) {
     entries.push({
       section: s.id,
-      anchor: sub.id,
-      title: sub.title,
+      title: s.title,
       sectionTitle: s.title,
-      text: plain(sub.content),
+      text: plain([...(s.subtitle ? [{ type: "text", content: s.subtitle }] : []), ...s.content]),
     });
+    for (const sub of s.subsections ?? []) {
+      entries.push({
+        section: s.id,
+        anchor: sub.id,
+        title: sub.title,
+        sectionTitle: s.title,
+        text: plain(sub.content),
+      });
+    }
   }
+  return entries;
 }
 
-const out = join(root, "public", "search-index.json");
-writeFileSync(out, JSON.stringify(entries));
-console.log(`search index: ${entries.length} entries -> public/search-index.json`);
+// Remove indexes of earlier builds (incl. the old single search-index.json).
+rmSync(join(root, "public", "search-index.json"), { force: true });
+for (const { code } of languages) {
+  rmSync(join(root, "public", `search-index.${code}.json`), { force: true });
+}
+
+for (const { code } of languages) {
+  const file = join(root, "data", code === "en" ? "book.json" : `book.${code}.json`);
+  if (!existsSync(file)) {
+    console.log(`search index: ${code} — no ${file.slice(root.length + 1)}, skipped (English fallback)`);
+    continue;
+  }
+  const entries = buildEntries(JSON.parse(readFileSync(file, "utf8")));
+  writeFileSync(join(root, "public", `search-index.${code}.json`), JSON.stringify(entries));
+  console.log(`search index: ${code} — ${entries.length} entries -> public/search-index.${code}.json`);
+}

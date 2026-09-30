@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
 import { Noto_Serif } from "next/font/google";
 import AppShell from "@/components/AppShell";
-import { getToc } from "@/lib/book";
+import { availableLanguages, getLocales, getUi } from "@/lib/content";
+import { t } from "@/lib/i18n";
 import "./globals.css";
 
 const notoSerif = Noto_Serif({
   variable: "--font-noto-serif",
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin", "latin-ext", "cyrillic"],
   display: "swap",
 });
 
+const ui = getUi("en");
+
 export const metadata: Metadata = {
-  title: "Arcana Paddhati \u2014 Temple Manual",
-  description:
-    "The Process of Deity Worship \u2014 a comprehensive temple manual for arcana paddhati, the sacred process of deity worship in the Vaishnava tradition.",
+  title: t(ui, "meta.title"),
+  description: t(ui, "meta.description"),
   icons: {
     icon: "/arcana-paddhati/favicon.ico",
     apple: "/arcana-paddhati/apple-touch-icon.png",
@@ -21,15 +23,25 @@ export const metadata: Metadata = {
   manifest: "/arcana-paddhati/manifest.json",
 };
 
+// The root layout has no route params, so it always renders lang="en".
+// Pages of other languages get the right value in the static HTML from
+// scripts/patch-html-lang.mjs (postbuild) and on client-side navigation
+// from AppShell; suppressHydrationWarning covers that difference.
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${notoSerif.variable} h-full`}>
+    <html
+      lang="en"
+      className={`${notoSerif.variable} h-full`}
+      suppressHydrationWarning
+    >
       <body className="h-full antialiased">
-        <AppShell sections={getToc()}>{children}</AppShell>
+        <AppShell locales={getLocales()} available={availableLanguages()}>
+          {children}
+        </AppShell>
       </body>
     </html>
   );

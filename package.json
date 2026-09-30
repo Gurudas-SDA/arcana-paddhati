@@ -7,6 +7,7 @@
     "dev": "next dev",
     "prebuild": "node scripts/build-search-index.mjs",
     "build": "next build",
+    "postbuild": "node scripts/patch-html-lang.mjs",
     "start": "next start",
     "lint": "eslint"
   },

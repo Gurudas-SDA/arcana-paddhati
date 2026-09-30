@@ -11,7 +11,18 @@ Built with Next.js (App Router) as a fully static export and hosted on GitHub Pa
 - **`data/book.json`** — the whole book: `{ title, subtitle, sections: [{ id, title, subtitle, page, content, subsections: [{ id, title, content }] }] }`.
   Content blocks: `verse` (`sanskrit`, optional `translation`), `instruction`, `text`, `subtitle`, `paired-list` (`items`, `layout`), `image` (`src`, `alt`).
 - `public/images/` — images referenced by `image` blocks.
-- `lib/book.ts` — TypeScript types for the book and helpers.
+- `lib/book.ts` — TypeScript types for the book and helpers; `lib/content.ts` — build-time loading per language.
+
+## Languages
+
+English stays at `/<section>/`; other languages live at `/<lang>/` and `/<lang>/<section>/` with the same section ids.
+The list (code, menu name, `<html lang>`) is `lib/languages.json`: `ru`, `ru-iast` (Russian, verses in IAST), `lv`, `de`, `fr`, `es`, `it`, `uk`.
+
+- `data/book.<lang>.json` — the translated book (same shape and ids as `book.json`). If it is missing the pages
+  are still built with the English text and the language menu marks the language "(EN)"; adding the file only needs a rebuild.
+- `data/ui.en.json` — all interface strings (flat key → string). `data/ui.<lang>.json` may override any subset; missing keys fall back to English.
+- The chosen language is remembered in `localStorage` and applied only on the start page `/`; otherwise the URL decides.
+- `scripts/patch-html-lang.mjs` (postbuild) sets `<html lang>` in `out/<lang>/` pages, since the root layout has no route params.
 
 Section and subsection `id`s become URLs and anchors — changing one breaks existing links.
 
@@ -24,8 +35,8 @@ npm run lint
 npm run build     # static site in out/
 ```
 
-`npm run build` / `npm run dev` first run `scripts/build-search-index.mjs`, which writes the search index
-`public/search-index.json` from `data/book.json` (generated, not committed).
+`npm run build` / `npm run dev` first run `scripts/build-search-index.mjs`, which writes one search index per language
+with data, `public/search-index.<lang>.json` (generated, not committed).
 
 ## Deploying
 

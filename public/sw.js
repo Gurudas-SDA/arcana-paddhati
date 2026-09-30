@@ -1,5 +1,16 @@
-const CACHE_NAME = 'arcana-paddhati-v2';
+const CACHE_NAME = 'arcana-paddhati-v3';
 const START_URL = '/arcana-paddhati/';
+// Non-default languages live under /arcana-paddhati/<code>/ (lib/languages.json).
+const LANG_CODES = ['ru', 'ru-iast', 'lv', 'de', 'fr', 'es', 'it', 'uk'];
+
+// Offline fallback for a page that was never cached: the home page of the
+// page's language if cached, else the start page.
+function offlineFallback(url) {
+  const code = url.pathname.split('/')[2];
+  const langHome = LANG_CODES.includes(code) ? `/arcana-paddhati/${code}/` : null;
+  return (langHome ? caches.match(langHome) : Promise.resolve(undefined))
+    .then((cached) => cached || caches.match(START_URL));
+}
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
@@ -56,7 +67,7 @@ self.addEventListener('fetch', (event) => {
     }).catch(() => {
       return caches.match(request).then((cached) => {
         if (cached) return cached;
-        if (request.mode === 'navigate') return caches.match(START_URL);
+        if (request.mode === 'navigate') return offlineFallback(url);
         return undefined;
       });
     })

@@ -4,9 +4,14 @@ import React, { useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { normalizeText, type SearchEntry, type TocSection } from "@/lib/book";
+import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
 
 interface SidebarProps {
   sections: TocSection[];
+  /** Language of the current URL (links stay in it). */
+  lang: string;
+  ui: UiDict;
+  languageSwitcher: React.ReactNode;
   searchQuery: string;
   onSearchChange: (query: string) => void;
   onSearchFocus: () => void;
@@ -81,12 +86,11 @@ function makeSnippet(p: PreparedEntry, pos: number, qLen: number): Snippet {
   };
 }
 
-function sectionHref(sectionId: string, anchor?: string) {
-  return `/${sectionId}/${anchor ? `#${anchor}` : ""}`;
-}
-
 export default function Sidebar({
   sections,
+  lang,
+  ui,
+  languageSwitcher,
   searchQuery,
   onSearchChange,
   onSearchFocus,
@@ -94,7 +98,9 @@ export default function Sidebar({
   onClose,
 }: SidebarProps) {
   const pathname = usePathname();
-  const selectedId = pathname.split("/").filter(Boolean)[0] ?? null;
+  const selectedId = parsePath(pathname).sectionId;
+  const sectionHref = (sectionId: string, anchor?: string) =>
+    localeHref(lang, sectionId, anchor);
 
   const prepared = useMemo(
     () => (searchEntries ? searchEntries.map(prepare) : null),
@@ -134,8 +140,8 @@ export default function Sidebar({
   return (
     <aside className="flex flex-col h-full bg-white border-r border-[#E8DCC8]">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-[#E8DCC8]">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between gap-3 px-5 py-4 border-b border-[#E8DCC8]">
+        <div className="flex items-center gap-2 min-w-0">
           <svg
             width="20"
             height="20"
@@ -150,17 +156,19 @@ export default function Sidebar({
             <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
           </svg>
           <h2
-            className="text-lg font-semibold"
+            className="text-lg font-semibold truncate"
             style={{ color: "#B8860B" }}
           >
-            Contents
+            {t(ui, "sidebar.contents")}
           </h2>
         </div>
+        {/* Language menu (mobile has it in the page header instead) */}
+        <div className="hidden lg:block">{languageSwitcher}</div>
         {/* Mobile close button */}
         <button
           onClick={onClose}
           className="lg:hidden p-1 rounded hover:bg-[#F5E6C8] transition-colors"
-          aria-label="Close menu"
+          aria-label={t(ui, "sidebar.closeMenu")}
         >
           <svg
             width="20"
@@ -197,7 +205,7 @@ export default function Sidebar({
           </svg>
           <input
             type="text"
-            placeholder="Search sections..."
+            placeholder={t(ui, "search.placeholder")}
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             onFocus={onSearchFocus}
@@ -207,7 +215,7 @@ export default function Sidebar({
             <button
               onClick={() => onSearchChange("")}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-[#5C3D2E] hover:text-[#2C1810]"
-              aria-label="Clear search"
+              aria-label={t(ui, "search.clear")}
             >
               <svg
                 width="14"
@@ -232,7 +240,7 @@ export default function Sidebar({
         {results ? (
           results.length === 0 ? (
             <p className="px-5 py-4 text-sm text-[#5C3D2E] italic">
-              No results found
+              {t(ui, "search.noResults")}
             </p>
           ) : (
             <ul className="space-y-0.5">
@@ -269,7 +277,7 @@ export default function Sidebar({
           )
         ) : filteredSections.length === 0 ? (
           <p className="px-5 py-4 text-sm text-[#5C3D2E] italic">
-            No sections found
+            {t(ui, "search.noSections")}
           </p>
         ) : (
           <ul className="space-y-0.5">

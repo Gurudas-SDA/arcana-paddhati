@@ -1,0 +1,11 @@
+[
+  { "code": "en", "name": "English", "htmlLang": "en" },
+  { "code": "ru", "name": "Русский", "htmlLang": "ru" },
+  { "code": "ru-iast", "name": "Русский (IAST)", "htmlLang": "ru" },
+  { "code": "lv", "name": "Latviešu", "htmlLang": "lv" },
+  { "code": "de", "name": "Deutsch", "htmlLang": "de" },
+  { "code": "fr", "name": "Français", "htmlLang": "fr" },
+  { "code": "es", "name": "Español", "htmlLang": "es" },
+  { "code": "it", "name": "Italiano", "htmlLang": "it" },
+  { "code": "uk", "name": "Українська", "htmlLang": "uk" }
+]

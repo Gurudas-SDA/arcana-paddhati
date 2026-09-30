@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useSyncExternalStore,
 } from "react";
+import { t, tNodes, type UiDict } from "@/lib/i18n";
 
 type Platform = "ios" | "android" | "unknown";
 
@@ -44,7 +45,7 @@ function isEligible(): boolean {
 
 const noopSubscribe = () => () => {};
 
-export default function InstallBanner() {
+export default function InstallBanner({ ui }: { ui: UiDict }) {
   const [deferredPrompt, setDeferredPrompt] =
     useState<BeforeInstallPromptEvent | null>(null);
   const [hidden, setHidden] = useState(false);
@@ -120,7 +121,7 @@ export default function InstallBanner() {
           className="truncate text-xs sm:text-sm leading-tight"
           style={{ fontFamily: "var(--font-noto-serif, Georgia, serif)" }}
         >
-          Install Arcana Paddhati for quick access
+          {t(ui, "install.bannerText")}
         </span>
 
         <div className="flex items-center gap-2 shrink-0">
@@ -128,12 +129,12 @@ export default function InstallBanner() {
             onClick={handleInstall}
             className="px-3 py-1 rounded-full bg-white/20 hover:bg-white/30 active:bg-white/40 text-white text-xs sm:text-sm font-semibold transition-colors border border-white/40"
           >
-            Install
+            {t(ui, "install.button")}
           </button>
           <button
             onClick={handleDismiss}
             className="p-1 rounded-full hover:bg-white/20 transition-colors"
-            aria-label="Dismiss install banner"
+            aria-label={t(ui, "install.dismiss")}
           >
             <svg
               width="14"
@@ -170,7 +171,7 @@ export default function InstallBanner() {
             <button
               onClick={() => setShowModal(false)}
               className="absolute top-3 right-3 p-1 rounded-full hover:bg-[#F5E6C8] transition-colors text-[#5C3D2E]"
-              aria-label="Close"
+              aria-label={t(ui, "install.close")}
             >
               <svg
                 width="18"
@@ -191,7 +192,7 @@ export default function InstallBanner() {
               className="text-lg font-bold mb-4 text-[#2C1810] pr-6"
               style={{ fontFamily: "var(--font-noto-serif, Georgia, serif)" }}
             >
-              Install Arcana Paddhati
+              {t(ui, "install.modalTitle")}
             </h2>
 
             {platform === "ios" ? (
@@ -201,10 +202,14 @@ export default function InstallBanner() {
                     1
                   </span>
                   <span>
-                    Tap the <strong>Share</strong> button{" "}
-                    <span className="inline-block align-middle text-base">
-                      &#x2934;&#xFE0E;
-                    </span>
+                    {tNodes(ui, "install.ios.step1", {
+                      share: <strong>{t(ui, "install.ios.share")}</strong>,
+                      icon: (
+                        <span className="inline-block align-middle text-base">
+                          &#x2934;&#xFE0E;
+                        </span>
+                      ),
+                    })}
                   </span>
                 </li>
                 <li className="flex gap-3">
@@ -212,8 +217,9 @@ export default function InstallBanner() {
                     2
                   </span>
                   <span>
-                    Scroll down and tap{" "}
-                    <strong>&quot;Add to Home Screen&quot;</strong>
+                    {tNodes(ui, "install.ios.step2", {
+                      addToHome: <strong>{t(ui, "install.ios.addToHome")}</strong>,
+                    })}
                   </span>
                 </li>
                 <li className="flex gap-3">
@@ -221,7 +227,9 @@ export default function InstallBanner() {
                     3
                   </span>
                   <span>
-                    Tap <strong>&quot;Add&quot;</strong> in the top right
+                    {tNodes(ui, "install.ios.step3", {
+                      add: <strong>{t(ui, "install.add")}</strong>,
+                    })}
                   </span>
                 </li>
               </ol>
@@ -232,9 +240,13 @@ export default function InstallBanner() {
                     1
                   </span>
                   <span>
-                    Open in <strong>Chrome</strong> browser (tap{" "}
-                    <strong>&#x22EE;</strong> &rarr;{" "}
-                    <strong>&quot;Open in Browser&quot;</strong> if needed)
+                    {tNodes(ui, "install.android.step1", {
+                      chrome: <strong>{t(ui, "install.android.chrome")}</strong>,
+                      menu: <strong>&#x22EE;</strong>,
+                      openInBrowser: (
+                        <strong>{t(ui, "install.android.openInBrowser")}</strong>
+                      ),
+                    })}
                   </span>
                 </li>
                 <li className="flex gap-3">
@@ -242,8 +254,9 @@ export default function InstallBanner() {
                     2
                   </span>
                   <span>
-                    In Chrome, tap the <strong>&#x22EE;</strong> menu in the
-                    top right
+                    {tNodes(ui, "install.android.step2", {
+                      menu: <strong>&#x22EE;</strong>,
+                    })}
                   </span>
                 </li>
                 <li className="flex gap-3">
@@ -251,7 +264,11 @@ export default function InstallBanner() {
                     3
                   </span>
                   <span>
-                    Tap <strong>&quot;Add to Home screen&quot;</strong>
+                    {tNodes(ui, "install.android.step3", {
+                      addToHome: (
+                        <strong>{t(ui, "install.android.addToHome")}</strong>
+                      ),
+                    })}
                   </span>
                 </li>
                 <li className="flex gap-3">
@@ -259,7 +276,9 @@ export default function InstallBanner() {
                     4
                   </span>
                   <span>
-                    Tap <strong>&quot;Add&quot;</strong>
+                    {tNodes(ui, "install.android.step4", {
+                      add: <strong>{t(ui, "install.add")}</strong>,
+                    })}
                   </span>
                 </li>
               </ol>

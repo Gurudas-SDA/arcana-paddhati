@@ -1,4 +1,5 @@
-import bookJson from "@/data/book.json";
+// Book types and client-safe helpers. Loading the book (per language) is
+// server-only: see lib/content.ts.
 
 export interface PairedItem {
   label: string;
@@ -45,31 +46,13 @@ export interface TocSection {
   subsections: { id: string; title: string }[];
 }
 
-/** One entry of public/search-index.json (see scripts/build-search-index.mjs). */
+/** One entry of public/search-index.<lang>.json (see scripts/build-search-index.mjs). */
 export interface SearchEntry {
   section: string;
   anchor?: string;
   title: string;
   sectionTitle: string;
   text: string;
-}
-
-export const book = bookJson as Book;
-
-export function getSection(id: string): Section | undefined {
-  return book.sections.find((s) => s.id === id);
-}
-
-export function getToc(): TocSection[] {
-  return book.sections.map((s) => ({
-    id: s.id,
-    title: s.title,
-    page: s.page,
-    subsections: (s.subsections ?? []).map((sub) => ({
-      id: sub.id,
-      title: sub.title,
-    })),
-  }));
 }
 
 /** Lowercase and strip combining diacritics (NFD). */
