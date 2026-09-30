@@ -46,3 +46,8 @@ next-env.d.ts
 
 # windows
 desktop.ini
+
+# translation run artefacts
+scripts/translate/progress.log
+scripts/translate/cache/
+scripts/translate/__pycache__/
