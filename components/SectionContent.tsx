@@ -10,7 +10,46 @@ interface SectionContentProps {
   section: Section;
 }
 
-function ContentBlock({ item, index }: { item: ContentItem; index: number }) {
+/** Heading scale, one weight + size per level, used everywhere:
+ *  h1 section title > h2 subsection title > h3 in-text subtitle block. */
+const HEADING_FONT = { fontFamily: "var(--font-noto-serif, Georgia, serif)" };
+const H1_CLASS = "text-2xl sm:text-3xl font-semibold leading-tight text-[#1a1a1a]";
+const H2_CLASS = "text-xl sm:text-[22px] font-semibold leading-snug text-[#1a1a1a]";
+const H3_CLASS = "text-[17px] font-semibold leading-snug text-[#2C1810]";
+/** Thin beige rule (same colour as the sidebar border). */
+const RULE_CLASS = "border-t border-[#E8DCC8]";
+/** Content lists with at least this many blocks get a rule before each
+ *  in-text subtitle (h3) group except the first element. */
+const LONG_CONTENT_BLOCKS = 8;
+
+/** A "list" block: one item per line, rendered as a numbered list 1) 2) 3). */
+function NumberedList({ content }: { content: string }) {
+  const items = content.split("\n").filter((line) => line.trim() !== "");
+  const width = String(items.length).length > 1 ? "w-7" : "w-5";
+  return (
+    <ol role="list" className="my-4 space-y-1 text-[15px] leading-7 text-[#1a1a1a]">
+      {items.map((line, i) => (
+        <li key={i} className="flex gap-2">
+          <span className={`${width} shrink-0 text-right tabular-nums text-[#5C3D2E]`}>
+            {i + 1})
+          </span>
+          <span className="min-w-0">{line}</span>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+function ContentBlock({
+  item,
+  index,
+  separated = false,
+}: {
+  item: ContentItem;
+  index: number;
+  /** Draw a rule above this block (used for h3 groups in long content). */
+  separated?: boolean;
+}) {
   switch (item.type) {
     case "verse": {
       const isInlineMantra = item.translation === undefined;
@@ -41,24 +80,30 @@ function ContentBlock({ item, index }: { item: ContentItem; index: number }) {
 
     case "subtitle":
       return (
-        <p
-          className="text-lg leading-7 text-[#1a1a1a] my-4 font-bold"
+        <h3
+          className={`${H3_CLASS} ${separated ? `${RULE_CLASS} mt-8 pt-6` : index > 0 ? "mt-6" : "mt-2"} mb-3`}
           key={index}
-          style={{ fontFamily: "var(--font-noto-serif, Georgia, serif)" }}
+          style={HEADING_FONT}
         >
           {item.content}
-        </p>
+        </h3>
       );
 
     case "instruction":
       return (
         <p
-          className="text-[15px] leading-7 text-[#1a1a1a] my-3"
+          className="flex gap-2.5 text-[15px] leading-7 text-[#1a1a1a] my-3"
           key={index}
         >
-          &#9656; {item.content}
+          <span aria-hidden="true" className="shrink-0 select-none text-[#5C3D2E]">
+            &bull;
+          </span>
+          <span className="min-w-0">{item.content}</span>
         </p>
       );
+
+    case "list":
+      return <NumberedList key={index} content={item.content ?? ""} />;
 
     case "paired-list":
       if (item.layout === "vertical") {
@@ -115,19 +160,41 @@ function ContentBlock({ item, index }: { item: ContentItem; index: number }) {
   }
 }
 
-function SubsectionBlock({ subsection }: { subsection: Subsection }) {
+function ContentBlocks({ items }: { items: ContentItem[] }) {
+  const long = items.length >= LONG_CONTENT_BLOCKS;
   return (
-    <div id={subsection.id} className="mt-10 scroll-mt-6">
-      <h3
-        className="text-xl font-normal mb-4 text-[#1a1a1a]"
-        style={{ fontFamily: "var(--font-noto-serif, Georgia, serif)" }}
-      >
-        {subsection.title}
-      </h3>
-      {subsection.content.map((item, idx) => (
-        <ContentBlock key={idx} item={item} index={idx} />
+    <>
+      {items.map((item, idx) => (
+        <ContentBlock
+          key={idx}
+          item={item}
+          index={idx}
+          separated={long && idx > 0 && item.type === "subtitle"}
+        />
       ))}
-    </div>
+    </>
+  );
+}
+
+function SubsectionBlock({
+  subsection,
+  separated,
+}: {
+  subsection: Subsection;
+  /** Rule above the subsection (every subsection but the page's first element). */
+  separated: boolean;
+}) {
+  return (
+    <section
+      id={subsection.id}
+      data-subsection=""
+      className={`scroll-mt-6 ${separated ? `${RULE_CLASS} mt-10 pt-8` : "mt-2"}`}
+    >
+      <h2 className={`${H2_CLASS} mb-4`} style={HEADING_FONT}>
+        {subsection.title}
+      </h2>
+      <ContentBlocks items={subsection.content} />
+    </section>
   );
 }
 
@@ -136,12 +203,7 @@ export default function SectionContent({ section }: SectionContentProps) {
     <article className="max-w-3xl mx-auto px-6 py-8 sm:px-10 sm:py-12">
       {/* Section title */}
       <header className="mb-8">
-        <h1
-          className="text-2xl sm:text-3xl font-semibold text-[#1a1a1a]"
-          style={{
-            fontFamily: "var(--font-noto-serif, Georgia, serif)",
-          }}
-        >
+        <h1 className={H1_CLASS} style={HEADING_FONT}>
           {section.title}
         </h1>
         {section.subtitle && (
@@ -156,17 +218,21 @@ export default function SectionContent({ section }: SectionContentProps) {
       </header>
 
       {/* Main content */}
-      <div className="mb-8">
-        {section.content.map((item, idx) => (
-          <ContentBlock key={idx} item={item} index={idx} />
-        ))}
-      </div>
+      {section.content.length > 0 && (
+        <div>
+          <ContentBlocks items={section.content} />
+        </div>
+      )}
 
       {/* Subsections */}
       {section.subsections &&
         section.subsections.length > 0 &&
-        section.subsections.map((sub) => (
-          <SubsectionBlock key={sub.id} subsection={sub} />
+        section.subsections.map((sub, i) => (
+          <SubsectionBlock
+            key={sub.id}
+            subsection={sub}
+            separated={i > 0 || section.content.length > 0}
+          />
         ))}
     </article>
   );

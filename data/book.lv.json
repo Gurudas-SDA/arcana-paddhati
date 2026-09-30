@@ -1205,8 +1205,8 @@
               "alt": "Godināšanas piederumu attēls"
             },
             {
-              "type": "text",
-              "content": "neliels zvaniņš uz šķīvīša;\npanča-pātra ar svaigu ūdeni un karotīti;\nūdens trauks ar vāku un snīpi, piepildīts ar ūdeni;\nvisardžanīja-pātra (atkritumu trauks);\npulverī saberzta gopī-čandana, sajaukta ar citronu sulu (misiņa Dievībām);\ntaila (smaržīga eļļa);\ngliemežnīca ūdenim uz statīva;\nsnāna-pātra (mazgāšanas trauks);\ntrauks čaranāmritai;\ntērpi un adatas;\nrotājumi un līmsveķi;\ngandha (sandalkoka pasta);\nziedi un ziedu vītnes;\ntulasī lapas;\npādja-pātra, arghja-pātra, āčamana-pātra (viena Kungam un viena jums), madhuparka-pātra;\nvīraks un 1 gī lampa;\nbhogas šķīvja ēdieni, naivēdja - saldumi; augļi un ūdens\njūsu garīgā skolotāja attēls un trauks piedāvājumiem;\nziedu vītnes 2 jau pagatavotas vītnes Rādhā-Šjāmasundaram, 1 jau pagatavota vītne Kungam Čaitanjam;\nmazgāšanas dvieļi\ngamčas Dievībām"
+              "type": "list",
+              "content": "neliels zvaniņš uz šķīvīša;\npanča-pātra ar svaigu ūdeni un karotīti;\nūdens trauks ar vāku un snīpi, piepildīts ar ūdeni;\nvisardžanīja-pātra (atkritumu trauks);\npulverī saberzta gopī-čandana, sajaukta ar citronu sulu (misiņa Dievībām);\ntaila (smaržīga eļļa);\ngliemežnīca ūdenim uz statīva;\nsnāna-pātra (mazgāšanas trauks);\ntrauks čaranāmritai;\ntērpi un adatas;\nrotājumi un līmsveķi;\ngandha (sandalkoka pasta);\nziedi un ziedu vītnes;\nTulasī lapas;\npādja-pātra, arghja-pātra, āčamana-pātra (viena Kungam un viena jums), madhuparka-pātra;\nvīraks un 1 gī lampa;\nbhogas šķīvja ēdieni, naivēdja - saldumi; augļi un ūdens\njūsu garīgā skolotāja attēls un trauks piedāvājumiem;\nziedu vītnes 2 jau pagatavotas vītnes Rādhā-Šjāmasundaram, 1 jau pagatavota vītne Kungam Čaitanjam;\nmazgāšanas dvieļi\ngamčas Dievībām"
             }
           ]
         },
@@ -2770,8 +2770,8 @@
           "title": "Nepieciešamie piederumi",
           "content": [
             {
-              "type": "text",
-              "content": "panča-pātra ar svaigu ūdeni un karotīti\nmazgāšanas gliemežnīca\nmazs zvaniņš uz šķīvja\nDhūpa, vīraks\nDīpa, gī lampa\nvisardžanīja-pātra, izlietotā ūdens trauks\npūdžā-pātra Dievībai\nsnāna-pātra, Dievības mazgāšanas trauks\npūdžā-pātra Šrī gurudēvam\nsnāna-pātra, Šrī gurudēvas mazgāšanas trauks\nūdens trauks\nziedi\ntulasī lapas\nčandana\nmadhuparka, cukurs, gī un medus\npūšamā gliemežnīca\nāsana Dievībai\nāsana pūdžārī\nja tiek spodrinātas metāla Dievības — ar ūdeni sajaukts gopī-čandanas pulveris\nja Dievības ir no marmora — mīksta drāna mazgāšanai\nvate vai mīksta drāna spodrināšanai\nmīksta drāna čandanas noslaucīšanai\naila (smaržīga eļļa)\ntrauks čaranāmritai\ndvielis un gamča (audums, ko valkā pirms apģērbšanas)\napģērbs, apakšdrēbes un saspraudes\nrotājumi un līmmasa\ngandha (sandalkoka pasta)\nziedi un ziedu vītnes\ntulasī lapas un mandžarī (pumpuri)\nvīraks un gī lampa\nnaivēdja (augļi un/vai saldumi)\njūsu garīgā skolotāja attēls un piedāvājumu trauks"
+              "type": "list",
+              "content": "panča-pātra ar svaigu ūdeni un karotīti\nmazgāšanas gliemežnīca\nmazs zvaniņš uz šķīvja\ndhūpa, vīraks\ndīpa, gī lampa\nvisardžanīja-pātra, izlietotā ūdens trauks\npūdžā-pātra Dievībai\nsnāna-pātra, Dievības mazgāšanas trauks\npūdžā-pātra Šrī Gurudēvam\nsnāna-pātra, Šrī Gurudēvas mazgāšanas trauks\nūdens trauks\nziedi\nTulasī lapas\nčandana\nmadhuparka, cukurs, gī un medus\npūšamā gliemežnīca\nāsana Dievībai\nāsana pūdžārī\nja tiek spodrinātas metāla Dievības — ar ūdeni sajaukts gopī-čandanas pulveris\nja Dievības ir no marmora — mīksta drāna mazgāšanai\nvate vai mīksta drāna spodrināšanai\nmīksta drāna čandanas noslaucīšanai\naila (smaržīga eļļa)\ntrauks čaranāmritai\ndvielis un gamča (audums, ko valkā pirms apģērbšanas)\napģērbs, apakšdrēbes un saspraudes\nrotājumi un līmmasa\ngandha (sandalkoka pasta)\nziedi un ziedu vītnes\nTulasī lapas un mandžarī (pumpuri)\nvīraks un gī lampa\nnaivēdja (augļi un/vai saldumi)\njūsu garīgā skolotāja attēls un piedāvājumu trauks"
             }
           ]
         },

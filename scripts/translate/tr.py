@@ -123,7 +123,7 @@ def units():
                 if e["type"] == "verse":
                     if e.get("translation"):
                         items.append((p + ["translation"], e["translation"]))
-                elif e["type"] in ("text", "instruction", "subtitle"):
+                elif e["type"] in ("text", "instruction", "subtitle", "list"):
                     if e.get("content"):
                         items.append((p + ["content"], e["content"]))
                 elif e["type"] == "image":

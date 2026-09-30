@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { normalizeText, type SearchEntry, type TocSection } from "@/lib/book";
@@ -86,6 +86,111 @@ function makeSnippet(p: PreparedEntry, pos: number, qLen: number): Snippet {
   };
 }
 
+/** Scroll-spy line: the subsection block crossing this band (about 20% from
+ *  the top of the viewport) is the one "in view". */
+const SPY_ROOT_MARGIN = "-20% 0px -79% 0px";
+/** After a click on a subsection link (or a hash change) the spy is paused
+ *  this long, so the chosen item stays active while the page scrolls to it. */
+const CLICK_LOCK_MS = 1000;
+
+function hashId(): string | null {
+  const h = window.location.hash.slice(1);
+  if (!h) return null;
+  try {
+    return decodeURIComponent(h);
+  } catch {
+    return h;
+  }
+}
+
+/**
+ * Id of the current subsection of the shown section: from the URL hash, and
+ * while scrolling from the subsection block crossing the spy line
+ * (IntersectionObserver). null while in the section's introductory text.
+ */
+function useActiveSubsection(
+  pathname: string,
+  subIds: string[]
+): [string | null, (id: string) => void] {
+  const [active, setActive] = useState<string | null>(null);
+  const lockUntil = useRef(0);
+  const idsKey = subIds.join("|");
+
+  // Reset when the page changes (render-time adjustment, no effect needed).
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setActive(null);
+  }
+
+  useEffect(() => {
+    const ids = idsKey ? idsKey.split("|") : [];
+    if (ids.length === 0) return;
+    const known = new Set(ids);
+    const visible = new Set<string>();
+    let observer: IntersectionObserver | null = null;
+    let retry: number | undefined;
+
+    const fromHash = () => {
+      const id = hashId();
+      if (id && known.has(id)) {
+        lockUntil.current = Date.now() + CLICK_LOCK_MS;
+        setActive(id);
+      }
+    };
+
+    const attach = (attempt: number) => {
+      const els = ids
+        .map((id) => document.getElementById(id))
+        .filter((el): el is HTMLElement => el !== null);
+      if (els.length === 0) {
+        // Content of a freshly navigated page may not be mounted yet.
+        if (attempt < 20) {
+          retry = window.setTimeout(() => attach(attempt + 1), 100);
+        }
+        return;
+      }
+      fromHash();
+      const obs = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) visible.add(e.target.id);
+            else visible.delete(e.target.id);
+          }
+          if (Date.now() < lockUntil.current) return;
+          const current = ids.find((id) => visible.has(id));
+          // Nothing on the line: keep the last one unless we are back above
+          // the first subsection (the section's introductory text).
+          if (current) setActive(current);
+          else {
+            const first = els[0].getBoundingClientRect().top;
+            if (first > window.innerHeight * 0.2) setActive(null);
+          }
+        },
+        { rootMargin: SPY_ROOT_MARGIN, threshold: 0 }
+      );
+      els.forEach((el) => obs.observe(el));
+      observer = obs;
+    };
+
+    attach(0);
+    window.addEventListener("hashchange", fromHash);
+    window.addEventListener("popstate", fromHash);
+    return () => {
+      window.clearTimeout(retry);
+      observer?.disconnect();
+      window.removeEventListener("hashchange", fromHash);
+      window.removeEventListener("popstate", fromHash);
+    };
+  }, [pathname, idsKey]);
+
+  const select = (id: string) => {
+    lockUntil.current = Date.now() + CLICK_LOCK_MS;
+    setActive(id);
+  };
+  return [active, select];
+}
+
 export default function Sidebar({
   sections,
   lang,
@@ -99,6 +204,21 @@ export default function Sidebar({
 }: SidebarProps) {
   const pathname = usePathname();
   const selectedId = parsePath(pathname).sectionId;
+  const selectedSection = sections.find((s) => s.id === selectedId);
+  const subIds = useMemo(
+    () => (selectedSection?.subsections ?? []).map((sub) => sub.id),
+    [selectedSection]
+  );
+  const [activeSubId, selectSub] = useActiveSubsection(pathname, subIds);
+
+  // Clicking the open (current) section collapses / re-expands its
+  // subsection list; navigating to another section opens that one.
+  const [collapsedId, setCollapsedId] = useState<string | null>(null);
+  const [lastSelected, setLastSelected] = useState(selectedId);
+  if (selectedId !== lastSelected) {
+    setLastSelected(selectedId);
+    setCollapsedId(null);
+  }
   const sectionHref = (sectionId: string, anchor?: string) =>
     localeHref(lang, sectionId, anchor);
 
@@ -283,13 +403,25 @@ export default function Sidebar({
           <ul className="space-y-0.5">
             {filteredSections.map((section) => {
               const isSelected = selectedId === section.id;
+              const hasSubs = (section.subsections?.length ?? 0) > 0;
+              const isOpen =
+                isSelected && hasSubs && collapsedId !== section.id;
               return (
                 <li key={section.id}>
                   <Link
                     href={sectionHref(section.id)}
-                    onClick={onClose}
+                    onClick={(e) => {
+                      if (isSelected && hasSubs) {
+                        // Toggle the list instead of reloading the page.
+                        e.preventDefault();
+                        setCollapsedId(isOpen ? section.id : null);
+                        return;
+                      }
+                      onClose();
+                    }}
                     aria-current={isSelected ? "page" : undefined}
-                    className={`w-full text-left px-5 py-3 flex items-start justify-between gap-2 transition-colors ${
+                    aria-expanded={isSelected && hasSubs ? isOpen : undefined}
+                    className={`sidebar-link w-full text-left px-5 py-3 flex items-start justify-between gap-2 transition-colors ${
                       isSelected
                         ? "bg-[#FAF3E8] border-l-3 border-[#B8860B]"
                         : "hover:bg-[#FDF8F0] border-l-3 border-transparent"
@@ -304,31 +436,53 @@ export default function Sidebar({
                     >
                       {section.title}
                     </span>
-                    {section.page && (
-                      <span className="text-xs text-[#B8860B]/60 shrink-0 mt-0.5">
-                        {section.page}
-                      </span>
+                    {isSelected && hasSubs && (
+                      <svg
+                        aria-hidden="true"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#B8860B"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className={`shrink-0 mt-0.5 transition-transform ${
+                          isOpen ? "rotate-180" : ""
+                        }`}
+                      >
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
                     )}
                   </Link>
 
-                  {/* Subsections - show when selected */}
-                  {isSelected &&
-                    section.subsections &&
-                    section.subsections.length > 0 && (
-                      <ul className="ml-6 border-l border-[#E8DCC8]">
-                        {section.subsections.map((sub) => (
+                  {/* Subsections - shown while the current section is open */}
+                  {isOpen && (
+                    <ul className="ml-6 border-l border-[#E8DCC8]">
+                      {section.subsections.map((sub) => {
+                        const isActive = activeSubId === sub.id;
+                        return (
                           <li key={sub.id}>
                             <Link
                               href={sectionHref(section.id, sub.id)}
-                              onClick={onClose}
-                              className="block w-full text-left px-4 py-2 text-xs text-[#5C3D2E] hover:text-[#B8860B] hover:bg-[#FDF8F0] transition-colors"
+                              onClick={() => {
+                                selectSub(sub.id);
+                                onClose();
+                              }}
+                              aria-current={isActive ? "location" : undefined}
+                              className={`sidebar-link -ml-px block w-full text-left px-4 py-2 text-xs border-l-2 transition-colors ${
+                                isActive
+                                  ? "bg-[#FDF8F0] border-[#B8860B]/70 text-[#B8860B] font-semibold"
+                                  : "border-transparent text-[#5C3D2E] hover:text-[#B8860B] hover:bg-[#FDF8F0]"
+                              }`}
                             >
                               {sub.title}
                             </Link>
                           </li>
-                        ))}
-                      </ul>
-                    )}
+                        );
+                      })}
+                    </ul>
+                  )}
                 </li>
               );
             })}
