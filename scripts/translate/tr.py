@@ -6,6 +6,8 @@ Usage:
   python tr.py run <lang> [unit ...]    # translate units (cached)
   python tr.py all                      # all langs, all units
   python tr.py assemble                 # write data/book.<lang>.json + validate
+  python tr.py wbw <lang>               # translate wbw meanings (MARK_KEEP langs, after run)
+  python tr.py assemble <lang>          # MARK_KEEP lang only: book.<lang>.json + validation.<lang>.txt
 The API key is obtained at runtime via pipeline.key_rent and kept in memory only.
 """
 import json, os, re, sys, time, subprocess, copy, unicodedata
@@ -20,9 +22,12 @@ PROJ = r"C:\Users\gurud\OneDrive\Dators\Claude code testi\03_Satkirti\Arcana-pad
 SRC = os.path.join(PROJ, "data", "book.json")
 URL = "https://anymodel.org/v1/chat/completions"
 MODEL = "cx/gpt-5.6-sol"
-LANGS = ["ru", "lv", "de", "fr", "es", "it", "uk"]
+LANGS = ["ru", "lv", "de", "fr", "es", "it", "uk", "hu"]
 LNAME = {"ru": "Russian", "lv": "Latvian", "de": "German", "fr": "French",
-         "es": "Spanish", "it": "Italian", "uk": "Ukrainian"}
+         "es": "Spanish", "it": "Italian", "uk": "Ukrainian", "hu": "Hungarian"}
+# Languages translated from the marked source (book.json with ⟦…⟧ spans and wbw, since a9fd723):
+# ⟦…⟧ spans are copied verbatim and kept in the output; wbw meanings are translated (`tr.py wbw <lang>`).
+MARK_KEEP = {"hu"}
 CACHE = os.path.join(HERE, "cache")
 PLOG = os.path.join(HERE, "progress.log")
 IAST_CH = set("āīūṛṝḷḹṅñṭḍṇśṣṁṃḥĀĪŪṚṜḶṄÑṬḌṆŚṢṀṂḤ")
@@ -123,7 +128,7 @@ def units():
                 if e["type"] == "verse":
                     if e.get("translation"):
                         items.append((p + ["translation"], e["translation"]))
-                elif e["type"] in ("text", "instruction", "subtitle", "list"):
+                elif e["type"] in ("text", "instruction", "subtitle", "list", "bullet-list"):
                     if e.get("content"):
                         items.append((p + ["content"], e["content"]))
                 elif e["type"] == "image":
@@ -137,7 +142,7 @@ def units():
                 else:
                     raise ValueError("unknown type " + e["type"])
                 for extra in e:
-                    if extra not in ("type", "sanskrit", "translation", "content", "src", "alt", "items", "layout"):
+                    if extra not in ("type", "sanskrit", "translation", "wbw", "content", "src", "alt", "items", "layout"):
                         raise ValueError("unknown field %s" % extra)
         content(base, s["content"])
         for j, ss in enumerate(s.get("subsections") or []):
@@ -171,12 +176,18 @@ TERM_RULES = {
            "with Latvian case endings (Krišna, vaišnavs, tilaka, āčamana, Višnu, Šrī Guru, Čaitanja, prasāds, Vrindāvana). "
            "Be consistent throughout the book."),
 }
-for _l in ("de", "fr", "es", "it"):
+for _l in ("de", "fr", "es", "it", "hu"):
     TERM_RULES[_l] = ("Sanskrit terms and names inside prose: keep them exactly as in the English source (IAST with diacritics, "
                       "e.g. Kṛṣṇa, ācamana, tilaka, prasāda), as vedabase.io/%s does. Translate the English text naturally." % _l)
 
 
+RULE2_LEGACY = 'Sanskrit mantras, verse fragments or invocations quoted inside prose (e.g. "... while chanting oṁ vāsudevāya namaḥ.", "jaya oṁ viṣṇupāda ... kī jaya") must be kept EXACTLY in IAST and wrapped in the markers ⟦ and ⟧, e.g. ⟦oṁ vāsudevāya namaḥ⟧. Use the markers ONLY for mantras/Sanskrit phrases, not for single terms or names used as words of the sentence.'
+RULE2_KEEP = ("The English text already marks Sanskrit spans with ⟦ and ⟧ (e.g. ⟦oṁ vāsudevāya namaḥ⟧, ⟦pañca-pātra⟧, ⟦idaṁ ksira-snaniyam...⟧). Copy EVERY ⟦…⟧ span EXACTLY as it is — the same characters inside, even non-standard spellings, same capitalization, same \"...\" — at the corresponding place of your sentence, the same number of times and in the same order. "
+              "Never translate, re-spell, inflect, merge, split, add or drop a ⟦…⟧ span; put any grammatical case ending or suffix OUTSIDE the closing ⟧ (e.g. \"a ⟦mahā-mantra⟧ éneklése\"; a suffix may follow directly after ⟧). Do not add ⟦ ⟧ anywhere else.")
+
+
 def system_prompt(lang, gloss):
+    rule2 = RULE2_KEEP if lang in MARK_KEEP else RULE2_LEGACY
     g = "\n".join("- %s → %s" % (k, v) for k, v in gloss.items())
     return f"""You are an expert translator of Gauḍīya Vaiṣṇava literature. You translate "Arcana Paddhati", an English temple manual of Deity worship, into {LNAME[lang]}.
 Write natural, literary {LNAME[lang]} in the style of {LNAME[lang]} Gauḍīya Vaiṣṇava publications (terminology as on vedabase.io/{lang if lang!='lv' else 'lv (Latvian Vaishnava publishing practice)'}).
@@ -188,7 +199,7 @@ OUTPUT: ONLY a JSON object {{"items":[{{"k":"<same id>","t":"<translation>"}}, .
 
 RULES
 1. If an item's text is entirely a Sanskrit mantra or Sanskrit text (e.g. "oṁ keśavāya namaḥ", "idaṁ āsanam"), return it EXACTLY unchanged (same IAST, same diacritics).
-2. Sanskrit mantras, verse fragments or invocations quoted inside prose (e.g. "... while chanting oṁ vāsudevāya namaḥ.", "jaya oṁ viṣṇupāda ... kī jaya") must be kept EXACTLY in IAST and wrapped in the markers ⟦ and ⟧, e.g. ⟦oṁ vāsudevāya namaḥ⟧. Use the markers ONLY for mantras/Sanskrit phrases, not for single terms or names used as words of the sentence.
+2. {rule2}
 3. {TERM_RULES[lang]}
 4. Preserve line breaks (\\n), punctuation style, bracketed notes, markdown/HTML if present. Do not add or omit content. Do not add explanations.
 5. MANDATORY GLOSSARY — use these renderings consistently (inflect as grammar requires):
@@ -326,6 +337,8 @@ def set_in(o, path, v):
 
 def finalize(lang, text, src, cyr):
     """Apply marker / mantra rules. cyr=True -> Russian Cyrillic translit."""
+    if lang in MARK_KEEP:
+        return text
     if text == src and has_iast(src) and cyr:
         return translit(src)
     if cyr:
@@ -450,9 +463,168 @@ def assemble():
     print("ALL OK" if ok else "HAS FAILURES")
 
 
+# ---------------- word-by-word (wbw) meanings ----------------
+def parse_wbw(w):
+    """Mirror of lib/book.ts parseWbw -> [(word, meaning)]."""
+    pairs = []
+    for part in w.split(";"):
+        part = part.strip()
+        if not part:
+            continue
+        m = re.match(r"^(.*?)\s+[—–-]\s+(.*)$", part, re.S)
+        pairs.append((m.group(1).strip(), m.group(2).strip()) if m else (part, ""))
+    return pairs
+
+
+def wbw_verses():
+    """[(path_to_verse, sanskrit, en_wbw)] for every verse that has wbw."""
+    out = []
+
+    def walk(o, path):
+        if isinstance(o, dict):
+            if o.get("type") == "verse" and o.get("wbw"):
+                out.append((path, o["sanskrit"], o["wbw"]))
+            for k, v in o.items():
+                walk(v, path + [k])
+        elif isinstance(o, list):
+            for i, v in enumerate(o):
+                walk(v, path + [i])
+    walk(book, [])
+    return out
+
+
+def wbw_check(tr_w, en_w):
+    """Problems of a translated wbw string against the English one ([] = OK)."""
+    if not isinstance(tr_w, str) or not tr_w.strip():
+        return ["empty"]
+    probs = []
+    if "\n" in tr_w:
+        probs.append("newline")
+    a, b = parse_wbw(en_w), parse_wbw(tr_w)
+    if [w for w, _ in a] != [w for w, _ in b]:
+        probs.append("word sequence differs: %s" % [w for w, _ in b][:40])
+    empty = [w for w, m in b if not m.strip(" .")]
+    if empty:
+        probs.append("empty meanings for %s" % empty)
+    return probs
+
+
+def wbw_prompt(lang, gloss):
+    g = "\n".join("- %s → %s" % (k, v) for k, v in gloss.items())
+    return f"""You are a Gauḍīya-Vaiṣṇava Sanskrit scholar. You translate the word-by-word glosses (padārtha) of the verses of "Arcana Paddhati", a temple manual of Deity worship, from English into {LNAME[lang]}.
+
+INPUT: {{"items":[{{"k":"<id>","sanskrit":"<verse, IAST>","en":"<English gloss>","translation":"<this edition's {LNAME[lang]} translation of the verse>"}}, ...]}}
+OUTPUT: ONLY {{"items":[{{"k":"<same id>","wbw":"<{LNAME[lang]} gloss>"}}, ...]}} — every item, same k, same order.
+
+RULES
+1. Keep EXACTLY the same entries as the English gloss: the same Sanskrit words, character-for-character (IAST, diacritics, hyphens, apostrophes), in the same order, none added, dropped, merged or split. Translate ONLY the meaning after " — ".
+2. Format: one line, pairs "word — meaning" separated by "; ", ending with a period (as in the English). Never use ";" inside a meaning (use ","). No line breaks.
+3. Meanings: short, natural {LNAME[lang]}, consistent with the edition's translation given in the item and with the glossary. Sanskrit names and terms inside meanings stay in IAST with diacritics exactly as the English writes them (Viṣṇu, Kṛṣṇa, ācamana, bīja-mantra, praṇāma), as vedabase.io/{lang} does.
+4. GLOSSARY (use consistently, inflect as grammar requires):
+{g}
+"""
+
+
+def run_wbw(lang, chunk=15):
+    """Translate wbw meanings for every verse; cache/<lang>/_wbw.json (resumable)."""
+    os.makedirs(os.path.join(CACHE, lang), exist_ok=True)
+    cp = os.path.join(CACHE, lang, "_wbw.json")
+    done = json.load(open(cp, encoding="utf-8")) if os.path.exists(cp) else {}
+    trs = {}
+    for uid, _ in units():
+        trs.update(json.load(open(os.path.join(CACHE, lang, uid + ".json"), encoding="utf-8"))["items"])
+    todo = [(pkey(p), s, w) for p, s, w in wbw_verses() if pkey(p) not in done]
+    log("wbw %s: %d verses to do (%d cached)" % (lang, len(todo), len(done)))
+    gloss = load_gloss(lang)
+    for attempt in range(4):
+        if not todo:
+            break
+        nxt = []
+        for i in range(0, len(todo), chunk):
+            part = todo[i:i + chunk]
+            ids = {"k%d" % j: v for j, v in enumerate(part)}
+            payload = {"items": [{"k": k, "sanskrit": s, "en": w, "translation": trs.get(p + "/translation", "")}
+                                 for k, (p, s, w) in ids.items()]}
+            content, fin, u, dt = call([{"role": "system", "content": wbw_prompt(lang, gloss)},
+                                        {"role": "user", "content": json.dumps(payload, ensure_ascii=False)}])
+            log("  wbw %s chunk %d try%d: %.0fs fin=%s in=%s out=%s" % (
+                lang, i // chunk, attempt + 1, dt, fin, u.get("prompt_tokens"), u.get("completion_tokens")))
+            try:
+                d = json.loads(re.search(r"\{.*\}", content, re.S).group(0))
+                got = {str(it["k"]): it.get("wbw") for it in d["items"]}
+            except Exception as e:
+                log("  invalid wbw response: %s" % e)
+                got = {}
+            for k, (p, s, w) in ids.items():
+                probs = wbw_check(got.get(k), w)
+                if probs:
+                    log("  wbw %s %s: %s" % (lang, p, "; ".join(probs)[:300]))
+                    nxt.append((p, s, w))
+                else:
+                    done[p] = got[k].strip()
+            json.dump(done, open(cp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        todo = nxt
+        chunk = max(1, chunk // 3)
+    log("wbw %s: %d ok, %d failed" % (lang, len(done), len(todo)))
+
+
+def assemble_lang(lang):
+    """Build data/book.<lang>.json for a MARK_KEEP language (⟦⟧ kept, wbw translated) + validation."""
+    assert lang in MARK_KEEP
+    b = build(lang)[lang]
+    wb = json.load(open(os.path.join(CACHE, lang, "_wbw.json"), encoding="utf-8"))
+    for p, _, _ in wbw_verses():
+        set_in(b, p + ["wbw"], wb[pkey(p)])
+    U = units()
+    rep = []
+    e = struct_eq(book, b)
+    rep.append("[%s] structure (keys, ids, types, list lengths): %s" % (lang, "OK" if not e else "FAIL %d %s" % (len(e), e[:5])))
+    src_s, s = dict(iter_sanskrit(book)), dict(iter_sanskrit(b))
+    diff = [p for p in src_s if src_s[p] != s.get(p)]
+    rep.append("[%s] sanskrit byte-identical: %s" % (lang, "OK" if not diff else "FAIL %d" % len(diff)))
+    en_dump, tr_dump = json.dumps(book, ensure_ascii=False), json.dumps(b, ensure_ascii=False)
+    rep.append("[%s] ⟦ count en=%d %s=%d, ⟧ %d/%d: %s" % (
+        lang, en_dump.count("⟦"), lang, tr_dump.count("⟦"), en_dump.count("⟧"), tr_dump.count("⟧"),
+        "OK" if en_dump.count("⟦") == tr_dump.count("⟦") == tr_dump.count("⟧") else "FAIL"))
+    span_bad, span_order = [], []
+    for _, items in U:
+        for p, t in items:
+            a, c = MARK.findall(t), MARK.findall(get_in(b, p))
+            if sorted(a) != sorted(c):
+                span_bad.append((pkey(p), a, c))
+            elif a != c:
+                span_order.append((pkey(p), a, c))
+    rep.append("[%s] fields whose ⟦…⟧ spans differ from en (content): %s" % (lang, "OK 0" if not span_bad else "FAIL %d" % len(span_bad)))
+    for p, a, c in span_bad:
+        rep.append("      ! %s en=%s %s=%s" % (p, a, lang, c))
+    # Same spans, different order = target-language word order (not an error, listed for review).
+    rep.append("[%s] fields with same ⟦…⟧ spans in another order (word order): %d" % (lang, len(span_order)))
+    for p, a, c in span_order:
+        rep.append("      ~ %s en=%s %s=%s" % (p, a, lang, c))
+    wv = wbw_verses()
+    wfail = [(pkey(p), wbw_check(get_in(b, p + ["wbw"]), w)) for p, _, w in wv]
+    wfail = [x for x in wfail if x[1]]
+    n_wbw = tr_dump.count('"wbw"')
+    rep.append("[%s] wbw: %d fields (en %d), pairs parse + word sequence = en: %s" % (
+        lang, n_wbw, en_dump.count('"wbw"'), "OK" if not wfail and n_wbw == len(wv) else "FAIL %d" % len(wfail)))
+    same_wbw = [pkey(p) for p, _, w in wv if get_in(b, p + ["wbw"]) == w]
+    rep.append("[%s] wbw identical to English: %d" % (lang, len(same_wbw)))
+    same = [(pkey(p), t) for _, items in U for p, t in items if get_in(b, p) == t]
+    rep.append("[%s] fields identical to English: %d" % (lang, len(same)))
+    for p, t in same:
+        rep.append("      = %s | %s" % (p, t[:80].replace("\n", " / ")))
+    ok = all("FAIL" not in r for r in rep)
+    with open(os.path.join(PROJ, "data", "book.%s.json" % lang), "w", encoding="utf-8") as f:
+        json.dump(b, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    open(os.path.join(HERE, "validation.%s.txt" % lang), "w", encoding="utf-8").write("\n".join(rep))
+    print("\n".join(r for r in rep if not r.startswith("      ")))
+    print("ALL OK" if ok else "HAS FAILURES")
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1]
-    if cmd in ("run", "glossary") and len(sys.argv) > 2 and len(sys.argv[2]) == 2:
+    if cmd in ("run", "glossary", "wbw") and len(sys.argv) > 2 and len(sys.argv[2]) == 2:
         PURPOSE = "arcana-" + sys.argv[2]
     try:
         if cmd == "glossary":
@@ -464,7 +636,13 @@ if __name__ == "__main__":
             for l in LANGS:
                 run_lang(l)
         elif cmd == "assemble":
-            assemble()
+            if len(sys.argv) > 2:
+                for l in sys.argv[2:]:
+                    assemble_lang(l)
+            else:
+                assemble()
+        elif cmd == "wbw":
+            run_wbw(sys.argv[2])
         elif cmd == "units":
             for u, it in units():
                 print(u, len(it), sum(len(t) for _, t in it))

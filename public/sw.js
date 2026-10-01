@@ -15,7 +15,7 @@ const CACHE_PREFIX = 'arcana-paddhati-';
 const CACHE_NAME = CACHE_PREFIX + (VERSION.startsWith('__') ? 'dev' : VERSION);
 const MANIFEST_URL = BASE + 'precache-manifest.json';
 // Non-default languages live under /arcana-paddhati/<code>/ (lib/languages.json).
-const LANG_CODES = ['ru', 'ru-iast', 'lv', 'de', 'fr', 'es', 'it', 'uk'];
+const LANG_CODES = ['ru', 'ru-iast', 'lv', 'de', 'fr', 'es', 'it', 'uk', 'hu'];
 const NETWORK_TIMEOUT_MS = 3000;
 const CONCURRENCY = 6;
 const RETRIES = 3;

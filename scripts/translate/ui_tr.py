@@ -1,19 +1,20 @@
 """Translate data/ui.en.json -> data/ui.<lang>.json via AnyModel (one key, sequential).
 
-Usage (from this folder):  python ui_tr.py
+Usage (from this folder):  python ui_tr.py [lang ...]   (default: all LANGS)
 ru-iast gets a copy of ru (UI texts are identical; only verse script differs).
 """
 import json
 import os
 import re
 import shutil
+import sys
 
 import tr
 
 DATA = os.path.join(tr.PROJ, "data")
-LANGS = ["ru", "lv", "de", "fr", "es", "it", "uk"]
+LANGS = ["ru", "lv", "de", "fr", "es", "it", "uk", "hu"]
 NAMES = {"ru": "Russian", "lv": "Latvian", "de": "German", "fr": "French",
-         "es": "Spanish", "it": "Italian", "uk": "Ukrainian"}
+         "es": "Spanish", "it": "Italian", "uk": "Ukrainian", "hu": "Hungarian"}
 PH = re.compile(r"\{[a-zA-Z]+\}")
 
 
@@ -32,7 +33,7 @@ def prompt(lang):
 def main():
     src = json.load(open(os.path.join(DATA, "ui.en.json"), encoding="utf-8"))
     try:
-        for lang in LANGS:
+        for lang in (sys.argv[1:] or LANGS):
             text, fin, _, secs = tr.call([
                 {"role": "system", "content": prompt(lang)},
                 {"role": "user", "content": json.dumps(src, ensure_ascii=False, indent=1)},
@@ -48,7 +49,7 @@ def main():
                 json.dump({k: out[k] for k in src}, f, ensure_ascii=False, indent=2)
                 f.write("\n")
             tr.log(f"UI {lang}: OK {secs:.0f}s fin={fin}")
-        if os.path.exists(os.path.join(DATA, "ui.ru.json")):
+        if "ru" in (sys.argv[1:] or LANGS) and os.path.exists(os.path.join(DATA, "ui.ru.json")):
             shutil.copyfile(os.path.join(DATA, "ui.ru.json"), os.path.join(DATA, "ui.ru-iast.json"))
             tr.log("UI ru-iast: copied from ru")
     finally:

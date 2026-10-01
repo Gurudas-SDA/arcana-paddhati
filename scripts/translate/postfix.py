@@ -1,13 +1,16 @@
 """Post-assembly fixes for data/book.<lang>.json (run after `tr.py assemble`).
+Usage: python postfix.py [lang ...]   (default: all)
 
 - LV terms chosen by Rājan 2026-09-30: "offering" = piedāvājums, "Their Lordships" = Viņu Augstības.
   Only noun forms are replaced; the verb "veltīt" also means "dedicate" in the text, so it is kept.
+- HU: two English plurals on Sanskrit words in labels (HU_FIELDS).
 - The "[name of your spiritual master]" placeholder inside an IAST mantra is localized.
 - RU: one source verse contains English notes "(for one leaf)", which the transliterator garbled.
 """
 import json
 import pathlib
 import re
+import sys
 
 DATA = pathlib.Path(__file__).resolve().parents[2] / "data"
 
@@ -23,6 +26,13 @@ PLACEHOLDER = {
     "fr": "[nom de ton maître spirituel]",
     "it": "[nome del tuo maestro spirituale]",
     "uk": "[ім'я твого духовного вчителя]",
+    "hu": "[lelki tanítómestered neve]",
+}
+
+# HU: whole-field fixes of English plurals left on Sanskrit words (exact field match only).
+HU_FIELDS = {
+    "Śālagrāma Śilās": "Śālagrāma-śilák",
+    "aparādha-kṣamāpana-mantras": "aparādha-kṣamāpana-mantrák",
 }
 
 RU_LEAF = [
@@ -49,7 +59,7 @@ def fix_lv(s):
 
 
 def main():
-    for lang in ["lv", "de", "es", "fr", "it", "uk", "ru"]:
+    for lang in (sys.argv[1:] or ["lv", "de", "es", "fr", "it", "uk", "ru", "hu"]):
         path = DATA / f"book.{lang}.json"
         book = json.loads(path.read_text(encoding="utf-8"))
         fns = []
@@ -57,6 +67,8 @@ def main():
             fns.append(fix_lv)
         if lang in PLACEHOLDER:
             fns.append(lambda s, r=PLACEHOLDER[lang]: s.replace("[name of your spiritual master]", r))
+        if lang == "hu":
+            fns.append(lambda s: HU_FIELDS.get(s, s))
         if lang == "ru":
             def fix_ru(s):
                 for a, b in RU_LEAF:
