@@ -69,6 +69,24 @@ body {
   line-height: 1.8;
 }
 
+/* Inline Sanskrit inside running text (⟦…⟧ in the data; components/SectionContent.tsx):
+   same serif family as the verse Sanskrit, semibold, in the book's brown so mantra
+   fragments and terms stand out from the instruction text. */
+.sa-inline {
+  font-family: var(--font-serif, 'Noto Serif', Georgia, serif);
+  font-weight: 600;
+  font-style: normal;
+  color: #5C3D2E;
+}
+
+/* Word-by-word panel: the Sanskrit word bold (as in the verse), its meaning regular */
+.verse-wbw .wbw-word {
+  font-family: var(--font-serif, 'Noto Serif', Georgia, serif);
+  font-weight: 700;
+  font-style: italic;
+  color: #1a1a1a;
+}
+
 /* Translation text — italic serif */
 .translation {
   font-family: var(--font-serif, 'Noto Serif', Georgia, serif);
@@ -180,5 +198,9 @@ body {
   }
   .verse-chips {
     display: none !important;
+  }
+  .sa-inline,
+  .verse-wbw .wbw-word {
+    color: #000 !important;
   }
 }

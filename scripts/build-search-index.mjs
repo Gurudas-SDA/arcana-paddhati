@@ -31,6 +31,8 @@ function plain(blocks) {
   return (blocks ?? [])
     .map(blockText)
     .join(" ")
+    // Inline Sanskrit markers ⟦…⟧ (rendered as styled spans) are not search text.
+    .replace(/[⟦⟧]/g, "")
     .replace(/\s+/g, " ")
     .trim();
 }

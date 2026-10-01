@@ -132,7 +132,9 @@ export default function CollapsibleVerse({
           {parseWbw(wbw).map((pair, i) => (
             <React.Fragment key={i}>
               {i > 0 && "; "}
-              <i lang={sanskritLang(pair.word)}>{pair.word}</i>
+              <i lang={sanskritLang(pair.word)} className="wbw-word">
+                {pair.word}
+              </i>
               {pair.meaning && ` — ${pair.meaning}`}
             </React.Fragment>
           ))}

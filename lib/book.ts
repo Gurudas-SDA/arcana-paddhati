@@ -87,3 +87,32 @@ export function parseWbw(wbw: string): WbwPair[] {
       return m ? { word: m[1].trim(), meaning: m[2].trim() } : { word: part, meaning: "" };
     });
 }
+
+/** Inline Sanskrit inside running text is marked ⟦…⟧ in the book data. */
+export const INLINE_SA_OPEN = "⟦";
+export const INLINE_SA_CLOSE = "⟧";
+
+export interface TextRun {
+  text: string;
+  /** True for a ⟦…⟧ run (Sanskrit / mantra fragment). */
+  sanskrit: boolean;
+}
+
+/** Split running text into plain and ⟦Sanskrit⟧ runs. */
+export function parseInline(text: string): TextRun[] {
+  const runs: TextRun[] = [];
+  const re = /⟦([^⟦⟧]*)⟧/g;
+  let last = 0;
+  for (let m = re.exec(text); m; m = re.exec(text)) {
+    if (m.index > last) runs.push({ text: text.slice(last, m.index), sanskrit: false });
+    runs.push({ text: m[1], sanskrit: true });
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) runs.push({ text: text.slice(last), sanskrit: false });
+  return runs;
+}
+
+/** Running text without the ⟦…⟧ markers. */
+export function stripInline(text: string): string {
+  return text.replace(/[⟦⟧]/g, "");
+}

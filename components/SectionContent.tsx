@@ -1,5 +1,12 @@
 import React from "react";
-import { sanskritLang, type ContentItem, type Section, type Subsection } from "@/lib/book";
+import {
+  parseInline,
+  sanskritLang,
+  stripInline,
+  type ContentItem,
+  type Section,
+  type Subsection,
+} from "@/lib/book";
 import { t, type UiDict } from "@/lib/i18n";
 import CollapsibleVerse from "@/components/CollapsibleVerse";
 
@@ -27,6 +34,42 @@ const RULE_CLASS = "border-t border-[#E8DCC8]";
  *  in-text subtitle (h3) group except the first element. */
 const LONG_CONTENT_BLOCKS = 8;
 
+/** Running text with ⟦…⟧ runs rendered as inline Sanskrit (see .sa-inline in globals.css). */
+function Inline({ text }: { text: string }) {
+  return (
+    <>
+      {parseInline(text).map((run, i) =>
+        run.sanskrit ? (
+          <span key={i} lang={sanskritLang(run.text)} className="sa-inline">
+            {run.text}
+          </span>
+        ) : (
+          <React.Fragment key={i}>{run.text}</React.Fragment>
+        ),
+      )}
+    </>
+  );
+}
+
+/** A "bullet-list" block: one item per line, rendered as a compact bulleted list. */
+function BulletList({ content }: { content: string }) {
+  const items = content.split("\n").filter((line) => line.trim() !== "");
+  return (
+    <ul role="list" className="my-3 ml-5 space-y-0.5 text-[15px] leading-7 text-[#1a1a1a]">
+      {items.map((line, i) => (
+        <li key={i} className="flex gap-2">
+          <span aria-hidden="true" className="shrink-0 select-none text-[#B8860B]">
+            &ndash;
+          </span>
+          <span className="min-w-0">
+            <Inline text={line} />
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /** A "list" block: one item per line, rendered as a numbered list 1) 2) 3). */
 function NumberedList({ content }: { content: string }) {
   const items = content.split("\n").filter((line) => line.trim() !== "");
@@ -38,7 +81,9 @@ function NumberedList({ content }: { content: string }) {
           <span className={`${width} shrink-0 text-right tabular-nums text-[#5C3D2E]`}>
             {i + 1})
           </span>
-          <span className="min-w-0">{line}</span>
+          <span className="min-w-0">
+            <Inline text={line} />
+          </span>
         </li>
       ))}
     </ol>
@@ -106,7 +151,7 @@ function ContentBlock({
           key={index}
           style={HEADING_FONT}
         >
-          {item.content}
+          <Inline text={item.content ?? ""} />
         </h3>
       );
 
@@ -119,12 +164,17 @@ function ContentBlock({
           <span aria-hidden="true" className="shrink-0 select-none text-[#5C3D2E]">
             &bull;
           </span>
-          <span className="min-w-0">{item.content}</span>
+          <span className="min-w-0">
+            <Inline text={item.content ?? ""} />
+          </span>
         </p>
       );
 
     case "list":
       return <NumberedList key={index} content={item.content ?? ""} />;
+
+    case "bullet-list":
+      return <BulletList key={index} content={item.content ?? ""} />;
 
     case "paired-list":
       if (item.layout === "vertical") {
@@ -132,8 +182,13 @@ function ContentBlock({
           <div className="my-4 space-y-4" key={index}>
             {item.items?.map((pair, i) => (
               <div key={i}>
-                <p lang={sanskritLang(pair.label)} className="sanskrit text-base leading-relaxed text-[#1a1a1a]">{pair.label}</p>
-                <p className="translation text-[14px] leading-relaxed ml-8">{pair.value}</p>
+                {/* The label is already set as Sanskrit: drop its ⟦…⟧ markers. */}
+                <p lang={sanskritLang(pair.label)} className="sanskrit text-base leading-relaxed text-[#1a1a1a]">
+                  {stripInline(pair.label)}
+                </p>
+                <p className="translation text-[14px] leading-relaxed ml-8">
+                  <Inline text={pair.value} />
+                </p>
               </div>
             ))}
           </div>
@@ -143,8 +198,12 @@ function ContentBlock({
         <div className="my-4 grid gap-y-0.5" style={{ gridTemplateColumns: "auto 1fr" }} key={index}>
           {item.items?.map((pair, i) => (
             <React.Fragment key={i}>
-              <span className="pr-8 py-0.5 text-[15px]">{pair.label}</span>
-              <span className="py-0.5 text-[15px]">{pair.value}</span>
+              <span className="pr-8 py-0.5 text-[15px]">
+                <Inline text={pair.label} />
+              </span>
+              <span className="py-0.5 text-[15px]">
+                <Inline text={pair.value} />
+              </span>
             </React.Fragment>
           ))}
         </div>
@@ -171,11 +230,11 @@ function ContentBlock({
           {item.content && item.content.includes('\n')
             ? item.content.split('\n').map((line, li, arr) => (
                 <React.Fragment key={li}>
-                  {line}
+                  <Inline text={line} />
                   {li < arr.length - 1 && <br />}
                 </React.Fragment>
               ))
-            : item.content}
+            : <Inline text={item.content ?? ""} />}
         </p>
       );
   }
