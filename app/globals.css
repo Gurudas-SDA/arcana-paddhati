@@ -70,11 +70,11 @@ body {
 }
 
 /* Inline Sanskrit inside running text (⟦…⟧ in the data; components/SectionContent.tsx):
-   same serif family as the verse Sanskrit, semibold, in the book's brown so mantra
+   same serif family as the verse Sanskrit, bold (700, like the verse text), in the book's brown so mantra
    fragments and terms stand out from the instruction text. */
 .sa-inline {
   font-family: var(--font-serif, 'Noto Serif', Georgia, serif);
-  font-weight: 600;
+  font-weight: 700;
   font-style: normal;
   color: #5C3D2E;
 }
