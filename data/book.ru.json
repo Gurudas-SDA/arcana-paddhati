@@ -1,10 +1,10 @@
 {
   "title": "Арчана-паддхати",
-  "subtitle": "",
+  "subtitle": "Процесс поклонения Божеству",
   "parts": [
     {
       "id": "temple-worship",
-      "title": "Храмовое поклонение",
+      "title": "Храмовый стандарт",
       "sections": [
         "daily-duties-brahma-muhurta",
         "daily-deity-schedule",
@@ -20,7 +20,7 @@
     },
     {
       "id": "home-worship",
-      "title": "Домашнее поклонение",
+      "title": "Домашний стандарт",
       "sections": []
     },
     {

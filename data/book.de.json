@@ -1,10 +1,10 @@
 {
   "title": "Arcana Paddhati",
-  "subtitle": "",
+  "subtitle": "Der Vorgang der Verehrung der Bildgestalt",
   "parts": [
     {
       "id": "temple-worship",
-      "title": "Verehrung im Tempel",
+      "title": "Tempelstandard",
       "sections": [
         "daily-duties-brahma-muhurta",
         "daily-deity-schedule",
@@ -20,7 +20,7 @@
     },
     {
       "id": "home-worship",
-      "title": "Verehrung zu Hause",
+      "title": "Standard für zu Hause",
       "sections": []
     },
     {

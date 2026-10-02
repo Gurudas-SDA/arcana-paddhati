@@ -1,10 +1,10 @@
 {
   "title": "Arcana-paddhati",
-  "subtitle": "",
+  "subtitle": "The Process of Deity Worship",
   "parts": [
     {
       "id": "temple-worship",
-      "title": "Temple worship",
+      "title": "Temple Standard",
       "sections": [
         "daily-duties-brahma-muhurta",
         "daily-deity-schedule",
@@ -20,12 +20,12 @@
     },
     {
       "id": "home-worship",
-      "title": "Home worship",
+      "title": "Home Standard",
       "sections": []
     },
     {
       "id": "preaching-centres",
-      "title": "Standards for preaching centres",
+      "title": "Standard for Preaching Centres",
       "sections": []
     }
   ],

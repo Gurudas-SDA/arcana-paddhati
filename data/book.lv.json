@@ -1,10 +1,10 @@
 {
   "title": "Arčana Padhati",
-  "subtitle": "",
+  "subtitle": "Dievību godināšanas process",
   "parts": [
     {
       "id": "temple-worship",
-      "title": "Tempļa godināšana",
+      "title": "Tempļa standarts",
       "sections": [
         "daily-duties-brahma-muhurta",
         "daily-deity-schedule",
@@ -20,7 +20,7 @@
     },
     {
       "id": "home-worship",
-      "title": "Godināšana mājās",
+      "title": "Mājas standarts",
       "sections": []
     },
     {

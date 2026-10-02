@@ -1,10 +1,10 @@
 {
   "title": "Arcana Paddhati",
-  "subtitle": "",
+  "subtitle": "Il metodo dell’adorazione della Divinità",
   "parts": [
     {
       "id": "temple-worship",
-      "title": "Adorazione nel tempio",
+      "title": "Standard del tempio",
       "sections": [
         "daily-duties-brahma-muhurta",
         "daily-deity-schedule",
@@ -20,7 +20,7 @@
     },
     {
       "id": "home-worship",
-      "title": "Adorazione in casa",
+      "title": "Standard domestico",
       "sections": []
     },
     {

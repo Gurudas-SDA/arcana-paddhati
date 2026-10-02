@@ -1,10 +1,10 @@
 {
   "title": "Arcana Paddhati",
-  "subtitle": "",
+  "subtitle": "Az Istenség-imádat folyamata",
   "parts": [
     {
       "id": "temple-worship",
-      "title": "Templomi imádat",
+      "title": "Templomi standard",
       "sections": [
         "daily-duties-brahma-muhurta",
         "daily-deity-schedule",
@@ -20,12 +20,12 @@
     },
     {
       "id": "home-worship",
-      "title": "Otthoni imádat",
+      "title": "Otthoni standard",
       "sections": []
     },
     {
       "id": "preaching-centres",
-      "title": "Előírások a prédikálóközpontok számára",
+      "title": "Standard a prédikálóközpontok számára",
       "sections": []
     }
   ],

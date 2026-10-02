@@ -351,6 +351,11 @@ class Edition:
         n = self.num(si, sj)
         return (f'<span class="num">{n}.</span> ' if n else "") + esc(self._title(si, sj))
 
+    def full_title(self) -> str:
+        """'Арчана-паддхати — Процесс поклонения Божеству' (name — subtitle)."""
+        b = self.book
+        return f'{b["title"]} — {b["subtitle"]}' if b.get("subtitle") else b["title"]
+
     def part_label(self, pi) -> str:
         """'Part I' / 'Часть I' (ui part.label)."""
         return self.ui.get("part.label", "Part {n}").replace("{n}", to_roman(pi + 1))
@@ -833,7 +838,7 @@ def build_print(ed: Edition, fonts: dict, chrome: Path, work: Path, out_pdf: Pat
         toc.append([1, ed.s["appendix"], ap_page])
     toc.append([1, ed.s["index"], ix_page])
     doc.set_toc(toc)
-    doc.set_metadata({"title": ed.book["title"], "author": "Chaitanya Academy",
+    doc.set_metadata({"title": ed.full_title(), "author": "Chaitanya Academy",
                       "subject": ed.book.get("subtitle") or ed.book["title"], "creator": "build_formats.py", "producer": "Chrome + PyMuPDF"})
     doc.subset_fonts()
     out_pdf.parent.mkdir(parents=True, exist_ok=True)
@@ -1030,7 +1035,7 @@ def build_epub(ed: Edition, fonts: dict, out_epub: Path, work: Path):
            '<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="bookid" '
            f'xml:lang="{L}"><metadata xmlns:dc="http://purl.org/dc/elements/1.1/">'
            f'<dc:identifier id="bookid">{book_id}</dc:identifier>'
-           f'<dc:title>{esc(b["title"])}</dc:title>'
+           f'<dc:title>{esc(ed.full_title())}</dc:title>'
            f'<dc:language>{L}</dc:language><dc:creator>Chaitanya Academy</dc:creator>'
            f'<dc:description>{esc(b.get("subtitle") or b["title"])}</dc:description><dc:date>{ed.version}</dc:date>'
            f'<meta property="dcterms:modified">{now}</meta><meta name="cover" content="cover-img"/></metadata>'
