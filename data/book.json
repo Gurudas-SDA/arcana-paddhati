@@ -1,6 +1,34 @@
 {
-  "title": "The Process of Deity Worship",
-  "subtitle": "Arcana Paddhati — Temple Manual v.1",
+  "title": "Arcana-paddhati",
+  "subtitle": "",
+  "parts": [
+    {
+      "id": "temple-worship",
+      "title": "Temple worship",
+      "sections": [
+        "daily-duties-brahma-muhurta",
+        "daily-deity-schedule",
+        "worship-sixteen-articles",
+        "arcana-procedure",
+        "arcana-sri-guru",
+        "offering-bhoga",
+        "mantras-honouring-caranamrita",
+        "maha-abhiseka",
+        "prayers-forgiveness",
+        "main-worship-sixteen-items"
+      ]
+    },
+    {
+      "id": "home-worship",
+      "title": "Home worship",
+      "sections": []
+    },
+    {
+      "id": "preaching-centres",
+      "title": "Standards for preaching centres",
+      "sections": []
+    }
+  ],
   "sections": [
     {
       "id": "introduction",

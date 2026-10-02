@@ -2,7 +2,7 @@
 // The language list lives in lib/languages.json (also read by scripts/*.mjs).
 import { Fragment, createElement, type ReactNode } from "react";
 import languages from "./languages.json";
-import type { TocSection } from "./book";
+import type { TocPart, TocSection } from "./book";
 
 export interface Language {
   code: string;
@@ -18,6 +18,8 @@ export type UiDict = Record<string, string>;
 /** Per-language data handed from the server to the client shell. */
 export interface LocaleData {
   toc: TocSection[];
+  /** Parts (I, II, III …) grouping the chapters; see lib/book.ts tocLayout(). */
+  parts: TocPart[];
   ui: UiDict;
   /** True if any verse shown in this language has word-by-word meanings. */
   hasWbw: boolean;

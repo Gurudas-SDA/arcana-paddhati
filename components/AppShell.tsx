@@ -37,7 +37,7 @@ export default function AppShell({
   const pathname = usePathname();
   const router = useRouter();
   const { lang, sectionId } = parsePath(pathname);
-  const { toc: sections, ui, hasWbw } = locales[lang] ?? locales[DEFAULT_LANG];
+  const { toc: sections, parts, ui, hasWbw } = locales[lang] ?? locales[DEFAULT_LANG];
   // Language of the text actually shown (English when a translation is missing).
   const contentLang = available.includes(lang) ? lang : DEFAULT_LANG;
   const htmlLang = getLanguage(contentLang)?.htmlLang ?? DEFAULT_LANG;
@@ -128,6 +128,7 @@ export default function AppShell({
 
   const sidebarProps = {
     sections,
+    parts,
     lang,
     ui,
     hasWbw,

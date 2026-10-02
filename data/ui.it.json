@@ -1,6 +1,6 @@
 {
-  "meta.title": "Arcana Paddhati — Manuale del tempio",
-  "meta.description": "Il processo di adorazione della Divinità — un manuale completo per il tempio sull'arcana paddhati, il sacro processo di adorazione della Divinità nella tradizione vaisnava.",
+  "meta.title": "Arcana Paddhati",
+  "meta.description": "Arcana Paddhati — gli standard dell’adorazione della Divinità (arcana) nella tradizione vaishnava: adorazione nel tempio, adorazione in casa e centri di predica.",
   "meta.sectionTitle": "{section} — Arcana Paddhati",
   "header.title": "Arcana Paddhati",
   "header.openMenu": "Apri menu",
@@ -46,5 +46,7 @@
   "mood.transcript": "trascrizione",
   "mood.audio": "audio",
   "mood.more": "Altre citazioni",
-  "mood.showAll": "Mostra tutte"
+  "mood.showAll": "Mostra tutte",
+  "part.label": "Parte {n}",
+  "part.empty": "Questa parte è in preparazione."
 }

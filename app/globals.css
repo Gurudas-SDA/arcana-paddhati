@@ -246,3 +246,12 @@ body {
     color: #000 !important;
   }
 }
+
+/* Chapter / subsection numbers ("2.", "2.1.") before titles: same font,
+   muted; computed in code (lib/book.ts sectionNumbers), not part of the
+   title text, so search is unaffected. */
+.heading-num {
+  color: #9C7A4E;
+  font-variant-numeric: tabular-nums;
+  margin-right: 0.4em;
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the PRINT (A5 PDF) and KINDLE (EPUB 3 + AZW3) editions of the book.
+"""Build the PRINT (A5 PDF) and E-BOOK (EPUB 3) editions of the book.
 
 The app (Next.js, `npm run build`) is the first format; this script produces
 the other two from the same data files (data/book[.<lang>].json, ui.<lang>.json,
@@ -12,7 +12,17 @@ public/cover.jpg, public/images/*).
 Output (default): ../Арчана-паддхати — книга/ next to the repo, with
   1 Приложение/  link to the app + readme
   2 Для печати/  <name> — print.pdf
-  3 Kindle/      <name>.epub, <name> (Kindle).azw3
+  3 Kindle/      <name>.epub  (EPUB 3: cover, contents page, nav; Kindle takes
+                 EPUB via Send to Kindle - no AZW3 is produced any more)
+
+Numbering: chapters are numbered 1, 2, 3, ... and their subsections 2.1, 2.2, ...,
+computed here from the section order (same rule as the app, lib/book.ts
+sectionNumbers): front matter - sections paged with Roman numerals
+(Introduction, Mangalacarana) - and the appendix / verse index stay unnumbered.
+Parts (book.json "parts": Part I Temple worship, II Home worship, III ...) are
+a level above the chapters, numbered I, II, III: a part page before the part's
+first chapter (an empty part = page with "in preparation"), and a level in the
+contents, PDF outline and EPUB nav.
 
 PRINT: HTML + CSS paged media rendered by headless Chrome (--headless=new, no
 window), twice: pass 1 finds the page of every section and verse through the
@@ -26,7 +36,7 @@ chapter "Gurudev's words — all quotes", grouped by block with a page reference
 bookmarks are then added with PyMuPDF.
 
 Requires: Chrome or Edge, Python packages PyMuPDF (fitz) and fontTools,
-Calibre (ebook-convert) for AZW3, Noto Serif TTF (Windows ships it).
+Noto Serif TTF (Windows ships it).
 """
 from __future__ import annotations
 
@@ -75,12 +85,6 @@ CHROME_CANDIDATES = [
     r"C:\Program Files\Microsoft\Edge\Application\msedge.exe",
     "/usr/bin/google-chrome", "/usr/bin/chromium",
 ]
-CALIBRE_CANDIDATES = [
-    os.environ.get("EBOOK_CONVERT", ""),
-    r"C:\Program Files\Calibre2\ebook-convert.exe",
-    "/usr/bin/ebook-convert",
-    "/Applications/calibre.app/Contents/MacOS/ebook-convert",
-]
 
 # Per-language strings of the editions. A language without an entry uses the
 # English strings (labels found in data/ui.<lang>.json still win) and the file
@@ -89,7 +93,6 @@ LANG_STRINGS = {
     "en": {
         "name": "Arcana Paddhati (EN)",
         "print_suffix": " — print",
-        "kindle_suffix": "EN, Kindle",
         "short_title": "Arcana Paddhati",
         "toc": "Contents",
         "index": "Index of verses",
@@ -106,7 +109,6 @@ LANG_STRINGS = {
     "ru": {
         "name": "Арчана-паддхати (рус.)",
         "print_suffix": " — для печати",
-        "kindle_suffix": "рус., Kindle",
         "short_title": "Арчана-паддхати",
         "toc": "Содержание",
         "index": "Указатель шлок",
@@ -236,6 +238,38 @@ def sort_key(first_line: str):
     return key
 
 
+def to_roman(n: int) -> str:
+    out = ""
+    for v, sym in ((1000, "M"), (900, "CM"), (500, "D"), (400, "CD"), (100, "C"), (90, "XC"),
+                   (50, "L"), (40, "XL"), (10, "X"), (9, "IX"), (5, "V"), (4, "IV"), (1, "I")):
+        while n >= v:
+            out += sym
+            n -= v
+    return out
+
+
+def toc_layout(section_ids, parts):
+    """Reading order [("part", pi) | ("sec", si)] - same rule as lib/book.ts tocLayout():
+    each part's page just before its first chapter, empty parts after the previous part."""
+    part_of = {sid: pi for pi, prt in enumerate(parts) for sid in prt.get("sections", [])}
+    out, emitted = [], 0
+    for si, sid in enumerate(section_ids):
+        pi = part_of.get(sid)
+        if pi is not None:
+            while emitted <= pi:
+                out.append(("part", emitted))
+                emitted += 1
+        elif emitted > 0:
+            while emitted < len(parts) and not parts[emitted].get("sections"):
+                out.append(("part", emitted))
+                emitted += 1
+        out.append(("sec", si))
+    while emitted < len(parts):
+        out.append(("part", emitted))
+        emitted += 1
+    return out
+
+
 # ---------------------------------------------------------------- data
 
 class Edition:
@@ -254,11 +288,25 @@ class Edition:
         self.html_lang = next((l["htmlLang"] for l in langs if l["code"] == lang), lang)
         s = dict(LANG_STRINGS["en"])
         s["name"] = f"Arcana Paddhati ({lang.upper()})"
-        s["kindle_suffix"] = f"{lang.upper()}, Kindle"
         s["toc"] = ui.get("sidebar.contents", s["toc"])
         s.update(LANG_STRINGS.get(lang, {}))
         self.s = s
         self.version = content_version()
+        # Parts (I, II, III): structure from the English book, titles from this language.
+        en_parts = json.loads((DATA / "book.json").read_text(encoding="utf-8")).get("parts", [])
+        own = {prt["id"]: prt for prt in self.book.get("parts", [])}
+        self.parts = [dict(prt, title=own.get(prt["id"], prt)["title"]) for prt in en_parts]
+        self.layout = toc_layout([sec["id"] for sec in self.book["sections"]], self.parts)
+        part_by_sid = {sid: pi for pi, prt in enumerate(self.parts) for sid in prt["sections"]}
+        self.part_of = {si: part_by_sid.get(sec["id"]) for si, sec in enumerate(self.book["sections"])}
+        # Chapter numbers: front matter (Roman page numbers) unnumbered, then 1, 2, ...
+        self.nums, n = [], 0
+        for sec in self.book["sections"]:
+            if re.fullmatch(r"[ivxlcdm]+", str(sec.get("page", "")).strip(), re.I):
+                self.nums.append(None)
+            else:
+                n += 1
+                self.nums.append(n)
         # Number every verse once (same ids in PDF and EPUB) and collect the index.
         self.verse_ids = {}
         n = 0
@@ -270,17 +318,55 @@ class Edition:
         self.index = self.build_index()
         # Mood blocks: anchor id per block; those with other quotes go to the appendix.
         self.mood_ids = {}
-        self.appendix = []  # (mood id, section index, section title, subsection title or None, block)
+        self.appendix = []  # (mood id, section index, subsection index or None, block)
         n = 0
         for si, sec in enumerate(self.book["sections"]):
-            nodes = [(sec, None)] + [(sub, sub["title"]) for sub in sec.get("subsections", [])]
-            for node, sub_title in nodes:
+            nodes = [(sec, None)] + [(sub, sj) for sj, sub in enumerate(sec.get("subsections", []))]
+            for node, sj in nodes:
                 for blk in node.get("content", []):
                     if blk.get("type") == "mood":
                         n += 1
                         self.mood_ids[id(blk)] = f"m{n}"
                         if blk.get("more"):
-                            self.appendix.append((f"m{n}", si, sec["title"], sub_title, blk))
+                            self.appendix.append((f"m{n}", si, sj, blk))
+
+    def num(self, si, sj=None):
+        """'2' for chapter si, '2.1' for its subsection sj; None in front matter."""
+        n = self.nums[si]
+        if n is None:
+            return None
+        return str(n) if sj is None else f"{n}.{sj + 1}"
+
+    def _title(self, si, sj):
+        sec = self.book["sections"][si]
+        return sec["title"] if sj is None else sec["subsections"][sj]["title"]
+
+    def label(self, si, sj=None) -> str:
+        """Plain-text title with its number: '2. Title' / '2.1. Title'."""
+        n = self.num(si, sj)
+        return f"{n}. {self._title(si, sj)}" if n else self._title(si, sj)
+
+    def label_html(self, si, sj=None) -> str:
+        """Title with its number as a muted span: <span class="num">2.</span> Title."""
+        n = self.num(si, sj)
+        return (f'<span class="num">{n}.</span> ' if n else "") + esc(self._title(si, sj))
+
+    def part_label(self, pi) -> str:
+        """'Part I' / 'Часть I' (ui part.label)."""
+        return self.ui.get("part.label", "Part {n}").replace("{n}", to_roman(pi + 1))
+
+    def part_title(self, pi) -> str:
+        """Plain 'I. Temple worship' for contents / outline / nav."""
+        return f"{to_roman(pi + 1)}. {self.parts[pi]['title']}"
+
+    def part_title_html(self, pi) -> str:
+        return f'<span class="num">{to_roman(pi + 1)}.</span> {esc(self.parts[pi]["title"])}'
+
+    def part_html(self, pi) -> str:
+        """Part page: label, title, and 'in preparation' while the part is empty."""
+        empty = "" if self.parts[pi]["sections"] else f'<p class="pe">{esc(self.ui.get("part.empty", ""))}</p>'
+        return (f'<section class="part" id="p{pi}"><p class="pl">{esc(self.part_label(pi))}</p>'
+                f'<h1>{esc(self.parts[pi]["title"])}</h1>{empty}</section>')
 
     @staticmethod
     def all_blocks(sec):
@@ -397,10 +483,10 @@ class Edition:
         returns the HTML of the reference to the block (page number or link)."""
         s = self.s
         out = [f'<section class="ap" id="ap"><h1>{esc(s["appendix"])}</h1><p class="note">{esc(s["appendix_note"])}</p>']
-        for mid, si, sec_title, sub_title, blk in self.appendix:
-            title = sub_title or sec_title
-            ctx = f"{esc(sec_title)} · " if sub_title else ""
-            out.append(f'<div class="ap-block"><h2>{esc(title)}</h2>'
+        for mid, si, sj, blk in self.appendix:
+            title = self.label_html(si, sj)
+            ctx = f"{self.label_html(si)} · " if sj is not None else ""
+            out.append(f'<div class="ap-block"><h2>{title}</h2>'
                        f'<p class="ap-ref">{ctx}{esc(s["appendix_block"])} {ref(mid, si)}</p>')
             for alt in blk["more"]:
                 out.append(f'<div class="mood ap-q">{self.quote_html(alt, epub=True)}</div>')
@@ -409,12 +495,12 @@ class Edition:
         return "\n".join(out)
 
     def section_html(self, si, sec, epub=False) -> str:
-        out = [f'<section class="chap" id="s{si}"><h1>{esc(sec["title"])}</h1>']
+        out = [f'<section class="chap" id="s{si}"><h1>{self.label_html(si)}</h1>']
         if sec.get("subtitle"):
             out.append(f'<p class="sub">{esc(sec["subtitle"])}</p>')
         out.append(self.blocks_html(sec.get("content", []), epub))
         for sj, sub in enumerate(sec.get("subsections", [])):
-            out.append(f'<section class="subsec" id="s{si}-{sj}"><h2>{esc(sub["title"])}</h2>')
+            out.append(f'<section class="subsec" id="s{si}-{sj}"><h2>{self.label_html(si, sj)}</h2>')
             out.append(self.blocks_html(sub.get("content", []), epub))
             out.append("</section>")
         out.append("</section>")
@@ -470,6 +556,10 @@ ul.bl li::before { content: "– "; color: #B8860B; }
 .ap-ref { font-size: 0.85em; color: #5C3D2E; font-style: italic; }
 .ap-ref a { color: #8B6508; }
 .ms a { color: #8B6508; }
+.num { color: #9C7A4E; }
+.part { text-align: center; }
+.part .pl { color: #9C7A4E; letter-spacing: 0.14em; text-transform: uppercase; }
+.part .pe { font-style: italic; color: #5C3D2E; }
 """
 
 
@@ -530,6 +620,11 @@ h3 { font-size: 10.5pt; margin: 4mm 0 1.5mm 0; text-align: left; break-after: av
 .pairs { margin: 2mm 0; text-align: left; }
 ol.list, ul.bl { margin: 2mm 0; text-align: left; }
 h1 + .verse, h2 + .verse, h3 + .verse { break-before: avoid; }
+.part { break-before: page; break-after: page; padding-top: 55mm; }
+.part .pl { font-size: 10pt; margin: 0 0 4mm 0; }
+.part h1 { font-size: 20pt; line-height: 1.25; margin: 0 0 10mm 0; text-align: center; }
+.part .pe { font-size: 10.5pt; text-align: center; }
+.toc li.l0 { font-weight: 700; margin-top: 4.5mm; text-transform: uppercase; letter-spacing: 0.06em; font-size: 9pt; color: #5C3D2E; }
 .ix { break-before: page; }
 .ix .note { font-size: 8.5pt; font-style: italic; color: #555; text-align: center; margin-bottom: 5mm; }
 .ix-entry { margin: 0 0 3mm 0; text-align: left; break-inside: avoid; font-size: 9pt; }
@@ -558,16 +653,22 @@ def print_html(ed: Edition, fonts_url: dict, toc_pages=None, verse_pages=None, m
     parts = [f'<div class="coverpage"><img src="cover.jpg" alt="{esc(s["cover"])}"/></div>',
              '<div class="blank"></div>',
              f'<div class="titlepage"><div class="t1">{esc(b["title"])}</div>'
-             f'<div class="orn">❦</div><div class="t2">{esc(b["subtitle"])}</div>'
+             f'<div class="orn">❦</div>' + (f'<div class="t2">{esc(b["subtitle"])}</div>' if b.get("subtitle") else "") +
              f'<img src="images/CA_logo.png" alt=""/></div>',
-             f'<div class="imprint"><p>{esc(b["subtitle"])}</p><p>{esc(s["version"])} {ed.version}</p>'
+             f'<div class="imprint">' + (f'<p>{esc(b["subtitle"])}</p>' if b.get("subtitle") else "") +
+             f'<p>{esc(s["version"])} {ed.version}</p>'
              f'<p>{esc(s["app"])}<br/>{esc(APP_URL)}</p></div>']
     toc = [f'<div class="toc"><h1>{esc(s["toc"])}</h1><ol>']
-    for si, sec in enumerate(b["sections"]):
-        toc.append(f'<li class="l1"><span class="tt">{esc(sec["title"])}</span><span class="dots"></span>'
+    for kind, si in ed.layout:
+        if kind == "part":
+            toc.append(f'<li class="l0"><span class="tt">{ed.part_title_html(si)}</span><span class="dots"></span>'
+                       f'<a class="pg" href="#p{si}">{pg(f"p{si}")}</a></li>')
+            continue
+        sec = b["sections"][si]
+        toc.append(f'<li class="l1"><span class="tt">{ed.label_html(si)}</span><span class="dots"></span>'
                    f'<a class="pg" href="#s{si}">{pg(f"s{si}")}</a></li>')
         for sj, sub in enumerate(sec.get("subsections", [])):
-            toc.append(f'<li class="l2"><span class="tt">{esc(sub["title"])}</span><span class="dots"></span>'
+            toc.append(f'<li class="l2"><span class="tt">{ed.label_html(si, sj)}</span><span class="dots"></span>'
                        f'<a class="pg" href="#s{si}-{sj}">{pg(f"s{si}-{sj}")}</a></li>')
     if ed.appendix:
         toc.append(f'<li class="l1"><span class="tt">{esc(s["appendix"])}</span><span class="dots"></span>'
@@ -575,8 +676,8 @@ def print_html(ed: Edition, fonts_url: dict, toc_pages=None, verse_pages=None, m
     toc.append(f'<li class="l1"><span class="tt">{esc(s["index"])}</span><span class="dots"></span>'
                f'<a class="pg" href="#ix">{pg("ix")}</a></li></ol></div>')
     parts.append("".join(toc))
-    for si, sec in enumerate(b["sections"]):
-        parts.append(ed.section_html(si, sec))
+    for kind, si in ed.layout:
+        parts.append(ed.part_html(si) if kind == "part" else ed.section_html(si, b["sections"][si]))
     if ed.appendix:
         mp = (lambda mid: str(mood_pages.get(mid, ""))) if mood_pages else (lambda mid: "000")
         parts.append(ed.appendix_html(lambda mid, si: f'{esc(s["pages"])}\u00a0<a href="#{mid}">{mp(mid)}</a>'))
@@ -641,6 +742,7 @@ def build_print(ed: Edition, fonts: dict, chrome: Path, work: Path, out_pdf: Pat
     for si, sec in enumerate(ed.book["sections"]):
         toc_keys.append(f"s{si}")
         toc_keys += [f"s{si}-{sj}" for sj in range(len(sec.get("subsections", [])))]
+    toc_keys += [f"p{pi}" for pi in range(len(ed.parts))]
     if ed.appendix:
         toc_keys.append("ap")
     toc_keys.append("ix")
@@ -673,7 +775,7 @@ def build_print(ed: Edition, fonts: dict, chrome: Path, work: Path, out_pdf: Pat
 
     # Running headers, page numbers, bookmarks.
     sections = ed.book["sections"]
-    starts = sorted((toc_pages[f"s{si}"], sec["title"]) for si, sec in enumerate(sections))
+    starts = sorted((toc_pages[f"s{si}"], ed.label(si)) for si in range(len(sections)))
     first_toc_page = 5
     ix_page = toc_pages["ix"]
     ap_page = toc_pages.get("ap", ix_page)
@@ -681,7 +783,8 @@ def build_print(ed: Edition, fonts: dict, chrome: Path, work: Path, out_pdf: Pat
     f_rg = fitz.Font(fontfile=str(fonts["regular"]))
     col = (0.36, 0.24, 0.18)
     mm = 72 / 25.4
-    start_set = {p for p, _ in starts} | {ix_page, ap_page, first_toc_page}
+    start_set = ({p for p, _ in starts} | {ix_page, ap_page, first_toc_page}
+                 | {toc_pages[f"p{pi}"] for pi in range(len(ed.parts))})
     for pno in range(len(doc)):
         num = pno + 1
         if num < first_toc_page:
@@ -718,16 +821,20 @@ def build_print(ed: Edition, fonts: dict, chrome: Path, work: Path, out_pdf: Pat
         tw.append((cx - lw / 2, page.rect.height - 10 * mm), label, font=f_rg, fontsize=8.5)
         tw.write_text(page, color=col)
     toc = [[1, ed.s["cover"], 1], [1, ed.s["toc"], first_toc_page]]
-    for si, sec in enumerate(sections):
-        toc.append([1, sec["title"], toc_pages[f"s{si}"]])
-        for sj, sub in enumerate(sec.get("subsections", [])):
-            toc.append([2, sub["title"], toc_pages[f"s{si}-{sj}"]])
+    for kind, si in ed.layout:
+        if kind == "part":
+            toc.append([1, ed.part_title(si), toc_pages[f"p{si}"]])
+            continue
+        lvl = 2 if ed.part_of[si] is not None else 1
+        toc.append([lvl, ed.label(si), toc_pages[f"s{si}"]])
+        for sj, sub in enumerate(sections[si].get("subsections", [])):
+            toc.append([lvl + 1, ed.label(si, sj), toc_pages[f"s{si}-{sj}"]])
     if ed.appendix:
         toc.append([1, ed.s["appendix"], ap_page])
     toc.append([1, ed.s["index"], ix_page])
     doc.set_toc(toc)
-    doc.set_metadata({"title": f'{ed.s["short_title"]} — {ed.book["title"]}', "author": "Chaitanya Academy",
-                      "subject": ed.book["subtitle"], "creator": "build_formats.py", "producer": "Chrome + PyMuPDF"})
+    doc.set_metadata({"title": ed.book["title"], "author": "Chaitanya Academy",
+                      "subject": ed.book.get("subtitle") or ed.book["title"], "creator": "build_formats.py", "producer": "Chrome + PyMuPDF"})
     doc.subset_fonts()
     out_pdf.parent.mkdir(parents=True, exist_ok=True)
     tmp = work / "final.pdf"
@@ -770,6 +877,9 @@ nav ol ol { padding-left: 1.2em; }
 .ix-entry .refs { font-size: 0.85em; }
 .ap-block > h2 { border-top: 1px solid #E8DCC8; padding-top: 0.5em; }
 .ap-ref { margin: 0 0 0.6em 0; }
+.part { margin-top: 30%; }
+.part .pl { font-size: 0.9em; margin: 0 0 0.6em 0; }
+.part h1 { font-size: 1.7em; margin: 0 0 1.5em 0; }
 """
 
 
@@ -801,7 +911,7 @@ def build_epub(ed: Edition, fonts: dict, out_epub: Path, work: Path):
     for si, sec in enumerate(b["sections"]):
         name = f"sec{si:02d}.xhtml"
         sec_files.append(name)
-        files[name] = xhtml(L, sec["title"], ed.section_html(si, sec, epub=True))
+        files[name] = xhtml(L, ed.label(si), ed.section_html(si, sec, epub=True))
     # verse index
     vfile = {vid: sec_files[si] for (vid, si) in ed.verse_ids.values()}
     ix = [f'<section class="ix" id="ix"><h1>{esc(s["index"])}</h1><p class="note">{esc(s["index_note_epub"])}</p>']
@@ -811,7 +921,7 @@ def build_epub(ed: Edition, fonts: dict, out_epub: Path, work: Path):
             if si in seen:
                 continue
             seen.add(si)
-            refs.append(f'<a href="{vfile[vid]}#{vid}">{esc(b["sections"][si]["title"])}</a>')
+            refs.append(f'<a href="{vfile[vid]}#{vid}">{ed.label_html(si)}</a>')
         ix.append(f'<div class="ix-entry"><p class="ix-first" lang="{sa_lang(e["first"])}">{esc(e["first"])}</p>'
                   f'<p class="refs">→ {" · ".join(refs)}</p>')
         if e["wbw"]:
@@ -823,48 +933,62 @@ def build_epub(ed: Edition, fonts: dict, out_epub: Path, work: Path):
     files["index.xhtml"] = xhtml(L, s["index"], "".join(ix))
     if ed.appendix:
         files["appendix.xhtml"] = xhtml(L, s["appendix"], ed.appendix_html(
-            lambda mid, si: f'<a href="{sec_files[si]}#{mid}">→ {esc(b["sections"][si]["title"])}</a>'))
+            lambda mid, si: f'<a href="{sec_files[si]}#{mid}">→ {ed.label_html(si)}</a>'))
+    part_files = []
+    for pi in range(len(ed.parts)):
+        part_files.append(f"part{pi + 1}.xhtml")
+        files[part_files[-1]] = xhtml(L, ed.part_title(pi), ed.part_html(pi))
     files["cover.xhtml"] = xhtml(L, s["cover"], f'<div class="cover"><img src="cover.jpg" alt="{esc(s["cover"])}"/></div>')
     files["title.xhtml"] = xhtml(L, b["title"],
-        f'<div class="title"><p class="t1">{esc(b["title"])}</p><p class="orn">❦</p><p class="t2">{esc(b["subtitle"])}</p>'
+        f'<div class="title"><p class="t1">{esc(b["title"])}</p><p class="orn">❦</p>'
+        + (f'<p class="t2">{esc(b["subtitle"])}</p>' if b.get("subtitle") else "") +
         f'<p class="imp">{esc(s["version"])} {ed.version}<br/>{esc(s["app"])}<br/><a href="{APP_URL}">{APP_URL}</a></p>'
         f'<img src="images/CA_logo.png" alt=""/></div>')
     # nav
-    nav = [f'<nav epub:type="toc" id="toc"><h1>{esc(s["toc"])}</h1><ol>']
-    ncx_points, order = [], 0
-    def ncx_point(label, href, children=""):
+    # contents tree: (label, href, children) - front matter, parts > chapters > subsections
+    tree, cur = [(b["title"], "title.xhtml", [])], None
+    for kind, si in ed.layout:
+        if kind == "part":
+            cur = (ed.part_title(si), part_files[si], [])
+            tree.append(cur)
+            continue
+        f = sec_files[si]
+        node = (ed.label(si), f, [(ed.label(si, sj), f"{f}#s{si}-{sj}", [])
+                                  for sj in range(len(b["sections"][si].get("subsections", [])))])
+        if ed.part_of[si] is not None and cur is not None:
+            cur[2].append(node)
+        else:
+            cur = None
+            tree.append(node)
+    if ed.appendix:
+        tree.append((s["appendix"], "appendix.xhtml", []))
+    tree.append((s["index"], "index.xhtml", []))
+
+    def nav_li(node):
+        label, href, kids = node
+        sub = ("<ol>" + "".join(nav_li(k) for k in kids) + "</ol>") if kids else ""
+        return f'<li><a href="{href}">{esc(label)}</a>{sub}</li>'
+
+    order = 0
+
+    def ncx_point(node):
         nonlocal order
         order += 1
-        return (f'<navPoint id="np{order}" playOrder="{order}"><navLabel><text>{esc(label)}</text></navLabel>'
-                f'<content src="{href}"/>{children}</navPoint>')
-    ncx_points.append(ncx_point(b["title"], "title.xhtml"))
-    nav.append(f'<li><a href="title.xhtml">{esc(b["title"])}</a></li>')
-    for si, sec in enumerate(b["sections"]):
-        f = sec_files[si]
-        subs = sec.get("subsections", [])
-        nav.append(f'<li><a href="{f}">{esc(sec["title"])}</a>')
-        if subs:
-            nav.append("<ol>" + "".join(f'<li><a href="{f}#s{si}-{sj}">{esc(sub["title"])}</a></li>'
-                                        for sj, sub in enumerate(subs)) + "</ol>")
-        nav.append("</li>")
-        sec_order_label = sec["title"]
-        head = ncx_point(sec_order_label, f, "")
-        kids = "".join(ncx_point(sub["title"], f"{f}#s{si}-{sj}") for sj, sub in enumerate(subs))
-        ncx_points.append(head.replace("</navPoint>", kids + "</navPoint>"))
-    if ed.appendix:
-        nav.append(f'<li><a href="appendix.xhtml">{esc(s["appendix"])}</a></li>')
-    nav.append(f'<li><a href="index.xhtml">{esc(s["index"])}</a></li></ol></nav>')
+        label, href, kids = node
+        me = (f'<navPoint id="np{order}" playOrder="{order}"><navLabel><text>{esc(label)}</text></navLabel>'
+              f'<content src="{href}"/>')
+        return me + "".join(ncx_point(k) for k in kids) + "</navPoint>"
+
+    nav = [f'<nav epub:type="toc" id="toc"><h1>{esc(s["toc"])}</h1><ol>' + "".join(nav_li(n) for n in tree) + "</ol></nav>"]
+    ncx_points = [ncx_point(n) for n in tree]
     nav.append(f'<nav epub:type="landmarks" hidden=""><ol><li><a epub:type="cover" href="cover.xhtml">{esc(s["cover"])}</a></li>'
                f'<li><a epub:type="toc" href="nav.xhtml">{esc(s["toc"])}</a></li>'
                f'<li><a epub:type="bodymatter" href="{sec_files[0]}">{esc(b["sections"][0]["title"])}</a></li>'
                f'<li><a epub:type="index" href="index.xhtml">{esc(s["index"])}</a></li></ol></nav>')
-    if ed.appendix:
-        ncx_points.append(ncx_point(s["appendix"], "appendix.xhtml"))
-    ncx_points.append(ncx_point(s["index"], "index.xhtml"))
     files["nav.xhtml"] = xhtml(L, s["toc"], "".join(nav))
     book_id = "urn:uuid:" + str(uuid.uuid5(uuid.NAMESPACE_URL, f"{APP_URL}#{ed.lang}"))
     ncx = ('<?xml version="1.0" encoding="utf-8"?>\n<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">'
-           f'<head><meta name="dtb:uid" content="{book_id}"/><meta name="dtb:depth" content="2"/></head>'
+           f'<head><meta name="dtb:uid" content="{book_id}"/><meta name="dtb:depth" content="3"/></head>'
            f'<docTitle><text>{esc(b["title"])}</text></docTitle><navMap>{"".join(ncx_points)}</navMap></ncx>')
     files["toc.ncx"] = ncx
     # fonts: subset to the characters of the book
@@ -897,7 +1021,8 @@ def build_epub(ed: Edition, fonts: dict, out_epub: Path, work: Path):
         pr = f' properties="{" ".join(props)}"' if props else ""
         manifest.append(f'<item id="{pid}" href="{esc(name)}" media-type="{mt[Path(name).suffix]}"{pr}/>')
     ids = {name: m.split('id="')[1].split('"')[0] for name, m in zip(sorted(files), manifest)}
-    spine = (["cover.xhtml", "title.xhtml", "nav.xhtml"] + sec_files
+    body = [part_files[i] if kind == "part" else sec_files[i] for kind, i in ed.layout]
+    spine = (["cover.xhtml", "title.xhtml", "nav.xhtml"] + body
              + (["appendix.xhtml"] if ed.appendix else []) + ["index.xhtml"])
     spine_xml = "".join(f'<itemref idref="{ids[n]}"/>' for n in spine)
     now = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -905,9 +1030,9 @@ def build_epub(ed: Edition, fonts: dict, out_epub: Path, work: Path):
            '<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="bookid" '
            f'xml:lang="{L}"><metadata xmlns:dc="http://purl.org/dc/elements/1.1/">'
            f'<dc:identifier id="bookid">{book_id}</dc:identifier>'
-           f'<dc:title>{esc(s["short_title"])} — {esc(b["title"])}</dc:title>'
+           f'<dc:title>{esc(b["title"])}</dc:title>'
            f'<dc:language>{L}</dc:language><dc:creator>Chaitanya Academy</dc:creator>'
-           f'<dc:description>{esc(b["subtitle"])}</dc:description><dc:date>{ed.version}</dc:date>'
+           f'<dc:description>{esc(b.get("subtitle") or b["title"])}</dc:description><dc:date>{ed.version}</dc:date>'
            f'<meta property="dcterms:modified">{now}</meta><meta name="cover" content="cover-img"/></metadata>'
            f'<manifest>{"".join(manifest)}</manifest><spine toc="ncx">{spine_xml}</spine>'
            '<guide><reference type="cover" title="Cover" href="cover.xhtml"/>'
@@ -928,16 +1053,6 @@ def build_epub(ed: Edition, fonts: dict, out_epub: Path, work: Path):
     return tmp
 
 
-def build_azw3(calibre: Path, epub: Path, out_azw3: Path, work: Path):
-    tmp = work / "book.azw3"
-    flags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
-    r = subprocess.run([str(calibre), str(epub), str(tmp), "--embed-all-fonts"], capture_output=True,
-                       text=True, encoding="utf-8", errors="replace", timeout=900, creationflags=flags)
-    if r.returncode != 0 or not tmp.is_file():
-        sys.exit(f"ebook-convert failed:\n{r.stdout[-2000:]}\n{r.stderr[-2000:]}")
-    shutil.copy(tmp, out_azw3)
-
-
 # ---------------------------------------------------------------- app folder
 
 def write_app_folder(out: Path):
@@ -955,7 +1070,7 @@ def write_app_folder(out: Path):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--lang", default="ru,en", help="comma-separated language codes (en = data/book.json)")
-    ap.add_argument("--formats", default="print,epub,azw3", help="any of print,epub,azw3")
+    ap.add_argument("--formats", default="print,epub", help="print (PDF) and/or epub - the only formats produced")
     ap.add_argument("--out", default=str(DEFAULT_OUT), help="output folder (default: %(default)s)")
     ap.add_argument("--work", default="", help="keep intermediate files here (default: temp dir)")
     args = ap.parse_args()
@@ -966,9 +1081,9 @@ def main():
     chrome = find_file(CHROME_CANDIDATES) if "print" in formats else None
     if "print" in formats and not chrome:
         sys.exit("Chrome/Edge not found (set CHROME_PATH)")
-    calibre = find_file(CALIBRE_CANDIDATES) if "azw3" in formats else None
-    if "azw3" in formats and not calibre:
-        sys.exit("Calibre ebook-convert not found (set EBOOK_CONVERT)")
+    unknown = formats - {"print", "epub"}
+    if unknown:
+        sys.exit(f"Unknown format(s) {sorted(unknown)}: only print (PDF) and epub are produced")
     work_root = Path(args.work) if args.work else Path(tempfile.mkdtemp(prefix="arcana-formats-"))
     write_app_folder(out)
     for lang in langs:
@@ -981,18 +1096,10 @@ def main():
             info = build_print(ed, fonts, chrome, work / "print", pdf)
             ap = f", appendix p. {info['toc_pages']['ap']} ({len(ed.appendix)} blocks)" if "ap" in info["toc_pages"] else ""
             print(f"[{lang}] PDF  {pdf}  ({info['pages']} pages{ap})")
-        if formats & {"epub", "azw3"}:
+        if "epub" in formats:
             epub = out / "3 Kindle" / f"{name}.epub"
-            tmp_epub = build_epub(ed, fonts, epub, work / "epub")
-            if "epub" in formats:
-                print(f"[{lang}] EPUB {epub}")
-            else:
-                epub.unlink()
-            if "azw3" in formats:
-                stem = name.split(" (")[0]
-                azw3 = out / "3 Kindle" / f'{stem} ({ed.s["kindle_suffix"]}).azw3'
-                build_azw3(calibre, tmp_epub, azw3, work / "epub")
-                print(f"[{lang}] AZW3 {azw3}")
+            build_epub(ed, fonts, epub, work / "epub")
+            print(f"[{lang}] EPUB {epub}")
     if not args.work:
         shutil.rmtree(work_root, ignore_errors=True)
 

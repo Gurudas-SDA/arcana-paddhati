@@ -68,10 +68,77 @@ export interface Section {
   subsections: Subsection[];
 }
 
+/**
+ * A part of the book (Part I "Temple worship", II "Home worship", …): a
+ * grouping level above the chapters. `sections` lists the ids of its
+ * chapters in order; an empty list = part still in preparation. Front matter
+ * belongs to no part and comes before Part I.
+ */
+export interface Part {
+  id: string;
+  title: string;
+  sections: string[];
+}
+
 export interface Book {
   title: string;
   subtitle: string;
+  parts?: Part[];
   sections: Section[];
+}
+
+/** Slim part shape for client components; numeral = "I", "II", … */
+export interface TocPart {
+  id: string;
+  title: string;
+  numeral: string;
+  sections: string[];
+}
+
+/** One row of the reading order: a part heading or a section. */
+export type TocItem = { kind: "part"; id: string } | { kind: "section"; id: string };
+
+/**
+ * Reading order of sections and part headings: sections in book order; each
+ * part's heading is placed just before its first section (parts without
+ * sections — in preparation — right after the previous part's sections,
+ * remaining ones at the end).
+ */
+export function tocLayout(sectionIds: string[], parts: { id: string; sections: string[] }[]): TocItem[] {
+  const partOf = new Map<string, number>();
+  parts.forEach((p, i) => p.sections.forEach((id) => partOf.set(id, i)));
+  const out: TocItem[] = [];
+  let emitted = 0;
+  for (const id of sectionIds) {
+    const p = partOf.get(id);
+    if (p !== undefined) {
+      while (emitted <= p) out.push({ kind: "part", id: parts[emitted++].id });
+    } else if (emitted > 0) {
+      // A section outside any part after Part I has started: flush empty parts first.
+      while (emitted < parts.length && parts[emitted].sections.length === 0) {
+        out.push({ kind: "part", id: parts[emitted++].id });
+      }
+    }
+    out.push({ kind: "section", id });
+  }
+  while (emitted < parts.length) out.push({ kind: "part", id: parts[emitted++].id });
+  return out;
+}
+
+/** 1 -> "I", 4 -> "IV", … (part numbers). */
+export function toRoman(n: number): string {
+  const table: [number, string][] = [
+    [1000, "M"], [900, "CM"], [500, "D"], [400, "CD"], [100, "C"], [90, "XC"],
+    [50, "L"], [40, "XL"], [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"],
+  ];
+  let out = "";
+  for (const [v, s] of table) {
+    while (n >= v) {
+      out += s;
+      n -= v;
+    }
+  }
+  return out;
 }
 
 /** Slim table-of-contents shape passed to client components (no body text). */
@@ -79,7 +146,33 @@ export interface TocSection {
   id: string;
   title: string;
   page: string;
-  subsections: { id: string; title: string }[];
+  /** Chapter number ("1", "2", …); null for front matter. See sectionNumbers(). */
+  num: string | null;
+  /** num = "2.1", "2.2", … (null in front matter). */
+  subsections: { id: string; title: string; num: string | null }[];
+}
+
+/**
+ * Front matter: sections paged with Roman numerals in the original book
+ * (Introduction "III", Maṅgalācaraṇa "IV"). They stay unnumbered.
+ */
+export function isFrontMatter(page: string): boolean {
+  return /^[ivxlcdm]+$/i.test(page.trim());
+}
+
+/**
+ * Chapter numbers computed from the section order (never stored in the book
+ * texts, so every language gets the same numbers): front matter -> null, the
+ * first main chapter -> 1, the next -> 2, …
+ */
+export function sectionNumbers(sections: { page: string }[]): (number | null)[] {
+  let n = 0;
+  return sections.map((s) => (isFrontMatter(s.page) ? null : ++n));
+}
+
+/** "2.1"-style number of the i-th (0-based) subsection of chapter `num`. */
+export function subsectionNumber(num: number | string | null, i: number): string | null {
+  return num == null ? null : `${num}.${i + 1}`;
 }
 
 /** One entry of public/search-index.<lang>.json (see scripts/build-search-index.mjs). */

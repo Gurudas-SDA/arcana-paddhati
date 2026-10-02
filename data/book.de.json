@@ -1,6 +1,34 @@
 {
-  "title": "Der Vorgang der Verehrung der Bildgestalt",
-  "subtitle": "Arcana Paddhati — Tempelhandbuch v.1",
+  "title": "Arcana Paddhati",
+  "subtitle": "",
+  "parts": [
+    {
+      "id": "temple-worship",
+      "title": "Verehrung im Tempel",
+      "sections": [
+        "daily-duties-brahma-muhurta",
+        "daily-deity-schedule",
+        "worship-sixteen-articles",
+        "arcana-procedure",
+        "arcana-sri-guru",
+        "offering-bhoga",
+        "mantras-honouring-caranamrita",
+        "maha-abhiseka",
+        "prayers-forgiveness",
+        "main-worship-sixteen-items"
+      ]
+    },
+    {
+      "id": "home-worship",
+      "title": "Verehrung zu Hause",
+      "sections": []
+    },
+    {
+      "id": "preaching-centres",
+      "title": "Standard für Predigtzentren",
+      "sections": []
+    }
+  ],
   "sections": [
     {
       "id": "introduction",

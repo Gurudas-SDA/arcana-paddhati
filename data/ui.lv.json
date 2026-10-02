@@ -1,6 +1,6 @@
 {
-  "meta.title": "Arcana Paddhati — tempļa rokasgrāmata",
-  "meta.description": "Dievības godināšanas process — visaptveroša tempļa rokasgrāmata par svēto Dievības godināšanas procesu vaišnavu tradīcijā.",
+  "meta.title": "Arčana Padhati",
+  "meta.description": "Arčana Padhati — Dievību godināšanas (arčanas) standarti vaišnavu tradīcijā: tempļa godināšana, godināšana mājās un sludināšanas centri.",
   "meta.sectionTitle": "{section} — Arcana Paddhati",
   "header.title": "Arcana Paddhati",
   "header.openMenu": "Atvērt izvēlni",
@@ -46,5 +46,7 @@
   "mood.transcript": "transkripts",
   "mood.audio": "audio",
   "mood.more": "Vēl citāti",
-  "mood.showAll": "Rādīt visus"
+  "mood.showAll": "Rādīt visus",
+  "part.label": "{n} daļa",
+  "part.empty": "Sadaļa tiek gatavota."
 }

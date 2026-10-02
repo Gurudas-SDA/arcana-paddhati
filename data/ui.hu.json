@@ -1,6 +1,6 @@
 {
-  "meta.title": "Arcana Paddhati — Templomi kézikönyv",
-  "meta.description": "Az Istenség-imádat folyamata — átfogó templomi kézikönyv az Arcana Paddhatihoz, az Istenség-imádat szent folyamatához a vaiṣṇava hagyományban.",
+  "meta.title": "Arcana Paddhati",
+  "meta.description": "Arcana Paddhati — az Istenség-imádat (arcana) előírásai a vaisnava hagyományban: templomi imádat, otthoni imádat és prédikálóközpontok.",
   "meta.sectionTitle": "{section} — Arcana Paddhati",
   "header.title": "Arcana Paddhati",
   "header.openMenu": "Menü megnyitása",
@@ -46,5 +46,7 @@
   "mood.transcript": "átirat",
   "mood.audio": "hangfelvétel",
   "mood.more": "További idézetek",
-  "mood.showAll": "Összes mutatása"
+  "mood.showAll": "Összes mutatása",
+  "part.label": "{n}. rész",
+  "part.empty": "Ez a rész előkészületben van."
 }

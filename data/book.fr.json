@@ -1,6 +1,34 @@
 {
-  "title": "La procédure d’adoration de la Divinité",
-  "subtitle": "Arcana Paddhati — Manuel du temple v.1",
+  "title": "Arcana Paddhati",
+  "subtitle": "",
+  "parts": [
+    {
+      "id": "temple-worship",
+      "title": "Adoration au temple",
+      "sections": [
+        "daily-duties-brahma-muhurta",
+        "daily-deity-schedule",
+        "worship-sixteen-articles",
+        "arcana-procedure",
+        "arcana-sri-guru",
+        "offering-bhoga",
+        "mantras-honouring-caranamrita",
+        "maha-abhiseka",
+        "prayers-forgiveness",
+        "main-worship-sixteen-items"
+      ]
+    },
+    {
+      "id": "home-worship",
+      "title": "Adoration à la maison",
+      "sections": []
+    },
+    {
+      "id": "preaching-centres",
+      "title": "Standard pour les centres de prédication",
+      "sections": []
+    }
+  ],
   "sections": [
     {
       "id": "introduction",

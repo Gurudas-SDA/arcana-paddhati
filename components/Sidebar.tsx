@@ -3,7 +3,14 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { normalizeText, type SearchEntry, type TocSection } from "@/lib/book";
+import {
+  normalizeText,
+  tocLayout,
+  type SearchEntry,
+  type TocItem,
+  type TocPart,
+  type TocSection,
+} from "@/lib/book";
 import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
 import {
   setShowAllTranslations,
@@ -14,6 +21,8 @@ import {
 
 interface SidebarProps {
   sections: TocSection[];
+  /** Parts (I, II, …) grouping the chapters; headings in the contents list. */
+  parts: TocPart[];
   /** Language of the current URL (links stay in it). */
   lang: string;
   ui: UiDict;
@@ -236,6 +245,7 @@ function PrefSwitch({
 
 export default function Sidebar({
   sections,
+  parts,
   lang,
   ui,
   hasWbw,
@@ -274,6 +284,14 @@ export default function Sidebar({
   );
 
   const normalizedQuery = normalizeText(searchQuery.trim());
+
+  // Contents order: front matter, then each part heading with its chapters.
+  const layout = useMemo(
+    () => tocLayout(sections.map((s) => s.id), parts),
+    [sections, parts]
+  );
+  const sectionById = useMemo(() => new Map(sections.map((s) => [s.id, s])), [sections]);
+  const partById = useMemo(() => new Map(parts.map((p) => [p.id, p])), [parts]);
 
   // Full-text results (once the index is loaded).
   const results = useMemo<SearchResult[] | null>(() => {
@@ -509,7 +527,36 @@ export default function Sidebar({
                 </Link>
               </li>
             )}
-            {filteredSections.map((section) => {
+            {(normalizedQuery
+              ? filteredSections.map((s): TocItem => ({ kind: "section", id: s.id }))
+              : layout
+            ).map((item) => {
+              if (item.kind === "part") {
+                const part = partById.get(item.id);
+                if (!part) return null;
+                const isPartSelected = selectedId === part.id;
+                return (
+                  <li key={`part-${part.id}`} className="mt-2 border-t border-[#E8DCC8] pt-2">
+                    <Link
+                      href={sectionHref(part.id)}
+                      onClick={onClose}
+                      aria-current={isPartSelected ? "page" : undefined}
+                      className={`sidebar-link w-full text-left px-5 py-2 block border-l-3 transition-colors ${
+                        isPartSelected
+                          ? "bg-[#FAF3E8] border-[#B8860B]"
+                          : "hover:bg-[#FDF8F0] border-transparent"
+                      }`}
+                    >
+                      <span className="text-[11px] uppercase tracking-[0.12em] font-semibold leading-snug text-[#9C7A4E]">
+                        <span className="mr-1.5">{`${part.numeral}.`}</span>
+                        {part.title}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              }
+              const section = sectionById.get(item.id);
+              if (!section) return null;
               const isSelected = selectedId === section.id;
               const hasSubs = (section.subsections?.length ?? 0) > 0;
               const isOpen =
@@ -542,6 +589,9 @@ export default function Sidebar({
                           : "text-[#2C1810]"
                       }`}
                     >
+                      {section.num && (
+                        <span className="heading-num">{`${section.num}.`}</span>
+                      )}
                       {section.title}
                     </span>
                     {isSelected && hasSubs && (
@@ -584,6 +634,9 @@ export default function Sidebar({
                                   : "border-transparent text-[#5C3D2E] hover:text-[#B8860B] hover:bg-[#FDF8F0]"
                               }`}
                             >
+                              {sub.num && (
+                                <span className="heading-num">{`${sub.num}.`}</span>
+                              )}
                               {sub.title}
                             </Link>
                           </li>

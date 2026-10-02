@@ -1,6 +1,34 @@
 {
-  "title": "Az Istenség-imádat folyamata",
-  "subtitle": "Arcana Paddhati — Templomi kézikönyv, 1. változat",
+  "title": "Arcana Paddhati",
+  "subtitle": "",
+  "parts": [
+    {
+      "id": "temple-worship",
+      "title": "Templomi imádat",
+      "sections": [
+        "daily-duties-brahma-muhurta",
+        "daily-deity-schedule",
+        "worship-sixteen-articles",
+        "arcana-procedure",
+        "arcana-sri-guru",
+        "offering-bhoga",
+        "mantras-honouring-caranamrita",
+        "maha-abhiseka",
+        "prayers-forgiveness",
+        "main-worship-sixteen-items"
+      ]
+    },
+    {
+      "id": "home-worship",
+      "title": "Otthoni imádat",
+      "sections": []
+    },
+    {
+      "id": "preaching-centres",
+      "title": "Előírások a prédikálóközpontok számára",
+      "sections": []
+    }
+  ],
   "sections": [
     {
       "id": "introduction",

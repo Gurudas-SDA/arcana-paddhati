@@ -8,7 +8,15 @@
 // Adding a translation file therefore only needs a rebuild.
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import type { Book, Section, TocSection } from "./book";
+import {
+  sectionNumbers,
+  subsectionNumber,
+  toRoman,
+  type Book,
+  type Section,
+  type TocPart,
+  type TocSection,
+} from "./book";
 import {
   DEFAULT_LANG,
   LANGUAGES,
@@ -64,17 +72,53 @@ export function getSection(lang: string, id: string): Section | undefined {
   );
 }
 
+/**
+ * Parts of the book: structure (ids, chapter lists) from the English book,
+ * titles from the translation where present.
+ */
+export function getParts(lang: string): TocPart[] {
+  const local = getBook(lang).parts ?? [];
+  return (englishBook().parts ?? []).map((p, i) => ({
+    id: p.id,
+    title: local.find((l) => l.id === p.id)?.title ?? p.title,
+    numeral: toRoman(i + 1),
+    sections: p.sections,
+  }));
+}
+
+export function getPart(lang: string, id: string): TocPart | undefined {
+  return getParts(lang).find((p) => p.id === id);
+}
+
+/** Part ids — each part has its own page (/<part>/, /<lang>/<part>/). */
+export function getPartIds(): string[] {
+  return (englishBook().parts ?? []).map((p) => p.id);
+}
+
+/** Chapter number of section `id` ("1", "2", …), null for front matter.
+ *  Computed from the English section order, so it is the same in every language. */
+export function getSectionNumber(id: string): string | null {
+  const sections = englishBook().sections;
+  const i = sections.findIndex((s) => s.id === id);
+  if (i < 0) return null;
+  const n = sectionNumbers(sections)[i];
+  return n == null ? null : String(n);
+}
+
 /** Table of contents in English order, titles from the translation where present. */
 export function getToc(lang: string): TocSection[] {
   return getSectionIds().map((id) => {
     const s = getSection(lang, id)!;
+    const num = getSectionNumber(id);
     return {
       id: s.id,
       title: s.title,
       page: s.page,
-      subsections: (s.subsections ?? []).map((sub) => ({
+      num,
+      subsections: (s.subsections ?? []).map((sub, i) => ({
         id: sub.id,
         title: sub.title,
+        num: subsectionNumber(num, i),
       })),
     };
   });
@@ -116,7 +160,12 @@ export function getLocales(): Record<string, LocaleData> {
     if (code !== DEFAULT_LANG && !hasBook(code) && !readJson(`ui.${code}.json`)) {
       continue;
     }
-    out[code] = { toc: getToc(code), ui: getUi(code), hasWbw: hasWordByWord(code) };
+    out[code] = {
+      toc: getToc(code),
+      parts: getParts(code),
+      ui: getUi(code),
+      hasWbw: hasWordByWord(code),
+    };
   }
   return out;
 }

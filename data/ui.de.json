@@ -1,6 +1,6 @@
 {
-  "meta.title": "Arcana Paddhati — Tempelhandbuch",
-  "meta.description": "Der Prozess der Gottheitenverehrung — ein umfassendes Tempelhandbuch für Arcana Paddhati, den heiligen Prozess der Gottheitenverehrung in der Vaishnava-Tradition.",
+  "meta.title": "Arcana Paddhati",
+  "meta.description": "Arcana Paddhati — Standards der Verehrung der Bildgestalt (Arcana) in der vaishnavischen Tradition: Verehrung im Tempel, Verehrung zu Hause und Predigtzentren.",
   "meta.sectionTitle": "{section} — Arcana Paddhati",
   "header.title": "Arcana Paddhati",
   "header.openMenu": "Menü öffnen",
@@ -46,5 +46,7 @@
   "mood.transcript": "Transkript",
   "mood.audio": "Audio",
   "mood.more": "Weitere Zitate",
-  "mood.showAll": "Alle anzeigen"
+  "mood.showAll": "Alle anzeigen",
+  "part.label": "Teil {n}",
+  "part.empty": "Dieser Teil ist in Vorbereitung."
 }

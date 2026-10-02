@@ -1,6 +1,6 @@
 {
-  "meta.title": "Arcana Paddhati — храмовое руководство",
-  "meta.description": "Процесс поклонения Божествам — подробное храмовое руководство по арчана-паддхати, священному процессу поклонения Божествам в вайшнавской традиции.",
+  "meta.title": "Arcana-paddhati",
+  "meta.description": "Arcana-paddhati — стандарты поклонения Божествам (арчаны) в вайшнавской традиции: храмовое поклонение, домашнее поклонение и проповеднические центры.",
   "meta.sectionTitle": "{section} — Arcana Paddhati",
   "header.title": "Arcana Paddhati",
   "header.openMenu": "Открыть меню",
@@ -46,5 +46,7 @@
   "mood.transcript": "транскрипт",
   "mood.audio": "аудио",
   "mood.more": "Ещё цитаты",
-  "mood.showAll": "Показать все"
+  "mood.showAll": "Показать все",
+  "part.label": "Часть {n}",
+  "part.empty": "Раздел в подготовке."
 }

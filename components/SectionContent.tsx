@@ -3,6 +3,7 @@ import {
   parseInline,
   sanskritLang,
   stripInline,
+  subsectionNumber,
   type ContentItem,
   type Section,
   type Subsection,
@@ -22,6 +23,8 @@ interface SectionContentProps {
   section: Section;
   /** UI strings of the page's language (verse panel chips). */
   ui: UiDict;
+  /** Chapter number ("2"); null/absent for front matter (unnumbered). */
+  num?: string | null;
 }
 
 /** Heading scale, one weight + size per level, used everywhere:
@@ -284,10 +287,13 @@ function ContentBlocks({ items, labels }: { items: ContentItem[]; labels: VerseL
 
 function SubsectionBlock({
   subsection,
+  num,
   separated,
   labels,
 }: {
   subsection: Subsection;
+  /** "2.1"; null in front matter. */
+  num: string | null;
   labels: VerseLabels;
   /** Rule above the subsection (every subsection but the page's first element). */
   separated: boolean;
@@ -299,6 +305,7 @@ function SubsectionBlock({
       className={`scroll-mt-6 ${separated ? `${RULE_CLASS} mt-10 pt-8` : "mt-2"}`}
     >
       <h2 className={`${H2_CLASS} mb-4`} style={HEADING_FONT}>
+        {num && <span className="heading-num">{`${num}.`}</span>}
         {subsection.title}
       </h2>
       <ContentBlocks items={subsection.content} labels={labels} />
@@ -306,7 +313,7 @@ function SubsectionBlock({
   );
 }
 
-export default function SectionContent({ section, ui }: SectionContentProps) {
+export default function SectionContent({ section, ui, num = null }: SectionContentProps) {
   const labels: VerseLabels = {
     translation: t(ui, "verse.translationHint"),
     wbw: t(ui, "verse.wbwHint"),
@@ -326,6 +333,7 @@ export default function SectionContent({ section, ui }: SectionContentProps) {
       {/* Section title */}
       <header className="mb-8">
         <h1 className={H1_CLASS} style={HEADING_FONT}>
+          {num && <span className="heading-num">{`${num}.`}</span>}
           {section.title}
         </h1>
         {section.subtitle && (
@@ -353,6 +361,7 @@ export default function SectionContent({ section, ui }: SectionContentProps) {
           <SubsectionBlock
             key={sub.id}
             subsection={sub}
+            num={subsectionNumber(num, i)}
             labels={labels}
             separated={i > 0 || section.content.length > 0}
           />

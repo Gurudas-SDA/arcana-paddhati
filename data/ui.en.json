@@ -1,6 +1,6 @@
 {
-  "meta.title": "Arcana Paddhati — Temple Manual",
-  "meta.description": "The Process of Deity Worship — a comprehensive temple manual for arcana paddhati, the sacred process of deity worship in the Vaishnava tradition.",
+  "meta.title": "Arcana-paddhati",
+  "meta.description": "Arcana-paddhati — standards of Deity worship (arcana) in the Vaishnava tradition: temple worship, home worship and preaching centres.",
   "meta.sectionTitle": "{section} — Arcana Paddhati",
   "header.title": "Arcana Paddhati",
   "header.openMenu": "Open menu",
@@ -46,5 +46,7 @@
   "mood.transcript": "transcript",
   "mood.audio": "audio",
   "mood.more": "More quotes",
-  "mood.showAll": "Show all"
+  "mood.showAll": "Show all",
+  "part.label": "Part {n}",
+  "part.empty": "This part is in preparation."
 }
