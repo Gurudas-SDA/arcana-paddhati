@@ -383,13 +383,13 @@ class Edition:
         src = it.get("source")
         if src:
             line = " · ".join(x for x in [src.get("title"), src.get("date"),
-                                          f'№ {src["nr"]}' if src.get("nr") else "", src.get("timecode")] if x)
+                                          f'№ {src["nr"]}' if src.get("nr") else "", src.get("timecode"), src.get("note")] if x)
             links = ""
             if epub:
                 for key, lab in (("transcript_url", "mood.transcript"), ("audio_url", "mood.audio")):
                     if src.get(key):
                         links += f' · <a href="{esc(src[key])}">{esc(ui[lab])}</a>'
-            out.append(f'<p class="ms"><span lang="en">{esc(line)}</span>{links}</p>')
+            out.append(f'<p class="ms"><span lang="{esc(src.get("lang") or "en")}">{esc(line)}</span>{links}</p>')
         return "".join(out)
 
     def appendix_html(self, ref) -> str:

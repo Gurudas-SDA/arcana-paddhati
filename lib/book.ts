@@ -16,6 +16,10 @@ export interface MoodSource {
   timecode?: string;
   transcript_url?: string;
   audio_url?: string;
+  /** Shown after the source line, e.g. for a private recording without public links. */
+  note?: string;
+  /** Language of title/note when not English (BCP 47; default "en"). */
+  lang?: string;
 }
 
 /** One more candidate quote of a "mood" block (the "More quotes" / "Show all" lists). */

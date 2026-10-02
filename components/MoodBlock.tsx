@@ -93,7 +93,8 @@ function Paragraphs({ text, className }: { text: string; className: string }) {
   );
 }
 
-/** Gurudev's words (EN), the translation and the source line with links. */
+/** Gurudev's words (EN), the translation and the source line with links (each link only when its URL is set;
+ *  a private recording has none and carries a `note` instead). */
 function QuoteBody({
   quote,
   translation,
@@ -108,7 +109,7 @@ function QuoteBody({
   labels: MoodLabels;
 }) {
   const sourceLine = source
-    ? [source.title, source.date, source.nr ? `№ ${source.nr}` : "", source.timecode]
+    ? [source.title, source.date, source.nr ? `№ ${source.nr}` : "", source.timecode, source.note]
         .filter(Boolean)
         .join(" · ")
     : "";
@@ -137,7 +138,7 @@ function QuoteBody({
       )}
       {source && (
         <p className="mood-source mt-4 border-t border-[#E8DCC8] pt-2 text-[12px] leading-5 text-[#5C3D2E]">
-          <span lang="en">{sourceLine}</span>
+          <span lang={source.lang || "en"}>{sourceLine}</span>
           {source.transcript_url && (
             <>
               {" · "}

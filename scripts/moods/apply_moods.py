@@ -4,14 +4,15 @@
 scripts/moods/moods.json holds one entry per target (sub)section:
   {"target": "<section or subsection id>", "quote": "<EN, Gurudev's own words, verbatim>",
    "translations": {"ru": "...", "ru-iast": "...", "lv": "...", ...},
-   "machine": ["lv", "de", ...], "source": {title, date, nr, timecode, transcript_url, audio_url},
+   "machine": ["lv", "de", ...], "source": {title, date, nr, timecode, transcript_url, audio_url, [note], [i18n]},
    "more": [{"candidate", "label", "quote", "translation": {lang: text}, "machine": [langs], "source"}, ...]}
 `more` = the other candidate quotes for that block ("More quotes" shows the first 3, "Show all" the rest; best first; print/Kindle
 show them only in the appendix, scripts/formats/build_formats.py).
 The block is put at the start of the target's content in ALL language files:
   {"type": "mood", "quote", "translation", ["translation_note": "machine"], "source",
    ["more": [{"quote", "translation", ["translation_note": "machine"], "source"}, ...]]}
-English: translation "". Idempotent: existing mood blocks are removed first.
+Source: `note` (e.g. a private recording without links) is shown after the source line; `i18n: {lang: {title, note}}`
+overrides those fields for that language (and sets source.lang). English: translation "". Idempotent: existing mood blocks are removed first.
 Re-run after scripts/translate/tr.py rebuilds a book.<lang>.json.
 Choices and alternatives: Отчёты/_исходники/2026-10-02_resheniya-citaty.md (Satkirti folder).
 """
@@ -33,6 +34,17 @@ def nodes(book):
             yield sub
 
 
+def src_for(src, lang):
+    """The source of a quote for one language: `i18n.<lang>` (e.g. a Russian title/note) overrides the
+    English fields and then `lang` is set (the source line's language); `i18n` itself is not written."""
+    out = {k: v for k, v in src.items() if k != "i18n"}
+    loc = (src.get("i18n") or {}).get(lang)
+    if loc:
+        out.update(loc)
+        out["lang"] = "ru" if lang.startswith("ru") else lang
+    return out
+
+
 def main():
     moods = json.load(open(os.path.join(HERE, "moods.json"), encoding="utf-8"))
     for lang in LANGS:
@@ -48,13 +60,13 @@ def main():
                      "translation": "" if lang == "en" else m["translations"][lang]}
             if lang != "en" and lang in m.get("machine", []):
                 block["translation_note"] = "machine"
-            block["source"] = m["source"]
+            block["source"] = src_for(m["source"], lang)
             more = []
             for a in m.get("more", []):
                 alt = {"quote": a["quote"], "translation": "" if lang == "en" else a["translation"][lang]}
                 if lang != "en" and lang in a.get("machine", []):
                     alt["translation_note"] = "machine"
-                alt["source"] = a["source"]
+                alt["source"] = src_for(a["source"], lang)
                 more.append(alt)
             if more:
                 block["more"] = more
