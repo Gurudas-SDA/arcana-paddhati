@@ -38,5 +38,11 @@
   "install.android.step2": "A Chrome-ban koppints a jobb felső sarokban lévő {menu} menüre",
   "install.android.step3": "Válaszd a {addToHome} lehetőséget",
   "install.android.addToHome": "\"Hozzáadás a kezdőképernyőhöz\"",
-  "install.android.step4": "Koppints a {add} gombra"
+  "install.android.step4": "Koppints a {add} gombra",
+  "mood.button": "Hangulat — Gurudev",
+  "mood.words": "Gurudev szavai",
+  "mood.translation": "Fordítás",
+  "mood.machine": "gépi fordítás",
+  "mood.transcript": "átirat",
+  "mood.audio": "hangfelvétel"
 }

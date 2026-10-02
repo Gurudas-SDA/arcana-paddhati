@@ -159,7 +159,8 @@ body {
 
 /* Collapsible verse panels: word-by-word + translation (components/CollapsibleVerse.tsx) */
 .verse-toggle:focus-visible,
-.verse-chip:focus-visible {
+.verse-chip:focus-visible,
+.mood-toggle:focus-visible {
   outline-offset: 2px;
 }
 
@@ -191,13 +192,33 @@ body {
   }
 }
 
+/* "Mood — Gurudev" panel (components/MoodBlock.tsx): closed until data-open */
+.mood-panel:not([data-open]) {
+  display: none;
+}
+
+.mood-panel[data-open] {
+  animation: verse-reveal 180ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mood-panel[data-open] {
+    animation: none;
+  }
+}
+
 /* Print: all verse panels expanded, no chips */
 @media print {
   .verse-panel[hidden] {
     display: block !important;
   }
-  .verse-chips {
+  .verse-chips,
+  .mood-toggle {
     display: none !important;
+  }
+  .mood-panel {
+    display: block !important;
+    animation: none !important;
   }
   .sa-inline,
   .verse-wbw .wbw-word {

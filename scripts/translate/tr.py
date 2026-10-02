@@ -125,6 +125,9 @@ def units():
         def content(pbase, cont):
             for ci, e in enumerate(cont):
                 p = pbase + ["content", ci]
+                if e["type"] == "mood":
+                    # Gurudev quotes: not translated here — re-run scripts/moods/apply_moods.py after assemble.
+                    continue
                 if e["type"] == "verse":
                     if e.get("translation"):
                         items.append((p + ["translation"], e["translation"]))

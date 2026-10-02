@@ -38,5 +38,11 @@
   "install.android.step2": "У Chrome торкніться меню {menu} у верхньому правому куті",
   "install.android.step3": "Торкніться {addToHome}",
   "install.android.addToHome": "\"Додати на головний екран\"",
-  "install.android.step4": "Торкніться {add}"
+  "install.android.step4": "Торкніться {add}",
+  "mood.button": "Настрій — Ґурудев",
+  "mood.words": "Слова Ґурудева",
+  "mood.translation": "Переклад",
+  "mood.machine": "машинний переклад",
+  "mood.transcript": "транскрипт",
+  "mood.audio": "аудіо"
 }

@@ -38,5 +38,11 @@
   "install.android.step2": "En Chrome, toca el menú {menu} en la esquina superior derecha",
   "install.android.step3": "Toca {addToHome}",
   "install.android.addToHome": "\"Añadir a pantalla de inicio\"",
-  "install.android.step4": "Toca {add}"
+  "install.android.step4": "Toca {add}",
+  "mood.button": "Estado de ánimo — Gurudev",
+  "mood.words": "Palabras de Gurudev",
+  "mood.translation": "Traducción",
+  "mood.machine": "traducción automática",
+  "mood.transcript": "transcripción",
+  "mood.audio": "audio"
 }

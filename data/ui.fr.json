@@ -38,5 +38,11 @@
   "install.android.step2": "Dans Chrome, touchez le menu {menu} en haut à droite",
   "install.android.step3": "Touchez {addToHome}",
   "install.android.addToHome": "\"Ajouter à l’écran d’accueil\"",
-  "install.android.step4": "Touchez {add}"
+  "install.android.step4": "Touchez {add}",
+  "mood.button": "État d'âme — Gurudev",
+  "mood.words": "Paroles de Gurudev",
+  "mood.translation": "Traduction",
+  "mood.machine": "traduction automatique",
+  "mood.transcript": "transcription",
+  "mood.audio": "audio"
 }

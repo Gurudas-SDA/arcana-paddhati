@@ -38,5 +38,11 @@
   "install.android.step2": "В Chrome нажмите меню {menu} в правом верхнем углу",
   "install.android.step3": "Нажмите {addToHome}",
   "install.android.addToHome": "\"Добавить на главный экран\"",
-  "install.android.step4": "Нажмите {add}"
+  "install.android.step4": "Нажмите {add}",
+  "mood.button": "Настроение — Гурудев",
+  "mood.words": "Слова Гурудева",
+  "mood.translation": "Перевод",
+  "mood.machine": "машинный перевод",
+  "mood.transcript": "транскрипт",
+  "mood.audio": "аудио"
 }

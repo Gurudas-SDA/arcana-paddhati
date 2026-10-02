@@ -22,6 +22,8 @@ function blockText(block) {
         .join(" ");
     case "image":
       return block.alt ?? "";
+    case "mood":
+      return [block.quote, block.translation].filter(Boolean).join(" ");
     default:
       return block.content ?? "";
   }

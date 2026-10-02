@@ -38,5 +38,11 @@
   "install.android.step2": "In Chrome, tap the {menu} menu in the top right",
   "install.android.step3": "Tap {addToHome}",
   "install.android.addToHome": "\"Add to Home screen\"",
-  "install.android.step4": "Tap {add}"
+  "install.android.step4": "Tap {add}",
+  "mood.button": "Mood — Gurudev",
+  "mood.words": "Gurudev's words",
+  "mood.translation": "Translation",
+  "mood.machine": "machine translation",
+  "mood.transcript": "transcript",
+  "mood.audio": "audio"
 }

@@ -38,5 +38,11 @@
   "install.android.step2": "Tippe in Chrome oben rechts auf das Menü {menu}",
   "install.android.step3": "Tippe auf {addToHome}",
   "install.android.addToHome": "\"Zum Startbildschirm hinzufügen\"",
-  "install.android.step4": "Tippe auf {add}"
+  "install.android.step4": "Tippe auf {add}",
+  "mood.button": "Stimmung — Gurudev",
+  "mood.words": "Gurudevs Worte",
+  "mood.translation": "Übersetzung",
+  "mood.machine": "maschinelle Übersetzung",
+  "mood.transcript": "Transkript",
+  "mood.audio": "Audio"
 }

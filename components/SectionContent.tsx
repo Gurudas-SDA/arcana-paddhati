@@ -9,11 +9,13 @@ import {
 } from "@/lib/book";
 import { t, type UiDict } from "@/lib/i18n";
 import CollapsibleVerse from "@/components/CollapsibleVerse";
+import MoodBlock, { type MoodLabels } from "@/components/MoodBlock";
 
-/** Localised labels of the verse panel chips. */
+/** Localised labels of the verse panel chips and of the mood block. */
 interface VerseLabels {
   translation: string;
   wbw: string;
+  mood: MoodLabels;
 }
 
 interface SectionContentProps {
@@ -209,6 +211,18 @@ function ContentBlock({
         </div>
       );
 
+    case "mood":
+      return (
+        <MoodBlock
+          key={index}
+          quote={item.quote ?? ""}
+          translation={item.translation || undefined}
+          machine={item.translation_note === "machine"}
+          source={item.source}
+          labels={labels.mood}
+        />
+      );
+
     case "image":
       return (
         <img
@@ -241,16 +255,20 @@ function ContentBlock({
 }
 
 function ContentBlocks({ items, labels }: { items: ContentItem[]; labels: VerseLabels }) {
-  const long = items.length >= LONG_CONTENT_BLOCKS;
+  // A leading "mood" block (Gurudev's quote) does not count as content for
+  // the layout rules below: the next block is still the "first" one.
+  const lead = items.findIndex((item) => item.type !== "mood");
+  const offset = lead < 0 ? items.length : lead;
+  const long = items.length - offset >= LONG_CONTENT_BLOCKS;
   return (
     <>
       {items.map((item, idx) => (
         <ContentBlock
           key={idx}
           item={item}
-          index={idx}
+          index={Math.max(0, idx - offset)}
           labels={labels}
-          separated={long && idx > 0 && item.type === "subtitle"}
+          separated={long && idx > offset && item.type === "subtitle"}
         />
       ))}
     </>
@@ -285,6 +303,14 @@ export default function SectionContent({ section, ui }: SectionContentProps) {
   const labels: VerseLabels = {
     translation: t(ui, "verse.translationHint"),
     wbw: t(ui, "verse.wbwHint"),
+    mood: {
+      button: t(ui, "mood.button"),
+      words: t(ui, "mood.words"),
+      translation: t(ui, "mood.translation"),
+      machine: t(ui, "mood.machine"),
+      transcript: t(ui, "mood.transcript"),
+      audio: t(ui, "mood.audio"),
+    },
   };
   return (
     <article className="max-w-3xl mx-auto px-6 py-8 sm:px-10 sm:py-12">

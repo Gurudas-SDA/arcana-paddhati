@@ -6,6 +6,18 @@ export interface PairedItem {
   value: string;
 }
 
+/** Source of a "mood" quote: the lecture it was taken from. */
+export interface MoodSource {
+  title: string;
+  date?: string;
+  /** Archive number of the lecture. */
+  nr?: string;
+  /** Start of the transcript block containing the quote (hh:mm:ss). */
+  timecode?: string;
+  transcript_url?: string;
+  audio_url?: string;
+}
+
 export interface ContentItem {
   type: string;
   content?: string;
@@ -17,6 +29,11 @@ export interface ContentItem {
   alt?: string;
   items?: PairedItem[];
   layout?: string;
+  /** "mood" block: Gurudev's own words (English, verbatim). */
+  quote?: string;
+  /** "mood" block: "machine" when `translation` is a machine translation. */
+  translation_note?: string;
+  source?: MoodSource;
 }
 
 export interface Subsection {
