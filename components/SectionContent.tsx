@@ -23,7 +23,7 @@ interface SectionContentProps {
   section: Section;
   /** UI strings of the page's language (verse panel chips). */
   ui: UiDict;
-  /** Chapter number ("2"); null/absent for front matter (unnumbered). */
+  /** Chapter number ("2"); every section has one (null/absent = unnumbered). */
   num?: string | null;
 }
 
@@ -292,7 +292,7 @@ function SubsectionBlock({
   labels,
 }: {
   subsection: Subsection;
-  /** "2.1"; null in front matter. */
+  /** "2.1"-style subsection number. */
   num: string | null;
   labels: VerseLabels;
   /** Rule above the subsection (every subsection but the page's first element). */

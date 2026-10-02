@@ -12,13 +12,14 @@ public/cover.jpg, public/images/*).
 Output (default): ../Арчана-паддхати — книга/ next to the repo, with
   1 Приложение/  link to the app + readme
   2 Для печати/  <name> — print.pdf
-  3 Kindle/      <name>.epub  (EPUB 3: cover, contents page, nav; Kindle takes
+  3 EPUB/        <name>.epub  (EPUB 3: cover, contents page, nav; Kindle takes
                  EPUB via Send to Kindle - no AZW3 is produced any more)
 
 Numbering: chapters are numbered 1, 2, 3, ... and their subsections 2.1, 2.2, ...,
 computed here from the section order (same rule as the app, lib/book.ts
-sectionNumbers): front matter - sections paged with Roman numerals
-(Introduction, Mangalacarana) - and the appendix / verse index stay unnumbered.
+sectionNumbers): every section is numbered, front matter included
+(Introduction 1, Mangalacarana 2, then Part I from 3); only the appendix and
+the verse index (generated here, not book sections) stay unnumbered.
 Parts (book.json "parts": Part I Temple worship, II Home worship, III ...) are
 a level above the chapters, numbered I, II, III: a part page before the part's
 first chapter (an empty part = page with "in preparation"), and a level in the
@@ -299,14 +300,8 @@ class Edition:
         self.layout = toc_layout([sec["id"] for sec in self.book["sections"]], self.parts)
         part_by_sid = {sid: pi for pi, prt in enumerate(self.parts) for sid in prt["sections"]}
         self.part_of = {si: part_by_sid.get(sec["id"]) for si, sec in enumerate(self.book["sections"])}
-        # Chapter numbers: front matter (Roman page numbers) unnumbered, then 1, 2, ...
-        self.nums, n = [], 0
-        for sec in self.book["sections"]:
-            if re.fullmatch(r"[ivxlcdm]+", str(sec.get("page", "")).strip(), re.I):
-                self.nums.append(None)
-            else:
-                n += 1
-                self.nums.append(n)
+        # Chapter numbers: every section in order, front matter included: 1, 2, 3, ...
+        self.nums = list(range(1, len(self.book["sections"]) + 1))
         # Number every verse once (same ids in PDF and EPUB) and collect the index.
         self.verse_ids = {}
         n = 0
@@ -331,7 +326,7 @@ class Edition:
                             self.appendix.append((f"m{n}", si, sj, blk))
 
     def num(self, si, sj=None):
-        """'2' for chapter si, '2.1' for its subsection sj; None in front matter."""
+        """'2' for chapter si, '2.1' for its subsection sj."""
         n = self.nums[si]
         if n is None:
             return None
@@ -1102,7 +1097,7 @@ def main():
             ap = f", appendix p. {info['toc_pages']['ap']} ({len(ed.appendix)} blocks)" if "ap" in info["toc_pages"] else ""
             print(f"[{lang}] PDF  {pdf}  ({info['pages']} pages{ap})")
         if "epub" in formats:
-            epub = out / "3 Kindle" / f"{name}.epub"
+            epub = out / "3 EPUB" / f"{name}.epub"
             build_epub(ed, fonts, epub, work / "epub")
             print(f"[{lang}] EPUB {epub}")
     if not args.work:

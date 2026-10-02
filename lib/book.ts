@@ -146,28 +146,20 @@ export interface TocSection {
   id: string;
   title: string;
   page: string;
-  /** Chapter number ("1", "2", …); null for front matter. See sectionNumbers(). */
+  /** Chapter number ("1", "2", …). See sectionNumbers(). */
   num: string | null;
-  /** num = "2.1", "2.2", … (null in front matter). */
+  /** num = "2.1", "2.2", … */
   subsections: { id: string; title: string; num: string | null }[];
 }
 
 /**
- * Front matter: sections paged with Roman numerals in the original book
- * (Introduction "III", Maṅgalācaraṇa "IV"). They stay unnumbered.
- */
-export function isFrontMatter(page: string): boolean {
-  return /^[ivxlcdm]+$/i.test(page.trim());
-}
-
-/**
  * Chapter numbers computed from the section order (never stored in the book
- * texts, so every language gets the same numbers): front matter -> null, the
- * first main chapter -> 1, the next -> 2, …
+ * texts, so every language gets the same numbers): every section is numbered,
+ * front matter included (Introduction 1, Maṅgalācaraṇa 2, then the chapters
+ * of Part I 3, 4, …; owner's decision 2026-10-02).
  */
 export function sectionNumbers(sections: { page: string }[]): (number | null)[] {
-  let n = 0;
-  return sections.map((s) => (isFrontMatter(s.page) ? null : ++n));
+  return sections.map((_, i) => i + 1);
 }
 
 /** "2.1"-style number of the i-th (0-based) subsection of chapter `num`. */

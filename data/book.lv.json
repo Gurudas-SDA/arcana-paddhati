@@ -2159,7 +2159,7 @@
       "subsections": [
         {
           "id": "1-asana",
-          "title": "1) Āsana (sēdeklis)",
+          "title": "Āsana (sēdeklis)",
           "content": [
             {
               "type": "verse",
@@ -2174,7 +2174,7 @@
         },
         {
           "id": "2-svagata",
-          "title": "2) Svāgata (sagaidīšana)",
+          "title": "Svāgata (sagaidīšana)",
           "content": [
             {
               "type": "verse",
@@ -2189,7 +2189,7 @@
         },
         {
           "id": "3-padya",
-          "title": "3) Pādja (ūdens pēdu mazgāšanai)",
+          "title": "Pādja (ūdens pēdu mazgāšanai)",
           "content": [
             {
               "type": "verse",
@@ -2204,7 +2204,7 @@
         },
         {
           "id": "4-arghya",
-          "title": "4) Arghja (simbolisks piedāvājums)",
+          "title": "Arghja (simbolisks piedāvājums)",
           "content": [
             {
               "type": "verse",
@@ -2219,7 +2219,7 @@
         },
         {
           "id": "5-acamana",
-          "title": "5) Āčamana (ūdens mutes skalošanai)",
+          "title": "Āčamana (ūdens mutes skalošanai)",
           "content": [
             {
               "type": "verse",
@@ -2234,7 +2234,7 @@
         },
         {
           "id": "6-madhuparka",
-          "title": "6) Madhuparka (salds šķidrs ēdiens)",
+          "title": "Madhuparka (salds šķidrs ēdiens)",
           "content": [
             {
               "type": "verse",
@@ -2249,7 +2249,7 @@
         },
         {
           "id": "7-punar-acamana",
-          "title": "7) Punar-āčamana (ūdens mutes skalošanai)",
+          "title": "Punar-āčamana (ūdens mutes skalošanai)",
           "content": [
             {
               "type": "verse",
@@ -2264,7 +2264,7 @@
         },
         {
           "id": "8-snana",
-          "title": "8) Snāna (mazgāšana)",
+          "title": "Snāna (mazgāšana)",
           "content": [
             {
               "type": "subtitle",
@@ -2314,7 +2314,7 @@
         },
         {
           "id": "9-vastra",
-          "title": "9) Vastra (apģērbs)",
+          "title": "Vastra (apģērbs)",
           "content": [
             {
               "type": "verse",
@@ -2360,7 +2360,7 @@
         },
         {
           "id": "10-abharana",
-          "title": "10) Ābharana (rotas)",
+          "title": "Ābharana (rotas)",
           "content": [
             {
               "type": "mood",
@@ -2407,7 +2407,7 @@
         },
         {
           "id": "11-gandha",
-          "title": "11) Gandha (smaržīga čandana)",
+          "title": "Gandha (smaržīga čandana)",
           "content": [
             {
               "type": "subtitle",
@@ -2426,7 +2426,7 @@
         },
         {
           "id": "12-puspa",
-          "title": "12) Pušpa (ziedi)",
+          "title": "Pušpa (ziedi)",
           "content": [
             {
               "type": "verse",
@@ -2450,7 +2450,7 @@
         },
         {
           "id": "13-dhupa",
-          "title": "13) Dhūpa (vīraks)",
+          "title": "Dhūpa (vīraks)",
           "content": [
             {
               "type": "verse",
@@ -2465,7 +2465,7 @@
         },
         {
           "id": "14-dipa",
-          "title": "14) Dīpa (gī lampa)",
+          "title": "Dīpa (gī lampa)",
           "content": [
             {
               "type": "verse",
@@ -2480,7 +2480,7 @@
         },
         {
           "id": "15-naivedya",
-          "title": "15) Naivēdja (ēdiens)",
+          "title": "Naivēdja (ēdiens)",
           "content": [
             {
               "type": "instruction",
@@ -2490,7 +2490,7 @@
         },
         {
           "id": "16-pranama",
-          "title": "16) Pranāma (pazemīga noliekšanās)",
+          "title": "Pranāma (pazemīga noliekšanās)",
           "content": [
             {
               "type": "instruction",

@@ -95,7 +95,7 @@ export function getPartIds(): string[] {
   return (englishBook().parts ?? []).map((p) => p.id);
 }
 
-/** Chapter number of section `id` ("1", "2", …), null for front matter.
+/** Chapter number of section `id` ("1", "2", …), null if unknown.
  *  Computed from the English section order, so it is the same in every language. */
 export function getSectionNumber(id: string): string | null {
   const sections = englishBook().sections;

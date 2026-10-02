@@ -38,19 +38,19 @@ npm run build     # static site in out/
 `npm run build` / `npm run dev` first run `scripts/build-search-index.mjs`, which writes one search index per language
 with data, `public/search-index.<lang>.json` (generated, not committed).
 
-## Print and Kindle editions
+## Print and EPUB editions
 
-The book is kept in three formats: the app, a print PDF (A5) and a Kindle edition (EPUB 3 + AZW3).
+The book is kept in three formats: the app, a print PDF (A5) and an e-book (EPUB 3; Kindle takes it via Send to Kindle, no AZW3).
 After every content change:
 
 ```bash
-npm run build && npm run formats      # app, then PDF + EPUB + AZW3 for ru and en
+npm run build && npm run formats      # app, then PDF + EPUB for ru and en
 ```
 
 `npm run formats` (`scripts/formats/build_formats.py`) writes straight into `../Арчана-паддхати — книга/`
-(`1 Приложение`, `2 Для печати`, `3 Kindle`). Other languages: `python scripts/formats/build_formats.py --lang ru,en,lv`;
-only some formats: `--formats print` / `epub,azw3`. Needs Chrome (headless, no window), Python with PyMuPDF and fontTools,
-Calibre (`ebook-convert`) and Noto Serif fonts (Windows ships them).
+(`1 Приложение`, `2 Для печати`, `3 EPUB`). Other languages: `python scripts/formats/build_formats.py --lang ru,en,lv`;
+only some formats: `--formats print` / `epub`. Needs Chrome (headless, no window), Python with PyMuPDF and fontTools
+and Noto Serif fonts (Windows ships them).
 
 ## Deploying
 

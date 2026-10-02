@@ -1,4 +1,4 @@
-// Arcana Paddhati service worker (v4) — full offline book.
+// Arcana-paddhati service worker (v4) — full offline book.
 //
 // After the app has been opened once online, every page, RSC payload, build
 // asset, search index and image listed in precache-manifest.json (written by

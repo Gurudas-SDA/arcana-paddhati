@@ -2159,7 +2159,7 @@
       "subsections": [
         {
           "id": "1-asana",
-          "title": "1) Āsana (siège)",
+          "title": "Āsana (siège)",
           "content": [
             {
               "type": "verse",
@@ -2174,7 +2174,7 @@
         },
         {
           "id": "2-svagata",
-          "title": "2) Svāgata (bienvenue)",
+          "title": "Svāgata (bienvenue)",
           "content": [
             {
               "type": "verse",
@@ -2189,7 +2189,7 @@
         },
         {
           "id": "3-padya",
-          "title": "3) Padya (bain de pieds)",
+          "title": "Padya (bain de pieds)",
           "content": [
             {
               "type": "verse",
@@ -2204,7 +2204,7 @@
         },
         {
           "id": "4-arghya",
-          "title": "4) Arghya (offrande symbolique)",
+          "title": "Arghya (offrande symbolique)",
           "content": [
             {
               "type": "verse",
@@ -2219,7 +2219,7 @@
         },
         {
           "id": "5-acamana",
-          "title": "5) Ācamana (rinçage de la bouche)",
+          "title": "Ācamana (rinçage de la bouche)",
           "content": [
             {
               "type": "verse",
@@ -2234,7 +2234,7 @@
         },
         {
           "id": "6-madhuparka",
-          "title": "6) Madhuparka (aliment liquide sucré)",
+          "title": "Madhuparka (aliment liquide sucré)",
           "content": [
             {
               "type": "verse",
@@ -2249,7 +2249,7 @@
         },
         {
           "id": "7-punar-acamana",
-          "title": "7) Punar-ācamana (rinçage de la bouche)",
+          "title": "Punar-ācamana (rinçage de la bouche)",
           "content": [
             {
               "type": "verse",
@@ -2264,7 +2264,7 @@
         },
         {
           "id": "8-snana",
-          "title": "8) Snāna (bain)",
+          "title": "Snāna (bain)",
           "content": [
             {
               "type": "subtitle",
@@ -2314,7 +2314,7 @@
         },
         {
           "id": "9-vastra",
-          "title": "9) Vastra (vêtement)",
+          "title": "Vastra (vêtement)",
           "content": [
             {
               "type": "verse",
@@ -2360,7 +2360,7 @@
         },
         {
           "id": "10-abharana",
-          "title": "10) Ābharaṇa (ornements)",
+          "title": "Ābharaṇa (ornements)",
           "content": [
             {
               "type": "mood",
@@ -2407,7 +2407,7 @@
         },
         {
           "id": "11-gandha",
-          "title": "11) Gandha (candana parfumé)",
+          "title": "Gandha (candana parfumé)",
           "content": [
             {
               "type": "subtitle",
@@ -2426,7 +2426,7 @@
         },
         {
           "id": "12-puspa",
-          "title": "12) Puṣpa (fleurs)",
+          "title": "Puṣpa (fleurs)",
           "content": [
             {
               "type": "verse",
@@ -2450,7 +2450,7 @@
         },
         {
           "id": "13-dhupa",
-          "title": "13) Dhūpa (encens)",
+          "title": "Dhūpa (encens)",
           "content": [
             {
               "type": "verse",
@@ -2465,7 +2465,7 @@
         },
         {
           "id": "14-dipa",
-          "title": "14) Dīpa (lampe à ghī)",
+          "title": "Dīpa (lampe à ghī)",
           "content": [
             {
               "type": "verse",
@@ -2480,7 +2480,7 @@
         },
         {
           "id": "15-naivedya",
-          "title": "15) Naivedya (aliments)",
+          "title": "Naivedya (aliments)",
           "content": [
             {
               "type": "instruction",
@@ -2490,7 +2490,7 @@
         },
         {
           "id": "16-pranama",
-          "title": "16) Praṇāma (hommages respectueux)",
+          "title": "Praṇāma (hommages respectueux)",
           "content": [
             {
               "type": "instruction",

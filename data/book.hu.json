@@ -2159,7 +2159,7 @@
       "subsections": [
         {
           "id": "1-asana",
-          "title": "1) Āsana (ülőhely)",
+          "title": "Āsana (ülőhely)",
           "content": [
             {
               "type": "verse",
@@ -2174,7 +2174,7 @@
         },
         {
           "id": "2-svagata",
-          "title": "2) Svāgata (üdvözlés)",
+          "title": "Svāgata (üdvözlés)",
           "content": [
             {
               "type": "verse",
@@ -2189,7 +2189,7 @@
         },
         {
           "id": "3-padya",
-          "title": "3) Padya (lábmosó víz)",
+          "title": "Padya (lábmosó víz)",
           "content": [
             {
               "type": "verse",
@@ -2204,7 +2204,7 @@
         },
         {
           "id": "4-arghya",
-          "title": "4) Arghya (jelképes felajánlás)",
+          "title": "Arghya (jelképes felajánlás)",
           "content": [
             {
               "type": "verse",
@@ -2219,7 +2219,7 @@
         },
         {
           "id": "5-acamana",
-          "title": "5) Ācamana (szájöblítő víz)",
+          "title": "Ācamana (szájöblítő víz)",
           "content": [
             {
               "type": "verse",
@@ -2234,7 +2234,7 @@
         },
         {
           "id": "6-madhuparka",
-          "title": "6) Madhuparka (édes, folyékony étel)",
+          "title": "Madhuparka (édes, folyékony étel)",
           "content": [
             {
               "type": "verse",
@@ -2249,7 +2249,7 @@
         },
         {
           "id": "7-punar-acamana",
-          "title": "7) Punar-ācamana (szájöblítő víz)",
+          "title": "Punar-ācamana (szájöblítő víz)",
           "content": [
             {
               "type": "verse",
@@ -2264,7 +2264,7 @@
         },
         {
           "id": "8-snana",
-          "title": "8) Snāna (fürdetés)",
+          "title": "Snāna (fürdetés)",
           "content": [
             {
               "type": "subtitle",
@@ -2314,7 +2314,7 @@
         },
         {
           "id": "9-vastra",
-          "title": "9) Vastra (ruha)",
+          "title": "Vastra (ruha)",
           "content": [
             {
               "type": "verse",
@@ -2360,7 +2360,7 @@
         },
         {
           "id": "10-abharana",
-          "title": "10) Ābharaṇa (ékszerek)",
+          "title": "Ābharaṇa (ékszerek)",
           "content": [
             {
               "type": "mood",
@@ -2407,7 +2407,7 @@
         },
         {
           "id": "11-gandha",
-          "title": "11) Gandha (illatos candana)",
+          "title": "Gandha (illatos candana)",
           "content": [
             {
               "type": "subtitle",
@@ -2426,7 +2426,7 @@
         },
         {
           "id": "12-puspa",
-          "title": "12) Puṣpa (virágok)",
+          "title": "Puṣpa (virágok)",
           "content": [
             {
               "type": "verse",
@@ -2450,7 +2450,7 @@
         },
         {
           "id": "13-dhupa",
-          "title": "13) Dhūpa (füstölő)",
+          "title": "Dhūpa (füstölő)",
           "content": [
             {
               "type": "verse",
@@ -2465,7 +2465,7 @@
         },
         {
           "id": "14-dipa",
-          "title": "14) Dīpa (ghī-lámpa)",
+          "title": "Dīpa (ghī-lámpa)",
           "content": [
             {
               "type": "verse",
@@ -2480,7 +2480,7 @@
         },
         {
           "id": "15-naivedya",
-          "title": "15) Naivedya (ételek)",
+          "title": "Naivedya (ételek)",
           "content": [
             {
               "type": "instruction",
@@ -2490,7 +2490,7 @@
         },
         {
           "id": "16-pranama",
-          "title": "16) Praṇāma (hódolat)",
+          "title": "Praṇāma (hódolat)",
           "content": [
             {
               "type": "instruction",
