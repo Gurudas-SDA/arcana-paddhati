@@ -132,7 +132,7 @@ export default function AppShell({
     lang,
     ui,
     hasWbw,
-    languageSwitcher: <LanguageSwitcher {...switcherProps} />,
+    languageSwitcher: <LanguageSwitcher {...switcherProps} block />,
     searchQuery,
     onSearchChange: setSearchQuery,
     onSearchFocus: loadSearchIndex,

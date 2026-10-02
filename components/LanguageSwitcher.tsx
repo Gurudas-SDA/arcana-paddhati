@@ -20,12 +20,15 @@ export default function LanguageSwitcher({
   sectionId,
   available,
   ui,
+  block = false,
 }: {
   lang: string;
   sectionId: string | null;
   /** Languages whose translated text exists; others are marked. */
   available: string[];
   ui: UiDict;
+  /** Full-width variant (own row in the desktop sidebar). */
+  block?: boolean;
 }) {
   const router = useRouter();
 
@@ -40,7 +43,7 @@ export default function LanguageSwitcher({
   };
 
   return (
-    <label className="relative inline-flex items-center shrink-0">
+    <label className={`relative items-center shrink-0 ${block ? "flex w-full" : "inline-flex"}`}>
       <span className="sr-only">{t(ui, "language.label")}</span>
       <svg
         className="pointer-events-none absolute left-2"
@@ -62,7 +65,7 @@ export default function LanguageSwitcher({
         value={lang}
         onChange={onChange}
         title={t(ui, "language.label")}
-        className="appearance-none max-w-[10rem] pl-7 pr-6 py-1 text-xs rounded-md border border-[#E8DCC8] bg-[#FDF8F0] text-[#2C1810] focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B]/30 transition-colors cursor-pointer"
+        className={`appearance-none ${block ? "w-full" : "max-w-[10rem]"} pl-7 pr-6 py-1 text-xs rounded-md border border-[#E8DCC8] bg-[#FDF8F0] text-[#2C1810] focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B]/30 transition-colors cursor-pointer`}
       >
         {LANGUAGES.map((l) => (
           <option key={l.code} value={l.code} lang={l.htmlLang}>

@@ -58,6 +58,16 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
   );
   const visible = eligible && !hidden;
 
+  // Let full-height layouts (the home-page cover) reserve the banner's height.
+  useEffect(() => {
+    const root = document.documentElement;
+    if (visible) root.style.setProperty("--install-banner-h", "2.75rem");
+    else root.style.removeProperty("--install-banner-h");
+    return () => {
+      root.style.removeProperty("--install-banner-h");
+    };
+  }, [visible]);
+
   useEffect(() => {
     // Register service worker
     if ("serviceWorker" in navigator) {

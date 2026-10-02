@@ -255,3 +255,16 @@ body {
   font-variant-numeric: tabular-nums;
   margin-right: 0.4em;
 }
+
+/* Home-page cover: fill the content panel's height (aspect ratio kept).
+   Below lg the sticky mobile header (~63px) also takes room. */
+.home-cover {
+  max-height: calc(100vh - 63px - 2rem - var(--install-banner-h, 0px));
+  max-height: calc(100dvh - 63px - 2rem - var(--install-banner-h, 0px));
+}
+@media (min-width: 1024px) {
+  .home-cover {
+    max-height: calc(100vh - 3rem - var(--install-banner-h, 0px));
+    max-height: calc(100dvh - 3rem - var(--install-banner-h, 0px));
+  }
+}

@@ -324,7 +324,8 @@ export default function Sidebar({
   return (
     <aside className="flex flex-col h-full bg-white border-r border-[#E8DCC8]">
       {/* Header */}
-      <div className="flex items-center justify-between gap-3 px-5 py-4 border-b border-[#E8DCC8]">
+      <div className="px-5 py-4 border-b border-[#E8DCC8]">
+      <div className="flex items-center justify-between gap-3">
         <Link
           href={localeHref(lang)}
           onClick={onClose}
@@ -346,14 +347,12 @@ export default function Sidebar({
             <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
           </svg>
           <h2
-            className="text-lg font-semibold truncate"
+            className="text-lg font-semibold leading-snug break-words"
             style={{ color: "#B8860B" }}
           >
             {t(ui, "sidebar.contents")}
           </h2>
         </Link>
-        {/* Language menu (mobile has it in the page header instead) */}
-        <div className="hidden lg:block">{languageSwitcher}</div>
         {/* Mobile close button */}
         <button
           onClick={onClose}
@@ -374,6 +373,10 @@ export default function Sidebar({
             <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
         </button>
+      </div>
+        {/* Language menu on its own row so the title never truncates
+            (mobile has it in the page header instead) */}
+        <div className="hidden lg:block mt-3">{languageSwitcher}</div>
       </div>
 
       {/* Search */}
