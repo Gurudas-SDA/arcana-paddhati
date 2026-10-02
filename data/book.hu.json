@@ -3357,6 +3357,11 @@
           "title": "Szükséges kellékek",
           "content": [
             {
+              "type": "image",
+              "src": "Parafernalia.png",
+              "alt": "Az imádat kellékeinek ábrája"
+            },
+            {
               "type": "list",
               "content": "⟦pañca-pātra⟧ friss vízzel és egy kanállal\nfürdetéshez használt kagylókürt\negy kis csengő egy tányéron\n⟦dūpa⟧, füstölő\n⟦dīpa⟧, ghī-lámpa\n⟦visarjanīya-pātra⟧, ürítőedény\n⟦pūjā-pātra⟧ az Istenség számára\n⟦snāna-pātra⟧, fürdetőedény az Istenség számára\n⟦pūjā-pātra Śrī Gurudeva⟧ számára\n⟦snāna-pātra⟧, fürdetőedény ⟦Śrī Gurudeva⟧ számára\n⟦āsana⟧ az Istenség számára\n⟦āsana⟧ a pujārī számára\nvizeskorsó\nvirágok\nTulasī-levelek\n⟦candana⟧\n⟦madhuparka⟧, cukor, ghī és méz\nmegfújható kagylókürt\nfém Istenségek fényesítéséhez vízzel elkevert, porított ⟦gopīcandana⟧\nmárvány Istenségek mosásához puha ruha\nvatta vagy puha ruha a fényesítéshez\npuha ruha a ⟦candana⟧ letörléséhez\n⟦aila⟧ (illatos olaj)\nedény a ⟦caraṇāmṛta⟧ számára\ntörölköző és ⟦gāmchā⟧ (az öltöztetés előtt viselt ruhadarab)\nruhák, alsóruhák és tűk\nékességek és gyurmaragasztó\n⟦gandha⟧ (szantálpép)\nvirágok és virágfüzérek\nTulasī-levelek és ⟦mañjarīk⟧ (bimbók)\nfüstölő és ghī-lámpa\n⟦naivedya⟧ (gyümölcsök és/vagy édességek)\nlelki tanítómestered képe és egy edény a felajánlások számára",
               "numbers": [

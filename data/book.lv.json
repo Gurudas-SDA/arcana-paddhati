@@ -3357,6 +3357,11 @@
           "title": "Nepieciešamie piederumi",
           "content": [
             {
+              "type": "image",
+              "src": "Parafernalia.png",
+              "alt": "Godināšanas piederumu attēls"
+            },
+            {
               "type": "list",
               "content": "⟦panča-pātra⟧ ar svaigu ūdeni un karotīti\nmazgāšanas gliemežnīca\nmazs zvaniņš uz šķīvja\n⟦dhūpa⟧, vīraks\n⟦dīpa⟧, gī lampa\n⟦visardžanīja-pātra⟧, izlietotā ūdens trauks\n⟦pūdžā-pātra⟧ Dievībai\n⟦snāna-pātra⟧, Dievības mazgāšanas trauks\n⟦pūdžā-pātra Šrī Gurudēvam⟧\n⟦snāna-pātra⟧, ⟦Šrī Gurudēvas⟧ mazgāšanas trauks\n⟦āsana⟧ Dievībai\n⟦āsana⟧ pūdžārī\nūdens trauks\nziedi\nTulasī lapas\n⟦čandana⟧\n⟦madhuparka⟧, cukurs, gī un medus\npūšamā gliemežnīca\nja tiek spodrinātas metāla Dievības — ar ūdeni sajaukts ⟦gopī-čandanas⟧ pulveris\nja Dievības ir no marmora — mīksta drāna mazgāšanai\nvate vai mīksta drāna spodrināšanai\nmīksta drāna ⟦čandanas⟧ noslaucīšanai\n⟦aila⟧ (smaržīga eļļa)\ntrauks ⟦čaranāmritai⟧\ndvielis un ⟦gamča⟧ (audums, ko valkā pirms apģērbšanas)\napģērbs, apakšdrēbes un saspraudes\nrotājumi un līmmasa\n⟦gandha⟧ (sandalkoka pasta)\nziedi un ziedu vītnes\nTulasī lapas un ⟦mandžarī⟧ (pumpuri)\nvīraks un gī lampa\n⟦naivēdja⟧ (augļi un/vai saldumi)\njūsu garīgā skolotāja attēls un piedāvājumu trauks",
               "numbers": [

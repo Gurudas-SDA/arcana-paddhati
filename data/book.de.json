@@ -3357,6 +3357,11 @@
           "title": "Benötigte Utensilien",
           "content": [
             {
+              "type": "image",
+              "src": "Parafernalia.png",
+              "alt": "Abbildung der Utensilien für die Verehrung"
+            },
+            {
               "type": "list",
               "content": "⟦Pañca-pātra⟧ mit frischem Wasser und einem Löffel\nBademuschelhorn\neine kleine Glocke auf einem Teller\n⟦Dūpa⟧, Räucherwerk\n⟦Dīpa⟧, Ghee-Lampe\n⟦Visarjanīya-pātra⟧, Entsorgungsgefäß\n⟦Pūjā-pātra⟧ für die Bildgestalt\n⟦Snāna-pātra⟧, Badegefäß für die Bildgestalt\n⟦Pūjā-pātra⟧ für ⟦Śrī Gurudeva⟧\n⟦Snāna-pātra⟧, Badegefäß für ⟦Śrī Gurudeva⟧\n⟦Āsana⟧ für die Bildgestalt\n⟦Āsana⟧ für den pūjārī\nWassergefäß\nBlumen\nTulasī-Blätter\n⟦Candana⟧\n⟦Madhuparka⟧, Zucker, Ghee und Honig\nMuschelhorn zum Blasen\nzum Polieren von Bildgestalten aus Metall: mit Wasser vermischtes ⟦gopī-candana⟧-Pulver\nfür Bildgestalten aus Marmor: ein weiches Tuch zum Waschen\nentweder Watte oder ein weiches Tuch zum Polieren\nein weiches Tuch zum Abwischen des ⟦candana⟧\n⟦Aila⟧ (Duftöl)\nein Gefäß für ⟦caraṇāmṛta⟧\nein Handtuch und ein ⟦gāmchā⟧ (Tuch, das vor dem Ankleiden getragen wird)\nKleidung, Unterkleidung und Nadeln\nSchmuck und Klebeknete\n⟦Gandha⟧ (Sandelholzpaste)\nBlumen und Blumengirlanden\nTulasī-Blätter und ⟦mañjarīs⟧ (Knospen)\nRäucherwerk und Ghee-Lampe\n⟦Naivedya⟧ (Früchte und/oder Süßigkeiten)\nein Bild deines spirituellen Meisters und ein Gefäß für Opfergaben",
               "numbers": [
