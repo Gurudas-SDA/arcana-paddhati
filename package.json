@@ -9,7 +9,8 @@
     "build": "next build",
     "postbuild": "node scripts/patch-html-lang.mjs && node scripts/build-precache.mjs",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "formats": "python scripts/formats/build_formats.py"
   },
   "dependencies": {
     "next": "16.2.2",
