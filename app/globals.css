@@ -207,11 +207,20 @@ body {
   }
 }
 
-/* Print: all verse panels expanded, no chips */
-@media print {
-  .verse-panel[hidden] {
-    display: block !important;
+/* Print: expand the hidden verse panels (translation, word-by-word). Must live in
+   @layer base: Tailwind's preflight `[hidden] { display: none !important }` is in
+   that layer, and a layered !important beats any unlayered !important. Inside the
+   same layer the higher specificity of .verse-panel[hidden] wins. */
+@layer base {
+  @media print {
+    .verse-panel[hidden] {
+      display: block !important;
+    }
   }
+}
+
+/* Print: no chips, mood panels open */
+@media print {
   .verse-chips,
   .mood-toggle {
     display: none !important;

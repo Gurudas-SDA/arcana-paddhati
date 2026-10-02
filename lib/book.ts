@@ -29,6 +29,8 @@ export interface ContentItem {
   alt?: string;
   items?: PairedItem[];
   layout?: string;
+  /** "list" block: explicit number label per line (e.g. picture numbers "4, 5"); "" = unnumbered. */
+  numbers?: string[];
   /** "mood" block: Gurudev's own words (English, verbatim). */
   quote?: string;
   /** "mood" block: "machine" when `translation` is a machine translation. */

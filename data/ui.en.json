@@ -39,7 +39,7 @@
   "install.android.step3": "Tap {addToHome}",
   "install.android.addToHome": "\"Add to Home screen\"",
   "install.android.step4": "Tap {add}",
-  "mood.button": "Mood — Gurudev",
+  "mood.button": "Gurudev's mood",
   "mood.words": "Gurudev's words",
   "mood.translation": "Translation",
   "mood.machine": "machine translation",

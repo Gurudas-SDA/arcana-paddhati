@@ -1380,7 +1380,30 @@
             },
             {
               "type": "list",
-              "content": "neliels zvaniņš uz šķīvīša;\n⟦panča-pātra⟧ ar svaigu ūdeni un karotīti;\nūdens trauks ar vāku un snīpi, piepildīts ar ūdeni;\n⟦visardžanīja-pātra⟧ (atkritumu trauks);\npulverī saberzta ⟦gopī-čandana⟧, sajaukta ar citronu sulu (misiņa Dievībām);\n⟦taila⟧ (smaržīga eļļa);\ngliemežnīca ūdenim uz statīva;\n⟦snāna-pātra⟧ (mazgāšanas trauks);\ntrauks ⟦čaranāmritai⟧;\ntērpi un adatas;\nrotājumi un līmsveķi;\n⟦gandha⟧ (sandalkoka pasta);\nziedi un ziedu vītnes;\nTulasī lapas;\n⟦pādja-pātra⟧, ⟦arghja-pātra⟧, ⟦āčamana-pātra⟧ (viena Kungam un viena jums), ⟦madhuparka-pātra⟧;\nvīraks un 1 gī lampa;\n⟦bhogas⟧ šķīvja ēdieni, ⟦naivēdja⟧ - saldumi; augļi un ūdens\njūsu garīgā skolotāja attēls un trauks piedāvājumiem;\nziedu vītnes 2 jau pagatavotas vītnes ⟦Rādhā-Šjāmasundaram⟧, 1 jau pagatavota vītne Kungam ⟦Čaitanjam⟧;\nmazgāšanas dvieļi\n⟦gamčas⟧ Dievībām"
+              "content": "⟦panča-pātra⟧ ar svaigu ūdeni un karotīti;\ngliemežnīca ūdenim uz statīva;\nneliels zvaniņš uz šķīvīša;\nvīraks un 1 gī lampa;\n⟦visardžanīja-pātra⟧ (atkritumu trauks);\n⟦pādja-pātra⟧, ⟦arghja-pātra⟧, ⟦āčamana-pātra⟧ (viena Kungam un viena jums), ⟦madhuparka-pātra⟧;\n⟦snāna-pātra⟧ (mazgāšanas trauks);\nūdens trauks ar vāku un snīpi, piepildīts ar ūdeni;\nziedi un ziedu vītnes;\nTulasī lapas;\n⟦gandha⟧ (sandalkoka pasta);\npulverī saberzta ⟦gopī-čandana⟧, sajaukta ar citronu sulu (misiņa Dievībām);\n⟦taila⟧ (smaržīga eļļa);\ntrauks ⟦čaranāmritai⟧;\ntērpi un adatas;\nrotājumi un līmsveķi;\n⟦bhogas⟧ šķīvja ēdieni, ⟦naivēdja⟧ - saldumi; augļi un ūdens\njūsu garīgā skolotāja attēls un trauks piedāvājumiem;\nziedu vītnes 2 jau pagatavotas vītnes ⟦Rādhā-Šjāmasundaram⟧, 1 jau pagatavota vītne Kungam ⟦Čaitanjam⟧;\nmazgāšanas dvieļi\n⟦gamčas⟧ Dievībām",
+              "numbers": [
+                "1",
+                "2",
+                "3",
+                "4, 5",
+                "6",
+                "7, 17",
+                "8",
+                "13",
+                "14",
+                "15",
+                "16",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+              ]
             }
           ]
         },
@@ -3335,7 +3358,42 @@
           "content": [
             {
               "type": "list",
-              "content": "⟦panča-pātra⟧ ar svaigu ūdeni un karotīti\nmazgāšanas gliemežnīca\nmazs zvaniņš uz šķīvja\n⟦dhūpa⟧, vīraks\n⟦dīpa⟧, gī lampa\n⟦visardžanīja-pātra⟧, izlietotā ūdens trauks\n⟦pūdžā-pātra⟧ Dievībai\n⟦snāna-pātra⟧, Dievības mazgāšanas trauks\n⟦pūdžā-pātra Šrī Gurudēvam⟧\n⟦snāna-pātra⟧, ⟦Šrī Gurudēvas⟧ mazgāšanas trauks\nūdens trauks\nziedi\nTulasī lapas\n⟦čandana⟧\n⟦madhuparka⟧, cukurs, gī un medus\npūšamā gliemežnīca\n⟦āsana⟧ Dievībai\n⟦āsana⟧ pūdžārī\nja tiek spodrinātas metāla Dievības — ar ūdeni sajaukts ⟦gopī-čandanas⟧ pulveris\nja Dievības ir no marmora — mīksta drāna mazgāšanai\nvate vai mīksta drāna spodrināšanai\nmīksta drāna ⟦čandanas⟧ noslaucīšanai\n⟦aila⟧ (smaržīga eļļa)\ntrauks ⟦čaranāmritai⟧\ndvielis un ⟦gamča⟧ (audums, ko valkā pirms apģērbšanas)\napģērbs, apakšdrēbes un saspraudes\nrotājumi un līmmasa\n⟦gandha⟧ (sandalkoka pasta)\nziedi un ziedu vītnes\nTulasī lapas un ⟦mandžarī⟧ (pumpuri)\nvīraks un gī lampa\n⟦naivēdja⟧ (augļi un/vai saldumi)\njūsu garīgā skolotāja attēls un piedāvājumu trauks"
+              "content": "⟦panča-pātra⟧ ar svaigu ūdeni un karotīti\nmazgāšanas gliemežnīca\nmazs zvaniņš uz šķīvja\n⟦dhūpa⟧, vīraks\n⟦dīpa⟧, gī lampa\n⟦visardžanīja-pātra⟧, izlietotā ūdens trauks\n⟦pūdžā-pātra⟧ Dievībai\n⟦snāna-pātra⟧, Dievības mazgāšanas trauks\n⟦pūdžā-pātra Šrī Gurudēvam⟧\n⟦snāna-pātra⟧, ⟦Šrī Gurudēvas⟧ mazgāšanas trauks\n⟦āsana⟧ Dievībai\n⟦āsana⟧ pūdžārī\nūdens trauks\nziedi\nTulasī lapas\n⟦čandana⟧\n⟦madhuparka⟧, cukurs, gī un medus\npūšamā gliemežnīca\nja tiek spodrinātas metāla Dievības — ar ūdeni sajaukts ⟦gopī-čandanas⟧ pulveris\nja Dievības ir no marmora — mīksta drāna mazgāšanai\nvate vai mīksta drāna spodrināšanai\nmīksta drāna ⟦čandanas⟧ noslaucīšanai\n⟦aila⟧ (smaržīga eļļa)\ntrauks ⟦čaranāmritai⟧\ndvielis un ⟦gamča⟧ (audums, ko valkā pirms apģērbšanas)\napģērbs, apakšdrēbes un saspraudes\nrotājumi un līmmasa\n⟦gandha⟧ (sandalkoka pasta)\nziedi un ziedu vītnes\nTulasī lapas un ⟦mandžarī⟧ (pumpuri)\nvīraks un gī lampa\n⟦naivēdja⟧ (augļi un/vai saldumi)\njūsu garīgā skolotāja attēls un piedāvājumu trauks",
+              "numbers": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12",
+                "13",
+                "14",
+                "15",
+                "16",
+                "17",
+                "18",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+              ]
             }
           ]
         },

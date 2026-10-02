@@ -72,16 +72,22 @@ function BulletList({ content }: { content: string }) {
   );
 }
 
-/** A "list" block: one item per line, rendered as a numbered list 1) 2) 3). */
-function NumberedList({ content }: { content: string }) {
+/** A "list" block: one item per line, rendered as a numbered list 1) 2) 3).
+ *  Optional `numbers` (one label per line) overrides the running number, e.g.
+ *  to match the numbers of an illustration ("4, 5", gaps); "" = no number (–). */
+function NumberedList({ content, numbers }: { content: string; numbers?: string[] }) {
   const items = content.split("\n").filter((line) => line.trim() !== "");
-  const width = String(items.length).length > 1 ? "w-7" : "w-5";
+  const labels = items.map((_, i) =>
+    numbers ? (numbers[i] ? `${numbers[i]})` : "–") : `${i + 1})`,
+  );
+  const longest = Math.max(...labels.map((l) => l.length));
+  const width = longest > 3 ? "w-12" : longest > 2 ? "w-7" : "w-5";
   return (
     <ol role="list" className="my-4 space-y-1 text-[15px] leading-7 text-[#1a1a1a]">
       {items.map((line, i) => (
         <li key={i} className="flex gap-2">
-          <span className={`${width} shrink-0 text-right tabular-nums text-[#5C3D2E]`}>
-            {i + 1})
+          <span className={`${width} shrink-0 whitespace-nowrap text-right tabular-nums text-[#5C3D2E]`}>
+            {labels[i]}
           </span>
           <span className="min-w-0">
             <Inline text={line} />
@@ -173,7 +179,7 @@ function ContentBlock({
       );
 
     case "list":
-      return <NumberedList key={index} content={item.content ?? ""} />;
+      return <NumberedList key={index} content={item.content ?? ""} numbers={item.numbers} />;
 
     case "bullet-list":
       return <BulletList key={index} content={item.content ?? ""} />;
