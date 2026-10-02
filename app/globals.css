@@ -202,7 +202,7 @@ body {
   animation: verse-reveal 180ms ease-out;
 }
 
-/* "All quotes" inside the mood panel: the other candidate quotes, closed until data-open */
+/* "More quotes" / "Show all" inside the mood panel: the other candidate quotes, closed until data-open */
 .mood-more-panel:not([data-open]) {
   display: none;
 }
@@ -230,7 +230,7 @@ body {
   }
 }
 
-/* Print: no chips, mood panels open; "All quotes" not printed (appendix of the print/Kindle book) */
+/* Print: no chips, mood panels open; "More quotes" not printed (appendix of the print/Kindle book) */
 @media print {
   .verse-chips,
   .mood-toggle,

@@ -20,7 +20,7 @@ PDF's named destinations (TOC, verse index and appendix entries link to them), p
 writes the page numbers into the TOC, the index and the appendix.
 
 Mood blocks ("Gurudev's mood"): the chosen quote is printed in the block; the
-other candidate quotes (`more`, the app's "All quotes" button) go to an appendix
+other candidate quotes (`more`, the app's "More quotes" / "Show all" buttons) go to an appendix
 chapter "Gurudev's words — all quotes", grouped by block with a page reference
 (PDF) or link (EPUB) to the block. Running headers, page numbers and PDF
 bookmarks are then added with PyMuPDF.

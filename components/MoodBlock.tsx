@@ -11,8 +11,73 @@ export interface MoodLabels {
   machine: string;
   transcript: string;
   audio: string;
-  /** "All quotes" button (the count is appended). */
-  all: string;
+  /** "More quotes" button: opens the first FIRST_MORE alternatives (" (N)" appended, N = all alternatives). */
+  more: string;
+  /** "Show all" button below them: opens the remaining alternatives (" (N)" appended). */
+  showAll: string;
+}
+
+/** How many alternatives the "More quotes" button opens (the rest are behind "Show all"). */
+const FIRST_MORE = 3;
+
+/** Pill toggle button with a chevron (the "More quotes" / "Show all" buttons). */
+function MoreToggle({
+  open,
+  controls,
+  onClick,
+  className,
+  children,
+}: {
+  open: boolean;
+  controls: string;
+  onClick: () => void;
+  className: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      aria-expanded={open}
+      aria-controls={controls}
+      onClick={onClick}
+      className={`${className} inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[12px] leading-4 select-none transition-colors ${
+        open
+          ? "border-[#B8860B] bg-[#F5E6C8] text-[#8B6508] font-semibold"
+          : "border-[#D4A843] bg-white text-[#8B6508] hover:border-[#B8860B] hover:bg-[#F5E6C8]"
+      }`}
+    >
+      <svg
+        aria-hidden="true"
+        width="10"
+        height="10"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={`verse-chevron ${open ? "rotate-180" : ""}`}
+      >
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+      {children}
+    </button>
+  );
+}
+
+/** One alternative quote, separated from the previous one by a dotted rule. */
+function AltQuote({ m, labels }: { m: MoodQuote; labels: MoodLabels }) {
+  return (
+    <div className="mood-alt mt-4 border-t-2 border-dotted border-[#D4A843] pt-3">
+      <QuoteBody
+        quote={m.quote}
+        translation={m.translation || undefined}
+        machine={m.translation_note === "machine"}
+        source={m.source}
+        labels={labels}
+      />
+    </div>
+  );
 }
 
 /** Paragraphs of a quote ("\n\n"-separated; "[…]" marks an omission). */
@@ -111,9 +176,11 @@ function QuoteBody({
  * Collapsed by default (independent of the sidebar switches). The panel is
  * always in the HTML (hidden by CSS until opened: .mood-panel in globals.css,
  * not the `hidden` attribute, whose !important preflight rule would win over
- * the print rule), so print shows it expanded. Inside it, "All quotes (N)"
- * opens the other candidate quotes (`more`); those are screen-only (hidden in
- * print — the print/Kindle book has them in an appendix instead).
+ * the print rule), so print shows it expanded. Inside it, "More quotes (N)"
+ * opens the first FIRST_MORE other candidate quotes (`more`, best first) and,
+ * when there are more, a "Show all (N)" button below them opens the rest; all
+ * of them are screen-only (hidden in print — the print/Kindle book has them in
+ * an appendix instead).
  */
 export default function MoodBlock({
   quote,
@@ -128,14 +195,16 @@ export default function MoodBlock({
   /** The translation is a machine translation (not the Academy's). */
   machine?: boolean;
   source?: MoodSource;
-  /** The other candidate quotes for this block, behind the "All quotes" button. */
+  /** The other candidate quotes for this block (best first), behind the "More quotes" button. */
   more?: MoodQuote[];
   labels: MoodLabels;
 }) {
   const [open, setOpen] = useState(false);
-  const [allOpen, setAllOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+  const [restOpen, setRestOpen] = useState(false);
   const panelId = useId();
-  const allId = useId();
+  const moreId = useId();
+  const restId = useId();
 
   return (
     <div className="mood my-4">
@@ -180,45 +249,35 @@ export default function MoodBlock({
         />
         {more && more.length > 0 && (
           <div className="mood-more mt-4 border-t border-[#E8DCC8] pt-3">
-            <button
-              type="button"
-              aria-expanded={allOpen}
-              aria-controls={allId}
-              onClick={() => setAllOpen((o) => !o)}
-              className={`mood-more-toggle inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[12px] leading-4 select-none transition-colors ${
-                allOpen
-                  ? "border-[#B8860B] bg-[#F5E6C8] text-[#8B6508] font-semibold"
-                  : "border-[#D4A843] bg-white text-[#8B6508] hover:border-[#B8860B] hover:bg-[#F5E6C8]"
-              }`}
+            <MoreToggle
+              open={moreOpen}
+              controls={moreId}
+              onClick={() => setMoreOpen((o) => !o)}
+              className="mood-more-toggle"
             >
-              <svg
-                aria-hidden="true"
-                width="10"
-                height="10"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className={`verse-chevron ${allOpen ? "rotate-180" : ""}`}
-              >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-              {`${labels.all} (${more.length})`}
-            </button>
-            <div id={allId} data-open={allOpen ? "" : undefined} className="mood-more-panel">
-              {more.map((m, i) => (
-                <div key={i} className="mood-alt mt-4 border-t-2 border-dotted border-[#D4A843] pt-3">
-                  <QuoteBody
-                    quote={m.quote}
-                    translation={m.translation || undefined}
-                    machine={m.translation_note === "machine"}
-                    source={m.source}
-                    labels={labels}
-                  />
-                </div>
+              {`${labels.more} (${more.length})`}
+            </MoreToggle>
+            <div id={moreId} data-open={moreOpen ? "" : undefined} className="mood-more-panel">
+              {more.slice(0, FIRST_MORE).map((m, i) => (
+                <AltQuote key={i} m={m} labels={labels} />
               ))}
+              {more.length > FIRST_MORE && (
+                <div className="mood-rest mt-4 border-t-2 border-dotted border-[#D4A843] pt-3">
+                  <MoreToggle
+                    open={restOpen}
+                    controls={restId}
+                    onClick={() => setRestOpen((o) => !o)}
+                    className="mood-more-toggle mood-rest-toggle"
+                  >
+                    {`${labels.showAll} (${more.length})`}
+                  </MoreToggle>
+                  <div id={restId} data-open={restOpen ? "" : undefined} className="mood-more-panel">
+                    {more.slice(FIRST_MORE).map((m, i) => (
+                      <AltQuote key={FIRST_MORE + i} m={m} labels={labels} />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}

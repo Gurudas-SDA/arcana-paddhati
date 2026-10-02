@@ -45,5 +45,6 @@
   "mood.machine": "traduction automatique",
   "mood.transcript": "transcription",
   "mood.audio": "audio",
-  "mood.all": "Toutes les citations"
+  "mood.more": "Autres citations",
+  "mood.showAll": "Tout afficher"
 }

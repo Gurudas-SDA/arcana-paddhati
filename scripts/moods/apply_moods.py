@@ -6,7 +6,7 @@ scripts/moods/moods.json holds one entry per target (sub)section:
    "translations": {"ru": "...", "ru-iast": "...", "lv": "...", ...},
    "machine": ["lv", "de", ...], "source": {title, date, nr, timecode, transcript_url, audio_url},
    "more": [{"candidate", "label", "quote", "translation": {lang: text}, "machine": [langs], "source"}, ...]}
-`more` = the other candidate quotes for that block ("All quotes" button inside the block; print/Kindle
+`more` = the other candidate quotes for that block ("More quotes" shows the first 3, "Show all" the rest; best first; print/Kindle
 show them only in the appendix, scripts/formats/build_formats.py).
 The block is put at the start of the target's content in ALL language files:
   {"type": "mood", "quote", "translation", ["translation_note": "machine"], "source",

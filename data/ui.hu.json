@@ -45,5 +45,6 @@
   "mood.machine": "gépi fordítás",
   "mood.transcript": "átirat",
   "mood.audio": "hangfelvétel",
-  "mood.all": "Összes idézet"
+  "mood.more": "További idézetek",
+  "mood.showAll": "Összes mutatása"
 }

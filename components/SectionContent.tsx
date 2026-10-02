@@ -317,7 +317,8 @@ export default function SectionContent({ section, ui }: SectionContentProps) {
       machine: t(ui, "mood.machine"),
       transcript: t(ui, "mood.transcript"),
       audio: t(ui, "mood.audio"),
-      all: t(ui, "mood.all"),
+      more: t(ui, "mood.more"),
+      showAll: t(ui, "mood.showAll"),
     },
   };
   return (

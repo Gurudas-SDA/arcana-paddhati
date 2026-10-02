@@ -45,5 +45,6 @@
   "mood.machine": "машинный перевод",
   "mood.transcript": "транскрипт",
   "mood.audio": "аудио",
-  "mood.all": "Все цитаты"
+  "mood.more": "Ещё цитаты",
+  "mood.showAll": "Показать все"
 }
