@@ -160,7 +160,8 @@ body {
 /* Collapsible verse panels: word-by-word + translation (components/CollapsibleVerse.tsx) */
 .verse-toggle:focus-visible,
 .verse-chip:focus-visible,
-.mood-toggle:focus-visible {
+.mood-toggle:focus-visible,
+.mood-more-toggle:focus-visible {
   outline-offset: 2px;
 }
 
@@ -201,8 +202,18 @@ body {
   animation: verse-reveal 180ms ease-out;
 }
 
+/* "All quotes" inside the mood panel: the other candidate quotes, closed until data-open */
+.mood-more-panel:not([data-open]) {
+  display: none;
+}
+
+.mood-more-panel[data-open] {
+  animation: verse-reveal 180ms ease-out;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .mood-panel[data-open] {
+  .mood-panel[data-open],
+  .mood-more-panel[data-open] {
     animation: none;
   }
 }
@@ -219,10 +230,11 @@ body {
   }
 }
 
-/* Print: no chips, mood panels open */
+/* Print: no chips, mood panels open; "All quotes" not printed (appendix of the print/Kindle book) */
 @media print {
   .verse-chips,
-  .mood-toggle {
+  .mood-toggle,
+  .mood-more {
     display: none !important;
   }
   .mood-panel {

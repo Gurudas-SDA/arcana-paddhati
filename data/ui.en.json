@@ -44,5 +44,6 @@
   "mood.translation": "Translation",
   "mood.machine": "machine translation",
   "mood.transcript": "transcript",
-  "mood.audio": "audio"
+  "mood.audio": "audio",
+  "mood.all": "All quotes"
 }

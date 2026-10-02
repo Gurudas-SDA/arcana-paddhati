@@ -449,7 +449,22 @@
                 "timecode": "01:38:23",
                 "transcript_url": "https://drive.google.com/file/d/1LP2L6TyAMziQvumKsXbqJwqE2oi9bua3/view",
                 "audio_url": "https://drive.google.com/file/d/1gxdPKOgS8FQPcbWEJqaTgAbAR4HsIaSf/view"
-              }
+              },
+              "more": [
+                {
+                  "quote": "All the saints and sages in India wear tilaka. Sometimes it's slightly different shapes or colors, so... But if you see a temple of Viṣṇu, on the roof of the temple they have this shape. So, this tilaka signifies that my body is a temple and inside this temple along with my ātmā, my soul, is Paramātmā, God is there. When we see another person also wearing tilaka, it reminds us, \"Oh, God is there.\"",
+                  "translation": "Indiában minden szent és bölcs tilakát visel. Néha kissé eltérő az alakja vagy a színe, tehát... De ha láttok egy Viṣṇu-templomot, a templom tetején ott van ez az alak. Tehát ez a tilaka azt jelzi, hogy a testem egy templom, és ebben a templomban az ātmāmmal, a lelkemmel együtt ott van Paramātmā, ott van Isten. Amikor egy másik embert látunk, aki szintén tilakát visel, az emlékeztet bennünket: „Ó, ott van Isten.”",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Bhakti Yoga Retreat in Tenerife with Sri Prem Prayojan Prabhu, 18.07.2014, Morning class",
+                    "date": "2014-07-18",
+                    "nr": "885",
+                    "timecode": "00:05:13",
+                    "transcript_url": "https://drive.google.com/file/d/1I2fZQylHGSJmWlFQi8N2CzaXRNg6dcFR/view",
+                    "audio_url": "https://drive.google.com/file/d/1a554zYpQ8yCClVeHE12hB7ujS464Sew_/view"
+                  }
+                }
+              ]
             },
             {
               "type": "instruction",
@@ -773,7 +788,48 @@
                 "timecode": "00:58:58",
                 "transcript_url": "https://drive.google.com/file/d/1EJmLF-0C5ShHDdKrVU7xW_ZV1VPPPdZi/view",
                 "audio_url": "https://drive.google.com/file/d/1ymM8d3D0yA60doTIk3QhJtJDukt3jfMJ/view"
-              }
+              },
+              "more": [
+                {
+                  "quote": "Oh Kṛṣṇa, please wake up and cast Your merciful glance upon the world. \"And when by Your glance You wake up the world, wake up in my heart summaṅgala-rati, very auspicious rati, that is bhāva.\" The appearance of the divine sentiment of love for Rādhā and Kṛṣṇa. So if you will undergo the inconvenience and austerity to wake up very early every morning and pray, \"Oh my Lord, please wake up, open Your eyes, glance upon me, and wake up the rati in my heart,\" every day, every week, every month, every year, for years and years, what will happen? One day Kṛṣṇa will say, \"Okay.\" He will awaken. \"You asked Me so many times, you woke up so early every day for so many years, and you begged Me for this, take.\" And Kṛṣṇa will give, and then you can hear the birds are singing, cuckoo birds are calling, peacocks are calling, and the sweet nectarine beautiful atmosphere of Vraja, where Rādhā-Kṛṣṇa awaken.",
+                  "translation": "Ó, Kṛṣṇa, kérlek, ébredj fel, és vesd kegyes pillantásodat a világra. „És amikor pillantásoddal felébreszted a világot, ébreszd fel a szívemben a summaṅgala-ratit, a nagyon áldásos ratit, vagyis a bhāvát.” A Rādhā és Kṛṣṇa iránti isteni szeretetérzés megjelenését. Tehát ha vállaljátok a kényelmetlenséget és a lemondást, hogy minden reggel nagyon korán felébredjetek, és így imádkozzatok: „Ó, Uram, kérlek, ébredj fel, nyisd ki a szemed, pillants rám, és ébreszd fel a ratit a szívemben”, mindennap, minden héten, minden hónapban, minden évben, éveken és éveken át, mi fog történni? Egy napon Kṛṣṇa azt mondja majd: „Rendben.” Fel fog ébredni. „Olyan sokszor kérted Tőlem, oly sok éven át mindennap olyan korán felébredtél, és ezért könyörögtél Hozzám, hát vedd.” És Kṛṣṇa megadja, és akkor hallhatjátok, hogy a madarak énekelnek, a kakukkmadarak kiáltoznak, a pávák kiáltoznak, és Vraja édes, nektári, gyönyörű légkörében, ahol Rādhā-Kṛṣṇa felébrednek.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Who really knows Srimad-Bhagavatam, Sri Prem Prayojan Prabhu in Barcelona, 24.07.2014",
+                    "date": "2014-07-24",
+                    "nr": "896",
+                    "timecode": "00:27:39",
+                    "transcript_url": "https://drive.google.com/file/d/1xTDQeVUTtM643yGoJdaSiDUdeU-gpa0U/view",
+                    "audio_url": "https://drive.google.com/file/d/1oyFTwLHESv1k5lAz6UUIa85FNzhZSr2Y/view"
+                  }
+                },
+                {
+                  "quote": "In the morning, when we wake up our deities,\n\n[…]\n\nYou have to wake up and you touch the feet and wake, \"Oh, my dear Ṭhākurajī, please wake up and glance at me with Your auspicious glance. And by that glance, wake up my ecstatic love for You.\"",
+                  "translation": "Reggel, amikor felébresztjük az Istenségeinket,\n\n[…]\n\nFel kell ébrednetek, megérintitek a lábukat, és felébresztitek őket: „Ó, kedves Ṭhākurajīm, kérlek, ébredj fel, és pillants rám áldásos pillantásoddal. És ezzel a pillantással ébreszd fel Benned való eksztatikus szeretetemet.”",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "2016.08.24 Namashtaka, Nama Tattva, Guru & Disciple, Ghost of Nam Prabhu, Krishna Lila, Q&A",
+                    "date": "2016-08-24",
+                    "nr": "1471",
+                    "timecode": "01:00:24",
+                    "transcript_url": "https://drive.google.com/file/d/1TarTwc2OKzBV5OI46OzpZGKByGoKTxv7/view",
+                    "audio_url": "https://drive.google.com/file/d/1V1psVKZzmrrB3nTY0Lj1sZvIDQfOKZkV/view"
+                  }
+                },
+                {
+                  "quote": "So first of all, we bow down to Guru. And by his mercy, by his permission, we approach Gaurāṅga. And by the mercy of Gaurāṅga, when we bow down to his līlā, then internally, we have a sphūrti, or the awakening of the realization of Radha Krishna's līlā. When they explained to you, is called bhajana-cāturya. Cāturya means cunningness, cleverness, skill. Many persons, they cannot realize Radha and Krishna because they don't have skill. They don't know the art of how to do bhajana. So the art of how to enter into these confidential pastimes is hinted at here. First, remember Guru, the spiritual master. By his mercy, remember Gaurāṅga in the early morning. When Gaurāṅga Mahāprabhu is waking up in the morning, tears are flowing from his eyes. Why? Because he's remembering how Radha and Krishna are waking up in the morning. So Gaura-līlā is called udbodhaka-līlā. Udbodhaka-līlā means the pastime that awakens your realization of Radha and Krishna's pastimes. So don't try to go directly to Radha and Krishna. First remember Guru, then remember Gaurāṅga, Caitanya Mahāprabhu. And then by his mercy, his mercy will awaken the remembrance of Radha Krishna.",
+                  "translation": "Tehát először is leborulunk Guru előtt. És az ő kegyéből, az ő engedélyével közeledünk Gaurāṅgához. És Gaurāṅga kegyéből, amikor leborulunk az ő līlāja előtt, akkor belül sphūrti támad bennünk, vagyis felébred bennünk Radha és Krishna līlājának felismerése. Ezt bhajana-cāturya néven nevezik. A cāturya ravaszságot, ügyességet, hozzáértést jelent. Sok ember nem képes felismerni Radhát és Krishnát, mert nincs meg bennük ez a hozzáértés. Nem ismerik a bhajana végzésének művészetét. Tehát itt utalás történik arra a művészetre, hogyan lépjünk be ezekbe a bizalmas kedvtelésekbe. Először emlékezzetek Gurura, a lelki tanítómesterre. Az ő kegyéből emlékezzetek Gaurāṅgára kora reggel. Amikor Gaurāṅga Mahāprabhu reggel felébred, könnyek folynak a szeméből. Miért? Mert arra emlékezik, hogyan ébred fel Radha és Krishna reggel. Ezért a Gaura-līlāt udbodhaka-līlānak nevezik. Az udbodhaka-līlā azt a kedvtelést jelenti, amely felébreszti bennetek Radha és Krishna kedvteléseinek felismerését. Tehát ne próbáljatok közvetlenül Radhához és Krishnához menni. Először emlékezzetek Gurura, azután emlékezzetek Gaurāṅgára, Caitanya Mahāprabhura. És akkor az ő kegyéből az ő kegye felébreszti Radha Krishna emlékezetét.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Mangala Arati - 2025-05-24 - Sri Prem Prayojan",
+                    "date": "2025-05-24",
+                    "nr": "8970",
+                    "timecode": "03:32:59",
+                    "transcript_url": "https://drive.google.com/file/d/1tkE9Y7ljQHpbJ4yUgPJN7X9bpfh54enM/view",
+                    "audio_url": "https://drive.google.com/file/d/1rVFU3e1V3BWI3X6nrctF9SY6FwcdToYo/view"
+                  }
+                }
+              ]
             },
             {
               "type": "subtitle",
@@ -931,7 +987,61 @@
                 "timecode": "00:56:10",
                 "transcript_url": "https://drive.google.com/file/d/1AgcnZgVyzvxJXsjkN0A79qZkEI92qByS/view",
                 "audio_url": "https://drive.google.com/file/d/10Z3h0A3FiNBTtWWQE_SvJrWMfYox1k4V/view"
-              }
+              },
+              "more": [
+                {
+                  "quote": "Some of the maidservants, they're taking some fragrant water and very soft cloth, and dipping it, and wiping away the various cosmetics from the faces of Rādhā and Kṛṣṇa because Kṛṣṇa has Rādhikā’s lip gloss here, and some kājala, black kājala from Her eyes on His lips, and some cosmetics, some candana, kastūrī, and the musk and so on is smeared on the body of Rādhikā, so they're coming and with a cloth and wiping away, just like the pūjārī in the maṅgala-ārati is offering some water, and then taking a cloth and offering cloth and cleaning like this. This is the inner meaning of (..) the āratī. Another maidservant takes a dīpa and does āratī because āratī means that which brings auspiciousness. So they're thinking, “Oh, I am offering āratī to Rādhā-Kṛṣṇa, They will now get back to Their home without being caught, there should be no problems. No difficulties should come in Their life, and They should quickly again meet without any obstacles.” When a person offers āratī in a sweet mood, it means, “May whatever difficulties are there in your life, I'll let me take all of those difficulties on my head, and let you be free from any problems.” And this is the loving mood.\n\nSome maidservants are then fanning with a cāmara. So in this cāmara, there are so many hairs, right? So these hairs, these are like the prāṇa. There are 72,000 nāḍīs in the body, so the hairs of the cāmara are like 72,000 nāḍīs with the prāṇa, that means, “Oh, worshipping Rādhā and Kṛṣṇa with all their prāṇa.” They're not thinking metaphysically, only this is (..) a bhāva that they're serving with all their prāṇa, just to please Rādhā. Their only happiness is lies in Rādhā and Kṛṣṇa’s happiness, and Kṛṣṇa’s happiness lies in Rādhārāṇī’s happiness, so we'll just focus on Her mainly. If Rādhikā is happy, Kṛṣṇa is happy, so we focus the service on Śrīmatī Rādhikā.",
+                  "translation": "A szolgálólányok közül néhányan illatos vizet és nagyon puha kendőt hoznak, belemártják, és letörlik a különféle kozmetikumokat Rādhā és Kṛṣṇa arcáról, mert Kṛṣṇán itt Rādhikā szájfénye van, és némi kājala, az Ő szeméről származó fekete kājala van az ajkán, Rādhikā testére pedig kozmetikumok, némi candana, kastūrī, pézsma és hasonlók kenődtek, ezért odajönnek, és egy kendővel letörlik ezeket, épp úgy, ahogy a pūjārī a maṅgala-ārati során vizet ajánl fel, majd fog egy kendőt, felajánlja a kendőt, és így megtisztítja őket. Ez az āratī (..) belső jelentése. Egy másik szolgálólány fog egy dīpát, és āratit végez, mert az ārati azt jelenti, ami áldásosságot hoz. Ezért azt gondolják: „Ó, āratit ajánlok fel Rādhā-Kṛṣṇának; most anélkül térhetnek vissza az otthonukba, hogy rajtakapnák Őket, ne legyen semmi probléma. Semmilyen nehézség ne jöjjön az életükbe, és hamarosan ismét találkozhassanak minden akadály nélkül.” Amikor valaki édes hangulatban ajánl fel āratit, az ezt jelenti: „Bármilyen nehézségek legyenek is az életedben, hadd vegyem mindazokat a nehézségeket a fejemre, te pedig légy mentes minden problémától.” És ez a szeretetteljes hangulat.\n\nNéhány szolgálólány ezután cāmarával legyezi Őket. Tehát ezen a cāmarán olyan sok szőrszál van, igaz? Ezek a szőrszálak olyanok, mint a prāṇa. A testben 72 000 nāḍī van, ezért a cāmara szőrszálai olyanok, mint a 72 000 nāḍī a prāṇával; ez azt jelenti: „Ó, teljes prāṇájukkal imádják Rādhāt és Kṛṣṇát.” Nem metafizikailag gondolkodnak; ez csak (..) egy bhāva, hogy teljes prāṇájukkal szolgálnak, pusztán azért, hogy örömet szerezzenek Rādhānak. Egyetlen boldogságuk Rādhā és Kṛṣṇa boldogságában rejlik, Kṛṣṇa boldogsága pedig Rādhārāṇī boldogságában rejlik, ezért mi főként csak Őrá összpontosítunk. Ha Rādhikā boldog, Kṛṣṇa is boldog, ezért a szolgálatot Śrīmatī Rādhikāra összpontosítjuk.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Meaning of Mangala Arati - 2021-07-23 - Sri Prem Prayojan",
+                    "date": "2021-07-23",
+                    "nr": "5976",
+                    "timecode": "00:51:14",
+                    "transcript_url": "https://drive.google.com/file/d/1YjdS7gFn-i1yJVYrrFiB6fKJ-zalKWZc/view",
+                    "audio_url": "https://drive.google.com/file/d/1c3xG-OzmWh9Gvx2g3ZxEzC1FkrmWca5w/view"
+                  }
+                },
+                {
+                  "quote": "And outside, a gentle breeze is blowing and causing the lotus flowers in the Yamunā and in the lakes to tremble, and carrying (..) their fragrance. So now Rādhā-Kṛṣṇa outside, and just now they'll have to return to their homes, but just to make sure that there's no obstacle, that there's no hitch, that they don't get seen or discovered on the way, then Lalitā-sakhī comes, and Lalitā-sakhī is doing ārati. Ārati means, because a general person who is in aiśvarya, they do ārati to the Deity, they have so many ideas: Supreme Lord is the creator of the universe, earth, water, fire, air, and ether, so I'm offering the incense because fragrance is the quality of earth, and I'm offering the dīpa because that is fire, and water, and like this, and air with the fan, like So this is people think about ārati in this sense. But in the Vedic culture, ārati means that we are performing this auspicious ritual, that whatever difficulty or problem may come in your life, may you not face that, let it come to me, and not to you. So, for example, like Mātā Yaśodā offers ārati to Kṛṣṇa when He comes back in the evening from taking the cows to graze, you think Mātā Yaśodā is saying, \"I am worshiping You with all the elements\"? So try to understand that ārati as a loving dimension of may you be happy and let all whatever calamity may fall upon you, I'll take it on my head. So in this way, Lalitā-sakhī and all the sakhīs, Lalitā-sakhī is leading the ārati, and this is maṅgala-ārati.",
+                  "translation": "Odakint pedig lágy szellő fúj, amely megremegteti a lótuszvirágokat a Yamunāban és a tavakban, és magával viszi (..) az illatukat. Tehát most Rādhā-Kṛṣṇa odakint vannak, és mindjárt vissza kell térniük otthonaikba, de hogy biztosan ne legyen semmilyen akadály, semmilyen fennakadás, hogy útközben ne lássák meg vagy fedezzék fel Őket, eljön Lalitā-sakhī, és Lalitā-sakhī āratit végez. Az ārati azt jelenti, hogy mivel az aiśvaryában lévő hétköznapi ember āratit végez az Istenségnek, nagyon sok elképzelése van: a Legfelsőbb Úr a világegyetem, a föld, a víz, a tűz, a levegő és az éter teremtője, ezért azért ajánlom fel a füstölőt, mert az illat a föld tulajdonsága, és azért ajánlom fel a dīpát, mert az tűz, és víz, és így tovább, a legyezővel pedig levegő, ilyen módon. Tehát az emberek ebben az értelemben gondolkodnak az āratiról. A védikus kultúrában azonban az ārati azt jelenti, hogy azért végezzük ezt az áldásos szertartást, hogy bármilyen nehézség vagy probléma jöjjön is az életedben, te ne kerülj szembe vele; jöjjön inkább hozzám, ne hozzád. Például Mātā Yaśodā āratit ajánl fel Kṛṣṇának, amikor Ő este visszatér a tehenek legeltetéséből; azt gondoljátok, Mātā Yaśodā ezt mondja: „Az összes elemmel imádlak Téged”? Tehát próbáljátok megérteni az āratit mint annak szeretetteljes dimenzióját, hogy légy boldog, és bármilyen csapás sújtana téged, azt én a fejemre veszem. Ily módon Lalitā-sakhī és az összes sakhī végzi az āratit, Lalitā-sakhī vezeti az āratit, és ez a maṅgala-ārati.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "2019.12.22 Meanings Of Japa And Mangala Arati",
+                    "date": "2019-12-22",
+                    "nr": "4827",
+                    "timecode": "01:04:39",
+                    "transcript_url": "https://drive.google.com/file/d/1AgcnZgVyzvxJXsjkN0A79qZkEI92qByS/view",
+                    "audio_url": "https://drive.google.com/file/d/10Z3h0A3FiNBTtWWQE_SvJrWMfYox1k4V/view"
+                  }
+                },
+                {
+                  "quote": "It means may this auspicious maṅgala-ārati awaken in the hearts of the devotees. We are not practicing Kṛṣṇa consciousness to be forever in a state of no anubhāva, realization, anubhūti. We are searching for realization. And so in maṅgala-ārati we're praying, \"(..) Oh Guru, Oh Gaurāṅga, Oh Rādhā-Kṛṣṇa, sprinkle Your mercy upon me that this beautiful scene of Rādhā-Kṛṣṇa's waking in the morning, the maṅgala-ārati, will rise up in my heart.\"",
+                  "translation": "Ez azt jelenti: ébredjen fel ez az áldásos maṅgala-ārati a bhakták szívében. Nem azért gyakoroljuk a Kṛṣṇa-tudatot, hogy örökké az anubhāva, a felismerés, az anubhūti nélküli állapotban maradjunk. Felismerést keresünk. Ezért a maṅgala-ārati során így imádkozunk: „(..) Ó, Guru, ó, Gaurāṅga, ó, Rādhā-Kṛṣṇa, hintsétek rám kegyeteket, hogy Rādhā-Kṛṣṇa reggeli ébredésének ez a gyönyörű jelenete, a maṅgala-ārati, felébredjen a szívemben.”",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Sri Prem Prayojan - 2019-12-22 - Meanings of Japa and Mangala Arati",
+                    "date": "2019-12-22",
+                    "nr": "4830",
+                    "timecode": "00:33:50",
+                    "transcript_url": "https://drive.google.com/file/d/1IwtdBRKoDsbvvTnxaofWIPzFNvH8Okq_/view",
+                    "audio_url": "https://drive.google.com/file/d/1VXmTeE0yiibT9fRtbSjgRqMX8mrxuDhP/view"
+                  }
+                },
+                {
+                  "quote": "So, soon Rādhā and Kṛṣṇa will have to secretly return to Their homes. So the mañjarīs bring the, all the paraphernalia for ārati, and Lalitā-sakhī performs the ārati ceremony. Yes. They bring all the paraphernalia. You see, the sakhīs, they don't do that kind of work, the mañjarīs, the maidservants do all the small things. (..) And she's offering ārati, (..) and we are experiencing this ārati in morning. The meaning of ārati is to make maṅgala, auspiciousness. In other words, \"Oh, Rādhā and Kṛṣṇa, we are praying, and You can return to Your homes without anyone catching You and finding out what happened, and there'll be no obstacles, no problems.\" And who is offering the ārati and watching the ārati, they feel, \"In my life, if I have any good karma, I am offering it all to You, so that You will not experience any suffering at all. Let the suffering come to me, but not to You.\" This is the meaning of ārati. Of course, (^)Rādhā, Kṛṣṇa, gopīs, they have no karma, but because Their pastime is the nara-vat, human-like pastimes, They don't know They are God or Goddess or anything. They play—it is a līlā—They play like humans. So they are thinking in this way. Oh, she's fanning with the cāmara. So the cāmara, it has thousands and thousands of hairs. And gopīs are thinking, \"(..) Oh Kṛṣṇa, oh Rādhikā, we are serving You with our 72,000 nāḍīs. 72,000 prāṇas, we are worshipping You, that's our cāmara.\"",
+                  "translation": "Tehát Rādhānak és Kṛṣṇának hamarosan titokban vissza kell térniük otthonaikba. Ezért a mañjarīk elhozzák az ārati összes kellékét, Lalitā-sakhī pedig elvégzi az ārati szertartását. Igen. Elhozzák az összes kelléket. Látjátok, a sakhīk nem végeznek ilyenfajta munkát; a mañjarīk, a szolgálólányok végzik az összes apró dolgot. (..) És ő āratit ajánl fel, (..) mi pedig reggel átéljük ezt az āratit. Az ārati jelentése az, hogy maṅgalát, áldásosságot teremtsen. Más szóval: „Ó, Rādhā és Kṛṣṇa, azért imádkozunk, hogy úgy térhessetek vissza otthonaitokba, hogy senki se kapjon el Benneteket, és ne tudja meg, mi történt, és ne legyen semmilyen akadály, semmilyen probléma.” És akik felajánlják az āratit és nézik az āratit, ezt érzik: „Ha van bármilyen jó karmám az életemben, azt mind Nektek ajánlom fel, hogy egyáltalán ne kelljen semmilyen szenvedést átélnetek. Jöjjön a szenvedés hozzám, de ne Hozzátok.” Ez az ārati jelentése. Természetesen (^)Rādhānak, Kṛṣṇának és a gopīknak nincs karmájuk, de mivel kedvtelésük nara-vat, emberszerű kedvtelés, nem tudják, hogy Ők Isten, Istennő vagy bármi ilyesmi. Játszanak – ez egy līlā –, úgy játszanak, mint az emberek. Ezért így gondolkodnak. Ó, ő a cāmarával legyez. Tehát a cāmarának ezernyi és ezernyi szőrszála van. A gopīk pedig ezt gondolják: „(..) Ó, Kṛṣṇa, ó, Rādhikā, 72 000 nāḍīinkkal szolgálunk Titeket. 72 000 prāṇával imádunk Titeket; ez a mi cāmaránk.”",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Sri Prem Prayojan - 2019-07-18 - Meaning of Mangala Arati",
+                    "date": "2019-07-18",
+                    "nr": "4170",
+                    "timecode": "01:31:20",
+                    "transcript_url": "https://drive.google.com/file/d/1RMVHullRp7ft4ZbJe1xs-hSCA2VU4tRc/view",
+                    "audio_url": "https://drive.google.com/file/d/1sv5pp2H-nYUscKDWU1TppiUgHr-AWJiu/view"
+                  }
+                }
+              ]
             },
             {
               "type": "instruction",
@@ -975,7 +1085,35 @@
                 "timecode": "01:17:28",
                 "transcript_url": "https://drive.google.com/file/d/1vc9c4uwPF-7hLTSuqvvEU5LEEo4-pRgl/view",
                 "audio_url": "https://drive.google.com/file/d/1AUz06yUqE43FxO5F4boJQVuqxOP3VyuF/view"
-              }
+              },
+              "more": [
+                {
+                  "quote": "So Śukadeva Gosvāmī is saying, \"Mukunda-liṅgālaya-darśane dṛśau.\" Ambarīṣa Mahārāja lovingly take darśana of the Deity. Actually, we cannot see the vigraha. This is why when we come into the temple don't give praṇāma directly, in front of the Deity. You give praṇāma with the lying down with the left side to the Deity. If you give from the front, it will be one of the sevā-aparādhas. Why? Because when you face someone, you face them because you will look at them. So if you walk up to the Deity and give praṇāma directly, that means, \"I've come to look at you.\" This is sevā-aparādha.\n\nThe material eyes cannot see spiritual things. So we approach the Deity and give praṇāma, lying down with the left side to the Deity. We give full daṇḍavat sideways, why? That means, \"Oh, my Lord, I cannot see You, but You can see all of me. Here I am. I have come so that You can see me.\" So if one has this mood, then, after giving praṇāma, one can pray to the Deity. And then, by Kṛṣṇa's sweet mercy, He may show His beauty. Or by the blessing, if we have the blessing, the mercy of a very high-class of Vaiṣṇava, then we may see.",
+                  "translation": "Śukadeva Gosvāmī tehát ezt mondja: „Mukunda-liṅgālaya-darśane dṛśau.” Ambarīṣa Mahārāja szeretettel veszi az Istenség darśanáját. Valójában nem láthatjuk a vigrahát. Ezért amikor belépünk a templomba, ne ajánljunk praṇāmát közvetlenül az Istenség előtt. Úgy ajánlotok praṇāmát, hogy lefekszetek, és a bal oldalatok néz az Istenség felé. Ha szemből ajánljátok fel, az a sevā-aparādhák egyike lesz. Miért? Mert amikor szembefordultok valakivel, azért fordultok felé, mert rá fogtok nézni. Tehát ha odamentek az Istenséghez, és közvetlenül előtte ajánlotok praṇāmát, az ezt jelenti: „Azért jöttem, hogy megnézzelek.” Ez sevā-aparādha.\n\nAz anyagi szem nem láthat lelki dolgokat. Ezért odalépünk az Istenséghez, és praṇāmát ajánlunk úgy, hogy lefekszünk, és a bal oldalunk néz az Istenség felé. Oldalirányban teljes daṇḍavatot ajánlunk, miért? Ez azt jelenti: „Ó, Uram, én nem láthatlak Téged, de Te teljes egészében láthatsz engem. Itt vagyok. Azért jöttem, hogy Te láthass engem.” Tehát ha valakiben megvan ez a hangulat, akkor a praṇāma felajánlása után imádkozhat az Istenséghez. És akkor Kṛṣṇa édes kegyéből Ő talán megmutatja a szépségét. Vagy egy nagyon magas szintű Vaiṣṇava áldása által, ha megkapjuk az áldását, a kegyét, akkor talán láthatunk.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "03_05-01-08_Ambarisa2",
+                    "date": "2008-01-05",
+                    "nr": "387",
+                    "timecode": "00:37:09",
+                    "transcript_url": "https://drive.google.com/file/d/1mAOK13LTaSSr1iI1JHZniCMPDcB5dvEq/view",
+                    "audio_url": "https://drive.google.com/file/d/11soqAskAnes-iW77H-W0JUnQ_75K1loV/view"
+                  }
+                },
+                {
+                  "quote": "I am remembering once Kṛṣṇa, He was in Dvārakā, and there was a garden made by Viśvakarmā called Nava Vṛndāvana. And there was one deity of Kṛṣṇa, and Kṛṣṇa was walking and He saw the deity, and it was decorated in a wonderful way. The tilaka was all crooked, the garland was like a bit on one side. Kṛṣṇa saw, \"This deity has being decorated, it looks like a careless way, but no, it means the person who was decorating the deity was so overwhelmed with love that their hand was trembling when they made the tilaka. They had tears in their eyes when they gave the garland, so they couldn't see whether it was straight or not.\" So Kṛṣṇa thought, \"I want to see that person who decorated this deity of Me.",
+                  "translation": "Emlékszem, egyszer Kṛṣṇa Dvārakāban volt, és volt ott egy Viśvakarmā által készített kert, amelyet Nava Vṛndāvanának neveztek. És volt ott egy Kṛṣṇa-istenség, Kṛṣṇa pedig sétált, meglátta az Istenséget, és az csodálatos módon volt feldíszítve. A tilaka teljesen ferde volt, a virágfüzér pedig kissé félrecsúszott. Kṛṣṇa látta: „Ezt az Istenséget feldíszítették, és úgy tűnik, mintha gondatlanul tették volna, de nem; ez azt jelenti, hogy az Istenséget díszítő személyt annyira elárasztotta a szeretet, hogy remegett a keze, amikor elkészítette a tilakát. Könnyek voltak a szemében, amikor felhelyezte a virágfüzért, ezért nem látta, hogy egyenesen áll-e vagy sem.” Ezért Kṛṣṇa ezt gondolta: „Látni akarom azt a személyt, aki feldíszítette ezt az Istenségemet.”",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "love for Guru and Krishna and Shikshastaka Verse 6, bhava, by Shree Prem Prayojan Prabhu",
+                    "date": "2012-08-xx",
+                    "nr": "10088",
+                    "timecode": "01:25:56",
+                    "transcript_url": "https://drive.google.com/file/d/1A6uv4C2Xl6ajWj-kk1AlJyAJnVb274kG/view",
+                    "audio_url": "https://drive.google.com/file/d/12XEuDPSyT5s7sCzCD7Cj9gKzVYvbpnx1/view"
+                  }
+                }
+              ]
             },
             {
               "type": "instruction",
@@ -1029,7 +1167,22 @@
                 "timecode": "01:32:37",
                 "transcript_url": "https://drive.google.com/file/d/10sLv3-AbyQ7c3ZjZh3zXEajECOxhGnUE/view",
                 "audio_url": "https://drive.google.com/file/d/14ZQBsJxW13IQNWksYAylPdFEbs-UhmOH/view"
-              }
+              },
+              "more": [
+                {
+                  "quote": "Kṛṣṇa reciprocates with everyone. So, the general mood is: \"Kṛṣṇa, I am offering one light to You, You offer some light to me.\" That light by which we can see Kṛṣṇa is prema. So, it is a request for Kṛṣṇa to reciprocate that Kṛṣṇa should give us the light of prema that we can see Him. On a deeper level, (..) darkness is separation and light is meeting. So the more advanced devotee: \"(..) Oh, Kṛṣṇa, I feel separation from You. So I am offering You this light. Please offer me the light of that I can meet You.\" Then, (..) those who have a very mādhurya-mood in rāga-mārga, when they offer ārati to Kṛṣṇa, they are not worshipping like those with aiśvarya-bhāva, who think: \"I am offering, worshipping God with the five elements: earth, water, and fire, and air from the fan, water from the conch, earth from the fragrance of the incense, and fire from the dīpa.\" They don't think like this. This is the aiśvarya-mood. When Kṛṣṇa comes back from taking the cows to graze in the evening, Mother Yaśodā offers ārati to Kṛṣṇa. So, you think that she's worshipping Him? So the ārati ceremony is one type of reception or greeting which is reception which is a very, (..) auspicious. So Mother Yaśodā is offering the dīpas to Kṛṣṇa, thinking: \"Oh, I am, whatever inauspiciousness is in Your life, I am removing all this. Whatever problem will come to You, let it come to me and You be happy.\"",
+                  "translation": "Kṛṣṇa mindenkivel viszonoz. Tehát az általános hangulat ez: „Kṛṣṇa, felajánlok Neked egy fényt, Te is ajánlj fel nekem némi fényt.” Az a fény, amellyel láthatjuk Kṛṣṇát, a prema. Tehát ez arra irányuló kérés, hogy Kṛṣṇa viszonozzon, hogy Kṛṣṇa adja meg nekünk a prema fényét, amellyel láthatjuk Őt. Mélyebb szinten (..) a sötétség az elválás, a fény pedig a találkozás. Tehát a fejlettebb bhakta: „(..) Ó, Kṛṣṇa, elválást érzek Tőled. Ezért felajánlom Neked ezt a fényt. Kérlek, ajánld fel nekem annak fényét, hogy találkozhassak Veled.” Azután (..) azok, akiknek nagyon mādhurya-hangulatuk van a rāga-mārgában, amikor āratit ajánlanak fel Kṛṣṇának, nem úgy imádják Őt, mint az aiśvarya-bhāvával rendelkezők, akik ezt gondolják: „Az öt elemmel ajánlok fel imádatot Istennek: a földdel, a vízzel és a tűzzel, a legyezőből származó levegővel, a kagylókürtből származó vízzel, a füstölő illatából származó földdel és a dīpából származó tűzzel.” Ők nem így gondolkodnak. Ez az aiśvarya-hangulat. Amikor Kṛṣṇa este visszatér a tehenek legeltetéséből, Yaśodā anya āratit ajánl fel Kṛṣṇának. Tehát azt gondoljátok, hogy imádja Őt? Az ārati szertartása tehát egyfajta fogadtatás vagy üdvözlés, amely egy nagyon, (..) áldásos fogadtatás. Yaśodā anya tehát felajánlja a dīpákat Kṛṣṇának, és ezt gondolja: „Ó, én az életedben lévő minden kedvezőtlenséget eltávolítom. Bármilyen probléma érne Téged, jöjjön inkább hozzám, Te pedig légy boldog.”",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Sri Prem Prayojan - 2019-10-15 - Istagosthi",
+                    "date": "2019-10-15",
+                    "nr": "4328",
+                    "timecode": "00:00:09",
+                    "transcript_url": "https://drive.google.com/file/d/1AniS7qaxLmytfUklvnoC77l9nhkQmhHE/view",
+                    "audio_url": "https://drive.google.com/file/d/10w8AKe6iFOSe0Eq7O7mnKRPfL2hfrmZk/view"
+                  }
+                }
+              ]
             },
             {
               "type": "instruction",
@@ -1093,7 +1246,22 @@
                 "timecode": "00:55:13",
                 "transcript_url": "https://drive.google.com/file/d/1JmOeIeSh9BBpsRMmbg6UX5X13SHfYvAi/view",
                 "audio_url": "https://drive.google.com/file/d/19jmMaZab-gFgSsWo5FUWzIXoqKhjJlfG/view"
-              }
+              },
+              "more": [
+                {
+                  "quote": "So the rasika-vaiṣṇavas say, actually this Vraja-līlā is not Rādhā-Kṛṣṇa-līlā, it's sakhīs'-līlā. In say. It means the bring Rādhikā to meet with Krishna and they play. When they become tired, then the sakhī say, \"Now take rest.\" and then they rest. When the sakhī see that they recovered a little bit, they say, \"Oh, now you your tiredness has gone away and now again play. So the sakhī are just telling them to do everything.",
+                  "translation": "A rasika-vaiṣṇavák tehát azt mondják, hogy valójában ez a Vraja-līlā nem Rādhā-Kṛṣṇa-līlā, hanem a sakhīk līlāja. Úgy mondják. Ez azt jelenti, hogy elviszik Rādhikāt, hogy találkozzon Krishnával, és Ők játszanak. Amikor elfáradnak, a sakhīk azt mondják: „Most pihenjetek.”, és akkor megpihennek. Amikor a sakhīk látják, hogy kissé erőre kaptak, azt mondják: „Ó, most már elmúlt a fáradtságotok, most pedig játsszatok újra.” Tehát a sakhīk egyszerűen mindent megmondanak Nekik, hogy mit tegyenek.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Sri Raya Ramananda Samvada part 17 - 2025-08-04 - Sri Prem Prayojan",
+                    "date": "2025-08-04",
+                    "nr": "9049",
+                    "timecode": "01:07:12",
+                    "transcript_url": "https://drive.google.com/file/d/1k3KKDUWFVrVCdB1naftcKb2JfkrpiJVq/view",
+                    "audio_url": "https://drive.google.com/file/d/1fp1jCTU6WZQwzYU6zIzZRO-ojLqWsd8T/view"
+                  }
+                }
+              ]
             },
             {
               "type": "instruction",
@@ -1181,7 +1349,74 @@
                 "timecode": "01:59:17",
                 "transcript_url": "https://drive.google.com/file/d/1hnB-Kcg9C6Vwc6Hty3J-iNc8iBV5TMg1/view",
                 "audio_url": "https://drive.google.com/file/d/1f_leYavyqTCFPwi-GwTjrBF4xf9jRfxO/view"
-              }
+              },
+              "more": [
+                {
+                  "quote": "Here, now you understand why he says Vṛndāvaneśvari. Because the white cāmara is actually the emblem of an emperor. Only an emperor is allowed to have a white chattra, umbrella, and white cāmara. So when the mañjarīs have a white cāmara and they're fanning Rādhikā, they are so proud, \"Oh, Vṛndāvaneśvari, she is the empress of the forest of Vṛndāvana.\"",
+                  "translation": "Most már értitek, miért mondja azt, hogy Vṛndāvaneśvari. Mert a fehér cāmara valójában egy császár jelvénye. Csak egy császárnak szabad fehér chattrával, napernyővel és fehér cāmarával rendelkeznie. Tehát amikor a mañjarīk fehér cāmarát tartanak a kezükben, és azzal legyezik Rādhikāt, nagyon büszkék: „Ó, Vṛndāvaneśvari, ő Vṛndāvana erdejének császárnője.”",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Śrī Gāndharvā-samprārthanāṣṭakam v. 6-9 - 2024-09-14 - Sri Prem Prayojan",
+                    "date": "2024-09-14",
+                    "nr": "7990",
+                    "timecode": "00:13:33",
+                    "transcript_url": "https://drive.google.com/file/d/1H1WgQF0vwVSOiibdpp_ijBOu3Lx0godh/view",
+                    "audio_url": "https://drive.google.com/file/d/14it37DO5gpIW6RSQqJ9bOuSAWy7UGnUF/view"
+                  }
+                },
+                {
+                  "quote": "So who is singing this song? Rūpa Mañjarī, a very proud citizen of the kingdom of Vṛndāvana, all ready to die for her queen. How proud they are!\n\n\"Cāmara ḍulāye.\" That means Rādhikā is brindan— The cāmara has, oh, thousands and thousands of hairs. So in the same way, in your body, the prāṇa is moving in 72,000 nāḍīs. So the mañjarīs are fanning Rādhikā gently with the cāmara as if they are serving Rādhikā with every one of their 72,000 prāṇas. In rāgānugā-bhakti, those who are serving their Deities like that, and others are trying to, (..), chase away flies. So try to follow the moods of our Gosvāmīs. This service, \"Cāmara ḍulāye.\" \"Rādhā-kṛṣṇa-ārati kare cāmara ḍulāye.\" So beautiful, full of abhimāna. \"Rādhikāra dāsī yadi hoy abhimāna, śīghra milāiba tomāye gokula-kān.\" If a person has the identity, pride in the identity, \"I am Rādhikā's dāsī,\" then Kṛṣṇa is included in that like a free gift.",
+                  "translation": "Tehát ki énekli ezt a dalt? Rūpa Mañjarī, Vṛndāvana királyságának nagyon büszke polgára, aki teljesen készen áll arra, hogy meghaljon a királynőjéért. Milyen büszkék!\n\n„Cāmara ḍulāye.” Ez azt jelenti, hogy Rādhikā brindan– A cāmarának ó, ezernyi és ezernyi szőrszála van. Ugyanígy a testetekben a prāṇa 72 000 nāḍīban mozog. A mañjarīk tehát gyengéden legyezik Rādhikāt a cāmarával, mintha mind a 72 000 prāṇájukkal Rādhikāt szolgálnák. A rāgānugā-bhaktiban vannak, akik így szolgálják az Istenségeiket, mások pedig megpróbálják (..) elkergetni a legyeket. Tehát próbáljátok követni Gosvāmījaink hangulatát. Ez a szolgálat: „Cāmara ḍulāye.” „Rādhā-kṛṣṇa-ārati kare cāmara ḍulāye.” Olyan gyönyörű, tele abhimānával. „Rādhikāra dāsī yadi hoy abhimāna, śīghra milāiba tomāye gokula-kān.” Ha valakinek megvan ez az önazonossága, az ebben az önazonosságban rejlő büszkesége: „Rādhikā dāsīja vagyok”, akkor Kṛṣṇa ingyenes ajándékként benne foglaltatik ebben.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Holi-Lila part 2 - 2021-05-29 - Sri Prem Prayojan",
+                    "date": "2021-05-29",
+                    "nr": "5878",
+                    "timecode": "00:09:10",
+                    "transcript_url": "https://drive.google.com/file/d/16j1POm9U1eFH2jOYZH2DxJdi1HpcJSEZ/view",
+                    "audio_url": "https://drive.google.com/file/d/1oiiSr5tA5M4ZlnW_bxacxFZzDykeM4xK/view"
+                  }
+                },
+                {
+                  "quote": "So every evening, when we do Gaura-ārati, it's not just one of those (..) rituals that the Hare Krishnas do, but rather Śrīla Bhaktivinoda Ṭhākura and our ācāryas are inviting us to participate in a very intense meditation upon the Māyāpura yoga-pīṭha. That is the point of entry into Gaura-līlā, the mantrōpāsanāmayī-līlā-pīṭha of the Gaura-līlā. And then, by meditating deeply upon that, then what will be the results? It's the udbodhaka-līlā. So when the Gaura-ārati comes to an end, what happens? The whole Māyāpura-līlā-pīṭha transforms and becomes\n\n[…]\n\nOne becomes transported from the Māyāpura-līlā-pīṭha, yoga-pīṭha, to the Vṛndāvana yoga-pīṭha of Rādhā and Kṛṣṇa. And this is the purpose, and necessity, and power, and potential of our Gaura-ārati that we perform everyday. Very wonderful, profound, mystic ceremony allowing the living entities to log on to the very (..) inconceivable, inscrutable, almost impossible to realize pastimes of Kṛṣṇa through the mantrōpāsanāmayī-līlā-pīṭha of the yoga-pīṭha in Māyāpura. This is the meaning of Gaura-ārati.",
+                  "translation": "Tehát minden este, amikor Gaura-āratit végzünk, az nem csupán egyike azoknak a (..) szertartásoknak, amelyeket a Hare Krishnások végeznek, hanem Śrīla Bhaktivinoda Ṭhākura és ācāryáink arra hívnak bennünket, hogy részt vegyünk a Māyāpura yoga-pīṭháról szóló nagyon intenzív meditációban. Ez a Gaura-līlāba való belépés pontja, a Gaura-līlā mantrōpāsanāmayī-līlā-pīṭhája. És aztán, ha mélyen meditálunk ezen, mi lesz az eredmény? Ez az udbodhaka-līlā. Tehát amikor a Gaura-ārati véget ér, mi történik? Az egész Māyāpura-līlā-pīṭha átalakul, és lesz belőle\n\n[…]\n\nAz ember átkerül a Māyāpura-līlā-pīṭháról, a yoga-pīṭháról Rādhā és Kṛṣṇa Vṛndāvana yoga-pīṭhájára. És ez a célja, a szükségessége, az ereje és a lehetősége a Gaura-āratinknak, amelyet mindennap végzünk. Nagyon csodálatos, mély, misztikus szertartás, amely lehetővé teszi az élőlények számára, hogy a māyāpurai yoga-pīṭha mantrōpāsanāmayī-līlā-pīṭháján keresztül kapcsolódjanak Kṛṣṇa valóban (..) felfoghatatlan, kifürkészhetetlen, szinte lehetetlenül megvalósítható kedvteléseihez. Ez a Gaura-ārati jelentése.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Gaura Arati p.1 [eng]",
+                    "date": "unknown",
+                    "nr": "47",
+                    "timecode": "00:49:26",
+                    "transcript_url": "https://drive.google.com/file/d/1__BQgTw7h9LR0_pNcDoZWd2FXgz2UCR5/view",
+                    "audio_url": "https://drive.google.com/file/d/1ajyJxJuux76doNg22eX-8Wq5q6ZvK-SS/view"
+                  }
+                },
+                {
+                  "quote": "Nārada sings, but here Śrīla Bhaktivinoda Ṭhākura is saying Nārada can't sing. Why? Because his throat is just choking with love, (..) he's g adagada, not only Nārada, but Śukadeva Gosvāmī and also Lord Śiva. And Śrīla Bhaktivinoda Ṭhākura is seeing this, and therefore we are singing this song and meditating on this amazing explosion of transcendental love in the form of the āratī of (..) Gauracandra in the Navadvīpa yoga-pīṭha. And then, just as our meditation upon (..) the Navadvīpa yoga- , the Māyāpur, sorry, yoga-pīṭha (..) (..) is complete, then what happens?\n\n[…]\n\nAll of a sudden, Navadvīpa transforms and becomes (..) Vṛndāvana yoga-pīṭha, and there Rādhā and Kṛṣṇa are together and the āratī is being performed by Lalitā and the sakhīs like this. So this is the method by which the followers of Caitanya Mahāprabhu can enter into Vraja-līlā through Gaura-līlā. Gaura premānande! Haribol! So, meditating on the (..) yoga Navadvīpa yoga-pīṭha, let us have a kīrtana, and then we conclude our program this evening. Early evening.",
+                  "translation": "Nārada énekel, de itt Śrīla Bhaktivinoda Ṭhākura azt mondja, hogy Nārada nem tud énekelni. Miért? Mert a torka egyszerűen elszorul a szeretettől, (..) ő g adagada, és nemcsak Nārada, hanem Śukadeva Gosvāmī és az Úr Śiva is. És Śrīla Bhaktivinoda Ṭhākura ezt látja, ezért énekeljük ezt a dalt, és meditálunk a transzcendentális szeretet e csodálatos kirobbanásán, amely (..) Gauracandra āratīja formájában nyilvánul meg a Navadvīpa yoga-pīṭhában. És aztán, éppen amikor befejeződik a meditációnk (..) a Navadvīpa yoga- , a Māyāpur, bocsánat, yoga-pīṭháról (..) (..), akkor mi történik?\n\n[…]\n\nNavadvīpa hirtelen átalakul, és (..) Vṛndāvana yoga-pīṭhává válik, és ott Rādhā és Kṛṣṇa együtt vannak, és Lalitā meg a sakhīk így végzik az āratīt. Tehát ez az a módszer, amellyel Caitanya Mahāprabhu követői a Gaura-līlān keresztül beléphetnek a Vraja-līlāba. Gaura premānande! Haribol! Tehát a (..) yoga Navadvīpa yoga-pīṭhán meditálva tartsunk kīrtanát, aztán befejezzük a ma esti programunkat. Kora esti.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Gaura Arati p.2 [eng]",
+                    "date": "unknown",
+                    "nr": "48",
+                    "timecode": "01:02:58",
+                    "transcript_url": "https://drive.google.com/file/d/1-XBEfOetH-6mzhxZIUxCLeiHJpna3m4T/view",
+                    "audio_url": "https://drive.google.com/file/d/1FRq0BOqn5tq9YqG_aOVJLvpydxrQLXFU/view"
+                  }
+                },
+                {
+                  "quote": "So when you worship Mahāprabhu alone, or whether you worship Gaura-Nitāi, you should always think Mahāprabhu is with the Pañca-tattva, Śrīvāsa Ṭhākura, Gadādhara Paṇḍita, and all their associates, because always worship is going on (..) in the yoga-pīṭha. So yoga-pīṭha means Supreme Lord is there, surrounded by His associates in one layer, two layers, three layers, seven layers, seven āvaraṇas, like that. Because He (..) so the ārati is always related to yoga-pīṭha. So when you worship Mahāprabhu, especially in the evening, it's the sandhyā-ārati on the bank of the Jāhnavī (..) in Māyāpur, Navadvīpa. And Mahāprabhu is golden, and His golden effulgence is spreading out, but this golden effulgence is Rādhārāṇī's effulgence. And that's why when a person has the vision of that, and is touched by that golden effulgence, then because Rādhārāṇī's mood (..) is mahābhāva, and the spreading out of Her effulgence is called yāvad-āśraya-vṛtti, that means Her own mood is spreading out. So by worshipping Mahāprabhu, having darśana, seeing this mood, and being touched by His effulgence during ārati, that means that one is being becoming pervaded with Rādhārāṇī's mood. So that's why it says that Mahāprabhu is distributing the mañjarī mood of the maidservants. How? He's not doing anything, only His effulgence is spreading. That's why Rūpa Gosvāmī said,",
+                  "translation": "Tehát amikor egyedül Mahāprabhut imádjátok, vagy akár Gaura-Nitāit imádjátok, mindig arra kell gondolnotok, hogy Mahāprabhu együtt van a Pañca-tattvával, Śrīvāsa Ṭhākurával, Gadādhara Paṇḍitával és minden társukkal, mert az imádat mindig (..) a yoga-pīṭhában zajlik. Tehát a yoga-pīṭha azt jelenti, hogy a Legfelsőbb Úr ott van, társai pedig egy rétegben, két rétegben, három rétegben, hét rétegben, hét āvaraṇában veszik körül, így. Mert Ő (..) tehát az ārati mindig kapcsolatban áll a yoga-pīṭhával. Tehát amikor Mahāprabhut imádjátok, különösen este, az a sandhyā-ārati a Jāhnavī partján (..) Māyāpurban, Navadvīpában. És Mahāprabhu aranyszínű, és arany ragyogása szétárad, de ez az arany ragyogás Rādhārāṇī ragyogása. És ezért, amikor valaki ezt látja, és ez az arany ragyogás megérinti, akkor mivel Rādhārāṇī hangulata (..) mahābhāva, ragyogásának szétáradását pedig yāvad-āśraya-vṛttinek nevezik, ez azt jelenti, hogy az Ő saját hangulata árad szét. Tehát Mahāprabhu imádata, darśanája, e hangulat látása és az, hogy az ārati alatt megérint bennünket az Ő ragyogása, azt jelenti, hogy az embert áthatja Rādhārāṇī hangulata. Ezért mondják, hogy Mahāprabhu a szolgálólányok mañjarī-hangulatát osztja. Hogyan? Nem tesz semmit, csak a ragyogása árad szét. Ezért mondta Rūpa Gosvāmī,",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Sri Prem Prayojan - 2019-06-24 - Ishtha-Goshthi",
+                    "date": "2019-06-24",
+                    "nr": "4139",
+                    "timecode": "00:04:27",
+                    "transcript_url": "https://drive.google.com/file/d/1pfnuzBCl2nVkrHOhWDXnz5Juu808evQd/view",
+                    "audio_url": "https://drive.google.com/file/d/1esOSnygmL0Fd70HoL2dw6lMgjBshyrWt/view"
+                  }
+                }
+              ]
             },
             {
               "type": "instruction",
@@ -1287,7 +1522,22 @@
                 "timecode": "01:48:44",
                 "transcript_url": "https://drive.google.com/file/d/1-uDIqE4-27CFcQ9HB3nCVTKOm3fQImDr/view",
                 "audio_url": "https://drive.google.com/file/d/1jcsopmAMz-tHiSOfo0KLX2dTnTo-qa5D/view"
-              }
+              },
+              "more": [
+                {
+                  "quote": "So that boy, his name was Praṇava. So Praṇava was thinking, \"I am very sick, but I don't want to tell my mother and father because they'll stop me from doing the sevā in the morning.\" Well, after some hours because he was in pain, finally he fell asleep. Then, in his dream he saw Gopīnātha. Gopīnātha said, \"I'm cold. Why did you not give My blanket tonight?\" So then Praṇava woke up. \"Oh, Gopīnātha! I forgot to give Your blanket.\" And quickly he ran into the temple room. And saw the deities of Rādhā-Kṛṣṇa were lying on their beds, but he had not given the blanket. And he was crying. And begging, \"Oh, please, forgive me.\" And took a very warm blanket and covered Kṛṣṇa. And then when Kṛṣṇa was warm then his fever went away.",
+                  "translation": "Tehát annak a fiúnak Praṇava volt a neve. Praṇava arra gondolt: „Nagyon beteg vagyok, de nem akarom elmondani anyámnak és apámnak, mert megakadályoznak abban, hogy reggel végezzem a sevāt.” Nos, néhány óra múlva, mivel fájdalmai voltak, végül elaludt. Aztán álmában meglátta Gopīnāthát. Gopīnātha azt mondta: „Fázom. Miért nem adtad oda ma este a takarómat?” Ekkor Praṇava felébredt. „Ó, Gopīnātha! Elfelejtettem odaadni a takaródat.” És gyorsan beszaladt a templomszobába. És látta, hogy Rādhā-Kṛṣṇa Istenségei az ágyukon fekszenek, de nem adott nekik takarót. És sírt. És könyörgött: „Ó, kérlek, bocsáss meg nekem.” Majd fogott egy nagyon meleg takarót, és betakarta Kṛṣṇát. És amikor Kṛṣṇának már melege volt, elmúlt a fiú láza.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "2015.08.20 It's easy to practise bhkti (Практиковать бхакти легко)",
+                    "date": "2015-08-20",
+                    "nr": "1055",
+                    "timecode": "00:55:13",
+                    "transcript_url": "https://drive.google.com/file/d/1JmOeIeSh9BBpsRMmbg6UX5X13SHfYvAi/view",
+                    "audio_url": "https://drive.google.com/file/d/19jmMaZab-gFgSsWo5FUWzIXoqKhjJlfG/view"
+                  }
+                }
+              ]
             },
             {
               "type": "instruction",
@@ -1353,7 +1603,35 @@
             "timecode": "00:15:16",
             "transcript_url": "https://drive.google.com/file/d/1bohpcmxijh6gYzTZHiRiwyAI24fl9nAb/view",
             "audio_url": "https://drive.google.com/file/d/1hktVy7cQVEC_qEAgMraSHl1Fku7fkbDN/view"
-          }
+          },
+          "more": [
+            {
+              "quote": "Rules help us in our spiritual life; if we neglect them, we lose something. But if you just follow rules without knowing why you're doing it, it will also not have a good effect. So everything that we do in bhakti, whether it's putting on tilaka, or bowing down, or offering incense and flowers to Kṛṣṇa, everything has a very deep meaning, so it should not be done mechanically.\n\n[…]\n\nSo what benefit is there? If you think, \"I'm not going to make any offering. I'll just put some money in the machine.\" You have to do the bhakti yourself. But doing it, don't be like that machine. One's heart has to be involved in that offering. So the offering has a very deep meaning.",
+              "translation": "A szabályok segítenek bennünket a lelki életünkben; ha elhanyagoljuk őket, elveszítünk valamit. De ha csak követitek a szabályokat anélkül, hogy tudnátok, miért teszitek, annak sem lesz jó hatása. Tehát mindennek, amit a bhaktiban teszünk, legyen az a tilaka felhelyezése, a leborulás, vagy füstölő és virágok felajánlása Kṛṣṇának, nagyon mély jelentése van, ezért nem szabad gépiesen végezni.\n\n[…]\n\nTehát mi haszna van? Ha azt gondoljátok: „Nem fogok semmilyen felajánlást tenni. Csak beteszek egy kis pénzt a gépbe.” Nektek magatoknak kell végeznetek a bhaktit. De miközben végzitek, ne legyetek olyanok, mint az a gép. Az ember szívének részt kell vennie abban a felajánlásban. Tehát a felajánlásnak nagyon mély jelentése van.",
+              "translation_note": "machine",
+              "source": {
+                "title": "Sri Prem Prayojan - 2019-06-23 - Ishtha-Goshthi 2",
+                "date": "2019-06-23",
+                "nr": "4137",
+                "timecode": "00:35:27",
+                "transcript_url": "https://drive.google.com/file/d/1YGvMCKni0ljgo3L7SgkIps4kEDdYHrAU/view",
+                "audio_url": "https://drive.google.com/file/d/1lsGW3vCDHeDM8yTSkFAHSG3M4wkgNakW/view"
+              }
+            },
+            {
+              "quote": "Along with the dīkṣā-mantra, the guru gives some process of arcana, of worship of the deity. And this consists of several things: waking the deity in the morning, putting deity to rest in evening, and offering prasādam, and give the seats, idam āsanam, sprinkling like this, and offer them seats, wash their feet, wash their hands and mouth, and offer them prasādam, etc., as if you're serving a guest in your home, very beautiful.",
+              "translation": "A dīkṣā-mantrával együtt a guru átad valamilyen arcana-folyamatot, az Istenség imádatának folyamatát. Ez pedig több dologból áll: reggel felébreszteni az Istenséget, este nyugovóra téríteni az Istenséget, prasādamot felajánlani, ülőhelyeket adni, idam āsanam, így meghinteni, ülőhelyeket felajánlani nekik, megmosni a lábukat, megmosni a kezüket és a szájukat, prasādamot felajánlani nekik és így tovább, mintha egy vendéget szolgálnátok az otthonotokban, nagyon szép.",
+              "translation_note": "machine",
+              "source": {
+                "title": "Gaura Arati p.1 [eng]",
+                "date": "unknown",
+                "nr": "47",
+                "timecode": "00:16:14",
+                "transcript_url": "https://drive.google.com/file/d/1__BQgTw7h9LR0_pNcDoZWd2FXgz2UCR5/view",
+                "audio_url": "https://drive.google.com/file/d/1ajyJxJuux76doNg22eX-8Wq5q6ZvK-SS/view"
+              }
+            }
+          ]
         },
         {
           "type": "instruction",
@@ -1611,7 +1889,22 @@
                 "timecode": "00:44:26",
                 "transcript_url": "https://drive.google.com/file/d/1Ehpq8MYIt7PBqSpka2IbIGH05dCXWBk4/view",
                 "audio_url": "https://drive.google.com/file/d/1IAdfyFNDmP1BsO06BvTrTC9I4wW_8Kgd/view"
-              }
+              },
+              "more": [
+                {
+                  "quote": "But if when you sit down to chant, what do you do? Well, first you do ācamana. Oṁ keśavāya namaḥ, oṁ nārāyaṇāya namaḥ. You do ācamana. And then you pray,\n\n[…]\n\nYou do the bhūta-śuddhi mantra. I am not Vaiśya, Kṣatriya, Śūdra, Brāhmaṇa. I am not Brahmacārī, Vānaprastha, Gṛhastha or Sannyāsī. I am just gopī-bhartuḥ pada-kamalayor dāsa-dāsānudāsaḥ, servant of the servant of the servant of Gopīnātha. This mantra, bhūta-śuddhi. Then you do the ātma-jñāna, you know all this right? Then you do the ātma-jñāna mantra before remembering Gāyatrī. You have to meditate on the self.",
+                  "translation": "De amikor leültök énekelni, mit tesztek? Nos, először ācamanát végeztek. Oṁ keśavāya namaḥ, oṁ nārāyaṇāya namaḥ. Ācamanát végeztek. És aztán imádkoztok,\n\n[…]\n\nElmondjátok a bhūta-śuddhi mantrát. Nem vagyok Vaiśya, Kṣatriya, Śūdra, Brāhmaṇa. Nem vagyok Brahmacārī, Vānaprastha, Gṛhastha vagy Sannyāsī. Én csak gopī-bhartuḥ pada-kamalayor dāsa-dāsānudāsaḥ vagyok, Gopīnātha szolgájának a szolgájának a szolgája. Ez a mantra, a bhūta-śuddhi. Aztán elvégzitek az ātma-jñānát, mindezt tudjátok, ugye? Aztán a Gāyatrīra való emlékezés előtt elmondjátok az ātma-jñāna mantrát. Az önvalón kell meditálnotok.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "First Aid for Chanting part 1 - 2025-05-03 - Sri Prem Prayojan",
+                    "date": "2025-05-03",
+                    "nr": "8924",
+                    "timecode": "00:44:26",
+                    "transcript_url": "https://drive.google.com/file/d/1Ehpq8MYIt7PBqSpka2IbIGH05dCXWBk4/view",
+                    "audio_url": "https://drive.google.com/file/d/1IAdfyFNDmP1BsO06BvTrTC9I4wW_8Kgd/view"
+                  }
+                }
+              ]
             },
             {
               "type": "verse",
@@ -1731,7 +2024,22 @@
             "timecode": "00:17:58",
             "transcript_url": "https://drive.google.com/file/d/1TAkjh4hI01CLLJXXw9FOnY2uINCQZL2C/view",
             "audio_url": "https://drive.google.com/file/d/1HAjq4U-nokD9AhFDjci0pqtl-NUxJoKy/view"
-          }
+          },
+          "more": [
+            {
+              "quote": "So, all these phrases like upacāra and pūjā indicate vaidhi-bhakti. Vaidhi-bhakti. There's no pūjā in rāgānuga-bhakti. If someone serves the Deity in rāgānuga-bhakti, it's not called pūjā; it's called sevā. It's different.",
+              "translation": "Tehát mindezek a kifejezések, mint az upacāra és a pūjā, a vaidhi-bhaktit jelölik. Vaidhi-bhakti. A rāgānuga-bhaktiban nincs pūjā. Ha valaki rāgānuga-bhaktiban szolgálja az Istenséget, azt nem pūjānak nevezik; azt sevānak nevezik. Az más.",
+              "translation_note": "machine",
+              "source": {
+                "title": "03. Ray Ramananda Samvad (Part 3)",
+                "date": "2016-xx-xx",
+                "nr": "1940",
+                "timecode": "00:59:15",
+                "transcript_url": "https://drive.google.com/file/d/1rCnjZMUr1Y2JZ6Hy4rF34D8Uo6DKUZ3y/view",
+                "audio_url": "https://drive.google.com/file/d/13crXZA8tJASEyzRzVBDmLGAW4A3kWohg/view"
+              }
+            }
+          ]
         },
         {
           "type": "instruction",
@@ -2149,7 +2457,22 @@
                 "timecode": "01:40:00",
                 "transcript_url": "https://drive.google.com/file/d/1ijgmz9I2LphyCUtmWfm_zLpVwrKZ4D63/view",
                 "audio_url": "https://drive.google.com/file/d/1yv7kpRn2mpt0m6MVhh8d72akaOZCUgd_/view"
-              }
+              },
+              "more": [
+                {
+                  "quote": "He said, \"Out of all the types of suffering, actually there's no suffering, only one thing is suffering. What is that? Separation from the Vaiṣṇava.\" When we don't have the chance to be with Vaiṣṇava, we have no chance to see Vaiṣṇava, we have no chance to give mahā-prasāda to any Vaiṣṇava, to serve any Vaiṣṇava, when no one will accept our service, we don't have the chance to hear the hari-kathā of Vaiṣṇava and do kīrtana with Vaiṣṇavas, then, oh, this is the only suffering, there's no other suffering, and this is the greatest suffering.",
+                  "translation": "Azt mondta: „A szenvedés valamennyi fajtája közül valójában nincs szenvedés, csak egyetlen dolog szenvedés. Mi az? A Vaiṣṇavától való elszakítottság.” Amikor nincs lehetőségünk együtt lenni egy Vaiṣṇavával, nincs lehetőségünk látni egy Vaiṣṇavát, nincs lehetőségünk mahā-prasādát adni egyetlen Vaiṣṇavának sem, egyetlen Vaiṣṇavát sem szolgálhatunk, amikor senki sem fogadja el a szolgálatunkat, nincs lehetőségünk hallani egy Vaiṣṇava hari-kathāját és kīrtanát végezni a Vaiṣṇavákkal, akkor, ó, ez az egyetlen szenvedés, nincs más szenvedés, és ez a legnagyobb szenvedés.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Gauranga Bolite Habe [eng]",
+                    "date": "unknown",
+                    "nr": "49",
+                    "timecode": "00:37:56",
+                    "transcript_url": "https://drive.google.com/file/d/1nzg6Vs03sOJO9ITAT5FFMOpbgFo8go96/view",
+                    "audio_url": "https://drive.google.com/file/d/1maVM757ZtT2WTbImZ5x0Wu4Aq4189MLi/view"
+                  }
+                }
+              ]
             },
             {
               "type": "instruction",
@@ -2186,7 +2509,48 @@
             "timecode": "00:07:43",
             "transcript_url": "https://drive.google.com/file/d/1nyhuuS90zl62xfmSOkdw-_PCpwWBYwJ9/view",
             "audio_url": "https://drive.google.com/file/d/1M5FbYuPmCHI6XtoYb_BOM3fcm6ZPKP4X/view"
-          }
+          },
+          "more": [
+            {
+              "quote": "which means that we want to be the servant of our Gurudeva, and Gurudeva is serving Śrī Rūpa Mañjarī and they serve Śrī Rādhā, so we should be the servant of the servant of the servant. This element is included in our arcana. This mood is included in our arcana, how we serve the deities.",
+              "translation": "ami azt jelenti, hogy Gurudevünk szolgája akarunk lenni, Gurudev pedig Śrī Rūpa Mañjarīt szolgálja, ők pedig Śrī Rādhāt szolgálják, tehát a szolga szolgájának a szolgájává kell válnunk. Ez az elem benne foglaltatik az arcanánkban. Ez a hangulat benne foglaltatik az arcanánkban, abban, ahogyan az Istenségeket szolgáljuk.",
+              "translation_note": "machine",
+              "source": {
+                "title": "2026.03.03_Gaura-katha part 4.0",
+                "date": "2026-03-03",
+                "nr": "9756",
+                "timecode": "00:45:13",
+                "transcript_url": "https://drive.google.com/file/d/137hLPHYf1vvm5xX5NfzcGrXEB_UI_Xgf/view",
+                "audio_url": "https://drive.google.com/file/d/1NQtNcULjhYbw8YBZxgt5uhagt6sd0QVI/view"
+              }
+            },
+            {
+              "quote": "And at that time, those who are dāsīs, the maidservants of Śrīmatī Rādhikā. Then suddenly they open their eyes and sit up in anxiety. In great anxiety. Why? This is the first emotion of the morning, anxiety. Did I oversleep? Did I miss my service? Did Rādhā Krishna already wake up? And they was not there to serve them. So the first thing, as soon as the devotee opens his eyes, ah, anxiety. So then, (..) the maid servants of the Rādhā and Krishna, they quickly get up and the also, he thinks, oh, his guru rūpaki. He goes and wakes up also guru rūpaki. Don't go to Rādhā Krishna alone. And so then that devotee, in his spiritual form, along with guru in his spiritual form, they quickly get up and they go to see, did Rādhā Krishna wake up yet or not? Did we miss our service?",
+              "translation": "És abban az időben azok, akik dāsīk, Śrīmatī Rādhikā szolgálólányai. Akkor hirtelen kinyitják a szemüket, és aggodalmasan felülnek. Nagy aggodalomban. Miért? Ez a reggel első érzelme, az aggodalom. Túlaludtam magam? Elmulasztottam a szolgálatomat? Rādhā Krishna már felébredtek? És ők nem voltak ott, hogy szolgálják Őket. Tehát az első dolog, amint a bhakta kinyitja a szemét, ah, aggodalom. Tehát akkor (..) Rādhā és Krishna szolgálólányai gyorsan felkelnek, és ő is arra gondol, ó, az ő guru rūpakija. Elmegy, és felébreszti a guru rūpakit is. Ne menjetek egyedül Rādhā Krishnához. És így aztán az a bhakta a lelki formájában, a guruval együtt, aki a lelki formájában van, gyorsan felkel, és elmennek megnézni, vajon Rādhā Krishna felébredtek-e már vagy sem. Elmulasztottuk a szolgálatunkat?",
+              "translation_note": "machine",
+              "source": {
+                "title": "Śrī Bhajana-rahasya Chapter 1 - 2024-04-26 - Sri Prem Prayojan",
+                "date": "2024-04-26",
+                "nr": "7726",
+                "timecode": "01:51:17",
+                "transcript_url": "https://drive.google.com/file/d/1MA9ZFz0eDSYKY8CKRISxSqFLMxEcegXa/view",
+                "audio_url": "https://drive.google.com/file/d/1xSJl6uTkgtJCmUnvOF8SHNLCJCB9pJdA/view"
+              }
+            },
+            {
+              "quote": "Guru is direct manifestation of Supreme Lord, and (..) Rūpa Gosvāmī said that all the aṅgas of bhakti can be practiced in relation to Guru also. But there's some vyāvahārika consideration as well. And there'll be some For example, the (..) pūjārī every day, he's undressing the Deity and then giving bath, and but Guru himself is doing all these things. No need for the disciples to the give the shower to Gurudeva and everything (..) Okay, when Mādhavendra Purī was very old, Īśvara Purī had to do these things. But generally speaking, (..) how you would serve the Deity, you will not serve Kṛṣṇa like that. (..) And (..) then there are some considerations that you can put tulasī on Kṛṣṇa's feet, but (..) you cannot even offer tulasī directly to Guru. You can give Gurudeva Kṛṣṇa's mahā-prasāda tulasī, or if (..) the tulasī is not mahā-prasāda, you can put it in Gurudeva's right hand for him to offer to Kṛṣṇa as a service like that. So (..) all the aṅgas of bhakti can be performed in relation to Guru and Vaiṣṇavas, but there's some also depend (..) some nuances. Certain things you can do and not do, or you have to do them in a different way, because Guru is a category, Vaiṣṇava is a category, Kṛṣṇa Mahāprabhu is a category, Rādhā and Kṛṣṇa. Though Mahāprabhu Himself is Rādhā and Kṛṣṇa, but you can serve Him as the Kṛṣṇa Himself, but higher than that is to serve Him as a devotee of Kṛṣṇa, because that's His own mood. Then you're serving Him according to His own mood. So one person will put tulasī (..) you can put tulasī on the feet of Caitanya Mahāprabhu. But in rāgānugā-bhakti, we'll put the tulasī in His right hand, because we serve Him according to His own mood. Just like in Purī, when Mahāprabhu was cleaning the Guṇḍicā temple, one devotee came (..) and poured water on His feet and drank the caraṇāmṛta while He was on the altar of Lord Jagannātha before Lord Jagannātha had arrived there. Mahāprabhu became angry. So inwardly He was pleased, because there's nothing wrong, because He is Kṛṣṇa Himself. That's okay. (..) But He Himself, His mood is, \"I am a devotee,\" and we don't want to (..) disturb that. So Kṛṣṇa wears a peacock feather, but we should not give a peacock feather to Caitanya Mahāprabhu. So (..) and Gurudeva is the sākṣād-dhari, but you don't give Gurudeva a peacock feather or a flute or anything like this. So in principle, the aṅga of bhakti is the same (..) but there are some considerations according to tattva and according to rasa also. Gaura-premānande hari haribol!",
+              "translation": "Guru a Legfelsőbb Úr közvetlen megnyilvánulása, és (..) Rūpa Gosvāmī azt mondta, hogy a bhakti összes aṅgája gyakorolható Guruval kapcsolatban is. De van néhány vyāvahārika szempont is. És lesz néhány Például a (..) pūjārī mindennap levetkőzteti az Istenséget, majd megfürdeti, és de Guru maga végzi mindezeket a dolgokat. Nincs szükség arra, hogy a tanítványok zuhanyozzák meg Gurudevet és mindent (..) Rendben, amikor Mādhavendra Purī nagyon idős volt, Īśvara Purīnak kellett ezeket a dolgokat végeznie. De általánosságban szólva, (..) ahogyan az Istenséget szolgálnátok, nem fogjátok úgy szolgálni Kṛṣṇát. (..) És (..) vannak olyan szempontok is, hogy tehettek tulasīt Kṛṣṇa lábára, de (..) még közvetlenül Gurunak sem ajánlhattok fel tulasīt. Adhattok Gurudevnek Kṛṣṇa mahā-prasāda tulasījából, vagy ha (..) a tulasī nem mahā-prasāda, akkor Gurudev jobb kezébe tehetitek, hogy szolgálatként felajánlja Kṛṣṇának, így. Tehát (..) a bhakti összes aṅgája végezhető Guruval és a Vaiṣṇavákkal kapcsolatban, de vannak bizonyos függő (..) bizonyos árnyalatok is. Bizonyos dolgokat megtehettek, másokat nem, vagy más módon kell megtennetek őket, mert Guru egy kategória, Vaiṣṇava egy kategória, Kṛṣṇa Mahāprabhu egy kategória, Rādhā és Kṛṣṇa. Bár Mahāprabhu Maga Rādhā és Kṛṣṇa, szolgálhatjátok Őt úgy, mint Magát Kṛṣṇát, de ennél magasabb rendű úgy szolgálni Őt, mint Kṛṣṇa bhaktáját, mert ez az Ő saját hangulata. Akkor a saját hangulatának megfelelően szolgáljátok Őt. Tehát valaki tulasīt fog tenni (..) tehettek tulasīt Caitanya Mahāprabhu lábára. De a rāgānugā-bhaktiban a tulasīt az Ő jobb kezébe tesszük, mert a saját hangulatának megfelelően szolgáljuk Őt. Éppen úgy, mint Purīban, amikor Mahāprabhu a Guṇḍicā templomot tisztította, odajött egy bhakta (..), vizet öntött a lábára, és megitta a caraṇāmṛtát, miközben Ő az Úr Jagannātha oltárán állt, mielőtt az Úr Jagannātha megérkezett volna oda. Mahāprabhu megharagudott. Tehát belül elégedett volt, mert nincs ebben semmi rossz, hiszen Ő Maga Kṛṣṇa. Ez rendben van. (..) De Ő Maga, az Ő hangulata ez: „Én bhakta vagyok”, és ezt nem akarjuk (..) megzavarni. Tehát Kṛṣṇa pávatollat visel, de nem szabad pávatollat adnunk Caitanya Mahāprabhunak. Tehát (..) és Gurudeva a sākṣād-dhari, de nem adtok Gurudevnek pávatollat vagy fuvolát, vagy bármi ilyesmit. Tehát elvileg a bhakti aṅgája ugyanaz (..), de vannak bizonyos szempontok a tattva és a rasa szerint is. Gaura-premānande hari haribol!",
+              "translation_note": "machine",
+              "source": {
+                "title": "2019.11.21 Q&A Jiva, Maya, Ragas, Tapa, Hearing (Джива, Майа, Раги, Аскезы, Сокровенное, Слушание)",
+                "date": "2019-11-21",
+                "nr": "4730",
+                "timecode": "",
+                "transcript_url": "https://drive.google.com/file/d/136m6c0cLoBKCEMQl6hiuZGZme95rqkmo/view",
+                "audio_url": "https://drive.google.com/file/d/1vR_MdzWI3Ver5nasFIOsBunIWU_K05cr/view"
+              }
+            }
+          ]
         },
         {
           "type": "text",
@@ -2270,7 +2634,35 @@
                 "timecode": "00:29:32",
                 "transcript_url": "https://drive.google.com/file/d/1cGaOIip_FSMTSuHgNZ9FKHSSc4-TKI0e/view",
                 "audio_url": "https://drive.google.com/file/d/1Q-Qj3sIAxe6K5-ReQqzWVBqHFqdXl-Vl/view"
-              }
+              },
+              "more": [
+                {
+                  "quote": "When a pūjārī is worshiping his Iṣṭadeva, then what does he do? First of all, eṣā puṣpāñjaliḥ, and offers the flowers. So when Kṛṣṇa comes here to Govardhana, then the flowers fall from the trees and offered at Kṛṣṇa's lotus feet.",
+                  "translation": "Amikor egy pūjārī az Iṣṭadeváját imádja, akkor mit tesz? Először is, eṣā puṣpāñjaliḥ, és felajánlja a virágokat. Tehát amikor Kṛṣṇa idejön Govardhanába, akkor a virágok lehullanak a fákról, és felajánlódnak Kṛṣṇa lótuszlábainál.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "27.10.25 - Sri Haridev. Govardhana Parikrama",
+                    "date": "2025-10-27",
+                    "nr": "9396",
+                    "timecode": "00:04:13",
+                    "transcript_url": "https://drive.google.com/file/d/1uLkZCPchLdIQ64U942Q4-hA-EApUa2PG/view",
+                    "audio_url": "https://drive.google.com/file/d/1Rd5SThKJ-6LHuTtnzOceq26guhcaj7nZ/view"
+                  }
+                },
+                {
+                  "quote": "Esha pushpanjali. First I have to give flowers, then offer the asana, then invite the deity to sit down, to wash their feet. Give them the offer them argya and madhuparka like this.",
+                  "translation": "Esha pushpanjali. Először virágokat kell adnom, majd felajánlanom az asanát, aztán meghívnom az Istenséget, hogy üljön le, hogy megmossam a lábát. Adni nekik, felajánlani nekik argyát és madhuparkát, így.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Istagosthi, last class of festival, Sri Prem Prayojan Prabhu in Ananda-Dham Ashram, 16.08.15",
+                    "date": "2015-08-16",
+                    "nr": "1043",
+                    "timecode": "",
+                    "transcript_url": "https://drive.google.com/file/d/1RJBEwDI-k51b0-4iy6lc3P8_azVSup63/view",
+                    "audio_url": "https://drive.google.com/file/d/1KTgJZGYXiJUgd6il6Ab7OZ5FlWo-c-6Q/view"
+                  }
+                }
+              ]
             },
             {
               "type": "instruction",
@@ -2483,7 +2875,48 @@
             "timecode": "00:21:46",
             "transcript_url": "https://drive.google.com/file/d/1-tnmwd2TsGptvmEMTh50BiquUDzWYJ_M/view",
             "audio_url": "https://drive.google.com/file/d/1GXF1HwghZAJq-nsY7YUBdOKujtfdvcql/view"
-          }
+          },
+          "more": [
+            {
+              "quote": "So, then what can you do? Because guru is giving Harinam and dīkṣā and then you have to offer your food to Krishna. So that means we don't offer the bhoga to Krishna. We pray, oh Gurudeva, I am not qualified to offer this bhoga to Krishna. You please offer this bhoga and I am here as your assistant in this sevā. So all the arcana to the deity is done under (..) in the ānugatya, under the guidance of guru because Gurudeva and our paramparā, they are janting (..) lakhs harinam for many, many years.\n\nSo, in this way, Krishna will accept the offering if it's done according to vidhi and in the ānugatya of śuddha-vaiṣṇavas.",
+              "translation": "Tehát akkor mit tehettek? Mivel a guru Harinamot és dīkṣāt ad, aztán fel kell ajánlanotok az ételeteket Krishnának. Ez tehát azt jelenti, hogy nem mi ajánljuk fel a bhogát Krishnának. Így imádkozunk: „Ó, Gurudeva, nem vagyok alkalmas arra, hogy felajánljam ezt a bhogát Krishnának. Kérlek, ajánld fel ezt a bhogát, én pedig itt vagyok a segédedként ebben a sevāban.” Tehát az Istenségnek végzett teljes arcana (..) az ānugatyában, a guru irányítása alatt történik, mert Gurudeva és a paramparānk sok-sok éven át több százezer Harinamot énekelnek (..).\n\nTehát ily módon Krishna elfogadja a felajánlást, ha azt a vidhi szerint és a śuddha-vaiṣṇavák ānugatyájában végzik.",
+              "translation_note": "machine",
+              "source": {
+                "title": "2026.05.30_Nama Tattva part 2, Newburgh NY,",
+                "date": "2026-05-30",
+                "nr": "10192",
+                "timecode": "01:48:14",
+                "transcript_url": "https://drive.google.com/file/d/1Igo0nPbdKJJjqhM4FRXD8P670v4kJSuH/view",
+                "audio_url": "https://drive.google.com/file/d/1Sjn8RKRYP8yqb7NB7NWOjCu7BBvOEdI1/view"
+              }
+            },
+            {
+              "quote": "Then how can any disciple take praśādam? Because the praśādam is not offered by you, it's offered by guru. Right? You take the picture of guru and you take (..) the bhoga, the naivedya, and you pray Gurudeva, I am not qualified, Gurudeva, you please offer this to Krishna, I am your assistant.",
+              "translation": "Akkor hogyan vehet bármelyik tanítvány praśādamot? Mert a praśādamot nem ti ajánljátok fel, hanem a guru ajánlja fel. Igaz? Fogjátok a guru képét, és fogjátok (..) a bhogát, a naivedyát, és így imádkoztok: „Gurudeva, nem vagyok alkalmas, Gurudeva, kérlek, ajánld fel ezt Krishnának, én a segéded vagyok.”",
+              "translation_note": "machine",
+              "source": {
+                "title": "2026.03.21_Istagosthi_corr_Manahs_advice harikatha",
+                "date": "2026-03-21",
+                "nr": "9906",
+                "timecode": "00:45:40",
+                "transcript_url": "https://drive.google.com/file/d/19Mvvp80dlD44d6erl7MlL0HixM-_CSLp/view",
+                "audio_url": "https://drive.google.com/file/d/1YONHXT1FBHnmWwCqX6pGQ7MIHAoQnKur/view"
+              }
+            },
+            {
+              "quote": "\"Give Me some water, but with love. A flower, some fruit, a leaf—tulasī leaf.\" These things are inexpensive and available everywhere. Yet if we can offer this to Kṛṣṇa with whatever devotion we can muster in the heart. Or especially the advanced devotee—they feel, \"I have no bhakti.\" So they will tell, \"Kṛṣṇa, please accept, may You be pleased. I have no love. I am offering this that my Gurudeva will offer it to You. So You must accept, because my Gurudeva is offering, and I am only assisting my Gurudeva. So surely You will accept.\"",
+              "translation": "„Adj Nekem egy kis vizet, de szeretettel. Egy virágot, egy kis gyümölcsöt, egy levelet—egy tulasī-levelet.” Ezek a dolgok olcsók és mindenhol elérhetők. Mégis, ha ezt fel tudjuk ajánlani Kṛṣṇának annyi odaadással, amennyit csak össze tudunk gyűjteni a szívünkben. Vagy különösen a fejlett bhakta—ők úgy érzik: „Nincs bhaktim.” Ezért azt mondják majd: „Kṛṣṇa, kérlek, fogadd el, légy elégedett. Nincs szeretetem. Ezt úgy ajánlom fel, hogy Gurudevám ajánlja majd fel Neked. Tehát el kell fogadnod, mert Gurudevám ajánlja fel, én pedig csak segítek Gurudevámnak. Így biztosan el fogod fogadni.”",
+              "translation_note": "machine",
+              "source": {
+                "title": "2011.11.14_Atma-nivedana",
+                "date": "2011-11-14",
+                "nr": "565",
+                "timecode": "00:03:29",
+                "transcript_url": "https://drive.google.com/file/d/1Jv_HLluLY6G4nk1gUTyb1qWzoJuPBOJa/view",
+                "audio_url": "https://drive.google.com/file/d/1JnDI7-aHJgR-sgGoHqwWRRqcF2bAvNnJ/view"
+              }
+            }
+          ]
         },
         {
           "type": "text",
@@ -2519,7 +2952,61 @@
                 "timecode": "00:08:04",
                 "transcript_url": "https://drive.google.com/file/d/1M3E5ZOUR7oWCzefdylA9u92GXXE8x945/view",
                 "audio_url": "https://drive.google.com/file/d/1fw-qazQ-W31F2Xbd-ByipZ_uK27mGcaL/view"
-              }
+              },
+              "more": [
+                {
+                  "quote": "So bhakti should not be done only mechanically, following the rules and regulations, but one's heart should be in it, one should be very attentive, and there should be some bhāva—that means offered with feeling. Kṛṣṇa is called bhāva-grāhī Janārdana; means actually it's not the thing that you're offering that He takes, but it's the feeling that you offer it with—that's what He's relishing. If you cook some food for Kṛṣṇa, maybe you're not the best cook in the world, it doesn't taste that good, but if you offer it with feeling, Kṛṣṇa will taste your feelings. He's not thinking, \"Oh, great potatoes today.\" He's not interested in your potato; it's the loving feeling with which you're making the offering. So niyamāgrahaḥ means you spoil your bhakti when you do the activities of devotion in a mindless way without your emotional involvement.",
+                  "translation": "Tehát a bhaktit nem szabad csupán gépiesen, a szabályokat és előírásokat követve végezni, hanem az ember szívének is benne kell lennie, nagyon figyelmesnek kell lennie, és lennie kell valamennyi bhāvának—ez azt jelenti, hogy érzéssel ajánlja fel. Kṛṣṇát bhāva-grāhī Janārdanának nevezik; ez azt jelenti, hogy valójában nem azt a dolgot fogadja el, amit felajánlotok, hanem azt az érzést, amellyel felajánljátok—azt ízleli. Ha valamilyen ételt főztök Kṛṣṇának, talán nem ti vagytok a világ legjobb szakácsai, és az nem olyan ízletes, de ha érzéssel ajánljátok fel, Kṛṣṇa az érzéseiteket fogja megízlelni. Nem azt gondolja: „Ó, ma remek a krumpli.” Nem érdekli a krumplitok; az a szeretetteljes érzés számít, amellyel a felajánlást készítitek. Tehát a niyamāgrahaḥ azt jelenti, hogy elrontjátok a bhaktitokat, amikor az odaadás cselekedeteit odafigyelés nélkül, érzelmi részvétel nélkül végzitek.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Sri Prem Prayojan - 2019-06-23 - Ishtha-Goshthi 2",
+                    "date": "2019-06-23",
+                    "nr": "4137",
+                    "timecode": "00:40:09",
+                    "transcript_url": "https://drive.google.com/file/d/1YGvMCKni0ljgo3L7SgkIps4kEDdYHrAU/view",
+                    "audio_url": "https://drive.google.com/file/d/1lsGW3vCDHeDM8yTSkFAHSG3M4wkgNakW/view"
+                  }
+                },
+                {
+                  "quote": "And that means that when the devotee is making the offering to Kṛṣṇa, if that devotee is not feeling distressed, then Kṛṣṇa he'll you he will not realize Kṛṣṇa's friendship. In other words, when that devotee puts the bhoga in front of Kṛṣṇa and prays, \"Oh Kṛṣṇa, I have made this for You, please accept My offering.\" \"If You will not accept what I've made for You, then what is the use of being alive?\" Feeling pain in the heart if Kṛṣṇa will not accept. So when the devotee is so eager to serve Kṛṣṇa in this mood, then Kṛṣṇa becomes hungry. Otherwise Kṛṣṇa is not hungry, He's Bhagavān, He's ātmārāma, āpta-kāma, all of His desires are fulfilled. He's maintaining all of the universes. He doesn't need our bhoga offerings. But when the devotee is ārta, feel suffering, feeling separation, \"Kṛṣṇa, please accept this, if You don't accept, my life is useless,\" then Kṛṣṇa is ārta-bandhu, He's the friend of that devotee. And when the devotee makes the offering, his eagerness to serve Kṛṣṇa causes Kṛṣṇa suddenly to feel a empty stomach. And the food looks very delicious to Him. Then, when Kṛṣṇa takes that offering of His devotee, Kṛṣṇa feels satisfaction. And yasmin tuṣṭe jagat tuṣṭam, when the Supreme Lord is pleased, then the jīva becomes the soul becomes pleased. So, premnaiva bhakta-hṛdayaṁ sukha-vidrutaṁ syāt. When the offering is made with love, then the devotee's heart melts with happiness. Why? Because the eagerness to serve Kṛṣṇa makes Kṛṣṇa's hunger. If you're not hungry, you'll not enjoy eating. So because Kṛṣṇa's hungry, He enjoys the offering, and when Kṛṣṇa feels happiness, then the soul is automatically happy. So the happiness of the devotee lies in the happiness that Kṛṣṇa feels.",
+                  "translation": "És ez azt jelenti, hogy amikor a bhakta felajánlást tesz Kṛṣṇának, ha az a bhakta nem érez gyötrelmet, akkor Kṛṣṇa, ő megmondja nektek, nem fogja felismerni Kṛṣṇa barátságát. Más szavakkal, amikor az a bhakta Kṛṣṇa elé teszi a bhogát, és így imádkozik: „Ó, Kṛṣṇa, ezt Neked készítettem, kérlek, fogadd el a felajánlásomat.” „Ha nem fogadod el, amit Neked készítettem, akkor mi értelme életben maradni?” Fájdalmat érez a szívében, ha Kṛṣṇa nem fogadja el. Tehát amikor a bhakta ebben a hangulatban ennyire buzgón akarja szolgálni Kṛṣṇát, akkor Kṛṣṇa megéhezik. Máskülönben Kṛṣṇa nem éhes, Ő Bhagavān, Ő ātmārāma, āpta-kāma, minden vágya beteljesült. Ő tartja fenn az összes univerzumot. Nincs szüksége a bhoga-felajánlásainkra. De amikor a bhakta ārta, szenvedést, elválást érez: „Kṛṣṇa, kérlek, fogadd el ezt, ha nem fogadod el, az életem haszontalan”, akkor Kṛṣṇa ārta-bandhu, Ő annak a bhaktának a barátja. És amikor a bhakta megteszi a felajánlást, Kṛṣṇa szolgálata iránti buzgósága azt eredményezi, hogy Kṛṣṇa hirtelen üresnek érzi a gyomrát. És az étel nagyon finomnak tűnik Számára. Aztán, amikor Kṛṣṇa elfogadja bhaktájának ezt a felajánlását, Kṛṣṇa elégedettséget érez. És yasmin tuṣṭe jagat tuṣṭam, amikor a Legfelsőbb Úr elégedett, akkor a jīva, a lélek elégedetté válik. Tehát premnaiva bhakta-hṛdayaṁ sukha-vidrutaṁ syāt. Amikor a felajánlást szeretettel teszik, akkor a bhakta szíve elolvad a boldogságtól. Miért? Mert a Kṛṣṇa szolgálata iránti buzgóság kelti fel Kṛṣṇa éhségét. Ha nem vagytok éhesek, nem fogjátok élvezni az evést. Tehát mivel Kṛṣṇa éhes, élvezi a felajánlást, és amikor Kṛṣṇa boldogságot érez, akkor a lélek automatikusan boldog. Tehát a bhakta boldogsága abban a boldogságban rejlik, amelyet Kṛṣṇa érez.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "04. Ray Ramananda Samvad (Part 4)",
+                    "date": "2016-xx-xx",
+                    "nr": "1941",
+                    "timecode": "00:10:42",
+                    "transcript_url": "https://drive.google.com/file/d/1NLkR5jNzORd81hIVnWh_OT8-QJJNNcrb/view",
+                    "audio_url": "https://drive.google.com/file/d/1DqTYtwZFgMOEoIMYO9vAlJPj0RXzjtM-/view"
+                  }
+                },
+                {
+                  "quote": "So at that time, Rādhikā is watching from a balcony through a lattice window. Because only the wife has the opportunity to cook, (..) and give that food to her husband, and then watch and relish how her husband is relishing. But Rādhikā is having the same feeling, but because this is parakīya, it is hidden, so She's watching from a balcony and relishing how Kṛṣṇa is relishing Her cooking. And the maidservants of Rādhikā, they're watching Rādhikā, how Rādhikā is watching Kṛṣṇa relish. When Kṛṣṇa tastes the preparations, then in these preparations all the feelings, all the thoughts that Rādhikā was having while She was cooking, they appear in Kṛṣṇa's heart. So cooking is a very intimate service. Kṛṣṇa's body is made of that which Rādhikā has made with Her own hand.",
+                  "translation": "Tehát abban az időben Rādhikā egy erkélyről, egy rácsos ablakon keresztül figyel. Mert csak a feleségnek van lehetősége főzni, (..) odaadni azt az ételt a férjének, majd figyelni és ízlelni, hogyan ízleli azt a férje. De Rādhikā ugyanezt érzi, ám mivel ez parakīya, rejtve van, ezért egy erkélyről figyeli és ízleli, hogyan ízleli Kṛṣṇa az Ő főztjét. Rādhikā szolgálólányai pedig Rādhikāt figyelik, azt, ahogyan Rādhikā figyeli Kṛṣṇa ízlelését. Amikor Kṛṣṇa megízleli a készítményeket, akkor mindazok az érzések, mindazok a gondolatok, amelyek Rādhikāban voltak főzés közben, megjelennek Kṛṣṇa szívében. Tehát a főzés nagyon bensőséges szolgálat. Kṛṣṇa teste abból áll, amit Rādhikā a saját kezével készített.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "23 10 2016 PavanSarovara",
+                    "date": "2016-10-23",
+                    "nr": "1604",
+                    "timecode": "00:05:08",
+                    "transcript_url": "https://drive.google.com/file/d/1PqLN7hQhroMv6wSA0KdXooLO-TdYvoVz/view",
+                    "audio_url": "https://drive.google.com/file/d/1wLLR8UV89xxwz_Y3hPtQf-xdNRjDdvuC/view"
+                  }
+                },
+                {
+                  "quote": "And what about Caitanya Mahāprabhu? Someone can say, “If I have to be one-pointed to Rādhā-Kṛṣṇa, then what about Caitanya Mahāprabhu?” Caitanya Mahāprabhu is our bhajana-śikṣā-guru. So Caitanya Mahāprabhu is our bhajana-śikṣā-guru, you are worshiping Him by following His instructions to completely focus on Rādhā-Kṛṣṇa. This is the bhajana-praṇālī for those who are in rāgānugā-bhakti. In vaidhi-bhakti, they offer bhoga like one plate for Kṛṣṇa, for Caitanya Mahāprabhu, and one plate for Rādhā-Kṛṣṇa. And different separate mantras for offering. But in rāgānugā-bhakti, one plate for Rādhā-Kṛṣṇa, and then that mahā-prasādam you can offer to bhajana-śikṣā-guru Gaurāṅga Mahāprabhu. So... Or you can have one mantra with Mahāprabhu and Rādhā-Kṛṣṇa together. Mahāprabhu is distinct and non-different, Mahāprabhu is Rādhā-Kṛṣṇa combined. Gurudeva... And Gurudeva, when you are serving Rādhā and Kṛṣṇa, then Gurudeva is also there serving Rādhā and Kṛṣṇa, and under her guidance... So by this verse, Śrī Raghunātha dāsa Gosvāmī is showing how to be one-pointed to Rādhā-Kṛṣṇa, but including the service of Guru and Gaurāṅga.",
+                  "translation": "És mi a helyzet Caitanya Mahāprabhuval? Valaki azt mondhatja: „Ha kizárólag Rādhā-Kṛṣṇára kell összpontosítanom, akkor mi a helyzet Caitanya Mahāprabhuval?” Caitanya Mahāprabhu a mi bhajana-śikṣā-gurunk. Tehát Caitanya Mahāprabhu a mi bhajana-śikṣā-gurunk; úgy imádod Őt, hogy követed az utasításait, és teljesen Rādhā-Kṛṣṇára összpontosítasz. Ez a bhajana-praṇālī azok számára, akik rāgānugā-bhaktiban vannak. A vaidhi-bhaktiban úgy ajánlják fel a bhogát, hogy egy tányért Kṛṣṇának, egyet Caitanya Mahāprabhunak, és egy tányért Rādhā-Kṛṣṇának. És különböző, különálló mantrákat használnak a felajánláshoz. A rāgānugā-bhaktiban azonban egy tányért ajánlanak fel Rādhā-Kṛṣṇának, majd azt a mahā-prasādamot felajánlhatod a bhajana-śikṣā-gurunak, Gaurāṅga Mahāprabhunak. Tehát... Vagy lehet egy mantrád, amelyben Mahāprabhu és Rādhā-Kṛṣṇa együtt vannak. Mahāprabhu különbözik és nem különbözik, Mahāprabhu Rādhā és Kṛṣṇa együttesen. Gurudeva... És Gurudeva, amikor Rādhāt és Kṛṣṇát szolgálod, akkor Gurudeva is ott van, és Rādhāt és Kṛṣṇát szolgálja, az ő irányítása alatt... Tehát ezzel a verssel Śrī Raghunātha dāsa Gosvāmī megmutatja, hogyan összpontosítsunk kizárólag Rādhā-Kṛṣṇára, ugyanakkor belefoglalva Guru és Gaurāṅga szolgálatát.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Sri Prem Prayojan - 2018-01-09 - What Sadhu-Sanga can give",
+                    "date": "2018-01-09",
+                    "nr": "2640",
+                    "timecode": "00:24:24",
+                    "transcript_url": "https://drive.google.com/file/d/1_bHPh604BtUTXDR1hDyGAFDdx3h8Dnfp/view",
+                    "audio_url": "https://drive.google.com/file/d/1JsWru1Cv0GYeHFADwgRcuxYi5acITF8J/view"
+                  }
+                }
+              ]
             },
             {
               "type": "instruction",
@@ -2644,7 +3131,22 @@
                 "timecode": "00:09:20",
                 "transcript_url": "https://drive.google.com/file/d/1_TuERH1xYudcgS5qB2FDNGYmNhEmQVa2/view",
                 "audio_url": "https://drive.google.com/file/d/1KPXke-VhoY5S8yHmLXoapC9t14JZ2iP8/view"
-              }
+              },
+              "more": [
+                {
+                  "quote": "Why is Rūpa Gosvāmī saying, oh, this is essential teaching, six exchanges of love and affection with Vaiṣṇavas. Why? Because by serving, by giving something, by receiving something, by opening the heart in confidence, inquiring confidentially, by the preparing the bhoga and offering to Rādhā and Krishna and giving mahā-prasādam, and also taking some remnant from the Vaiṣṇava. Then these are the various ways in which the Hlādinī-śakti is transferred to a jīva who is weak and has no power to overcome the anarthas, especially the final anartha, pratiṣṭhā.",
+                  "translation": "Miért mondja Rūpa Gosvāmī, ó, hogy ez alapvető tanítás: a szeretet és ragaszkodás hatféle cseréje a Vaiṣṇavákkal? Miért? Mert szolgálat, valaminek az adása, valaminek az elfogadása, a szív bizalmas feltárása, bizalmas érdeklődés, a bhoga elkészítése, Rādhānak és Kṛṣṇának való felajánlása és a mahā-prasādam átadása, valamint a Vaiṣṇava valamely maradékának elfogadása által. Tehát ezek azok a különféle módok, amelyek révén a Hlādinī-śakti átadódik egy olyan jīvának, aki gyenge, és nincs ereje legyőzni az anarthákat, különösen a végső anarthát, a pratiṣṭhāt.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "2026.03.14_Manaḥ-śikṣā part 20",
+                    "date": "2026-03-14",
+                    "nr": "9854",
+                    "timecode": "",
+                    "transcript_url": "https://drive.google.com/file/d/1j-sypE0w7UgrOGFYzpl-czE5OibteW0U/view",
+                    "audio_url": "https://drive.google.com/file/d/1cE3go00emSXkni6nKX41toRslMaBgCRg/view"
+                  }
+                }
+              ]
             },
             {
               "type": "verse",
@@ -2703,7 +3205,48 @@
             "timecode": "01:16:59",
             "transcript_url": "https://drive.google.com/file/d/1gYRk4RuR5xfoNUu_vqZtaQIsmZwlT0g-/view",
             "audio_url": "https://drive.google.com/file/d/12yLTBQF681SwkIAQzDAXLFZiWZ5s3QLy/view"
-          }
+          },
+          "more": [
+            {
+              "quote": "If a person thinks that the water that has washed the lotus feet of the deity or the water that has washed the lotus feet of a Vaiṣṇava is ordinary water. Because when the ingredients are offered in pūjā to the Supreme Lord, then the same thing happens, the spiritual energy manifests there. And so caraṇāmṛta of the deity and caraṇāmṛta of Vaiṣṇavas. It is aprākṛta, supernatural. Even though it looks like ordinary water to the material senses.",
+              "translation": "Ha valaki azt gondolja, hogy az Istenség lótuszlábát megmosó víz vagy egy Vaiṣṇava lótuszlábát megmosó víz közönséges víz. Mert amikor az összetevőket a pūjā során felajánlják a Legfelsőbb Úrnak, akkor ugyanez történik: a lelki energia megnyilvánul ott. És ezért az Istenség caraṇāmṛtája és a Vaiṣṇavák caraṇāmṛtája. Ez aprākṛta, természetfeletti. Noha az anyagi érzékek számára közönséges víznek látszik.",
+              "translation_note": "machine",
+              "source": {
+                "title": "2026.07.31_Bhakti-rasāyana_1",
+                "date": "2026-07-31",
+                "nr": "10307",
+                "timecode": "00:21:53",
+                "transcript_url": "https://drive.google.com/file/d/1XBCy-cPD9apL0twLt8UtgZ8pK4LErTuG/view",
+                "audio_url": "https://drive.google.com/file/d/1gWN_fZMDNctRxlFTE-oykL84D_v4UDIv/view"
+              }
+            },
+            {
+              "quote": "So a pure devotee, when they taste a tulasī leaf, when they take Ṭhākurjī's caraṇāmṛta, when they take Mahāprasādam, then it has unlimited power and two things happen, the sphūrti of Krishna and the sphūrti of love for Krishna at the same time immediately. This is honoring Mahāprasādam.",
+              "translation": "Tehát amikor egy tiszta bhakta megízlel egy tulasī-levelet, amikor elfogadja Ṭhākurjī caraṇāmṛtáját, amikor elfogadja a Mahāprasādamot, akkor annak korlátlan ereje van, és két dolog történik: Kṛṣṇa sphūrtija és a Kṛṣṇa iránti szeretet sphūrtija egyszerre, azonnal. Ez a Mahāprasādam megtisztelése.",
+              "translation_note": "machine",
+              "source": {
+                "title": "Q&A Prasadam, Chaturmasya and Japa - 2025-04-05 - Sri Prem Prayojan",
+                "date": "2025-05-05",
+                "nr": "8942",
+                "timecode": "00:10:18",
+                "transcript_url": "https://drive.google.com/file/d/181W3l9WnMPyVlSiptlSaDYTIsy3vEOfv/view",
+                "audio_url": "https://drive.google.com/file/d/14Gs9Oh180CX7BAV6mAVcG2Ss610gfGOA/view"
+              }
+            },
+            {
+              "quote": "So when he would do abhiṣeka of the Deity, and then the tulasī would wash off Kṛṣṇa's feet and into the caraṇāmṛta, then he would take caraṇāmṛta and become absorbed in remembering Kṛṣṇa's pastimes with Vraja-gopīs. All the vastu, all the substances connected with Śrī Kṛṣṇa and His Deity are actually connected to His pastimes. This is why the pure devotee is eager to taste some prasādam, some tulasī leaves, to smell the flowers, because it has a spiritual power to awaken the realization of Kṛṣṇa's pastimes.",
+              "translation": "Tehát amikor abhiṣekát végzett az Istenségen, és azután a tulasī Kṛṣṇa lábáról lemosódott a caraṇāmṛtába, akkor elfogadta a caraṇāmṛtát, és elmerült Kṛṣṇa Vraja-gopīkkal folytatott kedvteléseinek felidézésében. Minden vastu, minden olyan anyag, amely kapcsolatban áll Śrī Kṛṣṇával és az Ő Istenségével, valójában kapcsolatban áll az Ő kedvteléseivel. Ezért vágyik a tiszta bhakta arra, hogy megízleljen egy kis prasādamot, néhány tulasī-levelet, hogy megszagolja a virágokat, mert ezeknek lelki erejük van arra, hogy felébresszék Kṛṣṇa kedvteléseinek felismerését.",
+              "translation_note": "machine",
+              "source": {
+                "title": "03_05-01-08_Ambarisa2",
+                "date": "2008-01-05",
+                "nr": "387",
+                "timecode": "00:46:14",
+                "transcript_url": "https://drive.google.com/file/d/1mAOK13LTaSSr1iI1JHZniCMPDcB5dvEq/view",
+                "audio_url": "https://drive.google.com/file/d/11soqAskAnes-iW77H-W0JUnQ_75K1loV/view"
+              }
+            }
+          ]
         },
         {
           "type": "text",
@@ -2779,7 +3322,35 @@
             "timecode": "00:45:02",
             "transcript_url": "https://drive.google.com/file/d/1Y0uAjoXuqTos-8PLu1pzRheX-dFZovT5/view",
             "audio_url": "https://drive.google.com/file/d/1QW-R1Ggdfo-nlUEXpROr8DBHpFcybsri/view"
-          }
+          },
+          "more": [
+            {
+              "quote": "Abhiṣeka means (..) bathing ceremony, and this is done at different times. A person may be bathed in Vedic culture when they graduate from the gurukula, when they're studying in the school of their spiritual master; when they graduate, there's a bathing ceremony to indicate that they are snāta. (..) Snāta means (..) bathed in knowledge. So to indicate that they are bathed in knowledge, there's a bathing ceremony: guru bathes the disciple, and then he leaves and goes to his home. So another bathing is at the time of a wedding. But (..) the biggest bathing ceremony is a coronation. When a young prince is about to become the king, or a princess is about to become the queen, then they have a spectacular abhiṣeka, bathing ceremony. Conch shells are blowing, cāmaras are waving, fans are waving, and there's massaging fragrant oils, and then fragrant water, and milk, and yogurt, and ghee, and sugar, and honey, and fruit juice, and all kinds of delicious things. And then after that they're dried, and then decorated, painted with pictures in sandalwood, candana, and kastūrī musk, and decorated with beautiful cloth and ornaments, flowers and jewels, and then there's āratī. So we are doing this, the coronation abhiṣeka of Śrī Rādhā.",
+              "translation": "Az abhiṣeka (..) fürdetési szertartást jelent, és ezt különböző alkalmakkor végzik. A védikus kultúrában megfürdethetnek valakit, amikor elvégzi a gurukulát, ahol a lelki tanítómestere iskolájában tanul; amikor végez, fürdetési szertartást tartanak annak jelzésére, hogy snāta. (..) A snāta azt jelenti: (..) tudásban megfürdött. Tehát annak jelzésére, hogy megfürödtek a tudásban, fürdetési szertartást tartanak: a guru megfürdeti a tanítványt, azután pedig ő elmegy, és hazatér. Tehát egy másik fürdetésre az esküvő idején kerül sor. De (..) a legnagyobb fürdetési szertartás a koronázás. Amikor egy ifjú herceg királlyá vagy egy hercegnő királynővé készül válni, akkor látványos abhiṣekát, fürdetési szertartást tartanak számukra. Kagylókürtöket fújnak, cāmarákat lengetnek, legyezőket lengetnek, illatos olajokkal masszírozzák őket, majd illatos vízzel, tejjel, joghurttal, ghīvel, cukorral, mézzel, gyümölcslével és mindenféle ízletes dologgal fürdetik őket. Ezután megszárítják, majd feldíszítik őket, szantálból, candanából és kastūrī-pézsmából készült mintákat festenek rájuk, gyönyörű ruhákkal és ékszerekkel, virágokkal és drágakövekkel díszítik fel őket, majd ārati következik. Tehát ezt végezzük: Śrī Rādhā koronázási abhiṣekáját.",
+              "translation_note": "machine",
+              "source": {
+                "title": "Radha-Tattva, part 2, Sri Prem Prayojan Prabhu",
+                "date": "2018-09-17",
+                "nr": "3490",
+                "timecode": "01:02:11",
+                "transcript_url": "https://drive.google.com/file/d/1hzXXT85jM_-j0g78-fPPGOo4EFMogkVV/view",
+                "audio_url": "https://drive.google.com/file/d/1eknlgSFKeWr8yCMveDvBfx1H1zjEbqvV/view"
+              }
+            },
+            {
+              "quote": "But on Janmāṣṭamī, though we may not have a realization of our constitutional position, everyone can experience that at the time when we make the abhiṣeka to Kṛṣṇa, and we just try to please and satisfy Kṛṣṇa, suddenly we feel complete satisfaction, and all our senses become blissful, and there's no feeling of the, (..) insufficiency or deficiency at all. And then every devotee, even any new person who doesn't know anything, who comes here and celebrates Janmāṣṭamī today, they can practically have this realization, that I am part and parcel of Śrī Kṛṣṇa, and (..) only by giving happiness to Kṛṣṇa, I can experience complete happiness myself.",
+              "translation": "De Janmāṣṭamīn, bár lehet, hogy nem valósítottuk meg az eredeti helyzetünket, mindenki megtapasztalhatja, hogy amikor abhiṣekát végzünk Kṛṣṇának, és csupán megpróbálunk örömet és elégedettséget okozni Kṛṣṇának, hirtelen teljes elégedettséget érzünk, és minden érzékünk gyönyörtelivé válik, és egyáltalán nincs bennünk a (..) hiányosság vagy elégtelenség érzése. És akkor minden bhakta, még bármely új ember is, aki semmit sem tud, aki ma idejön és megünnepli a Janmāṣṭamīt, gyakorlatilag eljuthat erre a felismerésre: Śrī Kṛṣṇa szerves része vagyok, és (..) csak azáltal tapasztalhatom meg én magam a teljes boldogságot, hogy boldogságot adok Kṛṣṇának.",
+              "translation_note": "machine",
+              "source": {
+                "title": "Shree Krishna Janmashtami 2012 part2, Ticino 2012",
+                "date": "2012-08-10",
+                "nr": "10079",
+                "timecode": "01:56:25",
+                "transcript_url": "https://drive.google.com/file/d/1f3BruZocc5f_V5MFrUjLeOXtZf01CQJx/view",
+                "audio_url": "https://drive.google.com/file/d/1QAUzwQ0Iip13peEUfRhX82REVduOnbM0/view"
+              }
+            }
+          ]
         },
         {
           "type": "instruction",
@@ -3063,7 +3634,22 @@
             "timecode": "00:51:13",
             "transcript_url": "https://drive.google.com/file/d/1MMLdmmB6g6uZ8VCSeavQXBizs92wl7-V/view",
             "audio_url": "https://drive.google.com/file/d/1V5h9i97NwtN3Sorl5j2bxKEExX_NwL1D/view"
-          }
+          },
+          "more": [
+            {
+              "quote": "So with a great honor and with great repentance we give praṇāma and take the water of this Govinda-kuṇḍa upon our head praying, \"Oh Govinda, oh Kṛṣṇa, please forgive my offenses and engage me in the service of Your lotus feet.\"",
+              "translation": "Tehát nagy tisztelettel és mély megbánással praṇāmát ajánlunk, és a fejünkre vesszük e Govinda-kuṇḍa vizét, így imádkozva: „Ó, Govinda, ó, Kṛṣṇa, kérlek, bocsásd meg a sértéseimet, és foglalj le lótuszlábaid szolgálatában.”",
+              "translation_note": "machine",
+              "source": {
+                "title": "Sri Prem Prayojan - 2019-10-26 - Parikrama Govinda Kunda",
+                "date": "2019-10-26",
+                "nr": "4480",
+                "timecode": "00:04:12",
+                "transcript_url": "https://drive.google.com/file/d/1o-6-BnNr2og3qpbKCdDMNj3I68pC9EAn/view",
+                "audio_url": "https://drive.google.com/file/d/1X7HbaCR8LRCwDToxsVxDahw96eiNT4iT/view"
+              }
+            }
+          ]
         },
         {
           "type": "verse",
@@ -3270,7 +3856,61 @@
                 "timecode": "00:22:39",
                 "transcript_url": "https://drive.google.com/file/d/1daHeJHdhi5vvfplRrzmNMXlIzKmoiuKX/view",
                 "audio_url": "https://drive.google.com/file/d/1c4QgHhVu213nI5X_aOf-BTmINbce-kvt/view"
-              }
+              },
+              "more": [
+                {
+                  "quote": "Ārati is one ceremony in Vedic culture. And as devotees coming from Western culture, when we think of ārati, we always think of worship to a Deity. But if we were in Vedic culture, we'll understand that the ceremony of ārati is a very common ceremony performed whenever you welcome someone for whom you have love or respect. So, for example, Mother Yaśodā would offer ārati to Kṛṣṇa. It is said for the when we offer ārati it is for the (..) those who are in vaidhī-bhakti, if they are worshiping God by the ārati, they're thinking, \"Oh, this is fire, I've offered fire, water, (..) and earth, and so on. Worshiping God with all the five elements. They are His energy like this.\" And they think aiśvarya. But in laukika-sad-bandhuvat-sambandha, in an actual (..) friendly relationship, if you offer ārati, the spirit is that this is (..) creating auspiciousness for the person you're offering ārati to. So the mood is that, \"Oh, by offering this ārati I am (..) taking whatever problems and difficulties will come in your life, I take them all on my own head, so that you can be happy.\" So if Mother Yaśodā would offer ārati to Kṛṣṇa, she's thinking, \"Oh, whatever difficulties or problems may come in the life of my boy, oh, let me take all those problems on my own head. And if I have done any dharma or good karmas, I am giving it to Him so He will be happy.\" So the sakhīs, they offer ārati to Rādhā and Kṛṣṇa and they're thinking, \"Oh, whatever obstacles are there to your meeting together, then I want to take all those obstacles on my head, that you will always be able to meet together and never feel separation from each other.\"\n\nOne can think for each article in the ārati ceremony, beginning with the incense and then the ghee wicks, and then the (..) water, and the cloth, a flower, and the cāmara, and fan, you go through this (..) ritual, one can think a different meditation for each article. (..) But not necessarily. Because if when Rādhā and Kṛṣṇa meet in the forest, then Lalitā-sakhī will organize the other sakhīs to offer ārati, and they do it very quickly, only to make auspicious that they get on with their pastimes. So, of course, and in rāgānugā, it may be just (..) they offer ārati and they're just feeling very deeply, overjoyed, that now Rādhā and Kṛṣṇa have come together and we are receiving them, and now their pastimes will begin. It's like very simple. Very easy. It's like if Gurudeva came and sat down here, then we will get ārati paraphernalia and we're not thinking about, (..) this is incense, this is the ghee wick, this is We thinking, \"Gurudeva is here!\" So for those who have fully entered into rāgānugā-bhakti, how they will feel, it will be spontaneous, their own feeling. Each time, different feeling. But for those who want to enter into rāgānugā-bhakti, they may think if they're offering incense, then they may think, \"Oh, I am offering this fragrance to Rādhā and Kṛṣṇa.\" And they meditate that the fragrance of Rādhikā is going into the Kṛṣṇa is taking the fragrance of Rādhikā, and Rādhikā is taking the fragrance of Kṛṣṇa, like this. Then they think, \"I'm offering ghee wicks.\" This (..) light is (..) like meeting because separation is darkness. So when they think, \"Oh Rādhikā, I'm offering this light (..) with the deepest desire that you and Kṛṣṇa will always meet and I will my whole life will be dedicated to make sure that you are never parted from her.\" Oh, we can (..) offer water. In the early morning in the niśānta-līlā, there the kuñja is (..) somewhat dark. So they all have ghee wicks to look, to see how Rādhā and Kṛṣṇa their bodies are covered with the their cosmetics from each other. And so when they offer the water, they can think, \"Oh, (..) when will I have the chance to be there and looking with the ghee wicks to see where there are marks on the body of Rādhā and Kṛṣṇa, then taking water and putting water there, and taking cloth, and because after water they offer the cloth and then wiping, so that when they go home they won't have the very obvious marks.\" So, these are some meditations. They are examples. Because rāgānugā is very spontaneous.",
+                  "translation": "Az ārati egy szertartás a védikus kultúrában. És amikor nyugati kultúrából érkező bhaktákként az ārati jut eszünkbe, mindig egy Istenség imádatára gondolunk. De ha a védikus kultúrában lennénk, megértenénk, hogy az ārati szertartása nagyon általános szertartás, amelyet olyankor végeznek, amikor olyan valakit fogadunk, aki iránt szeretetet vagy tiszteletet érzünk. Így például Yaśodā anya ārati-t ajánlott fel Kṛṣṇának. Azt mondják, hogy amikor ārati-t ajánlunk fel, az a (..) azok számára, akik vaidhī-bhaktiban vannak, ha āratival imádják Istent, azt gondolják: „Ó, ez tűz, felajánlottam tüzet, vizet, (..) földet és így tovább. Istent imádom mind az öt elemmel. Ezek az Ő energiái, ilyen módon.” És aiśvaryára gondolnak. De a laukika-sad-bandhuvat-sambandhában, egy valódi (..) baráti kapcsolatban, ha ārati-t ajánlasz fel, a mögötte lévő szellem az, hogy ez (..) kedvezőséget teremt annak a személynek, akinek felajánlod az ārati-t. Tehát a hangulat ez: „Ó, ennek az ārati-nak a felajánlásával (..) bármilyen problémák és nehézségek jönnének az életedben, mindet a saját fejemre veszem, hogy te boldog lehess.” Tehát ha Yaśodā anya ārati-t ajánl Kṛṣṇának, azt gondolja: „Ó, bármilyen nehézségek vagy problémák jöhetnek a fiam életében, ó, hadd vegyem mindezeket a problémákat a saját fejemre. És ha bármilyen dharmát végeztem, vagy jó karmáim vannak, azokat Neki adom, hogy Ő boldog legyen.” Tehát a sakhīk ārati-t ajánlanak fel Rādhānak és Kṛṣṇának, és azt gondolják: „Ó, bármilyen akadályok állnak is találkozásotok útjában, mindezeket az akadályokat a saját fejemre akarom venni, hogy mindig találkozhassatok, és soha ne érezzetek elszakadást egymástól.”\n\nAz ārati-szertartás minden egyes kellékével kapcsolatban gondolhatunk valamire, kezdve a füstölővel, majd a ghī-kanócokkal, azután a (..) vízzel, a ruhával, egy virággal, a cāmarával és a legyezővel; ahogy végighaladsz ezen a (..) rítuson, minden kellékhez más-más meditációra gondolhatsz. (..) De ez nem feltétlenül szükséges. Mert amikor Rādhā és Kṛṣṇa találkozik az erdőben, Lalitā-sakhī megszervezi, hogy a többi sakhī ārati-t ajánljon fel, és ezt nagyon gyorsan teszik, csupán azért, hogy kedvezőséget teremtsenek ahhoz, hogy folytassák kedvteléseiket. Tehát természetesen a rāgānugāban lehet, hogy egyszerűen csak (..) ārati-t ajánlanak fel, és nagyon mélyen érzik, túláradó örömmel, hogy most Rādhā és Kṛṣṇa összejöttek, mi pedig fogadjuk őket, és most elkezdődnek a kedvteléseik. Ez nagyon egyszerű. Nagyon könnyű. Olyan, mintha Gurudeva idejönne és leülne, mi pedig elővennénk az ārati kellékeit, és nem arra gondolnánk, hogy (..) ez füstölő, ez a ghī-kanóc, ez pedig... Mi azt gondoljuk: „Gurudeva itt van!” Tehát azok érzése, akik teljesen beléptek a rāgānugā-bhaktiba, spontán lesz, a saját érzésük. Minden alkalommal más érzés. De azok, akik be akarnak lépni a rāgānugā-bhaktiba, amikor füstölőt ajánlanak fel, azt gondolhatják: „Ó, ezt az illatot ajánlom fel Rādhānak és Kṛṣṇának.” És azon meditálnak, hogy Rādhikā illata behatol a... Kṛṣṇa magába fogadja Rādhikā illatát, Rādhikā pedig magába fogadja Kṛṣṇa illatát, ilyen módon. Azután azt gondolják: „Ghī-kanócokat ajánlok fel.” Ez a (..) fény (..) olyan, mint a találkozás, mert az elválás sötétség. Tehát amikor azt gondolják: „Ó, Rādhikā, ezt a fényt ajánlom fel (..) azzal a legmélyebb vággyal, hogy te és Kṛṣṇa mindig találkozzatok, és egész életemet annak biztosítására fogom szentelni, hogy te soha ne szakadj el tőle.” Ó, felajánlhatunk (..) vizet. Kora reggel, a niśānta-līlāban a kuñja (..) kissé sötét. Ezért mindannyiuknál ghī-kanócok vannak, hogy megnézzék, hogy lássák, miként borítják Rādhā és Kṛṣṇa testét az egymásról rájuk került kozmetikumok. És ezért amikor felajánlják a vizet, azt gondolhatják: „Ó, (..) mikor lesz lehetőségem ott lenni, és a ghī-kanócok fényénél megnézni, hol vannak nyomok Rādhā és Kṛṣṇa testén, majd vizet venni és oda vizet tenni, azután ruhát venni, mert a víz után a ruhát ajánlják fel, majd letörölni azokat, hogy amikor hazamennek, ne maradjanak rajtuk a nagyon nyilvánvaló nyomok.” Tehát ezek bizonyos meditációk. Ezek példák. Mert a rāgānugā nagyon spontán.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "2009.07.03_Questions&A",
+                    "date": "2009-07-03",
+                    "nr": "440",
+                    "timecode": "00:04:44",
+                    "transcript_url": "https://drive.google.com/file/d/1up9zSb1UjYLACga_u3220Snlz_W7XXf0/view",
+                    "audio_url": "https://drive.google.com/file/d/1yy4MBHZg6C58V99wh9rHafloSqPz6cFy/view"
+                  }
+                },
+                {
+                  "quote": "This is not anything fixed, because śāstra doesn't say anything. So it's natural (..) in vaidhi-bhakti a person follows the rules and regulations. So generally they then they think that if you offer incense, this represents earth, because fragrance is the quality of earth. And then if you offer dip, then this is offering fire, and if you offer a fan, this is air. So they have some aiśvarya, sometimes aiśvarya conceptions like this. But in rāgānugā-bhakti there's no fixed conception, otherwise it would not be rāgānugā-bhakti. Then it will be vaidhi-bhakti again, \"Now you have to think like this, now you have to think like this.\" Rāgānugā-bhakti is (..) spontaneous. Outwardly it looks the same, but inwardly it's according to (..) the taste and the realization of that particular devotee on that day. Yes. Everyone wants to know, \"(..) How do I do rāgānugā-bhakti?\" you know? Cannot. \"How? Please show me how to be spontaneous.\" \"What are the three steps to become to be spontaneous?\" You cannot, this is not a question. But wh- when we listen with a from our Gurudeva, here's a spontaneous mood then...\n\nBecause it depends on the ārati, if the ārati is maṅgala-ārati, then (..) in the rāgānugā-bhakti the devotee thinks of the niśānta-līlā, Rādhā-Kṛṣṇa waking up. So then it's a bit (..) not very light in the kuñja, because only the first morning light of the sun is coming. So if the devotee is offering the dip, then they'll think, \"Oh, some maidservants of Rādhā-Kṛṣṇa are looking with the dip in the dark to see if there any evidence of Rādhā-Kṛṣṇa's meeting on their bodies.\" And then they're giving water to wash it, and then a cloth to wipe it away like this, so when they go home no one will suspect that they were meeting in the night time, like this. So (..) but obviously if you think, \"Well, this is what you have to meditate on ārati,\" then in noon ārati or in the evening ārati, then it's not applicable, because that's applicable only to that time of the day. Also anyway (..) the sakhīs of Rādhikā, like Lalitā, they offer ārati to Rādhā-Kṛṣṇa, not thinking about any meanings. Why? Because ārati means that (..) to (..) drive away all inauspiciousness. So for example, if Kṛṣṇa is coming back from tending the cows in the day, some demons have attacked or anything, then Mother Yaśodā will come and offer ārati to Kṛṣṇa to remove any inauspiciousness that may you know He may have come in contact with during the day. When Rādhā-Kṛṣṇa meet in the kuñja, then so that Candrāvalī will not try to disturb anything, that Jaṭilā will not come, or Kuṭilā or Abhimanyu or anything, Lalitā is offering ārati to Rādhā and Kṛṣṇa to remove any inauspiciousness. Also the mood of the ārati can be that whatever you see success, happiness comes from your piety. So whatever piety, whatever happiness I have (..) this I'm offering to you so that you can be happy. So Mother Yaśodā will do she's Mother Yaśodā is not worshipping Kṛṣṇa that \"You are Bhagavān,\" or anything like that. It's to remove inauspiciousness and offer all her piety that you will have a happy and long and successful life. So then the actual articles, they don't have a meaning in that sense. It's just that the ārati itself (..) is an expression of care, an expression of protection, an expression of (..) wishing the very best for that person.",
+                  "translation": "Ez nem valami rögzített dolog, mert a śāstra nem mond erről semmit. Tehát természetes, hogy (..) a vaidhi-bhaktiban az ember követi a szabályokat és előírásokat. Így általában azt gondolják, hogy ha füstölőt ajánlasz fel, az a földet képviseli, mert az illat a föld tulajdonsága. És ha dīpet ajánlasz fel, akkor ez a tűz felajánlása, ha pedig legyezőt ajánlasz fel, az a levegő. Tehát van valamennyi aiśvaryájuk, időnként ilyen aiśvarya-felfogásaik vannak. A rāgānugā-bhaktiban azonban nincs rögzített felfogás, máskülönben az nem lenne rāgānugā-bhakti. Akkor ismét vaidhi-bhakti lenne: „Most így kell gondolkodnod, most így kell gondolkodnod.” A rāgānugā-bhakti (..) spontán. Külsőleg ugyanolyannak látszik, belsőleg azonban az adott bhakta aznapi (..) ízlésének és megvalósításának megfelelő. Igen. Mindenki tudni akarja: „(..) Hogyan végezzem a rāgānugā-bhaktit?”, értitek? Nem lehet. „Hogyan? Kérlek, mutasd meg nekem, hogyan legyek spontán.” „Mi az a három lépés, amelyek által spontánná válhatunk?” Nem lehet, ez nem kérdés. De ami- amikor Gurudevánktól hallgatunk valamit, itt van egy spontán hangulat, akkor...\n\nMert ez az ārati-tól függ; ha az ārati maṅgala-ārati, akkor (..) a rāgānugā-bhaktiban a bhakta a niśānta-līlāra gondol, arra, ahogy Rādhā-Kṛṣṇa felébrednek. Tehát akkor a kuñjában (..) nincs túl világos, mert csak a nap első reggeli fénye érkezik. Ezért ha a bhakta a dīpet ajánlja fel, akkor azt gondolja: „Ó, Rādhā-Kṛṣṇa néhány szolgálólánya a dīp fényével nézelődik a sötétben, hogy lássa, van-e testükön valamilyen bizonyítéka Rādhā-Kṛṣṇa találkozásának.” Azután vizet adnak, hogy lemossák, majd egy ruhát, hogy letöröljék, ilyen módon, hogy amikor hazamennek, senki se gyanítsa, hogy éjszaka találkoztak, ilyen módon. Tehát (..) de nyilvánvalóan, ha azt gondolod: „Nos, ezen kell meditálnod az ārati során”, akkor a déli ārati vagy az esti ārati során ez nem alkalmazható, mert ez csak az adott napszakra alkalmazható. Továbbá egyébként (..) Rādhikā sakhījai, mint Lalitā, ārati-t ajánlanak fel Rādhā-Kṛṣṇának anélkül, hogy bármilyen jelentésre gondolnának. Miért? Mert az ārati azt jelenti, hogy (..) el- (..) elűzünk minden kedvezőtlenséget. Így például, ha Kṛṣṇa nappal a tehenek legeltetéséből tér haza, és megtámadta néhány démon vagy bármi más történt, akkor Yaśodā anya odajön, és ārati-t ajánl fel Kṛṣṇának, hogy eltávolítson minden kedvezőtlenséget, amellyel, tudjátok, a nap folyamán kapcsolatba kerülhetett. Amikor Rādhā-Kṛṣṇa találkoznak a kuñjában, akkor azért, hogy Candrāvalī ne próbáljon semmit megzavarni, hogy Jaṭilā ne jöjjön oda, vagy Kuṭilā, vagy Abhimanyu, vagy bárki más, Lalitā ārati-t ajánl fel Rādhānak és Kṛṣṇának, hogy eltávolítson minden kedvezőtlenséget. Az ārati hangulata az is lehet, hogy bármilyen sikert látsz, a boldogság a jámborságodból származik. Tehát bármilyen jámborságom, bármilyen boldogságom van (..), ezt felajánlom neked, hogy boldog lehess. Tehát Yaśodā anya ezt fogja tenni; ő Yaśodā anya, nem úgy imádja Kṛṣṇát, hogy „Te vagy Bhagavān”, vagy bármi ilyesmi. Azért teszi, hogy eltávolítsa a kedvezőtlenséget, és felajánlja minden jámborságát azért, hogy boldog, hosszú és sikeres életed legyen. Tehát maguknak a kellékeknek ebben az értelemben nincs jelentésük. Egyszerűen maga az ārati (..) a gondoskodás kifejezése, a védelem kifejezése, annak kifejezése, hogy (..) a lehető legjobbat kívánjuk annak a személynek.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Sri Prem Prayojan - 2019-06-24 - Ishtha-Goshthi",
+                    "date": "2019-06-24",
+                    "nr": "4139",
+                    "timecode": "00:00:16",
+                    "transcript_url": "https://drive.google.com/file/d/1pfnuzBCl2nVkrHOhWDXnz5Juu808evQd/view",
+                    "audio_url": "https://drive.google.com/file/d/1esOSnygmL0Fd70HoL2dw6lMgjBshyrWt/view"
+                  }
+                },
+                {
+                  "quote": "But in rāgānugā-bhakti, those who are focusing on the attainment of Krishna's service in Vṛndāvana, then they can never think in this way, but rather, they remember how when Radha Krishna wake up, the mañjarīs, the maidservants of Radha Krishna who enter into the kuñja, they are offering ārati. They take the dīps, and they offer ārati to Radha Krishna, and it's not exactly a worship. You see, Mother Yaśodā also offers ārati to Krishna when he returns in the evening from taking the cows to grace. So why would his mother worship him? So that's not the meaning. Ārati means to receive someone or show the expression of love to someone. And the meaning is that when we offer ārti, one of the moods is that whatever difficulty or whatever problem or obstacle is there in your life, may I take that difficulty upon my head and may you be happy. This is why Mother Yośodā offers the dīp to her son. It's not worshipping her son. It's a mood of oh, such selfless love that you should be happy and you should have no difficulties and let all these difficulties come to me. This is (..) the mood of ārti, understand?",
+                  "translation": "De a rāgānugā-bhaktiban azok, akik Kṛṣṇa Vṛndāvanában végzett szolgálatának elérésére összpontosítanak, sohasem gondolkodhatnak ilyen módon, hanem inkább arra emlékeznek, hogy amikor Rādhā és Kṛṣṇa felébrednek, a mañjarīk, Rādhā és Kṛṣṇa szolgálólányai, akik belépnek a kuñjába, ārati-t ajánlanak fel. Fogják a dīpeket, és ārati-t ajánlanak fel Rādhānak és Kṛṣṇának, ez pedig nem pontosan imádat. Látjátok, Yaśodā anya is ārati-t ajánl fel Kṛṣṇának, amikor este visszatér a tehenek legeltetéséből. Miért imádná Őt az anyja? Tehát nem ez a jelentése. Az ārati azt jelenti, hogy fogadunk valakit, vagy kifejezzük a szeretetünket valaki iránt. A jelentése pedig az, hogy amikor ārati-t ajánlunk fel, az egyik hangulat az, hogy bármilyen nehézség, probléma vagy akadály van az életedben, hadd vegyem ezt a nehézséget a fejemre, te pedig légy boldog. Ezért ajánlja fel Yaśodā anya a dīpet a fiának. Nem imádja a fiát. Ez az, ó, annyira önzetlen szeretet hangulata, hogy te légy boldog, ne legyenek nehézségeid, és minden ilyen nehézség engem érjen. Ez az ārati (..) hangulata, értitek?",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Mangala Arati - 2025-05-24 - Sri Prem Prayojan",
+                    "date": "2025-05-24",
+                    "nr": "8970",
+                    "timecode": "04:49:00",
+                    "transcript_url": "https://drive.google.com/file/d/1tkE9Y7ljQHpbJ4yUgPJN7X9bpfh54enM/view",
+                    "audio_url": "https://drive.google.com/file/d/1rVFU3e1V3BWI3X6nrctF9SY6FwcdToYo/view"
+                  }
+                },
+                {
+                  "quote": "I remember once my Gurudeva was on parikramā and he was meeting with one of his godbrothers. And this godbrother, he saw that Śrīla Gurudeva, he was having a pastime of some illness, but at the same time he was preaching and inspiring people all over the world. Whereas that godbrother, out of his humility, he was thinking, \"I am not doing such service. I cannot inspire others, but I am quite healthy.\" So then when he was speaking, he said, \"Oh, I am praying to Kṛṣṇa that whatever is left of my life and my health, oh, let it be taken away and give it to my godbrother, Śrīla Nārāyaṇa Mahārāja, so that he will be health and preach everywhere.\" Very sweet, (..)? So if the sādhakas in this world can have such a feeling for each other of love, then what to speak of the sakhīs in Vṛndāvana? Such selfless prema. So jaya jaya rādhā-kṛṣṇa yugala-milana, all the obstacles are over. Ārati karaye lalitādi-sakhī-gaṇa, and may there be no more obstacles. The sakhīs, \"We will take everything on us, but let Rādhā and Kṛṣṇa be happy.\" Because their happiness is our happiness only. There's no separate interest.",
+                  "translation": "Emlékszem, egyszer Gurudevám parikramān volt, és találkozott az egyik lelki testvérével. Ez a lelki testvére látta, hogy Śrīla Gurudeva valamilyen betegséggel kapcsolatos kedvtelést mutatott be, ugyanakkor prédikált és lelkesítette az embereket szerte a világon. Míg ez a lelki testvér az alázatából fakadóan azt gondolta: „Én nem végzek ilyen szolgálatot. Nem tudok másokat lelkesíteni, de teljesen egészséges vagyok.” Ezért amikor beszélt, azt mondta: „Ó, azért imádkozom Kṛṣṇához, hogy vegye el életem és egészségem hátralévő részét, és adja oda lelki testvéremnek, Śrīla Nārāyaṇa Mahārājának, hogy egészséges legyen, és mindenhol prédikáljon.” Nagyon édes, (..)? Tehát ha a sādhakák ebben a világban ilyen szeretetteljes érzést táplálhatnak egymás iránt, akkor mit mondhatnánk a Vṛndāvanában élő sakhīkról? Ilyen önzetlen prema. Tehát jaya jaya rādhā-kṛṣṇa yugala-milana, minden akadály véget ért. Ārati karaye lalitādi-sakhī-gaṇa, és ne legyen több akadály. A sakhīk: „Mindent magunkra veszünk, de Rādhā és Kṛṣṇa legyenek boldogok.” Mert az ő boldogságuk a mi egyetlen boldogságunk. Nincs külön érdek.",
+                  "translation_note": "machine",
+                  "source": {
+                    "title": "Specialities of Vrindavana Lila - 2023-01-15 - Sri Prem Prayojan",
+                    "date": "2023-01-15",
+                    "nr": "6944",
+                    "timecode": "00:22:39",
+                    "transcript_url": "https://drive.google.com/file/d/1daHeJHdhi5vvfplRrzmNMXlIzKmoiuKX/view",
+                    "audio_url": "https://drive.google.com/file/d/1c4QgHhVu213nI5X_aOf-BTmINbce-kvt/view"
+                  }
+                }
+              ]
             },
             {
               "type": "subtitle",

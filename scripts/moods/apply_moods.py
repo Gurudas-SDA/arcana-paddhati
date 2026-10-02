@@ -4,9 +4,13 @@
 scripts/moods/moods.json holds one entry per target (sub)section:
   {"target": "<section or subsection id>", "quote": "<EN, Gurudev's own words, verbatim>",
    "translations": {"ru": "...", "ru-iast": "...", "lv": "...", ...},
-   "machine": ["lv", "de", ...], "source": {title, date, nr, timecode, transcript_url, audio_url}}
+   "machine": ["lv", "de", ...], "source": {title, date, nr, timecode, transcript_url, audio_url},
+   "more": [{"candidate", "label", "quote", "translation": {lang: text}, "machine": [langs], "source"}, ...]}
+`more` = the other candidate quotes for that block ("All quotes" button inside the block; print/Kindle
+show them only in the appendix, scripts/formats/build_formats.py).
 The block is put at the start of the target's content in ALL language files:
-  {"type": "mood", "quote", "translation", ["translation_note": "machine"], "source"}
+  {"type": "mood", "quote", "translation", ["translation_note": "machine"], "source",
+   ["more": [{"quote", "translation", ["translation_note": "machine"], "source"}, ...]]}
 English: translation "". Idempotent: existing mood blocks are removed first.
 Re-run after scripts/translate/tr.py rebuilds a book.<lang>.json.
 Choices and alternatives: Отчёты/_исходники/2026-10-02_resheniya-citaty.md (Satkirti folder).
@@ -45,10 +49,19 @@ def main():
             if lang != "en" and lang in m.get("machine", []):
                 block["translation_note"] = "machine"
             block["source"] = m["source"]
+            more = []
+            for a in m.get("more", []):
+                alt = {"quote": a["quote"], "translation": "" if lang == "en" else a["translation"][lang]}
+                if lang != "en" and lang in a.get("machine", []):
+                    alt["translation_note"] = "machine"
+                alt["source"] = a["source"]
+                more.append(alt)
+            if more:
+                block["more"] = more
             node["content"].insert(0, block)
         nl = "\n" if raw.endswith("\n") else ""
         open(p, "w", encoding="utf-8", newline="").write(json.dumps(book, ensure_ascii=False, indent=2) + nl)
-        print("%s: %d mood blocks" % (lang, len(moods)))
+        print("%s: %d mood blocks, %d more quotes" % (lang, len(moods), sum(len(m.get("more", [])) for m in moods)))
 
 
 if __name__ == "__main__":

@@ -23,7 +23,9 @@ function blockText(block) {
     case "image":
       return block.alt ?? "";
     case "mood":
-      return [block.quote, block.translation].filter(Boolean).join(" ");
+      return [block.quote, block.translation, ...(block.more ?? []).flatMap((m) => [m.quote, m.translation])]
+        .filter(Boolean)
+        .join(" ");
     default:
       return block.content ?? "";
   }

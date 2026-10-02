@@ -225,6 +225,7 @@ function ContentBlock({
           translation={item.translation || undefined}
           machine={item.translation_note === "machine"}
           source={item.source}
+          more={item.more}
           labels={labels.mood}
         />
       );
@@ -316,6 +317,7 @@ export default function SectionContent({ section, ui }: SectionContentProps) {
       machine: t(ui, "mood.machine"),
       transcript: t(ui, "mood.transcript"),
       audio: t(ui, "mood.audio"),
+      all: t(ui, "mood.all"),
     },
   };
   return (

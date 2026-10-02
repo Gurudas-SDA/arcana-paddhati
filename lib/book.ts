@@ -18,6 +18,15 @@ export interface MoodSource {
   audio_url?: string;
 }
 
+/** One more candidate quote of a "mood" block (the "All quotes" list). */
+export interface MoodQuote {
+  quote: string;
+  translation?: string;
+  /** "machine" when `translation` is a machine translation. */
+  translation_note?: string;
+  source?: MoodSource;
+}
+
 export interface ContentItem {
   type: string;
   content?: string;
@@ -36,6 +45,8 @@ export interface ContentItem {
   /** "mood" block: "machine" when `translation` is a machine translation. */
   translation_note?: string;
   source?: MoodSource;
+  /** "mood" block: the other candidate quotes for this block ("All quotes"). */
+  more?: MoodQuote[];
 }
 
 export interface Subsection {

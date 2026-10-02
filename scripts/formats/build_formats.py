@@ -16,8 +16,13 @@ Output (default): ../Арчана-паддхати — книга/ next to the r
 
 PRINT: HTML + CSS paged media rendered by headless Chrome (--headless=new, no
 window), twice: pass 1 finds the page of every section and verse through the
-PDF's named destinations (TOC and verse index entries link to them), pass 2 writes the
-page numbers into the TOC and the index. Running headers, page numbers and PDF
+PDF's named destinations (TOC, verse index and appendix entries link to them), pass 2
+writes the page numbers into the TOC, the index and the appendix.
+
+Mood blocks ("Gurudev's mood"): the chosen quote is printed in the block; the
+other candidate quotes (`more`, the app's "All quotes" button) go to an appendix
+chapter "Gurudev's words — all quotes", grouped by block with a page reference
+(PDF) or link (EPUB) to the block. Running headers, page numbers and PDF
 bookmarks are then added with PyMuPDF.
 
 Requires: Chrome or Edge, Python packages PyMuPDF (fitz) and fontTools,
@@ -94,6 +99,9 @@ LANG_STRINGS = {
         "app": "The book as an app (with search):",
         "cover": "Cover",
         "pages": "p.",
+        "appendix": "Gurudev's words — all quotes",
+        "appendix_note": "For each “Gurudev's mood” block: the other quotes of Gurudev on the same theme (the block itself has the chosen one). Verbatim from the lecture transcripts, with translation and source.",
+        "appendix_block": "block on",
     },
     "ru": {
         "name": "Арчана-паддхати (рус.)",
@@ -108,6 +116,9 @@ LANG_STRINGS = {
         "app": "Книга в виде приложения (с поиском):",
         "cover": "Обложка",
         "pages": "с.",
+        "appendix": "Цитаты Гурудева — все варианты",
+        "appendix_note": "Для каждого блока «Настроение Гурудева» — остальные цитаты Гурудева на ту же тему (в самом блоке напечатана выбранная). Дословно из транскриптов лекций, с переводом и источником.",
+        "appendix_block": "блок на",
     },
 }
 
@@ -257,6 +268,19 @@ class Edition:
                     n += 1
                     self.verse_ids[id(blk)] = (f"v{n}", si)
         self.index = self.build_index()
+        # Mood blocks: anchor id per block; those with other quotes go to the appendix.
+        self.mood_ids = {}
+        self.appendix = []  # (mood id, section index, section title, subsection title or None, block)
+        n = 0
+        for si, sec in enumerate(self.book["sections"]):
+            nodes = [(sec, None)] + [(sub, sub["title"]) for sub in sec.get("subsections", [])]
+            for node, sub_title in nodes:
+                for blk in node.get("content", []):
+                    if blk.get("type") == "mood":
+                        n += 1
+                        self.mood_ids[id(blk)] = f"m{n}"
+                        if blk.get("more"):
+                            self.appendix.append((f"m{n}", si, sec["title"], sub_title, blk))
 
     @staticmethod
     def all_blocks(sec):
@@ -341,11 +365,17 @@ class Edition:
         return "".join(out)
 
     def mood_html(self, it, epub) -> str:
+        mid = self.mood_ids.get(id(it))
+        attr = f' id="{mid}"' if mid else ""
+        return f'<div class="mood"{attr}>{self.quote_html(it, epub)}</div>'
+
+    def quote_html(self, it, epub) -> str:
+        """Gurudev's words (EN), translation, source line (+ links in EPUB)."""
         ui = self.ui
         def paras(text, cls):
             return "".join(f'<p class="{cls}{" gap" if p.strip() == "[…]" else ""}">{esc(p)}</p>'
                            for p in (text or "").split("\n\n"))
-        out = [f'<div class="mood"><p class="ml">{esc(ui["mood.words"])}</p>',
+        out = [f'<p class="ml">{esc(ui["mood.words"])}</p>',
                f'<div lang="en">{paras(it.get("quote", ""), "mq")}</div>']
         if it.get("translation"):
             note = f' <span class="mn">({esc(ui["mood.machine"])})</span>' if it.get("translation_note") == "machine" else ""
@@ -360,8 +390,23 @@ class Edition:
                     if src.get(key):
                         links += f' · <a href="{esc(src[key])}">{esc(ui[lab])}</a>'
             out.append(f'<p class="ms"><span lang="en">{esc(line)}</span>{links}</p>')
-        out.append("</div>")
         return "".join(out)
+
+    def appendix_html(self, ref) -> str:
+        """Appendix chapter: the other quotes of every mood block. `ref(mood_id, si)`
+        returns the HTML of the reference to the block (page number or link)."""
+        s = self.s
+        out = [f'<section class="ap" id="ap"><h1>{esc(s["appendix"])}</h1><p class="note">{esc(s["appendix_note"])}</p>']
+        for mid, si, sec_title, sub_title, blk in self.appendix:
+            title = sub_title or sec_title
+            ctx = f"{esc(sec_title)} · " if sub_title else ""
+            out.append(f'<div class="ap-block"><h2>{esc(title)}</h2>'
+                       f'<p class="ap-ref">{ctx}{esc(s["appendix_block"])} {ref(mid, si)}</p>')
+            for alt in blk["more"]:
+                out.append(f'<div class="mood ap-q">{self.quote_html(alt, epub=True)}</div>')
+            out.append("</div>")
+        out.append("</section>")
+        return "\n".join(out)
 
     def section_html(self, si, sec, epub=False) -> str:
         out = [f'<section class="chap" id="s{si}"><h1>{esc(sec["title"])}</h1>']
@@ -421,6 +466,10 @@ ul.bl li::before { content: "– "; color: #B8860B; }
 .pv-l { margin: 0; }
 .sub { font-style: italic; color: #555; }
 .ix-entry .ix-first { font-weight: 700; }
+.ap .note { font-style: italic; color: #555; }
+.ap-ref { font-size: 0.85em; color: #5C3D2E; font-style: italic; }
+.ap-ref a { color: #8B6508; }
+.ms a { color: #8B6508; }
 """
 
 
@@ -491,10 +540,19 @@ h1 + .verse, h2 + .verse, h3 + .verse { break-before: avoid; }
 .ix-entry .pg a { color: inherit; text-decoration: none; }
 .ix-entry .wbw { font-size: 8.3pt; margin: 0.8mm 0 0.8mm 1mm; }
 .ix-entry .tr { font-size: 8.6pt; margin: 0.8mm 0 0 1mm; }
+.ap { break-before: page; }
+.ap > h1 { font-size: 16pt; text-align: center; margin: 0 0 4mm 0; }
+.ap > .note { font-size: 8.5pt; text-align: center; margin-bottom: 5mm; }
+.ap-block { margin: 0 0 4mm 0; }
+.ap-block > h2 { border-top: 0.5pt solid #E8DCC8; padding-top: 2mm; margin-top: 5mm; }
+.ap-ref { margin: 0 0 2mm 0; text-align: left; }
+.mood.ap-q { break-inside: auto; }
+.ap-block > h2, .ap-ref, .mood .ml, .mood .ml2 { break-after: avoid; }
+.ms a { text-decoration: none; }
 """
 
 
-def print_html(ed: Edition, fonts_url: dict, toc_pages=None, verse_pages=None) -> str:
+def print_html(ed: Edition, fonts_url: dict, toc_pages=None, verse_pages=None, mood_pages=None) -> str:
     s, b = ed.s, ed.book
     pg = (lambda key: str(toc_pages.get(key, ""))) if toc_pages else (lambda key: "000")
     parts = [f'<div class="coverpage"><img src="cover.jpg" alt="{esc(s["cover"])}"/></div>',
@@ -511,11 +569,17 @@ def print_html(ed: Edition, fonts_url: dict, toc_pages=None, verse_pages=None) -
         for sj, sub in enumerate(sec.get("subsections", [])):
             toc.append(f'<li class="l2"><span class="tt">{esc(sub["title"])}</span><span class="dots"></span>'
                        f'<a class="pg" href="#s{si}-{sj}">{pg(f"s{si}-{sj}")}</a></li>')
+    if ed.appendix:
+        toc.append(f'<li class="l1"><span class="tt">{esc(s["appendix"])}</span><span class="dots"></span>'
+                   f'<a class="pg" href="#ap">{pg("ap")}</a></li>')
     toc.append(f'<li class="l1"><span class="tt">{esc(s["index"])}</span><span class="dots"></span>'
                f'<a class="pg" href="#ix">{pg("ix")}</a></li></ol></div>')
     parts.append("".join(toc))
     for si, sec in enumerate(b["sections"]):
         parts.append(ed.section_html(si, sec))
+    if ed.appendix:
+        mp = (lambda mid: str(mood_pages.get(mid, ""))) if mood_pages else (lambda mid: "000")
+        parts.append(ed.appendix_html(lambda mid, si: f'{esc(s["pages"])}\u00a0<a href="#{mid}">{mp(mid)}</a>'))
     ix = [f'<div class="ix" id="ix"><h1>{esc(s["index"])}</h1><p class="note">{esc(s["index_note"])}</p>']
     for e in ed.index:
         if verse_pages:
@@ -577,28 +641,34 @@ def build_print(ed: Edition, fonts: dict, chrome: Path, work: Path, out_pdf: Pat
     for si, sec in enumerate(ed.book["sections"]):
         toc_keys.append(f"s{si}")
         toc_keys += [f"s{si}-{sj}" for sj in range(len(sec.get("subsections", [])))]
+    if ed.appendix:
+        toc_keys.append("ap")
     toc_keys.append("ix")
+    mood_keys = [mid for mid, *_ in ed.appendix]
     names = dest_pages(d1)
     missing = [k for k in toc_keys if k not in names]
     missing += [vid for e in ed.index for vid, _ in e["ids"] if vid not in names]
+    missing += [mid for mid in mood_keys if mid not in names]
     if missing:
         sys.exit(f"pass 1: no PDF destination for {missing[:10]}")
     toc_pages = {k: names[k] for k in toc_keys}
     verse_pages = {vid: names[vid] for e in ed.index for vid, _ in e["ids"]}
+    mood_pages = {mid: names[mid] for mid in mood_keys}
     n1 = len(d1)
     d1.close()
 
     html2, pdf2 = work / "pass2.html", work / "pass2.pdf"
-    html2.write_text(print_html(ed, furl, toc_pages, verse_pages), encoding="utf-8")
+    html2.write_text(print_html(ed, furl, toc_pages, verse_pages, mood_pages), encoding="utf-8")
     chrome_pdf(chrome, html2, pdf2, profile)
     doc = fitz.open(pdf2)
     # Check pass 2 kept the layout of pass 1 (section starts).
     # (a verse listed twice on one page is linked once, so it has no destination)
     names2 = dest_pages(doc)
     check = {k: names2.get(k) for k in toc_keys}
-    if check != toc_pages or any(v in names2 and names2[v] != p for v, p in verse_pages.items()):
+    ref_pages = {**verse_pages, **mood_pages}
+    if check != toc_pages or any(v in names2 and names2[v] != p for v, p in ref_pages.items()):
         diff = {k: (toc_pages[k], check.get(k)) for k in toc_pages if toc_pages[k] != check.get(k)}
-        diff.update({v: (p, names2.get(v)) for v, p in verse_pages.items() if v in names2 and names2[v] != p})
+        diff.update({v: (p, names2.get(v)) for v, p in ref_pages.items() if v in names2 and names2[v] != p})
         sys.exit(f"pass 2 layout differs from pass 1: {diff}")
 
     # Running headers, page numbers, bookmarks.
@@ -606,11 +676,12 @@ def build_print(ed: Edition, fonts: dict, chrome: Path, work: Path, out_pdf: Pat
     starts = sorted((toc_pages[f"s{si}"], sec["title"]) for si, sec in enumerate(sections))
     first_toc_page = 5
     ix_page = toc_pages["ix"]
+    ap_page = toc_pages.get("ap", ix_page)
     f_it = fitz.Font(fontfile=str(fonts["italic"]))
     f_rg = fitz.Font(fontfile=str(fonts["regular"]))
     col = (0.36, 0.24, 0.18)
     mm = 72 / 25.4
-    start_set = {p for p, _ in starts} | {ix_page, first_toc_page}
+    start_set = {p for p, _ in starts} | {ix_page, ap_page, first_toc_page}
     for pno in range(len(doc)):
         num = pno + 1
         if num < first_toc_page:
@@ -625,6 +696,8 @@ def build_print(ed: Edition, fonts: dict, chrome: Path, work: Path, out_pdf: Pat
         if num not in start_set:
             if num >= ix_page:
                 head = ed.s["index"]
+            elif num >= ap_page:
+                head = ed.s["appendix"]
             elif num < starts[0][0]:
                 head = ed.s["toc"]
             else:
@@ -649,6 +722,8 @@ def build_print(ed: Edition, fonts: dict, chrome: Path, work: Path, out_pdf: Pat
         toc.append([1, sec["title"], toc_pages[f"s{si}"]])
         for sj, sub in enumerate(sec.get("subsections", [])):
             toc.append([2, sub["title"], toc_pages[f"s{si}-{sj}"]])
+    if ed.appendix:
+        toc.append([1, ed.s["appendix"], ap_page])
     toc.append([1, ed.s["index"], ix_page])
     doc.set_toc(toc)
     doc.set_metadata({"title": f'{ed.s["short_title"]} — {ed.book["title"]}', "author": "Chaitanya Academy",
@@ -659,7 +734,7 @@ def build_print(ed: Edition, fonts: dict, chrome: Path, work: Path, out_pdf: Pat
     doc.save(tmp, garbage=4, deflate=True)
     doc.close()
     shutil.copy(tmp, out_pdf)
-    return {"pages": n1, "toc_pages": toc_pages}
+    return {"pages": n1, "toc_pages": toc_pages, "mood_pages": mood_pages}
 
 
 # ---------------------------------------------------------------- EPUB
@@ -693,6 +768,8 @@ nav ol ol { padding-left: 1.2em; }
 .ix .note { font-size: 0.85em; font-style: italic; color: #555; }
 .ix-entry { margin: 0 0 1em 0; }
 .ix-entry .refs { font-size: 0.85em; }
+.ap-block > h2 { border-top: 1px solid #E8DCC8; padding-top: 0.5em; }
+.ap-ref { margin: 0 0 0.6em 0; }
 """
 
 
@@ -744,6 +821,9 @@ def build_epub(ed: Edition, fonts: dict, out_epub: Path, work: Path):
         ix.append("</div>")
     ix.append("</section>")
     files["index.xhtml"] = xhtml(L, s["index"], "".join(ix))
+    if ed.appendix:
+        files["appendix.xhtml"] = xhtml(L, s["appendix"], ed.appendix_html(
+            lambda mid, si: f'<a href="{sec_files[si]}#{mid}">→ {esc(b["sections"][si]["title"])}</a>'))
     files["cover.xhtml"] = xhtml(L, s["cover"], f'<div class="cover"><img src="cover.jpg" alt="{esc(s["cover"])}"/></div>')
     files["title.xhtml"] = xhtml(L, b["title"],
         f'<div class="title"><p class="t1">{esc(b["title"])}</p><p class="orn">❦</p><p class="t2">{esc(b["subtitle"])}</p>'
@@ -771,11 +851,15 @@ def build_epub(ed: Edition, fonts: dict, out_epub: Path, work: Path):
         head = ncx_point(sec_order_label, f, "")
         kids = "".join(ncx_point(sub["title"], f"{f}#s{si}-{sj}") for sj, sub in enumerate(subs))
         ncx_points.append(head.replace("</navPoint>", kids + "</navPoint>"))
+    if ed.appendix:
+        nav.append(f'<li><a href="appendix.xhtml">{esc(s["appendix"])}</a></li>')
     nav.append(f'<li><a href="index.xhtml">{esc(s["index"])}</a></li></ol></nav>')
     nav.append(f'<nav epub:type="landmarks" hidden=""><ol><li><a epub:type="cover" href="cover.xhtml">{esc(s["cover"])}</a></li>'
                f'<li><a epub:type="toc" href="nav.xhtml">{esc(s["toc"])}</a></li>'
                f'<li><a epub:type="bodymatter" href="{sec_files[0]}">{esc(b["sections"][0]["title"])}</a></li>'
                f'<li><a epub:type="index" href="index.xhtml">{esc(s["index"])}</a></li></ol></nav>')
+    if ed.appendix:
+        ncx_points.append(ncx_point(s["appendix"], "appendix.xhtml"))
     ncx_points.append(ncx_point(s["index"], "index.xhtml"))
     files["nav.xhtml"] = xhtml(L, s["toc"], "".join(nav))
     book_id = "urn:uuid:" + str(uuid.uuid5(uuid.NAMESPACE_URL, f"{APP_URL}#{ed.lang}"))
@@ -813,7 +897,8 @@ def build_epub(ed: Edition, fonts: dict, out_epub: Path, work: Path):
         pr = f' properties="{" ".join(props)}"' if props else ""
         manifest.append(f'<item id="{pid}" href="{esc(name)}" media-type="{mt[Path(name).suffix]}"{pr}/>')
     ids = {name: m.split('id="')[1].split('"')[0] for name, m in zip(sorted(files), manifest)}
-    spine = ["cover.xhtml", "title.xhtml", "nav.xhtml"] + sec_files + ["index.xhtml"]
+    spine = (["cover.xhtml", "title.xhtml", "nav.xhtml"] + sec_files
+             + (["appendix.xhtml"] if ed.appendix else []) + ["index.xhtml"])
     spine_xml = "".join(f'<itemref idref="{ids[n]}"/>' for n in spine)
     now = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     opf = ('<?xml version="1.0" encoding="utf-8"?>\n'
@@ -894,7 +979,8 @@ def main():
         if "print" in formats:
             pdf = out / "2 Для печати" / f'{name}{ed.s["print_suffix"]}.pdf'
             info = build_print(ed, fonts, chrome, work / "print", pdf)
-            print(f"[{lang}] PDF  {pdf}  ({info['pages']} pages)")
+            ap = f", appendix p. {info['toc_pages']['ap']} ({len(ed.appendix)} blocks)" if "ap" in info["toc_pages"] else ""
+            print(f"[{lang}] PDF  {pdf}  ({info['pages']} pages{ap})")
         if formats & {"epub", "azw3"}:
             epub = out / "3 Kindle" / f"{name}.epub"
             tmp_epub = build_epub(ed, fonts, epub, work / "epub")
