@@ -80,35 +80,62 @@ function prepare(entry: SearchEntry): PreparedEntry {
   return { entry, nTitle: normalizeText(entry.title), nText, map };
 }
 
+/** Clause boundaries of `text`: the index where each clause starts (after
+ *  ". ", "; ", ": ", "! ", "? " or a line break), plus text.length. */
+function clauseStarts(text: string): number[] {
+  const starts = [0];
+  const re = /[.!?;:…]\s+|\n+/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text))) {
+    const at = m.index + m[0].length;
+    if (at < text.length) starts.push(at);
+  }
+  starts.push(text.length);
+  return starts;
+}
+
+/** Search excerpt made of whole clauses only — never a cut-off fragment
+ *  with "…" (UI rule: no truncated texts). The window SNIPPET_BEFORE /
+ *  SNIPPET_AFTER around the match is snapped to clause boundaries: inward
+ *  where the match allows it, outward only for the clause holding the match. */
 function makeSnippet(p: PreparedEntry, pos: number, qLen: number): Snippet {
   const text = p.entry.text;
+  const starts = clauseStarts(text);
+  const ends = starts.slice(1).map((i) => text.slice(0, i).trimEnd().length);
   if (pos < 0) {
-    // Title-only match: show the beginning of the text.
+    // Title-only match: the first clauses of the text.
     const limit = SNIPPET_BEFORE + SNIPPET_AFTER;
-    if (text.length <= limit) return { before: "", match: "", after: text };
-    return {
-      before: "",
-      match: "",
-      after: text.slice(0, limit).replace(/\s+\S*$/, "") + "…",
-    };
+    let end = ends[0];
+    for (const e of ends) {
+      if (e > limit) break;
+      end = e;
+    }
+    return { before: "", match: "", after: text.slice(0, end) };
   }
   const mStart = p.map[pos];
   const mEnd = p.map[pos + qLen - 1] + 1;
-  let start = Math.max(0, mStart - SNIPPET_BEFORE);
-  let end = Math.min(text.length, mEnd + SNIPPET_AFTER);
-  // Snap to word boundaries.
-  if (start > 0) {
-    const sp = text.indexOf(" ", start);
-    if (sp !== -1 && sp < mStart) start = sp + 1;
+  const winStart = Math.max(0, mStart - SNIPPET_BEFORE);
+  const winEnd = Math.min(text.length, mEnd + SNIPPET_AFTER);
+  // Start: first clause start inside the window (and not after the match);
+  // otherwise the start of the clause holding the match.
+  let start = 0;
+  for (const st of starts) {
+    if (st > mStart) break;
+    start = st;
+    if (st >= winStart) break;
   }
-  if (end < text.length) {
-    const sp = text.lastIndexOf(" ", end);
-    if (sp > mEnd) end = sp;
+  // End: last clause end inside the window (and not before the match's end);
+  // otherwise the end of the clause holding the match's end.
+  let end = text.length;
+  for (let k = 0; k < ends.length; k++) {
+    if (ends[k] < mEnd) continue;
+    end = ends[k];
+    if (k + 1 >= ends.length || ends[k + 1] > winEnd) break;
   }
   return {
-    before: (start > 0 ? "…" : "") + text.slice(start, mStart),
+    before: text.slice(start, mStart),
     match: text.slice(mStart, mEnd),
-    after: text.slice(mEnd, end) + (end < text.length ? "…" : ""),
+    after: text.slice(mEnd, end),
   };
 }
 

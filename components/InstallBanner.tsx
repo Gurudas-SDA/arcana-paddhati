@@ -2,6 +2,7 @@
 import React, {
   useState,
   useEffect,
+  useRef,
   useCallback,
   useSyncExternalStore,
 } from "react";
@@ -59,11 +60,23 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
   const visible = eligible && !hidden;
 
   // Let full-height layouts (the home-page cover) reserve the banner's height.
+  // Measured, not fixed: the text may wrap to two lines on narrow phones
+  // (UI rule: no truncated labels).
+  const bannerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const root = document.documentElement;
-    if (visible) root.style.setProperty("--install-banner-h", "2.75rem");
-    else root.style.removeProperty("--install-banner-h");
+    const el = bannerRef.current;
+    if (!visible || !el) {
+      root.style.removeProperty("--install-banner-h");
+      return;
+    }
+    const update = () =>
+      root.style.setProperty("--install-banner-h", `${el.offsetHeight}px`);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
     return () => {
+      ro.disconnect();
       root.style.removeProperty("--install-banner-h");
     };
   }, [visible]);
@@ -122,13 +135,14 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
     <>
       {/* Banner */}
       <div
+        ref={bannerRef}
         style={{
           background: "linear-gradient(90deg, #D4A843, #B8860B)",
         }}
         className="no-print flex items-center justify-between gap-2 px-3 py-2.5 sm:px-4 sm:py-2.5 text-white text-sm"
       >
         <span
-          className="truncate text-xs sm:text-sm leading-tight"
+          className="min-w-0 break-words text-xs sm:text-sm leading-tight"
           style={{ fontFamily: "var(--font-noto-serif, Georgia, serif)" }}
         >
           {t(ui, "install.bannerText")}

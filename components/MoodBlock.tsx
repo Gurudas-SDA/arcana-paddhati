@@ -349,7 +349,7 @@ export default function MoodBlock({
             </p>
             <h2
               id={titleId}
-              className="truncate text-[16px] font-semibold leading-snug text-[#1a1a1a]"
+              className="text-[16px] font-semibold leading-snug text-[#1a1a1a] break-words"
               style={HEADING_FONT}
             >
               {title}
