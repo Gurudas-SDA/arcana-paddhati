@@ -11,6 +11,8 @@ import {
 import { t, type UiDict } from "@/lib/i18n";
 import CollapsibleVerse from "@/components/CollapsibleVerse";
 import MoodBlock, { type MoodLabels } from "@/components/MoodBlock";
+import { HotspotFigure, HotspotProvider, HotspotRow } from "@/components/Hotspots";
+import { hotspotsFor, labelNumbers } from "@/lib/hotspots";
 
 /** Localised labels of the verse panel chips and of the mood block. */
 interface VerseLabels {
@@ -78,7 +80,7 @@ function BulletList({ content }: { content: string }) {
 /** A "list" block: one item per line, rendered as a numbered list 1) 2) 3).
  *  Optional `numbers` (one label per line) overrides the running number, e.g.
  *  to match the numbers of an illustration ("4, 5", gaps); "" = no number (–). */
-function NumberedList({ content, numbers }: { content: string; numbers?: string[] }) {
+function NumberedList({ content, numbers, hsImage }: { content: string; numbers?: string[]; hsImage?: string }) {
   const items = content.split("\n").filter((line) => line.trim() !== "");
   const labels = items.map((_, i) =>
     numbers ? (numbers[i] ? `${numbers[i]})` : "–") : `${i + 1})`,
@@ -87,16 +89,28 @@ function NumberedList({ content, numbers }: { content: string; numbers?: string[
   const width = longest > 3 ? "w-12" : longest > 2 ? "w-7" : "w-5";
   return (
     <ol role="list" className="my-4 space-y-1 text-[15px] leading-7 text-[#1a1a1a]">
-      {items.map((line, i) => (
-        <li key={i} className="flex gap-2">
-          <span className={`${width} shrink-0 whitespace-nowrap text-right tabular-nums text-[#5C3D2E]`}>
-            {labels[i]}
-          </span>
-          <span className="min-w-0">
-            <Inline text={line} />
-          </span>
-        </li>
-      ))}
+      {items.map((line, i) => {
+        const row = (
+          <>
+            <span className={`${width} shrink-0 whitespace-nowrap text-right tabular-nums text-[#5C3D2E]`}>
+              {labels[i]}
+            </span>
+            <span className="min-w-0">
+              <Inline text={line} />
+            </span>
+          </>
+        );
+        const nums = hsImage ? labelNumbers(numbers?.[i]) : [];
+        return nums.length > 0 ? (
+          <HotspotRow key={i} as="li" img={hsImage!} nums={nums} className="flex gap-2">
+            {row}
+          </HotspotRow>
+        ) : (
+          <li key={i} className="flex gap-2">
+            {row}
+          </li>
+        );
+      })}
     </ol>
   );
 }
@@ -107,6 +121,7 @@ function ContentBlock({
   labels,
   title,
   separated = false,
+  hsImage,
 }: {
   item: ContentItem;
   index: number;
@@ -115,6 +130,8 @@ function ContentBlock({
   title: string;
   /** Draw a rule above this block (used for h3 groups in long content). */
   separated?: boolean;
+  /** Numbered list linked to this picture (file name with hotspot data). */
+  hsImage?: string;
 }) {
   switch (item.type) {
     case "verse": {
@@ -185,7 +202,7 @@ function ContentBlock({
       );
 
     case "list":
-      return <NumberedList key={index} content={item.content ?? ""} numbers={item.numbers} />;
+      return <NumberedList key={index} content={item.content ?? ""} numbers={item.numbers} hsImage={hsImage} />;
 
     case "bullet-list":
       return <BulletList key={index} content={item.content ?? ""} />;
@@ -214,22 +231,33 @@ function ContentBlock({
           style={{ gridTemplateColumns: item.numbers ? "auto auto 1fr" : "auto 1fr" }}
           key={index}
         >
-          {item.items?.map((pair, i) => (
-            <React.Fragment key={i}>
-              {/* Optional `numbers`: one label per row, e.g. the numbers of an illustration. */}
-              {item.numbers && (
-                <span className="pr-2 py-0.5 text-right tabular-nums text-[15px] text-[#5C3D2E]">
-                  {item.numbers[i] ? `${item.numbers[i]})` : "–"}
+          {item.items?.map((pair, i) => {
+            const cells = (
+              <>
+                {/* Optional `numbers`: one label per row, e.g. the numbers of an illustration. */}
+                {item.numbers && (
+                  <span className="pr-2 py-0.5 text-right tabular-nums text-[15px] text-[#5C3D2E]">
+                    {item.numbers[i] ? `${item.numbers[i]})` : "–"}
+                  </span>
+                )}
+                <span className="pr-8 py-0.5 text-[15px]">
+                  <Inline text={pair.label} />
                 </span>
-              )}
-              <span className="pr-8 py-0.5 text-[15px]">
-                <Inline text={pair.label} />
-              </span>
-              <span className="py-0.5 text-[15px]">
-                <Inline text={pair.value} />
-              </span>
-            </React.Fragment>
-          ))}
+                <span className="py-0.5 text-[15px]">
+                  <Inline text={pair.value} />
+                </span>
+              </>
+            );
+            const nums = hsImage ? labelNumbers(item.numbers?.[i]) : [];
+            // Linked row: one subgrid row, so the whole row can be tapped and highlighted.
+            return nums.length > 0 ? (
+              <HotspotRow key={i} img={hsImage!} nums={nums} className="col-span-full grid grid-cols-subgrid">
+                {cells}
+              </HotspotRow>
+            ) : (
+              <React.Fragment key={i}>{cells}</React.Fragment>
+            );
+          })}
         </div>
       );
 
@@ -247,7 +275,19 @@ function ContentBlock({
         />
       );
 
-    case "image":
+    case "image": {
+      const hs = hotspotsFor(item.src);
+      if (hs && item.src) {
+        return (
+          <HotspotFigure
+            key={index}
+            src={`/arcana-paddhati/images/${item.src}`}
+            imgName={item.src}
+            alt={item.alt || ""}
+            data={hs}
+          />
+        );
+      }
       return (
         <img
           key={index}
@@ -257,6 +297,7 @@ function ContentBlock({
           style={{ maxWidth: "420px" }}
         />
       );
+    }
 
     case "text":
     default:
@@ -284,20 +325,29 @@ function ContentBlocks({ items, labels, title }: { items: ContentItem[]; labels:
   const lead = items.findIndex((item) => item.type !== "mood");
   const offset = lead < 0 ? items.length : lead;
   const long = items.length - offset >= LONG_CONTENT_BLOCKS;
-  return (
-    <>
-      {items.map((item, idx) => (
-        <ContentBlock
-          key={idx}
-          item={item}
-          index={Math.max(0, idx - offset)}
-          labels={labels}
-          title={title}
-          separated={long && idx > offset && item.type === "subtitle"}
-        />
-      ))}
-    </>
+  // Numbered pictures (with hotspot data) and the numbered lists linked to
+  // them: each list with `numbers` goes with the nearest such picture in the
+  // same block list.
+  const pictures = items.flatMap((item, idx) =>
+    item.type === "image" && hotspotsFor(item.src) ? [{ idx, src: item.src! }] : [],
   );
+  const linkedImage = (item: ContentItem, idx: number): string | undefined => {
+    if (!pictures.length || !item.numbers || (item.type !== "list" && item.type !== "paired-list")) return undefined;
+    if (item.type === "paired-list" && item.layout === "vertical") return undefined;
+    return pictures.reduce((a, b) => (Math.abs(b.idx - idx) < Math.abs(a.idx - idx) ? b : a)).src;
+  };
+  const blocks = items.map((item, idx) => (
+    <ContentBlock
+      key={idx}
+      item={item}
+      index={Math.max(0, idx - offset)}
+      labels={labels}
+      title={title}
+      separated={long && idx > offset && item.type === "subtitle"}
+      hsImage={linkedImage(item, idx)}
+    />
+  ));
+  return pictures.length ? <HotspotProvider>{blocks}</HotspotProvider> : <>{blocks}</>;
 }
 
 function SubsectionBlock({
