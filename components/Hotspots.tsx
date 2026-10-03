@@ -439,16 +439,9 @@ export function HotspotFigure({
             >
               {closeLabel}
             </button>
-            <div
-              className="relative"
-              onClick={(e) => {
-                // Tap on the picture background: go to the picture itself.
-                if ((e.target as Element).tagName === "svg") {
-                  setDismissed(activeSeq);
-                  ref.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-                }
-              }}
-            >
+            {/* Only the numbers/objects and the close button act; the
+                background does nothing. */}
+            <div className="relative">
               <HotspotCanvas src={src} alt="" data={data} imgName={imgName} ctx={ctx} compact />
             </div>
           </div>,
