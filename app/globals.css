@@ -479,3 +479,16 @@ body {
     filter: none !important;
   }
 }
+
+/* Search box: type="search" (so phones show a "Search"/"Go" key), but with
+   our own look and clear button, not the browser's. */
+.search-input {
+  -webkit-appearance: none;
+  appearance: none;
+}
+.search-input::-webkit-search-cancel-button,
+.search-input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}

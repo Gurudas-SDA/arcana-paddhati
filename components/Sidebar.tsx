@@ -2,7 +2,7 @@
 
 import React, { useEffect, useId, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   normalizeText,
   tocLayout,
@@ -12,6 +12,7 @@ import {
   type TocSection,
 } from "@/lib/book";
 import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
+import { main as mainEl, pushPlace } from "@/lib/navHistory";
 import {
   setShowAllTranslations,
   setShowAllWbw,
@@ -35,6 +36,14 @@ interface SidebarProps {
   /** Full-text index; null while not (yet) loaded — then titles are searched. */
   searchEntries: SearchEntry[] | null;
   onClose: () => void;
+  /**
+   * Mobile menu only: a link is being followed out of the menu. "result" — a
+   * search result (the menu's history entry stays, so "back" returns to the
+   * results); "link" — a contents link: call e.preventDefault() and run
+   * `go` once the menu's history entry is gone (the new place replaces it).
+   * Without it (desktop sidebar) links just navigate.
+   */
+  onLeave?: (kind: "result" | "link", e: React.MouseEvent, go: () => void) => void;
 }
 
 interface PreparedEntry {
@@ -262,8 +271,11 @@ export default function Sidebar({
   onSearchFocus,
   searchEntries,
   onClose,
+  onLeave,
 }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const selectedId = parsePath(pathname).sectionId;
   const selectedSection = sections.find((s) => s.id === selectedId);
   const subIds = useMemo(
@@ -290,25 +302,54 @@ export default function Sidebar({
    * Another page: the Link navigates (Next.js scrolls to the anchor). The page
    * already shown: Next.js does nothing when the URL (with its #hash) is the
    * current one — a second tap on the same result did not move — so scroll to
-   * the anchor here (and record the hash) every time.
+   * the anchor here every time. A jump that moves the reader is a new history
+   * entry (UI rule 6: "back" returns to where he was).
    */
-  const followLink = (e: React.MouseEvent, sectionId: string, anchor?: string) => {
+  const followLink = (
+    e: React.MouseEvent,
+    sectionId: string,
+    anchor: string | undefined,
+    kind: "result" | "link"
+  ) => {
     const strip = (p: string) => p.replace(/\/+$/, "");
     const samePage = strip(localeHref(lang, sectionId)) === strip(pathname);
-    if (samePage) {
-      e.preventDefault();
+    if (!samePage) {
+      // The Link navigates (a new entry).
+      if (onLeave) onLeave(kind, e, () => router.push(sectionHref(sectionId, anchor)));
+      return;
+    }
+    e.preventDefault();
+    const jump = () => {
+      const main = mainEl();
       if (anchor) {
-        if (hashId() !== anchor) {
-          window.history.pushState(window.history.state, "", `#${anchor}`);
-        }
+        const target = document.getElementById(anchor);
+        const moves =
+          hashId() !== anchor ||
+          (target && main
+            ? Math.abs(target.getBoundingClientRect().top - main.getBoundingClientRect().top) > 8
+            : false);
+        if (moves) pushPlace(`#${anchor}`);
         // The scroll-spy re-reads the hash (also when it is unchanged).
         window.dispatchEvent(new HashChangeEvent("hashchange"));
-        document.getElementById(anchor)?.scrollIntoView({ block: "start" });
-      } else {
-        document.querySelector(".app-main")?.scrollTo({ top: 0 });
+        target?.scrollIntoView({ block: "start" });
+      } else if (main && main.scrollTop > 0) {
+        pushPlace(window.location.pathname);
+        main.scrollTo({ top: 0 });
       }
+    };
+    if (onLeave) {
+      // Same page from the menu: the jump happens once the menu is closed.
+      onLeave(kind, e, jump);
+      if (kind === "result") jump();
+    } else {
+      jump();
     }
-    onClose();
+  };
+
+  /** A contents link (cover, part, chapter) out of the mobile menu. */
+  const leaveTo = (e: React.MouseEvent, href: string) => {
+    if (onLeave) onLeave("link", e, () => router.push(href));
+    else onClose();
   };
 
   const prepared = useMemo(
@@ -361,7 +402,7 @@ export default function Sidebar({
       <div className="flex items-center justify-between gap-3">
         <Link
           href={localeHref(lang)}
-          onClick={onClose}
+          onClick={(e) => leaveTo(e, localeHref(lang))}
           title={t(ui, "sidebar.cover")}
           className="flex items-center gap-2 min-w-0 rounded-sm hover:opacity-80 transition-opacity"
         >
@@ -412,9 +453,19 @@ export default function Sidebar({
         <div className="hidden lg:block mt-3">{languageSwitcher}</div>
       </div>
 
-      {/* Search */}
+      {/* Search. Enter / the keyboard's "Search"/"Go" key submits the form:
+          the input is blurred so the on-screen keyboard closes and the live
+          results stay in view (UI rule 6). */}
       <div className="px-4 py-3 border-b border-[#E8DCC8]">
-        <div className="relative">
+        <form
+          role="search"
+          action="#"
+          className="relative"
+          onSubmit={(e) => {
+            e.preventDefault();
+            searchInputRef.current?.blur();
+          }}
+        >
           <svg
             className="absolute left-3 top-1/2 -translate-y-1/2"
             width="16"
@@ -430,15 +481,23 @@ export default function Sidebar({
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
           <input
-            type="text"
+            ref={searchInputRef}
+            type="search"
+            enterKeyHint="search"
+            inputMode="search"
+            autoComplete="off"
+            autoCorrect="off"
+            spellCheck={false}
+            aria-label={t(ui, "search.placeholder")}
             placeholder={t(ui, "search.placeholder")}
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             onFocus={onSearchFocus}
-            className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-[#E8DCC8] bg-[#FDF8F0] text-[#2C1810] placeholder-[#B8860B]/50 focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B]/30 transition-colors"
+            className="search-input w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-[#E8DCC8] bg-[#FDF8F0] text-[#2C1810] placeholder-[#B8860B]/50 focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B]/30 transition-colors"
           />
           {searchQuery && (
             <button
+              type="button"
               onClick={() => onSearchChange("")}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-[#5C3D2E] hover:text-[#2C1810]"
               aria-label={t(ui, "search.clear")}
@@ -458,7 +517,7 @@ export default function Sidebar({
               </svg>
             </button>
           )}
-        </div>
+        </form>
       </div>
 
       {/* Verse panels: collapsed by default, these switches expand all */}
@@ -490,7 +549,7 @@ export default function Sidebar({
                 <li key={`${entry.section}#${entry.anchor ?? ""}`}>
                   <Link
                     href={sectionHref(entry.section, entry.anchor)}
-                    onClick={(e) => followLink(e, entry.section, entry.anchor)}
+                    onClick={(e) => followLink(e, entry.section, entry.anchor, "result")}
                     className="block w-full text-left px-5 py-3 border-l-3 border-transparent hover:bg-[#FDF8F0] transition-colors"
                   >
                     <span className="block text-sm leading-snug text-[#2C1810]">
@@ -528,7 +587,7 @@ export default function Sidebar({
               <li>
                 <Link
                   href={localeHref(lang)}
-                  onClick={onClose}
+                  onClick={(e) => leaveTo(e, localeHref(lang))}
                   aria-current={selectedId === null ? "page" : undefined}
                   className={`sidebar-link w-full text-left px-5 py-3 flex items-center gap-2 transition-colors ${
                     selectedId === null
@@ -575,7 +634,7 @@ export default function Sidebar({
                   <li key={`part-${part.id}`} className="mt-2 border-t border-[#E8DCC8] pt-2">
                     <Link
                       href={sectionHref(part.id)}
-                      onClick={onClose}
+                      onClick={(e) => leaveTo(e, sectionHref(part.id))}
                       aria-current={isPartSelected ? "page" : undefined}
                       className={`sidebar-link w-full text-left px-5 py-2 block border-l-3 transition-colors ${
                         isPartSelected
@@ -608,7 +667,7 @@ export default function Sidebar({
                         setCollapsedId(isOpen ? section.id : null);
                         return;
                       }
-                      onClose();
+                      leaveTo(e, sectionHref(section.id));
                     }}
                     aria-current={isSelected ? "page" : undefined}
                     aria-expanded={isSelected && hasSubs ? isOpen : undefined}
@@ -661,7 +720,7 @@ export default function Sidebar({
                               href={sectionHref(section.id, sub.id)}
                               onClick={(e) => {
                                 selectSub(sub.id);
-                                followLink(e, section.id, sub.id);
+                                followLink(e, section.id, sub.id, "link");
                               }}
                               aria-current={isActive ? "location" : undefined}
                               className={`sidebar-link -ml-px block w-full text-left px-4 py-2 text-xs border-l-2 transition-colors ${
