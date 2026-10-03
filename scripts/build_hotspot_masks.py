@@ -70,7 +70,9 @@ CONFIG = {
     },
     "Tilak.png": {
         "label_r": 11,
-        "label_clip": True,
+        # Plain digits (no circles) with a white halo: each digit is its own
+        # ink component, so take only components lying mostly in the circle.
+        "label_clip": False,
         "items": {
             "1": {"clip": [(186.5, 52), (201.5, 52), (201.5, 124), (186.5, 124)]}, "2": _TILAK_ELL, "3": _TILAK_ELL, "4": _TILAK_ELL,
             "5": _TILAK_ELL, "8": _TILAK_ELL, "11": _TILAK_ELL, "12": _TILAK_ELL,

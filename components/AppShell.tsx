@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import InstallBanner from "@/components/InstallBanner";
@@ -329,7 +328,9 @@ export default function AppShell({
       {/* Main content area */}
       <main className="app-main flex-1 overflow-y-auto">
         <InstallBanner ui={ui} />
-        {/* Mobile header */}
+        {/* Mobile header: only the menu button (left) and the language menu
+            (right). No book title: it could only show cut off ("…"), and the
+            cover already carries the name (UI rule: no truncated labels). */}
         <div className="no-print sticky top-0 z-30 lg:hidden flex items-center gap-3 px-4 py-3 bg-white/95 backdrop-blur-sm border-b border-[#ddd]">
           <button
             onClick={openMenu}
@@ -351,18 +352,6 @@ export default function AppShell({
               <line x1="3" y1="18" x2="21" y2="18" />
             </svg>
           </button>
-          <h1
-            className="text-sm font-semibold truncate text-[#1a1a1a]"
-            style={{ fontFamily: "var(--font-noto-serif, Georgia, serif)" }}
-          >
-            <Link
-              href={localeHref(lang)}
-              title={t(ui, "sidebar.cover")}
-              className="hover:text-[#B8860B] transition-colors"
-            >
-              {t(ui, "header.title")}
-            </Link>
-          </h1>
           <div className="ml-auto">
             <LanguageSwitcher {...switcherProps} />
           </div>
