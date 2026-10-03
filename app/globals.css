@@ -339,8 +339,12 @@ body {
   -webkit-tap-highlight-color: transparent;
   scroll-margin: 80px 0;
 }
-.hs-row:hover {
-  background-color: #FBF5E8;
+/* Hover tint only with a real pointer (on touch screens :hover sticks after a
+   tap and looks like a highlight that did not clear). */
+@media (hover: hover) {
+  .hs-row:hover {
+    background-color: #FBF5E8;
+  }
 }
 .hs-row:focus-visible {
   outline: 2px solid #D4A017;
@@ -365,6 +369,13 @@ body {
   fill: transparent;
   stroke: transparent;
   stroke-width: 1.5px;
+}
+/* Areas that are no tap target at all (the Deities). */
+.hs-inert {
+  fill: transparent;
+  stroke: none;
+  cursor: default;
+  -webkit-tap-highlight-color: transparent;
 }
 /* Keyboard focus only: a faint dashed outline (no ring on tap or hover). */
 .hs-hit:focus-visible ellipse {

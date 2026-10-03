@@ -3,8 +3,11 @@
 // Numbered picture <-> numbered list sync. Tapping a list row highlights its
 // object on the picture (the object drawn in strong black, the rest faded);
 // tapping a number or object on the picture highlights the matching row and
-// scrolls to it. When
-// the picture is off-screen, a small floating copy shows the highlight.
+// scrolls to it. Whenever
+// the highlighted spot is off-screen, a small floating copy shows the
+// highlight. The darkened object comes from its own pixel mask (exactly that
+// object and its number); "inert" areas (the Deities) take no taps at all. A
+// tap on any empty part of the page clears the highlight.
 // Data: lib/hotspots.ts (data/hotspots.json). Print shows the plain image.
 
 import React, {
@@ -26,8 +29,6 @@ interface Active {
   source: "list" | "image";
   /** Increments on every selection (restarts the fade-in, re-scrolls). */
   seq: number;
-  /** Row tapped while the picture was off-screen: show the floating copy. */
-  peek: boolean;
 }
 
 interface Ctx {
@@ -42,22 +43,74 @@ interface Ctx {
 
 const HotspotContext = createContext<Ctx | null>(null);
 
+/** Taps on these never clear the highlight from the page-level listener. */
+const IGNORE_TAP = [
+  "a", "button", "input", "textarea", "select", "label", "summary",
+  "[role=button]", "[role=dialog]", "[contenteditable]",
+  "[data-hs-row]", ".hs-hit", ".hs-figure", ".hs-peek",
+].join(",");
+
 export function HotspotProvider({ children }: { children: React.ReactNode }) {
   const [active, setActive] = useState<Active | null>(null);
   const seq = useRef(0);
   const scrolledSeq = useRef(0);
   const figures = useRef(new Map<string, HTMLElement>());
   const select = useCallback((img: string, nums: string[], source: Active["source"]) => {
-    const fig = figures.current.get(img);
-    const peek = source === "list" && !!fig && !spotOnScreen(fig, nums);
     setActive((prev) => {
       // Tapping the active row again switches the highlight off.
       if (prev && source === "list" && prev.img === img && prev.nums.join() === nums.join()) return null;
       seq.current += 1;
-      return { img, nums, source, seq: seq.current, peek };
+      return { img, nums, source, seq: seq.current };
     });
   }, []);
   const clear = useCallback(() => setActive(null), []);
+
+  // While a highlight is on, a tap/click on any empty part of the page clears
+  // it (on pointerup: browsers may swallow the click of the first tap after a
+  // fling). Ignored: scroll gestures (>10 px between press and release, a
+  // cancelled pointer, or a press that stops a still-moving page), text
+  // selection, and taps on interactive elements, list rows, the picture and
+  // the floating copy (they handle taps themselves).
+  const isOn = active !== null;
+  useEffect(() => {
+    if (!isOn) return;
+    let start: { x: number; y: number; sel: string; t: Element | null } | null = null;
+    let lastScroll = 0;
+    const selText = () => window.getSelection()?.toString().trim() ?? "";
+    const ignored = (t: EventTarget | null) =>
+      !(t instanceof Element) || !!t.closest(IGNORE_TAP);
+    const onScroll = () => {
+      lastScroll = performance.now();
+      start = null;
+    };
+    const onDown = (e: PointerEvent) => {
+      const ok = e.isPrimary && e.button === 0 && performance.now() - lastScroll > 150;
+      start = ok ? { x: e.clientX, y: e.clientY, sel: selText(), t: e.target as Element } : null;
+    };
+    const onCancel = () => {
+      start = null;
+    };
+    const onUp = (e: PointerEvent) => {
+      const s = start;
+      start = null;
+      if (!s || !e.isPrimary || Math.hypot(e.clientX - s.x, e.clientY - s.y) > 10) return;
+      // This gesture selected text (drag, long press): keep the highlight.
+      const sel = selText();
+      if (sel && sel !== s.sel) return;
+      if (ignored(s.t) || ignored(e.target)) return;
+      setActive(null);
+    };
+    document.addEventListener("pointerdown", onDown, true);
+    document.addEventListener("pointercancel", onCancel, true);
+    document.addEventListener("pointerup", onUp);
+    window.addEventListener("scroll", onScroll, true);
+    return () => {
+      document.removeEventListener("pointerdown", onDown, true);
+      document.removeEventListener("pointercancel", onCancel, true);
+      document.removeEventListener("pointerup", onUp);
+      window.removeEventListener("scroll", onScroll, true);
+    };
+  }, [isOn]);
   const claimScroll = useCallback((n: number) => {
     if (scrolledSeq.current === n) return false;
     scrolledSeq.current = n;
@@ -72,6 +125,11 @@ export function HotspotProvider({ children }: { children: React.ReactNode }) {
     [active, select, clear, claimScroll, registerFigure],
   );
   return <HotspotContext.Provider value={value}>{children}</HotspotContext.Provider>;
+}
+
+/** URL of a per-object mask: next to the picture, in hotspots/. */
+function maskUrl(src: string, file: string): string {
+  return src.replace(/[^/]*$/, `hotspots/${file}`);
 }
 
 /** Fraction (0..1) of the element visible in the viewport (also below the sticky header). */
@@ -208,6 +266,10 @@ function HotspotCanvas({
             <mask id={maskId} maskUnits="userSpaceOnUse" x={0} y={0} width={w} height={h}>
               {shown.map((n) => {
                 const sp = spots[n];
+                // Pixel mask: exactly this object and its number.
+                if (sp.mask) {
+                  return <image key={n} href={maskUrl(src, sp.mask)} width={w} height={h} />;
+                }
                 return (
                   <React.Fragment key={n}>
                     <ellipse
@@ -268,6 +330,16 @@ function HotspotCanvas({
             )}
           </g>
         ))}
+
+        {/* Not a tap target at all (the Deities): taps here do nothing. */}
+        {data.inert?.map((poly, i) => (
+          <polygon
+            key={`inert-${i}`}
+            className="hs-inert"
+            points={poly.map(([x, y]) => `${px(x, w)},${px(y, h)}`).join(" ")}
+            onClick={(e) => e.stopPropagation()}
+          />
+        ))}
       </svg>
     </>
   );
@@ -291,11 +363,16 @@ export function HotspotFigure({
 }) {
   const ctx = useContext(HotspotContext);
   const ref = useRef<HTMLDivElement | null>(null);
-  // seq of the selection whose floating copy was closed (✕ or picture in view).
+  // seq of the selection whose floating copy was closed with ✕.
   const [dismissed, setDismissed] = useState(0);
+  // The highlighted spot is outside the viewport (checked on scroll/resize).
+  const [offscreen, setOffscreen] = useState(false);
   const active = ctx?.active && ctx.active.img === imgName ? ctx.active : null;
-  const peek = !!active && active.peek && dismissed !== active.seq;
   const activeSeq = active?.seq ?? 0;
+  const activeNums = active?.nums.join(",") ?? "";
+  // Whenever a highlight is on and the picture is off-screen, the floating
+  // copy shows it, whether the tap came from the list or from the picture.
+  const peek = !!active && offscreen && dismissed !== activeSeq;
   const registerFigure = ctx?.registerFigure;
   const setRef = useCallback(
     (el: HTMLDivElement | null) => {
@@ -305,15 +382,35 @@ export function HotspotFigure({
     [registerFigure, imgName],
   );
 
-  // Hide the floating copy once the picture itself scrolls into view.
+  // Track whether the highlighted spot is on screen while a highlight is on.
   useEffect(() => {
-    if (!peek) return;
-    const onScroll = () => {
-      if (ref.current && visibleFraction(ref.current) >= 0.6) setDismissed(activeSeq);
+    if (!activeNums) return;
+    const nums = activeNums.split(",");
+    let raf = 0;
+    const check = () => {
+      raf = 0;
+      if (ref.current) setOffscreen(!spotOnScreen(ref.current, nums));
     };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(check);
+    };
+    onScroll();
     window.addEventListener("scroll", onScroll, true);
-    return () => window.removeEventListener("scroll", onScroll, true);
-  }, [peek, activeSeq]);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll, true);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [activeNums, activeSeq]);
+
+  // Fetch the masks early so the first highlight appears at once.
+  useEffect(() => {
+    if (!ctx) return;
+    for (const sp of Object.values(data.spots)) {
+      if (sp.mask) new Image().src = maskUrl(src, sp.mask);
+    }
+  }, [ctx, data, src]);
 
   if (!ctx) {
     // eslint-disable-next-line @next/next/no-img-element

@@ -1,0 +1,216 @@
+"""Per-object pixel masks for the numbered pictures (components/Hotspots.tsx).
+
+Why: an ellipse-shaped highlight also darkens parts of neighbouring objects
+where they sit close together. Rule: exactly ONE object (with its printed
+number) darkens, never a piece of a neighbour.
+
+What: for every number in data/hotspots.json this builds an alpha mask of
+that object's own line pixels (+ its printed number), dilated ~2 px and
+slightly feathered, and writes it to public/images/hotspots/<image>-<NN>.png
+(white, alpha = mask). Ink pixels that belong to anything else are cut out
+of the mask again after dilation/feathering, so a neighbour can never darken.
+The JSON entry of the number gets "mask": "<file name>".
+
+How: dark pixels -> connected components. A component belongs to the object
+when enough of it lies inside the object's region (the hotspot ellipse, or a
+hand-tuned polygon in CONFIG when objects touch). Components that touch
+several objects (e.g. the tray under 1-3) are split by those polygons; lines
+that belong to no numbered object (the tray rim) are removed via "exclude".
+
+Run:  python scripts/build_hotspot_masks.py [--check out_dir]
+Needs numpy, scipy, Pillow. Rerun after changing a picture or CONFIG.
+"""
+import json
+import sys
+from pathlib import Path
+
+import numpy as np
+from PIL import Image
+from scipy import ndimage as ndi
+
+ROOT = Path(__file__).resolve().parent.parent
+DATA = ROOT / "data" / "hotspots.json"
+IMAGES = ROOT / "public" / "images"
+OUT = IMAGES / "hotspots"
+
+INK = 235        # luminance below this = a drawn pixel (incl. anti-aliasing)
+DILATE = 2       # px grown around the object's own pixels
+FEATHER = 0.8    # gaussian sigma of the soft edge (px)
+
+# Per image, per number (pixel coordinates of the natural-size picture):
+#   clip:  polygon; only pixels inside it can belong to the object
+#   grow:  scale of the hotspot ellipse used as region when there is no clip
+# Per image: exclude = rings (ellipse outlines, band in px) that belong to
+# no object; inert = polygons that are not tap targets at all.
+_TILAK_ELL = {"clip_ellipse": 1.15}
+
+CONFIG = {
+    "Parafernalia.png": {
+        # Rim of the big tray under 1-3: belongs to no numbered object.
+        "exclude": [{"cx": 276, "cy": 307.5, "rx": 69.5, "ry": 38.5, "band": 3.5}],
+        # The Deities: never a tap target (Vaishnava etiquette).
+        "inert": [[(236, 14), (476, 14), (476, 182), (360, 182), (330, 176), (236, 176)]],
+        "items": {
+            # cup with its spoon (the spoon crosses the bell's saucer)
+            "1": {"clip": [(234, 301.5), (266, 301.5), (266.5, 287), (274.4, 287), (274, 301.5),
+                           (276, 301.5), (276, 344), (234, 344)]},
+            "2": {"clip": [(273, 271), (333, 271), (335, 300), (331, 324), (273, 324)]},
+            # bell on its saucer (stops at the spoon and at the incense holder)
+            "3": {"clip": [(242.6, 234), (257.6, 234), (258.5, 243.5), (261.5, 246.5), (261.5, 262), (266, 276), (266.5, 287),
+                           (264, 301), (240, 301), (230, 296), (230, 279), (241, 268), (242.6, 262)]},
+            "4": {"clip": [(262, 176), (288, 176), (292, 222), (300, 238), (302, 258),
+                           (286, 258), (261.6, 252), (261.6, 246.6), (258.6, 243.6),
+                           (257.7, 234), (257.7, 222)]},
+            "5": {"clip": [(196, 222), (242, 222), (242.5, 247), (238, 260), (196, 260)]},
+            "11": {"clip": [(480, 240), (652, 240), (652, 378), (480, 378)]},
+            "12": {"clip": [(40, 250), (200, 250), (200, 378), (40, 378)]},
+            "14": {"clip": [(282, 377), (296, 375.5), (322, 375), (348, 377), (360, 418), (282, 418)]},
+            "15": {"clip": [(274, 352), (322, 352), (322, 374), (296, 374.5), (274, 376)]},
+        },
+    },
+    "Tilak.png": {
+        "label_r": 11,
+        "label_clip": True,
+        "items": {
+            "1": {"clip": [(186.5, 52), (201.5, 52), (201.5, 124), (186.5, 124)]}, "2": _TILAK_ELL, "3": _TILAK_ELL, "4": _TILAK_ELL,
+            "5": _TILAK_ELL, "8": _TILAK_ELL, "11": _TILAK_ELL, "12": _TILAK_ELL,
+            # marks drawn over the arm outline: tight polygons around the mark
+            "6": {"clip": [(40, 334), (56, 334), (52, 362), (51, 378), (42, 386), (37, 372), (40, 352)]},
+            "7": {"clip": [(58, 236), (78, 238), (70, 266), (66, 284), (52, 286), (52, 266)]},
+            "9": {"clip": [(321, 324), (333, 322), (338, 346), (340, 374), (331, 376), (326, 356)]},
+            "10": {"clip": [(308, 240), (318, 238), (330, 262), (333, 286), (326, 288), (318, 276), (312, 262)]},
+        },
+    },
+}
+
+
+def poly_mask(shape, pts):
+    """Pixels whose centre (integer x, y) lies inside the polygon (even-odd)."""
+    yy, xx = np.mgrid[0:shape[0], 0:shape[1]].astype(float)
+    inside = np.zeros(shape, bool)
+    pts = [tuple(map(float, p)) for p in pts]
+    for (x1, y1), (x2, y2) in zip(pts, pts[1:] + pts[:1]):
+        if y1 == y2:
+            continue
+        cross = ((y1 <= yy) & (yy < y2)) | ((y2 <= yy) & (yy < y1))
+        xi = x1 + (yy - y1) * (x2 - x1) / (y2 - y1)
+        inside ^= cross & (xx < xi)
+    return inside
+
+
+def build(name, spec, cfg):
+    W, H = spec["w"], spec["h"]
+    a = np.asarray(Image.open(IMAGES / name).convert("RGBA")).astype(float) / 255
+    rgb = a[..., :3] * a[..., 3:4] + (1 - a[..., 3:4])
+    lum = (rgb @ [0.299, 0.587, 0.114]) * 255
+    ink = lum < INK
+    yy, xx = np.mgrid[0:H, 0:W]
+    ring = np.zeros_like(ink)
+    for r in cfg.get("exclude", []):
+        d = np.sqrt(((xx - r["cx"]) / r["rx"]) ** 2 + ((yy - r["cy"]) / r["ry"]) ** 2)
+        ring |= np.abs(d - 1) * min(r["rx"], r["ry"]) <= r["band"]
+    work = ink & ~ring
+    lab, _ = ndi.label(work, structure=np.ones((3, 3)))
+    sizes = np.bincount(lab.ravel())
+
+    own = {}
+    for n, s in spec["spots"].items():
+        ic = cfg.get("items", {}).get(n, {})
+        cx, cy = s["x"] / 100 * W, s["y"] / 100 * H
+        rx, ry = s["rx"] / 100 * W, s["ry"] / 100 * H
+        clip = "clip" in ic or "clip_ellipse" in ic
+        if "clip" in ic:
+            region = poly_mask(ink.shape, ic["clip"])
+        else:
+            g = ic.get("clip_ellipse", ic.get("grow", 1.25))
+            region = ((xx - cx) / (rx * g)) ** 2 + ((yy - cy) / (ry * g)) ** 2 <= 1
+        def pick(reg, clipped):
+            inside = np.bincount(lab[reg].ravel(), minlength=len(sizes))
+            frac = inside / np.maximum(sizes, 1)
+            keep = (frac >= ic.get("min_frac", 0.5)) | clipped & (inside > 0)
+            keep[0] = False
+            return keep[lab] & reg
+
+        m = pick(region, clip)
+        if "lx" in s:
+            # The printed number: only components lying mostly inside its
+            # circle, unless the label touches a line ("label_clip").
+            lx, ly = s["lx"] / 100 * W, s["ly"] / 100 * H
+            lr = ic.get("label_r", cfg.get("label_r", 12))
+            circle = (xx - lx) ** 2 + (yy - ly) ** 2 <= lr * lr
+            m |= pick(circle, cfg.get("label_clip", False))
+        for cut in ic.get("cut", []):
+            m &= ~poly_mask(ink.shape, cut)
+        own[n] = m
+
+    # Each ink pixel may belong to one object only.
+    stack = np.stack(list(own.values()))
+    clash = stack.sum(0) > 1
+    conflicts = {}
+    if clash.any():
+        for n, m in own.items():
+            c = int((m & clash).sum())
+            if c:
+                conflicts[n] = c
+
+    stem = Path(name).stem
+    masks = {}
+    any_own = stack.any(0)
+    for n, m in own.items():
+        mine = ndi.binary_dilation(m, iterations=1) & ink & ~(any_own & ~m)
+        foreign = ink & ~mine
+        grown = ndi.binary_dilation(m, iterations=DILATE).astype(float)
+        soft = np.clip(ndi.gaussian_filter(grown, FEATHER) * 1.4, 0, 1)
+        soft[foreign] = 0
+        soft[mine] = 1
+        masks[n] = soft
+    return masks, own, conflicts, lum, stem
+
+
+def main():
+    data = json.loads(DATA.read_text(encoding="utf8"))
+    OUT.mkdir(parents=True, exist_ok=True)
+    check = sys.argv[sys.argv.index("--check") + 1] if "--check" in sys.argv else None
+    ok = True
+    for name, spec in data.items():
+        cfg = CONFIG.get(name, {})
+        masks, own, conflicts, lum, stem = build(name, spec, cfg)
+        if conflicts:
+            ok = False
+            print(f"{name}: pixels claimed by several objects: {conflicts}")
+        for n, soft in masks.items():
+            fn = f"{stem}-{int(n):02d}.png"
+            alpha = Image.fromarray((soft * 255).round().astype(np.uint8), "L")
+            img = Image.new("LA", alpha.size, 255)
+            img.putalpha(alpha)
+            img.save(OUT / fn, optimize=True)
+            spec["spots"][n]["mask"] = fn
+            print(f"{name} {n}: {int(own[n].sum())} px -> {fn}")
+        inert = cfg.get("inert", [])
+        if inert:
+            spec["inert"] = [[[round(x / spec["w"] * 100, 2), round(y / spec["h"] * 100, 2)] for x, y in p] for p in inert]
+        else:
+            spec.pop("inert", None)
+        if check:
+            preview(name, spec, masks, check)
+    DATA.write_text(json.dumps(data, ensure_ascii=False, indent=1) + "\n", encoding="utf8")
+    if not ok:
+        sys.exit(1)
+
+
+def preview(name, spec, masks, out_dir):
+    """Simulated highlight (faded picture + inked object) per number."""
+    out = Path(out_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    a = np.asarray(Image.open(IMAGES / name).convert("RGBA")).astype(float) / 255
+    rgb = a[..., :3] * a[..., 3:4] + (1 - a[..., 3:4])
+    grey = rgb @ [0.299, 0.587, 0.114]
+    faded = 1 - (1 - grey) * 0.3
+    inked = rgb ** 3.2
+    for n, soft in masks.items():
+        lit = faded[..., None] * (1 - soft[..., None] + soft[..., None] * inked)
+        Image.fromarray((lit * 255).astype(np.uint8)).save(out / f"{Path(name).stem}-{n}.png")
+
+
+if __name__ == "__main__":
+    main()
