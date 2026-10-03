@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useId, useRef, useState } from "react";
+import React, { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import type { MoodQuote, MoodSource } from "@/lib/book";
 
@@ -12,7 +12,7 @@ export interface MoodLabels {
   machine: string;
   transcript: string;
   audio: string;
-  /** Close control of the overlay (✕ aria-label and the bottom button on phones). */
+  /** Close control of the overlay (aria-label / tooltip of the ✕). */
   close: string;
 }
 
@@ -20,6 +20,35 @@ const HEADING_FONT = { fontFamily: "var(--font-noto-serif, Georgia, serif)" };
 
 /** Focusable elements inside the dialog (focus trap). */
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+/**
+ * Place the (fixed) overlay over exactly the visible area. Without zoom this is
+ * a no-op (the CSS `inset-0` / 100dvh box is right). With a pinch-zoomed page
+ * the box gets the visual viewport's position, the size of the unzoomed screen
+ * and a counter-scale, so it looks as if the page were not zoomed.
+ */
+function fitToVisualViewport(el: HTMLElement) {
+  const vv = window.visualViewport;
+  const zoomed =
+    vv && (Math.abs(vv.scale - 1) > 0.01 || Math.abs(vv.offsetTop) > 0.5 || Math.abs(vv.offsetLeft) > 0.5);
+  if (!vv || !zoomed) {
+    for (const k of ["top", "left", "right", "bottom", "width", "height", "transform", "transformOrigin"] as const) {
+      el.style[k] = "";
+    }
+    return;
+  }
+  const s = vv.scale;
+  Object.assign(el.style, {
+    top: `${vv.offsetTop}px`,
+    left: `${vv.offsetLeft}px`,
+    right: "auto",
+    bottom: "auto",
+    width: `${vv.width * s}px`,
+    height: `${vv.height * s}px`,
+    transform: `scale(${1 / s})`,
+    transformOrigin: "0 0",
+  });
+}
 
 /** One alternative quote, separated from the previous one by a dotted rule. */
 function AltQuote({ m, labels }: { m: MoodQuote; labels: MoodLabels }) {
@@ -136,10 +165,16 @@ function QuoteBody({
  * its own scroll container (overscroll-behavior: contain) and the page behind it
  * is locked (the .app-main scroller and, for iOS Safari, the body via
  * position: fixed with the saved scroll offset), so a fast flick stops at the
- * first / last quote. Close: ✕ in the sticky header, the sticky bottom button
- * (phones), Esc, a tap on the backdrop, or the browser / Android back button
- * (opening pushes a history entry; closing pops it). After closing, the reader
- * is back exactly where he was and focus returns to the button.
+ * first / last quote. Close: the ✕ in the header (the only visible control, on
+ * every device), plus Esc, a tap on the backdrop, or the browser / Android back
+ * button (opening pushes a history entry; closing pops it). After closing, the
+ * reader is back exactly where he was and focus returns to the button.
+ *
+ * The overlay covers the VISUAL viewport: if the reader has pinch-zoomed the
+ * page (or iOS left the visual viewport offset after the keyboard), a plain
+ * `fixed inset-0` box is laid out in the zoomed layout viewport and its ✕ ends
+ * up off-screen. fitToVisualViewport() places it over exactly the visible area
+ * and scales it back to normal size, so the ✕ is always in the top corner.
  *
  * Print: the chosen quote is always in the HTML (.mood-panel, hidden on screen,
  * shown by the print rule in globals.css); the other quotes are not printed
@@ -169,6 +204,7 @@ export default function MoodBlock({
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
   /** A history entry was pushed for the open overlay (Back closes it). */
   const pushed = useRef(false);
   const titleId = useId();
@@ -194,6 +230,27 @@ export default function MoodBlock({
     }
     setOpen(false);
   }, []);
+
+  // Before paint: put the overlay over the visible area (see fitToVisualViewport);
+  // again when the visible area moves or changes (pan, toolbar, rotation) but not when the
+  // reader zooms inside the open overlay.
+  useLayoutEffect(() => {
+    if (!open || !overlayRef.current) return;
+    const el = overlayRef.current;
+    const vv = window.visualViewport;
+    const scaleAtOpen = vv?.scale ?? 1;
+    fitToVisualViewport(el);
+    if (!vv) return;
+    const onResize = () => {
+      if (Math.abs(vv.scale - scaleAtOpen) < 0.01) fitToVisualViewport(el);
+    };
+    vv.addEventListener("resize", onResize);
+    vv.addEventListener("scroll", onResize);
+    return () => {
+      vv.removeEventListener("resize", onResize);
+      vv.removeEventListener("scroll", onResize);
+    };
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -273,7 +330,7 @@ export default function MoodBlock({
   }, [open, requestClose]);
 
   const overlay = (
-    <div className="mood-overlay no-print fixed inset-0 z-[60] flex items-stretch justify-center sm:items-center sm:p-6">
+    <div ref={overlayRef} className="mood-overlay no-print fixed inset-0 z-[60] flex items-stretch justify-center sm:items-center sm:p-6">
       <div className="mood-backdrop absolute inset-0" onClick={requestClose} aria-hidden="true" />
       <div
         ref={dialogRef}
@@ -326,15 +383,6 @@ export default function MoodBlock({
             {more?.map((m, i) => <AltQuote key={i} m={m} labels={labels} />)}
           </div>
         </div>
-        <footer className="mood-dialog-foot shrink-0 border-t border-[#E8DCC8] bg-[#FDF8F0] px-4 pt-2.5 sm:hidden">
-          <button
-            type="button"
-            onClick={requestClose}
-            className="mood-close-bottom w-full rounded-full border border-[#B8860B] bg-[#F5E6C8] px-4 py-2.5 text-[14px] font-semibold text-[#8B6508] active:bg-[#EBD5A8]"
-          >
-            {labels.close}
-          </button>
-        </footer>
       </div>
     </div>
   );

@@ -42,7 +42,8 @@ export interface ContentItem {
   alt?: string;
   items?: PairedItem[];
   layout?: string;
-  /** "list" block: explicit number label per line (e.g. picture numbers "4, 5"); "" = unnumbered. */
+  /** "list" block: explicit number label per line (e.g. picture numbers "4, 5"); "" = unnumbered.
+   *  "paired-list" block (table layout): number label per row, e.g. the numbers of the illustration. */
   numbers?: string[];
   /** "mood" block: Gurudev's own words (English, verbatim). */
   quote?: string;

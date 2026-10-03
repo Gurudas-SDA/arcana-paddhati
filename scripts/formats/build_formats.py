@@ -426,8 +426,14 @@ class Edition:
                         f'<div class="pv"><p class="pv-l" lang="{sa_lang(p["label"])}">{esc(strip_inline(p["label"]))}</p>'
                         f'<p class="pv-v">{inline(p["value"])}</p></div>')
                 return '<div class="pvl">' + "".join(out) + "</div>"
-            rows = "".join(f'<tr><td class="pl">{inline(p["label"])}</td><td>{inline(p["value"])}</td></tr>'
-                           for p in it.get("items", []))
+            nums = it.get("numbers")  # optional number per row (e.g. the illustration's numbers)
+            rows = ""
+            for i, p in enumerate(it.get("items", [])):
+                num = ""
+                if nums:
+                    lab = f"{nums[i]})" if i < len(nums) and nums[i] else "–"
+                    num = f'<td class="pn">{esc(lab)}</td>'
+                rows += f'<tr>{num}<td class="pl">{inline(p["label"])}</td><td>{inline(p["value"])}</td></tr>'
             return f'<table class="pairs"><tbody>{rows}</tbody></table>'
         if t == "mood":
             return self.mood_html(it, epub)
@@ -541,6 +547,7 @@ b.sa { font-weight: 700; font-style: normal; }
 table.pairs { border-collapse: collapse; }
 table.pairs td { vertical-align: top; padding: 0.1em 0; }
 table.pairs td.pl { padding-right: 1.2em; }
+table.pairs td.pn { padding-right: 0.5em; text-align: right; color: #5C3D2E; }
 ol.list, ul.bl { list-style: none; padding: 0; }
 ol.list li { padding-left: 2.6em; text-indent: -2.6em; }
 ol.list .n { display: inline-block; width: 2.2em; text-align: right; text-indent: 0; color: #5C3D2E; }

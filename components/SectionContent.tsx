@@ -209,9 +209,19 @@ function ContentBlock({
         );
       }
       return (
-        <div className="my-4 grid gap-y-0.5" style={{ gridTemplateColumns: "auto 1fr" }} key={index}>
+        <div
+          className="my-4 grid gap-y-0.5"
+          style={{ gridTemplateColumns: item.numbers ? "auto auto 1fr" : "auto 1fr" }}
+          key={index}
+        >
           {item.items?.map((pair, i) => (
             <React.Fragment key={i}>
+              {/* Optional `numbers`: one label per row, e.g. the numbers of an illustration. */}
+              {item.numbers && (
+                <span className="pr-2 py-0.5 text-right tabular-nums text-[15px] text-[#5C3D2E]">
+                  {item.numbers[i] ? `${item.numbers[i]})` : "–"}
+                </span>
+              )}
               <span className="pr-8 py-0.5 text-[15px]">
                 <Inline text={pair.label} />
               </span>

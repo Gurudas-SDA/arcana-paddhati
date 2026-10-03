@@ -278,6 +278,32 @@ export default function Sidebar({
   const sectionHref = (sectionId: string, anchor?: string) =>
     localeHref(lang, sectionId, anchor);
 
+  /**
+   * Click on a link to a place in the book (search result, subsection).
+   * Another page: the Link navigates (Next.js scrolls to the anchor). The page
+   * already shown: Next.js does nothing when the URL (with its #hash) is the
+   * current one — a second tap on the same result did not move — so scroll to
+   * the anchor here (and record the hash) every time.
+   */
+  const followLink = (e: React.MouseEvent, sectionId: string, anchor?: string) => {
+    const strip = (p: string) => p.replace(/\/+$/, "");
+    const samePage = strip(localeHref(lang, sectionId)) === strip(pathname);
+    if (samePage) {
+      e.preventDefault();
+      if (anchor) {
+        if (hashId() !== anchor) {
+          window.history.pushState(window.history.state, "", `#${anchor}`);
+        }
+        // The scroll-spy re-reads the hash (also when it is unchanged).
+        window.dispatchEvent(new HashChangeEvent("hashchange"));
+        document.getElementById(anchor)?.scrollIntoView({ block: "start" });
+      } else {
+        document.querySelector(".app-main")?.scrollTo({ top: 0 });
+      }
+    }
+    onClose();
+  };
+
   const prepared = useMemo(
     () => (searchEntries ? searchEntries.map(prepare) : null),
     [searchEntries]
@@ -457,7 +483,7 @@ export default function Sidebar({
                 <li key={`${entry.section}#${entry.anchor ?? ""}`}>
                   <Link
                     href={sectionHref(entry.section, entry.anchor)}
-                    onClick={onClose}
+                    onClick={(e) => followLink(e, entry.section, entry.anchor)}
                     className="block w-full text-left px-5 py-3 border-l-3 border-transparent hover:bg-[#FDF8F0] transition-colors"
                   >
                     <span className="block text-sm leading-snug text-[#2C1810]">
@@ -626,9 +652,9 @@ export default function Sidebar({
                           <li key={sub.id}>
                             <Link
                               href={sectionHref(section.id, sub.id)}
-                              onClick={() => {
+                              onClick={(e) => {
                                 selectSub(sub.id);
-                                onClose();
+                                followLink(e, section.id, sub.id);
                               }}
                               aria-current={isActive ? "location" : undefined}
                               className={`sidebar-link -ml-px block w-full text-left px-4 py-2 text-xs border-l-2 transition-colors ${

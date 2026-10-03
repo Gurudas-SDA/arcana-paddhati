@@ -161,8 +161,7 @@ body {
 .verse-toggle:focus-visible,
 .verse-chip:focus-visible,
 .mood-toggle:focus-visible,
-.mood-close:focus-visible,
-.mood-close-bottom:focus-visible {
+.mood-close:focus-visible {
   outline-offset: 2px;
 }
 
@@ -231,18 +230,22 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Safe areas (notch, home indicator) for the sticky header and bottom button */
+/* Safe areas (notch, home indicator): the header (with the ✕) below the notch,
+   the end of the quotes above the home indicator */
 .mood-dialog-head {
   padding-top: max(0.625rem, env(safe-area-inset-top));
 }
 
-.mood-dialog-foot {
-  padding-bottom: max(0.625rem, env(safe-area-inset-bottom));
+.mood-scroll {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
 }
 
 @media (min-width: 640px) {
   .mood-dialog-head {
     padding-top: 0.625rem;
+  }
+  .mood-scroll {
+    padding-bottom: 1.25rem;
   }
 }
 
