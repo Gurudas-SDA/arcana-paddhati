@@ -352,6 +352,8 @@ body {
 }
 .hs-overlay {
   overflow: visible;
+  /* The lit (inked) copy only ever darkens what lies beneath it. */
+  mix-blend-mode: multiply;
 }
 .hs-hit {
   cursor: pointer;
@@ -362,65 +364,29 @@ body {
 .hs-hit circle {
   fill: transparent;
   stroke: transparent;
-  stroke-width: 2px;
-  transition: stroke 150ms ease;
+  stroke-width: 1.5px;
 }
-@media (hover: hover) {
-  .hs-hit:hover ellipse {
-    stroke: rgba(212, 160, 23, 0.55);
-  }
-}
+/* Keyboard focus only: a faint dashed outline (no ring on tap or hover). */
 .hs-hit:focus-visible ellipse {
-  stroke: #D4A017;
+  stroke: rgba(44, 24, 16, 0.45);
+  stroke-dasharray: 4 3;
 }
 .hs-img {
-  transition: opacity 250ms ease;
+  transition: opacity 250ms ease, filter 250ms ease;
 }
 .hs-img-faded {
-  opacity: 0.32;
+  opacity: 0.3;
+  filter: grayscale(1);
 }
 .hs-lit {
   animation: hs-fade-in 250ms ease-out both;
-}
-.hs-halo {
-  fill: none;
-  stroke: rgba(232, 182, 40, 0.75);
-  animation: hs-fade-in 300ms ease-out both;
-}
-.hs-ring {
-  fill: none;
-  stroke: #C9970E;
-  stroke-width: 3px;
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: hs-beat 1.2s ease-in-out both;
-}
-.hs-pulse {
-  fill: none;
-  stroke: #D4A017;
-  stroke-width: 2px;
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: hs-ripple 1.2s ease-out both;
 }
 @keyframes hs-fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
 }
-@keyframes hs-beat {
-  0% { transform: scale(0.85); opacity: 0; }
-  25% { transform: scale(1.08); opacity: 1; }
-  50% { transform: scale(0.97); }
-  75% { transform: scale(1.04); }
-  100% { transform: scale(1); opacity: 1; }
-}
-@keyframes hs-ripple {
-  0% { transform: scale(1); opacity: 0.9; }
-  100% { transform: scale(1.7); opacity: 0; }
-}
 @media (prefers-reduced-motion: reduce) {
-  .hs-ring, .hs-pulse, .hs-lit, .hs-halo, .hs-img { animation: none; transition: none; }
-  .hs-pulse { display: none; }
+  .hs-lit, .hs-img { animation: none; transition: none; }
 }
 /* Floating copy of the picture while it is off-screen */
 .hs-peek {
@@ -479,5 +445,6 @@ body {
   }
   .hs-img-faded {
     opacity: 1 !important;
+    filter: none !important;
   }
 }

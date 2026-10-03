@@ -1,8 +1,9 @@
 "use client";
 
 // Numbered picture <-> numbered list sync. Tapping a list row highlights its
-// object on the picture (glowing gold ring, rest dimmed); tapping a number or
-// object on the picture highlights the matching row and scrolls to it. When
+// object on the picture (the object drawn in strong black, the rest faded);
+// tapping a number or object on the picture highlights the matching row and
+// scrolls to it. When
 // the picture is off-screen, a small floating copy shows the highlight.
 // Data: lib/hotspots.ts (data/hotspots.json). Print shows the plain image.
 
@@ -23,7 +24,7 @@ interface Active {
   img: string;
   nums: string[];
   source: "list" | "image";
-  /** Increments on every selection (restarts the pulse, re-scrolls). */
+  /** Increments on every selection (restarts the fade-in, re-scrolls). */
   seq: number;
   /** Row tapped while the picture was off-screen: show the floating copy. */
   peek: boolean;
@@ -167,14 +168,18 @@ function HotspotCanvas({
   const { w, h, spots } = data;
   const rawId = useId();
   const maskId = `hsm-${rawId.replace(/[^a-zA-Z0-9]/g, "")}`;
-  const glowId = `${maskId}-g`;
+  const gradId = `${maskId}-g`;
+  const inkId = `${maskId}-i`;
   const active = ctx.active && ctx.active.img === imgName ? ctx.active : null;
   const px = (v: number, of: number) => (v / 100) * of;
   // Tap targets: big objects first so smaller ones lie on top.
   const order = Object.entries(spots).sort(([, a], [, b]) => b.rx * b.ry - a.rx * a.ry);
   const labelR = Math.max(w, h) * 0.03;
   const shown = active ? active.nums.filter((n) => spots[n]) : [];
-  const grow = 1.2;
+  // Soft-edged window: fully opaque up to FEATHER_SOLID of its radius (= the
+  // hotspot's own radius), fading out to nothing at the edge.
+  const FEATHER = 1.3;
+  const FEATHER_SOLID = 1 / FEATHER;
 
   return (
     <>
@@ -193,42 +198,48 @@ function HotspotCanvas({
           if (e.target === e.currentTarget && !compact) ctx.clear();
         }}
       >
-        <defs>
-          <filter id={glowId} x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation={Math.max(w, h) * 0.008} />
-          </filter>
-          {shown.length > 0 && (
-            <clipPath id={maskId}>
+        {shown.length > 0 && (
+          <defs>
+            <radialGradient id={gradId}>
+              <stop offset={0} stopColor="#fff" stopOpacity={1} />
+              <stop offset={FEATHER_SOLID} stopColor="#fff" stopOpacity={1} />
+              <stop offset={1} stopColor="#fff" stopOpacity={0} />
+            </radialGradient>
+            <mask id={maskId} maskUnits="userSpaceOnUse" x={0} y={0} width={w} height={h}>
               {shown.map((n) => {
                 const sp = spots[n];
                 return (
                   <React.Fragment key={n}>
-                    <ellipse cx={px(sp.x, w)} cy={px(sp.y, h)} rx={px(sp.rx, w) * grow} ry={px(sp.ry, h) * grow} />
+                    <ellipse
+                      cx={px(sp.x, w)}
+                      cy={px(sp.y, h)}
+                      rx={px(sp.rx, w) * FEATHER}
+                      ry={px(sp.ry, h) * FEATHER}
+                      fill={`url(#${gradId})`}
+                    />
                     {sp.lx !== undefined && sp.ly !== undefined && (
-                      <circle cx={px(sp.lx, w)} cy={px(sp.ly, h)} r={labelR * 1.1} />
+                      <circle cx={px(sp.lx, w)} cy={px(sp.ly, h)} r={labelR * 0.62} fill={`url(#${gradId})`} />
                     )}
                   </React.Fragment>
                 );
               })}
-            </clipPath>
-          )}
-        </defs>
+            </mask>
+            {/* "Ink": greys and colours pushed towards black, white stays white. */}
+            <filter id={inkId} x={0} y={0} width="100%" height="100%" colorInterpolationFilters="sRGB">
+              <feComponentTransfer>
+                <feFuncR type="gamma" amplitude={1} exponent={3.2} offset={0} />
+                <feFuncG type="gamma" amplitude={1} exponent={3.2} offset={0} />
+                <feFuncB type="gamma" amplitude={1} exponent={3.2} offset={0} />
+              </feComponentTransfer>
+            </filter>
+          </defs>
+        )}
 
         {shown.length > 0 && (
-          <g key={active!.seq} pointerEvents="none">
-            {/* The highlighted object(s) at full strength over the faded picture. */}
-            <image href={src} width={w} height={h} clipPath={`url(#${maskId})`} className="hs-lit" />
-            {shown.map((n) => {
-              const sp = spots[n];
-              const cx = px(sp.x, w), cy = px(sp.y, h), rx = px(sp.rx, w) * grow, ry = px(sp.ry, h) * grow;
-              return (
-                <g key={n}>
-                  <ellipse cx={cx} cy={cy} rx={rx} ry={ry} className="hs-halo" strokeWidth={Math.max(w, h) * 0.016} filter={`url(#${glowId})`} />
-                  <ellipse cx={cx} cy={cy} rx={rx} ry={ry} className="hs-ring" vectorEffect="non-scaling-stroke" />
-                  <ellipse cx={cx} cy={cy} rx={rx} ry={ry} className="hs-pulse" vectorEffect="non-scaling-stroke" />
-                </g>
-              );
-            })}
+          // The selected object(s): the same picture in strong black ink, seen
+          // through a soft-edged window over the faded picture.
+          <g key={active!.seq} pointerEvents="none" className="hs-lit">
+            <image href={src} width={w} height={h} filter={`url(#${inkId})`} mask={`url(#${maskId})`} />
           </g>
         )}
 
