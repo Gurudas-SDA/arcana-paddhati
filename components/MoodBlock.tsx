@@ -166,8 +166,8 @@ function QuoteBody({
  * is locked (the .app-main scroller and, for iOS Safari, the body via
  * position: fixed with the saved scroll offset), so a fast flick stops at the
  * first / last quote. Close: the ✕ in the header (the only visible control, on
- * every device), plus Esc, a tap on the backdrop, or the browser / Android back
- * button (opening pushes a history entry; closing pops it). After closing, the
+ * every device), plus Esc or the browser / Android back button (a tap on the
+ * backdrop does nothing) (opening pushes a history entry; closing pops it). After closing, the
  * reader is back exactly where he was and focus returns to the button.
  *
  * The overlay covers the VISUAL viewport: if the reader has pinch-zoomed the
@@ -331,7 +331,8 @@ export default function MoodBlock({
 
   const overlay = (
     <div ref={overlayRef} className="mood-overlay no-print fixed inset-0 z-[60] flex items-stretch justify-center sm:items-center sm:p-6">
-      <div className="mood-backdrop absolute inset-0" onClick={requestClose} aria-hidden="true" />
+      {/* The backdrop does nothing: the window closes only with its ✕ (and Esc / back). */}
+      <div className="mood-backdrop absolute inset-0" aria-hidden="true" />
       <div
         ref={dialogRef}
         id={dialogId}

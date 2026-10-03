@@ -327,31 +327,49 @@ body {
   }
 }
 
-/* Numbered picture <-> list sync (components/Hotspots.tsx) */
+/* Numbered picture <-> list sync (components/Hotspots.tsx).
+   The row is only a frame: its taps come from the inline .hs-text boxes
+   (number, place, mantra); the rest of the row acts like empty page.
+   Selected row: no fill; the text a touch stronger (stroke, so column widths
+   do not shift) and a thin muted accent line on the left. */
 .hs-row {
-  cursor: pointer;
-  border-left: 3px solid transparent;
-  border-radius: 3px;
+  border-left: 2px solid transparent;
   margin-left: -8px;
-  padding-left: 5px;
-  transition: background-color 150ms ease, border-color 150ms ease;
-  -webkit-tap-highlight-color: transparent;
+  padding-left: 6px;
+  transition: color 150ms ease, border-color 150ms ease;
   scroll-margin: 80px 0;
 }
-/* Hover tint only with a real pointer (on touch screens :hover sticks after a
-   tap and looks like a highlight that did not clear). */
+.hs-text {
+  display: inline;
+  cursor: pointer;
+  /* A few px more to hit, without changing the layout. */
+  padding-block: 3px;
+  -webkit-tap-highlight-color: transparent;
+}
+.hs-text[role="button"]:focus-visible {
+  outline: 2px solid #D4A017;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+/* Hover hint only with a real pointer (on touch :hover sticks after a tap). */
 @media (hover: hover) {
-  .hs-row:hover {
-    background-color: #FBF5E8;
+  .hs-row:has(.hs-text:hover) .hs-text {
+    color: #2C1810;
   }
 }
-.hs-row:focus-visible {
-  outline: 2px solid #D4A017;
-  outline-offset: 1px;
+.hs-row .hs-text {
+  transition: color 150ms ease, -webkit-text-stroke-color 150ms ease;
+  -webkit-text-stroke: 0.35px transparent;
 }
 .hs-row[data-active] {
-  background-color: #F8EBC8;
-  border-left-color: #D4A017;
+  border-left-color: rgba(156, 122, 78, 0.55);
+}
+.hs-row[data-active] .hs-text {
+  color: #2C1810;
+  -webkit-text-stroke-color: currentColor;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hs-row, .hs-row .hs-text { transition: none; }
 }
 .hs-overlay {
   overflow: visible;
@@ -446,8 +464,11 @@ body {
 }
 @media print {
   .hs-row {
-    background: none !important;
     border-left-color: transparent !important;
+  }
+  .hs-row .hs-text {
+    color: inherit !important;
+    -webkit-text-stroke: 0 !important;
   }
   .hs-overlay,
   .hs-peek {

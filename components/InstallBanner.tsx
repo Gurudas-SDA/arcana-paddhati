@@ -165,17 +165,13 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
 
       {/* Instructions modal (for iOS / non-Chrome browsers) */}
       {showModal && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
-          onClick={() => setShowModal(false)}
-        >
-          {/* Backdrop */}
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          {/* Backdrop: does nothing; the modal closes only with its ✕ */}
           <div className="absolute inset-0 bg-black/30" />
 
           {/* Modal */}
           <div
             className="relative bg-white rounded-xl shadow-2xl w-full max-w-[360px] p-5"
-            onClick={(e) => e.stopPropagation()}
           >
             {/* Close button */}
             <button

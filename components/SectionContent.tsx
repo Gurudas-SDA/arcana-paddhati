@@ -11,7 +11,7 @@ import {
 import { t, type UiDict } from "@/lib/i18n";
 import CollapsibleVerse from "@/components/CollapsibleVerse";
 import MoodBlock, { type MoodLabels } from "@/components/MoodBlock";
-import { HotspotFigure, HotspotProvider, HotspotRow } from "@/components/Hotspots";
+import { HotspotFigure, HotspotHit, HotspotProvider, HotspotRow } from "@/components/Hotspots";
 import { hotspotsFor, labelNumbers } from "@/lib/hotspots";
 
 /** Localised labels of the verse panel chips and of the mood block. */
@@ -93,10 +93,12 @@ function NumberedList({ content, numbers, hsImage }: { content: string; numbers?
         const row = (
           <>
             <span className={`${width} shrink-0 whitespace-nowrap text-right tabular-nums text-[#5C3D2E]`}>
-              {labels[i]}
+              <HotspotHit focus>{labels[i]}</HotspotHit>
             </span>
             <span className="min-w-0">
-              <Inline text={line} />
+              <HotspotHit>
+                <Inline text={line} />
+              </HotspotHit>
             </span>
           </>
         );
@@ -237,19 +239,23 @@ function ContentBlock({
                 {/* Optional `numbers`: one label per row, e.g. the numbers of an illustration. */}
                 {item.numbers && (
                   <span className="pr-2 py-0.5 text-right tabular-nums text-[15px] text-[#5C3D2E]">
-                    {item.numbers[i] ? `${item.numbers[i]})` : "–"}
+                    <HotspotHit focus>{item.numbers[i] ? `${item.numbers[i]})` : "–"}</HotspotHit>
                   </span>
                 )}
                 <span className="pr-8 py-0.5 text-[15px]">
-                  <Inline text={pair.label} />
+                  <HotspotHit>
+                    <Inline text={pair.label} />
+                  </HotspotHit>
                 </span>
                 <span className="py-0.5 text-[15px]">
-                  <Inline text={pair.value} />
+                  <HotspotHit>
+                    <Inline text={pair.value} />
+                  </HotspotHit>
                 </span>
               </>
             );
             const nums = hsImage ? labelNumbers(item.numbers?.[i]) : [];
-            // Linked row: one subgrid row, so the whole row can be tapped and highlighted.
+            // Linked row: one subgrid row (highlighted as a whole); only its text is tappable.
             return nums.length > 0 ? (
               <HotspotRow key={i} img={hsImage!} nums={nums} className="col-span-full grid grid-cols-subgrid">
                 {cells}

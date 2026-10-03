@@ -2,7 +2,8 @@
 
 // Numbered picture <-> numbered list sync. Tapping a list row highlights its
 // object on the picture (the object drawn in strong black, the rest faded);
-// tapping a number or object on the picture highlights the matching row and
+// (only its content: number, place and mantra text; the row's empty space
+// acts as empty page) tapping a number or object on the picture highlights the matching row and
 // scrolls to it. Whenever
 // the highlighted spot is off-screen, a small floating copy shows the
 // highlight. The darkened object comes from its own pixel mask (exactly that
@@ -47,7 +48,7 @@ const HotspotContext = createContext<Ctx | null>(null);
 const IGNORE_TAP = [
   "a", "button", "input", "textarea", "select", "label", "summary",
   "[role=button]", "[role=dialog]", "[contenteditable]",
-  "[data-hs-row]", ".hs-hit", ".hs-figure", ".hs-peek",
+  ".hs-text", ".hs-hit", ".hs-figure", ".hs-peek",
 ].join(",");
 
 export function HotspotProvider({ children }: { children: React.ReactNode }) {
@@ -151,7 +152,16 @@ function spotOnScreen(fig: HTMLElement, nums: string[]): boolean {
   });
 }
 
-/** One row of a numbered list linked to a picture. Renders `as` (li/div) with the row's classes. */
+interface RowCtx {
+  activate: () => void;
+  isActive: boolean;
+}
+const RowContext = createContext<RowCtx | null>(null);
+
+/** One row of a numbered list linked to a picture. Renders `as` (li/div) with
+ *  the row's classes. The row itself takes no taps: only its content wrapped
+ *  in <HotspotHit> (number, place, mantra) selects it; the empty part of the
+ *  row (right of the text, gaps between columns) behaves like empty page. */
 export function HotspotRow({
   img,
   nums,
@@ -171,6 +181,12 @@ export function HotspotRow({
     !!ctx?.active && ctx.active.img === img && ctx.active.nums.some((n) => nums.includes(n));
   const fromImage = isActive && ctx?.active?.source === "image";
   const seq = ctx?.active?.seq ?? 0;
+  const select = ctx?.select;
+  const numsKey = nums.join(",");
+  const rowCtx = useMemo<RowCtx | null>(
+    () => (select ? { activate: () => select(img, numsKey.split(","), "list"), isActive } : null),
+    [select, img, numsKey, isActive],
+  );
 
   useEffect(() => {
     if (!fromImage || !ctx || !ref.current) return;
@@ -180,7 +196,7 @@ export function HotspotRow({
     }
   }, [fromImage, seq, ctx]);
 
-  if (!ctx || nums.length === 0) {
+  if (!ctx || nums.length === 0 || !rowCtx) {
     const Tag = as;
     return <Tag className={className}>{children}</Tag>;
   }
@@ -188,22 +204,41 @@ export function HotspotRow({
   return (
     <Tag
       ref={ref as React.RefObject<HTMLDivElement>}
-      role="button"
-      tabIndex={0}
-      aria-pressed={isActive}
       data-hs-row=""
       data-active={isActive ? "" : undefined}
       className={`hs-row ${className}`}
-      onClick={() => ctx.select(img, nums, "list")}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          ctx.select(img, nums, "list");
-        }
-      }}
+    >
+      <RowContext.Provider value={rowCtx}>{children}</RowContext.Provider>
+    </Tag>
+  );
+}
+
+/** Tappable content of a linked row: an inline box around the text, so only
+ *  the text itself (each wrapped line) is a target. `focus`: this one is the
+ *  row's single keyboard stop (role=button). Outside a linked row: plain text. */
+export function HotspotHit({ children, focus = false }: { children: React.ReactNode; focus?: boolean }) {
+  const row = useContext(RowContext);
+  if (!row) return <>{children}</>;
+  return (
+    <span
+      className="hs-text"
+      role={focus ? "button" : undefined}
+      tabIndex={focus ? 0 : undefined}
+      aria-pressed={focus ? row.isActive : undefined}
+      onClick={row.activate}
+      onKeyDown={
+        focus
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                row.activate();
+              }
+            }
+          : undefined
+      }
     >
       {children}
-    </Tag>
+    </span>
   );
 }
 

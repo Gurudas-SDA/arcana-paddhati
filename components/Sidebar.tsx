@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useId, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -218,17 +218,24 @@ function PrefSwitch({
   checked: boolean;
   onChange: (value: boolean) => void;
 }) {
+  const labelId = useId();
+  // Only the label text and the switch itself act; the empty gap between
+  // them is page space (UI rule 1).
   return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={checked}
-      onClick={() => onChange(!checked)}
-      className="flex w-full items-center justify-between gap-3 py-1 text-xs text-[#5C3D2E] hover:text-[#2C1810] transition-colors"
-    >
-      <span>{label}</span>
+    <div className="flex w-full items-center justify-between gap-3 py-1 text-xs text-[#5C3D2E]">
       <span
-        aria-hidden="true"
+        id={labelId}
+        onClick={() => onChange(!checked)}
+        className="cursor-pointer select-none hover:text-[#2C1810] transition-colors"
+      >
+        {label}
+      </span>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={checked}
+        aria-labelledby={labelId}
+        onClick={() => onChange(!checked)}
         className={`relative inline-flex h-4 w-7 shrink-0 items-center rounded-full transition-colors ${
           checked ? "bg-[#B8860B]" : "bg-[#E8DCC8]"
         }`}
@@ -238,8 +245,8 @@ function PrefSwitch({
             checked ? "translate-x-3.5" : "translate-x-0.5"
           }`}
         />
-      </span>
-    </button>
+      </button>
+    </div>
   );
 }
 
