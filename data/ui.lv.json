@@ -45,8 +45,7 @@
   "mood.machine": "mašīntulkojums",
   "mood.transcript": "transkripts",
   "mood.audio": "audio",
-  "mood.more": "Vēl citāti",
-  "mood.showAll": "Rādīt visus",
+  "mood.close": "Aizvērt",
   "part.label": "{n} daļa",
   "part.empty": "Sadaļa tiek gatavota."
 }

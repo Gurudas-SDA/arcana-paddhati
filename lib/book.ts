@@ -22,7 +22,7 @@ export interface MoodSource {
   lang?: string;
 }
 
-/** One more candidate quote of a "mood" block (the "More quotes" / "Show all" lists). */
+/** One more candidate quote of a "mood" block (shown after the chosen one in the overlay). */
 export interface MoodQuote {
   quote: string;
   translation?: string;
@@ -49,7 +49,7 @@ export interface ContentItem {
   /** "mood" block: "machine" when `translation` is a machine translation. */
   translation_note?: string;
   source?: MoodSource;
-  /** "mood" block: the other candidate quotes for this block ("More quotes" / "Show all", best first). */
+  /** "mood" block: the other quotes for this block (shown after the chosen one in the overlay, best first). */
   more?: MoodQuote[];
 }
 

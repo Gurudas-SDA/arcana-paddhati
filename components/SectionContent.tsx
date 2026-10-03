@@ -105,11 +105,14 @@ function ContentBlock({
   item,
   index,
   labels,
+  title,
   separated = false,
 }: {
   item: ContentItem;
   index: number;
   labels: VerseLabels;
+  /** Title of the (sub)section the block belongs to (header of the mood overlay). */
+  title: string;
   /** Draw a rule above this block (used for h3 groups in long content). */
   separated?: boolean;
 }) {
@@ -229,6 +232,7 @@ function ContentBlock({
           machine={item.translation_note === "machine"}
           source={item.source}
           more={item.more}
+          title={title}
           labels={labels.mood}
         />
       );
@@ -264,7 +268,7 @@ function ContentBlock({
   }
 }
 
-function ContentBlocks({ items, labels }: { items: ContentItem[]; labels: VerseLabels }) {
+function ContentBlocks({ items, labels, title }: { items: ContentItem[]; labels: VerseLabels; title: string }) {
   // A leading "mood" block (Gurudev's quote) does not count as content for
   // the layout rules below: the next block is still the "first" one.
   const lead = items.findIndex((item) => item.type !== "mood");
@@ -278,6 +282,7 @@ function ContentBlocks({ items, labels }: { items: ContentItem[]; labels: VerseL
           item={item}
           index={Math.max(0, idx - offset)}
           labels={labels}
+          title={title}
           separated={long && idx > offset && item.type === "subtitle"}
         />
       ))}
@@ -308,7 +313,7 @@ function SubsectionBlock({
         {num && <span className="heading-num">{`${num}.`}</span>}
         {subsection.title}
       </h2>
-      <ContentBlocks items={subsection.content} labels={labels} />
+      <ContentBlocks items={subsection.content} labels={labels} title={subsection.title} />
     </section>
   );
 }
@@ -324,8 +329,7 @@ export default function SectionContent({ section, ui, num = null }: SectionConte
       machine: t(ui, "mood.machine"),
       transcript: t(ui, "mood.transcript"),
       audio: t(ui, "mood.audio"),
-      more: t(ui, "mood.more"),
-      showAll: t(ui, "mood.showAll"),
+      close: t(ui, "mood.close"),
     },
   };
   return (
@@ -350,7 +354,7 @@ export default function SectionContent({ section, ui, num = null }: SectionConte
       {/* Main content */}
       {section.content.length > 0 && (
         <div>
-          <ContentBlocks items={section.content} labels={labels} />
+          <ContentBlocks items={section.content} labels={labels} title={section.title} />
         </div>
       )}
 

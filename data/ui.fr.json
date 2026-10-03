@@ -45,8 +45,7 @@
   "mood.machine": "traduction automatique",
   "mood.transcript": "transcription",
   "mood.audio": "audio",
-  "mood.more": "Autres citations",
-  "mood.showAll": "Tout afficher",
+  "mood.close": "Fermer",
   "part.label": "Partie {n}",
   "part.empty": "Cette partie est en préparation."
 }

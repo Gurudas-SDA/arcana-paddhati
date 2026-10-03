@@ -45,8 +45,7 @@
   "mood.machine": "машинний переклад",
   "mood.transcript": "транскрипт",
   "mood.audio": "аудіо",
-  "mood.more": "Ще цитати",
-  "mood.showAll": "Показати всі",
+  "mood.close": "Закрити",
   "part.label": "Частина {n}",
   "part.empty": "Розділ у підготовці."
 }

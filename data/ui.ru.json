@@ -45,8 +45,7 @@
   "mood.machine": "машинный перевод",
   "mood.transcript": "транскрипт",
   "mood.audio": "аудио",
-  "mood.more": "Ещё цитаты",
-  "mood.showAll": "Показать все",
+  "mood.close": "Закрыть",
   "part.label": "Часть {n}",
   "part.empty": "Раздел в подготовке."
 }

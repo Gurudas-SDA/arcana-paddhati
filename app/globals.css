@@ -161,7 +161,8 @@ body {
 .verse-toggle:focus-visible,
 .verse-chip:focus-visible,
 .mood-toggle:focus-visible,
-.mood-more-toggle:focus-visible {
+.mood-close:focus-visible,
+.mood-close-bottom:focus-visible {
   outline-offset: 2px;
 }
 
@@ -193,27 +194,81 @@ body {
   }
 }
 
-/* "Mood — Gurudev" panel (components/MoodBlock.tsx): closed until data-open */
-.mood-panel:not([data-open]) {
+/* "Mood — Gurudev" (components/MoodBlock.tsx). On screen the quotes open in a
+   focused overlay; the inline .mood-panel (chosen quote) exists only for print. */
+.mood-panel {
   display: none;
 }
 
-.mood-panel[data-open] {
-  animation: verse-reveal 180ms ease-out;
+.mood-overlay {
+  /* 100dvh: the real visible height on iOS/Android (toolbar shown or hidden) */
+  height: 100vh;
+  height: 100dvh;
+  animation: mood-fade 160ms ease-out;
 }
 
-/* "More quotes" / "Show all" inside the mood panel: the other candidate quotes, closed until data-open */
-.mood-more-panel:not([data-open]) {
-  display: none;
+.mood-backdrop {
+  background: rgba(44, 24, 16, 0.45);
 }
 
-.mood-more-panel[data-open] {
-  animation: verse-reveal 180ms ease-out;
+.mood-dialog {
+  height: 100%;
+  animation: mood-rise 200ms ease-out;
+}
+
+@media (min-width: 640px) {
+  .mood-dialog {
+    height: auto;
+    max-height: min(88vh, 960px);
+    max-height: min(88dvh, 960px);
+  }
+}
+
+/* The only scroller while open: flicks stop at the first / last quote and
+   never chain to the page behind. */
+.mood-scroll {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Safe areas (notch, home indicator) for the sticky header and bottom button */
+.mood-dialog-head {
+  padding-top: max(0.625rem, env(safe-area-inset-top));
+}
+
+.mood-dialog-foot {
+  padding-bottom: max(0.625rem, env(safe-area-inset-bottom));
+}
+
+@media (min-width: 640px) {
+  .mood-dialog-head {
+    padding-top: 0.625rem;
+  }
+}
+
+@keyframes mood-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mood-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mood-panel[data-open],
-  .mood-more-panel[data-open] {
+  .mood-overlay,
+  .mood-dialog {
     animation: none;
   }
 }
@@ -230,11 +285,12 @@ body {
   }
 }
 
-/* Print: no chips, mood panels open; "More quotes" not printed (appendix of the print/Kindle book) */
+/* Print: no chips; the chosen mood quote inline; the overlay and the other quotes
+   are not printed (appendix of the print/Kindle book) */
 @media print {
   .verse-chips,
   .mood-toggle,
-  .mood-more {
+  .mood-overlay {
     display: none !important;
   }
   .mood-panel {

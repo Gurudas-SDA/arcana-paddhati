@@ -45,8 +45,7 @@
   "mood.machine": "gépi fordítás",
   "mood.transcript": "átirat",
   "mood.audio": "hangfelvétel",
-  "mood.more": "További idézetek",
-  "mood.showAll": "Összes mutatása",
+  "mood.close": "Bezárás",
   "part.label": "{n}. rész",
   "part.empty": "Ez a rész előkészületben van."
 }

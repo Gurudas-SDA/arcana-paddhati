@@ -45,8 +45,7 @@
   "mood.machine": "machine translation",
   "mood.transcript": "transcript",
   "mood.audio": "audio",
-  "mood.more": "More quotes",
-  "mood.showAll": "Show all",
+  "mood.close": "Close",
   "part.label": "Part {n}",
   "part.empty": "This part is in preparation."
 }
