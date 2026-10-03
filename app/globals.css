@@ -158,7 +158,6 @@ body {
 }
 
 /* Collapsible verse panels: word-by-word + translation (components/CollapsibleVerse.tsx) */
-.verse-toggle:focus-visible,
 .verse-chip:focus-visible,
 .mood-toggle:focus-visible,
 .mood-close:focus-visible {

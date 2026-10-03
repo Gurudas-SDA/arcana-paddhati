@@ -59,8 +59,9 @@ function Chip({
 
 /**
  * A verse with collapsible panels: word-by-word meanings and/or a translation,
- * each toggled by its own chip under the verse (tapping the Sanskrit text also
- * toggles the translation). The panels are always in the HTML (only
+ * each toggled ONLY by its own chip under the verse (or the sidebar's global
+ * switches). Tapping the Sanskrit text or the space around it does nothing:
+ * every function has its own dedicated control. The panels are always in the HTML (only
  * `hidden`), so print, search engines and the full-text index still see them.
  * The sidebar's "Show all …" switches set the defaults.
  */
@@ -87,38 +88,9 @@ export default function CollapsibleVerse({
   const hasTr = !!translation;
   const hasWbw = !!wbw;
 
-  // The Sanskrit text toggles the translation (or, without one, word-by-word).
-  const textToggles = hasTr ? "tr" : "wbw";
-  const textOpen = hasTr ? trOpen : wbwOpen;
-  const toggleFromText = hasTr ? toggleTr : toggleWbw;
-
-  const onClick = () => {
-    // Selecting text inside the verse must not toggle it.
-    const sel = window.getSelection();
-    if (sel && !sel.isCollapsed && sel.toString().trim() !== "") return;
-    toggleFromText();
-  };
-
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      toggleFromText();
-    }
-  };
-
   return (
     <div className="my-5">
-      <div
-        role="button"
-        tabIndex={0}
-        aria-expanded={textOpen}
-        aria-controls={textToggles === "tr" ? trId : wbwId}
-        onClick={onClick}
-        onKeyDown={onKeyDown}
-        className="verse-toggle cursor-pointer rounded-sm"
-      >
-        {sanskrit}
-      </div>
+      {sanskrit}
       <div className="verse-chips -mt-1 mb-1 flex flex-wrap gap-1.5">
         {hasWbw && <Chip label={wbwLabel} open={wbwOpen} controls={wbwId} onClick={toggleWbw} />}
         {hasTr && <Chip label={translationLabel} open={trOpen} controls={trId} onClick={toggleTr} />}
