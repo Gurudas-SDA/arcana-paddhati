@@ -1,13 +1,20 @@
 "use client";
 
-import React, { useEffect, useId, useMemo, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   normalizeText,
   tocLayout,
   type SearchEntry,
-  type TocItem,
   type TocPart,
   type TocSection,
 } from "@/lib/book";
@@ -244,6 +251,73 @@ function useActiveSubsection(
   return [active, select];
 }
 
+/** sessionStorage key: parts the reader expanded / collapsed by hand. */
+const PARTS_STORE = "toc-parts-open";
+const PARTS_EVENT = "arcana:toc-parts";
+/** Last state set in this page (used when sessionStorage is unavailable). */
+let partsMemory = "{}";
+
+function partsSnapshot(): string {
+  try {
+    return sessionStorage.getItem(PARTS_STORE) ?? partsMemory;
+  } catch {
+    return partsMemory;
+  }
+}
+
+function parseParts(raw: string): Record<string, boolean> {
+  try {
+    const v = JSON.parse(raw);
+    return v && typeof v === "object" ? (v as Record<string, boolean>) : {};
+  } catch {
+    return {};
+  }
+}
+
+function setPartsState(state: Record<string, boolean>) {
+  partsMemory = JSON.stringify(state);
+  try {
+    sessionStorage.setItem(PARTS_STORE, partsMemory);
+  } catch {
+    // storage unavailable — kept in memory until reload
+  }
+  window.dispatchEvent(new Event(PARTS_EVENT));
+}
+
+function subscribeParts(onChange: () => void) {
+  window.addEventListener(PARTS_EVENT, onChange);
+  return () => window.removeEventListener(PARTS_EVENT, onChange);
+}
+
+/**
+ * Open / closed state of the part groups in the contents. Collapsed by
+ * default; the part holding the current page is open on every arrival at a
+ * page and every time the contents mount (the mobile menu mounts anew each
+ * time it opens), so the reader always sees where he is. Toggles by hand
+ * last for the session (sessionStorage). The static HTML shows only the
+ * current part open.
+ */
+function usePartsOpen(
+  selectedId: string | null,
+  currentPartId: string | null
+): [(id: string) => boolean, (id: string) => void] {
+  const raw = useSyncExternalStore(subscribeParts, partsSnapshot, () => "{}");
+  const state = useMemo(() => parseParts(raw), [raw]);
+  // Arrival: forget a hand-made "collapsed" of the current part (before
+  // paint, so it never flashes closed).
+  useLayoutEffect(() => {
+    if (!currentPartId) return;
+    const cur = parseParts(partsSnapshot());
+    if (cur[currentPartId] === false) {
+      delete cur[currentPartId];
+      setPartsState(cur);
+    }
+  }, [selectedId, currentPartId]);
+  const isOpen = (id: string) => state[id] ?? id === currentPartId;
+  const toggle = (id: string) => setPartsState({ ...state, [id]: !isOpen(id) });
+  return [isOpen, toggle];
+}
+
 /** A small on/off switch row of the sidebar. */
 function PrefSwitch({
   label,
@@ -393,6 +467,19 @@ export default function Sidebar({
   );
   const sectionById = useMemo(() => new Map(sections.map((s) => [s.id, s])), [sections]);
   const partById = useMemo(() => new Map(parts.map((p) => [p.id, p])), [parts]);
+  /** section id -> id of the part it belongs to */
+  const partOfSection = useMemo(() => {
+    const m = new Map<string, string>();
+    parts.forEach((p) => p.sections.forEach((id) => m.set(id, p.id)));
+    return m;
+  }, [parts]);
+  const currentPartId =
+    selectedId === null
+      ? null
+      : partById.has(selectedId)
+        ? selectedId
+        : (partOfSection.get(selectedId) ?? null);
+  const [isPartOpen, togglePart] = usePartsOpen(selectedId, currentPartId);
 
   // Full-text results (once the index is loaded).
   const results = useMemo<SearchResult[] | null>(() => {
@@ -421,6 +508,99 @@ export default function Sidebar({
     );
     return matchesTitle || matchesSubsection;
   });
+
+  /** A chapter row (with its subsections while it is the open one). */
+  const renderSection = (section: TocSection) => {
+    const isSelected = selectedId === section.id;
+    const hasSubs = (section.subsections?.length ?? 0) > 0;
+    const isOpen =
+      isSelected && hasSubs && collapsedId !== section.id;
+    return (
+      <li key={section.id}>
+        <Link
+          href={sectionHref(section.id)}
+          onClick={(e) => {
+            if (isSelected && hasSubs) {
+              // Toggle the list instead of reloading the page.
+              e.preventDefault();
+              setCollapsedId(isOpen ? section.id : null);
+              return;
+            }
+            leaveTo(e, sectionHref(section.id));
+          }}
+          aria-current={isSelected ? "page" : undefined}
+          aria-expanded={isSelected && hasSubs ? isOpen : undefined}
+          className={`sidebar-link w-full text-left px-5 py-3 flex items-start justify-between gap-2 transition-colors ${
+            isSelected
+              ? "bg-[#FAF3E8] border-l-3 border-[#B8860B]"
+              : "hover:bg-[#FDF8F0] border-l-3 border-transparent"
+          }`}
+        >
+          <span
+            className={`text-sm leading-snug ${
+              isSelected
+                ? "font-semibold text-[#B8860B]"
+                : "text-[#2C1810]"
+            }`}
+          >
+            {section.num && (
+              <span className="heading-num">{`${section.num}.`}</span>
+            )}
+            {section.title}
+          </span>
+          {isSelected && hasSubs && (
+            <svg
+              aria-hidden="true"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#B8860B"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className={`shrink-0 mt-0.5 transition-transform ${
+                isOpen ? "rotate-180" : ""
+              }`}
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          )}
+        </Link>
+
+        {/* Subsections - shown while the current section is open */}
+        {isOpen && (
+          <ul className="ml-6 border-l border-[#E8DCC8]">
+            {section.subsections.map((sub) => {
+              const isActive = activeSubId === sub.id;
+              return (
+                <li key={sub.id}>
+                  <Link
+                    href={sectionHref(section.id, sub.id)}
+                    onClick={(e) => {
+                      selectSub(sub.id);
+                      followLink(e, section.id, sub.id, "link");
+                    }}
+                    aria-current={isActive ? "location" : undefined}
+                    className={`sidebar-link -ml-px block w-full text-left px-4 py-2 text-xs border-l-2 transition-colors ${
+                      isActive
+                        ? "bg-[#FDF8F0] border-[#B8860B]/70 text-[#B8860B] font-semibold"
+                        : "border-transparent text-[#5C3D2E] hover:text-[#B8860B] hover:bg-[#FDF8F0]"
+                    }`}
+                  >
+                    {sub.num && (
+                      <span className="heading-num">{`${sub.num}.`}</span>
+                    )}
+                    {sub.title}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </li>
+    );
+  };
 
   return (
     <aside className="flex flex-col h-full bg-white border-r border-[#E8DCC8]">
@@ -649,126 +829,87 @@ export default function Sidebar({
                 </Link>
               </li>
             )}
-            {(normalizedQuery
-              ? filteredSections.map((s): TocItem => ({ kind: "section", id: s.id }))
-              : layout
-            ).map((item) => {
-              if (item.kind === "part") {
-                const part = partById.get(item.id);
-                if (!part) return null;
-                const isPartSelected = selectedId === part.id;
-                return (
-                  <li key={`part-${part.id}`} className="mt-2 border-t border-[#E8DCC8] pt-2">
-                    <Link
-                      href={sectionHref(part.id)}
-                      onClick={(e) => leaveTo(e, sectionHref(part.id))}
-                      aria-current={isPartSelected ? "page" : undefined}
-                      className={`sidebar-link w-full text-left px-5 py-2 block border-l-3 transition-colors ${
-                        isPartSelected
-                          ? "bg-[#FAF3E8] border-[#B8860B]"
-                          : "hover:bg-[#FDF8F0] border-transparent"
-                      }`}
-                    >
-                      <span className="text-[11px] uppercase tracking-[0.12em] font-semibold leading-snug text-[#9C7A4E]">
-                        <span className="mr-1.5">{`${part.numeral}.`}</span>
-                        {part.title}
-                      </span>
-                    </Link>
-                  </li>
-                );
-              }
-              const section = sectionById.get(item.id);
-              if (!section) return null;
-              const isSelected = selectedId === section.id;
-              const hasSubs = (section.subsections?.length ?? 0) > 0;
-              const isOpen =
-                isSelected && hasSubs && collapsedId !== section.id;
-              return (
-                <li key={section.id}>
-                  <Link
-                    href={sectionHref(section.id)}
-                    onClick={(e) => {
-                      if (isSelected && hasSubs) {
-                        // Toggle the list instead of reloading the page.
-                        e.preventDefault();
-                        setCollapsedId(isOpen ? section.id : null);
-                        return;
-                      }
-                      leaveTo(e, sectionHref(section.id));
-                    }}
-                    aria-current={isSelected ? "page" : undefined}
-                    aria-expanded={isSelected && hasSubs ? isOpen : undefined}
-                    className={`sidebar-link w-full text-left px-5 py-3 flex items-start justify-between gap-2 transition-colors ${
-                      isSelected
-                        ? "bg-[#FAF3E8] border-l-3 border-[#B8860B]"
-                        : "hover:bg-[#FDF8F0] border-l-3 border-transparent"
-                    }`}
-                  >
-                    <span
-                      className={`text-sm leading-snug ${
-                        isSelected
-                          ? "font-semibold text-[#B8860B]"
-                          : "text-[#2C1810]"
-                      }`}
-                    >
-                      {section.num && (
-                        <span className="heading-num">{`${section.num}.`}</span>
+            {normalizedQuery
+              ? filteredSections.map(renderSection)
+              : layout.map((item) => {
+                  if (item.kind === "section") {
+                    // Chapters of a part are listed inside its group.
+                    if (partOfSection.has(item.id)) return null;
+                    const section = sectionById.get(item.id);
+                    return section ? renderSection(section) : null;
+                  }
+                  const part = partById.get(item.id);
+                  if (!part) return null;
+                  const isOpen = isPartOpen(part.id);
+                  const listId = `toc-part-${part.id}`;
+                  const isPartSelected = selectedId === part.id;
+                  const chapters = part.sections
+                    .map((id) => sectionById.get(id))
+                    .filter((s): s is TocSection => s !== undefined);
+                  return (
+                    <li key={`part-${part.id}`} className="mt-2 border-t border-[#E8DCC8] pt-2">
+                      {/* The heading text and its chevron are the button (no
+                          invisible strip to the edge — UI rule 1). */}
+                      <div className="px-5 py-1">
+                        <button
+                          type="button"
+                          onClick={() => togglePart(part.id)}
+                          aria-expanded={isOpen}
+                          aria-controls={isOpen ? listId : undefined}
+                          className="inline-flex items-start gap-1.5 py-1 text-left rounded-sm text-[#9C7A4E] hover:text-[#B8860B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8860B]/40 transition-colors"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className={`shrink-0 mt-px transition-transform ${isOpen ? "rotate-90" : ""}`}
+                          >
+                            <polyline points="9 6 15 12 9 18" />
+                          </svg>
+                          <span className="text-[11px] uppercase tracking-[0.12em] font-semibold leading-snug">
+                            <span className="mr-1.5">{`${part.numeral}.`}</span>
+                            {part.title}
+                          </span>
+                        </button>
+                      </div>
+                      {isOpen && (
+                        <ul id={listId} className="space-y-0.5">
+                          {chapters.length > 0 ? (
+                            chapters.map(renderSection)
+                          ) : (
+                            // A part in preparation: its one page.
+                            <li>
+                              <Link
+                                href={sectionHref(part.id)}
+                                onClick={(e) => leaveTo(e, sectionHref(part.id))}
+                                aria-current={isPartSelected ? "page" : undefined}
+                                className={`sidebar-link w-full text-left px-5 py-3 block border-l-3 transition-colors ${
+                                  isPartSelected
+                                    ? "bg-[#FAF3E8] border-[#B8860B]"
+                                    : "hover:bg-[#FDF8F0] border-transparent"
+                                }`}
+                              >
+                                <span
+                                  className={`text-sm leading-snug italic ${
+                                    isPartSelected ? "text-[#B8860B]" : "text-[#5C3D2E]"
+                                  }`}
+                                >
+                                  {t(ui, "part.empty")}
+                                </span>
+                              </Link>
+                            </li>
+                          )}
+                        </ul>
                       )}
-                      {section.title}
-                    </span>
-                    {isSelected && hasSubs && (
-                      <svg
-                        aria-hidden="true"
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#B8860B"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className={`shrink-0 mt-0.5 transition-transform ${
-                          isOpen ? "rotate-180" : ""
-                        }`}
-                      >
-                        <polyline points="6 9 12 15 18 9" />
-                      </svg>
-                    )}
-                  </Link>
-
-                  {/* Subsections - shown while the current section is open */}
-                  {isOpen && (
-                    <ul className="ml-6 border-l border-[#E8DCC8]">
-                      {section.subsections.map((sub) => {
-                        const isActive = activeSubId === sub.id;
-                        return (
-                          <li key={sub.id}>
-                            <Link
-                              href={sectionHref(section.id, sub.id)}
-                              onClick={(e) => {
-                                selectSub(sub.id);
-                                followLink(e, section.id, sub.id, "link");
-                              }}
-                              aria-current={isActive ? "location" : undefined}
-                              className={`sidebar-link -ml-px block w-full text-left px-4 py-2 text-xs border-l-2 transition-colors ${
-                                isActive
-                                  ? "bg-[#FDF8F0] border-[#B8860B]/70 text-[#B8860B] font-semibold"
-                                  : "border-transparent text-[#5C3D2E] hover:text-[#B8860B] hover:bg-[#FDF8F0]"
-                              }`}
-                            >
-                              {sub.num && (
-                                <span className="heading-num">{`${sub.num}.`}</span>
-                              )}
-                              {sub.title}
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
-                </li>
-              );
-            })}
+                    </li>
+                  );
+                })}
           </ul>
         )}
       </nav>
