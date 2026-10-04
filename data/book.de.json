@@ -27,6 +27,13 @@
       "id": "preaching-centres",
       "title": "Standard für Predigtzentren",
       "sections": []
+    },
+    {
+      "id": "festivals-vows",
+      "title": "Feste und Gelübde",
+      "sections": [
+        "caturmasya-purusottama-masa"
+      ]
     }
   ],
   "sections": [

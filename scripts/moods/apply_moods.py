@@ -55,6 +55,9 @@ def main():
         for n in by_id.values():
             n["content"] = [b for b in n["content"] if b.get("type") != "mood"]
         for m in moods:
+            if m["target"] not in by_id:
+                # A section not yet translated into this language (the app shows the English one, with its mood).
+                continue
             node = by_id[m["target"]]
             block = {"type": "mood", "quote": m["quote"],
                      "translation": "" if lang == "en" else m["translations"][lang]}
@@ -73,7 +76,8 @@ def main():
             node["content"].insert(0, block)
         nl = "\n" if raw.endswith("\n") else ""
         open(p, "w", encoding="utf-8", newline="").write(json.dumps(book, ensure_ascii=False, indent=2) + nl)
-        print("%s: %d mood blocks, %d more quotes" % (lang, len(moods), sum(len(m.get("more", [])) for m in moods)))
+        done = [m for m in moods if m["target"] in by_id]
+        print("%s: %d mood blocks, %d more quotes" % (lang, len(done), sum(len(m.get("more", [])) for m in done)))
 
 
 if __name__ == "__main__":

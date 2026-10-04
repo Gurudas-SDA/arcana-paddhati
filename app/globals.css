@@ -488,3 +488,17 @@ body {
   appearance: none;
   display: none;
 }
+
+/* "table" blocks (SectionContent DataTable): the table, not the phone cards, on paper. */
+@media print {
+  .data-table-wide {
+    display: block !important;
+    overflow: visible !important;
+  }
+  .data-table-cards {
+    display: none !important;
+  }
+  .data-table tr {
+    break-inside: avoid;
+  }
+}

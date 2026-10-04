@@ -65,6 +65,14 @@ export function getSectionIds(): string[] {
   return englishBook().sections.map((s) => s.id);
 }
 
+/** True if section `id` is shown in English on a `lang` page because that
+ *  translation does not have it yet (the page then says so in `lang`). */
+export function isFallbackSection(lang: string, id: string): boolean {
+  if (lang === DEFAULT_LANG) return false;
+  const own = readJson<Book>(bookFile(lang));
+  return !own || !own.sections.some((s) => s.id === id);
+}
+
 export function getSection(lang: string, id: string): Section | undefined {
   return (
     getBook(lang).sections.find((s) => s.id === id) ??

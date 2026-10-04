@@ -52,6 +52,18 @@ export interface ContentItem {
   source?: MoodSource;
   /** "mood" block: the other quotes for this block (shown after the chosen one in the overlay, best first). */
   more?: MoodQuote[];
+  /** "table" block: column headings (the first column labels each row, e.g. the year). */
+  header?: string[];
+  /** "table" block: rows; `highlight` marks a row (e.g. a year with Puruṣottama-māsa), `badge` is shown with it. */
+  rows?: TableRow[];
+}
+
+/** One row of a "table" block. */
+export interface TableRow {
+  cells: string[];
+  highlight?: boolean;
+  /** Short label shown on a highlighted row (phone cards) — e.g. "Puruṣottama-māsa". */
+  badge?: string;
 }
 
 export interface Subsection {

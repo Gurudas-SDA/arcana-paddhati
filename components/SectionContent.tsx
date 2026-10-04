@@ -7,6 +7,7 @@ import {
   type ContentItem,
   type Section,
   type Subsection,
+  type TableRow,
 } from "@/lib/book";
 import { t, type UiDict } from "@/lib/i18n";
 import CollapsibleVerse from "@/components/CollapsibleVerse";
@@ -27,6 +28,8 @@ interface SectionContentProps {
   ui: UiDict;
   /** Chapter number ("2"); every section has one (null/absent = unnumbered). */
   num?: string | null;
+  /** Shown under the title, e.g. "translation in preparation — shown in English". */
+  note?: string;
 }
 
 /** Heading scale, one weight + size per level, used everywhere:
@@ -114,6 +117,82 @@ function NumberedList({ content, numbers, hsImage }: { content: string; numbers?
         );
       })}
     </ol>
+  );
+}
+
+/** A "table" block (e.g. the Cāturmāsya calendar). From 640px: a real table
+ *  (horizontal scroll inside its own box if it is ever wider than the page);
+ *  on phones: one card per row, each value with its column heading. Highlighted
+ *  rows get a beige band (cards: also their badge). Nothing is interactive. */
+function DataTable({ header, rows }: { header: string[]; rows: TableRow[] }) {
+  return (
+    <div className="data-table my-5">
+      <div className="data-table-wide hidden sm:block overflow-x-auto">
+        <table className="w-full border-collapse text-[14px] leading-snug text-[#1a1a1a]">
+          <thead>
+            <tr>
+              {header.map((h, i) => (
+                <th
+                  key={i}
+                  scope="col"
+                  className="border-b-2 border-[#D4A843] px-2 py-2 text-left align-bottom text-[12px] font-semibold text-[#5C3D2E]"
+                >
+                  <Inline text={h} />
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r, ri) => (
+              <tr key={ri} className={`border-b border-[#E8DCC8] ${r.highlight ? "bg-[#FBF0D9]" : ""}`}>
+                {r.cells.map((c, ci) =>
+                  ci === 0 ? (
+                    <th key={ci} scope="row" className="px-2 py-1.5 text-left font-semibold tabular-nums">
+                      <Inline text={c} />
+                    </th>
+                  ) : (
+                    <td key={ci} className={`px-2 py-1.5 tabular-nums ${ci < r.cells.length - 1 ? "whitespace-nowrap" : ""} ${r.highlight && ci === r.cells.length - 1 ? "font-semibold text-[#8B6508]" : ""}`}>
+                      <Inline text={c} />
+                    </td>
+                  ),
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <ul role="list" className="data-table-cards sm:hidden space-y-3">
+        {rows.map((r, ri) => (
+          <li
+            key={ri}
+            className={`rounded-sm border px-3 py-2 ${r.highlight ? "border-[#D4A843] bg-[#FBF0D9]" : "border-[#E8DCC8]"}`}
+          >
+            <p className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-[16px] font-semibold text-[#1a1a1a]">
+              <span className="tabular-nums">
+                <Inline text={r.cells[0]} />
+              </span>
+              {r.highlight && r.badge && (
+                <span className="rounded-full border border-[#B8860B] px-2 py-0.5 text-[11px] font-semibold leading-4 text-[#8B6508]">
+                  {r.badge}
+                </span>
+              )}
+            </p>
+            <dl className="mt-1 grid grid-cols-[1fr_auto] gap-x-3 gap-y-0.5 text-[14px] leading-snug">
+              {r.cells.slice(1).map((c, ci) => (
+                <React.Fragment key={ci}>
+                  <dt className="text-[#5C3D2E]">
+                    <Inline text={header[ci + 1] ?? ""} />
+                  </dt>
+                  <dd className="m-0 whitespace-nowrap text-right tabular-nums">
+                    <Inline text={c} />
+                  </dd>
+                </React.Fragment>
+              ))}
+            </dl>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
@@ -281,6 +360,9 @@ function ContentBlock({
         />
       );
 
+    case "table":
+      return <DataTable key={index} header={item.header ?? []} rows={item.rows ?? []} />;
+
     case "image": {
       const hs = hotspotsFor(item.src);
       if (hs && item.src) {
@@ -384,7 +466,7 @@ function SubsectionBlock({
   );
 }
 
-export default function SectionContent({ section, ui, num = null }: SectionContentProps) {
+export default function SectionContent({ section, ui, num = null, note }: SectionContentProps) {
   const labels: VerseLabels = {
     translation: t(ui, "verse.translationHint"),
     wbw: t(ui, "verse.wbwHint"),
@@ -415,6 +497,7 @@ export default function SectionContent({ section, ui, num = null }: SectionConte
           </p>
         )}
         <div className="mt-3 h-px bg-[#ccc]" />
+        {note && <p className="section-note mt-3 text-[14px] italic leading-6 text-[#5C3D2E]">{note}</p>}
       </header>
 
       {/* Main content */}

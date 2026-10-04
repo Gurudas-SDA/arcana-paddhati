@@ -47,5 +47,6 @@
   "mood.audio": "hangfelvétel",
   "mood.close": "Bezárás",
   "part.label": "{n}. rész",
-  "part.empty": "Ez a rész előkészületben van."
+  "part.empty": "Ez a rész előkészületben van.",
+  "section.fallback": "A fordítás előkészületben — ez a fejezet angolul jelenik meg."
 }

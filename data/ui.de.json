@@ -47,5 +47,6 @@
   "mood.audio": "Audio",
   "mood.close": "Schließen",
   "part.label": "Teil {n}",
-  "part.empty": "Dieser Teil ist in Vorbereitung."
+  "part.empty": "Dieser Teil ist in Vorbereitung.",
+  "section.fallback": "Übersetzung in Vorbereitung — dieses Kapitel wird auf Englisch angezeigt."
 }

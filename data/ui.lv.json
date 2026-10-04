@@ -47,5 +47,6 @@
   "mood.audio": "audio",
   "mood.close": "Aizvērt",
   "part.label": "{n} daļa",
-  "part.empty": "Sadaļa tiek gatavota."
+  "part.empty": "Sadaļa tiek gatavota.",
+  "section.fallback": "Tulkojums tiek gatavots — šī nodaļa ir attēlota angļu valodā."
 }

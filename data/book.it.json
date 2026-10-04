@@ -27,6 +27,13 @@
       "id": "preaching-centres",
       "title": "Standard per i centri di predica",
       "sections": []
+    },
+    {
+      "id": "festivals-vows",
+      "title": "Festività e voti",
+      "sections": [
+        "caturmasya-purusottama-masa"
+      ]
     }
   ],
   "sections": [

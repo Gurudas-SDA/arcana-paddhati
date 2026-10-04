@@ -435,6 +435,15 @@ class Edition:
                     num = f'<td class="pn">{esc(lab)}</td>'
                 rows += f'<tr>{num}<td class="pl">{inline(p["label"])}</td><td>{inline(p["value"])}</td></tr>'
             return f'<table class="pairs"><tbody>{rows}</tbody></table>'
+        if t == "table":
+            head = "".join(f"<th>{inline(h)}</th>" for h in it.get("header", []))
+            body = ""
+            for r in it.get("rows", []):
+                cells = r.get("cells", [])
+                tds = "".join((f"<th>{inline(c)}</th>" if i == 0 else f"<td>{inline(c)}</td>") for i, c in enumerate(cells))
+                cls = ' class="hl"' if r.get("highlight") else ""
+                body += f"<tr{cls}>{tds}</tr>"
+            return f'<table class="dt"><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table>'
         if t == "mood":
             return self.mood_html(it, epub)
         if t == "image":
@@ -548,6 +557,12 @@ table.pairs { border-collapse: collapse; }
 table.pairs td { vertical-align: top; padding: 0.1em 0; }
 table.pairs td.pl { padding-right: 1.2em; }
 table.pairs td.pn { padding-right: 0.5em; text-align: right; color: #5C3D2E; }
+table.dt { border-collapse: collapse; width: 100%; font-size: 0.78em; line-height: 1.25; margin: 0.8em 0; }
+table.dt th, table.dt td { text-align: left; vertical-align: top; padding: 0.25em 0.3em; border-bottom: 1px solid #E8DCC8; }
+table.dt thead th { font-weight: 600; color: #5C3D2E; border-bottom: 1.5px solid #D4A843; vertical-align: bottom; }
+table.dt tr.hl { background: #FBF0D9; }
+table.dt tr.hl td:last-child { font-weight: 600; color: #8B6508; }
+table.dt tr { break-inside: avoid; page-break-inside: avoid; }
 ol.list, ul.bl { list-style: none; padding: 0; }
 ol.list li { padding-left: 2.6em; text-indent: -2.6em; }
 ol.list .n { display: inline-block; width: 2.2em; text-align: right; text-indent: 0; color: #5C3D2E; }

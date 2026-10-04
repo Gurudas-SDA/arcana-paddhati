@@ -11,6 +11,7 @@ import {
   getSectionIds,
   getSectionNumber,
   getUi,
+  isFallbackSection,
 } from "@/lib/content";
 import { PREFIXED_LANGUAGES, isPrefixedLang, t } from "@/lib/i18n";
 
@@ -45,5 +46,13 @@ export default async function LangSectionPage({
   if (part) return <PartPage part={part} lang={lang} />;
   const section = getSection(lang, id);
   if (!section) notFound();
-  return <SectionContent section={section} ui={getUi(lang)} num={getSectionNumber(id)} />;
+  const ui = getUi(lang);
+  return (
+    <SectionContent
+      section={section}
+      ui={ui}
+      num={getSectionNumber(id)}
+      note={isFallbackSection(lang, id) ? t(ui, "section.fallback") : undefined}
+    />
+  );
 }

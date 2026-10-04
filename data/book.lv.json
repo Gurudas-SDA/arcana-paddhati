@@ -27,6 +27,13 @@
       "id": "preaching-centres",
       "title": "Standarts sludināšanas centriem",
       "sections": []
+    },
+    {
+      "id": "festivals-vows",
+      "title": "Svētki un solījumi",
+      "sections": [
+        "caturmasya-purusottama-masa"
+      ]
     }
   ],
   "sections": [

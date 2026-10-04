@@ -27,6 +27,13 @@
       "id": "preaching-centres",
       "title": "Стандарт для проповідницьких центрів",
       "sections": []
+    },
+    {
+      "id": "festivals-vows",
+      "title": "Свята та обітниці",
+      "sections": [
+        "caturmasya-purusottama-masa"
+      ]
     }
   ],
   "sections": [

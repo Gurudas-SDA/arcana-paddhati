@@ -27,6 +27,13 @@
       "id": "preaching-centres",
       "title": "Standard a prédikálóközpontok számára",
       "sections": []
+    },
+    {
+      "id": "festivals-vows",
+      "title": "Ünnepek és fogadalmak",
+      "sections": [
+        "caturmasya-purusottama-masa"
+      ]
     }
   ],
   "sections": [

@@ -47,5 +47,6 @@
   "mood.audio": "audio",
   "mood.close": "Close",
   "part.label": "Part {n}",
-  "part.empty": "This part is in preparation."
+  "part.empty": "This part is in preparation.",
+  "section.fallback": "Translation in preparation — this chapter is shown in English."
 }
