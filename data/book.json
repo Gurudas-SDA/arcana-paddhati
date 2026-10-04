@@ -32,7 +32,9 @@
       "id": "festivals-vows",
       "title": "Festivals and Vows",
       "sections": [
-        "caturmasya-purusottama-masa"
+        "caturmasya-purusottama-masa",
+        "guru-puja-vyasa-puja",
+        "major-festivals"
       ]
     }
   ],
@@ -5047,6 +5049,818 @@
             {
               "type": "text",
               "content": "How the dates were obtained. All years were calculated for Riga using GCal 11 (Gaurābda Calendar, ISKCON GBC Vaiṣṇava Calendar Committee; the open-source gaurabda library for Python, authored by Gopālapriya dāsa), following the rule of the “pūrṇimā system”: the vow begins on Guru-pūrṇimā, and each subsequent month begins on the next pūrṇimā. Verification: for the period covered by the published calendar of the Caitanya Academy (September 2026–November 2027), all Cāturmāsya dates matched (8 out of 8), as did all Ekādaśī dates (31 out of 31); in GCal, Viśvarūpa-mahotsava coincides with the beginning of the third month in every year, just as in the Academy’s calendar. In GCal, Puruṣottama-māsa is calculated from new moon to new moon; for 2026, this agrees with the generally accepted dates of adhika-māsa (17 May–15 June)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guru-puja-vyasa-puja",
+      "title": "Śrī Guru-pūjā and Vyāsa-pūjā",
+      "subtitle": "vyāsa-pūjā · sapta-pañcakam",
+      "page": "",
+      "content": [
+        {
+          "type": "text",
+          "content": "This chapter describes Vyāsa-pūjā as it is performed in our lineage: its meaning, the order of the ceremony with worship of seven groups of five personalities (⟦sapta-pañcakam⟧), and its connection with the daily worship of Śrī Guru. A source is given for each rule."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "vyasa-puja-meaning",
+          "title": "What Is Vyāsa-pūjā?",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "By the causeless mercy of Śrī Guru and Gaurāṅga, we are celebrating today the Śrī Vyāsa-pūjā. See, the appearance day of Śrīla Vyāsadeva is observed, Vyāsa-pūjā is observed on the appearance day of Śrīla Vyāsadeva. But also, as practiced by Śrī Caitanya Mahāprabhu himself, (..) He used to (..) perform the Vyāsa-pūjā on the individual birthday of his Guru Pāda Padma, Śrīla Īśvara Purīpāda. So, (..) we observe this tradition. Our Prabhupāda Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura has said that the Vyāsa-pūjā is not the day when Śrī Guru accepts the offerings and worship of his disciples, but rather Vyāsa-pūjā is the day when Śrī Guru engages all of his anugata-jana, all of those who are practicing bhakti under his guidance, he engages them in the worship of his guru and his entire guru-paramparā, all the way back to Brahmā, all the way back to Śrī Kṛṣṇa himself.",
+              "translation": "",
+              "source": {
+                "title": "2026.04.12_Vyasa Puja lecture",
+                "date": "2026-04-12",
+                "nr": "10011",
+                "timecode": "",
+                "transcript_url": "https://drive.google.com/file/d/1TTjA4W_nflTbIx6gVL4A5HzelYaeIQGq/view",
+                "audio_url": "https://drive.google.com/file/d/1k13Bhkl_2lgG2lVJbuC7CU-eJHIPOn4t/view"
+              },
+              "more": [
+                {
+                  "quote": "So, the tradition is that a Vaiṣṇava will worship Śrīla Vyāsadeva upon his own birthday. Vyāsa-pūjā is not the day when a guru accepts all the worship and offerings of his disciples. But rather, Śrī Vyāsa-pūjā is the day when the spiritual master engages all of his anugatyān, those who are under his guidance, in worshipping the lotus feet of Vyāsadeva and all the great personalities who have appeared in this world to manifest transcendental knowledge.",
+                  "translation": "",
+                  "source": {
+                    "title": "Sri Prema Prayojana Prabhu Vyasa Puja 18042020",
+                    "date": "2020-04-18",
+                    "nr": "5168",
+                    "timecode": "00:04:46",
+                    "transcript_url": "https://drive.google.com/file/d/1D-d-DTmOKU_q3V2enfTwTNcc8yPN_7Dx/view",
+                    "audio_url": "https://drive.google.com/file/d/1xIv5eX9xzGO9SyP9yWr4Qcf6tDXilhkb/view"
+                  }
+                },
+                {
+                  "quote": "So, in tradition of Vyāsa-pūjā, there is a worship of seven pañcakas, that means seven categories of five personalities. That's called sapta-pañcakam, five groups of seven groups of five. So, in India today, then they will take a kalaśa and with a coconut and, by mantra, install these seven groups of five, thirty-five personalities and worship all of them. So, Vyāsa-pūjā is not the day when the guru gets worshiped by all of his disciples. This is not the meaning of Vyāsa-pūjā, to have a book, and a big cake, and all of these things. This is not Vyāsa-pūjā. Vyāsa-pūjā is the day when Śrī Guru, he engages his disciples in the worship of his own paramparā from the beginning to his down to his own guru.",
+                  "translation": "",
+                  "source": {
+                    "title": "2007.07.29-1_Vyasapuja",
+                    "date": "2007-07-29",
+                    "nr": "378",
+                    "timecode": "00:19:45",
+                    "transcript_url": "https://drive.google.com/file/d/1cGaOIip_FSMTSuHgNZ9FKHSSc4-TKI0e/view",
+                    "audio_url": "https://drive.google.com/file/d/1Q-Qj3sIAxe6K5-ReQqzWVBqHFqdXl-Vl/view"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": "Vyāsa-pūjā (⟦vyāsa-pūjā⟧ — “worship of Vyāsa”) is performed on two occasions. The first is Guru-pūrṇimā, or Vyāsa-pūrṇimā, the full moon of the month of Āṣāḍha, the appearance day of Śrī Kṛṣṇa Dvaipāyana Vedavyāsa, the compiler of the Vedas: on this day all disciples worship their guru, because every genuine guru is a representative of Śrīla Vyāsadeva (Gurudev, lectures no. 6556, 13 July 2022, and no. 533, 15 July 2011). The second is the guru’s own appearance day: Śrī Caitanya Mahāprabhu performed Vyāsa-pūjā on the birthday of His guru, Śrīla Īśvara Purīpāda, and our lineage follows this tradition (Gurudev, lecture no. 10011, 12 April 2026; see Gurudev’s Mood)."
+            },
+            {
+              "type": "text",
+              "content": "Gurudev conveys the meaning of Vyāsa-pūjā in the words of Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura: it is not a day when the guru accepts worship and offerings from his disciples, but a day when Śrī Guru engages everyone practising bhakti under his guidance in worship of his own guru and the entire guru-paramparā, all the way to Brahmā and Śrī Kṛṣṇa Himself (lectures no. 10011, 12 April 2026, no. 5168, 18 April 2020, and no. 378, 29 July 2007). The seat on which the guru sits is called ⟦vyāsāsana⟧ — the seat of Vyāsa: the guru represents not himself, but the voice, views, and realization of Śrīla Vyāsadeva (lecture no. 5168)."
+            },
+            {
+              "type": "text",
+              "content": "In 1952, on his appearance day, Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja instructed: “Tridaṇḍī-sannyāsīs should perform śrī guru-pūjā [of their own guru] on their appearance days. In conjunction with this guru-pūjā it is also necessary to worship the guru-paramparā, Śrī Śrī Rādhā-Kṛṣṇa Yugala and Śacīnandana Śrī Gaurahari and His associates. Vyāsa-pūjā, guru-pūjā, ācārya-pūjā and upāsya-pūjā are different names for the same principle (tattva).” (Ācārya Kesarī Keśava Gosvāmī: His Life and Teachings, GVP, 2013, p. 105; Russian edition, Moscow, 2004, pp. 154–155). In 1958 he repeated: “On vyāsa-pūjā day, an ācārya will worship guru, guru-paramparā and upāsya (the object of worship).” (ibid., p. 133; Russian edition, p. 213)."
+            },
+            {
+              "type": "subtitle",
+              "content": "History"
+            },
+            {
+              "type": "text",
+              "content": "The first Vyāsa-pūjā in our tradition took place about five hundred years ago in Śrīvāsa-aṅgana in Māyāpura: on the instruction of Śrī Caitanya Mahāprabhu, Śrī Nityānanda Prabhu worshipped Mahāprabhu, who was seated on the seat of Vyāsa; Śrīvāsa Paṇḍita then mentioned Vyāsa-pūjā-paddhati, a manual for performing this pūjā (Ācārya Kesarī Keśava Gosvāmī: His Life and Teachings, Russian edition, Moscow, 2004, pp. 200–201; English edition (GVP, 2013), p. 126; Gurudev, lecture no. 7247, 3 July 2023)."
+            },
+            {
+              "type": "text",
+              "content": "This paddhati was lost; a manuscript copy was found in Govardhana Maṭha of the Śaṅkarācārya tradition in Purī. According to the biography of Śrīla Keśava Gosvāmī Mahārāja and the journal Śrī Bhāgavata-patrikā (year 3, no. 10, 1958, pp. 15–17), Śrīla Bhaktisiddhānta Sarasvatī Prabhupāda found it, and Śrīla Bhaktivinoda Ṭhākura revised and supplemented the paddhati for our sampradāya; in his lectures, Gurudev says that Śrīla Bhaktivinoda Ṭhākura rediscovered it and Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura published it (lectures no. 5168 and no. 7247). Śrīla Keśava Gosvāmī Mahārāja also found the same paddhati in Brahma Maṭha in Puṣkara and Śāradā Maṭha in Dvārakā, published Śrīla Bhaktivinoda Ṭhākura’s revision in Śrī Gauḍīya-patrikā (year 4, no. 3), and introduced the practice of Vyāsa-pūjā with pūjā-pañcaka: since then it has been performed annually in the maṭhas of Gauḍīya Vedānta Samiti (English edition, pp. 105 and 126)."
+            },
+            {
+              "type": "text",
+              "content": "The source library for this book contains two Sanskrit manuscripts on Vyāsa-pūjā from the Śaṅkarācārya tradition — Vyāsa-pūjā-vidhi (Surat, SDPB no. 210) and Vyāsa-pūjā-krama (Ramnagar). They give the same ancient arrangement: Kṛṣṇa-pañcaka in the centre, Vyāsa-pañcaka to its right (in the south), Sanakādi-pañcaka in the west, and the guru in front (in the east); in each group, one personality is in the centre and the others are placed “beginning from the east”. In place of our ācārya-pañcaka, they have Śaṅkarācārya and his disciples. Śrīla Keśava Gosvāmī Mahārāja said that the Vyāsa-pūjā of the Śaṅkara tradition is not genuine Vyāsa-pūjā, and that Śrī Vyāsadeva is properly worshipped in the Vaiṣṇava sampradāya (Ācārya Kesarī Keśava Gosvāmī: His Life and Teachings, Russian edition, Moscow, 2004, pp. 154–155 and 212–213; English edition, pp. 105 and 132)."
+            },
+            {
+              "type": "subtitle",
+              "content": "When"
+            },
+            {
+              "type": "text",
+              "content": "In our lineage, Vyāsa-pūjā is performed on Guru-pūrṇimā and on the appearance days of the ācāryas of the guru-varga. Gurudev’s disciples celebrate his Vyāsa-pūjā on his appearance day (Gurudev’s lectures on this day: no. 5168, 18 April 2020, and no. 10011, 12 April 2026). The upcoming dates according to the Vaiṣṇava calendar of the Caitanya Academy (Riga) are: the appearance day of Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja — 6 February 2027; of Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja — 23 February 2027; of Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura Prabhupāda — 25 February 2027; Guru-pūrṇimā — 18 July 2027; the appearance day of Śrīla A. C. Bhaktivedānta Svāmī Prabhupāda (Nandotsava) — 26 August 2027."
+            }
+          ]
+        },
+        {
+          "id": "sapta-pancakam",
+          "title": "Sapta-pañcakam — Seven Groups of Five",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "So we are indebted to many personalities. So in the seven groups of five, 7 times 5 means 35. So, (..) there is one group in the center, and then one group in the north, in the south, the east and the west, on the four sides of that central group. And then there are two groups either side on the south side. So we'll describe them one by one. The central group, the center of the central group is Kṛṣṇa. Then starting from the south and going around clockwise, there is a saṅkarṣaṇa, oh sorry, starting from (..) the east and going clockwise, there is Kṛṣṇa's catur-vyūha, Vāsudeva, Saṅkarṣaṇa, Pradyumna, and Aniruddha. Then to the south, the central personality is Śrīla Vyāsadeva. And starting from the east and going around, Paila Ṛṣi. That is the sage of the Ṛgveda. Then Vaiśampāyana. Then Jaimini. Vaiśampāyana is Yajurveda, then Jaimini means Sāmaveda, and finally Atharvaveda Sumantu Ṛṣi. Then, in the north, the central personality is Śukadeva Gosvāmī. Then starting from the east, Rāmānujācārya, Madhvācārya, Viṣṇu Svāmī and Nimbāditya. Then on the western side, the central personality is Sanat-kumāra. Sanaka-kumāra, yeah, and from going from east, Sanat-kumāra, Sanātana, Sanandana and Viṣvaksena. So then on the eastern side, one's own guru. And then around him, his parama-guru, parameṣṭhi-guru, parātpara-guru, and paramparā-guru. So, his guru and five and five, the next four members of paramparā. So the central one is called kṛṣṇa-pañcakam. Then with the four sampradāya-ācāryas and Śukadeva Gosvāmī is called ācārya-pañcakam. To the south, Vyāsadeva and his disciples, vyāsa-pañcakam. Then with the four Kumāras, sanakādi-pañcakam. And then on the right side, guru-pañcakam. In the east.\n\nNow, in that was the method of worship on the Vyāsa-pūjā in ancient times. Each personality is represented by a kalaśa with a coconut. decorated with, (..) svastika in kuṅkuma and mango leaves, and with a flag with the names of all these personalities. So this ceremony will be doing (..) in the afternoon. And, (..) now, in the more recent times, to the five ancient pañcakam, there are two more. So the one on the eastern side, that is called tattva-pañcakam. So obviously the Pañca-tattva did not worship themselves. So our ācāryas have added the tattva-pañcakam. The central person is Śrī Kṛṣṇa Caitanya, and then going around, Prabhu Nityānanda, Śrī Advaita, Gadādhara, śrīvāsādi-gaura-bhakta-vṛnda. And (..) on the western side, it is called upāsya-pañcakam. Upāsya means those personalities who are the object of our upāsanā, our worship. So, the central person is Śrī Guru. And then Gaura and Gadādhara, and Rādhā and Kṛṣṇa. Of course, Gaura-Gadādhara are Rādhā-Kṛṣṇa. But for us in the following the line of Śrīla Rūpa Gosvāmī, our worshipful personalities are Guru and Gaura-Gadādhara, Rādhā and Rādhā-Kṛṣṇa.",
+              "translation": "",
+              "source": {
+                "title": "2023.07.03 Sri Raya Ramananda Samvada part 08",
+                "date": "2023-07-03",
+                "nr": "7247",
+                "timecode": "00:43:46",
+                "transcript_url": "https://drive.google.com/file/d/1ukhBElXmN2TW7Wy_GxCuZVfy8itkekts/view",
+                "audio_url": "https://drive.google.com/file/d/1SeNg6_l4lY5tjArKB4O7u-cCakyYy-AJ/view"
+              },
+              "more": [
+                {
+                  "quote": "The worship of the Vyāsa-pūjā should be performed in the ancient format called sapta-pañcakam. Śrīla Bhaktivinoda Ṭhākura discovered a scripture with this ancient vyāsa, which was the ancient Vyāsa-pūjā-paddhati, the method of performing Vyāsa-pūjā. This he discovered in the Śaṅkarācārya's Govardhana Maṭha in Jagannātha Purī, in the library there. And it was edited and published by Prabhupāda Bhaktisiddhānta Sarasvatī Ṭhākura. And I have learned personally from my Śrīla Gurudeva on when he was organizing the festival of Vyāsa-pūjā for his Gurudeva, Śrīla Bhakti Prajñāna Keśava Mahārāja, all the details of this Vyāsa-pūjā-paddhati. So for this, it's necessary to have 35 kalaśa, waterpots, decorated with mango leaves and with coconuts which are decorated with a svastika. And these are also decorated with a flag which will have the name of each personality who will be invited to reside in that kalaśa and receive pūjā on this day.\n\nSo this pūjā is called sapta-pañcakam because there are seven groups of five personalities. The first group of five is called guru-pañcakam, and they are arranged on the eastern side of the area where the worship is being performed. So that should be the worship of your own guru and his and four ācāryas prior to him in the guru-paramparā, that means parama-gurudeva, parameṣṭhī-gurudeva, parātpara-gurudeva, and parama-parātpara-gurudeva. Then in the center of the worship area, there is Kṛṣṇa-pañcakam. And in the center, Kṛṣṇa should be worshipped, and around Him the catur-vyūha of Vāsudeva, Saṅkarṣaṇa, Pradyumna, and Aniruddha. (..) Then the next pañcakam is called the Vyāsa-pañcakam. In the center is Śrīla Vyāsadeva, and he is surrounded by his four main disciples to whom he gave the authority of one of the four Vedas. So that is Paila Ṛṣi, Jaimini Ṛṣi, Aṅgira Ṛṣi, and Vaiśampāyana Ṛṣi. Like this. Then the next pañcakam is called Vaiyāsaki-pañcakam or Ācārya-pañcakam. Vaiyāsaki is the name of Śukadeva Gosvāmī, so he is worshipped in the middle, and around on four sides, then the ācāryas of the four Vaiṣṇava sampradāyas. That means Śrī Rāmānujācārya, Śrī Madhvācārya, Śrī Viṣṇusvāmī, and Śrī Nimbāditya. Then the next is called Sanakādi-pañcakam. So this means the four Kumāras, beginning with Sanaka, and then his brothers Sanat, Sanātana, and Sananda, plus Viṣvaksena, who is eternal associate of the Lord who removes all obstacles. Then the next one is called the tattva-pañcakam. So these first five pañcakams have been worshipped since ancient times, and Gauḍīyas we, to this we add two more pañcakams. One is tattva-pañcakam, that is the worship of Caitanya Mahāprabhu surrounded by (..) the rest of the Pañca-tattva, Śrī Kṛṣṇa Caitanya Prabhu Nityānanda Śrī Advaita Gadādhara Śrīvāsādi Gaura-bhakta-vṛnda. Then the last pañcakam is called upāsya-pañcakam. Upāsya means who is the object of our worship. So that is Rādhā-Kṛṣṇa. And Gaura-Gadādhara. Another form of Rādhā-Kṛṣṇa. And Gurudeva, so that makes five.",
+                  "translation": "",
+                  "source": {
+                    "title": "Sri Prema Prayojana Prabhu Vyasa Puja 18042020",
+                    "date": "2020-04-18",
+                    "nr": "5168",
+                    "timecode": "00:11:48",
+                    "transcript_url": "https://drive.google.com/file/d/1D-d-DTmOKU_q3V2enfTwTNcc8yPN_7Dx/view",
+                    "audio_url": "https://drive.google.com/file/d/1xIv5eX9xzGO9SyP9yWr4Qcf6tDXilhkb/view"
+                  }
+                },
+                {
+                  "quote": "So, I have seen my Gurudeva, and I have done sometimes myself in India on the day of Vyāsa-pūjā, then seven pañcakams, sapta-pañcakam. Seven groups of five personalities are honored on the day of Vyāsa-pūjā. At the time of Mahāprabhu, it was the five pañcakams. And that paddhati that Mahāprabhu and his associates followed (..) to for performing the Vyāsa-pūjā, (..) it was discovered by re-discovered by Śrīla Bhaktivinoda Ṭhākura, and he has published this. So, the f- the five, the first five pañcakams, first is called guru-pañcaka. On this day, we worship our Gurudeva and four generations of spiritual masters, that is the first five: Gurudeva, parama-gurudeva, parameṣṭhi-guru, parātpara-guru and paramaparātpara-guru. Then second pañcakam is called ācārya-pañcakam. The worship of the ācāryas of the four sampradāyas: Śrī Rāmānujācārya, Madhvācārya, Viṣṇusvāmī and Nimbāditya. And so that's four personalities plus Śukadeva Gosvāmī. Then third pañcakam is called Vyāsa-pañcaka. The five personalities are Śrīla Vyāsadeva, who is also here today. And (..) his four main disciples to whom he entrusted the responsibility to teach the four Vedas. That is Paila Ṛṣi... ...of the Ṛg Veda... ...Jaimini Ṛṣi... ...the Sāma Veda... ...Vaiśampāyana Ṛṣi... ...of the Yajur Veda... ...and Sumanta, that is Aṅgirā, the Atharva Veda. Then the fourth pañcakam is Sanakādi-pañcakam... ...the very embodiments of divya-jñāna, transcendental knowledge, the four Kumāras... ...that is Sanaka, Sanat-kumāra, Sanātana and Sanandana. So that is four, and the fifth person, Viṣvaksena. The fifth pañcakam is Śrī Kṛṣṇa and his catur-vyūha: Vāsudeva, Saṅkarṣaṇa, Pradyumna and Aniruddha. So, these were the five pañcakams worshiped at the time of Mahāprabhu according to the paddhati. So, the followers of Caitanya Mahāprabhu, they have added two pañcakams. That is tattva-pañcakam. The Pañca-tattva:\n\nSo, and then upāsya-pañcaka. Who is our upāsya, worshipable... Gurudeva... ...Gaura-Gadādhara... ...and Rādhā-Kṛṣṇa. So, Gaura-Gadādhara and Rādhā-Kṛṣṇa are the same... ...but still they have forms in Vraja-līlā and Navadvīpa-līlā. So, these are the (..) seven pañcakams we worship... ...because we are indebted to all of these great personalities for bringing the treasure of transcendental knowledge to this world.",
+                  "translation": "",
+                  "source": {
+                    "title": "SAT SAMPRADAYA SAD GURU SAT SISYA - 2021-05-07 - Sri Prem Prayojan",
+                    "date": "2021-05-07",
+                    "nr": "5836",
+                    "timecode": "00:13:47",
+                    "transcript_url": "https://drive.google.com/file/d/1ojbKnZk2qAKa5AyXNyEAqMjeul2Z8ELt/view",
+                    "audio_url": "https://drive.google.com/file/d/1pmx7fynt0FgzL1N6T3Esmw-B1iTSSlEG/view"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": "The main part of Vyāsa-pūjā according to the ancient paddhati is the worship of thirty-five personalities divided into seven groups of five (⟦pañcaka⟧ — “a group of five”); hence the name ⟦sapta-pañcakam⟧. We are indebted to all of them for bringing the treasure of transcendental knowledge into this world; the guru-paramparā is like a garland: if one flower is removed, the garland breaks (Gurudev, lectures no. 7247, 3 July 2023, and no. 5836, 7 May 2021)."
+            },
+            {
+              "type": "text",
+              "content": "Each personality is represented by a separate kalaśa — a vessel of water decorated with mango leaves, topped with a coconut on which a svastika is drawn with kuṅkuma, and bearing a flag inscribed with that personality’s name; through prayers, each is invited to reside in their kalaśa and accept worship (Gurudev, lectures no. 5168, 18 April 2020, no. 7247, and no. 9003, 10 July 2025). The first five groups were worshipped even in the time of Mahāprabhu; Mahāprabhu’s followers added two more — tattva-pañcaka (Pañca-tattva) and upāsya-pañcaka (lectures no. 5168, no. 5836, and no. 7247)."
+            },
+            {
+              "type": "text",
+              "content": "The arrangement follows Gurudev’s lecture no. 7247 (for the five ancient groups, it is also the same in the paddhati manuscripts): one group in the centre, one each to its east, south, west, and north, and two more on either side on the southern side. Within each group, the first personality is in the centre, and the other four are placed beginning from the east and proceeding clockwise: east, south, west, north."
+            },
+            {
+              "type": "table",
+              "header": [
+                "Pañcaka (place)",
+                "1 — centre",
+                "2 — east",
+                "3 — south",
+                "4 — west",
+                "5 — north"
+              ],
+              "rows": [
+                {
+                  "cells": [
+                    "1. Kṛṣṇa-pañcaka — centre",
+                    "Śrī Kṛṣṇa",
+                    "Vāsudeva",
+                    "Saṅkarṣaṇa",
+                    "Pradyumna",
+                    "Aniruddha"
+                  ]
+                },
+                {
+                  "cells": [
+                    "2. Vyāsa-pañcaka — south",
+                    "Śrīla Vedavyāsa",
+                    "Paila (Ṛg Veda)",
+                    "Vaiśampāyana (Yajur Veda)",
+                    "Jaimini (Sāma Veda)",
+                    "Sumantu (Atharva Veda)"
+                  ]
+                },
+                {
+                  "cells": [
+                    "3. Ācārya-pañcaka (Vaiyāsaki-pañcaka) — north",
+                    "Śrī Śukadeva Gosvāmī",
+                    "Rāmānujācārya",
+                    "Madhvācārya",
+                    "Viṣṇusvāmī",
+                    "Nimbāditya"
+                  ]
+                },
+                {
+                  "cells": [
+                    "4. Sanakādi-pañcaka — west",
+                    "Sanaka",
+                    "Sanat-kumāra",
+                    "Sanātana",
+                    "Sanandana",
+                    "Viṣvaksena"
+                  ]
+                },
+                {
+                  "cells": [
+                    "5. Guru-pañcaka — east",
+                    "one's own guru (Śrī Gurudeva)",
+                    "parama-guru",
+                    "parameṣṭhī-guru",
+                    "parātpara-guru",
+                    "parama-parātpara-guru"
+                  ]
+                },
+                {
+                  "cells": [
+                    "6. Upāsya-pañcaka* — south side, to the west",
+                    "Śrī Guru",
+                    "Gaura",
+                    "Gadādhara",
+                    "Rādhā",
+                    "Kṛṣṇa"
+                  ]
+                },
+                {
+                  "cells": [
+                    "7. Tattva-pañcaka (Pañca-tattva)* — south side, to the east",
+                    "Śrī Kṛṣṇa Caitanya",
+                    "Nityānanda",
+                    "Advaita",
+                    "Gadādhara",
+                    "Śrīvāsa and all the devotees of Gaura"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": "The order of the groups in the table is the order in which the biography of Śrīla Keśava Gosvāmī Mahārāja lists them in its description of the Vyāsa-pūjā of 1948 (English edition, p. 89; Ācārya Kesarī Keśava Gosvāmī: His Life and Teachings, Russian edition, Moscow, 2004, pp. 132–133). The members of the groups are given in the same biography (English edition, p. 133, note 15; Russian edition, p. 213) and agree with Gurudev’s lectures."
+            },
+            {
+              "type": "text",
+              "content": "* For upāsya-pañcaka and tattva-pañcaka, Gurudev gives the order “around the circle”, but does not specify the cardinal directions: numbers 2–5 in these rows indicate the order of worship. Śrī Guru is in the centre of upāsya-pañcaka (lectures no. 7247 and no. 9003); the biography lists its members in a different order: Śrī Rādhā, Kṛṣṇa, Gaura, Gadādhara, Śrī Gurudev. The fifth member of guru-pañcaka is called parama-parātpara-guru in the biography and in lectures no. 5168 and no. 5836, and paramparā-guru in lecture no. 7247."
+            },
+            {
+              "type": "subtitle",
+              "content": "Sumantu or Aṅgirā"
+            },
+            {
+              "type": "text",
+              "content": "In all written sources, Sumantu is named as the fifth member of the Vyāsa-pañcaka—Śrīla Vyāsadeva’s disciple, to whom the Atharva Veda was entrusted: in the biography of Śrīla Keśava Gosvāmī Mahārāja (English edition, p. 133; Russian edition, p. 213) and in both manuscripts of the paddhati; Gurudev names him the same way in lectures no. 7247, 3 July 2023, and no. 9003, 10 July 2025. In the earlier sapta-pañcakam table, according to which we performed this pūjā, and in lecture no. 5168, 18 April 2020, Aṅgirā is named in his place, while in lecture no. 5836, 7 May 2021, Gurudev says: “…and Sumanta, that is Aṅgirā, the Atharva Veda.” This is the same entry: the Atharva Veda is also called Atharvāṅgirasa—“⟦atharvāṅgirasām āsīt sumantur dāruṇo muniḥ⟧” (Śrīmad-Bhāgavatam 1.4.22), and in Śrīla A. C. Bhaktivedānta Svāmī Prabhupāda’s English translation, this sage is named “Sumantu Muni Aṅgirā.” Here we follow the sources and write “Sumantu.”"
+            }
+          ]
+        },
+        {
+          "id": "vyasa-puja-order",
+          "title": "The Order of Vyāsa-pūjā",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "This is a very ancient ceremony which is performed on (..) on the uh Vyāsa Pūjā Guru Pūrṇimā day. And uh even on this day, Caitanya Mahāprabhu, Nityānanda Prabhu, they used to do this. There's a paddhati, a manual that they followed to do this. So our previous gurus acquired this manual, and so we follow the practice even Caitanya Mahāprabhu and Nityānanda used to do on this day. But uh in this, 35 different personalities are honored and they're invited to be present into kalaśas with coconuts and mango leaves. But if you do everything with coconuts and kalaśas and mango leaves, then this ritual will fill the whole apartment. So, and that's what we In India, we do it like that in full scale. I think last year I was in Rome, right, so in Rome we did it also on the full scale. And you have seven (..) separate priests offering the worship uh to the to the 35 personalities, seven groups of five like this. But when Vṛndāvana Vilāsinī invited me to come here, I said, \"That's impossible.\" \"We can't There's no way we'll be able to do this ancient ritual in your small apartment, there'll be no room for the people, once all the coconuts are are set up.\" So, I said, \"Can we just make a miniature version?\" She said, \"All right, I'll try.\" And there it is: the very first scaled down miniature version of the ancient Vedic Vyāsa Pūjā ceremony with the coconuts being substituted by walnuts. So, but it looks so beautiful. All the names of the rishis are on the flags. Perhaps these leaves are not mango leaves. Not so many mango trees growing in Switzerland. But anyway, it looks like the real thing just scaled down. When I look at it, I just kind of feel about 18 ft tall. So it's so beautiful. So at at the end of the seminar today, we'll we can all uh partake in this ceremony.",
+              "translation": "",
+              "source": {
+                "title": "Sri Prem Prayojan - 2018-07-27 - Guru-Purnima",
+                "date": "2018-07-27",
+                "nr": "3295",
+                "timecode": "00:26:31",
+                "transcript_url": "https://drive.google.com/file/d/1U9CWWOYHVt6eJZBIMQW8RiIZMA4u0I5L/view",
+                "audio_url": "https://drive.google.com/file/d/1umh-_Zi_Sc82hLox_Ede6GmbKIP0ragD/view"
+              },
+              "more": [
+                {
+                  "quote": "Now, traditionally, on the appearance day of Vyāsa, the disciples, they worship their guru and all their guru-paramparā, and all the ācāryas of the various sampradāyas, and all the great personalities who are responsible for manifesting transcendental knowledge in this world, such as Śukadeva Gosvāmī, Vyāsadeva and his main disciples. So all those personalities we have just worshipped in this Vyāsa-pūjā ceremony, just earlier. The seat of Vyāsadeva is called vyāsāsana, the seat of Vyāsa. So the pure Vaiṣṇavas, they may sit upon the seat of Vyāsa. Why? Because they represent the realization of Vyāsadeva.",
+                  "translation": "",
+                  "source": {
+                    "title": "Appearance Day of Srila Vyasadeva part 1 - 2021-07-24 - Sri Prem Prayojan",
+                    "date": "2021-07-24",
+                    "nr": "5984",
+                    "timecode": "00:31:18",
+                    "transcript_url": "https://drive.google.com/file/d/1ZnDCtqZfmqWQyfkJZpRx0yybLkEUxU0n/view",
+                    "audio_url": "https://drive.google.com/file/d/1Ma09HfumpVHiYjkhiV90mgolc23ZadKb/view"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": "The order below is compiled from Gurudev’s explanation at the Vyāsa-pūjā of 2025 (lecture no. 9003, 10 July 2025) and from descriptions of the Vyāsa-pūjās of Gauḍīya Vedānta Samiti in the biography of Śrīla Keśava Gosvāmī Mahārāja and in Śrī Bhāgavata-patrikā (1958)."
+            },
+            {
+              "type": "instruction",
+              "content": "Preparation. In a separate area, 35 kalaśas with coconuts are arranged according to the sapta-pañcakam layout (see the table). In India, the pūjā is performed on a full scale — on a large altar decorated with kalaśas, flags, mango branches, and banana trunks (Gurudev, lectures no. 5168 and no. 3295, 27 July 2018; Śrī Bhāgavata-patrikā, 1958, p. 18)."
+            },
+            {
+              "type": "instruction",
+              "content": "If space is limited, a scaled-down version is made: in 2018, in an apartment in Switzerland, the pūjā was performed in miniature, with walnuts instead of coconuts and flags bearing the names of all the ṛṣis (Gurudev, lecture no. 3295; see Gurudev’s Mood)."
+            },
+            {
+              "type": "instruction",
+              "content": "In the morning, after maṅgala-ārati and kīrtana, the account of Vyāsa-pūjā from Śrī Caitanya-bhāgavata is read (this was done at the Vyāsa-pūjā of 1958: Śrī Bhāgavata-patrikā, p. 18)."
+            },
+            {
+              "type": "instruction",
+              "content": "Invocation. Through prayers, the great gurus of the past are invited to enter their respective kalaśas and accept worship (lecture no. 9003)."
+            },
+            {
+              "type": "instruction",
+              "content": "Pūjā. The pūjārīs worship each of the 35 personalities with sixteen upacāras—this is how pūjā-pañcaka was performed according to the Vyāsa-pūjā-paddhati (English edition (GVP, 2013) of the biography, p. 127; Russian edition, pp. 202–203). When performed on the full scale, each of the seven groups is worshipped by its own pūjārī (lecture no. 3295). For how to offer the sixteen upacāras, see the chapter The Main Worship with Sixteen Items. Meanwhile, everyone present sings kīrtana of the holy names (lecture no. 9003)."
+            },
+            {
+              "type": "instruction",
+              "content": "Parikramā. When the pūjā is finished, everyone circumambulates all the great personalities four times while singing kīrtana; the kīrtana concludes with the acclamations: “Jaya Vyāsadeva! Jaya Gurudev! Jaya Prabhupāda!” (lecture no. 9003)."
+            },
+            {
+              "type": "instruction",
+              "content": "Puṣpāñjali. A disciple first worships his own guru and only then the other gurus—this was explained by Śrīla Keśava Gosvāmī Mahārāja (Ācārya Kesarī Keśava Gosvāmī: His Life and Teachings, Russian edition, Moscow, 2004, p. 213; English edition, p. 133). At the Vyāsa-pūjā in 1956, Śrīla Keśava Gosvāmī Mahārāja performed arcana and offered puṣpāñjali at the feet of his guru, Śrīla Prabhupāda, after which his disciples offered puṣpāñjali at his feet (English edition, p. 127). In 1948, the morning ceremony concluded with puṣpāñjali and a fire sacrifice (English edition, p. 89)."
+            },
+            {
+              "type": "instruction",
+              "content": "Ārati, bhoga, and distribution of mahā-prasāda (Śrī Bhāgavata-patrikā, 1958, p. 18)."
+            },
+            {
+              "type": "instruction",
+              "content": "Hari-kathā about Śrīla Vyāsadeva and guru-tattva (lecture no. 9003). In 1956, a lecture on Śrī Guru-pūjā was given on the first day of Vyāsa-pūjā, and on the second day, letters of offering in various languages were read aloud (English edition of the biography, p. 127)."
+            }
+          ]
+        },
+        {
+          "id": "guru-puja-daily",
+          "title": "Guru-pūjā Every Day",
+          "content": [
+            {
+              "type": "text",
+              "content": "Daily worship of Śrī Guru—obeisances to the guru-varga, meditation on Śrī Gurudev, arcana, and prayers—is described in the chapter Arcana of Śrī Guru (in the Temple Standard section); it is not repeated here."
+            },
+            {
+              "type": "text",
+              "content": "Vyāsa-pūjā is the same worship expressed in its full scope: Śrīla Keśava Gosvāmī Mahārāja calls Vyāsa-pūjā, guru-pūjā, ācārya-pūjā, and upāsya-pūjā different names for one tattva (see above). Therefore, on the day of Vyāsa-pūjā, along with one’s own guru, one honours the entire guru-paramparā, Śrī Śrī Rādhā-Kṛṣṇa, and Śrī Gaurahari with His associates."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "major-festivals",
+      "title": "Major Festivals",
+      "subtitle": "mahotsava",
+      "page": "",
+      "content": [
+        {
+          "type": "mood",
+          "quote": "But you should know that in the eleventh canto of Śrīmad-Bhāgavatam, just before Kṛṣṇa is about to leave this world, then Uddhava says to Kṛṣṇa, \"You explained so many philosophical points about meditation and yoga-sādhana and philosophy, but it's all very difficult. Please tell me the most effective and sure way to attain kṛṣṇa-prema.\" So then Kṛṣṇa He gave the supreme methodology. He said, \"You should make Vaiṣṇava festivals.\" (..)? On the holy days such as Janmāṣṭamī, Rādhāṣṭamī and all these holy days, appearance and disappearance days of Vaiṣṇavas, come together with the Vaiṣṇavas. And you should have kīrtanas, you should have Harikathā, you should have mahāprasāda distribution. You should perform dramas, all of these things. And by this you will obtain kṛṣṇa-prema. The power of these festivals, it cannot be overestimated.",
+          "translation": "",
+          "source": {
+            "title": "2026.03.02_Gaura-katha part 2",
+            "date": "2026-03-02",
+            "nr": "9739",
+            "timecode": "00:48:21",
+            "transcript_url": "https://drive.google.com/file/d/1HinaaOLb6JH3_7ILVeCcdj8jFpp3j7jp/view",
+            "audio_url": "https://drive.google.com/file/d/1OP8gUMHDrqZaN6--CHD3FLK7tNt7qWZR/view"
+          },
+          "more": [
+            {
+              "quote": "Kṛṣṇa's telling Uddhava, \"What's the best process for God-realization? Make a festival, decorate the place, put flowers everywhere, and flags and festoons everywhere, cook so many preparations, sing and dance, and make dramas, and hear hari-kathā. And this is the most powerful process.\" So what our ācāryas have given us, our everyday life as devotees, this is Kṛṣṇa's highest teaching to Uddhava just before He left this world. So when we observe the festivals celebrating the appearance of Kṛṣṇa and His associates, we should know that this is a divine occasion, and a transcendental opportunity to realize the highest truth in the easiest way. And this is why we're celebrating Janmāṣṭamī.",
+              "translation": "",
+              "source": {
+                "title": "Shree Krishna Janmashtami 2012 part1, Ticino 2012",
+                "date": "2012-08-10",
+                "nr": "10080",
+                "timecode": "00:51:16",
+                "transcript_url": "https://drive.google.com/file/d/1L2rqxbU741nCKsWKG6p-PlqcGo-mbH0i/view",
+                "audio_url": "https://drive.google.com/file/d/1FbYNG_FrA73MBAl8P5UpTwiLc3BH6bFE/view"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": "This chapter describes the major festivals that are celebrated with special grandeur at Caitanya Academy. For each festival, it gives the rule for determining the date, the dates for 2026 and 2027, the meaning of the festival, how it is celebrated in our lineage, and Gurudev’s words."
+        },
+        {
+          "type": "text",
+          "content": "Why festivals are celebrated. In the Eleventh Canto of Śrīmad-Bhāgavatam, before departing from this world, Śrī Kṛṣṇa was asked by Uddhava to name the most effective and reliable path to kṛṣṇa-prema. He replied: hold Vaiṣṇava festivals—in honor of Janmāṣṭamī and Rādhāṣṭamī and on the appearance and disappearance days of Vaiṣṇavas, gather together with Vaiṣṇavas, perform kīrtanas and hari-kathā, distribute mahā-prasāda, and stage dramas (Gurudev, lectures no. 9739, 2 March 2026, and no. 10080, 10 August 2012; see “Gurudev’s Mood”). Śrīla Bhaktivinoda Ṭhākura advises that on such days one should spend the entire day with devotees in kīrtana, bhajanas, and hearing hari-kathā, and fast: this is the best remedy for inattention—the root of all nāmāparādhas (lecture no. 10080)."
+        },
+        {
+          "type": "table",
+          "header": [
+            "Festival",
+            "When (Vaiṣṇava lunar calendar)",
+            "2026",
+            "2027"
+          ],
+          "rows": [
+            {
+              "cells": [
+                "Festival of Śrīla Rūpa Gosvāmī (disappearance day)",
+                "Śrāvaṇa, śukla-dvādaśī (month of Śrīdhara)",
+                "24 Aug",
+                "13 Aug"
+              ]
+            },
+            {
+              "cells": [
+                "Guru-pūrṇimā (Vyāsa-pūrṇimā)",
+                "full moon of Āṣāḍha",
+                "29 Jul",
+                "18 Jul"
+              ]
+            },
+            {
+              "cells": [
+                "Janmāṣṭamī",
+                "Bhādra, kṛṣṇa-aṣṭamī (month of Hṛṣīkeśa); fast till midnight",
+                "4 Sep",
+                "25 Aug"
+              ]
+            },
+            {
+              "cells": [
+                "Nandotsava",
+                "the day after Janmāṣṭamī",
+                "5 Sep",
+                "26 Aug"
+              ]
+            },
+            {
+              "cells": [
+                "Jhūlana-yātrā",
+                "Śrāvaṇa: from śukla-ekādaśī (Pavitropanī) to pūrṇimā, five days",
+                "23–28 Aug",
+                "12–17 Aug"
+              ]
+            },
+            {
+              "cells": [
+                "Naukā-vilāsa (boat festival)",
+                "no fixed date; in 2026 during the Guru-pūrṇimā festival in Latvia",
+                "1 Aug",
+                "—"
+              ]
+            },
+            {
+              "cells": [
+                "Rādhāṣṭamī",
+                "Bhādra, śukla-aṣṭamī (month of Hṛṣīkeśa)",
+                "19 Sep",
+                "8 Sep"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": "The dates have been calculated for Riga, Latvia—the Vaiṣṇava calendar of Caitanya Academy was compiled for this location; in other places, the dates may differ by one day. The dates from September 2026 onward follow the Academy’s calendar; the earlier dates were calculated using the GCal program for Riga, as in the chapter “Cāturmāsya and Puruṣottama-māsa.”"
+        }
+      ],
+      "subsections": [
+        {
+          "id": "rupa-gosvami-festival",
+          "title": "Śrīla Rūpa Gosvāmī’s Festival",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "What is that mano-'bhīṣṭa of Śrī Caitanya Mahāprabhu? Our Śrīla Gurudeva, nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata-śrī śrīmad rūpānuga-ācārya-varya Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja, he very enthusiastically with so much taste traveled throughout the world to establish the bhakti as expressed by Rūpa Gosvāmī, rūpānuga-bhajana. You can see that when it was Rādhāṣṭamī, Śrīla Gurudeva used to organize very beautiful festival in India. When it was Janmāṣṭamī, also very beautiful festival for Kṛṣṇa's birthday. But when it came round to the disappearance day of Śrīla Rūpa Gosvāmī, Śrīla Gurudeva would organize a festival for five days, more emphasis. Even then Janmāṣṭamī or Rādhāṣṭamī or Gaura-pūrṇimā, any day, five days symposium he used to make and invite all the Vaiṣṇava scholars in our Gauḍīya line and from other sampradāyas, from Nimbārka-sampradāya, from Vallabha-sampradāya, to come and spend the time deliberating upon the revelations of Śrīla Rūpa Gosvāmī.",
+              "translation": "",
+              "source": {
+                "title": "Sri Prem Prayojan - 2017-09-06 - Why does Chaitanya Mahaprabhu come to this world",
+                "date": "2017-09-06",
+                "nr": "2329",
+                "timecode": "00:07:50",
+                "transcript_url": "https://drive.google.com/file/d/1XYPKLDtcNgFpaVd1F26r4qBU3s_yXloB/view",
+                "audio_url": "https://drive.google.com/file/d/1j4b6CzX8kkcWrCt7glHYw9yW7ZBUXKky/view"
+              },
+              "more": [
+                {
+                  "quote": "Today, we are honoring the divine disappearance of Śrīla Rūpa Gosvāmīpāda. There is no difference between the appearance and the disappearance days of pure Vaiṣṇavas. They are transcendental occasions. Whether they are glorified on their appearance or on their disappearance, both days are their appearance, because by hearing their glories then, on today for example, Śrīla Rūpa Gosvāmī will appear in our hearts. We pray for that. But, historically speaking, we can say there is a vaiśiṣṭya, a speciality, in that, in the year 1489, when Rūpa Gosvāmī appeared, at that time his glories were not known, his contribution was not known or appreciated by the world. But, when on the day he disappeared from this world, when his pastimes manifest here were completed, now everyone could see: \"Oh, what an astonishing contribution he has made, unique and unparalleled.\" Before Śrīla Rūpa Gosvāmīpāda, everyone thought that Kālidāsa was the greatest Sanskrit poet. But oh, no one can touch the contribution of Śrīla Rūpa Gosvāmī. As kāvya, as poetry, and also as, especially, more importantly, spiritual revelations.",
+                  "translation": "",
+                  "source": {
+                    "title": "Disappearance day of Srila Rupa Gosvami part 1 - 2021-08-19 - Sri Prem Prayojan",
+                    "date": "2021-08-19",
+                    "nr": "6027",
+                    "timecode": "00:04:20",
+                    "transcript_url": "https://drive.google.com/file/d/1gf_7_Jpodj-62Sjf44ZBbDv5Aa32J1GL/view",
+                    "audio_url": "https://drive.google.com/file/d/1NVivQWcbhGLY1jHPrtRs9Ygz4SFIL-YD/view"
+                  }
+                },
+                {
+                  "quote": "Perhaps you know that our tradition, sampradāya, is called rūpānuga, following outwardly and inwardly a very great saint, Śrīla Rūpa Gosvāmī. In fact, on the last day of this festival here, we will celebrate his divine disappearance day. Śrīla Rūpa Gosvāmī, he has expressed the sentiments of a genuine sādhaka practicing devotee, one who is sincerely giving his body, mind, and words, and all feelings at the lotus feet of Śrī Kṛṣṇa.",
+                  "translation": "",
+                  "source": {
+                    "title": "Sri Nityananda Prabhus causeless mercy - Sri Prem Prayojan Prabhu, Switzerland, 05.08.2014",
+                    "date": "2014-08-05",
+                    "nr": "123",
+                    "timecode": "00:02:50",
+                    "transcript_url": "https://drive.google.com/file/d/1m3qeHHXtKQWyFZ_4ac3XUJyU-IpzaVfx/view",
+                    "audio_url": "https://drive.google.com/file/d/1i4QlZgJvE8QSFZmDY_T7R69dEfsMBoxC/view"
+                  }
+                },
+                {
+                  "quote": "By the causeless mercy of Śrī Guru and Gaurāṅga, we have assembled together here at Caitanya Academy, Latvia, in the kuñja of Śrī Śrī Rādhā-Gopīnātha and Gaurāṅga Mahāprabhu to celebrate the Jhūlana-yātrā and the festival of the disappearance of Śrīla Rūpa Gosvāmīpāda for five days. The glories of Śrīla Rūpa Gosvāmī are so elevated, and also Śrī Śrī Rādhā-Kṛṣṇa's Jhūlana-yātrā is so elevated. So they will have to be approached with the utmost honor, very carefully.",
+                  "translation": "",
+                  "source": {
+                    "title": "Gaudiya Math logo - the Essence of Mahaprabhu’s Vichar-Dhara - 2024-08-15 - Sri Prem Prayojan",
+                    "date": "2024-08-15",
+                    "nr": "7894",
+                    "timecode": "00:04:56",
+                    "transcript_url": "https://drive.google.com/file/d/1vZpAv08N_X8-Ei2wEF-uLA-wMtSJjeRm/view",
+                    "audio_url": "https://drive.google.com/file/d/13SHfoDjTAe3_qxXLo6CilF5EyukB0SCQ/view"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": "Our sampradāya is called ⟦rūpānuga⟧—following externally and internally after the great saint Śrīla Rūpa Gosvāmī (Gurudev, lecture no. 123, 5 August 2014). Śrīla Rūpa Gosvāmī established in this world the confidential desire of Śrī Caitanya Mahāprabhu—⟦śrī-caitanya-mano-'bhīṣṭam⟧ (Śrī Rūpa-praṇāma; lectures no. 2329 and no. 5168). Śrīla Gurudeva, Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja, organized wonderful festivals on Rādhāṣṭamī and Janmāṣṭamī, but he observed Śrīla Rūpa Gosvāmī’s disappearance day with special significance—as a five-day festival: every year in Vṛndāvana, during Jhūlana-yātrā, with a symposium to which he invited Vaiṣṇava scholars from the Gauḍīya lineage and other sampradāyas, so that for five consecutive days they could discuss Śrīla Rūpa Gosvāmī’s revelations (lectures no. 2329, 6 September 2017, and no. 6027, 19 August 2021; see “Gurudev’s Mood”). Following his example, this festival is the principal festival of the year at Caitanya Academy."
+            },
+            {
+              "type": "subtitle",
+              "content": "Date"
+            },
+            {
+              "type": "text",
+              "content": "Śrāvaṇa, śukla-dvādaśī—the disappearance day (⟦tirobhāva-tithi⟧) of Śrīla Rūpa Gosvāmī; this festival is called ⟦viraha-mahotsava⟧, the festival of separation (Gurudev, lectures no. 5395, 31 July 2020, and no. 10361, 24 August 2026). It falls during Jhūlana-yātrā. Gurudev explains that there is no difference between the appearance and disappearance days of pure Vaiṣṇavas—both days are transcendental, and on either of them, while hearing about Śrīla Rūpa Gosvāmī, we pray that he may appear in our hearts; but on his disappearance day, when his pastimes in this world had come to an end, everyone was able to see how astonishing and unparalleled his contribution was (lecture no. 6027). Caitanya Academy’s calendar does not include a separate appearance day for Śrīla Rūpa Gosvāmī."
+            },
+            {
+              "type": "subtitle",
+              "content": "How It Is Celebrated"
+            },
+            {
+              "type": "instruction",
+              "content": "The festival is combined with Jhūlana-yātrā and celebrated for five days—for example, in 2024 at Caitanya Academy in Latvia, in the kuñja of Śrī Śrī Rādhā-Gopīnātha and Gaurāṅga Mahāprabhu (Gurudev, lecture no. 7894, 15 August 2024)."
+            },
+            {
+              "type": "instruction",
+              "content": "On the first day of Jhūlana-yātrā, ⟦adhivāsa⟧—the “pre-festival” of Śrīla Rūpa Gosvāmī’s disappearance day—is observed (lecture no. 1468, 14 August 2016)."
+            },
+            {
+              "type": "instruction",
+              "content": "The main feature is hari-kathā about the life, writings, and revelations of Śrīla Rūpa Gosvāmī; devotees read their offerings to him (lecture no. 9070, 6 August 2025, “Devotees' Offerings to Śrī Rūpa Gosvāmī”)."
+            }
+          ]
+        },
+        {
+          "id": "guru-purnima-festival",
+          "title": "Guru-pūrṇimā",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "By the causeless mercy of Śrī Guru and Gaurāṅga, today we are celebrating Śrī Guru-pūrṇimā. This is the day, traditionally, all disciples worship their guru on this day, because this day is the appearance day of Śrī Kṛṣṇa Dvaipāyana Vedavyāsadeva, the compiler of the Vedas. So, the seat of the speaker of Śrīmad-Bhāgavatam is called the vyāsāsana, the seat of Śrīla Vyāsadeva. So, because all sad-guru, pure gurus, are the representatives of Śrīla Vyāsadeva, so they are worshipped on this day, His appearance day.",
+              "translation": "",
+              "source": {
+                "title": "Guru Purnima, Vyasa Puja - 2022-07-13 - Sri Prem Prayojan",
+                "date": "2022-07-13",
+                "nr": "6556",
+                "timecode": "00:04:34",
+                "transcript_url": "https://drive.google.com/file/d/1ZfdAK74JsqyyrvXZWaHhLRyWEHob7dh7/view",
+                "audio_url": "https://drive.google.com/file/d/1zvrAywHmFtdNzapLVUxMIeZFloQiAIRc/view"
+              }
+            },
+            {
+              "type": "text",
+              "content": "Date: the full moon of Āṣāḍha (2026—29 July, 2027—18 July). This is the appearance day of Śrīla Vyāsadeva and the disappearance day of Śrīla Sanātana Gosvāmī, whom Śrīla Rūpa Gosvāmī calls his Prabhupāda (Gurudev, lecture no. 5987, 25 July 2021). In our lineage, Cāturmāsya begins on this day (see the chapter “Cāturmāsya and Puruṣottama-māsa”)."
+            },
+            {
+              "type": "text",
+              "content": "The meaning of the festival and the procedure for Vyāsa-pūjā, with worship of the sapta-pañcakam, are described in the previous chapter, “Śrī Guru-pūjā and Vyāsa-pūjā.” On this day, all disciples worship their guru because all pure gurus are representatives of Śrīla Vyāsadeva, and the seat of the speaker of Śrīmad-Bhāgavatam is called ⟦vyāsāsana⟧ (lecture no. 6556, 13 July 2022; see “Gurudev’s Mood”)."
+            },
+            {
+              "type": "text",
+              "content": "In 2026, Caitanya Academy celebrated Guru-pūrṇimā with a five-day festival in Latvia, in the forest, from four in the morning until ten in the evening; during these days, Śrī Śrī Rādhā-Gopīnātha went out onto the lake by boat—Naukā-vilāsa (lecture no. 10282, 18 July 2026; see below)."
+            }
+          ]
+        },
+        {
+          "id": "janmastami-nandotsava",
+          "title": "Janmāṣṭamī and Nandotsava",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "Tonight, at midnight, Śrī Kṛṣṇa will appear. Don't think that Kṛṣṇa appeared more than 5,000 years ago. The pastimes of Kṛṣṇa are nitya, eternal realities. And when we engage, we become absorbed in hearing and chanting about them, then we can experience they're happening just now. So the Janmāṣṭamī-mahotsava, the festival of Janmāṣṭamī means the opportunity when Śrī Kṛṣṇa can make His appearance in all of our hearts. So for this, we are fasting, (..)? And singing kīrtana until midnight with a very strong desire, very strong hope that we can receive a sphūrti, or a momentary vision within our heart of the appearance of Śrī Kṛṣṇa.",
+              "translation": "",
+              "source": {
+                "title": "2016.08.25 Sri Janmashtami",
+                "date": "2016-08-25",
+                "nr": "1472",
+                "timecode": "00:05:26",
+                "transcript_url": "https://drive.google.com/file/d/16780ZfyQilUCKk3QvwAibWkrNywBKjox/view",
+                "audio_url": "https://drive.google.com/file/d/1DJTKn3Oc2UjvY0Ozznak2_YwxWNoHDO0/view"
+              },
+              "more": [
+                {
+                  "quote": "So today, we are most blessed and most fortunate to be honouring the festival of Śrī Kṛṣṇa Janmāṣṭamī. My Gurudeva, he used to organise such a huge festival every year on this day and the next day Nandotsava. In Keśavajī Gauḍīya Maṭha in Mathurā. It's very hot at this time of the year. And everyone is fasting even from water. And so many si- singers and musicians, Vrajavāsīs are coming and doing performances and dances also. And very beautiful hari-kathā. And about one hundred thousand people used to come for prasādam. And because Śrīla Gurudeva in Mathurā, he'd been there many years and he stolen the hearts of all the Vrajavāsīs.",
+                  "translation": "",
+                  "source": {
+                    "title": "Sri Prem Prayojan - 2017-08-15 - Sri Krishna Janmashtami",
+                    "date": "2017-08-15",
+                    "nr": "2276",
+                    "timecode": "00:04:38",
+                    "transcript_url": "https://drive.google.com/file/d/1OWBLq7Wg0oz3Oy1Fboxw2QlSe1L60pMK/view",
+                    "audio_url": "https://drive.google.com/file/d/1FRO17DzMcNaQbiFdJd5lA7CG1rCDTkGr/view"
+                  }
+                },
+                {
+                  "quote": "So on this day of Nandotsava, then Nanda Mahārāja and all the Vrajavāsīs in Nandabhavana, they had a very big celebration. They were throwing the, (..) yogurt mixed with haldi. Oh, and butter also. And milk. Everyone was throwing at everyone. Everyone was covered in yellow milk products. Everyone's feet were slipping and skidding on the floor. As they were dancing. So Śukadeva Gosvāmī in his trance was seeing this ecstatic festival, and he's Śrī Śuka because he was so beautiful that the yogurt was appearing on his face. And on his body. So it is said in Śrīmad-Bhāgavatam, \"Śrī-śuka.\" How beautiful he was with the yogurt coming from his trance on his face. Parīkṣit Mahārāja was watching, \"Ah, Gurudeva!\" How he's in āveśa, absorbed in the līlā.",
+                  "translation": "",
+                  "source": {
+                    "title": "Nandotsava - 2022-08-20 - Sri Prem Prayojan",
+                    "date": "2022-08-20",
+                    "nr": "6623",
+                    "timecode": "00:10:57",
+                    "transcript_url": "https://drive.google.com/file/d/14Qb63kZ7sAPS7x06liyoQbU3p02Hh5u4/view",
+                    "audio_url": "https://drive.google.com/file/d/1Jsl78WKd_JOyIuIM8w_HQCrVgOdNJX4d/view"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": "Date: Janmāṣṭamī—the kṛṣṇa-aṣṭamī of Bhādra (Hṛṣīkeśa): 2026—4 September, 2027—25 August. Nandotsava is on the following day: 2026—5 September, 2027—26 August."
+            },
+            {
+              "type": "text",
+              "content": "Kṛṣṇa’s pastimes are eternal, and by immersing ourselves in hearing and chanting, we can feel that they are taking place right now: the festival of Janmāṣṭamī is an opportunity for Śrī Kṛṣṇa to appear in the heart of each one of us; for this reason, devotees fast and chant kīrtana until midnight (Gurudev, lecture no. 1472, 25 August 2016; see “Gurudev’s Mood”)."
+            },
+            {
+              "type": "subtitle",
+              "content": "How It Is Celebrated"
+            },
+            {
+              "type": "instruction",
+              "content": "Fast until midnight; after midnight, only Ekādaśī prasāda (Caitanya Academy calendar)."
+            },
+            {
+              "type": "instruction",
+              "content": "All day and evening there are kīrtana, bhajanas, and hari-kathā about how Kṛṣṇa appeared; while hearing these pastimes, we pray that at midnight Kṛṣṇa may appear in our hearts as well (Gurudev, lectures no. 1470, 24 August 2016, and no. 10080, 10 August 2012)."
+            },
+            {
+              "type": "instruction",
+              "content": "Around 10:30 p.m., Rādhā and Kṛṣṇa are offered abhiṣeka (see the chapter “Maha Abhiseka”), after which They are dressed and decorated, bhoga is offered, and ārati is performed; the celebration continues in this way until the very moment of Kṛṣṇa’s appearance at midnight (lecture no. 10080)."
+            },
+            {
+              "type": "instruction",
+              "content": "The fast is broken at midnight with caraṇāmṛta—the substances with which the Deities were bathed—and then prasāda without grains is honored, as on Ekādaśī (lecture no. 10080)."
+            },
+            {
+              "type": "text",
+              "content": "Every year, Śrīla Gurudeva organized a grand festival on Janmāṣṭamī and the following day, Nandotsava, at Keśavajī Gauḍīya Maṭha in Mathurā: everyone fasted, even from water; singers and musicians from Vraja performed; hari-kathā was heard; and around one hundred thousand people came for prasāda (Gurudev, lecture no. 2276, 15 August 2017)."
+            },
+            {
+              "type": "subtitle",
+              "content": "Nandotsava"
+            },
+            {
+              "type": "text",
+              "content": "Nandotsava is Nanda Mahārāja’s festival celebrating the birth of his son. Nanda Mahārāja distributes generous gifts to the brāhmaṇas and everyone who comes, while the Vrajavāsīs at Nanda-bhavana throw yogurt mixed with turmeric, butter and milk at one another and dance (Gurudev, lectures no. 6623, 20 August 2022, and no. 10113, 3 May 2026). This is also the appearance day of Śrīla A. C. Bhaktivedānta Svāmī Prabhupāda; his Vyāsa-pūjā is celebrated on this day (lecture no. 805, 29 August 2013; Caitanya Academy calendar)."
+            }
+          ]
+        },
+        {
+          "id": "jhulana-yatra",
+          "title": "Jhūlana-yātrā — the Swing Festival",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "Today, we are celebrating Jhūlana-yātrā, the swing festival of Rādhā and Kṛṣṇa. It has a very deep meaning. You see that in the summertime in Vṛndāvana, it's very hot. This heat is the heat of separation. And the grass, everything becomes dry. And people are thinking, \"Oh, when will this heat be over?\" And when the summer is coming to an end, then they look and they see gathering in the sky dark, black, fresh rain clouds. And seeing the fresh rain clouds, they are Ghanaśyāma. Then they know, now the heat of the summer will be over, they will get relief. So Rādhārāṇī's heat of separation will only go away when She sees Ghanaśyāma, Śrī Kṛṣṇa whose complexion is like a fresh rain cloud. Then the rain begins to fall. And when the rain falls, then suddenly, all the forest, everything becomes lush and green.",
+              "translation": "",
+              "source": {
+                "title": "Jhulan Yatra, Dole 2012",
+                "date": "2012-07-29",
+                "nr": "10075",
+                "timecode": "00:00:56",
+                "transcript_url": "https://drive.google.com/file/d/1B2jPr7u9vr2WYgc7NPJ4QJGaAV2P8MEZ/view",
+                "audio_url": "https://drive.google.com/file/d/1WgAPesSz1Kcp_lCiYn9UtA2DejmOjI-r/view"
+              },
+              "more": [
+                {
+                  "quote": "Otherwise, just as we will see now, Rādhā and Kṛṣṇa sit together peacefully and swaying very gently. And Kṛṣṇa is realizing,\n\n[…]\n\nOh Rādhikā, I can never repay you.\" And Rādhikā, by Her mahābhāva, is relishing the sweetness of Kṛṣṇa. At that time, Rādhikā's mādanākhya-mahābhāva manifests. It doesn't require a spectacular dramatic pastime. Just sitting together and looking into each other's eyes, and the highest pray, mādanākhya-mahābhāva is manifested. And the sakhīs who are around, they become vyāpta, bathing in that highest love of Rādhikā for Kṛṣṇa. This is the meaning of Jhulan-yātrā.",
+                  "translation": "",
+                  "source": {
+                    "title": "Rupanuaga, Palya dasi & Jhulan-Yatra, Sri Prem Prayojan Prabhu in Ananda-Dham, 14.08.2016",
+                    "date": "2016-08-14",
+                    "nr": "1468",
+                    "timecode": "01:05:10",
+                    "transcript_url": "https://drive.google.com/file/d/1ye3v6kePeXcTr3ag1_o2FcAePyXb53dz/view",
+                    "audio_url": "https://drive.google.com/file/d/10TOFMXsli__ux9GURWWIty8WzMHV1tPY/view"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": "Date: from Pavitropanī Ekādaśī (Śrāvaṇa, śukla-ekādaśī) to Śrāvaṇa-pūrṇimā — five days: 2026 — 23–28 August; 2027 — 12–17 August. The last day is Balarāma-pūrṇimā, the appearance day of Lord Balarāma, and Rakṣā-bandhana (Gurudev, lectures no. 6060, 22 August 2021, and no. 7931, 19 August 2024). The festival of Śrīla Rūpa Gosvāmī also falls during Jhūlana-yātrā."
+            },
+            {
+              "type": "text",
+              "content": "Meaning. The summer heat in Vṛndāvana is the heat of separation; when fresh rain clouds gather in the sky, this is Ghanaśyāma — Kṛṣṇa, whose bodily complexion resembles a rain cloud — and Rādhārāṇī’s heat of separation subsides only when She sees Him (Gurudev, lecture no. 10075, 29 July 2012; see “Gurudev’s Mood”). During the rainy season, the gopīs stay at their parents’ homes and can freely meet with Kṛṣṇa; the sakhīs arrange swings, and as one swings, all cares and anxieties recede far away (lectures no. 2263, 3 August 2017, and no. 3375, 22 August 2018). The highest aspect of Jhūlana is not a spectacular pastime: Rādhā and Kṛṣṇa simply sit together, gently swinging and looking into each other’s eyes, and Rādhikā’s mādanākhya-mahābhāva manifests (lecture no. 1468, 14 August 2016)."
+            },
+            {
+              "type": "text",
+              "content": "Gurudev introduced this festival in the Caitanya Academy community; it is celebrated for five days together with the festival of Śrīla Rūpa Gosvāmī (lectures no. 7894, 15 August 2024, and no. 10356, 23 August 2026)."
+            },
+            {
+              "type": "subtitle",
+              "content": "How It Is Celebrated"
+            },
+            {
+              "type": "instruction",
+              "content": "In the evening, after hari-kathā and ārati to Śrī Caitanya Mahāprabhu, Rādhā and Kṛṣṇa are carried to the decorated swing accompanied by kīrtana and the sound of a conch; They are fanned with two cāmaras and a fan (Gurudev, lecture no. 10356, 23 August 2026)."
+            },
+            {
+              "type": "instruction",
+              "content": "Everyone present takes a turn approaching and swinging Rādhā and Kṛṣṇa’s swing (lectures no. 10356 and no. 1468)."
+            },
+            {
+              "type": "instruction",
+              "content": "Songs in Vraja-bhāṣā and kīrtanas in Śrīmatī Rādhikā’s favourite rāgas — Malhāra and Dhanaśrī — are sung (lectures no. 1468, no. 2266, 7 August 2017, and no. 3429, 25 August 2018)."
+            }
+          ]
+        },
+        {
+          "id": "nauka-vilasa",
+          "title": "Naukā-vilāsa — the Boat Festival",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "So, Śrī Gaurāṅga Mahāprabhu has shown by His own pastimes how devotees in their sādhaka forms should make very beautiful festivals for the deities. And among them, this festival of the Naukā-vilāsa is so beautiful and one of the prominent festivals in that Mahāprabhu and His associates participated in.\n\nSo why are we saying this? Because this naukā-vilāsa is a līlā-vilāsa. Rādhā-Kṛṣṇa are sitting together among with their sakhīs and riding in a boat and very pleasingly talking to each other, sometimes joking, sometimes frowning, sometimes quarreling, like this. Sometimes apparently competing with each other and sometimes coming in complete praṇaya with each other.",
+              "translation": "",
+              "source": {
+                "title": "2026.08.02_Rādhā-Kṛṣṇa-naukā-vihāra-līlā_Boat Festival",
+                "date": "2026-08-02",
+                "nr": "10322",
+                "timecode": "00:50:04",
+                "transcript_url": "https://drive.google.com/file/d/1ZwRNEVklzLb-S1FCpIIAU3vptAe3GxwZ/view",
+                "audio_url": "https://drive.google.com/file/d/1DTUIqc_hZ2w3Iem_Pboqp-L4v-H3hDwL/view"
+              },
+              "more": [
+                {
+                  "quote": "What type of a realization comes to Mahāprabhu at the time of the Naukā-vilāsa sevā? (..) In Vṛndāvana, there are different types of Naukā-vilāsa. One type of Naukā-vilāsa is when Śrī Kṛṣṇa disguises himself as a boatman. And when the Gopīs come and they want to cross over the Mānasī-gaṅgā at Girirāja Govardhana, He tricks them. And then another type of Naukā-vilāsa is when the sakhīs they have a very beautifully decorated boat and Rādhā-Kṛṣṇa get onto the boat and all the sakhīs come also on the boat and play musical instruments and sing and they engage in their rasālāpa, beautiful loving talks as they go for a pleasure cruise on Yamunā.",
+                  "translation": "",
+                  "source": {
+                    "title": "2026.08.02_Rādhā-Kṛṣṇa-naukā-vihāra-līlā_Boat Festival",
+                    "date": "2026-08-02",
+                    "nr": "10322",
+                    "timecode": "00:50:42",
+                    "transcript_url": "https://drive.google.com/file/d/1ZwRNEVklzLb-S1FCpIIAU3vptAe3GxwZ/view",
+                    "audio_url": "https://drive.google.com/file/d/1DTUIqc_hZ2w3Iem_Pboqp-L4v-H3hDwL/view"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": "Name. ⟦naukā-vilāsa⟧ (⟦naukā⟧ — “boat”, ⟦vilāsa⟧ — “pastimes”) is what Gurudev calls this festival (lectures no. 10315, 1 August 2026, and no. 10322, 2 August 2026); it is also called ⟦naukā-vihāra⟧; in Śrī Caitanya-bhāgavata, these pastimes are described as ⟦naukā-līlā⟧ (lecture no. 10322)."
+            },
+            {
+              "type": "text",
+              "content": "Origin. Every year in Jagannātha Purī during Candana-yātrā, for twenty-one days beginning on Akṣaya-tṛtīyā, the festival Deity of Lord Jagannātha in the form of Rādhā-Madana-mohana is carried to Lake Narendra-sarovara and taken for a boat ride. Śrī Caitanya Mahāprabhu and His associates participated in this festival every year, and through His pastimes Mahāprabhu showed how devotees in their sādhaka form should arrange beautiful festivals for the Deities (Gurudev, lectures no. 10322, no. 2888, 27 February 2018, and no. 8567, 10 February 2025; see “Gurudev’s Mood”). In the Academy calendar, Candana-yātrā in 2027 begins on 9 May."
+            },
+            {
+              "type": "text",
+              "content": "Meaning. In Vṛndāvana there are two kinds of Naukā-vilāsa: Kṛṣṇa, disguised as a boatman, uses trickery to ferry the gopīs across Mānasī-gaṅgā at Govardhana; or Rādhā and Kṛṣṇa sail with the sakhīs in a decorated boat on the Yamunā, Mānasī-gaṅgā, Rādhā-kuṇḍa or Kusuma-sarovara, while the sakhīs play and sing, and Rādhā and Kṛṣṇa engage in ⟦rasālāpa⟧ — intimate conversations, joking and arguing. This Naukā-vilāsa is ⟦līlā-vilāsa⟧, and it contains the highest rasa (lecture no. 10322)."
+            },
+            {
+              "type": "subtitle",
+              "content": "How It Is Celebrated"
+            },
+            {
+              "type": "text",
+              "content": "In 2026, Naukā-vilāsa for Śrī Śrī Rādhā-Gopīnātha was held on a lake at Caitanya Academy in Latvia during the Guru-pūrṇimā festival (lectures no. 10282, 18 July 2026, no. 10315 and no. 10322)."
+            },
+            {
+              "type": "instruction",
+              "content": "All preparations (the boat and decorations) are completed before the evening programme; evening bhajanas begin at 18:00 (Gurudev, lecture no. 10315)."
+            },
+            {
+              "type": "instruction",
+              "content": "In the evening, hari-kathā and kīrtana about Naukā-vilāsa continue until approximately 22:00, so that everyone serves in the mood of this pastime (lectures no. 10315 and no. 10322)."
+            },
+            {
+              "type": "instruction",
+              "content": "Rādhā-Gopīnātha are prepared in advance and carried to the boat; at about 22:00, the procession sets out along the parikramā route to the lake. Naukā-vilāsa can take place during the day or at night — in 2026 it took place at night (lecture no. 10315)."
+            },
+            {
+              "type": "instruction",
+              "content": "The festival concludes around midnight with sweets: ⟦madhureṇa samāpayet⟧ — “end with something sweet” (lecture no. 10315)."
+            }
+          ]
+        },
+        {
+          "id": "radhastami-festival",
+          "title": "Rādhāṣṭamī",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "Today, we are celebrating the appearance of—that means, in terms of the līlā—the birthday of the daughter of Vṛṣabhānu Mahārāja, Śrīmatī Rādhikā. Śrī Rādhāṣṭamī Mahā-mahotsava kī jaya! Jaya! For this really to be the appearance of Rādhikā for us as individuals, then Rādhikā must appear within our hearts. That is the true celebration. Only those who have had the darśana of Rādhikā in their heart, they can say they have really celebrated the Rādhāṣṭamī festival.",
+              "translation": "",
+              "source": {
+                "title": "Sri Radhastami part 2 - 2024-09-11 - Sri Prem Prayojan",
+                "date": "2024-09-11",
+                "nr": "7972",
+                "timecode": "00:05:05",
+                "transcript_url": "https://drive.google.com/file/d/1TAkjh4hI01CLLJXXw9FOnY2uINCQZL2C/view",
+                "audio_url": "https://drive.google.com/file/d/1HAjq4U-nokD9AhFDjci0pqtl-NUxJoKy/view"
+              }
+            },
+            {
+              "type": "text",
+              "content": "Date: śukla-aṣṭamī in the month of Bhādra (Hṛṣīkeśa): 2026 — 19 September; 2027 — 8 September. According to the Caitanya Academy calendar, there is no fasting on this day."
+            },
+            {
+              "type": "text",
+              "content": "On this day, the birth of Śrīmatī Rādhikā, the daughter of Vṛṣabhānu Mahārāja, is celebrated; but for this to be Rādhikā’s appearance for each of us, She must appear in our hearts—this is the true celebration (Gurudev, lecture no. 7972, 11 September 2024; see Gurudev’s Mood). Śrīla Gurudeva would hold a beautiful Rādhāṣṭamī festival in India (lecture no. 2329); before Rādhāṣṭamī, Gurudev holds a festival of rādhā-tattva over several days, with classes on Rādhā (lecture no. 6075, 10 September 2021)."
             }
           ]
         }

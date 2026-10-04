@@ -3,5 +3,13 @@
   "caturmasya-purusottama-masa": {
     "langs": ["ru", "ru-iast"],
     "source": "scripts/chapters/ch13_caturmasya/build.py"
+  },
+  "guru-puja-vyasa-puja": {
+    "langs": ["ru", "ru-iast"],
+    "source": "scripts/chapters/ch14_vyasa_puja/build.py"
+  },
+  "major-festivals": {
+    "langs": ["ru", "ru-iast"],
+    "source": "scripts/chapters/ch15_major_festivals/build.py"
   }
 }

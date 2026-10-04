@@ -151,7 +151,7 @@ function DataTable({ header, rows }: { header: string[]; rows: TableRow[] }) {
                       <Inline text={c} />
                     </th>
                   ) : (
-                    <td key={ci} className={`px-2 py-1.5 tabular-nums ${ci < r.cells.length - 1 ? "whitespace-nowrap" : ""} ${r.highlight && ci === r.cells.length - 1 ? "font-semibold text-[#8B6508]" : ""}`}>
+                    <td key={ci} className={`px-2 py-1.5 tabular-nums ${/\d/.test(c) && c.length <= (ci < r.cells.length - 1 ? 18 : 10) ? "whitespace-nowrap" : ""} ${r.highlight && ci === r.cells.length - 1 ? "font-semibold text-[#8B6508]" : ""}`}>
                       <Inline text={c} />
                     </td>
                   ),
@@ -178,16 +178,26 @@ function DataTable({ header, rows }: { header: string[]; rows: TableRow[] }) {
               )}
             </p>
             <dl className="mt-1 grid grid-cols-[1fr_auto] gap-x-3 gap-y-0.5 text-[14px] leading-snug">
-              {r.cells.slice(1).map((c, ci) => (
-                <React.Fragment key={ci}>
-                  <dt className="text-[#5C3D2E]">
-                    <Inline text={header[ci + 1] ?? ""} />
-                  </dt>
-                  <dd className="m-0 whitespace-nowrap text-right tabular-nums">
-                    <Inline text={c} />
-                  </dd>
-                </React.Fragment>
-              ))}
+              {r.cells.slice(1).map((c, ci) => {
+                // short values (dates) sit on the label's line, right-aligned; long ones (descriptions) wrap below it
+                const long = c.length > 24;
+                return (
+                  <React.Fragment key={ci}>
+                    <dt className={`text-[#5C3D2E] ${long ? "col-span-2" : ""}`}>
+                      <Inline text={header[ci + 1] ?? ""} />
+                    </dt>
+                    <dd
+                      className={
+                        long
+                          ? "col-span-2 m-0 mb-1 text-left"
+                          : "m-0 whitespace-nowrap text-right tabular-nums"
+                      }
+                    >
+                      <Inline text={c} />
+                    </dd>
+                  </React.Fragment>
+                );
+              })}
             </dl>
           </li>
         ))}

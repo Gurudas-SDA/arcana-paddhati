@@ -32,7 +32,9 @@
       "id": "festivals-vows",
       "title": "Праздники и обеты",
       "sections": [
-        "caturmasya-purusottama-masa"
+        "caturmasya-purusottama-masa",
+        "guru-puja-vyasa-puja",
+        "major-festivals"
       ]
     }
   ],
@@ -5069,6 +5071,818 @@
             {
               "type": "text",
               "content": "Как получены даты. Все годы рассчитаны для Риги программой GCal 11 (Gaurābda Calendar, ISKCON GBC Vaiṣṇava Calendar Committee; открытая библиотека gaurabda для Python, автор — Гопалаприя дас) — по правилу «пурнима-системы»: обет начинается в Гуру-пурниму, а каждый следующий месяц — в очередную пурниму. Проверка: на период, который охватывает опубликованный календарь Академии Чайтаньи (сентябрь 2026 — ноябрь 2027), совпали все даты чатурмасьи (8 из 8) и все экадаши (31 из 31); Вишварупа-махотсава в GCal во все годы совпадает с началом третьего месяца, как и в календаре Академии. Пурушоттама-маса в GCal считается от новолуния до новолуния; для 2026 года это совпадает с общепринятыми датами адхика-масы (17 мая — 15 июня)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guru-puja-vyasa-puja",
+      "title": "Шри Гуру-пуджа и Вьяса-пуджа",
+      "subtitle": "вйа̄са-пӯджа̄ · сапта-пан̃чакам",
+      "page": "",
+      "content": [
+        {
+          "type": "text",
+          "content": "Эта глава описывает Вьяса-пуджу так, как её совершают в нашей линии: что она означает, порядок церемонии с поклонением семи группам по пять личностей (⟦сапта-пан̃чакам⟧) и её связь с ежедневным поклонением Шри Гуру. У каждого правила указан источник."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "vyasa-puja-meaning",
+          "title": "Что такое Вьяса-пуджа",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "By the causeless mercy of Śrī Guru and Gaurāṅga, we are celebrating today the Śrī Vyāsa-pūjā. See, the appearance day of Śrīla Vyāsadeva is observed, Vyāsa-pūjā is observed on the appearance day of Śrīla Vyāsadeva. But also, as practiced by Śrī Caitanya Mahāprabhu himself, (..) He used to (..) perform the Vyāsa-pūjā on the individual birthday of his Guru Pāda Padma, Śrīla Īśvara Purīpāda. So, (..) we observe this tradition. Our Prabhupāda Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura has said that the Vyāsa-pūjā is not the day when Śrī Guru accepts the offerings and worship of his disciples, but rather Vyāsa-pūjā is the day when Śrī Guru engages all of his anugata-jana, all of those who are practicing bhakti under his guidance, he engages them in the worship of his guru and his entire guru-paramparā, all the way back to Brahmā, all the way back to Śrī Kṛṣṇa himself.",
+              "translation": "По беспричинной милости Шри Гуру и Гауранги, мы сегодня празднуем Шри Вьяса-пуджу. Видите ли, день явления Шрилы Вьясадевы отмечается, Вьяса-пуджа празднуется в день явления Шрилы Вьясадевы. Но также, согласно практике Шри Чайтаньи Махапрабху самого, (..) Он совершал Вьяса-пуджу в день рождения своего Гуру Пада Падмы, Шрилы Ишвары Пурипады. Итак, (..) мы соблюдаем эту традицию. Наш Прабхупада Шрила Бхактисиддханта Сарасвати Тхакур говорил, что Вьяса-пуджа — это не тот день, когда Шри Гуру принимает подношения и поклонение своих учеников, а Вьяса-пуджа — это день, когда Шри Гуру занимает всех своих анугата-джана, всех тех, кто практикует бхакти под его руководством, он занимает их поклонением своему гуру и всей своей гуру-парампаре, вплоть до Брахмы, вплоть до Шри Кришны самого.",
+              "source": {
+                "title": "2026.04.12_Vyasa Puja lecture",
+                "date": "2026-04-12",
+                "nr": "10011",
+                "timecode": "",
+                "transcript_url": "https://drive.google.com/file/d/1TTjA4W_nflTbIx6gVL4A5HzelYaeIQGq/view",
+                "audio_url": "https://drive.google.com/file/d/1k13Bhkl_2lgG2lVJbuC7CU-eJHIPOn4t/view"
+              },
+              "more": [
+                {
+                  "quote": "So, the tradition is that a Vaiṣṇava will worship Śrīla Vyāsadeva upon his own birthday. Vyāsa-pūjā is not the day when a guru accepts all the worship and offerings of his disciples. But rather, Śrī Vyāsa-pūjā is the day when the spiritual master engages all of his anugatyān, those who are under his guidance, in worshipping the lotus feet of Vyāsadeva and all the great personalities who have appeared in this world to manifest transcendental knowledge.",
+                  "translation": "Итак, традиция такова: вайшнав поклоняется Шриле Вьясадеве в день собственного рождения. Вьяса-пуджа — это не день, когда гуру принимает все поклонение и подношения своих учеников. Напротив, Шри Вьяса-пуджа — это день, когда духовный учитель побуждает всех своих анугатьев, тех, кто следует под его руководством, поклоняться лотосным стопам Вьясадевы и всех великих личностей, явившихся в этом мире, чтобы проявить трансцендентное знание.",
+                  "source": {
+                    "title": "Sri Prema Prayojana Prabhu Vyasa Puja 18042020",
+                    "date": "2020-04-18",
+                    "nr": "5168",
+                    "timecode": "00:04:46",
+                    "transcript_url": "https://drive.google.com/file/d/1D-d-DTmOKU_q3V2enfTwTNcc8yPN_7Dx/view",
+                    "audio_url": "https://drive.google.com/file/d/1xIv5eX9xzGO9SyP9yWr4Qcf6tDXilhkb/view"
+                  }
+                },
+                {
+                  "quote": "So, in tradition of Vyāsa-pūjā, there is a worship of seven pañcakas, that means seven categories of five personalities. That's called sapta-pañcakam, five groups of seven groups of five. So, in India today, then they will take a kalaśa and with a coconut and, by mantra, install these seven groups of five, thirty-five personalities and worship all of them. So, Vyāsa-pūjā is not the day when the guru gets worshiped by all of his disciples. This is not the meaning of Vyāsa-pūjā, to have a book, and a big cake, and all of these things. This is not Vyāsa-pūjā. Vyāsa-pūjā is the day when Śrī Guru, he engages his disciples in the worship of his own paramparā from the beginning to his down to his own guru.",
+                  "translation": "Итак, в традиции Вьяса-пуджи поклоняются семи панчакам, то есть семи категориям по пять личностей. Это называется сапта-панчакой — пять групп из семи групп по пять. Поэтому сегодня в Индии берут калашу с кокосом и с помощью мантры устанавливают в ней эти семь групп по пять — тридцать пять личностей — и поклоняются всем им. Итак, Вьяса-пуджа — это не день, когда гуру поклоняются все его ученики. В этом не заключается смысл Вьяса-пуджи — иметь книгу, большой торт и всё такое. Это не Вьяса-пуджа. Вьяса-пуджа — это день, когда Шри Гуру вовлекает своих учеников в поклонение собственной парампаре, начиная с самого первого и вплоть до своего гуру.",
+                  "source": {
+                    "title": "2007.07.29-1_Vyasapuja",
+                    "date": "2007-07-29",
+                    "nr": "378",
+                    "timecode": "00:19:45",
+                    "transcript_url": "https://drive.google.com/file/d/1cGaOIip_FSMTSuHgNZ9FKHSSc4-TKI0e/view",
+                    "audio_url": "https://drive.google.com/file/d/1Q-Qj3sIAxe6K5-ReQqzWVBqHFqdXl-Vl/view"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": "Вьяса-пуджа (⟦вйа̄са-пӯджа̄⟧ — «поклонение Вьясе») совершается в двух случаях. Первый — Гуру-пурнима, или Вьяса-пурнима, полнолуние месяца Ашадха, день явления Шри Кришны Двайпаяны Ведавьясы, составителя Вед: в этот день все ученики поклоняются своему гуру, потому что каждый истинный гуру — представитель Шрилы Вьясадевы (Гурудев, лекции № 6556 от 13.07.2022 и № 533 от 15.07.2011). Второй — день явления самого гуру: Шри Чайтанья Махапрабху совершал Вьяса-пуджу в день рождения Своего гуру, Шрилы Ишвары Пурипады, и эту традицию соблюдает наша линия (Гурудев, лекция № 10011 от 12.04.2026; см. «Настроение Гурудева»)."
+            },
+            {
+              "type": "text",
+              "content": "Смысл Вьяса-пуджи Гурудев передаёт словами Шрилы Бхактисиддханты Сарасвати Тхакура: это не день, когда гуру принимает поклонение и подношения учеников, а день, когда Шри Гуру вовлекает всех, кто практикует бхакти под его руководством, в поклонение своему гуру и всей гуру-парампаре — вплоть до Брахмы и Самого Шри Кришны (лекции № 10011 от 12.04.2026, № 5168 от 18.04.2020 и № 378 от 29.07.2007). Сиденье, на котором сидит гуру, называется ⟦вйа̄са̄сана⟧ — сиденье Вьясы: гуру представляет не себя, а голос, взгляды и осознание Шрилы Вьясадевы (лекция № 5168)."
+            },
+            {
+              "type": "text",
+              "content": "Шрила Бхакти Праджняна Кешава Госвами Махарадж в 1952 году, в свой день явления, наставлял: «Триданди-санньяси в день своего явления должны совершать Шри Гуру-пуджу. Помимо Гуру-пуджи необходимо также поклоняться гуру-парампаре, Божественной Чете Шри Шри Радха-Кришны и Шачинандану Шри Гоурахари вместе с Его спутниками. Вьяса-пуджа, гуру-пуджа, ачарья-пуджа и упасья-пуджа — это различные названия одной и той же таттвы» («Ачарья Кешари Кешава Госвами. Его жизнь и учение», М., 2004, с. 154–155; англ. изд., с. 105). В 1958 году он повторил: «В день Вьяса-пуджи ачарья сам должен поклоняться Гуру, Гуру-парампаре и упасье» (там же, с. 213; англ. изд., с. 133)."
+            },
+            {
+              "type": "subtitle",
+              "content": "История"
+            },
+            {
+              "type": "text",
+              "content": "Первая Вьяса-пуджа в нашей традиции состоялась около пятисот лет назад в Шривас-ангане в Майяпуре: по указанию Шри Чайтаньи Махапрабху Шри Нитьянанда Прабху поклонялся Махапрабху, восседавшему на сиденье Вьясы; Шривас Пандит тогда упомянул «Вьяса-пуджа-паддхати» — руководство по совершению этой пуджи («Ачарья Кешари Кешава Госвами. Его жизнь и учение», М., 2004, с. 200–201; англ. изд., с. 126; Гурудев, лекция № 7247 от 03.07.2023)."
+            },
+            {
+              "type": "text",
+              "content": "Эта паддхати была утрачена; её список нашли в Говардхана-матхе традиции Шанкарачарьи в Пури. По жизнеописанию Шрилы Кешавы Госвами Махараджа и журналу «Шри Бхагавата-патрика» (год 3, № 10, 1958, с. 15–17), его разыскал Шрила Бхактисиддханта Сарасвати Прабхупада, а Шрила Бхактивинода Тхакур пересмотрел и дополнил паддхати для нашей сампрадаи; Гурудев в лекциях говорит, что её вновь открыл Шрила Бхактивинода Тхакур, а издал Шрила Бхактисиддханта Сарасвати Тхакур (лекции № 5168 и № 7247). Шрила Кешава Госвами Махарадж нашёл ту же паддхати также в Брахма-матхе в Пушкаре и в Шарада-матхе в Дварке, опубликовал редакцию Шрилы Бхактивиноды Тхакура в «Шри Гаудия-патрике» (год 4, № 3) и ввёл Вьяса-пуджу с пуджа-панчакой в практику: с тех пор её ежегодно совершают в матхах Гаудия Веданта Самити (англ. изд., с. 105 и 126)."
+            },
+            {
+              "type": "text",
+              "content": "В библиотеке источников к этой книге есть две санскритские рукописи Вьяса-пуджи традиции Шанкарачарьи — «Вьяса-пуджа-видхи» (Сурат, SDPB № 210) и «Вьяса-пуджа-крама» (Рамнагар). В них тот же древний порядок: Кришна-панчака в центре, справа от неё (на юге) — Вьяса-панчака, на западе — Санакади-панчака, впереди (на востоке) — гуру; в каждой группе одна личность в центре, остальные — «начиная с востока». Вместо нашей ачарья-панчаки там стоят Шанкарачарья и его ученики. Шрила Кешава Госвами Махарадж говорил, что Вьяса-пуджа традиции Шанкары — не настоящая Вьяса-пуджа, а правильно Шри Вьясадеве поклоняются в вайшнавской сампрадае («Ачарья Кешари Кешава Госвами. Его жизнь и учение», М., 2004, с. 154–155 и 212–213; англ. изд., с. 105 и 132)."
+            },
+            {
+              "type": "subtitle",
+              "content": "Когда"
+            },
+            {
+              "type": "text",
+              "content": "В нашей линии Вьяса-пуджу совершают в Гуру-пурниму и в дни явления ачарьев гуру-варги. Ученики Гурудева отмечают его Вьяса-пуджу в день его явления (лекции Гурудева в этот день: № 5168 от 18.04.2020 и № 10011 от 12.04.2026). Ближайшие даты по вайшнавскому календарю Академии Чайтаньи (Рига): день явления Шрилы Бхактиведанты Нараяны Госвами Махараджа — 6 февраля 2027 г.; Шрилы Бхакти Праджняны Кешавы Госвами Махараджа — 23 февраля 2027 г.; Шрилы Бхактисиддханты Сарасвати Тхакура Прабхупады — 25 февраля 2027 г.; Гуру-пурнима — 18 июля 2027 г.; день явления Шрилы А. Ч. Бхактиведанты Свами Прабхупады (Нандотсава) — 26 августа 2027 г."
+            }
+          ]
+        },
+        {
+          "id": "sapta-pancakam",
+          "title": "Сапта-панчакам — семь групп по пять",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "So we are indebted to many personalities. So in the seven groups of five, 7 times 5 means 35. So, (..) there is one group in the center, and then one group in the north, in the south, the east and the west, on the four sides of that central group. And then there are two groups either side on the south side. So we'll describe them one by one. The central group, the center of the central group is Kṛṣṇa. Then starting from the south and going around clockwise, there is a saṅkarṣaṇa, oh sorry, starting from (..) the east and going clockwise, there is Kṛṣṇa's catur-vyūha, Vāsudeva, Saṅkarṣaṇa, Pradyumna, and Aniruddha. Then to the south, the central personality is Śrīla Vyāsadeva. And starting from the east and going around, Paila Ṛṣi. That is the sage of the Ṛgveda. Then Vaiśampāyana. Then Jaimini. Vaiśampāyana is Yajurveda, then Jaimini means Sāmaveda, and finally Atharvaveda Sumantu Ṛṣi. Then, in the north, the central personality is Śukadeva Gosvāmī. Then starting from the east, Rāmānujācārya, Madhvācārya, Viṣṇu Svāmī and Nimbāditya. Then on the western side, the central personality is Sanat-kumāra. Sanaka-kumāra, yeah, and from going from east, Sanat-kumāra, Sanātana, Sanandana and Viṣvaksena. So then on the eastern side, one's own guru. And then around him, his parama-guru, parameṣṭhi-guru, parātpara-guru, and paramparā-guru. So, his guru and five and five, the next four members of paramparā. So the central one is called kṛṣṇa-pañcakam. Then with the four sampradāya-ācāryas and Śukadeva Gosvāmī is called ācārya-pañcakam. To the south, Vyāsadeva and his disciples, vyāsa-pañcakam. Then with the four Kumāras, sanakādi-pañcakam. And then on the right side, guru-pañcakam. In the east.\n\nNow, in that was the method of worship on the Vyāsa-pūjā in ancient times. Each personality is represented by a kalaśa with a coconut. decorated with, (..) svastika in kuṅkuma and mango leaves, and with a flag with the names of all these personalities. So this ceremony will be doing (..) in the afternoon. And, (..) now, in the more recent times, to the five ancient pañcakam, there are two more. So the one on the eastern side, that is called tattva-pañcakam. So obviously the Pañca-tattva did not worship themselves. So our ācāryas have added the tattva-pañcakam. The central person is Śrī Kṛṣṇa Caitanya, and then going around, Prabhu Nityānanda, Śrī Advaita, Gadādhara, śrīvāsādi-gaura-bhakta-vṛnda. And (..) on the western side, it is called upāsya-pañcakam. Upāsya means those personalities who are the object of our upāsanā, our worship. So, the central person is Śrī Guru. And then Gaura and Gadādhara, and Rādhā and Kṛṣṇa. Of course, Gaura-Gadādhara are Rādhā-Kṛṣṇa. But for us in the following the line of Śrīla Rūpa Gosvāmī, our worshipful personalities are Guru and Gaura-Gadādhara, Rādhā and Rādhā-Kṛṣṇa.",
+              "translation": "Итак, мы в долгу перед многими личностями. В семи группах по пять, 7 умножить на 5 равно 35. Итак, (..) есть одна группа в центре, а затем по одной группе на севере, на юге, на востоке и на западе, по четырем сторонам от этой центральной группы. И еще есть две группы по обе стороны с южной стороны. Мы опишем их одну за другой. Центральная группа, центр центральной группы — это Кришна. Затем, начиная с юга и двигаясь по часовой стрелке, идет санкаршана, о, простите, начиная с (..) востока и двигаясь по часовой стрелке, идет чатур-вьюха Кришны: Васудева, Санкаршана, Прадьюмна и Анируддха. Затем на юге центральная личность — Шрила Вьясадева. И начиная с востока и двигаясь по кругу, Пайла Риши. Это мудрец Ригведы. Затем Вайшампаяна. Затем Джаймини. Вайшампаяна — это Яджурведа, затем Джаймини — это Самаведа, и, наконец, Атхарваведа, Суманту Риши. Затем на севере центральная личность — Шукадева Госвами. Затем, начиная с востока, Рамануджачарья, Мадхвачарья, Вишну Свами и Нимбадитья. Затем на западной стороне центральная личность — Санат-кумар. Санака-кумар, да, и двигаясь с востока, Санат-кумар, Санатана, Санандана и Вишваксена. Затем на восточной стороне — собственный гуру. А вокруг него — его парама-гуру, парамештхи-гуру, паратпара-гуру и парампара-гуру. Итак, его гуру и следующие четыре члена парампары. Центральная группа называется кришна-панчакам. Затем с четырьмя сампрадая-ачарьями и Шукадевой Госвами называется ачарья-панчакам. На юге, Вьясадева и его ученики, вьяса-панчакам. Затем с четырьмя Кумарами, санакади-панчакам. И затем с правой стороны, гуру-панчакам. На востоке.\n\nТаков был метод поклонения на Вьяса-пудже в древние времена. Каждая личность представлена калашей с кокосом, украшенной... свастикой из кункумы и листьями манго, а также флагом с именами всех этих личностей. Эту церемонию мы будем проводить... днём. И... в более поздние времена к пяти древним панчакам добавились ещё две. Та, что с восточной стороны, называется таттва-панчакам. Очевидно, что Панча-таттва не поклонялась сама себе. Поэтому наши ачарьи добавили таттва-панчакам. Центральная личность — это Шри Кришна Чайтанья, а затем по кругу идут Прабху Нитьянанда, Шри Адвайта, Гададхара, шривасади-гаура-бхакта-вринда. А... с западной стороны — та, что называется упасья-панчакам. Упасья означает те личности, которые являются объектом нашей упасаны, нашего поклонения. Итак, центральная личность — это Шри Гуру. А затем Гаура и Гададхара, и Радха и Кришна. Конечно, Гаура-Гададхара — это Радха-Кришна. Но для нас, следующих по стопам Шрилы Рупы Госвами, объектами нашего поклонения являются Гуру и Гаура-Гададхара, Радха и Радха-Кришна.",
+              "source": {
+                "title": "2023.07.03 Sri Raya Ramananda Samvada part 08",
+                "date": "2023-07-03",
+                "nr": "7247",
+                "timecode": "00:43:46",
+                "transcript_url": "https://drive.google.com/file/d/1ukhBElXmN2TW7Wy_GxCuZVfy8itkekts/view",
+                "audio_url": "https://drive.google.com/file/d/1SeNg6_l4lY5tjArKB4O7u-cCakyYy-AJ/view"
+              },
+              "more": [
+                {
+                  "quote": "The worship of the Vyāsa-pūjā should be performed in the ancient format called sapta-pañcakam. Śrīla Bhaktivinoda Ṭhākura discovered a scripture with this ancient vyāsa, which was the ancient Vyāsa-pūjā-paddhati, the method of performing Vyāsa-pūjā. This he discovered in the Śaṅkarācārya's Govardhana Maṭha in Jagannātha Purī, in the library there. And it was edited and published by Prabhupāda Bhaktisiddhānta Sarasvatī Ṭhākura. And I have learned personally from my Śrīla Gurudeva on when he was organizing the festival of Vyāsa-pūjā for his Gurudeva, Śrīla Bhakti Prajñāna Keśava Mahārāja, all the details of this Vyāsa-pūjā-paddhati. So for this, it's necessary to have 35 kalaśa, waterpots, decorated with mango leaves and with coconuts which are decorated with a svastika. And these are also decorated with a flag which will have the name of each personality who will be invited to reside in that kalaśa and receive pūjā on this day.\n\nSo this pūjā is called sapta-pañcakam because there are seven groups of five personalities. The first group of five is called guru-pañcakam, and they are arranged on the eastern side of the area where the worship is being performed. So that should be the worship of your own guru and his and four ācāryas prior to him in the guru-paramparā, that means parama-gurudeva, parameṣṭhī-gurudeva, parātpara-gurudeva, and parama-parātpara-gurudeva. Then in the center of the worship area, there is Kṛṣṇa-pañcakam. And in the center, Kṛṣṇa should be worshipped, and around Him the catur-vyūha of Vāsudeva, Saṅkarṣaṇa, Pradyumna, and Aniruddha. (..) Then the next pañcakam is called the Vyāsa-pañcakam. In the center is Śrīla Vyāsadeva, and he is surrounded by his four main disciples to whom he gave the authority of one of the four Vedas. So that is Paila Ṛṣi, Jaimini Ṛṣi, Aṅgira Ṛṣi, and Vaiśampāyana Ṛṣi. Like this. Then the next pañcakam is called Vaiyāsaki-pañcakam or Ācārya-pañcakam. Vaiyāsaki is the name of Śukadeva Gosvāmī, so he is worshipped in the middle, and around on four sides, then the ācāryas of the four Vaiṣṇava sampradāyas. That means Śrī Rāmānujācārya, Śrī Madhvācārya, Śrī Viṣṇusvāmī, and Śrī Nimbāditya. Then the next is called Sanakādi-pañcakam. So this means the four Kumāras, beginning with Sanaka, and then his brothers Sanat, Sanātana, and Sananda, plus Viṣvaksena, who is eternal associate of the Lord who removes all obstacles. Then the next one is called the tattva-pañcakam. So these first five pañcakams have been worshipped since ancient times, and Gauḍīyas we, to this we add two more pañcakams. One is tattva-pañcakam, that is the worship of Caitanya Mahāprabhu surrounded by (..) the rest of the Pañca-tattva, Śrī Kṛṣṇa Caitanya Prabhu Nityānanda Śrī Advaita Gadādhara Śrīvāsādi Gaura-bhakta-vṛnda. Then the last pañcakam is called upāsya-pañcakam. Upāsya means who is the object of our worship. So that is Rādhā-Kṛṣṇa. And Gaura-Gadādhara. Another form of Rādhā-Kṛṣṇa. And Gurudeva, so that makes five.",
+                  "translation": "Поклонение в честь Вьяса-пуджи следует проводить в древнем формате, называемом сапта-панчаком. Шрила Бхактивинода Тхакур обнаружил писание с этим древним вьясой — древней Вьяса-пуджа-паддхати, методом проведения Вьяса-пуджи. Он обнаружил его в Говардхана-матхе Шанкарачарьи в Джаганнатха-Пури, в находящейся там библиотеке. А отредактировал и опубликовал его Прабхупада Бхактисиддханта Сарасвати Тхакур. А я лично узнал от своего Шрилы Гурудева все подробности этой Вьяса-пуджа-паддхати, когда он организовывал праздник Вьяса-пуджи для своего Гурудева, Шрилы Бхакти Праджняны Кешавы Махараджи. Для этого необходимо иметь 35 калаш, сосудов с водой, украшенных листьями манго и кокосами, на которых изображена свастика. Их также украшают флагом, на котором будет написано имя каждой личности, приглашённой пребывать в этом калаше и получать пуджу в этот день.\n\nИтак, эта пуджа называется сапта-панчаком, потому что включает семь групп по пять личностей. Первая группа из пяти называется гуру-панчаком, и располагается с восточной стороны места, где проводится поклонение. Это должно быть поклонение вашему собственному гуру и четырём его ачарьям, предшествовавшим ему в гуру-парампаре, то есть парама-гурудеве, парамештхи-гурудеве, паратара-гурудеве и парама-паратпара-гурудеве. Затем в центре места поклонения находится Кришна-панчак. В центре поклоняются Кришне, а вокруг Него — чатур-вьюхе: Васудеве, Санкаршане, Прадьюмне и Анируддхе. (..) Следующий панчак называется Вьяса-панчаком. В центре находится Шрила Вьясадева, а вокруг него — четыре главных ученика, которым он вверил по одной из четырёх Вед. Это риши Пайла, риши Джаймини, риши Ангира и риши Вайшампаяна. Вот так. Следующий панчак называется Вайясаки-панчаком или Ачарья-панчаком. Вайясаки — это имя Шукадевы Госвами, поэтому ему поклоняются в центре, а с четырёх сторон вокруг него располагаются ачарьи четырёх вайшнавских сампрадай. Это Шри Рамануджачарья, Шри Мадхвачарья, Шри Вишнусвами и Шри Нимбадитья. Следующий называется Санакади-панчаком. Это означает четырёх Кумаров, начиная с Санаки, и его братьев Саната, Санатаны и Сананды, а также Вишваксены, вечного спутника Господа, устраняющего все препятствия. Следующий называется таттва-панчаком. Итак, этим первым пяти панчакамам поклонялись с древних времён, а мы, гаудии, добавляем к ним ещё два панчакама. Один из них — таттва-панчак, то есть поклонение Чайтанье Махапрабху, которого окружают (..) остальные представители Панча-таттвы: Шри Кришна Чайтанья, Прабху Нитьянанда, Шри Адвайта, Гададхара, Шривасади — собрание преданных Гауры. Последний панчак называется упасья-панчаком. Упасья означает объект нашего поклонения. Это Радха-Кришна и Гаура-Гададхара — другая форма Радхи-Кришны. И Гурудев — всего получается пять.",
+                  "source": {
+                    "title": "Sri Prema Prayojana Prabhu Vyasa Puja 18042020",
+                    "date": "2020-04-18",
+                    "nr": "5168",
+                    "timecode": "00:11:48",
+                    "transcript_url": "https://drive.google.com/file/d/1D-d-DTmOKU_q3V2enfTwTNcc8yPN_7Dx/view",
+                    "audio_url": "https://drive.google.com/file/d/1xIv5eX9xzGO9SyP9yWr4Qcf6tDXilhkb/view"
+                  }
+                },
+                {
+                  "quote": "So, I have seen my Gurudeva, and I have done sometimes myself in India on the day of Vyāsa-pūjā, then seven pañcakams, sapta-pañcakam. Seven groups of five personalities are honored on the day of Vyāsa-pūjā. At the time of Mahāprabhu, it was the five pañcakams. And that paddhati that Mahāprabhu and his associates followed (..) to for performing the Vyāsa-pūjā, (..) it was discovered by re-discovered by Śrīla Bhaktivinoda Ṭhākura, and he has published this. So, the f- the five, the first five pañcakams, first is called guru-pañcaka. On this day, we worship our Gurudeva and four generations of spiritual masters, that is the first five: Gurudeva, parama-gurudeva, parameṣṭhi-guru, parātpara-guru and paramaparātpara-guru. Then second pañcakam is called ācārya-pañcakam. The worship of the ācāryas of the four sampradāyas: Śrī Rāmānujācārya, Madhvācārya, Viṣṇusvāmī and Nimbāditya. And so that's four personalities plus Śukadeva Gosvāmī. Then third pañcakam is called Vyāsa-pañcaka. The five personalities are Śrīla Vyāsadeva, who is also here today. And (..) his four main disciples to whom he entrusted the responsibility to teach the four Vedas. That is Paila Ṛṣi... ...of the Ṛg Veda... ...Jaimini Ṛṣi... ...the Sāma Veda... ...Vaiśampāyana Ṛṣi... ...of the Yajur Veda... ...and Sumanta, that is Aṅgirā, the Atharva Veda. Then the fourth pañcakam is Sanakādi-pañcakam... ...the very embodiments of divya-jñāna, transcendental knowledge, the four Kumāras... ...that is Sanaka, Sanat-kumāra, Sanātana and Sanandana. So that is four, and the fifth person, Viṣvaksena. The fifth pañcakam is Śrī Kṛṣṇa and his catur-vyūha: Vāsudeva, Saṅkarṣaṇa, Pradyumna and Aniruddha. So, these were the five pañcakams worshiped at the time of Mahāprabhu according to the paddhati. So, the followers of Caitanya Mahāprabhu, they have added two pañcakams. That is tattva-pañcakam. The Pañca-tattva:\n\nSo, and then upāsya-pañcaka. Who is our upāsya, worshipable... Gurudeva... ...Gaura-Gadādhara... ...and Rādhā-Kṛṣṇa. So, Gaura-Gadādhara and Rādhā-Kṛṣṇa are the same... ...but still they have forms in Vraja-līlā and Navadvīpa-līlā. So, these are the (..) seven pañcakams we worship... ...because we are indebted to all of these great personalities for bringing the treasure of transcendental knowledge to this world.",
+                  "translation": "Итак, я видел своего Гурудева и сам иногда проводил в Индии в день Вьяса-пуджи семь панчаков, сапта-панчаков. В день Вьяса-пуджи почитают семь групп по пять личностей. Во времена Махапрабху это были пять панчаков. А этот паддхати, которому следовали Махапрабху и его спутники, (..) для проведения Вьяса-пуджи, (..) был обнаружен, точнее вновь открыт Шрилой Бхактивинодой Тхакуром, и он опубликовал его. Итак, п- пять, первые пять панчаков: первый называется гуру-панчакой. В этот день мы поклоняемся своему Гурудеву и четырём поколениям духовных учителей — это первые пять: Гурудев, парама-гурудева, парамештхи-гуру, паратпара-гуру и парамапаратпара-гуру. Затем второй панчака называется ачарья-панчакой. Это поклонение ачарьям четырёх сампрадай: Шри Рамануджачарье, Мадхвачарье, Вишнусвами и Нимбадитье. Итак, это четыре личности плюс Шукадева Госвами. Затем третий панчака называется Вьяса-панчакой. Пять личностей — это Шрила Вьясадева, который также присутствует здесь сегодня, и (..) его четыре главных ученика, которым он поручил обучать четырём Ведам. Это риши Пайла... ...Ригведе... ...риши Джаймини... ...Самаведе... ...риши Вайшампаяна... ...Яджурведе... ...и Суманта, то есть Ангира, Атхарваведе. Затем четвёртый панчака — это Санакади-панчака... ...сами воплощения дивья-джнаны, трансцендентного знания, четыре Кумара... ...а именно Санака, Санат-кумара, Санатаны и Сананданы. Итак, это четыре, а пятой личностью является Вишваксена. Пятый панчака — это Шри Кришна и его чатур-вьюха: Васудева, Санкаршана, Прадьюмна и Анируддха. Итак, во времена Махапрабху согласно паддхати поклонялись этим пяти панчакам. Поэтому последователи Чайтаньи Махапрабху добавили ещё два панчака. Это таттва-панчака. Панча-таттва:\n\nИтак, далее — упасья-панчака. Кто является нашим упасьей, объектом поклонения... Гурудева... ...Гаура-Гададхара... ...и Радха-Кришна. Итак, Гаура-Гададхара и Радха-Кришна — одно и то же... ...но всё же у них есть формы в лиле Враджи и лиле Навадвипы. Итак, это те самые (..) семь панчак, которым мы поклоняемся... ...потому что мы в долгу перед всеми этими великими личностями за то, что они принесли в этот мир сокровище трансцендентного знания.",
+                  "source": {
+                    "title": "SAT SAMPRADAYA SAD GURU SAT SISYA - 2021-05-07 - Sri Prem Prayojan",
+                    "date": "2021-05-07",
+                    "nr": "5836",
+                    "timecode": "00:13:47",
+                    "transcript_url": "https://drive.google.com/file/d/1ojbKnZk2qAKa5AyXNyEAqMjeul2Z8ELt/view",
+                    "audio_url": "https://drive.google.com/file/d/1pmx7fynt0FgzL1N6T3Esmw-B1iTSSlEG/view"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": "Главная часть Вьяса-пуджи по древней паддхати — поклонение тридцати пяти личностям, разделённым на семь групп по пять (⟦пан̃чака⟧ — «пятёрка»); отсюда название ⟦сапта-пан̃чакам⟧. Мы в долгу перед ними всеми за то, что они принесли в этот мир сокровище трансцендентного знания; гуру-парампара подобна гирлянде: если вынуть из неё один цветок, гирлянда порвётся (Гурудев, лекции № 7247 от 03.07.2023 и № 5836 от 07.05.2021)."
+            },
+            {
+              "type": "text",
+              "content": "Каждую личность представляет отдельная калаша — сосуд с водой, украшенный листьями манго, с кокосом, на котором кункумой нарисована свастика, и с флажком, на котором написано имя этой личности; молитвами каждую приглашают пребывать в своей калаше и принять поклонение (Гурудев, лекции № 5168 от 18.04.2020, № 7247 и № 9003 от 10.07.2025). Пятью первыми группами поклонялись ещё во времена Махапрабху; последователи Махапрабху добавили ещё две — таттва-панчаку (Панча-таттву) и упасья-панчаку (лекции № 5168, № 5836 и № 7247)."
+            },
+            {
+              "type": "text",
+              "content": "Расположение — по лекции Гурудева № 7247 (для пяти древних групп так же и в рукописях паддхати): одна группа в центре, по одной — на востоке, юге, западе и севере от неё, и ещё две — по обе стороны на южной стороне. В каждой группе первая личность стоит в центре, остальные четыре — начиная с востока и по часовой стрелке: восток, юг, запад, север."
+            },
+            {
+              "type": "table",
+              "header": [
+                "Панчака (место)",
+                "1 — в центре",
+                "2 — восток",
+                "3 — юг",
+                "4 — запад",
+                "5 — север"
+              ],
+              "rows": [
+                {
+                  "cells": [
+                    "1. Кришна-панчака — центр",
+                    "Шри Кришна",
+                    "Васудева",
+                    "Санкаршана",
+                    "Прадьюмна",
+                    "Анируддха"
+                  ]
+                },
+                {
+                  "cells": [
+                    "2. Вьяса-панчака — юг",
+                    "Шрила Ведавьяса",
+                    "Пайла (Риг-веда)",
+                    "Вайшампаяна (Яджур-веда)",
+                    "Джаймини (Сама-веда)",
+                    "Суманту (Атхарва-веда)"
+                  ]
+                },
+                {
+                  "cells": [
+                    "3. Ачарья-панчака (Вайясаки-панчака) — север",
+                    "Шри Шукадева Госвами",
+                    "Рамануджачарья",
+                    "Мадхвачарья",
+                    "Вишнусвами",
+                    "Нимбадитья"
+                  ]
+                },
+                {
+                  "cells": [
+                    "4. Санакади-панчака — запад",
+                    "Санака",
+                    "Санат-кумара",
+                    "Санатана",
+                    "Санандана",
+                    "Вишваксена"
+                  ]
+                },
+                {
+                  "cells": [
+                    "5. Гуру-панчака — восток",
+                    "свой гуру (Шри Гурудев)",
+                    "парама-гуру",
+                    "парамештхи-гуру",
+                    "паратпара-гуру",
+                    "парама-паратпара-гуру"
+                  ]
+                },
+                {
+                  "cells": [
+                    "6. Упасья-панчака* — южная сторона, к западу",
+                    "Шри Гуру",
+                    "Гаура",
+                    "Гададхара",
+                    "Радха",
+                    "Кришна"
+                  ]
+                },
+                {
+                  "cells": [
+                    "7. Таттва-панчака (Панча-таттва)* — южная сторона, к востоку",
+                    "Шри Кришна Чайтанья",
+                    "Нитьянанда",
+                    "Адвайта",
+                    "Гададхара",
+                    "Шриваса и все преданные Гауры"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": "Порядок групп в таблице — тот, в котором их перечисляет жизнеописание Шрилы Кешавы Госвами Махараджа, описывая Вьяса-пуджу 1948 года (англ. изд., с. 89; «Ачарья Кешари Кешава Госвами. Его жизнь и учение», М., 2004, с. 132–133). Состав групп дан в том же жизнеописании (англ. изд., с. 133, примечание 15; рус. изд., с. 213) и совпадает с лекциями Гурудева."
+            },
+            {
+              "type": "text",
+              "content": "* Для упасья- и таттва-панчаки Гурудев называет порядок «по кругу», но не стороны света: числа 2–5 в этих строках — порядок поклонения. В центре упасья-панчаки — Шри Гуру (лекции № 7247 и № 9003); жизнеописание перечисляет её состав в другом порядке: Шри Радха, Кришна, Гаура, Гададхара, Шри Гурудев. Пятый в гуру-панчаке в жизнеописании и в лекциях № 5168 и № 5836 назван парама-паратпара-гуру, в лекции № 7247 — парампара-гуру."
+            },
+            {
+              "type": "subtitle",
+              "content": "Суманту или Ангира"
+            },
+            {
+              "type": "text",
+              "content": "Во всех письменных источниках пятым во Вьяса-панчаке назван Суманту — ученик Шрилы Вьясадевы, которому была вверена Атхарва-веда: в жизнеописании Шрилы Кешавы Госвами Махараджа (англ. изд., с. 133; рус. изд., с. 213) и в обеих рукописях паддхати; так же называет его Гурудев в лекциях № 7247 (03.07.2023) и № 9003 (10.07.2025). В прежней таблице сапта-панчакам, по которой у нас совершали эту пуджу, и в лекции № 5168 (18.04.2020) на его месте назван Ангира, а в лекции № 5836 (07.05.2021) Гурудев говорит: «…и Суманта, то есть Ангира, Атхарва-веда». Это одно и то же место: Атхарва-веду называют также «Атхарвангираса» — «⟦атхарва̄н̇гираса̄м а̄сӣт сумантур да̄рун̣о муних̣⟧» («Шримад-Бхагаватам» 1.4.22), и в английском переводе Шрилы А. Ч. Бхактиведанты Свами Прабхупады этот мудрец назван «Sumantu Muni Aṅgirā». Здесь мы следуем источникам и пишем «Суманту»."
+            }
+          ]
+        },
+        {
+          "id": "vyasa-puja-order",
+          "title": "Порядок Вьяса-пуджи",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "This is a very ancient ceremony which is performed on (..) on the uh Vyāsa Pūjā Guru Pūrṇimā day. And uh even on this day, Caitanya Mahāprabhu, Nityānanda Prabhu, they used to do this. There's a paddhati, a manual that they followed to do this. So our previous gurus acquired this manual, and so we follow the practice even Caitanya Mahāprabhu and Nityānanda used to do on this day. But uh in this, 35 different personalities are honored and they're invited to be present into kalaśas with coconuts and mango leaves. But if you do everything with coconuts and kalaśas and mango leaves, then this ritual will fill the whole apartment. So, and that's what we In India, we do it like that in full scale. I think last year I was in Rome, right, so in Rome we did it also on the full scale. And you have seven (..) separate priests offering the worship uh to the to the 35 personalities, seven groups of five like this. But when Vṛndāvana Vilāsinī invited me to come here, I said, \"That's impossible.\" \"We can't There's no way we'll be able to do this ancient ritual in your small apartment, there'll be no room for the people, once all the coconuts are are set up.\" So, I said, \"Can we just make a miniature version?\" She said, \"All right, I'll try.\" And there it is: the very first scaled down miniature version of the ancient Vedic Vyāsa Pūjā ceremony with the coconuts being substituted by walnuts. So, but it looks so beautiful. All the names of the rishis are on the flags. Perhaps these leaves are not mango leaves. Not so many mango trees growing in Switzerland. But anyway, it looks like the real thing just scaled down. When I look at it, I just kind of feel about 18 ft tall. So it's so beautiful. So at at the end of the seminar today, we'll we can all uh partake in this ceremony.",
+              "translation": "Это очень древняя церемония, которую проводят (..) в день Вьяса-пуджи Гуру-пурнимы. И даже Чайтанья Махапрабху и Нитьянанда Прабху в этот день проводили её. Существует паддхати, руководство, которому они следовали при её проведении. Наши предшествующие гуру получили это руководство, и потому мы следуем практике, которой в этот день придерживались даже Чайтанья Махапрабху и Нитьянанда. Но во время этой церемонии почитают 35 разных личностей и приглашают их присутствовать в калашах с кокосами и листьями манго. Но если всё сделать с кокосами, калашами и листьями манго, этот ритуал займёт всю квартиру. Именно так мы... В Индии мы проводим его в полном масштабе. Кажется, в прошлом году я был в Риме, верно? И в Риме мы тоже провели его в полном масштабе. Семь (..) отдельных жрецов совершают поклонение 35 личностям — семь групп по пять. Но когда Вриндавана Виласини пригласила меня сюда, я сказал: «Это невозможно». «Мы никак не сможем провести этот древний ритуал в вашей маленькой квартире: когда будут расставлены все кокосы, для людей совсем не останется места». Тогда я спросил: «Можем ли мы просто сделать миниатюрную версию?» Она ответила: «Хорошо, я попробую». И вот она: самая первая уменьшенная миниатюрная версия древней ведической церемонии Вьяса-пуджи, в которой кокосы заменены грецкими орехами. Но выглядит она так прекрасно. На флажках написаны имена всех риши. Возможно, эти листья не являются листьями манго. В Швейцарии растёт не так много манговых деревьев. Но в любом случае всё выглядит совсем как настоящее, только в уменьшенном масштабе. Глядя на это, я чувствую себя ростом примерно в 18 футов. Это так прекрасно. Итак, в конце сегодняшнего семинара мы все сможем принять участие в этой церемонии.",
+              "source": {
+                "title": "Sri Prem Prayojan - 2018-07-27 - Guru-Purnima",
+                "date": "2018-07-27",
+                "nr": "3295",
+                "timecode": "00:26:31",
+                "transcript_url": "https://drive.google.com/file/d/1U9CWWOYHVt6eJZBIMQW8RiIZMA4u0I5L/view",
+                "audio_url": "https://drive.google.com/file/d/1umh-_Zi_Sc82hLox_Ede6GmbKIP0ragD/view"
+              },
+              "more": [
+                {
+                  "quote": "Now, traditionally, on the appearance day of Vyāsa, the disciples, they worship their guru and all their guru-paramparā, and all the ācāryas of the various sampradāyas, and all the great personalities who are responsible for manifesting transcendental knowledge in this world, such as Śukadeva Gosvāmī, Vyāsadeva and his main disciples. So all those personalities we have just worshipped in this Vyāsa-pūjā ceremony, just earlier. The seat of Vyāsadeva is called vyāsāsana, the seat of Vyāsa. So the pure Vaiṣṇavas, they may sit upon the seat of Vyāsa. Why? Because they represent the realization of Vyāsadeva.",
+                  "translation": "По традиции в день явления Вьясы ученики поклоняются своему гуру, всей своей гуру-парампаре, всем ачарьям различных сампрадай и всем великим личностям, благодаря которым трансцендентное знание проявляется в этом мире, таким как Шукадева Госвами, Вьясадева и его главные ученики. Всем этим личностям мы только что поклонялись во время церемонии Вьяса-пуджи. Сиденье Вьясадевы называется вьясасаной — сиденьем Вьясы. Чистые вайшнавы могут сидеть на сиденье Вьясы. Почему? Потому что они олицетворяют осознание Вьясадевы.",
+                  "source": {
+                    "title": "Appearance Day of Srila Vyasadeva part 1 - 2021-07-24 - Sri Prem Prayojan",
+                    "date": "2021-07-24",
+                    "nr": "5984",
+                    "timecode": "00:31:18",
+                    "transcript_url": "https://drive.google.com/file/d/1ZnDCtqZfmqWQyfkJZpRx0yybLkEUxU0n/view",
+                    "audio_url": "https://drive.google.com/file/d/1Ma09HfumpVHiYjkhiV90mgolc23ZadKb/view"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": "Порядок ниже составлен по объяснению Гурудева на Вьяса-пудже 2025 года (лекция № 9003 от 10.07.2025) и по описаниям Вьяса-пудж Гаудия Веданта Самити в жизнеописании Шрилы Кешавы Госвами Махараджа и в «Шри Бхагавата-патрике» (1958)."
+            },
+            {
+              "type": "instruction",
+              "content": "Подготовка. На отдельном месте расставляют 35 калаш с кокосами по схеме сапта-панчакам (см. таблицу). В Индии пуджу совершают в полном масштабе — на большом алтаре, украшенном калашами, флагами, манговыми ветвями и стволами бананов (Гурудев, лекции № 5168 и № 3295 от 27.07.2018; «Шри Бхагавата-патрика», 1958, с. 18)."
+            },
+            {
+              "type": "instruction",
+              "content": "Если места мало, делают уменьшенную копию: в 2018 году в Швейцарии, в квартире, пуджу совершили в миниатюре — с грецкими орехами вместо кокосов и с флажками с именами всех риши (Гурудев, лекция № 3295; см. «Настроение Гурудева»)."
+            },
+            {
+              "type": "instruction",
+              "content": "Утром после мангала-арати и киртана читают повествование о Вьяса-пудже из «Шри Чайтанья-бхагаваты» (так было на Вьяса-пудже 1958 года: «Шри Бхагавата-патрика», с. 18)."
+            },
+            {
+              "type": "instruction",
+              "content": "Призывание. Молитвами приглашают великих гуру прошлого войти каждый в свою калашу и принять поклонение (лекция № 9003)."
+            },
+            {
+              "type": "instruction",
+              "content": "Пуджа. Пуджари поклоняются каждой из 35 личностей шестнадцатью упачарами — так совершали пуджа-панчаку по «Вьяса-пуджа-паддхати» (англ. изд. жизнеописания, с. 127; рус. изд., с. 202–203). При полном масштабе каждой из семи групп поклоняется свой пуджари (лекция № 3295). Как предлагать шестнадцать упачар, см. в главе «Главное поклонение с шестнадцатью упачарами». Все присутствующие тем временем поют киртан святых имён (лекция № 9003)."
+            },
+            {
+              "type": "instruction",
+              "content": "Парикрама. Когда пуджа закончена, все с киртаном четыре раза обходят всех великих личностей; киртан завершают славой: «Джая Вьясадева! Джая Гурудева! Джая Прабхупада!» (лекция № 9003)."
+            },
+            {
+              "type": "instruction",
+              "content": "Пушпанджали. Ученик сначала поклоняется своему гуру и лишь затем другим гуру — так объяснял Шрила Кешава Госвами Махарадж («Ачарья Кешари Кешава Госвами. Его жизнь и учение», М., 2004, с. 213; англ. изд., с. 133). На Вьяса-пудже 1956 года Шрила Кешава Госвами Махарадж совершил арчану и предложил пушпанджали стопам своего гуру, Шрилы Прабхупады, а затем его ученики предложили пушпанджали его стопам (англ. изд., с. 127). В 1948 году утреннюю церемонию завершили пушпанджали и огненное жертвоприношение (англ. изд., с. 89)."
+            },
+            {
+              "type": "instruction",
+              "content": "Арати, бхога и раздача маха-прасада («Шри Бхагавата-патрика», 1958, с. 18)."
+            },
+            {
+              "type": "instruction",
+              "content": "Хари-катха о Шриле Вьясадеве и о гуру-таттве (лекция № 9003). В 1956 году в первый день Вьяса-пуджи прочли лекцию о Шри Гуру-пудже, а на второй день — письма-подношения на разных языках (англ. изд. жизнеописания, с. 127)."
+            }
+          ]
+        },
+        {
+          "id": "guru-puja-daily",
+          "title": "Гуру-пуджа каждый день",
+          "content": [
+            {
+              "type": "text",
+              "content": "Ежедневное поклонение Шри Гуру — поклоны гуру-варге, медитация на Шри Гурудева, арчана и молитвы — описано в главе «Арчана Шри Гуру» (часть «Храмовый стандарт»); здесь оно не повторяется."
+            },
+            {
+              "type": "text",
+              "content": "Вьяса-пуджа — то же поклонение, раскрытое во всю ширину: Шрила Кешава Госвами Махарадж называет Вьяса-пуджу, гуру-пуджу, ачарья-пуджу и упасья-пуджу различными названиями одной таттвы (см. выше). Поэтому в день Вьяса-пуджи вместе со своим гуру почитают всю гуру-парампару, Шри Шри Радха-Кришну и Шри Гаурахари с Его спутниками."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "major-festivals",
+      "title": "Великие праздники",
+      "subtitle": "махотсава",
+      "page": "",
+      "content": [
+        {
+          "type": "mood",
+          "quote": "But you should know that in the eleventh canto of Śrīmad-Bhāgavatam, just before Kṛṣṇa is about to leave this world, then Uddhava says to Kṛṣṇa, \"You explained so many philosophical points about meditation and yoga-sādhana and philosophy, but it's all very difficult. Please tell me the most effective and sure way to attain kṛṣṇa-prema.\" So then Kṛṣṇa He gave the supreme methodology. He said, \"You should make Vaiṣṇava festivals.\" (..)? On the holy days such as Janmāṣṭamī, Rādhāṣṭamī and all these holy days, appearance and disappearance days of Vaiṣṇavas, come together with the Vaiṣṇavas. And you should have kīrtanas, you should have Harikathā, you should have mahāprasāda distribution. You should perform dramas, all of these things. And by this you will obtain kṛṣṇa-prema. The power of these festivals, it cannot be overestimated.",
+          "translation": "Но вы должны знать, что в одиннадцатой песни Шримад-Бхагаватам, прямо перед тем, как Кришна собирается покинуть этот мир, Уддхава говорит Кришне: «Ты объяснил так много философских моментов о медитации и йога-садхане и философии, но все это очень сложно. Пожалуйста, скажи мне самый эффективный и верный способ достичь кришна-премы». Тогда Кришна дал высшую методологию. Он сказал: «Вы должны устраивать вайшнавские фестивали». (..)? В святые дни, такие как Джанмаштами, Радхаштами и все эти святые дни, дни явления и ухода вайшнавов, собирайтесь вместе с вайшнавами. И вы должны проводить киртаны, вы должны проводить Харикатху, вы должны раздавать махапрасад. Вы должны ставить спектакли, все это. И благодаря этому вы обретете кришна-прему. Силу этих фестивалей невозможно переоценить.",
+          "source": {
+            "title": "2026.03.02_Gaura-katha part 2",
+            "date": "2026-03-02",
+            "nr": "9739",
+            "timecode": "00:48:21",
+            "transcript_url": "https://drive.google.com/file/d/1HinaaOLb6JH3_7ILVeCcdj8jFpp3j7jp/view",
+            "audio_url": "https://drive.google.com/file/d/1OP8gUMHDrqZaN6--CHD3FLK7tNt7qWZR/view"
+          },
+          "more": [
+            {
+              "quote": "Kṛṣṇa's telling Uddhava, \"What's the best process for God-realization? Make a festival, decorate the place, put flowers everywhere, and flags and festoons everywhere, cook so many preparations, sing and dance, and make dramas, and hear hari-kathā. And this is the most powerful process.\" So what our ācāryas have given us, our everyday life as devotees, this is Kṛṣṇa's highest teaching to Uddhava just before He left this world. So when we observe the festivals celebrating the appearance of Kṛṣṇa and His associates, we should know that this is a divine occasion, and a transcendental opportunity to realize the highest truth in the easiest way. And this is why we're celebrating Janmāṣṭamī.",
+              "translation": "Кришна говорит Уддхаве: «Каков лучший способ осознать Бога? Устройте праздник, украсьте место, повсюду развесьте цветы, флаги и гирлянды, приготовьте множество блюд, пойте и танцуйте, ставьте спектакли и слушайте хари-катху. Это самый могущественный метод». То, что наши ачарьи дали нам как повседневную жизнь преданных, — это высшее наставление Кришны Уддхаве, данное непосредственно перед тем, как Он покинул этот мир. Поэтому, отмечая праздники, посвящённые явлению Кришны и Его спутников, мы должны понимать, что это божественное событие и трансцендентная возможность самым лёгким способом осознать высшую истину. Вот почему мы празднуем Джанмаштами.",
+              "source": {
+                "title": "Shree Krishna Janmashtami 2012 part1, Ticino 2012",
+                "date": "2012-08-10",
+                "nr": "10080",
+                "timecode": "00:51:16",
+                "transcript_url": "https://drive.google.com/file/d/1L2rqxbU741nCKsWKG6p-PlqcGo-mbH0i/view",
+                "audio_url": "https://drive.google.com/file/d/1FbYNG_FrA73MBAl8P5UpTwiLc3BH6bFE/view"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": "В этой главе описаны великие праздники, которые особенно торжественно отмечают в Академии Чайтаньи. Для каждого даны правило определения даты, даты на 2026 и 2027 годы, смысл праздника, то, как его празднуют в нашей линии, и слова Гурудева."
+        },
+        {
+          "type": "text",
+          "content": "Зачем праздники. В одиннадцатой песни «Шримад-Бхагаватам», перед уходом из этого мира, Шри Кришна на просьбу Уддхавы назвать самый действенный и верный путь к кришна-преме сказал: устраивайте вайшнавские праздники — в Джанмаштами, Радхаштами, в дни явления и ухода вайшнавов собирайтесь вместе с вайшнавами, проводите киртаны и хари-катху, раздавайте маха-прасад, ставьте спектакли (Гурудев, лекции № 9739 от 02.03.2026 и № 10080 от 10.08.2012; см. «Настроение Гурудева»). Шрила Бхактивинода Тхакур советует в такие дни весь день проводить с преданными в киртане, бхаджанах и слушании хари-катхи и поститься: это лучшее средство против невнимательности — корня всех нама-апарадх (лекция № 10080)."
+        },
+        {
+          "type": "table",
+          "header": [
+            "Праздник",
+            "Когда (вайшнавский лунный календарь)",
+            "2026",
+            "2027"
+          ],
+          "rows": [
+            {
+              "cells": [
+                "Праздник Шрилы Рупы Госвами (день ухода)",
+                "Шравана, шукла-двадаши (месяц Шридхара)",
+                "24 авг.",
+                "13 авг."
+              ]
+            },
+            {
+              "cells": [
+                "Гуру-пурнима (Вьяса-пурнима)",
+                "полнолуние месяца Ашадха",
+                "29 июля",
+                "18 июля"
+              ]
+            },
+            {
+              "cells": [
+                "Джанмаштами",
+                "Бхадра, кришна-аштами (месяц Хришикеша); пост до полуночи",
+                "4 сент.",
+                "25 авг."
+              ]
+            },
+            {
+              "cells": [
+                "Нандотсава",
+                "на следующий день после Джанмаштами",
+                "5 сент.",
+                "26 авг."
+              ]
+            },
+            {
+              "cells": [
+                "Джхулана-ятра",
+                "Шравана: от шукла-экадаши (Павитропани) до пурнимы, пять дней",
+                "23–28 авг.",
+                "12–17 авг."
+              ]
+            },
+            {
+              "cells": [
+                "Наука-виласа (праздник лодки)",
+                "постоянной даты нет; в 2026 г. — в дни фестиваля Гуру-пурнимы в Латвии",
+                "1 авг.",
+                "—"
+              ]
+            },
+            {
+              "cells": [
+                "Радхаштами",
+                "Бхадра, шукла-аштами (месяц Хришикеша)",
+                "19 сент.",
+                "8 сент."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": "Даты рассчитаны для Риги (Латвия) — для неё составлен вайшнавский календарь Академии Чайтаньи; в других местах даты могут отличаться на день. Даты с сентября 2026 года — по календарю Академии, более ранние — по расчёту программы GCal для Риги, как и в главе «Чатурмасья и Пурушоттама-маса»."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "rupa-gosvami-festival",
+          "title": "Праздник Шрилы Рупы Госвами",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "What is that mano-'bhīṣṭa of Śrī Caitanya Mahāprabhu? Our Śrīla Gurudeva, nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata-śrī śrīmad rūpānuga-ācārya-varya Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja, he very enthusiastically with so much taste traveled throughout the world to establish the bhakti as expressed by Rūpa Gosvāmī, rūpānuga-bhajana. You can see that when it was Rādhāṣṭamī, Śrīla Gurudeva used to organize very beautiful festival in India. When it was Janmāṣṭamī, also very beautiful festival for Kṛṣṇa's birthday. But when it came round to the disappearance day of Śrīla Rūpa Gosvāmī, Śrīla Gurudeva would organize a festival for five days, more emphasis. Even then Janmāṣṭamī or Rādhāṣṭamī or Gaura-pūrṇimā, any day, five days symposium he used to make and invite all the Vaiṣṇava scholars in our Gauḍīya line and from other sampradāyas, from Nimbārka-sampradāya, from Vallabha-sampradāya, to come and spend the time deliberating upon the revelations of Śrīla Rūpa Gosvāmī.",
+              "translation": "Что же представляет собой эта мано-'бхишта Шри Чайтаньи Махапрабху? Наш Шрила Гурудев, нитья-лила-правишта ом вишнупада аштоттара-шата-шри Шримад рупануга-ачарья-варья Шрила Бхактиведанта Нараяна Госвами Махараджа, с огромным энтузиазмом и глубоким вкусом путешествовал по всему миру, чтобы утвердить бхакти, выраженную Рупой Госвами, — рупануга-бхаджану. Вы могли видеть, что на Радхаштами Шрила Гурудев устраивал в Индии очень прекрасный фестиваль. На Джанмаштами также проводился прекрасный фестиваль в честь дня рождения Кришны. Но когда наступал день ухода Шрилы Рупы Госвами, Шрила Гурудев устраивал пятидневный фестиваль, придавая ему ещё большее значение. Даже на Джанмаштами, Радхаштами или Гаура-пурниму — в любой из этих дней — он проводил пятидневный симпозиум и приглашал всех учёных-вайшнавов нашей гаудия-традиции и других сампрадай — из Нимбарка-сампрадаи и Валлабха-сампрадаи, — чтобы они приехали и посвятили время обсуждению откровений Шрилы Рупы Госвами.",
+              "source": {
+                "title": "Sri Prem Prayojan - 2017-09-06 - Why does Chaitanya Mahaprabhu come to this world",
+                "date": "2017-09-06",
+                "nr": "2329",
+                "timecode": "00:07:50",
+                "transcript_url": "https://drive.google.com/file/d/1XYPKLDtcNgFpaVd1F26r4qBU3s_yXloB/view",
+                "audio_url": "https://drive.google.com/file/d/1j4b6CzX8kkcWrCt7glHYw9yW7ZBUXKky/view"
+              },
+              "more": [
+                {
+                  "quote": "Today, we are honoring the divine disappearance of Śrīla Rūpa Gosvāmīpāda. There is no difference between the appearance and the disappearance days of pure Vaiṣṇavas. They are transcendental occasions. Whether they are glorified on their appearance or on their disappearance, both days are their appearance, because by hearing their glories then, on today for example, Śrīla Rūpa Gosvāmī will appear in our hearts. We pray for that. But, historically speaking, we can say there is a vaiśiṣṭya, a speciality, in that, in the year 1489, when Rūpa Gosvāmī appeared, at that time his glories were not known, his contribution was not known or appreciated by the world. But, when on the day he disappeared from this world, when his pastimes manifest here were completed, now everyone could see: \"Oh, what an astonishing contribution he has made, unique and unparalleled.\" Before Śrīla Rūpa Gosvāmīpāda, everyone thought that Kālidāsa was the greatest Sanskrit poet. But oh, no one can touch the contribution of Śrīla Rūpa Gosvāmī. As kāvya, as poetry, and also as, especially, more importantly, spiritual revelations.",
+                  "translation": "Сегодня мы чествуем день божественного ухода из этого мира Шрилы Рупы Госвами-пады. Между днями явления и ухода из этого мира чистых вайшнавов нет разницы. Это трансцендентные события. Прославляются ли они в день своего явления или в день ухода, оба дня являются днями их явления, потому что благодаря слушанию их славы — например, сегодня — Шрила Рупа Госвами явится в наших сердцах. Мы молимся об этом. Но если говорить с исторической точки зрения, можно сказать, что здесь есть ваишиштья, особенность: в 1489 году, когда явился Рупа Госвами, его слава ещё не была известна, его вклад не был известен миру и не был им оценён. Но когда в день его ухода из этого мира, после того как здесь завершились явленные в нём игры, все смогли увидеть: «О, какой удивительный вклад он внёс — уникальный и несравненный». До Шрилы Рупы Госвами-пады все считали, что Калидаса был величайшим поэтом, писавшим на санскрите. Но нет — никто не может сравниться с вкладом Шрилы Рупы Госвами. В отношении кавьи, поэзии, а особенно, что ещё важнее, духовных откровений.",
+                  "source": {
+                    "title": "Disappearance day of Srila Rupa Gosvami part 1 - 2021-08-19 - Sri Prem Prayojan",
+                    "date": "2021-08-19",
+                    "nr": "6027",
+                    "timecode": "00:04:20",
+                    "transcript_url": "https://drive.google.com/file/d/1gf_7_Jpodj-62Sjf44ZBbDv5Aa32J1GL/view",
+                    "audio_url": "https://drive.google.com/file/d/1NVivQWcbhGLY1jHPrtRs9Ygz4SFIL-YD/view"
+                  }
+                },
+                {
+                  "quote": "Perhaps you know that our tradition, sampradāya, is called rūpānuga, following outwardly and inwardly a very great saint, Śrīla Rūpa Gosvāmī. In fact, on the last day of this festival here, we will celebrate his divine disappearance day. Śrīla Rūpa Gosvāmī, he has expressed the sentiments of a genuine sādhaka practicing devotee, one who is sincerely giving his body, mind, and words, and all feelings at the lotus feet of Śrī Kṛṣṇa.",
+                  "translation": "Возможно, вы знаете, что наша традиция, сампрадая, называется рупануга — мы следуем внешне и внутренне примеру великого святого, Шрилы Рупы Госвами. Фактически в последний день этого праздника здесь мы будем отмечать день его божественного ухода. Шрила Рупа Госвами выразил чувства истинного садхаки, практикующего преданного — того, кто искренне отдаёт своё тело, ум, слова и все чувства лотосным стопам Шри Кришны.",
+                  "source": {
+                    "title": "Sri Nityananda Prabhus causeless mercy - Sri Prem Prayojan Prabhu, Switzerland, 05.08.2014",
+                    "date": "2014-08-05",
+                    "nr": "123",
+                    "timecode": "00:02:50",
+                    "transcript_url": "https://drive.google.com/file/d/1m3qeHHXtKQWyFZ_4ac3XUJyU-IpzaVfx/view",
+                    "audio_url": "https://drive.google.com/file/d/1i4QlZgJvE8QSFZmDY_T7R69dEfsMBoxC/view"
+                  }
+                },
+                {
+                  "quote": "By the causeless mercy of Śrī Guru and Gaurāṅga, we have assembled together here at Caitanya Academy, Latvia, in the kuñja of Śrī Śrī Rādhā-Gopīnātha and Gaurāṅga Mahāprabhu to celebrate the Jhūlana-yātrā and the festival of the disappearance of Śrīla Rūpa Gosvāmīpāda for five days. The glories of Śrīla Rūpa Gosvāmī are so elevated, and also Śrī Śrī Rādhā-Kṛṣṇa's Jhūlana-yātrā is so elevated. So they will have to be approached with the utmost honor, very carefully.",
+                  "translation": "По беспричинной милости Шри Гуру и Гауранги, мы собрались здесь, в Академии Чайтаньи, Латвия, в кундже Шри Шри Радхи-Гопинатхи и Гауранги Махапрабху чтобы отпраздновать Джхулана-ятру и праздник ухода из этого мира Шрилы Рупы Госвами-пады в течение пяти дней. Величие Шрилы Рупы Госвами столь возвышенно, как и величие Шри Шри Радхи-Кришны Джхулана-ятры столь же возвышенно. Поэтому к ним следует приближаться с величайшим почтением и крайней осторожностью.",
+                  "source": {
+                    "title": "Gaudiya Math logo - the Essence of Mahaprabhu’s Vichar-Dhara - 2024-08-15 - Sri Prem Prayojan",
+                    "date": "2024-08-15",
+                    "nr": "7894",
+                    "timecode": "00:04:56",
+                    "transcript_url": "https://drive.google.com/file/d/1vZpAv08N_X8-Ei2wEF-uLA-wMtSJjeRm/view",
+                    "audio_url": "https://drive.google.com/file/d/13SHfoDjTAe3_qxXLo6CilF5EyukB0SCQ/view"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": "Наша сампрадая называется ⟦рӯпа̄нуга⟧ — следующие внешне и внутренне за великим святым Шрилой Рупой Госвами (Гурудев, лекция № 123 от 05.08.2014). Шрила Рупа Госвами утвердил в этом мире сокровенное желание Шри Чайтаньи Махапрабху — ⟦ш́рӣ-чаитанйа-мано-'бхӣш̣т̣ам⟧ (Шри Рупа-пранама; лекции № 2329 и № 5168). Шрила Гурудев, Шрила Бхактиведанта Нараяна Госвами Махарадж, устраивал прекрасные праздники на Радхаштами и Джанмаштами, но день ухода Шрилы Рупы Госвами отмечал с особым значением — пятидневным фестивалем: каждый год во Вриндаване, во время Джхулана-ятры, с симпозиумом, на который приглашал учёных-вайшнавов гаудия-линии и других сампрадай, чтобы пять дней подряд обсуждать откровения Шрилы Рупы Госвами (лекции № 2329 от 06.09.2017 и № 6027 от 19.08.2021; см. «Настроение Гурудева»). По его примеру в Академии Чайтаньи этот праздник — главный в году."
+            },
+            {
+              "type": "subtitle",
+              "content": "Дата"
+            },
+            {
+              "type": "text",
+              "content": "Шравана, шукла-двадаши — день ухода (⟦тиробха̄ва-титхи⟧) Шрилы Рупы Госвами; этот праздник называют ⟦вираха-махотсава⟧ — праздником разлуки (Гурудев, лекции № 5395 от 31.07.2020 и № 10361 от 24.08.2026). Он приходится на дни Джхулана-ятры. Гурудев объясняет: между днями явления и ухода чистых вайшнавов нет разницы — оба дня трансцендентны, и в любой из них, слушая о Шриле Рупе Госвами, мы молимся, чтобы он явился в наших сердцах; но в день ухода, когда его игры в этом мире завершились, все смогли увидеть, сколь удивителен и беспримерен его вклад (лекция № 6027). Отдельного дня явления Шрилы Рупы Госвами в календаре Академии нет."
+            },
+            {
+              "type": "subtitle",
+              "content": "Как празднуют"
+            },
+            {
+              "type": "instruction",
+              "content": "Праздник соединяют с Джхулана-ятрой и празднуют пять дней — например, в 2024 году в Академии Чайтаньи в Латвии, в кундже Шри Шри Радхи-Гопинатхи и Гауранги Махапрабху (Гурудев, лекция № 7894 от 15.08.2024)."
+            },
+            {
+              "type": "instruction",
+              "content": "В первый день Джхулана-ятры соблюдают ⟦адхива̄са⟧ — «предпраздник» дня ухода Шрилы Рупы Госвами (лекция № 1468 от 14.08.2016)."
+            },
+            {
+              "type": "instruction",
+              "content": "Главное — хари-катха о жизни, произведениях и откровениях Шрилы Рупы Госвами; преданные читают свои подношения ему (лекция № 9070 от 06.08.2025, «Devotees' Offerings to Śrī Rūpa Gosvāmī»)."
+            }
+          ]
+        },
+        {
+          "id": "guru-purnima-festival",
+          "title": "Гуру-пурнима",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "By the causeless mercy of Śrī Guru and Gaurāṅga, today we are celebrating Śrī Guru-pūrṇimā. This is the day, traditionally, all disciples worship their guru on this day, because this day is the appearance day of Śrī Kṛṣṇa Dvaipāyana Vedavyāsadeva, the compiler of the Vedas. So, the seat of the speaker of Śrīmad-Bhāgavatam is called the vyāsāsana, the seat of Śrīla Vyāsadeva. So, because all sad-guru, pure gurus, are the representatives of Śrīla Vyāsadeva, so they are worshipped on this day, His appearance day.",
+              "translation": "По беспричинной милости Шри Гуру и Гауранги сегодня мы празднуем Шри Гуру-пурниму. По традиции в этот день все ученики поклоняются своему гуру, поскольку это день явления Шри Кришны Двайпаяны Ведавьясадевы, составителя Вед. Поэтому место, на котором восседает рассказчик Шримад-Бхагаватам, называется вьясасаной — местом Шрилы Вьясадевы. Поскольку все сад-гуру, чистые гуру, являются представителями Шрилы Вьясадевы, им поклоняются в этот день — день Его явления.",
+              "source": {
+                "title": "Guru Purnima, Vyasa Puja - 2022-07-13 - Sri Prem Prayojan",
+                "date": "2022-07-13",
+                "nr": "6556",
+                "timecode": "00:04:34",
+                "transcript_url": "https://drive.google.com/file/d/1ZfdAK74JsqyyrvXZWaHhLRyWEHob7dh7/view",
+                "audio_url": "https://drive.google.com/file/d/1zvrAywHmFtdNzapLVUxMIeZFloQiAIRc/view"
+              }
+            },
+            {
+              "type": "text",
+              "content": "Дата: полнолуние месяца Ашадха (2026 — 29 июля, 2027 — 18 июля). Это день явления Шрилы Вьясадевы и день ухода Шрилы Санатаны Госвами, которого Шрила Рупа Госвами называет своим Прабхупадой (Гурудев, лекция № 5987 от 25.07.2021). В нашей линии с этого дня начинается чатурмасья (см. главу «Чатурмасья и Пурушоттама-маса»)."
+            },
+            {
+              "type": "text",
+              "content": "Смысл праздника и порядок Вьяса-пуджи с поклонением сапта-панчакам описаны в предыдущей главе «Шри Гуру-пуджа и Вьяса-пуджа». В этот день все ученики поклоняются своему гуру, потому что все чистые гуру — представители Шрилы Вьясадевы, а место рассказчика «Шримад-Бхагаватам» называется ⟦вйа̄са̄сана⟧ (лекция № 6556 от 13.07.2022; см. «Настроение Гурудева»)."
+            },
+            {
+              "type": "text",
+              "content": "В 2026 году Академия Чайтаньи отмечала Гуру-пурниму пятидневным фестивалем в Латвии, в лесу, с четырёх утра до десяти вечера; в эти дни Шри Шри Радха-Гопинатха вышли на озеро на лодке — Наука-виласа (лекция № 10282 от 18.07.2026; см. ниже)."
+            }
+          ]
+        },
+        {
+          "id": "janmastami-nandotsava",
+          "title": "Джанмаштами и Нандотсава",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "Tonight, at midnight, Śrī Kṛṣṇa will appear. Don't think that Kṛṣṇa appeared more than 5,000 years ago. The pastimes of Kṛṣṇa are nitya, eternal realities. And when we engage, we become absorbed in hearing and chanting about them, then we can experience they're happening just now. So the Janmāṣṭamī-mahotsava, the festival of Janmāṣṭamī means the opportunity when Śrī Kṛṣṇa can make His appearance in all of our hearts. So for this, we are fasting, (..)? And singing kīrtana until midnight with a very strong desire, very strong hope that we can receive a sphūrti, or a momentary vision within our heart of the appearance of Śrī Kṛṣṇa.",
+              "translation": "Сегодня ночью, в полночь, явится Шри Кришна. Не думайте, что Кришна явился более 5 000 лет назад. Игры Кришны — нитья, вечная реальность. И когда мы посвящаем себя слушанию и воспеванию этих игр, погружаясь в них, то можем ощутить, что они происходят прямо сейчас. Поэтому Джанмаштами-махотсава, праздник Джанмаштами, означает возможность для Шри Кришны явиться в сердце каждого из нас. Ради этого мы постимся, (..)? И поём киртан до полуночи с очень сильным желанием и великой надеждой на то, что сможем обрести спхурти — мимолётное видение в сердце явления Шри Кришны.",
+              "source": {
+                "title": "2016.08.25 Sri Janmashtami",
+                "date": "2016-08-25",
+                "nr": "1472",
+                "timecode": "00:05:26",
+                "transcript_url": "https://drive.google.com/file/d/16780ZfyQilUCKk3QvwAibWkrNywBKjox/view",
+                "audio_url": "https://drive.google.com/file/d/1DJTKn3Oc2UjvY0Ozznak2_YwxWNoHDO0/view"
+              },
+              "more": [
+                {
+                  "quote": "So today, we are most blessed and most fortunate to be honouring the festival of Śrī Kṛṣṇa Janmāṣṭamī. My Gurudeva, he used to organise such a huge festival every year on this day and the next day Nandotsava. In Keśavajī Gauḍīya Maṭha in Mathurā. It's very hot at this time of the year. And everyone is fasting even from water. And so many si- singers and musicians, Vrajavāsīs are coming and doing performances and dances also. And very beautiful hari-kathā. And about one hundred thousand people used to come for prasādam. And because Śrīla Gurudeva in Mathurā, he'd been there many years and he stolen the hearts of all the Vrajavāsīs.",
+                  "translation": "Итак, сегодня мы удостоились величайшего благословения и нам необычайно посчастливилось отмечать праздник Шри Кришна Джанмаштами. Мой Гурудев каждый год устраивал в этот день и на следующий день, Нандотсаву, грандиозный праздник в Кешаваджи Гаудия Матхе в Матхуре. В это время года там очень жарко. И все постятся, воздерживаясь даже от воды. Туда приходят многочисленные пе- певцы, музыканты и враджаваси, которые также выступают и танцуют. И звучит прекрасная хари-катха. Около ста тысяч человек приходили получить прасадам. А поскольку Шрила Гурудев много лет жил в Матхуре, он похитил сердца всех враджаваси.",
+                  "source": {
+                    "title": "Sri Prem Prayojan - 2017-08-15 - Sri Krishna Janmashtami",
+                    "date": "2017-08-15",
+                    "nr": "2276",
+                    "timecode": "00:04:38",
+                    "transcript_url": "https://drive.google.com/file/d/1OWBLq7Wg0oz3Oy1Fboxw2QlSe1L60pMK/view",
+                    "audio_url": "https://drive.google.com/file/d/1FRO17DzMcNaQbiFdJd5lA7CG1rCDTkGr/view"
+                  }
+                },
+                {
+                  "quote": "So on this day of Nandotsava, then Nanda Mahārāja and all the Vrajavāsīs in Nandabhavana, they had a very big celebration. They were throwing the, (..) yogurt mixed with haldi. Oh, and butter also. And milk. Everyone was throwing at everyone. Everyone was covered in yellow milk products. Everyone's feet were slipping and skidding on the floor. As they were dancing. So Śukadeva Gosvāmī in his trance was seeing this ecstatic festival, and he's Śrī Śuka because he was so beautiful that the yogurt was appearing on his face. And on his body. So it is said in Śrīmad-Bhāgavatam, \"Śrī-śuka.\" How beautiful he was with the yogurt coming from his trance on his face. Parīkṣit Mahārāja was watching, \"Ah, Gurudeva!\" How he's in āveśa, absorbed in the līlā.",
+                  "translation": "Итак, в день Нандотсавы Нанда Махараджа и все Враджаваси устроили в Нандабхаване грандиозный праздник. Они бросались, (..) йогуртом, смешанным с халди. А также маслом. И молоком. Все бросались друг в друга. Все были покрыты жёлтыми молочными продуктами. Ноги у всех скользили и разъезжались по полу, пока они танцевали. Итак, Шукадева Госвами в своём трансе созерцал этот экстатический праздник, и он — Шри Шука, поскольку был так прекрасен, когда йогурт проявился на его лице. И на его теле. Поэтому в Шримад-Бхагаватам сказано: «Шри-Шука». Как же он был прекрасен, когда на его лице появился йогурт из его транса! Парикшит Махараджа смотрел: «Ах, Гурудев!» — видя, как тот пребывает в авеше, полностью поглощённый лилой.",
+                  "source": {
+                    "title": "Nandotsava - 2022-08-20 - Sri Prem Prayojan",
+                    "date": "2022-08-20",
+                    "nr": "6623",
+                    "timecode": "00:10:57",
+                    "transcript_url": "https://drive.google.com/file/d/14Qb63kZ7sAPS7x06liyoQbU3p02Hh5u4/view",
+                    "audio_url": "https://drive.google.com/file/d/1Jsl78WKd_JOyIuIM8w_HQCrVgOdNJX4d/view"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": "Дата: Джанмаштами — кришна-аштами месяца Бхадра (Хришикеша): 2026 — 4 сентября, 2027 — 25 августа. Нандотсава — на следующий день: 2026 — 5 сентября, 2027 — 26 августа."
+            },
+            {
+              "type": "text",
+              "content": "Игры Кришны вечны, и, погружаясь в слушание и воспевание, мы можем ощутить, что они происходят прямо сейчас: праздник Джанмаштами — это возможность для Шри Кришны явиться в сердце каждого из нас; ради этого постятся и поют киртан до полуночи (Гурудев, лекция № 1472 от 25.08.2016; см. «Настроение Гурудева»)."
+            },
+            {
+              "type": "subtitle",
+              "content": "Как празднуют"
+            },
+            {
+              "type": "instruction",
+              "content": "Пост до полуночи; после полуночи — только экадаши-прасад (календарь Академии Чайтаньи)."
+            },
+            {
+              "type": "instruction",
+              "content": "Весь день и вечер — киртан, бхаджаны и хари-катха о том, как явился Кришна; слушая эти игры, мы молимся, чтобы в полночь Кришна явился и в наших сердцах (Гурудев, лекции № 1470 от 24.08.2016 и № 10080 от 10.08.2012)."
+            },
+            {
+              "type": "instruction",
+              "content": "Около 22:30 — абхишека Радхи и Кришны (см. главу «Маха-абхишека»), затем Их одевают и украшают, предлагают бхогу и совершают арати; так празднуют до самого момента явления Кришны в полночь (лекция № 10080)."
+            },
+            {
+              "type": "instruction",
+              "content": "Пост прерывают в полночь чаранамритой — веществами, которыми омывали Божества, — а затем принимают прасад без зерновых, как в экадаши (лекция № 10080)."
+            },
+            {
+              "type": "text",
+              "content": "Шрила Гурудев каждый год устраивал на Джанмаштами и на следующий день, в Нандотсаву, грандиозный праздник в Кешаваджи Гаудия Матхе в Матхуре: все постились, даже от воды, выступали певцы и музыканты из Враджа, звучала хари-катха, и около ста тысяч человек приходили за прасадом (Гурудев, лекция № 2276 от 15.08.2017)."
+            },
+            {
+              "type": "subtitle",
+              "content": "Нандотсава"
+            },
+            {
+              "type": "text",
+              "content": "Нандотсава — праздник Нанды Махараджи по случаю рождения сына. Нанда Махараджа раздаёт щедрые дары брахманам и всем, кто приходит, а враджаваси в Нанда-бхаване бросают друг в друга йогурт с куркумой, масло и молоко и танцуют (Гурудев, лекции № 6623 от 20.08.2022 и № 10113 от 03.05.2026). В этот же день — день явления Шрилы А. Ч. Бхактиведанты Свами Прабхупады; в этот день отмечают его Вьяса-пуджу (лекция № 805 от 29.08.2013; календарь Академии Чайтаньи)."
+            }
+          ]
+        },
+        {
+          "id": "jhulana-yatra",
+          "title": "Джхулана-ятра — праздник качелей",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "Today, we are celebrating Jhūlana-yātrā, the swing festival of Rādhā and Kṛṣṇa. It has a very deep meaning. You see that in the summertime in Vṛndāvana, it's very hot. This heat is the heat of separation. And the grass, everything becomes dry. And people are thinking, \"Oh, when will this heat be over?\" And when the summer is coming to an end, then they look and they see gathering in the sky dark, black, fresh rain clouds. And seeing the fresh rain clouds, they are Ghanaśyāma. Then they know, now the heat of the summer will be over, they will get relief. So Rādhārāṇī's heat of separation will only go away when She sees Ghanaśyāma, Śrī Kṛṣṇa whose complexion is like a fresh rain cloud. Then the rain begins to fall. And when the rain falls, then suddenly, all the forest, everything becomes lush and green.",
+              "translation": "Сегодня мы празднуем Джхулана-ятру — праздник качелей Радхи и Кришны. Он имеет очень глубокий смысл. Летом во Вриндаване, как вы видите, очень жарко. Этот зной — жар разлуки. Трава и всё вокруг высыхает. И люди думают: «О, когда же закончится эта жара?» Когда лето подходит к концу, они смотрят и видят, как в небе собираются тёмные, чёрные, свежие дождевые облака. Эти свежие дождевые облака — Гханашьяма. Тогда люди понимают, что теперь летняя жара закончится и они испытают облегчение. Так и жар разлуки Радхарани пройдёт лишь тогда, когда Она увидит Гханашьяму, Шри Кришну, цвет тела которого подобен свежей дождевой туче. Затем начинает идти дождь. И когда проливается дождь, весь лес внезапно становится пышным и зелёным.",
+              "source": {
+                "title": "Jhulan Yatra, Dole 2012",
+                "date": "2012-07-29",
+                "nr": "10075",
+                "timecode": "00:00:56",
+                "transcript_url": "https://drive.google.com/file/d/1B2jPr7u9vr2WYgc7NPJ4QJGaAV2P8MEZ/view",
+                "audio_url": "https://drive.google.com/file/d/1WgAPesSz1Kcp_lCiYn9UtA2DejmOjI-r/view"
+              },
+              "more": [
+                {
+                  "quote": "Otherwise, just as we will see now, Rādhā and Kṛṣṇa sit together peacefully and swaying very gently. And Kṛṣṇa is realizing,\n\n[…]\n\nOh Rādhikā, I can never repay you.\" And Rādhikā, by Her mahābhāva, is relishing the sweetness of Kṛṣṇa. At that time, Rādhikā's mādanākhya-mahābhāva manifests. It doesn't require a spectacular dramatic pastime. Just sitting together and looking into each other's eyes, and the highest pray, mādanākhya-mahābhāva is manifested. And the sakhīs who are around, they become vyāpta, bathing in that highest love of Rādhikā for Kṛṣṇa. This is the meaning of Jhulan-yātrā.",
+                  "translation": "В противном случае, как мы сейчас увидим, Радха и Кришна сидят вместе, мирно и очень плавно качаясь. И Кришна осознает:\n\n[…]\n\nО Радхика, Я никогда не смогу отплатить Тебе». И Радхика благодаря Своей махабхаве наслаждается сладостью Кришны. В это время маданакхья-махабхава Радхики проявляется. Для этого не требуется впечатляющая драматическая игра. Просто сидеть вместе и смотреть друг другу в глаза, и высшая молитва, маданакхья-махабхава проявляется. А сакхи, которые находятся рядом, становятся вьяпта, омываясь в этой высшей любви Радхики к Кришне. В этом смысл Джхулан-ятры.",
+                  "source": {
+                    "title": "Rupanuaga, Palya dasi & Jhulan-Yatra, Sri Prem Prayojan Prabhu in Ananda-Dham, 14.08.2016",
+                    "date": "2016-08-14",
+                    "nr": "1468",
+                    "timecode": "01:05:10",
+                    "transcript_url": "https://drive.google.com/file/d/1ye3v6kePeXcTr3ag1_o2FcAePyXb53dz/view",
+                    "audio_url": "https://drive.google.com/file/d/10TOFMXsli__ux9GURWWIty8WzMHV1tPY/view"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": "Дата: от Павитропани-экадаши (Шравана, шукла-экадаши) до Шравана-пурнимы — пять дней: 2026 — 23–28 августа, 2027 — 12–17 августа. Последний день — Баларама-пурнима, день явления Господа Баларамы, и Ракша-бандхана (Гурудев, лекции № 6060 от 22.08.2021 и № 7931 от 19.08.2024). В дни Джхулана-ятры приходится и праздник Шрилы Рупы Госвами."
+            },
+            {
+              "type": "text",
+              "content": "Смысл. Летний зной во Вриндаване — это жар разлуки; когда в небе собираются свежие дождевые тучи, это Гханашьяма — Кришна, цвет тела которого подобен дождевой туче, и жар разлуки Радхарани проходит, лишь когда Она видит Его (Гурудев, лекция № 10075 от 29.07.2012; см. «Настроение Гурудева»). В сезон дождей гопи гостят в домах своих родителей и могут свободно встречаться с Кришной; сакхи устраивают качели, а когда раскачиваешься, все заботы и тревоги уходят далеко (лекции № 2263 от 03.08.2017 и № 3375 от 22.08.2018). Высшее в Джхулане — не зрелищная игра: Радха и Кришна просто сидят вместе, тихо покачиваясь, смотрят друг другу в глаза, и проявляется маданакхья-махабхава Радхики (лекция № 1468 от 14.08.2016)."
+            },
+            {
+              "type": "text",
+              "content": "В общине Академии Чайтаньи этот праздник ввёл Гурудев; его празднуют пять дней вместе с праздником Шрилы Рупы Госвами (лекции № 7894 от 15.08.2024 и № 10356 от 23.08.2026)."
+            },
+            {
+              "type": "subtitle",
+              "content": "Как празднуют"
+            },
+            {
+              "type": "instruction",
+              "content": "Вечером, после хари-катхи и арати Шри Чайтанье Махапрабху, Радху и Кришну с киртаном и звуком раковины выносят к украшенным качелям; Их обмахивают двумя чамарами и опахалом (Гурудев, лекция № 10356 от 23.08.2026)."
+            },
+            {
+              "type": "instruction",
+              "content": "Каждый присутствующий по очереди подходит и раскачивает качели Радхи и Кришны (лекции № 10356 и № 1468)."
+            },
+            {
+              "type": "instruction",
+              "content": "Поют песни на враджа-бхаше и киртаны в любимых рагах Шримати Радхики — Малхар и Дханашри (лекции № 1468, № 2266 от 07.08.2017 и № 3429 от 25.08.2018)."
+            }
+          ]
+        },
+        {
+          "id": "nauka-vilasa",
+          "title": "Наука-виласа — праздник лодки",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "So, Śrī Gaurāṅga Mahāprabhu has shown by His own pastimes how devotees in their sādhaka forms should make very beautiful festivals for the deities. And among them, this festival of the Naukā-vilāsa is so beautiful and one of the prominent festivals in that Mahāprabhu and His associates participated in.\n\nSo why are we saying this? Because this naukā-vilāsa is a līlā-vilāsa. Rādhā-Kṛṣṇa are sitting together among with their sakhīs and riding in a boat and very pleasingly talking to each other, sometimes joking, sometimes frowning, sometimes quarreling, like this. Sometimes apparently competing with each other and sometimes coming in complete praṇaya with each other.",
+              "translation": "Итак, Шри Гауранга Махапрабху Своими играми показал, как преданные в своей садхака-форме должны устраивать очень красивые фестивали для Божеств. И среди них этот фестиваль Наука-виласы так прекрасен и является одним из главных фестивалей, в котором Махапрабху и Его спутники принимали участие.\n\nТак почему мы это говорим? Потому что эта наука-виласа — это лила-виласа. Радха-Кришна сидят вместе со своими сакхи и плывут в лодке, очень приятно беседуя друг с другом, иногда шутя, иногда хмурясь, иногда ссорясь. Иногда они как будто соревнуются друг с другом, а иногда приходят к полному пранае друг с другом.",
+              "source": {
+                "title": "2026.08.02_Rādhā-Kṛṣṇa-naukā-vihāra-līlā_Boat Festival",
+                "date": "2026-08-02",
+                "nr": "10322",
+                "timecode": "00:50:04",
+                "transcript_url": "https://drive.google.com/file/d/1ZwRNEVklzLb-S1FCpIIAU3vptAe3GxwZ/view",
+                "audio_url": "https://drive.google.com/file/d/1DTUIqc_hZ2w3Iem_Pboqp-L4v-H3hDwL/view"
+              },
+              "more": [
+                {
+                  "quote": "What type of a realization comes to Mahāprabhu at the time of the Naukā-vilāsa sevā? (..) In Vṛndāvana, there are different types of Naukā-vilāsa. One type of Naukā-vilāsa is when Śrī Kṛṣṇa disguises himself as a boatman. And when the Gopīs come and they want to cross over the Mānasī-gaṅgā at Girirāja Govardhana, He tricks them. And then another type of Naukā-vilāsa is when the sakhīs they have a very beautifully decorated boat and Rādhā-Kṛṣṇa get onto the boat and all the sakhīs come also on the boat and play musical instruments and sing and they engage in their rasālāpa, beautiful loving talks as they go for a pleasure cruise on Yamunā.",
+                  "translation": "Какое осознание приходит к Махапрабху во время Наука-виласа-севы? (..) Во Вриндаване есть разные виды Наука-виласы. Один из видов Наука-виласы — это когда Шри Кришна переодевается в лодочника. И когда гопи приходят и хотят переправиться через Манаси-гангу у Гирираджа Говардхана, Он обманывает их. А другой вид Наука-виласы — это когда сакхи готовят очень красиво украшенную лодку, и Радха-Кришна садятся в лодку, и все сакхи тоже садятся в лодку, играют на музыкальных инструментах, поют и ведут свою расалапу, прекрасные любовные беседы, отправляясь в увеселительную прогулку по Ямуне.",
+                  "source": {
+                    "title": "2026.08.02_Rādhā-Kṛṣṇa-naukā-vihāra-līlā_Boat Festival",
+                    "date": "2026-08-02",
+                    "nr": "10322",
+                    "timecode": "00:50:42",
+                    "transcript_url": "https://drive.google.com/file/d/1ZwRNEVklzLb-S1FCpIIAU3vptAe3GxwZ/view",
+                    "audio_url": "https://drive.google.com/file/d/1DTUIqc_hZ2w3Iem_Pboqp-L4v-H3hDwL/view"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": "Название. ⟦наука̄-вила̄са⟧ (⟦наука̄⟧ — «лодка», ⟦вила̄са⟧ — «игры») — так называет этот праздник Гурудев (лекции № 10315 от 01.08.2026 и № 10322 от 02.08.2026); говорят также ⟦наука̄-виха̄ра⟧; в «Шри Чайтанья-бхагавате» это игры описаны как ⟦наука̄-лӣла̄⟧ (лекция № 10322)."
+            },
+            {
+              "type": "text",
+              "content": "Происхождение. Каждый год в Джаганнатха-Пури во время Чандана-ятры, двадцать один день начиная с Акшая-тритии, праздничное Божество Господа Джаганнатхи в образе Радхи-Мадана-мохана выносят к озеру Нарендра-саровара и катают на лодке. Шри Чайтанья Махапрабху и Его спутники каждый год участвовали в этом празднике, и Махапрабху Своими играми показал, как преданные в своей садхака-форме должны устраивать прекрасные праздники для Божеств (Гурудев, лекции № 10322, № 2888 от 27.02.2018 и № 8567 от 10.02.2025; см. «Настроение Гурудева»). В календаре Академии Чандана-ятра в 2027 году начинается 9 мая."
+            },
+            {
+              "type": "text",
+              "content": "Смысл. Во Вриндаване есть два вида Наука-виласы: Кришна, переодевшись лодочником, хитростью перевозит гопи через Манаси-гангу у Говардханы; или Радха и Кришна вместе с сакхи плывут в украшенной лодке по Ямуне, Манаси-ганге, Радха-кунде или Кусума-сароваре, сакхи играют и поют, а Радха и Кришна ведут ⟦раса̄ла̄па⟧ — сокровенные беседы, шутят и спорят. Эта Наука-виласа — ⟦лӣла̄-вила̄са⟧, и в ней — высочайшая раса (лекция № 10322)."
+            },
+            {
+              "type": "subtitle",
+              "content": "Как празднуют"
+            },
+            {
+              "type": "text",
+              "content": "В 2026 году Наука-виласу Шри Шри Радхи-Гопинатхи совершили в Академии Чайтаньи в Латвии, на озере, в дни фестиваля Гуру-пурнимы (лекции № 10282 от 18.07.2026, № 10315 и № 10322)."
+            },
+            {
+              "type": "instruction",
+              "content": "Всё приготовление (лодка, украшения) заканчивают до вечерней программы; вечерние бхаджаны — с 18:00 (Гурудев, лекция № 10315)."
+            },
+            {
+              "type": "instruction",
+              "content": "Вечером — хари-катха и киртан о Наука-виласе, примерно до 22:00, чтобы все служили в настроении этой игры (лекции № 10315 и № 10322)."
+            },
+            {
+              "type": "instruction",
+              "content": "Радху-Гопинатху заранее готовят и переносят к лодке; около 22:00 выходят с процессией по пути парикрамы к озеру. Наука-виласа бывает дневной и ночной — в 2026 году она была ночной (лекция № 10315)."
+            },
+            {
+              "type": "instruction",
+              "content": "Праздник, около полуночи, завершают сладостями: ⟦мадхурен̣а сама̄пайет⟧ — «завершай сладким» (лекция № 10315)."
+            }
+          ]
+        },
+        {
+          "id": "radhastami-festival",
+          "title": "Радхаштами",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "Today, we are celebrating the appearance of—that means, in terms of the līlā—the birthday of the daughter of Vṛṣabhānu Mahārāja, Śrīmatī Rādhikā. Śrī Rādhāṣṭamī Mahā-mahotsava kī jaya! Jaya! For this really to be the appearance of Rādhikā for us as individuals, then Rādhikā must appear within our hearts. That is the true celebration. Only those who have had the darśana of Rādhikā in their heart, they can say they have really celebrated the Rādhāṣṭamī festival.",
+              "translation": "Сегодня мы празднуем явление — то есть, в терминах лилы — день рождения дочери Махараджи Вришабхану, Шримати Радхики. Слава великому празднику Шри Радхаштами! Джая! Джая! Чтобы для каждого из нас явление Радхики действительно стало явлением, Радхика должна явиться в наших сердцах. Это и есть настоящее празднование. Только те, кто узрел даршану Радхики в своём сердце, могут сказать, что действительно отпраздновали праздник Радхаштами.",
+              "source": {
+                "title": "Sri Radhastami part 2 - 2024-09-11 - Sri Prem Prayojan",
+                "date": "2024-09-11",
+                "nr": "7972",
+                "timecode": "00:05:05",
+                "transcript_url": "https://drive.google.com/file/d/1TAkjh4hI01CLLJXXw9FOnY2uINCQZL2C/view",
+                "audio_url": "https://drive.google.com/file/d/1HAjq4U-nokD9AhFDjci0pqtl-NUxJoKy/view"
+              }
+            },
+            {
+              "type": "text",
+              "content": "Дата: шукла-аштами месяца Бхадра (Хришикеша): 2026 — 19 сентября, 2027 — 8 сентября. По календарю Академии Чайтаньи поста в этот день нет."
+            },
+            {
+              "type": "text",
+              "content": "В этот день празднуют день рождения дочери Вришабхану Махараджи, Шримати Радхики; но чтобы это было явлением Радхики для каждого из нас, Она должна явиться в наших сердцах — это и есть настоящее празднование (Гурудев, лекция № 7972 от 11.09.2024; см. «Настроение Гурудева»). Шрила Гурудев устраивал на Радхаштами прекрасный праздник в Индии (лекция № 2329); Гурудев перед Радхаштами проводит несколько дней праздника радха-таттвы с занятиями о Радхе (лекция № 6075 от 10.09.2021)."
             }
           ]
         }

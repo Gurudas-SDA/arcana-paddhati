@@ -56,3 +56,4 @@ scripts/translate/__pycache__/
 scripts/chapters/*/calendar/out/
 scripts/chapters/*/transcripts/
 scripts/chapters/*/__pycache__/
+scripts/chapters/__pycache__/
