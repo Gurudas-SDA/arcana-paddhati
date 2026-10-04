@@ -172,7 +172,15 @@ def apply(folder):
             if after in ids and ids.index(sec["id"]) != ids.index(after) + 1:
                 book["sections"].remove(sec)
                 book["sections"].insert([s["id"] for s in book["sections"]].index(after) + 1, sec)
-        # every book lists the chapter in Part IV (books without the section show the English one, with a note)
+        # every book lists the chapter in Part IV (books without the section show the English one, with a note);
+        # a front-matter chapter (IN_PART = False) stays outside the parts, placed only by AFTER (the app takes the
+        # section order from the English book and shows the English section where a language has none)
+        if not getattr(ch, "IN_PART", True):
+            if sec is None:
+                continue
+            write_json(path, book)
+            print("wrote", lang)
+            continue
         p = next(x for x in book["parts"] if x["id"] == PART["id"])
         if ch.SECTION_ID not in p["sections"]:
             after = getattr(ch, "AFTER", None)

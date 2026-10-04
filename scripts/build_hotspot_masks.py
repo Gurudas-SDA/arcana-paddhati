@@ -68,6 +68,26 @@ CONFIG = {
             "15": {"clip": [(274, 352), (322, 352), (322, 374), (296, 374.5), (274, 376)]},
         },
     },
+    # Emblem of the Gauḍīya Maṭha (Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura): fields enclosed by the sector lines;
+    # the three Deity fields (Mahāprabhu, Lakṣmī-Nārāyaṇa, Rādhā-Kṛṣṇa) are inert.
+    "Gaudiya_emblem.png": {
+        "label_r": 18,
+        "label_clip": False,
+        "inert": [[(420, 22), (580, 22), (580, 285), (420, 285)],
+                  [(22, 288), (335, 288), (335, 612), (22, 612)],
+                  [(700, 288), (935, 288), (935, 640), (700, 640)]],
+        "items": {
+            "1": {"clip": [(404, 500), (450, 413), (550, 413), (598, 500), (550, 588), (450, 588)]},
+            "2": {"seeds": [(488, 342), (610, 419), (602, 560), (500, 626), (382, 560), (392, 432)], "close": 4},
+            "3": {"seeds": [(300, 120)], "close": 14},
+            "4": {"seeds": [(640, 100)], "close": 14},
+            "5": {"seeds": [(120, 640)], "close": 14, "cut": [[(0, 0), (1000, 0), (1000, 622), (0, 622)]]},  # not the legs of the Deities' throne
+            "6": {"seeds": [(880, 640)], "close": 14, "cut": [[(0, 0), (1000, 0), (1000, 648), (0, 648)]]},  # not the Deities' lotus base
+            "7": {"seeds": [(300, 760)], "close": 14},
+            "8": {"seeds": [(700, 760)], "close": 14},
+            "9": {"seeds": [(455, 900)], "close": 14},
+        },
+    },
     "Tilak.png": {
         "label_r": 11,
         # Plain digits (no circles) with a white halo: each digit is its own
@@ -100,6 +120,21 @@ def poly_mask(shape, pts):
     return inside
 
 
+def seed_region(ink, seeds, close):
+    """Region of a field enclosed by drawn lines (the emblem's sectors): the white area around each seed,
+    with everything drawn inside it (holes filled) and the bays of objects that touch the field's own
+    outline closed (radius `close` px). The enclosing lines themselves stay outside."""
+    white, _ = ndi.label(~ink)
+    reg = np.zeros_like(ink)
+    disk = np.hypot(*np.mgrid[-close:close + 1, -close:close + 1]) <= close
+    for x, y in seeds:
+        comp = white == white[int(y), int(x)]
+        comp = ndi.binary_fill_holes(comp)
+        comp = ndi.binary_closing(np.pad(comp, close), structure=disk)[close:-close, close:-close]
+        reg |= ndi.binary_fill_holes(comp)
+    return reg
+
+
 def build(name, spec, cfg):
     W, H = spec["w"], spec["h"]
     a = np.asarray(Image.open(IMAGES / name).convert("RGBA")).astype(float) / 255
@@ -120,8 +155,10 @@ def build(name, spec, cfg):
         ic = cfg.get("items", {}).get(n, {})
         cx, cy = s["x"] / 100 * W, s["y"] / 100 * H
         rx, ry = s["rx"] / 100 * W, s["ry"] / 100 * H
-        clip = "clip" in ic or "clip_ellipse" in ic
-        if "clip" in ic:
+        clip = "clip" in ic or "clip_ellipse" in ic or "seeds" in ic
+        if "seeds" in ic:
+            region = seed_region(ink, ic["seeds"], ic.get("close", 12))
+        elif "clip" in ic:
             region = poly_mask(ink.shape, ic["clip"])
         else:
             g = ic.get("clip_ellipse", ic.get("grow", 1.25))
