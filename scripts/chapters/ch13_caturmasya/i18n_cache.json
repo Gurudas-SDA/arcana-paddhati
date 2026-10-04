@@ -1,0 +1,37 @@
+{
+ "model": "cx/gpt-6.1-sol",
+ "i18n": {
+  "lv": {
+   "part": "Svētki un solījumi",
+   "note": "Tulkojums tiek gatavots — šī nodaļa ir attēlota angļu valodā."
+  },
+  "de": {
+   "part": "Feste und Gelübde",
+   "note": "Übersetzung in Vorbereitung — dieses Kapitel wird auf Englisch angezeigt."
+  },
+  "fr": {
+   "part": "Fêtes et vœux",
+   "note": "Traduction en préparation — ce chapitre est affiché en anglais."
+  },
+  "es": {
+   "part": "Festividades y votos",
+   "note": "Traducción en preparación — este capítulo se muestra en inglés."
+  },
+  "it": {
+   "part": "Festività e voti",
+   "note": "Traduzione in preparazione — questo capitolo è mostrato in inglese."
+  },
+  "uk": {
+   "part": "Свята та обітниці",
+   "note": "Переклад готується — цей розділ відображається англійською мовою."
+  },
+  "hu": {
+   "part": "Ünnepek és fogadalmak",
+   "note": "A fordítás előkészületben — ez a fejezet angolul jelenik meg."
+  },
+  "ru": {
+   "part": "Праздники и обеты",
+   "note": "Перевод готовится — эта глава отображается на английском языке."
+  }
+ }
+}

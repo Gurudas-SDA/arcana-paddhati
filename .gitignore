@@ -51,3 +51,8 @@ desktop.ini
 scripts/translate/progress.log
 scripts/translate/cache/
 scripts/translate/__pycache__/
+
+# chapter sources: regenerable caches
+scripts/chapters/*/calendar/out/
+scripts/chapters/*/transcripts/
+scripts/chapters/*/__pycache__/

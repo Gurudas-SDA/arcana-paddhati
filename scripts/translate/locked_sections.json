@@ -1,0 +1,7 @@
+{
+  "_doc": "Hand-written sections: tr.py never machine-translates them into `langs` and `tr.py assemble` keeps the existing data/book.<lang>.json copy unchanged. Other languages are translated from English as usual (left out until translated; the app then shows English). Edit the section through its `source` script.",
+  "caturmasya-purusottama-masa": {
+    "langs": ["ru", "ru-iast"],
+    "source": "scripts/chapters/ch13_caturmasya/build.py"
+  }
+}

@@ -33,6 +33,27 @@ PLOG = os.path.join(HERE, "progress.log")
 IAST_CH = set("āīūṛṝḷḹṅñṭḍṇśṣṁṃḥĀĪŪṚṜḶṄÑṬḌṆŚṢṀṂḤ")
 
 book = json.load(open(SRC, encoding="utf-8"))
+# Hand-written sections (locked_sections.json): {section_id: {"langs": [book variants written by hand], "source": ...}}.
+# For a locked variant (e.g. ru, ru-iast) assemble keeps the section exactly as it is in the existing
+# data/book.<variant>.json and it is never machine-translated; the English book.json is never written here.
+# Other languages are filled as usual (`run <lang>` translates the section from English) — while a language
+# has no translation of it yet, the section is left out of that book (the app shows the English one).
+LOCKED = {k: v for k, v in json.load(open(os.path.join(HERE, "locked_sections.json"), encoding="utf-8")).items()
+          if not k.startswith("_")}
+
+
+def locked_for(sid, variant):
+    """True if section `sid` is hand-written in book variant `variant` (None = any)."""
+    if sid not in LOCKED:
+        return False
+    return variant is None or variant in LOCKED[sid]["langs"]
+
+
+def strip_locked(b):
+    """Copy of a book without the locked sections (for structure / sanskrit checks)."""
+    c = copy.copy(b)
+    c["sections"] = [s for s in b["sections"] if s["id"] not in LOCKED]
+    return c
 _key = None
 _key_index = None
 PURPOSE = "arcana-translate"
@@ -112,10 +133,13 @@ def call(messages, max_tokens=32000):
 
 
 # ---------------- extraction ----------------
-def units():
-    """[(unit_id, [(path, text)])]; path = list of keys into book."""
+def units(lang=None):
+    """[(unit_id, [(path, text)])]; path = list of keys into book.
+    Locked sections are included only for a `lang` that is not hand-written for them (lang=None: never)."""
     res = [("book", [(["title"], book["title"]), (["subtitle"], book["subtitle"])])]
     for si, s in enumerate(book["sections"]):
+        if s["id"] in LOCKED and (lang is None or locked_for(s["id"], lang)):
+            continue
         items = []
         base = ["sections", si]
         for f in ("title", "subtitle"):
@@ -142,10 +166,18 @@ def units():
                         for f in ("label", "value"):
                             if it.get(f):
                                 items.append((p + ["items", ii, f], it[f]))
+                elif e["type"] == "table":
+                    # header + row badges are translated; cells (dates, numbers) are copied
+                    for hi, h in enumerate(e["header"]):
+                        items.append((p + ["header", hi], h))
+                    for ri, row in enumerate(e["rows"]):
+                        if row.get("badge"):
+                            items.append((p + ["rows", ri, "badge"], row["badge"]))
                 else:
                     raise ValueError("unknown type " + e["type"])
                 for extra in e:
-                    if extra not in ("type", "sanskrit", "translation", "wbw", "content", "src", "alt", "items", "layout"):
+                    if extra not in ("type", "sanskrit", "translation", "wbw", "content", "src", "alt", "items", "layout",
+                                     "header", "rows", "numbers"):
                         raise ValueError("unknown field %s" % extra)
         content(base, s["content"])
         for j, ss in enumerate(s.get("subsections") or []):
@@ -279,7 +311,7 @@ def translate_items(lang, items, label):
 
 def run_lang(lang, only=None):
     os.makedirs(os.path.join(CACHE, lang), exist_ok=True)
-    for uid, items in units():
+    for uid, items in units(lang):
         if only and uid not in only:
             continue
         cp = os.path.join(CACHE, lang, uid + ".json")
@@ -352,14 +384,21 @@ def finalize(lang, text, src, cyr):
 def build(lang):
     """Returns dict of variant-> book. lang 'ru' gives ru and ru-iast."""
     tr = {}
-    for uid, _ in units():
+    U = units(lang)
+    untranslated = set()  # locked sections with no translation into this language yet
+    for uid, _ in U:
         cp = os.path.join(CACHE, lang, uid + ".json")
+        if uid in LOCKED and not os.path.exists(cp):
+            untranslated.add(uid)
+            continue
         tr.update(json.load(open(cp, encoding="utf-8"))["items"])
     variants = {"ru": [("ru", True), ("ru-iast", False)]}.get(lang, [(lang, False)])
     out = {}
     for name, cyr in variants:
         b = copy.deepcopy(book)
-        for uid, items in units():
+        for uid, items in U:
+            if uid in untranslated:
+                continue
             for path, src in items:
                 set_in(b, path, finalize(lang, tr[pkey(path)], src, cyr))
         if cyr:
@@ -374,8 +413,35 @@ def build(lang):
                     for v in o:
                         walk(v)
             walk(b)
+        RAW[name] = copy.deepcopy(b)  # aligned with book.json (path-based checks)
+        UNTRANSLATED[name] = untranslated
+        keep_hand_written(name, b, untranslated)
         out[name] = b
     return out
+
+
+RAW, UNTRANSLATED = {}, {}
+
+
+def keep_hand_written(name, b, untranslated):
+    """Locked sections of variant `name`: the existing data/book.<name>.json copy, unchanged (left out if that file
+    does not have it); locked sections not yet translated into `name`: left out. Part titles (not translation units)
+    are kept from the existing file as well."""
+    p = os.path.join(PROJ, "data", "book.%s.json" % name)
+    old = json.load(open(p, encoding="utf-8")) if os.path.exists(p) else {"sections": []}
+    old_secs = {s["id"]: s for s in old["sections"]}
+    secs = []
+    for s in b["sections"]:
+        if locked_for(s["id"], name):
+            if s["id"] in old_secs:
+                secs.append(old_secs[s["id"]])
+        elif s["id"] not in untranslated:
+            secs.append(s)
+    b["sections"] = secs
+    old_parts = {x["id"]: x for x in old.get("parts", [])}
+    for part in b.get("parts", []):
+        if part["id"] in old_parts:
+            part["title"] = old_parts[part["id"]]["title"]
 
 
 def struct_eq(a, b, tpath=""):
@@ -410,17 +476,35 @@ def iter_sanskrit(o, path=""):
             yield from iter_sanskrit(v, "%s/%d" % (path, i))
 
 
+# assemble writes here; TR_OUT_DIR=<dir> writes elsewhere (dry run: compare with data/ before replacing it)
+OUT_DIR = os.environ.get("TR_OUT_DIR") or os.path.join(PROJ, "data")
+
+
+def locked_report(name, final):
+    """One report line: hand-written sections of `name` equal to the existing data file (FAIL if not)."""
+    ids = [sid for sid in LOCKED if locked_for(sid, name)]
+    if not ids:
+        return "[%s] hand-written sections: none" % name
+    p = os.path.join(PROJ, "data", "book.%s.json" % name)
+    old = {s["id"]: s for s in json.load(open(p, encoding="utf-8"))["sections"]} if os.path.exists(p) else {}
+    new = {s["id"]: s for s in final["sections"]}
+    bad = [sid for sid in ids if old.get(sid) != new.get(sid)]
+    return "[%s] hand-written sections kept unchanged: %s" % (name, "OK %s" % ids if not bad else "FAIL %s" % bad)
+
+
 def assemble():
     rep = []
     allb = {}
     for lang in LANGS:
         allb.update(build(lang))
-    src_s = dict(iter_sanskrit(book))
+    src_s = dict(iter_sanskrit(strip_locked(book)))
     U = units()
-    for name, b in allb.items():
-        e = struct_eq(book, b)
+    for name, final in allb.items():
+        b = RAW[name]  # aligned with book.json: the path-based checks below
+        e = struct_eq(strip_locked(book), strip_locked(final))
         rep.append("[%s] structure: %s" % (name, "OK" if not e else "FAIL %d %s" % (len(e), e[:5])))
-        s = dict(iter_sanskrit(b))
+        rep.append(locked_report(name, final))
+        s = dict(iter_sanskrit(strip_locked(final)))
         if name == "ru":
             lat = [p for p, v in s.items() if v is not None and re.search(r"[a-zA-Z]", v)]
             rep.append("[ru] sanskrit fields with latin letters: %d" % len(lat))
@@ -445,7 +529,7 @@ def assemble():
             for p, w in lat[:60]:
                 rep.append("      ~ %s %s" % (p, w))
     # ru vs ru-iast differ only in sanskrit/mantra fields
-    ru, ri = allb["ru"], allb["ru-iast"]
+    ru, ri = RAW["ru"], RAW["ru-iast"]
     trr = {}
     for uid, _ in U:
         trr.update(json.load(open(os.path.join(CACHE, "ru", uid + ".json"), encoding="utf-8"))["items"])
@@ -459,7 +543,7 @@ def assemble():
     rep.append("[ru vs ru-iast] differences outside sanskrit/mantra fields: %d %s" % (len(bad), bad[:5]))
     ok = all("FAIL" not in r for r in rep)
     for name, b in allb.items():
-        json.dump(b, open(os.path.join(PROJ, "data", "book.%s.json" % name), "w", encoding="utf-8"),
+        json.dump(b, open(os.path.join(OUT_DIR, "book.%s.json" % name), "w", encoding="utf-8"),
                   ensure_ascii=False, indent=2)
     open(os.path.join(HERE, "validation.txt"), "w", encoding="utf-8").write("\n".join(rep))
     print("\n".join(r for r in rep if not r.startswith("      ")))
@@ -574,7 +658,8 @@ def run_wbw(lang, chunk=15):
 def assemble_lang(lang):
     """Build data/book.<lang>.json for a MARK_KEEP language (⟦⟧ kept, wbw translated) + validation."""
     assert lang in MARK_KEEP
-    b = build(lang)[lang]
+    build(lang)
+    b = RAW[lang]  # aligned with book.json; hand-written sections are put back before writing
     wb = json.load(open(os.path.join(CACHE, lang, "_wbw.json"), encoding="utf-8"))
     for p, _, _ in wbw_verses():
         set_in(b, p + ["wbw"], wb[pkey(p)])
@@ -616,9 +701,12 @@ def assemble_lang(lang):
     rep.append("[%s] fields identical to English: %d" % (lang, len(same)))
     for p, t in same:
         rep.append("      = %s | %s" % (p, t[:80].replace("\n", " / ")))
+    final = copy.deepcopy(b)
+    keep_hand_written(lang, final, UNTRANSLATED[lang])
+    rep.append(locked_report(lang, final))
     ok = all("FAIL" not in r for r in rep)
-    with open(os.path.join(PROJ, "data", "book.%s.json" % lang), "w", encoding="utf-8") as f:
-        json.dump(b, f, ensure_ascii=False, indent=2)
+    with open(os.path.join(OUT_DIR, "book.%s.json" % lang), "w", encoding="utf-8") as f:
+        json.dump(final, f, ensure_ascii=False, indent=2)
         f.write("\n")
     open(os.path.join(HERE, "validation.%s.txt" % lang), "w", encoding="utf-8").write("\n".join(rep))
     print("\n".join(r for r in rep if not r.startswith("      ")))
