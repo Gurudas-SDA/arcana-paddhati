@@ -36,7 +36,7 @@ export function hotspotsFor(src: string | undefined): HotspotImage | undefined {
   return src ? IMAGES[src] : undefined;
 }
 
-/** Picture numbers named by a list label: "4" -> ["4"], "4, 5" -> ["4", "5"]. */
+/** Picture numbers named by a list label: "4" -> ["4"], "4, 5" -> ["4", "5"], "2.1" -> ["2.1"] (a sub-point). */
 export function labelNumbers(label: string | undefined): string[] {
-  return (label ?? "").split(/[^0-9]+/).filter(Boolean);
+  return (label ?? "").match(/\d+(?:\.\d+)*/g) ?? [];
 }

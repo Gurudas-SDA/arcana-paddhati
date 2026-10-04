@@ -331,6 +331,48 @@
     "ly": 50.0,
     "mask": "Gaudiya_emblem-02.png"
    },
+   "2.1": {
+    "x": 49.8,
+    "y": 36.6,
+    "rx": 3.6,
+    "ry": 3.0,
+    "mask": "Gaudiya_emblem-02-1.png"
+   },
+   "2.2": {
+    "x": 59.6,
+    "y": 43.2,
+    "rx": 3.6,
+    "ry": 3.0,
+    "mask": "Gaudiya_emblem-02-2.png"
+   },
+   "2.3": {
+    "x": 59.6,
+    "y": 56.6,
+    "rx": 3.6,
+    "ry": 3.0,
+    "mask": "Gaudiya_emblem-02-3.png"
+   },
+   "2.4": {
+    "x": 49.8,
+    "y": 62.8,
+    "rx": 3.6,
+    "ry": 3.0,
+    "mask": "Gaudiya_emblem-02-4.png"
+   },
+   "2.5": {
+    "x": 39.8,
+    "y": 56.6,
+    "rx": 3.6,
+    "ry": 3.0,
+    "mask": "Gaudiya_emblem-02-5.png"
+   },
+   "2.6": {
+    "x": 39.8,
+    "y": 43.2,
+    "rx": 3.6,
+    "ry": 3.0,
+    "mask": "Gaudiya_emblem-02-6.png"
+   },
    "3": {
     "x": 32.0,
     "y": 23.0,

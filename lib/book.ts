@@ -56,6 +56,14 @@ export interface ContentItem {
   header?: string[];
   /** "table" block: rows; `highlight` marks a row (e.g. a year with Puruṣottama-māsa), `badge` is shown with it. */
   rows?: TableRow[];
+  /** "sources" block (the source line of an intro chapter): links per line of `content`, shown after that line. */
+  links?: (SourceLinks | null)[];
+}
+
+/** Transcript / audio links of one lecture in a "sources" block. */
+export interface SourceLinks {
+  transcript_url?: string;
+  audio_url?: string;
 }
 
 /** One row of a "table" block. */

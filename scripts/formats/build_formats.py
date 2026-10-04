@@ -446,6 +446,15 @@ class Edition:
             return f'<table class="dt"><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table>'
         if t == "mood":
             return self.mood_html(it, epub)
+        if t == "sources":  # source line of an intro chapter: one line per lecture + its transcript / audio links
+            links = it.get("links") or []
+            rows = []
+            for i, line in enumerate((it.get("content") or "").split("\n")):
+                l = links[i] if i < len(links) else None
+                rows.append(inline(line) + "".join(
+                    f' · <a href="{esc(l[k])}">{esc(self.ui[lab])}</a>'
+                    for k, lab in (("transcript_url", "mood.transcript"), ("audio_url", "mood.audio")) if l and l.get(k)))
+            return '<p class="srcnote">' + "<br/>".join(rows) + "</p>"
         if t == "image":
             return (f'<div class="img"><img src="images/{esc(it.get("src", ""))}" alt="{esc(it.get("alt", ""))}"/></div>')
         content = it.get("content", "")
@@ -551,6 +560,8 @@ b.sa { font-weight: 700; font-style: normal; }
 .mood .mt { font-style: italic; margin: 0 0 0.4em 0; }
 .mood .gap { color: #8B6508; }
 .mood .ms { font-size: 0.78em; color: #5C3D2E; border-top: 0.5pt solid #E3CFA8; padding-top: 0.35em; margin: 0.6em 0 0 0; }
+.srcnote { font-size: 0.85em; font-style: italic; color: #5C3D2E; }
+.srcnote a { color: #8B6508; font-style: normal; }
 .img { text-align: center; }
 .img img { max-width: 100%; }
 table.pairs { border-collapse: collapse; }

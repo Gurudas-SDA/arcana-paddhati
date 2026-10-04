@@ -79,6 +79,14 @@ CONFIG = {
         "items": {
             "1": {"clip": [(404, 500), (450, 413), (550, 413), (598, 500), (550, 588), (450, 588)]},
             "2": {"seeds": [(488, 342), (610, 419), (602, 560), (500, 626), (382, 560), (392, 432)], "close": 4},
+            # the six opulences one by one (sub-points of 2; clockwise from the top): yaśaḥ, śrīḥ, jñānam,
+            # vairāgyam, aiśvaryam, vīryam — each the inscription in its own point of the star
+            "2.1": {"seeds": [(488, 342)], "close": 4},
+            "2.2": {"seeds": [(610, 419)], "close": 4},
+            "2.3": {"seeds": [(602, 560)], "close": 4},
+            "2.4": {"seeds": [(500, 626)], "close": 4},
+            "2.5": {"seeds": [(382, 560)], "close": 4},
+            "2.6": {"seeds": [(392, 432)], "close": 4},
             "3": {"seeds": [(300, 120)], "close": 14},
             "4": {"seeds": [(640, 100)], "close": 14},
             "5": {"seeds": [(120, 640)], "close": 14, "cut": [[(0, 0), (1000, 0), (1000, 622), (0, 622)]]},  # not the legs of the Deities' throne
@@ -182,21 +190,23 @@ def build(name, spec, cfg):
             m &= ~poly_mask(ink.shape, cut)
         own[n] = m
 
-    # Each ink pixel may belong to one object only.
-    stack = np.stack(list(own.values()))
-    clash = stack.sum(0) > 1
+    # Each ink pixel may belong to one object only — except a sub-point ("2.1") and its whole ("2"), which
+    # share their pixels by design.
+    def family(a, b):
+        return a == b or a.startswith(b + ".") or b.startswith(a + ".")
+
+    others = {n: np.logical_or.reduce([m2 for k, m2 in own.items() if not family(n, k)] or [np.zeros_like(ink)])
+              for n in own}
     conflicts = {}
-    if clash.any():
-        for n, m in own.items():
-            c = int((m & clash).sum())
-            if c:
-                conflicts[n] = c
+    for n, m in own.items():
+        c = int((m & others[n]).sum())
+        if c:
+            conflicts[n] = c
 
     stem = Path(name).stem
     masks = {}
-    any_own = stack.any(0)
     for n, m in own.items():
-        mine = ndi.binary_dilation(m, iterations=1) & ink & ~(any_own & ~m)
+        mine = ndi.binary_dilation(m, iterations=1) & ink & ~(others[n] & ~m)
         foreign = ink & ~mine
         grown = ndi.binary_dilation(m, iterations=DILATE).astype(float)
         soft = np.clip(ndi.gaussian_filter(grown, FEATHER) * 1.4, 0, 1)
@@ -218,7 +228,8 @@ def main():
             ok = False
             print(f"{name}: pixels claimed by several objects: {conflicts}")
         for n, soft in masks.items():
-            fn = f"{stem}-{int(n):02d}.png"
+            head, *sub = n.split(".")
+            fn = f"{stem}-{int(head):02d}" + "".join(f"-{x}" for x in sub) + ".png"  # "2.1" -> <stem>-02-1.png
             alpha = Image.fromarray((soft * 255).round().astype(np.uint8), "L")
             img = Image.new("LA", alpha.size, 255)
             img.putalpha(alpha)

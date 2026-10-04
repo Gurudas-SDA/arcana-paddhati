@@ -50,13 +50,13 @@ def master(ch, lang="ru"):
 
 
 def strings_of(sec):
-    """(path, text) of every translatable string (not verse sanskrit, not tables)."""
+    """(path, text) of every translatable string (not verse sanskrit, not tables, not per-language "sources" lines)."""
     out = [(("title",), sec["title"])]
 
     def walk(blocks, base):
         for i, b in enumerate(blocks):
             for k in ("content", "translation"):
-                if b.get(k) and b["type"] != "table":
+                if b.get(k) and b["type"] not in ("table", "sources"):
                     out.append((base + (i, k), b[k]))
 
     walk(sec["content"], ("content",))

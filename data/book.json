@@ -61,29 +61,16 @@
       "page": "",
       "content": [
         {
-          "type": "mood",
-          "quote": "So today, on the first day, we want to discuss the very important presentation of Gauḍīya Vaiṣṇavism that was given by our Prabhupāda, Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura. He personally designed (..) the logo or the emblem of the Gauḍīya Maṭha.\n\nSo the profound understanding of siddhānta was presented by Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura in the form of this logo of the Gauḍīya Maṭha.",
-          "translation": "",
-          "source": {
-            "title": "Gaudiya Math logo - the Essence of Mahaprabhu’s Vichar-Dhara - 2024-08-15 - Sri Prem Prayojan",
-            "date": "2024-08-15",
-            "nr": "7894",
-            "timecode": "00:06:25",
-            "transcript_url": "https://drive.google.com/file/d/1vZpAv08N_X8-Ei2wEF-uLA-wMtSJjeRm/view",
-            "audio_url": "https://drive.google.com/file/d/13SHfoDjTAe3_qxXLo6CilF5EyukB0SCQ/view"
-          },
-          "more": [
+          "type": "sources",
+          "content": "This chapter draws on Gurudev's lecture “Gaudiya Math Logo — the Essence of Mahāprabhu's Vichar-Dhara” (no. 7894, 15 August 2024)\nand on lecture no. 1480 (1 September 2016)",
+          "links": [
             {
-              "quote": "And so to in- embody this idea, Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura has made this logo. We- it's on the wall in the Caitanya Academy in Venice to remind everyone. Maybe you can make an extra one and give to Uddhava. Prabhu to keep here also. So... It is not so easy for the general person to enter deeply into the vicāra, the profound conception of Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura. But that conception is the same as the conception of Mahāprabhu and Rūpa Gosvāmī and all the great ācāryas.",
-              "translation": "",
-              "source": {
-                "title": "Gaudiya Math logo - the Essence of Mahaprabhu’s Vichar-Dhara - 2024-08-15 - Sri Prem Prayojan",
-                "date": "2024-08-15",
-                "nr": "7894",
-                "timecode": "01:58:18",
-                "transcript_url": "https://drive.google.com/file/d/1vZpAv08N_X8-Ei2wEF-uLA-wMtSJjeRm/view",
-                "audio_url": "https://drive.google.com/file/d/13SHfoDjTAe3_qxXLo6CilF5EyukB0SCQ/view"
-              }
+              "transcript_url": "https://drive.google.com/file/d/1vZpAv08N_X8-Ei2wEF-uLA-wMtSJjeRm/view",
+              "audio_url": "https://drive.google.com/file/d/13SHfoDjTAe3_qxXLo6CilF5EyukB0SCQ/view"
+            },
+            {
+              "transcript_url": "https://drive.google.com/file/d/1HGvpVTgsj_O8C-oB6z-NyfticZXw4HKT/view",
+              "audio_url": "https://drive.google.com/file/d/1JA03gytaguWngjtmIQSwF2_u8gpOcV7L/view"
             }
           ]
         },
@@ -94,17 +81,23 @@
         },
         {
           "type": "text",
-          "content": "The emblem of the Gauḍīya Maṭha appears on the cover of this book. It was personally designed by Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura Prabhupāda. Gurudev devoted an entire morning session to this emblem at Chaitanya Academy in Latvia, on the first day of Jhūlana-yātrā and the disappearance day of Śrīla Rūpa Gosvāmī (lecture no. 7894, 15 August 2024). According to Gurudev, in the form of this emblem Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura presented a deep understanding of siddhānta; it hangs on the wall at Chaitanya Academy in Venice to remind everyone (ibid.; see “Gurudev's Mood”)."
+          "content": "On the cover of this book is the emblem of the Gauḍīya Maṭha. It was personally designed by Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura Prabhupāda, who expressed in its form a profound understanding of siddhānta—what Śrī Caitanya Mahāprabhu gave. The emblem opens this book on Deity worship because it shows the place of arcana within the entire sādhana of a Gauḍīya Vaiṣṇava: on the left is the path of ⟦vidhi⟧, the path of rules and arcana; on the right is the path of ⟦rāga⟧, the path of spontaneous love; in the centre is the holy name; at the top is Mahāprabhu; and at the bottom is Guru."
         },
         {
           "type": "text",
-          "content": "The emblem stands at the beginning of a book on Deity worship because it shows the place of arcana within the entire Gauḍīya Vaiṣṇava sādhana: on the left is the ⟦vidhi⟧ path, the path of rules and arcana; on the right is the ⟦rāga⟧ path, the path of spontaneous love; in the centre is the holy name; and below is the Guru. Below, the elements of the emblem are described in the order in which Gurudev explains them. Click an item in the list, and that element will be highlighted in the image. The images of Mahāprabhu, Lakṣmī-Nārāyaṇa, and Śrī Śrī Rādhā-Kṛṣṇa are not numbered."
+          "content": "First, it is worth simply examining what is depicted here, what each detail points to and what it recalls, and then entering more deeply into the topics themselves. Click on an item in the list to highlight that element in the illustration. The images of Mahāprabhu, Lakṣmī-Nārāyaṇa and Rādhā-Kṛṣṇa are not numbered."
         },
         {
           "type": "list",
           "numbers": [
             "1",
             "2",
+            "2.1",
+            "2.2",
+            "2.3",
+            "2.4",
+            "2.5",
+            "2.6",
             "3",
             "4",
             "5",
@@ -113,7 +106,7 @@
             "8",
             "9"
           ],
-          "content": "⟦oṁ — nāma⟧: the holy name in the Gopāla-yantra\nsix opulences of Bhagavān at the vertices of the yantra\nThe book “Pāñcarātra”\nThe book “Bhāgavatam”\n⟦vidhiḥ⟧ — the path of rules and injunctions\n⟦rāgaḥ⟧ — the path of rāga\n⟦arcanam⟧: incense, dīpa, and a bell\n⟦kīrtanam⟧: a printing press and mṛdaṅga\ntilaka and the inscription ⟦guruḥ gauḍīyaḥ⟧"
+          "content": "⟦oṁ — nāma⟧: the holy name in the Gopāla-yantra\nBhagavān’s six opulences at the points of the yantra\n⟦yaśaḥ⟧ — fame\n⟦śrīḥ⟧ — beauty\n⟦jñānam⟧ — knowledge\n⟦vairāgyam⟧ — renunciation\n⟦aiśvaryam⟧ — majesty\n⟦vīryam⟧ — strength\nthe book Pāñcarātra\nthe book Bhāgavatam\n⟦vidhiḥ⟧ — the path of rules and prescriptions\n⟦rāgaḥ⟧ — the path of rāga\n⟦arcanam⟧: incense, dīpa, bell\n⟦kīrtanam⟧: printing press and mṛdaṅga\ntilaka and the inscription ⟦guruḥ gauḍīyaḥ⟧"
         }
       ],
       "subsections": [
@@ -122,67 +115,35 @@
           "title": "What Is the Gauḍīya Maṭha?",
           "content": [
             {
-              "type": "mood",
-              "quote": "Gauḍīya comes from the... Don't think it just refers (..) to some area of West Bengal. That is a material, geographical understanding within time and space. Gauḍa Gauḍa is the natural, unrefined sweetness. So the natural sweetness of the love of the gopīs of Vṛndāvana is the aim and object of the Gauḍīyas. One name of Rādhikā is also Gaurī. So those who are in the shelter of Śrīmatī Rādhikā, they are Gauḍīyas. So how can a person attain that supreme destination of the shelter of the service of Rādhā and Kṛṣṇa? Under the guidance of Śrīla Rūpa Gosvāmī in his Vraja-svarūpa. So that is the purpose of the Gauḍīya Maṭha.",
-              "translation": "",
-              "source": {
-                "title": "Gaudiya Math logo - the Essence of Mahaprabhu’s Vichar-Dhara - 2024-08-15 - Sri Prem Prayojan",
-                "date": "2024-08-15",
-                "nr": "7894",
-                "timecode": "00:07:56",
-                "transcript_url": "https://drive.google.com/file/d/1vZpAv08N_X8-Ei2wEF-uLA-wMtSJjeRm/view",
-                "audio_url": "https://drive.google.com/file/d/13SHfoDjTAe3_qxXLo6CilF5EyukB0SCQ/view"
-              }
+              "type": "text",
+              "content": "⟦Maṭha⟧ is a place where disciples live to study transcendental spiritual science; the Gauḍīya Maṭha is a place where the science revealed by Śrī Caitanya Mahāprabhu is studied. The word “Gauḍīya” can easily be taken to refer to a region in Bengal, but this is merely a material, geographical understanding, limited by time and space. ⟦Gauḍa⟧ is natural, genuine sweetness, and the natural sweetness of the love of the gopīs of Vṛndāvana is the goal and purpose of the Gauḍīyas. One of Śrīmatī Rādhikā’s names is Gaurī; the Gauḍīyas are those under Her protection."
             },
             {
               "type": "text",
-              "content": "⟦Maṭha⟧ is a place where disciples live in order to study transcendental spiritual science, and the Gauḍīya Maṭha in particular is a place to study the science revealed by Śrī Chaitanya Mahāprabhu. The word “Gauḍīya” does not refer only to the region of Bengal: ⟦gauḍa⟧ means natural, genuine sweetness; one of Rādhikā’s names is Gaurī, and Gauḍīyas are those who are under the shelter of Śrīmatī Rādhikā. The purpose of the Gauḍīya Maṭha is to provide shelter in the service of Rādhā and Kṛṣṇa under the guidance of Śrīla Rūpa Gosvāmī in his Vraja-svarūpa (Gurudev, lecture no. 7894)."
+              "content": "How, then, can this highest goal—shelter in the service of Rādhā and Kṛṣṇa—be attained? Under the guidance of Śrīla Rūpa Gosvāmī in his Vraja-svarūpa. This is the purpose of the Gauḍīya Maṭha."
             }
           ]
         },
         {
           "id": "emblem-centre",
-          "title": "Centre: the holy name in the Gopāla-yantra",
+          "title": "The Holy Name and the Six Opulences",
           "content": [
             {
-              "type": "mood",
-              "quote": "In this logo, the holy name is set in the Gopāla-yantra. In the six points of the Gopāla-yantra, you can see... Starting from the if you start from (..) the top one and go around clockwise: yaśa, śrī, jñāna, vairāgya, aiśvarya, and vīrya. The six qualities are the six attributes of Bhagavān. From the top: fame, beauty, knowledge, renunciation... aiśvarya, that (..) means (..) the power to be the greatest and the smallest, and vīrya, that He is sarva-śaktimān. Also the Gopāla-yantra is the yantra that corresponds to the Gopāla-mantra, and it reminds us that the Gopāla-mantra reveals six types of svarūpa-jñāna.",
-              "translation": "",
-              "source": {
-                "title": "Gaudiya Math logo - the Essence of Mahaprabhu’s Vichar-Dhara - 2024-08-15 - Sri Prem Prayojan",
-                "date": "2024-08-15",
-                "nr": "7894",
-                "timecode": "00:12:58",
-                "transcript_url": "https://drive.google.com/file/d/1vZpAv08N_X8-Ei2wEF-uLA-wMtSJjeRm/view",
-                "audio_url": "https://drive.google.com/file/d/13SHfoDjTAe3_qxXLo6CilF5EyukB0SCQ/view"
-              },
-              "more": [
-                {
-                  "quote": "You can see that Prabhupāda Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura made a logo for the Gauḍīya Maṭha. In the middle, there is (.?.)there is the Gopāla-yantra (..) (^)and the mahā-mantra.",
-                  "translation": "",
-                  "source": {
-                    "title": "Sri Prem Prayojan Prabhu: 01.09.2016 1 Nama Aparadha p. 1",
-                    "date": "2016-09-01",
-                    "nr": "1480",
-                    "timecode": "01:54:51",
-                    "transcript_url": "https://drive.google.com/file/d/1HGvpVTgsj_O8C-oB6z-NyfticZXw4HKT/view",
-                    "audio_url": "https://drive.google.com/file/d/1JA03gytaguWngjtmIQSwF2_u8gpOcV7L/view"
-                  }
-                }
-              ]
-            },
-            {
               "type": "text",
-              "content": "At the centre of the emblem is the word “Oṁ,” and beneath it is “nāma.” Oṁ is the holy name. Gurudev cites a prayer of a ṛṣi from the Ṛg-veda, quoted by Śrīla Jīva Gosvāmī in the Bhāgavata-sandarbha:"
+              "content": "At the very centre of the emblem is written “Oṁ”, and beneath it, “nāma” (1). Oṁ is the holy name. The ṛṣis of the Ṛg-veda pray:"
             },
             {
               "type": "verse",
               "sanskrit": "oṁ āsya jānanto nāma cid viviktana\nmahas te viṣṇo sumatiṁ bhajāmahe\noṁ tat sat",
-              "translation": "“O Lord, we do not know You completely; but by repeating the syllables of Your name, we will attain a clear and beautiful understanding” (the meaning according to Gurudev’s explanation). The holy name is ⟦svataḥ-siddha⟧ and ⟦svayaṁ-prakāśa⟧: it reveals itself to one who serves it by chanting."
+              "translation": "“O Lord, we do not know You fully: we know that You exist, but we are not completely acquainted with You. Yet how wonderful it is: simply by chanting the syllables of Your name, we shall attain a perfectly clear and beautiful realization.”"
             },
             {
               "type": "text",
-              "content": "The holy name is placed within the Gopāla-yantra, a hexagon. At its six vertices, beginning at the top and proceeding clockwise, are written the six opulences of Bhagavān: ⟦yaśaḥ⟧ (fame), ⟦śrīḥ⟧ (beauty), ⟦jñānam⟧ (knowledge), ⟦vairāgyam⟧ (renunciation), ⟦aiśvaryam⟧ (power: the ability to be the greatest and the smallest), and ⟦vīryam⟧ (He is ⟦sarva-śaktimān⟧). The Gopāla-yantra corresponds to the Gopāla-mantra and reminds us that the Gopāla-mantra reveals six kinds of ⟦svarūpa-jñāna⟧ (lecture no. 7894). In lecture no. 1480, Gurudev calls the centre of the emblem the Gopāla-yantra and the mahā-mantra."
+              "content": "Why is this so? Because ⟦oṁ tat sat⟧: Oṁ is the holy name, ⟦tat⟧ is the Absolute Truth, and ⟦sat⟧ means that the name is ⟦svataḥ-siddha⟧, self-existent, and ⟦svayaṁ-prakāśa⟧, self-manifesting. It is impossible to comprehend ⟦aprākṛta-vastu⟧, transcendental reality, by one’s own efforts; but to one who serves the holy name by chanting its syllables, the name reveals Itself."
+            },
+            {
+              "type": "text",
+              "content": "The holy name is placed within the Gopāla-yantra—a six-pointed star (2). At its six points, beginning at the top and proceeding clockwise, are written Bhagavān’s six opulences: ⟦yaśaḥ⟧—fame (2.1), ⟦śrīḥ⟧—beauty (2.2), ⟦jñānam⟧—knowledge (2.3), ⟦vairāgyam⟧—renunciation (2.4), ⟦aiśvaryam⟧—majesty, the ability to be both the greatest and the smallest (2.5), and ⟦vīryam⟧—strength: He is ⟦sarva-śaktimān⟧, almighty (2.6). The Gopāla-yantra corresponds to the Gopāla-mantra and reminds us that the Gopāla-mantra reveals six kinds of ⟦svarūpa-jñāna⟧."
             }
           ]
         },
@@ -191,21 +152,8 @@
           "title": "Mahāprabhu above, Guru below",
           "content": [
             {
-              "type": "mood",
-              "quote": "Now, above the holy name, there is the Śrī Gaurāṅga Mahāprabhu. He is Kṛṣṇa Himself distributing kṛṣṇa-prema through the holy name in this Age of Kali. And the in the bottom section opposite Mahāprabhu, there is a guru that is the spiritual that is Nityānanda Prabhu and also the spiritual master, guru-tattva. There's a tilaka mark, then \"guru,\" then it says \"Gauḍīya.\"",
-              "translation": "",
-              "source": {
-                "title": "Gaudiya Math logo - the Essence of Mahaprabhu’s Vichar-Dhara - 2024-08-15 - Sri Prem Prayojan",
-                "date": "2024-08-15",
-                "nr": "7894",
-                "timecode": "00:14:27",
-                "transcript_url": "https://drive.google.com/file/d/1vZpAv08N_X8-Ei2wEF-uLA-wMtSJjeRm/view",
-                "audio_url": "https://drive.google.com/file/d/13SHfoDjTAe3_qxXLo6CilF5EyukB0SCQ/view"
-              }
-            },
-            {
               "type": "text",
-              "content": "Above the holy name is Śrī Gaurāṅga Mahāprabhu: Kṛṣṇa Himself, distributing kṛṣṇa-prema through the holy name in the age of Kali. Below, opposite Mahāprabhu, is Guru: Nityānanda Prabhu and the spiritual master, ⟦guru-tattva⟧. The sign of tilaka is depicted there, and beneath it is written ⟦guruḥ gauḍīyaḥ⟧ (lecture no. 7894)."
+              "content": "Above the holy name is Śrī Gaurāṅga Mahāprabhu: Kṛṣṇa Himself, who distributes kṛṣṇa-prema through the holy name in the age of Kali. Opposite Him, in the lower part of the emblem, is Guru: Nityānanda Prabhu and the spiritual master, ⟦guru-tattva⟧. A tilaka mark is depicted there, with ⟦guruḥ gauḍīyaḥ⟧ written beneath it (9)."
             }
           ]
         },
@@ -214,43 +162,12 @@
           "title": "Two books and two paths: vidhi and rāga",
           "content": [
             {
-              "type": "mood",
-              "quote": "So then, if we look in there are there's like an X shape. And on the top (..) on the top, either side of Caitanya Mahāprabhu, there are two śāstras, two books. On the one on the left, it is written \"Pāñcarātra.\" And on the right side, there, on that book, śāstra, it is written \"Bhāgavatam.\" So this indicates the scriptural basis for the path of arcana or vaidhi-bhakti and the scriptural basis for the path of the bhāva-mārga, the path of ecstatic mood or rāgānugā-bhakti. So you can see then on either side, level to each other, on the left side, there you can see the forms of Lakṣmī-Nārāyaṇa in Vaikuṇṭha. And beneath them, it is written \"vidhiḥ.\" Regulative bhakti, devotion which is expressed according to scriptural rules and regulations. And then on that is so that is on the side of the Pāñcarātra. And on the other side, on the side of the Bhāgavatam, there you see Śrī Śrī Rādhā-Kṛṣṇa beneath a desire tree in Vṛndāvana, and beneath it is written \"rāgaḥ.\"",
-              "translation": "",
-              "source": {
-                "title": "Gaudiya Math logo - the Essence of Mahaprabhu’s Vichar-Dhara - 2024-08-15 - Sri Prem Prayojan",
-                "date": "2024-08-15",
-                "nr": "7894",
-                "timecode": "00:15:21",
-                "transcript_url": "https://drive.google.com/file/d/1vZpAv08N_X8-Ei2wEF-uLA-wMtSJjeRm/view",
-                "audio_url": "https://drive.google.com/file/d/13SHfoDjTAe3_qxXLo6CilF5EyukB0SCQ/view"
-              },
-              "more": [
-                {
-                  "quote": "So, in the logo of the Gauḍīya Maṭha, Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura has emphasized understanding the distinction between pāñcarātrika-mārga, arcana, and rāga-mārga. You see, if you are doing arcana to Rādhā and Kṛṣṇa, actually Rādhā-Kṛṣṇa not served in arcana-mārga. Rādhā-Kṛṣṇa only served by rāgānugā-bhakti. So, even if the Deities are Rādhā-Kṛṣṇa, if you're doing arcana to Them, Lakṣmī-Nārāyaṇa inside Rādhā-Kṛṣṇa are accepting the sevā.",
-                  "translation": "",
-                  "source": {
-                    "title": "Sri Prem Prayojan Prabhu: 01.09.2016 1 Nama Aparadha p. 1",
-                    "date": "2016-09-01",
-                    "nr": "1480",
-                    "timecode": "01:54:51",
-                    "transcript_url": "https://drive.google.com/file/d/1HGvpVTgsj_O8C-oB6z-NyfticZXw4HKT/view",
-                    "audio_url": "https://drive.google.com/file/d/1JA03gytaguWngjtmIQSwF2_u8gpOcV7L/view"
-                  }
-                }
-              ]
+              "type": "text",
+              "content": "On closer examination, the parts of the emblem form a shape resembling the letter X. At the top, on either side of Mahāprabhu, are two śāstras, two books. The one on the left is labelled “Pāñcarātra” (3), and the one on the right, “Bhāgavatam” (4). These are the scriptures on which the two paths are based: the path of arcana, ⟦vaidhī-bhakti⟧, and ⟦bhāva-mārga⟧, the path of ecstatic mood, ⟦rāgānugā-bhakti⟧."
             },
             {
               "type": "text",
-              "content": "The parts of the emblem form an X-shaped figure. At the top, on either side of Mahāprabhu, are two books. “Pāñcarātra” is written on the left one, and “Bhāgavatam” on the right one: these are the scriptures on which the path of arcana, ⟦vaidhī-bhakti⟧, and the path of ⟦bhāva-mārga⟧, ⟦rāgānugā-bhakti⟧, are based."
-            },
-            {
-              "type": "text",
-              "content": "Below, on the same level as one another, are Lakṣmī-Nārāyaṇa in Vaikuṇṭha on the left, with the inscription ⟦vidhiḥ⟧—bhakti expressed according to the rules and injunctions of scripture; and Śrī Śrī Rādhā-Kṛṣṇa beneath a desire tree in Vṛndāvana on the right, with the inscription ⟦rāgaḥ⟧ (lecture no. 7894)."
-            },
-            {
-              "type": "text",
-              "content": "Thus, according to Gurudev, Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura emphasised in the emblem the distinction between ⟦pāñcarātrika-mārga⟧, arcana, and ⟦rāga-mārga⟧. Rādhā and Kṛṣṇa are served only through rāgānugā-bhakti; if one performs arcana for Rādhā and Kṛṣṇa, the service is accepted by Lakṣmī-Nārāyaṇa, who reside within Rādhā and Kṛṣṇa (lecture no. 1480, 1 September 2016)."
+              "content": "Below, on the same level as one another, are the Deities. On the left, on the Pāñcarātra side, are Lakṣmī-Nārāyaṇa in Vaikuṇṭha, and beneath Them is written ⟦vidhiḥ⟧ (5): bhakti expressed according to the rules and prescriptions of the scriptures. On the right, on the Bhāgavatam side, are Śrī Śrī Rādhā-Kṛṣṇa beneath a desire tree in Vṛndāvana, and beneath Them is written ⟦rāgaḥ⟧ (6)."
             }
           ]
         },
@@ -259,112 +176,123 @@
           "title": "Arcanam and kīrtanam",
           "content": [
             {
-              "type": "mood",
-              "quote": "We just have two more sections left. In the X shape, on the side at the lower side, on the left, on the pāñcarātrika side, there are the you can see some paraphernalia for arcana. There's a bell there, and a... A dīpa, and (..) it is written arcanam. And on the other side, (..) on the path of rāga, the path the Bhāgavata-mārga, there you can see (..) it is written kīrtanam. And (..) there is illustration of mṛdaṅga, and then that is what the printing press used to look like in the 1920s. The yantra, the printing yantra, the machine for printing books. And who is the example of the becoming perfect by kīrtana? Śukadeva Gosvāmī. He was (..) so he wasn't necessarily singing, of course he was singing sometimes, but he was speaking Śrīmad-Bhāgavatam all day and night for seven days continuously. And (..) then, when the kīrtana is spoken by such pure devotees, it can be recorded and then published and distributed everywhere by the printing press. (..). So... Śrīla Prabhupāda (..) called (..) the mṛdaṅga and the printing press bṛhat-mṛdaṅga, because the (..) sound of this mṛdaṅga will go all over the world.",
-              "translation": "",
-              "source": {
-                "title": "Gaudiya Math logo - the Essence of Mahaprabhu’s Vichar-Dhara - 2024-08-15 - Sri Prem Prayojan",
-                "date": "2024-08-15",
-                "nr": "7894",
-                "timecode": "00:17:39",
-                "transcript_url": "https://drive.google.com/file/d/1vZpAv08N_X8-Ei2wEF-uLA-wMtSJjeRm/view",
-                "audio_url": "https://drive.google.com/file/d/13SHfoDjTAe3_qxXLo6CilF5EyukB0SCQ/view"
-              }
+              "type": "text",
+              "content": "At the bottom left, on the Pāñcarātra side, are articles for arcana—a bell and a dīpa—and the inscription ⟦arcanam⟧ (7). On the right, on the path of rāga, the path of ⟦bhāgavata-mārga⟧, is written ⟦kīrtanam⟧; there are a mṛdaṅga and a printing press as it was in the 1920s—a “printing yantra”, a machine for printing books (8)."
             },
             {
               "type": "text",
-              "content": "At the lower left, on the Pāñcarātra side, are the items used for arcana: a bell and dīpa, together with the inscription ⟦arcanam⟧. At the lower right, on the side of the rāga path, are the inscription ⟦kīrtanam⟧, a mṛdaṅga, and a printing press from the 1920s, the “printing yantra.” An example of perfection through kīrtan is Śukadeva Gosvāmī, who spoke the Śrīmad-Bhāgavatam continuously for seven days and nights. The kīrtan of pure devotees can be recorded, printed, and distributed everywhere; therefore Śrīla Prabhupāda called the printing press ⟦bṛhat-mṛdaṅga⟧, the great mṛdaṅga: its sound carries throughout the entire world (lecture no. 7894). In lecture no. 1480, Gurudev lists a bell and cāmara on the Lakṣmī-Nārāyaṇa side, and a mṛdaṅga and kartālas on the Rādhā-Kṛṣṇa side."
+              "content": "An example of perfection through kīrtana is Śukadeva Gosvāmī. Rather than singing, he spoke Śrīmad-Bhāgavatam—all day and all night, continuously, for seven days. When kīrtana comes from the lips of such pure devotees, it can be recorded, printed and distributed everywhere. Therefore Śrīla Prabhupāda called the printing press ⟦bṛhat-mṛdaṅga⟧, the great mṛdaṅga: its sound spreads throughout the world."
             }
           ]
         },
         {
           "id": "emblem-meaning",
-          "title": "The meaning of the emblem: everyone at their own level",
+          "title": "Each at Their Own Level",
           "content": [
             {
-              "type": "mood",
-              "quote": "So essentially, Śrī Kṛṣṇa is describing, how do we understand whether a person is has virtues or faults? The metric by which we ascertain whether a person has guṇa, virtues, or doṣa, faults, is how they are have niṣṭhā, they are fixed according to their own adhikāra, according to their own in practices which correspond to their own level of eligibility. So if someone is doing a practice which is meant specifically for him at the very beginning stage of his spiritual life, and after many (..) many years he's still doing the same thing, and then it's a doṣa, it's a fault. A person may be (..) according to their consciousness in the beginning stage of bhakti, but they're trying to practice according to a person who is very advanced. So this is the fault also. So one may be practicing (..) according to the neophyte level and person practicing according to advanced level. So we can't say which one is better. Oh, it is better for each one to practice on the level they are at. So what what is the best is not (..) one size fits all. And this is why the guidance of spiritual master to be in ānugatya is necessary to give us engage us in bhakti according to our stage, and then also to guide us into higher stage when we are ready, and then the next stage, and so on. So these principles are illustrated very beautifully in the design made by Prabhupāda Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura.",
-              "translation": "",
-              "source": {
-                "title": "Gaudiya Math logo - the Essence of Mahaprabhu’s Vichar-Dhara - 2024-08-15 - Sri Prem Prayojan",
-                "date": "2024-08-15",
-                "nr": "7894",
-                "timecode": "00:22:41",
-                "transcript_url": "https://drive.google.com/file/d/1vZpAv08N_X8-Ei2wEF-uLA-wMtSJjeRm/view",
-                "audio_url": "https://drive.google.com/file/d/13SHfoDjTAe3_qxXLo6CilF5EyukB0SCQ/view"
-              },
-              "more": [
-                {
-                  "quote": "So, but Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura made the logo in this way to show the synthesis or the synergistic relationship, how we follow the Bhāgavata-mārga and taking help of (..) pāñcarātrika-mārga in the beginning. (..) So we're following Bhāgavata-mārga, but taking help of pāñcarātrika-mārga also in the beginning. That means from the beginning we do nityaṁ bhāgavata-sevayā. Serving Śrīmad-Bhāgavatam and the person, the book and the person Bhāgavata. But, because people have kādarya-śīla, unvirtuous behavior, and vikṣipta-citta, that means distracted mind, so for them, pāñcarātrika-dīkṣā is helpful in the beginning. And when behavior becomes good and mind becomes steady, then the svarūpa of bhakti appears in the pure citta.",
-                  "translation": "",
-                  "source": {
-                    "title": "Sri Prem Prayojan Prabhu: 01.09.2016 1 Nama Aparadha p. 1",
-                    "date": "2016-09-01",
-                    "nr": "1480",
-                    "timecode": "01:56:47",
-                    "transcript_url": "https://drive.google.com/file/d/1HGvpVTgsj_O8C-oB6z-NyfticZXw4HKT/view",
-                    "audio_url": "https://drive.google.com/file/d/1JA03gytaguWngjtmIQSwF2_u8gpOcV7L/view"
-                  }
-                }
-              ]
-            },
-            {
               "type": "text",
-              "content": "The essence of the emblem, Gurudev says, is expressed in a verse from the Śrīmad-Bhāgavatam (11.21.2):"
+              "content": "The essence of the entire emblem is expressed in a verse from Śrīmad-Bhāgavatam (11.21.2):"
             },
             {
               "type": "verse",
               "sanskrit": "sve sve 'dhikāre yā niṣṭhā\nsa guṇaḥ parikīrtitaḥ\nviparyayas tu doṣaḥ syād\nubhayor eṣa niścayaḥ",
-              "translation": "Steadfastness at one’s own level of qualification is called a virtue; the opposite is a fault. Thus both are defined (Śrīmad-Bhāgavatam 11.21.2)."
+              "translation": "Steadiness at one’s own level of qualification is called a virtue; the opposite is a fault. Thus both are defined."
             },
             {
               "type": "text",
-              "content": "The measure of virtue is ⟦niṣṭhā⟧, steadfastness in practice appropriate to one’s ⟦adhikāra⟧. A fault is found both when a person remains in beginner-level practice for many years and when, being at the beginning of the path, they imitate the practice of a person on a higher level. Therefore a spiritual master is needed: by following ⟦anugatya⟧, one should practise bhakti at one’s own level and, when the time comes, rise higher. These principles, Gurudev says, are beautifully shown in Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura’s emblem (lecture no. 7894)."
+              "content": "The measure of a person’s virtues and faults is ⟦niṣṭhā⟧: how steadily one follows one’s ⟦adhikāra⟧ and the practice appropriate to one’s level. If someone who began with a practice meant for absolute beginners is still doing exactly the same thing many years later, this is a fault. And if a person at the beginning of bhakti attempts to practise as someone who has attained a very high level practises, this is also a fault."
             },
             {
               "type": "text",
-              "content": "The emblem also shows the connection between the two paths: we follow ⟦bhāgavata-mārga⟧, but at first we accept the help of ⟦pāñcarātrika-mārga⟧. From the very beginning there is ⟦nityaṁ bhāgavata-sevayā⟧, service to the “Bhāgavata” book and to the “Bhāgavata” person; and because people have ⟦kādarya-śīla⟧ (improper conduct) and ⟦vikṣipta-citta⟧ (a distracted mind), pāñcarātrika-dīkṣā is helpful at first. When conduct becomes good and the mind steady, the ⟦svarūpa⟧ of bhakti manifests in the pure heart (lecture no. 1480). This is the place of arcana described in this book."
+              "content": "One person practises at a beginner’s level, another at an advanced level, and one cannot say that one is better than the other: it is better when each practises at their own level. Therefore, the best path is not the same for everyone, and the guidance of a spiritual master is necessary so that, following ⟦ānugatya⟧, one can practise bhakti according to one’s stage and, when ready, rise higher, step by step. These principles are embodied in Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura’s design."
+            }
+          ]
+        },
+        {
+          "id": "emblem-two-traditions",
+          "title": "Two Traditions",
+          "content": [
+            {
+              "type": "text",
+              "content": "Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura explained that the Vedic scriptures mention various ⟦hari-jana⟧, “people of God”—Sātvatas, Vaikhānasas, Bhāgavatas, Vaiṣṇavas, Pāñcarātrikas and others. Many of these groups gradually disappeared, and by Kali-yuga essentially two traditions remained: the Pāñcarātrikas and the Bhāgavatas. ⟦Pāñcarātrika-mārga⟧ is the same as ⟦arcana-mārga⟧, Deity worship according to rules and prescriptions, vaidhī-bhakti. The Bhāgavata tradition is the school of ⟦bhāva-mārga⟧, the path of spiritual feeling, rāgānugā-bhakti."
+            },
+            {
+              "type": "text",
+              "content": "Of the four present-day sampradāyas, Madhvācārya (Brahma-sampradāya) and Nimbāditya (the sampradāya of the four Kumāras) primarily gave bhāgavata-mārga, while accepting the path of arcana for beginners, ⟦kaniṣṭha-adhikārī⟧. Rāmānujācārya (Śrī-sampradāya, which worships Lakṣmī-Nārāyaṇa) and Viṣṇusvāmī (Rudra-sampradāya, whose iṣṭadeva is Lakṣmī-Nṛsiṁha) taught pāñcarātrika-mārga and accepted kīrtana as part of the rituals of arcana."
+            },
+            {
+              "type": "text",
+              "content": "This gives rise to much confusion: many do not distinguish between the two paths and do not see how arcana supports beginners on bhāgavata-mārga. This is partly a matter of terminology. “Bhāgavata” means “related to Bhagavān”, so both vaidhī-bhakti and rāgānugā-bhakti are called ⟦bhāgavata-dharma⟧, and great devotees of both paths are called bhāgavatas or mahā-bhāgavatas. Even the three levels of devotees—kaniṣṭha, madhyama and uttama—are described in both Śrīmad-Bhāgavatam and the Padma Purāṇa, but these descriptions do not coincide: the Padma Purāṇa speaks in the context of the pāñcarātrika tradition, and the Bhāgavatam in the context of the bhāgavata tradition."
             }
           ]
         },
         {
           "id": "emblem-why",
-          "title": "Why Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura created the emblem",
+          "title": "Why the Emblem Was Revolutionary",
           "content": [
             {
-              "type": "mood",
-              "quote": "So without the clear definitions of what is varṇāśrama-dharma, karma, what is vaidhi-bhakti and rāgānugā-bhakti, practices had become all mixed up, so Prabhupāda did not approve, so he made his stamp of approval of the right siddhānta here. To show everyone, first understand the history and the scriptural conclusions on this subject. And then we can untangle the mess that has come in our Gauḍīya line. He said, \"Those who are giving siddha-praṇālī as if it were some type of pāñcarātrika dīkṣā, pāñcarātrika arcana, they are just selling some material names and forms.\" So if you are selling, some, giving initiation for money, and then giving these material names and forms, what is the difference between this and just doing karma? So he called them mantra traders. And they're in the same, (..) they're in the same category as the potters and shoemakers and other businessmen in the market place, those who are making pots and selling them or making shoes and selling them, they're in the same category. So in order to clarify these things and remind people, he made this emblem, it was on the all Gauḍīya Maṭhas, it's not a surprise that many people they tried to kill him.",
-              "translation": "",
-              "source": {
-                "title": "Gaudiya Math logo - the Essence of Mahaprabhu’s Vichar-Dhara - 2024-08-15 - Sri Prem Prayojan",
-                "date": "2024-08-15",
-                "nr": "7894",
-                "timecode": "00:50:40",
-                "transcript_url": "https://drive.google.com/file/d/1vZpAv08N_X8-Ei2wEF-uLA-wMtSJjeRm/view",
-                "audio_url": "https://drive.google.com/file/d/13SHfoDjTAe3_qxXLo6CilF5EyukB0SCQ/view"
-              },
-              "more": [
-                {
-                  "quote": "But the gambhīra-bhāva, the very profound the conceptions of the great ācāryas, over the years they became so mixed up, like a khichdi. So fortunately for us, our Prabhupāda Bhaktisiddhānta Sarasvatī Ṭhākura appeared in this world and very meticulously the unraveled the mess and gave the or the very clear explanations of everything, so that we can understand the pure bhakti as it was presented by Mahāprabhu and Rūpa Gosvāmī, and not in the form in which it has become it had become very popular and even still today, that is not Gauḍīya, that is viddha-Gauḍīya, viddha-Gauḍīya, a corrupted form of Gauḍīya Vaiṣṇavism. Prabhupāda would say, there's Gauḍīya, agauḍīya and viddha-Gauḍīya. (..) Agauḍīya means not Gauḍīya, there are many persons they don't claim to be Gauḍīyas. Like viddha-Gauḍīya, they claim to be Gauḍīya, they are convinced themselves that they are Gauḍīya, but their whole understanding is viddha, that means pierced through with misconception.",
-                  "translation": "",
-                  "source": {
-                    "title": "Gaudiya Math logo - the Essence of Mahaprabhu’s Vichar-Dhara - 2024-08-15 - Sri Prem Prayojan",
-                    "date": "2024-08-15",
-                    "nr": "7894",
-                    "timecode": "01:59:25",
-                    "transcript_url": "https://drive.google.com/file/d/1vZpAv08N_X8-Ei2wEF-uLA-wMtSJjeRm/view",
-                    "audio_url": "https://drive.google.com/file/d/13SHfoDjTAe3_qxXLo6CilF5EyukB0SCQ/view"
-                  }
-                }
-              ]
+              "type": "text",
+              "content": "On the pāñcarātrika-mārga, some rely on varṇāśrama-dharma, karma, and jñāna. On the bhāgavata-mārga, a person may perform certain activities related to karma, but without faith in them—and bhakti remains ⟦anyābhilāṣitā-śūnyaṁ jñāna-karmādy-anāvṛtam⟧, free from extraneous desires and not covered by jñāna and karma."
             },
             {
               "type": "text",
-              "content": "During Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura’s time, the Pāñcarātrika system, varṇāśrama-dharma, and rāgānugā-bhakti were mixed together: caste brāhmaṇas claimed that a guru could be only a brāhmaṇa by birth, and they gave siddha-praṇālī as a form of pāñcarātrika-dīkṣā, granting initiation in exchange for money. Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura did not approve of this and called such people merchants of mantras. To clarify this and remind people, he created the emblem—it was present in all Gauḍīya Maṭhas (lecture no. 7894)."
+              "content": "In the time of Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura—and to some extent even today—caste-minded smārta-brāhmaṇas asserted: only a brāhmaṇa can be a guru and ācārya, and my son will be the next ācārya; as soon as he is born, he will receive the titles “Prabhupāda” and “Gosvāmī.” In this way, the values of worldly varṇāśrama-dharma were imposed on rāgānugā-bhakti."
             },
             {
               "type": "text",
-              "content": "Over the years, the profound understandings of the great ācāryas became mixed together, “like khichri”; Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura carefully untangled this knot so that we could understand pure bhakti as it was given by Mahāprabhu and Rūpa Gosvāmī, rather than ⟦viddha-gauḍīya⟧, distorted Gauḍīya Vaiṣṇavism. His understanding, Gurudev says, is the same as that of Mahāprabhu, Rūpa Gosvāmī, and all the great ācāryas (lecture no. 7894)."
+              "content": "The understanding of smaraṇa also became confused. Arcana, too, includes remembrance: before worshipping Rādhā-Kṛṣṇa, one recites meditation mantras—⟦tato vṛndāvanaṁ dhyāyet⟧—and envisions Vṛndāvana, the waters of the Yamunā, a gentle breeze, and a golden throne beneath a wish-fulfilling tree. But this smaraṇa is performed because śāstra says, “Now remember this,” and the mind keeps track of which mantra comes next. The intelligence still depends on śāstra and ⟦buddhi⟧—this is not a sign of awakened longing, ⟦lobha⟧. Smaraṇa on the rāga-mārga, as described by the six Gosvāmīs, is something entirely different."
+            },
+            {
+              "type": "text",
+              "content": "All of this—the pāñcarātrika system, varṇāśrama-dharma, and rāgānugā-bhakti—was mixed into something that made it convenient to collect money. “Only we, brāhmaṇas by hereditary lineage, can be gurus,” some said, and then gave siddha-praṇālī: your name is such-and-such, your form is such-and-such, your age, the colour of your clothing, your service in the kuñja—now go and remember this. This understanding of smaraṇa belongs to arcana, where there is a mantra but no realization; in the Bhāgavata school, which rests primarily on realization, there is no such practice."
+            },
+            {
+              "type": "text",
+              "content": "Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura did not approve of this. Those who give siddha-praṇālī as a form of pāñcarātrika-dīkṣā, and moreover initiate people for money, he called mantra merchants: they stand alongside the potters and cobblers in the marketplace. To clarify all this and remind people, he created the emblem; it was present in every Gauḍīya Maṭha—and it is no wonder that many tried to kill him."
+            }
+          ]
+        },
+        {
+          "id": "emblem-arcana-raga",
+          "title": "Arcana on the Path of Rāga",
+          "content": [
+            {
+              "type": "text",
+              "content": "For those who worship Kṛṣṇa through vaidhī-bhakti, the scriptures prescribe ⟦āvaraṇa-pūjā⟧: the Lord is worshipped not alone, but together with the circles of His associates—the cowherd boys, the queens of Dvārakā, Vasudeva and Devakī, Nanda and Yaśodā, the gopīs, the wish-fulfilling trees, the guardians of the directions, and even the Lord’s weapons (Hari-bhakti-vilāsa 7.362–375). This is how pūjā to Kṛṣṇa is actually performed on the pāñcarātrika-vaidhī-mārga. For beginners on the rāga-mārga, the ācāryas established a somewhat modified procedure for arcana: although the neophyte has not yet reached the level of rāgānugā-bhakti sādhana and remains on the platform of vaidhī, his worship is arranged so that everything will be favourable for him when he rises higher."
+            },
+            {
+              "type": "text",
+              "content": "Therefore, in Rāga-vartma-candrikā, Śrīla Viśvanātha Cakravartī Ṭhākura says that those following the path of rāga should not perform ⟦ahaṅgrahopāsanā⟧, imagining themselves to be identical with the Deity, or ⟦nyāsa⟧, although both are found in the scriptures; on this path, one does not meditate on the moods of Dvārakā or perform pūjā to Rukmiṇī and the other queens. Vaidhī-bhakti leads to Vaikuṇṭha; only rāgānugā-bhakti leads to Vraja. Rādhā-Kṛṣṇa are served only through rāgānugā-bhakti; therefore, when arcana is performed for the Deities of Rādhā-Kṛṣṇa, this sevā is accepted by Lakṣmī-Nārāyaṇa, who reside within Rādhā-Kṛṣṇa."
+            },
+            {
+              "type": "text",
+              "content": "And yet the emblem shows not only the distinction but also the connection between the two paths: we follow the bhāgavata-mārga, while accepting the help of the pāñcarātrika-mārga in the beginning. From the very outset there is ⟦nityaṁ bhāgavata-sevayā⟧, service to the book Bhāgavata and the person Bhāgavata. But people are prone to ⟦kādarya-śīla⟧, unvirtuous behaviour, and ⟦vikṣipta-citta⟧, a distracted mind—so pāñcarātrika-dīkṣā helps in the beginning. When one’s conduct becomes good and the mind steady, the ⟦svarūpa⟧ of bhakti manifests in the pure heart."
+            },
+            {
+              "type": "text",
+              "content": "The way from vidhi to rāga is a way of ripening: to hear hari-kathā patiently and with the greatest honour, gradually to increase the chanting to one lakh of names, sixty-four rounds a day, and to enter rāgānugā-bhakti on the basis of internal realization, not speculation. This requires patience and humility. As Gurudev says: “If you try to jump by force up to grab the fruit from the tree, then there'll be the ruination.” But to one who humbly reaches down, the fruit comes into his hand by itself."
+            }
+          ]
+        },
+        {
+          "id": "emblem-conclusion",
+          "title": "The Untangled Knot",
+          "content": [
+            {
+              "type": "text",
+              "content": "Thus the emblem brings us back to the verse ⟦sve sve 'dhikāre yā niṣṭhā⟧: a devotee’s true merit lies in steadfastness at his own level, from which he will naturally rise higher; acting beyond one’s qualification is a fault."
+            },
+            {
+              "type": "text",
+              "content": "Over the years, the profound conceptions of the great ācāryas, ⟦gambhīra-bhāva⟧, became mixed together like khichri. Fortunately, Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura Prabhupāda came into this world and very carefully untangled this knot, so that we could understand pure bhakti as Mahāprabhu and Rūpa Gosvāmī gave it—not ⟦viddha-gauḍīya⟧, the distorted Gauḍīya Vaiṣṇavism that remains so popular today. He said that there are Gauḍīyas, agauḍīyas, and viddha-gauḍīyas: agauḍīyas do not even call themselves Gauḍīyas, whereas viddha-gauḍīyas sincerely consider themselves Gauḍīyas, but their entire understanding is riddled with misconceptions."
+            },
+            {
+              "type": "text",
+              "content": "Gurudev says: “It is not so easy for the general person to enter deeply into the vicāra, the profound conception of Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura. But that conception is the same as the conception of Mahāprabhu and Rūpa Gosvāmī and all the great ācāryas.” It was to embody this conception that Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura made the emblem."
+            },
+            {
+              "type": "text",
+              "content": "Sarasvatī means ⟦sa-rasa⟧, full of rasa; he was like an embodiment of the goddess of knowledge in all ⟦bhakti-siddhānta⟧, the conclusions of pure bhakti, and he came to bestow pure Gauḍīya-darśana. Therefore, every morning before maṅgala-ārati, his glories are sung in Prabhupāda-padāṣṭaka. In our time, it is very difficult to approach pure bhakti without studying his explanations."
             }
           ]
         }

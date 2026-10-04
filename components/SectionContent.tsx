@@ -373,6 +373,40 @@ function ContentBlock({
     case "table":
       return <DataTable key={index} header={item.header ?? []} rows={item.rows ?? []} />;
 
+    case "sources": {
+      // Source line of an intro chapter ("This chapter draws on Gurudev's lecture …"): one line per lecture,
+      // each followed by its transcript / audio links.
+      const lines = (item.content ?? "").split("\n");
+      const link = (href: string, label: string) => (
+        <>
+          {" · "}
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="not-italic text-[#8B6508] underline decoration-[#D4A843] underline-offset-2 hover:text-[#B8860B]"
+          >
+            {label}
+          </a>
+        </>
+      );
+      return (
+        <p key={index} className="source-note my-3 text-[13px] italic leading-6 text-[#5C3D2E]">
+          {lines.map((line, li) => {
+            const l = item.links?.[li];
+            return (
+              <React.Fragment key={li}>
+                <Inline text={line} />
+                {l?.transcript_url && link(l.transcript_url, labels.mood.transcript)}
+                {l?.audio_url && link(l.audio_url, labels.mood.audio)}
+                {li < lines.length - 1 && <br />}
+              </React.Fragment>
+            );
+          })}
+        </p>
+      );
+    }
+
     case "image": {
       const hs = hotspotsFor(item.src);
       if (hs && item.src) {
