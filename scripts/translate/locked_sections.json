@@ -27,5 +27,12 @@
       "ru-iast"
     ],
     "source": "scripts/chapters/ch00_gaudiya_emblem/build.py"
+  },
+  "vigraha-tattva": {
+    "langs": [
+      "ru",
+      "ru-iast"
+    ],
+    "source": "scripts/chapters/ch00b_vigraha_tattva/build.py"
   }
 }
