@@ -75,7 +75,7 @@ export default function AppShell({
         // already a menu entry
       } else if (st?.apAa === true) {
         // From the «Аа» panel: the menu takes the panel's place in history.
-        patchState({ apMenu: true, apDepth: 1 }, ["apAa", "apParts", "apExp", "apQuery"]);
+        patchState({ apMenu: true, apDepth: 1 }, ["apAa", "apParts", "apExp", "apQuery", "apNav"]);
       } else {
         pushOverlay({ apMenu: true, apDepth: 1 });
       }

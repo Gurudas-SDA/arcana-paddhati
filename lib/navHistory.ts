@@ -15,6 +15,8 @@
  *   apParts — the contents' open / closed parts on this menu entry
  *   apExp   — the part this menu entry expanded (collapsing it = "back")
  *   apAa    — the reader's «Аа» panel is open on this entry
+ *   apNav   — scroll offset of the menu's list (contents / results) when the
+ *             reader left this menu entry (Sidebar.tsx)
  * Overlays (menu, «Аа», mood) push an entry with the same apKey: same place.
  *
  * Every step the reader takes PUSHES an entry, always inside the tap itself
@@ -101,6 +103,7 @@ export function pushPlace(url: string) {
   delete rest.apParts;
   delete rest.apExp;
   delete rest.apAa;
+  delete rest.apNav;
   window.history.pushState(rest, "", url);
 }
 

@@ -324,9 +324,31 @@ function usePartsOpen(
       setPartsState(cur);
     }
   }, [selectedId, currentPartId]);
-  const isOpen = (id: string) => state[id] ?? id === currentPartId;
+  // Chapters (key "ch:<id>") share the store: the current one is open by default.
+  const isOpen = (id: string) =>
+    state[id] ?? (id === currentPartId || (selectedId !== null && id === chapterKey(selectedId)));
   const toggle = (id: string) => setPartsState({ ...state, [id]: !isOpen(id) });
   return [isOpen, toggle];
+}
+
+/** history.state key: scroll offset of the contents / results list. */
+const NAV_SCROLL = "apNav";
+
+/** Store / history key of a chapter's subsection list in the contents. */
+const chapterKey = (sectionId: string) => `ch:${sectionId}`;
+
+/** A freshly opened contents: chapters as by default (only the current one
+ *  open); the parts keep the reader's hand-made state. */
+function resetChapters() {
+  const cur = parseParts(partsSnapshot());
+  let changed = false;
+  for (const k of Object.keys(cur)) {
+    if (k.startsWith("ch:")) {
+      delete cur[k];
+      changed = true;
+    }
+  }
+  if (changed) setPartsState(cur);
 }
 
 /** A small on/off switch row of the sidebar. */
@@ -383,10 +405,51 @@ export default function Sidebar({
   onSearchFocus,
   searchEntries,
   onClose,
-  onLeave,
+  onLeave: onLeaveProp,
 }: SidebarProps) {
   const pathname = usePathname();
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+
+  /** The menu entry keeps the list's scroll offset: "back" to it reopens the
+   *  contents / results exactly where the reader left them. */
+  const saveNavScroll = () => {
+    try {
+      if (isMenuEntry()) patchState({ [NAV_SCROLL]: navRef.current?.scrollTop ?? 0 });
+    } catch {
+      // history unavailable
+    }
+  };
+  const onLeave = onLeaveProp
+    ? () => {
+        saveNavScroll();
+        onLeaveProp();
+      }
+    : undefined;
+
+  // Put the list's scroll offset of this menu entry back: on mount (the menu
+  // reopened by "back" or a reload) and on "back" between menu steps. Applied
+  // a few times while the restored rows (expanded parts / chapters) settle.
+  useLayoutEffect(() => {
+    let timers: number[] = [];
+    const apply = () => {
+      const v = (window.history.state as Record<string, unknown> | null)?.[NAV_SCROLL];
+      if (typeof v !== "number" || !navRef.current) return;
+      navRef.current.scrollTop = v;
+    };
+    const schedule = () => {
+      timers.forEach((id) => window.clearTimeout(id));
+      apply();
+      requestAnimationFrame(apply);
+      timers = [60, 160, 320].map((ms) => window.setTimeout(apply, ms));
+    };
+    schedule();
+    window.addEventListener("popstate", schedule);
+    return () => {
+      timers.forEach((id) => window.clearTimeout(id));
+      window.removeEventListener("popstate", schedule);
+    };
+  }, []);
   const selectedId = parsePath(pathname).sectionId;
   const selectedSection = sections.find((s) => s.id === selectedId);
   const subIds = useMemo(
@@ -397,14 +460,6 @@ export default function Sidebar({
   const showAllTranslations = useShowAllTranslations();
   const showAllWbw = useShowAllWbw();
 
-  // Clicking the open (current) section collapses / re-expands its
-  // subsection list; navigating to another section opens that one.
-  const [collapsedId, setCollapsedId] = useState<string | null>(null);
-  const [lastSelected, setLastSelected] = useState(selectedId);
-  if (selectedId !== lastSelected) {
-    setLastSelected(selectedId);
-    setCollapsedId(null);
-  }
   const sectionHref = (sectionId: string, anchor?: string) =>
     localeHref(lang, sectionId, anchor);
 
@@ -511,12 +566,16 @@ export default function Sidebar({
         : (partOfSection.get(selectedId) ?? null);
   const [isPartOpen, togglePart] = usePartsOpen(selectedId, currentPartId);
 
-  // Menu: its history entry keeps the parts as they are now (for "back").
-  useEffect(() => {
+  // Menu: its history entry keeps the parts (and chapters) as they are now
+  // (for "back"). A fresh opening (no saved state yet) starts with only the
+  // current chapter expanded; "back" / reload put the saved state back.
+  useLayoutEffect(() => {
     if (!onLeave) return;
     try {
       const st = window.history.state as Record<string, unknown> | null;
-      if (isMenuEntry(st) && typeof st?.apParts !== "string") patchState({ apParts: partsSnapshot() });
+      if (typeof st?.apParts === "string") return;
+      resetChapters();
+      if (isMenuEntry(st)) patchState({ apParts: partsSnapshot() });
     } catch {
       // history unavailable
     }
@@ -524,9 +583,10 @@ export default function Sidebar({
   }, []);
 
   /**
-   * A part heading tapped. In the menu, expanding is a step of its own
-   * (a history entry: "back" collapses it again); collapsing the part this
-   * very entry expanded is "back"; any other collapse updates the entry.
+   * A part heading or a chapter with subsections tapped (id: part id or
+   * chapterKey). In the menu, expanding is a step of its own (a history
+   * entry: "back" collapses it again); collapsing the group this very entry
+   * expanded is "back"; any other collapse updates the entry.
    */
   const onPartTap = (id: string) => {
     const opening = !isPartOpen(id);
@@ -536,6 +596,7 @@ export default function Sidebar({
       const st = window.history.state as Record<string, unknown> | null;
       if (!isMenuEntry(st)) return;
       if (opening) {
+        saveNavScroll();
         pushOverlay({ apParts: partsSnapshot(), apExp: id, apDepth: menuDepth(st) + 1 });
       } else if (st?.apExp === id) {
         window.history.back();
@@ -575,46 +636,53 @@ export default function Sidebar({
     return matchesTitle || matchesSubsection;
   });
 
-  /** A chapter row (with its subsections while it is the open one). */
+  /**
+   * A chapter row. A chapter with subsections is a disclosure row (like the
+   * parts): a tap expands / collapses its list in the contents and does not
+   * navigate; the list starts with «Начало главы» (the chapter's top), then
+   * its subsections. A chapter without subsections is a link. Rows are at
+   * least 44px tall and tappable over their full width.
+   */
   const renderSection = (section: TocSection) => {
     const isSelected = selectedId === section.id;
     const hasSubs = (section.subsections?.length ?? 0) > 0;
-    const isOpen =
-      isSelected && hasSubs && collapsedId !== section.id;
+    const key = chapterKey(section.id);
+    const isOpen = hasSubs && isPartOpen(key);
+    const listId = `toc-ch-${section.id}`;
+    const rowClass = `sidebar-link w-full min-h-[44px] text-left px-5 py-3 flex items-start justify-between gap-2 transition-colors ${
+      isSelected
+        ? "bg-[#FAF3E8] border-l-3 border-[#B8860B]"
+        : "hover:bg-[#FDF8F0] border-l-3 border-transparent"
+    }`;
+    const label = (
+      <span
+        className={`text-sm leading-snug ${
+          isSelected ? "font-semibold text-[#B8860B]" : "text-[#2C1810]"
+        }`}
+      >
+        {section.num && <span className="heading-num">{`${section.num}.`}</span>}
+        {section.title}
+      </span>
+    );
+    const subClass = (active: boolean) =>
+      `sidebar-link -ml-px flex items-center min-h-[44px] w-full text-left px-4 py-2 text-xs border-l-2 transition-colors ${
+        active
+          ? "bg-[#FDF8F0] border-[#B8860B]/70 text-[#B8860B] font-semibold"
+          : "border-transparent text-[#5C3D2E] hover:text-[#B8860B] hover:bg-[#FDF8F0]"
+      }`;
+    const atStart = isSelected && activeSubId === null;
     return (
       <li key={section.id}>
-        <Link
-          href={sectionHref(section.id)}
-          onClick={(e) => {
-            if (isSelected && hasSubs) {
-              // Toggle the list instead of reloading the page.
-              e.preventDefault();
-              setCollapsedId(isOpen ? section.id : null);
-              return;
-            }
-            leaveTo(e, sectionHref(section.id));
-          }}
-          aria-current={isSelected ? "page" : undefined}
-          aria-expanded={isSelected && hasSubs ? isOpen : undefined}
-          className={`sidebar-link w-full text-left px-5 py-3 flex items-start justify-between gap-2 transition-colors ${
-            isSelected
-              ? "bg-[#FAF3E8] border-l-3 border-[#B8860B]"
-              : "hover:bg-[#FDF8F0] border-l-3 border-transparent"
-          }`}
-        >
-          <span
-            className={`text-sm leading-snug ${
-              isSelected
-                ? "font-semibold text-[#B8860B]"
-                : "text-[#2C1810]"
-            }`}
+        {hasSubs ? (
+          <button
+            type="button"
+            onClick={() => onPartTap(key)}
+            aria-expanded={isOpen}
+            aria-controls={isOpen ? listId : undefined}
+            data-toc-chapter={section.id}
+            className={rowClass}
           >
-            {section.num && (
-              <span className="heading-num">{`${section.num}.`}</span>
-            )}
-            {section.title}
-          </span>
-          {isSelected && hasSubs && (
+            {label}
             <svg
               aria-hidden="true"
               width="14"
@@ -622,42 +690,56 @@ export default function Sidebar({
               viewBox="0 0 24 24"
               fill="none"
               stroke="#B8860B"
-              strokeWidth="2"
+              strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className={`shrink-0 mt-0.5 transition-transform ${
-                isOpen ? "rotate-180" : ""
-              }`}
+              className={`shrink-0 mt-0.5 transition-transform ${isOpen ? "rotate-90" : ""}`}
             >
-              <polyline points="6 9 12 15 18 9" />
+              <polyline points="9 6 15 12 9 18" />
             </svg>
-          )}
-        </Link>
+          </button>
+        ) : (
+          <Link
+            href={sectionHref(section.id)}
+            onClick={(e) => leaveTo(e, sectionHref(section.id))}
+            aria-current={isSelected ? "page" : undefined}
+            className={rowClass}
+          >
+            {label}
+          </Link>
+        )}
 
-        {/* Subsections - shown while the current section is open */}
+        {/* Subsections of an expanded chapter */}
         {isOpen && (
-          <ul className="ml-6 border-l border-[#E8DCC8]">
+          <ul id={listId} className="ml-6 border-l border-[#E8DCC8]">
+            <li>
+              <Link
+                href={sectionHref(section.id)}
+                onClick={(e) => leaveTo(e, sectionHref(section.id))}
+                aria-current={atStart ? "page" : undefined}
+                data-toc-chapter-start={section.id}
+                className={`${subClass(atStart)} italic`}
+              >
+                {t(ui, "sidebar.chapterStart")}
+              </Link>
+            </li>
             {section.subsections.map((sub) => {
-              const isActive = activeSubId === sub.id;
+              const isActive = isSelected && activeSubId === sub.id;
               return (
                 <li key={sub.id}>
                   <Link
                     href={sectionHref(section.id, sub.id)}
                     onClick={(e) => {
-                      selectSub(sub.id);
+                      if (isSelected) selectSub(sub.id);
                       followLink(e, section.id, sub.id);
                     }}
                     aria-current={isActive ? "location" : undefined}
-                    className={`sidebar-link -ml-px block w-full text-left px-4 py-2 text-xs border-l-2 transition-colors ${
-                      isActive
-                        ? "bg-[#FDF8F0] border-[#B8860B]/70 text-[#B8860B] font-semibold"
-                        : "border-transparent text-[#5C3D2E] hover:text-[#B8860B] hover:bg-[#FDF8F0]"
-                    }`}
+                    className={subClass(isActive)}
                   >
-                    {sub.num && (
-                      <span className="heading-num">{`${sub.num}.`}</span>
-                    )}
-                    {sub.title}
+                    <span>
+                      {sub.num && <span className="heading-num">{`${sub.num}.`}</span>}
+                      {sub.title}
+                    </span>
                   </Link>
                 </li>
               );
@@ -810,7 +892,7 @@ export default function Sidebar({
       </div>
 
       {/* Sections list / search results */}
-      <nav className="flex-1 overflow-y-auto sidebar-scroll py-2">
+      <nav ref={navRef} className="flex-1 overflow-y-auto sidebar-scroll py-2">
         {results ? (
           results.length === 0 ? (
             <p className="px-5 py-4 text-sm text-[#5C3D2E] italic">
