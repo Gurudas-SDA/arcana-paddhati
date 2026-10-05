@@ -16,13 +16,20 @@
  * included) never toggle the menu; if something is highlighted, the first
  * tap on empty space only clears the highlight (components/Hotspots.tsx), the
  * next one toggles the menu. A tap that ends a text selection does nothing.
+ *
+ * The cover (05.10.2026, Satkirti on Android): a tap on ANY point of the
+ * cover — the picture included — shows / hides the menu; only real controls
+ * (links, buttons, the install banner's buttons) keep their own function.
+ *
+ * Back (UI rule 6): the «Аа» panel is a history entry; "back" to it opens it
+ * again, so Back retraces every step (lib/navHistory.ts).
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { tocLayout, type TocPart, type TocSection } from "@/lib/book";
-import { localeHref, t, type UiDict } from "@/lib/i18n";
+import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
 import { main as mainEl, pushOverlay } from "@/lib/navHistory";
 import {
   SIZES,
@@ -41,6 +48,13 @@ const NO_TOGGLE = [
   "img", "svg", "picture", "video", "canvas",
   ".hs-text", ".hs-hit", ".hs-figure", ".hs-peek", ".hs-inert",
   ".mood-toggle", ".verse-chips", "[data-no-reader-tap]",
+].join(",");
+
+/** On the cover only real controls keep their function; the picture is page. */
+const NO_TOGGLE_COVER = [
+  "a", "button", "input", "textarea", "select", "option", "label", "summary",
+  "[role=button]", "[role=dialog]", "[role=switch]", "[role=slider]", "[contenteditable]",
+  "[data-no-reader-tap]",
 ].join(",");
 
 /** Bars hide after this long without interaction. */
@@ -95,7 +109,6 @@ export default function ReaderChrome({
   menuOpen,
   onOpenContents,
   onOpenSearch,
-  closeOverlayThen,
 }: {
   ui: UiDict;
   lang: string;
@@ -106,9 +119,8 @@ export default function ReaderChrome({
   /** The contents / search drawer is open. */
   menuOpen: boolean;
   onOpenContents: () => void;
+  /** Also from the open «Аа» panel: the menu then replaces its history entry. */
   onOpenSearch: () => void;
-  /** Pop an overlay history entry (menu or «Аа»), then run `go`. */
-  closeOverlayThen: (go: () => void) => void;
 }) {
   const [shown, setShown] = useState(false);
   const [panel, setPanel] = useState(false);
@@ -129,15 +141,24 @@ export default function ReaderChrome({
   const lastScrollAt = useRef(0);
   const barsRef = useRef<HTMLDivElement>(null);
 
-  // A new page: reading mode again (render-time adjustment, no effect).
+  // A new page: reading mode again (render-time adjustment, no effect) —
+  // unless "back" returned to a step of that page with the «Аа» panel open.
   const [lastPath, setLastPath] = useState(`${lang}/${sectionId ?? ""}`);
+  const [popPanelKey, setPopPanelKey] = useState<string | null>(null);
   const pathKey = `${lang}/${sectionId ?? ""}`;
   if (pathKey !== lastPath) {
     setLastPath(pathKey);
-    setShown(false);
-    setPanel(false);
+    const keepPanel = popPanelKey === pathKey;
+    setPopPanelKey(null);
+    setShown(keepPanel);
+    setPanel(keepPanel);
     setPct(0);
   }
+
+  const pathKeyRef = useRef(pathKey);
+  useEffect(() => {
+    pathKeyRef.current = pathKey;
+  }, [pathKey]);
 
   useEffect(() => {
     shownRef.current = shown;
@@ -205,6 +226,10 @@ export default function ReaderChrome({
   }, [sections, parts]);
   const idx = sectionId ? order.indexOf(sectionId) : -1;
   const isHome = sectionId === null;
+  const isHomeRef = useRef(isHome);
+  useEffect(() => {
+    isHomeRef.current = isHome;
+  }, [isHome]);
   const prevId: string | null | undefined = idx > 0 ? order[idx - 1] : idx === 0 ? null : undefined; // null = cover
   const nextId: string | undefined = isHome ? order[0] : idx >= 0 ? order[idx + 1] : undefined;
   const section = sections.find((s) => s.id === sectionId);
@@ -288,7 +313,20 @@ export default function ReaderChrome({
     };
     const onPop = () => {
       quiet();
-      if (!isPanelEntry()) {
+      if (isPanelEntry()) {
+        // "Back" to the step where the «Аа» panel was open: open it again
+        // (also once the entry's page is rendered, if it is another page).
+        const at = parsePath(window.location.pathname.replace(/^\/arcana-paddhati(?=\/|$)/, "") || "/");
+        const key = `${at.lang}/${at.sectionId ?? ""}`;
+        setPopPanelKey(key === pathKeyRef.current ? null : key);
+        clearTimer();
+        panelRef.current = true;
+        setPanel(true);
+        shownRef.current = true;
+        setShown(true);
+        setHint(false);
+      } else {
+        setPopPanelKey(null);
         panelRef.current = false;
         setPanel(false);
       }
@@ -314,7 +352,8 @@ export default function ReaderChrome({
       target: EventTarget | null;
       afterScroll: boolean;
     } | null = null;
-    const blocked = (t: EventTarget | null) => !(t instanceof Element) || !!t.closest(NO_TOGGLE);
+    const blocked = (t: EventTarget | null) =>
+      !(t instanceof Element) || !!t.closest(isHomeRef.current ? NO_TOGGLE_COVER : NO_TOGGLE);
     const onDown = (e: PointerEvent) => {
       if (!e.isPrimary || e.button !== 0) {
         start = null;
@@ -421,14 +460,17 @@ export default function ReaderChrome({
     clearTimer();
   };
 
+  /**
+   * Leave the «Аа» panel for another step (chapter, language, contents):
+   * the panel's history entry stays under the new one, so "back" returns to
+   * the panel (never "back, then push" — see lib/navHistory.ts).
+   */
   const fromPanelThen = (go: () => void) => {
     if (panelRef.current) {
       panelRef.current = false;
       setPanel(false);
-      closeOverlayThen(go);
-    } else {
-      go();
     }
+    go();
   };
 
   const onSlide = (e: React.ChangeEvent<HTMLInputElement>) => {

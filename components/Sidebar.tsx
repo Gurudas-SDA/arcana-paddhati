@@ -10,7 +10,7 @@ import React, {
   useSyncExternalStore,
 } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   normalizeText,
   tocLayout,
@@ -19,7 +19,14 @@ import {
   type TocSection,
 } from "@/lib/book";
 import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
-import { main as mainEl, pushPlace } from "@/lib/navHistory";
+import {
+  isMenuEntry,
+  main as mainEl,
+  menuDepth,
+  patchState,
+  pushOverlay,
+  pushPlace,
+} from "@/lib/navHistory";
 import {
   setShowAllTranslations,
   setShowAllWbw,
@@ -44,13 +51,12 @@ interface SidebarProps {
   searchEntries: SearchEntry[] | null;
   onClose: () => void;
   /**
-   * Mobile menu only: a link is being followed out of the menu. "result" — a
-   * search result (the menu's history entry stays, so "back" returns to the
-   * results); "link" — a contents link: call e.preventDefault() and run
-   * `go` once the menu's history entry is gone (the new place replaces it).
-   * Without it (desktop sidebar) links just navigate.
+   * Menu only: a link (contents link or search result) is being followed out
+   * of the menu. The menu's history entries stay, so "back" from the new
+   * place reopens the menu as it was (UI rule 6). Also marks menu mode: each
+   * part expanded in the contents is then a history entry of its own.
    */
-  onLeave?: (kind: "result" | "link", e: React.MouseEvent, go: () => void) => void;
+  onLeave?: () => void;
 }
 
 interface PreparedEntry {
@@ -274,6 +280,11 @@ function parseParts(raw: string): Record<string, boolean> {
   }
 }
 
+/** Put back the parts of a menu history entry (AppShell, on "back"). */
+export function restoreParts(raw: string) {
+  setPartsState(parseParts(raw));
+}
+
 function setPartsState(state: Record<string, boolean>) {
   partsMemory = JSON.stringify(state);
   try {
@@ -375,7 +386,6 @@ export default function Sidebar({
   onLeave,
 }: SidebarProps) {
   const pathname = usePathname();
-  const router = useRouter();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const selectedId = parsePath(pathname).sectionId;
   const selectedSection = sections.find((s) => s.id === selectedId);
@@ -409,18 +419,18 @@ export default function Sidebar({
   const followLink = (
     e: React.MouseEvent,
     sectionId: string,
-    anchor: string | undefined,
-    kind: "result" | "link"
+    anchor: string | undefined
   ) => {
     const strip = (p: string) => p.replace(/\/+$/, "");
     const samePage = strip(localeHref(lang, sectionId)) === strip(pathname);
     if (!samePage) {
-      // The Link navigates (a new entry).
-      if (onLeave) onLeave(kind, e, () => router.push(sectionHref(sectionId, anchor)));
+      // The Link navigates (a new entry on top of the menu's).
+      onLeave?.();
       return;
     }
     e.preventDefault();
-    const jump = () => {
+    /** Scroll to the place; true when that was a move (a new entry). */
+    const jump = (): boolean => {
       const main = mainEl();
       if (anchor) {
         const target = document.getElementById(anchor);
@@ -433,15 +443,20 @@ export default function Sidebar({
         // The scroll-spy re-reads the hash (also when it is unchanged).
         window.dispatchEvent(new HashChangeEvent("hashchange"));
         target?.scrollIntoView({ block: "start" });
-      } else if (main && main.scrollTop > 0) {
+        return !!moves;
+      }
+      if (main && main.scrollTop > 0) {
         pushPlace(window.location.pathname);
         main.scrollTo({ top: 0 });
+        return true;
       }
+      return false;
     };
     if (onLeave) {
-      // Same page from the menu: the jump happens once the menu is closed.
-      onLeave(kind, e, jump);
-      if (kind === "result") jump();
+      // Same page from the menu: a move is a new entry on top of the menu's;
+      // no move — just close the menu (pop its entries).
+      onLeave();
+      if (!jump()) onClose();
     } else {
       jump();
     }
@@ -449,8 +464,23 @@ export default function Sidebar({
 
   /** A contents link (cover, part, chapter) out of the mobile menu. */
   const leaveTo = (e: React.MouseEvent, href: string) => {
-    if (onLeave) onLeave("link", e, () => router.push(href));
-    else onClose();
+    const strip = (p: string) => p.replace(/\/+$/, "");
+    if (strip(href) !== strip(pathname)) {
+      // The Link navigates (a new entry on top of the menu's).
+      if (onLeave) onLeave();
+      else onClose();
+      return;
+    }
+    // The page already shown: back to its top (a step if that moves).
+    e.preventDefault();
+    const main = mainEl();
+    if (onLeave && main && main.scrollTop > 0) {
+      onLeave();
+      pushPlace(window.location.pathname);
+      main.scrollTo({ top: 0 });
+    } else {
+      onClose();
+    }
   };
 
   const prepared = useMemo(
@@ -480,6 +510,42 @@ export default function Sidebar({
         ? selectedId
         : (partOfSection.get(selectedId) ?? null);
   const [isPartOpen, togglePart] = usePartsOpen(selectedId, currentPartId);
+
+  // Menu: its history entry keeps the parts as they are now (for "back").
+  useEffect(() => {
+    if (!onLeave) return;
+    try {
+      const st = window.history.state as Record<string, unknown> | null;
+      if (isMenuEntry(st) && typeof st?.apParts !== "string") patchState({ apParts: partsSnapshot() });
+    } catch {
+      // history unavailable
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /**
+   * A part heading tapped. In the menu, expanding is a step of its own
+   * (a history entry: "back" collapses it again); collapsing the part this
+   * very entry expanded is "back"; any other collapse updates the entry.
+   */
+  const onPartTap = (id: string) => {
+    const opening = !isPartOpen(id);
+    togglePart(id);
+    if (!onLeave) return;
+    try {
+      const st = window.history.state as Record<string, unknown> | null;
+      if (!isMenuEntry(st)) return;
+      if (opening) {
+        pushOverlay({ apParts: partsSnapshot(), apExp: id, apDepth: menuDepth(st) + 1 });
+      } else if (st?.apExp === id) {
+        window.history.back();
+      } else {
+        patchState({ apParts: partsSnapshot() });
+      }
+    } catch {
+      // history unavailable: the part still toggles
+    }
+  };
 
   // Full-text results (once the index is loaded).
   const results = useMemo<SearchResult[] | null>(() => {
@@ -579,7 +645,7 @@ export default function Sidebar({
                     href={sectionHref(section.id, sub.id)}
                     onClick={(e) => {
                       selectSub(sub.id);
-                      followLink(e, section.id, sub.id, "link");
+                      followLink(e, section.id, sub.id);
                     }}
                     aria-current={isActive ? "location" : undefined}
                     className={`sidebar-link -ml-px block w-full text-left px-4 py-2 text-xs border-l-2 transition-colors ${
@@ -756,7 +822,7 @@ export default function Sidebar({
                 <li key={`${entry.section}#${entry.anchor ?? ""}`}>
                   <Link
                     href={sectionHref(entry.section, entry.anchor)}
-                    onClick={(e) => followLink(e, entry.section, entry.anchor, "result")}
+                    onClick={(e) => followLink(e, entry.section, entry.anchor)}
                     className="block w-full text-left px-5 py-3 border-l-3 border-transparent hover:bg-[#FDF8F0] transition-colors"
                   >
                     <span className="block text-sm leading-snug text-[#2C1810]">
@@ -853,7 +919,7 @@ export default function Sidebar({
                       <div className="px-5 py-1">
                         <button
                           type="button"
-                          onClick={() => togglePart(part.id)}
+                          onClick={() => onPartTap(part.id)}
                           aria-expanded={isOpen}
                           aria-controls={isOpen ? listId : undefined}
                           className="inline-flex items-start gap-1.5 py-1 text-left rounded-sm text-[#9C7A4E] hover:text-[#B8860B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8860B]/40 transition-colors"

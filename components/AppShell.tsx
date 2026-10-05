@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import Sidebar from "@/components/Sidebar";
+import Sidebar, { restoreParts } from "@/components/Sidebar";
 import InstallBanner from "@/components/InstallBanner";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ReaderChrome from "@/components/ReaderChrome";
@@ -11,6 +11,7 @@ import {
   QUERY_STORE,
   isMenuEntry,
   main as mainEl,
+  menuDepth,
   patchState,
   placeKey,
   pushOverlay,
@@ -62,54 +63,37 @@ export default function AppShell({
   const indexRequested = useRef<Set<string>>(new Set());
 
   // The mobile menu is a history entry (UI rule 6): opening it pushes an
-  // entry on top of the current place, so the phone's "back" closes it; a
-  // search result keeps that entry, so "back" from the result reopens the menu
-  // with the same query. Back/forward set the menu from the entry's state.
-  const afterPop = useRef<(() => void) | null>(null);
-
+  // entry on top of the current place, so the phone's "back" closes it; each
+  // part expanded in it is one more entry (Sidebar.tsx). Leaving the menu for
+  // a place (contents link, search result) keeps its entries, so "back" from
+  // that place reopens the menu exactly as it was (same query, same parts).
+  // Back/forward set the menu from the entry's state (lib/navHistory.ts).
   const openMenu = () => {
     try {
-      if (!isMenuEntry()) pushOverlay({ apMenu: true });
+      const st = window.history.state as Record<string, unknown> | null;
+      if (isMenuEntry()) {
+        // already a menu entry
+      } else if (st?.apAa === true) {
+        // From the «Аа» panel: the menu takes the panel's place in history.
+        patchState({ apMenu: true, apDepth: 1 }, ["apAa", "apParts", "apExp", "apQuery"]);
+      } else {
+        pushOverlay({ apMenu: true, apDepth: 1 });
+      }
     } catch {
       // history unavailable: the menu still opens
     }
     setMobileMenuOpen(true);
   };
 
-  /** Close from the UI (the close button, backdrop, Esc): pop our entry. */
+  /** Close from the UI (the close button, backdrop, Esc): pop all menu entries. */
   const closeMenu = useCallback(() => {
     setMobileMenuOpen(false);
-    if (isMenuEntry()) window.history.back();
+    const d = menuDepth();
+    if (d > 0) window.history.go(-d);
   }, []);
 
-  /**
-   * Leave the menu (or the reader's «Аа» panel) for a place that should
-   * REPLACE it in history (a contents link, another language): pop the
-   * overlay entry first, then go. Otherwise the overlay entry would sit
-   * between the two places and "back" would reopen it.
-   */
-  const closeMenuThen = useCallback((go: () => void) => {
-    setMobileMenuOpen(false);
-    const st = window.history.state as Record<string, unknown> | null;
-    if (!isMenuEntry() && st?.apAa !== true) {
-      go();
-      return;
-    }
-    let done = false;
-    const run = () => {
-      if (done) return;
-      done = true;
-      window.clearTimeout(timer);
-      afterPop.current = null;
-      go();
-    };
-    afterPop.current = run;
-    const timer = window.setTimeout(run, 400);
-    window.history.back();
-  }, []);
-
-  /** Leave the menu from a search result: keep its entry (with the query). */
-  const leaveMenuForResult = useCallback(() => {
+  /** Leave the menu for a place (link or result): keep its entries (with the query). */
+  const leaveMenu = useCallback(() => {
     try {
       if (isMenuEntry()) patchState({ apQuery: searchQueryRef.current });
       sessionStorage.setItem(QUERY_STORE, searchQueryRef.current);
@@ -225,15 +209,10 @@ export default function AppShell({
 
     const onPop = (e: PopStateEvent) => {
       const st = (e.state as Record<string, unknown> | null) ?? null;
-      if (isMenuEntry(st)) reopenMenu(st);
-      else setMobileMenuOpen(false);
-      const pending = afterPop.current;
-      if (pending) {
-        // After Next.js' own popstate handler (registered later, runs after
-        // this one): its traverse would otherwise override the navigation.
-        window.setTimeout(pending, 0);
-        return;
-      }
+      if (isMenuEntry(st)) {
+        if (typeof st?.apParts === "string") restoreParts(st.apParts);
+        reopenMenu(st);
+      } else setMobileMenuOpen(false);
       // Put the place back after Next.js has rendered the entry's page.
       const target = savedScroll(st);
       const hash = window.location.hash.slice(1);
@@ -327,7 +306,6 @@ export default function AppShell({
         menuOpen={mobileMenuOpen}
         onOpenContents={openMenu}
         onOpenSearch={openSearch}
-        closeOverlayThen={closeMenuThen}
       />
 
       {/* Contents / search panel (all screen sizes) */}
@@ -344,15 +322,7 @@ export default function AppShell({
             <Sidebar
               {...sidebarProps}
               onClose={closeMenu}
-              onLeave={(kind, e, go) => {
-                if (kind === "result") {
-                  leaveMenuForResult();
-                  return;
-                }
-                // Contents link: the new place replaces the menu entry.
-                e.preventDefault();
-                closeMenuThen(go);
-              }}
+              onLeave={leaveMenu}
             />
           </div>
         </div>

@@ -633,26 +633,36 @@ body,
   pointer-events: auto;
   transform: none;
 }
+/* The bars span the whole screen: «Содержание» / «Поиск» and «‹ Пред.» at
+   the far left edge, «Аа» and «След. ›» at the far right — within reach of
+   the thumbs holding an iPad (Satkirti, 05.10.2026). */
 .reader-bar-inner {
   display: flex;
   align-items: center;
   gap: 4px;
-  max-width: 56rem;
-  margin: 0 auto;
-  padding: 6px max(10px, env(safe-area-inset-right, 0px)) 6px max(10px, env(safe-area-inset-left, 0px));
+  padding: 6px max(12px, env(safe-area-inset-right, 0px)) 6px max(12px, env(safe-area-inset-left, 0px));
 }
 .reader-bottom-inner {
   flex-direction: column;
   align-items: stretch;
   gap: 2px;
   padding-top: 8px;
+}
+/* Only the progress line stays in the reading column's width. */
+.reader-bottom-inner .reader-progress-label,
+.reader-bottom-inner .reader-slider {
+  width: 100%;
   max-width: 48rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 .reader-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  min-height: 40px;
+  min-height: 44px;
+  min-width: 44px;
+  justify-content: center;
   padding: 6px 10px;
   border-radius: 10px;
   color: var(--rd-fg);
@@ -769,7 +779,7 @@ body,
 .reader-panel {
   position: fixed;
   z-index: 31;
-  top: calc(env(safe-area-inset-top, 0px) + 58px);
+  top: calc(env(safe-area-inset-top, 0px) + 62px);
   right: max(8px, env(safe-area-inset-right, 0px));
   width: min(320px, calc(100vw - 16px));
   max-height: calc(100vh - 200px);
