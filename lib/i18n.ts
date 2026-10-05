@@ -10,6 +10,12 @@ export interface Language {
   name: string;
   /** Value for <html lang> (e.g. "ru-iast" -> "ru"). */
   htmlLang: string;
+  /**
+   * Retired language: not offered in the language menu; its URLs and a saved
+   * choice of it lead to this language instead (Satkirti 05.10.2026: one
+   * Russian only — the one with Sanskrit in Latin/IAST, "ru-iast").
+   */
+  replacedBy?: string;
 }
 
 /** Flat key -> string map (data/ui.<lang>.json, falling back to data/ui.en.json). */
@@ -30,6 +36,24 @@ export const DEFAULT_LANG = "en";
 /** Languages that live under /<code>/ (everything except the default). */
 export const PREFIXED_LANGUAGES = LANGUAGES.filter((l) => l.code !== DEFAULT_LANG);
 export const LANG_STORAGE_KEY = "arcanaLang";
+
+/** Languages offered in the language menu (retired ones left out). */
+export const OFFERED_LANGUAGES = LANGUAGES.filter((l) => !l.replacedBy);
+
+/** The language to show for `code` (a retired one -> its replacement). */
+export function liveLang(code: string): string {
+  return getLanguage(code)?.replacedBy ?? code;
+}
+
+/**
+ * Inline <head> script (app/layout.tsx), before first paint: a saved retired
+ * language becomes its replacement, and a page of a retired language is
+ * replaced by the same page in the replacement (old links and bookmarks keep
+ * working, no 404; also offline, the service worker has both).
+ */
+export const LANG_REDIRECT_SCRIPT = `(function(){try{var m=${JSON.stringify(
+  Object.fromEntries(LANGUAGES.filter((l) => l.replacedBy).map((l) => [l.code, l.replacedBy])),
+)},k=${JSON.stringify(LANG_STORAGE_KEY)};try{var s=localStorage.getItem(k);if(s&&m[s])localStorage.setItem(k,m[s])}catch(e){}var b="/arcana-paddhati/",p=location.pathname;if(p.indexOf(b)!==0)return;var r=p.slice(b.length),i=r.indexOf("/"),c=i<0?r:r.slice(0,i);if(m[c])location.replace(b+m[c]+(i<0?"/":r.slice(i))+location.search+location.hash)}catch(e){}})();`;
 
 export function getLanguage(code: string): Language | undefined {
   return LANGUAGES.find((l) => l.code === code);

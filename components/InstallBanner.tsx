@@ -136,6 +136,7 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
       {/* Banner */}
       <div
         ref={bannerRef}
+        data-no-reader-tap=""
         style={{
           background: "linear-gradient(90deg, #D4A843, #B8860B)",
         }}
@@ -179,7 +180,7 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
 
       {/* Instructions modal (for iOS / non-Chrome browsers) */}
       {showModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div data-no-reader-tap="" className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           {/* Backdrop: does nothing; the modal closes only with its ✕ */}
           <div className="absolute inset-0 bg-black/30" />
 

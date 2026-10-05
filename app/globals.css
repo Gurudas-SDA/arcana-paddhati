@@ -314,17 +314,11 @@ body {
   margin-right: 0.4em;
 }
 
-/* Home-page cover: fill the content panel's height (aspect ratio kept).
-   Below lg the sticky mobile header (~63px) also takes room. */
+/* Home-page cover: fill the reading area's height (aspect ratio kept);
+   the reading area is padded for the safe areas and the status line. */
 .home-cover {
-  max-height: calc(100vh - 63px - 2rem - var(--install-banner-h, 0px));
-  max-height: calc(100dvh - 63px - 2rem - var(--install-banner-h, 0px));
-}
-@media (min-width: 1024px) {
-  .home-cover {
-    max-height: calc(100vh - 3rem - var(--install-banner-h, 0px));
-    max-height: calc(100dvh - 3rem - var(--install-banner-h, 0px));
-  }
+  max-height: calc(100vh - 2rem - var(--reader-pad-bottom) - var(--install-banner-h, 0px));
+  max-height: calc(100dvh - 2rem - var(--reader-pad-bottom) - env(safe-area-inset-top, 0px) - var(--install-banner-h, 0px));
 }
 
 /* Numbered picture <-> list sync (components/Hotspots.tsx).
@@ -420,7 +414,7 @@ body {
   position: fixed;
   z-index: 35;
   right: 12px;
-  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(30px + env(safe-area-inset-bottom, 0px));
   width: min(300px, calc(100vw - 24px));
   padding: 6px;
   background: #fff;
@@ -500,5 +494,461 @@ body {
   }
   .data-table tr {
     break-inside: avoid;
+  }
+}
+
+/* =====================================================================
+   Reading mode (components/ReaderChrome.tsx, lib/readerPrefs.ts).
+   Only the text on screen; a tap on empty space shows the bars.
+   ===================================================================== */
+:root {
+  --rd-bg: #FFFFFF;
+  --rd-fg: #1a1a1a;
+  --rd-muted: #5C3D2E;
+  --rd-faint: rgba(92, 61, 46, 0.55);
+  --rd-accent: #B8860B;
+  --rd-bar-bg: #FFFFFF;
+  --rd-border: #E8DCC8;
+  --rd-hover: #F5E6C8;
+  --rd-panel-bg: #FFFFFF;
+  --reader-pad-bottom: calc(30px + env(safe-area-inset-bottom, 0px));
+}
+html[data-reader-theme="sepia"] {
+  --rd-bg: #F6EEDC;
+  --rd-fg: #2a2016;
+  --rd-bar-bg: #F6EEDC;
+  --rd-border: #E2D3B5;
+  --rd-hover: #EBDDC0;
+  --rd-panel-bg: #FBF5E8;
+}
+html[data-reader-theme="night"] {
+  --rd-bg: #16130F;
+  --rd-fg: #E4DCCF;
+  --rd-muted: #BBAE9A;
+  --rd-faint: rgba(187, 174, 154, 0.5);
+  --rd-accent: #D4A843;
+  --rd-bar-bg: #1C1813;
+  --rd-border: #3A3128;
+  --rd-hover: #2E271F;
+  --rd-panel-bg: #211C16;
+  color-scheme: dark;
+}
+
+body,
+.app-main {
+  background-color: var(--rd-bg);
+}
+
+/* The reading area: clear of the notch / rounded corners, and of the faint
+   status line at the bottom. */
+.app-main {
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+  padding-bottom: var(--reader-pad-bottom);
+}
+
+/* Text size («Аа»): the reading column is zoomed as a whole, so every font
+   size, margin and the numbered pictures keep their proportions. */
+.app-main article {
+  zoom: var(--reader-zoom, 1);
+}
+
+.reader-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  background: var(--rd-bar-bg);
+  color: var(--rd-fg);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 220ms ease, opacity 200ms ease;
+  font-family: var(--font-serif, 'Noto Serif', Georgia, serif);
+}
+.reader-bar-top {
+  top: 0;
+  border-bottom: 1px solid var(--rd-border);
+  padding-top: env(safe-area-inset-top, 0px);
+  transform: translateY(-100%);
+}
+.reader-bar-bottom {
+  bottom: 0;
+  border-top: 1px solid var(--rd-border);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  transform: translateY(100%);
+}
+.reader-chrome[data-shown] .reader-bar,
+.reader-bar:has(:focus-visible) {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+.reader-bar-inner {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 6px max(10px, env(safe-area-inset-right, 0px)) 6px max(10px, env(safe-area-inset-left, 0px));
+}
+.reader-bottom-inner {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+  padding-top: 8px;
+  max-width: 48rem;
+}
+.reader-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  color: var(--rd-fg);
+  font-size: 15px;
+  line-height: 1.2;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 150ms ease;
+}
+.reader-btn svg {
+  color: var(--rd-accent);
+  flex-shrink: 0;
+}
+@media (hover: hover) {
+  .reader-btn:hover {
+    background: var(--rd-hover);
+  }
+}
+.reader-btn[aria-expanded="true"] {
+  background: var(--rd-hover);
+}
+.reader-aa {
+  gap: 1px;
+  align-items: baseline;
+  padding: 6px 12px;
+}
+.reader-aa-small {
+  font-size: 14px;
+}
+.reader-aa-big {
+  font-size: 20px;
+}
+.reader-progress-label {
+  margin: 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--rd-muted);
+  font-variant-numeric: tabular-nums;
+}
+.reader-slider {
+  width: 100%;
+  height: 28px;
+  margin: 0;
+  background: transparent;
+  accent-color: var(--rd-accent);
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+.reader-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(to right, var(--rd-accent) var(--reader-pct, 0%), var(--rd-border) var(--reader-pct, 0%));
+}
+.reader-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: -8px;
+  border-radius: 50%;
+  background: var(--rd-panel-bg);
+  border: 2px solid var(--rd-accent);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+.reader-slider::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--rd-border);
+}
+.reader-slider::-moz-range-progress {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--rd-accent);
+}
+.reader-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--rd-panel-bg);
+  border: 2px solid var(--rd-accent);
+}
+.reader-nav-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.reader-chapter-btn {
+  font-size: 14px;
+  color: var(--rd-accent);
+}
+
+/* Faint status line while reading: «Глава 8 · 35 %». */
+.reader-status {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  margin: 0;
+  padding: 4px 16px calc(6px + env(safe-area-inset-bottom, 0px));
+  text-align: center;
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--rd-faint);
+  background: var(--rd-bg);
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+  transition: opacity 200ms ease;
+}
+.reader-chrome[data-shown] .reader-status {
+  opacity: 0;
+}
+
+/* «Аа» panel */
+.reader-panel {
+  position: fixed;
+  z-index: 31;
+  top: calc(env(safe-area-inset-top, 0px) + 58px);
+  right: max(8px, env(safe-area-inset-right, 0px));
+  width: min(320px, calc(100vw - 16px));
+  max-height: calc(100vh - 200px);
+  max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 200px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 10px 14px 14px;
+  border: 1px solid var(--rd-border);
+  border-radius: 14px;
+  background: var(--rd-panel-bg);
+  color: var(--rd-fg);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.18);
+  animation: reader-pop 160ms ease-out;
+}
+.reader-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.reader-panel-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+.reader-panel-close {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  margin-right: -8px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  color: var(--rd-muted);
+}
+.reader-panel-label {
+  margin: 10px 0 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rd-muted);
+}
+.reader-size-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.reader-size-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+  height: 42px;
+  border: 1px solid var(--rd-border);
+  border-radius: 10px;
+  color: var(--rd-fg);
+  font-size: 16px;
+  line-height: 42px;
+}
+.reader-size-btn:disabled {
+  opacity: 0.35;
+}
+.reader-size-value {
+  min-width: 56px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--rd-muted);
+  font-variant-numeric: tabular-nums;
+}
+.reader-theme-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.reader-theme-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px;
+  border: 1px solid var(--rd-border);
+  border-radius: 10px;
+  font-size: 12px;
+  color: var(--rd-fg);
+}
+.reader-theme-btn[aria-pressed="true"] {
+  border-color: var(--rd-accent);
+  box-shadow: inset 0 0 0 1px var(--rd-accent);
+}
+.reader-swatch {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+/* One-time hint */
+.reader-hint {
+  position: fixed;
+  z-index: 25;
+  left: 50%;
+  bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  margin: 0;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  background: rgba(44, 24, 16, 0.85);
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: center;
+  pointer-events: none;
+  animation: reader-hint-in 220ms ease-out;
+}
+
+@keyframes reader-pop {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes reader-hint-in {
+  from { opacity: 0; transform: translate(-50%, 6px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* The floating picture copy stays above the bottom bar while it is shown. */
+html[data-reader-bars] .hs-peek {
+  bottom: calc(132px + env(safe-area-inset-bottom, 0px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reader-bar,
+  .reader-status,
+  .reader-btn {
+    transition: none;
+  }
+  .reader-panel,
+  .reader-hint {
+    animation: none;
+  }
+}
+
+@media print {
+  .app-main {
+    padding: 0 !important;
+  }
+  .app-main article {
+    zoom: 1 !important;
+  }
+}
+
+/* ---- Backgrounds: sepia and night -------------------------------------------
+   The book's components use fixed colours (Tailwind classes); these rules
+   repaint them per background. Pictures are left as they are. */
+html[data-reader-theme="sepia"] .bg-white,
+html[data-reader-theme="sepia"] aside {
+  background-color: var(--rd-bg);
+}
+html[data-reader-theme="night"] body {
+  color: var(--rd-fg);
+}
+html[data-reader-theme="night"] .bg-white,
+html[data-reader-theme="night"] aside,
+html[data-reader-theme="night"] .hs-peek {
+  background-color: var(--rd-bg);
+}
+html[data-reader-theme="night"] .bg-\[\#FDF8F0\],
+html[data-reader-theme="night"] .bg-\[\#FAF3E8\],
+html[data-reader-theme="night"] .bg-white\/60 {
+  background-color: #211C16;
+}
+html[data-reader-theme="night"] .bg-\[\#F5E6C8\],
+html[data-reader-theme="night"] .bg-\[\#FBF0D9\] {
+  background-color: #3A2F1F;
+}
+html[data-reader-theme="night"] .bg-\[\#ccc\],
+html[data-reader-theme="night"] .bg-\[\#E8DCC8\] {
+  background-color: var(--rd-border);
+}
+html[data-reader-theme="night"] .border-\[\#E8DCC8\],
+html[data-reader-theme="night"] .border-\[\#ddd\],
+html[data-reader-theme="night"] .border-\[\#999\] {
+  border-color: var(--rd-border);
+}
+html[data-reader-theme="night"] .text-\[\#1a1a1a\],
+html[data-reader-theme="night"] .text-\[\#2C1810\],
+html[data-reader-theme="night"] .verse-wbw .wbw-word {
+  color: var(--rd-fg);
+}
+html[data-reader-theme="night"] .text-\[\#5C3D2E\],
+html[data-reader-theme="night"] .text-\[\#5C3D2E\]\/80,
+html[data-reader-theme="night"] .text-\[\#555\] {
+  color: var(--rd-muted);
+}
+html[data-reader-theme="night"] .text-\[\#8B6508\],
+html[data-reader-theme="night"] .text-\[\#B8860B\],
+html[data-reader-theme="night"] .text-\[\#B8860B\]\/80 {
+  color: #D4A843;
+}
+html[data-reader-theme="night"] .translation {
+  color: #CFC4B3;
+}
+html[data-reader-theme="night"] .sa-inline {
+  color: #D9BC8C;
+}
+html[data-reader-theme="night"] .heading-num {
+  color: #A88C63;
+}
+html[data-reader-theme="night"] .hs-row[data-active] .hs-text {
+  background-color: rgba(212, 168, 67, 0.28);
+  color: #F2E9DA;
+}
+html[data-reader-theme="night"] .book-image,
+html[data-reader-theme="night"] .hs-figure,
+html[data-reader-theme="night"] .home-cover {
+  filter: brightness(0.9);
+}
+html[data-reader-theme="night"] ::selection {
+  background-color: #5A4528;
+  color: #fff;
+}
+@media print {
+  html[data-reader-theme] body,
+  html[data-reader-theme] .app-main {
+    background: #fff !important;
+    color: #1a1a1a !important;
   }
 }

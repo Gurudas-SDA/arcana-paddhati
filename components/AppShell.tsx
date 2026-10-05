@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import InstallBanner from "@/components/InstallBanner";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import ReaderChrome from "@/components/ReaderChrome";
 import type { SearchEntry } from "@/lib/book";
 import {
   QUERY_STORE,
@@ -21,9 +22,9 @@ import {
   LANG_STORAGE_KEY,
   getLanguage,
   isLangCode,
+  liveLang,
   localeHref,
   parsePath,
-  t,
   type LocaleData,
 } from "@/lib/i18n";
 
@@ -82,13 +83,15 @@ export default function AppShell({
   }, []);
 
   /**
-   * Leave the menu for a place that should REPLACE it in history (a contents
-   * link): pop the menu entry first, then go. Otherwise the menu entry would
-   * sit between the two places and "back" would reopen the menu.
+   * Leave the menu (or the reader's «Аа» panel) for a place that should
+   * REPLACE it in history (a contents link, another language): pop the
+   * overlay entry first, then go. Otherwise the overlay entry would sit
+   * between the two places and "back" would reopen it.
    */
   const closeMenuThen = useCallback((go: () => void) => {
     setMobileMenuOpen(false);
-    if (!isMenuEntry()) {
+    const st = window.history.state as Record<string, unknown> | null;
+    if (!isMenuEntry() && st?.apAa !== true) {
       go();
       return;
     }
@@ -135,10 +138,18 @@ export default function AppShell({
     } catch {
       // storage unavailable
     }
-    if (isLangCode(stored) && stored !== DEFAULT_LANG) {
-      router.replace(localeHref(stored));
+    if (isLangCode(stored) && liveLang(stored) !== DEFAULT_LANG) {
+      router.replace(localeHref(liveLang(stored)));
     }
   }, [pathname, router]);
+
+  // A retired language (only reachable by an old link inside the app):
+  // the same place in its replacement. Full page loads are redirected
+  // earlier by LANG_REDIRECT_SCRIPT (app/layout.tsx).
+  useEffect(() => {
+    const target = liveLang(lang);
+    if (target !== lang) router.replace(localeHref(target, sectionId) + window.location.hash);
+  }, [lang, sectionId, router]);
 
   // Close mobile menu on escape key
   useEffect(() => {
@@ -265,6 +276,18 @@ export default function AppShell({
     }
   }, [pathname]);
 
+  /** «Поиск» in the reader's top bar: the contents panel with the search box focused. */
+  const openSearch = () => {
+    openMenu();
+    let tries = 0;
+    const focus = () => {
+      const input = document.querySelector<HTMLInputElement>(".mobile-menu input[type=search]");
+      if (input) input.focus();
+      else if (tries++ < 10) window.setTimeout(focus, 30);
+    };
+    window.setTimeout(focus, 0);
+  };
+
   const searchIndex = searchIndexes[contentLang];
   const entries = Array.isArray(searchIndex) ? searchIndex : null;
 
@@ -292,14 +315,24 @@ export default function AppShell({
 
   return (
     <div className="app-shell flex h-full">
-      {/* Desktop sidebar */}
-      <div className="no-print hidden lg:flex lg:w-80 lg:shrink-0 lg:flex-col h-full">
-        <Sidebar {...sidebarProps} onClose={() => {}} />
-      </div>
+      {/* Reading mode: the menu bars appear on a tap on empty space
+          (components/ReaderChrome.tsx). Before <main> so Tab reaches them first. */}
+      <ReaderChrome
+        ui={ui}
+        lang={lang}
+        sectionId={sectionId}
+        sections={sections}
+        parts={parts}
+        available={available}
+        menuOpen={mobileMenuOpen}
+        onOpenContents={openMenu}
+        onOpenSearch={openSearch}
+        closeOverlayThen={closeMenuThen}
+      />
 
-      {/* Mobile sidebar overlay */}
+      {/* Contents / search panel (all screen sizes) */}
       {mobileMenuOpen && (
-        <div className="mobile-menu no-print fixed inset-0 z-40 lg:hidden">
+        <div className="mobile-menu no-print fixed inset-0 z-40">
           {/* Backdrop */}
           <div
             className="fixed inset-0 bg-black/30 sidebar-backdrop"
@@ -328,35 +361,6 @@ export default function AppShell({
       {/* Main content area */}
       <main className="app-main flex-1 overflow-y-auto">
         <InstallBanner ui={ui} />
-        {/* Mobile header: only the menu button (left) and the language menu
-            (right). No book title: it could only show cut off ("…"), and the
-            cover already carries the name (UI rule: no truncated labels). */}
-        <div className="no-print sticky top-0 z-30 lg:hidden flex items-center gap-3 px-4 py-3 bg-white/95 backdrop-blur-sm border-b border-[#ddd]">
-          <button
-            onClick={openMenu}
-            className="p-2 rounded-lg hover:bg-[#F5E6C8] transition-colors"
-            aria-label={t(ui, "header.openMenu")}
-          >
-            <svg
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#2C1810"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <line x1="3" y1="12" x2="21" y2="12" />
-              <line x1="3" y1="18" x2="21" y2="18" />
-            </svg>
-          </button>
-          <div className="ml-auto">
-            <LanguageSwitcher {...switcherProps} />
-          </div>
-        </div>
-
         {/* Content */}
         {children}
       </main>

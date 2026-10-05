@@ -637,7 +637,7 @@ export default function Sidebar({
         {/* Mobile close button */}
         <button
           onClick={onClose}
-          className="lg:hidden p-1 rounded hover:bg-[#F5E6C8] transition-colors"
+          className="p-1 rounded hover:bg-[#F5E6C8] transition-colors"
           aria-label={t(ui, "sidebar.closeMenu")}
         >
           <svg
@@ -656,8 +656,8 @@ export default function Sidebar({
         </button>
       </div>
         {/* Language menu on its own row so the title never truncates
-            (mobile has it in the page header instead) */}
-        <div className="hidden lg:block mt-3">{languageSwitcher}</div>
+            (also in the reader's «Аа» panel) */}
+        <div className="mt-3">{languageSwitcher}</div>
       </div>
 
       {/* Search. Enter / the keyboard's "Search"/"Go" key submits the form:

@@ -3,8 +3,8 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import {
-  LANGUAGES,
   LANG_STORAGE_KEY,
+  OFFERED_LANGUAGES,
   localeHref,
   t,
   type UiDict,
@@ -21,6 +21,7 @@ export default function LanguageSwitcher({
   available,
   ui,
   block = false,
+  onNavigate,
 }: {
   lang: string;
   sectionId: string | null;
@@ -29,6 +30,8 @@ export default function LanguageSwitcher({
   ui: UiDict;
   /** Full-width variant (own row in the desktop sidebar). */
   block?: boolean;
+  /** Runs the navigation (e.g. after closing the «Аа» panel's history entry). */
+  onNavigate?: (go: () => void) => void;
 }) {
   const router = useRouter();
 
@@ -39,7 +42,9 @@ export default function LanguageSwitcher({
     } catch {
       // storage unavailable — the URL still carries the language
     }
-    router.push(localeHref(next, sectionId) + (sectionId ? window.location.hash : ""));
+    const href = localeHref(next, sectionId) + (sectionId ? window.location.hash : "");
+    if (onNavigate) onNavigate(() => router.push(href));
+    else router.push(href);
   };
 
   return (
@@ -67,7 +72,7 @@ export default function LanguageSwitcher({
         title={t(ui, "language.label")}
         className={`appearance-none ${block ? "w-full" : "max-w-[10rem]"} pl-7 pr-6 py-1 text-xs rounded-md border border-[#E8DCC8] bg-[#FDF8F0] text-[#2C1810] focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B]/30 transition-colors cursor-pointer`}
       >
-        {LANGUAGES.map((l) => (
+        {OFFERED_LANGUAGES.map((l) => (
           <option key={l.code} value={l.code} lang={l.htmlLang}>
             {available.includes(l.code)
               ? l.name
