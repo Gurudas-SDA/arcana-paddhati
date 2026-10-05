@@ -10,7 +10,7 @@ const HEADING_FONT = { fontFamily: "var(--font-noto-serif, Georgia, serif)" };
 export default function PartPage({ part, lang }: { part: TocPart; lang: string }) {
   const ui = getUi(lang);
   return (
-    <article className="max-w-3xl mx-auto px-6 py-8 sm:px-10 sm:py-12">
+    <article className="reader-article">
       <header className="mb-8">
         <p className="text-sm uppercase tracking-[0.12em] text-[#9C7A4E]" style={HEADING_FONT}>
           {t(ui, "part.label", { n: part.numeral })}

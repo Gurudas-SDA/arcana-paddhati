@@ -55,7 +55,7 @@ const HINT_KEY = "ap.readerHintSeen";
 
 const THEME_SWATCH: Record<ReaderTheme, string> = {
   white: "#FFFFFF",
-  sepia: "#F6EEDC",
+  sepia: "#EFE6D2",
   night: "#16130F",
 };
 
@@ -574,7 +574,14 @@ export default function ReaderChrome({
               <span aria-hidden="true" style={{ fontSize: 14 }}>A</span>
               <span aria-hidden="true">−</span>
             </button>
-            <span className="reader-size-value" aria-live="polite">{`${Math.round(size * 100)} %`}</span>
+            <span className="reader-size-value" aria-live="polite">
+              {`${Math.round(size * 100)} %`}
+              <span className="reader-size-dots" aria-hidden="true">
+                {SIZES.map((s, i) => (
+                  <span key={s} data-on={i <= sizeIdx ? "" : undefined} />
+                ))}
+              </span>
+            </span>
             <button
               type="button"
               className="reader-size-btn"

@@ -228,7 +228,7 @@ function ContentBlock({
     case "verse": {
       const isInlineMantra = item.translation === undefined;
       const sanskrit = item.sanskrit && (
-        <div lang={sanskritLang(item.sanskrit)} className={`sanskrit text-base leading-relaxed text-[#1a1a1a] ${isInlineMantra ? 'ml-8' : ''} mb-2`}>
+        <div lang={sanskritLang(item.sanskrit)} className={`sanskrit text-base leading-relaxed text-[#1a1a1a] ${isInlineMantra ? 'ml-8' : 'verse-text'} mb-2`}>
           {item.sanskrit.split('\n\n').map((stanza, si, sarr) => (
             <p key={si} className={si < sarr.length - 1 ? "mb-3" : ""}>
               {stanza.split('\n').map((line, li, larr) => (
@@ -525,7 +525,7 @@ export default function SectionContent({ section, ui, num = null, note }: Sectio
     },
   };
   return (
-    <article className="max-w-3xl mx-auto px-6 py-8 sm:px-10 sm:py-12">
+    <article className="reader-article">
       {/* Section title */}
       <header className="mb-8">
         <h1 className={H1_CLASS} style={HEADING_FONT}>

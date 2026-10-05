@@ -4,7 +4,7 @@
  * Reader preferences of the «Аа» panel: text size and background
  * (white / sepia / night). Kept in localStorage (every access in try/catch;
  * a session without storage keeps them in memory until reload) and applied
- * to <html>: `data-reader-theme` and the CSS variable `--reader-zoom`
+ * to <html>: `data-reader-theme` and the CSS variable `--reader-zoom` (text-size factor)
  * (see app/globals.css). The same keys are read by the inline script in
  * app/layout.tsx before first paint, so a reload never flashes white at night.
  */
@@ -14,8 +14,9 @@ import { SIZE_KEY, THEME_KEY } from "@/lib/readerPrefsKeys";
 export const THEMES = ["white", "sepia", "night"] as const;
 export type ReaderTheme = (typeof THEMES)[number];
 
-/** Text size steps (zoom factor of the reading column). */
-export const SIZES = [0.85, 0.92, 1, 1.1, 1.2, 1.32, 1.46, 1.6];
+/** Text size steps: factor of every text size in the reading column
+ *  (app/globals.css .reader-article --fs). ~10% per step. */
+export const SIZES = [0.82, 0.9, 1, 1.1, 1.22, 1.35];
 
 const EVENT = "ap:readerprefs";
 
@@ -48,8 +49,11 @@ function themeSnapshot(): ReaderTheme {
 }
 
 function sizeSnapshot(): number {
-  const v = Number(read(SIZE_KEY));
-  return SIZES.includes(v) ? v : 1;
+  const raw = read(SIZE_KEY);
+  const v = Number(raw);
+  if (raw === null || !Number.isFinite(v) || v <= 0) return 1;
+  // Snap to the nearest step (values stored by an older step list).
+  return SIZES.reduce((a, b) => (Math.abs(b - v) < Math.abs(a - v) ? b : a));
 }
 
 /** Put the stored preferences on <html>. */

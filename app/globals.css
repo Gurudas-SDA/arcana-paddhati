@@ -514,12 +514,12 @@ body {
   --reader-pad-bottom: calc(30px + env(safe-area-inset-bottom, 0px));
 }
 html[data-reader-theme="sepia"] {
-  --rd-bg: #F6EEDC;
+  --rd-bg: #EFE6D2;
   --rd-fg: #2a2016;
-  --rd-bar-bg: #F6EEDC;
-  --rd-border: #E2D3B5;
-  --rd-hover: #EBDDC0;
-  --rd-panel-bg: #FBF5E8;
+  --rd-bar-bg: #EFE6D2;
+  --rd-border: #DCCCAC;
+  --rd-hover: #E5D8BC;
+  --rd-panel-bg: #F6F0E2;
 }
 html[data-reader-theme="night"] {
   --rd-bg: #16130F;
@@ -548,10 +548,59 @@ body,
   padding-bottom: var(--reader-pad-bottom);
 }
 
-/* Text size («Аа»): the reading column is zoomed as a whole, so every font
-   size, margin and the numbered pictures keep their proportions. */
-.app-main article {
-  zoom: var(--reader-zoom, 1);
+/* Reading column + text size («Аа»).
+   The column fills the screen like Apple Books: small side margins on phones
+   (13px) and ~4.5% on tablets. The base body size grows with the viewport
+   (iPhone ~18.5px, iPad portrait ~21px, iPad landscape / desktop 23px) and is
+   multiplied by the «Аа» step (--reader-zoom). Every text size inside the
+   column is derived from --fs below (the book's components use fixed px /
+   rem Tailwind classes; these unlayered rules override them), so A−/A+
+   change the real font size of body, verses and headings alike. */
+.reader-article {
+  --rd-base: clamp(18px, calc(16.3px + 0.57vw), 23px);
+  --fs: calc(var(--rd-base) * var(--reader-zoom, 1));
+  font-size: var(--fs);
+  width: 100%;
+  max-width: 50em;
+  margin-inline: auto;
+  padding: 1.25rem 13px 2rem;
+}
+@media (min-width: 640px) {
+  .reader-article {
+    padding: 2.25rem 4.5vw 3rem;
+  }
+}
+/* px / rem text classes → proportional to the body size (body = 15px class) */
+.reader-article .text-\[11px\] { font-size: max(11px, calc(var(--fs) * 0.72)); }
+.reader-article .text-\[12px\], .reader-article .text-xs { font-size: calc(var(--fs) * 0.8); }
+.reader-article .text-\[13px\] { font-size: calc(var(--fs) * 0.86); }
+.reader-article .text-\[14px\], .reader-article .text-sm { font-size: calc(var(--fs) * 0.92); }
+.reader-article .text-\[15px\] { font-size: var(--fs); }
+.reader-article .text-\[16px\], .reader-article .text-base { font-size: calc(var(--fs) * 1.05); }
+.reader-article .text-\[17px\], .reader-article .text-lg { font-size: calc(var(--fs) * 1.12); }
+.reader-article .text-xl, .reader-article .text-\[22px\] { font-size: calc(var(--fs) * 1.22); }
+.reader-article .text-2xl, .reader-article .text-3xl { font-size: calc(var(--fs) * 1.45); }
+/* fixed rem line heights → relative, so lines never overlap at large sizes */
+.reader-article .leading-7 { line-height: 1.75; }
+.reader-article .leading-6 { line-height: 1.6; }
+.reader-article .leading-5 { line-height: 1.45; }
+.reader-article .leading-4 { line-height: 1.35; }
+/* Headings */
+.reader-article h1[class] { font-size: calc(var(--fs) * 1.5); line-height: 1.25; }
+.reader-article h2[class] { font-size: calc(var(--fs) * 1.25); }
+.reader-article h3[class] { font-size: calc(var(--fs) * 1.1); }
+/* Verses (śloka lines): larger, centred, like the printed book */
+.reader-article .verse-text[class] {
+  font-size: calc(var(--fs) * 1.1);
+  line-height: 1.6;
+  text-align: center;
+}
+.reader-article .verse-chips {
+  justify-content: center;
+}
+/* Word-by-word: smaller */
+.reader-article .verse-wbw[class] {
+  font-size: calc(var(--fs) * 0.88);
 }
 
 .reader-bar {
@@ -786,11 +835,28 @@ body,
   opacity: 0.35;
 }
 .reader-size-value {
-  min-width: 56px;
+  min-width: 64px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
   text-align: center;
   font-size: 13px;
   color: var(--rd-muted);
   font-variant-numeric: tabular-nums;
+}
+.reader-size-dots {
+  display: inline-flex;
+  gap: 4px;
+}
+.reader-size-dots > span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rd-border);
+}
+.reader-size-dots > span[data-on] {
+  background: var(--rd-accent);
 }
 .reader-theme-row {
   display: grid;
@@ -870,8 +936,10 @@ html[data-reader-bars] .hs-peek {
   .app-main {
     padding: 0 !important;
   }
-  .app-main article {
-    zoom: 1 !important;
+  .reader-article {
+    --rd-base: 15px !important;
+    --reader-zoom: 1 !important;
+    max-width: none !important;
   }
 }
 
