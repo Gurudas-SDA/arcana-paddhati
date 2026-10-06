@@ -68,5 +68,7 @@
   "reader.close": "Закрыть",
   "reader.hintTouch": "Коснитесь свободного места — появится меню",
   "reader.hintMouse": "Нажмите на свободное место — появится меню",
-  "reader.cover": "Обложка"
+  "reader.cover": "Обложка",
+  "reader.back": "Назад",
+  "reader.forward": "Вперёд"
 }

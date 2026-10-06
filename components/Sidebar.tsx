@@ -10,7 +10,7 @@ import React, {
   useSyncExternalStore,
 } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   normalizeText,
   tocLayout,
@@ -408,6 +408,7 @@ export default function Sidebar({
   onLeave: onLeaveProp,
 }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const navRef = useRef<HTMLElement>(null);
 
@@ -457,6 +458,34 @@ export default function Sidebar({
     [selectedSection]
   );
   const [activeSubId, selectSub] = useActiveSubsection(pathname, subIds);
+
+  /**
+   * Two-tap contents (Satkirti, 06.10.2026): the FIRST tap on an item only
+   * highlights it (a chapter with subsections also expands), the SECOND tap on
+   * the same item opens it — no accidental jumps. Exactly one row is
+   * highlighted: the tapped one, or (before any tap) the place being read.
+   * A new page or "back" forgets the tapped row.
+   */
+  const [tapped, setTapped] = useState<string | null>(null);
+  const [tappedPath, setTappedPath] = useState(pathname);
+  if (pathname !== tappedPath) {
+    setTappedPath(pathname);
+    setTapped(null);
+  }
+  useEffect(() => {
+    const onPop = () => setTapped(null);
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+  /** Row highlighted: the tapped one, else `byDefault` (the current place). */
+  const lit = (id: string, byDefault: boolean) => (tapped !== null ? tapped === id : byDefault);
+  /** First tap on `id`: highlight only (false). Second tap: go on (true). */
+  const secondTap = (e: React.MouseEvent | null, id: string): boolean => {
+    if (tapped === id) return true;
+    e?.preventDefault();
+    setTapped(id);
+    return false;
+  };
   const showAllTranslations = useShowAllTranslations();
   const showAllWbw = useShowAllWbw();
 
@@ -536,6 +565,18 @@ export default function Sidebar({
     } else {
       onClose();
     }
+  };
+
+  /** Open a contents target from a button (a chapter row with subsections). */
+  const openHref = (e: React.MouseEvent, href: string) => {
+    const strip = (p: string) => p.replace(/\/+$/, "");
+    if (strip(href) !== strip(pathname)) {
+      if (onLeave) onLeave();
+      else onClose();
+      router.push(href);
+      return;
+    }
+    leaveTo(e, href);
   };
 
   const prepared = useMemo(
@@ -649,15 +690,19 @@ export default function Sidebar({
     const key = chapterKey(section.id);
     const isOpen = hasSubs && isPartOpen(key);
     const listId = `toc-ch-${section.id}`;
+    const rowId = `sec:${section.id}`;
+    // One highlight only: an open chapter's list marks the place itself
+    // («Начало главы» or the subsection being read).
+    const rowLit = lit(rowId, isSelected && !isOpen);
     const rowClass = `sidebar-link w-full min-h-[44px] text-left px-5 py-3 flex items-start justify-between gap-2 transition-colors ${
-      isSelected
+      rowLit
         ? "bg-[#FAF3E8] border-l-3 border-[#B8860B]"
         : "hover:bg-[#FDF8F0] border-l-3 border-transparent"
     }`;
     const label = (
       <span
         className={`text-sm leading-snug ${
-          isSelected ? "font-semibold text-[#B8860B]" : "text-[#2C1810]"
+          rowLit ? "font-semibold text-[#B8860B]" : "text-[#2C1810]"
         }`}
       >
         {section.num && <span className="heading-num">{`${section.num}.`}</span>}
@@ -674,35 +719,60 @@ export default function Sidebar({
     return (
       <li key={section.id}>
         {hasSubs ? (
-          <button
-            type="button"
-            onClick={() => onPartTap(key)}
-            aria-expanded={isOpen}
-            aria-controls={isOpen ? listId : undefined}
-            data-toc-chapter={section.id}
-            className={rowClass}
-          >
-            {label}
-            <svg
-              aria-hidden="true"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#B8860B"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className={`shrink-0 mt-0.5 transition-transform ${isOpen ? "rotate-90" : ""}`}
+          // First tap: highlight + expand; second tap: open the chapter. The
+          // chevron alone only expands / collapses the list.
+          <div className="relative">
+            <button
+              type="button"
+              onClick={(e) => {
+                if (secondTap(e, rowId)) {
+                  openHref(e, sectionHref(section.id));
+                  return;
+                }
+                if (!isOpen) onPartTap(key);
+              }}
+              aria-expanded={isOpen}
+              aria-controls={isOpen ? listId : undefined}
+              aria-current={isSelected ? "page" : undefined}
+              data-toc-chapter={section.id}
+              data-toc-lit={rowLit ? "" : undefined}
+              className={`${rowClass} pr-12`}
             >
-              <polyline points="9 6 15 12 9 18" />
-            </svg>
-          </button>
+              {label}
+            </button>
+            <button
+              type="button"
+              onClick={() => onPartTap(key)}
+              aria-expanded={isOpen}
+              aria-controls={isOpen ? listId : undefined}
+              aria-label={section.title}
+              data-toc-toggle={section.id}
+              className="absolute right-0 top-0 flex h-[44px] w-[44px] items-center justify-center"
+            >
+              <svg
+                aria-hidden="true"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#B8860B"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={`shrink-0 transition-transform ${isOpen ? "rotate-90" : ""}`}
+              >
+                <polyline points="9 6 15 12 9 18" />
+              </svg>
+            </button>
+          </div>
         ) : (
           <Link
             href={sectionHref(section.id)}
-            onClick={(e) => leaveTo(e, sectionHref(section.id))}
+            onClick={(e) => {
+              if (secondTap(e, rowId)) leaveTo(e, sectionHref(section.id));
+            }}
             aria-current={isSelected ? "page" : undefined}
+            data-toc-lit={rowLit ? "" : undefined}
             className={rowClass}
           >
             {label}
@@ -715,26 +785,33 @@ export default function Sidebar({
             <li>
               <Link
                 href={sectionHref(section.id)}
-                onClick={(e) => leaveTo(e, sectionHref(section.id))}
+                onClick={(e) => {
+                  if (secondTap(e, `start:${section.id}`)) leaveTo(e, sectionHref(section.id));
+                }}
                 aria-current={atStart ? "page" : undefined}
                 data-toc-chapter-start={section.id}
-                className={`${subClass(atStart)} italic`}
+                data-toc-lit={lit(`start:${section.id}`, atStart) ? "" : undefined}
+                className={`${subClass(lit(`start:${section.id}`, atStart))} italic`}
               >
                 {t(ui, "sidebar.chapterStart")}
               </Link>
             </li>
             {section.subsections.map((sub) => {
               const isActive = isSelected && activeSubId === sub.id;
+              const subRow = `sub:${section.id}#${sub.id}`;
+              const subLit = lit(subRow, isActive);
               return (
                 <li key={sub.id}>
                   <Link
                     href={sectionHref(section.id, sub.id)}
                     onClick={(e) => {
+                      if (!secondTap(e, subRow)) return;
                       if (isSelected) selectSub(sub.id);
                       followLink(e, section.id, sub.id);
                     }}
                     aria-current={isActive ? "location" : undefined}
-                    className={subClass(isActive)}
+                    data-toc-lit={subLit ? "" : undefined}
+                    className={subClass(subLit)}
                   >
                     <span>
                       {sub.num && <span className="heading-num">{`${sub.num}.`}</span>}
@@ -942,10 +1019,14 @@ export default function Sidebar({
               <li>
                 <Link
                   href={localeHref(lang)}
-                  onClick={(e) => leaveTo(e, localeHref(lang))}
+                  onClick={(e) => {
+                    if (secondTap(e, "cover")) leaveTo(e, localeHref(lang));
+                  }}
                   aria-current={selectedId === null ? "page" : undefined}
+                  data-toc-cover=""
+                  data-toc-lit={lit("cover", selectedId === null) ? "" : undefined}
                   className={`sidebar-link w-full text-left px-5 py-3 flex items-center gap-2 transition-colors ${
-                    selectedId === null
+                    lit("cover", selectedId === null)
                       ? "bg-[#FAF3E8] border-l-3 border-[#B8860B]"
                       : "hover:bg-[#FDF8F0] border-l-3 border-transparent"
                   }`}
@@ -967,7 +1048,7 @@ export default function Sidebar({
                   </svg>
                   <span
                     className={`text-sm leading-snug ${
-                      selectedId === null
+                      lit("cover", selectedId === null)
                         ? "font-semibold text-[#B8860B]"
                         : "text-[#2C1810]"
                     }`}
@@ -1035,17 +1116,20 @@ export default function Sidebar({
                             <li>
                               <Link
                                 href={sectionHref(part.id)}
-                                onClick={(e) => leaveTo(e, sectionHref(part.id))}
+                                onClick={(e) => {
+                                  if (secondTap(e, `part:${part.id}`)) leaveTo(e, sectionHref(part.id));
+                                }}
                                 aria-current={isPartSelected ? "page" : undefined}
+                                data-toc-lit={lit(`part:${part.id}`, isPartSelected) ? "" : undefined}
                                 className={`sidebar-link w-full text-left px-5 py-3 block border-l-3 transition-colors ${
-                                  isPartSelected
+                                  lit(`part:${part.id}`, isPartSelected)
                                     ? "bg-[#FAF3E8] border-[#B8860B]"
                                     : "hover:bg-[#FDF8F0] border-transparent"
                                 }`}
                               >
                                 <span
                                   className={`text-sm leading-snug italic ${
-                                    isPartSelected ? "text-[#B8860B]" : "text-[#5C3D2E]"
+                                    lit(`part:${part.id}`, isPartSelected) ? "text-[#B8860B]" : "text-[#5C3D2E]"
                                   }`}
                                 >
                                   {t(ui, "part.empty")}

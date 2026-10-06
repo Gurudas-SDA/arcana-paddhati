@@ -68,5 +68,7 @@
   "reader.close": "Chiudi",
   "reader.hintTouch": "Tocca uno spazio vuoto per mostrare il menu",
   "reader.hintMouse": "Fai clic su uno spazio vuoto per mostrare il menu",
-  "reader.cover": "Copertina"
+  "reader.cover": "Copertina",
+  "reader.back": "Indietro",
+  "reader.forward": "Avanti"
 }

@@ -330,7 +330,7 @@ export default function MoodBlock({
   }, [open, requestClose]);
 
   const overlay = (
-    <div ref={overlayRef} className="mood-overlay no-print fixed inset-0 z-[60] flex items-stretch justify-center sm:items-center sm:p-6">
+    <div ref={overlayRef} className="mood-overlay no-print fixed inset-0 z-[60] flex items-center justify-center">
       {/* The backdrop does nothing: the window closes only with its ✕ (and Esc / back). */}
       <div className="mood-backdrop absolute inset-0" aria-hidden="true" />
       <div
@@ -339,9 +339,9 @@ export default function MoodBlock({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="mood-dialog relative flex w-full flex-col bg-[#FDF8F0] shadow-xl sm:max-w-2xl sm:rounded-md sm:border sm:border-[#E8DCC8]"
+        className="mood-dialog relative flex flex-col bg-[#FDF8F0] shadow-xl rounded-md border border-[#E8DCC8]"
       >
-        <header className="mood-dialog-head flex shrink-0 items-center gap-3 border-b border-[#E8DCC8] bg-[#FDF8F0] px-4 py-2.5 sm:rounded-t-md sm:px-6">
+        <header className="mood-dialog-head flex shrink-0 items-center gap-3 border-b border-[#E8DCC8] bg-[#FDF8F0] px-4 py-2.5 rounded-t-md sm:px-6">
           <div className="min-w-0 flex-1">
             <p className="mood-label text-[11px] font-semibold uppercase tracking-wider text-[#8B6508]">
               {labels.button}
@@ -361,12 +361,12 @@ export default function MoodBlock({
             onClick={requestClose}
             aria-label={labels.close}
             title={labels.close}
-            className="mood-close -mr-1 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[#8B6508] transition-colors hover:bg-[#F5E6C8]"
+            className="mood-close -mr-1 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-[#8B6508] transition-colors hover:bg-[#F5E6C8]"
           >
             <svg
               aria-hidden="true"
-              width="18"
-              height="18"
+              width="22"
+              height="22"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"

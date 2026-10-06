@@ -68,5 +68,7 @@
   "reader.close": "Close",
   "reader.hintTouch": "Tap empty space to show the menu",
   "reader.hintMouse": "Click empty space to show the menu",
-  "reader.cover": "Cover"
+  "reader.cover": "Cover",
+  "reader.back": "Back",
+  "reader.forward": "Forward"
 }

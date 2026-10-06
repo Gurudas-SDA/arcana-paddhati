@@ -68,5 +68,7 @@
   "reader.close": "Bezárás",
   "reader.hintTouch": "Koppintson egy üres helyre a menühöz",
   "reader.hintMouse": "Kattintson egy üres helyre a menühöz",
-  "reader.cover": "Borító"
+  "reader.cover": "Borító",
+  "reader.back": "Vissza",
+  "reader.forward": "Előre"
 }

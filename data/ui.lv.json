@@ -68,5 +68,7 @@
   "reader.close": "Aizvērt",
   "reader.hintTouch": "Pieskarieties tukšai vietai — parādīsies izvēlne",
   "reader.hintMouse": "Noklikšķiniet tukšā vietā — parādīsies izvēlne",
-  "reader.cover": "Vāks"
+  "reader.cover": "Vāks",
+  "reader.back": "Atpakaļ",
+  "reader.forward": "Uz priekšu"
 }

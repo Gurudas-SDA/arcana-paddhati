@@ -5,8 +5,8 @@
  *
  * While reading only the text is on screen, with a faint line at the bottom
  * («Глава 8 · 35 %»). A tap / click on EMPTY space or plain text shows the
- * menu: the top bar «Содержание» · «Поиск» · «Аа» and the bottom bar (reading
- * progress slider of the chapter, previous / next chapter). Another tap hides
+ * menu: the top bar «Содержание» · «Поиск» · «Аа» and the bottom bar
+ * («‹ Назад» · «Глава N из M · %» · «Вперёд ›»). Another tap hides
  * it. The bars also appear on a small scroll back up and at the end of a
  * chapter; they hide on scrolling down and after ~4 s without interaction
  * (never while the «Аа» panel or the contents are open).
@@ -23,13 +23,16 @@
  *
  * Back (UI rule 6): the «Аа» panel is a history entry; "back" to it opens it
  * again, so Back retraces every step (lib/navHistory.ts).
+ *
+ * Bottom bar (Satkirti, 06.10.2026): no progress slider; «‹ Назад» and
+ * «Вперёд ›» at the screen edges are the browser's Back / Forward — the same
+ * step-by-step history — because iPhone / iPad have no system Back button
+ * (on Android they duplicate it).
  */
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { tocLayout, type TocPart, type TocSection } from "@/lib/book";
-import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
+import { type TocPart, type TocSection } from "@/lib/book";
+import { parsePath, t, type UiDict } from "@/lib/i18n";
 import { main as mainEl, pushOverlay } from "@/lib/navHistory";
 import {
   SIZES,
@@ -128,7 +131,8 @@ export default function ReaderChrome({
   const [hint, setHint] = useState(false);
   const theme = useReaderTheme();
   const size = useReaderSize();
-  const router = useRouter();
+  const [canBack, setCanBack] = useState(true);
+  const [canForward, setCanForward] = useState(true);
 
   // Mirrors of the state for the (long-lived) event listeners.
   const shownRef = useRef(false);
@@ -214,24 +218,36 @@ export default function ReaderChrome({
   useEffect(() => () => clearTimer(), []);
 
 
-  // ---- reading order: previous / next chapter -------------------------------
-  const order = useMemo(() => {
-    const partById = new Map(parts.map((p) => [p.id, p]));
-    const ids: string[] = [];
-    for (const item of tocLayout(sections.map((s) => s.id), parts)) {
-      if (item.kind === "section") ids.push(item.id);
-      else if (partById.get(item.id)?.sections.length === 0) ids.push(item.id);
-    }
-    return ids;
-  }, [sections, parts]);
-  const idx = sectionId ? order.indexOf(sectionId) : -1;
   const isHome = sectionId === null;
   const isHomeRef = useRef(isHome);
   useEffect(() => {
     isHomeRef.current = isHome;
   }, [isHome]);
-  const prevId: string | null | undefined = idx > 0 ? order[idx - 1] : idx === 0 ? null : undefined; // null = cover
-  const nextId: string | undefined = isHome ? order[0] : idx >= 0 ? order[idx + 1] : undefined;
+
+  // ---- history Back / Forward availability ------------------------------------
+  // Navigation API (Chrome / Edge / Android): exact. Elsewhere (Safari): Back
+  // when the tab has history, Forward always (a no-op at the newest step).
+  useEffect(() => {
+    type Nav = EventTarget & { canGoBack?: boolean; canGoForward?: boolean };
+    const nav = (window as unknown as { navigation?: Nav }).navigation;
+    const update = () => {
+      if (nav && typeof nav.canGoBack === "boolean") {
+        setCanBack(nav.canGoBack);
+        setCanForward(!!nav.canGoForward);
+      } else {
+        setCanBack(window.history.length > 1);
+        setCanForward(true);
+      }
+    };
+    const id = window.setTimeout(update, 0);
+    nav?.addEventListener("currententrychange", update);
+    window.addEventListener("popstate", update);
+    return () => {
+      window.clearTimeout(id);
+      nav?.removeEventListener("currententrychange", update);
+      window.removeEventListener("popstate", update);
+    };
+  }, [pathKey, shown, panel, menuOpen]);
   const section = sections.find((s) => s.id === sectionId);
   const part = parts.find((p) => p.id === sectionId);
   const pctText = `${Math.round(pct)} %`;
@@ -274,7 +290,7 @@ export default function ReaderChrome({
         down += d;
         up = 0;
         if (max > 120 && top >= max - 2) {
-          // End of the chapter: the bars (with «next chapter») come up.
+          // End of the chapter: the bars come up.
           atEnd.current = true;
           if (!shownRef.current) show();
           else clearTimer();
@@ -473,16 +489,6 @@ export default function ReaderChrome({
     go();
   };
 
-  const onSlide = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const m = mainEl();
-    if (!m) return;
-    quietUntil.current = performance.now() + 600;
-    const v = Number(e.target.value);
-    m.scrollTop = (v / 1000) * (m.scrollHeight - m.clientHeight);
-    setPct(v / 10);
-    arm();
-  };
-
   const barEvents = {
     onPointerEnter: (e: React.PointerEvent) => {
       // A real mouse only (WebKit reports compat "mouse" pointers for taps).
@@ -507,26 +513,11 @@ export default function ReaderChrome({
   };
 
   const sizeIdx = SIZES.indexOf(size);
-  const chapterLink = (id: string | null, dir: "prev" | "next") => {
-    const label = dir === "prev" ? t(ui, "reader.prev") : t(ui, "reader.next");
-    const href = localeHref(lang, id);
-    return (
-      <Link
-        href={href}
-        onClick={(e) => {
-          if (panelRef.current) {
-            e.preventDefault();
-            fromPanelThen(() => router.push(href));
-          }
-        }}
-        className={`reader-btn reader-chapter-btn ${dir === "next" ? "ml-auto text-right" : ""}`}
-        data-reader-nav={dir}
-      >
-        {dir === "prev" && <span aria-hidden="true">‹ </span>}
-        {id === null ? t(ui, "reader.cover") : label}
-        {dir === "next" && <span aria-hidden="true"> ›</span>}
-      </Link>
-    );
+  /** «‹ Назад» / «Вперёд ›»: one step through the browser history. */
+  const historyStep = (dir: "back" | "forward") => {
+    arm();
+    if (dir === "back") window.history.back();
+    else window.history.forward();
   };
 
   return (
@@ -665,32 +656,32 @@ export default function ReaderChrome({
         </div>
       )}
 
-      {/* Bottom bar: chapter progress slider, previous / next chapter */}
+      {/* Bottom bar: «‹ Назад» · chapter · % · «Вперёд ›» (history steps) */}
       <div className="reader-bar reader-bar-bottom" {...barEvents}>
-        <div className="reader-bar-inner reader-bottom-inner">
-          {!isHome && (
-            <>
-              <p className="reader-progress-label">
-                {chapterLong ? `${chapterLong} · ${pctText}` : pctText}
-              </p>
-              <input
-                type="range"
-                min={0}
-                max={1000}
-                step={1}
-                value={Math.round(pct * 10)}
-                onChange={onSlide}
-                aria-label={t(ui, "reader.progress")}
-                aria-valuetext={pctText}
-                className="reader-slider"
-                style={{ "--reader-pct": `${pct}%` } as React.CSSProperties}
-              />
-            </>
-          )}
-          <div className="reader-nav-row">
-            {prevId !== undefined && chapterLink(prevId, "prev")}
-            {nextId !== undefined && chapterLink(nextId, "next")}
-          </div>
+        <div className="reader-bar-inner reader-nav-row">
+          <button
+            type="button"
+            className="reader-btn reader-history-btn"
+            onClick={() => historyStep("back")}
+            disabled={!canBack}
+            data-reader-nav="back"
+          >
+            <span aria-hidden="true" className="reader-history-arrow">‹</span>
+            <span>{t(ui, "reader.back")}</span>
+          </button>
+          <p className="reader-progress-label">
+            {isHome ? "" : chapterLong ? `${chapterLong} · ${pctText}` : pctText}
+          </p>
+          <button
+            type="button"
+            className="reader-btn reader-history-btn"
+            onClick={() => historyStep("forward")}
+            disabled={!canForward}
+            data-reader-nav="forward"
+          >
+            <span>{t(ui, "reader.forward")}</span>
+            <span aria-hidden="true" className="reader-history-arrow">›</span>
+          </button>
         </div>
       </div>
 

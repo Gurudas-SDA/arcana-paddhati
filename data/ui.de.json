@@ -68,5 +68,7 @@
   "reader.close": "Schließen",
   "reader.hintTouch": "Tippen Sie auf eine freie Stelle, um das Menü zu zeigen",
   "reader.hintMouse": "Klicken Sie auf eine freie Stelle, um das Menü zu zeigen",
-  "reader.cover": "Umschlag"
+  "reader.cover": "Umschlag",
+  "reader.back": "Zurück",
+  "reader.forward": "Vorwärts"
 }

@@ -82,20 +82,35 @@ function BulletList({ content }: { content: string }) {
 
 /** A "list" block: one item per line, rendered as a numbered list 1) 2) 3).
  *  Optional `numbers` (one label per line) overrides the running number, e.g.
- *  to match the numbers of an illustration ("4, 5", gaps); "" = no number (–). */
+ *  to match the numbers of an illustration ("4, 5", gaps); "" = no number (–).
+ *  Sub-items ("2.1)" … "2.6)") never stick out to the left of the main column
+ *  of numbers: they are indented to the main items' text line (rule of
+ *  06.10.2026, Satkirti). Label widths are in em, so they scale with «Аа». */
 function NumberedList({ content, numbers, hsImage }: { content: string; numbers?: string[]; hsImage?: string }) {
   const items = content.split("\n").filter((line) => line.trim() !== "");
   const labels = items.map((_, i) =>
     numbers ? (numbers[i] ? `${numbers[i]})` : "–") : `${i + 1})`,
   );
-  const longest = Math.max(...labels.map((l) => l.length));
-  const width = longest > 3 ? "w-12" : longest > 2 ? "w-7" : "w-5";
+  // "2.1)" under "2)", or a letter "а)" / "b)" under its number.
+  const isSub = (l: string) => /^(\d+\.\d+|[a-zа-яё])\)/i.test(l);
+  const width = (ls: string[]) => `${Math.max(1, ...ls.map((l) => l.length)) * 0.6}em`;
+  const mainLabels = labels.filter((l) => !isSub(l));
+  const mainW = width(mainLabels.length > 0 ? mainLabels : labels);
+  const subW = width(labels.filter(isSub));
   return (
-    <ol role="list" className="my-4 space-y-1 text-[15px] leading-7 text-[#1a1a1a]">
+    <ol
+      role="list"
+      className="numbered-list my-4 space-y-1 text-[15px] leading-7 text-[#1a1a1a]"
+      style={{ "--nl-main": mainW } as React.CSSProperties}
+    >
       {items.map((line, i) => {
+        const sub = isSub(labels[i]);
         const row = (
           <>
-            <span className={`${width} shrink-0 whitespace-nowrap text-right tabular-nums text-[#5C3D2E]`}>
+            <span
+              className="nl-num shrink-0 whitespace-nowrap text-right tabular-nums text-[#5C3D2E]"
+              style={{ width: sub ? subW : mainW }}
+            >
               <HotspotHit focus>{labels[i]}</HotspotHit>
             </span>
             <span className="min-w-0">
@@ -106,12 +121,13 @@ function NumberedList({ content, numbers, hsImage }: { content: string; numbers?
           </>
         );
         const nums = hsImage ? labelNumbers(numbers?.[i]) : [];
+        const cls = `flex gap-2${sub ? " nl-sub" : ""}`;
         return nums.length > 0 ? (
-          <HotspotRow key={i} as="li" img={hsImage!} nums={nums} className="flex gap-2">
+          <HotspotRow key={i} as="li" img={hsImage!} nums={nums} className={cls}>
             {row}
           </HotspotRow>
         ) : (
-          <li key={i} className="flex gap-2">
+          <li key={i} className={cls}>
             {row}
           </li>
         );

@@ -58,7 +58,7 @@ export default function RootLayout({
             paint: a reload at night never flashes white. */}
         <script dangerouslySetInnerHTML={{ __html: READER_PREFS_SCRIPT }} />
       </head>
-      <body className="h-full antialiased">
+      <body className="h-full antialiased" translate="no">
         <AppShell locales={getLocales()} available={availableLanguages()}>
           {children}
         </AppShell>
