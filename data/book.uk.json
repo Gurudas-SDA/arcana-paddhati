@@ -30,7 +30,7 @@
     },
     {
       "id": "festivals-vows",
-      "title": "Свята та обітниці",
+      "title": "Свята, обітниці та пісні араті",
       "sections": [
         "caturmasya-purusottama-masa",
         "guru-puja-vyasa-puja",
@@ -57,7 +57,7 @@
     {
       "id": "mangalacarana",
       "title": "Ма̄н̇ґала̄чарана",
-      "subtitle": "Молитви, що закликають сприятливість",
+      "subtitle": null,
       "page": "IV",
       "content": [
         {
@@ -70,7 +70,7 @@
       "subsections": [
         {
           "id": "glorification-sri-guru",
-          "title": "Прославлення Ш́рı̄ Ґуру",
+          "title": "Молитва до Ш́рı̄ Ґуру",
           "content": [
             {
               "type": "verse",
@@ -280,7 +280,7 @@
         },
         {
           "id": "prayer-radha-madana-mohana",
-          "title": "Молитва до Божества-с­повідника самбандги, Ш́рı̄ Ра̄дга̄-Мадана-могани",
+          "title": "Молитва до Ш́рı̄ Ра̄дга̄-Мадана-могани",
           "content": [
             {
               "type": "verse",
@@ -292,7 +292,7 @@
         },
         {
           "id": "prayer-radha-govinda",
-          "title": "Молитва до Божества-с­повідника абгідгеї, Ш́рı̄ Ра̄дга̄-Ґовінди",
+          "title": "Молитва до Ш́рı̄ Ра̄дга̄-Ґовінди",
           "content": [
             {
               "type": "verse",
@@ -304,7 +304,7 @@
         },
         {
           "id": "prayer-radha-gopinatha",
-          "title": "Молитва до Божества-с­повідника прайоджани, Ш́рı̄ Ра̄дга̄-Ґопı̄на̄тги",
+          "title": "Молитва до Ш́рı̄ Ра̄дга̄-Ґопı̄на̄тги",
           "content": [
             {
               "type": "verse",

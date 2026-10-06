@@ -171,21 +171,54 @@ export interface TocSection {
   num: string | null;
   /** num = "2.1", "2.2", … */
   subsections: { id: string; title: string; num: string | null }[];
+  /** Head of the front-matter group (the Introduction): ids of the chapters
+   *  inside it (Emblem, Vigraha-tattva, Maṅgalācaraṇa). See frontGroup(). */
+  members?: string[];
+  /** A chapter inside the front-matter group: the group head's id. */
+  group?: string;
+}
+
+/**
+ * The Introduction is an expandable group of the contents, like a part
+ * (Satkirti, 06.10.2026): the front matter (the sections before Part I's
+ * first chapter, outside any part) — its first section is the group's head
+ * ("Introduction"), the rest are its chapters (Emblem, Vigraha-tattva,
+ * Maṅgalācaraṇa) and have no chapter numbers of their own.
+ */
+export function frontGroup(
+  sectionIds: string[],
+  parts: { sections: string[] }[],
+): { head: string; members: string[] } | null {
+  const inPart = new Set(parts.flatMap((p) => p.sections));
+  const front: string[] = [];
+  for (const id of sectionIds) {
+    if (inPart.has(id)) break;
+    front.push(id);
+  }
+  return front.length >= 2 ? { head: front[0], members: front.slice(1) } : null;
 }
 
 /**
  * Chapter numbers computed from the section order (never stored in the book
- * texts, so every language gets the same numbers): every section is numbered,
- * front matter included (Introduction 1, Maṅgalācaraṇa 2, then the chapters
- * of Part I 3, 4, …; owner's decision 2026-10-02).
+ * texts, so every language gets the same numbers). The front matter (the
+ * Introduction group: Introduction, Emblem, Vigraha-tattva, Maṅgalācaraṇa)
+ * has no chapter numbers (Satkirti, 06.10.2026); the chapters of the parts
+ * are numbered 1, 2, … in reading order.
  */
-export function sectionNumbers(sections: { page: string }[]): (number | null)[] {
-  return sections.map((_, i) => i + 1);
+export function sectionNumbers(
+  sections: { id: string }[],
+  parts: { sections: string[] }[] = [],
+): (number | null)[] {
+  const g = frontGroup(sections.map((s) => s.id), parts);
+  const front = new Set(g ? [g.head, ...g.members] : []);
+  let n = 0;
+  return sections.map((s) => (front.has(s.id) ? null : ++n));
 }
 
-/** "2.1"-style number of the i-th (0-based) subsection of chapter `num`. */
-export function subsectionNumber(num: number | string | null, i: number): string | null {
-  return num == null ? null : `${num}.${i + 1}`;
+/** "2.1"-style number of the i-th (0-based) subsection of chapter `num`;
+ *  in an unnumbered chapter (front matter) simply "1", "2", …. */
+export function subsectionNumber(num: number | string | null, i: number): string {
+  return num == null ? String(i + 1) : `${num}.${i + 1}`;
 }
 
 /** One entry of public/search-index.<lang>.json (see scripts/build-search-index.mjs). */

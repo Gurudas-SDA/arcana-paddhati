@@ -6,7 +6,6 @@
   "header.openMenu": "Open menu",
   "sidebar.contents": "Contents",
   "sidebar.cover": "Cover",
-  "sidebar.chapterStart": "Beginning of the chapter",
   "sidebar.closeMenu": "Close menu",
   "sidebar.showAllTranslations": "Show all translations",
   "sidebar.showAllWbw": "Show all word-by-word",
@@ -70,5 +69,8 @@
   "reader.hintMouse": "Click empty space to show the menu",
   "reader.cover": "Cover",
   "reader.back": "Back",
-  "reader.forward": "Forward"
+  "reader.forward": "Forward",
+  "reader.noForward": "Forward works after Back",
+  "reader.noBack": "This is the start of the path",
+  "group.contents": "Introduction contents"
 }

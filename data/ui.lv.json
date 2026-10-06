@@ -6,7 +6,6 @@
   "header.openMenu": "Atvērt izvēlni",
   "sidebar.contents": "Saturs",
   "sidebar.cover": "Vāks",
-  "sidebar.chapterStart": "Nodaļas sākums",
   "sidebar.closeMenu": "Aizvērt izvēlni",
   "sidebar.showAllTranslations": "Rādīt visus tulkojumus",
   "sidebar.showAllWbw": "Rādīt visus tulkojumus pa vārdiem",
@@ -70,5 +69,8 @@
   "reader.hintMouse": "Noklikšķiniet tukšā vietā — parādīsies izvēlne",
   "reader.cover": "Vāks",
   "reader.back": "Atpakaļ",
-  "reader.forward": "Uz priekšu"
+  "reader.forward": "Uz priekšu",
+  "reader.noForward": "«Uz priekšu» darbojas pēc «Atpakaļ»",
+  "reader.noBack": "Šis ir ceļa sākums",
+  "group.contents": "Ievada saturs"
 }

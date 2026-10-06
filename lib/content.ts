@@ -9,6 +9,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
+  frontGroup,
   sectionNumbers,
   subsectionNumber,
   toRoman,
@@ -110,7 +111,7 @@ export function getSectionNumber(id: string): string | null {
   const sections = englishBook().sections;
   const i = sections.findIndex((s) => s.id === id);
   if (i < 0) return null;
-  const n = sectionNumbers(sections)[i];
+  const n = sectionNumbers(sections, englishBook().parts ?? [])[i];
   return n == null ? null : String(n);
 }
 
@@ -143,6 +144,7 @@ export function getNextChapter(
 
 /** Table of contents in English order, titles from the translation where present. */
 export function getToc(lang: string): TocSection[] {
+  const group = getFrontGroup();
   return getSectionIds().map((id) => {
     const s = getSection(lang, id)!;
     const num = getSectionNumber(id);
@@ -156,8 +158,15 @@ export function getToc(lang: string): TocSection[] {
         title: sub.title,
         num: subsectionNumber(num, i),
       })),
+      ...(group && id === group.head ? { members: group.members } : {}),
+      ...(group && group.members.includes(id) ? { group: group.head } : {}),
     };
   });
+}
+
+/** The Introduction group of the contents (lib/book.ts frontGroup()). */
+export function getFrontGroup(): { head: string; members: string[] } | null {
+  return frontGroup(getSectionIds(), englishBook().parts ?? []);
 }
 
 /**

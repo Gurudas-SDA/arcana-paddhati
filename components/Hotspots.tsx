@@ -191,9 +191,27 @@ export function HotspotRow({
   useEffect(() => {
     if (!fromImage || !ctx || !ref.current) return;
     if (!ctx.claimScroll(seq)) return;
-    if (visibleFraction(ref.current) < 1) {
-      ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    const el = ref.current;
+    if (visibleFraction(el) >= 1) return;
+    // Scroll the reading area itself (not scrollIntoView): the row to the
+    // middle of the screen. Smooth scrolling can be cut short on touch
+    // devices (Android: the tap's own gesture), so it is finished by hand
+    // if the row is still not in view (Reader v7, Satkirti 06.10.2026).
+    const main = el.closest<HTMLElement>(".app-main");
+    const target = () => {
+      if (!main) return 0;
+      const m = main.getBoundingClientRect();
+      const r = el.getBoundingClientRect();
+      return Math.max(0, main.scrollTop + r.top - m.top - (m.height - r.height) / 2);
+    };
+    if (!main) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
     }
+    main.scrollTo({ top: target(), behavior: "smooth" });
+    window.setTimeout(() => {
+      if (visibleFraction(el) < 1) main.scrollTop = target();
+    }, 700);
   }, [fromImage, seq, ctx]);
 
   if (!ctx || nums.length === 0 || !rowCtx) {

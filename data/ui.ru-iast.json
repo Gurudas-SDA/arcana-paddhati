@@ -6,7 +6,6 @@
   "header.openMenu": "Открыть меню",
   "sidebar.contents": "Содержание",
   "sidebar.cover": "Обложка",
-  "sidebar.chapterStart": "Начало главы",
   "sidebar.closeMenu": "Закрыть меню",
   "sidebar.showAllTranslations": "Показать все переводы",
   "sidebar.showAllWbw": "Показать весь пословный перевод",
@@ -70,5 +69,8 @@
   "reader.hintMouse": "Нажмите на свободное место — появится меню",
   "reader.cover": "Обложка",
   "reader.back": "Назад",
-  "reader.forward": "Вперёд"
+  "reader.forward": "Вперёд",
+  "reader.noForward": "«Вперёд» — после «Назад»",
+  "reader.noBack": "Это начало пути",
+  "group.contents": "Содержание введения"
 }

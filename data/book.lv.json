@@ -30,7 +30,7 @@
     },
     {
       "id": "festivals-vows",
-      "title": "Svētki un solījumi",
+      "title": "Svētki, solījumi un ārati dziesmas",
       "sections": [
         "caturmasya-purusottama-masa",
         "guru-puja-vyasa-puja",
@@ -57,7 +57,7 @@
     {
       "id": "mangalacarana",
       "title": "Mangalačarana",
-      "subtitle": "Lūgšanas par labvēlību",
+      "subtitle": null,
       "page": "IV",
       "content": [
         {
@@ -70,7 +70,7 @@
       "subsections": [
         {
           "id": "glorification-sri-guru",
-          "title": "Šrī Guru slavinājums",
+          "title": "Lūgšana Šrī Guru",
           "content": [
             {
               "type": "verse",
@@ -280,7 +280,7 @@
         },
         {
           "id": "prayer-radha-madana-mohana",
-          "title": "Lūgšana sambandhas valdošajām Dievībām — Šrī Rādhā-Madana-mohanam",
+          "title": "Lūgšana Šrī Rādhā-Madana-mohanam",
           "content": [
             {
               "type": "verse",
@@ -292,7 +292,7 @@
         },
         {
           "id": "prayer-radha-govinda",
-          "title": "Lūgšana abhidhejas valdošajām Dievībām — Šrī Rādhā-Govindam",
+          "title": "Lūgšana Šrī Rādhā-Govindam",
           "content": [
             {
               "type": "verse",
@@ -304,7 +304,7 @@
         },
         {
           "id": "prayer-radha-gopinatha",
-          "title": "Lūgšana pradžojanas valdošajām Dievībām — Šrī Rādhā-Gopīnātham",
+          "title": "Lūgšana Šrī Rādhā-Gopīnātham",
           "content": [
             {
               "type": "verse",

@@ -6,7 +6,6 @@
   "header.openMenu": "Відкрити меню",
   "sidebar.contents": "Зміст",
   "sidebar.cover": "Обкладинка",
-  "sidebar.chapterStart": "Початок розділу",
   "sidebar.closeMenu": "Закрити меню",
   "sidebar.showAllTranslations": "Показати всі переклади",
   "sidebar.showAllWbw": "Показати весь дослівний переклад",
@@ -70,5 +69,8 @@
   "reader.hintMouse": "Натисніть на вільне місце — з’явиться меню",
   "reader.cover": "Обкладинка",
   "reader.back": "Назад",
-  "reader.forward": "Вперед"
+  "reader.forward": "Вперед",
+  "reader.noForward": "«Вперед» — після «Назад»",
+  "reader.noBack": "Це початок шляху",
+  "group.contents": "Зміст вступу"
 }

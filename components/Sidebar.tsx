@@ -333,6 +333,30 @@ function usePartsOpen(
 
 /** history.state key: scroll offset of the contents / results list. */
 const NAV_SCROLL = "apNav";
+/** history.state key: the highlighted contents row of a menu step (the path). */
+const PATH_LIT = "apLit";
+
+function readPathLit(): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const v = (window.history.state as Record<string, unknown> | null)?.[PATH_LIT];
+    return typeof v === "string" ? v : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Scroll the contents list so that the highlighted row is fully in view
+ *  (centred if it was outside). Only the list moves, never the page. */
+function revealLit(nav: HTMLElement | null) {
+  if (!nav) return;
+  const row = nav.querySelector<HTMLElement>("[data-toc-lit]");
+  if (!row) return;
+  const n = nav.getBoundingClientRect();
+  const r = row.getBoundingClientRect();
+  if (r.top >= n.top && r.bottom <= n.bottom) return;
+  nav.scrollTop += r.top - n.top - (n.height - r.height) / 2;
+}
 
 /** Store / history key of a chapter's subsection list in the contents. */
 const chapterKey = (sectionId: string) => `ch:${sectionId}`;
@@ -435,8 +459,9 @@ export default function Sidebar({
     let timers: number[] = [];
     const apply = () => {
       const v = (window.history.state as Record<string, unknown> | null)?.[NAV_SCROLL];
-      if (typeof v !== "number" || !navRef.current) return;
-      navRef.current.scrollTop = v;
+      if (typeof v === "number" && navRef.current) navRef.current.scrollTop = v;
+      // The highlighted row (the place on the path) is always in view.
+      revealLit(navRef.current);
     };
     const schedule = () => {
       timers.forEach((id) => window.clearTimeout(id));
@@ -467,23 +492,45 @@ export default function Sidebar({
    * A new page or "back" forgets the tapped row.
    */
   const [tapped, setTapped] = useState<string | null>(null);
+  /**
+   * The path (Satkirti, 06.10.2026): every menu step (history entry) keeps the
+   * row that was highlighted when the reader left it (`apLit`). "Back" to a
+   * step shows that row highlighted again — where he was — and scrolled into
+   * view; it is shown, not armed: the next tap on it is a first tap again.
+   */
+  const [pathLit, setPathLit] = useState<string | null>(readPathLit);
   const [tappedPath, setTappedPath] = useState(pathname);
   if (pathname !== tappedPath) {
     setTappedPath(pathname);
     setTapped(null);
   }
   useEffect(() => {
-    const onPop = () => setTapped(null);
+    const onPop = () => {
+      setTapped(null);
+      setPathLit(readPathLit());
+    };
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
   }, []);
-  /** Row highlighted: the tapped one, else `byDefault` (the current place). */
-  const lit = (id: string, byDefault: boolean) => (tapped !== null ? tapped === id : byDefault);
+  /** Row highlighted: the tapped one, else the path's row of this menu step,
+   *  else `byDefault` (the current place). */
+  const lit = (id: string, byDefault: boolean) =>
+    tapped !== null ? tapped === id : pathLit !== null ? pathLit === id : byDefault;
+  /** Highlight `id` (a tap): it becomes this menu step's place on the path. */
+  const mark = (id: string) => {
+    setTapped(id);
+    setPathLit(id);
+    try {
+      if (isMenuEntry()) patchState({ [PATH_LIT]: id });
+    } catch {
+      // history unavailable: the highlight still shows
+    }
+  };
   /** First tap on `id`: highlight only (false). Second tap: go on (true). */
   const secondTap = (e: React.MouseEvent | null, id: string): boolean => {
     if (tapped === id) return true;
     e?.preventDefault();
-    setTapped(id);
+    mark(id);
     return false;
   };
   const showAllTranslations = useShowAllTranslations();
@@ -597,14 +644,17 @@ export default function Sidebar({
   const partOfSection = useMemo(() => {
     const m = new Map<string, string>();
     parts.forEach((p) => p.sections.forEach((id) => m.set(id, p.id)));
+    // The Introduction group: its chapters are listed inside it, like a part's.
+    sections.forEach((s) => s.members?.forEach((id) => m.set(id, s.id)));
     return m;
-  }, [parts]);
+  }, [parts, sections]);
   const currentPartId =
     selectedId === null
       ? null
       : partById.has(selectedId)
         ? selectedId
-        : (partOfSection.get(selectedId) ?? null);
+        : (partOfSection.get(selectedId) ??
+          (sectionById.get(selectedId)?.members?.length ? selectedId : null));
   const [isPartOpen, togglePart] = usePartsOpen(selectedId, currentPartId);
 
   // Menu: its history entry keeps the parts (and chapters) as they are now
@@ -680,8 +730,8 @@ export default function Sidebar({
   /**
    * A chapter row. A chapter with subsections is a disclosure row (like the
    * parts): a tap expands / collapses its list in the contents and does not
-   * navigate; the list starts with «Начало главы» (the chapter's top), then
-   * its subsections. A chapter without subsections is a link. Rows are at
+   * navigate (a second tap opens the chapter at its top); the list holds its
+   * subsections. A chapter without subsections is a link. Rows are at
    * least 44px tall and tappable over their full width.
    */
   const renderSection = (section: TocSection) => {
@@ -691,9 +741,11 @@ export default function Sidebar({
     const isOpen = hasSubs && isPartOpen(key);
     const listId = `toc-ch-${section.id}`;
     const rowId = `sec:${section.id}`;
-    // One highlight only: an open chapter's list marks the place itself
-    // («Начало главы» or the subsection being read).
-    const rowLit = lit(rowId, isSelected && !isOpen);
+    const atStart = isSelected && activeSubId === null;
+    // One highlight only: the chapter row while reading its beginning (or
+    // while its list is closed), else the subsection being read. No
+    // «Начало главы» row (Satkirti, 06.10.2026).
+    const rowLit = lit(rowId, isSelected && (!isOpen || atStart));
     const rowClass = `sidebar-link w-full min-h-[44px] text-left px-5 py-3 flex items-start justify-between gap-2 transition-colors ${
       rowLit
         ? "bg-[#FAF3E8] border-l-3 border-[#B8860B]"
@@ -712,10 +764,9 @@ export default function Sidebar({
     const subClass = (active: boolean) =>
       `sidebar-link -ml-px flex items-center min-h-[44px] w-full text-left px-4 py-2 text-xs border-l-2 transition-colors ${
         active
-          ? "bg-[#FDF8F0] border-[#B8860B]/70 text-[#B8860B] font-semibold"
+          ? "bg-[#FAF3E8] border-[#B8860B] text-[#B8860B] font-semibold"
           : "border-transparent text-[#5C3D2E] hover:text-[#B8860B] hover:bg-[#FDF8F0]"
       }`;
-    const atStart = isSelected && activeSubId === null;
     return (
       <li key={section.id}>
         {hasSubs ? (
@@ -742,7 +793,10 @@ export default function Sidebar({
             </button>
             <button
               type="button"
-              onClick={() => onPartTap(key)}
+              onClick={() => {
+                mark(rowId);
+                onPartTap(key);
+              }}
               aria-expanded={isOpen}
               aria-controls={isOpen ? listId : undefined}
               aria-label={section.title}
@@ -782,20 +836,6 @@ export default function Sidebar({
         {/* Subsections of an expanded chapter */}
         {isOpen && (
           <ul id={listId} className="ml-6 border-l border-[#E8DCC8]">
-            <li>
-              <Link
-                href={sectionHref(section.id)}
-                onClick={(e) => {
-                  if (secondTap(e, `start:${section.id}`)) leaveTo(e, sectionHref(section.id));
-                }}
-                aria-current={atStart ? "page" : undefined}
-                data-toc-chapter-start={section.id}
-                data-toc-lit={lit(`start:${section.id}`, atStart) ? "" : undefined}
-                className={`${subClass(lit(`start:${section.id}`, atStart))} italic`}
-              >
-                {t(ui, "sidebar.chapterStart")}
-              </Link>
-            </li>
             {section.subsections.map((sub) => {
               const isActive = isSelected && activeSubId === sub.id;
               const subRow = `sub:${section.id}#${sub.id}`;
@@ -821,6 +861,84 @@ export default function Sidebar({
                 </li>
               );
             })}
+          </ul>
+        )}
+      </li>
+    );
+  };
+
+  /**
+   * Heading of a group of the contents — a part («I. Храмовый стандарт») or
+   * the Introduction: a tap expands / collapses it (a second tap collapses)
+   * and highlights it like any other row, so the highlight always follows
+   * the reader's last step (Satkirti, 06.10.2026).
+   */
+  const renderGroupHeading = (
+    groupId: string,
+    label: React.ReactNode,
+    isOpen: boolean,
+    listId: string,
+    byDefault: boolean,
+  ) => {
+    const headId = `grp:${groupId}`;
+    const on = lit(headId, byDefault);
+    return (
+      <div
+        className={`px-5 py-1 border-l-3 transition-colors ${
+          on ? "bg-[#FAF3E8] border-[#B8860B]" : "border-transparent"
+        }`}
+      >
+        {/* The heading text and its chevron are the button (no invisible
+            strip to the edge — UI rule 1). */}
+        <button
+          type="button"
+          onClick={() => {
+            mark(headId);
+            onPartTap(groupId);
+          }}
+          aria-expanded={isOpen}
+          aria-controls={isOpen ? listId : undefined}
+          data-toc-group={groupId}
+          data-toc-lit={on ? "" : undefined}
+          className={`inline-flex items-start gap-1.5 py-1 text-left rounded-sm hover:text-[#B8860B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8860B]/40 transition-colors ${
+            on ? "text-[#B8860B]" : "text-[#9C7A4E]"
+          }`}
+        >
+          <svg
+            aria-hidden="true"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={`shrink-0 mt-px transition-transform ${isOpen ? "rotate-90" : ""}`}
+          >
+            <polyline points="9 6 15 12 9 18" />
+          </svg>
+          <span className="text-[11px] uppercase tracking-[0.12em] font-semibold leading-snug">{label}</span>
+        </button>
+      </div>
+    );
+  };
+
+  /** The Introduction group: its heading, then its chapters (no numbers). */
+  const renderFrontGroup = (head: TocSection) => {
+    const isOpen = isPartOpen(head.id);
+    const listId = `toc-grp-${head.id}`;
+    const members = (head.members ?? [])
+      .map((id) => sectionById.get(id))
+      .filter((s): s is TocSection => s !== undefined);
+    // Default highlight: the Introduction's own page, or (group closed) a page inside it.
+    const here = selectedId === head.id || (!isOpen && currentPartId === head.id);
+    return (
+      <li key={`grp-${head.id}`} className="mt-2 border-t border-[#E8DCC8] pt-2">
+        {renderGroupHeading(head.id, head.title, isOpen, listId, here)}
+        {isOpen && (
+          <ul id={listId} className="space-y-0.5">
+            {members.map(renderSection)}
           </ul>
         )}
       </li>
@@ -1062,9 +1180,10 @@ export default function Sidebar({
               ? filteredSections.map(renderSection)
               : layout.map((item) => {
                   if (item.kind === "section") {
-                    // Chapters of a part are listed inside its group.
+                    // Chapters of a part (or of the Introduction) are listed inside its group.
                     if (partOfSection.has(item.id)) return null;
                     const section = sectionById.get(item.id);
+                    if (section?.members?.length) return renderFrontGroup(section);
                     return section ? renderSection(section) : null;
                   }
                   const part = partById.get(item.id);
@@ -1077,36 +1196,16 @@ export default function Sidebar({
                     .filter((s): s is TocSection => s !== undefined);
                   return (
                     <li key={`part-${part.id}`} className="mt-2 border-t border-[#E8DCC8] pt-2">
-                      {/* The heading text and its chevron are the button (no
-                          invisible strip to the edge — UI rule 1). */}
-                      <div className="px-5 py-1">
-                        <button
-                          type="button"
-                          onClick={() => onPartTap(part.id)}
-                          aria-expanded={isOpen}
-                          aria-controls={isOpen ? listId : undefined}
-                          className="inline-flex items-start gap-1.5 py-1 text-left rounded-sm text-[#9C7A4E] hover:text-[#B8860B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8860B]/40 transition-colors"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className={`shrink-0 mt-px transition-transform ${isOpen ? "rotate-90" : ""}`}
-                          >
-                            <polyline points="9 6 15 12 9 18" />
-                          </svg>
-                          <span className="text-[11px] uppercase tracking-[0.12em] font-semibold leading-snug">
-                            <span className="mr-1.5">{`${part.numeral}.`}</span>
-                            {part.title}
-                          </span>
-                        </button>
-                      </div>
+                      {renderGroupHeading(
+                        part.id,
+                        <>
+                          <span className="mr-1.5">{`${part.numeral}.`}</span>
+                          {part.title}
+                        </>,
+                        isOpen,
+                        listId,
+                        !isOpen && currentPartId === part.id && !isPartSelected,
+                      )}
                       {isOpen && (
                         <ul id={listId} className="space-y-0.5">
                           {chapters.length > 0 ? (

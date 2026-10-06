@@ -30,7 +30,7 @@
     },
     {
       "id": "festivals-vows",
-      "title": "Ünnepek és fogadalmak",
+      "title": "Ünnepek, fogadalmak és ārati-énekek",
       "sections": [
         "caturmasya-purusottama-masa",
         "guru-puja-vyasa-puja",
@@ -57,7 +57,7 @@
     {
       "id": "mangalacarana",
       "title": "Maṅgalācaraṇa",
-      "subtitle": "Áldást kérő imák",
+      "subtitle": null,
       "page": "IV",
       "content": [
         {
@@ -70,7 +70,7 @@
       "subsections": [
         {
           "id": "glorification-sri-guru",
-          "title": "Śrī Guru dicsőítése",
+          "title": "Ima Śrī Guruhoz",
           "content": [
             {
               "type": "verse",
@@ -280,7 +280,7 @@
         },
         {
           "id": "prayer-radha-madana-mohana",
-          "title": "Ima a sambandha uralkodó Istenségéhez, Śrī Rādhā-Madana-mohanához",
+          "title": "Ima Śrī Rādhā-Madana-mohanához",
           "content": [
             {
               "type": "verse",
@@ -292,7 +292,7 @@
         },
         {
           "id": "prayer-radha-govinda",
-          "title": "Ima az abhidheya uralkodó Istenségéhez, Śrī Rādhā-Govindához",
+          "title": "Ima Śrī Rādhā-Govindához",
           "content": [
             {
               "type": "verse",
@@ -304,7 +304,7 @@
         },
         {
           "id": "prayer-radha-gopinatha",
-          "title": "Ima a prayojana uralkodó Istenségéhez, Śrī Rādhā-Gopīnāthához",
+          "title": "Ima Śrī Rādhā-Gopīnāthához",
           "content": [
             {
               "type": "verse",

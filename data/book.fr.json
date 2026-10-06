@@ -30,7 +30,7 @@
     },
     {
       "id": "festivals-vows",
-      "title": "Fêtes et vœux",
+      "title": "Fêtes, vœux et chants d’ārati",
       "sections": [
         "caturmasya-purusottama-masa",
         "guru-puja-vyasa-puja",
@@ -57,7 +57,7 @@
     {
       "id": "mangalacarana",
       "title": "Maṅgalācaraṇa",
-      "subtitle": "Prières invoquant toute heureuse fortune",
+      "subtitle": null,
       "page": "IV",
       "content": [
         {
@@ -70,7 +70,7 @@
       "subsections": [
         {
           "id": "glorification-sri-guru",
-          "title": "Glorification de Śrī Guru",
+          "title": "Prière à Śrī Guru",
           "content": [
             {
               "type": "verse",
@@ -280,7 +280,7 @@
         },
         {
           "id": "prayer-radha-madana-mohana",
-          "title": "Prière à la Divinité qui préside au Sambandha, Śrī Rādhā-Madana-mohana",
+          "title": "Prière à Śrī Rādhā-Madana-mohana",
           "content": [
             {
               "type": "verse",
@@ -292,7 +292,7 @@
         },
         {
           "id": "prayer-radha-govinda",
-          "title": "Prière à la Divinité qui préside à l’Abhidheya, Śrī Rādhā-Govinda",
+          "title": "Prière à Śrī Rādhā-Govinda",
           "content": [
             {
               "type": "verse",
@@ -304,7 +304,7 @@
         },
         {
           "id": "prayer-radha-gopinatha",
-          "title": "Prière à la Divinité qui préside au Prayojana, Śrī Rādhā-Gopīnātha",
+          "title": "Prière à Śrī Rādhā-Gopīnātha",
           "content": [
             {
               "type": "verse",

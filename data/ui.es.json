@@ -6,7 +6,6 @@
   "header.openMenu": "Abrir menú",
   "sidebar.contents": "Índice",
   "sidebar.cover": "Portada",
-  "sidebar.chapterStart": "Inicio del capítulo",
   "sidebar.closeMenu": "Cerrar menú",
   "sidebar.showAllTranslations": "Mostrar todas las traducciones",
   "sidebar.showAllWbw": "Mostrar todas las traducciones palabra por palabra",
@@ -70,5 +69,8 @@
   "reader.hintMouse": "Haga clic en un espacio vacío para ver el menú",
   "reader.cover": "Portada",
   "reader.back": "Atrás",
-  "reader.forward": "Adelante"
+  "reader.forward": "Adelante",
+  "reader.noForward": "Adelante funciona después de Atrás",
+  "reader.noBack": "Este es el inicio del recorrido",
+  "group.contents": "Contenido de la introducción"
 }

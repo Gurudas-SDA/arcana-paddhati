@@ -30,7 +30,7 @@
     },
     {
       "id": "festivals-vows",
-      "title": "Festividades y votos",
+      "title": "Festividades, votos y cantos de ārati",
       "sections": [
         "caturmasya-purusottama-masa",
         "guru-puja-vyasa-puja",
@@ -57,7 +57,7 @@
     {
       "id": "mangalacarana",
       "title": "Maṅgalācaraṇa",
-      "subtitle": "Oraciones para invocar buenos auspicios",
+      "subtitle": null,
       "page": "IV",
       "content": [
         {
@@ -70,7 +70,7 @@
       "subsections": [
         {
           "id": "glorification-sri-guru",
-          "title": "Glorificación de Śrī Guru",
+          "title": "Oración a Śrī Guru",
           "content": [
             {
               "type": "verse",
@@ -280,7 +280,7 @@
         },
         {
           "id": "prayer-radha-madana-mohana",
-          "title": "Oración a la Deidad regente de Sambandha, Śrī Rādhā-Madana-mohana",
+          "title": "Oración a Śrī Rādhā-Madana-mohana",
           "content": [
             {
               "type": "verse",
@@ -292,7 +292,7 @@
         },
         {
           "id": "prayer-radha-govinda",
-          "title": "Oración a la Deidad regente de Abhidheya, Śrī Rādhā-Govinda",
+          "title": "Oración a Śrī Rādhā-Govinda",
           "content": [
             {
               "type": "verse",
@@ -304,7 +304,7 @@
         },
         {
           "id": "prayer-radha-gopinatha",
-          "title": "Oración a la Deidad regente de Prayojana, Śrī Rādhā-Gopīnātha",
+          "title": "Oración a Śrī Rādhā-Gopīnātha",
           "content": [
             {
               "type": "verse",

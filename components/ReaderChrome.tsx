@@ -28,6 +28,14 @@
  * «Вперёд ›» at the screen edges are the browser's Back / Forward — the same
  * step-by-step history — because iPhone / iPad have no system Back button
  * (on Android they duplicate it).
+ *
+ * The two buttons are never `disabled` (Reader v7, Satkirti on Android,
+ * 06.10.2026): a tap on a disabled button is not handled by the page, and
+ * Chrome on Android then treats it as a tap on the plain word «Вперёд» and
+ * opens its own bar at the bottom of the screen (Google «Touch to Search» —
+ * «строка, связанная с интернетом»). Without a step to go to, the button is
+ * only dimmed and says so in a short note; the bars' texts are not
+ * selectable (no word to look up).
  */
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -133,6 +141,9 @@ export default function ReaderChrome({
   const size = useReaderSize();
   const [canBack, setCanBack] = useState(true);
   const [canForward, setCanForward] = useState(true);
+  /** Short note when «Назад» / «Вперёд» has no step to go to. */
+  const [navNote, setNavNote] = useState<string | null>(null);
+  const navNoteTimer = useRef<number | undefined>(undefined);
 
   // Mirrors of the state for the (long-lived) event listeners.
   const shownRef = useRef(false);
@@ -251,13 +262,16 @@ export default function ReaderChrome({
   const section = sections.find((s) => s.id === sectionId);
   const part = parts.find((p) => p.id === sectionId);
   const pctText = `${Math.round(pct)} %`;
+  // Chapters with numbers (the Introduction group has none — Satkirti 06.10.2026):
+  // there the status line names the chapter itself.
+  const numbered = sections.filter((s) => s.num).length;
   const chapterShort = section?.num
     ? t(ui, "reader.chapter", { n: section.num })
     : part
       ? t(ui, "part.label", { n: part.numeral })
-      : "";
+      : (section?.title ?? "");
   const chapterLong = section?.num
-    ? t(ui, "reader.chapterOf", { n: section.num, total: String(sections.length) })
+    ? t(ui, "reader.chapterOf", { n: section.num, total: String(numbered) })
     : chapterShort;
 
   // ---- progress + scroll behaviour --------------------------------------------
@@ -513,12 +527,40 @@ export default function ReaderChrome({
   };
 
   const sizeIdx = SIZES.indexOf(size);
-  /** «‹ Назад» / «Вперёд ›»: one step through the browser history. */
+  /** «‹ Назад» / «Вперёд ›»: one step through the browser history; no step
+   *  there — a short note instead (never a dead tap, see the top comment). */
   const historyStep = (dir: "back" | "forward") => {
     arm();
+    const can = dir === "back" ? canBack : canForward;
+    const note = () => {
+      window.clearTimeout(navNoteTimer.current);
+      setNavNote(t(ui, dir === "back" ? "reader.noBack" : "reader.noForward"));
+      navNoteTimer.current = window.setTimeout(() => setNavNote(null), 2500);
+    };
+    if (!can) {
+      note();
+      return;
+    }
+    setNavNote(null);
+    // Without the Navigation API (Safari) "can" is a guess: if the step did
+    // not happen (no popstate), say so instead of a silent tap.
+    const exact = typeof (window as unknown as { navigation?: { canGoForward?: boolean } }).navigation
+      ?.canGoForward === "boolean";
+    if (!exact) {
+      let moved = false;
+      const onPop = () => {
+        moved = true;
+      };
+      window.addEventListener("popstate", onPop, { once: true });
+      window.setTimeout(() => {
+        window.removeEventListener("popstate", onPop);
+        if (!moved) note();
+      }, 450);
+    }
     if (dir === "back") window.history.back();
     else window.history.forward();
   };
+  useEffect(() => () => window.clearTimeout(navNoteTimer.current), []);
 
   return (
     <div
@@ -663,7 +705,7 @@ export default function ReaderChrome({
             type="button"
             className="reader-btn reader-history-btn"
             onClick={() => historyStep("back")}
-            disabled={!canBack}
+            aria-disabled={!canBack}
             data-reader-nav="back"
           >
             <span aria-hidden="true" className="reader-history-arrow">‹</span>
@@ -676,7 +718,7 @@ export default function ReaderChrome({
             type="button"
             className="reader-btn reader-history-btn"
             onClick={() => historyStep("forward")}
-            disabled={!canForward}
+            aria-disabled={!canForward}
             data-reader-nav="forward"
           >
             <span>{t(ui, "reader.forward")}</span>
@@ -689,6 +731,12 @@ export default function ReaderChrome({
       {!isHome && (
         <p className="reader-status" aria-hidden="true">
           {chapterShort ? `${chapterShort} · ${pctText}` : pctText}
+        </p>
+      )}
+
+      {navNote && shown && (
+        <p className="reader-hint reader-nav-note" role="status" data-reader-nav-note="">
+          {navNote}
         </p>
       )}
 

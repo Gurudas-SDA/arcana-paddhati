@@ -381,7 +381,9 @@ body {
   transition: background-color 180ms ease, color 150ms ease;
 }
 .hs-row[data-active] .hs-text {
-  background-color: rgba(245, 230, 200, 0.5);
+  /* The interface's beige-gold, semi-transparent: clearly visible on white
+     and on the sepia page (Satkirti 06.10.2026: «хоть полупрозрачная»). */
+  background-color: rgba(212, 168, 67, 0.32);
   color: #2C1810;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -730,9 +732,22 @@ body,
   line-height: 1;
   margin-top: -3px;
 }
-.reader-history-btn:disabled {
+.reader-history-btn[aria-disabled="true"] {
   opacity: 0.35;
   cursor: default;
+}
+/* No selectable words in the bars (Chrome on Android would offer to look
+   them up in its own bottom bar — Reader v7). */
+.reader-bar,
+.reader-panel {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+/* «Вперёд — после «Назад»»: just above the bottom bar. */
+.reader-hint.reader-nav-note {
+  bottom: calc(68px + env(safe-area-inset-bottom, 0px));
+  z-index: 31;
 }
 
 /* Faint status line while reading: «Глава 8 · 35 %». */

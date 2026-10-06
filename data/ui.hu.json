@@ -6,7 +6,6 @@
   "header.openMenu": "Menü megnyitása",
   "sidebar.contents": "Tartalomjegyzék",
   "sidebar.cover": "Borító",
-  "sidebar.chapterStart": "A fejezet eleje",
   "sidebar.closeMenu": "Menü bezárása",
   "sidebar.showAllTranslations": "Összes fordítás megjelenítése",
   "sidebar.showAllWbw": "Összes szavankénti fordítás megjelenítése",
@@ -70,5 +69,8 @@
   "reader.hintMouse": "Kattintson egy üres helyre a menühöz",
   "reader.cover": "Borító",
   "reader.back": "Vissza",
-  "reader.forward": "Előre"
+  "reader.forward": "Előre",
+  "reader.noForward": "Az Előre a Vissza után működik",
+  "reader.noBack": "Ez az út eleje",
+  "group.contents": "A bevezetés tartalma"
 }

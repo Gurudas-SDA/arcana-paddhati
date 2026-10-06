@@ -30,7 +30,7 @@
     },
     {
       "id": "festivals-vows",
-      "title": "Feste und Gelübde",
+      "title": "Feste, Gelübde und Ārati-Lieder",
       "sections": [
         "caturmasya-purusottama-masa",
         "guru-puja-vyasa-puja",
@@ -57,7 +57,7 @@
     {
       "id": "mangalacarana",
       "title": "Maṅgalācaraṇa",
-      "subtitle": "Gebete zur Anrufung des Segens",
+      "subtitle": null,
       "page": "IV",
       "content": [
         {
@@ -70,7 +70,7 @@
       "subsections": [
         {
           "id": "glorification-sri-guru",
-          "title": "Verherrlichung Śrī Gurus",
+          "title": "Gebet an Śrī Guru",
           "content": [
             {
               "type": "verse",
@@ -280,7 +280,7 @@
         },
         {
           "id": "prayer-radha-madana-mohana",
-          "title": "Gebet an die vorherrschende Bildgestalt des Sambandha, Śrī Rādhā-Madana-mohana",
+          "title": "Gebet an Śrī Rādhā-Madana-mohana",
           "content": [
             {
               "type": "verse",
@@ -292,7 +292,7 @@
         },
         {
           "id": "prayer-radha-govinda",
-          "title": "Gebet an die vorherrschende Bildgestalt des Abhidheya, Śrī Rādhā-Govinda",
+          "title": "Gebet an Śrī Rādhā-Govinda",
           "content": [
             {
               "type": "verse",
@@ -304,7 +304,7 @@
         },
         {
           "id": "prayer-radha-gopinatha",
-          "title": "Gebet an die vorherrschende Bildgestalt des Prayojana, Śrī Rādhā-Gopīnātha",
+          "title": "Gebet an Śrī Rādhā-Gopīnātha",
           "content": [
             {
               "type": "verse",
