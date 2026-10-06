@@ -12,6 +12,7 @@ import {
   sectionNumbers,
   subsectionNumber,
   toRoman,
+  tocLayout,
   type Book,
   type Section,
   type TocPart,
@@ -111,6 +112,33 @@ export function getSectionNumber(id: string): string | null {
   if (i < 0) return null;
   const n = sectionNumbers(sections)[i];
   return n == null ? null : String(n);
+}
+
+/**
+ * The page after `id` in reading order (the order of the contents): chapters,
+ * plus the parts that have no chapters yet (their page is the place in the
+ * order). Same logic as the former «След. глава ›» of the reader's bottom
+ * bar (before Reader UI v5). Undefined after the last chapter and for pages
+ * outside the order (the cover, parts with chapters).
+ */
+export function getNextChapter(
+  lang: string,
+  id: string,
+): { id: string; title: string; num: string | null; part: string | null } | undefined {
+  const parts = getParts(lang);
+  const partById = new Map(parts.map((p) => [p.id, p]));
+  const order: string[] = [];
+  for (const item of tocLayout(getSectionIds(), parts)) {
+    if (item.kind === "section") order.push(item.id);
+    else if (partById.get(item.id)?.sections.length === 0) order.push(item.id);
+  }
+  const i = order.indexOf(id);
+  const next = i >= 0 ? order[i + 1] : undefined;
+  if (!next) return undefined;
+  const part = partById.get(next);
+  if (part) return { id: next, title: part.title, num: null, part: part.numeral };
+  const s = getSection(lang, next);
+  return s ? { id: next, title: s.title, num: getSectionNumber(next), part: null } : undefined;
 }
 
 /** Table of contents in English order, titles from the translation where present. */

@@ -3,6 +3,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import HomePage from "@/components/HomePage";
+import NextChapter from "@/components/NextChapter";
 import PartPage from "@/components/PartPage";
 import SectionContent from "@/components/SectionContent";
 import {
@@ -54,5 +55,13 @@ export default async function SlugPage({ params }: PageProps<"/[slug]">) {
   if (part) return <PartPage part={part} lang={DEFAULT_LANG} />;
   const section = getSection(DEFAULT_LANG, slug);
   if (!section) notFound();
-  return <SectionContent section={section} ui={getUi(DEFAULT_LANG)} num={getSectionNumber(slug)} />;
+  const ui = getUi(DEFAULT_LANG);
+  return (
+    <SectionContent
+      section={section}
+      ui={ui}
+      num={getSectionNumber(slug)}
+      after={<NextChapter lang={DEFAULT_LANG} id={slug} ui={ui} />}
+    />
+  );
 }

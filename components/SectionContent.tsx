@@ -31,6 +31,8 @@ interface SectionContentProps {
   num?: string | null;
   /** Shown under the title, e.g. "translation in preparation — shown in English". */
   note?: string;
+  /** After the last block: the «След. глава ›» link (components/NextChapter.tsx). */
+  after?: React.ReactNode;
 }
 
 /** Heading scale, one weight + size per level, used everywhere:
@@ -526,7 +528,7 @@ function SubsectionBlock({
   );
 }
 
-export default function SectionContent({ section, ui, num = null, note }: SectionContentProps) {
+export default function SectionContent({ section, ui, num = null, note, after }: SectionContentProps) {
   const labels: VerseLabels = {
     translation: t(ui, "verse.translationHint"),
     wbw: t(ui, "verse.wbwHint"),
@@ -579,6 +581,8 @@ export default function SectionContent({ section, ui, num = null, note }: Sectio
             separated={i > 0 || section.content.length > 0}
           />
         ))}
+
+      {after}
     </article>
   );
 }
