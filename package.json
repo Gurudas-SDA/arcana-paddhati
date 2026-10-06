@@ -10,7 +10,12 @@
     "postbuild": "node scripts/patch-html-lang.mjs && node scripts/fix-segment-paths.mjs && node scripts/build-precache.mjs",
     "start": "next start",
     "lint": "eslint",
-    "formats": "python scripts/formats/build_formats.py"
+    "formats": "python scripts/formats/build_formats.py",
+    "qa": "python qa/run_all.py",
+    "qa:fast": "python qa/run_all.py --fast",
+    "qa:lint": "python qa/lint_content.py",
+    "qa:coverage": "python qa/coverage.py",
+    "qa:install-hooks": "git config core.hooksPath qa/hooks"
   },
   "dependencies": {
     "next": "16.2.2",

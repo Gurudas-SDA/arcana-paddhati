@@ -1,0 +1,131 @@
+{
+  "_doc": "Konfigurācija qa/lint_content.py. Izņēmums = {check, file, match, reason, since, by}: atradums tiek atzīts (WARN, nebloķē), ja virkne «<ceļš> :: <fragments>» satur 'match'. Katram izņēmumam OBLIGĀTI pamatojums (reason) un kas to atļāva (by). Jaunu izņēmumu drīkst pievienot tikai ar Satkirti vai Gurudas ziņu.",
+  "ru_books": [
+    "book.ru-iast.json",
+    "book.ru.json"
+  ],
+  "wbw_required_books": [
+    "book.ru-iast.json",
+    "book.ru.json"
+  ],
+  "author_text_skip": {
+    "_doc": "Autora teksts = viss, izņemot pantus (verse), Gurudeva lekciju citātus (mood) un to tulkojumus.",
+    "types": [
+      "verse",
+      "mood"
+    ],
+    "keys": [
+      "quote",
+      "translation",
+      "translation_note",
+      "wbw",
+      "sanskrit",
+      "more"
+    ]
+  },
+  "pair_second_parts": [
+    "Кришн",
+    "Говинд",
+    "Мадхав",
+    "Мадана",
+    "Гопинатх",
+    "Раман",
+    "Дамодар",
+    "Виноди",
+    "Шьям",
+    "Валлабх",
+    "Мохан",
+    "Кант"
+  ],
+  "bija_term": {
+    "_doc": "Bīju glosa pa vārdam katrā valodā. Bīju galvas un vecās rakstības ir lint_content.py (BIJA_HEADS / BIJA_OLD, ar \\u kodiem).",
+    "book.json": "bīja-mantra",
+    "book.de.json": "Bīja-Mantra",
+    "book.es.json": "bīja-mantra",
+    "book.fr.json": "bīja-mantra",
+    "book.it.json": "bīja-mantra",
+    "book.hu.json": "bīja-mantra",
+    "book.lv.json": "bīja-mantra",
+    "book.ru.json": "биджа-мантра",
+    "book.ru-iast.json": "биджа-мантра",
+    "book.uk.json": "біджа-мантра"
+  },
+  "rendered_html_dirs": [
+    "",
+    "ru-iast",
+    "ru",
+    "lv",
+    "de",
+    "fr",
+    "es",
+    "it",
+    "uk",
+    "hu"
+  ],
+  "exceptions": [
+    {
+      "check": "L6",
+      "file": "book.ru-iast.json",
+      "match": "main-worship-sixteen-items/arati-ceremony",
+      "reason": "3 ārati tabulas mantras (aiṁ gurave namaḥ; śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ; klīṁ govardhanāya namaḥ) vēl bez «пословно» — zināms trūkums QA gate ieviešanas brīdī (07.10); kad Lipikāra pievieno, šo izņēmumu dzēst.",
+      "since": "2026-10-07",
+      "by": "QA gate ieviešana (Gurudas «1. slānis»)"
+    },
+    {
+      "check": "L6",
+      "file": "book.ru.json",
+      "match": "main-worship-sixteen-items/arati-ceremony",
+      "reason": "Tas pats trūkums kirilicas spogulī (book.ru.json).",
+      "since": "2026-10-07",
+      "by": "QA gate ieviešana (Gurudas «1. slānis»)"
+    },
+    {
+      "check": "L12",
+      "file": "book.ru-iast.json",
+      "match": "offering-bhoga :: trūkst: nr, transcript_url",
+      "reason": "Zināms trūkums QA gate ieviešanas brīdī (07.10): citāta avotam nav lekcijas № / transkripta saites vai taimkoda datos. Kad Lipikāra papildina avotu — šo izņēmumu dzēst.",
+      "since": "2026-10-07",
+      "by": "QA gate ieviešana (Gurudas «1. slānis»)"
+    },
+    {
+      "check": "L12",
+      "file": "book.ru-iast.json",
+      "match": "bhoga-procedure :: trūkst: nr, transcript_url",
+      "reason": "Zināms trūkums QA gate ieviešanas brīdī (07.10): citāta avotam nav lekcijas № / transkripta saites vai taimkoda datos. Kad Lipikāra papildina avotu — šo izņēmumu dzēst.",
+      "since": "2026-10-07",
+      "by": "QA gate ieviešana (Gurudas «1. slānis»)"
+    },
+    {
+      "check": "L12",
+      "file": "book.ru-iast.json",
+      "match": "vyasa-puja-meaning :: trūkst: timecode",
+      "reason": "Zināms trūkums QA gate ieviešanas brīdī (07.10): citāta avotam nav lekcijas № / transkripta saites vai taimkoda datos. Kad Lipikāra papildina avotu — šo izņēmumu dzēst.",
+      "since": "2026-10-07",
+      "by": "QA gate ieviešana (Gurudas «1. slānis»)"
+    },
+    {
+      "check": "L12",
+      "file": "book.ru.json",
+      "match": "offering-bhoga :: trūkst: nr, transcript_url",
+      "reason": "Zināms trūkums QA gate ieviešanas brīdī (07.10): citāta avotam nav lekcijas № / transkripta saites vai taimkoda datos. Kad Lipikāra papildina avotu — šo izņēmumu dzēst.",
+      "since": "2026-10-07",
+      "by": "QA gate ieviešana (Gurudas «1. slānis»)"
+    },
+    {
+      "check": "L12",
+      "file": "book.ru.json",
+      "match": "bhoga-procedure :: trūkst: nr, transcript_url",
+      "reason": "Zināms trūkums QA gate ieviešanas brīdī (07.10): citāta avotam nav lekcijas № / transkripta saites vai taimkoda datos. Kad Lipikāra papildina avotu — šo izņēmumu dzēst.",
+      "since": "2026-10-07",
+      "by": "QA gate ieviešana (Gurudas «1. slānis»)"
+    },
+    {
+      "check": "L12",
+      "file": "book.ru.json",
+      "match": "vyasa-puja-meaning :: trūkst: timecode",
+      "reason": "Zināms trūkums QA gate ieviešanas brīdī (07.10): citāta avotam nav lekcijas № / transkripta saites vai taimkoda datos. Kad Lipikāra papildina avotu — šo izņēmumu dzēst.",
+      "since": "2026-10-07",
+      "by": "QA gate ieviešana (Gurudas «1. slānis»)"
+    }
+  ]
+}

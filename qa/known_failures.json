@@ -1,0 +1,11 @@
+{
+  "_doc": "Zināmas, jau eskalētas kļūdas: šīs pārbaudes krīt, atskaitē tās ir KNOWN (nevis FAIL) un neaptur run_all. Katram ierakstam: test ('<scenārijs>:<nosaukuma sākums>'), reason, since, by. Dzēst ierakstu TAJĀ PAŠĀ commit, kurā kļūda izlabota (tad tests atkal sargā). Jaunu ierakstu — tikai ar Satkirti vai Gurudas ziņu.",
+  "known": [
+    {"test": "s10:§2/§9 Parafernalia: часть рисунка → строка",
+     "reason": "«Поклонение … шестнадцати предметов»: attēlā 18 nospiežamu priekšmetu, sarakstā 11 rindu — priekšmetiem bez rindas (10, 11, 12, 18 …) pieskāriens izgaismo daļu, bet teksts netiek atzīmēts (§2 / §9). Jālemj: noņemt šos priekšmetus no šī attēla vai papildināt sarakstu.",
+     "since": "2026-10-06", "by": "QA gate ieviešana — eskalēts Gurudam"},
+    {"test": "s10:§8 транскрипт открывается внутри приложения",
+     "reason": "«Настроение Гурудева» logā saite «транскрипт» uz telefona (pieskāriens) neatver transkriptu (URL nemainās 20 s; pārbaudīts arī ar roku Pixel 7). Saite grāmatas tekstā strādā (s21).",
+     "since": "2026-10-07", "by": "QA gate ieviešana — eskalēts Gurudam"}
+  ]
+}
