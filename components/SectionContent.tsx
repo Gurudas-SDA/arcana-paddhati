@@ -1,3 +1,4 @@
+import ChapterEndSpace from "@/components/ChapterEndSpace";
 import React from "react";
 import { transcriptLinkProps } from "@/lib/transcripts";
 import {
@@ -574,6 +575,7 @@ export default function SectionContent({ section, ui, num = null, note, after }:
     },
   };
   return (
+    <>
     <article className="reader-article">
       {/* Section title */}
       <header className="mb-8">
@@ -615,5 +617,10 @@ export default function SectionContent({ section, ui, num = null, note, after }:
 
       {after}
     </article>
+    {/* Room after the chapter's end (Reader v7.2): the last, short
+        subsection can be brought to the top of the screen from the contents.
+        After the article: «След. глава ›» stays its last block. */}
+    {section.subsections && section.subsections.length > 0 && <ChapterEndSpace />}
+    </>
   );
 }

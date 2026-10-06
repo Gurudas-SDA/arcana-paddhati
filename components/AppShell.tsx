@@ -351,6 +351,8 @@ export default function AppShell({
 
   /** «Поиск» in the reader's top bar: the contents panel with the search box focused. */
   const openSearch = () => {
+    // The index starts loading now (on iPhone it takes seconds), not on focus.
+    loadSearchIndex();
     openMenu();
     let tries = 0;
     const focus = () => {

@@ -337,6 +337,8 @@ function usePartsOpen(
 const NAV_SCROLL = "apNav";
 /** history.state key: the highlighted contents row of a menu step (the path). */
 const PATH_LIT = "apLit";
+/** history.state key: the search result the reader followed out of this menu step. */
+const RESULT_KEY = "apResult";
 
 function readPathLit(): string | null {
   if (typeof window === "undefined") return null;
@@ -557,6 +559,12 @@ export default function Sidebar({
   ) => {
     const strip = (p: string) => p.replace(/\/+$/, "");
     const samePage = strip(localeHref(lang, sectionId)) === strip(pathname);
+    try {
+      // "Back" to the results scrolls to this one again (Reader v7.2).
+      if (onLeave && isMenuEntry()) patchState({ [RESULT_KEY]: `${sectionId}#${anchor ?? ""}` });
+    } catch {
+      // history unavailable
+    }
     if (!samePage) {
       // The Link navigates (a new entry on top of the menu's).
       onLeave?.(true);
@@ -724,6 +732,45 @@ export default function Sidebar({
     }
     return [...titleHits, ...textHits].slice(0, MAX_RESULTS);
   }, [prepared, normalizedQuery]);
+
+  // "Back" from a result to the search (UI rule 6; Reader v7.2 — WebKit): the
+  // query comes back at once, the results only when the index has loaded
+  // (slow on iPhone). Once they are rendered, the list's offset of this step
+  // is put back and the followed result is brought into view.
+  const restoreUntil = useRef(0);
+  useEffect(() => {
+    restoreUntil.current = performance.now() + 6000;
+    const onPop = () => {
+      restoreUntil.current = performance.now() + 6000;
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+  useEffect(() => {
+    if (!results || results.length === 0) return;
+    if (performance.now() > restoreUntil.current) return;
+    const apply = () => {
+      const nav = navRef.current;
+      const st = window.history.state as Record<string, unknown> | null;
+      if (!nav || !st || !isMenuEntry(st)) return;
+      const v = st[NAV_SCROLL];
+      if (typeof v === "number") nav.scrollTop = v;
+      const key = st[RESULT_KEY];
+      if (typeof key !== "string") return;
+      const row = [...nav.querySelectorAll<HTMLElement>("[data-result]")].find(
+        (el) => el.dataset.result === key
+      );
+      if (!row) return;
+      const n = nav.getBoundingClientRect();
+      const r = row.getBoundingClientRect();
+      if (r.top >= n.top && r.bottom <= n.bottom) return;
+      nav.scrollTop += r.top - n.top - (n.height - r.height) / 2;
+    };
+    apply();
+    requestAnimationFrame(apply);
+    const timers = [80, 250, 600].map((ms) => window.setTimeout(apply, ms));
+    return () => timers.forEach((id) => window.clearTimeout(id));
+  }, [results]);
 
   // Title-only filtering (before the index has loaded, or if it failed).
   const filteredSections = sections.filter((section) => {
@@ -1116,6 +1163,7 @@ export default function Sidebar({
                 <li key={`${entry.section}#${entry.anchor ?? ""}`}>
                   <Link
                     href={sectionHref(entry.section, entry.anchor)}
+                    data-result={`${entry.section}#${entry.anchor ?? ""}`}
                     onClick={(e) => followLink(e, entry.section, entry.anchor)}
                     className="block w-full text-left px-5 py-3 border-l-3 border-transparent hover:bg-[#FDF8F0] transition-colors"
                   >

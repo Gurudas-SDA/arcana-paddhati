@@ -1038,6 +1038,13 @@ html[data-reader-theme="night"] ::selection {
   -webkit-touch-callout: none;
 }
 
+/* Room after the end of a chapter with subsections (Reader v7.2): sized by
+   components/ChapterEndSpace.tsx so that the last, short subsection can be
+   scrolled to the top; until then (no script yet) none. */
+.chapter-end-space {
+  height: 0;
+}
+
 /* «След. глава ›» at the end of a chapter (components/NextChapter.tsx;
    Satkirti, 06.10.2026): right-aligned under a thin rule, the next chapter's
    number and title below it, smaller. Sizes follow «Аа» (--fs), colours the
