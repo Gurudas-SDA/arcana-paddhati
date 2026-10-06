@@ -40,6 +40,253 @@
   ],
   "sections": [
     {
+      "id": "mangalacarana",
+      "title": "Maṅgalācaraṇa",
+      "subtitle": null,
+      "page": "IV",
+      "content": [
+        {
+          "type": "verse",
+          "sanskrit": "vande 'haṁ śrī-guroḥ śrī-yuta-pada-kamalaṁ śrī-gurūn vaiṣṇavāṁś ca\nśrī-rūpaṁ sāgrajātaṁ saha-gaṇa-raghunāthānvitaṁ taṁ sa-jīvam\nsādvaitaṁ sāvadhūtaṁ parijana-sahitaṁ kṛṣṇa-caitanya-devaṁ\nśrī-rādhā-kṛṣṇa-pādān saha-gaṇa-lalitā-śrī-viśākhānvitāṁś ca",
+          "translation": "J’offre mon praṇāma aux pieds pareils-au-lotus de mes gurus [śikṣā et dīkṣā], à tout mon guru-varga et à tous les Vaiṣṇavas, à Śrīla Rūpa Gosvāmī, à son frère aîné Śrīla Sanātana Gosvāmī, à Śrīla Raghunātha dāsa Gosvāmī, à Śrīla Jīva Gosvāmī et à tous leurs compagnons, à Śrī Advaita Ācārya, à l’avadhūta Nityānanda Prabhu, à Śrī Kṛṣṇa Caitanya Mahāprabhu et à tous Leurs compagnons, ainsi qu’aux pieds pareils-au-lotus de Śrī Rādhā-Kṛṣṇa et à Leurs compagnes, Śrī Lalitā, Śrī Viśākhā et toutes les autres sakhīs.",
+          "wbw": "vande — j’offre mon praṇāma; 'haṁ — moi; śrī-guroḥ — de mon guru vénéré; śrī-yuta-pada-kamalaṁ — aux magnifiques pieds pareils-au-lotus; śrī-gurūn — aux gurus vénérés; vaiṣṇavāṁś — aux Vaiṣṇavas; ca — et; śrī-rūpaṁ — à Śrīla Rūpa Gosvāmī; sāgrajātaṁ — avec son frère aîné; saha-gaṇa-raghunāthānvitaṁ — accompagné de Raghunātha et de leurs compagnons; taṁ — à lui; sa-jīvam — avec Jīva Gosvāmī; sādvaitaṁ — avec Advaita Ācārya; sāvadhūtaṁ — avec l’avadhūta Nityānanda Prabhu; parijana-sahitaṁ — accompagné de Leurs compagnons; kṛṣṇa-caitanya-devaṁ — à Śrī Kṛṣṇa Caitanya Mahāprabhu; śrī-rādhā-kṛṣṇa-pādān — aux pieds pareils-au-lotus de Śrī Rādhā-Kṛṣṇa; saha-gaṇa-lalitā-śrī-viśākhānvitāṁś — accompagnés de Śrī Lalitā, Śrī Viśākhā et de toutes Leurs compagnes; ca — et."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "oṁ ajñāna-timirāndhasya jñānāñjana-śalākayā\ncakṣur unmīlitaṁ yena tasmai śrī-gurave namaḥ",
+          "translation": "Je suis aveuglé par les ténèbres de l’ignorance, mais śrī guru, dans sa miséricorde, m’a ouvert les yeux en les oignant du baume de la connaissance divine. J’offre mon praṇāma à ce śrī gurudeva.",
+          "wbw": "oṁ — syllabe sacrée oṁ; ajñāna-timirāndhasya — de celui qui est aveuglé par les ténèbres de l’ignorance; jñānāñjana-śalākayā — avec le baume de la connaissance divine; cakṣur — les yeux; unmīlitaṁ — ouverts; yena — par lequel; tasmai — à ce; śrī-gurave — śrī gurudeva; namaḥ — praṇāma."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "nārāyaṇa-parāyaṇa jadāhaṅkāra-nāśana\nrūpānugāmṛta prema prayojanāya te namaḥ",
+          "translation": "Ô vous qui êtes toujours absorbé dans le service d’amour offert à votre maître spirituel, Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī ! Ô vous dont la miséricorde sans cause détruit entièrement l’ego matériel inerte ! Vous êtes la personnification du nectar immortel de l’amour divin pur (prema), dans la subordination à Śrīla Rūpa Gosvāmī, amour qui constitue le but suprême de l’existence (prayojana). Je Vous offre mon praṇāma, Śrī Prema Prayojana Prabhu.",
+          "wbw": "nārāyaṇa-parāyaṇa — toujours absorbé dans le service d’amour offert à votre maître spirituel; jadāhaṅkāra-nāśana — destructeur de l’ego matériel inerte; rūpānugāmṛta — nectar immortel dans la subordination à Śrīla Rūpa Gosvāmī; prema — amour divin pur; prayojanāya — but suprême de l’existence; te — à Vous; namaḥ — praṇāma."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "nama oṁ viṣṇu-pādāya rādhikāyaḥ-priyātmane\nśrī-śrīmad-bhaktivedānta-nārāyaṇa iti nāmine",
+          "translation": "J’offre mon praṇāma à oṁ viṣṇupāda Śrī Śrīmad Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja, qui est très cher à Śrīmatī Rādhikā.",
+          "wbw": "nama — praṇāma; oṁ — la syllabe sacrée oṁ; viṣṇu-pādāya — à celui qui se trouve aux pieds de Viṣṇu; rādhikāyaḥ-priyātmane — à celui qui est très cher à Śrīmatī Rādhikā; śrī-śrīmad-bhaktivedānta-nārāyaṇa — Śrī Śrīmad Bhaktivedānta Nārāyaṇa; iti — ainsi; nāmine — à celui qui porte ce nom."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "śrī-kṛṣṇa-līlā-kathane su-dakṣam\naudārya-mādhurya-guṇaiś ca yuktam\nvaraṁ vareṇyaṁ puruṣaṁ mahāntaṁ\nnārāyaṇaṁ tvāṁ śirasā namāmi",
+          "translation": "Ô Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja, vous êtes passé maître dans l’art de décrire kṛṣṇa-līlā et possédez pleinement les qualités de magnanimité et de douceur. Vous êtes la plus éminente de toutes les grandes âmes. Je m’incline devant vous.",
+          "wbw": "śrī-kṛṣṇa-līlā-kathane — dans la description de la līlā de Śrī Kṛṣṇa; su-dakṣam — passé maître; audārya-mādhurya-guṇaiś — des qualités de magnanimité et de douceur; ca — et; yuktam — pleinement doté; varaṁ — le meilleur; vareṇyaṁ — le plus digne d’adoration; puruṣaṁ — la personne; mahāntaṁ — éminente; nārāyaṇaṁ — Nārāyaṇa; tvāṁ — vous; śirasā — de la tête; namāmi — je m’incline."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "tridandīnām bhakta-śiromaṇiṁ ca\nśrī-kṛṣṇa-padābja-dhṛtaika-hṛdi\ncaitanya-līlāmṛta-sāra-sāraṁ\nnārāyaṇaṁ tvaṁ satataṁ prapadye",
+          "translation": "Śrīla Nārāyaṇa Gosvāmī, le joyau des tridaṇḍī-sannyāsīs, garde en son cœur les pieds pareils-au-lotus de Rādhā et Kṛṣṇa et éprouve une félicité suprême lorsque Kṛṣṇa sert Śrīmatī Rādhikā. Il est constamment absorbé dans la pensée de Śrī Caitanya Mahāprabhu et des raisons confidentielles de Son avènement divin. Avec une profonde révérence, j’offre mes hommages respectueux en me prosternant aux pieds pareils-au-lotus de Śrīla Nārāyaṇa Gosvāmī, doté d’innombrables qualités transcendantes.",
+          "wbw": "tridandīnām — des tridaṇḍī-sannyāsīs; bhakta-śiromaṇiṁ — le joyau des dévots; ca — et; śrī-kṛṣṇa-padābja-dhṛtaika-hṛdi — dans le cœur duquel sont gardés les pieds pareils-au-lotus de Rādhā et Kṛṣṇa; caitanya-līlāmṛta-sāra-sāraṁ — l’essence de l’essence des jeux pareils-au-nectar de Śrī Caitanya; nārāyaṇaṁ — Śrīla Nārāyaṇa Gosvāmī; tvaṁ — à toi; satataṁ — constamment; prapadye — j’offre mes hommages respectueux en me prosternant."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "nama oṁ viṣṇu-pādāya kṛṣṇa-preṣṭhāya bhūtale\nśrīmate bhaktivedānta-svāmin iti nāmine",
+          "translation": "J’offre mon praṇāma à oṁ viṣṇupāda Śrī Śrīmad Bhaktivedānta Svāmī Mahārāja (Śrīla Prabhupāda), qui, en ce monde, est très cher à Śrī Kṛṣṇa.",
+          "wbw": "nama — praṇāma; oṁ — la syllabe sacrée oṁ; viṣṇu-pādāya — à Viṣṇupāda; kṛṣṇa-preṣṭhāya — à celui qui est très cher à Śrī Kṛṣṇa; bhūtale — en ce monde; śrīmate — à l’illustre; bhaktivedānta-svāmin — Bhaktivedānta Svāmī; iti — ainsi; nāmine — à celui qui porte ce nom."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "namas te sārasvate deve gaura-vāṇī-pracāriṇe\nnirviśeṣa-śūnyavādi-pāścātya-deśa-tāriṇe",
+          "translation": "Je vous offre mes hommages respectueux, ô serviteur de Sarasvatī Gosvāmī. Vous prêchez le message de Śrī Gaurāṅga et délivrez ainsi les pays occidentaux, emplis de nihilisme et d’impersonnalisme.",
+          "wbw": "namas — hommages respectueux; te — à vous; sārasvate — ô serviteur de Sarasvatī Gosvāmī; deve — ô être divin; gaura-vāṇī-pracāriṇe — qui prêchez le message de Śrī Gaurāṅga; nirviśeṣa-śūnyavādi-pāścātya-deśa-tāriṇe — qui délivrez les pays occidentaux emplis de nihilisme et d’impersonnalisme."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "nama oṁ viṣṇu-pādāya ācārya-siṁha-rūpiṇe\nśrī-śrīmad-bhakti-prajñāna-keśava iti nāmine",
+          "translation": "J’offre mon praṇāma à l’ācārya semblable à un lion, oṁ viṣṇupāda Śrī Śrīmad Bhakti Prajñāna Keśava Gosvāmī Mahārāja.",
+          "wbw": "nama — j’offre mon praṇāma; oṁ — la syllabe sacrée oṁ; viṣṇu-pādāya — à oṁ viṣṇupāda; ācārya-siṁha-rūpiṇe — à l’ācārya semblable à un lion; śrī-śrīmad-bhakti-prajñāna-keśava — à Śrī Śrīmad Bhakti Prajñāna Keśava; iti — ainsi; nāmine — à celui qui porte ce nom."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "atimartya-caritrāya svāśritānāṁ ca pāline\njīva-duḥkhe sadārttāya śrī-nāma-prema-dāyine",
+          "translation": "Son caractère et ses activités transcendent les modes d’influence de la nature matérielle, et il protège et nourrit ceux qui prennent refuge en lui. Toujours affligé de voir souffrir les êtres vivants, il leur accorde l’amour pour śrī nāma.",
+          "wbw": "atimartya-caritrāya — dont le caractère et les activités transcendent les modes d’influence de la nature matérielle; svāśritānāṁ — ceux qui prennent refuge en lui; ca — et; pāline — le protecteur et le nourricier; jīva-duḥkhe — devant la souffrance des êtres vivants; sadārttāya — toujours affligé; śrī-nāma-prema-dāyine — celui qui accorde l’amour pour śrī nāma."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "gaurāśraya-vigrahāya kṛṣṇa-kāmaika-cāriṇe\nrūpānuga-pravarāya vinodeti-svarūpiṇe",
+          "translation": "Il est le refuge de l’amour pour Gaurāṅga, et chacune de ses actions n’a d’autre but que d’accomplir les désirs de Śrī Kṛṣṇa. Il est le meilleur des disciples de Śrīla Rūpa Gosvāmī, et son identité interne est celle de Vinoda Mañjarī.",
+          "wbw": "gaurāśraya-vigrahāya — à celui qui est le refuge de l’amour pour Gaurāṅga; kṛṣṇa-kāmaika-cāriṇe — à celui dont chaque action vise uniquement à accomplir les désirs de Śrī Kṛṣṇa; rūpānuga-pravarāya — au meilleur des disciples de Śrīla Rūpa Gosvāmī; vinodeti-svarūpiṇe — à celui dont l’identité interne est celle de Vinoda Mañjarī."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "prabhupādāntaraṅgāya sarva-sad-guṇa-śāline\nmāyāvada-tamo-ghnāya vedāntārtha-vāde namaḥ",
+          "translation": "Il est un compagnon intime de Śrīla Bhaktisiddhānta Sarasvatī Prabhupāda et possède toutes les qualités de bon augure. Il dissipe les ténèbres du māyāvada et révèle le véritable sens du Vedānta. Je lui offre mon praṇāma.",
+          "wbw": "prabhupādāntaraṅgāya — au compagnon intime de Śrīla Bhaktisiddhānta Sarasvatī Prabhupāda; sarva-sad-guṇa-śāline — doté de toutes les qualités de bon augure; māyāvada-tamo-ghnāya — à celui qui dissipe les ténèbres du māyāvada; vedāntārtha-vāde — à celui qui révèle le véritable sens du Vedānta; namaḥ — praṇāma."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "nama oṁ viṣṇu-pādāya kṛṣṇa-preṣṭhāya bhūtale\nśrīmate bhaktisiddhānta-sarasvatīti-nāmine",
+          "translation": "J’offre mon praṇāma à oṁ viṣṇupāda Śrī Śrīmad Bhaktisiddhānta Sarasvatī Gosvāmī Ṭhākura Prabhupāda, qui, en ce monde, est très cher à Kṛṣṇa.",
+          "wbw": "nama — praṇāma; oṁ — syllabe sacrée oṁ; viṣṇu-pādāya — à oṁ Viṣṇupāda; kṛṣṇa-preṣṭhāya — qui est très cher à Kṛṣṇa; bhūtale — en ce monde; śrīmate — au glorieux; bhaktisiddhānta-sarasvatīti-nāmine — nommé Bhaktisiddhānta Sarasvatī."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "śrī-vārṣabhānavī-devī-dayitāya kṛpābdhaye\nkṛṣṇa-sambandha-vijñāna-dāyine prabhave namaḥ",
+          "translation": "J’offre mon praṇāma à Śrī Vārṣabhānavī-dayita dāsa, la manifestation d’un océan de miséricorde, qui nous accorde la réalisation de notre relation éternelle avec Śrī Kṛṣṇa.",
+          "wbw": "śrī-vārṣabhānavī-devī-dayitāya — à Śrī Vārṣabhānavī-devī-dayita dāsa; kṛpābdhaye — la manifestation d’un océan de miséricorde; kṛṣṇa-sambandha-vijñāna-dāyine — qui nous accorde la réalisation de notre relation éternelle avec Śrī Kṛṣṇa; prabhave — au maître; namaḥ — praṇāma."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "mādhuryojjvala-premāḍhya-śrī-rūpānuga-bhakti-da\nśrī-gaura-karuṇā-śakti-vigrahāya namo 'stu te",
+          "translation": "Ô Śrīla Sarasvatī Ṭhākura, vous transmettez śrī rūpānuga-bhakti, enrichie d’ujjvala-mādhurya-prema. Vous êtes la personnification de la puissance de miséricorde de Śrī Gaurāṅga. Je vous offre mon praṇāma.",
+          "wbw": "mādhuryojjvala-premāḍhya-śrī-rūpānuga-bhakti-da — à vous qui transmettez la śrī rūpānuga-bhakti, enrichie d’ujjvala-mādhurya-prema; śrī-gaura-karuṇā-śakti-vigrahāya — à la personnification de la puissance de miséricorde de Śrī Gaurāṅga; namo — praṇāma; 'stu — soit; te — à vous."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "namas te gaura-vāṇī-śrī-mūrtaye dīna-tāriṇe\nrūpānuga-viruddhāpasiddhānta-dhvānta-hāriṇe",
+          "translation": "Je vous offre mes hommages respectueux, à vous qui personnifiez le message de Śrī Gaurāṅga. Vous délivrez les âmes déchues et dissipez les ténèbres des conceptions philosophiques erronées, contraires aux préceptes enseignés par Śrīla Rūpa Gosvāmī.",
+          "wbw": "namas — hommages respectueux; te — à vous; gaura-vāṇī-śrī-mūrtaye — qui personnifiez le message de Śrī Gaurāṅga; dīna-tāriṇe — qui délivrez les âmes déchues; rūpānuga-viruddhāpasiddhānta-dhvānta-hāriṇe — qui dissipez les ténèbres des conceptions philosophiques erronées, contraires aux préceptes enseignés par Śrīla Rūpa Gosvāmī."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "namo gaura-kiśorāya sākṣād-vairāgya-mūrtaye\nvipralambha-rasāmbhodhe! pādāmbujāya te namaḥ",
+          "translation": "J’offre mon praṇāma à Śrī Gaura-kiśora dāsa Bābājī Mahārāja, qui est la personnification même du renoncement. Ô vous qui êtes un océan de vipralambha-rasa, j’offre mon praṇāma à vos pieds pareils-au-lotus.",
+          "wbw": "namo — praṇāma; gaura-kiśorāya — à Śrī Gaura-kiśora; sākṣād-vairāgya-mūrtaye — à la personnification même du renoncement; vipralambha-rasāmbhodhe — ô océan de vipralambha-rasa; pādāmbujāya — aux pieds pareils-au-lotus; te — vos; namaḥ — praṇāma."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "namo bhaktivinodāya sac-cid-ānanda-nāmine\ngaura-śakti-svarūpāya rūpānuga-varāya te",
+          "translation": "Je vous offre mon praṇāma, Śrīla Saccidānanda Bhaktivinoda Ṭhākura, le plus éminent des rūpānugas et la manifestation personnelle de la śakti de Śrī Gaurāṅga [Gadādhara Paṇḍita].",
+          "wbw": "namo — praṇāma, je vous offre; bhaktivinodāya — à Bhaktivinoda; sac-cid-ānanda-nāmine — nommé Saccidānanda; gaura-śakti-svarūpāya — la manifestation personnelle de la śakti de Śrī Gaurāṅga; rūpānuga-varāya — le plus éminent des rūpānugas; te — à vous."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "gaurāvirbhāva-bhūmes tvaṁ nirdeṣṭā sajjana-priyaḥ\nvaiṣṇava-sārvabhauma śrī-jagannāthāya te namaḥ",
+          "translation": "Vous avez indiqué le lieu de l’apparition de Śrī Gaurāṅga et êtes très cher aux personnes saintes. Ô Śrīla Jagannātha dāsa Bābājī Mahārāja, guide des Vaiṣṇavas, je vous offre mon praṇāma.",
+          "wbw": "gaurāvirbhāva-bhūmes — le lieu de l’apparition de Śrī Gaurāṅga; tvaṁ — vous; nirdeṣṭā — avez indiqué; sajjana-priyaḥ — très cher aux personnes saintes; vaiṣṇava-sārvabhauma — guide des Vaiṣṇavas; śrī-jagannāthāya — à Śrīla Jagannātha dāsa Bābājī Mahārāja; te — à vous; namaḥ — praṇāma."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "vāñchā-kalpa-tarubhyaś ca kṛpā-sindhubhya eva ca\npatitānāṁ pāvanebhyo vaiṣṇavebhyo namo namaḥ",
+          "translation": "J’offre encore et encore mon praṇāma aux Vaiṣṇavas, qui sauvent les déchus, sont tels des arbres-à-souhaits exauçant tous les désirs et sont des océans de miséricorde.",
+          "wbw": "vāñchā-kalpa-tarubhyaś — à ceux qui sont tels des arbres-à-souhaits exauçant tous les désirs; ca — et; kṛpā-sindhubhya — aux océans de miséricorde; eva — certes; ca — et; patitānāṁ — des déchus; pāvanebhyo — aux sauveurs; vaiṣṇavebhyo — aux Vaiṣṇavas; namo — hommage; namaḥ — praṇāma."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "namo mahā-vadānyāya kṛṣṇa-prema-pradāya te\nkṛṣṇāya kṛṣṇa-caitanya-nāmne gaura-tviṣe namaḥ",
+          "translation": "J’offre mon praṇāma à ce Seigneur d’une munificence infinie, qui confère kṛṣṇa-prema. Il est Kṛṣṇa Lui-même, qui a pris un teint doré et adopté le nom de Śrī Kṛṣṇa Caitanya.",
+          "wbw": "namo — praṇāma; mahā-vadānyāya — à ce Seigneur d’une munificence infinie; kṛṣṇa-prema-pradāya — qui confère kṛṣṇa-prema; te — à Toi; kṛṣṇāya — à Kṛṣṇa Lui-même; kṛṣṇa-caitanya-nāmne — qui a adopté le nom de Śrī Kṛṣṇa Caitanya; gaura-tviṣe — qui a pris un teint doré; namaḥ — praṇāma."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "he kṛṣṇa karuṇā-sindho dīna-bandho jagat-pate\ngopeśa gopikā-kānta rādhā-kānta namo 'stu te",
+          "translation": "Ô Śrī Kṛṣṇa, Vous êtes un océan de miséricorde, l’ami des déchus, le Seigneur de l’univers, le maître des pâtres, le bien-aimé des gopīs et [par-dessus tout] le bien-aimé de Śrī Rādhā. Je Vous offre mon praṇāma.",
+          "wbw": "he — ô; kṛṣṇa — Śrī Kṛṣṇa; karuṇā-sindho — océan de miséricorde; dīna-bandho — ami des déchus; jagat-pate — Seigneur de l’univers; gopeśa — maître des pâtres; gopikā-kānta — bien-aimé des gopīs; rādhā-kānta — bien-aimé de Śrī Rādhā; namo — praṇāma; 'stu — qu’il soit; te — à Vous."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "tapta-kāñcana-gaurāṅgi rādhe vṛndāvaneśvari\nvṛṣabhānu-sute devi praṇamāmi hari-priye",
+          "translation": "Ô Śrī Rādhā, ô Gaurāṅgi, Vous dont le teint est semblable à de l’or en fusion, Vous êtes la reine de Vṛndāvana, la fille de Vṛṣabhānu et la déesse divine très chère à Śrī Hari. Je Vous offre mon praṇāma.",
+          "wbw": "tapta-kāñcana-gaurāṅgi — ô Gaurāṅgi, Vous dont le teint est semblable à de l’or en fusion; rādhe — ô Śrī Rādhā; vṛndāvaneśvari — ô reine de Vṛndāvana; vṛṣabhānu-sute — ô fille de Vṛṣabhānu; devi — ô déesse divine; praṇamāmi — je Vous offre mon praṇāma; hari-priye — ô Vous qui êtes très chère à Śrī Hari."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "jayatāṁ su-ratau paṅgor mama manda-mater gatī\nmat-sarvasva padāmbhojau rādhā-madana-mohanau",
+          "translation": "Toutes gloires au suprêmement miséricordieux Śrī Rādhā-Madana-mohana ! Bien que je sois infirme et insensé, Ils sont mon unique refuge. Leurs pieds pareils-au-lotus sont tout pour moi.",
+          "wbw": "jayatāṁ — toutes gloires à; su-ratau — ceux qui sont suprêmement miséricordieux; paṅgor — de l’infirme; mama — mon; manda-mater — de l’insensé; gatī — refuge; mat-sarvasva — tout pour moi; padāmbhojau — pieds pareils-au-lotus; rādhā-madana-mohanau — Śrī Rādhā-Madana-mohana."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "dīvyad-vṛndāraṇya-kalpa-drumādhaḥ\nśrīmad-ratnāgāra-siṁhāsana-sthau\nśrīmad-rādhā-śrīla-govinda-devau\npreṣṭhālībhiḥ sevyamānau smarāmi",
+          "translation": "Dans la radieuse contrée de Śrī Vṛndāvana, au sein d’un temple fait de joyaux, Śrī Rādhā-Govinda sont assis sur un trône resplendissant, sous un arbre kalpa-vṛkṣa, et acceptent le service de Leurs sakhīs bien-aimées. Je médite sur Eux.",
+          "wbw": "dīvyad-vṛndāraṇya-kalpa-drumādhaḥ — sous un arbre kalpa-vṛkṣa dans le radieux Śrī Vṛndāvana; śrīmad-ratnāgāra-siṁhāsana-sthau — assis sur un trône resplendissant dans un temple fait de joyaux; śrīmad-rādhā-śrīla-govinda-devau — Śrī Rādhā et Śrīla Govinda-deva; preṣṭhālībhiḥ — par Leurs sakhīs bien-aimées; sevyamānau — étant servis; smarāmi — je médite sur."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "śrīmān rāsa-rasārambhī vaṁśīvaṭa-taṭa-sthitaḥ\nkarṣan veṇu-svanair gopīr gopīnāthaḥ śriye 'stu naḥ",
+          "translation": "Se tenant sur la rive du fleuve, à Vaṁśīvaṭa, Śrī Gopīnātha, qui inaugura la saveur transcendante de la danse rāsa, attire toutes les gopīs par le son de Sa flûte veṇu. Puisse-t-Il nous accorder toute heureuse fortune.",
+          "wbw": "śrīmān — le glorieux Śrī; rāsa-rasārambhī — Celui qui inaugura la saveur transcendante de la danse rāsa; vaṁśīvaṭa-taṭa-sthitaḥ — Se tenant sur la rive du fleuve à Vaṁśīvaṭa; karṣan — attirant; veṇu-svanair — par le son de Sa flûte veṇu; gopīr — toutes les gopīs; gopīnāthaḥ — Śrī Gopīnātha, Seigneur des gopīs; śriye — toute heureuse fortune; 'stu — puisse-t-Il accorder; naḥ — à nous."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "vṛndāyai tulasī-devyai priyāyai keśavasya ca\nkṛṣṇa-bhakti-prade devi! satyavatyai namo namaḥ",
+          "translation": "J’offre encore et encore mon praṇāma à Śrīmatī Tulasī-devī, qui est très chère à Śrī Keśava et également connue sous les noms de Vṛndā-devī et Satyavatī. Ô Devī, vous conférez kṛṣṇa-bhakti.",
+          "wbw": "vṛndāyai — à Vṛndā-devī; tulasī-devyai — à Śrīmatī Tulasī-devī; priyāyai — qui est très chère; keśavasya — à Śrī Keśava; ca — et; kṛṣṇa-bhakti-prade — qui confère la kṛṣṇa-bhakti; devi — ô Devī; satyavatyai — à Satyavatī; namo — praṇāma; namaḥ — encore et encore."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "pañca-tattvātmakaṁ kṛṣṇaṁ bhakta-rūpa-svarūpakam\nbhaktāvatāraṁ bhaktākhyaṁ namāmi bhakta-śaktikam",
+          "translation": "J’offre mon praṇāma à Śrī Kṛṣṇa Caitanya Mahāprabhu sous Ses cinq aspects de bhakta-rūpa (Mahāprabhu), bhakta-svarūpa (Nityānanda Prabhu), bhakta-avatāra (Advaita Ācārya), bhakta (Śrīvāsa Ṭhākura) et bhakta-śakti (Gadādhara Paṇḍita).",
+          "wbw": "pañca-tattvātmakaṁ — manifesté sous cinq aspects; kṛṣṇaṁ — Śrī Kṛṣṇa Caitanya Mahāprabhu; bhakta-rūpa-svarūpakam — en tant que bhakta-rūpa et bhakta-svarūpa; bhaktāvatāraṁ — en tant que bhakta-avatāra; bhaktākhyaṁ — connu comme bhakta; namāmi — j’offre mon praṇāma; bhakta-śaktikam — en tant que bhakta-śakti."
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "śrī-kṛṣṇa-caitanya prabhu-nityānanda\nśrī-advaita gadādhara śrīvāsādi-gaura-bhakta-vṛnda",
+          "translation": ""
+        },
+        {
+          "type": "ornament"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "hare kṛṣṇa hare kṛṣṇa kṛṣṇa kṛṣṇa hare hare\nhare rāma hare rāma rāma rāma hare hare",
+          "translation": ""
+        }
+      ],
+      "subsections": []
+    },
+    {
       "id": "introduction",
       "title": "Introduction",
       "subtitle": null,
@@ -53,314 +300,6 @@
         }
       ],
       "subsections": []
-    },
-    {
-      "id": "mangalacarana",
-      "title": "Maṅgalācaraṇa",
-      "subtitle": null,
-      "page": "IV",
-      "content": [
-        {
-          "type": "verse",
-          "sanskrit": "vande 'haṁ śrī-guroḥ śrī-yuta-pada-kamalaṁ śrī-gurūn vaiṣṇavāṁś ca\nśrī-rūpaṁ sāgrajātaṁ saha-gaṇa-raghunāthānvitaṁ taṁ sa-jīvam\nsādvaitaṁ sāvadhūtaṁ parijana-sahitaṁ kṛṣṇa-caitanya-devaṁ\nśrī-rādhā-kṛṣṇa-pādān saha-gaṇa-lalitā-śrī-viśākhānvitāṁś ca",
-          "translation": "J’offre mon praṇāma aux pieds pareils-au-lotus de mes gurus [śikṣā et dīkṣā], à tout mon guru-varga et à tous les Vaiṣṇavas, à Śrīla Rūpa Gosvāmī, à son frère aîné Śrīla Sanātana Gosvāmī, à Śrīla Raghunātha dāsa Gosvāmī, à Śrīla Jīva Gosvāmī et à tous leurs compagnons, à Śrī Advaita Ācārya, à l’avadhūta Nityānanda Prabhu, à Śrī Kṛṣṇa Caitanya Mahāprabhu et à tous Leurs compagnons, ainsi qu’aux pieds pareils-au-lotus de Śrī Rādhā-Kṛṣṇa et à Leurs compagnes, Śrī Lalitā, Śrī Viśākhā et toutes les autres sakhīs.",
-          "wbw": "vande — j’offre mon praṇāma; 'haṁ — moi; śrī-guroḥ — de mon guru vénéré; śrī-yuta-pada-kamalaṁ — aux magnifiques pieds pareils-au-lotus; śrī-gurūn — aux gurus vénérés; vaiṣṇavāṁś — aux Vaiṣṇavas; ca — et; śrī-rūpaṁ — à Śrīla Rūpa Gosvāmī; sāgrajātaṁ — avec son frère aîné; saha-gaṇa-raghunāthānvitaṁ — accompagné de Raghunātha et de leurs compagnons; taṁ — à lui; sa-jīvam — avec Jīva Gosvāmī; sādvaitaṁ — avec Advaita Ācārya; sāvadhūtaṁ — avec l’avadhūta Nityānanda Prabhu; parijana-sahitaṁ — accompagné de Leurs compagnons; kṛṣṇa-caitanya-devaṁ — à Śrī Kṛṣṇa Caitanya Mahāprabhu; śrī-rādhā-kṛṣṇa-pādān — aux pieds pareils-au-lotus de Śrī Rādhā-Kṛṣṇa; saha-gaṇa-lalitā-śrī-viśākhānvitāṁś — accompagnés de Śrī Lalitā, Śrī Viśākhā et de toutes Leurs compagnes; ca — et."
-        }
-      ],
-      "subsections": [
-        {
-          "id": "glorification-sri-guru",
-          "title": "Prière à Śrī Guru",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "oṁ ajñāna-timirāndhasya jñānāñjana-śalākayā\ncakṣur unmīlitaṁ yena tasmai śrī-gurave namaḥ",
-              "translation": "Je suis aveuglé par les ténèbres de l’ignorance, mais śrī guru, dans sa miséricorde, m’a ouvert les yeux en les oignant du baume de la connaissance divine. J’offre mon praṇāma à ce śrī gurudeva.",
-              "wbw": "oṁ — syllabe sacrée oṁ; ajñāna-timirāndhasya — de celui qui est aveuglé par les ténèbres de l’ignorance; jñānāñjana-śalākayā — avec le baume de la connaissance divine; cakṣur — les yeux; unmīlitaṁ — ouverts; yena — par lequel; tasmai — à ce; śrī-gurave — śrī gurudeva; namaḥ — praṇāma."
-            }
-          ]
-        },
-        {
-          "id": "prayers-prem-prayojana-prabhu",
-          "title": "Prières à Śrī Prema Prayojana Prabhu",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "nārāyaṇa-parāyaṇa jadāhaṅkāra-nāśana\nrūpānugāmṛta prema prayojanāya te namaḥ",
-              "translation": "Ô vous qui êtes toujours absorbé dans le service d’amour offert à votre maître spirituel, Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī ! Ô vous dont la miséricorde sans cause détruit entièrement l’ego matériel inerte ! Vous êtes la personnification du nectar immortel de l’amour divin pur (prema), dans la subordination à Śrīla Rūpa Gosvāmī, amour qui constitue le but suprême de l’existence (prayojana). Je Vous offre mon praṇāma, Śrī Prema Prayojana Prabhu.",
-              "wbw": "nārāyaṇa-parāyaṇa — toujours absorbé dans le service d’amour offert à votre maître spirituel; jadāhaṅkāra-nāśana — destructeur de l’ego matériel inerte; rūpānugāmṛta — nectar immortel dans la subordination à Śrīla Rūpa Gosvāmī; prema — amour divin pur; prayojanāya — but suprême de l’existence; te — à Vous; namaḥ — praṇāma."
-            }
-          ]
-        },
-        {
-          "id": "prayers-narayana-gosvami-maharaja",
-          "title": "Prières à Śrī Śrīmad Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "nama oṁ viṣṇu-pādāya rādhikāyaḥ-priyātmane\nśrī-śrīmad-bhaktivedānta-nārāyaṇa iti nāmine",
-              "translation": "J’offre mon praṇāma à oṁ viṣṇupāda Śrī Śrīmad Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja, qui est très cher à Śrīmatī Rādhikā.",
-              "wbw": "nama — praṇāma; oṁ — la syllabe sacrée oṁ; viṣṇu-pādāya — à celui qui se trouve aux pieds de Viṣṇu; rādhikāyaḥ-priyātmane — à celui qui est très cher à Śrīmatī Rādhikā; śrī-śrīmad-bhaktivedānta-nārāyaṇa — Śrī Śrīmad Bhaktivedānta Nārāyaṇa; iti — ainsi; nāmine — à celui qui porte ce nom."
-            },
-            {
-              "type": "verse",
-              "sanskrit": "śrī-kṛṣṇa-līlā-kathane su-dakṣam\naudārya-mādhurya-guṇaiś ca yuktam\nvaraṁ vareṇyaṁ puruṣaṁ mahāntaṁ\nnārāyaṇaṁ tvāṁ śirasā namāmi",
-              "translation": "Ô Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja, vous êtes passé maître dans l’art de décrire kṛṣṇa-līlā et possédez pleinement les qualités de magnanimité et de douceur. Vous êtes la plus éminente de toutes les grandes âmes. Je m’incline devant vous.",
-              "wbw": "śrī-kṛṣṇa-līlā-kathane — dans la description de la līlā de Śrī Kṛṣṇa; su-dakṣam — passé maître; audārya-mādhurya-guṇaiś — des qualités de magnanimité et de douceur; ca — et; yuktam — pleinement doté; varaṁ — le meilleur; vareṇyaṁ — le plus digne d’adoration; puruṣaṁ — la personne; mahāntaṁ — éminente; nārāyaṇaṁ — Nārāyaṇa; tvāṁ — vous; śirasā — de la tête; namāmi — je m’incline."
-            },
-            {
-              "type": "verse",
-              "sanskrit": "tridandīnām bhakta-śiromaṇiṁ ca\nśrī-kṛṣṇa-padābja-dhṛtaika-hṛdi\ncaitanya-līlāmṛta-sāra-sāraṁ\nnārāyaṇaṁ tvaṁ satataṁ prapadye",
-              "translation": "Śrīla Nārāyaṇa Gosvāmī, le joyau des tridaṇḍī-sannyāsīs, garde en son cœur les pieds pareils-au-lotus de Rādhā et Kṛṣṇa et éprouve une félicité suprême lorsque Kṛṣṇa sert Śrīmatī Rādhikā. Il est constamment absorbé dans la pensée de Śrī Caitanya Mahāprabhu et des raisons confidentielles de Son avènement divin. Avec une profonde révérence, j’offre mes hommages respectueux en me prosternant aux pieds pareils-au-lotus de Śrīla Nārāyaṇa Gosvāmī, doté d’innombrables qualités transcendantes.",
-              "wbw": "tridandīnām — des tridaṇḍī-sannyāsīs; bhakta-śiromaṇiṁ — le joyau des dévots; ca — et; śrī-kṛṣṇa-padābja-dhṛtaika-hṛdi — dans le cœur duquel sont gardés les pieds pareils-au-lotus de Rādhā et Kṛṣṇa; caitanya-līlāmṛta-sāra-sāraṁ — l’essence de l’essence des jeux pareils-au-nectar de Śrī Caitanya; nārāyaṇaṁ — Śrīla Nārāyaṇa Gosvāmī; tvaṁ — à toi; satataṁ — constamment; prapadye — j’offre mes hommages respectueux en me prosternant."
-            }
-          ]
-        },
-        {
-          "id": "prayers-svami-maharaja",
-          "title": "Prières à Śrī Śrīmad Bhaktivedānta Svāmī Mahārāja",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "nama oṁ viṣṇu-pādāya kṛṣṇa-preṣṭhāya bhūtale\nśrīmate bhaktivedānta-svāmin iti nāmine",
-              "translation": "J’offre mon praṇāma à oṁ viṣṇupāda Śrī Śrīmad Bhaktivedānta Svāmī Mahārāja (Śrīla Prabhupāda), qui, en ce monde, est très cher à Śrī Kṛṣṇa.",
-              "wbw": "nama — praṇāma; oṁ — la syllabe sacrée oṁ; viṣṇu-pādāya — à Viṣṇupāda; kṛṣṇa-preṣṭhāya — à celui qui est très cher à Śrī Kṛṣṇa; bhūtale — en ce monde; śrīmate — à l’illustre; bhaktivedānta-svāmin — Bhaktivedānta Svāmī; iti — ainsi; nāmine — à celui qui porte ce nom."
-            },
-            {
-              "type": "verse",
-              "sanskrit": "namas te sārasvate deve gaura-vāṇī-pracāriṇe\nnirviśeṣa-śūnyavādi-pāścātya-deśa-tāriṇe",
-              "translation": "Je vous offre mes hommages respectueux, ô serviteur de Sarasvatī Gosvāmī. Vous prêchez le message de Śrī Gaurāṅga et délivrez ainsi les pays occidentaux, emplis de nihilisme et d’impersonnalisme.",
-              "wbw": "namas — hommages respectueux; te — à vous; sārasvate — ô serviteur de Sarasvatī Gosvāmī; deve — ô être divin; gaura-vāṇī-pracāriṇe — qui prêchez le message de Śrī Gaurāṅga; nirviśeṣa-śūnyavādi-pāścātya-deśa-tāriṇe — qui délivrez les pays occidentaux emplis de nihilisme et d’impersonnalisme."
-            }
-          ]
-        },
-        {
-          "id": "prayers-kesava-gosvami-maharaja",
-          "title": "Prières à Śrī Śrīmad Bhakti Prajñāna Keśava Gosvāmī Mahārāja",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "nama oṁ viṣṇu-pādāya ācārya-siṁha-rūpiṇe\nśrī-śrīmad-bhakti-prajñāna-keśava iti nāmine",
-              "translation": "J’offre mon praṇāma à l’ācārya semblable à un lion, oṁ viṣṇupāda Śrī Śrīmad Bhakti Prajñāna Keśava Gosvāmī Mahārāja.",
-              "wbw": "nama — j’offre mon praṇāma; oṁ — la syllabe sacrée oṁ; viṣṇu-pādāya — à oṁ viṣṇupāda; ācārya-siṁha-rūpiṇe — à l’ācārya semblable à un lion; śrī-śrīmad-bhakti-prajñāna-keśava — à Śrī Śrīmad Bhakti Prajñāna Keśava; iti — ainsi; nāmine — à celui qui porte ce nom."
-            },
-            {
-              "type": "verse",
-              "sanskrit": "atimartya-caritrāya svāśritānāṁ ca pāline\njīva-duḥkhe sadārttāya śrī-nāma-prema-dāyine",
-              "translation": "Son caractère et ses activités transcendent les modes d’influence de la nature matérielle, et il protège et nourrit ceux qui prennent refuge en lui. Toujours affligé de voir souffrir les êtres vivants, il leur accorde l’amour pour śrī nāma.",
-              "wbw": "atimartya-caritrāya — dont le caractère et les activités transcendent les modes d’influence de la nature matérielle; svāśritānāṁ — ceux qui prennent refuge en lui; ca — et; pāline — le protecteur et le nourricier; jīva-duḥkhe — devant la souffrance des êtres vivants; sadārttāya — toujours affligé; śrī-nāma-prema-dāyine — celui qui accorde l’amour pour śrī nāma."
-            },
-            {
-              "type": "verse",
-              "sanskrit": "gaurāśraya-vigrahāya kṛṣṇa-kāmaika-cāriṇe\nrūpānuga-pravarāya vinodeti-svarūpiṇe",
-              "translation": "Il est le refuge de l’amour pour Gaurāṅga, et chacune de ses actions n’a d’autre but que d’accomplir les désirs de Śrī Kṛṣṇa. Il est le meilleur des disciples de Śrīla Rūpa Gosvāmī, et son identité interne est celle de Vinoda Mañjarī.",
-              "wbw": "gaurāśraya-vigrahāya — à celui qui est le refuge de l’amour pour Gaurāṅga; kṛṣṇa-kāmaika-cāriṇe — à celui dont chaque action vise uniquement à accomplir les désirs de Śrī Kṛṣṇa; rūpānuga-pravarāya — au meilleur des disciples de Śrīla Rūpa Gosvāmī; vinodeti-svarūpiṇe — à celui dont l’identité interne est celle de Vinoda Mañjarī."
-            },
-            {
-              "type": "verse",
-              "sanskrit": "prabhupādāntaraṅgāya sarva-sad-guṇa-śāline\nmāyāvada-tamo-ghnāya vedāntārtha-vāde namaḥ",
-              "translation": "Il est un compagnon intime de Śrīla Bhaktisiddhānta Sarasvatī Prabhupāda et possède toutes les qualités de bon augure. Il dissipe les ténèbres du māyāvada et révèle le véritable sens du Vedānta. Je lui offre mon praṇāma.",
-              "wbw": "prabhupādāntaraṅgāya — au compagnon intime de Śrīla Bhaktisiddhānta Sarasvatī Prabhupāda; sarva-sad-guṇa-śāline — doté de toutes les qualités de bon augure; māyāvada-tamo-ghnāya — à celui qui dissipe les ténèbres du māyāvada; vedāntārtha-vāde — à celui qui révèle le véritable sens du Vedānta; namaḥ — praṇāma."
-            }
-          ]
-        },
-        {
-          "id": "prayers-bhaktisiddhanta-sarasvati",
-          "title": "Prières à Śrī Śrīmad Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "nama oṁ viṣṇu-pādāya kṛṣṇa-preṣṭhāya bhūtale\nśrīmate bhaktisiddhānta-sarasvatīti-nāmine",
-              "translation": "J’offre mon praṇāma à oṁ viṣṇupāda Śrī Śrīmad Bhaktisiddhānta Sarasvatī Gosvāmī Ṭhākura Prabhupāda, qui, en ce monde, est très cher à Kṛṣṇa.",
-              "wbw": "nama — praṇāma; oṁ — syllabe sacrée oṁ; viṣṇu-pādāya — à oṁ Viṣṇupāda; kṛṣṇa-preṣṭhāya — qui est très cher à Kṛṣṇa; bhūtale — en ce monde; śrīmate — au glorieux; bhaktisiddhānta-sarasvatīti-nāmine — nommé Bhaktisiddhānta Sarasvatī."
-            },
-            {
-              "type": "verse",
-              "sanskrit": "śrī-vārṣabhānavī-devī-dayitāya kṛpābdhaye\nkṛṣṇa-sambandha-vijñāna-dāyine prabhave namaḥ",
-              "translation": "J’offre mon praṇāma à Śrī Vārṣabhānavī-dayita dāsa, la manifestation d’un océan de miséricorde, qui nous accorde la réalisation de notre relation éternelle avec Śrī Kṛṣṇa.",
-              "wbw": "śrī-vārṣabhānavī-devī-dayitāya — à Śrī Vārṣabhānavī-devī-dayita dāsa; kṛpābdhaye — la manifestation d’un océan de miséricorde; kṛṣṇa-sambandha-vijñāna-dāyine — qui nous accorde la réalisation de notre relation éternelle avec Śrī Kṛṣṇa; prabhave — au maître; namaḥ — praṇāma."
-            },
-            {
-              "type": "verse",
-              "sanskrit": "mādhuryojjvala-premāḍhya-śrī-rūpānuga-bhakti-da\nśrī-gaura-karuṇā-śakti-vigrahāya namo 'stu te",
-              "translation": "Ô Śrīla Sarasvatī Ṭhākura, vous transmettez śrī rūpānuga-bhakti, enrichie d’ujjvala-mādhurya-prema. Vous êtes la personnification de la puissance de miséricorde de Śrī Gaurāṅga. Je vous offre mon praṇāma.",
-              "wbw": "mādhuryojjvala-premāḍhya-śrī-rūpānuga-bhakti-da — à vous qui transmettez la śrī rūpānuga-bhakti, enrichie d’ujjvala-mādhurya-prema; śrī-gaura-karuṇā-śakti-vigrahāya — à la personnification de la puissance de miséricorde de Śrī Gaurāṅga; namo — praṇāma; 'stu — soit; te — à vous."
-            },
-            {
-              "type": "verse",
-              "sanskrit": "namas te gaura-vāṇī-śrī-mūrtaye dīna-tāriṇe\nrūpānuga-viruddhāpasiddhānta-dhvānta-hāriṇe",
-              "translation": "Je vous offre mes hommages respectueux, à vous qui personnifiez le message de Śrī Gaurāṅga. Vous délivrez les âmes déchues et dissipez les ténèbres des conceptions philosophiques erronées, contraires aux préceptes enseignés par Śrīla Rūpa Gosvāmī.",
-              "wbw": "namas — hommages respectueux; te — à vous; gaura-vāṇī-śrī-mūrtaye — qui personnifiez le message de Śrī Gaurāṅga; dīna-tāriṇe — qui délivrez les âmes déchues; rūpānuga-viruddhāpasiddhānta-dhvānta-hāriṇe — qui dissipez les ténèbres des conceptions philosophiques erronées, contraires aux préceptes enseignés par Śrīla Rūpa Gosvāmī."
-            }
-          ]
-        },
-        {
-          "id": "prayer-gaura-kisora-dasa-babaji",
-          "title": "Prière à Śrīla Gaura-kiśora dāsa Bābājī Mahārāja",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "namo gaura-kiśorāya sākṣād-vairāgya-mūrtaye\nvipralambha-rasāmbhodhe! pādāmbujāya te namaḥ",
-              "translation": "J’offre mon praṇāma à Śrī Gaura-kiśora dāsa Bābājī Mahārāja, qui est la personnification même du renoncement. Ô vous qui êtes un océan de vipralambha-rasa, j’offre mon praṇāma à vos pieds pareils-au-lotus.",
-              "wbw": "namo — praṇāma; gaura-kiśorāya — à Śrī Gaura-kiśora; sākṣād-vairāgya-mūrtaye — à la personnification même du renoncement; vipralambha-rasāmbhodhe — ô océan de vipralambha-rasa; pādāmbujāya — aux pieds pareils-au-lotus; te — vos; namaḥ — praṇāma."
-            }
-          ]
-        },
-        {
-          "id": "prayer-bhaktivinoda-thakura",
-          "title": "Prière à Śrīla Bhaktivinoda Ṭhākura",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "namo bhaktivinodāya sac-cid-ānanda-nāmine\ngaura-śakti-svarūpāya rūpānuga-varāya te",
-              "translation": "Je vous offre mon praṇāma, Śrīla Saccidānanda Bhaktivinoda Ṭhākura, le plus éminent des rūpānugas et la manifestation personnelle de la śakti de Śrī Gaurāṅga [Gadādhara Paṇḍita].",
-              "wbw": "namo — praṇāma, je vous offre; bhaktivinodāya — à Bhaktivinoda; sac-cid-ānanda-nāmine — nommé Saccidānanda; gaura-śakti-svarūpāya — la manifestation personnelle de la śakti de Śrī Gaurāṅga; rūpānuga-varāya — le plus éminent des rūpānugas; te — à vous."
-            }
-          ]
-        },
-        {
-          "id": "prayer-jagannatha-dasa-babaji",
-          "title": "Prière à Śrīla Jagannātha dāsa Bābājī Mahārāja",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "gaurāvirbhāva-bhūmes tvaṁ nirdeṣṭā sajjana-priyaḥ\nvaiṣṇava-sārvabhauma śrī-jagannāthāya te namaḥ",
-              "translation": "Vous avez indiqué le lieu de l’apparition de Śrī Gaurāṅga et êtes très cher aux personnes saintes. Ô Śrīla Jagannātha dāsa Bābājī Mahārāja, guide des Vaiṣṇavas, je vous offre mon praṇāma.",
-              "wbw": "gaurāvirbhāva-bhūmes — le lieu de l’apparition de Śrī Gaurāṅga; tvaṁ — vous; nirdeṣṭā — avez indiqué; sajjana-priyaḥ — très cher aux personnes saintes; vaiṣṇava-sārvabhauma — guide des Vaiṣṇavas; śrī-jagannāthāya — à Śrīla Jagannātha dāsa Bābājī Mahārāja; te — à vous; namaḥ — praṇāma."
-            }
-          ]
-        },
-        {
-          "id": "prayer-vaisnavas",
-          "title": "Prière aux Vaiṣṇavas",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "vāñchā-kalpa-tarubhyaś ca kṛpā-sindhubhya eva ca\npatitānāṁ pāvanebhyo vaiṣṇavebhyo namo namaḥ",
-              "translation": "J’offre encore et encore mon praṇāma aux Vaiṣṇavas, qui sauvent les déchus, sont tels des arbres-à-souhaits exauçant tous les désirs et sont des océans de miséricorde.",
-              "wbw": "vāñchā-kalpa-tarubhyaś — à ceux qui sont tels des arbres-à-souhaits exauçant tous les désirs; ca — et; kṛpā-sindhubhya — aux océans de miséricorde; eva — certes; ca — et; patitānāṁ — des déchus; pāvanebhyo — aux sauveurs; vaiṣṇavebhyo — aux Vaiṣṇavas; namo — hommage; namaḥ — praṇāma."
-            }
-          ]
-        },
-        {
-          "id": "prayer-gauranga",
-          "title": "Prière à Śrī Gaurāṅga",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "namo mahā-vadānyāya kṛṣṇa-prema-pradāya te\nkṛṣṇāya kṛṣṇa-caitanya-nāmne gaura-tviṣe namaḥ",
-              "translation": "J’offre mon praṇāma à ce Seigneur d’une munificence infinie, qui confère kṛṣṇa-prema. Il est Kṛṣṇa Lui-même, qui a pris un teint doré et adopté le nom de Śrī Kṛṣṇa Caitanya.",
-              "wbw": "namo — praṇāma; mahā-vadānyāya — à ce Seigneur d’une munificence infinie; kṛṣṇa-prema-pradāya — qui confère kṛṣṇa-prema; te — à Toi; kṛṣṇāya — à Kṛṣṇa Lui-même; kṛṣṇa-caitanya-nāmne — qui a adopté le nom de Śrī Kṛṣṇa Caitanya; gaura-tviṣe — qui a pris un teint doré; namaḥ — praṇāma."
-            }
-          ]
-        },
-        {
-          "id": "prayer-sri-krsna",
-          "title": "Prière à Śrī Kṛṣṇa",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "he kṛṣṇa karuṇā-sindho dīna-bandho jagat-pate\ngopeśa gopikā-kānta rādhā-kānta namo 'stu te",
-              "translation": "Ô Śrī Kṛṣṇa, Vous êtes un océan de miséricorde, l’ami des déchus, le Seigneur de l’univers, le maître des pâtres, le bien-aimé des gopīs et [par-dessus tout] le bien-aimé de Śrī Rādhā. Je Vous offre mon praṇāma.",
-              "wbw": "he — ô; kṛṣṇa — Śrī Kṛṣṇa; karuṇā-sindho — océan de miséricorde; dīna-bandho — ami des déchus; jagat-pate — Seigneur de l’univers; gopeśa — maître des pâtres; gopikā-kānta — bien-aimé des gopīs; rādhā-kānta — bien-aimé de Śrī Rādhā; namo — praṇāma; 'stu — qu’il soit; te — à Vous."
-            }
-          ]
-        },
-        {
-          "id": "prayer-sri-radha",
-          "title": "Prière à Śrī Rādhā",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "tapta-kāñcana-gaurāṅgi rādhe vṛndāvaneśvari\nvṛṣabhānu-sute devi praṇamāmi hari-priye",
-              "translation": "Ô Śrī Rādhā, ô Gaurāṅgi, Vous dont le teint est semblable à de l’or en fusion, Vous êtes la reine de Vṛndāvana, la fille de Vṛṣabhānu et la déesse divine très chère à Śrī Hari. Je Vous offre mon praṇāma.",
-              "wbw": "tapta-kāñcana-gaurāṅgi — ô Gaurāṅgi, Vous dont le teint est semblable à de l’or en fusion; rādhe — ô Śrī Rādhā; vṛndāvaneśvari — ô reine de Vṛndāvana; vṛṣabhānu-sute — ô fille de Vṛṣabhānu; devi — ô déesse divine; praṇamāmi — je Vous offre mon praṇāma; hari-priye — ô Vous qui êtes très chère à Śrī Hari."
-            }
-          ]
-        },
-        {
-          "id": "prayer-radha-madana-mohana",
-          "title": "Prière à Śrī Rādhā-Madana-mohana",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "jayatāṁ su-ratau paṅgor mama manda-mater gatī\nmat-sarvasva padāmbhojau rādhā-madana-mohanau",
-              "translation": "Toutes gloires au suprêmement miséricordieux Śrī Rādhā-Madana-mohana ! Bien que je sois infirme et insensé, Ils sont mon unique refuge. Leurs pieds pareils-au-lotus sont tout pour moi.",
-              "wbw": "jayatāṁ — toutes gloires à; su-ratau — ceux qui sont suprêmement miséricordieux; paṅgor — de l’infirme; mama — mon; manda-mater — de l’insensé; gatī — refuge; mat-sarvasva — tout pour moi; padāmbhojau — pieds pareils-au-lotus; rādhā-madana-mohanau — Śrī Rādhā-Madana-mohana."
-            }
-          ]
-        },
-        {
-          "id": "prayer-radha-govinda",
-          "title": "Prière à Śrī Rādhā-Govinda",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "dīvyad-vṛndāraṇya-kalpa-drumādhaḥ\nśrīmad-ratnāgāra-siṁhāsana-sthau\nśrīmad-rādhā-śrīla-govinda-devau\npreṣṭhālībhiḥ sevyamānau smarāmi",
-              "translation": "Dans la radieuse contrée de Śrī Vṛndāvana, au sein d’un temple fait de joyaux, Śrī Rādhā-Govinda sont assis sur un trône resplendissant, sous un arbre kalpa-vṛkṣa, et acceptent le service de Leurs sakhīs bien-aimées. Je médite sur Eux.",
-              "wbw": "dīvyad-vṛndāraṇya-kalpa-drumādhaḥ — sous un arbre kalpa-vṛkṣa dans le radieux Śrī Vṛndāvana; śrīmad-ratnāgāra-siṁhāsana-sthau — assis sur un trône resplendissant dans un temple fait de joyaux; śrīmad-rādhā-śrīla-govinda-devau — Śrī Rādhā et Śrīla Govinda-deva; preṣṭhālībhiḥ — par Leurs sakhīs bien-aimées; sevyamānau — étant servis; smarāmi — je médite sur."
-            }
-          ]
-        },
-        {
-          "id": "prayer-radha-gopinatha",
-          "title": "Prière à Śrī Rādhā-Gopīnātha",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "śrīmān rāsa-rasārambhī vaṁśīvaṭa-taṭa-sthitaḥ\nkarṣan veṇu-svanair gopīr gopīnāthaḥ śriye 'stu naḥ",
-              "translation": "Se tenant sur la rive du fleuve, à Vaṁśīvaṭa, Śrī Gopīnātha, qui inaugura la saveur transcendante de la danse rāsa, attire toutes les gopīs par le son de Sa flûte veṇu. Puisse-t-Il nous accorder toute heureuse fortune.",
-              "wbw": "śrīmān — le glorieux Śrī; rāsa-rasārambhī — Celui qui inaugura la saveur transcendante de la danse rāsa; vaṁśīvaṭa-taṭa-sthitaḥ — Se tenant sur la rive du fleuve à Vaṁśīvaṭa; karṣan — attirant; veṇu-svanair — par le son de Sa flûte veṇu; gopīr — toutes les gopīs; gopīnāthaḥ — Śrī Gopīnātha, Seigneur des gopīs; śriye — toute heureuse fortune; 'stu — puisse-t-Il accorder; naḥ — à nous."
-            }
-          ]
-        },
-        {
-          "id": "prayer-tulasi-devi",
-          "title": "Prière à Śrī Tulasī-devī",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "vṛndāyai tulasī-devyai priyāyai keśavasya ca\nkṛṣṇa-bhakti-prade devi! satyavatyai namo namaḥ",
-              "translation": "J’offre encore et encore mon praṇāma à Śrīmatī Tulasī-devī, qui est très chère à Śrī Keśava et également connue sous les noms de Vṛndā-devī et Satyavatī. Ô Devī, vous conférez kṛṣṇa-bhakti.",
-              "wbw": "vṛndāyai — à Vṛndā-devī; tulasī-devyai — à Śrīmatī Tulasī-devī; priyāyai — qui est très chère; keśavasya — à Śrī Keśava; ca — et; kṛṣṇa-bhakti-prade — qui confère la kṛṣṇa-bhakti; devi — ô Devī; satyavatyai — à Satyavatī; namo — praṇāma; namaḥ — encore et encore."
-            }
-          ]
-        },
-        {
-          "id": "prayer-panca-tattva",
-          "title": "Prière à Śrī Pañca-tattva",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "pañca-tattvātmakaṁ kṛṣṇaṁ bhakta-rūpa-svarūpakam\nbhaktāvatāraṁ bhaktākhyaṁ namāmi bhakta-śaktikam",
-              "translation": "J’offre mon praṇāma à Śrī Kṛṣṇa Caitanya Mahāprabhu sous Ses cinq aspects de bhakta-rūpa (Mahāprabhu), bhakta-svarūpa (Nityānanda Prabhu), bhakta-avatāra (Advaita Ācārya), bhakta (Śrīvāsa Ṭhākura) et bhakta-śakti (Gadādhara Paṇḍita).",
-              "wbw": "pañca-tattvātmakaṁ — manifesté sous cinq aspects; kṛṣṇaṁ — Śrī Kṛṣṇa Caitanya Mahāprabhu; bhakta-rūpa-svarūpakam — en tant que bhakta-rūpa et bhakta-svarūpa; bhaktāvatāraṁ — en tant que bhakta-avatāra; bhaktākhyaṁ — connu comme bhakta; namāmi — j’offre mon praṇāma; bhakta-śaktikam — en tant que bhakta-śakti."
-            }
-          ]
-        },
-        {
-          "id": "panca-tattva-mantra",
-          "title": "Śrī Pañca-tattva-mantra",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "śrī-kṛṣṇa-caitanya prabhu-nityānanda\nśrī-advaita gadādhara śrīvāsādi-gaura-bhakta-vṛnda",
-              "translation": ""
-            }
-          ]
-        },
-        {
-          "id": "maha-mantra",
-          "title": "Mahā-mantra",
-          "content": [
-            {
-              "type": "verse",
-              "sanskrit": "hare kṛṣṇa hare kṛṣṇa kṛṣṇa kṛṣṇa hare hare\nhare rāma hare rāma rāma rāma hare hare",
-              "translation": ""
-            }
-          ]
-        }
-      ]
     },
     {
       "id": "daily-duties-brahma-muhurta",
@@ -1021,9 +960,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "uttiṣṭhottiṣṭha śrī guro\ntyaja nidrāṁ kṛpāmaya\naing gurave namaḥ",
+              "sanskrit": "uttiṣṭhottiṣṭha śrī guro\ntyaja nidrāṁ kṛpāmaya\naiṁ gurave namaḥ",
               "translation": "Ô très miséricordieux Gurudeva, lève-toi, je t’en prie, lève-toi et abandonne ton sommeil.",
-              "wbw": "uttiṣṭhottiṣṭha — lève-toi, lève-toi; śrī — vénéré; guro — ô Gurudeva; tyaja — abandonne; nidrāṁ — ton sommeil; kṛpāmaya — très miséricordieux; aing — bīja-mantra de Sarasvatī; gurave — à Gurudeva; namaḥ — hommages."
+              "wbw": "uttiṣṭhottiṣṭha — lève-toi, lève-toi; śrī — vénéré; guro — ô Gurudeva; tyaja — abandonne; nidrāṁ — ton sommeil; kṛpāmaya — très miséricordieux; aiṁ — bīja-mantra; gurave — à Gurudeva; namaḥ — hommages."
             },
             {
               "type": "instruction",
@@ -1031,9 +970,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "uttiṣṭhottiṣṭha gaurāṅga\njahi nidrāṁ mahāprabho\nśubha-dṛṣṭi pradānena\ntrailokya-maṅgalaṁ kuru\nklīng gaurāya svāhā",
+              "sanskrit": "uttiṣṭhottiṣṭha gaurāṅga\njahi nidrāṁ mahāprabho\nśubha-dṛṣṭi pradānena\ntrailokya-maṅgalaṁ kuru\nklīṁ gaurāya svāhā",
               "translation": "Ô Gaurāṅga Mahāprabhu, lève-Toi, je T’en prie, lève-Toi et abandonne Ton sommeil. Bénis les trois mondes de Ton regard bienveillant.",
-              "wbw": "uttiṣṭhottiṣṭha — lève-Toi, je T’en prie, lève-Toi; gaurāṅga — Ô Gaurāṅga; jahi — abandonne; nidrāṁ — Ton sommeil; mahāprabho — Ô Mahāprabhu; śubha-dṛṣṭi — regard bienveillant; pradānena — en accordant; trailokya-maṅgalaṁ — la bénédiction des trois mondes; kuru — bénis, je T’en prie; klīng — bīja-mantra de Kāmadeva, Kṛṣṇa, l’attraction; gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »."
+              "wbw": "uttiṣṭhottiṣṭha — lève-Toi, je T’en prie, lève-Toi; gaurāṅga — Ô Gaurāṅga; jahi — abandonne; nidrāṁ — Ton sommeil; mahāprabho — Ô Mahāprabhu; śubha-dṛṣṭi — regard bienveillant; pradānena — en accordant; trailokya-maṅgalaṁ — la bénédiction des trois mondes; kuru — bénis, je T’en prie; klīṁ — bīja-mantra; gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »."
             },
             {
               "type": "instruction",
@@ -1041,9 +980,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "go-gopa-gokulānanda\nyaśodānanda vardhana\nuttiṣṭha rādhayā sārddhaṁ\nprātar āsīj jagat-pate\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "go-gopa-gokulānanda\nyaśodānanda vardhana\nuttiṣṭha rādhayā sārddhaṁ\nprātar āsīj jagat-pate\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "Ô joie de Gokula, des jeunes pâtres et des vaches ; ô Toi qui accrois la félicité de mère Yaśodā ; ô Seigneur de l’univers ; lève-Toi, je T’en prie, avec Śrī Rādhā, car le matin approche.",
-              "wbw": "go-gopa-gokulānanda — ô joie de Gokula, des jeunes pâtres et des vaches; yaśodānanda — ô Toi qui accrois la félicité de mère Yaśodā; vardhana — celui qui accroît; uttiṣṭha — lève-Toi, je T’en prie; rādhayā — avec Śrī Rādhā; sārddhaṁ — avec; prātar — le matin; āsīj — il est presque; jagat-pate — ô Seigneur de l’univers; śrīng — bīja-mantra de Śrī, Lakṣmī et Rādhā; klīng — bīja-mantra de Kāmadeva, Kṛṣṇa et de l’attraction divine; rādhā-kṛṣṇābhyāṁ — à Śrī Rādhā et Kṛṣṇa; namaḥ — hommages."
+              "wbw": "go-gopa-gokulānanda — ô joie de Gokula, des jeunes pâtres et des vaches; yaśodānanda — ô Toi qui accrois la félicité de mère Yaśodā; vardhana — celui qui accroît; uttiṣṭha — lève-Toi, je T’en prie; rādhayā — avec Śrī Rādhā; sārddhaṁ — avec; prātar — le matin; āsīj — il est presque; jagat-pate — ô Seigneur de l’univers; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — à Śrī Rādhā et Kṛṣṇa; namaḥ — hommages."
             },
             {
               "type": "instruction",
@@ -1073,7 +1012,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ ācamanīyaṁ aing gurave namaḥ\nidaṁ ācamanīyaṁ klīng gaurāya svāhā\nidaṁ ācamanīyaṁ śrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "idaṁ ācamanīyaṁ aiṁ gurave namaḥ\nidaṁ ācamanīyaṁ klīṁ gaurāya svāhā\nidaṁ ācamanīyaṁ śrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": ""
             },
             {
@@ -1082,7 +1021,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "eṣa danta-kāṣṭhaḥ aing gurave namaḥ\neṣa danta-kāṣṭhaḥ klīng gaurāya svāhā\neṣa danta-kāṣṭhaḥ śrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "eṣa danta-kāṣṭhaḥ aiṁ gurave namaḥ\neṣa danta-kāṣṭhaḥ klīṁ gaurāya svāhā\neṣa danta-kāṣṭhaḥ śrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": ""
             },
             {
@@ -1411,9 +1350,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "Ô Keśava, viens, je T’en prie, jusqu’à Ton lit en compagnie de Ta bien-aimée Śrīmatī Rādhikā. Ô Mādhava, ce lit resplendissant de fleurs parfumées a été préparé pour Tes joyeux divertissements.",
-              "wbw": "āgaccha — viens, je T’en prie; śayana-sthānaṁ — jusqu’à Ton lit; priyābhiḥ — avec Ta bien-aimée; saha — en compagnie de; keśava — Ô Keśava; divya-puṣpātya-śayyāyāṁ — sur ce lit resplendissant de fleurs parfumées; sukhaṁ — joyeusement; vihara — divertis-Toi; mādhava — Ô Mādhava; śrīng — bīja-mantra de Śrī, Rādhikā; klīng — bīja-mantra de Kāmadeva, Kṛṣṇa, l’attraction; rādhā-kṛṣṇābhyāṁ — à Rādhā et Kṛṣṇa; namaḥ — hommages."
+              "wbw": "āgaccha — viens, je T’en prie; śayana-sthānaṁ — jusqu’à Ton lit; priyābhiḥ — avec Ta bien-aimée; saha — en compagnie de; keśava — Ô Keśava; divya-puṣpātya-śayyāyāṁ — sur ce lit resplendissant de fleurs parfumées; sukhaṁ — joyeusement; vihara — divertis-Toi; mādhava — Ô Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — à Rādhā et Kṛṣṇa; namaḥ — hommages."
             },
             {
               "type": "subtitle",
@@ -1421,9 +1360,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīng gaurāya svāhā",
+              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
               "translation": "Ô Seigneur Gaurāṅga, viens, je T’en prie, jusqu’à Ton lieu de repos avec Tes compagnons. Ô Seigneur, repose-Toi confortablement pendant un moment en savourant Tes divertissements.",
-              "wbw": "āgaccha — viens, je T’en prie; viśrama-sthānaṁ — jusqu’à Ton lieu de repos; sva-gaṇaiḥ — avec Tes compagnons; saha — avec; gaurāṅga — Ô Seigneur Gaurāṅga; kṣaṇaṁ — pendant un moment; viśramya — en Te reposant; sukhena — confortablement; līlayā — en savourant Tes divertissements; vihara — savoure Tes divertissements; prabhu — Ô Seigneur; klīng — bīja-mantra de Kāmadeva, Kṛṣṇa, l’attraction; gaurāya — pour Gaurāṅga; svāhā — exclamation d’offrande « svāhā »."
+              "wbw": "āgaccha — viens, je T’en prie; viśrama-sthānaṁ — jusqu’à Ton lieu de repos; sva-gaṇaiḥ — avec Tes compagnons; saha — avec; gaurāṅga — Ô Seigneur Gaurāṅga; kṣaṇaṁ — pendant un moment; viśramya — en Te reposant; sukhena — confortablement; līlayā — en savourant Tes divertissements; vihara — savoure Tes divertissements; prabhu — Ô Seigneur; klīṁ — bīja-mantra; gaurāya — pour Gaurāṅga; svāhā — exclamation d’offrande « svāhā »."
             },
             {
               "type": "subtitle",
@@ -1435,9 +1374,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha śrī-guro\naing gurave namaḥ",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha śrī-guro\naiṁ gurave namaḥ",
               "translation": "Ô Gurudeva, viens, je t’en prie, jusqu’à ton lieu de repos avec tous tes compagnons.",
-              "wbw": "āgaccha — viens, je t’en prie; viśrāma-sthānaṁ — jusqu’à ton lieu de repos; sva-gaṇaiḥ — avec tous tes compagnons; saha — avec; śrī-guro — ô Śrī Guru; aing — le bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages."
+              "wbw": "āgaccha — viens, je t’en prie; viśrāma-sthānaṁ — jusqu’à ton lieu de repos; sva-gaṇaiḥ — avec tous tes compagnons; saha — avec; śrī-guro — ô Śrī Guru; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages."
             }
           ]
         },
@@ -1687,9 +1626,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "Ô Keśava, viens, je T’en prie, jusqu’à Ton lit en compagnie de Ta bien-aimée Śrīmatī Rādhikā. Ô Mādhava, ce lit resplendissant de fleurs parfumées a été préparé pour Tes joyeux divertissements.",
-              "wbw": "āgaccha — viens, je T’en prie; śayana-sthānaṁ — jusqu’à Ton lit; priyābhiḥ — en compagnie de Ta bien-aimée Śrīmatī Rādhikā; saha — en compagnie de; keśava — Ô Keśava; divya-puṣpātya-śayyāyāṁ — sur ce lit resplendissant de fleurs parfumées; sukhaṁ — joyeusement; vihara — divertis-Toi; mādhava — Ô Mādhava; śrīng — bīja-mantra de Śrī, Rādhā; klīng — bīja-mantra de Kāmadeva, Kṛṣṇa, de l’attraction; rādhā-kṛṣṇābhyāṁ — à Rādhā et Kṛṣṇa; namaḥ — praṇāma."
+              "wbw": "āgaccha — viens, je T’en prie; śayana-sthānaṁ — jusqu’à Ton lit; priyābhiḥ — en compagnie de Ta bien-aimée Śrīmatī Rādhikā; saha — en compagnie de; keśava — Ô Keśava; divya-puṣpātya-śayyāyāṁ — sur ce lit resplendissant de fleurs parfumées; sukhaṁ — joyeusement; vihara — divertis-Toi; mādhava — Ô Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — à Rādhā et Kṛṣṇa; namaḥ — praṇāma."
             },
             {
               "type": "subtitle",
@@ -1697,9 +1636,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīng gaurāya svāhā",
+              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
               "translation": "Ô Seigneur Gaurāṅga, viens, je T’en prie, jusqu’à Ton lieu de repos avec Tes compagnons. Ô Seigneur, repose-Toi confortablement pendant un moment en savourant Tes divertissements.",
-              "wbw": "āgaccha — viens, je T’en prie; viśrama-sthānaṁ — jusqu’à Ton lieu de repos; sva-gaṇaiḥ — avec Tes compagnons; saha — avec; gaurāṅga — Ô Seigneur Gaurāṅga; kṣaṇaṁ — pendant un moment; viśramya — en Te reposant; sukhena — confortablement; līlayā — en savourant Tes divertissements; vihara — savoure; prabhu — Ô Seigneur; klīng — bīja-mantra de Kāmadeva, Kṛṣṇa, l’attraction; gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »."
+              "wbw": "āgaccha — viens, je T’en prie; viśrama-sthānaṁ — jusqu’à Ton lieu de repos; sva-gaṇaiḥ — avec Tes compagnons; saha — avec; gaurāṅga — Ô Seigneur Gaurāṅga; kṣaṇaṁ — pendant un moment; viśramya — en Te reposant; sukhena — confortablement; līlayā — en savourant Tes divertissements; vihara — savoure; prabhu — Ô Seigneur; klīṁ — bīja-mantra; gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »."
             },
             {
               "type": "subtitle",
@@ -1711,9 +1650,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha śrī-guro\naing gurave namaḥ",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha śrī-guro\naiṁ gurave namaḥ",
               "translation": "Ô Gurudeva, viens, je t’en prie, jusqu’à ton lieu de repos avec tous tes compagnons.",
-              "wbw": "āgaccha — viens, je t’en prie; viśrāma-sthānaṁ — jusqu’à ton lieu de repos; sva-gaṇaiḥ — avec tous tes compagnons; saha — avec; śrī-guro — ô Gurudeva; aing — bīja-mantra de Sarasvatī; gurave — à Gurudeva; namaḥ — hommages."
+              "wbw": "āgaccha — viens, je t’en prie; viśrāma-sthānaṁ — jusqu’à ton lieu de repos; sva-gaṇaiḥ — avec tous tes compagnons; saha — avec; śrī-guro — ô Gurudeva; aiṁ — bīja-mantra; gurave — à Gurudeva; namaḥ — hommages."
             },
             {
               "type": "instruction",
@@ -1904,7 +1843,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "eṣa puṣpāñjaliḥ aing gurave namaḥ"
+              "sanskrit": "eṣa puṣpāñjaliḥ aiṁ gurave namaḥ"
             },
             {
               "type": "instruction",
@@ -1916,27 +1855,27 @@
             },
             {
               "type": "verse",
-              "sanskrit": "aing gurave namaḥ",
+              "sanskrit": "aiṁ gurave namaḥ",
               "translation": "J’offre mes hommages respectueux à mon maître spirituel.",
-              "wbw": "aing — bīja-mantra de Sarasvatī; gurave — au maître spirituel; namaḥ — hommages respectueux."
+              "wbw": "aiṁ — bīja-mantra; gurave — au maître spirituel; namaḥ — hommages respectueux."
             },
             {
               "type": "verse",
-              "sanskrit": "aing parama-gurave namaḥ",
+              "sanskrit": "aiṁ parama-gurave namaḥ",
               "translation": "J’offre mes hommages respectueux au maître spirituel de mon maître spirituel.",
-              "wbw": "aing — bīja-mantra de Sarasvatī; parama-gurave — au maître spirituel de mon maître spirituel; namaḥ — mes hommages respectueux."
+              "wbw": "aiṁ — bīja-mantra; parama-gurave — au maître spirituel de mon maître spirituel; namaḥ — mes hommages respectueux."
             },
             {
               "type": "verse",
-              "sanskrit": "aing parameṣṭhi gurave namaḥ",
+              "sanskrit": "aiṁ parameṣṭhi gurave namaḥ",
               "translation": "J’offre mes hommages respectueux au maître spirituel du maître spirituel de mon maître spirituel.",
-              "wbw": "aing — bīja-mantra de Sarasvatī; parameṣṭhi — du maître spirituel du maître spirituel; gurave — au maître spirituel; namaḥ — hommages respectueux."
+              "wbw": "aiṁ — bīja-mantra; parameṣṭhi — du maître spirituel du maître spirituel; gurave — au maître spirituel; namaḥ — hommages respectueux."
             },
             {
               "type": "verse",
-              "sanskrit": "aing śrī guru-paramparāyai namaḥ",
+              "sanskrit": "aiṁ śrī guru-paramparāyai namaḥ",
               "translation": "J’offre mes hommages respectueux à la śrī guru-paramparā.",
-              "wbw": "aing — bīja-mantra de Sarasvatī; śrī — glorieuse, vénérable; guru-paramparāyai — à la śrī guru-paramparā; namaḥ — hommages respectueux."
+              "wbw": "aiṁ — bīja-mantra; śrī — glorieuse, vénérable; guru-paramparāyai — à la śrī guru-paramparā; namaḥ — hommages respectueux."
             },
             {
               "type": "verse",
@@ -2193,7 +2132,7 @@
         },
         {
           "type": "verse",
-          "sanskrit": "eṣa puṣpāñjali klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+          "sanskrit": "eṣa puṣpāñjali klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
           "translation": ""
         },
         {
@@ -2208,7 +2147,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "idaṁ āsanaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "idaṁ āsanaṁ klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": ""
             },
             {
@@ -2223,7 +2162,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "svāgataṁ su-svāgatam klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām\nnamaḥ",
+              "sanskrit": "svāgataṁ su-svāgatam klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām\nnamaḥ",
               "translation": ""
             },
             {
@@ -2238,7 +2177,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "etat pādyaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "etat pādyaṁ klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": ""
             },
             {
@@ -2253,7 +2192,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "idaṁ arghyam klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "idaṁ arghyam klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -2268,7 +2207,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "idaṁ ācamanīyaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "idaṁ ācamanīyaṁ klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": ""
             },
             {
@@ -2283,7 +2222,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "eṣa madhuparkaḥ klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "eṣa madhuparkaḥ klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -2298,7 +2237,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "idaṁ punar-ācamanīyaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "idaṁ punar-ācamanīyaṁ klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -2321,7 +2260,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ sugandha-tailam klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "idaṁ sugandha-tailam klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -2330,7 +2269,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ snānīyam klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "idaṁ snānīyam klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -2339,7 +2278,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ aṅga-vastram klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "idaṁ aṅga-vastram klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -2348,7 +2287,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ ācamanīyaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "idaṁ ācamanīyaṁ klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": ""
             },
             {
@@ -2363,7 +2302,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "idaṁ vastram klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "idaṁ vastram klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -2372,7 +2311,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ ācamanīyaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "idaṁ ācamanīyaṁ klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -2381,7 +2320,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ upavītam klīng gaurāya svāhā klīṁ kṛṣṇāya namaḥ",
+              "sanskrit": "idaṁ upavītam klīṁ gaurāya svāhā klīṁ kṛṣṇāya namaḥ",
               "translation": ""
             },
             {
@@ -2390,7 +2329,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ tilakam klīng gaurāya svāhā klīṁ kṛṣṇāya namaḥ",
+              "sanskrit": "idaṁ tilakam klīṁ gaurāya svāhā klīṁ kṛṣṇāya namaḥ",
               "translation": ""
             },
             {
@@ -2423,7 +2362,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "imāni ābharaṇāni klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "imāni ābharaṇāni klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -2432,7 +2371,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ malyam klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "idaṁ malyam klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -2441,7 +2380,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ kaṅkaṇam śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "idaṁ kaṅkaṇam śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -2460,7 +2399,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "eṣa gandhaḥ klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "eṣa gandhaḥ klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -2475,7 +2414,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "etāni puṣpāni klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "etāni puṣpāni klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -2499,7 +2438,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "eṣa dhūpaḥ klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "eṣa dhūpaḥ klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -2514,7 +2453,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "eṣa dīpaḥ klīng gaurāya svāhā śrīng klīng rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "eṣa dīpaḥ klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -2618,7 +2557,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ mahā-prasādaṁ nirmālyādikam aing śrī gurave namaḥ\nidaṁ pānīyaṁ aing śrī gurave namaḥ\nidaṁ ācamanīyaṁ aing śrī gurave namaḥ\nidaṁ sarvaṁ oṁ sarva-sakhībhyo namaḥ\nidaṁ sarvaṁ oṁ sarva-vaiṣṇavebhyo namaḥ\nidaṁ sarvaṁ oṁ śrī paurṇamāsyai namaḥ\nidaṁ sarvaṁ oṁ sarva-vraja-vāsibhyo namaḥ",
+              "sanskrit": "idaṁ mahā-prasādaṁ nirmālyādikam aiṁ śrī gurave namaḥ\nidaṁ pānīyaṁ aiṁ śrī gurave namaḥ\nidaṁ ācamanīyaṁ aiṁ śrī gurave namaḥ\nidaṁ sarvaṁ oṁ sarva-sakhībhyo namaḥ\nidaṁ sarvaṁ oṁ sarva-vaiṣṇavebhyo namaḥ\nidaṁ sarvaṁ oṁ śrī paurṇamāsyai namaḥ\nidaṁ sarvaṁ oṁ sarva-vraja-vāsibhyo namaḥ",
               "translation": ""
             },
             {
@@ -2710,27 +2649,27 @@
             },
             {
               "type": "verse",
-              "sanskrit": "aing gurave namaḥ",
+              "sanskrit": "aiṁ gurave namaḥ",
               "translation": "J’offre mes hommages respectueux à mon maître spirituel.",
-              "wbw": "aing — bīja-mantra de Sarasvatī; gurave — à mon maître spirituel; namaḥ — hommages respectueux."
+              "wbw": "aiṁ — bīja-mantra; gurave — à mon maître spirituel; namaḥ — hommages respectueux."
             },
             {
               "type": "verse",
-              "sanskrit": "aing parama-gurave namaḥ",
+              "sanskrit": "aiṁ parama-gurave namaḥ",
               "translation": "J’offre mes hommages respectueux au maître spirituel de mon maître spirituel.",
-              "wbw": "aing — bīja-mantra de Sarasvatī; parama-gurave — au maître spirituel de mon maître spirituel; namaḥ — hommages respectueux."
+              "wbw": "aiṁ — bīja-mantra; parama-gurave — au maître spirituel de mon maître spirituel; namaḥ — hommages respectueux."
             },
             {
               "type": "verse",
-              "sanskrit": "aing parameṣṭhi gurave namaḥ",
+              "sanskrit": "aiṁ parameṣṭhi gurave namaḥ",
               "translation": "J’offre mes hommages respectueux au maître spirituel du maître spirituel de mon maître spirituel.",
-              "wbw": "aing — bīja-mantra de Sarasvatī; parameṣṭhi — au maître spirituel du maître spirituel de mon maître spirituel; gurave — au maître spirituel; namaḥ — hommages respectueux."
+              "wbw": "aiṁ — bīja-mantra; parameṣṭhi — au maître spirituel du maître spirituel de mon maître spirituel; gurave — au maître spirituel; namaḥ — hommages respectueux."
             },
             {
               "type": "verse",
-              "sanskrit": "aing śrī guru-paramparāyai namaḥ",
+              "sanskrit": "aiṁ śrī guru-paramparāyai namaḥ",
               "translation": "J’offre mes hommages respectueux à śrī guru-paramparā.",
-              "wbw": "aing — bīja-mantra de Sarasvatī; śrī — vénérable, auspicieux; guru-paramparāyai — à la guru-paramparā; namaḥ — hommages."
+              "wbw": "aiṁ — bīja-mantra; śrī — vénérable, auspicieux; guru-paramparāyai — à la guru-paramparā; namaḥ — hommages."
             },
             {
               "type": "verse",
@@ -2808,51 +2747,51 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ āsanaṁ aing gurave namaḥ",
+              "sanskrit": "idaṁ āsanaṁ aiṁ gurave namaḥ",
               "translation": "(1) āsana (siège) — Offrez dans le snāna-pātra une fleur trempée dans du candana.",
-              "wbw": "idaṁ — ceci; āsanaṁ — siège; aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages."
+              "wbw": "idaṁ — ceci; āsanaṁ — siège; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "prabho! kṛpayā svāgataṁ kuru aing gurave namaḥ",
+              "sanskrit": "prabho! kṛpayā svāgataṁ kuru aiṁ gurave namaḥ",
               "translation": "(2) svāgata (accueil) — Les mains jointes, invitez śrī gurudeva à s’asseoir sur l’āsana placé dans le snāna-pātra.",
-              "wbw": "prabho — ô Seigneur; kṛpayā — s’il vous plaît, par miséricorde; svāgataṁ — un accueil; kuru — offre, accorde; aing — bīja-mantra de Sarasvatī; gurave — à śrī gurudeva; namaḥ — hommages."
+              "wbw": "prabho — ô Seigneur; kṛpayā — s’il vous plaît, par miséricorde; svāgataṁ — un accueil; kuru — offre, accorde; aiṁ — bīja-mantra; gurave — à śrī gurudeva; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "etat pādyaṁ aing gurave namaḥ",
+              "sanskrit": "etat pādyaṁ aiṁ gurave namaḥ",
               "translation": "(3) pādya (bain de pieds) — À l’aide d’un brin d’herbe kuśa [ou du pañca-pātra], offrez de l’eau sur ses pieds pareils-au-lotus, en la faisant couler dans le snāna-pātra.",
-              "wbw": "etat — ceci; pādyaṁ — eau pour le bain des pieds; aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages."
+              "wbw": "etat — ceci; pādyaṁ — eau pour le bain des pieds; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ arghyaṁ aing gurave namaḥ",
+              "sanskrit": "idaṁ arghyaṁ aiṁ gurave namaḥ",
               "translation": "(4) arghya — Offrez l’arghya (candana, fleurs et eau) dans le snāna-pātra.",
-              "wbw": "idaṁ — ceci; arghyaṁ — offrande d’arghya; aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages."
+              "wbw": "idaṁ — ceci; arghyaṁ — offrande d’arghya; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ ācamanīyaṁ aing gurave namaḥ",
+              "sanskrit": "idaṁ ācamanīyaṁ aiṁ gurave namaḥ",
               "translation": "(5) ācamanīya (eau pour se rincer la bouche) — Offrez de l’eau dans le récipient de rejet.",
-              "wbw": "idaṁ — ceci; ācamanīyaṁ — ācamanīya, eau pour se rincer la bouche; aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages."
+              "wbw": "idaṁ — ceci; ācamanīyaṁ — ācamanīya, eau pour se rincer la bouche; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "eṣa madhuparkaḥ aing gurave namaḥ",
+              "sanskrit": "eṣa madhuparkaḥ aiṁ gurave namaḥ",
               "translation": "(6) madhuparka — Offrez le madhuparka dans le snāna-pātra.",
-              "wbw": "eṣa — ceci; madhuparkaḥ — madhuparka; aing — mantra-bīja de Sarasvatī; gurave — au guru; namaḥ — hommages."
+              "wbw": "eṣa — ceci; madhuparkaḥ — madhuparka; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ punar ācamanīyaṁ aing gurave namaḥ",
+              "sanskrit": "idaṁ punar ācamanīyaṁ aiṁ gurave namaḥ",
               "translation": "Offrez de l’eau dans le récipient de rejet.",
-              "wbw": "idaṁ — ceci; punar — de nouveau; ācamanīyaṁ — eau pour l’ācamana; aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages."
+              "wbw": "idaṁ — ceci; punar — de nouveau; ācamanīyaṁ — eau pour l’ācamana; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ snānīyaṁ aing gurave namaḥ",
+              "sanskrit": "idaṁ snānīyaṁ aiṁ gurave namaḥ",
               "translation": "(7) snāna (bain) — Baignez śrī gurudeva avec de l’eau parfumée versée de la conque dans le snāna-pātra.",
-              "wbw": "idaṁ — ceci; snānīyaṁ — eau de bain; aing — bīja-mantra de Sarasvatī; gurave — à śrī gurudeva; namaḥ — hommages."
+              "wbw": "idaṁ — ceci; snānīyaṁ — eau de bain; aiṁ — bīja-mantra; gurave — à śrī gurudeva; namaḥ — hommages."
             },
             {
               "type": "text",
@@ -2860,15 +2799,15 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ sottarīya-vastraṁ aing gurave namaḥ",
+              "sanskrit": "idaṁ sottarīya-vastraṁ aiṁ gurave namaḥ",
               "translation": "(8) vastra (vêtement) — Offrez deux fleurs dans le récipient de rejet afin d’offrir un vêtement supérieur et un vêtement inférieur.",
-              "wbw": "idaṁ — ceci; sottarīya-vastraṁ — vêtement supérieur; aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages."
+              "wbw": "idaṁ — ceci; sottarīya-vastraṁ — vêtement supérieur; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ ācamanīyaṁ aing gurave namaḥ",
+              "sanskrit": "idaṁ ācamanīyaṁ aiṁ gurave namaḥ",
               "translation": "Offrez de l’eau dans le récipient de rejet.",
-              "wbw": "idaṁ — cette eau; ācamanīyaṁ — pour l’ācamana; aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages."
+              "wbw": "idaṁ — cette eau; ācamanīyaṁ — pour l’ācamana; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages."
             },
             {
               "type": "text",
@@ -2876,63 +2815,63 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ upavītaṁ aing gurave namaḥ",
+              "sanskrit": "idaṁ upavītaṁ aiṁ gurave namaḥ",
               "translation": "(9) upavīta (cordon sacré) — Offrez le cordon sacré (upavīta) à śrī gurudeva ou, si vous n’en avez pas, une fleur.",
-              "wbw": "idaṁ — ce; upavītaṁ — cordon sacré; aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages."
+              "wbw": "idaṁ — ce; upavītaṁ — cordon sacré; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ tilakaṁ aing gurave namaḥ",
+              "sanskrit": "idaṁ tilakaṁ aiṁ gurave namaḥ",
               "translation": "Tracez la marque de tilaka sur śrī gurudeva [ou méditez que vous le faites].",
-              "wbw": "idaṁ — cette; tilakaṁ — marque de tilaka; aing — bīja-mantra de Sarasvatī; gurave — sur śrī gurudeva; namaḥ — hommages."
+              "wbw": "idaṁ — cette; tilakaṁ — marque de tilaka; aiṁ — bīja-mantra; gurave — sur śrī gurudeva; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ ābharaṇaṁ aing gurave namaḥ",
+              "sanskrit": "idaṁ ābharaṇaṁ aiṁ gurave namaḥ",
               "translation": "(10) bhūṣaṇa (ornements) — Offrez une fleur afin de le parer d’ornements.",
-              "wbw": "idaṁ — ceci; ābharaṇaṁ — ornement; aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages."
+              "wbw": "idaṁ — ceci; ābharaṇaṁ — ornement; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "eṣa gandhaḥ aing gurave namaḥ",
+              "sanskrit": "eṣa gandhaḥ aiṁ gurave namaḥ",
               "translation": "(11) gandha — Offrez le gandha aux pieds pareils-au-lotus de śrī gurudeva.",
-              "wbw": "eṣa — ceci; gandhaḥ — gandha, parfum; aing — bīja-mantra de Sarasvatī; gurave — à śrī gurudeva; namaḥ — hommages."
+              "wbw": "eṣa — ceci; gandhaḥ — gandha, parfum; aiṁ — bīja-mantra; gurave — à śrī gurudeva; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ sagandhaṁ puṣpaṁ aing gurave namaḥ",
+              "sanskrit": "idaṁ sagandhaṁ puṣpaṁ aiṁ gurave namaḥ",
               "translation": "(12) puṣpa (fleurs) — Offrez à ses pieds pareils-au-lotus une fleur trempée dans du candana.",
-              "wbw": "idaṁ — cette; sagandhaṁ — parfumée; puṣpaṁ — fleur; aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages."
+              "wbw": "idaṁ — cette; sagandhaṁ — parfumée; puṣpaṁ — fleur; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "etat tulasī patraṁ aing gurave namaḥ",
+              "sanskrit": "etat tulasī patraṁ aiṁ gurave namaḥ",
               "translation": "Déposez de la tulasī dans sa main droite. [Si nécessaire, utilisez du candana pour la faire adhérer.]",
-              "wbw": "etat — cette; tulasī — tulasī; patraṁ — feuille; aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages."
+              "wbw": "etat — cette; tulasī — tulasī; patraṁ — feuille; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "eṣa dhūpaḥ aing gurave namaḥ",
+              "sanskrit": "eṣa dhūpaḥ aiṁ gurave namaḥ",
               "translation": "(13) dhūpa (encens) — Offrez de l’eau pour symboliser l’encens.",
-              "wbw": "eṣa — ceci; dhūpaḥ — encens; aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages."
+              "wbw": "eṣa — ceci; dhūpaḥ — encens; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "eṣa dīpaḥ aing gurave namaḥ",
+              "sanskrit": "eṣa dīpaḥ aiṁ gurave namaḥ",
               "translation": "(14) dīpa (lampe à ghī) — Offrez de l’eau pour symboliser une lampe à ghī.",
-              "wbw": "eṣa — ceci; dīpaḥ — dīpa (lampe à ghī); aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages."
+              "wbw": "eṣa — ceci; dīpaḥ — dīpa (lampe à ghī); aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ naivedyaṁ aing gurave namaḥ\nidaṁ pānīyaṁ aing gurave namaḥ\nidaṁ punar ācamanīyaṁ aing gurave namaḥ",
+              "sanskrit": "idaṁ naivedyaṁ aiṁ gurave namaḥ\nidaṁ pānīyaṁ aiṁ gurave namaḥ\nidaṁ punar ācamanīyaṁ aiṁ gurave namaḥ",
               "translation": "(15) naivedya (aliments) — Offrez des aliments, de l’eau et de l’ācamana.",
-              "wbw": "idaṁ — ceci; naivedyaṁ — aliments; aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages; idaṁ — ceci; pānīyaṁ — eau; aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages; idaṁ — ceci; punar — de nouveau; ācamanīyaṁ — eau pour l’ācamana; aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages."
+              "wbw": "idaṁ — ceci; naivedyaṁ — aliments; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages; idaṁ — ceci; pānīyaṁ — eau; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages; idaṁ — ceci; punar — de nouveau; ācamanīyaṁ — eau pour l’ācamana; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ tāmbūlaṁ aing gurave namaḥ\nidaṁ mālyaṁ aing gurave namaḥ\nidaṁ sarvaṁ aing gurave namaḥ",
+              "sanskrit": "idaṁ tāmbūlaṁ aiṁ gurave namaḥ\nidaṁ mālyaṁ aiṁ gurave namaḥ\nidaṁ sarvaṁ aiṁ gurave namaḥ",
               "translation": "(16) mālya (guirlande) — Offrez du tāmbūla, une guirlande et tous les articles restants.",
-              "wbw": "idaṁ — ceci; tāmbūlaṁ — tāmbūla; aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages; idaṁ — ceci; mālyaṁ — guirlande; aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages; idaṁ — ceci; sarvaṁ — tous les articles restants; aing — bīja-mantra de Sarasvatī; gurave — au guru; namaḥ — hommages."
+              "wbw": "idaṁ — ceci; tāmbūlaṁ — tāmbūla; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages; idaṁ — ceci; mālyaṁ — guirlande; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages; idaṁ — ceci; sarvaṁ — tous les articles restants; aiṁ — bīja-mantra; gurave — au guru; namaḥ — hommages."
             },
             {
               "type": "instruction",
@@ -3292,32 +3231,32 @@
             },
             {
               "type": "verse",
-              "sanskrit": "eṣa puṣpāñjaliḥ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "eṣa puṣpāñjaliḥ klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": ""
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ āsanaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "idaṁ āsanaṁ klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "Offrez l’āsana (un siège).",
-              "wbw": "idaṁ — ceci; āsanaṁ — āsana, siège; klīng — bīja-mantra de Kāmadeva (Kṛṣṇa, attraction); gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »; śrīng — bīja-mantra de Śrī (Lakṣmī, Rādhā); klīng — bīja-mantra de Kāmadeva (Kṛṣṇa, attraction); rādhā-kṛṣṇābhyāṁ — à Rādhā et Kṛṣṇa; namaḥ — hommages."
+              "wbw": "idaṁ — ceci; āsanaṁ — āsana, siège; klīṁ — bīja-mantra; gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — à Rādhā et Kṛṣṇa; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "etat pādyaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "etat pādyaṁ klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "Offrez le pādya (pour laver les pieds pareils-au-lotus).",
-              "wbw": "etat — ceci; pādyaṁ — pādya, eau pour laver les pieds pareils-au-lotus; klīng — bīja-mantra de Kāmadeva (Kṛṣṇa, l’attraction); gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »; śrīng — bīja-mantra de Śrī (Rādhā); klīng — bīja-mantra de Kāmadeva (Kṛṣṇa, l’attraction); rādhā-kṛṣṇābhyāṁ — à Rādhā-Kṛṣṇa; namaḥ — hommages."
+              "wbw": "etat — ceci; pādyaṁ — pādya, eau pour laver les pieds pareils-au-lotus; klīṁ — bīja-mantra; gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — à Rādhā-Kṛṣṇa; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ ācamanīyaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "idaṁ ācamanīyaṁ klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "Offrez l’ācamana (eau à boire).",
-              "wbw": "idaṁ — ceci; ācamanīyaṁ — eau pour l’ācamana; klīng — bīja-mantra de Kāmadeva (Kṛṣṇa, attraction); gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »; śrīng — bīja-mantra de Śrī (Lakṣmī / Rādhā); klīng — bīja-mantra de Kāmadeva (Kṛṣṇa, attraction); rādhā-kṛṣṇābhyāṁ — à Rādhā et Kṛṣṇa; namaḥ — hommages."
+              "wbw": "idaṁ — ceci; ācamanīyaṁ — eau pour l’ācamana; klīṁ — bīja-mantra; gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — à Rādhā et Kṛṣṇa; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ naivedyaṁ sa tulasī pānīya jalam klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "idaṁ naivedyaṁ sa tulasī pānīya jalam klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "Offrez le naivedya avec de la tulasī et de l’eau.",
-              "wbw": "idaṁ — ceci; naivedyaṁ — naivedya, offrande; sa — avec; tulasī — tulasī; pānīya — à boire; jalam — eau; klīng — bīja-mantra de Kāmadeva (Kṛṣṇa, attraction); gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »; śrīng — bīja-mantra de Śrī (Rādhā); klīng — bīja-mantra de Kāmadeva (Kṛṣṇa, attraction); rādhā-kṛṣṇābhyāṁ — à Rādhā et Kṛṣṇa; namaḥ — hommages."
+              "wbw": "idaṁ — ceci; naivedyaṁ — naivedya, offrande; sa — avec; tulasī — tulasī; pānīya — à boire; jalam — eau; klīṁ — bīja-mantra; gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — à Rādhā et Kṛṣṇa; namaḥ — hommages."
             },
             {
               "type": "instruction",
@@ -3339,21 +3278,21 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ ācamanīyaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "idaṁ ācamanīyaṁ klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "Offrez de l’eau pour Se rincer la bouche.",
-              "wbw": "idaṁ — ceci; ācamanīyaṁ — l’eau pour Se rincer la bouche; klīng — bīja-mantra de Kāmadeva, Kṛṣṇa, l’attraction; gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »; śrīng — bīja-mantra de Śrī, Lakṣmī, Rādhā; klīng — bīja-mantra de Kāmadeva, Kṛṣṇa, l’attraction; rādhā-kṛṣṇābhyāṁ — à Rādhā et Kṛṣṇa; namaḥ — hommages."
+              "wbw": "idaṁ — ceci; ācamanīyaṁ — l’eau pour Se rincer la bouche; klīṁ — bīja-mantra; gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — à Rādhā et Kṛṣṇa; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ tāmbūlaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "idaṁ tāmbūlaṁ klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "Offrez le tāmbūla (bétel).",
-              "wbw": "idaṁ — ceci; tāmbūlaṁ — le tāmbūla, préparation de bétel; klīng — bīja-mantra de Kāmadeva, Kṛṣṇa, l’attraction; gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »; śrīng — bīja-mantra de Śrī, Lakṣmī, Rādhā; klīng — bīja-mantra de Kāmadeva, Kṛṣṇa, l’attraction; rādhā-kṛṣṇābhyāṁ — à Rādhā-Kṛṣṇa; namaḥ — hommages."
+              "wbw": "idaṁ — ceci; tāmbūlaṁ — le tāmbūla, préparation de bétel; klīṁ — bīja-mantra; gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — à Rādhā-Kṛṣṇa; namaḥ — hommages."
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ āsanaṁ klīng gaurāya svāhā\nśrīng klīng rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "idaṁ āsanaṁ klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "Offrez l’āsana (un siège).",
-              "wbw": "idaṁ — cet; āsanaṁ — siège; klīng — bīja-mantra de Kāmadeva (Kṛṣṇa, l’attraction); gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »; śrīng — bīja-mantra de Śrī (Lakṣmī, Rādhā); klīng — bīja-mantra de Kāmadeva (Kṛṣṇa, l’attraction); rādhā-kṛṣṇābhyāṁ — à Rādhā-Kṛṣṇa; namaḥ — hommages."
+              "wbw": "idaṁ — cet; āsanaṁ — siège; klīṁ — bīja-mantra; gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — à Rādhā-Kṛṣṇa; namaḥ — hommages."
             }
           ]
         },
@@ -3392,7 +3331,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ mahā-prasādaṁ aing gurave namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva sakhibhiyo namaḥ\nidaṁ mahā-prasādaṁ oṁ vrindayai namaḥ\nidaṁ mahā-prasādaṁ oṁ paurnamasyai namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vaiṣṇavebhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vaiṣṇavībhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vrajavāsībhyo namaḥ",
+              "sanskrit": "idaṁ mahā-prasādaṁ aiṁ gurave namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva sakhibhiyo namaḥ\nidaṁ mahā-prasādaṁ oṁ vrindayai namaḥ\nidaṁ mahā-prasādaṁ oṁ paurnamasyai namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vaiṣṇavebhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vaiṣṇavībhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vrajavāsībhyo namaḥ",
               "translation": ""
             },
             {
@@ -4163,7 +4102,7 @@
               "items": [
                 {
                   "label": "Maître spirituel",
-                  "value": "⟦aing gurave namaḥ⟧"
+                  "value": "⟦aiṁ gurave namaḥ⟧"
                 },
                 {
                   "label": "Maîtres spirituels",
@@ -4171,7 +4110,7 @@
                 },
                 {
                   "label": "Seigneur ⟦Caitanya⟧",
-                  "value": "⟦klīng gaurāya svāhā⟧"
+                  "value": "⟦klīṁ gaurāya svāhā⟧"
                 },
                 {
                   "label": "Seigneur ⟦Nityananda⟧",
@@ -4179,7 +4118,7 @@
                 },
                 {
                   "label": "⟦Śrī Śrī Rādhā-Kṛṣṇa⟧",
-                  "value": "⟦śrīng klīng rādhā-kṛṣṇābhyām namaḥ⟧"
+                  "value": "⟦śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ⟧"
                 },
                 {
                   "label": "⟦Śālagrāma Śilās⟧",

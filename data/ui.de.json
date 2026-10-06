@@ -72,5 +72,6 @@
   "reader.forward": "Vorwärts",
   "reader.noForward": "Vorwärts geht erst nach Zurück",
   "reader.noBack": "Hier beginnt der Weg",
-  "group.contents": "Inhalt der Einleitung"
+  "group.contents": "Inhalt der Einleitung",
+  "offline.progress": "Das Buch wird für das Lesen ohne Internet gespeichert: {n} %"
 }

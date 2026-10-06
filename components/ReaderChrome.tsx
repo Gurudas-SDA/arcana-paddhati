@@ -56,9 +56,11 @@ import {
 const NO_TOGGLE = [
   "a", "button", "input", "textarea", "select", "option", "label", "summary",
   "[role=button]", "[role=dialog]", "[role=switch]", "[role=slider]", "[contenteditable]",
-  "img", "svg", "picture", "video", "canvas",
-  ".hs-text", ".hs-hit", ".hs-figure", ".hs-peek", ".hs-inert",
-  ".mood-toggle", ".verse-chips", "[data-no-reader-tap]",
+  // A numbered picture (.hs-img under its overlay) acts only through its
+  // parts; its empty area is page (Reader v7.1, UI rule 1).
+  "img:not(.hs-img)", "svg:not(.hs-overlay)", "picture", "video", "canvas",
+  ".hs-text", ".hs-hit", ".hs-peek", ".hs-inert",
+  ".mood-toggle", ".verse-chips", ".mantra-chips", "[data-no-reader-tap]",
 ].join(",");
 
 /** On the cover only real controls keep their function; the picture is page. */
@@ -261,7 +263,8 @@ export default function ReaderChrome({
   }, [pathKey, shown, panel, menuOpen]);
   const section = sections.find((s) => s.id === sectionId);
   const part = parts.find((p) => p.id === sectionId);
-  const pctText = `${Math.round(pct)} %`;
+  // «82 %» never breaks (Reader v7.1: on Android the «%» wrapped to a second line).
+  const pctText = `${Math.round(pct)} %`;
   // Chapters with numbers (the Introduction group has none — Satkirti 06.10.2026):
   // there the status line names the chapter itself.
   const numbered = sections.filter((s) => s.num).length;
@@ -279,6 +282,24 @@ export default function ReaderChrome({
     const m = mainEl();
     if (!m) return;
     quietUntil.current = performance.now() + 900;
+    // Only the reader's own scrolling shows / hides the bars: a scroll made by
+    // the app (a picture part tapped → its list row scrolled into view, an
+    // anchor jump, a restored place) never does (Reader v7.1, UI rule 1: the
+    // menu appears only from the reader's gesture).
+    let userAt = -1e9;
+    const userGesture = () => {
+      userAt = performance.now();
+    };
+    const onPointerMove = (e: PointerEvent) => {
+      if (e.buttons) userGesture(); // dragging the scrollbar / text
+    };
+    const onKeyScroll = (e: KeyboardEvent) => {
+      if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].includes(e.key)) userGesture();
+    };
+    m.addEventListener("touchmove", userGesture, { passive: true });
+    m.addEventListener("wheel", userGesture, { passive: true });
+    m.addEventListener("pointermove", onPointerMove, { passive: true });
+    document.addEventListener("keydown", onKeyScroll);
     let last = m.scrollTop;
     let up = 0;
     let down = 0;
@@ -295,7 +316,8 @@ export default function ReaderChrome({
       const top = m.scrollTop;
       const d = top - last;
       last = top;
-      if (performance.now() < quietUntil.current || overlayOpen()) {
+      // Momentum after a swipe keeps counting for a while (no touchmove then).
+      if (performance.now() < quietUntil.current || overlayOpen() || performance.now() - userAt > 1500) {
         up = down = 0;
         return;
       }
@@ -332,6 +354,10 @@ export default function ReaderChrome({
     m.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       m.removeEventListener("scroll", onScroll);
+      m.removeEventListener("touchmove", userGesture);
+      m.removeEventListener("wheel", userGesture);
+      m.removeEventListener("pointermove", onPointerMove);
+      document.removeEventListener("keydown", onKeyScroll);
       if (raf) cancelAnimationFrame(raf);
     };
   }, [pathKey, show, arm]);
@@ -568,6 +594,7 @@ export default function ReaderChrome({
       className="reader-chrome no-print"
       data-shown={shown ? "" : undefined}
       data-panel={panel ? "" : undefined}
+      data-menu={menuOpen ? "" : undefined}
     >
       {/* Top bar: contents · search · Аа */}
       <div className="reader-bar reader-bar-top" {...barEvents}>
@@ -712,7 +739,17 @@ export default function ReaderChrome({
             <span>{t(ui, "reader.back")}</span>
           </button>
           <p className="reader-progress-label">
-            {isHome ? "" : chapterLong ? `${chapterLong} · ${pctText}` : pctText}
+            {isHome ? "" : chapterLong ? (
+              <>
+                <span className="rp-long">{`${chapterLong} · ${pctText}`}</span>
+                {/* Narrow phones: «5/13 · 82 %» (one line, never cut) */}
+                <span className="rp-short">
+                  {section?.num ? `${section.num}/${numbered} · ${pctText}` : pctText}
+                </span>
+              </>
+            ) : (
+              pctText
+            )}
           </p>
           <button
             type="button"

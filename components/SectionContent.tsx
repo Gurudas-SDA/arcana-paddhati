@@ -11,7 +11,10 @@ import {
   type TableRow,
 } from "@/lib/book";
 import { t, type UiDict } from "@/lib/i18n";
-import CollapsibleVerse from "@/components/CollapsibleVerse";
+import CollapsibleVerse, { MantraWbw } from "@/components/CollapsibleVerse";
+
+/** A short mantra in a table row («⟦oṁ keśavāya namaḥ⟧», also Cyrillic). */
+const MANTRA_RE = /(namaḥ|намах̣)⟧/;
 import MoodBlock, { type MoodLabels } from "@/components/MoodBlock";
 import { HotspotFigure, HotspotHit, HotspotProvider, HotspotRow } from "@/components/Hotspots";
 import { hotspotsFor, labelNumbers } from "@/lib/hotspots";
@@ -278,12 +281,22 @@ function ContentBlock({
           {sanskrit}
           {item.translation !== undefined && item.translation !== "" && (
             <p className="translation text-[15px] leading-relaxed mt-1 pl-4 border-l border-[#999] ml-1">
-              {item.translation}
+              <Inline text={item.translation} />
             </p>
           )}
         </div>
       );
     }
+
+    case "ornament":
+      // Between the prayers of the Maṅgalācaraṇa: a quiet ornament instead of
+      // headings (Satkirti, 06.10.2026 — only the Sanskrit, word-by-word and
+      // translation; no titles, no numbers: book etiquette).
+      return (
+        <div className="verse-ornament" aria-hidden="true" key={index}>
+          ❁
+        </div>
+      );
 
     case "subtitle":
       return (
@@ -325,7 +338,13 @@ function ContentBlock({
               <div key={i}>
                 {/* The label is already set as Sanskrit: drop its ⟦…⟧ markers. */}
                 <p lang={sanskritLang(pair.label)} className="sanskrit text-base leading-relaxed text-[#1a1a1a]">
-                  {stripInline(pair.label)}
+                  {pair.wbw && MANTRA_RE.test(pair.label) ? (
+                    <MantraWbw wbw={pair.wbw} label={labels.wbw}>
+                      {stripInline(pair.label)}
+                    </MantraWbw>
+                  ) : (
+                    stripInline(pair.label)
+                  )}
                 </p>
                 <p className="translation text-[14px] leading-relaxed ml-8">
                   <Inline text={pair.value} />
@@ -351,14 +370,26 @@ function ContentBlock({
                   </span>
                 )}
                 <span className="pr-8 py-0.5 text-[15px]">
-                  <HotspotHit>
-                    <Inline text={pair.label} />
-                  </HotspotHit>
+                  {pair.wbw && MANTRA_RE.test(pair.label) ? (
+                    <MantraWbw wbw={pair.wbw} label={labels.wbw}>
+                      <Inline text={pair.label} />
+                    </MantraWbw>
+                  ) : (
+                    <HotspotHit>
+                      <Inline text={pair.label} />
+                    </HotspotHit>
+                  )}
                 </span>
                 <span className="py-0.5 text-[15px]">
-                  <HotspotHit>
-                    <Inline text={pair.value} />
-                  </HotspotHit>
+                  {pair.wbw && !MANTRA_RE.test(pair.label) && MANTRA_RE.test(pair.value) ? (
+                    <MantraWbw wbw={pair.wbw} label={labels.wbw}>
+                      <Inline text={pair.value} />
+                    </MantraWbw>
+                  ) : (
+                    <HotspotHit>
+                      <Inline text={pair.value} />
+                    </HotspotHit>
+                  )}
                 </span>
               </>
             );

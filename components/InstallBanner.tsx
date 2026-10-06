@@ -1,4 +1,5 @@
 "use client";
+import { startOfflineSync } from "@/lib/offlineProgress";
 import React, {
   useState,
   useEffect,
@@ -84,7 +85,8 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
   useEffect(() => {
     // Register service worker
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/arcana-paddhati/sw.js");
+      navigator.serviceWorker.register("/arcana-paddhati/sw.js").catch(() => {});
+      startOfflineSync();
     }
 
     // Listen for native install prompt (Chrome / Edge / Android Chrome)

@@ -1094,3 +1094,124 @@ html[data-reader-theme="night"] ::selection {
     display: none;
   }
 }
+
+/* =====================================================================
+   Reader v7.1 (Satkirti, 06.10.2026)
+   ===================================================================== */
+/* While the contents / search menu is open, «‹ Назад / Вперёд ›» are always
+   on screen and above the menu's backdrop (iPad has no system Back; on
+   Android a tap there closed the menu instead). The menu panel ends above
+   the bar. */
+.reader-chrome[data-menu] .reader-bar-bottom {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+  z-index: 60;
+}
+.reader-chrome[data-menu] .reader-nav-note {
+  z-index: 61;
+}
+.mobile-menu > .sidebar-transition {
+  bottom: calc(57px + env(safe-area-inset-bottom, 0px));
+}
+/* Opening a page from the menu: the menu stays until the page is shown. */
+.mobile-menu[data-leaving] aside {
+  cursor: progress;
+}
+.mobile-menu[data-leaving] aside nav {
+  opacity: 0.75;
+  transition: opacity 150ms ease;
+}
+
+/* Status of the bottom bar: one line, never cut. */
+.reader-progress-label {
+  white-space: nowrap;
+}
+.reader-progress-label .rp-short {
+  display: none;
+}
+@media (max-width: 479px) {
+  .reader-progress-label .rp-long {
+    display: none;
+  }
+  .reader-progress-label .rp-short {
+    display: inline;
+  }
+}
+.reader-status {
+  white-space: nowrap;
+}
+
+/* Maṅgalācaraṇa: an ornament between the prayers (no headings). */
+.verse-ornament {
+  margin: 1.75rem 0 1.5rem;
+  text-align: center;
+  font-size: 1.1em;
+  line-height: 1;
+  color: var(--rd-accent);
+  opacity: 0.7;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Sanskrit lines break only between words or after a hyphen of a compound,
+   never inside a word. */
+.reader-article .sanskrit,
+.reader-article .verse-text {
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: manual;
+  -webkit-hyphens: manual;
+}
+
+/* Floating picture copy on phones (Reader v7.1): small, in the right corner,
+   moved to the top when the lit row would be under it; the reading area gets
+   room below so every row can be scrolled clear of it. */
+.hs-peek {
+  --hs-peek-bottom: calc(30px + env(safe-area-inset-bottom, 0px));
+}
+html[data-reader-bars] .hs-peek {
+  --hs-peek-bottom: calc(132px + env(safe-area-inset-bottom, 0px));
+}
+@media (max-width: 639px) {
+  .hs-peek {
+    left: auto;
+    right: 8px;
+    transform: none;
+    width: min(180px, 46vw);
+    padding: 4px;
+    animation-name: hs-peek-in;
+  }
+}
+.hs-peek[data-top] {
+  bottom: auto !important;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
+}
+html[data-reader-bars] .hs-peek[data-top] {
+  top: calc(env(safe-area-inset-top, 0px) + 68px);
+}
+html[data-hs-peek] .app-main {
+  padding-bottom: calc(var(--reader-pad-bottom) + var(--hs-peek-h, 0px) + 16px);
+}
+
+/* Numbers drawn over a picture where it prints none (emblem 2.1–2.6, 10–12). */
+.hs-tag {
+  font-family: Montserrat, "Segoe UI", Arial, sans-serif;
+  font-weight: 700;
+  fill: #1a1a1a;
+  stroke: #fff;
+  stroke-width: 6px;
+  paint-order: stroke;
+  stroke-linejoin: round;
+  -webkit-user-select: none;
+  user-select: none;
+}
+/* Empty parts of a numbered picture are page (UI rule 1): only its parts
+   take taps. */
+.hs-overlay {
+  pointer-events: none;
+}
+.hs-overlay .hs-hit,
+.hs-overlay .hs-inert {
+  pointer-events: all;
+}

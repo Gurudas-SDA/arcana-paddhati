@@ -72,5 +72,6 @@
   "reader.forward": "Adelante",
   "reader.noForward": "Adelante funciona después de Atrás",
   "reader.noBack": "Este es el inicio del recorrido",
-  "group.contents": "Contenido de la introducción"
+  "group.contents": "Contenido de la introducción",
+  "offline.progress": "Guardando el libro para leer sin conexión: {n} %"
 }

@@ -72,5 +72,6 @@
   "reader.forward": "Suivant",
   "reader.noForward": "Suivant fonctionne après Retour",
   "reader.noBack": "C’est le début du parcours",
-  "group.contents": "Contenu de l’introduction"
+  "group.contents": "Contenu de l’introduction",
+  "offline.progress": "Enregistrement du livre pour la lecture hors ligne : {n} %"
 }

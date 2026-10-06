@@ -72,5 +72,6 @@
   "reader.forward": "Előre",
   "reader.noForward": "Az Előre a Vissza után működik",
   "reader.noBack": "Ez az út eleje",
-  "group.contents": "A bevezetés tartalma"
+  "group.contents": "A bevezetés tartalma",
+  "offline.progress": "A könyv mentése offline olvasáshoz: {n} %"
 }

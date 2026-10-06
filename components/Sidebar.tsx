@@ -1,5 +1,6 @@
 "use client";
 
+import { useOfflineProgress } from "@/lib/offlineProgress";
 import React, {
   useEffect,
   useId,
@@ -56,7 +57,8 @@ interface SidebarProps {
    * place reopens the menu as it was (UI rule 6). Also marks menu mode: each
    * part expanded in the contents is then a history entry of its own.
    */
-  onLeave?: () => void;
+  /** `navigating`: another page is being opened (the menu stays until it is shown). */
+  onLeave?: (navigating?: boolean) => void;
 }
 
 interface PreparedEntry {
@@ -446,9 +448,9 @@ export default function Sidebar({
     }
   };
   const onLeave = onLeaveProp
-    ? () => {
+    ? (navigating?: boolean) => {
         saveNavScroll();
-        onLeaveProp();
+        onLeaveProp(navigating);
       }
     : undefined;
 
@@ -534,6 +536,7 @@ export default function Sidebar({
     return false;
   };
   const showAllTranslations = useShowAllTranslations();
+  const offline = useOfflineProgress();
   const showAllWbw = useShowAllWbw();
 
   const sectionHref = (sectionId: string, anchor?: string) =>
@@ -556,7 +559,7 @@ export default function Sidebar({
     const samePage = strip(localeHref(lang, sectionId)) === strip(pathname);
     if (!samePage) {
       // The Link navigates (a new entry on top of the menu's).
-      onLeave?.();
+      onLeave?.(true);
       return;
     }
     e.preventDefault();
@@ -598,7 +601,7 @@ export default function Sidebar({
     const strip = (p: string) => p.replace(/\/+$/, "");
     if (strip(href) !== strip(pathname)) {
       // The Link navigates (a new entry on top of the menu's).
-      if (onLeave) onLeave();
+      if (onLeave) onLeave(true);
       else onClose();
       return;
     }
@@ -618,7 +621,7 @@ export default function Sidebar({
   const openHref = (e: React.MouseEvent, href: string) => {
     const strip = (p: string) => p.replace(/\/+$/, "");
     if (strip(href) !== strip(pathname)) {
-      if (onLeave) onLeave();
+      if (onLeave) onLeave(true);
       else onClose();
       router.push(href);
       return;
@@ -679,7 +682,7 @@ export default function Sidebar({
    * entry: "back" collapses it again); collapsing the group this very entry
    * expanded is "back"; any other collapse updates the entry.
    */
-  const onPartTap = (id: string) => {
+  const onPartTap = (id: string, markId?: string) => {
     const opening = !isPartOpen(id);
     togglePart(id);
     if (!onLeave) return;
@@ -690,6 +693,11 @@ export default function Sidebar({
         saveNavScroll();
         pushOverlay({ apParts: partsSnapshot(), apExp: id, apDepth: menuDepth(st) + 1 });
       } else if (st?.apExp === id) {
+        // Collapsing = "back" to the step before; the tapped heading stays
+        // lit there (marked once that step is current again).
+        if (markId) {
+          window.addEventListener("popstate", () => window.setTimeout(() => mark(markId), 0), { once: true });
+        }
         window.history.back();
       } else {
         patchState({ apParts: partsSnapshot() });
@@ -776,11 +784,15 @@ export default function Sidebar({
             <button
               type="button"
               onClick={(e) => {
-                if (secondTap(e, rowId)) {
+                if (tapped === rowId) {
                   openHref(e, sectionHref(section.id));
                   return;
                 }
+                // The step (history entry) first, then the highlight on the
+                // NEW entry — else the previous step got this row as its
+                // place and "back" showed it twice (Reader v7.1).
                 if (!isOpen) onPartTap(key);
+                mark(rowId);
               }}
               aria-expanded={isOpen}
               aria-controls={isOpen ? listId : undefined}
@@ -794,8 +806,8 @@ export default function Sidebar({
             <button
               type="button"
               onClick={() => {
+                onPartTap(key, rowId);
                 mark(rowId);
-                onPartTap(key);
               }}
               aria-expanded={isOpen}
               aria-controls={isOpen ? listId : undefined}
@@ -893,8 +905,8 @@ export default function Sidebar({
         <button
           type="button"
           onClick={() => {
+            onPartTap(groupId, headId);
             mark(headId);
-            onPartTap(groupId);
           }}
           aria-expanded={isOpen}
           aria-controls={isOpen ? listId : undefined}
@@ -1084,6 +1096,11 @@ export default function Sidebar({
           checked={showAllTranslations}
           onChange={setShowAllTranslations}
         />
+        {offline && !offline.complete && offline.total > 0 && (
+          <p className="text-[11px] text-[#5C3D2E] mt-1" data-offline-progress="">
+            {t(ui, "offline.progress", { n: String(Math.floor((offline.done / offline.total) * 100)) })}
+          </p>
+        )}
       </div>
 
       {/* Sections list / search results */}

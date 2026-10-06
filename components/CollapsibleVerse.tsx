@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useId, useState } from "react";
-import { parseWbw, sanskritLang } from "@/lib/book";
+import { parseInline, parseWbw, sanskritLang } from "@/lib/book";
 import { useShowAllTranslations, useShowAllWbw } from "@/lib/translationsPref";
 
 /**
@@ -118,9 +118,50 @@ export default function CollapsibleVerse({
           hidden={!trOpen}
           className="verse-panel verse-translation translation text-[15px] leading-relaxed mt-2 pl-4 border-l border-[#999] ml-1"
         >
-          {translation}
+          {parseInline(translation).map((run, i) =>
+            run.sanskrit ? (
+              <i key={i} lang={sanskritLang(run.text)}>
+                {run.text}
+              </i>
+            ) : (
+              <React.Fragment key={i}>{run.text}</React.Fragment>
+            ),
+          )}
         </p>
       )}
     </div>
+  );
+}
+
+/**
+ * A short mantra inside a table row (Tilak, ācamana: «oṁ keśavāya namaḥ»):
+ * every mantra of the book has its word-by-word (Satkirti, 06.10.2026) — a
+ * «пословно» chip after it opens the meanings under it, like a verse's.
+ */
+export function MantraWbw({ wbw, label, children }: { wbw: string; label: string; children: React.ReactNode }) {
+  const [open, setOpen] = useState(false);
+  const id = useId();
+  return (
+    <>
+      {children}
+      <span className="mantra-chips inline-flex ml-2 align-middle">
+        <Chip label={label} open={open} controls={id} onClick={() => setOpen((o) => !o)} />
+      </span>
+      <span
+        id={id}
+        hidden={!open}
+        className="verse-panel verse-wbw block text-[14px] leading-relaxed mt-1 mb-1 pl-3 border-l border-[#B8860B]/50 text-[#2C1810]"
+      >
+        {parseWbw(wbw).map((pair, i) => (
+          <React.Fragment key={i}>
+            {i > 0 && "; "}
+            <i lang={sanskritLang(pair.word)} className="wbw-word">
+              {pair.word}
+            </i>
+            {pair.meaning && ` — ${pair.meaning}`}
+          </React.Fragment>
+        ))}
+      </span>
+    </>
   );
 }

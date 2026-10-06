@@ -1,4 +1,14 @@
-// Arcana-paddhati service worker (v5) — the whole book offline, robust updates.
+// Arcana-paddhati service worker (v6) — the whole book offline, robust updates.
+//
+// v6 (Reader v7.1, 06.10.2026): Android Chrome stopped the v5 install (one
+// ~180 MB / ~1900-file waitUntil) after ~300 s and nothing was offline. Now
+// the install caches only the CORE — app shell + every chapter page and RSC
+// payload of the reader's language (ru-iast always, plus the language of the
+// open page) — and takes over at once; the rest (other languages,
+// transcripts) is fetched in the background after activation, resumable
+// (cached files are skipped), continued on every page view (the page pings
+// the worker), with progress messages to the pages. An older complete cache
+// is kept until the new one is complete.
 //
 // MAIN RULE (Satkirti, 06.10.2026): the app works OFFLINE on iPad, iPhone,
 // Android and computers after the first visit.
@@ -170,12 +180,45 @@ let activated = false;
 // interrupted run keeps what it fetched, the next run fills the rest.
 function precacheAll() {
   if (!precacheRunning) {
-    precacheRunning = doPrecache().finally(() => { precacheRunning = null; });
+    precacheRunning = doPrecache(null).finally(() => { precacheRunning = null; });
   }
   return precacheRunning;
 }
 
-async function doPrecache() {
+// Languages of the open pages ("en" for the root pages).
+async function clientLangs() {
+  const out = new Set(['ru-iast']);
+  try {
+    for (const c of await self.clients.matchAll({ includeUncontrolled: true, type: 'window' })) {
+      const code = new URL(c.url).pathname.split('/')[2];
+      out.add(LANG_CODES.includes(code) ? code : 'en');
+    }
+  } catch {
+    // no clients API
+  }
+  return out;
+}
+
+// Only the core: shell + the given languages (install step).
+function precacheCore(langs) {
+  return doPrecache((group) => group === 'shell' || langs.has(group));
+}
+
+let lastProgress = 0;
+async function postProgress(done, total, final) {
+  const now = Date.now();
+  if (!final && now - lastProgress < 1500) return;
+  lastProgress = now;
+  try {
+    for (const c of await self.clients.matchAll({ type: 'window' })) {
+      c.postMessage({ type: 'precache-progress', version: VERSION, done, total, complete: !!final && done >= total });
+    }
+  } catch {
+    // ignore
+  }
+}
+
+async function doPrecache(only) {
   const cache = await caches.open(CACHE_NAME);
   if (await cache.match(COMPLETE_KEY)) {
     return { total: 0, fetched: 0, copied: 0, failed: 0, complete: true };
@@ -196,15 +239,20 @@ async function doPrecache() {
   }
   const urls = manifest.urls || [];
   const hashes = manifest.hashes || [];
+  const groups = manifest.groups || [];
   // Unchanged files: copy from an older version's cache.
   const older = [];
   for (const name of await arcanaCacheNames()) {
     if (name !== CACHE_NAME) older.push({ cache: await caches.open(name), hashes: await storedHashes(name) });
   }
   const missing = [];
+  let have = 0;
   for (let i = 0; i < urls.length; i++) {
+    if (only && !only(groups[i] || 'shell')) continue;
     if (!(await cache.match(urls[i], MATCH_OPTS))) missing.push(i);
+    else have++;
   }
+  const scope = have + missing.length;
   let failed = 0;
   let fetched = 0;
   let copied = 0;
@@ -233,9 +281,12 @@ async function doPrecache() {
       } catch {
         failed++;
       }
+      if (!only) postProgress(have + fetched + copied, scope, false);
     }
   }
   await Promise.all(Array.from({ length: CONCURRENCY }, worker));
+  if (only) return { total: scope, fetched, copied, failed, complete: false, core: failed === 0 };
+  postProgress(have + fetched + copied, scope, failed === 0);
   const complete = failed === 0;
   if (complete) {
     await cache.put(MANIFEST_KEY, new Response(JSON.stringify(manifest), { headers: { 'Content-Type': 'application/json' } }));
@@ -258,14 +309,14 @@ function topUp() {
 
 self.addEventListener('install', (event) => {
   event.waitUntil((async () => {
-    const status = await precacheAll().catch(() => ({ complete: false }));
-    lastTopUp = Date.now();
-    if (!status.complete && (await completeOlderCache())) {
+    // Only the core here (small, well within the browser's install time).
+    const status = await precacheCore(await clientLangs()).catch(() => ({ core: false }));
+    if (!status.core && (await completeOlderCache())) {
       // Keep the complete older version in charge; the download resumes on
       // the next visit (this cache is kept). Failing install is on purpose.
-      throw new Error('precache incomplete — keeping the previous version');
+      throw new Error('core precache incomplete — keeping the previous version');
     }
-    // First install (nothing older) or complete: take over at once.
+    // Core complete (or first install, nothing older): take over at once.
     await self.skipWaiting();
   })());
 });
@@ -276,9 +327,19 @@ self.addEventListener('activate', (event) => {
     if (await isComplete(CACHE_NAME)) await dropOlderCaches();
     await self.clients.claim();
   })());
+  // The rest in the background (not inside activate: fetches must not wait).
+  lastTopUp = Date.now();
+  precacheAll().catch(() => {});
 });
 
 self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'precache-continue') {
+    // A page is open: keep filling the cache (resumable; each message gives
+    // the worker a new lifetime for the download).
+    lastTopUp = Date.now();
+    event.waitUntil(precacheAll().catch(() => {}));
+    return;
+  }
   if (event.data && event.data.type === 'precache-status') {
     event.waitUntil(
       precacheAll().then((status) => {

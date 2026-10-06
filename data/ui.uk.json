@@ -72,5 +72,6 @@
   "reader.forward": "Вперед",
   "reader.noForward": "«Вперед» — після «Назад»",
   "reader.noBack": "Це початок шляху",
-  "group.contents": "Зміст вступу"
+  "group.contents": "Зміст вступу",
+  "offline.progress": "Книга зберігається для читання без інтернету: {n} %"
 }

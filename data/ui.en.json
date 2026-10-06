@@ -72,5 +72,6 @@
   "reader.forward": "Forward",
   "reader.noForward": "Forward works after Back",
   "reader.noBack": "This is the start of the path",
-  "group.contents": "Introduction contents"
+  "group.contents": "Introduction contents",
+  "offline.progress": "Saving the book for offline reading: {n} %"
 }

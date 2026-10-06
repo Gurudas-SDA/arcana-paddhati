@@ -48,7 +48,7 @@ const HotspotContext = createContext<Ctx | null>(null);
 const IGNORE_TAP = [
   "a", "button", "input", "textarea", "select", "label", "summary",
   "[role=button]", "[role=dialog]", "[contenteditable]",
-  ".hs-text", ".hs-hit", ".hs-figure", ".hs-peek",
+  ".hs-text", ".hs-hit", ".hs-inert", ".hs-peek",
 ].join(",");
 
 export function HotspotProvider({ children }: { children: React.ReactNode }) {
@@ -384,6 +384,25 @@ function HotspotCanvas({
           </g>
         ))}
 
+        {/* Numbers the picture itself does not print (drawn, not tappable on
+            their own: the object's tap target lies under them). */}
+        {Object.entries(spots).map(([n, s]) =>
+          s.tag ? (
+            <text
+              key={`tag-${n}`}
+              className="hs-tag"
+              x={px(s.tag[0], w)}
+              y={px(s.tag[1], h)}
+              fontSize={Math.max(w, h) * 0.036}
+              textAnchor="middle"
+              dominantBaseline="central"
+              pointerEvents="none"
+            >
+              {n}
+            </text>
+          ) : null,
+        )}
+
         {/* Not a tap target at all (the Deities): taps here do nothing. */}
         {data.inert?.map((poly, i) => (
           <polygon
@@ -426,6 +445,10 @@ export function HotspotFigure({
   // Whenever a highlight is on and the picture is off-screen, the floating
   // copy shows it, whether the tap came from the list or from the picture.
   const peek = !!active && offscreen && dismissed !== activeSeq;
+  // The copy goes to the top of the screen when the highlighted row would be
+  // under it at the bottom (Reader v7.1: the lit row is never covered).
+  const [peekTop, setPeekTop] = useState(false);
+  const peekRef = useRef<HTMLDivElement | null>(null);
   const registerFigure = ctx?.registerFigure;
   const setRef = useCallback(
     (el: HTMLDivElement | null) => {
@@ -457,6 +480,52 @@ export function HotspotFigure({
     };
   }, [activeNums, activeSeq]);
 
+  // Keep the lit row clear of the floating copy: on show, on scroll, on resize.
+  useEffect(() => {
+    if (!peek) {
+      document.documentElement.removeAttribute("data-hs-peek");
+      return;
+    }
+    let raf = 0;
+    const place = () => {
+      raf = 0;
+      const pk = peekRef.current;
+      if (!pk) return;
+      const h = pk.getBoundingClientRect().height;
+      document.documentElement.setAttribute("data-hs-peek", "");
+      document.documentElement.style.setProperty("--hs-peek-h", `${Math.round(h)}px`);
+      const rows = [...document.querySelectorAll<HTMLElement>(".app-main .hs-row[data-active]")];
+      if (!rows.length) return;
+      const vh = window.innerHeight;
+      const cs = getComputedStyle(pk);
+      const bottomGap = parseFloat(cs.getPropertyValue("--hs-peek-bottom")) || 40;
+      const lowTop = vh - bottomGap - h - 8;
+      const highBottom = 12 + h + 8 + (parseFloat(cs.getPropertyValue("--hs-peek-topgap")) || 0);
+      const hitsLow = rows.some((r) => {
+        const b = r.getBoundingClientRect();
+        return b.bottom > lowTop && b.top < vh;
+      });
+      const hitsHigh = rows.some((r) => {
+        const b = r.getBoundingClientRect();
+        return b.top < highBottom && b.bottom > 0;
+      });
+      setPeekTop((cur) => (hitsLow && !hitsHigh ? true : hitsHigh && !hitsLow ? false : cur));
+    };
+    const onMove = () => {
+      if (!raf) raf = requestAnimationFrame(place);
+    };
+    const t = window.setTimeout(place, 30);
+    window.addEventListener("scroll", onMove, true);
+    window.addEventListener("resize", onMove);
+    return () => {
+      window.clearTimeout(t);
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onMove, true);
+      window.removeEventListener("resize", onMove);
+      document.documentElement.removeAttribute("data-hs-peek");
+    };
+  }, [peek, activeSeq]);
+
   // Fetch the masks early so the first highlight appears at once.
   useEffect(() => {
     if (!ctx) return;
@@ -483,7 +552,13 @@ export function HotspotFigure({
       </div>
       {peek &&
         createPortal(
-          <div className="hs-peek no-print" role="dialog" aria-label={alt}>
+          <div
+            ref={peekRef}
+            className="hs-peek no-print"
+            data-top={peekTop ? "" : undefined}
+            role="dialog"
+            aria-label={alt}
+          >
             <button
               type="button"
               className="hs-peek-close"

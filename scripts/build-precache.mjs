@@ -82,6 +82,22 @@ function priority(rel) {
 }
 const ordered = [...entries].sort((a, b) => priority(a) - priority(b) || (a < b ? -1 : a > b ? 1 : 0));
 
+// Download group of each URL (SW v6, Reader v7.1): "shell" (build assets,
+// icons, pictures, manifest), a language code ("en" for the root pages) for
+// its pages, RSC payloads and search index, "transcripts" for the bundled
+// lecture transcripts. The SW installs only the core (shell + the reader's
+// language) and fetches the rest in the background.
+function group(rel) {
+  if (rel.startsWith("transcripts/")) return "transcripts";
+  const m = /^search-index\.([a-z-]+)\.json$/.exec(rel);
+  if (m) return m[1];
+  if (rel.startsWith("_next/") || rel.startsWith("images/")) return "shell";
+  if (!rel.includes("/")) return rel.endsWith(".html") || rel.endsWith(".txt") ? "en" : "shell";
+  const first = rel.split("/")[0];
+  return LANG_DIRS.includes(first) ? first : "en";
+}
+const groups = [];
+
 const hash = createHash("sha256");
 let totalBytes = 0;
 const urls = [];
@@ -96,6 +112,7 @@ for (const rel of ordered) {
   totalBytes += buf.length;
   const url = toUrl(rel);
   urls.push(url);
+  groups.push(group(rel));
   if (url.endsWith("/")) counts.pages++;
   else if (url.endsWith(".txt")) counts.rsc++;
   else if (url.startsWith(BASE + "_next/static/")) counts.static++;
@@ -105,7 +122,7 @@ const version = hash.digest("hex").slice(0, 16);
 
 writeFileSync(
   join(outDir, "precache-manifest.json"),
-  JSON.stringify({ version, bytes: totalBytes, urls, hashes })
+  JSON.stringify({ version, bytes: totalBytes, urls, hashes, groups })
 );
 
 const swPath = join(outDir, "sw.js");

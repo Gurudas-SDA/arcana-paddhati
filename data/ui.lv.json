@@ -72,5 +72,6 @@
   "reader.forward": "Uz priekšu",
   "reader.noForward": "«Uz priekšu» darbojas pēc «Atpakaļ»",
   "reader.noBack": "Šis ir ceļa sākums",
-  "group.contents": "Ievada saturs"
+  "group.contents": "Ievada saturs",
+  "offline.progress": "Grāmata tiek saglabāta lasīšanai bez interneta: {n} %"
 }

@@ -4,6 +4,8 @@
 export interface PairedItem {
   label: string;
   value: string;
+  /** Word-by-word of the mantra in this row (a «пословно» chip). */
+  wbw?: string;
 }
 
 /** Source of a "mood" quote: the lecture it was taken from. */
@@ -172,7 +174,7 @@ export interface TocSection {
   /** num = "2.1", "2.2", … */
   subsections: { id: string; title: string; num: string | null }[];
   /** Head of the front-matter group (the Introduction): ids of the chapters
-   *  inside it (Emblem, Vigraha-tattva, Maṅgalācaraṇa). See frontGroup(). */
+   *  inside it (Emblem, Vigraha-tattva). See frontGroup(). */
   members?: string[];
   /** A chapter inside the front-matter group: the group head's id. */
   group?: string;
@@ -195,7 +197,26 @@ export function frontGroup(
     if (inPart.has(id)) break;
     front.push(id);
   }
-  return front.length >= 2 ? { head: front[0], members: front.slice(1) } : null;
+  // Front matter before the Introduction (the Maṅgalācaraṇa — Satkirti,
+  // 06.10.2026: cover → maṅgalācaraṇa → Introduction) stands on its own.
+  const at = front.indexOf(INTRO_ID);
+  const h = at >= 0 ? at : 0;
+  const members = front.slice(h + 1);
+  return members.length >= 1 ? { head: front[h], members } : null;
+}
+
+/** Id of the Introduction (head of the front-matter group). */
+export const INTRO_ID = "introduction";
+
+/** Sections before Part I's first chapter, outside any part (no chapter numbers). */
+export function frontMatter(sectionIds: string[], parts: { sections: string[] }[]): string[] {
+  const inPart = new Set(parts.flatMap((p) => p.sections));
+  const front: string[] = [];
+  for (const id of sectionIds) {
+    if (inPart.has(id)) break;
+    front.push(id);
+  }
+  return front;
 }
 
 /**
@@ -209,8 +230,8 @@ export function sectionNumbers(
   sections: { id: string }[],
   parts: { sections: string[] }[] = [],
 ): (number | null)[] {
-  const g = frontGroup(sections.map((s) => s.id), parts);
-  const front = new Set(g ? [g.head, ...g.members] : []);
+  // All the front matter (Maṅgalācaraṇa, the Introduction group) is unnumbered.
+  const front = new Set(parts.length ? frontMatter(sections.map((s) => s.id), parts) : []);
   let n = 0;
   return sections.map((s) => (front.has(s.id) ? null : ++n));
 }

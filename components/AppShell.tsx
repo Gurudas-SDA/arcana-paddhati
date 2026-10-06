@@ -59,6 +59,8 @@ export default function AppShell({
     searchQueryRef.current = searchQuery;
   }, [searchQuery]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  /** Time of the last back / forward (its saved place wins over the anchor). */
+  const poppedAt = useRef(-1e9);
   const [searchIndexes, setSearchIndexes] = useState<Record<string, IndexState>>({});
   const indexRequested = useRef<Set<string>>(new Set());
 
@@ -92,16 +94,46 @@ export default function AppShell({
     if (d > 0) window.history.go(-d);
   }, []);
 
-  /** Leave the menu for a place (link or result): keep its entries (with the query). */
-  const leaveMenu = useCallback(() => {
+  /**
+   * Leave the menu for a place (link or result): keep its entries (with the query).
+   * `navigating` — another page is opening: the menu stays on screen until that
+   * page is rendered (Reader v7.1: on a slow device the old page — often the
+   * cover — flashed for 2–3 s between the menu and the chapter).
+   */
+  const [leaving, setLeaving] = useState(false);
+  const leaveTimer = useRef<number | undefined>(undefined);
+  const leaveMenu = useCallback((navigating?: boolean) => {
     try {
       if (isMenuEntry()) patchState({ apQuery: searchQueryRef.current });
       sessionStorage.setItem(QUERY_STORE, searchQueryRef.current);
     } catch {
       // storage unavailable
     }
+    window.clearTimeout(leaveTimer.current);
+    if (navigating) {
+      setLeaving(true);
+      // Safety net: never keep the menu if the page does not come.
+      leaveTimer.current = window.setTimeout(() => {
+        setLeaving(false);
+        setMobileMenuOpen(false);
+      }, 8000);
+      return;
+    }
+    setLeaving(false);
     setMobileMenuOpen(false);
   }, []);
+  // The new page is rendered: now the menu goes.
+  const [leftFrom, setLeftFrom] = useState(pathname);
+  if (leftFrom !== pathname) {
+    setLeftFrom(pathname);
+    if (leaving) {
+      setLeaving(false);
+      setMobileMenuOpen(false);
+    }
+  }
+  useEffect(() => {
+    if (!leaving) window.clearTimeout(leaveTimer.current);
+  }, [leaving]);
 
   // <html lang> follows the language on client-side navigation (the static
   // HTML already has it, see scripts/patch-html-lang.mjs).
@@ -209,6 +241,8 @@ export default function AppShell({
 
     const onPop = (e: PopStateEvent) => {
       const st = (e.state as Record<string, unknown> | null) ?? null;
+      setLeaving(false);
+      poppedAt.current = performance.now();
       if (isMenuEntry(st)) {
         if (typeof st?.apParts === "string") restoreParts(st.apParts);
         reopenMenu(st);
@@ -245,6 +279,66 @@ export default function AppShell({
       window.removeEventListener("popstate", onPop);
     };
   }, []);
+
+  // An anchor jump (contents → subsection, link with #hash) keeps the heading
+  // at the top while pictures and fonts above it load and push it down
+  // (Reader v7.1, Satkirti on iPad: the heading ended at the bottom of the
+  // screen). Re-aligned for a few seconds; any touch / wheel / key of the
+  // reader stops it. Not after back / forward: their saved place wins.
+  useEffect(() => {
+    let stopKeeper: (() => void) | null = null;
+    const keep = () => {
+      stopKeeper?.();
+      stopKeeper = null;
+      if (performance.now() - poppedAt.current < 1500) return;
+      let id = window.location.hash.slice(1);
+      if (!id) return;
+      try {
+        id = decodeURIComponent(id);
+      } catch {
+        // keep raw
+      }
+      const m = mainEl();
+      if (!m) return;
+      const until = performance.now() + 4000;
+      let stopped = false;
+      const timers: number[] = [];
+      const align = () => {
+        if (stopped) return;
+        if (performance.now() > until) return stop();
+        const el = document.getElementById(id);
+        if (!el) return;
+        const margin = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
+        const d = el.getBoundingClientRect().top - m.getBoundingClientRect().top - margin;
+        if (Math.abs(d) > 2) m.scrollTop += d;
+      };
+      const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(align) : null;
+      const article = m.querySelector("article") ?? m.firstElementChild;
+      if (ro && article) ro.observe(article);
+      const onLoad = () => align();
+      m.addEventListener("load", onLoad, true);
+      const stop = () => {
+        if (stopped) return;
+        stopped = true;
+        ro?.disconnect();
+        m.removeEventListener("load", onLoad, true);
+        for (const ev of ["touchstart", "wheel", "keydown", "pointerdown"]) m.removeEventListener(ev, stop);
+        for (const tm of timers) window.clearTimeout(tm);
+      };
+      for (const ev of ["touchstart", "wheel", "keydown", "pointerdown"])
+        m.addEventListener(ev, stop, { passive: true });
+      for (const ms of [0, 60, 150, 300, 600, 1000, 1500, 2200, 3000, 3900]) timers.push(window.setTimeout(align, ms));
+      document.fonts?.ready.then(align).catch(() => {});
+      stopKeeper = stop;
+    };
+    const id = window.setTimeout(keep, 0);
+    window.addEventListener("hashchange", keep);
+    return () => {
+      window.clearTimeout(id);
+      window.removeEventListener("hashchange", keep);
+      stopKeeper?.();
+    };
+  }, [pathname]);
 
   // Each new entry gets its place key once its page is shown.
   useEffect(() => {
@@ -310,7 +404,7 @@ export default function AppShell({
 
       {/* Contents / search panel (all screen sizes) */}
       {mobileMenuOpen && (
-        <div className="mobile-menu no-print fixed inset-0 z-40">
+        <div className="mobile-menu no-print fixed inset-0 z-40" data-leaving={leaving ? "" : undefined}>
           {/* Backdrop */}
           <div
             className="fixed inset-0 bg-black/30 sidebar-backdrop"
