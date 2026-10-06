@@ -170,7 +170,8 @@ def main():
         return 0
     os.makedirs(RESULTS, exist_ok=True)
     for f in os.listdir(RESULTS):
-        if f.endswith(".log"):
+        # only the suite logs of the previous run (not build.log / push.log of the hook)
+        if f.endswith(".log") and (f.split("-")[0].split(".")[0] in {s["id"] for s in SUITES}):
             os.remove(os.path.join(RESULTS, f))
     if not os.path.exists(os.path.join(qa.OUT, "precache-manifest.json")):
         print("out/ nav uzbūvēts — vispirms: npm run build")
