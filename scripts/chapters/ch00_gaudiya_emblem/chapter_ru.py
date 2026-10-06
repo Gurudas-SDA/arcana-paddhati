@@ -48,10 +48,9 @@ INTRO = [
       "гаудия-вайшнава: слева — путь ⟦vidhi⟧, путь правил и арчаны, справа — путь ⟦rāga⟧, путь спонтанной любви, "
       "в центре — святое имя, вверху — Махапрабху, внизу — Гуру."),
     T("Сначала стоит просто рассмотреть, что здесь изображено, на что указывает и о чём напоминает каждая деталь, — "
-      "а затем глубже войти в сами темы. Нажмите на пункт списка — на рисунке выделится этот элемент. Изображения "
-      "Махапрабху, Лакшми-Нараяны и Радха-Кришны не нумеруются."),
+      "а затем глубже войти в сами темы. Нажмите на пункт списка — на рисунке выделится этот элемент."),
     {"type": "list",
-     "numbers": ["1", "2", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "3", "4", "5", "6", "7", "8", "9"],
+     "numbers": ["1", "2", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
      "content": "⟦oṁ — nāma⟧: святое имя в Гопала-янтре\n"
                 "шесть достояний Бхагавана в вершинах янтры\n"
                 "⟦yaśaḥ⟧ — слава\n"
@@ -66,7 +65,12 @@ INTRO = [
                 "⟦rāgaḥ⟧ — путь раги\n"
                 "⟦arcanam⟧: благовония, дипа, колокольчик\n"
                 "⟦kīrtanam⟧: печатный станок и мриданга\n"
-                "тилака и надпись ⟦guruḥ gauḍīyaḥ⟧"},
+                "тилака и надпись ⟦guruḥ gauḍīyaḥ⟧\n"
+                # The Deities 10-12: an exception to «Deities are not tap targets», for this emblem only
+                # (Satkirti, 06.10.2026 13:13).
+                "⟦Śrī Gaurāṅga Mahāprabhu⟧\n"
+                "⟦Śrī Śrī Rādhā-Kṛṣṇa⟧\n"
+                "⟦Śrī Śrī Lakṣmī-Nārāyaṇa⟧"},
 ]
 
 SUBS = []
@@ -232,6 +236,30 @@ SUBS.append({"id": "emblem-conclusion", "title": "Распутанный клу�
 # Paragraphs with Gurudev's own words: the English is written by hand, the quote in his original English
 # (transcripts/7894_en.txt 01:55:18 and 01:58:18), so the model never re-translates a quotation.
 EN_FIX = {
+    # emblem intro + list (06.10.2026: the Deities numbered 10-12; names only, the rest as translated before)
+    INTRO[3]["content"]:
+        "First, it is worth simply examining what is depicted here, what each detail points to and what it recalls, "
+        "and then entering more deeply into the topics themselves. Click on an item in the list to highlight that "
+        "element in the illustration.",
+    INTRO[4]["content"]:
+        "⟦oṁ — nāma⟧: the holy name in the Gopāla-yantra\n"
+        "Bhagavān’s six opulences at the points of the yantra\n"
+        "⟦yaśaḥ⟧ — fame\n"
+        "⟦śrīḥ⟧ — beauty\n"
+        "⟦jñānam⟧ — knowledge\n"
+        "⟦vairāgyam⟧ — renunciation\n"
+        "⟦aiśvaryam⟧ — majesty\n"
+        "⟦vīryam⟧ — strength\n"
+        "the book Pāñcarātra\n"
+        "the book Bhāgavatam\n"
+        "⟦vidhiḥ⟧ — the path of rules and prescriptions\n"
+        "⟦rāgaḥ⟧ — the path of rāga\n"
+        "⟦arcanam⟧: incense, dīpa, bell\n"
+        "⟦kīrtanam⟧: printing press and mṛdaṅga\n"
+        "tilaka and the inscription ⟦guruḥ gauḍīyaḥ⟧\n"
+        "⟦Śrī Gaurāṅga Mahāprabhu⟧\n"
+        "⟦Śrī Śrī Rādhā-Kṛṣṇa⟧\n"
+        "⟦Śrī Śrī Lakṣmī-Nārāyaṇa⟧",
     SUBS[-2]["content"][3]["content"]:
         "The way from vidhi to rāga is a way of ripening: to hear hari-kathā patiently and with the greatest honour, "
         "gradually to increase the chanting to one lakh of names, sixty-four rounds a day, and to enter rāgānugā-bhakti "

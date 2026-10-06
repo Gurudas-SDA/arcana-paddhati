@@ -1,4 +1,5 @@
 import React from "react";
+import { transcriptLinkProps } from "@/lib/transcripts";
 import {
   parseInline,
   sanskritLang,
@@ -393,13 +394,12 @@ function ContentBlock({
       // Source line of an intro chapter ("This chapter draws on Gurudev's lecture …"): one line per lecture,
       // each followed by its transcript / audio links.
       const lines = (item.content ?? "").split("\n");
-      const link = (href: string, label: string) => (
+      const link = (href: string, label: string, transcript = false) => (
         <>
           {" · "}
           <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
+            {...(transcript ? transcriptLinkProps(href) : { href, target: "_blank", rel: "noopener noreferrer" })}
+            data-transcript-link={transcript ? "" : undefined}
             className="not-italic text-[#8B6508] underline decoration-[#D4A843] underline-offset-2 hover:text-[#B8860B]"
           >
             {label}
@@ -413,7 +413,7 @@ function ContentBlock({
             return (
               <React.Fragment key={li}>
                 <Inline text={line} />
-                {l?.transcript_url && link(l.transcript_url, labels.mood.transcript)}
+                {l?.transcript_url && link(l.transcript_url, labels.mood.transcript, true)}
                 {l?.audio_url && link(l.audio_url, labels.mood.audio)}
                 {li < lines.length - 1 && <br />}
               </React.Fragment>

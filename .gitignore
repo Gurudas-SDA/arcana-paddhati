@@ -57,3 +57,6 @@ scripts/chapters/*/calendar/out/
 scripts/chapters/*/transcripts/
 scripts/chapters/*/__pycache__/
 scripts/chapters/__pycache__/
+
+# transcript docx download cache (scripts/transcripts/build_transcripts.py)
+/scripts/transcripts/cache/

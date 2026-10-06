@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
+import { transcriptLinkProps } from "@/lib/transcripts";
 import { createPortal } from "react-dom";
 import type { MoodQuote, MoodSource } from "@/lib/book";
 
@@ -128,9 +129,8 @@ function QuoteBody({
             <>
               {" · "}
               <a
-                href={source.transcript_url}
-                target="_blank"
-                rel="noopener noreferrer"
+                {...transcriptLinkProps(source.transcript_url)}
+                data-transcript-link=""
                 className="text-[#8B6508] underline decoration-[#D4A843] underline-offset-2 hover:text-[#B8860B]"
               >
                 {labels.transcript}

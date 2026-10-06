@@ -64,13 +64,35 @@ const entries = walk(outDir)
   .filter((rel) => !excluded(rel))
   .sort();
 
+// Download order (the SW fetches in this order): app shell and assets first,
+// then the Russian (IAST) and English books, then the other languages, then
+// the bundled transcripts — an interrupted first visit already holds the
+// most-read parts.
+const LANG_DIRS = ["ru", "ru-iast", "lv", "de", "fr", "es", "it", "uk", "hu"];
+const LANG_FIRST = ["ru-iast", "", "ru"];
+function priority(rel) {
+  if (rel.startsWith("_next/")) return 0;
+  if (rel.startsWith("images/")) return 1;
+  if (!rel.includes("/") && !rel.endsWith(".html") && !rel.endsWith(".txt")) return 1;
+  if (rel.startsWith("transcripts/")) return 20;
+  const first = rel.split("/")[0];
+  const code = LANG_DIRS.includes(first) ? first : "";
+  const i = LANG_FIRST.indexOf(code);
+  return i >= 0 ? 2 + i : 10;
+}
+const ordered = [...entries].sort((a, b) => priority(a) - priority(b) || (a < b ? -1 : a > b ? 1 : 0));
+
 const hash = createHash("sha256");
 let totalBytes = 0;
 const urls = [];
+// Per-file hash: the SW copies unchanged files from the previous version's
+// cache instead of downloading them again.
+const hashes = [];
 const counts = { pages: 0, rsc: 0, static: 0, other: 0 };
-for (const rel of entries) {
+for (const rel of ordered) {
   const buf = readFileSync(join(outDir, rel));
   hash.update(rel).update("\0").update(buf).update("\0");
+  hashes.push(createHash("sha1").update(buf).digest("hex").slice(0, 16));
   totalBytes += buf.length;
   const url = toUrl(rel);
   urls.push(url);
@@ -83,7 +105,7 @@ const version = hash.digest("hex").slice(0, 16);
 
 writeFileSync(
   join(outDir, "precache-manifest.json"),
-  JSON.stringify({ version, bytes: totalBytes, urls })
+  JSON.stringify({ version, bytes: totalBytes, urls, hashes })
 );
 
 const swPath = join(outDir, "sw.js");

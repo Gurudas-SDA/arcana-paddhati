@@ -68,14 +68,12 @@ CONFIG = {
             "15": {"clip": [(274, 352), (322, 352), (322, 374), (296, 374.5), (274, 376)]},
         },
     },
-    # Emblem of the Gauḍīya Maṭha (Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura): fields enclosed by the sector lines;
-    # the three Deity fields (Mahāprabhu, Lakṣmī-Nārāyaṇa, Rādhā-Kṛṣṇa) are inert.
+    # Emblem of the Gauḍīya Maṭha (Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura): fields enclosed by the sector lines.
+    # The three Deity fields are numbered list items 10-12 HERE ONLY — Satkirti's exception of 06.10.2026 to
+    # «Deities are not tap targets» (10 Mahāprabhu, 11 Rādhā-Kṛṣṇa, 12 Lakṣmī-Nārāyaṇa); no "inert" any more.
     "Gaudiya_emblem.png": {
         "label_r": 18,
         "label_clip": False,
-        "inert": [[(420, 22), (580, 22), (580, 285), (420, 285)],
-                  [(22, 288), (335, 288), (335, 612), (22, 612)],
-                  [(700, 288), (935, 288), (935, 640), (700, 640)]],
         "items": {
             "1": {"clip": [(404, 500), (450, 413), (550, 413), (598, 500), (550, 588), (450, 588)]},
             "2": {"seeds": [(488, 342), (610, 419), (602, 560), (500, 626), (382, 560), (392, 432)], "close": 4},
@@ -94,6 +92,17 @@ CONFIG = {
             "7": {"seeds": [(300, 760)], "close": 14},
             "8": {"seeds": [(700, 760)], "close": 14},
             "9": {"seeds": [(455, 900)], "close": 14},
+            # the Deities: tight polygons inside their fields (the figures touch the sector lines)
+            "10": {"clip": [(422, 25), (578, 25), (575, 110), (556, 160), (533, 212), (519, 262), (478, 262), (463, 212), (422, 120)]},
+            "11": {"clip": [(735, 292), (925, 288), (935, 330), (962, 420), (962, 598), (905, 616), (740, 616),
+                            (733, 560), (702, 440), (712, 380)],
+                   # the band's horizontal lines where they show beside the drawing
+                   "cut": [[(912, 380), (1000, 380), (1000, 414), (912, 414)], [(690, 380), (738, 380), (738, 414), (690, 414)],
+                           [(890, 572), (1000, 572), (1000, 600), (890, 600)], [(690, 572), (742, 572), (742, 600), (690, 600)]]},
+            "12": {"clip": [(58, 330), (120, 300), (165, 280), (200, 300), (258, 318), (298, 372), (316, 405), (318, 560), (310, 612),
+                            (130, 612), (36, 560), (26, 430)],
+                   "cut": [[(0, 396), (46, 396), (46, 414), (0, 414)], [(294, 394), (400, 394), (400, 416), (294, 416)],
+                           [(0, 588), (128, 588), (128, 612), (0, 612)], [(300, 588), (400, 588), (400, 612), (300, 612)]]},
         },
     },
     "Tilak.png": {
