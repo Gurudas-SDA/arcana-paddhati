@@ -1830,7 +1830,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "Tvaṁ gopikā vṛṣa-raves tanayāntike ‘si...\nOṁ ajñāna-timirāndhasya...\nNāma-śreṣṭhaṁ manum api śacī-putram atra svarūpaṁ...\nVāñchā-kalpa-tarubhyaś ca...\nMaha mantra",
+              "sanskrit": "Tvaṁ gopikā vṛṣa-raves tanayāntike ‘si...\nOṁ ajñāna-timirāndhasya...\nNāma-śreṣṭhaṁ manum api śacī-putram atra svarūpaṁ...\nVāñchā-kalpa-tarubhyaś ca...\nMahā-mantra",
               "translation": ""
             },
             {
@@ -2005,7 +2005,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "ete gandha-puspe oṁ jaya-dhuani-mantra-matāh svāhā",
+              "sanskrit": "ete gandha-puṣpe oṁ jaya-dhvani-mantra-mātre svāhā",
               "translation": ""
             },
             {
@@ -2024,7 +2024,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "ete gandha-puspe\noṁ hum hum hum namah maha-sankhaya svāhā",
+              "sanskrit": "ete gandha-puṣpe\noṁ huṁ huṁ huṁ namaḥ mahā-śaṅkhāya svāhā",
               "translation": ""
             }
           ]
@@ -3331,7 +3331,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ mahā-prasādaṁ aiṁ gurave namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva sakhibhiyo namaḥ\nidaṁ mahā-prasādaṁ oṁ vrindayai namaḥ\nidaṁ mahā-prasādaṁ oṁ paurnamasyai namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vaiṣṇavebhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vaiṣṇavībhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vrajavāsībhyo namaḥ",
+              "sanskrit": "idaṁ mahā-prasādaṁ aiṁ gurave namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva sakhībhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ vṛndāyai namaḥ\nidaṁ mahā-prasādaṁ oṁ paurṇamāsyai namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vaiṣṇavebhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vaiṣṇavībhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vrajavāsībhyo namaḥ",
               "translation": ""
             },
             {
@@ -3608,7 +3608,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "ete gandha-puspe oṁ jaya-dhuani-mantra-matāh svāhā",
+              "sanskrit": "ete gandha-puṣpe oṁ jaya-dhvani-mantra-mātre svāhā",
               "translation": ""
             },
             {
@@ -3625,7 +3625,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "ete gandha-puspe\noṁ hum hum hum namah maha-sankhaya svāhā",
+              "sanskrit": "ete gandha-puṣpe\noṁ huṁ huṁ huṁ namaḥ mahā-śaṅkhāya svāhā",
               "translation": ""
             }
           ]
@@ -3644,7 +3644,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "esa puspanjalih...\nidaṁ āsanaṁ...\netat pādyaṁ...\nidaṁ arghyam...\nidaṁ acamaniyam...\nesa madhuparkah...\nidaṁ punar-acamaniya...",
+              "sanskrit": "eṣa puṣpāñjaliḥ...\nidaṁ āsanaṁ...\netat pādyaṁ...\nidaṁ arghyam...\nidaṁ ācamanīyam...\neṣa madhuparkaḥ...\nidaṁ punar-ācamanīyam...",
               "translation": ""
             },
             {
@@ -3673,11 +3673,11 @@
             },
             {
               "type": "instruction",
-              "content": "Mosd le az Istenségeket vízzel és a szezámpép 1/4 részével a mosdókagyló fölött (⟦idaṁ til-snaniyam...⟧)."
+              "content": "Mosd le az Istenségeket vízzel és a szezámpép 1/4 részével a mosdókagyló fölött (⟦idaṁ tila-snānīyam...⟧)."
             },
             {
               "type": "instruction",
-              "content": "Ajánlj fel gyümölcsfüzéreket az Istenségeknek (⟦idaṁ phala-malayam...⟧)."
+              "content": "Ajánlj fel gyümölcsfüzéreket az Istenségeknek (⟦idaṁ phala-mālyam...⟧)."
             },
             {
               "type": "subtitle",
@@ -3685,7 +3685,7 @@
             },
             {
               "type": "bullet-list",
-              "content": "Tej (⟦idaṁ ksira-snaniyam...⟧)\nJoghurt (⟦idaṁ dadhi-snaniyam...⟧)\nGhee (⟦idaṁ ghrta-snaniyam...⟧)\nMéz (⟦idaṁ madhu-snaniyam...⟧)\nSzirup (⟦idaṁ sita-snaniyam...⟧)"
+              "content": "Tej (⟦idaṁ kṣīra-snānīyam...⟧)\nJoghurt (⟦idaṁ dadhi-snānīyam...⟧)\nGhee (⟦idaṁ ghṛta-snānīyam...⟧)\nMéz (⟦idaṁ madhu-snānīyam...⟧)\nSzirup (⟦idaṁ sitā-snānīyam...⟧)"
             },
             {
               "type": "subtitle",
@@ -3701,7 +3701,7 @@
             },
             {
               "type": "instruction",
-              "content": "Mosd le az Istenségeket tiszta vízzel (⟦idaṁ jala-snaniyam...⟧)."
+              "content": "Mosd le az Istenségeket tiszta vízzel (⟦idaṁ jala-snānīyam...⟧)."
             },
             {
               "type": "subtitle",
@@ -3709,7 +3709,7 @@
             },
             {
               "type": "instruction",
-              "content": "Fürdesd meg az Istenségeket gyümölcslevekkel (lehetőleg ötféle édessel) (⟦idaṁ phala-snaniyam...⟧)."
+              "content": "Fürdesd meg az Istenségeket gyümölcslevekkel (lehetőleg ötféle édessel) (⟦idaṁ phala-snānīyam...⟧)."
             },
             {
               "type": "subtitle",
@@ -3725,7 +3725,7 @@
             },
             {
               "type": "instruction",
-              "content": "Mosd le őket tiszta vízzel (⟦idaṁ jala-snaniyam...⟧)."
+              "content": "Mosd le őket tiszta vízzel (⟦idaṁ jala-snānīyam...⟧)."
             },
             {
               "type": "subtitle",
@@ -3737,7 +3737,7 @@
             },
             {
               "type": "instruction",
-              "content": "Fürdesd meg szantálpéppel hígított vízzel (⟦idaṁ gandha-snaniyam...⟧)."
+              "content": "Fürdesd meg szantálpéppel hígított vízzel (⟦idaṁ gandha-snānīyam...⟧)."
             },
             {
               "type": "subtitle",
@@ -3745,7 +3745,7 @@
             },
             {
               "type": "instruction",
-              "content": "Ajánlj fel tiszta vizet a zuhanyon keresztül (⟦idaṁ sahasrada-snaniyam...⟧)."
+              "content": "Ajánlj fel tiszta vizet a zuhanyon keresztül (⟦idaṁ sahasra-dhārā-snānīyam...⟧)."
             },
             {
               "type": "subtitle",
@@ -3753,15 +3753,15 @@
             },
             {
               "type": "instruction",
-              "content": "Töröld szárazra az Istenségeket törölközőkkel, és burkold be Őket (⟦idaṁ anga-vastram...⟧)."
+              "content": "Töröld szárazra az Istenségeket törölközőkkel, és burkold be Őket (⟦idaṁ aṅga-vastram...⟧)."
             },
             {
               "type": "instruction",
-              "content": "Hintsd meg Őket ötféle virág szirmaival (⟦idaṁ puspa-snaniyam...⟧)."
+              "content": "Hintsd meg Őket ötféle virág szirmaival (⟦idaṁ puṣpa-snānīyam...⟧)."
             },
             {
               "type": "instruction",
-              "content": "Ajánlj fel ācaman vizet (⟦idaṁ acamaniyam...⟧)."
+              "content": "Ajánlj fel ācaman vizet (⟦idaṁ ācamanīyam...⟧)."
             },
             {
               "type": "instruction",
@@ -3876,13 +3876,13 @@
           "content": [
             {
               "type": "subtitle",
-              "content": "aparādha-sodhana"
+              "content": "aparādha-śodhana"
             },
             {
               "type": "verse",
-              "sanskrit": "anga-hinam kriya-hinam\nvidhi-hinam cayad bhavet\nastu tat sarvam acchidram\nkrsna-karsna-prasadatah\n\nyat kincid vaigunyam jatam\ntad dosa-prasamanasya\nsri-krsna-smaranam karomi",
+              "sanskrit": "aṅga-hīnaṁ kriyā-hīnaṁ\nvidhi-hīnaṁ ca yad bhavet\nastu tat sarvam acchidraṁ\nkṛṣṇa-kārṣṇa-prasādataḥ\n\nyat kiñcit vaiguṇyaṁ jātaṁ\ntad doṣa-praśamanāya\nśrī-kṛṣṇa-smaraṇaṁ karomi",
               "translation": "Krsna és bhaktái kegye tegye semmissé mindazokat a hibákat, amelyeket az imádat szabályainak követése és az imádat cselekedeteinek végzése során elkövettünk. Most Krsna emlékét idézem fel, hogy minden esetleges hibát semmissé tegyen. [Sat-kriya-sara-dipika]",
-              "wbw": "anga-hinam — összetevőiben hiányos; kriya-hinam — az imádat cselekedeteiben hiányos; vidhi-hinam — az előírt szabályokban hiányos; cayad — és bármi; bhavet — lehet; astu — legyen; tat — az; sarvam — mind; acchidram — hibátlan; krsna-karsna-prasadatah — Krsna és bhaktái kegyéből; yat — bármi; kincid — bármely; vaigunyam — tökéletlenség; jatam — keletkezett; tad — az; dosa-prasamanasya — a hiba semmissé tételéért; sri-krsna-smaranam — Sri Krsnára való emlékezés; karomi — végzem."
+              "wbw": "aṅga-hīnaṁ — összetevőiben hiányos; kriyā-hīnaṁ — az imádat cselekedeteiben hiányos; vidhi-hīnaṁ — az előírt szabályokban hiányos; ca — és; yad — bármi; bhavet — lehet; astu — legyen; tat — az; sarvam — mind; acchidraṁ — hibátlan; kṛṣṇa-kārṣṇa-prasādataḥ — Krsna és bhaktái kegyéből; yat — bármi; kiñcit — bármely; vaiguṇyaṁ — tökéletlenség; jātaṁ — keletkezett; tad — az; doṣa-praśamanāya — a hiba semmissé tételéért; śrī-kṛṣṇa-smaraṇaṁ — Sri Krsnára való emlékezés; karomi — végzem."
             },
             {
               "type": "verse",

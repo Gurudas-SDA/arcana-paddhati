@@ -51,6 +51,59 @@ function fitToVisualViewport(el: HTMLElement) {
   });
 }
 
+/**
+ * «транскрипт» link of a quote. A bundled transcript opens in the app itself (same window, offline —
+ * Правила §8). Inside the overlay a plain link was not reliable on Android phones (Satkirti / Gurudas
+ * 06.10, Pixel 7: the tap did not open the transcript, the URL stayed the same — e.g. a tap that only
+ * stopped the scroll of the window's text produced no click). So the navigation is done explicitly:
+ * on click, and — if the browser swallows the click of a short, still touch tap — on that tap's
+ * pointerup. The tap target is also taller than the 12px line (padding, no layout shift).
+ * A transcript that is not bundled keeps the original link (new tab).
+ */
+function TranscriptLink({ url, label }: { url: string; label: string }) {
+  const props = transcriptLinkProps(url);
+  const inApp = !props.target;
+  const down = useRef<{ x: number; y: number; t: number } | null>(null);
+  const go = (a: HTMLAnchorElement) => {
+    window.location.assign(a.href);
+  };
+  return (
+    <a
+      {...props}
+      data-transcript-link=""
+      onClick={(e) => {
+        if (!inApp || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
+        e.preventDefault();
+        down.current = null;
+        go(e.currentTarget);
+      }}
+      onPointerDown={(e) => {
+        down.current = e.pointerType === "mouse" ? null : { x: e.clientX, y: e.clientY, t: e.timeStamp };
+      }}
+      onPointerUp={(e) => {
+        const d = down.current;
+        if (!inApp || !d) return;
+        const still = Math.hypot(e.clientX - d.x, e.clientY - d.y) < 12 && e.timeStamp - d.t < 800;
+        if (!still) return;
+        const a = e.currentTarget;
+        // Give the browser's own click a moment; navigate only if it did not come.
+        window.setTimeout(() => {
+          if (down.current === d) {
+            down.current = null;
+            go(a);
+          }
+        }, 350);
+      }}
+      onPointerCancel={() => {
+        down.current = null;
+      }}
+      className="-my-2 inline-block py-2 text-[#8B6508] underline decoration-[#D4A843] underline-offset-2 hover:text-[#B8860B]"
+    >
+      {label}
+    </a>
+  );
+}
+
 /** One alternative quote, separated from the previous one by a dotted rule. */
 function AltQuote({ m, labels }: { m: MoodQuote; labels: MoodLabels }) {
   return (
@@ -128,13 +181,7 @@ function QuoteBody({
           {source.transcript_url && (
             <>
               {" · "}
-              <a
-                {...transcriptLinkProps(source.transcript_url)}
-                data-transcript-link=""
-                className="text-[#8B6508] underline decoration-[#D4A843] underline-offset-2 hover:text-[#B8860B]"
-              >
-                {labels.transcript}
-              </a>
+              <TranscriptLink url={source.transcript_url} label={labels.transcript} />
             </>
           )}
           {source.audio_url && (

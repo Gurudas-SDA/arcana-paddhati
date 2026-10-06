@@ -64,68 +64,52 @@
   ],
   "exceptions": [
     {
-      "check": "L6",
-      "file": "book.ru-iast.json",
-      "match": "main-worship-sixteen-items/arati-ceremony",
-      "reason": "3 ārati tabulas mantras (aiṁ gurave namaḥ; śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ; klīṁ govardhanāya namaḥ) vēl bez «пословно» — zināms trūkums QA gate ieviešanas brīdī (07.10); kad Lipikāra pievieno, šo izņēmumu dzēst.",
-      "since": "2026-10-07",
-      "by": "QA gate ieviešana (Gurudas «1. slānis»)"
-    },
-    {
-      "check": "L6",
-      "file": "book.ru.json",
-      "match": "main-worship-sixteen-items/arati-ceremony",
-      "reason": "Tas pats trūkums kirilicas spogulī (book.ru.json).",
-      "since": "2026-10-07",
-      "by": "QA gate ieviešana (Gurudas «1. slānis»)"
-    },
-    {
       "check": "L12",
       "file": "book.ru-iast.json",
       "match": "offering-bhoga :: trūkst: nr, transcript_url",
-      "reason": "Zināms trūkums QA gate ieviešanas brīdī (07.10): citāta avotam nav lekcijas № / transkripta saites vai taimkoda datos. Kad Lipikāra papildina avotu — šo izņēmumu dzēst.",
-      "since": "2026-10-07",
-      "by": "QA gate ieviešana (Gurudas «1. slānis»)"
+      "reason": "Daršana ieraksts (Шри Прем Прайоджана Прабху, Vrindāvana, 25.11.2025) — konfidenciāls (Стандарты §6): lekcijas №, transkripta saite un audio saite netiek liktas NEKAD; avots = piezīme «запись Саткирти прабху». Pārbaudīts 06.10 (Gurudas uzdevums v7.3 p.7: «daršana audio — saiti neliec»).",
+      "since": "2026-10-06",
+      "by": "Gurudas (v7.3 uzdevums, p.7)"
     },
     {
       "check": "L12",
       "file": "book.ru-iast.json",
       "match": "bhoga-procedure :: trūkst: nr, transcript_url",
-      "reason": "Zināms trūkums QA gate ieviešanas brīdī (07.10): citāta avotam nav lekcijas № / transkripta saites vai taimkoda datos. Kad Lipikāra papildina avotu — šo izņēmumu dzēst.",
-      "since": "2026-10-07",
-      "by": "QA gate ieviešana (Gurudas «1. slānis»)"
+      "reason": "Daršana ieraksts (Шри Прем Прайоджана Прабху, Vrindāvana, 25.11.2025) — konfidenciāls (Стандарты §6): lekcijas №, transkripta saite un audio saite netiek liktas NEKAD; avots = piezīme «запись Саткирти прабху». Pārbaudīts 06.10 (Gurudas uzdevums v7.3 p.7: «daršana audio — saiti neliec»).",
+      "since": "2026-10-06",
+      "by": "Gurudas (v7.3 uzdevums, p.7)"
     },
     {
       "check": "L12",
       "file": "book.ru-iast.json",
       "match": "vyasa-puja-meaning :: trūkst: timecode",
-      "reason": "Zināms trūkums QA gate ieviešanas brīdī (07.10): citāta avotam nav lekcijas № / transkripta saites vai taimkoda datos. Kad Lipikāra papildina avotu — šo izņēmumu dzēst.",
-      "since": "2026-10-07",
-      "by": "QA gate ieviešana (Gurudas «1. slānis»)"
+      "reason": "Lekcija № 10011 (12.04.2026) ПОИСКОВИК indeksā bez laika zīmēm (ts_quality=none, start_ts nav) — taimkodu nevar noteikt bez audio/transkripta mērījuma; citāts atrasts block 0 (06.10, obs-20261006-232205-79f4cc). Dzēst, kad taimkods izmērīts.",
+      "since": "2026-10-06",
+      "by": "Gurudas (v7.3 uzdevums, p.7: «ja neatrod — atstāj izņēmumu un ziņo»)"
     },
     {
       "check": "L12",
       "file": "book.ru.json",
       "match": "offering-bhoga :: trūkst: nr, transcript_url",
-      "reason": "Zināms trūkums QA gate ieviešanas brīdī (07.10): citāta avotam nav lekcijas № / transkripta saites vai taimkoda datos. Kad Lipikāra papildina avotu — šo izņēmumu dzēst.",
-      "since": "2026-10-07",
-      "by": "QA gate ieviešana (Gurudas «1. slānis»)"
+      "reason": "Daršana ieraksts (Шри Прем Прайоджана Прабху, Vrindāvana, 25.11.2025) — konfidenciāls (Стандарты §6): lekcijas №, transkripta saite un audio saite netiek liktas NEKAD; avots = piezīme «запись Саткирти прабху». Pārbaudīts 06.10 (Gurudas uzdevums v7.3 p.7: «daršana audio — saiti neliec»).",
+      "since": "2026-10-06",
+      "by": "Gurudas (v7.3 uzdevums, p.7)"
     },
     {
       "check": "L12",
       "file": "book.ru.json",
       "match": "bhoga-procedure :: trūkst: nr, transcript_url",
-      "reason": "Zināms trūkums QA gate ieviešanas brīdī (07.10): citāta avotam nav lekcijas № / transkripta saites vai taimkoda datos. Kad Lipikāra papildina avotu — šo izņēmumu dzēst.",
-      "since": "2026-10-07",
-      "by": "QA gate ieviešana (Gurudas «1. slānis»)"
+      "reason": "Daršana ieraksts (Шри Прем Прайоджана Прабху, Vrindāvana, 25.11.2025) — konfidenciāls (Стандарты §6): lekcijas №, transkripta saite un audio saite netiek liktas NEKAD; avots = piezīme «запись Саткирти прабху». Pārbaudīts 06.10 (Gurudas uzdevums v7.3 p.7: «daršana audio — saiti neliec»).",
+      "since": "2026-10-06",
+      "by": "Gurudas (v7.3 uzdevums, p.7)"
     },
     {
       "check": "L12",
       "file": "book.ru.json",
       "match": "vyasa-puja-meaning :: trūkst: timecode",
-      "reason": "Zināms trūkums QA gate ieviešanas brīdī (07.10): citāta avotam nav lekcijas № / transkripta saites vai taimkoda datos. Kad Lipikāra papildina avotu — šo izņēmumu dzēst.",
-      "since": "2026-10-07",
-      "by": "QA gate ieviešana (Gurudas «1. slānis»)"
+      "reason": "Lekcija № 10011 (12.04.2026) ПОИСКОВИК indeksā bez laika zīmēm (ts_quality=none, start_ts nav) — taimkodu nevar noteikt bez audio/transkripta mērījuma; citāts atrasts block 0 (06.10, obs-20261006-232205-79f4cc). Dzēst, kad taimkods izmērīts.",
+      "since": "2026-10-06",
+      "by": "Gurudas (v7.3 uzdevums, p.7: «ja neatrod — atstāj izņēmumu un ziņo»)"
     }
   ]
 }

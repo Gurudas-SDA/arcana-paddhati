@@ -215,13 +215,14 @@ def run_one(DEV):
                 const nums=[...document.querySelectorAll('.hs-row .nl-num, .hs-row > span:first-child')].map(n=>n.getBoundingClientRect().left);
                 return {textLeft:pl, numMin:Math.min(...nums), numMax:Math.max(...nums), count:nums.length}}""")
             rec(f"§8 {label}: номера не выступают влево", "min(left номеров) ≥ left основного текста", al["numMin"] >= al["textLeft"] - 1, al)
-            # empty part of a row
+            # empty part of a row (right of the text AND of the row's own controls, e.g. the «пословно» chip —
+            # a tap there opens the chip, correctly; v7.3: the point used to land on the new chip)
             gap = pg.evaluate("""()=>{for(const r of document.querySelectorAll('.hs-row')){const rr=r.getBoundingClientRect(); const ts=[...r.querySelectorAll('.hs-text')].flatMap(t=>[...t.getClientRects()]);
-                const right=Math.max(...ts.map(q=>q.right)); if(rr.right-right>40 && rr.top>80 && rr.bottom<innerHeight-60){const q=ts[ts.length-1]; return {x:(right+rr.right)/2,y:q.top+q.height/2}}} return null}""")
+                const bt=[...r.querySelectorAll('button, a, .mantra-chips, .verse-chips, [data-no-reader-tap]')].flatMap(t=>[...t.getClientRects()]); const right=Math.max(...ts.concat(bt).map(q=>q.right)); if(rr.right-right>40 && rr.top>80 && rr.bottom<innerHeight-60){const q=ts[ts.length-1]; return {x:(right+rr.right)/2,y:q.top+q.height/2}}} return null}""")
             if not gap:
                 pg.evaluate("()=>document.querySelector('.hs-row').scrollIntoView({block:'center'})"); wait(0.4)
                 gap = pg.evaluate("""()=>{for(const r of document.querySelectorAll('.hs-row')){const rr=r.getBoundingClientRect(); const ts=[...r.querySelectorAll('.hs-text')].flatMap(t=>[...t.getClientRects()]);
-                const right=Math.max(...ts.map(q=>q.right)); if(rr.right-right>40 && rr.top>80 && rr.bottom<innerHeight-60){const q=ts[ts.length-1]; return {x:(right+rr.right)/2,y:q.top+q.height/2}}} return null}""")
+                const bt=[...r.querySelectorAll('button, a, .mantra-chips, .verse-chips, [data-no-reader-tap]')].flatMap(t=>[...t.getClientRects()]); const right=Math.max(...ts.concat(bt).map(q=>q.right)); if(rr.right-right>40 && rr.top>80 && rr.bottom<innerHeight-60){const q=ts[ts.length-1]; return {x:(right+rr.right)/2,y:q.top+q.height/2}}} return null}""")
             if gap:
                 b0 = bars(); tap(gap["x"], gap["y"]); a = active_rows(); b1 = bars()
                 rec(f"§1 {label}: пустая часть строки не активна", "тап справа от текста строки", not a and b1 != b0, f"pt=({gap['x']:.0f},{gap['y']:.0f}) active={a} bars {b0}->{b1}")
@@ -370,7 +371,8 @@ def run_one(DEV):
                 lk = el_center(".mood-dialog a[data-transcript-link]")
                 npages = len(c.pages)
                 t0=time.time(); tap(lk["x"], lk["y"], 0.2)
-                while "/transcripts/" not in pg.url and time.time()-t0<20: time.sleep(0.2)
+                # pg.wait_for_timeout (not time.sleep): Playwright updates pg.url only while it processes events
+                while "/transcripts/" not in pg.url and time.time()-t0<20: pg.wait_for_timeout(200)
                 dt=time.time()-t0
                 try: pg.wait_for_load_state("load", timeout=20000)
                 except Exception: pass

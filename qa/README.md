@@ -36,7 +36,7 @@ darbu: `python qa/run_all.py --fast --jobs 3`.
 
 1. Push drīkst sūtīt tikai izņemto HEAD, un darba kokam jābūt tīram (citādi testētu ne to, kas tiek sūtīts).
 2. Ja `out/` vecāks par avotu → `npm run build`.
-3. `python qa/lint_content.py` — datu likumi (L1–L17).
+3. `python qa/lint_content.py` — datu likumi (L1–L20).
 4. `python qa/run_all.py --fast` — pārlūka regresija.
 
 Jebkura kļūda → **push bloķēts** ar skaidru ziņu, kurš tests un kurš Satkirti likums krita.
@@ -57,7 +57,7 @@ Katru reizi, kad Satkirti dod interfeisa/satura piezīmi (vai КСВ atrod kļū
    Ja tests nav iespējams: `"tests": [], "nav_testa": "<kāpēc>"` — tas parādīsies `coverage.py` sarakstā.
 3. **Tests.** Izvēlies vietu:
    - *datu/teksta likums* (rakstība, locījumi, katram pantam X) → jauna pārbaude `qa/lint_content.py`
-     (`c = Check("L18", "<īss apraksts>")` … `c.hit(fails, ceļš, fragments)` … `c.report(args.max)`);
+     (`c = Check("L21", "<īss apraksts>")` … `c.hit(fails, ceļš, fragments)` … `c.report(args.max)`);
    - *uzvedība lietotnē* → jauns scenārijs `qa/suites/sNN_<īss_nosaukums>.py` (paraugs: `s12_back_to_search.py`)
      un rinda `SUITES` sarakstā `qa/run_all.py` (`fast=True`, ja piezīme ir svarīga katram push).
    Scenārija līgums: arguments = bāzes URL; ierīces no `qa.devices([...])` (filtrs `QA_DEVICES`); katra pārbaude drukā

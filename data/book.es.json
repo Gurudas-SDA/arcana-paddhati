@@ -2005,7 +2005,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "ete gandha-puspe oṁ jaya-dhuani-mantra-matāh svāhā",
+              "sanskrit": "ete gandha-puṣpe oṁ jaya-dhvani-mantra-mātre svāhā",
               "translation": ""
             },
             {
@@ -2024,7 +2024,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "ete gandha-puspe\noṁ hum hum hum namah maha-sankhaya svāhā",
+              "sanskrit": "ete gandha-puṣpe\noṁ huṁ huṁ huṁ namaḥ mahā-śaṅkhāya svāhā",
               "translation": ""
             }
           ]
@@ -3331,7 +3331,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ mahā-prasādaṁ aiṁ gurave namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva sakhibhiyo namaḥ\nidaṁ mahā-prasādaṁ oṁ vrindayai namaḥ\nidaṁ mahā-prasādaṁ oṁ paurnamasyai namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vaiṣṇavebhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vaiṣṇavībhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vrajavāsībhyo namaḥ",
+              "sanskrit": "idaṁ mahā-prasādaṁ aiṁ gurave namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva sakhībhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ vṛndāyai namaḥ\nidaṁ mahā-prasādaṁ oṁ paurṇamāsyai namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vaiṣṇavebhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vaiṣṇavībhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vrajavāsībhyo namaḥ",
               "translation": ""
             },
             {
@@ -3608,7 +3608,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "ete gandha-puspe oṁ jaya-dhuani-mantra-matāh svāhā",
+              "sanskrit": "ete gandha-puṣpe oṁ jaya-dhvani-mantra-mātre svāhā",
               "translation": ""
             },
             {
@@ -3625,7 +3625,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "ete gandha-puspe\noṁ hum hum hum namah maha-sankhaya svāhā",
+              "sanskrit": "ete gandha-puṣpe\noṁ huṁ huṁ huṁ namaḥ mahā-śaṅkhāya svāhā",
               "translation": ""
             }
           ]
@@ -3644,7 +3644,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "esa puspanjalih...\nidaṁ āsanaṁ...\netat pādyaṁ...\nidaṁ arghyam...\nidaṁ acamaniyam...\nesa madhuparkah...\nidaṁ punar-acamaniya...",
+              "sanskrit": "eṣa puṣpāñjaliḥ...\nidaṁ āsanaṁ...\netat pādyaṁ...\nidaṁ arghyam...\nidaṁ ācamanīyam...\neṣa madhuparkaḥ...\nidaṁ punar-ācamanīyam...",
               "translation": ""
             },
             {
@@ -3673,11 +3673,11 @@
             },
             {
               "type": "instruction",
-              "content": "Lave a las Deidades con agua y vierta por el desagüe el 1/4 restante de la pasta de sésamo (⟦idaṁ til-snaniyam...⟧)."
+              "content": "Lave a las Deidades con agua y vierta por el desagüe el 1/4 restante de la pasta de sésamo (⟦idaṁ tila-snānīyam...⟧)."
             },
             {
               "type": "instruction",
-              "content": "Ofrezca guirnaldas de frutas a las Deidades (⟦idaṁ phala-malayam...⟧)."
+              "content": "Ofrezca guirnaldas de frutas a las Deidades (⟦idaṁ phala-mālyam...⟧)."
             },
             {
               "type": "subtitle",
@@ -3685,7 +3685,7 @@
             },
             {
               "type": "bullet-list",
-              "content": "Leche (⟦idaṁ ksira-snaniyam...⟧)\nYogur (⟦idaṁ dadhi-snaniyam...⟧)\nGhī (⟦idaṁ ghrta-snaniyam...⟧)\nMiel (⟦idaṁ madhu-snaniyam...⟧)\nAlmíbar (⟦idaṁ sita-snaniyam...⟧)"
+              "content": "Leche (⟦idaṁ kṣīra-snānīyam...⟧)\nYogur (⟦idaṁ dadhi-snānīyam...⟧)\nGhī (⟦idaṁ ghṛta-snānīyam...⟧)\nMiel (⟦idaṁ madhu-snānīyam...⟧)\nAlmíbar (⟦idaṁ sitā-snānīyam...⟧)"
             },
             {
               "type": "subtitle",
@@ -3701,7 +3701,7 @@
             },
             {
               "type": "instruction",
-              "content": "Lávelas con agua pura (⟦idaṁ jala-snaniyam...⟧)."
+              "content": "Lávelas con agua pura (⟦idaṁ jala-snānīyam...⟧)."
             },
             {
               "type": "subtitle",
@@ -3709,7 +3709,7 @@
             },
             {
               "type": "instruction",
-              "content": "Bañe a las Deidades con zumos de frutas (preferiblemente de 5 clases dulces) (⟦idaṁ phala-snaniyam...⟧)."
+              "content": "Bañe a las Deidades con zumos de frutas (preferiblemente de 5 clases dulces) (⟦idaṁ phala-snānīyam...⟧)."
             },
             {
               "type": "subtitle",
@@ -3725,7 +3725,7 @@
             },
             {
               "type": "instruction",
-              "content": "Lávelas con agua pura (⟦idaṁ jala-snaniyam...⟧)."
+              "content": "Lávelas con agua pura (⟦idaṁ jala-snānīyam...⟧)."
             },
             {
               "type": "subtitle",
@@ -3737,7 +3737,7 @@
             },
             {
               "type": "instruction",
-              "content": "Báñelo con agua diluida con pasta de sándalo (⟦idaṁ gandha-snaniyam...⟧)."
+              "content": "Báñelo con agua diluida con pasta de sándalo (⟦idaṁ gandha-snānīyam...⟧)."
             },
             {
               "type": "subtitle",
@@ -3745,7 +3745,7 @@
             },
             {
               "type": "instruction",
-              "content": "Ofrezca agua pura mediante una ducha (⟦idaṁ sahasrada-snaniyam...⟧)."
+              "content": "Ofrezca agua pura mediante una ducha (⟦idaṁ sahasra-dhārā-snānīyam...⟧)."
             },
             {
               "type": "subtitle",
@@ -3753,15 +3753,15 @@
             },
             {
               "type": "instruction",
-              "content": "Seque a las Deidades con toallas y envuélvalas (⟦idaṁ anga-vastram...⟧)."
+              "content": "Seque a las Deidades con toallas y envuélvalas (⟦idaṁ aṅga-vastram...⟧)."
             },
             {
               "type": "instruction",
-              "content": "Rocíelas con pétalos de 5 clases de flores (⟦idaṁ puspa-snaniyam...⟧)."
+              "content": "Rocíelas con pétalos de 5 clases de flores (⟦idaṁ puṣpa-snānīyam...⟧)."
             },
             {
               "type": "instruction",
-              "content": "Ofrezca ācamana (⟦idaṁ acamaniyam...⟧)."
+              "content": "Ofrezca ācamana (⟦idaṁ ācamanīyam...⟧)."
             },
             {
               "type": "instruction",
@@ -3876,13 +3876,13 @@
           "content": [
             {
               "type": "subtitle",
-              "content": "aparādha-sodhana"
+              "content": "aparādha-śodhana"
             },
             {
               "type": "verse",
-              "sanskrit": "anga-hinam kriya-hinam\nvidhi-hinam cayad bhavet\nastu tat sarvam acchidram\nkrsna-karsna-prasadatah\n\nyat kincid vaigunyam jatam\ntad dosa-prasamanasya\nsri-krsna-smaranam karomi",
+              "sanskrit": "aṅga-hīnaṁ kriyā-hīnaṁ\nvidhi-hīnaṁ ca yad bhavet\nastu tat sarvam acchidraṁ\nkṛṣṇa-kārṣṇa-prasādataḥ\n\nyat kiñcit vaiguṇyaṁ jātaṁ\ntad doṣa-praśamanāya\nśrī-kṛṣṇa-smaraṇaṁ karomi",
               "translation": "Que la misericordia de Kṛṣṇa y Sus devotos anule todos los errores que hayamos cometido al observar las reglas de la adoración y al realizar los actos de adoración. Ahora recuerdo a Kṛṣṇa para anular cualquier falta que pudiera haber. [Sat-kriya-sara-dipika]",
-              "wbw": "anga-hinam — incompleto en sus componentes; kriya-hinam — incompleto en los actos de adoración; vidhi-hinam — incompleto en las reglas prescritas; cayad — y cualquier cosa que; bhavet — pudiera ser; astu — que se vuelva; tat — eso; sarvam — todo; acchidram — sin defecto; krsna-karsna-prasadatah — por la misericordia de Kṛṣṇa y Sus devotos; yat — cualquier; kincid — algún; vaigunyam — imperfección; jatam — ha surgido; tad — esa; dosa-prasamanasya — para anular la falta; sri-krsna-smaranam — el recuerdo de Śrī Kṛṣṇa; karomi — realizo."
+              "wbw": "aṅga-hīnaṁ — incompleto en sus componentes; kriyā-hīnaṁ — incompleto en los actos de adoración; vidhi-hīnaṁ — incompleto en las reglas prescritas; ca — y; yad — cualquier cosa que; bhavet — pudiera ser; astu — que se vuelva; tat — eso; sarvam — todo; acchidraṁ — sin defecto; kṛṣṇa-kārṣṇa-prasādataḥ — por la misericordia de Kṛṣṇa y Sus devotos; yat — cualquier; kiñcit — algún; vaiguṇyaṁ — imperfección; jātaṁ — ha surgido; tad — esa; doṣa-praśamanāya — para anular la falta; śrī-kṛṣṇa-smaraṇaṁ — el recuerdo de Śrī Kṛṣṇa; karomi — realizo."
             },
             {
               "type": "verse",

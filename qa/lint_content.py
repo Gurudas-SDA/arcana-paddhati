@@ -346,6 +346,99 @@ def run(args):
                     c.hit(os.path.relpath(root, qa.REPO), os.path.relpath(os.path.join(dp, fn), root), fn)
     c.report(args.max)
 
+    # L18 — Санскрит везде IAST с диакритикой (КСВ 06.10: молитва 9.1 «anga-hinam … krsna-karsna-prasadatah»,
+    # мантры маха-абхишеки «idaṁ ksira-snaniyam…»). Heuristika pa vārdiem: sanskrita vārds BEZ neviena
+    # diakritiskā simbola ar tipisku ASCII aizvietojumu (ks=kṣ, sh, ng=ṅg, jn=jñ, nc/nj=ñc/ñj, aa/ii/uu, -anīya,
+    # rsn/isn=ṣṇ, usp=uṣp, nkh=ṅkh, sri, maha, esa, hum, hina, -bhiyo, vrind) vai vārds, kas beidzas ar
+    # patskani+h (visarga «ḥ» kā «h», arī vārdā ar citām diakritikām: «matāh»).
+    # Kur: pantu sanskrits (verse.sanskrit) un «пословно» galvas visās latīņu grāmatās; ⟦…⟧ latīņu fragmenti
+    # un latīņu starpvirsraksti book.ru-iast.json.
+    c = Check("L18", "sanskrits ar IAST diakritiku (nav ASCII aizvietojumu: ksira-snaniyam, krsna, namah …)")
+    ascii_mark = re.compile(r"ks|sh|ng|jn|nc|nj|aa|ii|uu|aniy|rsn|isn|usp|nkh|^sri$|^krs|^esa$|^maha$|^hum$|hin[ao]m?$|iyo$|vrind|[aiueo]h$")
+    visarga_h = re.compile(r"[aāiīuūeo]h$")
+    iast_set = set("āīūṛṝḷḹṅñṭḍṇśṣṁṃḥĀĪŪṚṜḶṄÑṬḌṆŚṢṀṂḤ")
+    tok_split = re.compile(r"[\s\-—–,.;:!?()«»\"'’…/\[\]]+")
+    latin_word = re.compile(r"[A-Za-zāīūṛṝḷḹṅñṭḍṇśṣṁṃḥĀĪŪṚṜḶṄÑṬḌṆŚṢṀṂḤ]+")
+
+    def ascii_tokens(s):
+        bad = []
+        for t in tok_split.split(s):
+            if not t or not latin_word.fullmatch(t):
+                continue
+            tl = t.lower()
+            if set(tl) & iast_set:
+                if visarga_h.search(tl):
+                    bad.append(t)
+            elif ascii_mark.search(tl):
+                bad.append(t)
+        return bad
+
+    n18 = 0
+    for f in allb:
+        if name(f) == "book.ru.json":
+            continue  # kirilicas spogulis = translit(book.ru-iast.json)
+        is_ri = name(f) == "book.ru-iast.json"
+
+        def w18(o, ctx):
+            nonlocal n18
+            if isinstance(o, dict):
+                if isinstance(o.get("id"), str):
+                    ctx = o["id"]
+                for k, v in o.items():
+                    if isinstance(v, str):
+                        units = []
+                        if k == "sanskrit":
+                            units.append(("verse", v))
+                        elif k == "wbw":
+                            units.append(("wbw", " ".join(p.split("—")[0] for p in v.split(";"))))
+                        elif is_ri and o.get("type") != "mood" and k not in ("quote", "translation", "title", "transcript_url", "audio_url"):
+                            units += [("⟦⟧", m.group(1)) for m in re.finditer(r"⟦([^⟧]*)⟧", v) if re.search("[a-z]", m.group(1))]
+                            if o.get("type") == "subtitle" and re.search("[a-z]", v):
+                                units.append(("subtitle", v))
+                        for kind, u in units:
+                            n18 += 1
+                            bt = ascii_tokens(u)
+                            if bt:
+                                c.hit(name(f), f"{ctx}/{kind}", ", ".join(bt[:6]) + " | " + u[:60].replace("\n", " / "))
+                    else:
+                        w18(v, ctx)
+            elif isinstance(o, list):
+                for v in o:
+                    w18(v, ctx)
+        w18(loaded[f], "")
+    c.info = f"{n18} sanskrita fragmenti"
+    c.report(args.max)
+
+    # L19 — В русской книге нет английского текста (КСВ 06.10: «Порядок арчаны» — «(for one leaf) or …
+    # (for several leaves)»). Visur RU grāmatās, izņemot Gurudeva vārdus oriģinālā (mood quote), avotu
+    # nosaukumus/saites un «…» pēdiņās citētus nosaukumus: ≥2 angļu palīgvārdi vienā virknē = angļu teksts.
+    c = Check("L19", "RU grāmatās nav angļu teksta (izņemot Gurudeva vārdus oriģinālā un avotu nosaukumus)")
+    en_words = re.compile(r"\b(the|and|or|for|of|with|one|several|to|into|is|are|this|that|from|by|each|leaf|leaves|offer|chant|while|then)\b", re.I)
+    for f in ru:
+        def w19(o, ctx, key=""):
+            if isinstance(o, dict):
+                if isinstance(o.get("id"), str):
+                    ctx = o["id"]
+                for k, v in o.items():
+                    if k in ("id", "source", "quote", "image", "src", "alt_en") or (o.get("type") == "mood" and k == "quote"):
+                        continue
+                    if k == "more":
+                        for m in v or []:
+                            w19({kk: vv for kk, vv in m.items() if kk not in ("quote", "source")}, ctx)
+                        continue
+                    w19(v, ctx, k)
+            elif isinstance(o, list):
+                for v in o:
+                    w19(v, ctx, key)
+            elif isinstance(o, str):
+                t = re.sub(r"«[^»]*»", " ", o)
+                t = re.sub(r"https?://\S+", " ", t)
+                ms = en_words.findall(t)
+                if len(ms) >= 2:
+                    c.hit(name(f), f"{ctx}/{key}", ", ".join(ms[:5]) + " | " + o[:70].replace("\n", " / "))
+        w19(loaded[f], "")
+    c.report(args.max)
+
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует
     c = Check("L17", "atgriešanās punkts: git tags pirms-interfeisa-2026-10-05 eksistē")
     import subprocess
@@ -353,6 +446,19 @@ def run(args):
                        stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     if r.returncode != 0:
         c.hit("git", "refs/tags", "tags pirms-interfeisa-2026-10-05 nav atrasts")
+    c.report(args.max)
+
+    # L20 — OneDrive «desktop.ini» zem .git/refs salauž git (fetch/pull: «broken ref refs/…/desktop.ini»;
+    # 06.10). Labojums: izdzēst TIKAI šos desktop.ini failus zem .git/refs.
+    c = Check("L20", "zem .git/refs nav OneDrive desktop.ini (citādi git fetch/pull lūzt)")
+    r = subprocess.run(["git", "rev-parse", "--git-dir"], cwd=qa.REPO, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True)
+    if r.returncode == 0:
+        gd = r.stdout.strip()
+        refs = os.path.join(gd if os.path.isabs(gd) else os.path.join(qa.REPO, gd), "refs")
+        for dp, dns, fns in os.walk(refs):
+            for fn in fns:
+                if fn.lower() == "desktop.ini":
+                    c.hit("git", os.path.relpath(os.path.join(dp, fn), qa.REPO), "izdzēs šo failu (tikai to)")
     c.report(args.max)
 
 

@@ -200,19 +200,22 @@ function DataTable({ header, rows }: { header: string[]; rows: TableRow[] }) {
                 </span>
               )}
             </p>
-            <dl className="mt-1 grid grid-cols-[1fr_auto] gap-x-3 gap-y-0.5 text-[14px] leading-snug">
+            <dl className="mt-1 grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 gap-y-0.5 text-[14px] leading-snug">
               {r.cells.slice(1).map((c, ci) => {
-                // short values (dates) sit on the label's line, right-aligned; long ones (descriptions) wrap below it
-                const long = c.length > 24;
+                // Only short values (dates like «29 июля», «20–24 нояб.») sit on the label's line, right-aligned and
+                // unbroken; everything longer goes below its label and wraps. A longer unbroken value made the
+                // value column wider than the card on 360–412 px phones / large «Аа» text («Гуру-пурнима» card:
+                // «полнолуние месяца Ашадха» ran off the right edge — Satkirti 06.10, Pixel 7 / S23 FE).
+                const long = c.length > 12;
                 return (
                   <React.Fragment key={ci}>
-                    <dt className={`text-[#5C3D2E] ${long ? "col-span-2" : ""}`}>
+                    <dt className={`min-w-0 text-[#5C3D2E] [overflow-wrap:anywhere] ${long ? "col-span-2" : ""}`}>
                       <Inline text={header[ci + 1] ?? ""} />
                     </dt>
                     <dd
                       className={
                         long
-                          ? "col-span-2 m-0 mb-1 text-left"
+                          ? "col-span-2 m-0 mb-1 min-w-0 text-left [overflow-wrap:anywhere]"
                           : "m-0 whitespace-nowrap text-right tabular-nums"
                       }
                     >
@@ -358,7 +361,10 @@ function ContentBlock({
       return (
         <div
           className="my-4 grid gap-y-0.5"
-          style={{ gridTemplateColumns: item.numbers ? "auto auto 1fr" : "auto 1fr" }}
+          // The label column takes at most ~60% of the width and wraps beyond it; both text columns may
+          // shrink (min 0) — with "auto 1fr" a long mantra + its «пословно» chip pushed the value column off
+          // the right edge on phones with large «Аа» text (s13, v7.3).
+          style={{ gridTemplateColumns: item.numbers ? "auto fit-content(55%) minmax(0,1fr)" : "fit-content(60%) minmax(0,1fr)" }}
           key={index}
         >
           {item.items?.map((pair, i) => {
@@ -370,7 +376,7 @@ function ContentBlock({
                     <HotspotHit focus>{item.numbers[i] ? `${item.numbers[i]})` : "–"}</HotspotHit>
                   </span>
                 )}
-                <span className="pr-8 py-0.5 text-[15px]">
+                <span className="min-w-0 pr-4 sm:pr-8 py-0.5 text-[15px] [overflow-wrap:anywhere]">
                   {pair.wbw && MANTRA_RE.test(pair.label) ? (
                     <MantraWbw wbw={pair.wbw} label={labels.wbw}>
                       <Inline text={pair.label} />
@@ -381,7 +387,7 @@ function ContentBlock({
                     </HotspotHit>
                   )}
                 </span>
-                <span className="py-0.5 text-[15px]">
+                <span className="min-w-0 py-0.5 text-[15px] [overflow-wrap:anywhere]">
                   {pair.wbw && !MANTRA_RE.test(pair.label) && MANTRA_RE.test(pair.value) ? (
                     <MantraWbw wbw={pair.wbw} label={labels.wbw}>
                       <Inline text={pair.value} />

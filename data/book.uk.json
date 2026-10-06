@@ -2005,7 +2005,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "ete gandha-puspe oṁ jaya-dhuani-mantra-matāh svāhā",
+              "sanskrit": "ete gandha-puṣpe oṁ jaya-dhvani-mantra-mātre svāhā",
               "translation": ""
             },
             {
@@ -2024,7 +2024,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "ete gandha-puspe\noṁ hum hum hum namah maha-sankhaya svāhā",
+              "sanskrit": "ete gandha-puṣpe\noṁ huṁ huṁ huṁ namaḥ mahā-śaṅkhāya svāhā",
               "translation": ""
             }
           ]
@@ -3331,7 +3331,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "idaṁ mahā-prasādaṁ aiṁ gurave namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva sakhibhiyo namaḥ\nidaṁ mahā-prasādaṁ oṁ vrindayai namaḥ\nidaṁ mahā-prasādaṁ oṁ paurnamasyai namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vaiṣṇavebhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vaiṣṇavībhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vrajavāsībhyo namaḥ",
+              "sanskrit": "idaṁ mahā-prasādaṁ aiṁ gurave namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva sakhībhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ vṛndāyai namaḥ\nidaṁ mahā-prasādaṁ oṁ paurṇamāsyai namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vaiṣṇavebhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vaiṣṇavībhyo namaḥ\nidaṁ mahā-prasādaṁ oṁ sarva vrajavāsībhyo namaḥ",
               "translation": ""
             },
             {
@@ -3608,7 +3608,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "ete gandha-puspe oṁ jaya-dhuani-mantra-matāh svāhā",
+              "sanskrit": "ete gandha-puṣpe oṁ jaya-dhvani-mantra-mātre svāhā",
               "translation": ""
             },
             {
@@ -3625,7 +3625,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "ete gandha-puspe\noṁ hum hum hum namah maha-sankhaya svāhā",
+              "sanskrit": "ete gandha-puṣpe\noṁ huṁ huṁ huṁ namaḥ mahā-śaṅkhāya svāhā",
               "translation": ""
             }
           ]
@@ -3644,7 +3644,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "esa puspanjalih...\nidaṁ āsanaṁ...\netat pādyaṁ...\nidaṁ arghyam...\nidaṁ acamaniyam...\nesa madhuparkah...\nidaṁ punar-acamaniya...",
+              "sanskrit": "eṣa puṣpāñjaliḥ...\nidaṁ āsanaṁ...\netat pādyaṁ...\nidaṁ arghyam...\nidaṁ ācamanīyam...\neṣa madhuparkaḥ...\nidaṁ punar-ācamanīyam...",
               "translation": ""
             },
             {
@@ -3673,11 +3673,11 @@
             },
             {
               "type": "instruction",
-              "content": "Омийте Божества над зливом водою та 1/4 кунжутної пасти (⟦idaṁ til-snaniyam...⟧)."
+              "content": "Омийте Божества над зливом водою та 1/4 кунжутної пасти (⟦idaṁ tila-snānīyam...⟧)."
             },
             {
               "type": "instruction",
-              "content": "Піднесіть Божествам фруктові гірлянди (⟦idaṁ phala-malayam...⟧)."
+              "content": "Піднесіть Божествам фруктові гірлянди (⟦idaṁ phala-mālyam...⟧)."
             },
             {
               "type": "subtitle",
@@ -3685,7 +3685,7 @@
             },
             {
               "type": "bullet-list",
-              "content": "Молоко (⟦idaṁ ksira-snaniyam...⟧)\nЙогурт (⟦idaṁ dadhi-snaniyam...⟧)\nГі (⟦idaṁ ghrta-snaniyam...⟧)\nМед (⟦idaṁ madhu-snaniyam...⟧)\nСироп (⟦idaṁ sita-snaniyam...⟧)"
+              "content": "Молоко (⟦idaṁ kṣīra-snānīyam...⟧)\nЙогурт (⟦idaṁ dadhi-snānīyam...⟧)\nГі (⟦idaṁ ghṛta-snānīyam...⟧)\nМед (⟦idaṁ madhu-snānīyam...⟧)\nСироп (⟦idaṁ sitā-snānīyam...⟧)"
             },
             {
               "type": "subtitle",
@@ -3701,7 +3701,7 @@
             },
             {
               "type": "instruction",
-              "content": "Омийте Божества чистою водою (⟦idaṁ jala-snaniyam...⟧)."
+              "content": "Омийте Божества чистою водою (⟦idaṁ jala-snānīyam...⟧)."
             },
             {
               "type": "subtitle",
@@ -3709,7 +3709,7 @@
             },
             {
               "type": "instruction",
-              "content": "Омийте Божества фруктовими соками (бажано 5 солодких видів) (⟦idaṁ phala-snaniyam...⟧)."
+              "content": "Омийте Божества фруктовими соками (бажано 5 солодких видів) (⟦idaṁ phala-snānīyam...⟧)."
             },
             {
               "type": "subtitle",
@@ -3725,7 +3725,7 @@
             },
             {
               "type": "instruction",
-              "content": "Омийте чистою водою (⟦idaṁ jala-snaniyam...⟧)."
+              "content": "Омийте чистою водою (⟦idaṁ jala-snānīyam...⟧)."
             },
             {
               "type": "subtitle",
@@ -3737,7 +3737,7 @@
             },
             {
               "type": "instruction",
-              "content": "Омийте водою, розведеною сандаловою пастою (⟦idaṁ gandha-snaniyam...⟧)."
+              "content": "Омийте водою, розведеною сандаловою пастою (⟦idaṁ gandha-snānīyam...⟧)."
             },
             {
               "type": "subtitle",
@@ -3745,7 +3745,7 @@
             },
             {
               "type": "instruction",
-              "content": "Піднесіть чисту воду, проливаючи її крізь душ (⟦idaṁ sahasrada-snaniyam...⟧)."
+              "content": "Піднесіть чисту воду, проливаючи її крізь душ (⟦idaṁ sahasra-dhārā-snānīyam...⟧)."
             },
             {
               "type": "subtitle",
@@ -3753,15 +3753,15 @@
             },
             {
               "type": "instruction",
-              "content": "Витріть Божества рушниками й загорніть Їх (⟦idaṁ anga-vastram...⟧)."
+              "content": "Витріть Божества рушниками й загорніть Їх (⟦idaṁ aṅga-vastram...⟧)."
             },
             {
               "type": "instruction",
-              "content": "Осипте пелюстками 5 видів квітів (⟦idaṁ puspa-snaniyam...⟧)."
+              "content": "Осипте пелюстками 5 видів квітів (⟦idaṁ puṣpa-snānīyam...⟧)."
             },
             {
               "type": "instruction",
-              "content": "Піднесіть а̄чаману (⟦idaṁ acamaniyam...⟧)."
+              "content": "Піднесіть а̄чаману (⟦idaṁ ācamanīyam...⟧)."
             },
             {
               "type": "instruction",
@@ -3876,13 +3876,13 @@
           "content": [
             {
               "type": "subtitle",
-              "content": "aparādha-sodhana"
+              "content": "aparādha-śodhana"
             },
             {
               "type": "verse",
-              "sanskrit": "anga-hinam kriya-hinam\nvidhi-hinam cayad bhavet\nastu tat sarvam acchidram\nkrsna-karsna-prasadatah\n\nyat kincid vaigunyam jatam\ntad dosa-prasamanasya\nsri-krsna-smaranam karomi",
+              "sanskrit": "aṅga-hīnaṁ kriyā-hīnaṁ\nvidhi-hīnaṁ ca yad bhavet\nastu tat sarvam acchidraṁ\nkṛṣṇa-kārṣṇa-prasādataḥ\n\nyat kiñcit vaiguṇyaṁ jātaṁ\ntad doṣa-praśamanāya\nśrī-kṛṣṇa-smaraṇaṁ karomi",
               "translation": "Нехай милість Кр̣шн̣и та Його відданих усуне всі помилки, яких ми припустилися, дотримуючись правил поклоніння та виконуючи обряди поклоніння. Тепер я згадую Кр̣шн̣у, щоб усунути всі можливі недоліки. [Сат-крійа̄-са̄ра-дı̄піка̄]",
-              "wbw": "anga-hinam — позбавлене необхідних складових; kriya-hinam — недосконале в обрядах поклоніння; vidhi-hinam — недосконале в дотриманні приписів; cayad — і все, що; bhavet — може бути; astu — нехай стане; tat — те; sarvam — усе; acchidram — бездоганним; krsna-karsna-prasadatah — з милості Кришни та Його відданих; yat — який би; kincid — не був; vaigunyam — недолік; jatam — виник; tad — той; dosa-prasamanasya — для усунення помилки; sri-krsna-smaranam — пам’ятування про Шри Кришну; karomi — я звершую."
+              "wbw": "aṅga-hīnaṁ — позбавлене необхідних складових; kriyā-hīnaṁ — недосконале в обрядах поклоніння; vidhi-hīnaṁ — недосконале в дотриманні приписів; ca — і; yad — все, що; bhavet — може бути; astu — нехай стане; tat — те; sarvam — усе; acchidraṁ — бездоганним; kṛṣṇa-kārṣṇa-prasādataḥ — з милості Кришни та Його відданих; yat — який би; kiñcit — не був; vaiguṇyaṁ — недолік; jātaṁ — виник; tad — той; doṣa-praśamanāya — для усунення помилки; śrī-kṛṣṇa-smaraṇaṁ — пам’ятування про Шри Кришну; karomi — я звершую."
             },
             {
               "type": "verse",
