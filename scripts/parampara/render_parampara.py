@@ -77,7 +77,10 @@ GURUS = [
       (175, 467), (215, 467), (292, 417), (381, 362), (378, 392), (346, 316)]),   # knees: x 24 … 372 (v7.4.1)
     ("04", "4 Bhaktisiddhanta Sarasvati — VictoryOfPureLove_p11.jpeg",
      [(195, 23), (153, 48), (237, 48), (113, 160), (292, 155), (98, 300), (314, 300), (38, 395), (31, 410),
-      (53, 447), (108, 480), (240, 482), (364, 472), (347, 420)]),
+      (53, 447), (108, 480), (240, 482), (364, 472), (347, 420),
+      # v7.5 (independent check 07.10): the seat mat is part of the figure («body rule includes the seat»):
+      # its back-left corner, front-left corner, front edge and right end — all inside the oval with the margin
+      (50, 408), (16, 496), (120, 497), (250, 497), (372, 496), (380, 478)]),
     ("05", "5 Bhakti Prajnana Kesava Gosvami — VictoryOfPureLove_p11.jpeg",
      [(183, 53), (140, 85), (224, 85), (73, 200), (284, 190), (48, 330), (297, 340), (33, 370), (31, 410),
       (73, 474), (150, 477), (250, 457), (374, 395), (368, 442)]),
@@ -123,7 +126,11 @@ EXTRA = {
 # the photo 00 also fades its own border inwards (FADE_IN) — only outside the figure's contour (+ PROTECT).
 # Book paintings and the 06 photo keep their colours but end in a soft, heavily blurred tone of their own edge.
 STYLE = {"00": {"tone": "neutral", "fade_out": 0.05, "fade_in": 0.05, "vignette": 0.10},
-         "06": {"tone": "soft", "fade_out": 0.06, "fade_in": 0.0}}
+         "06": {"tone": "soft", "fade_out": 0.06, "fade_in": 0.0},
+         # v7.5: below the painting's bottom edge (04: under the mat; 07: under the cloth) the replicated
+         # edge rows showed as streaks — a short ramp into the calm blurred tone instead
+         "04": {"tone": "soft", "fade_out": 0.02, "fade_in": 0.06},
+         "07": {"tone": "soft", "fade_out": 0.02, "fade_in": 0.06}}
 STYLE_PAINTING = {"tone": "soft", "fade_out": 0.05, "fade_in": 0.0}
 PROTECT = 0.025     # contour buffer (× oval width) never touched by the inward fade
 

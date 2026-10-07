@@ -89,10 +89,14 @@ def run(p, dev, eng, o):
     chk(dev, "(a) contents open", menu())
     chk(dev, "(a) current chapter 6 auto-expanded", expanded("daily-deity-schedule"))
     chk(dev, "(a) chapter 5 collapsed, is a disclosure button", chap(CH5).count() == 1 and not expanded(CH5))
+    # [v7.5 law, Satkirti 07.10 15:45: two taps — 1st only highlights, 2nd expands; each tap is a Back step]
+    act(chap(CH5))
+    chk(dev, "(a) v7.5: first tap on chapter 1 only highlights it (not expanded, same page)",
+        not expanded(CH5) and chap(CH5).get_attribute("data-toc-lit") is not None and pg.url == P and menu(), pg.url)
     act(chap(CH5))
     n = sublinks(CH5).count()
     first = sublinks(CH5).first.inner_text().strip() if n else ""
-    chk(dev, "(a) tap chapter 1 -> subsections 1.x visible", expanded(CH5) and n >= 4 and "1.1" in sublinks(CH5).nth(0).inner_text(), f"n={n}")  # [v7 law C/D, Satkirti 06.10: no «Начало главы»; Introduction group; Part I numbered from 1]
+    chk(dev, "(a) second tap on chapter 1 -> subsections 1.x visible", expanded(CH5) and n >= 4 and "1.1" in sublinks(CH5).nth(0).inner_text(), f"n={n}")  # [v7 law C/D, Satkirti 06.10: no «Начало главы»; Introduction group; Part I numbered from 1]
     chk(dev, "(a) v7: list starts with the first subsection «1.1» (no «Начало главы»)", first.startswith("1.1"), first)
     chk(dev, "(a) page did not change, contents still open", pg.url == P and menu(), pg.url)
     h = pg.evaluate(f"""() => [document.querySelector("button[data-toc-chapter='{CH5}']").getBoundingClientRect().height,
@@ -110,10 +114,13 @@ def run(p, dev, eng, o):
     vis = pg.evaluate("(id) => { const e = document.getElementById(id); return e ? e.getBoundingClientRect().top : null; }", anchor)
     chk(dev, "(a) 5.3 heading at top of the screen", vis is not None and -5 <= vis < 250, str(vis))
     shot("a2-at-5.3")
-    steps = [
-        ("back1 -> Contents open, chapter 5 expanded, original page", lambda: pg.url == P and menu() and expanded(CH5)),
-        ("back2 -> chapter 5 collapsed, Contents open", lambda: pg.url == P and menu() and not expanded(CH5)),
-        ("back3 -> Contents closed, original page + scroll", lambda: pg.url == P and not menu() and abs(top() - y0) < 40),
+    lit = lambda loc: loc.get_attribute("data-toc-lit") is not None
+    steps = [  # v7.5: Back mirrors every forward tap (5.3 lit → chapter 1 open → chapter 1 lit → fresh → closed)
+        ("back1 -> Contents open, chapter 5 expanded, 5.3 lit, original page", lambda: pg.url == P and menu() and expanded(CH5) and lit(sublinks(CH5).nth(2))),
+        ("back2 -> chapter 1 lit and expanded (the 2nd-tap step)", lambda: pg.url == P and menu() and expanded(CH5) and lit(chap(CH5))),
+        ("back3 -> chapter 1 lit, collapsed (the 1st-tap step)", lambda: pg.url == P and menu() and not expanded(CH5) and lit(chap(CH5))),
+        ("back4 -> Contents as opened (chapter 1 collapsed, not lit)", lambda: pg.url == P and menu() and not expanded(CH5) and not lit(chap(CH5))),
+        ("back5 -> Contents closed, original page + scroll", lambda: pg.url == P and not menu() and abs(top() - y0) < 40),
     ]
     for i, (name, f) in enumerate(steps):
         pg.go_back(); pg.wait_for_timeout(1300)
@@ -130,15 +137,19 @@ def run(p, dev, eng, o):
     chk(dev, "(b) reading 5.3: chapter 5 auto-expanded, 5.3 highlighted",
         expanded(CH5) and cl.count() == 1 and cl.get_attribute("href") == href, f"{cl.count()}")
     shot("b-current-highlighted")
-    act(chap(CH5)); act(chap(CH5)); pg.wait_for_timeout(900)  # [v7 law C/D, Satkirti 06.10: no «Начало главы»; Introduction group; Part I numbered from 1]
-    chk(dev, "(b) v7: chapter row, second tap -> chapter top, drawer closed", not menu() and top() < 120 and f"/{CH5}/" in pg.url, f"{pg.url} {top()}")
+    # [v7.5 law, Satkirti 07.10: the chapter row's 2nd tap expands / collapses its list — it never navigates]
+    u = pg.url
+    act(chap(CH5))
+    chk(dev, "(b) v7.5: chapter row, first tap only highlights (stays expanded, same page)", menu() and expanded(CH5) and pg.url == u, pg.url)
+    act(chap(CH5))
+    chk(dev, "(b) v7.5: chapter row, second tap collapses its list (no navigation)", menu() and not expanded(CH5) and pg.url == u, pg.url)
 
     # (d) Satkirti (Android): scroll the Contents down to a low item, tap it,
     # Back -> the drawer reopens at the same scroll offset, item still visible.
     pg.goto(P, wait_until="networkidle"); pg.wait_for_timeout(1000)
     open_contents()
     LONG = "arcana-procedure"          # 8. Порядок арчаны (17 subsections)
-    act(chap(LONG))
+    act(chap(LONG)); act(chap(LONG))   # v7.5: 1st tap highlights, 2nd expands
     nav_top = lambda: pg.evaluate("document.querySelector('.mobile-menu nav').scrollTop")
     low = sublinks(LONG).last
     low_href = low.get_attribute("href")
@@ -163,12 +174,15 @@ def run(p, dev, eng, o):
         f"t0={t0} t1={t1} p0={p0} p1={p1} url={pg.url}")
     shot("d2-back-same-scroll")
     pg.go_back(); pg.wait_for_timeout(1000)
+    chk(dev, "(d) Back -> chapter 8 lit and expanded (the step before the low item)", menu() and expanded(LONG) and chap(LONG).get_attribute("data-toc-lit") is not None and pg.url == P, pg.url)
+    pg.go_back(); pg.wait_for_timeout(1000)
     chk(dev, "(d) Back -> chapter collapsed, Contents open", menu() and not expanded(LONG) and pg.url == P, pg.url)
+    pg.go_back(); pg.wait_for_timeout(1000)
     pg.go_back(); pg.wait_for_timeout(1000)
     chk(dev, "(d) Back -> Contents closed, same page", not menu() and pg.url == P, pg.url)
     pg.context.close()
 
-    # (c) Satkirti: fresh session, FIRST tap on a front chapter expands it (no navigation)
+    # (c) fresh session, front chapters (v7.5 law, Satkirti 07.10: 1st tap highlights only, 2nd expands; no navigation)
     for sid in FRONT:
         pg = new_page()
         pg.goto(COVER, wait_until="networkidle"); pg.wait_for_timeout(1000)
@@ -177,10 +191,12 @@ def run(p, dev, eng, o):
         tap_pt(b["x"] + b["width"] / 2, b["y"] + b["height"] / 2)
         act(pg.locator("[data-reader-action=contents]"))
         before = pg.url
-        act(pg.locator(".mobile-menu [data-toc-group=introduction]"))  # [v7 law C/D, Satkirti 06.10: no «Начало главы»; Introduction group; Part I numbered from 1]
+        act(pg.locator(".mobile-menu [data-toc-group=introduction]")); act(pg.locator(".mobile-menu [data-toc-group=introduction]"))  # [v7.5: two taps; v7 law C/D, Satkirti 06.10: no «Начало главы»; Introduction group; Part I numbered from 1]
         chk(dev, f"(c) {sid}: fresh session, collapsed at start", chap(sid).count() == 1 and not expanded(sid))
         act(chap(sid))
-        chk(dev, f"(c) {sid}: FIRST tap expands, no navigation", expanded(sid) and sublinks(sid).count() >= 2 and pg.url == before and menu(), pg.url)
+        chk(dev, f"(c) {sid}: v7.5 first tap only highlights (not expanded, no navigation)", not expanded(sid) and chap(sid).get_attribute("data-toc-lit") is not None and pg.url == before and menu(), pg.url)
+        act(chap(sid))
+        chk(dev, f"(c) {sid}: second tap expands, no navigation", expanded(sid) and sublinks(sid).count() >= 2 and pg.url == before and menu(), pg.url)
         if sid == "vigraha-tattva":
             shot("c-vigraha-first-tap")
         pg.context.close()

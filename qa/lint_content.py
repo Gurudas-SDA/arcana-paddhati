@@ -555,6 +555,40 @@ def run(args):
     c.info = f"{len(targets)} files"
     c.report(args.max)
 
+    # L24 — Песни/бхаджаны (Satkirti 07.10 16:05): заголовок по-русски, затем ОДНА строка — автор, затем стихи
+    # в IAST; без строк-источников под песнями и без повторного заголовка латиницей. Song section = any
+    # subsection «song-…» (all songs / stotras of the book, also future ones).
+    c = Check("L24", "songs: heading → one author line → verses; no source lines, no repeated IAST title")
+    src_rx = re.compile(r"purebhakti|G[īi]ti-guccha|изд\.|\bс\. ?\d|\bpp?\. ?\d|\bed\.|Publications")
+    nsongs = 0
+    for fn in ("book.ru-iast.json", "book.ru.json", "book.json"):
+        b = loaded[os.path.join(qa.DATA, fn)]
+        for s in b["sections"]:
+            for sub in s.get("subsections") or []:
+                if not str(sub.get("id", "")).startswith("song-"):
+                    continue
+                nsongs += 1
+                items = sub.get("content") or []
+                where = f"{s['id']}/{sub['id']}"
+                for i, x in enumerate(items):
+                    if x.get("type") == "verse":
+                        continue
+                    t = x.get("content") if isinstance(x.get("content"), str) else json.dumps(x, ensure_ascii=False)
+                    if x.get("type") == "sources" or src_rx.search(t):
+                        c.hit(fn, f"{where}[{i}]", f"source line under a song: {t[:90]}")
+                head = [x for x in items if x.get("type") != "verse"][:1]
+                if not items or items[0].get("type") != "text" or len(head) != 1:
+                    c.hit(fn, where, "first item must be the author line")
+                    continue
+                a = items[0]["content"]
+                # RU: the author in Cyrillic, no ⟦…⟧ (IAST) at all; EN: exactly one ⟦…⟧ (the author), no « — ».
+                if (fn != "book.json" and "⟦" in a) or (fn == "book.json" and (a.count("⟦") != 1 or " — " in a)) or "\n" in a:
+                    c.hit(fn, where, f"author line carries a title / IAST: {a[:90]}")
+                if [x for x in items[1:] if x.get("type") == "text"][:1] and items[1].get("type") == "text":
+                    c.hit(fn, where, "more than one line before the verses")
+    c.info = f"{nsongs} songs (RU, RU Cyrillic, EN)"
+    c.report(args.max)
+
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует
     c = Check("L17", "atgriešanās punkts: git tags pirms-interfeisa-2026-10-05 eksistē")
     import subprocess

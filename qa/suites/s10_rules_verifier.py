@@ -433,27 +433,37 @@ def run_one(DEV):
             toc_txt = pg.evaluate("document.querySelector('.mobile-menu').innerText")
             rec("§9 нет строки «Начало главы»", "текст оглавления (до раскрытий)", "Начало главы" not in toc_txt, f"{'Начало главы' in toc_txt}")
             INTRO = "document.querySelector('.mobile-menu [data-toc-group=introduction]')"
+            # §10 (07.10): 1st tap only highlights, 2nd expands
+            toc_tap(INTRO); s_first = pg.evaluate("!document.getElementById('toc-grp-introduction')")
+            rec("§10 «Введение»: 1-е касание только подсвечивает", "список не раскрыт после первого касания", s_first, s_first)
             toc_tap(INTRO); s_open = state()
             members = pg.evaluate("""()=>{const l=document.getElementById('toc-grp-introduction'); return l?[...l.querySelectorAll(':scope > li')].map(li=>({t:li.textContent.trim().slice(0,40), num:!!li.querySelector('.heading-num')})):null}""")
             toc_tap(INTRO); s_closed = pg.evaluate("!document.getElementById('toc-grp-introduction')")
-            rec("§9 «Введение» раскрывается/сворачивается", "тап раскрывает 2 пункта без номеров (v7.1: Эмблема, Виграха-таттва), повторный тап сворачивает", bool(members) and [m["t"][:8] for m in members] and len(members) == 2 and not any(m["num"] for m in members) and s_closed, f"members={members}, collapsed={s_closed}")
+            rec("§9 «Введение» раскрывается/сворачивается", "2-й тап раскрывает 2 пункта без номеров (v7.1: Эмблема, Виграха-таттва), следующий тап сворачивает", bool(members) and [m["t"][:8] for m in members] and len(members) == 2 and not any(m["num"] for m in members) and s_closed, f"members={members}, collapsed={s_closed}")
             toc_tap(INTRO); path.append(state())
             EMB = "[...document.querySelectorAll('#toc-grp-introduction a, #toc-grp-introduction [data-toc-chapter]')].find(a=>/Эмблема/.test(a.textContent))"
-            toc_tap(EMB); s1 = state(); toc_tap(EMB, 1.2); path.append(state())
-            # chapter with subsections: first tap expands, not navigates
+            # §10: Эмблема (chapter with subsections) — 1st tap highlights, 2nd expands; then a subsection opens
+            toc_tap(EMB); s1 = state(); toc_tap(EMB); path.append(state())
+            ESUB = "document.querySelector('#toc-ch-gaudiya-emblem li:nth-child(1) a')"
+            toc_tap(ESUB); toc_tap(ESUB, 1.2); path.append(state())
             show_bars(); q = el_center("[data-reader-action=contents]"); tap(q["x"], q["y"], 0.7)
             path.append(state())
-            lit_here = pg.evaluate("[...document.querySelectorAll('.mobile-menu [data-toc-lit]')].map(e=>e.textContent.trim().slice(0,30))")
-            rec("§9 в «Содержании» подсвечено место, где был", "после открытия главы «Эмблема» и повторного открытия «Содержания»", any("Эмблема" in x for x in lit_here), lit_here)
+            lit_here = pg.evaluate("[...document.querySelectorAll('.mobile-menu [data-toc-lit]')].map(e=>(e.closest('#toc-ch-gaudiya-emblem')?'[Эмблема] ':'')+e.textContent.trim().slice(0,30))")
+            rec("§9 в «Содержании» подсвечено место, где был", "после открытия раздела «Эмблемы» и повторного открытия «Содержания»", len(lit_here) == 1 and "Эмблема" in lit_here[0], lit_here)
             # part heading
             PART = "document.querySelector('.mobile-menu [data-toc-group]:not([data-toc-group=introduction])')"
             toc_tap(PART); part_state = pg.evaluate("""()=>{const e=document.querySelector('.mobile-menu [data-toc-group]:not([data-toc-group=introduction])'); return {t:e.textContent.trim(), lit:e.hasAttribute('data-toc-lit'), exp:e.getAttribute('aria-expanded'), bg:getComputedStyle(e.parentElement).backgroundColor, color:getComputedStyle(e).color}}""")
             rec("§9 главы-разделы подсвечиваются как подглавы", "тап заголовка раздела", part_state["lit"], part_state)
+            rec("§10 часть: 1-е касание только подсвечивает", "не раскрыта", part_state["exp"] == "false", part_state)
+            toc_tap(PART)   # §10: the 2nd tap expands the part
             path.append(state())
             CH = "document.querySelector('.mobile-menu [data-toc-chapter=daily-duties-brahma-muhurta]')"
             u0 = pg.url; toc_tap(CH, 0.8)
+            ch1 = pg.evaluate("document.querySelector('.mobile-menu [data-toc-chapter=daily-duties-brahma-muhurta]')?.getAttribute('aria-expanded')")
+            rec("§10 глава с подразделами: 1-е касание только подсвечивает", "не раскрыта, URL тот же", ch1 == "false" and pg.url == u0, f"exp={ch1} url same={pg.url == u0}")
+            toc_tap(CH, 0.8)
             chs = pg.evaluate("""()=>{const e=document.querySelector('.mobile-menu [data-toc-chapter=daily-duties-brahma-muhurta]'); return {exp:e?.getAttribute('aria-expanded'), subs:document.getElementById('toc-ch-daily-duties-brahma-muhurta')?.children.length||0, menu:!!document.querySelector('.mobile-menu')}}""")
-            rec("§7 глава с подразделами: 1-е касание раскрывает", "URL не меняется, список подразделов открыт", pg.url == u0 and chs["exp"] == "true" and chs["subs"] > 0, f"url same={pg.url==u0}, {chs}")
+            rec("§10 глава с подразделами: 2-е касание раскрывает", "URL не меняется, список подразделов открыт", pg.url == u0 and chs["exp"] == "true" and chs["subs"] > 0, f"url same={pg.url==u0}, {chs}")
             toc_txt2 = pg.evaluate("document.querySelector('.mobile-menu').innerText")
             rec("§9 нет строки «Начало главы» (раскрытая глава)", "текст оглавления", "Начало главы" not in toc_txt2, "Начало главы" in toc_txt2)
             path.append(state())

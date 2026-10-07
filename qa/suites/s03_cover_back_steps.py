@@ -105,21 +105,23 @@ def run(p, dev, eng, o):
     chk(dev, "(b) 1 contents opens", menu())
     part_btn = pg.locator(".mobile-menu nav button[aria-expanded=false]", has_text="Праздники").first
     part_name = part_btn.inner_text().strip()
-    act(part_btn)
+    act(part_btn); act(part_btn)   # [v7.5 law, Satkirti 07.10: 1st tap highlights, 2nd expands]
     exp = lambda: pg.locator(".mobile-menu nav button[aria-expanded=true]", has_text=part_name).count() == 1
     chk(dev, "(b) 2 part expanded", exp(), part_name)
     shot("b2-part-expanded")
-    # v4: a chapter with subsections is a disclosure row in the contents —
-    # the first tap expands it (one more Back step), «Начало главы» opens it.
+    # v7.5 (Satkirti 07.10): a chapter with subsections — 1st tap highlights, 2nd expands
+    # (each a Back step); the chapter is opened through its subsections.
     chbtn = pg.locator(".mobile-menu nav button[aria-expanded=true]", has_text=part_name).locator("xpath=ancestor::li[1]//ul//button[@data-toc-chapter]").first
     chid = chbtn.get_attribute("data-toc-chapter")
     act(chbtn)
     chexp = lambda: pg.locator(f".mobile-menu nav button[data-toc-chapter='{chid}'][aria-expanded=true]").count() == 1
-    chk(dev, "(b) 2b chapter expanded (v4)", chexp() and pg.url == P, chid)
-    # v7 (Satkirti 06.10, law C): no «Начало главы» row — the chapter row's second tap opens the chapter top
-    act(chbtn); pg.wait_for_timeout(1200)
-    C = pg.url
-    chk(dev, "(b) 3 chapter opened, menu closed", f"/{chid}/" in C and "#" not in C and not menu(), C)
+    chk(dev, "(b) 2a v7.5: first tap on the chapter only highlights", not chexp() and pg.url == P, chid)
+    act(chbtn)
+    chk(dev, "(b) 2b chapter expanded on the second tap", chexp() and pg.url == P, chid)
+    first_sub = pg.locator(f".mobile-menu #toc-ch-{chid} a").first
+    act(first_sub); act(first_sub); pg.wait_for_timeout(1200)
+    C = pg.url.split("#")[0]
+    chk(dev, "(b) 3 chapter opened (first subsection), menu closed", f"/{chid}/" in C and not menu(), pg.url)
     show_bars(); act(pg.locator("[data-reader-action=contents]"))
     subs = pg.locator(".mobile-menu nav ul.ml-6 a")
     nsub = subs.count()
@@ -128,12 +130,17 @@ def run(p, dev, eng, o):
         S = pg.url
         chk(dev, "(b) 4 sub-section opened", "#" in S and not menu() and top() > 100, f"{S} top={top()}")
         shot("b4-subsection")
+        # v7.5: every tap in the contents is a Back step (Satkirti 07.10: «назад — теми же шагами»)
         steps = [
-            ("back1 -> chapter with contents open", lambda: pg.url.split("#")[0] == C and menu()),
-            ("back2 -> chapter top, contents closed", lambda: pg.url == C and not menu() and top() < 120),
-            ("back3 -> previous page, contents open, part + chapter expanded", lambda: pg.url == P and menu() and exp() and chexp()),
-            ("back4 -> chapter collapsed, part expanded (v4 step)", lambda: pg.url == P and menu() and exp() and not chexp()),
-            ("back5 -> part collapsed, contents still open", lambda: pg.url == P and menu() and not exp()),
+            ("back1 -> chapter with contents open (sub 2 lit)", lambda: pg.url.split("#")[0] == C and menu()),
+            ("back1b -> chapter, contents as opened", lambda: pg.url.split("#")[0] == C and menu()),
+            ("back2 -> chapter (first subsection), contents closed", lambda: pg.url.split("#")[0] == C and not menu()),
+            ("back3 -> previous page, contents open, part + chapter expanded (sub 1 lit)", lambda: pg.url == P and menu() and exp() and chexp()),
+            ("back3b -> part + chapter expanded (chapter lit)", lambda: pg.url == P and menu() and exp() and chexp()),
+            ("back4 -> chapter collapsed, part expanded", lambda: pg.url == P and menu() and exp() and not chexp()),
+            ("back4b -> part expanded (part lit)", lambda: pg.url == P and menu() and exp() and not chexp()),
+            ("back5 -> part collapsed (part lit), contents still open", lambda: pg.url == P and menu() and not exp()),
+            ("back5b -> contents as opened", lambda: pg.url == P and menu() and not exp()),
             ("back6 -> previous page, contents closed, scroll restored", lambda: pg.url == P and not menu() and abs(top() - y0) < 40),
         ]
     else:
@@ -143,7 +150,7 @@ def run(p, dev, eng, o):
         pg.go_back(); pg.wait_for_timeout(1300)
         ok = f()
         chk(dev, f"(b) {name}", ok and pg.url != COVER, f"url={pg.url} menu={menu()} top={top()} y0={y0}")
-        if i in (0, 2, 5):
+        if i in (0, 3, 9):
             shot(f"b-back{i+1}")
     chk(dev, "(b) never on cover", pg.url != COVER)
     if eng == "chromium":

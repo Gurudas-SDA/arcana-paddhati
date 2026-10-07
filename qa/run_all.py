@@ -63,6 +63,9 @@ SUITES = [
          devices=["pixel7", "s23fe", "iphone14", "iphone-se"], fast=True),
     dict(id="s22", file="suites/s22_parampara_songs.py", title="Reader v7.4: parampara (8 lapas, paraksti, bez apgriešanas) + ārati dziesmas",
          devices=["pixel7", "iphone14", "s23fe", "iphone-se", "ipad-portrait", "ipad-landscape", "ipad-mini", "desktop", "mac-safari"], fast=True),
+    dict(id="s23", file="suites/s23_ksv_0710_taps_back.py", title="КСВ 07.10: portrets=lapa, «Обложка»=home, «Назад»=tie paši soļi, divi pieskārieni (telefons+planšete+dators)",
+         devices=["pixel7", "iphone14", "ipad-portrait", "ipad-landscape", "desktop", "mac-safari"], fast=True,
+         fast_devices=["pixel7", "iphone14", "ipad-portrait", "desktop"]),
     dict(id="s20", file="suites/s20_offline.py", title="OFFLINE: Chromium (Android) — visas nodaļas, navigācija, transkripti", args=["chromium"],
          devices=None, fast=True, timeout_fast=200),
     dict(id="s20wk", file="suites/s20_offline.py", title="OFFLINE: WebKit (iPhone/iPad) — serveris izslēgts", args=["webkit"],
@@ -89,7 +92,9 @@ def jobs_for(suites, mode_fast, dev_filter, split):
         if devs is not None:
             devs = [d for d in devs if (dev_filter is None or d in dev_filter)]
             if mode_fast and dev_filter is None:
-                devs = [d for d in devs if d in qa.FAST_DEVICES]
+                # fast_devices: a suite may run on more than the two phones in the pre-push run
+                # (v7.5, КСВ 07.10: the Contents rules on phone + tablet + computer every push)
+                devs = [d for d in devs if d in s.get("fast_devices", qa.FAST_DEVICES)]
             if not devs:
                 continue
             groups = [[d] for d in devs] if split else [devs]

@@ -58,6 +58,7 @@ def run(p, dev, eng, o):
     menu = lambda: pg.locator(".mobile-menu").count() == 1
     chap = lambda sid: pg.locator(f".mobile-menu nav button[data-toc-chapter='{sid}']")
     lit = lambda loc: loc.count() == 1 and loc.get_attribute("data-toc-lit") is not None
+    lit_in_emb_now = lambda: pg.locator(".mobile-menu nav [data-toc-lit][href$='/gaudiya-emblem/'], .mobile-menu nav [data-toc-lit][data-toc-chapter='gaudiya-emblem'], .mobile-menu nav li:has(> div > button[data-toc-chapter='gaudiya-emblem']) [data-toc-lit]").count() >= 1
     nlit = lambda: pg.locator(".mobile-menu nav [data-toc-lit]").count()
 
     def show_bars():
@@ -78,17 +79,18 @@ def run(p, dev, eng, o):
     emb = chap("gaudiya-emblem") if chap("gaudiya-emblem").count() else pg.locator(".mobile-menu nav a[href$='/gaudiya-emblem/']").first
     lit_in_emb = pg.locator(".mobile-menu nav li:has(> div > button[data-toc-chapter='gaudiya-emblem']) [data-toc-lit], .mobile-menu nav li:has(> a[href$='/gaudiya-emblem/']) [data-toc-lit], .mobile-menu nav [data-toc-lit][href$='/gaudiya-emblem/']").count()
     chk(dev, "(1) contents opens with exactly one highlight, on the open chapter (Эмблема)", nlit() == 1 and lit_in_emb >= 1, f"nlit={nlit()} in_emb={lit_in_emb}")
+    # [v7.5 law, Satkirti 07.10 15:45: 1st tap only highlights, 2nd expands (no navigation); every tap a Back step]
     act(chap(VIG))
     chk(dev, "(1) tap «Виграха-таттва» -> highlight moves to it (only one lit)", lit(chap(VIG)) and not lit(emb) and nlit() == 1, f"nlit={nlit()}")
-    chk(dev, "(2) first tap: expands, no navigation, drawer open",
-        chap(VIG).get_attribute("aria-expanded") == "true" and pg.url == EMB and menu(), pg.url)
+    chk(dev, "(2) first tap: highlight only — not expanded, no navigation, drawer open",
+        chap(VIG).get_attribute("aria-expanded") == "false" and pg.url == EMB and menu(), pg.url)
     shot("1-contents-first-tap")
-    act(chap(VIG)); pg.wait_for_timeout(900)
-    chk(dev, "(2) second tap on the same chapter opens it", f"/{VIG}/" in pg.url and not menu(), pg.url)
-    pg.go_back(); pg.wait_for_timeout(1200)
-    chk(dev, "(2) Back -> contents open, chapter expanded, emblem page", menu() and pg.url == EMB and chap(VIG).get_attribute("aria-expanded") == "true", pg.url)
+    act(chap(VIG)); pg.wait_for_timeout(600)
+    chk(dev, "(2) second tap on the same chapter expands it (no navigation)", chap(VIG).get_attribute("aria-expanded") == "true" and pg.url == EMB and menu(), pg.url)
     pg.go_back(); pg.wait_for_timeout(1000)
-    chk(dev, "(2) Back -> chapter collapsed", menu() and chap(VIG).get_attribute("aria-expanded") == "false", pg.url)
+    chk(dev, "(2) Back -> chapter collapsed, still lit", menu() and chap(VIG).get_attribute("aria-expanded") == "false" and lit(chap(VIG)), pg.url)
+    pg.go_back(); pg.wait_for_timeout(1000)
+    chk(dev, "(2) Back -> contents as opened (Эмблема lit)", menu() and pg.url == EMB and lit_in_emb_now(), pg.url)
     pg.go_back(); pg.wait_for_timeout(1000)
     chk(dev, "(2) Back -> contents closed, emblem page", not menu() and pg.url == EMB, pg.url)
     # a chapter WITHOUT subsections + a subsection + «Начало главы»
@@ -99,7 +101,7 @@ def run(p, dev, eng, o):
     href = plain.get_attribute("href")
     act(plain)
     chk(dev, "(2) plain chapter: first tap highlights only", lit(plain) and menu() and pg.url == EMB and nlit() == 1, pg.url)
-    act(chap(VIG))
+    act(chap(VIG)); act(chap(VIG))
     sub = pg.locator(f".mobile-menu #toc-ch-{VIG} a").nth(2)
     act(sub)
     chk(dev, "(2) subsection: first tap highlights only", lit(sub) and menu() and pg.url == EMB and nlit() == 1, pg.url)
@@ -111,9 +113,9 @@ def run(p, dev, eng, o):
     if menu() and start.count() == 1:
         chk(dev, "(2) v7: Back -> the subsection is still lit (path)", lit(sub) and nlit() == 1, pg.url)
         act(start)
-        chk(dev, "(2) chapter row: first tap highlights only", lit(start) and menu() and pg.url == EMB, pg.url)
-        act(start); pg.wait_for_timeout(1000)
-        chk(dev, "(2) chapter row: second tap opens chapter top", not menu() and f"/{VIG}/" in pg.url, pg.url)
+        chk(dev, "(2) chapter row: first tap highlights only", lit(start) and menu() and pg.url == EMB and start.get_attribute("aria-expanded") == "true", pg.url)
+        act(start); pg.wait_for_timeout(600)
+        chk(dev, "(2) chapter row: second tap collapses its list (v7.5, no navigation)", menu() and pg.url == EMB and start.get_attribute("aria-expanded") == "false", pg.url)
     else:
         chk(dev, "(2) Back after subsection -> contents open", False, f"menu={menu()} url={pg.url}")
 

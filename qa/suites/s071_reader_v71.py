@@ -160,10 +160,10 @@ with sync_playwright() as p:
         try:
             if not pg.evaluate("[...document.querySelectorAll('aside nav [aria-expanded=true]')].some(e=>/Эмблема/.test(e.innerText))"):
                 if not pg.evaluate("[...document.querySelectorAll('aside nav [aria-expanded=true]')].some(e=>/ВВЕДЕНИЕ/.test(e.innerText))"):
-                    tap(pg, row(pg, 'ВВЕДЕНИЕ'))
-                    pg.wait_for_timeout(500)
-                tap(pg, row(pg, 'Эмблема'))
-                pg.wait_for_timeout(600)
+                    tap(pg, row(pg, 'ВВЕДЕНИЕ')); pg.wait_for_timeout(500)
+                    tap(pg, row(pg, 'ВВЕДЕНИЕ')); pg.wait_for_timeout(500)   # v7.5: 2nd tap expands
+                tap(pg, row(pg, 'Эмблема')); pg.wait_for_timeout(600)
+                tap(pg, row(pg, 'Эмблема')); pg.wait_for_timeout(600)       # v7.5: 2nd tap expands
             r2 = row(pg, 'Святое имя')
             tap(pg, r2)
             pg.wait_for_timeout(200)
@@ -241,18 +241,23 @@ with sync_playwright() as p:
         LIT = "(()=>{const e=document.querySelector('aside nav [data-toc-lit]');const ex=[...document.querySelectorAll('aside nav [aria-expanded=true]')].map(x=>x.innerText.trim().slice(0,12));return e?e.innerText.trim().slice(0,20)+' | '+[...new Set(ex)].join(','):'-'})()"
         fwd = [pg.evaluate(LIT)]
         intro = pg.locator('aside nav [data-toc-group=introduction]')
+        # v7.5 (Satkirti 07.10): 1st tap highlights, 2nd expands; every tap is a step Back retraces
+        tap(pg, intro); pg.wait_for_timeout(700); fwd.append(pg.evaluate(LIT))
         tap(pg, intro); pg.wait_for_timeout(700); fwd.append(pg.evaluate(LIT))
         vig = pg.locator('aside nav [data-toc-chapter=vigraha-tattva]')
         tap(pg, vig); pg.wait_for_timeout(700); fwd.append(pg.evaluate(LIT))
-        tap(pg, vig); wait_url(pg, 'vigraha-tattva'); pg.wait_for_timeout(1200)
+        tap(pg, vig); pg.wait_for_timeout(700); fwd.append(pg.evaluate(LIT))
+        vsub = pg.locator('aside nav #toc-ch-vigraha-tattva a').first
+        tap(pg, vsub); pg.wait_for_timeout(700); fwd.append(pg.evaluate(LIT))
+        tap(pg, vsub); wait_url(pg, 'vigraha-tattva'); pg.wait_for_timeout(1200)
         back = []
-        for _ in range(4):
+        for _ in range(len(fwd) + 1):
             reveal(pg) if not pg.locator('.mobile-menu').count() else None
             tap(pg, pg.locator('[data-reader-nav=back]'))
             pg.wait_for_timeout(1100)
             back.append(pg.evaluate(LIT) if pg.locator('.mobile-menu').count() else 'page:' + pg.url.split('arcana-paddhati')[-1])
         dup = [i for i in range(1, len(back)) if back[i] == back[i - 1]]
-        ck(dev, '17 Back mirrors the forward steps, no repeated step', not dup and back[:2] == fwd[::-1][:2] and back[-1].startswith('page:'), {'fwd': fwd, 'back': back})
+        ck(dev, '17 Back mirrors the forward steps, no repeated step', back[:len(fwd)] == fwd[::-1] and back[-1].startswith('page:'), {'fwd': fwd, 'back': back})
         ck(dev, 'no page errors', not errs, errs[:2])
         b.close()
 print(f"\n{sum(res)}/{len(res)} passed")

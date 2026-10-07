@@ -111,11 +111,14 @@ def run(p, dev, eng, o):
     chk(dev, "C chapter list starts with subsection «1.1.»", first.startswith("1.1."), first)
     intro = pg.locator(".mobile-menu [data-toc-group=introduction]")
     chk(dev, "D «Введение» is a group heading without number", intro.count() == 1 and intro.inner_text().strip().upper() == "ВВЕДЕНИЕ", intro.inner_text() if intro.count() else "none")
+    # [v7.5 law, Satkirti 07.10 15:45: 1st tap only highlights, 2nd expands; every tap is a Back step]
+    act(intro)
+    chk(dev, "D v7.5 first tap on «Введение» only highlights (not expanded)", intro.get_attribute("aria-expanded") == "false" and lit().get("group") == "introduction", str(lit()))
     act(intro)
     g = lit()
     rows = pg.locator(".mobile-menu #toc-grp-introduction > li")
     names = [rows.nth(i).inner_text().strip() for i in range(rows.count())]
-    chk(dev, "D tap «Введение» -> expands: Эмблема / Виграха-таттва (Мангалачарана before Введение — v7.1), no numbers", names == ["Эмблема Гаудия-матха", "Виграха-таттва"], str(names))
+    chk(dev, "D second tap «Введение» -> expands: Эмблема / Виграха-таттва (Мангалачарана before Введение — v7.1), no numbers", names == ["Эмблема Гаудия-матха", "Виграха-таттва"], str(names))
     chk(dev, "A «Введение» heading lit (like a subsection), in view, one highlight", g.get("n") == 1 and g.get("group") == "introduction" and g["inView"] and g["bg"] == LIT_BG and g["color"] == "rgb(184, 134, 11)", str(g))
     act(intro)
     chk(dev, "D second tap on «Введение» collapses it", intro.get_attribute("aria-expanded") == "false" and pg.locator(".mobile-menu #toc-grp-introduction").count() == 0)
@@ -123,8 +126,10 @@ def run(p, dev, eng, o):
     act(intro)
     vig = pg.locator(".mobile-menu [data-toc-chapter=vigraha-tattva]")
     act(vig)
+    chk(dev, "A v7.5 first tap «Виграха-таттва» -> lit, list still closed", lit().get("chapter") == "vigraha-tattva" and pg.locator(".mobile-menu #toc-ch-vigraha-tattva").count() == 0, str(lit()))
+    act(vig)
     g = lit()
-    chk(dev, "A tap «Виграха-таттва» -> lit + its list open", g.get("chapter") == "vigraha-tattva" and g.get("n") == 1 and pg.locator(".mobile-menu #toc-ch-vigraha-tattva").count() == 1, str(g))
+    chk(dev, "A second tap «Виграха-таттва» -> lit + its list open", g.get("chapter") == "vigraha-tattva" and g.get("n") == 1 and pg.locator(".mobile-menu #toc-ch-vigraha-tattva").count() == 1, str(g))
     tota = pg.locator('.mobile-menu a[href*="#vigraha-tota-gopinatha"]')
     tt = tota.inner_text().strip()
     chk(dev, "D subsection numbering inside the Introduction: «10. Тота Гопинатх…»", tt.startswith("10."), tt)
@@ -140,20 +145,27 @@ def run(p, dev, eng, o):
     g = lit()
     chk(dev, "A ‹ Назад -> contents, «Тота Гопинатх» still lit and in view (iPad case)", g.get("menu") and g.get("n") == 1 and (g.get("href") or "").endswith("#vigraha-tota-gopinatha") and g["inView"] and g["bg"] == LIT_BG, str(g))
     shot("back-1-tota-lit")
-    # next steps back: system / browser back (Android)
+    # next steps back: system / browser back (Android). v7.5 (Satkirti 07.10 15:45): every Back step
+    # shows exactly the state of the forward step before it — same highlight, same open lists.
+    grp_open = lambda: pg.locator(".mobile-menu #toc-grp-introduction").count() == 1
+    vig_open = lambda: pg.locator(".mobile-menu #toc-ch-vigraha-tattva").count() == 1
+    back_steps = [
+        ("A Back step 2 -> «Виграха-таттва» lit, its list open", lambda g: g.get("chapter") == "vigraha-tattva" and vig_open()),
+        ("A Back step 3 -> «Виграха-таттва» lit, its list closed, «Введение» open", lambda g: g.get("chapter") == "vigraha-tattva" and not vig_open() and grp_open()),
+        ("A Back step 4 -> «Введение» lit, group open", lambda g: g.get("group") == "introduction" and grp_open() and not vig_open()),
+        ("A Back step 5 -> «Введение» lit, group closed (its collapse step)", lambda g: g.get("group") == "introduction" and not grp_open()),
+        ("A Back step 6 -> «Введение» lit, group open", lambda g: g.get("group") == "introduction" and grp_open()),
+        ("A Back step 7 -> «Введение» lit, group closed (first tap)", lambda g: g.get("group") == "introduction" and not grp_open()),
+        ("A Back step 8 -> contents as opened: the current chapter lit", lambda g: g.get("chapter") == "daily-duties-brahma-muhurta" and not grp_open()),
+    ]
+    for k, (name, ok) in enumerate(back_steps):
+        pg.go_back(); pg.wait_for_timeout(900)
+        g = lit()
+        chk(dev, name, g.get("menu") and g.get("n") == 1 and g.get("inView") and ok(g), str(g))
+        if k in (0, 3):
+            shot(f"back-{k + 2}")
     pg.go_back(); pg.wait_for_timeout(900)
-    g = lit()
-    # v7.1 (verifier item 17): every Back step shows the state the reader saw at
-    # that step (no step with the same highlight twice): «Введение» lit, group
-    # open, the Виграха-таттва list closed.
-    chk(dev, "A Back step 2 -> «Введение» lit, group open, Виграха list closed (v7.1)", g.get("group") == "introduction" and g["inView"] and pg.locator(".mobile-menu #toc-grp-introduction").count() == 1 and pg.locator(".mobile-menu #toc-ch-vigraha-tattva").count() == 0, str(g))
-    shot("back-2-vigraha-lit")
-    pg.go_back(); pg.wait_for_timeout(900)
-    g = lit()
-    chk(dev, "A Back step 3 -> «Введение» lit, group closed", g.get("group") == "introduction" and pg.locator(".mobile-menu #toc-grp-introduction").count() == 0 and g["inView"], str(g))
-    shot("back-3-intro-lit")
-    pg.go_back(); pg.wait_for_timeout(900)
-    chk(dev, "A Back step 4 -> menu closed, the page where the reader was", pg.locator(".mobile-menu").count() == 0 and pg.url == P0, pg.url)
+    chk(dev, "A Back step 9 -> menu closed, the page where the reader was", pg.locator(".mobile-menu").count() == 0 and pg.url == P0, pg.url)
 
     # ---------- B: «Вперёд ›» steps forward ----------
     bars()
@@ -161,8 +173,10 @@ def run(p, dev, eng, o):
     chk(dev, "B «Вперёд» is a live button (not disabled)", fw.get_attribute("disabled") is None and fw.get_attribute("aria-disabled") == "false", str(fw.get_attribute("aria-disabled")))
     act(fw, 1000)
     g = lit()
-    chk(dev, "B «Вперёд» -> step forward: contents, «Введение» lit", g.get("menu") and g.get("group") == "introduction", str(g))
-    for _ in range(2):
+    # v7.5: «Вперёд» replays the same steps — first the contents as opened (the current chapter lit),
+    # then each tap (Введение ×4, Виграха-таттва ×2, Тота Гопинатх)
+    chk(dev, "B «Вперёд» -> step forward: contents as opened (current chapter lit)", g.get("menu") and g.get("chapter") == "daily-duties-brahma-muhurta", str(g))
+    for _ in range(7):
         pg.go_forward(); pg.wait_for_timeout(800)
     g = lit()
     chk(dev, "B forward steps retrace the path («Тота Гопинатх» lit)", (g.get("href") or "").endswith("#vigraha-tota-gopinatha"), str(g))
@@ -187,7 +201,8 @@ def run(p, dev, eng, o):
     act(pre)
     chk(dev, "A tap «Стандарт для проповеднических центров» -> lit", lit().get("group") == "preaching-centres", str(lit()))
     # numbering of Part I
-    act(temple) if pg.locator(".mobile-menu #toc-part-temple-worship").count() == 0 else None
+    if pg.locator(".mobile-menu #toc-part-temple-worship").count() == 0:
+        act(temple); act(temple)   # v7.5: 1st tap highlights, 2nd expands
     t1 = pg.locator(".mobile-menu [data-toc-chapter=daily-duties-brahma-muhurta]").inner_text().strip()
     chk(dev, "D Part I starts with chapter «1.»", t1.startswith("1."), t1)
 

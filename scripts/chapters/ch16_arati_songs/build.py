@@ -11,7 +11,7 @@ model in this script: IAST, word-by-word and translation are taken from the draf
   * RU Cyrillic mirror (book.ru.json): the same, Sanskrit transliterated (scripts/translate/iast_to_cyrillic.py).
   * EN (book.json): IAST only + title/author in IAST — the draft has no English translation
     (the GVP English text is not in the draft) — open question for Satkirti/Gurudas.
-Source line in the book: the draft's «source» (bibliography); for song 3 also the credit of the
+Since v7.5 (Satkirti 07.10 16:05) NO source line is shown in the book; source_line() keeps it internal: the draft's «source» (bibliography); for song 3 also the credit of the
 published Russian translation (first sentence of its «translation_source»). The draft's working notes
 about who made the other translations («Липикара … модель …; требует проверки») stay in the draft.
 
@@ -66,15 +66,17 @@ def source_line(song):
     return line
 
 
+# Song header (Reader v7.5, Satkirti 07.10.2026 16:05): the heading (subsection title, in Russian),
+# then ONE line — the author — then the verses. No repeated IAST title line, and no source /
+# bibliography line under a song: the sources stay internal (source_line(), pesni_arati.json).
 def song_ru(song):
-    return [{"type": "text", "content": f"⟦{song['title_iast']}⟧ — {song['author']}"}] + \
+    return [{"type": "text", "content": song["author"]}] + \
            [{"type": "verse", "sanskrit": v["sanskrit"], "wbw": v["wbw"], "translation": norm(v["translation"])}
-            for v in song["verses"]] + \
-           [{"type": "sources", "content": source_line(song)}]
+            for v in song["verses"]]
 
 
 def song_en(song):
-    return [{"type": "text", "content": f"⟦{song['title_iast']}⟧ — ⟦{song['author_iast']}⟧"}] + \
+    return [{"type": "text", "content": f"⟦{song['author_iast']}⟧"}] + \
            [{"type": "verse", "sanskrit": v["sanskrit"]} for v in song["verses"]]
 
 

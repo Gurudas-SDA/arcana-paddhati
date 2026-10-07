@@ -16,6 +16,8 @@
  * included) never toggle the menu; if something is highlighted, the first
  * tap on empty space only clears the highlight (components/Hotspots.tsx), the
  * next one toggles the menu. A tap that ends a text selection does nothing.
+ * Exception (Reader v7.5, Satkirti 07.10.2026): the parampara portraits are
+ * page — a tap on the photo toggles the menu like a tap on empty space.
  *
  * The cover (05.10.2026, Satkirti on Android): a tap on ANY point of the
  * cover — the picture included — shows / hides the menu; only real controls
@@ -58,7 +60,11 @@ const NO_TOGGLE = [
   "[role=button]", "[role=dialog]", "[role=switch]", "[role=slider]", "[contenteditable]",
   // A numbered picture (.hs-img under its overlay) acts only through its
   // parts; its empty area is page (Reader v7.1, UI rule 1).
-  "img:not(.hs-img)", "svg:not(.hs-overlay)", "picture", "video", "canvas",
+  // A parampara portrait (and its ornament) is page: a tap on it toggles the
+  // bars like empty space (Reader v7.5, Satkirti 07.10.2026 — the old
+  // exception for this photo is cancelled).
+  "img:not(.hs-img):not(.portrait-img)", "svg:not(.hs-overlay):not(.portrait-ornament)",
+  "picture", "video", "canvas",
   ".hs-text", ".hs-hit", ".hs-peek", ".hs-inert",
   ".mood-toggle", ".verse-chips", ".mantra-chips", "[data-no-reader-tap]",
 ].join(",");

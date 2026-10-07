@@ -11,7 +11,7 @@ import React, {
   useSyncExternalStore,
 } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   normalizeText,
   tocLayout,
@@ -333,6 +333,18 @@ function usePartsOpen(
   return [isOpen, toggle];
 }
 
+/** Every group and every chapter list of the contents closed: the base view
+ *  (Reader v7.5, Satkirti 07.10.2026: «Обложка» works like home). */
+function baseParts(parts: TocPart[], sections: TocSection[]): Record<string, boolean> {
+  const st: Record<string, boolean> = {};
+  parts.forEach((p) => (st[p.id] = false));
+  sections.forEach((s) => {
+    if (s.members?.length) st[s.id] = false;
+    if ((s.subsections?.length ?? 0) > 0) st[chapterKey(s.id)] = false;
+  });
+  return st;
+}
+
 /** history.state key: scroll offset of the contents / results list. */
 const NAV_SCROLL = "apNav";
 /** history.state key: the highlighted contents row of a menu step (the path). */
@@ -436,7 +448,6 @@ export default function Sidebar({
   onLeave: onLeaveProp,
 }: SidebarProps) {
   const pathname = usePathname();
-  const router = useRouter();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const navRef = useRef<HTMLElement>(null);
 
@@ -489,18 +500,21 @@ export default function Sidebar({
   const [activeSubId, selectSub] = useActiveSubsection(pathname, subIds);
 
   /**
-   * Two-tap contents (Satkirti, 06.10.2026): the FIRST tap on an item only
-   * highlights it (a chapter with subsections also expands), the SECOND tap on
-   * the same item opens it — no accidental jumps. Exactly one row is
-   * highlighted: the tapped one, or (before any tap) the place being read.
-   * A new page or "back" forgets the tapped row.
+   * Two-tap contents (Satkirti 06.10.2026, made exact 07.10.2026 — Reader v7.5):
+   * the FIRST tap on any row only highlights it; the SECOND tap on the
+   * highlighted row does its function — a chapter / subsection / cover opens,
+   * a part, the Introduction or a chapter with subsections expands (and, once
+   * open, collapses). Exactly one row is highlighted: the tapped one, or
+   * (before any tap) the place being read.
    */
   const [tapped, setTapped] = useState<string | null>(null);
   /**
    * The path (Satkirti, 06.10.2026): every menu step (history entry) keeps the
-   * row that was highlighted when the reader left it (`apLit`). "Back" to a
-   * step shows that row highlighted again — where he was — and scrolled into
-   * view; it is shown, not armed: the next tap on it is a first tap again.
+   * row that was highlighted on it (`apLit`). Every tap that changes the
+   * highlight or what is open is a step of its own (a history entry), so
+   * "Назад" retraces exactly the steps taken forward, with the same
+   * highlights and open lists (Reader v7.5, Satkirti 07.10.2026). A row shown
+   * highlighted by "back" is highlighted: the next tap on it is the second tap.
    */
   const [pathLit, setPathLit] = useState<string | null>(readPathLit);
   const [tappedPath, setTappedPath] = useState(pathname);
@@ -520,21 +534,40 @@ export default function Sidebar({
    *  else `byDefault` (the current place). */
   const lit = (id: string, byDefault: boolean) =>
     tapped !== null ? tapped === id : pathLit !== null ? pathLit === id : byDefault;
-  /** Highlight `id` (a tap): it becomes this menu step's place on the path. */
-  const mark = (id: string) => {
+  /** The row a tap on which is a second tap: the highlighted one (by a tap
+   *  or by the path of this step), never the default "you are here" row. */
+  const armed = tapped ?? pathLit;
+  /**
+   * One step in the contents: highlight `id` and (optionally) set what is
+   * open — as a NEW history entry (menu depth +1), so "back" returns to the
+   * step before exactly as it was.
+   */
+  const step = (id: string, open?: Record<string, boolean>) => {
+    if (open) setPartsState(open);
     setTapped(id);
     setPathLit(id);
     try {
-      if (isMenuEntry()) patchState({ [PATH_LIT]: id });
+      const st = window.history.state as Record<string, unknown> | null;
+      if (!isMenuEntry(st)) return;
+      saveNavScroll();
+      // The step being left keeps the row that was highlighted on it — also the
+      // default "you are here" row of a freshly opened contents, which the
+      // scroll-spy could otherwise change before "back" returns to it (v7.5).
+      if (typeof st?.[PATH_LIT] !== "string") {
+        const shownRow = navRef.current?.querySelector<HTMLElement>("[data-toc-lit]")?.dataset.tocRow;
+        if (shownRow) patchState({ [PATH_LIT]: shownRow });
+      }
+      pushOverlay({ apParts: partsSnapshot(), [PATH_LIT]: id, apDepth: menuDepth(st) + 1 });
+      patchState({}, [RESULT_KEY, "apExp"]);
     } catch {
       // history unavailable: the highlight still shows
     }
   };
   /** First tap on `id`: highlight only (false). Second tap: go on (true). */
   const secondTap = (e: React.MouseEvent | null, id: string): boolean => {
-    if (tapped === id) return true;
+    if (armed === id) return true;
     e?.preventDefault();
-    mark(id);
+    step(id);
     return false;
   };
   const showAllTranslations = useShowAllTranslations();
@@ -625,18 +658,6 @@ export default function Sidebar({
     }
   };
 
-  /** Open a contents target from a button (a chapter row with subsections). */
-  const openHref = (e: React.MouseEvent, href: string) => {
-    const strip = (p: string) => p.replace(/\/+$/, "");
-    if (strip(href) !== strip(pathname)) {
-      if (onLeave) onLeave(true);
-      else onClose();
-      router.push(href);
-      return;
-    }
-    leaveTo(e, href);
-  };
-
   const prepared = useMemo(
     () => (searchEntries ? searchEntries.map(prepare) : null),
     [searchEntries]
@@ -666,7 +687,7 @@ export default function Sidebar({
         ? selectedId
         : (partOfSection.get(selectedId) ??
           (sectionById.get(selectedId)?.members?.length ? selectedId : null));
-  const [isPartOpen, togglePart] = usePartsOpen(selectedId, currentPartId);
+  const [isPartOpen] = usePartsOpen(selectedId, currentPartId);
 
   // Menu: its history entry keeps the parts (and chapters) as they are now
   // (for "back"). A fresh opening (no saved state yet) starts with only the
@@ -685,34 +706,17 @@ export default function Sidebar({
   }, []);
 
   /**
-   * A part heading or a chapter with subsections tapped (id: part id or
-   * chapterKey). In the menu, expanding is a step of its own (a history
-   * entry: "back" collapses it again); collapsing the group this very entry
-   * expanded is "back"; any other collapse updates the entry.
+   * A part heading, the Introduction or a chapter with subsections tapped
+   * (`id`: part id or chapterKey; `rowId`: its highlight id). First tap:
+   * highlight only. Second tap on the highlighted row: expand / collapse.
+   * Each is a step of its own (Reader v7.5, Satkirti 07.10.2026).
    */
-  const onPartTap = (id: string, markId?: string) => {
-    const opening = !isPartOpen(id);
-    togglePart(id);
-    if (!onLeave) return;
-    try {
-      const st = window.history.state as Record<string, unknown> | null;
-      if (!isMenuEntry(st)) return;
-      if (opening) {
-        saveNavScroll();
-        pushOverlay({ apParts: partsSnapshot(), apExp: id, apDepth: menuDepth(st) + 1 });
-      } else if (st?.apExp === id) {
-        // Collapsing = "back" to the step before; the tapped heading stays
-        // lit there (marked once that step is current again).
-        if (markId) {
-          window.addEventListener("popstate", () => window.setTimeout(() => mark(markId), 0), { once: true });
-        }
-        window.history.back();
-      } else {
-        patchState({ apParts: partsSnapshot() });
-      }
-    } catch {
-      // history unavailable: the part still toggles
+  const onDisclosureTap = (id: string, rowId: string) => {
+    if (armed !== rowId) {
+      step(rowId);
+      return;
     }
+    step(rowId, { ...parseParts(partsSnapshot()), [id]: !isPartOpen(id) });
   };
 
   // Full-text results (once the index is loaded).
@@ -825,37 +829,25 @@ export default function Sidebar({
     return (
       <li key={section.id}>
         {hasSubs ? (
-          // First tap: highlight + expand; second tap: open the chapter. The
-          // chevron alone only expands / collapses the list.
+          // First tap: highlight only; second tap: expand / collapse its list
+          // (Reader v7.5). The chevron is part of the row (the same two taps).
           <div className="relative">
             <button
               type="button"
-              onClick={(e) => {
-                if (tapped === rowId) {
-                  openHref(e, sectionHref(section.id));
-                  return;
-                }
-                // The step (history entry) first, then the highlight on the
-                // NEW entry — else the previous step got this row as its
-                // place and "back" showed it twice (Reader v7.1).
-                if (!isOpen) onPartTap(key);
-                mark(rowId);
-              }}
+              onClick={() => onDisclosureTap(key, rowId)}
               aria-expanded={isOpen}
               aria-controls={isOpen ? listId : undefined}
               aria-current={isSelected ? "page" : undefined}
               data-toc-chapter={section.id}
               data-toc-lit={rowLit ? "" : undefined}
+              data-toc-row={rowId}
               className={`${rowClass} pr-12`}
             >
               {label}
             </button>
             <button
               type="button"
-              onClick={() => {
-                onPartTap(key, rowId);
-                mark(rowId);
-              }}
+              onClick={() => onDisclosureTap(key, rowId)}
               aria-expanded={isOpen}
               aria-controls={isOpen ? listId : undefined}
               aria-label={section.title}
@@ -886,6 +878,7 @@ export default function Sidebar({
             }}
             aria-current={isSelected ? "page" : undefined}
             data-toc-lit={rowLit ? "" : undefined}
+            data-toc-row={rowId}
             className={rowClass}
           >
             {label}
@@ -910,6 +903,7 @@ export default function Sidebar({
                     }}
                     aria-current={isActive ? "location" : undefined}
                     data-toc-lit={subLit ? "" : undefined}
+                    data-toc-row={subRow}
                     className={subClass(subLit)}
                   >
                     <span>
@@ -951,14 +945,12 @@ export default function Sidebar({
             strip to the edge — UI rule 1). */}
         <button
           type="button"
-          onClick={() => {
-            onPartTap(groupId, headId);
-            mark(headId);
-          }}
+          onClick={() => onDisclosureTap(groupId, headId)}
           aria-expanded={isOpen}
           aria-controls={isOpen ? listId : undefined}
           data-toc-group={groupId}
           data-toc-lit={on ? "" : undefined}
+          data-toc-row={headId}
           className={`inline-flex items-start gap-1.5 py-1 text-left rounded-sm hover:text-[#B8860B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8860B]/40 transition-colors ${
             on ? "text-[#B8860B]" : "text-[#9C7A4E]"
           }`}
@@ -1203,11 +1195,22 @@ export default function Sidebar({
                 <Link
                   href={localeHref(lang)}
                   onClick={(e) => {
-                    if (secondTap(e, "cover")) leaveTo(e, localeHref(lang));
+                    // «Обложка» = home (Reader v7.5, Satkirti 07.10.2026): the
+                    // first tap resets the contents to its base view (every
+                    // group and chapter closed) with «Обложка» highlighted; the
+                    // second tap opens the cover.
+                    if (armed === "cover") {
+                      setPartsState(baseParts(parts, sections));
+                      leaveTo(e, localeHref(lang));
+                      return;
+                    }
+                    e.preventDefault();
+                    step("cover", baseParts(parts, sections));
                   }}
                   aria-current={selectedId === null ? "page" : undefined}
                   data-toc-cover=""
                   data-toc-lit={lit("cover", selectedId === null) ? "" : undefined}
+                  data-toc-row="cover"
                   className={`sidebar-link w-full text-left px-5 py-3 flex items-center gap-2 transition-colors ${
                     lit("cover", selectedId === null)
                       ? "bg-[#FAF3E8] border-l-3 border-[#B8860B]"
@@ -1285,6 +1288,7 @@ export default function Sidebar({
                                 }}
                                 aria-current={isPartSelected ? "page" : undefined}
                                 data-toc-lit={lit(`part:${part.id}`, isPartSelected) ? "" : undefined}
+                                data-toc-row={`part:${part.id}`}
                                 className={`sidebar-link w-full text-left px-5 py-3 block border-l-3 transition-colors ${
                                   lit(`part:${part.id}`, isPartSelected)
                                     ? "bg-[#FAF3E8] border-[#B8860B]"
