@@ -106,8 +106,8 @@ def run(p, dev, eng, o):
         pg.wait_for_timeout(1100)
 
     def reload():
-        pg.reload(wait_until="networkidle")
-        pg.wait_for_timeout(1200)
+        pg.reload(wait_until="load")   # not networkidle: the live site keeps loading the offline copy
+        pg.wait_for_timeout(2000)
 
     def same(a, b):
         return a["menu"] == b["menu"] and a["lit"] == b["lit"] and a["open"] == b["open"] and a["url"] == b["url"]
@@ -207,6 +207,11 @@ def run(p, dev, eng, o):
     d2 = st()
     sub = "sub:daily-deity-schedule#morning-bhoga-arati"
     double(row(sub))
+    try:   # another page: the menu stays until it is shown (slow network: the live site)
+        pg.wait_for_function("() => !document.querySelector('.mobile-menu')", timeout=12000)
+    except Exception:
+        pass
+    pg.wait_for_timeout(500)
     d3 = st()
     chk(dev, "D double tap on a subsection: opens it", not d3["menu"] and d3["url"].endswith("/daily-deity-schedule/#morning-bhoga-arati"), str(d3))
     nav("back"); s = st()

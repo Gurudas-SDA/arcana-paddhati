@@ -122,7 +122,11 @@ def run(p, dev, eng, o):
         # 2nd tap: opens it
         tap(loc, 0)
         try:
-            pg.wait_for_function("() => !document.querySelector('.mobile-menu')", timeout=12000)
+            # the menu gone AND the URL settled on the row's link (the live site commits the URL a moment
+            # after the menu closes; the page shown at its top: the URL stays)
+            pg.wait_for_function("""(want) => !document.querySelector('.mobile-menu') &&
+                decodeURI(location.pathname) + decodeURIComponent(location.hash) === want""",
+                                 arg=u0 if href.rstrip("/") == u0.rstrip("/") else href, timeout=12000)
         except Exception:
             pass
         pg.wait_for_timeout(150)
