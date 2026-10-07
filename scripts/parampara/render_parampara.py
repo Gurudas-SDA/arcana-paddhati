@@ -73,8 +73,8 @@ GURUS = [
      [(185, 18), (143, 40), (227, 40), (58, 170), (312, 165), (38, 290), (334, 290), (20, 372), (23, 392),
       (48, 412), (53, 467), (130, 480), (250, 457), (350, 457), (330, 400)]),
     ("03", "3 Gaura-kisora dasa Babaji — VictoryOfPureLove_p11.jpeg",
-     [(190, 86), (146, 108), (237, 108), (98, 195), (287, 195), (28, 340), (20, 370), (38, 407), (118, 417),
-      (175, 467), (215, 467), (292, 417), (374, 360), (377, 390), (342, 320)]),
+     [(190, 86), (146, 108), (237, 108), (98, 195), (287, 195), (26, 334), (15, 366), (30, 405), (118, 417),
+      (175, 467), (215, 467), (292, 417), (381, 362), (378, 392), (346, 316)]),   # knees: x 24 … 372 (v7.4.1)
     ("04", "4 Bhaktisiddhanta Sarasvati — VictoryOfPureLove_p11.jpeg",
      [(195, 23), (153, 48), (237, 48), (113, 160), (292, 155), (98, 300), (314, 300), (38, 395), (31, 410),
       (53, 447), (108, 480), (240, 482), (364, 472), (347, 420)]),
@@ -107,19 +107,23 @@ EXTRA = {
             (398, 394), (368, 420), (366, 500), (366, 600), (370, 660),                          # Advaita, left
             (382, 714), (440, 716), (520, 694), (600, 704), (690, 710),                          # lotus bases
             (697, 640), (697, 520), (696, 420), (688, 378)], "photo"),                       # Śrīvāsa, right
-    # The photo itself is truncated: the lap cloth / knees run out of the picture at both sides (x = 0 and
-    # x = 1355, y ≈ 930–1440). The photo edges are therefore kept inside the oval with margin and fade softly.
-    "03": (SRC / "internet — Gaurakisora dasa Babaji ca.1900 (Wikimedia Commons, PD).jpg", None,
-           [(650, 105), (470, 180), (830, 180), (275, 420), (1085, 420), (255, 900), (1105, 900),
-            (0, 925), (0, 1445), (1355, 915), (1355, 1440),                                     # cloth at the edges
-            (400, 1450), (690, 1490), (1000, 1450)], None),
+    # 03: the v7.4 Wikimedia photo (Gaurakisora dasa Babaji ca.1900, PD) is itself truncated — the lap
+    # cloth / knees run out of the picture at both sides — so v7.4.1 goes back to the book painting
+    # (GURUS «03» above: the whole seated figure incl. both knees and hands is inside the painting).
+    # 06: the book painting (both books) cuts Śrīla Prabhupāda's right knee at the painting's edge; v7.4.1 uses
+    # the only free full-figure photo found: Wikimedia Commons «AC Bhaktivedanta Swami Prabhupada.jpg»
+    # (Paris, 22.07.1972, Vanimedia, CC BY-SA 4.0 — attribution required), standing, 475 × 699.
+    "06": (SRC / "internet — AC Bhaktivedanta Swami Prabhupada 1972 Paris (Wikimedia Commons, CC BY-SA 4.0).jpg", None,
+           [(237, 52), (198, 88), (280, 88), (190, 160), (310, 150), (130, 200), (128, 300), (130, 460),
+            (138, 560), (140, 620), (160, 680), (265, 660), (310, 684), (330, 640), (352, 612),
+            (378, 560), (400, 470), (400, 380), (392, 250), (345, 160)], None),                          # walking stick = object
 }
 
 # Background outside the usable picture (v7.4.1): fade into a light neutral tone over FADE_OUT × oval width;
-# the photos 00/03 also fade their own border inwards (FADE_IN) — only outside the figure's contour (+ PROTECT).
-# Book paintings keep their colours but end in a soft, heavily blurred tone of their own edge (no streaks).
+# the photo 00 also fades its own border inwards (FADE_IN) — only outside the figure's contour (+ PROTECT).
+# Book paintings and the 06 photo keep their colours but end in a soft, heavily blurred tone of their own edge.
 STYLE = {"00": {"tone": "neutral", "fade_out": 0.05, "fade_in": 0.05, "vignette": 0.10},
-         "03": {"tone": "neutral", "fade_out": 0.05, "fade_in": 0.05, "vignette": 0.10}}
+         "06": {"tone": "soft", "fade_out": 0.06, "fade_in": 0.0}}
 STYLE_PAINTING = {"tone": "soft", "fade_out": 0.05, "fade_in": 0.0}
 PROTECT = 0.025     # contour buffer (× oval width) never touched by the inward fade
 
