@@ -581,12 +581,66 @@ def run(args):
                     c.hit(fn, where, "first item must be the author line")
                     continue
                 a = items[0]["content"]
-                # RU: the author in Cyrillic, no ⟦…⟧ (IAST) at all; EN: exactly one ⟦…⟧ (the author), no « — ».
-                if (fn != "book.json" and "⟦" in a) or (fn == "book.json" and (a.count("⟦") != 1 or " — " in a)) or "\n" in a:
+                # RU: the author in Cyrillic, no ⟦…⟧ (IAST) at all; EN: at most one ⟦…⟧ (the author), no « — ».
+                # (v7.6: the EN author lines of the Kārtika bhajans are plain English sentences without ⟦…⟧ —
+                # «exactly one» became «at most one»; the repeated title is now checked directly below.)
+                if (fn != "book.json" and "⟦" in a) or (fn == "book.json" and (a.count("⟦") > 1 or " — " in a)) or "\n" in a:
                     c.hit(fn, where, f"author line carries a title / IAST: {a[:90]}")
+                t = str(sub.get("title") or "").strip().lower()
+                if t and t in a.replace("⟦", "").replace("⟧", "").lower():
+                    c.hit(fn, where, f"author line repeats the song title «{sub.get('title')}»: {a[:90]}")
                 if [x for x in items[1:] if x.get("type") == "text"][:1] and items[1].get("type") == "text":
                     c.hit(fn, where, "more than one line before the verses")
     c.info = f"{nsongs} songs (RU, RU Cyrillic, EN)"
+    c.report(args.max)
+
+    # L25 — «Бхаджаны для Картики» (Reader v7.6, 07.10.2026): new chapter right after «Песни гаура-арати» in
+    # Part IV; 3 songs with 8 / 9 / 13 verses (Rādhā-kṛpā-kaṭākṣa: GVP's 13), IAST with diacritics, every verse
+    # with word-by-word + translation, no source lines (L24 covers the song format of this chapter as well).
+    c = Check("L25", "Kārtika bhajans: after gaura-ārati in Part IV, 3 songs (8/9/13 verses), IAST diacritics, no sources")
+    want = [("song-damodarastakam", 8, "namāmīśvaraṁ sac-cid-ānanda-rūpaṁ"),
+            ("song-nanda-nandanastakam", 9, "sucāru-vaktra-maṇḍalaṁ sukarṇa-ratna-kuṇḍalam"),
+            ("song-radha-krpa-kataksa-stava-raja", 13, "munīndra-vṛnda-vandite tri-loka-śoka-hāriṇī")]
+    diac = re.compile(r"[āīūṛṝḷṅñṭḍṇśṣṁḥ]")
+    nk = 0
+    for f in allb:
+        fn = os.path.basename(f)
+        b = loaded[f]
+        part = next((p for p in b["parts"] if p["id"] == "festivals-vows"), {"sections": []})["sections"]
+        if "kartika-bhajans" not in part or "gaura-arati-songs" not in part \
+                or part.index("kartika-bhajans") != part.index("gaura-arati-songs") + 1:
+            c.hit(fn, "parts/festivals-vows", f"kartika-bhajans not right after gaura-arati-songs: {part}")
+        if fn not in ("book.ru-iast.json", "book.ru.json", "book.json"):
+            continue  # other languages: English fallback until the night translation run
+        ids = [s["id"] for s in b["sections"]]
+        if "kartika-bhajans" not in ids or ids.index("kartika-bhajans") != ids.index("gaura-arati-songs") + 1:
+            c.hit(fn, "sections", "kartika-bhajans missing / not right after gaura-arati-songs")
+            continue
+        nk += 1
+        s = b["sections"][ids.index("kartika-bhajans")]
+        subs = s.get("subsections") or []
+        if [x["id"] for x in subs] != [w[0] for w in want]:
+            c.hit(fn, "kartika-bhajans", f"songs {[x['id'] for x in subs]} != {[w[0] for w in want]}")
+            continue
+        for sub, (sid, n, first) in zip(subs, want):
+            vs = [x for x in sub["content"] if x.get("type") == "verse"]
+            if len(vs) != n:
+                c.hit(fn, sid, f"{len(vs)} verses (expected {n})")
+            if any(not (v.get("wbw") and v.get("translation")) for v in vs):
+                c.hit(fn, sid, "verse without word-by-word / translation")
+            if fn != "book.ru.json":   # ru = Cyrillic mirror of the IAST
+                if vs and not vs[0]["sanskrit"].startswith(first):
+                    c.hit(fn, sid, "first verse is not " + first)
+                nodiac = [i + 1 for i, v in enumerate(vs) if not diac.search(v["sanskrit"])]
+                if nodiac:
+                    c.hit(fn, sid, f"verses without IAST diacritics: {nodiac}")
+            for x in sub["content"]:
+                t = x.get("content") if isinstance(x.get("content"), str) else ""
+                if x.get("type") == "sources" or src_rx.search(t) or re.search(r"Источник|Source", t):
+                    c.hit(fn, sid, f"source line: {t[:90]}")
+        if fn == "book.ru-iast.json" and not any("Чайтанья Академи" in x.get("content", "") for x in s.get("content") or []):
+            c.hit(fn, "kartika-bhajans", "intro sentence with «Чайтанья Академии» missing")
+    c.info = f"chapter checked in {nk} books (RU, RU Cyrillic, EN); part list in {len(allb)} books"
     c.report(args.max)
 
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует

@@ -114,7 +114,9 @@ def run(p, dev, eng, o):
 
         # c) songs
         for sid, n, first, title in (("mangala-arati-songs", 5, "saṁsāra-dāvānala-līḍha-loka-", "Шри Гурваштака"),
-                                     ("gaura-arati-songs", 2, "jaya jaya gorācāṅdera āratiko śobhā", "Шри Гаура-арати")):
+                                     ("gaura-arati-songs", 2, "jaya jaya gorācāṅdera āratiko śobhā", "Шри Гаура-арати"),
+                                     # v7.6 (07.10): Kārtika bhajans — 3 songs, 8 + 9 + 13 = 30 verses
+                                     ("kartika-bhajans", 3, "namāmīśvaraṁ sac-cid-ānanda-rūpaṁ", "Шри Дамодараштака")):
             goto(U + sid + "/"); time.sleep(0.6)
             info = pg.evaluate("""() => ({subs: [...document.querySelectorAll('.app-main section[data-subsection] h2')].map(h => h.innerText),
                 sk: [...document.querySelectorAll('.app-main .sanskrit')].map(e => e.innerText),

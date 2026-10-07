@@ -32,8 +32,10 @@ CASES = [
     # (Satkirti 07.10): parampara → Мангалачарана; Part IV ends with the ārati songs
     ("parampara", "mangalacarana", "Мангалачарана"),
     ("major-festivals", "mangala-arati-songs", "14. "),
+    # v7.6 (07.10): «Бхаджаны для Картики» right after «Песни гаура-арати» — now the last chapter
+    ("gaura-arati-songs", "kartika-bhajans", "16. "),
 ]
-LAST = "gaura-arati-songs"
+LAST = "kartika-bhajans"
 res = []
 
 
