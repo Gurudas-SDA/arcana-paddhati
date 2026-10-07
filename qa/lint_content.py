@@ -536,6 +536,25 @@ def run(args):
                     c.hit(fn, sid, f"verses without wbw/translation: {bad[:3]}")
     c.report(args.max)
 
+    # L23 — Название по-русски: «Чайтанья Академия», склоняется только второе слово («в Чайтанья Академии»);
+    # никогда «Академия Чайтаньи» (Satkirti 07.10 14:58). Books + their generator sources + RU transcript pages.
+    c = Check("L23", "RU name «Чайтанья Академия» (never «Академия Чайтаньи») in books, generators and RU transcripts")
+    import re as _re
+    bad_ca = _re.compile(r"Академи\w* Чайтаньи")
+    bare_ca = _re.compile(r"(?<!Чайтанья )календар\w* Академи\w*")   # bare «календаре Академии» = Chaitanya Academy
+    targets = [f for f in allb]
+    targets += glob.glob(os.path.join(qa.REPO, "scripts", "chapters", "**", "*.py"), recursive=True)
+    targets += glob.glob(os.path.join(qa.REPO, "scripts", "chapters", "**", "*.json"), recursive=True)
+    targets += glob.glob(os.path.join(qa.REPO, "scripts", "moods", "*.json"))
+    targets += glob.glob(os.path.join(qa.REPO, "public", "transcripts", "*-ru.html"))
+    for f in targets:
+        raw = open(f, encoding="utf-8").read()
+        for rx in (bad_ca, bare_ca):
+            for m in rx.finditer(raw):
+                c.hit(os.path.relpath(f, qa.REPO), "*", f"«{m.group(0)}» → «Чайтанья Академи…»")
+    c.info = f"{len(targets)} files"
+    c.report(args.max)
+
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует
     c = Check("L17", "atgriešanās punkts: git tags pirms-interfeisa-2026-10-05 eksistē")
     import subprocess

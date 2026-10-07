@@ -36,7 +36,7 @@ darbu: `python qa/run_all.py --fast --jobs 3`.
 
 1. Push drīkst sūtīt tikai izņemto HEAD, un darba kokam jābūt tīram (citādi testētu ne to, kas tiek sūtīts).
 2. Ja `out/` vecāks par avotu → `npm run build`.
-3. `python qa/lint_content.py` — datu likumi (L1–L20).
+3. `python qa/lint_content.py` — datu likumi (L1–L23).
 4. `python qa/run_all.py --fast` — pārlūka regresija.
 
 Jebkura kļūda → **push bloķēts** ar skaidru ziņu, kurš tests un kurš Satkirti likums krita.

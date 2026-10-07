@@ -96,14 +96,32 @@ GURUDEV = ("08", "Sri Prem Prayojan Prabhu portrait 2025, long gareland B.jpg")
 LIB_GD = REPO.parent / "Библиотека" / "Книги Гурудева" / "Gaudiya Darsana (фото, 06.10)" / "05.jpg"
 EXTRA = {
     # id: (source path, usable rectangle (l, t, r, b, corner r) or None = whole picture, contour, preprocessing)
-    "00": (LIB_GD, (362, 282, 706, 705, 0),   # Satkirti's phone photo of «Gauḍīya-darśana» p. 05 (fallback:
-           # no suitable Pañca-tattva painting found online); the rectangle leaves out the printed carved frame
-           [(405, 305), (480, 325), (565, 310), (640, 298), (400, 400), (366, 480), (372, 560), (380, 640),
-            (420, 672), (520, 675), (620, 672), (660, 660), (682, 560), (684, 480), (670, 400)], "photo"),
+    # v7.4.1 (independent check 07.10): the v7.4 contours of 00 and 03 were traced too tight — the raised
+    # fingertips (00) and the knees / lap cloth at the photo's sides (03) touched the oval. Re-traced
+    # generously; the background outside the usable picture now fades softly into a light neutral tone
+    # (STYLE below) instead of being stretched.
+    "00": (LIB_GD, (360, 284, 700, 712, 0),   # Satkirti's phone photo of «Gauḍīya-darśana» p. 05 (fallback:
+           # no suitable Pañca-tattva painting found online); the rectangle leaves out most of the printed
+           # carved frame (its remaining scrolls lie outside the figures and fade out)
+           [(445, 306), (490, 308), (530, 298), (556, 298), (585, 300), (645, 286), (664, 296),   # fingertips
+            (398, 394), (368, 420), (366, 500), (366, 600), (370, 660),                          # Advaita, left
+            (382, 714), (440, 716), (520, 694), (600, 704), (690, 710),                          # lotus bases
+            (697, 640), (697, 520), (696, 420), (688, 378)], "photo"),                       # Śrīvāsa, right
+    # The photo itself is truncated: the lap cloth / knees run out of the picture at both sides (x = 0 and
+    # x = 1355, y ≈ 930–1440). The photo edges are therefore kept inside the oval with margin and fade softly.
     "03": (SRC / "internet — Gaurakisora dasa Babaji ca.1900 (Wikimedia Commons, PD).jpg", None,
-           [(640, 125), (520, 190), (800, 190), (300, 420), (1040, 420), (285, 800), (1060, 800), (290, 1050),
-            (1060, 1050), (480, 1300), (860, 1300), (600, 1450), (720, 1450)], None),
+           [(650, 105), (470, 180), (830, 180), (275, 420), (1085, 420), (255, 900), (1105, 900),
+            (0, 925), (0, 1445), (1355, 915), (1355, 1440),                                     # cloth at the edges
+            (400, 1450), (690, 1490), (1000, 1450)], None),
 }
+
+# Background outside the usable picture (v7.4.1): fade into a light neutral tone over FADE_OUT × oval width;
+# the photos 00/03 also fade their own border inwards (FADE_IN) — only outside the figure's contour (+ PROTECT).
+# Book paintings keep their colours but end in a soft, heavily blurred tone of their own edge (no streaks).
+STYLE = {"00": {"tone": "neutral", "fade_out": 0.05, "fade_in": 0.05, "vignette": 0.10},
+         "03": {"tone": "neutral", "fade_out": 0.05, "fade_in": 0.05, "vignette": 0.10}}
+STYLE_PAINTING = {"tone": "soft", "fade_out": 0.05, "fade_in": 0.0}
+PROTECT = 0.025     # contour buffer (× oval width) never touched by the inward fade
 
 
 def oval(w, h, n=720):
@@ -177,7 +195,57 @@ def nearest_valid(xx, yy, w, h, valid):
     return px, py
 
 
-def extended_crop(src, crop, valid):
+def _smooth(t):
+    t = np.clip(t, 0, 1)
+    return t * t * (3 - 2 * t)
+
+
+def soft_background(out, a, xx, yy, px, py, dist, mask, valid, crop, hull, style):
+    """v7.4.1: instead of a long stretched (streaky) extension, the extension ends in a calm tone:
+    'neutral' — a light grey matching the photo's light background (photos 00, 03);
+    'soft'    — the painting's own edge colours, very heavily blurred (book paintings).
+    Photos also fade their own border inwards (fade_in), but never within the figure's contour + PROTECT."""
+    from scipy.ndimage import distance_transform_edt
+    cw = crop[2]
+    lx, ty, rx, by, _ = valid
+    if style["tone"] == "neutral":
+        band = a[ty:by + 1, lx:rx + 1]
+        edge = np.concatenate([band[:8].reshape(-1, 3), band[-8:].reshape(-1, 3),
+                               band[:, :8].reshape(-1, 3), band[:, -8:].reshape(-1, 3)])
+        lum = edge.mean(1)
+        light = edge[lum >= np.percentile(lum, 70)]          # the light background, not the dark floor/curtain
+        tone = np.full(3, float(np.median(light.mean(1))))   # neutral grey of that brightness
+        tone_img = np.broadcast_to(tone, out.shape)
+    else:
+        sig = 0.12 * cw
+        tone_img = np.asarray(Image.fromarray(np.clip(out, 0, 255).astype(np.uint8))
+                              .filter(ImageFilter.GaussianBlur(sig)), float)
+    t = _smooth(dist / (style["fade_out"] * cw))[..., None]
+    res = out * (1 - t) + tone_img * t
+    if style.get("fade_in"):
+        din = np.minimum.reduce([xx - lx, rx - xx, yy - ty, by - yy]).astype(float)
+        w = _smooth(din / (style["fade_in"] * cw))
+        # the figure: convex hull of the contour, buffered; soft ramp just outside it
+        hp = shapely.MultiPoint([tuple(p) for p in hull]).convex_hull.buffer(PROTECT * cw)
+        prot = Image.new("L", (xx.shape[1], xx.shape[0]), 0)
+        x0, y0 = xx[0, 0], yy[0, 0]
+        ImageDraw.Draw(prot).polygon([(x - x0, y - y0) for x, y in hp.exterior.coords], fill=255)
+        inside = np.asarray(prot) > 0
+        dout = distance_transform_edt(~inside)
+        keep = np.clip(1 - dout / (0.02 * cw), 0, 1)
+        if style.get("vignette"):     # background farther from the figure fades out too (soft vignette)
+            w = np.minimum(w, _smooth(1 - dout / (style["vignette"] * cw)))
+        w = np.maximum(w, keep)
+        # outside the picture the extension continues with the weight of its nearest picture point
+        iy = np.clip(np.rint(py).astype(int) - y0, 0, w.shape[0] - 1)
+        ix = np.clip(np.rint(px).astype(int) - x0, 0, w.shape[1] - 1)
+        w_out = w[iy, ix] * (1 - t[..., 0])
+        w = np.where(mask, w, w_out)[..., None]
+        res = out * w + tone_img * (1 - w)
+    return res
+
+
+def extended_crop(src, crop, valid, hull=None, style=None):
     """Crop (cx, cy, cw, ch) of the painting; where it reaches beyond the painting the
     background is extended from the painting's own edge colours, blurred more with the
     distance from the painting (the painting — and the figure in it — stays untouched)."""
@@ -203,6 +271,8 @@ def extended_crop(src, crop, valid):
         sel = dist < d1
         out[sel] = seg[sel]
     out[mask] = canvas[mask]
+    if style:
+        out = soft_background(out, a, xx, yy, px, py, dist, mask, valid, crop, hull, style)
     im = Image.fromarray(np.clip(out, 0, 255).astype(np.uint8))
     # exact crop box inside the padded canvas
     bx = (cx - cw / 2) - x0
@@ -274,7 +344,7 @@ def main():
         valid = valid or book_frame(*src.size)
         H = np.array(hull, float)
         crop = fit(H)
-        im, box, ext = extended_crop(src, crop, valid)
+        im, box, ext = extended_crop(src, crop, valid, hull, STYLE.get(gid, STYLE_PAINTING))
         ok, cl = clearance(H, crop[0] - crop[2] / 2, crop[1] - crop[3] / 2, crop[2])
         page, pad = render_page(im, box)
         page.save(OUT / f"{gid}.png", optimize=True)
