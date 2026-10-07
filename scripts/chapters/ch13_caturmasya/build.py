@@ -6,6 +6,9 @@ The RU master text is chapter_ru.py (hand-written, not machine-translated from E
   python build.py translate   -> en_cache.json (only strings changed in chapter_ru.py), i18n_cache.json (AnyModel)
   python build.py apply       -> writes data/book*.json + data/ui.*.json; idempotent (re-run = no diff)
 After apply: python scripts/moods/apply_moods.py (re-inserts the Gurudev mood blocks), then npm run build.
+Other languages (lv, de, fr, es, it, uk, hu; night release 08.10.2026): the English chapter translated by
+scripts/translate/night_sync.py -> i18n.json here, put into data/book.<lang>.json by
+`python scripts/translate/i18n_sections.py caturmasya-purusottama-masa` (this apply leaves those books' sections alone).
 The section is locked in scripts/translate/locked_sections.json, so tr.py assemble keeps it as written here.
 """
 import json, os, re, sys, copy, datetime, importlib.util

@@ -193,6 +193,25 @@ def lines_br(text: str, fn=inline) -> str:
     return "<br/>".join(fn(line) for line in (text or "").split("\n"))
 
 
+# Short mantra (mirror of lib/book.ts isShortMantra, Reader v7.8 / v7.8.2, Satkirti 07.10.2026): one line,
+# 2–6 words, ending in namaḥ / svāhā / phaṭ — no word-by-word in the reader, so none in the PDF / EPUB either.
+_MANTRA_END = re.compile("(" + "|".join(unicodedata.normalize("NFC", e) for e in
+                                        ("namaḥ", "svāhā", "phaṭ", "намах̣", "сва̄ха̄", "пхат̣")) + r")[.!]?$")
+
+
+def is_short_mantra(text: str) -> bool:
+    s = unicodedata.normalize("NFC", strip_inline(text or "").strip())
+    if not s or "\n" in s:
+        return False
+    words = s.split()
+    return 2 <= len(words) <= 6 and bool(_MANTRA_END.search(s))
+
+
+def verse_wbw(blk) -> str:
+    """The word-by-word shown for a verse block ("" for a short mantra)."""
+    return "" if is_short_mantra(blk.get("sanskrit", "")) else (blk.get("wbw") or "")
+
+
 def parse_wbw(wbw: str):
     pairs = []
     for part in (wbw or "").split(";"):
@@ -403,13 +422,13 @@ class Edition:
                     continue
                 sk = strip_inline(blk["sanskrit"]).strip()
                 lines = [l for l in sk.split("\n") if l.strip()]
-                if not (blk.get("translation") or blk.get("wbw") or len(lines) >= 2):
+                if not (blk.get("translation") or verse_wbw(blk) or len(lines) >= 2):
                     continue
                 first = lines[0].strip()
                 norm = re.sub(r"\s+", " ", first.lower()).strip(" ,.;|।॥")
                 e = entries.setdefault(norm, {"first": first, "ids": [], "wbw": "", "translation": "", "key": sort_key(first)})
                 e["ids"].append(self.verse_ids[id(blk)])
-                e["wbw"] = e["wbw"] or blk.get("wbw", "")
+                e["wbw"] = e["wbw"] or verse_wbw(blk)
                 e["translation"] = e["translation"] or blk.get("translation", "")
         return sorted(entries.values(), key=lambda e: (e["key"], e["first"]))
 
@@ -483,7 +502,7 @@ class Edition:
         vid, _ = self.verse_ids[id(it)]
         sk = it.get("sanskrit", "")
         stanzas = "".join(f"<p>{lines_br(st, lambda l: esc(strip_inline(l)))}</p>" for st in sk.split("\n\n"))
-        tr, wbw = it.get("translation"), it.get("wbw")
+        tr, wbw = it.get("translation"), verse_wbw(it)
         cls = "verse" if (tr or wbw or "\n" in sk) else "verse mantra"
         out = [f'<div class="{cls}" id="{vid}"><div class="sk" lang="{sa_lang(sk)}">{stanzas}</div>']
         if wbw:

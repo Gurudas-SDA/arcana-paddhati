@@ -60,3 +60,6 @@ scripts/chapters/__pycache__/
 
 # transcript docx download cache (scripts/transcripts/build_transcripts.py)
 /scripts/transcripts/cache/
+
+# night sync log
+scripts/translate/night_sync.log

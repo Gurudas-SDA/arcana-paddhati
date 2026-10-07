@@ -480,6 +480,21 @@ def run(args):
             c.hit(fn, "parampara", f"layout={sec.get('layout')} captions={caps} srcs={srcs}")
         if sec.get("subsections"):
             c.hit(fn, "parampara", "has subsections (headings) — portrait + caption only")
+    # Night 08.10: the other language books — same page order, oval pictures, 9 captions (translated), no headings.
+    for f in allb:
+        fn = name(f)
+        if fn in ("book.ru-iast.json", "book.ru.json", "book.json"):
+            continue
+        b = loaded[f]
+        ids = [s["id"] for s in b["sections"]]
+        if ids[:3] != ["parampara", "mangalacarana", "introduction"]:
+            c.hit(fn, "sections", f"order {ids[:3]} (expected parampara → mangalacarana → introduction)")
+            continue
+        sec = b["sections"][0]
+        caps = [x.get("caption") for x in sec["content"] if x.get("type") == "portrait"]
+        srcs = [x.get("src") for x in sec["content"] if x.get("type") == "portrait"]
+        if sec.get("layout") != "portraits" or len(caps) != 9 or not all(caps) or srcs != [f"parampara/{i:02d}.png" for i in range(0, 9)] or sec.get("subsections"):
+            c.hit(fn, "parampara", f"layout={sec.get('layout')} captions={caps} srcs={srcs}")
     for f in allb:
         raw = json.dumps(loaded[f], ensure_ascii=False)
         for bad in ("Gour Govinda", "Гоур Говинд", "Gour-Govinda"):
@@ -514,7 +529,8 @@ def run(args):
 
     # L22 — Песни мангала-арати и гаура-арати в книге (Satkirti 07.10 13:07): IAST + пословный перевод + перевод.
     c = Check("L22", "ārati songs: maṅgala-ārati (5) and gaura-ārati (2) in Part IV with IAST, word-by-word and translation")
-    for fn in ("book.ru-iast.json", "book.ru.json", "book.json"):
+    # Night 08.10: also every other language book (lv, de, …: translated headings/authors, IAST verses as in EN).
+    for fn in [name(f) for f in allb]:
         b = loaded[os.path.join(qa.DATA, fn)]
         secs = {s["id"]: s for s in b["sections"]}
         part = next((p for p in b["parts"] if p["id"] == "festivals-vows"), {"sections": []})
@@ -529,7 +545,7 @@ def run(args):
                 first = None  # Cyrillic mirror
             if first and not verses[0]["sanskrit"].startswith(first):
                 c.hit(fn, sid, "first verse is not " + first)
-            if fn != "book.json":
+            if fn in ("book.ru-iast.json", "book.ru.json"):
                 bad = [sub["id"] for sub in s["subsections"] for x in sub["content"]
                        if x.get("type") == "verse" and not (x.get("wbw") and x.get("translation"))]
                 if bad:
@@ -568,9 +584,9 @@ def run(args):
     lat = re.compile(r"[A-Za-z]")
     iast_d = re.compile(r"[āīūṛṝḷṅñṭḍṇśṣṁḥĀĪŪṚṜḶṄÑṬḌṆŚṢṀḤ]")
     nsongs = 0
-    for fn in ("book.ru-iast.json", "book.ru.json", "book.json"):
+    for fn in [name(f) for f in allb]:   # Night 08.10: every language book (other languages: EN rules)
         b = loaded[os.path.join(qa.DATA, fn)]
-        ru = fn != "book.json"
+        ru = fn in ("book.ru-iast.json", "book.ru.json")
         for s in b["sections"]:
             subs = [sub for sub in (s.get("subsections") or []) if str(sub.get("id", "")).startswith("song-")]
             if subs:
@@ -627,7 +643,7 @@ def run(args):
                 core = re.sub(r"\s*\(.*?\)\s*", " ", tl).strip()   # title without its «(…)» alias
                 if tl and (tl in plain or (len(core) >= 6 and core in plain)):
                     c.hit(fn, where, f"author line repeats the song title «{title}»: {a[:90]}")
-    c.info = f"{nsongs} songs (RU, RU Cyrillic, EN)"
+    c.info = f"{nsongs} songs in {len(allb)} books"
     c.report(args.max)
 
     # L25 — «Бхаджаны для Картики» (Reader v7.6, 07.10.2026): new chapter right after «Песни гаура-арати» in
@@ -646,8 +662,7 @@ def run(args):
         if "kartika-bhajans" not in part or "gaura-arati-songs" not in part \
                 or part.index("kartika-bhajans") != part.index("gaura-arati-songs") + 1:
             c.hit(fn, "parts/festivals-vows", f"kartika-bhajans not right after gaura-arati-songs: {part}")
-        if fn not in ("book.ru-iast.json", "book.ru.json", "book.json"):
-            continue  # other languages: English fallback until the night translation run
+        # Night 08.10: the other languages have the chapter too (translated by scripts/translate/night_sync.py)
         ids = [s["id"] for s in b["sections"]]
         if "kartika-bhajans" not in ids or ids.index("kartika-bhajans") != ids.index("gaura-arati-songs") + 1:
             c.hit(fn, "sections", "kartika-bhajans missing / not right after gaura-arati-songs")
@@ -676,7 +691,7 @@ def run(args):
                     c.hit(fn, sid, f"source line: {t[:90]}")
         if fn == "book.ru-iast.json" and not any("Чайтанья Академи" in x.get("content", "") for x in s.get("content") or []):
             c.hit(fn, "kartika-bhajans", "intro sentence with «Чайтанья Академии» missing")
-    c.info = f"chapter checked in {nk} books (RU, RU Cyrillic, EN); part list in {len(allb)} books"
+    c.info = f"chapter checked in {nk} books; part list in {len(allb)} books"
     c.report(args.max)
 
     # L26 — Глава 3 «16 предметов» и глава 14: список = рисунок Parafernalia.png (Satkirti 07.10.2026 22:28):

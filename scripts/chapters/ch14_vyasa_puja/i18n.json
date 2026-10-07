@@ -1,0 +1,1670 @@
+{
+ "guru-puja-vyasa-puja": {
+  "lv": {
+   "en_hash": "981ea7a672a2cd64",
+   "model": "cx/gpt-6.1-sol",
+   "date": "2026-10-08 02:00",
+   "section": {
+    "id": "guru-puja-vyasa-puja",
+    "title": "Šrī Guru-pūdža un Vjāsa-pūdža",
+    "subtitle": "vjāsa-pūdža · sapta-pančakam",
+    "page": "",
+    "content": [
+     {
+      "type": "text",
+      "content": "Šajā nodaļā aprakstīta Vjāsa-pūdža, kā to veic mūsu mācekļu pēctecībā: tās nozīme, ceremonijas kārtība, godinot septiņas grupas pa piecām personībām (⟦sapta-pančakam⟧), un tās saikne ar Šrī Guru ikdienas godināšanu. Katram norādījumam ir dots avots."
+     }
+    ],
+    "subsections": [
+     {
+      "id": "vyasa-puja-meaning",
+      "title": "Kas ir Vjāsa-pūdža?",
+      "content": [
+       {
+        "type": "text",
+        "content": "Vjāsa-pūdžu (⟦vjāsa-pūdža⟧ — “Vjāsas godināšana”) veic divos gadījumos. Pirmais ir Guru-pūrnima jeb Vjāsa-pūrnima, Āšādhas mēneša pilnmēness, Vēdu sastādītāja Šrī Krišnas Dvaipājanas Vēdavjāsas atnākšanas diena: šajā dienā visi mācekļi godina savu guru, jo ikviens patiess guru ir Šrīla Vjāsadēvas pārstāvis (Gurudēva, lekcijas Nr. 6556, 2022. gada 13. jūlijā, un Nr. 533, 2011. gada 15. jūlijā). Otrais ir paša guru atnākšanas diena: Šrī Čaitanja Mahāprabhu veica Vjāsa-pūdžu sava guru, Šrīla Īšvaras Purīpādas, dzimšanas dienā, un mūsu mācekļu pēctecība seko šai tradīcijai (Gurudēva, lekcija Nr. 10011, 2026. gada 12. aprīlī; skat. Gurudēvas noskaņojums)."
+       },
+       {
+        "type": "text",
+        "content": "Gurudēva atklāj Vjāsa-pūdžas nozīmi ar Šrīla Bhaktisidhāntas Sarasvatī Thākura vārdiem: tā nav diena, kad guru pieņem godināšanu un veltījumus no saviem mācekļiem, bet gan diena, kad Šrī Guru iesaista visus, kuri viņa vadībā praktizē bhakti, sava guru un visas guru-paramparas godināšanā līdz pat Brahmam un pašam Šrī Krišnam (lekcijas Nr. 10011, 2026. gada 12. aprīlī, Nr. 5168, 2020. gada 18. aprīlī, un Nr. 378, 2007. gada 29. jūlijā). Sēdvietu, uz kuras sēž guru, sauc par ⟦vjāsāsanu⟧ — Vjāsas sēdvietu: guru pārstāv nevis pats sevi, bet gan Šrīla Vjāsadēvas balsi, uzskatus un garīgo apzināšanos (lekcija Nr. 5168)."
+       },
+       {
+        "type": "text",
+        "content": "1952. gadā savā atnākšanas dienā Šrīla Bhakti Pradžņāna Kešava Gosvāmī Mahārādža norādīja: “Tridandī-sanjāsī savās atnākšanas dienās jāveic šrī guru-pūdža [sava guru godināšana]. Līdztekus šai guru-pūdžai nepieciešams godināt arī guru-paramparu, Šrī Šrī Rādhā-Krišnu Jugalu un Šačīnandanu Šrī Gaurahari un Viņa pavadoņus. Vjāsa-pūdža, guru-pūdža, āčārja-pūdža un upāsja-pūdža ir dažādi viena un tā paša principa (tatvas) nosaukumi.” (Āčārja Kēsarī Kešava Gosvāmī: Viņa dzīve un mācība, GVP, 2013, 105. lpp.; izdevums krievu valodā, Maskava, 2004, 154.–155. lpp.). 1958. gadā viņš atkārtoja: “Vjāsa-pūdžas dienā āčārja godina guru, guru-paramparu un upāsju (godināšanas objektu).” (turpat, 133. lpp.; izdevums krievu valodā, 213. lpp.)."
+       },
+       {
+        "type": "subtitle",
+        "content": "Vēsture"
+       },
+       {
+        "type": "text",
+        "content": "Pirmā Vjāsa-pūdža mūsu tradīcijā notika pirms aptuveni piecsimt gadiem Šrīvāsa-anganā Mājāpurā: pēc Šrī Čaitanjas Mahāprabhu norādījuma Šrī Nitjānanda Prabhu godināja Mahāprabhu, kurš sēdēja Vjāsas sēdvietā; pēc tam Šrīvāsa Pandits pieminēja Vjāsa-pūdža-padhati — rokasgrāmatu šīs pūdžas veikšanai (Āčārja Kēsarī Kešava Gosvāmī: Viņa dzīve un mācība, izdevums krievu valodā, Maskava, 2004, 200.–201. lpp.; izdevums angļu valodā (GVP, 2013), 126. lpp.; Gurudēva, lekcija Nr. 7247, 2023. gada 3. jūlijā)."
+       },
+       {
+        "type": "text",
+        "content": "Šī padhati bija zudusi; tās rokraksta kopiju atrada Šankarāčārjas tradīcijas Govardhana Mathā Purī. Kā vēstīts Šrīla Kešavas Gosvāmī Mahārādžas biogrāfijā un žurnālā Šrī Bhāgavata-patrikā (3. gads, Nr. 10, 1958, 15.–17. lpp.), to atrada Šrīla Bhaktisidhānta Sarasvatī Prabhupāda, un Šrīla Bhaktivinoda Thākurs pārstrādāja un papildināja padhati mūsu sampradājai; savās lekcijās Gurudēva saka, ka Šrīla Bhaktivinoda Thākurs to atrada no jauna un Šrīla Bhaktisidhānta Sarasvatī Thākurs to publicēja (lekcijas Nr. 5168 un Nr. 7247). Šrīla Kešava Gosvāmī Mahārādža šo pašu padhati atrada arī Brahma Mathā Puškarā un Šāradā Mathā Dvārakā, publicēja Šrīla Bhaktivinodas Thākura pārstrādāto versiju žurnālā Šrī Gaudīja-patrikā (4. gads, Nr. 3) un ieviesa Vjāsa-pūdžas veikšanu ar pūdža-pančaku: kopš tā laika tā ik gadu tiek veikta Gaudīja Vēdānta Samiti mathās (izdevums angļu valodā, 105. un 126. lpp.)."
+       },
+       {
+        "type": "text",
+        "content": "Šīs grāmatas avotu bibliotēkā ir divi Šankarāčārjas tradīcijas sanskrita rokraksti par Vjāsa-pūdžu — Vjāsa-pūdža-vidhi (Surata, SDPB Nr. 210) un Vjāsa-pūdža-krama (Ramnagara). Tajos dots viens un tas pats senais izvietojums: Krišna-pančaka centrā, Vjāsa-pančaka pa labi no tās (dienvidos), Sanakādi-pančaka rietumos un guru priekšā (austrumos); katrā grupā viena personība atrodas centrā, bet pārējās izvieto, “sākot no austrumiem”. Mūsu āčārja-pančakas vietā tajos ir Šankarāčārja un viņa mācekļi. Šrīla Kešava Gosvāmī Mahārādža teica, ka Šankaras tradīcijas Vjāsa-pūdža nav patiesa Vjāsa-pūdža un ka Šrī Vjāsadēvu pienācīgi godina vaišnavu sampradājā (Āčārja Kēsarī Kešava Gosvāmī: Viņa dzīve un mācība, izdevums krievu valodā, Maskava, 2004, 154.–155. un 212.–213. lpp.; izdevums angļu valodā, 105. un 132. lpp.)."
+       },
+       {
+        "type": "subtitle",
+        "content": "Kad"
+       },
+       {
+        "type": "text",
+        "content": "Mūsu mācekļu pēctecībā Vjāsa-pūdžu veic Guru-pūrnimas dienā un guru-vargas āčārju atnākšanas dienās. Gurudēvas mācekļi svin viņa Vjāsa-pūdžu viņa atnākšanas dienā (Gurudēvas lekcijas šajā dienā: Nr. 5168, 2020. gada 18. aprīlī, un Nr. 10011, 2026. gada 12. aprīlī). Tuvākie datumi saskaņā ar Chaitanya Academy (Rīga) vaišnavu kalendāru ir: Šrīla Bhaktivēdāntas Nārājanas Gosvāmī Mahārādžas atnākšanas diena — 2027. gada 6. februāris; Šrīla Bhakti Pradžņānas Kešavas Gosvāmī Mahārādžas atnākšanas diena — 2027. gada 23. februāris; Šrīla Bhaktisidhāntas Sarasvatī Thākura Prabhupādas atnākšanas diena — 2027. gada 25. februāris; Guru-pūrnima — 2027. gada 18. jūlijs; Šrīla A. Č. Bhaktivēdāntas Svāmī Prabhupādas atnākšanas diena (Nandotsava) — 2027. gada 26. augusts."
+       }
+      ]
+     },
+     {
+      "id": "sapta-pancakam",
+      "title": "Sapta-pančakam — septiņas grupas pa pieciem",
+      "content": [
+       {
+        "type": "text",
+        "content": "Vjāsa-pūdžas galvenā daļa saskaņā ar seno padhati ir trīsdesmit piecu personību godināšana, kuras sadalītas septiņās grupās pa piecām (⟦pančaka⟧ — “piecu grupa”); no tā cēlies nosaukums ⟦sapta-pančakam⟧. Mēs esam pateicību parādā viņām visām par transcendentālo zināšanu dārguma atnešanu šajā pasaulē; guru-parampara ir kā ziedu vītne: ja izņem vienu ziedu, vītne pārtrūkst (Gurudēva, lekcijas Nr. 7247, 2023. gada 3. jūlijā, un Nr. 5836, 2021. gada 7. maijā)."
+       },
+       {
+        "type": "text",
+        "content": "Katru personību pārstāv atsevišķa kalaša — ar mango lapām rotāts ūdens trauks, uz kura novietots kokosrieksts ar kumkumā uzzīmētu svastiku un karodziņš ar attiecīgās personības vārdu; ar lūgšanām katru aicina mājot savā kalašā un pieņemt godināšanu (Gurudēva, lekcijas Nr. 5168, 2020. gada 18. aprīlī, Nr. 7247 un Nr. 9003, 2025. gada 10. jūlijā). Pirmās piecas grupas godināja jau Mahāprabhu laikā; Mahāprabhu sekotāji pievienoja vēl divas — tatva-pančaku (Panča-tatvu) un upāsja-pančaku (lekcijas Nr. 5168, Nr. 5836 un Nr. 7247)."
+       },
+       {
+        "type": "text",
+        "content": "Izvietojums atbilst Gurudēvas lekcijai Nr. 7247 (piecām senajām grupām tas ir tāds pats arī padhati rokrakstos): viena grupa centrā, pa vienai austrumos, dienvidos, rietumos un ziemeļos no tās, un vēl divas abās pusēs dienvidu malā. Katrā grupā pirmā personība atrodas centrā, bet pārējās četras izvieto, sākot no austrumiem un virzoties pulksteņrādītāja virzienā: austrumi, dienvidi, rietumi, ziemeļi."
+       },
+       {
+        "type": "table",
+        "header": [
+         "Pančaka (vieta)",
+         "1 — centrs",
+         "2 — austrumi",
+         "3 — dienvidi",
+         "4 — rietumi",
+         "5 — ziemeļi"
+        ],
+        "rows": [
+         {
+          "cells": [
+           "1. Krišna-pančaka — centrs",
+           "Šrī Krišna",
+           "Vāsudēva",
+           "Sankaršana",
+           "Pradjumna",
+           "Anirudha"
+          ]
+         },
+         {
+          "cells": [
+           "2. Vjāsa-pančaka — dienvidi",
+           "Šrīla Vēdavjāsa",
+           "Paila (Rigvēda)",
+           "Vaišampājana (Jadžurvēda)",
+           "Džaimini (Sāmavēda)",
+           "Sumantu (Atharvavēda)"
+          ]
+         },
+         {
+          "cells": [
+           "3. Āčārja-pančaka (Vaijāsaki-pančaka) — ziemeļi",
+           "Šrī Šukadēva Gosvāmī",
+           "Rāmānudžāčārja",
+           "Madhvāčārja",
+           "Višnusvāmī",
+           "Nimbāditja"
+          ]
+         },
+         {
+          "cells": [
+           "4. Sanakādi-pančaka — rietumi",
+           "Sanaka",
+           "Sanat-kumāra",
+           "Sanātana",
+           "Sanandana",
+           "Višvaksēna"
+          ]
+         },
+         {
+          "cells": [
+           "5. Guru-pančaka — austrumi",
+           "savs guru (Šrī Gurudēva)",
+           "parama-guru",
+           "paramēšthī-guru",
+           "parātpara-guru",
+           "parama-parātpara-guru"
+          ]
+         },
+         {
+          "cells": [
+           "6. Upāsja-pančaka* — dienvidu puse, rietumos",
+           "Šrī Guru",
+           "Gaura",
+           "Gadādhara",
+           "Rādhā",
+           "Krišna"
+          ]
+         },
+         {
+          "cells": [
+           "7. Tattva-pančaka (Panča-tattva)* — dienvidu puse, austrumos",
+           "Šrī Krišna Čaitanja",
+           "Nitjānanda",
+           "Advaita",
+           "Gadādhara",
+           "Šrīvāsa un visi Gaura bhaktas"
+          ]
+         }
+        ]
+       },
+       {
+        "type": "text",
+        "content": "Grupu secība tabulā ir tāda, kādā tās uzskaitītas Šrīlas Kešavas Gosvāmī Mahārādžas biogrāfijā, aprakstot 1948. gada Vjāsas pūdžu (angļu izdevums, 89. lpp.; Āčārja Kesarī Kešavas Gosvāmī: Viņa dzīve un mācība, krievu izdevums, Maskava, 2004, 132.–133. lpp.). Grupu locekļi ir norādīti tajā pašā biogrāfijā (angļu izdevums, 133. lpp., 15. piezīme; krievu izdevums, 213. lpp.) un atbilst Gurudēva lekcijām."
+       },
+       {
+        "type": "text",
+        "content": "* Attiecībā uz upāsja-pančaku un tattva-pančaku Gurudēvs norāda secību “apkārt aplim”, taču nenorāda debespuses: skaitļi 2–5 šajās rindās apzīmē godināšanas secību. Šrī Guru atrodas upāsja-pančakas centrā (lekcijas Nr. 7247 un Nr. 9003); biogrāfijā tās locekļi uzskaitīti citā secībā: Šrī Rādhā, Krišna, Gaura, Gadādhara, Šrī Gurudēva. Piektā guru-pančakas locekļa vārds biogrāfijā un lekcijās Nr. 5168 un Nr. 5836 ir parama-parātpara-guru, bet lekcijā Nr. 7247 — parampara-guru."
+       },
+       {
+        "type": "subtitle",
+        "content": "Sumantu jeb Aṅgirā"
+       },
+       {
+        "type": "text",
+        "content": "Visos rakstītajos avotos Sumantu ir nosaukts par piekto Vjāsas-pančakas locekli — Šrīlas Vjāsadēvas mācekli, kuram tika uzticēta Atharva Vēda: Šrīlas Kešavas Gosvāmī Mahārādžas biogrāfijā (angļu izdevums, 133. lpp.; krievu izdevums, 213. lpp.) un abos paddhati manuskriptos; Gurudēvs viņu tāpat nosauc arī lekcijās Nr. 7247, 2023. gada 3. jūlijā, un Nr. 9003, 2025. gada 10. jūlijā. Agrākajā sapta-pančakas tabulā, saskaņā ar kuru mēs veicām šo pūdžu, kā arī 2020. gada 18. aprīļa lekcijā Nr. 5168 viņa vietā ir nosaukts Aṅgirā, savukārt 2021. gada 7. maija lekcijā Nr. 5836 Gurudēvs saka: “…un Sumantu, tas ir, Aṅgirā, Atharva Vēda.” Tas ir viens un tas pats ieraksts: Atharva Vēdu sauc arī par Atharvāṅgirasa — “⟦atharvāṅgirasām āsīt sumantur dāruṇo muniḥ⟧” (Šrīmad-Bhāgavatama 1.4.22), bet Šrīlas A. Č. Bhaktivēdāntas Svāmī Prabhupādas angļu tulkojumā šis gudrais nosaukts par “Sumantu Muni Aṅgirā”. Šeit mēs sekojam avotiem un rakstām “Sumantu”."
+       }
+      ]
+     },
+     {
+      "id": "vyasa-puja-order",
+      "title": "Vjāsas pūdžas kārtība",
+      "content": [
+       {
+        "type": "text",
+        "content": "Turpmāk sniegtā kārtība ir sastādīta, balstoties uz Gurudēva skaidrojumu 2025. gada Vjāsas pūdžā (lekcija Nr. 9003, 2025. gada 10. jūlijā), kā arī uz Gaudīja Vedānta Samiti Vjāsas pūdžu aprakstiem Šrīlas Kešavas Gosvāmī Mahārādžas biogrāfijā un žurnālā Śrī Bhāgavata-patrikā (1958)."
+       },
+       {
+        "type": "instruction",
+        "content": "Sagatavošanās. Atsevišķā vietā saskaņā ar sapta-pančakas izkārtojumu (skat. tabulu) novieto 35 kalašas ar kokosriekstiem. Indijā pūdžu veic pilnā apjomā — uz liela altāra, ko rotā kalašas, karogi, mango zari un banānkoku stumbri (Gurudēvs, lekcijas Nr. 5168 un Nr. 3295, 2018. gada 27. jūlijā; Śrī Bhāgavata-patrikā, 1958, 18. lpp.)."
+       },
+       {
+        "type": "instruction",
+        "content": "Ja vieta ir ierobežota, izveido samazinātu variantu: 2018. gadā dzīvoklī Šveicē pūdžu veica miniatūrā, kokosriekstu vietā izmantojot valriekstus un karogus ar visu riši vārdiem (Gurudēvs, lekcija Nr. 3295; skat. Gurudēva noskaņu)."
+       },
+       {
+        "type": "instruction",
+        "content": "No rīta pēc mangala-ārati un kīrtanas tiek lasīts Vjāsas pūdžas apraksts no Šrī Čaitanja-bhāgavatas (tā tika darīts 1958. gada Vjāsas pūdžā: Śrī Bhāgavata-patrikā, 18. lpp.)."
+       },
+       {
+        "type": "instruction",
+        "content": "Aicināšana. Ar lūgšanām tiek aicināti pagātnes diženie guru ienākt savās attiecīgajās kalašās un pieņemt godināšanu (lekcija Nr. 9003)."
+       },
+       {
+        "type": "instruction",
+        "content": "Pūdža. Pūdžārī godina katru no 35 personībām ar sešpadsmit upačārām — šādi pūdža-pančaka tika veikta saskaņā ar Vjāsas pūdžas paddhati (biogrāfijas angļu izdevums (GVP, 2013), 127. lpp.; krievu izdevums, 202.–203. lpp.). Veicot pūdžu pilnā apjomā, katru no septiņām grupām godina savs pūdžārī (lekcija Nr. 3295). Par sešpadsmit upačāru veltīšanu skatiet nodaļu “Galvenā godināšana ar sešpadsmit piederumiem”. Tikmēr visi klātesošie dzied kīrtanu, daudzinot svētos vārdus (lekcija Nr. 9003)."
+       },
+       {
+        "type": "instruction",
+        "content": "Parikrama. Kad pūdža ir pabeigta, visi, dziedot kīrtanu, četras reizes apiet apkārt visām diženajām personībām; kīrtana noslēdzas ar saucieniem: “Džaja Vjāsadēva! Džaja Gurudēv! Džaja Prabhupāda!” (lekcija Nr. 9003)."
+       },
+       {
+        "type": "instruction",
+        "content": "Pušpāndžali. Māceklis vispirms godina savu guru un tikai pēc tam pārējos guru — to skaidroja Šrīla Kešavas Gosvāmī Mahārādža (Āčārja Kesarī Kešavas Gosvāmī: Viņa dzīve un mācība, krievu izdevums, Maskava, 2004, 213. lpp.; angļu izdevums, 133. lpp.). 1956. gada Vjāsas pūdžā Šrīla Kešavas Gosvāmī Mahārādža veica arčanu un veltīja pušpāndžali pie sava guru Šrīlas Prabhupādas pēdām, pēc tam viņa mācekļi veltīja pušpāndžali pie viņa pēdām (angļu izdevums, 127. lpp.). 1948. gadā rīta ceremonija noslēdzās ar pušpāndžali un uguns ziedojumu (angļu izdevums, 89. lpp.)."
+       },
+       {
+        "type": "instruction",
+        "content": "Ārati, bhoga un mahāprasāda izdalīšana (Śrī Bhāgavata-patrikā, 1958, 18. lpp.)."
+       },
+       {
+        "type": "instruction",
+        "content": "Hari-kathā par Šrīlu Vjāsadēvu un guru-tattvu (lekcija Nr. 9003). 1956. gadā Vjāsas pūdžas pirmajā dienā tika nolasīta lekcija par Šrī Guru-pūdžu, bet otrajā dienā skaļi tika lasītas dažādās valodās rakstītas veltījuma vēstules (biogrāfijas angļu izdevums, 127. lpp.)."
+       }
+      ]
+     },
+     {
+      "id": "guru-puja-daily",
+      "title": "Guru-pūdža katru dienu",
+      "content": [
+       {
+        "type": "text",
+        "content": "Šrī Guru ikdienas godināšana — pazemīga noliekšanās guru-vargai, meditācija uz Šrī Gurudēvu, arčana un lūgšanas — ir aprakstīta nodaļā Šrī Guru arčana (sadaļā Tempļa standarts); šeit tā netiek atkārtota."
+       },
+       {
+        "type": "text",
+        "content": "Vjāsa-pūdža ir tā pati godināšana visā tās pilnībā: Šrīla Kešava Gosvāmī Mahārādža sauc Vjāsa-pūdžu, guru-pūdžu, āčārja-pūdžu un upāsja-pūdžu par vienas tatvas dažādiem nosaukumiem (skatīt iepriekš). Tāpēc Vjāsa-pūdžas dienā līdz ar savu guru godina visu guru-paramparu, Šrī Šrī Rādhā-Krišnu un Šrī Gaurahari ar Viņa pavadoņiem."
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "de": {
+   "en_hash": "981ea7a672a2cd64",
+   "model": "cx/gpt-6.1-sol",
+   "date": "2026-10-08 01:59",
+   "section": {
+    "id": "guru-puja-vyasa-puja",
+    "title": "Śrī Guru-pūjā und Vyāsa-pūjā",
+    "subtitle": "vyāsa-pūjā · sapta-pañcakam",
+    "page": "",
+    "content": [
+     {
+      "type": "text",
+      "content": "Dieses Kapitel beschreibt die Vyāsa-pūjā, wie sie in unserer Linie durchgeführt wird: ihre Bedeutung, die Abfolge der Zeremonie mit der Verehrung von sieben Gruppen aus jeweils fünf Persönlichkeiten (⟦sapta-pañcakam⟧) und ihre Verbindung mit der täglichen Verehrung von Śrī Guru. Für jede Regel wird eine Quelle angegeben."
+     }
+    ],
+    "subsections": [
+     {
+      "id": "vyasa-puja-meaning",
+      "title": "Was ist Vyāsa-pūjā?",
+      "content": [
+       {
+        "type": "text",
+        "content": "Vyāsa-pūjā (⟦vyāsa-pūjā⟧ – „Verehrung Vyāsas“) wird zu zwei Anlässen durchgeführt. Der erste ist Guru-pūrṇimā oder Vyāsa-pūrṇimā, der Vollmondtag des Monats Āṣāḍha, der Erscheinungstag von Śrī Kṛṣṇa Dvaipāyana Vedavyāsa, dem Sammler der Veden: An diesem Tag verehren alle Schüler ihren guru, weil jeder echte guru ein Repräsentant von Śrīla Vyāsadeva ist (Gurudev, Vorträge Nr. 6556, 13. Juli 2022, und Nr. 533, 15. Juli 2011). Der zweite ist der eigene Erscheinungstag des gurus: Caitanya Mahāprabhu führte am Geburtstag Seines gurus, Śrīla Īśvara Purīpāda, Vyāsa-pūjā durch, und unsere Linie folgt dieser Tradition (Gurudev, Vortrag Nr. 10011, 12. April 2026; siehe Gurudevs Stimmung)."
+       },
+       {
+        "type": "text",
+        "content": "Gurudev vermittelt die Bedeutung der Vyāsa-pūjā mit den Worten von Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura: Es ist kein Tag, an dem der guru Verehrung und Opfergaben von seinen Schülern annimmt, sondern ein Tag, an dem Śrī Guru jeden, der unter seiner Führung bhakti praktiziert, dazu anleitet, seinen eigenen guru und die gesamte guru-paramparā bis hin zu Brahmā und Śrī Kṛṣṇa Selbst zu verehren (Vorträge Nr. 10011, 12. April 2026, Nr. 5168, 18. April 2020, und Nr. 378, 29. Juli 2007). Der Sitz, auf dem der guru sitzt, wird ⟦vyāsāsana⟧ genannt – der Sitz Vyāsas: Der guru repräsentiert nicht sich selbst, sondern die Stimme, die Auffassungen und die Verwirklichung von Śrīla Vyāsadeva (Vortrag Nr. 5168)."
+       },
+       {
+        "type": "text",
+        "content": "Im Jahr 1952 wies Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja an seinem Erscheinungstag an: „Tridaṇḍī-sannyāsīs sollten an ihren Erscheinungstagen śrī guru-pūjā [für ihren eigenen guru] durchführen. In Verbindung mit dieser guru-pūjā ist es auch notwendig, die guru-paramparā, Śrī Śrī Rādhā-Kṛṣṇa Yugala sowie Śacīnandana Śrī Gaurahari und Seine Gefährten zu verehren. Vyāsa-pūjā, guru-pūjā, ācārya-pūjā und upāsya-pūjā sind verschiedene Namen für dasselbe Prinzip (tattva).“ (Ācārya Kesarī Keśava Gosvāmī: His Life and Teachings, GVP, 2013, S. 105; russische Ausgabe, Moskau, 2004, S. 154–155). 1958 wiederholte er: „Am Tag der vyāsa-pūjā wird ein ācārya guru, guru-paramparā und upāsya (das Objekt der Verehrung) verehren.“ (ebd., S. 133; russische Ausgabe, S. 213)."
+       },
+       {
+        "type": "subtitle",
+        "content": "Geschichte"
+       },
+       {
+        "type": "text",
+        "content": "Die erste Vyāsa-pūjā in unserer Tradition fand vor ungefähr fünfhundert Jahren im Śrīvāsa-aṅgana in Māyāpura statt: Auf die Anweisung von Caitanya Mahāprabhu hin verehrte Nityānanda Prabhu Mahāprabhu, der auf dem Sitz Vyāsas saß; Śrīvāsa Paṇḍita erwähnte daraufhin die Vyāsa-pūjā-paddhati, ein Handbuch zur Durchführung dieser pūjā (Ācārya Kesarī Keśava Gosvāmī: His Life and Teachings, russische Ausgabe, Moskau, 2004, S. 200–201; englische Ausgabe (GVP, 2013), S. 126; Gurudev, Vortrag Nr. 7247, 3. Juli 2023)."
+       },
+       {
+        "type": "text",
+        "content": "Diese paddhati ging verloren; eine Manuskriptkopie wurde im Govardhana Maṭha der Śaṅkarācārya-Tradition in Purī gefunden. Der Biografie von Śrīla Keśava Gosvāmī Mahārāja und der Zeitschrift Śrī Bhāgavata-patrikā (Jahrgang 3, Nr. 10, 1958, S. 15–17) zufolge fand Śrīla Bhaktisiddhānta Sarasvatī Prabhupāda sie, und Śrīla Bhaktivinoda Ṭhākura überarbeitete und ergänzte die paddhati für unsere sampradāya; in seinen Vorträgen sagt Gurudev, dass Śrīla Bhaktivinoda Ṭhākura sie wiederentdeckte und Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura sie veröffentlichte (Vorträge Nr. 5168 und Nr. 7247). Śrīla Keśava Gosvāmī Mahārāja fand dieselbe paddhati auch im Brahma Maṭha in Puṣkara und im Śāradā Maṭha in Dvārakā, veröffentlichte Śrīla Bhaktivinoda Ṭhākuras Überarbeitung in Śrī Gauḍīya-patrikā (Jahrgang 4, Nr. 3) und führte die Praxis der Vyāsa-pūjā mit pūjā-pañcaka ein: Seitdem wird sie jährlich in den Maṭhas der Gauḍīya Vedānta Samiti durchgeführt (englische Ausgabe, S. 105 und 126)."
+       },
+       {
+        "type": "text",
+        "content": "Die Quellensammlung für dieses Buch enthält zwei Sanskrit-Manuskripte über Vyāsa-pūjā aus der Śaṅkarācārya-Tradition – Vyāsa-pūjā-vidhi (Surat, SDPB Nr. 210) und Vyāsa-pūjā-krama (Ramnagar). Sie geben dieselbe alte Anordnung wieder: Kṛṣṇa-pañcaka in der Mitte, Vyāsa-pañcaka zu seiner Rechten (im Süden), Sanakādi-pañcaka im Westen und der guru davor (im Osten); in jeder Gruppe befindet sich eine Persönlichkeit in der Mitte, während die anderen „beginnend im Osten“ angeordnet werden. Anstelle unseres ācārya-pañcaka haben sie Śaṅkarācārya und seine Schüler. Śrīla Keśava Gosvāmī Mahārāja sagte, dass die Vyāsa-pūjā der Śaṅkara-Tradition keine echte Vyāsa-pūjā sei und dass Śrī Vyāsadeva in der Vaiṣṇava-sampradāya richtig verehrt werde (Ācārya Kesarī Keśava Gosvāmī: His Life and Teachings, russische Ausgabe, Moskau, 2004, S. 154–155 und 212–213; englische Ausgabe, S. 105 und 132)."
+       },
+       {
+        "type": "subtitle",
+        "content": "Wann"
+       },
+       {
+        "type": "text",
+        "content": "In unserer Linie wird Vyāsa-pūjā an Guru-pūrṇimā und an den Erscheinungstagen der ācāryas des guru-varga durchgeführt. Gurudevs Schüler feiern seine Vyāsa-pūjā an seinem Erscheinungstag (Gurudevs Vorträge an diesem Tag: Nr. 5168, 18. April 2020, und Nr. 10011, 12. April 2026). Die kommenden Daten gemäß dem Vaiṣṇava-Kalender der Chaitanya Academy (Riga) sind: der Erscheinungstag von Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja – 6. Februar 2027; von Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja – 23. Februar 2027; von Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura Prabhupāda – 25. Februar 2027; Guru-pūrṇimā – 18. Juli 2027; der Erscheinungstag von Śrīla A. C. Bhaktivedānta Svāmī Prabhupāda (Nandotsava) – 26. August 2027."
+       }
+      ]
+     },
+     {
+      "id": "sapta-pancakam",
+      "title": "Sapta-pañcakam – Sieben Gruppen aus jeweils fünf",
+      "content": [
+       {
+        "type": "text",
+        "content": "Der Hauptteil der Vyāsa-pūjā gemäß der alten paddhati ist die Verehrung von fünfunddreißig Persönlichkeiten, die in sieben Gruppen aus jeweils fünf Personen aufgeteilt sind (⟦pañcaka⟧ – „eine Gruppe aus fünf“); daher der Name ⟦sapta-pañcakam⟧. Wir stehen bei ihnen allen in der Schuld dafür, dass sie den Schatz transzendentalen Wissens in diese Welt gebracht haben; die guru-paramparā gleicht einer Girlande: Wird eine Blume entfernt, zerbricht die Girlande (Gurudev, Vorträge Nr. 7247, 3. Juli 2023, und Nr. 5836, 7. Mai 2021)."
+       },
+       {
+        "type": "text",
+        "content": "Jede Persönlichkeit wird durch ein eigenes kalaśa repräsentiert – ein mit Mangoblättern geschmücktes Wassergefäß, auf dem eine Kokosnuss liegt, auf die mit kuṅkuma ein svastika gezeichnet ist, und das eine Fahne mit dem Namen dieser Persönlichkeit trägt; durch Gebete wird jede Persönlichkeit eingeladen, in ihrem kalaśa zu wohnen und Verehrung anzunehmen (Gurudev, Vorträge Nr. 5168, 18. April 2020, Nr. 7247 und Nr. 9003, 10. Juli 2025). Die ersten fünf Gruppen wurden bereits zu Mahāprabhus Zeit verehrt; Mahāprabhus Anhänger fügten zwei weitere hinzu – tattva-pañcaka (Pañca-tattva) und upāsya-pañcaka (Vorträge Nr. 5168, Nr. 5836 und Nr. 7247)."
+       },
+       {
+        "type": "text",
+        "content": "Die Anordnung folgt Gurudevs Vortrag Nr. 7247 (bei den fünf alten Gruppen ist sie auch in den Manuskripten der paddhati gleich): Eine Gruppe befindet sich in der Mitte, je eine im Osten, Süden, Westen und Norden, und zwei weitere auf beiden Seiten im südlichen Bereich. Innerhalb jeder Gruppe befindet sich die erste Persönlichkeit in der Mitte, während die anderen vier, beginnend im Osten und im Uhrzeigersinn fortschreitend, angeordnet werden: Osten, Süden, Westen, Norden."
+       },
+       {
+        "type": "table",
+        "header": [
+         "Pañcaka (Ort)",
+         "1 – Mitte",
+         "2 – Osten",
+         "3 – Süden",
+         "4 – Westen",
+         "5 – Norden"
+        ],
+        "rows": [
+         {
+          "cells": [
+           "1. Kṛṣṇa-pañcaka – Mitte",
+           "Śrī Kṛṣṇa",
+           "Vāsudeva",
+           "Saṅkarṣaṇa",
+           "Pradyumna",
+           "Aniruddha"
+          ]
+         },
+         {
+          "cells": [
+           "2. Vyāsa-pañcaka – Süden",
+           "Śrīla Vedavyāsa",
+           "Paila (Ṛg Veda)",
+           "Vaiśampāyana (Yajur Veda)",
+           "Jaimini (Sāma Veda)",
+           "Sumantu (Atharva Veda)"
+          ]
+         },
+         {
+          "cells": [
+           "3. Ācārya-pañcaka (Vaiyāsaki-pañcaka) – Norden",
+           "Śrī Śukadeva Gosvāmī",
+           "Rāmānujācārya",
+           "Madhvācārya",
+           "Viṣṇusvāmī",
+           "Nimbāditya"
+          ]
+         },
+         {
+          "cells": [
+           "4. Sanakādi-pañcaka — Westen",
+           "Sanaka",
+           "Sanat-kumāra",
+           "Sanātana",
+           "Sanandana",
+           "Viṣvaksena"
+          ]
+         },
+         {
+          "cells": [
+           "5. Guru-pañcaka — Osten",
+           "der eigene guru (Śrī Gurudeva)",
+           "parama-guru",
+           "parameṣṭhī-guru",
+           "parātpara-guru",
+           "parama-parātpara-guru"
+          ]
+         },
+         {
+          "cells": [
+           "6. Upāsya-pañcaka* — Südseite, im Westen",
+           "Śrī Guru",
+           "Gaura",
+           "Gadādhara",
+           "Rādhā",
+           "Kṛṣṇa"
+          ]
+         },
+         {
+          "cells": [
+           "7. Tattva-pañcaka (Pañca-tattva)* — Südseite, im Osten",
+           "Śrī Kṛṣṇa Caitanya",
+           "Nityānanda",
+           "Advaita",
+           "Gadādhara",
+           "Śrīvāsa und alle Gottgeweihten Gauras"
+          ]
+         }
+        ]
+       },
+       {
+        "type": "text",
+        "content": "Die Reihenfolge der Gruppen in der Tabelle entspricht der Reihenfolge, in der die Biographie von Śrīla Keśava Gosvāmī Mahārāja sie in ihrer Beschreibung der Vyāsa-pūjā von 1948 aufführt (englische Ausgabe, S. 89; Ācārya Kesarī Keśava Gosvāmī: Sein Leben und seine Lehren, russische Ausgabe, Moskau, 2004, S. 132–133). Die Mitglieder der Gruppen werden in derselben Biographie genannt (englische Ausgabe, S. 133, Anmerkung 15; russische Ausgabe, S. 213) und stimmen mit Gurudevs Vorträgen überein."
+       },
+       {
+        "type": "text",
+        "content": "* Für upāsya-pañcaka und tattva-pañcaka gibt Gurudev die Reihenfolge „im Kreis“ an, nennt jedoch keine Himmelsrichtungen: Die Nummern 2–5 in diesen Zeilen bezeichnen die Reihenfolge der Verehrung. Śrī Guru befindet sich in der Mitte von upāsya-pañcaka (Vorträge Nr. 7247 und Nr. 9003); die Biographie führt dessen Mitglieder in einer anderen Reihenfolge auf: Śrī Rādhā, Kṛṣṇa, Gaura, Gadādhara, Śrī Gurudev. Das fünfte Mitglied von guru-pañcaka wird in der Biographie und in den Vorträgen Nr. 5168 und Nr. 5836 parama-parātpara-guru genannt, im Vortrag Nr. 7247 hingegen paramparā-guru."
+       },
+       {
+        "type": "subtitle",
+        "content": "Sumantu oder Aṅgirā"
+       },
+       {
+        "type": "text",
+        "content": "In allen schriftlichen Quellen wird Sumantu als fünftes Mitglied des Vyāsa-pañcaka genannt—der Schüler Śrīla Vyāsadevas, dem der Atharva Veda anvertraut wurde: in der Biographie von Śrīla Keśava Gosvāmī Mahārāja (englische Ausgabe, S. 133; russische Ausgabe, S. 213) und in beiden Handschriften der paddhati; Gurudev nennt ihn ebenso in den Vorträgen Nr. 7247, 3. Juli 2023, und Nr. 9003, 10. Juli 2025. In der früheren sapta-pañcakam-Tabelle, nach der wir diese pūjā durchführten, und im Vortrag Nr. 5168, 18. April 2020, wird an seiner Stelle Aṅgirā genannt, während Gurudev im Vortrag Nr. 5836, 7. Mai 2021, sagt: „…und Sumanta, das ist Aṅgirā, der Atharva Veda.“ Es handelt sich um denselben Eintrag: Der Atharva Veda wird auch Atharvāṅgirasa genannt—„⟦atharvāṅgirasām āsīt sumantur dāruṇo muniḥ⟧“ (Śrīmad-Bhāgavatam 1.4.22), und in der englischen Übersetzung von Śrīla A. C. Bhaktivedānta Svāmī Prabhupāda wird dieser Weise „Sumantu Muni Aṅgirā“ genannt. Hier folgen wir den Quellen und schreiben „Sumantu“."
+       }
+      ]
+     },
+     {
+      "id": "vyasa-puja-order",
+      "title": "Der Ablauf der Vyāsa-pūjā",
+      "content": [
+       {
+        "type": "text",
+        "content": "Der folgende Ablauf wurde aus Gurudevs Erläuterung bei der Vyāsa-pūjā von 2025 (Vortrag Nr. 9003, 10. Juli 2025) und aus Beschreibungen der Vyāsa-pūjās der Gauḍīya Vedānta Samiti in der Biographie von Śrīla Keśava Gosvāmī Mahārāja und in der Śrī Bhāgavata-patrikā (1958) zusammengestellt."
+       },
+       {
+        "type": "instruction",
+        "content": "Vorbereitung. In einem gesonderten Bereich werden 35 kalaśas mit Kokosnüssen gemäß der sapta-pañcakam-Anordnung aufgestellt (siehe Tabelle). In Indien wird die pūjā in vollem Umfang durchgeführt — auf einem großen Altar, der mit kalaśas, Fahnen, Mangozweigen und Bananenstämmen geschmückt ist (Gurudev, Vorträge Nr. 5168 und Nr. 3295, 27. Juli 2018; Śrī Bhāgavata-patrikā, 1958, S. 18)."
+       },
+       {
+        "type": "instruction",
+        "content": "Bei begrenztem Platz wird eine verkleinerte Ausführung angefertigt: 2018 wurde die pūjā in einer Wohnung in der Schweiz im Miniaturformat durchgeführt, mit Walnüssen anstelle von Kokosnüssen und Fahnen mit den Namen aller ṛṣis (Gurudev, Vortrag Nr. 3295; siehe Gurudevs Stimmung)."
+       },
+       {
+        "type": "instruction",
+        "content": "Am Morgen, nach maṅgala-ārati und kīrtana, wird der Bericht über die Vyāsa-pūjā aus dem Śrī Caitanya-bhāgavata gelesen (dies geschah bei der Vyāsa-pūjā von 1958: Śrī Bhāgavata-patrikā, S. 18)."
+       },
+       {
+        "type": "instruction",
+        "content": "Anrufung. Durch Gebete werden die großen gurus der Vergangenheit eingeladen, in ihre jeweiligen kalaśas einzugehen und die Verehrung anzunehmen (Vortrag Nr. 9003)."
+       },
+       {
+        "type": "instruction",
+        "content": "Pūjā. Die pūjārīs verehren jede der 35 Persönlichkeiten mit sechzehn upacāras—auf diese Weise wurde pūjā-pañcaka gemäß der Vyāsa-pūjā-paddhati durchgeführt (englische Ausgabe (GVP, 2013) der Biographie, S. 127; russische Ausgabe, S. 202–203). Bei der Durchführung in vollem Umfang wird jede der sieben Gruppen von einem eigenen pūjārī verehrt (Vortrag Nr. 3295). Wie die sechzehn upacāras darzubringen sind, wird im Kapitel Die Hauptverehrung mit sechzehn Utensilien beschrieben. Währenddessen singen alle Anwesenden kīrtana der heiligen Namen (Vortrag Nr. 9003)."
+       },
+       {
+        "type": "instruction",
+        "content": "Parikramā. Wenn die pūjā beendet ist, umkreisen alle die großen Persönlichkeiten viermal und singen dabei kīrtana; der kīrtana endet mit den Jubelrufen: „Jaya Vyāsadeva! Jaya Gurudev! Jaya Prabhupāda!“ (Vortrag Nr. 9003)."
+       },
+       {
+        "type": "instruction",
+        "content": "Puṣpāñjali. Ein Schüler verehrt zuerst seinen eigenen guru und erst danach die anderen gurus—dies erklärte Śrīla Keśava Gosvāmī Mahārāja (Ācārya Kesarī Keśava Gosvāmī: Sein Leben und seine Lehren, russische Ausgabe, Moskau, 2004, S. 213; englische Ausgabe, S. 133). Bei der Vyāsa-pūjā von 1956 führte Śrīla Keśava Gosvāmī Mahārāja arcana durch und brachte zu den Füßen seines gurus, Śrīla Prabhupāda, puṣpāñjali dar, woraufhin seine Schüler zu seinen Füßen puṣpāñjali darbrachten (englische Ausgabe, S. 127). 1948 endete die morgendliche Zeremonie mit puṣpāñjali und einem Feueropfer (englische Ausgabe, S. 89)."
+       },
+       {
+        "type": "instruction",
+        "content": "Ārati, bhoga und Verteilung von mahā-prasāda (Śrī Bhāgavata-patrikā, 1958, S. 18)."
+       },
+       {
+        "type": "instruction",
+        "content": "Hari-kathā über Śrīla Vyāsadeva und guru-tattva (Vortrag Nr. 9003). 1956 wurde am ersten Tag der Vyāsa-pūjā ein Vortrag über Śrī Guru-pūjā gehalten, und am zweiten Tag wurden Briefe mit Opfergaben in verschiedenen Sprachen vorgelesen (englische Ausgabe der Biographie, S. 127)."
+       }
+      ]
+     },
+     {
+      "id": "guru-puja-daily",
+      "title": "Guru-pūjā jeden Tag",
+      "content": [
+       {
+        "type": "text",
+        "content": "Die tägliche Verehrung von Śrī Guru – Ehrerbietungen an den guru-varga, Meditation über Śrī Gurudev, arcana und Gebete – wird im Kapitel Arcana für Śrī Guru (im Abschnitt Tempelstandard) beschrieben; sie wird hier nicht wiederholt."
+       },
+       {
+        "type": "text",
+        "content": "Vyāsa-pūjā ist dieselbe Verehrung, in ihrem vollständigen Umfang zum Ausdruck gebracht: Śrīla Keśava Gosvāmī Mahārāja bezeichnet Vyāsa-pūjā, guru-pūjā, ācārya-pūjā und upāsya-pūjā als verschiedene Namen für ein und dasselbe tattva (siehe oben). Daher ehrt man am Tag der Vyāsa-pūjā zusammen mit seinem eigenen guru die gesamte guru-paramparā, Śrī Śrī Rādhā-Kṛṣṇa und Śrī Gaurahari mit Seinen Gefährten."
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "fr": {
+   "en_hash": "981ea7a672a2cd64",
+   "model": "cx/gpt-6.1-sol",
+   "date": "2026-10-08 01:59",
+   "section": {
+    "id": "guru-puja-vyasa-puja",
+    "title": "Śrī Guru-pūjā et Vyāsa-pūjā",
+    "subtitle": "vyāsa-pūjā · sapta-pañcakam",
+    "page": "",
+    "content": [
+     {
+      "type": "text",
+      "content": "Ce chapitre décrit la Vyāsa-pūjā telle qu’elle est accomplie dans notre lignée : sa signification, l’ordre de la cérémonie avec l’adoration de sept groupes de cinq personnalités (⟦sapta-pañcakam⟧), ainsi que son lien avec l’adoration quotidienne de Śrī Guru. Une source est donnée pour chaque règle."
+     }
+    ],
+    "subsections": [
+     {
+      "id": "vyasa-puja-meaning",
+      "title": "Qu’est-ce que la Vyāsa-pūjā ?",
+      "content": [
+       {
+        "type": "text",
+        "content": "La Vyāsa-pūjā (⟦vyāsa-pūjā⟧ — « adoration de Vyāsa ») est accomplie à deux occasions. La première est Guru-pūrṇimā, ou Vyāsa-pūrṇimā, la pleine lune du mois d’Āṣāḍha, jour de l’apparition de Śrī Kṛṣṇa Dvaipāyana Vedavyāsa, le compilateur des Vedas : ce jour-là, tous les disciples adorent leur guru, car tout guru authentique est un représentant de Śrīla Vyāsadeva (Gurudev, conférences n° 6556, 13 juillet 2022, et n° 533, 15 juillet 2011). La seconde est le propre jour de l’apparition du guru : Śrī Caitanya Mahāprabhu accomplit la Vyāsa-pūjā le jour de la naissance de son guru, Śrīla Īśvara Purīpāda, et notre lignée suit cette tradition (Gurudev, conférence n° 10011, 12 avril 2026 ; voir Gurudev’s Mood)."
+       },
+       {
+        "type": "text",
+        "content": "Gurudev transmet la signification de la Vyāsa-pūjā à travers les paroles de Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura : ce n’est pas un jour où le guru accepte l’adoration et les offrandes de ses disciples, mais un jour où Śrī Guru engage dans l’adoration de son propre guru et de toute la guru-paramparā, jusqu’à Brahmā et Śrī Kṛṣṇa Lui-même, tous ceux qui pratiquent la bhakti sous sa direction (conférences n° 10011, 12 avril 2026, n° 5168, 18 avril 2020, et n° 378, 29 juillet 2007). Le siège sur lequel le guru s’assoit s’appelle ⟦vyāsāsana⟧ — le siège de Vyāsa : le guru ne représente pas sa propre personne, mais la voix, les conceptions et la réalisation de Śrīla Vyāsadeva (conférence n° 5168)."
+       },
+       {
+        "type": "text",
+        "content": "En 1952, le jour de son apparition, Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja donna les instructions suivantes : « Les tridaṇḍī-sannyāsīs doivent accomplir la śrī guru-pūjā [de leur propre guru] le jour de leur apparition. En lien avec cette guru-pūjā, il est également nécessaire d’adorer la guru-paramparā, Śrī Śrī Rādhā-Kṛṣṇa Yugala ainsi que Śacīnandana Śrī Gaurahari et Ses associés. Vyāsa-pūjā, guru-pūjā, ācārya-pūjā et upāsya-pūjā sont différents noms désignant un même principe (tattva). » (Ācārya Kesarī Keśava Gosvāmī: His Life and Teachings, GVP, 2013, p. 105 ; édition russe, Moscou, 2004, p. 154–155). En 1958, il répéta : « Le jour de la vyāsa-pūjā, un ācārya adore guru, guru-paramparā et upāsya (l’objet de l’adoration). » (ibid., p. 133 ; édition russe, p. 213)."
+       },
+       {
+        "type": "subtitle",
+        "content": "Histoire"
+       },
+       {
+        "type": "text",
+        "content": "La première Vyāsa-pūjā de notre tradition eut lieu il y a environ cinq cents ans à Śrīvāsa-aṅgana, à Māyāpura : sur l’ordre de Śrī Caitanya Mahāprabhu, Śrī Nityānanda Prabhu adora Mahāprabhu, assis sur le siège de Vyāsa ; Śrīvāsa Paṇḍita mentionna ensuite la Vyāsa-pūjā-paddhati, un manuel pour accomplir cette pūjā (Ācārya Kesarī Keśava Gosvāmī: His Life and Teachings, édition russe, Moscou, 2004, p. 200–201 ; édition anglaise (GVP, 2013), p. 126 ; Gurudev, conférence n° 7247, 3 juillet 2023)."
+       },
+       {
+        "type": "text",
+        "content": "Cette paddhati fut perdue ; une copie manuscrite fut retrouvée au Govardhana Maṭha de la tradition de Śaṅkarācārya, à Purī. Selon la biographie de Śrīla Keśava Gosvāmī Mahārāja et la revue Śrī Bhāgavata-patrikā (année 3, n° 10, 1958, p. 15–17), Śrīla Bhaktisiddhānta Sarasvatī Prabhupāda la trouva, et Śrīla Bhaktivinoda Ṭhākura révisa et compléta la paddhati pour notre sampradāya ; dans ses conférences, Gurudev dit que Śrīla Bhaktivinoda Ṭhākura la redécouvrit et que Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura la publia (conférences n° 5168 et n° 7247). Śrīla Keśava Gosvāmī Mahārāja retrouva également cette même paddhati au Brahma Maṭha de Puṣkara et au Śāradā Maṭha de Dvārakā, publia la révision de Śrīla Bhaktivinoda Ṭhākura dans Śrī Gauḍīya-patrikā (année 4, n° 3), et introduisit la pratique de la Vyāsa-pūjā avec la pūjā-pañcaka : depuis lors, elle est accomplie chaque année dans les maṭhas de la Gauḍīya Vedānta Samiti (édition anglaise, p. 105 et 126)."
+       },
+       {
+        "type": "text",
+        "content": "La bibliothèque de sources de ce livre contient deux manuscrits sanskrits sur la Vyāsa-pūjā issus de la tradition de Śaṅkarācārya — Vyāsa-pūjā-vidhi (Surat, SDPB n° 210) et Vyāsa-pūjā-krama (Ramnagar). Ils donnent la même disposition ancienne : Kṛṣṇa-pañcaka au centre, Vyāsa-pañcaka à sa droite (au sud), Sanakādi-pañcaka à l’ouest, et le guru devant (à l’est) ; dans chaque groupe, une personnalité est au centre et les autres sont placées « en commençant par l’est ». À la place de notre ācārya-pañcaka, ils ont Śaṅkarācārya et ses disciples. Śrīla Keśava Gosvāmī Mahārāja disait que la Vyāsa-pūjā de la tradition de Śaṅkara n’est pas une véritable Vyāsa-pūjā, et que Śrī Vyāsadeva est véritablement adoré dans la sampradāya Vaiṣṇava (Ācārya Kesarī Keśava Gosvāmī: His Life and Teachings, édition russe, Moscou, 2004, p. 154–155 et 212–213 ; édition anglaise, p. 105 et 132)."
+       },
+       {
+        "type": "subtitle",
+        "content": "Quand"
+       },
+       {
+        "type": "text",
+        "content": "Dans notre lignée, la Vyāsa-pūjā est accomplie à Guru-pūrṇimā et les jours de l’apparition des ācāryas du guru-varga. Les disciples de Gurudev célèbrent sa Vyāsa-pūjā le jour de son apparition (conférences de Gurudev ce jour-là : n° 5168, 18 avril 2020, et n° 10011, 12 avril 2026). Les prochaines dates selon le calendrier Vaiṣṇava de Chaitanya Academy (Riga) sont les suivantes : jour de l’apparition de Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja — 6 février 2027 ; de Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja — 23 février 2027 ; de Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura Prabhupāda — 25 février 2027 ; Guru-pūrṇimā — 18 juillet 2027 ; jour de l’apparition de Śrīla A. C. Bhaktivedānta Svāmī Prabhupāda (Nandotsava) — 26 août 2027."
+       }
+      ]
+     },
+     {
+      "id": "sapta-pancakam",
+      "title": "Sapta-pañcakam — Sept groupes de cinq",
+      "content": [
+       {
+        "type": "text",
+        "content": "La partie principale de la Vyāsa-pūjā selon l’ancienne paddhati est l’adoration de trente-cinq personnalités réparties en sept groupes de cinq (⟦pañcaka⟧ — « groupe de cinq ») ; d’où le nom ⟦sapta-pañcakam⟧. Nous sommes redevables à chacune d’elles d’avoir apporté le trésor de la connaissance transcendante dans ce monde ; la guru-paramparā est comme une guirlande : si l’on en retire une fleur, la guirlande se défait (Gurudev, conférences n° 7247, 3 juillet 2023, et n° 5836, 7 mai 2021)."
+       },
+       {
+        "type": "text",
+        "content": "Chaque personnalité est représentée par un kalaśa distinct — un récipient d’eau décoré de feuilles de manguier, surmonté d’une noix de coco sur laquelle est dessastika dessiné avec du kuṅkuma, et portant un drapeau inscrit du nom de cette personnalité ; par des prières, chacune est invitée à résider dans son kalaśa et à accepter l’adoration (Gurudev, conférences n° 5168, 18 avril 2020, n° 7247 et n° 9003, 10 juillet 2025). Les cinq premiers groupes étaient adorés même à l’époque de Mahāprabhu ; les disciples de Mahāprabhu en ajoutèrent deux autres — tattva-pañcaka (Pañca-tattva) et upāsya-pañcaka (conférences n° 5168, n° 5836 et n° 7247)."
+       },
+       {
+        "type": "text",
+        "content": "La disposition suit la conférence n° 7247 de Gurudev (pour les cinq groupes anciens, elle est également identique dans les manuscrits de la paddhati) : un groupe au centre, un à l’est, au sud, à l’ouest et au nord, et deux autres de part et d’autre du côté sud. Dans chaque groupe, la première personnalité est au centre, et les quatre autres sont placées en commençant par l’est et en progressant dans le sens des aiguilles d’une montre : est, sud, ouest, nord."
+       },
+       {
+        "type": "table",
+        "header": [
+         "Pañcaka (emplacement)",
+         "1 — centre",
+         "2 — est",
+         "3 — sud",
+         "4 — ouest",
+         "5 — nord"
+        ],
+        "rows": [
+         {
+          "cells": [
+           "1. Kṛṣṇa-pañcaka — centre",
+           "Śrī Kṛṣṇa",
+           "Vāsudeva",
+           "Saṅkarṣaṇa",
+           "Pradyumna",
+           "Aniruddha"
+          ]
+         },
+         {
+          "cells": [
+           "2. Vyāsa-pañcaka — sud",
+           "Śrīla Vedavyāsa",
+           "Paila (Ṛg Veda)",
+           "Vaiśampāyana (Yajur Veda)",
+           "Jaimini (Sāma Veda)",
+           "Sumantu (Atharva Veda)"
+          ]
+         },
+         {
+          "cells": [
+           "3. Ācārya-pañcaka (Vaiyāsaki-pañcaka) — nord",
+           "Śrī Śukadeva Gosvāmī",
+           "Rāmānujācārya",
+           "Madhvācārya",
+           "Viṣṇusvāmī",
+           "Nimbāditya"
+          ]
+         },
+         {
+          "cells": [
+           "4. Sanakādi-pañcaka — ouest",
+           "Sanaka",
+           "Sanat-kumāra",
+           "Sanātana",
+           "Sanandana",
+           "Viṣvaksena"
+          ]
+         },
+         {
+          "cells": [
+           "5. Guru-pañcaka — est",
+           "son propre guru (Śrī Gurudeva)",
+           "parama-guru",
+           "parameṣṭhī-guru",
+           "parātpara-guru",
+           "parama-parātpara-guru"
+          ]
+         },
+         {
+          "cells": [
+           "6. Upāsya-pañcaka* — côté sud, à l’ouest",
+           "Śrī Guru",
+           "Gaura",
+           "Gadādhara",
+           "Rādhā",
+           "Kṛṣṇa"
+          ]
+         },
+         {
+          "cells": [
+           "7. Tattva-pañcaka (Pañca-tattva)* — côté sud, à l’est",
+           "Śrī Kṛṣṇa Caitanya",
+           "Nityānanda",
+           "Advaita",
+           "Gadādhara",
+           "Śrīvāsa et tous les dévots de Gaura"
+          ]
+         }
+        ]
+       },
+       {
+        "type": "text",
+        "content": "L’ordre des groupes dans le tableau est celui dans lequel la biographie de Śrīla Keśava Gosvāmī Mahārāja les énumère dans sa description de la Vyāsa-pūjā de 1948 (édition anglaise, p. 89 ; Ācārya Kesarī Keśava Gosvāmī : Sa vie et ses enseignements, édition russe, Moscou, 2004, pp. 132–133). Les membres des groupes sont indiqués dans cette même biographie (édition anglaise, p. 133, note 15 ; édition russe, p. 213) et concordent avec les conférences de Gurudev."
+       },
+       {
+        "type": "text",
+        "content": "* Pour upāsya-pañcaka et tattva-pañcaka, Gurudev donne l’ordre « autour du cercle », mais ne précise pas les points cardinaux : les numéros 2–5 de ces lignes indiquent l’ordre d’adoration. Śrī Guru se trouve au centre d’upāsya-pañcaka (conférences n° 7247 et n° 9003) ; la biographie en énumère les membres dans un ordre différent : Śrī Rādhā, Kṛṣṇa, Gaura, Gadādhara, Śrī Gurudev. Le cinquième membre de guru-pañcaka est appelé parama-parātpara-guru dans la biographie et dans les conférences n° 5168 et n° 5836, et paramparā-guru dans la conférence n° 7247."
+       },
+       {
+        "type": "subtitle",
+        "content": "Sumantu ou Aṅgirā"
+       },
+       {
+        "type": "text",
+        "content": "Dans toutes les sources écrites, Sumantu est désigné comme le cinquième membre du Vyāsa-pañcaka — le disciple de Śrīla Vyāsadeva auquel fut confié l’Atharva Veda : dans la biographie de Śrīla Keśava Gosvāmī Mahārāja (édition anglaise, p. 133 ; édition russe, p. 213) et dans les deux manuscrits de la paddhati ; Gurudev le nomme de la même manière dans les conférences n° 7247, du 3 juillet 2023, et n° 9003, du 10 juillet 2025. Dans le précédent tableau du sapta-pañcakam, selon lequel nous accomplissions cette pūjā, ainsi que dans la conférence n° 5168, du 18 avril 2020, Aṅgirā est nommé à sa place, tandis que dans la conférence n° 5836, du 7 mai 2021, Gurudev dit : « …et Sumanta, c’est-à-dire Aṅgirā, l’Atharva Veda. » Il s’agit de la même entrée : l’Atharva Veda est aussi appelé Atharvāṅgirasa — « ⟦atharvāṅgirasām āsīt sumantur dāruṇo muniḥ⟧ » (Śrīmad-Bhāgavatam 1.4.22), et dans la traduction anglaise de Śrīla A. C. Bhaktivedānta Svāmī Prabhupāda, ce sage est nommé « Sumantu Muni Aṅgirā. » Nous suivons ici les sources et écrivons « Sumantu. »"
+       }
+      ]
+     },
+     {
+      "id": "vyasa-puja-order",
+      "title": "L’ordre de la Vyāsa-pūjā",
+      "content": [
+       {
+        "type": "text",
+        "content": "L’ordre ci-dessous est établi à partir de l’explication donnée par Gurudev lors de la Vyāsa-pūjā de 2025 (conférence n° 9003, du 10 juillet 2025) et des descriptions des Vyāsa-pūjās de la Gauḍīya Vedānta Samiti dans la biographie de Śrīla Keśava Gosvāmī Mahārāja et dans Śrī Bhāgavata-patrikā (1958)."
+       },
+       {
+        "type": "instruction",
+        "content": "Préparation. Dans un espace séparé, 35 kalaśas surmontés de noix de coco sont disposés selon le plan du sapta-pañcakam (voir le tableau). En Inde, la pūjā est accomplie dans toute son ampleur — sur un grand autel décoré de kalaśas, de drapeaux, de branches de manguier et de troncs de bananier (Gurudev, conférences n° 5168 et n° 3295, du 27 juillet 2018 ; Śrī Bhāgavata-patrikā, 1958, p. 18)."
+       },
+       {
+        "type": "instruction",
+        "content": "Si l’espace est limité, on en réalise une version réduite : en 2018, dans un appartement en Suisse, la pūjā fut accomplie en miniature, avec des noix à la place des noix de coco et des drapeaux portant les noms de tous les ṛṣis (Gurudev, conférence n° 3295 ; voir L’état d’esprit de Gurudev)."
+       },
+       {
+        "type": "instruction",
+        "content": "Le matin, après le maṅgala-ārati et le kīrtana, on lit le récit de la Vyāsa-pūjā tiré de Śrī Caitanya-bhāgavata (cela fut fait lors de la Vyāsa-pūjā de 1958 : Śrī Bhāgavata-patrikā, p. 18)."
+       },
+       {
+        "type": "instruction",
+        "content": "Invocation. Par des prières, les grands gurus du passé sont invités à entrer dans leurs kalaśas respectifs et à accepter l’adoration (conférence n° 9003)."
+       },
+       {
+        "type": "instruction",
+        "content": "Pūjā. Les pūjārīs adorent chacune des 35 personnalités au moyen de seize upacāras — c’est ainsi que la pūjā-pañcaka était accomplie selon la Vyāsa-pūjā-paddhati (édition anglaise (GVP, 2013) de la biographie, p. 127 ; édition russe, pp. 202–203). Lorsqu’elle est accomplie dans toute son ampleur, chacun des sept groupes est adoré par son propre pūjārī (conférence n° 3295). Pour savoir comment offrir les seize upacāras, voir le chapitre L’adoration principale au moyen de seize articles. Pendant ce temps, toutes les personnes présentes chantent le kīrtana des saints noms (conférence n° 9003)."
+       },
+       {
+        "type": "instruction",
+        "content": "Parikramā. Lorsque la pūjā est terminée, tous font quatre fois le tour de l’ensemble des grandes personnalités en chantant le kīrtana ; le kīrtana se conclut par les acclamations : « Jaya Vyāsadeva ! Jaya Gurudev ! Jaya Prabhupāda ! » (conférence n° 9003)."
+       },
+       {
+        "type": "instruction",
+        "content": "Puṣpāñjali. Un disciple adore d’abord son propre guru et seulement ensuite les autres gurus — c’est ce qu’a expliqué Śrīla Keśava Gosvāmī Mahārāja (Ācārya Kesarī Keśava Gosvāmī : Sa vie et ses enseignements, édition russe, Moscou, 2004, p. 213 ; édition anglaise, p. 133). Lors de la Vyāsa-pūjā de 1956, Śrīla Keśava Gosvāmī Mahārāja accomplit l’arcana et offrit le puṣpāñjali aux pieds de son guru, Śrīla Prabhupāda, après quoi ses disciples offrirent le puṣpāñjali à ses pieds (édition anglaise, p. 127). En 1948, la cérémonie du matin se conclut par le puṣpāñjali et un sacrifice du feu (édition anglaise, p. 89)."
+       },
+       {
+        "type": "instruction",
+        "content": "Ārati, bhoga et distribution de mahā-prasāda (Śrī Bhāgavata-patrikā, 1958, p. 18)."
+       },
+       {
+        "type": "instruction",
+        "content": "Hari-kathā sur Śrīla Vyāsadeva et le guru-tattva (conférence n° 9003). En 1956, une conférence sur Śrī Guru-pūjā fut donnée le premier jour de la Vyāsa-pūjā, et le deuxième jour, des lettres d’offrande en diverses langues furent lues à haute voix (édition anglaise de la biographie, p. 127)."
+       }
+      ]
+     },
+     {
+      "id": "guru-puja-daily",
+      "title": "Guru-pūjā chaque jour",
+      "content": [
+       {
+        "type": "text",
+        "content": "L’adoration quotidienne de Śrī Guru — hommages respectueux au guru-varga, méditation sur Śrī Gurudev, arcana et prières — est décrite dans le chapitre Arcana de Śrī Guru (dans la section Norme du temple) ; elle n’est pas répétée ici."
+       },
+       {
+        "type": "text",
+        "content": "La Vyāsa-pūjā est cette même adoration exprimée dans toute son ampleur : Śrīla Keśava Gosvāmī Mahārāja désigne la Vyāsa-pūjā, la guru-pūjā, l’ācārya-pūjā et l’upāsya-pūjā comme différents noms d’un même tattva (voir ci-dessus). Ainsi, le jour de la Vyāsa-pūjā, avec son propre guru, on honore l’ensemble de la guru-paramparā, Śrī Śrī Rādhā-Kṛṣṇa et Śrī Gaurahari avec Ses compagnons."
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "es": {
+   "en_hash": "981ea7a672a2cd64",
+   "model": "cx/gpt-6.1-sol",
+   "date": "2026-10-08 01:59",
+   "section": {
+    "id": "guru-puja-vyasa-puja",
+    "title": "Śrī Guru-pūjā y Vyāsa-pūjā",
+    "subtitle": "vyāsa-pūjā · sapta-pañcakam",
+    "page": "",
+    "content": [
+     {
+      "type": "text",
+      "content": "Este capítulo describe la Vyāsa-pūjā tal como se realiza en nuestra sucesión: su significado, el orden de la ceremonia con la adoración de siete grupos de cinco personalidades (⟦sapta-pañcakam⟧), y su conexión con la adoración diaria de Śrī Guru. Se proporciona una fuente para cada regla."
+     }
+    ],
+    "subsections": [
+     {
+      "id": "vyasa-puja-meaning",
+      "title": "¿Qué es la Vyāsa-pūjā?",
+      "content": [
+       {
+        "type": "text",
+        "content": "La Vyāsa-pūjā (⟦vyāsa-pūjā⟧ — «adoración de Vyāsa») se realiza en dos ocasiones. La primera es Guru-pūrṇimā, o Vyāsa-pūrṇimā, la luna llena del mes de Āṣāḍha, el día de aparición de Śrī Kṛṣṇa Dvaipāyana Vedavyāsa, el compilador de los Vedas: en este día todos los discípulos adoran a su guru, porque todo guru genuino es un representante de Śrīla Vyāsadeva (Gurudev, conferencias n.º 6556, 13 de julio de 2022, y n.º 533, 15 de julio de 2011). La segunda es el propio día de aparición del guru: Śrī Caitanya Mahāprabhu realizó Vyāsa-pūjā en el cumpleaños de Su guru, Śrīla Īśvara Purīpāda, y nuestra sucesión sigue esta tradición (Gurudev, conferencia n.º 10011, 12 de abril de 2026; véase El humor de Gurudev)."
+       },
+       {
+        "type": "text",
+        "content": "Gurudev transmite el significado de la Vyāsa-pūjā con las palabras de Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura: no es un día en el que el guru acepte adoración y ofrendas de sus discípulos, sino un día en el que Śrī Guru ocupa a todos los que practican bhakti bajo su guía en la adoración de su propio guru y de toda la guru-paramparā, hasta Brahmā y el propio Śrī Kṛṣṇa (conferencias n.º 10011, 12 de abril de 2026, n.º 5168, 18 de abril de 2020, y n.º 378, 29 de julio de 2007). El asiento en el que se sienta el guru se denomina ⟦vyāsāsana⟧ — el asiento de Vyāsa: el guru no se representa a sí mismo, sino la voz, las concepciones y la realización de Śrīla Vyāsadeva (conferencia n.º 5168)."
+       },
+       {
+        "type": "text",
+        "content": "En 1952, en el día de su aparición, Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja instruyó: «Los tridaṇḍī-sannyāsīs deben realizar śrī guru-pūjā [de su propio guru] en sus días de aparición. Junto con esta guru-pūjā también es necesario adorar a la guru-paramparā, a Śrī Śrī Rādhā-Kṛṣṇa Yugala y a Śacīnandana Śrī Gaurahari y Sus asociados. Vyāsa-pūjā, guru-pūjā, ācārya-pūjā y upāsya-pūjā son nombres diferentes para el mismo principio (tattva)». (Ācārya Kesarī Keśava Gosvāmī: Su vida y enseñanzas, GVP, 2013, p. 105; edición rusa, Moscú, 2004, pp. 154–155). En 1958 repitió: «En el día de la vyāsa-pūjā, un ācārya adorará al guru, a la guru-paramparā y a upāsya (el objeto de adoración)». (Ibíd., p. 133; edición rusa, p. 213)."
+       },
+       {
+        "type": "subtitle",
+        "content": "Historia"
+       },
+       {
+        "type": "text",
+        "content": "La primera Vyāsa-pūjā de nuestra tradición tuvo lugar hace unos quinientos años en Śrīvāsa-aṅgana, en Māyāpura: siguiendo la instrucción de Śrī Caitanya Mahāprabhu, Śrī Nityānanda Prabhu adoró a Mahāprabhu, quien estaba sentado en el asiento de Vyāsa; entonces Śrīvāsa Paṇḍita mencionó la Vyāsa-pūjā-paddhati, un manual para realizar esta pūjā (Ācārya Kesarī Keśava Gosvāmī: Su vida y enseñanzas, edición rusa, Moscú, 2004, pp. 200–201; edición inglesa (GVP, 2013), p. 126; Gurudev, conferencia n.º 7247, 3 de julio de 2023)."
+       },
+       {
+        "type": "text",
+        "content": "Esta paddhati se perdió; se encontró una copia manuscrita en el Govardhana Maṭha de la tradición de Śaṅkarācārya, en Purī. Según la biografía de Śrīla Keśava Gosvāmī Mahārāja y la revista Śrī Bhāgavata-patrikā (año 3, n.º 10, 1958, pp. 15–17), Śrīla Bhaktisiddhānta Sarasvatī Prabhupāda la encontró, y Śrīla Bhaktivinoda Ṭhākura revisó y amplió la paddhati para nuestra sampradāya; en sus conferencias, Gurudev dice que Śrīla Bhaktivinoda Ṭhākura la redescubrió y que Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura la publicó (conferencias n.º 5168 y n.º 7247). Śrīla Keśava Gosvāmī Mahārāja también encontró la misma paddhati en Brahma Maṭha, en Puṣkara, y en Śāradā Maṭha, en Dvārakā; publicó la revisión de Śrīla Bhaktivinoda Ṭhākura en Śrī Gauḍīya-patrikā (año 4, n.º 3), e introdujo la práctica de la Vyāsa-pūjā con pūjā-pañcaka: desde entonces se ha realizado anualmente en los maṭhas de Gauḍīya Vedānta Samiti (edición inglesa, pp. 105 y 126)."
+       },
+       {
+        "type": "text",
+        "content": "La biblioteca de fuentes de este libro contiene dos manuscritos sánscritos sobre la Vyāsa-pūjā pertenecientes a la tradición de Śaṅkarācārya — Vyāsa-pūjā-vidhi (Surat, SDPB n.º 210) y Vyāsa-pūjā-krama (Ramnagar). Ambos presentan la misma disposición antigua: Kṛṣṇa-pañcaka en el centro, Vyāsa-pañcaka a su derecha (al sur), Sanakādi-pañcaka al oeste, y el guru delante (al este); en cada grupo, una personalidad está en el centro y las demás se colocan «comenzando desde el este». En lugar de nuestro ācārya-pañcaka, tienen a Śaṅkarācārya y sus discípulos. Śrīla Keśava Gosvāmī Mahārāja dijo que la Vyāsa-pūjā de la tradición de Śaṅkara no es una Vyāsa-pūjā genuina, y que Śrī Vyāsadeva es adorado apropiadamente en la sampradāya Vaiṣṇava (Ācārya Kesarī Keśava Gosvāmī: Su vida y enseñanzas, edición rusa, Moscú, 2004, pp. 154–155 y 212–213; edición inglesa, pp. 105 y 132)."
+       },
+       {
+        "type": "subtitle",
+        "content": "Cuándo"
+       },
+       {
+        "type": "text",
+        "content": "En nuestra sucesión, la Vyāsa-pūjā se realiza en Guru-pūrṇimā y en los días de aparición de los ācāryas del guru-varga. Los discípulos de Gurudev celebran su Vyāsa-pūjā en el día de su aparición (conferencias de Gurudev en este día: n.º 5168, 18 de abril de 2020, y n.º 10011, 12 de abril de 2026). Las próximas fechas según el calendario Vaiṣṇava de Chaitanya Academy (Riga) son: el día de aparición de Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja — 6 de febrero de 2027; de Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja — 23 de febrero de 2027; de Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura Prabhupāda — 25 de febrero de 2027; Guru-pūrṇimā — 18 de julio de 2027; el día de aparición de Śrīla A. C. Bhaktivedānta Svāmī Prabhupāda (Nandotsava) — 26 de agosto de 2027."
+       }
+      ]
+     },
+     {
+      "id": "sapta-pancakam",
+      "title": "Sapta-pañcakam — Siete grupos de cinco",
+      "content": [
+       {
+        "type": "text",
+        "content": "La parte principal de la Vyāsa-pūjā según la paddhati antigua es la adoración de treinta y cinco personalidades divididas en siete grupos de cinco (⟦pañcaka⟧ — «un grupo de cinco»); de ahí el nombre ⟦sapta-pañcakam⟧. Estamos en deuda con todas ellas por haber traído el tesoro del conocimiento trascendental a este mundo; la guru-paramparā es como una guirnalda: si se quita una flor, la guirnalda se rompe (Gurudev, conferencias n.º 7247, 3 de julio de 2023, y n.º 5836, 7 de mayo de 2021)."
+       },
+       {
+        "type": "text",
+        "content": "Cada personalidad está representada por un kalaśa separado — un recipiente de agua decorado con hojas de mango, coronado por un coco en el que se dibuja una svastika con kuṅkuma, y provisto de una bandera con el nombre de esa personalidad; mediante oraciones, se invita a cada una a residir en su kalaśa y aceptar adoración (Gurudev, conferencias n.º 5168, 18 de abril de 2020, n.º 7247 y n.º 9003, 10 de julio de 2025). Los primeros cinco grupos ya eran adorados en la época de Mahāprabhu; los seguidores de Mahāprabhu añadieron dos más — tattva-pañcaka (Pañca-tattva) y upāsya-pañcaka (conferencias n.º 5168, n.º 5836 y n.º 7247)."
+       },
+       {
+        "type": "text",
+        "content": "La disposición sigue la conferencia n.º 7247 de Gurudev (para los cinco grupos antiguos, también es la misma en los manuscritos de la paddhati): un grupo en el centro, uno al este, al sur, al oeste y al norte, y otros dos a cada lado, en el lado sur. Dentro de cada grupo, la primera personalidad está en el centro, y las otras cuatro se colocan comenzando desde el este y avanzando en el sentido de las agujas del reloj: este, sur, oeste, norte."
+       },
+       {
+        "type": "table",
+        "header": [
+         "Pañcaka (lugar)",
+         "1 — centro",
+         "2 — este",
+         "3 — sur",
+         "4 — oeste",
+         "5 — norte"
+        ],
+        "rows": [
+         {
+          "cells": [
+           "1. Kṛṣṇa-pañcaka — centro",
+           "Śrī Kṛṣṇa",
+           "Vāsudeva",
+           "Saṅkarṣaṇa",
+           "Pradyumna",
+           "Aniruddha"
+          ]
+         },
+         {
+          "cells": [
+           "2. Vyāsa-pañcaka — sur",
+           "Śrīla Vedavyāsa",
+           "Paila (Ṛg Veda)",
+           "Vaiśampāyana (Yajur Veda)",
+           "Jaimini (Sāma Veda)",
+           "Sumantu (Atharva Veda)"
+          ]
+         },
+         {
+          "cells": [
+           "3. Ācārya-pañcaka (Vaiyāsaki-pañcaka) — norte",
+           "Śrī Śukadeva Gosvāmī",
+           "Rāmānujācārya",
+           "Madhvācārya",
+           "Viṣṇusvāmī",
+           "Nimbāditya"
+          ]
+         },
+         {
+          "cells": [
+           "4. Sanakādi-pañcaka — oeste",
+           "Sanaka",
+           "Sanat-kumāra",
+           "Sanātana",
+           "Sanandana",
+           "Viṣvaksena"
+          ]
+         },
+         {
+          "cells": [
+           "5. Guru-pañcaka — este",
+           "el propio guru (Śrī Gurudeva)",
+           "parama-guru",
+           "parameṣṭhī-guru",
+           "parātpara-guru",
+           "parama-parātpara-guru"
+          ]
+         },
+         {
+          "cells": [
+           "6. Upāsya-pañcaka* — lado sur, hacia el oeste",
+           "Śrī Guru",
+           "Gaura",
+           "Gadādhara",
+           "Rādhā",
+           "Kṛṣṇa"
+          ]
+         },
+         {
+          "cells": [
+           "7. Tattva-pañcaka (Pañca-tattva)* — lado sur, hacia el este",
+           "Śrī Kṛṣṇa Caitanya",
+           "Nityānanda",
+           "Advaita",
+           "Gadādhara",
+           "Śrīvāsa y todos los devotos de Gaura"
+          ]
+         }
+        ]
+       },
+       {
+        "type": "text",
+        "content": "El orden de los grupos en la tabla es el mismo en que la biografía de Śrīla Keśava Gosvāmī Mahārāja los enumera en su descripción de la Vyāsa-pūjā de 1948 (edición inglesa, p. 89; Ācārya Kesarī Keśava Gosvāmī: Su vida y enseñanzas, edición rusa, Moscú, 2004, pp. 132–133). Los miembros de los grupos figuran en la misma biografía (edición inglesa, p. 133, nota 15; edición rusa, p. 213) y coinciden con las conferencias de Gurudev."
+       },
+       {
+        "type": "text",
+        "content": "* Para upāsya-pañcaka y tattva-pañcaka, Gurudev indica el orden “alrededor del círculo”, pero no especifica los puntos cardinales: los números 2–5 de estas filas indican el orden de adoración. Śrī Guru está en el centro de upāsya-pañcaka (conferencias n.º 7247 y n.º 9003); la biografía enumera sus miembros en un orden diferente: Śrī Rādhā, Kṛṣṇa, Gaura, Gadādhara, Śrī Gurudev. El quinto miembro de guru-pañcaka se denomina parama-parātpara-guru en la biografía y en las conferencias n.º 5168 y n.º 5836, y paramparā-guru en la conferencia n.º 7247."
+       },
+       {
+        "type": "subtitle",
+        "content": "Sumantu o Aṅgirā"
+       },
+       {
+        "type": "text",
+        "content": "En todas las fuentes escritas, Sumantu figura como el quinto miembro del Vyāsa-pañcaka—el discípulo de Śrīla Vyāsadeva a quien se confió el Atharva Veda: en la biografía de Śrīla Keśava Gosvāmī Mahārāja (edición inglesa, p. 133; edición rusa, p. 213) y en ambos manuscritos del paddhati; Gurudev lo nombra del mismo modo en las conferencias n.º 7247, del 3 de julio de 2023, y n.º 9003, del 10 de julio de 2025. En la tabla anterior de sapta-pañcakam, según la cual realizábamos esta pūjā, y en la conferencia n.º 5168, del 18 de abril de 2020, se nombra a Aṅgirā en su lugar, mientras que en la conferencia n.º 5836, del 7 de mayo de 2021, Gurudev dice: “…y Sumanta, es decir, Aṅgirā, el Atharva Veda.” Se trata de la misma entrada: el Atharva Veda también se llama Atharvāṅgirasa—“⟦atharvāṅgirasām āsīt sumantur dāruṇo muniḥ⟧” (Śrīmad-Bhāgavatam 1.4.22), y en la traducción inglesa de Śrīla A. C. Bhaktivedānta Svāmī Prabhupāda, este sabio recibe el nombre de “Sumantu Muni Aṅgirā.” Aquí seguimos las fuentes y escribimos “Sumantu.”"
+       }
+      ]
+     },
+     {
+      "id": "vyasa-puja-order",
+      "title": "El orden de la Vyāsa-pūjā",
+      "content": [
+       {
+        "type": "text",
+        "content": "El orden que se presenta a continuación se ha compilado a partir de la explicación de Gurudev en la Vyāsa-pūjā de 2025 (conferencia n.º 9003, del 10 de julio de 2025) y de las descripciones de las Vyāsa-pūjās de Gauḍīya Vedānta Samiti en la biografía de Śrīla Keśava Gosvāmī Mahārāja y en Śrī Bhāgavata-patrikā (1958)."
+       },
+       {
+        "type": "instruction",
+        "content": "Preparación. En un espacio separado, se disponen 35 kalaśas con cocos según la disposición del sapta-pañcakam (véase la tabla). En la India, la pūjā se realiza a gran escala — en un altar grande decorado con kalaśas, banderas, ramas de mango y troncos de banano (Gurudev, conferencias n.º 5168 y n.º 3295, del 27 de julio de 2018; Śrī Bhāgavata-patrikā, 1958, p. 18)."
+       },
+       {
+        "type": "instruction",
+        "content": "Si el espacio es limitado, se prepara una versión reducida: en 2018, en un apartamento en Suiza, la pūjā se realizó en miniatura, con nueces en lugar de cocos y banderas con los nombres de todos los ṛṣis (Gurudev, conferencia n.º 3295; véase El sentir de Gurudev)."
+       },
+       {
+        "type": "instruction",
+        "content": "Por la mañana, después de maṅgala-ārati y kīrtana, se lee el relato de la Vyāsa-pūjā de Śrī Caitanya-bhāgavata (así se hizo en la Vyāsa-pūjā de 1958: Śrī Bhāgavata-patrikā, p. 18)."
+       },
+       {
+        "type": "instruction",
+        "content": "Invocación. Mediante oraciones, se invita a los grandes gurus del pasado a entrar en sus respectivos kalaśas y aceptar la adoración (conferencia n.º 9003)."
+       },
+       {
+        "type": "instruction",
+        "content": "Pūjā. Los pūjārīs adoran a cada una de las 35 personalidades con dieciséis upacāras—así se realizaba la pūjā-pañcaka según el Vyāsa-pūjā-paddhati (edición inglesa (GVP, 2013) de la biografía, p. 127; edición rusa, pp. 202–203). Cuando se realiza a gran escala, cada uno de los siete grupos es adorado por su propio pūjārī (conferencia n.º 3295). Para saber cómo ofrecer los dieciséis upacāras, véase el capítulo La adoración principal con dieciséis artículos. Mientras tanto, todos los presentes cantan kīrtana de los santos nombres (conferencia n.º 9003)."
+       },
+       {
+        "type": "instruction",
+        "content": "Parikramā. Cuando termina la pūjā, todos circunvalan cuatro veces a todas las grandes personalidades mientras cantan kīrtana; el kīrtana concluye con las aclamaciones: “Jaya Vyāsadeva! Jaya Gurudev! Jaya Prabhupāda!” (conferencia n.º 9003)."
+       },
+       {
+        "type": "instruction",
+        "content": "Puṣpāñjali. Un discípulo adora primero a su propio guru y solo después a los demás gurus—así lo explicó Śrīla Keśava Gosvāmī Mahārāja (Ācārya Kesarī Keśava Gosvāmī: Su vida y enseñanzas, edición rusa, Moscú, 2004, p. 213; edición inglesa, p. 133). En la Vyāsa-pūjā de 1956, Śrīla Keśava Gosvāmī Mahārāja realizó arcana y ofreció puṣpāñjali a los pies de su guru, Śrīla Prabhupāda, tras lo cual sus discípulos ofrecieron puṣpāñjali a sus pies (edición inglesa, p. 127). En 1948, la ceremonia matutina concluyó con puṣpāñjali y un sacrificio de fuego (edición inglesa, p. 89)."
+       },
+       {
+        "type": "instruction",
+        "content": "Ārati, bhoga y distribución de mahā-prasāda (Śrī Bhāgavata-patrikā, 1958, p. 18)."
+       },
+       {
+        "type": "instruction",
+        "content": "Hari-kathā sobre Śrīla Vyāsadeva y guru-tattva (conferencia n.º 9003). En 1956, se impartió una conferencia sobre Śrī Guru-pūjā el primer día de la Vyāsa-pūjā, y el segundo día se leyeron en voz alta cartas de ofrenda en diversos idiomas (edición inglesa de la biografía, p. 127)."
+       }
+      ]
+     },
+     {
+      "id": "guru-puja-daily",
+      "title": "Guru-pūjā todos los días",
+      "content": [
+       {
+        "type": "text",
+        "content": "La adoración diaria de Śrī Guru —reverencias a guru-varga, meditación en Śrī Gurudev, arcana y oraciones— se describe en el capítulo Arcana de Śrī Guru (en la sección Normas del templo); aquí no se repite."
+       },
+       {
+        "type": "text",
+        "content": "Vyāsa-pūjā es la misma adoración expresada en toda su amplitud: Śrīla Keśava Gosvāmī Mahārāja denomina a Vyāsa-pūjā, guru-pūjā, ācārya-pūjā y upāsya-pūjā nombres diferentes para un mismo tattva (véase arriba). Por lo tanto, el día de Vyāsa-pūjā, junto con el propio guru, se honra a toda la guru-paramparā, a Śrī Śrī Rādhā-Kṛṣṇa y a Śrī Gaurahari con Sus asociados."
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "it": {
+   "en_hash": "981ea7a672a2cd64",
+   "model": "cx/gpt-6.1-sol",
+   "date": "2026-10-08 01:59",
+   "section": {
+    "id": "guru-puja-vyasa-puja",
+    "title": "Śrī Guru-pūjā e Vyāsa-pūjā",
+    "subtitle": "vyāsa-pūjā · sapta-pañcakam",
+    "page": "",
+    "content": [
+     {
+      "type": "text",
+      "content": "Questo capitolo descrive la Vyāsa-pūjā così come viene eseguita nella nostra linea: il suo significato, l’ordine della cerimonia con l’adorazione di sette gruppi di cinque personalità (⟦sapta-pañcakam⟧), e il suo legame con l’adorazione quotidiana di Śrī Guru. Per ogni regola viene indicata una fonte."
+     }
+    ],
+    "subsections": [
+     {
+      "id": "vyasa-puja-meaning",
+      "title": "Che cos’è la Vyāsa-pūjā?",
+      "content": [
+       {
+        "type": "text",
+        "content": "La Vyāsa-pūjā (⟦vyāsa-pūjā⟧ — «adorazione di Vyāsa») viene eseguita in due occasioni. La prima è Guru-pūrṇimā, o Vyāsa-pūrṇimā, la luna piena del mese di Āṣāḍha, il giorno dell’apparizione di Śrī Kṛṣṇa Dvaipāyana Vedavyāsa, il compilatore dei Veda: in questo giorno tutti i discepoli adorano il loro guru, perché ogni guru autentico è un rappresentante di Śrīla Vyāsadeva (Gurudev, conferenze n. 6556, 13 luglio 2022, e n. 533, 15 luglio 2011). La seconda è il giorno dell’apparizione del guru stesso: Śrī Caitanya Mahāprabhu eseguì la Vyāsa-pūjā nel giorno dell’apparizione del Suo guru, Śrīla Īśvara Purīpāda, e la nostra linea segue questa tradizione (Gurudev, conferenza n. 10011, 12 aprile 2026; si veda Gurudev’s Mood)."
+       },
+       {
+        "type": "text",
+        "content": "Gurudev trasmette il significato della Vyāsa-pūjā con le parole di Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura: non è un giorno in cui il guru accetta adorazione e offerte dai suoi discepoli, ma un giorno in cui Śrī Guru impegna tutti coloro che praticano la bhakti sotto la sua guida nell’adorazione del proprio guru e dell’intera guru-paramparā, fino a Brahmā e a Śrī Kṛṣṇa stesso (conferenze n. 10011, 12 aprile 2026, n. 5168, 18 aprile 2020, e n. 378, 29 luglio 2007). Il seggio sul quale siede il guru è chiamato ⟦vyāsāsana⟧ — il seggio di Vyāsa: il guru rappresenta non se stesso, ma la voce, le opinioni e la realizzazione di Śrīla Vyāsadeva (conferenza n. 5168)."
+       },
+       {
+        "type": "text",
+        "content": "Nel 1952, nel giorno della sua apparizione, Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja istruì: «I tridaṇḍī-sannyāsī dovrebbero eseguire la śrī guru-pūjā [del proprio guru] nei giorni della loro apparizione. In concomitanza con questa guru-pūjā è inoltre necessario adorare la guru-paramparā, Śrī Śrī Rādhā-Kṛṣṇa Yugala, Śacīnandana Śrī Gaurahari e i Suoi associati. Vyāsa-pūjā, guru-pūjā, ācārya-pūjā e upāsya-pūjā sono nomi diversi per lo stesso principio (tattva)». (Ācārya Kesarī Keśava Gosvāmī: His Life and Teachings, GVP, 2013, p. 105; edizione russa, Mosca, 2004, pp. 154–155). Nel 1958 ripeté: «Nel giorno della vyāsa-pūjā, un ācārya adorerà guru, guru-paramparā e upāsya (l’oggetto dell’adorazione)». (ibid., p. 133; edizione russa, p. 213)."
+       },
+       {
+        "type": "subtitle",
+        "content": "Storia"
+       },
+       {
+        "type": "text",
+        "content": "La prima Vyāsa-pūjā della nostra tradizione ebbe luogo circa cinquecento anni fa nello Śrīvāsa-aṅgana di Māyāpura: per ordine di Śrī Caitanya Mahāprabhu, Śrī Nityānanda Prabhu adorò Mahāprabhu, che era seduto sul seggio di Vyāsa; Śrīvāsa Paṇḍita menzionò quindi la Vyāsa-pūjā-paddhati, un manuale per eseguire questa pūjā (Ācārya Kesarī Keśava Gosvāmī: His Life and Teachings, edizione russa, Mosca, 2004, pp. 200–201; edizione inglese (GVP, 2013), p. 126; Gurudev, conferenza n. 7247, 3 luglio 2023)."
+       },
+       {
+        "type": "text",
+        "content": "Questa paddhati andò perduta; una copia manoscritta fu ritrovata nel Govardhana Maṭha della tradizione di Śaṅkarācārya a Purī. Secondo la biografia di Śrīla Keśava Gosvāmī Mahārāja e la rivista Śrī Bhāgavata-patrikā (anno 3, n. 10, 1958, pp. 15–17), Śrīla Bhaktisiddhānta Sarasvatī Prabhupāda la rinvenne, e Śrīla Bhaktivinoda Ṭhākura revisionò e integrò la paddhati per la nostra sampradāya; nelle sue conferenze, Gurudev dice che Śrīla Bhaktivinoda Ṭhākura la riscoprì e Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura la pubblicò (conferenze n. 5168 e n. 7247). Śrīla Keśava Gosvāmī Mahārāja trovò la stessa paddhati anche nel Brahma Maṭha di Puṣkara e nello Śāradā Maṭha di Dvārakā, pubblicò la revisione di Śrīla Bhaktivinoda Ṭhākura in Śrī Gauḍīya-patrikā (anno 4, n. 3), e introdusse la pratica della Vyāsa-pūjā con la pūjā-pañcaka: da allora essa viene eseguita annualmente nei maṭha della Gauḍīya Vedānta Samiti (edizione inglese, pp. 105 e 126)."
+       },
+       {
+        "type": "text",
+        "content": "La biblioteca delle fonti per questo libro contiene due manoscritti sanscriti sulla Vyāsa-pūjā della tradizione di Śaṅkarācārya — Vyāsa-pūjā-vidhi (Surat, SDPB n. 210) e Vyāsa-pūjā-krama (Ramnagar). Essi riportano la stessa disposizione antica: Kṛṣṇa-pañcaka al centro, Vyāsa-pañcaka alla sua destra (a sud), Sanakādi-pañcaka a ovest e il guru davanti (a est); in ogni gruppo, una personalità è al centro e le altre sono disposte «cominciando da est». Al posto del nostro ācārya-pañcaka, essi presentano Śaṅkarācārya e i suoi discepoli. Śrīla Keśava Gosvāmī Mahārāja disse che la Vyāsa-pūjā della tradizione Śaṅkara non è una Vyāsa-pūjā autentica e che Śrī Vyāsadeva è propriamente adorato nella sampradāya Vaiṣṇava (Ācārya Kesarī Keśava Gosvāmī: His Life and Teachings, edizione russa, Mosca, 2004, pp. 154–155 e 212–213; edizione inglese, pp. 105 e 132)."
+       },
+       {
+        "type": "subtitle",
+        "content": "Quando"
+       },
+       {
+        "type": "text",
+        "content": "Nella nostra linea, la Vyāsa-pūjā viene eseguita in occasione di Guru-pūrṇimā e nei giorni dell’apparizione degli ācārya del guru-varga. I discepoli di Gurudev celebrano la sua Vyāsa-pūjā nel giorno della sua apparizione (conferenze di Gurudev in questo giorno: n. 5168, 18 aprile 2020, e n. 10011, 12 aprile 2026). Le prossime date secondo il calendario Vaiṣṇava di Chaitanya Academy (Riga) sono: il giorno dell’apparizione di Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja — 6 febbraio 2027; di Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja — 23 febbraio 2027; di Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura Prabhupāda — 25 febbraio 2027; Guru-pūrṇimā — 18 luglio 2027; il giorno dell’apparizione di Śrīla A. C. Bhaktivedānta Svāmī Prabhupāda (Nandotsava) — 26 agosto 2027."
+       }
+      ]
+     },
+     {
+      "id": "sapta-pancakam",
+      "title": "Sapta-pañcakam — Sette gruppi di cinque",
+      "content": [
+       {
+        "type": "text",
+        "content": "La parte principale della Vyāsa-pūjā secondo l’antica paddhati è l’adorazione di trentacinque personalità divise in sette gruppi di cinque (⟦pañcaka⟧ — «un gruppo di cinque»); da qui il nome ⟦sapta-pañcakam⟧. Siamo debitori verso tutte loro per aver portato in questo mondo il tesoro della conoscenza trascendentale; la guru-paramparā è come una ghirlanda: se viene rimosso un fiore, la ghirlanda si spezza (Gurudev, conferenze n. 7247, 3 luglio 2023, e n. 5836, 7 maggio 2021)."
+       },
+       {
+        "type": "text",
+        "content": "Ogni personalità è rappresentata da un kalaśa separato — un recipiente d’acqua decorato con foglie di mango, sormontato da una noce di cocco sulla quale è tracciata una svastika con kuṅkuma, e recante una bandiera con il nome di quella personalità; attraverso le preghiere, ciascuna viene invitata a risiedere nel proprio kalaśa e ad accettare l’adorazione (Gurudev, conferenze n. 5168, 18 aprile 2020, n. 7247 e n. 9003, 10 luglio 2025). I primi cinque gruppi erano adorati già ai tempi di Mahāprabhu; i seguaci di Mahāprabhu ne aggiunsero altri due — tattva-pañcaka (Pañca-tattva) e upāsya-pañcaka (conferenze n. 5168, n. 5836 e n. 7247)."
+       },
+       {
+        "type": "text",
+        "content": "La disposizione segue la conferenza n. 7247 di Gurudev (per i cinque gruppi antichi, è la stessa anche nei manoscritti della paddhati): un gruppo al centro, uno a est, uno a sud, uno a ovest e uno a nord, e altri due ai lati sul lato meridionale. All’interno di ogni gruppo, la prima personalità è al centro, mentre le altre quattro sono disposte cominciando da est e procedendo in senso orario: est, sud, ovest, nord."
+       },
+       {
+        "type": "table",
+        "header": [
+         "Pañcaka (posizione)",
+         "1 — centro",
+         "2 — est",
+         "3 — sud",
+         "4 — ovest",
+         "5 — nord"
+        ],
+        "rows": [
+         {
+          "cells": [
+           "1. Kṛṣṇa-pañcaka — centro",
+           "Śrī Kṛṣṇa",
+           "Vāsudeva",
+           "Saṅkarṣaṇa",
+           "Pradyumna",
+           "Aniruddha"
+          ]
+         },
+         {
+          "cells": [
+           "2. Vyāsa-pañcaka — sud",
+           "Śrīla Vedavyāsa",
+           "Paila (Ṛg Veda)",
+           "Vaiśampāyana (Yajur Veda)",
+           "Jaimini (Sāma Veda)",
+           "Sumantu (Atharva Veda)"
+          ]
+         },
+         {
+          "cells": [
+           "3. Ācārya-pañcaka (Vaiyāsaki-pañcaka) — nord",
+           "Śrī Śukadeva Gosvāmī",
+           "Rāmānujācārya",
+           "Madhvācārya",
+           "Viṣṇusvāmī",
+           "Nimbāditya"
+          ]
+         },
+         {
+          "cells": [
+           "4. Sanakādi-pañcaka — ovest",
+           "Sanaka",
+           "Sanat-kumāra",
+           "Sanātana",
+           "Sanandana",
+           "Viṣvaksena"
+          ]
+         },
+         {
+          "cells": [
+           "5. Guru-pañcaka — est",
+           "il proprio guru (Śrī Gurudeva)",
+           "parama-guru",
+           "parameṣṭhī-guru",
+           "parātpara-guru",
+           "parama-parātpara-guru"
+          ]
+         },
+         {
+          "cells": [
+           "6. Upāsya-pañcaka* — lato sud, a ovest",
+           "Śrī Guru",
+           "Gaura",
+           "Gadādhara",
+           "Rādhā",
+           "Kṛṣṇa"
+          ]
+         },
+         {
+          "cells": [
+           "7. Tattva-pañcaka (Pañca-tattva)* — lato sud, a est",
+           "Śrī Kṛṣṇa Caitanya",
+           "Nityānanda",
+           "Advaita",
+           "Gadādhara",
+           "Śrīvāsa e tutti i devoti di Gaura"
+          ]
+         }
+        ]
+       },
+       {
+        "type": "text",
+        "content": "L’ordine dei gruppi nella tabella è quello in cui la biografia di Śrīla Keśava Gosvāmī Mahārāja li elenca nella descrizione della Vyāsa-pūjā del 1948 (edizione inglese, p. 89; Ācārya Kesarī Keśava Gosvāmī: La sua vita e i suoi insegnamenti, edizione russa, Mosca, 2004, pp. 132–133). I membri dei gruppi sono indicati nella stessa biografia (edizione inglese, p. 133, nota 15; edizione russa, p. 213) e concordano con le lezioni di Gurudev."
+       },
+       {
+        "type": "text",
+        "content": "* Per upāsya-pañcaka e tattva-pañcaka, Gurudev indica l’ordine “attorno al cerchio”, ma non specifica i punti cardinali: i numeri 2–5 in queste righe indicano l’ordine di adorazione. Śrī Guru si trova al centro di upāsya-pañcaka (lezioni n. 7247 e n. 9003); la biografia ne elenca i membri in un ordine diverso: Śrī Rādhā, Kṛṣṇa, Gaura, Gadādhara, Śrī Gurudev. Il quinto membro di guru-pañcaka è chiamato parama-parātpara-guru nella biografia e nelle lezioni n. 5168 e n. 5836, e paramparā-guru nella lezione n. 7247."
+       },
+       {
+        "type": "subtitle",
+        "content": "Sumantu o Aṅgirā"
+       },
+       {
+        "type": "text",
+        "content": "In tutte le fonti scritte, Sumantu è indicato come il quinto membro del Vyāsa-pañcaka—il discepolo di Śrīla Vyāsadeva al quale fu affidato l’Atharva Veda: nella biografia di Śrīla Keśava Gosvāmī Mahārāja (edizione inglese, p. 133; edizione russa, p. 213) e in entrambi i manoscritti della paddhati; Gurudev lo nomina allo stesso modo nelle lezioni n. 7247, del 3 luglio 2023, e n. 9003, del 10 luglio 2025. Nella precedente tabella del sapta-pañcakam, secondo la quale eseguivamo questa pūjā, e nella lezione n. 5168, del 18 aprile 2020, al suo posto è nominato Aṅgirā, mentre nella lezione n. 5836, del 7 maggio 2021, Gurudev dice: “…e Sumanta, cioè Aṅgirā, l’Atharva Veda.” Si tratta della stessa voce: l’Atharva Veda è chiamato anche Atharvāṅgirasa—“⟦atharvāṅgirasām āsīt sumantur dāruṇo muniḥ⟧” (Śrīmad-Bhāgavatam 1.4.22), e nella traduzione inglese di Śrīla A. C. Bhaktivedānta Svāmī Prabhupāda questo saggio è chiamato “Sumantu Muni Aṅgirā.” Qui seguiamo le fonti e scriviamo “Sumantu.”"
+       }
+      ]
+     },
+     {
+      "id": "vyasa-puja-order",
+      "title": "L’ordine della Vyāsa-pūjā",
+      "content": [
+       {
+        "type": "text",
+        "content": "L’ordine riportato di seguito è stato compilato sulla base della spiegazione di Gurudev durante la Vyāsa-pūjā del 2025 (lezione n. 9003, del 10 luglio 2025) e delle descrizioni delle Vyāsa-pūjā della Gauḍīya Vedānta Samiti nella biografia di Śrīla Keśava Gosvāmī Mahārāja e nella Śrī Bhāgavata-patrikā (1958)."
+       },
+       {
+        "type": "instruction",
+        "content": "Preparazione. In uno spazio separato, si dispongono 35 kalaśas con noci di cocco secondo lo schema del sapta-pañcakam (vedi la tabella). In India, la pūjā viene eseguita in forma completa — su un grande altare decorato con kalaśas, bandiere, rami di mango e tronchi di banano (Gurudev, lezioni n. 5168 e n. 3295, del 27 luglio 2018; Śrī Bhāgavata-patrikā, 1958, p. 18)."
+       },
+       {
+        "type": "instruction",
+        "content": "Se lo spazio è limitato, se ne realizza una versione ridotta: nel 2018, in un appartamento in Svizzera, la pūjā fu eseguita in miniatura, con noci al posto delle noci di cocco e bandiere recanti i nomi di tutti i ṛṣis (Gurudev, lezione n. 3295; vedi Lo stato d’animo di Gurudev)."
+       },
+       {
+        "type": "instruction",
+        "content": "Al mattino, dopo il maṅgala-ārati e il kīrtana, si legge il racconto della Vyāsa-pūjā tratto dalla Śrī Caitanya-bhāgavata (così si fece durante la Vyāsa-pūjā del 1958: Śrī Bhāgavata-patrikā, p. 18)."
+       },
+       {
+        "type": "instruction",
+        "content": "Invocazione. Mediante preghiere, si invitano i grandi guru del passato a entrare nei rispettivi kalaśas e ad accettare l’adorazione (lezione n. 9003)."
+       },
+       {
+        "type": "instruction",
+        "content": "Pūjā. I pūjārī adorano ciascuna delle 35 personalità con sedici upacāras—così veniva eseguita la pūjā-pañcaka secondo la Vyāsa-pūjā-paddhati (edizione inglese (GVP, 2013) della biografia, p. 127; edizione russa, pp. 202–203). Quando viene eseguita in forma completa, ciascuno dei sette gruppi è adorato da un proprio pūjārī (lezione n. 3295). Per sapere come offrire i sedici upacāras, vedi il capitolo L’adorazione principale con sedici articoli. Nel frattempo, tutti i presenti cantano il kīrtana dei santi nomi (lezione n. 9003)."
+       },
+       {
+        "type": "instruction",
+        "content": "Parikramā. Terminata la pūjā, tutti compiono quattro giri attorno a tutte le grandi personalità cantando il kīrtana; il kīrtana si conclude con le acclamazioni: “Jaya Vyāsadeva! Jaya Gurudev! Jaya Prabhupāda!” (lezione n. 9003)."
+       },
+       {
+        "type": "instruction",
+        "content": "Puṣpāñjali. Un discepolo adora prima il proprio guru e solo dopo gli altri guru—questo fu spiegato da Śrīla Keśava Gosvāmī Mahārāja (Ācārya Kesarī Keśava Gosvāmī: La sua vita e i suoi insegnamenti, edizione russa, Mosca, 2004, p. 213; edizione inglese, p. 133). Durante la Vyāsa-pūjā del 1956, Śrīla Keśava Gosvāmī Mahārāja eseguì l’arcana e offrì puṣpāñjali ai piedi del suo guru, Śrīla Prabhupāda, dopodiché i suoi discepoli offrirono puṣpāñjali ai suoi piedi (edizione inglese, p. 127). Nel 1948, la cerimonia del mattino si concluse con puṣpāñjali e un sacrificio del fuoco (edizione inglese, p. 89)."
+       },
+       {
+        "type": "instruction",
+        "content": "Ārati, bhoga e distribuzione di mahā-prasāda (Śrī Bhāgavata-patrikā, 1958, p. 18)."
+       },
+       {
+        "type": "instruction",
+        "content": "Hari-kathā su Śrīla Vyāsadeva e sul guru-tattva (lezione n. 9003). Nel 1956, il primo giorno della Vyāsa-pūjā si tenne una lezione sulla Śrī Guru-pūjā e il secondo giorno furono lette ad alta voce lettere di offerta in varie lingue (edizione inglese della biografia, p. 127)."
+       }
+      ]
+     },
+     {
+      "id": "guru-puja-daily",
+      "title": "Guru-pūjā ogni giorno",
+      "content": [
+       {
+        "type": "text",
+        "content": "L’adorazione quotidiana di Śrī Guru—gli omaggi al guru-varga, la meditazione su Śrī Gurudev, l’arcana e le preghiere—è descritta nel capitolo Arcana di Śrī Guru (nella sezione Standard del Tempio); qui non viene ripetuta."
+       },
+       {
+        "type": "text",
+        "content": "La Vyāsa-pūjā è la stessa adorazione espressa nella sua piena estensione: Śrīla Keśava Gosvāmī Mahārāja definisce Vyāsa-pūjā, guru-pūjā, ācārya-pūjā e upāsya-pūjā nomi diversi per un unico tattva (vedi sopra). Pertanto, nel giorno della Vyāsa-pūjā, insieme al proprio guru, si rende omaggio all’intera guru-paramparā, a Śrī Śrī Rādhā-Kṛṣṇa e a Śrī Gaurahari con i Suoi associati."
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "uk": {
+   "en_hash": "981ea7a672a2cd64",
+   "model": "cx/gpt-6.1-sol",
+   "date": "2026-10-08 02:01",
+   "section": {
+    "id": "guru-puja-vyasa-puja",
+    "title": "Ш́рı̄ Ґуру-пӯджа̄ та Вйа̄са-пӯджа̄",
+    "subtitle": "вйа̄са-пӯджа̄ · сапта-пан̃чакам",
+    "page": "",
+    "content": [
+     {
+      "type": "text",
+      "content": "У цьому розділі описано Вйа̄са-пӯджу так, як її здійснюють у нашій учнівській послідовності: її значення, порядок церемонії з поклонінням семи групам по п’ять особистостей (⟦сапта-пан̃чакам⟧) та її зв’язок зі щоденним поклонінням Ш́рı̄ Ґуру. Для кожного правила наведено джерело."
+     }
+    ],
+    "subsections": [
+     {
+      "id": "vyasa-puja-meaning",
+      "title": "Що таке Вйа̄са-пӯджа̄?",
+      "content": [
+       {
+        "type": "text",
+        "content": "Вйа̄са-пӯджу (⟦вйа̄са-пӯджа̄⟧ — «поклоніння Вйа̄сі») здійснюють з двох нагод. Перша — Ґуру-пӯрн̣іма̄, або Вйа̄са-пӯрн̣іма̄, повня місяця А̄ша̄д̣га, день явлення Ш́рı̄ Кр̣шн̣и Дваіпа̄йани Ведавйа̄си, укладача Вед: цього дня всі учні поклоняються своєму ґуру, адже кожен істинний ґуру є представником Ш́рı̄ли Вйа̄садеви (Ґурудева, лекції № 6556, 13 липня 2022 року, та № 533, 15 липня 2011 року). Друга — день явлення самого ґуру: Ш́рı̄ Чаітанйа Маха̄прабгу здійснював Вйа̄са-пӯджу в день народження Свого ґуру, Ш́рı̄ли Ӣш́вари Пурı̄па̄ди, і наша учнівська послідовність дотримується цієї традиції (Ґурудева, лекція № 10011, 12 квітня 2026 року; див. «Настрій Ґурудева»)."
+       },
+       {
+        "type": "text",
+        "content": "Ґурудева передає значення Вйа̄са-пӯджі словами Ш́рı̄ли Бгактісіддга̄нти Сарасватı̄ Т̣га̄кури: це не день, коли ґуру приймає поклоніння й підношення від своїх учнів, а день, коли Ш́рı̄ Ґуру залучає всіх, хто практикує бгакті під його керівництвом, до поклоніння його власному ґуру та всій ґуру-парампарі̄, аж до Брахми й Самого Ш́рı̄ Кр̣шн̣и (лекції № 10011, 12 квітня 2026 року, № 5168, 18 квітня 2020 року, та № 378, 29 липня 2007 року). Сидіння, на якому сидить ґуру, називається ⟦вйа̄са̄сана⟧ — сидіння Вйа̄си: ґуру представляє не себе, а голос, погляди й духовне усвідомлення Ш́рı̄ли Вйа̄садеви (лекція № 5168)."
+       },
+       {
+        "type": "text",
+        "content": "У 1952 році, у день свого явлення, Ш́рı̄ла Бгакті Праджн̃а̄на Кеш́ава Ґосва̄мı̄ Маха̄ра̄джа дав таку настанову: «Трідан̣д̣ı̄-саннйа̄сı̄ мають здійснювати ш́рı̄ ґуру-пӯджу [своєму власному ґуру] у дні свого явлення. Разом із цією ґуру-пӯджею необхідно також поклонятися ґуру-парампарі̄, Ш́рı̄ Ш́рı̄ Ра̄дга̄-Кр̣шн̣і Юґалі та Ш́ачı̄нандані Ш́рı̄ Ґаурахарі і Його супутникам. Вйа̄са-пӯджа̄, ґуру-пӯджа̄, а̄ча̄рйа-пӯджа̄ та упа̄сйа-пӯджа̄ — різні назви одного й того самого принципу (таттви)». («А̄ча̄рйа Кесарı̄ Кеш́ава Ґосва̄мı̄: його життя та вчення», GVP, 2013, с. 105; російське видання, Москва, 2004, с. 154–155). У 1958 році він повторив: «У день вйа̄са-пӯджі а̄ча̄рйа поклонятиметься ґуру, ґуру-парампарі̄ та упа̄сйі (об’єкту поклоніння)». (Там само, с. 133; російське видання, с. 213)."
+       },
+       {
+        "type": "subtitle",
+        "content": "Історія"
+       },
+       {
+        "type": "text",
+        "content": "Перша Вйа̄са-пӯджа̄ в нашій традиції відбулася близько п’ятисот років тому в Ш́рı̄ва̄са-ан̇ґані в Ма̄йа̄пурі: за настановою Ш́рı̄ Чаітанйі Маха̄прабгу Ш́рı̄ Нітйа̄нанда Прабгу поклонявся Маха̄прабгу, який сидів на сидінні Вйа̄си; тоді Ш́рı̄ва̄са Пан̣д̣іта згадав Вйа̄са-пӯджа̄-паддгаті, посібник зі здійснення цієї пӯджі («А̄ча̄рйа Кесарı̄ Кеш́ава Ґосва̄мı̄: його життя та вчення», російське видання, Москва, 2004, с. 200–201; англійське видання (GVP, 2013), с. 126; Ґурудева, лекція № 7247, 3 липня 2023 року)."
+       },
+       {
+        "type": "text",
+        "content": "Ця паддгаті була втрачена; рукописну копію знайшли в Ґовардгана Мат̣сі традиції Ш́ан̇кара̄ча̄рйі в Пурı̄. Згідно з біографією Ш́рı̄ли Кеш́ави Ґосва̄мı̄ Маха̄ра̄джі та журналом «Ш́рı̄ Бга̄ґавата-патріка̄» (рік 3, № 10, 1958, с. 15–17), її знайшов Ш́рı̄ла Бгактісіддга̄нта Сарасватı̄ Прабгупа̄да, а Ш́рı̄ла Бгактівінода Т̣га̄кура переглянув і доповнив паддгаті для нашої сампрада̄ї; у своїх лекціях Ґурудева говорить, що Ш́рı̄ла Бгактівінода Т̣га̄кура знову віднайшов її, а Ш́рı̄ла Бгактісіддга̄нта Сарасватı̄ Т̣га̄кура опублікував її (лекції № 5168 та № 7247). Ш́рı̄ла Кеш́ава Ґосва̄мı̄ Маха̄ра̄джа також знайшов цю саму паддгаті в Брахма Мат̣сі в Пушкарі та Ш́а̄рада̄ Мат̣сі у Два̄раці, опублікував редакцію Ш́рı̄ли Бгактівіноди Т̣га̄кури в «Ш́рı̄ Ґауд̣ı̄йа-патріка̄» (рік 4, № 3) і запровадив практику Вйа̄са-пӯджі з пӯджа̄-пан̃чакою: відтоді її щороку здійснюють у мат̣хах Ґауд̣ı̄йа Веда̄нта Саміті (англійське видання, с. 105 та 126)."
+       },
+       {
+        "type": "text",
+        "content": "Бібліотека джерел цієї книги містить два санскритські рукописи про Вйа̄са-пӯджу з традиції Ш́ан̇кара̄ча̄рйі — «Вйа̄са-пӯджа̄-відгі» (Сурат, SDPB № 210) та «Вйа̄са-пӯджа̄-крама» (Рамнагар). Вони подають те саме давнє розташування: Кр̣шн̣а-пан̃чака в центрі, Вйа̄са-пан̃чака праворуч від неї (на півдні), Санака̄ді-пан̃чака на заході, а ґуру попереду (на сході); у кожній групі одна особистість перебуває в центрі, а решту розміщують «починаючи зі сходу». Замість нашої а̄ча̄рйа-пан̃чаки в них — Ш́ан̇кара̄ча̄рйа та його учні. Ш́рı̄ла Кеш́ава Ґосва̄мı̄ Маха̄ра̄джа говорив, що Вйа̄са-пӯджа̄ традиції Ш́ан̇кари не є істинною Вйа̄са-пӯджею і що належним чином Ш́рı̄ Вйа̄садеві поклоняються у ваішн̣ава-сампрада̄ї («А̄ча̄рйа Кесарı̄ Кеш́ава Ґосва̄мı̄: його життя та вчення», російське видання, Москва, 2004, с. 154–155 та 212–213; англійське видання, с. 105 та 132)."
+       },
+       {
+        "type": "subtitle",
+        "content": "Коли"
+       },
+       {
+        "type": "text",
+        "content": "У нашій учнівській послідовності Вйа̄са-пӯджу здійснюють на Ґуру-пӯрн̣іму та в дні явлення а̄ча̄рй ґуру-варґи. Учні Ґурудева святкують його Вйа̄са-пӯджу в день його явлення (лекції Ґурудева цього дня: № 5168, 18 квітня 2020 року, та № 10011, 12 квітня 2026 року). Найближчі дати за ваішн̣авським календарем «Чайтанья Академії» (Рига): день явлення Ш́рı̄ли Бгактіведа̄нти На̄ра̄йан̣и Ґосва̄мı̄ Маха̄ра̄джі — 6 лютого 2027 року; Ш́рı̄ли Бгакті Праджн̃а̄ни Кеш́ави Ґосва̄мı̄ Маха̄ра̄джі — 23 лютого 2027 року; Ш́рı̄ли Бгактісіддга̄нти Сарасватı̄ Т̣га̄кури Прабгупа̄ди — 25 лютого 2027 року; Ґуру-пӯрн̣іма̄ — 18 липня 2027 року; день явлення Ш́рı̄ли А. Ч. Бгактіведа̄нти Сва̄мı̄ Прабгупа̄ди (Нандотсава) — 26 серпня 2027 року."
+       }
+      ]
+     },
+     {
+      "id": "sapta-pancakam",
+      "title": "Сапта-пан̃чакам — сім груп по п’ять",
+      "content": [
+       {
+        "type": "text",
+        "content": "Головна частина Вйа̄са-пӯджі згідно з давньою паддгаті — поклоніння тридцяти п’яти особистостям, розділеним на сім груп по п’ять (⟦пан̃чака⟧ — «група з п’яти»); звідси назва ⟦сапта-пан̃чакам⟧. Ми завдячуємо їм усім тим, що вони принесли в цей світ скарб трансцендентного знання; ґуру-парампара̄ подібна до гірлянди: якщо забрати одну квітку, гірлянда розривається (Ґурудева, лекції № 7247, 3 липня 2023 року, та № 5836, 7 травня 2021 року)."
+       },
+       {
+        "type": "text",
+        "content": "Кожну особистість представляє окрема калаш́а — посудина з водою, прикрашена листям манго, увінчана кокосом, на якому кун̇кумою намальована свастіка, та з прапорцем, на якому написане ім’я цієї особистості; молитвами кожну з них запрошують оселитися у своїй калаш́і й прийняти поклоніння (Ґурудева, лекції № 5168, 18 квітня 2020 року, № 7247 та № 9003, 10 липня 2025 року). Першим п’яти групам поклонялися ще за часів Маха̄прабгу; послідовники Маха̄прабгу додали ще дві — таттва-пан̃чаку (Пан̃ча-таттву) та упа̄сйа-пан̃чаку (лекції № 5168, № 5836 та № 7247)."
+       },
+       {
+        "type": "text",
+        "content": "Розташування відповідає лекції Ґурудева № 7247 (для п’яти давніх груп воно таке саме й у рукописах паддгаті): одна група в центрі, по одній на схід, південь, захід і північ від неї, а ще дві — по обидва боки з південного боку. У кожній групі перша особистість перебуває в центрі, а інших чотирьох розміщують, починаючи зі сходу й рухаючись за годинниковою стрілкою: схід, південь, захід, північ."
+       },
+       {
+        "type": "table",
+        "header": [
+         "Пан̃чака (місце)",
+         "1 — центр",
+         "2 — схід",
+         "3 — південь",
+         "4 — захід",
+         "5 — північ"
+        ],
+        "rows": [
+         {
+          "cells": [
+           "1. Кр̣шн̣а-пан̃чака — центр",
+           "Ш́рı̄ Кр̣шн̣а",
+           "Ва̄судева",
+           "Сан̇каршан̣а",
+           "Прадйумна",
+           "Аніруддга"
+          ]
+         },
+         {
+          "cells": [
+           "2. Вйа̄са-пан̃чака — південь",
+           "Ш́рı̄ла Ведавйа̄са",
+           "Паіла (Р̣ґ Веда)",
+           "Ваіш́ампа̄йана (Йаджур Веда)",
+           "Джаіміні (Са̄ма Веда)",
+           "Суманту (Атхарва Веда)"
+          ]
+         },
+         {
+          "cells": [
+           "3. А̄ча̄рйа-пан̃чака (Ваійа̄сакі-пан̃чака) — північ",
+           "Ш́рı̄ Ш́укадева Ґосва̄мı̄",
+           "Ра̄ма̄нуджа̄ча̄рйа",
+           "Мадгва̄ча̄рйа",
+           "Вішн̣усва̄мı̄",
+           "Німба̄дітйа"
+          ]
+         },
+         {
+          "cells": [
+           "4. Санака̄ді-пан̃чака — захід",
+           "Санака",
+           "Санат-кума̄ра",
+           "Сана̄тана",
+           "Санандана",
+           "Вішваксена"
+          ]
+         },
+         {
+          "cells": [
+           "5. Ґуру-пан̃чака — схід",
+           "власний ґуру (Ш́рı̄ Ґурудева)",
+           "парама-ґуру",
+           "парамешт̣хı̄-ґуру",
+           "пара̄тпара-ґуру",
+           "парама-пара̄тпара-ґуру"
+          ]
+         },
+         {
+          "cells": [
+           "6. Упа̄сйа-пан̃чака* — південна сторона, на захід",
+           "Ш́рı̄ Ґуру",
+           "Ґаура",
+           "Ґада̄дгара",
+           "Ра̄дга̄",
+           "Кр̣шн̣а"
+          ]
+         },
+         {
+          "cells": [
+           "7. Таттва-пан̃чака (Пан̃ча-таттва)* — південна сторона, на схід",
+           "Ш́рı̄ Кр̣шн̣а Чаітанйа",
+           "Нітйа̄нанда",
+           "Адваіта",
+           "Ґада̄дгара",
+           "Ш́рı̄ва̄са та всі віддані Ґаури"
+          ]
+         }
+        ]
+       },
+       {
+        "type": "text",
+        "content": "Порядок груп у таблиці відповідає порядку, в якому їх перелічено в біографії Ш́рı̄ли Кеш́ави Ґосва̄мı̄ Маха̄ра̄джі в описі Вйа̄са-пӯджі̄ 1948 року (англійське видання, с. 89; «А̄ча̄рйа Кесарı̄ Кеш́ава Ґосва̄мı̄: його життя та вчення», російське видання, Москва, 2004, с. 132–133). Учасників груп наведено в тій самій біографії (англійське видання, с. 133, примітка 15; російське видання, с. 213), і цей перелік узгоджується з лекціями Ґурудева."
+       },
+       {
+        "type": "text",
+        "content": "* Для упа̄сйа-пан̃чаки й таттва-пан̃чаки Ґурудева подає порядок «по колу», але не уточнює сторін світу: числа 2–5 у цих рядках позначають порядок поклоніння. Ш́рı̄ Ґуру перебуває в центрі упа̄сйа-пан̃чаки (лекції № 7247 і № 9003); у біографії її учасників перелічено в іншому порядку: Ш́рı̄ Ра̄дга̄, Кр̣шн̣а, Ґаура, Ґада̄дгара, Ш́рı̄ Ґурудева. П’ятого учасника ґуру-пан̃чаки в біографії та в лекціях № 5168 і № 5836 названо парама-пара̄тпара-ґуру, а в лекції № 7247 — парампара̄-ґуру."
+       },
+       {
+        "type": "subtitle",
+        "content": "Суманту або Ан̇ґіра̄"
+       },
+       {
+        "type": "text",
+        "content": "У всіх письмових джерелах п’ятим учасником Вйа̄са-пан̃чаки названо Суманту — учня Ш́рı̄ли Вйа̄садеви, якому було доручено Атхарва Веду: у біографії Ш́рı̄ли Кеш́ави Ґосва̄мı̄ Маха̄ра̄джі (англійське видання, с. 133; російське видання, с. 213) та в обох рукописах паддгаті; так само його називає Ґурудева в лекціях № 7247 від 3 липня 2023 року та № 9003 від 10 липня 2025 року. У попередній таблиці сапта-пан̃чакам, за якою ми проводили цю пӯджу, та в лекції № 5168 від 18 квітня 2020 року замість нього названо Ан̇ґіру, а в лекції № 5836 від 7 травня 2021 року Ґурудева каже: «…і Суманта, тобто Ан̇ґіра̄, Атхарва Веда». Йдеться про ту саму позицію: Атхарва Веду також називають Атхарва̄н̇ґіраса — «⟦atharvāṅgirasām āsīt sumantur dāruṇo muniḥ⟧» (Ш́рı̄мад-Бга̄ґаватам 1.4.22), а в англійському перекладі Ш́рı̄ли А. Ч. Бгактіведа̄нти Сва̄мı̄ Прабгупа̄ди цього мудреця названо «Суманту Муні Ан̇ґіра̄». Тут ми дотримуємося джерел і пишемо «Суманту»."
+       }
+      ]
+     },
+     {
+      "id": "vyasa-puja-order",
+      "title": "Порядок Вйа̄са-пӯджі̄",
+      "content": [
+       {
+        "type": "text",
+        "content": "Наведений нижче порядок укладено на основі пояснення Ґурудева під час Вйа̄са-пӯджі̄ 2025 року (лекція № 9003 від 10 липня 2025 року) та описів Вйа̄са-пӯдж Ґауд̣ı̄йа Веда̄нта Саміті в біографії Ш́рı̄ли Кеш́ави Ґосва̄мı̄ Маха̄ра̄джі й у «Ш́рı̄ Бга̄ґавата-патріці» (1958)."
+       },
+       {
+        "type": "instruction",
+        "content": "Підготовка. В окремому місці розставляють 35 калаш́ із кокосами відповідно до схеми сапта-пан̃чакам (див. таблицю). В Індії пӯджу проводять у повному масштабі — на великому вівтарі, прикрашеному калаш́ами, прапорцями, гілками манго та банановими стовбурами (Ґурудева, лекції № 5168 і № 3295 від 27 липня 2018 року; «Ш́рı̄ Бга̄ґавата-патріка̄», 1958, с. 18)."
+       },
+       {
+        "type": "instruction",
+        "content": "Якщо місця мало, роблять зменшений варіант: у 2018 році у квартирі у Швейцарії пӯджу проводили в мініатюрі, з волоськими горіхами замість кокосів і прапорцями з іменами всіх р̣ші (Ґурудева, лекція № 3295; див. «Настрій Ґурудева»)."
+       },
+       {
+        "type": "instruction",
+        "content": "Уранці, після ман̇ґала-а̄раті й кı̄ртани, читають опис Вйа̄са-пӯджі̄ з «Ш́рı̄ Чаітанйа-бга̄ґавати» (так робили на Вйа̄са-пӯджі̄ 1958 року: «Ш́рı̄ Бга̄ґавата-патріка̄», с. 18)."
+       },
+       {
+        "type": "instruction",
+        "content": "Запрошення. Молитвами великих ґуру минулого запрошують увійти у відповідні калаш́і й прийняти поклоніння (лекція № 9003)."
+       },
+       {
+        "type": "instruction",
+        "content": "Пӯджа̄. Пӯджа̄рı̄ поклоняються кожній із 35 особистостей, підносячи шістнадцять упача̄р — саме так проводили пӯджа̄-пан̃чаку згідно з Вйа̄са-пӯджа̄-паддгаті (англійське видання біографії (GVP, 2013), с. 127; російське видання, с. 202–203). Коли поклоніння проводять у повному масштабі, кожній із семи груп поклоняється окремий пӯджа̄рı̄ (лекція № 3295). Про те, як підносити шістнадцять упача̄р, див. розділ «Основне поклоніння з шістнадцятьма видами приладдя». Тим часом усі присутні співають кı̄ртану святих імен (лекція № 9003)."
+       },
+       {
+        "type": "instruction",
+        "content": "Парікрама̄. Коли пӯджу завершено, усі чотири рази обходять усіх великих особистостей, співаючи кı̄ртану; кı̄ртана завершується вигуками: «Джайа Вйа̄садева! Джайа Ґурудева! Джайа Прабгупа̄да!» (лекція № 9003)."
+       },
+       {
+        "type": "instruction",
+        "content": "Пушпа̄н̃джалі. Учень спочатку поклоняється своєму ґуру й лише потім іншим ґуру — це пояснював Ш́рı̄ла Кеш́ава Ґосва̄мı̄ Маха̄ра̄джа («А̄ча̄рйа Кесарı̄ Кеш́ава Ґосва̄мı̄: його життя та вчення», російське видання, Москва, 2004, с. 213; англійське видання, с. 133). На Вйа̄са-пӯджі̄ 1956 року Ш́рı̄ла Кеш́ава Ґосва̄мı̄ Маха̄ра̄джа здійснив арчану та підніс пушпа̄н̃джалі до стоп свого ґуру, Ш́рı̄ли Прабгупа̄ди, після чого його учні піднесли пушпа̄н̃джалі до його стоп (англійське видання, с. 127). У 1948 році ранкова церемонія завершилася пушпа̄н̃джалі та вогняним жертвопринесенням (англійське видання, с. 89)."
+       },
+       {
+        "type": "instruction",
+        "content": "А̄раті, бгоґа та роздача маха̄-праса̄ди («Ш́рı̄ Бга̄ґавата-патріка̄», 1958, с. 18)."
+       },
+       {
+        "type": "instruction",
+        "content": "Харі-катха̄ про Ш́рı̄лу Вйа̄садеву та ґуру-таттву (лекція № 9003). У 1956 році першого дня Вйа̄са-пӯджі̄ було прочитано лекцію про Ш́рı̄ Ґуру-пӯджу, а другого дня вголос читали листи-підношення різними мовами (англійське видання біографії, с. 127)."
+       }
+      ]
+     },
+     {
+      "id": "guru-puja-daily",
+      "title": "Ґуру-пӯджа̄ щодня",
+      "content": [
+       {
+        "type": "text",
+        "content": "Щоденне поклоніння Ш́рı̄ Ґуру — поклони ґуру-варґі, медитація на Ш́рı̄ Ґурудева, арчана й молитви — описане в розділі «Арчана Ш́рı̄ Ґуру» (у розділі «Стандарт храму»); тут воно не повторюється."
+       },
+       {
+        "type": "text",
+        "content": "Вйа̄са-пӯджа̄ — це те саме поклоніння, виражене в повному обсязі: Ш́рı̄ла Кеш́ава Ґосва̄мı̄ Маха̄ра̄джа називає Вйа̄са-пӯджу, ґуру-пӯджу, а̄ча̄рйа-пӯджу та упа̄сйа-пӯджу різними назвами одного таттви (див. вище). Тому в день Вйа̄са-пӯджі разом із власним ґуру вшановують усю ґуру-парампару, Ш́рı̄ Ш́рı̄ Ра̄дга̄-Кр̣шн̣у та Ш́рı̄ Ґаурахарі разом із Його супутниками."
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "hu": {
+   "en_hash": "981ea7a672a2cd64",
+   "model": "cx/gpt-6.1-sol",
+   "date": "2026-10-08 01:59",
+   "section": {
+    "id": "guru-puja-vyasa-puja",
+    "title": "Śrī Guru-pūjā és Vyāsa-pūjā",
+    "subtitle": "vyāsa-pūjā · sapta-pañcakam",
+    "page": "",
+    "content": [
+     {
+      "type": "text",
+      "content": "Ez a fejezet a Vyāsa-pūjāt mutatja be úgy, ahogyan a mi guru-paramparánkban végzik: jelentését, a hét, egyenként öt személyiségből álló csoport (⟦sapta-pañcakam⟧) imádatának szertartási sorrendjét, valamint kapcsolatát Śrī Guru mindennapi imádatával. Minden szabályhoz forrást adunk."
+     }
+    ],
+    "subsections": [
+     {
+      "id": "vyasa-puja-meaning",
+      "title": "Mi a Vyāsa-pūjā?",
+      "content": [
+       {
+        "type": "text",
+        "content": "A Vyāsa-pūjāt (⟦vyāsa-pūjā⟧ – „Vyāsa imádata”) két alkalommal végzik. Az első a Guru-pūrṇimā, vagyis a Vyāsa-pūrṇimā, Āṣāḍha hónap teliholdja, Śrī Kṛṣṇa Dvaipāyana Vedavyāsa, a Védák összeállítója megjelenési napja: ezen a napon minden tanítvány imádja guruját, mivel minden hiteles guru Śrīla Vyāsadeva képviselője (Gurudev, 6556. számú előadás, 2022. július 13., valamint az 533. számú, 2011. július 15.). A második a guru saját megjelenési napja: Śrī Caitanya Mahāprabhu guruja, Śrīla Īśvara Purīpāda születésnapján végezte a Vyāsa-pūjāt, és guru-paramparánk ezt a hagyományt követi (Gurudev, 10011. számú előadás, 2026. április 12.; lásd Gurudev hangulata)."
+       },
+       {
+        "type": "text",
+        "content": "Gurudev Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura szavaival közvetíti a Vyāsa-pūjā jelentését: ez nem olyan nap, amikor a guru elfogadja tanítványai imádatát és felajánlásait, hanem olyan nap, amikor Śrī Guru az irányítása alatt bhaktit gyakorló mindenkit saját gurujának és az egész guru-paramparának az imádatába kapcsol be, egészen Brahmāig és magáig Śrī Kṛṣṇáig (10011. számú, 2026. április 12-i, 5168. számú, 2020. április 18-i, valamint 378. számú, 2007. július 29-i előadás). Az ülést, amelyen a guru ül, ⟦vyāsāsana⟧nak nevezik – ez Vyāsa ülése: a guru nem önmagát képviseli, hanem Śrīla Vyāsadeva hangját, nézeteit és megvalósítását (5168. számú előadás)."
+       },
+       {
+        "type": "text",
+        "content": "1952-ben, megjelenési napján, Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja ezt tanította: „A tridaṇḍī-sannyāsīk megjelenési napjukon végezzék el saját gurujuk śrī guru-pūjāját. E guru-pūjāval együtt szükséges imádni a guru-paramparāt, Śrī Śrī Rādhā-Kṛṣṇa Yugalt, valamint Śacīnandana Śrī Gauraharit és társait is. A Vyāsa-pūjā, a guru-pūjā, az ācārya-pūjā és az upāsya-pūjā ugyanazon elv (tattva) különböző nevei.” (Ācārya Kesarī Keśava Gosvāmī: His Life and Teachings, GVP, 2013, 105. o.; orosz kiadás, Moszkva, 2004, 154–155. o.) 1958-ban megismételte: „A vyāsa-pūjā napján egy ācārya a gurut, a guru-paramparāt és az upāsyát (az imádat tárgyát) fogja imádni.” (Uo., 133. o.; orosz kiadás, 213. o.)"
+       },
+       {
+        "type": "subtitle",
+        "content": "Története"
+       },
+       {
+        "type": "text",
+        "content": "Hagyományunk első Vyāsa-pūjājára körülbelül ötszáz évvel ezelőtt került sor Māyāpurában, a Śrīvāsa-aṅganában: Śrī Caitanya Mahāprabhu utasítására Śrī Nityānanda Prabhu Mahāprabhut imádta, aki Vyāsa ülésén foglalt helyet; ezt követően Śrīvāsa Paṇḍita megemlítette a Vyāsa-pūjā-paddhatit, e pūjā végzésének kézikönyvét (Ācārya Kesarī Keśava Gosvāmī: His Life and Teachings, orosz kiadás, Moszkva, 2004, 200–201. o.; angol kiadás (GVP, 2013), 126. o.; Gurudev, 7247. számú előadás, 2023. július 3.)."
+       },
+       {
+        "type": "text",
+        "content": "Ez a paddhati elveszett; egy kéziratmásolatot a Purīban található, Śaṅkarācārya hagyományához tartozó Govardhana Maṭhában találtak meg. Śrīla Keśava Gosvāmī Mahārāja életrajza és a Śrī Bhāgavata-patrikā folyóirat szerint (3. évfolyam, 10. szám, 1958, 15–17. o.) Śrīla Bhaktisiddhānta Sarasvatī Prabhupāda talált rá, Śrīla Bhaktivinoda Ṭhākura pedig a mi sampradāyánk számára átdolgozta és kiegészítette a paddhatit; Gurudev előadásaiban azt mondja, hogy Śrīla Bhaktivinoda Ṭhākura fedezte fel újra, Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura pedig kiadta (5168. és 7247. számú előadások). Śrīla Keśava Gosvāmī Mahārāja ugyanezt a paddhatit megtalálta a Puṣkarában található Brahma Maṭhában és a Dvārakāban található Śāradā Maṭhában is, Śrīla Bhaktivinoda Ṭhākura átdolgozását kiadta a Śrī Gauḍīya-patrikāban (4. évfolyam, 3. szám), és bevezette a Vyāsa-pūjā gyakorlatát a pūjā-pañcakával: azóta ezt évente végzik a Gauḍīya Vedānta Samiti maṭháiban (angol kiadás, 105. és 126. o.)."
+       },
+       {
+        "type": "text",
+        "content": "E könyv forráskönyvtára két, a Śaṅkarācārya-hagyományból származó szanszkrit kéziratot tartalmaz a Vyāsa-pūjāról – a Vyāsa-pūjā-vidhit (Surat, SDPB 210. szám) és a Vyāsa-pūjā-kramát (Ramnagar). Ugyanazt az ősi elrendezést adják meg: középen a Kṛṣṇa-pañcaka, tőle jobbra (délen) a Vyāsa-pañcaka, nyugaton a Sanakādi-pañcaka, elöl (keleten) pedig a guru; minden csoportban egy személyiség középen helyezkedik el, a többieket pedig „keletről kezdve” helyezik el. A mi ācārya-pañcakánk helyett náluk Śaṅkarācārya és tanítványai szerepelnek. Śrīla Keśava Gosvāmī Mahārāja azt mondta, hogy a Śaṅkara-hagyomány Vyāsa-pūjāja nem hiteles Vyāsa-pūjā, és hogy Śrī Vyāsadevát megfelelően a Vaiṣṇava sampradāyában imádják (Ācārya Kesarī Keśava Gosvāmī: His Life and Teachings, orosz kiadás, Moszkva, 2004, 154–155. és 212–213. o.; angol kiadás, 105. és 132. o.)."
+       },
+       {
+        "type": "subtitle",
+        "content": "Mikor?"
+       },
+       {
+        "type": "text",
+        "content": "Guru-paramparánkban a Vyāsa-pūjāt Guru-pūrṇimākor, valamint a guru-varga ācāryáinak megjelenési napján végzik. Gurudev tanítványai az ő megjelenési napján ünneplik Vyāsa-pūjāját (Gurudev ezen a napon tartott előadásai: 5168. számú, 2020. április 18., és 10011. számú, 2026. április 12.). A Chaitanya Academy (Riga) Vaiṣṇava-naptára szerint a következő időpontok: Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja megjelenési napja – 2027. február 6.; Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārājáé – 2027. február 23.; Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura Prabhupāda megjelenési napja – 2027. február 25.; Guru-pūrṇimā – 2027. július 18.; Śrīla A. C. Bhaktivedānta Svāmī Prabhupāda megjelenési napja (Nandotsava) – 2027. augusztus 26."
+       }
+      ]
+     },
+     {
+      "id": "sapta-pancakam",
+      "title": "Sapta-pañcakam – Hét, egyenként öt személyiségből álló csoport",
+      "content": [
+       {
+        "type": "text",
+        "content": "Az ősi paddhati szerinti Vyāsa-pūjā fő része harmincöt személyiség imádata, akik hét, egyenként öt személyiségből álló csoportra oszlanak (⟦pañcaka⟧ – „ötös csoport”); innen ered a ⟦sapta-pañcakam⟧ elnevezés. Mindannyiuknak hálával tartozunk azért, hogy elhozták e világba a transzcendentális tudás kincsét; a guru-paramparā olyan, mint egy virágfüzér: ha egy virágot eltávolítanak, a füzér szétesik (Gurudev, 7247. számú, 2023. július 3-i, valamint 5836. számú, 2021. május 7-i előadás)."
+       },
+       {
+        "type": "text",
+        "content": "Minden személyiséget egy külön kalaśa képvisel – mangólevelekkel díszített vízzel teli edény, amelynek tetején egy kókuszdió található, rajta kuṅkumával rajzolt svastikával, és amelyen az adott személyiség nevével feliratozott zászló van; imák által mindegyiket meghívják, hogy a kalaśában lakozzon, és elfogadja az imádatot (Gurudev, 5168. számú, 2020. április 18-i, 7247. számú és 9003. számú előadás). Az első öt csoportot már Mahāprabhu idejében is imádták; Mahāprabhu követői további kettővel egészítették ki – a tattva-pañcakával (Pañca-tattva) és az upāsya-pañcakával (5168., 5836. és 7247. számú előadások)."
+       },
+       {
+        "type": "text",
+        "content": "Az elrendezés Gurudev 7247. számú előadását követi (az öt ősi csoport esetében a paddhati kéziratai is ugyanezt adják meg): egy csoport középen, egy-egy tőle keletre, délre, nyugatra és északra, valamint további kettő a déli oldalon, kétoldalt helyezkedik el. Minden csoportban az első személyiség középen van, a másik négyet pedig keletről kezdve, az óramutató járásával megegyező irányban helyezik el: kelet, dél, nyugat, észak."
+       },
+       {
+        "type": "table",
+        "header": [
+         "Pañcaka (hely)",
+         "1 – közép",
+         "2 – kelet",
+         "3 – dél",
+         "4 – nyugat",
+         "5 – észak"
+        ],
+        "rows": [
+         {
+          "cells": [
+           "1. Kṛṣṇa-pañcaka – közép",
+           "Śrī Kṛṣṇa",
+           "Vāsudeva",
+           "Saṅkarṣaṇa",
+           "Pradyumna",
+           "Aniruddha"
+          ]
+         },
+         {
+          "cells": [
+           "2. Vyāsa-pañcaka – dél",
+           "Śrīla Vedavyāsa",
+           "Paila (Ṛg Veda)",
+           "Vaiśampāyana (Yajur Veda)",
+           "Jaimini (Sāma Veda)",
+           "Sumantu (Atharva Veda)"
+          ]
+         },
+         {
+          "cells": [
+           "3. Ācārya-pañcaka (Vaiyāsaki-pañcaka) – észak",
+           "Śrī Śukadeva Gosvāmī",
+           "Rāmānujācārya",
+           "Madhvācārya",
+           "Viṣṇusvāmī",
+           "Nimbāditya"
+          ]
+         },
+         {
+          "cells": [
+           "4. Sanakādi-pañcaka — nyugat",
+           "Sanaka",
+           "Sanat-kumāra",
+           "Sanātana",
+           "Sanandana",
+           "Viṣvaksena"
+          ]
+         },
+         {
+          "cells": [
+           "5. Guru-pañcaka — kelet",
+           "saját guru (Śrī Gurudeva)",
+           "parama-guru",
+           "parameṣṭhī-guru",
+           "parātpara-guru",
+           "parama-parātpara-guru"
+          ]
+         },
+         {
+          "cells": [
+           "6. Upāsya-pañcaka* — déli oldal, nyugat felé",
+           "Śrī Guru",
+           "Gaura",
+           "Gadādhara",
+           "Rādhā",
+           "Kṛṣṇa"
+          ]
+         },
+         {
+          "cells": [
+           "7. Tattva-pañcaka (Pañca-tattva)* — déli oldal, kelet felé",
+           "Śrī Kṛṣṇa Caitanya",
+           "Nityānanda",
+           "Advaita",
+           "Gadādhara",
+           "Śrīvāsa és Gaura valamennyi bhaktája"
+          ]
+         }
+        ]
+       },
+       {
+        "type": "text",
+        "content": "A táblázatban a csoportok sorrendje azt a sorrendet követi, amelyben Śrīla Keśava Gosvāmī Mahārāja életrajza felsorolja őket az 1948-as Vyāsa-pūjā leírásában (angol kiadás, 89. o.; Ācārya Kesarī Keśava Gosvāmī: Élete és tanításai, orosz kiadás, Moszkva, 2004, 132–133. o.). A csoportok tagjait ugyanez az életrajz adja meg (angol kiadás, 133. o., 15. jegyzet; orosz kiadás, 213. o.), és a felsorolás megegyezik Gurudev előadásaival."
+       },
+       {
+        "type": "text",
+        "content": "* Az upāsya-pañcaka és a tattva-pañcaka esetében Gurudev a sorrendet „a kör mentén” adja meg, de az égtájakat nem határozza meg: e sorokban a 2–5. számok az imádat sorrendjét jelölik. Śrī Guru az upāsya-pañcaka középpontjában helyezkedik el (7247. és 9003. sz. előadás); az életrajz más sorrendben sorolja fel a tagjait: Śrī Rādhā, Kṛṣṇa, Gaura, Gadādhara, Śrī Gurudev. A guru-pañcaka ötödik tagját az életrajz, valamint az 5168. és az 5836. sz. előadás parama-parātpara-gurunak, a 7247. sz. előadás pedig paramparā-gurunak nevezi."
+       },
+       {
+        "type": "subtitle",
+        "content": "Sumantu vagy Aṅgirā"
+       },
+       {
+        "type": "text",
+        "content": "Valamennyi írott forrás Sumantut nevezi meg a Vyāsa-pañcaka ötödik tagjaként — Śrīla Vyāsadeva tanítványát, akire az Atharva Vedát bízták: Śrīla Keśava Gosvāmī Mahārāja életrajza (angol kiadás, 133. o.; orosz kiadás, 213. o.) és a paddhati mindkét kézirata; Gurudev is így nevezi őt a 7247. sz., 2023. július 3-i és a 9003. sz., 2025. július 10-i előadásában. A korábbi sapta-pañcakam táblázatban, amely szerint ezt a pūjāt végeztük, valamint az 5168. sz., 2020. április 18-i előadásban Aṅgirā szerepel helyette, míg az 5836. sz., 2021. május 7-i előadásban Gurudev ezt mondja: „…és Sumanta, azaz Aṅgirā, az Atharva Veda.” Ez ugyanaz a tétel: az Atharva Vedát Atharvāṅgirasának is nevezik — „⟦atharvāṅgirasām āsīt sumantur dāruṇo muniḥ⟧” (Śrīmad-Bhāgavatam 1.4.22), Śrīla A. C. Bhaktivedānta Svāmī Prabhupāda angol fordításában pedig e bölcs neve „Sumantu Muni Aṅgirā.” Itt a forrásokat követjük, és „Sumantu” nevet írunk."
+       }
+      ]
+     },
+     {
+      "id": "vyasa-puja-order",
+      "title": "A Vyāsa-pūjā menete",
+      "content": [
+       {
+        "type": "text",
+        "content": "Az alábbi menetet Gurudev 2025-ös Vyāsa-pūjān elhangzott magyarázata (9003. sz. előadás, 2025. július 10.), valamint a Gauḍīya Vedānta Samiti Vyāsa-pūjāinak Śrīla Keśava Gosvāmī Mahārāja életrajzában és a Śrī Bhāgavata-patrikāban (1958) található leírásai alapján állítottuk össze."
+       },
+       {
+        "type": "instruction",
+        "content": "Előkészületek. Egy külön helyen 35 kalaśát rendeznek el kókuszdiókkal, a sapta-pañcakam elrendezése szerint (lásd a táblázatot). Indiában a pūjāt teljes pompájában végzik — kalaśákkal, zászlókkal, mangóágakkal és banántörzsekkel díszített nagy oltáron (Gurudev, 5168. sz. és 3295. sz., 2018. július 27-i előadás; Śrī Bhāgavata-patrikā, 1958, 18. o.)."
+       },
+       {
+        "type": "instruction",
+        "content": "Ha kevés a hely, kicsinyített változatot készítenek: 2018-ban egy svájci lakásban a pūjāt miniatűr formában végezték, kókuszdiók helyett diókkal, és valamennyi ṛṣi nevét viselő zászlókkal (Gurudev, 3295. sz. előadás; lásd Gurudev hangulata)."
+       },
+       {
+        "type": "instruction",
+        "content": "Reggel, a maṅgala-ārati és a kīrtana után felolvassák a Vyāsa-pūjā történetét a Śrī Caitanya-bhāgavatából (így történt az 1958-as Vyāsa-pūjān: Śrī Bhāgavata-patrikā, 18. o.)."
+       },
+       {
+        "type": "instruction",
+        "content": "Meghívás. Imákkal meghívják a múlt nagy guruit, hogy lépjenek be a nekik szánt kalaśákba, és fogadják el az imádatot (9003. sz. előadás)."
+       },
+       {
+        "type": "instruction",
+        "content": "Pūjā. A pūjārīk tizenhat upacārával imádják mind a 35 személyiséget — így végezték a pūjā-pañcakát a Vyāsa-pūjā-paddhati szerint (az életrajz angol kiadása (GVP, 2013), 127. o.; orosz kiadás, 202–203. o.). Amikor teljes formájában végzik, a hét csoport mindegyikét külön pūjārī imádja (3295. sz. előadás). A tizenhat upacāra felajánlásának módját lásd A fő imádat tizenhat kellékkel című fejezetben. Eközben minden jelenlévő a szent nevek kīrtanáját énekli (9003. sz. előadás)."
+       },
+       {
+        "type": "instruction",
+        "content": "Parikramā. A pūjā befejeztével mindenki négyszer körüljárja az összes nagy személyiséget, miközben kīrtanát énekel; a kīrtana a következő felkiáltásokkal zárul: „Jaya Vyāsadeva! Jaya Gurudev! Jaya Prabhupāda!” (9003. sz. előadás)."
+       },
+       {
+        "type": "instruction",
+        "content": "Puṣpāñjali. A tanítvány először saját guruját imádja, és csak azután a többi gurut — ezt Śrīla Keśava Gosvāmī Mahārāja magyarázta el (Ācārya Kesarī Keśava Gosvāmī: Élete és tanításai, orosz kiadás, Moszkva, 2004, 213. o.; angol kiadás, 133. o.). Az 1956-os Vyāsa-pūjān Śrīla Keśava Gosvāmī Mahārāja arcanát végzett, és puṣpāñjalit ajánlott guruja, Śrīla Prabhupāda lábainál, majd tanítványai ajánlottak puṣpāñjalit az ő lábainál (angol kiadás, 127. o.). 1948-ban a reggeli szertartás puṣpāñjalival és tűzáldozattal zárult (angol kiadás, 89. o.)."
+       },
+       {
+        "type": "instruction",
+        "content": "Ārati, bhoga és a mahā-prasāda kiosztása (Śrī Bhāgavata-patrikā, 1958, 18. o.)."
+       },
+       {
+        "type": "instruction",
+        "content": "Hari-kathā Śrīla Vyāsadeváról és a guru-tattváról (9003. sz. előadás). 1956-ban a Vyāsa-pūjā első napján a Śrī Guru-pūjāról tartottak előadást, a második napon pedig különböző nyelveken írt felajánló leveleket olvastak fel (az életrajz angol kiadása, 127. o.)."
+       }
+      ]
+     },
+     {
+      "id": "guru-puja-daily",
+      "title": "Guru-pūjā minden nap",
+      "content": [
+       {
+        "type": "text",
+        "content": "Śrī Guru napi imádatát — a guru-vargának ajánlott hódolatot, a Śrī Gurudeven való meditációt, az arcanát és az imákat — a Śrī Guru arcanája című fejezet ismerteti (a Templomi sztenderd részben); itt nem ismételjük meg."
+       },
+       {
+        "type": "text",
+        "content": "A Vyāsa-pūjā ugyanez az imádat a maga teljességében: Śrīla Keśava Gosvāmī Mahārāja a Vyāsa-pūjāt, a guru-pūjāt, az ācārya-pūjāt és az upāsya-pūjāt egyetlen tattva különböző neveinek nevezi (lásd fent). Ezért a Vyāsa-pūjā napján saját guruja mellett az ember az egész guru-paramparāt, Śrī Śrī Rādhā-Kṛṣṇát és Śrī Gauraharit is tiszteli, az Ő társaival együtt."
+       }
+      ]
+     }
+    ]
+   }
+  }
+ }
+}

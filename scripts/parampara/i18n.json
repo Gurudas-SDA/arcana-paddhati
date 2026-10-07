@@ -1,0 +1,424 @@
+{
+ "parampara": {
+  "lv": {
+   "en_hash": "00f13cd4d9e02c4a",
+   "model": "cx/gpt-6.1-sol",
+   "date": "2026-10-08 01:41",
+   "section": {
+    "id": "parampara",
+    "title": "Guru-parampara",
+    "subtitle": null,
+    "page": "",
+    "layout": "portraits",
+    "content": [
+     {
+      "type": "portrait",
+      "src": "parampara/00.png",
+      "caption": "Šrī Panča-tatva"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/01.png",
+      "caption": "Šrīla Džagannātha dāsa Bābādžī Mahārādža"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/02.png",
+      "caption": "Šrīla Saččidānanda Bhaktivinoda Thākurs"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/03.png",
+      "caption": "Šrīla Gaura Kišora dāsa Bābādžī Mahārādža"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/04.png",
+      "caption": "Prabhupāda Šrīla Bhaktisiddhānta Sarasvatī Thākurs"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/05.png",
+      "caption": "Šrīla Bhakti Pradžņāna Kešava Gosvāmī Mahārādža"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/06.png",
+      "caption": "Šrīla Bhaktivēdānta Svāmī Prabhupāda"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/07.png",
+      "caption": "Šrīla Bhaktivēdānta Nārājana Gosvāmī Mahārādža"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/08.png",
+      "caption": "Šrī Prēma Pradžojana Prabhu"
+     }
+    ],
+    "subsections": []
+   }
+  },
+  "de": {
+   "en_hash": "00f13cd4d9e02c4a",
+   "model": "cx/gpt-6.1-sol",
+   "date": "2026-10-08 01:40",
+   "section": {
+    "id": "parampara",
+    "title": "Guru-paramparā",
+    "subtitle": null,
+    "page": "",
+    "layout": "portraits",
+    "content": [
+     {
+      "type": "portrait",
+      "src": "parampara/00.png",
+      "caption": "Śrī Pañca-tattva"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/01.png",
+      "caption": "Śrīla Jagannātha dāsa Bābājī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/02.png",
+      "caption": "Śrīla Saccidānanda Bhaktivinoda Ṭhākura"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/03.png",
+      "caption": "Śrīla Gaura Kiśora dāsa Bābājī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/04.png",
+      "caption": "Prabhupāda Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/05.png",
+      "caption": "Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/06.png",
+      "caption": "Śrīla AC Bhaktivedānta Svāmī Prabhupāda"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/07.png",
+      "caption": "Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/08.png",
+      "caption": "Śrī Prem Prayojan Prabhu"
+     }
+    ],
+    "subsections": []
+   }
+  },
+  "fr": {
+   "en_hash": "00f13cd4d9e02c4a",
+   "model": "cx/gpt-6.1-sol",
+   "date": "2026-10-08 01:40",
+   "section": {
+    "id": "parampara",
+    "title": "Guru-paramparā",
+    "subtitle": null,
+    "page": "",
+    "layout": "portraits",
+    "content": [
+     {
+      "type": "portrait",
+      "src": "parampara/00.png",
+      "caption": "Śrī Pañca-tattva"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/01.png",
+      "caption": "Śrīla Jagannātha dāsa Bābājī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/02.png",
+      "caption": "Śrīla Saccidānanda Bhaktivinoda Ṭhākura"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/03.png",
+      "caption": "Śrīla Gaura Kiśora dāsa Bābājī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/04.png",
+      "caption": "Prabhupāda Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/05.png",
+      "caption": "Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/06.png",
+      "caption": "Śrīla AC Bhaktivedānta Svāmī Prabhupāda"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/07.png",
+      "caption": "Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/08.png",
+      "caption": "Śrī Prem Prayojan Prabhu"
+     }
+    ],
+    "subsections": []
+   }
+  },
+  "es": {
+   "en_hash": "00f13cd4d9e02c4a",
+   "model": "cx/gpt-6.1-sol",
+   "date": "2026-10-08 01:40",
+   "section": {
+    "id": "parampara",
+    "title": "Guru-paramparā",
+    "subtitle": null,
+    "page": "",
+    "layout": "portraits",
+    "content": [
+     {
+      "type": "portrait",
+      "src": "parampara/00.png",
+      "caption": "Śrī Pañca-tattva"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/01.png",
+      "caption": "Śrīla Jagannātha dāsa Bābājī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/02.png",
+      "caption": "Śrīla Saccidānanda Bhaktivinoda Ṭhākura"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/03.png",
+      "caption": "Śrīla Gaura Kiśora dāsa Bābājī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/04.png",
+      "caption": "Prabhupāda Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/05.png",
+      "caption": "Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/06.png",
+      "caption": "Śrīla AC Bhaktivedānta Svāmī Prabhupāda"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/07.png",
+      "caption": "Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/08.png",
+      "caption": "Śrī Prem Prayojan Prabhu"
+     }
+    ],
+    "subsections": []
+   }
+  },
+  "it": {
+   "en_hash": "00f13cd4d9e02c4a",
+   "model": "cx/gpt-6.1-sol",
+   "date": "2026-10-08 01:40",
+   "section": {
+    "id": "parampara",
+    "title": "Guru-paramparā",
+    "subtitle": null,
+    "page": "",
+    "layout": "portraits",
+    "content": [
+     {
+      "type": "portrait",
+      "src": "parampara/00.png",
+      "caption": "Śrī Pañca-tattva"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/01.png",
+      "caption": "Śrīla Jagannātha dāsa Bābājī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/02.png",
+      "caption": "Śrīla Saccidānanda Bhaktivinoda Ṭhākura"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/03.png",
+      "caption": "Śrīla Gaura Kiśora dāsa Bābājī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/04.png",
+      "caption": "Prabhupāda Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/05.png",
+      "caption": "Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/06.png",
+      "caption": "Śrīla AC Bhaktivedānta Svāmī Prabhupāda"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/07.png",
+      "caption": "Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/08.png",
+      "caption": "Śrī Prem Prayojan Prabhu"
+     }
+    ],
+    "subsections": []
+   }
+  },
+  "uk": {
+   "en_hash": "00f13cd4d9e02c4a",
+   "model": "cx/gpt-6.1-sol",
+   "date": "2026-10-08 01:40",
+   "section": {
+    "id": "parampara",
+    "title": "Ґуру-парампара̄",
+    "subtitle": null,
+    "page": "",
+    "layout": "portraits",
+    "content": [
+     {
+      "type": "portrait",
+      "src": "parampara/00.png",
+      "caption": "Ш́рı̄ Пан̃ча-таттва"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/01.png",
+      "caption": "Ш́рı̄ла Джаґанна̄тха да̄са Ба̄ба̄джı̄ Маха̄ра̄джа"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/02.png",
+      "caption": "Ш́рı̄ла Саччіда̄нанда Бгактівінода Т̣га̄кура"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/03.png",
+      "caption": "Ш́рı̄ла Ґаура Кіш́ора да̄са Ба̄ба̄джı̄ Маха̄ра̄джа"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/04.png",
+      "caption": "Прабгупа̄да Ш́рı̄ла Бгактісіддга̄нта Сарасватı̄ Т̣га̄кура"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/05.png",
+      "caption": "Ш́рı̄ла Бгакті Праджн̃а̄на Кеш́ава Ґосва̄мı̄ Маха̄ра̄джа"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/06.png",
+      "caption": "Ш́рı̄ла А. Ч. Бгактіведа̄нта Сва̄мı̄ Прабгупа̄да"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/07.png",
+      "caption": "Ш́рı̄ла Бгактіведа̄нта На̄ра̄йан̣а Ґосва̄мı̄ Маха̄ра̄джа"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/08.png",
+      "caption": "Ш́рı̄ Прем Прайоджан Прабгу"
+     }
+    ],
+    "subsections": []
+   }
+  },
+  "hu": {
+   "en_hash": "00f13cd4d9e02c4a",
+   "model": "cx/gpt-6.1-sol",
+   "date": "2026-10-08 01:40",
+   "section": {
+    "id": "parampara",
+    "title": "Guru-paramparā",
+    "subtitle": null,
+    "page": "",
+    "layout": "portraits",
+    "content": [
+     {
+      "type": "portrait",
+      "src": "parampara/00.png",
+      "caption": "Śrī Pañca-tattva"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/01.png",
+      "caption": "Śrīla Jagannātha dāsa Bābājī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/02.png",
+      "caption": "Śrīla Saccidānanda Bhaktivinoda Ṭhākura"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/03.png",
+      "caption": "Śrīla Gaura Kiśora dāsa Bābājī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/04.png",
+      "caption": "Prabhupāda Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/05.png",
+      "caption": "Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/06.png",
+      "caption": "Śrīla AC Bhaktivedānta Svāmī Prabhupāda"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/07.png",
+      "caption": "Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja"
+     },
+     {
+      "type": "portrait",
+      "src": "parampara/08.png",
+      "caption": "Śrī Prem Prayojan Prabhu"
+     }
+    ],
+    "subsections": []
+   }
+  }
+ }
+}

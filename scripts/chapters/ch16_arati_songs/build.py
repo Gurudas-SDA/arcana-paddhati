@@ -11,6 +11,9 @@ model in this script: IAST, word-by-word and translation are taken from the draf
   * RU Cyrillic mirror (book.ru.json): the same, Sanskrit transliterated (scripts/translate/iast_to_cyrillic.py).
   * EN (book.json): IAST only + title/author in IAST — the draft has no English translation
     (the GVP English text is not in the draft) — open question for Satkirti/Gurudas.
+  * Other languages (lv, de, fr, es, it, uk, hu; since the night release 08.10.2026): the English chapters translated
+    by scripts/translate/night_sync.py, stored in i18n.json here (chapter/song titles and author lines in each
+    language's conventions; the verses IAST as in English). Not translated yet -> English fallback.
 Since v7.5 (Satkirti 07.10 16:05) NO source line is shown in the book; source_line() keeps it internal: the draft's «source» (bibliography)
 and the credit of the published Russian translation (first sentence of its «translation_source»).
 Since v7.7 (Satkirti 07.10.2026 18:55: «Можно перевод брать отсюда») the «перевод» of ALL 7 songs is the
@@ -39,6 +42,7 @@ REPO = os.path.normpath(os.path.join(CH, "..", "..", ".."))
 DATA = os.path.join(REPO, "data")
 sys.path.insert(0, os.path.join(REPO, "scripts", "translate"))
 from iast_to_cyrillic import translit  # noqa: E402
+from i18n_sections import put  # noqa: E402
 
 PART_ID = "festivals-vows"
 AFTER = "major-festivals"
@@ -141,6 +145,12 @@ def main():
             book["sections"] = [s for s in book["sections"] if s["id"] not in ids]
             at = [s["id"] for s in book["sections"]].index(AFTER) + 1
             book["sections"][at:at] = sections(songs, lang)
+        else:
+            # Night 08.10: the other languages get the translated chapters from i18n.json
+            # (scripts/translate/night_sync.py: titles, author lines; the songs stay IAST as in the English book).
+            en_ids = [s["id"] for s in json.load(open(os.path.join(DATA, FILES["en"]), encoding="utf-8"))["sections"]]
+            for en_sec in sections(songs, "en"):
+                print("  ", lang, en_sec["id"], put(book, lang, en_sec["id"], CH, en_sec, en_ids))
         p = next(x for x in book["parts"] if x["id"] == PART_ID)
         p["sections"] = [x for x in p["sections"] if x not in ids]
         at = p["sections"].index(AFTER) + 1 if AFTER in p["sections"] else len(p["sections"])

@@ -24,6 +24,7 @@ DATA = os.path.join(REPO, "data")
 MOODS = os.path.join(REPO, "scripts", "moods", "moods.json")
 sys.path.insert(0, os.path.join(REPO, "scripts", "translate"))
 from iast_to_cyrillic import translit  # noqa: E402
+from i18n_sections import put  # noqa: E402
 
 PART = {"id": "festivals-vows", "ru": "Праздники и обеты", "en": "Festivals and Vows"}
 OTHER = ["lv", "de", "fr", "es", "it", "uk", "hu"]
@@ -162,6 +163,18 @@ def apply(folder):
         path = os.path.join(DATA, FILES.get(lang, f"book.{lang}.json"))
         book = json.load(open(path, encoding="utf-8"))
         sec = {"en": en, "ru": to_cyr(ru) if lang == "ru" else ru, "ru-iast": ru}.get(lang)
+        if sec is None:
+            # Night 08.10: other languages — the English chapter translated by scripts/translate/night_sync.py
+            # (<chapter folder>/i18n.json; mood blocks come from moods.json via apply_moods.py).
+            en_book = json.load(open(os.path.join(DATA, FILES["en"]), encoding="utf-8"))
+            en_sec = next((s for s in en_book["sections"] if s["id"] == ch.SECTION_ID), None)
+            if en_sec is not None:
+                old = next((s for s in book["sections"] if s["id"] == ch.SECTION_ID), None)
+                st = put(book, lang, ch.SECTION_ID, folder, en_sec, [s["id"] for s in en_book["sections"]])
+                new = next((s for s in book["sections"] if s["id"] == ch.SECTION_ID), None)
+                if old is not None and new is not None:
+                    keep_moods({"sections": [old]}, new)
+                print("  ", lang, ch.SECTION_ID, st)
         if sec is not None:
             sec = copy.deepcopy(sec)
             keep_moods(book, sec)
@@ -176,8 +189,6 @@ def apply(folder):
         # a front-matter chapter (IN_PART = False) stays outside the parts, placed only by AFTER (the app takes the
         # section order from the English book and shows the English section where a language has none)
         if not getattr(ch, "IN_PART", True):
-            if sec is None:
-                continue
             write_json(path, book)
             print("wrote", lang)
             continue
