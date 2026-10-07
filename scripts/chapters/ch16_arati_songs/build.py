@@ -11,9 +11,19 @@ model in this script: IAST, word-by-word and translation are taken from the draf
   * RU Cyrillic mirror (book.ru.json): the same, Sanskrit transliterated (scripts/translate/iast_to_cyrillic.py).
   * EN (book.json): IAST only + title/author in IAST — the draft has no English translation
     (the GVP English text is not in the draft) — open question for Satkirti/Gurudas.
-Since v7.5 (Satkirti 07.10 16:05) NO source line is shown in the book; source_line() keeps it internal: the draft's «source» (bibliography); for song 3 also the credit of the
-published Russian translation (first sentence of its «translation_source»). The draft's working notes
-about who made the other translations («Липикара … модель …; требует проверки») stay in the draft.
+Since v7.5 (Satkirti 07.10 16:05) NO source line is shown in the book; source_line() keeps it internal: the draft's «source» (bibliography)
+and the credit of the published Russian translation (first sentence of its «translation_source»).
+Since v7.7 (Satkirti 07.10.2026 18:55: «Можно перевод брать отсюда») the «перевод» of ALL 7 songs is the
+published Russian translation, verbatim: «Песенник гаудия-вайшнава», Воронеж, 2015 (compiled from
+«Шри Гаудия-гити-гуччха», GVP, Russian ed. 2010; …/Библиотека/Гаудия Веданта (Нараяна Махарадж)/
+Песенник гаудия-вайшнава (Воронеж 2015, по Гаудия-гити-гуччха).pdf), PDF pages: Gurvaṣṭakam 36–38,
+Prabhupāda-padma-stavaka 39–41, Maṅgala-ārati 42–43, Vibhāvarī-śeṣa 43–45, Vraja-dhāma-mahimāmṛta 45–47,
+Gaura-ārati 52–55 (its refrains «Припев» are not in our IAST — not taken), Yugala-ārati 55–56. Verse counts
+and order match 1:1. Edits to the published text: Deity-pair declension per book standard (Радхи-Кришны →
+Радха-Кришны, Радхе-Кришне → Радха-Кришне, Радхи-Мадхавы → Радха-Мадхавы), dash « – » → « — » (book
+typography). The songbook's own transliteration (custom font) is NOT used; IAST stays from GVP. Word-by-word
+stays ours; 3 glosses corrected where the published translation shows they contradict it (2.7 jīva-kavim;
+3.3 tomāra/tava «Вашем»; 3.4 karo «даруйте»). Song 3 had the 2004 Moscow translation before v7.7 — replaced.
 
     python scripts/chapters/ch16_arati_songs/build.py     (idempotent)
 """
@@ -44,8 +54,8 @@ FILES = {"en": "book.json", "ru": "book.ru.json", "ru-iast": "book.ru-iast.json"
 
 
 # Book standard (05.10.2026, Satkirti; qa L1): in a pair of Deity names only the last part is declined —
-# «Радха-Кришны». The published 2004 translation of song 3 has «Радхи-Кришны»; corrected here, and the
-# credit line says so (rule «ошибки в присланном тексте исправляем и коротко говорим, что исправили»).
+# «Радха-Кришны». Since v7.7 pesni_arati.json already carries the corrected forms (the songbook has
+# «Радхи-Кришны» etc.); kept as a safety net (rule «ошибки в присланном тексте исправляем …»).
 NORMALIZE = {"Шри Шри Радхи-Кришны": "Шри Шри Радха-Кришны"}
 
 
