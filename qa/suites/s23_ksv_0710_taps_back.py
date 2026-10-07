@@ -1,11 +1,13 @@
 """Reader v7.5 — КСВ Satkirti 07.10.2026 15:39–15:45 (each check reproduces the remark exactly).
-  1  Parampara: a tap ON the portrait shows / hides the bars like empty space — every portrait.
+  1  Parampara: a tap ON the portrait shows / hides the bars like empty space — every portrait; v7.6.1 (Codex
+     review): also near each edge of the picture, on the caption and on the ornament.
   2  «Обложка» = home: 1st tap resets the contents to the base view (every group and chapter list
      closed) with «Обложка» lit, no navigation; 2nd tap opens the cover; contents reopened there
      stays in the base view.
   3  «Назад» retraces exactly the forward steps with the same highlights and open lists
      (Satkirti's path: Храмовый стандарт → 1 (has subsections) → 2 → 2.5 → open → Содержание → Назад…),
-     then «Вперёд» replays them.
+     then «Вперёд» replays them — v7.6.1: EVERY forward step, URL + highlight + open lists each time.
+  (Leaf rows: s24; reload / deep link / rapid double taps: s25.)
   4  Two taps in «Содержание»: a part / the Introduction / a chapter with subsections — 1st tap only
      highlights (nothing expands, no navigation), 2nd tap expands; for EVERY such row of the book.
 Devices: phone (Android + iPhone), tablet (iPad portrait + landscape), computer (Windows + Mac) —
@@ -95,19 +97,47 @@ def run(p, dev, eng, o):
     pg.wait_for_function("[...document.querySelectorAll('.app-main img.portrait-img')].every(i => i.complete && i.naturalWidth > 0)", timeout=20000)
     n = pg.locator(".app-main figure.portrait-page").count()
     bad = []
+    npts = 0
+    # Every portrait: its centre; near each edge of the picture (6 px inside), its caption and the
+    # ornament under it (v7.6.1, Codex review) — all portraits in the full run, the first / middle / last in
+    # the fast one. Each point is first brought to the middle band of the screen (never under a bar).
+    # Each tap toggles the bars, the next one toggles them back.
+    POINT = """([k, name]) => { const f = document.querySelectorAll('.app-main figure.portrait-page')[k];
+        const m = document.querySelector('.app-main'), H = innerHeight;
+        const box = () => ({i: f.querySelector('img.portrait-img').getBoundingClientRect(),
+                            c: f.querySelector('.portrait-caption').getBoundingClientRect(),
+                            o: f.querySelector('.portrait-ornament').getBoundingClientRect()});
+        const at = (b) => ({centre: [b.i.left + b.i.width / 2, b.i.top + b.i.height / 2, 0.5],
+          left: [b.i.left + 6, b.i.top + b.i.height / 2, 0.5], right: [b.i.right - 6, b.i.top + b.i.height / 2, 0.5],
+          top: [b.i.left + b.i.width / 2, b.i.top + 6, 0.3], bottom: [b.i.left + b.i.width / 2, b.i.bottom - 6, 0.7],
+          caption: [b.c.left + b.c.width / 2, b.c.top + b.c.height / 2, 0.5],
+          ornament: [b.o.left + b.o.width / 2, b.o.top + b.o.height / 2, 0.5]})[name];
+        const [, y0, band] = at(box());
+        m.scrollTop += y0 - H * band;
+        const [x, y] = at(box());
+        const e = document.elementFromPoint(x, y);
+        return {x, y, on: e ? (e.closest('.portrait-ornament') ? 'ornament' : e.closest('.portrait-caption') ? 'caption'
+                               : e.closest('.portrait-img') ? 'img' : e.tagName + '.' + e.className) : null}; }"""
+    want_on = {"centre": "img", "left": "img", "right": "img", "top": "img", "bottom": "img", "caption": "caption", "ornament": "ornament"}
+    every = set(range(n)) if not qa.fast() else {0, n // 2, n - 1}
     for k in range(n):
-        pg.evaluate("k => document.querySelectorAll('.app-main figure.portrait-page')[k].scrollIntoView({block: 'start'})", k)
-        pg.wait_for_timeout(500)
-        pt = pg.evaluate("""k => { const i = document.querySelectorAll('.app-main img.portrait-img')[k].getBoundingClientRect();
-            return {x: i.left + i.width / 2, y: Math.min(i.top + i.height / 2, innerHeight / 2)}; }""", k)
-        s0 = shown()
-        tap_xy(pt["x"], pt["y"]); pg.wait_for_timeout(450)
-        s1 = shown()
-        tap_xy(pt["x"], pt["y"]); pg.wait_for_timeout(450)
-        s2 = shown()
-        if not (s1 != s0 and s2 == s0):
-            bad.append((k + 1, s0, s1, s2))
-    chk(dev, f"1 tap on the portrait toggles the bars (all {n} portraits)", n >= 8 and not bad, f"n={n} bad={bad}")
+        for name in (want_on if k in every else ["centre"]):
+            pt = pg.evaluate(POINT, [k, name])
+            pg.wait_for_timeout(300)
+            pt = pg.evaluate(POINT, [k, name])   # after the scroll has settled
+            if pt["on"] != want_on[name]:
+                bad.append((k + 1, name, "point is on", pt["on"]))
+                continue
+            npts += 1
+            s0 = shown()
+            tap_xy(pt["x"], pt["y"]); pg.wait_for_timeout(400)
+            s1 = shown()
+            tap_xy(pt["x"], pt["y"]); pg.wait_for_timeout(400)
+            s2 = shown()
+            if not (s1 != s0 and s2 == s0):
+                bad.append((k + 1, name, s0, s1, s2))
+    chk(dev, f"1 tap on the portrait toggles the bars (all {n} portraits; centre, 4 edges, caption, ornament on "
+             f"{len(every)} — {npts} points)", n >= 8 and not bad and npts == n + 6 * len(every), f"n={n} bad={bad[:4]}")
     shot("1-portrait")
 
     # ---------- 4: two taps — every group and every chapter with subsections ----------
@@ -209,12 +239,14 @@ def run(p, dev, eng, o):
     s = st()
     chk(dev, "3 last Назад closes the contents (the page where we started)", not s["menu"] and s["url"].endswith("/introduction/"), str(s))
     bad = []
-    for k, want in enumerate(fwd[:4]):
+    # «Вперёд» replays EVERY forward step (v7.6.1, Codex review): URL + highlight + open lists each time,
+    # up to the page of 2.5 itself
+    for k, want in enumerate(fwd + [page25]):
         forward()
         s = st()
-        if not (s["menu"] and s["lit"] == want["lit"] and s["open"] == want["open"]):
-            bad.append((k + 1, s, want))
-    chk(dev, "3 «Вперёд» replays the same steps", not bad, str(bad[:2]))
+        if not (s["menu"] == want["menu"] and s["lit"] == want["lit"] and s["open"] == want["open"] and s["url"] == want["url"]):
+            bad.append((k + 1, "got", s, "want", want))
+    chk(dev, f"3 «Вперёд» replays the same steps (all {len(fwd) + 1}: URL, highlight, open lists)", not bad, str(bad[:2]))
     chk(dev, "no page errors", not errs, str(errs[:3]))
     b.close()
 

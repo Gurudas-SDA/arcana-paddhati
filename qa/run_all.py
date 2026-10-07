@@ -66,6 +66,12 @@ SUITES = [
     dict(id="s23", file="suites/s23_ksv_0710_taps_back.py", title="КСВ 07.10: portrets=lapa, «Обложка»=home, «Назад»=tie paši soļi, divi pieskārieni (telefons+planšete+dators)",
          devices=["pixel7", "iphone14", "ipad-portrait", "ipad-landscape", "desktop", "mac-safari"], fast=True,
          fast_devices=["pixel7", "iphone14", "ipad-portrait", "desktop"]),
+    dict(id="s24", file="suites/s24_two_tap_all_rows.py", title="v7.6.1: divi pieskārieni KATRAI lapas rindai (nodaļa bez apakšnodaļām, apakšnodaļa) + «Назад» (dators visas, telefons/iPad ≥30)",
+         devices=["desktop", "pixel7", "iphone14", "ipad-portrait", "ipad-landscape", "mac-safari"], fast=True,
+         fast_devices=["desktop", "pixel7", "iphone14", "ipad-portrait"]),
+    dict(id="s25", file="suites/s25_contents_reload_history.py", title="v7.6.1: «Содержание» pēc pārlādes, pārlāde vēstures vidū, dziļā saite, ātri dubultpieskārieni",
+         devices=["pixel7", "iphone14", "ipad-portrait", "ipad-landscape", "desktop", "mac-safari"], fast=True,
+         fast_devices=["pixel7", "iphone14", "ipad-portrait", "desktop"]),
     dict(id="s20", file="suites/s20_offline.py", title="OFFLINE: Chromium (Android) — visas nodaļas, navigācija, transkripti", args=["chromium"],
          devices=None, fast=True, timeout_fast=200),
     dict(id="s20wk", file="suites/s20_offline.py", title="OFFLINE: WebKit (iPhone/iPad) — serveris izslēgts", args=["webkit"],
@@ -201,7 +207,7 @@ def main():
     devf = a.devices.split(",") if a.devices else None
     jobs = jobs_for(suites, a.fast, devf, split=True)
     # longest first (better packing)
-    weight = {"s071": 10, "s10": 10, "s11": 10, "s21": 10, "s07": 9, "s01": 8, "s20wk": 7, "s06": 6, "s03": 5, "s04": 5, "s05": 4}
+    weight = {"s23": 9, "s24": 9, "s071": 10, "s10": 10, "s11": 10, "s21": 10, "s07": 9, "s01": 8, "s20wk": 7, "s06": 6, "s03": 5, "s04": 5, "s05": 4}
     jobs.sort(key=lambda j: -weight.get(j[0]["id"], 2))
     srv = qa_server.Server().start()
     mode = "fast" if a.fast else "full"

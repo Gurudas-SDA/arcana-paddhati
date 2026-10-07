@@ -317,9 +317,18 @@ function usePartsOpen(
   const raw = useSyncExternalStore(subscribeParts, partsSnapshot, () => "{}");
   const state = useMemo(() => parseParts(raw), [raw]);
   // Arrival: forget a hand-made "collapsed" of the current part (before
-  // paint, so it never flashes closed).
+  // paint, so it never flashes closed). Not on a menu step that already keeps
+  // its open lists (reload, "back" / "forward" to it): there the saved state
+  // is put back exactly — a group the reader collapsed stays collapsed
+  // (Reader v7.6.1, Codex review of v7.5).
   useLayoutEffect(() => {
     if (!currentPartId) return;
+    try {
+      const st = window.history.state as Record<string, unknown> | null;
+      if (isMenuEntry(st) && typeof st?.apParts === "string") return;
+    } catch {
+      // history unavailable: arrival as usual
+    }
     const cur = parseParts(partsSnapshot());
     if (cur[currentPartId] === false) {
       delete cur[currentPartId];

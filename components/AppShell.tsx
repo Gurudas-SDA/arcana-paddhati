@@ -272,8 +272,14 @@ export default function AppShell({
     };
     window.addEventListener("popstate", onPop);
 
-    // Reloaded (or restored from the page cache) on a menu entry.
-    if (isMenuEntry()) reopenMenu(window.history.state);
+    // Reloaded (or restored from the page cache) on a menu entry: its own open
+    // lists, not the session's last ones (a reload in the middle of history —
+    // Reader v7.6.1).
+    if (isMenuEntry()) {
+      const st = window.history.state as Record<string, unknown> | null;
+      if (typeof st?.apParts === "string") restoreParts(st.apParts);
+      reopenMenu(st);
+    }
     return () => {
       m.removeEventListener("scroll", onScroll);
       window.removeEventListener("popstate", onPop);

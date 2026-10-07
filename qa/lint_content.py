@@ -558,39 +558,75 @@ def run(args):
     # L24 — Песни/бхаджаны (Satkirti 07.10 16:05): заголовок по-русски, затем ОДНА строка — автор, затем стихи
     # в IAST; без строк-источников под песнями и без повторного заголовка латиницей. Song section = any
     # subsection «song-…» (all songs / stotras of the book, also future ones).
-    c = Check("L24", "songs: heading → one author line → verses; no source lines, no repeated IAST title")
-    src_rx = re.compile(r"purebhakti|G[īi]ti-guccha|изд\.|\bс\. ?\d|\bpp?\. ?\d|\bed\.|Publications")
+    c = Check("L24", "songs: RU heading → one author line → ≥1 verse (IAST); no source lines, no repeated title")
+    # v7.6.1 (Codex review of v7.5): broader source patterns; EVERY non-verse block is counted (the old
+    # `[:1]` slice let a second block after the verses through); heading Cyrillic in RU; verses IAST in
+    # ru-iast / en (Cyrillic only in the retired book.ru.json mirror).
+    src_rx = re.compile(r"(?i)purebhakti|G[īi]ti[- ]?guccha|\bGVP\b|https?://|www\.|Источник|\bизд(?:\.|ание|ательств)"
+                        r"|\bс\. ?\d|\bpp?\. ?\d|\bed\.|Publications|\bSource")
+    cyr = re.compile(r"[А-Яа-яЁё]")
+    lat = re.compile(r"[A-Za-z]")
+    iast_d = re.compile(r"[āīūṛṝḷṅñṭḍṇśṣṁḥĀĪŪṚṜḶṄÑṬḌṆŚṢṀḤ]")
     nsongs = 0
     for fn in ("book.ru-iast.json", "book.ru.json", "book.json"):
         b = loaded[os.path.join(qa.DATA, fn)]
+        ru = fn != "book.json"
         for s in b["sections"]:
-            for sub in s.get("subsections") or []:
-                if not str(sub.get("id", "")).startswith("song-"):
-                    continue
+            subs = [sub for sub in (s.get("subsections") or []) if str(sub.get("id", "")).startswith("song-")]
+            if subs:
+                # the chapter's own introduction: no source lines either
+                for i, x in enumerate(s.get("content") or []):
+                    t = json.dumps(x, ensure_ascii=False)
+                    if x.get("type") == "sources" or src_rx.search(t):
+                        c.hit(fn, f"{s['id']}[{i}]", f"source line in a song chapter: {t[:90]}")
+            for sub in subs:
                 nsongs += 1
                 items = sub.get("content") or []
                 where = f"{s['id']}/{sub['id']}"
+                title = str(sub.get("title") or "").strip()
+                if not title:
+                    c.hit(fn, where, "song without a heading")
+                elif ru and (not cyr.search(title) or lat.search(title) or iast_d.search(title)):
+                    c.hit(fn, where, f"RU song heading not in Russian (Cyrillic): «{title}»")
                 for i, x in enumerate(items):
                     if x.get("type") == "verse":
                         continue
                     t = x.get("content") if isinstance(x.get("content"), str) else json.dumps(x, ensure_ascii=False)
                     if x.get("type") == "sources" or src_rx.search(t):
                         c.hit(fn, f"{where}[{i}]", f"source line under a song: {t[:90]}")
-                head = [x for x in items if x.get("type") != "verse"][:1]
-                if not items or items[0].get("type") != "text" or len(head) != 1:
-                    c.hit(fn, where, "first item must be the author line")
+                others = [i for i, x in enumerate(items) if x.get("type") != "verse"]
+                verses = [x for x in items if x.get("type") == "verse"]
+                if not items or items[0].get("type") != "text" or others != [0]:
+                    c.hit(fn, where, f"exactly one author line, first (non-verse blocks at {others}, "
+                                     f"types {[items[i].get('type') for i in others]})")
+                if not verses:
+                    c.hit(fn, where, "no verses")
+                for k, v in enumerate(verses, 1):
+                    sk = str(v.get("sanskrit") or "")
+                    if fn == "book.ru.json":
+                        bad_v = not sk.strip() or lat.search(sk)
+                    else:
+                        bad_v = not sk.strip() or cyr.search(sk) or not lat.search(sk) or not iast_d.search(sk)
+                    if bad_v:
+                        c.hit(fn, f"{where} v{k}", f"verse text not {'Cyrillic' if fn == 'book.ru.json' else 'IAST'}: {sk[:60]!r}")
+                if not items or items[0].get("type") != "text":
                     continue
-                a = items[0]["content"]
+                a = str(items[0].get("content") or "")
+                if not a.strip():
+                    c.hit(fn, where, "empty author line")
+                    continue
                 # RU: the author in Cyrillic, no ⟦…⟧ (IAST) at all; EN: at most one ⟦…⟧ (the author), no « — ».
                 # (v7.6: the EN author lines of the Kārtika bhajans are plain English sentences without ⟦…⟧ —
-                # «exactly one» became «at most one»; the repeated title is now checked directly below.)
-                if (fn != "book.json" and "⟦" in a) or (fn == "book.json" and (a.count("⟦") > 1 or " — " in a)) or "\n" in a:
+                # «exactly one» became «at most one»; the repeated title is checked directly below.)
+                if (ru and "⟦" in a) or (not ru and (a.count("⟦") > 1 or " — " in a)) or "\n" in a:
                     c.hit(fn, where, f"author line carries a title / IAST: {a[:90]}")
-                t = str(sub.get("title") or "").strip().lower()
-                if t and t in a.replace("⟦", "").replace("⟧", "").lower():
-                    c.hit(fn, where, f"author line repeats the song title «{sub.get('title')}»: {a[:90]}")
-                if [x for x in items[1:] if x.get("type") == "text"][:1] and items[1].get("type") == "text":
-                    c.hit(fn, where, "more than one line before the verses")
+                if ru and (not cyr.search(a) or iast_d.search(a)):
+                    c.hit(fn, where, f"RU author line not in Cyrillic: {a[:90]}")
+                plain = a.replace("⟦", "").replace("⟧", "").lower()
+                tl = title.lower()
+                core = re.sub(r"\s*\(.*?\)\s*", " ", tl).strip()   # title without its «(…)» alias
+                if tl and (tl in plain or (len(core) >= 6 and core in plain)):
+                    c.hit(fn, where, f"author line repeats the song title «{title}»: {a[:90]}")
     c.info = f"{nsongs} songs (RU, RU Cyrillic, EN)"
     c.report(args.max)
 
