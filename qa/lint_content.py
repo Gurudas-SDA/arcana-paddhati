@@ -682,22 +682,63 @@ def run(args):
     # L26 — Глава 3 «16 предметов» и глава 14: список = рисунок Parafernalia.png (Satkirti 07.10.2026 22:28):
     # каждому номеру рисунка 1–18 — ровно одна строка, по порядку рисунка, и название строки — тот же предмет,
     # что на рисунке (то же соответствие, что в главе 14). Предметы без номера — после нумерованных.
-    c = Check("L26", "ch3 + ch14 list = figure Parafernalia.png: numbers 1–18 one row each, in order, row names = figure objects")
-    FIG = {  # figure number -> (RU words, EN words); every word must be in the row (case-insensitive)
-        "1": (["панча-патра"], ["pañca-pātra"]), "2": (["раковина", "омовения"], ["bathing", "conch"]),
-        "3": (["колокольчик"], ["bell"]), "4": (["дхупа"], ["dhūpa"]), "5": (["дипа"], ["dīpa"]),
-        "6": (["висарджания-патра"], ["visarjanīya-pātra"]), "7": (["пуджа-патра", "божества"], ["pūjā-pātra", "deity"]),
-        "8": (["снана-патра", "божества"], ["snāna-pātra", "deity"]), "9": (["пуджа-патра", "гурудева"], ["pūjā-pātra", "gurudeva"]),
-        "10": (["снана-патра", "гурудева"], ["snāna-pātra", "gurudeva"]), "11": (["асана", "божества"], ["āsana", "deity"]),
-        "12": (["асана", "пуджари"], ["āsana", "pujārī"]), "13": (["сосуд для воды"], ["water-pot"]),
-        "14": (["цветы"], ["flowers"]), "15": (["туласи"], ["tulasī"]), "16": (["чандана"], ["candana"]),
-        "17": (["мадхупарка"], ["madhuparka"]), "18": (["раковина", "трубят"], ["blowing", "conch"])}
+    # v7.8.1 (Codex review): ВСЕ языки книги; в гл. 3 первая строка без номера = pādya/arghya/ācamana (по содержанию).
+    c = Check("L26", "ch3 + ch14 list = figure Parafernalia.png in every language: numbers 1–18 one row each, in order, row names = figure objects; ch3 unnumbered row = pādya/arghya/ācamana")
+    import unicodedata
+
+    def fold(t):  # lower case, no diacritics, no ⟦⟧ (keywords are written the same way)
+        t = unicodedata.normalize("NFD", t.replace("⟦", "").replace("⟧", "").lower().replace("ı", "і"))  # Ukrainian ı̄ (dotless + macron) = і
+        return "".join(ch for ch in t if not unicodedata.combining(ch))
+
+    # figure number -> keywords per language; every keyword must be in the row ("a|b" = either)
+    FIG = {
+        "ru": ["панча-патра", "раковина омовения", "колокольчик", "дхупа", "дипа", "висарджания-патра", "пуджа-патра божества",
+               "снана-патра божества", "пуджа-патра гурудева", "снана-патра гурудева", "асана божества", "асана пуджари",
+               "сосуд воды", "цветы", "туласи", "чандана", "мадхупарка", "раковина трубят"],
+        "en": ["panca-patra", "bathing conch", "bell", "dhupa", "dipa", "visarjaniya-patra", "puja-patra deity", "snana-patra deity",
+               "puja-patra gurudeva", "snana-patra gurudeva", "asana deity", "asana pujari", "water-pot", "flowers", "tulasi",
+               "candana", "madhuparka", "blowing conch"],
+        "lv": ["panca-patra", "mazgasanas|udenim gliemeznica", "zvanin", "dhupa", "dipa", "visardzanija-patra", "pudza-patra dievib",
+               "snana-patra dievib", "pudza-patra gurudev", "snana-patra gurudev", "asana dievib", "asana pudzari", "udens trauk",
+               "ziedi", "tulasi", "candana", "madhuparka", "pusama gliemeznica"],
+        "de": ["panca-patra", "wassermuschelhorn|bademuschelhorn", "glocke", "dhupa", "dipa", "visarjaniya-patra", "puja-patra bildgestalt",
+               "snana-patra bildgestalt", "puja-patra gurudeva", "snana-patra gurudeva", "asana bildgestalt", "asana pujari",
+               "wassergef", "blumen", "tulasi", "candana", "madhuparka", "muschelhorn blasen"],
+        "es": ["panca-patra", "caracola bano", "campana", "dhupa", "dipa", "visarjaniya-patra", "puja-patra deidad", "snana-patra deidad",
+               "puja-patra gurudeva", "snana-patra gurudeva", "asana deidad", "asana pujari", "recipiente agua", "flores", "tulasi",
+               "candana", "madhuparka", "caracola soplar"],
+        "fr": ["panca-patra", "conque bain", "cloche", "dhupa", "dipa", "visarjaniya-patra", "puja-patra divinite", "snana-patra divinite",
+               "puja-patra gurudeva", "snana-patra gurudeva", "asana divinite", "asana pujari", "pot|eau", "fleurs", "tulasi",
+               "candana", "madhuparka", "conque souffler"],
+        "hu": ["panca-patra", "furdeteshez kagylokurt", "csengo", "dhupa", "dipa", "visarjaniya-patra", "puja-patra istenseg",
+               "snana-patra istenseg", "puja-patra gurudeva", "snana-patra gurudeva", "asana istenseg", "asana pujari",
+               "vizesedeny|vizeskorso", "viragok", "tulasi", "candana", "madhuparka", "megfujhato kagylokurt"],
+        "it": ["panca-patra", "conchiglia bagno", "campana", "dhupa", "dipa", "visarjaniya-patra", "puja-patra divinita", "snana-patra divinita",
+               "puja-patra gurudeva", "snana-patra gurudeva", "asana divinita", "asana pujari", "recipiente acqua", "fiori", "tulasi",
+               "candana", "madhuparka", "conchiglia soffiare"],
+        "uk": ["панча-патра", "мушля омовіння", "дзвіночок", "дгупа", "діпа", "вісарджан", "пуджа-патра божества",
+               "снана-патра божества", "пуджа-патра ґурудева", "снана-патра ґурудева", "асана божества", "асана пуджарі",
+               "посудина води", "квіти", "туласі", "чандана", "мадгупарка", "мушля сурмлення"],
+    }
+    # ch3 first unnumbered row: pādya / arghya / ācamana pātra (each word stem must be there)
+    TAIL = {"ru": ["падья", "аргхья", "ачамана"], "uk": ["падйа", "арґгйа", "ачамана"],
+            "lv": ["padja", "arghja", "acamana"], "_": ["padya", "argya|arghya", "acamana"]}
+    LANGF = {"book.ru-iast.json": "ru", "book.ru.json": "ru", "book.json": "en"}
+    for f in sorted(glob.glob(os.path.join(qa.DATA, "book.*.json"))):
+        m_ = re.match(r"book\.([a-z]+)\.json$", os.path.basename(f))
+        if m_ and m_.group(1) in FIG:
+            LANGF[os.path.basename(f)] = m_.group(1)
     hs = json.load(open(os.path.join(qa.DATA, "hotspots.json"), encoding="utf-8"))["Parafernalia.png"]["spots"]
-    if sorted(hs, key=int) != list(FIG):
+    NUMS = [str(i) for i in range(1, 19)]
+    if sorted(hs, key=int) != NUMS:
         c.hit("hotspots.json", "Parafernalia.png", f"figure numbers {sorted(hs, key=int)} != 1–18")
+    for f in sorted(glob.glob(os.path.join(qa.DATA, "book*.json"))):
+        if os.path.basename(f) not in LANGF:
+            c.hit(os.path.basename(f), "L26", "language has no figure keywords in L26 (add them)")
     nl = 0
-    for fn, k in (("book.ru-iast.json", 0), ("book.ru.json", 0), ("book.json", 1)):
-        b = loaded[os.path.join(qa.DATA, fn)]
+    for fn, lg in LANGF.items():
+        b = loaded.get(os.path.join(qa.DATA, fn)) or json.load(open(os.path.join(qa.DATA, fn), encoding="utf-8"))
+        kw = [[[fold(alt) for alt in w.split("|")] for w in row.split()] for row in FIG[lg]]
         for sid, subid in (("worship-sixteen-articles", "required-paraphernalia"), ("main-worship-sixteen-items", "main-worship-paraphernalia")):
             s_ = next((x for x in b["sections"] if x["id"] == sid), None)
             ss = next((x for x in (s_ or {}).get("subsections") or [] if x["id"] == subid), None)
@@ -709,15 +750,20 @@ def run(args):
             rows = [r for r in lst["content"].split(chr(10)) if r.strip()]
             nums = lst["numbers"]
             numbered = [n for n in nums if n]
-            if numbered != list(FIG) or nums[:18] != list(FIG) or len(nums) != len(rows):
+            if numbered != NUMS or nums[:18] != NUMS or len(nums) != len(rows):
                 c.hit(fn, f"{sid}/{subid}", f"numbers {numbered} (expected 1–18 in order, first, one each; {len(nums)} numbers / {len(rows)} rows)")
                 continue
-            for n, row in zip(nums[:18], rows):
-                low = row.replace("⟦", "").replace("⟧", "").lower()
-                miss = [w for w in FIG[n][k] if w.lower() not in low]
+            for n, row, words in zip(NUMS, rows, kw):
+                low = fold(row)
+                miss = ["|".join(w) for w in words if not any(alt in low for alt in w)]
                 if miss:
                     c.hit(fn, f"{sid}/{subid} №{n}", f"row «{row[:60]}» does not name the figure object ({miss})")
-    c.info = f"{nl} lists (ch3 + ch14 × RU, RU Cyrillic, EN) against 18 figure objects"
+            if sid == "worship-sixteen-articles":
+                tail = rows[18] if len(rows) > 18 else ""
+                tw = [[fold(a) for a in w.split("|")] for w in TAIL.get(lg, TAIL["_"])]
+                if not tail or not all(any(a in fold(tail) for a in w) for w in tw):
+                    c.hit(fn, f"{sid}/{subid} row 19 (unnumbered)", f"«{tail[:60]}» is not the pādya / arghya / ācamana row")
+    c.info = f"{nl} lists (ch3 + ch14 × {len(LANGF)} book files) against 18 figure objects"
     c.report(args.max)
 
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует

@@ -1,4 +1,5 @@
 import ChapterEndSpace from "@/components/ChapterEndSpace";
+import PortraitImg from "@/components/PortraitImg";
 import React from "react";
 import { transcriptLinkProps } from "@/lib/transcripts";
 import {
@@ -670,17 +671,12 @@ function PortraitPages({ section, note, after }: { section: Section; note?: stri
         .map((item, i) => (
           <figure key={i} className="portrait-page" data-portrait={i + 1}>
             {/* WebP (~1/6 of the PNG, Reader v7.8); the PNG for a browser without WebP. */}
-            <picture className="portrait-picture">
-              {item.src?.endsWith(".png") && (
-                <source srcSet={`/arcana-paddhati/images/${item.src.replace(/\.png$/, ".webp")}`} type="image/webp" />
-              )}
-              <img
-                src={`/arcana-paddhati/images/${item.src}`}
-                alt={item.caption ?? ""}
-                className="portrait-img"
-                draggable={false}
-              />
-            </picture>
+            {/* A WebP that fails to load falls back to the PNG (components/PortraitImg.tsx, v7.8.1). */}
+            <PortraitImg
+              webp={item.src?.endsWith(".png") ? `/arcana-paddhati/images/${item.src.replace(/\.png$/, ".webp")}` : undefined}
+              png={`/arcana-paddhati/images/${item.src}`}
+              alt={item.caption ?? ""}
+            />
             <figcaption className="portrait-caption">{item.caption}</figcaption>
             <CaptionOrnament />
           </figure>

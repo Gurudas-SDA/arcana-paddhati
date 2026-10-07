@@ -12,10 +12,18 @@
   8  search: the found word is marked in every result (all its occurrences), and after opening a result
      it is marked in the text (CSS highlight) and in view; the next tap only clears it
   9  parampara: the oval without the rhombi (design 1), WebP shown with the PNG as fallback
+ v7.8.1 (Codex review of v7.8):
+ 10  the search mark goes on every step away — Back, Forward, a Link (keyboard, no tap), a pushState URL change —
+     and the first tap on the new place is not eaten by it
+ 11  without the CSS Custom Highlight API the found word is wrapped in a visible mark, removed by the next tap
+ 12  parampara offline (service worker): the WebP portraits load; WebP failing → the PNG is shown
+ 13  the keyboard (Tab) reaches the «Аа» switches and the language menu; Space toggles a switch
+ 14  the second tap opens every contents row type (chapter, subsection, chapter with subsections, group, cover)
 usage: python s26_ksv_0710_evening.py <base-url>   devices: QA_DEVICES"""
 import json
 import os
 import sys
+from urllib.parse import unquote
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "lib"))
 import qa  # noqa: E402
@@ -368,6 +376,299 @@ def run(p, dev, eng, o):
     b.close()
 
 
+HL_STATE = """() => ({hl: document.documentElement.hasAttribute('data-search-hl'),
+    own: document.documentElement.hasAttribute('data-search-hl-own'),
+    fb: document.querySelectorAll('.search-hit-fb').length,
+    api: !!(window.CSS && CSS.highlights && CSS.highlights.get && CSS.highlights.get('search-hit')),
+    bars: document.documentElement.hasAttribute('data-reader-bars')})"""
+NO_HL_API = """try { Object.defineProperty(window.CSS, 'highlights', {value: undefined, configurable: true}); } catch (e) {}
+try { delete window.Highlight; } catch (e) {} try { window.Highlight = undefined; } catch (e) {}"""
+PORTRAITS = """() => [...document.querySelectorAll('.portrait-page img')].map(i => ({src: (i.currentSrc || i.src).split('/').pop(),
+    ok: i.complete && i.naturalWidth > 0}))"""
+
+
+def run_v781(p, dev, eng, o):
+    """Reader v7.8.1 (Codex review of v7.8): search mark cleanup on every kind of step away + fallback without
+    the Highlight API, offline WebP portraits, PNG fallback when WebP fails, keyboard into «Аа», second tap of
+    every contents row type."""
+    touch = o.get("has_touch", False)
+    vw = o["viewport"]
+    b = getattr(p, eng).launch()
+
+    def ctx(init=None, sw="block"):
+        c = b.new_context(locale="ru-RU", service_workers=sw, **o)
+        c.add_init_script("try{localStorage.setItem('ap.readerHintSeen','1')}catch(e){}")
+        if init:
+            c.add_init_script(init)
+        return c
+
+    def helpers(pg):
+        def tapxy(x, y, ms=350):
+            (pg.touchscreen.tap if touch else pg.mouse.click)(x, y)
+            pg.wait_for_timeout(ms)
+
+        def tap(sel, ms=350):
+            loc = pg.locator(sel).first if isinstance(sel, str) else sel
+            loc.scroll_into_view_if_needed()
+            loc.tap() if touch else loc.click()
+            pg.wait_for_timeout(ms)
+
+        def bars():
+            if pg.locator(".reader-chrome[data-shown]").count() == 0:
+                tapxy(vw["width"] - 6, vw["height"] / 2, 500)
+        return tapxy, tap, bars
+
+    def open_result(pg, tap, bars, q="Jayati"):
+        bars()
+        tap("[data-reader-action=search]", 1200)
+        pg.keyboard.type(q)
+        pg.wait_for_function("() => document.querySelectorAll('.mobile-menu [data-result]').length > 0", timeout=15000)
+        pg.wait_for_timeout(400)
+        tap(".mobile-menu [data-result]", 300)
+        try:
+            pg.wait_for_function("() => document.documentElement.hasAttribute('data-search-hl')", timeout=10000)
+        except Exception:
+            pass
+        pg.wait_for_timeout(800)
+
+    def first_tap_toggles_bars(pg, tapxy):
+        pg.wait_for_timeout(600)
+        b0 = pg.evaluate("document.documentElement.hasAttribute('data-reader-bars')")
+        tapxy(vw["width"] - 6, vw["height"] / 2, 500)
+        b1 = pg.evaluate("document.documentElement.hasAttribute('data-reader-bars')")
+        return b0 != b1, (b0, b1)
+
+    def clean(s):
+        return not s["hl"] and not s["own"] and s["fb"] == 0 and not s["api"]
+
+    # ---------- 10: search mark cleared by Back, Forward and a forward step (Link) ----------
+    if dev in ("pixel7", "iphone14", "desktop", "mac-safari"):
+        c = ctx()
+        pg = c.new_page()
+        tapxy, tap, bars = helpers(pg)
+        pg.goto(f"{BASE}/{L}/", wait_until="networkidle")
+        pg.wait_for_timeout(600)
+        open_result(pg, tap, bars)
+        on = pg.evaluate(HL_STATE)
+        res_url = pg.url
+        chk(dev, "10 (setup) result opened with the word marked", on["hl"], str(on))
+        # forward step through a Link without a pointer (keyboard Enter on «След. глава ›»)
+        has_next = pg.locator(".app-main .chapter-next-link").count() > 0
+        if has_next:
+            pg.locator(".app-main .chapter-next-link").first.focus()
+            pg.keyboard.press("Enter")
+            try:
+                pg.wait_for_url(lambda u: u.split("#")[0] != res_url.split("#")[0], timeout=8000)
+            except Exception:
+                pass
+            pg.wait_for_timeout(900)
+            st = pg.evaluate(HL_STATE)
+            chk(dev, "10 Link to the next chapter (keyboard, no tap) → mark gone on the new page", pg.url != res_url and clean(st), (pg.url[-40:], st))
+            ok, info = first_tap_toggles_bars(pg, tapxy)
+            chk(dev, "10 after the Link: the first tap on the new page is not eaten (menu toggles)", ok, info)
+        else:
+            chk(dev, "10 result page has «След. глава ›»", False, pg.url)
+        # router.push-like step: a pushState to another chapter's URL from the marked page
+        pg.goto(f"{BASE}/{L}/", wait_until="networkidle")
+        pg.wait_for_timeout(500)
+        open_result(pg, tap, bars)
+        if pg.evaluate(HL_STATE)["hl"]:
+            pg.evaluate("() => { history.pushState(history.state, '', location.pathname + '#qa-v781-elsewhere'); }")
+            pg.wait_for_timeout(400)
+            st = pg.evaluate(HL_STATE)
+            chk(dev, "10 URL change by pushState (hash to elsewhere) → mark and scroll ownership gone", clean(st), str(st))
+            pg.go_back()
+            pg.wait_for_timeout(500)
+        # Back: mark gone; the first tap there is not eaten
+        pg.goto(f"{BASE}/{L}/kartika-bhajans/", wait_until="networkidle")
+        pg.wait_for_timeout(500)
+        open_result(pg, tap, bars)
+        on = pg.evaluate(HL_STATE)["hl"]
+        pg.go_back()
+        pg.wait_for_timeout(1200)
+        st = pg.evaluate(HL_STATE)
+        chk(dev, "10 Back from the marked result → no mark", on and clean(st), (on, st))
+        # step back until the page (out of the menu), then Forward to the result page
+        for _ in range(3):
+            if not pg.locator(".mobile-menu").count():
+                break
+            pg.go_back()
+            pg.wait_for_timeout(700)
+        pg.go_forward()
+        pg.wait_for_timeout(1200)
+        st = pg.evaluate(HL_STATE)
+        chk(dev, "10 Forward → no stale mark", clean(st), str(st))
+        if not pg.locator(".mobile-menu").count():
+            ok, info = first_tap_toggles_bars(pg, tapxy)
+            chk(dev, "10 after Back / Forward: the first tap is not eaten", ok, info)
+        c.close()
+
+    # ---------- 11: no CSS Custom Highlight API → <mark> fallback ----------
+    if dev in ("pixel7", "desktop", "mac-safari"):
+        c = ctx(NO_HL_API)
+        pg = c.new_page()
+        tapxy, tap, bars = helpers(pg)
+        pg.goto(f"{BASE}/{L}/", wait_until="networkidle")
+        pg.wait_for_timeout(600)
+        api = pg.evaluate("() => !!(window.CSS && CSS.highlights) || typeof window.Highlight === 'function'")
+        open_result(pg, tap, bars)
+        fb = pg.evaluate("""() => { const m = [...document.querySelectorAll('.app-main .search-hit-fb')];
+            const t = m.map(x => x.textContent).join('').toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');
+            const r = m[0] ? m[0].getBoundingClientRect() : null;
+            return {n: m.length, t, hl: document.documentElement.hasAttribute('data-search-hl'),
+                    inView: !!r && r.top >= 0 && r.bottom <= innerHeight && r.height > 0,
+                    bg: m[0] ? getComputedStyle(m[0]).backgroundColor : null}; }""")
+        chk(dev, "11 no Highlight API: the found word wrapped in a visible mark, in view",
+            not api and fb["n"] > 0 and fb["t"] == "jayati" and fb["hl"] and fb["inView"]
+            and fb["bg"] not in (None, "rgba(0, 0, 0, 0)", "transparent"), (api, fb))
+        txt0 = pg.evaluate("() => document.querySelector('.app-main article').textContent")
+        tapxy(vw["width"] - 6, vw["height"] / 2, 500)
+        st = pg.evaluate(HL_STATE)
+        txt1 = pg.evaluate("() => document.querySelector('.app-main article').textContent")
+        chk(dev, "11 fallback: the next tap removes the mark, text unchanged, menu stays hidden",
+            fb["n"] > 0 and st["fb"] == 0 and not st["hl"] and not st["bars"] and txt0 == txt1, str(st))
+        c.close()
+
+    # ---------- 12: parampara WebP offline (SW) and PNG fallback when WebP fails ----------
+    if dev in ("pixel7", "desktop"):
+        c = ctx(sw="allow")
+        pg = c.new_page()
+        pg.goto(f"{BASE}/{L}/", wait_until="load")
+        try:
+            pg.wait_for_function("navigator.serviceWorker && navigator.serviceWorker.controller", timeout=90000)
+            cached = pg.evaluate("""async () => { const want = [...Array(9).keys()]; let n = 0;
+                for (const k of await caches.keys()) { const c = await caches.open(k);
+                  for (const r of await c.keys()) if (/\\/images\\/.*\\.webp$/.test(r.url)) n++; } return n; }""")
+            c.set_offline(True)
+            pg.goto(f"{BASE}/{L}/parampara/", wait_until="load", timeout=30000)
+            pg.wait_for_timeout(1500)
+            pp = pg.evaluate(PORTRAITS)
+            chk(dev, "12 offline (SW): the 9 parampara portraits load from WebP",
+                len(pp) == 9 and all(x["ok"] and x["src"].endswith(".webp") for x in pp), (cached, pp[:3]))
+        except Exception as e:
+            chk(dev, "12 offline (SW): the 9 parampara portraits load from WebP", False, repr(e)[:200])
+        c.close()
+        c = ctx()
+        c.route("**/*.webp", lambda r: r.abort())
+        pg = c.new_page()
+        pg.goto(f"{BASE}/{L}/parampara/", wait_until="load")
+        pg.wait_for_timeout(2000)
+        pp = pg.evaluate(PORTRAITS)
+        chk(dev, "12 WebP fails to load → the PNG is shown (9 portraits, naturalWidth > 0)",
+            len(pp) == 9 and all(x["ok"] and x["src"].endswith(".png") for x in pp), str(pp[:3]))
+        c.close()
+
+    # ---------- 13: keyboard reaches the «Аа» controls ----------
+    if dev == "desktop":
+        c = ctx()
+        pg = c.new_page()
+        tapxy, tap, bars = helpers(pg)
+        pg.goto(f"{BASE}/{L}/kartika-bhajans/", wait_until="networkidle")
+        pg.wait_for_timeout(600)
+        bars()
+        tap("[data-reader-action=aa]", 600)
+        seen = set()
+        for _ in range(60):
+            pg.keyboard.press("Tab")
+            k = pg.evaluate("""() => { const a = document.activeElement; if (!a || !a.closest('.reader-panel')) return null;
+                return a.getAttribute('data-reader-switch') ? 'sw:' + a.getAttribute('data-reader-switch') : a.tagName === 'SELECT' ? 'select' : 'other'; }""")
+            if k:
+                seen.add(k)
+            if {"sw:wbw", "sw:tr", "select"} <= seen:
+                break
+        chk(dev, "13 Tab reaches the «Аа» switches (пословный / переводы) and the language menu", {"sw:wbw", "sw:tr", "select"} <= seen, str(sorted(seen)))
+        if "sw:wbw" in seen:
+            # focus it again and toggle with the keyboard
+            pg.focus(".reader-panel [data-reader-switch=wbw]")
+            before = pg.get_attribute(".reader-panel [data-reader-switch=wbw]", "aria-checked")
+            pg.keyboard.press("Space")
+            pg.wait_for_timeout(400)
+            after = pg.get_attribute(".reader-panel [data-reader-switch=wbw]", "aria-checked") if pg.locator(".reader-panel").count() else None
+            chk(dev, "13 the switch toggles from the keyboard (Space)", before != after and after is not None, (before, after))
+        c.close()
+
+    # ---------- 14: second tap of every contents row type ----------
+    if dev in ("pixel7", "iphone14", "desktop", "mac-safari"):
+        c = ctx()
+        pg = c.new_page()
+        tapxy, tap, bars = helpers(pg)
+        LIT = "() => [...document.querySelectorAll('.mobile-menu nav [data-toc-lit]')].map(e => e.getAttribute('data-toc-row'))"
+        ROW = """(r) => { const el = [...document.querySelectorAll('.mobile-menu nav [data-toc-row]')].find(e => e.getAttribute('data-toc-row') === r);
+            if (!el) return null; el.scrollIntoView({block: 'center'}); const b = el.getBoundingClientRect();
+            return {x: b.left + Math.min(40, b.width / 2), y: b.top + b.height / 2, tag: el.tagName, exp: el.getAttribute('aria-expanded'),
+                    href: el.getAttribute('href')}; }"""
+
+        def prepare():
+            pg.goto(f"{BASE}/{L}/kartika-bhajans/", wait_until="networkidle")
+            pg.wait_for_timeout(500)
+            for _ in range(3):
+                if pg.locator(".mobile-menu").count():
+                    break
+                bars()
+                try:
+                    tap("[data-reader-action=contents]", 800)
+                except Exception:
+                    pass
+            for sel in (".mobile-menu [data-toc-group=introduction]", ".mobile-menu [data-toc-group=temple-worship]",
+                        ".mobile-menu button[data-toc-chapter=daily-duties-brahma-muhurta]"):
+                for _ in range(3):
+                    if pg.locator(sel).count() and pg.get_attribute(sel, "aria-expanded") == "true":
+                        break
+                    if pg.locator(sel).count():
+                        tap(sel)
+
+        prepare()
+        rows = pg.evaluate("""() => [...document.querySelectorAll('.mobile-menu nav [data-toc-row]')].map(e => ({r: e.getAttribute('data-toc-row'),
+            tag: e.tagName, exp: e.getAttribute('aria-expanded')}))""")
+        pick = {}
+        for x in rows:
+            r = x["r"]
+            if r == "cover":
+                pick.setdefault("cover", r)
+            elif r == "sec:mangalacarana":     # a chapter without subsections (a link)
+                pick["chapter"] = r
+            elif r.startswith("grp:"):
+                pick.setdefault("group heading", r)
+            elif r.startswith("sub:"):
+                pick.setdefault("subsection", r)
+            elif r.startswith("sec:") and x["exp"] is not None:
+                pick.setdefault("chapter with subsections", r)
+            elif r.startswith("sec:") and x["tag"] == "A" and r != "sec:kartika-bhajans":   # (not the page shown)
+                pick.setdefault("chapter", r)
+        bad = []
+        for kind in ("chapter", "subsection", "chapter with subsections", "group heading", "cover"):
+            r = pick.get(kind)
+            if not r:
+                bad.append((kind, "no row"))
+                continue
+            prepare()
+            other = next(x for x in ("sec:parampara", "sec:mangalacarana", "grp:introduction") if x != r and x not in pg.evaluate(LIT))
+            pg.evaluate("""(o) => { const el = [...document.querySelectorAll('.mobile-menu nav [data-toc-row]')].find(e => e.getAttribute('data-toc-row') === o); el && el.click(); }""", other)
+            pg.wait_for_timeout(250)
+            u0 = pg.url
+            q = pg.evaluate(ROW, r)
+            if not q:
+                bad.append((kind, r, "row gone"))
+                continue
+            tapxy(q["x"], q["y"], 400)
+            q1 = pg.evaluate(ROW, r)
+            if pg.evaluate(LIT) != [r] or pg.url != u0 or not q1 or q1["exp"] != q["exp"]:
+                bad.append((kind, r, "1st tap", pg.evaluate(LIT), pg.url[-30:], q1 and q1["exp"]))
+                continue
+            tapxy(q1["x"], q1["y"], 1200)
+            if q["exp"] is not None:      # disclosure: the 2nd tap opens / closes it
+                q2 = pg.evaluate(ROW, r)
+                if not q2 or q2["exp"] == q["exp"]:
+                    bad.append((kind, r, "2nd tap did not toggle", q["exp"], q2 and q2["exp"]))
+            else:                          # a link: the 2nd tap opens it
+                want = (q["href"] or "").rstrip("/")
+                if pg.url == u0 or not unquote(pg.url).split("?")[0].rstrip("/").endswith(unquote(want).rsplit("/arcana-paddhati", 1)[-1].rstrip("/")):
+                    bad.append((kind, r, "2nd tap did not open", want[-40:], pg.url[-40:]))
+        chk(dev, f"14 second tap opens every contents row type ({', '.join(f'{k}={v}' for k, v in pick.items())})", not bad and len(pick) == 5, str(bad[:3]))
+        c.close()
+    b.close()
+
+
 def rhombi_gone():
     """The frame's top / bottom centre (where the rhombi were) holds only the two gold lines: in the centre
     column, between the outer line and the image edge, no white-filled diamond (≥ 4 px of opaque white)."""
@@ -397,5 +698,9 @@ with sync_playwright() as p:
             run(p, dev, eng, o)
         except Exception as e:  # a crash is a failure, with its message
             chk(dev, "suite crashed", False, repr(e)[:300])
+        try:
+            run_v781(p, dev, eng, o)
+        except Exception as e:
+            chk(dev, "v7.8.1 checks crashed", False, repr(e)[:300])
 print(f"s26: {sum(res)}/{len(res)} passed", flush=True)
 sys.exit(0 if res and all(res) else 1)

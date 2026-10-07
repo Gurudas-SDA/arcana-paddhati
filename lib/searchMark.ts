@@ -8,8 +8,12 @@
  * visible occurrence of the query inside it (the subsection, else the page's
  * article) is painted with the CSS Custom Highlight API (`::highlight(search-hit)`
  * in app/globals.css) — the page's DOM is not changed — and brought into view if
- * it lies off screen. Like a picture highlight (UI §1), the next tap on the page
- * only clears it; so do "back" / "forward".
+ * it lies off screen. Without that API (older Safari / WebView) the word is wrapped
+ * in a <mark class="search-mark search-hit-fb"> instead, unwrapped again on clear
+ * (Reader v7.8.1). Like a picture highlight (UI §1), the next tap on the page
+ * only clears it; so do "back" / "forward" and any other step to another place
+ * (a link, a router push, a new #anchor) — else the mark of a page no longer shown
+ * would eat the next page's first tap and stop its anchor alignment (v7.8.1).
  */
 import { normalizeText } from "@/lib/book";
 
@@ -29,6 +33,11 @@ interface Pending {
 let pending: Pending | null = null;
 let timer: number | undefined;
 let listening = false;
+/** Where the mark was put (pathname + #anchor): any other place clears it. */
+let markedAt: { path: string; hash: string } | null = null;
+/** The fallback marks (no Highlight API), unwrapped on clear. */
+let fbMarks: HTMLElement[] = [];
+const FB_CLASS = "search-hit-fb";
 
 type HighlightCtor = new (...ranges: Range[]) => unknown;
 function registry(): { set: (n: string, h: unknown) => void; delete: (n: string) => void } | null {
@@ -41,6 +50,8 @@ function registry(): { set: (n: string, h: unknown) => void; delete: (n: string)
 /** Remove the mark (and the scroll ownership). */
 export function clearSearchMark() {
   registry()?.delete(NAME);
+  unwrapFallback();
+  markedAt = null;
   document.documentElement.removeAttribute(ATTR);
   document.documentElement.removeAttribute(SEARCH_SCROLL_ATTR);
 }
@@ -48,6 +59,55 @@ export function clearSearchMark() {
 /** True while a found word is marked on the page. */
 export function searchMarkOn(): boolean {
   return document.documentElement.hasAttribute(ATTR);
+}
+
+function unwrapFallback() {
+  const marks = fbMarks;
+  fbMarks = [];
+  for (const m of marks) {
+    const parent = m.parentNode;
+    if (!parent) continue;
+    while (m.firstChild) parent.insertBefore(m.firstChild, m);
+    parent.removeChild(m);
+    // the split text node joins its first part again (the node React keeps)
+    parent.normalize();
+  }
+}
+
+/** No Highlight API: wrap each text piece of `range` in a <mark>. */
+function wrapFallback(range: Range) {
+  const nodes: Text[] = [];
+  const root = range.commonAncestorContainer;
+  if (root.nodeType === Node.TEXT_NODE) nodes.push(root as Text);
+  else {
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    for (let n = w.nextNode() as Text | null; n; n = w.nextNode() as Text | null) {
+      if (range.intersectsNode(n)) nodes.push(n);
+    }
+  }
+  for (let node of nodes) {
+    const from = node === range.startContainer ? range.startOffset : 0;
+    const to = node === range.endContainer ? range.endOffset : node.data.length;
+    if (to <= from) continue;
+    if (to < node.data.length) node.splitText(to);
+    if (from > 0) node = node.splitText(from);
+    const m = document.createElement("mark");
+    m.className = `search-mark ${FB_CLASS}`;
+    node.parentNode?.insertBefore(m, node);
+    m.appendChild(node);
+    fbMarks.push(m);
+  }
+}
+
+function here(): { path: string; hash: string } {
+  return { path: window.location.pathname.replace(/\/+$/, ""), hash: window.location.hash };
+}
+
+/** A step to another place (link, router push, back / forward, new #anchor) clears the mark. */
+function onUrlChange() {
+  if (!markedAt) return;
+  const h = here();
+  if (h.path !== markedAt.path || (h.hash && h.hash !== markedAt.hash)) clearSearchMark();
 }
 
 function visibleText(node: Text): boolean {
@@ -111,13 +171,20 @@ function tryApply(): boolean {
   const range = findRange(root, p.nq);
   if (!range) return false;
   pending = null;
-  const reg = registry();
-  if (!reg) return true; // no Highlight API (old Safari): the result still opens
-  const H = (globalThis as unknown as { Highlight: HighlightCtor }).Highlight;
-  reg.set(NAME, new H(range));
-  document.documentElement.setAttribute(ATTR, "");
-  // Off screen (a long subsection): bring the word into view.
+  // measured before a fallback wrap changes the DOM
   const rect = range.getBoundingClientRect();
+  const reg = registry();
+  if (reg) {
+    const H = (globalThis as unknown as { Highlight: HighlightCtor }).Highlight;
+    reg.set(NAME, new H(range));
+  } else {
+    // no Highlight API (older Safari / WebView): a <mark> around the word
+    wrapFallback(range);
+  }
+  document.documentElement.setAttribute(ATTR, "");
+  markedAt = here();
+  if (!markedAt.hash && p.anchor) markedAt.hash = `#${encodeURIComponent(p.anchor)}`;
+  // Off screen (a long subsection): bring the word into view.
   const m = main.getBoundingClientRect();
   if (rect.top < m.top + 56 || rect.bottom > m.bottom - 64) {
     document.documentElement.setAttribute(SEARCH_SCROLL_ATTR, "");
@@ -150,6 +217,21 @@ function listen() {
     pending = null;
     clearSearchMark();
   });
+  // Forward steps (Next <Link>, router.push / replace, a new #anchor) send no
+  // popstate: watch the history calls themselves (v7.8.1).
+  window.addEventListener("hashchange", onUrlChange);
+  for (const k of ["pushState", "replaceState"] as const) {
+    const orig = window.history[k];
+    window.history[k] = function (this: History, ...args: Parameters<History["pushState"]>) {
+      const r = orig.apply(this, args);
+      try {
+        onUrlChange();
+      } catch {
+        // never break navigation
+      }
+      return r;
+    } as History["pushState"];
+  }
 }
 
 /** A search result was tapped: mark `nq` at that place once it is shown. */
