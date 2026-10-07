@@ -41,7 +41,7 @@ def chk(d, n, ok, info=""):
 
 LIT = """() => { const nav = document.querySelector('.mobile-menu nav'); if (!nav) return {menu: false};
   const lits = [...nav.querySelectorAll('[data-toc-lit]')]; if (!lits.length) return {menu: true, n: 0};
-  const el = lits[0]; const box = el.matches('[data-toc-group]') ? el.parentElement : el;
+  const el = lits[0]; const box = el;  // v7.8: the group heading's button is the whole strip
   const r = box.getBoundingClientRect(), nr = nav.getBoundingClientRect();
   const txt = el.querySelector('span') || el;
   return {menu: true, n: lits.length, group: el.getAttribute('data-toc-group'), chapter: el.getAttribute('data-toc-chapter'),
@@ -316,6 +316,19 @@ def run(p, dev, eng, o):
     if dev in ("desktop", "iphone14"):
         ids = json.load(urllib.request.urlopen(f"{BASE}/search-index.{L}.json"))
         secs = sorted({e["section"] for e in ids})
+        # v7.8 (Satkirti 07.10.2026): a short mantra («oṁ keśavāya namaḥ») has no «пословно»; with a
+        # translation it keeps its «перевод» chip, without one it has no chips at all
+        bk = json.load(open(os.path.join(qa.DATA, f"book.{L}.json"), encoding="utf-8"))
+        vv = []
+        def _w(o):
+            if isinstance(o, dict):
+                if o.get("type") == "verse" and o.get("wbw"): vv.append(o)
+                for x in o.values(): _w(x)
+            elif isinstance(o, list):
+                for x in o: _w(x)
+        _w(bk)
+        short_tr = sum(1 for v in vv if qa.is_short_mantra(v.get("sanskrit")) and v.get("translation"))
+        short_no = sum(1 for v in vv if qa.is_short_mantra(v.get("sanskrit")) and not v.get("translation"))
         for lang in ("ru-iast", "ru"):
             tv = tw = 0; missing = []
             for sid in secs:
@@ -323,7 +336,9 @@ def run(p, dev, eng, o):
                 v = pg.evaluate("(() => { const c = [...document.querySelectorAll('.app-main article .verse-chips')]; return [c.length, c.filter(x => /пословно/.test(x.textContent)).length]; })()")
                 tv += v[0]; tw += v[1]
                 if v[0] != v[1]: missing.append(f"{sid}:{v[1]}/{v[0]}")
-            chk(dev, f"I {lang}: every verse in the UI has «пословно» ({tw}/{tv}, {VERSES} expected)", tv == tw == VERSES, "; ".join(missing))
+            want_w, want_v = VERSES - short_tr - short_no, VERSES - short_no
+            chk(dev, f"I {lang}: every verse but the short mantras has «пословно» ({tw}/{tv}; {want_w}/{want_v} expected — {short_tr + short_no} short mantras)",
+                tw == want_w and tv == want_v and short_tr + short_no >= 20, "; ".join(missing))
 
     chk(dev, "no requests to third-party hosts", not foreign, "; ".join(foreign[:5]))
     chk(dev, "no page errors", not errs, "; ".join(errs[:3]))

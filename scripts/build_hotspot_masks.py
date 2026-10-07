@@ -17,7 +17,7 @@ hand-tuned polygon in CONFIG when objects touch). Components that touch
 several objects (e.g. the tray under 1-3) are split by those polygons; lines
 that belong to no numbered object (the tray rim) are removed via "exclude".
 
-Run:  python scripts/build_hotspot_masks.py [--check out_dir]
+Run:  python scripts/build_hotspot_masks.py [--only Tilak.png] [--check out_dir]
 Needs numpy, scipy, Pillow. Rerun after changing a picture or CONFIG.
 """
 import json
@@ -118,6 +118,9 @@ CONFIG = {
             "7": {"clip": [(58, 236), (78, 238), (70, 266), (66, 284), (52, 286), (52, 266)]},
             "9": {"clip": [(321, 324), (333, 322), (338, 346), (340, 374), (331, 376), (326, 356)]},
             "10": {"clip": [(308, 240), (318, 238), (330, 262), (333, 286), (326, 288), (318, 276), (312, 262)]},
+            # the crown (Reader v7.8, Satkirti 07.10.2026): the śikhā on the back view's crown — no printed
+            # number; lit by «tat prakṣālana-toyaṁ tu / vāsudevāya mūrdhani» and «oṁ vāsudevāya namaḥ»
+            "13": {"clip": [(520, 41), (556, 41), (556, 105), (520, 105)]},
         },
     },
 }
@@ -230,7 +233,10 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     check = sys.argv[sys.argv.index("--check") + 1] if "--check" in sys.argv else None
     ok = True
+    only = sys.argv[sys.argv.index("--only") + 1] if "--only" in sys.argv else None
     for name, spec in data.items():
+        if only and name != only:
+            continue
         cfg = CONFIG.get(name, {})
         masks, own, conflicts, lum, stem = build(name, spec, cfg)
         if conflicts:

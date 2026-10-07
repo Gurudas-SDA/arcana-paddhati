@@ -25,11 +25,12 @@ Sources (not in git): ../Арчана-паддхати — книга/Черно
 
 Output (in git):
   public/images/parampara/01.png … 08.png   RGBA: photo in the oval + gold double line +
-                                              small rhombi top/bottom; transparent outside
+                                              (v7.8: no rhombi — design 1); transparent outside
   scripts/parampara/check.json              crop, oval and the contour check of every page
                                               (re-verified by qa/lint_content.py L21)
 
     python scripts/parampara/render_parampara.py
+    python scripts/parampara/render_parampara.py --strip-rhombi   (v7.8: patch the published PNGs)
 """
 import importlib.util
 import json
@@ -56,6 +57,7 @@ SS = 3                  # supersampling of the frame lines
 GOLD_D = (139, 101, 8, 255)
 GOLD = (212, 168, 67, 255)
 WHITE = (255, 255, 255, 255)
+RHOMBI = False          # v7.8: the small rhombi top/bottom of the oval removed (Satkirti 07.10.2026 21:51)
 
 # The painting inside the gold frame of the book crop (391×508): frame ~8 px, corner radius ~22 px.
 INSET = 9
@@ -323,11 +325,44 @@ def render_page(photo, box):
     shifted = affinity.translate(poly, pad, pad)
     outline(d, shifted, g1, max(SS, round(4.5 * k * SS)), GOLD_D)
     outline(d, shifted, g2, max(SS, round(2.2 * k * SS)), GOLD)
-    for y in (pad - g2, pad + wh + g2):
-        rhombus(d, W / 2, y, r_out, fill=WHITE, outline_c=GOLD_D, width=max(SS, round(2 * k * SS)))
-        rhombus(d, W / 2, y, 4 * k * SS, fill=GOLD_D)
+    if RHOMBI:
+        for y in (pad - g2, pad + wh + g2):
+            rhombus(d, W / 2, y, r_out, fill=WHITE, outline_c=GOLD_D, width=max(SS, round(2 * k * SS)))
+            rhombus(d, W / 2, y, 4 * k * SS, fill=GOLD_D)
     out = page.resize((W // SS, H // SS), Image.LANCZOS)
     return out, pad / SS
+
+
+def save_page(page, path):
+    """PNG (RGBA, the reference L21 checks) + a WebP twin that the reader shows (v7.8, A65: the nine PNGs
+    weighed ~6.4 MB; WebP quality 90 with lossless alpha ~1.0 MB, no visible difference)."""
+    page.save(path, optimize=True)
+    page.save(path.with_suffix(".webp"), "WEBP", quality=90, method=6, alpha_quality=100)
+
+
+def strip_rhombi():
+    """Reader v7.8 (Satkirti 07.10.2026 21:51, design 1 «Чистая двойная линия»): the frame without the small
+    rhombi at the top and bottom of the oval. The sources are not on disk any more, so the published PNGs are
+    patched: around each rhombus (it lies wholly outside the photo window) the pixels are replaced by the same
+    frame drawn without rhombi — the double gold line runs through. Photo, crop and image size are unchanged."""
+    k = WIN_W / 1190.0
+    blank = Image.new("RGB", (WIN_W * SS, round(WIN_W / ASPECT) * SS), (0, 0, 0))
+    frame, _ = render_page(blank, None)          # RHOMBI is False: the frame alone (+ a black window)
+    fa = np.asarray(frame).copy()
+    W, H = frame.size
+    g2 = 24 * k
+    r = 11 * k + 3                               # the rhombus + its outline + anti-aliasing
+    pad = (fa.shape[0] - round(WIN_W / ASPECT)) / 2
+    yy, xx = np.mgrid[0:H, 0:W]
+    m = np.zeros((H, W), bool)
+    for y in (pad - g2, pad + round(WIN_W / ASPECT) + g2):
+        m |= (np.abs(xx - W / 2) + np.abs(yy - y)) <= r
+    for f in sorted(OUT.glob("0[0-8].png")):
+        im = np.asarray(Image.open(f).convert("RGBA")).copy()
+        assert im.shape[:2] == (H, W), (f.name, im.shape, (H, W))
+        im[m] = fa[m]
+        save_page(Image.fromarray(im, "RGBA"), f)
+        print(f"{f.name}: rhombi removed ({int(m.sum())} px)")
 
 
 def gurudev_crop():
@@ -358,7 +393,7 @@ def main():
         im, box, ext = extended_crop(src, crop, valid, hull, STYLE.get(gid, STYLE_PAINTING))
         ok, cl = clearance(H, crop[0] - crop[2] / 2, crop[1] - crop[3] / 2, crop[2])
         page, pad = render_page(im, box)
-        page.save(OUT / f"{gid}.png", optimize=True)
+        save_page(page, OUT / f"{gid}.png")
         report["pages"].append({"id": gid, "source": fname, "source_size": list(src.size),
                                 "crop": [round(v, 2) for v in crop], "hull": [list(p) for p in hull],
                                 "all_inside": ok, "min_clearance": round(cl, 4),
@@ -368,7 +403,7 @@ def main():
     src, crop, rep, hull = gurudev_crop()
     cx, cy, cw, ch = crop
     page, pad = render_page(src, (cx - cw / 2, cy - ch / 2, cx + cw / 2, cy + ch / 2))
-    page.save(OUT / f"{GURUDEV[0]}.png", optimize=True)
+    save_page(page, OUT / f"{GURUDEV[0]}.png")
     ok, cl = clearance(np.array(hull, float), cx - cw / 2, cy - ch / 2, cw)
     report["pages"].append({"id": GURUDEV[0], "source": GURUDEV[1] + " (+ mirrored 700 px of the cloth below, as in variant A)",
                             "source_size": [src.size[0], src.size[1]], "crop": [round(float(v), 2) for v in crop],
@@ -380,4 +415,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    strip_rhombi() if "--strip-rhombi" in sys.argv else main()

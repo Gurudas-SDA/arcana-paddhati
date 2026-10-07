@@ -48,7 +48,8 @@ with sync_playwright() as p:
         pg.wait_for_timeout(500)
         opts_ = pg.locator(".mobile-menu select option").evaluate_all("os => os.map(o => [o.value, o.textContent.trim()])")
         rus = [o for o in opts_ if o[0].startswith("ru")]
-        check(dev, "contents-panel language menu: one Russian «Русский» = ru-iast", rus == [["ru-iast", "Русский"]], str(opts_))
+        # v7.8 (Satkirti 07.10.2026 вечер): the language menu is ONLY in the «Аа» panel — none in «Содержание»
+        check(dev, "contents panel has NO language menu (v7.8: only in «Аа»)", opts_ == [] and pg.locator(".mobile-menu select").count() == 0, str(opts_))
         pg.go_back(); pg.wait_for_timeout(500)
         # open the Аа panel too
         if pg.locator(".reader-chrome[data-shown]").count() == 0:

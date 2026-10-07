@@ -92,7 +92,7 @@ with sync_playwright() as p:
         pg.wait_for_timeout(800)
         # 3: contents order
         open_contents(pg)
-        order = pg.evaluate("[...document.querySelectorAll('aside nav > ul > li')].map(l=>l.innerText.trim().split('\\n')[0].trim()).filter(Boolean).slice(0,4)")
+        order = pg.evaluate("[...document.querySelectorAll('aside nav [data-toc-cover], aside nav .toc-scroll > ul > li')].map(l=>l.innerText.trim().split('\\n')[0].trim()).filter(Boolean).slice(0,4)")
         # v7.4 (Satkirti 06.10 / 07.10.2026): the parampara stands between the cover and the Maṅgalācaraṇa
         ck(dev, '3 contents: Обложка → Гуру-парампара → Мангалачарана → ВВЕДЕНИЕ', order[:4] == ['Обложка', 'Гуру-парампара', 'Мангалачарана', 'ВВЕДЕНИЕ'], order)
         # 1: nav bar on screen and on top while the menu is open
@@ -222,18 +222,17 @@ with sync_playwright() as p:
         # 14: numbers drawn on the emblem
         tags = pg.evaluate("[...document.querySelectorAll('.app-main .hs-figure .hs-tag')].map(t=>t.textContent)")
         ck(dev, '14 emblem shows numbers 1, 2.1–2.6, 10–12', sorted(tags) == sorted(['1', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '10', '11', '12']), tags)
-        # 18: Tilak / ācamana mantras have «пословно»
+        # 18 (v7.8, Satkirti 07.10.2026 вечер): the short Tilak / ācamana mantras («oṁ keśavāya namaḥ») have
+        # NO «пословно» any more; the mantras themselves are all still there
         pg.goto(L + 'daily-duties-brahma-muhurta/', wait_until='networkidle')
         pg.wait_for_timeout(600)
-        chips = pg.locator('#applying-tilaka .mantra-chips .verse-chip')
-        n = chips.count()
-        ok = False
-        if n:
-            tap(pg, chips.first)
-            pg.wait_for_timeout(400)
-            ok = 'Кешаве' in pg.evaluate("[...document.querySelectorAll('#applying-tilaka .verse-panel:not([hidden])')].map(p=>p.innerText).join(' ')")
+        n = pg.locator('#applying-tilaka .mantra-chips .verse-chip').count()
+        # (the section's longer verse mantras keep their «пословно» — s26 item 7 checks every short one)
         n2 = pg.locator('#sadhararana-acamana .mantra-chips .verse-chip').count()
-        ck(dev, '18 Tilak (12) + ācamana mantras have «пословно», opens «… keśavāya — Кешаве»', n >= 12 and n2 >= 24 and ok, (n, n2, ok))
+        m1 = pg.evaluate("[...document.querySelectorAll('#applying-tilaka .hs-row .sa-inline')].filter(e=>/namaḥ/.test(e.textContent)).length")
+        m2 = pg.evaluate("[...document.querySelectorAll('#sadhararana-acamana .sanskrit')].filter(e=>/namaḥ/.test(e.textContent)).length")
+        ok = m1 >= 12 and m2 >= 24
+        ck(dev, '18 Tilak (12) + ācamana short mantras shown WITHOUT «пословно» (v7.8)', n == 0 and n2 == 0 and ok, (n, n2, m1, m2))
         # 17: Back retraces without a repeated step
         pg.goto(L + 'daily-duties-brahma-muhurta/', wait_until='networkidle')
         pg.wait_for_timeout(600)

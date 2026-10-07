@@ -4,9 +4,9 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Sidebar, { restoreParts } from "@/components/Sidebar";
 import InstallBanner from "@/components/InstallBanner";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ReaderChrome from "@/components/ReaderChrome";
 import type { SearchEntry } from "@/lib/book";
+import { SEARCH_SCROLL_ATTR } from "@/lib/searchMark";
 import {
   QUERY_STORE,
   isMenuEntry,
@@ -311,6 +311,8 @@ export default function AppShell({
       const timers: number[] = [];
       const align = () => {
         if (stopped) return;
+        // A search result's word took over the place (lib/searchMark.ts).
+        if (document.documentElement.hasAttribute(SEARCH_SCROLL_ATTR)) return stop();
         if (performance.now() > until) return stop();
         const el = document.getElementById(id);
         if (!el) return;
@@ -372,15 +374,11 @@ export default function AppShell({
   const searchIndex = searchIndexes[contentLang];
   const entries = Array.isArray(searchIndex) ? searchIndex : null;
 
-  const switcherProps = { lang, sectionId, available, ui };
-
   const sidebarProps = {
     sections,
     parts,
     lang,
     ui,
-    hasWbw,
-    languageSwitcher: <LanguageSwitcher {...switcherProps} block />,
     searchQuery,
     onSearchChange: (q: string) => {
       setSearchQuery(q);
@@ -405,6 +403,7 @@ export default function AppShell({
         sections={sections}
         parts={parts}
         available={available}
+        hasWbw={hasWbw}
         menuOpen={mobileMenuOpen}
         onOpenContents={openMenu}
         onOpenSearch={openSearch}

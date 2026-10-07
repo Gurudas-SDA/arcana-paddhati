@@ -44,6 +44,13 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { type TocPart, type TocSection } from "@/lib/book";
 import { parsePath, t, type UiDict } from "@/lib/i18n";
 import { main as mainEl, pushOverlay } from "@/lib/navHistory";
+import { searchMarkOn } from "@/lib/searchMark";
+import {
+  setShowAllTranslations,
+  setShowAllWbw,
+  useShowAllTranslations,
+  useShowAllWbw,
+} from "@/lib/translationsPref";
 import {
   SIZES,
   THEMES,
@@ -64,8 +71,8 @@ const NO_TOGGLE = [
   // bars like empty space (Reader v7.5, Satkirti 07.10.2026 — the old
   // exception for this photo is cancelled).
   "img:not(.hs-img):not(.portrait-img)", "svg:not(.hs-overlay):not(.portrait-ornament)",
-  "picture", "video", "canvas",
-  ".hs-text", ".hs-hit", ".hs-peek", ".hs-inert",
+  "picture:not(.portrait-picture)", "video", "canvas",
+  ".hs-text", ".hs-cell", ".hs-hit", ".hs-peek", ".hs-inert",
   ".mood-toggle", ".verse-chips", ".mantra-chips", "[data-no-reader-tap]",
 ].join(",");
 
@@ -102,7 +109,7 @@ function selText(): string {
 
 /** Something on a numbered picture / list is highlighted. */
 function highlightOn(): boolean {
-  return !!document.querySelector(".hs-row[data-active], .hs-img-faded");
+  return !!document.querySelector(".hs-row[data-active], .hs-img-faded") || searchMarkOn();
 }
 
 /** A window of its own is open (contents/search drawer, «Настроение Гурудева»). */
@@ -125,6 +132,7 @@ export default function ReaderChrome({
   sections,
   parts,
   available,
+  hasWbw,
   menuOpen,
   onOpenContents,
   onOpenSearch,
@@ -135,6 +143,8 @@ export default function ReaderChrome({
   sections: TocSection[];
   parts: TocPart[];
   available: string[];
+  /** The language's book has word-by-word data (else its switch is hidden). */
+  hasWbw: boolean;
   /** The contents / search drawer is open. */
   menuOpen: boolean;
   onOpenContents: () => void;
@@ -146,6 +156,8 @@ export default function ReaderChrome({
   const [pct, setPct] = useState(0);
   const [hint, setHint] = useState(false);
   const theme = useReaderTheme();
+  const showAllWbw = useShowAllWbw();
+  const showAllTranslations = useShowAllTranslations();
   const size = useReaderSize();
   const [canBack, setCanBack] = useState(true);
   const [canForward, setCanForward] = useState(true);
@@ -724,6 +736,31 @@ export default function ReaderChrome({
                 <span>{t(ui, `reader.bg.${th}`)}</span>
               </button>
             ))}
+          </div>
+          {/* Verse panels open everywhere (Reader v7.8, Satkirti 07.10.2026: moved
+              here from «Содержание»). The label and the switch act; nothing else. */}
+          <div className="reader-switches">
+            {(
+              [
+                ...(hasWbw ? [["wbw", "sidebar.showAllWbw", showAllWbw, setShowAllWbw]] : []),
+                ["tr", "sidebar.showAllTranslations", showAllTranslations, setShowAllTranslations],
+              ] as [string, string, boolean, (v: boolean) => void][]
+            ).map(([id, key, on, set]) => (
+                <button
+                  key={id}
+                  type="button"
+                  role="switch"
+                  aria-checked={on}
+                  className="reader-switch"
+                  data-reader-switch={id}
+                  onClick={() => set(!on)}
+                >
+                  <span className="reader-switch-label">{t(ui, key)}</span>
+                  <span aria-hidden="true" className="reader-switch-track" data-on={on ? "" : undefined}>
+                    <span className="reader-switch-knob" />
+                  </span>
+                </button>
+              ))}
           </div>
           <p className="reader-panel-label">{t(ui, "language.label")}</p>
           <LanguageSwitcher

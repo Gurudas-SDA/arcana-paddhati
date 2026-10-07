@@ -110,7 +110,21 @@
     "lx": 74.07,
     "ly": 69.1,
     "mask": "Tilak-12.png"
+   },
+   "13": {
+    "x": 71.1,
+    "y": 14.0,
+    "rx": 2.6,
+    "ry": 6.5,
+    "mask": "Tilak-13.png"
    }
+  },
+  "text": {
+   "13": [
+    "tat prakṣālana-toyaṁ tu",
+    "vāsudevāya mūrdhani",
+    "oṁ vāsudevāya namaḥ"
+   ]
   }
  },
  "Parafernalia.png": {

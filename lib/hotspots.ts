@@ -31,6 +31,11 @@ export interface HotspotImage {
   spots: Record<string, Hotspot>;
   /** Polygons ([x%, y%] points) that are no tap target at all (the Deities). */
   inert?: number[][][];
+  /** Text (outside the numbered list) linked to a spot: per spot number, the
+   *  exact Sanskrit phrases — a verse line or an inline ⟦mantra⟧ — whose tap
+   *  lights it (Reader v7.8: the crown, «vāsudevāya mūrdhani» /
+   *  «oṁ vāsudevāya namaḥ»). Matched in every language that gives them in IAST. */
+  text?: Record<string, string[]>;
 }
 
 const IMAGES = data as Record<string, HotspotImage>;
@@ -43,4 +48,14 @@ export function hotspotsFor(src: string | undefined): HotspotImage | undefined {
 /** Picture numbers named by a list label: "4" -> ["4"], "4, 5" -> ["4", "5"], "2.1" -> ["2.1"] (a sub-point). */
 export function labelNumbers(label: string | undefined): string[] {
   return (label ?? "").match(/\d+(?:\.\d+)*/g) ?? [];
+}
+
+/** Spot number linked to this phrase of the picture's text links, or null. */
+export function linkedSpot(data: HotspotImage | undefined, phrase: string): string | null {
+  if (!data?.text) return null;
+  const p = phrase.trim().normalize("NFC");
+  for (const [n, list] of Object.entries(data.text)) {
+    if (list.some((x) => x.normalize("NFC") === p)) return n;
+  }
+  return null;
 }

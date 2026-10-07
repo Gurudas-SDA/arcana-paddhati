@@ -3,7 +3,6 @@
 import { useOfflineProgress } from "@/lib/offlineProgress";
 import React, {
   useEffect,
-  useId,
   useLayoutEffect,
   useMemo,
   useRef,
@@ -13,6 +12,7 @@ import React, {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  matchRanges,
   normalizeText,
   tocLayout,
   type SearchEntry,
@@ -28,12 +28,7 @@ import {
   pushOverlay,
   pushPlace,
 } from "@/lib/navHistory";
-import {
-  setShowAllTranslations,
-  setShowAllWbw,
-  useShowAllTranslations,
-  useShowAllWbw,
-} from "@/lib/translationsPref";
+import { setPendingSearchMark } from "@/lib/searchMark";
 
 interface SidebarProps {
   sections: TocSection[];
@@ -42,9 +37,6 @@ interface SidebarProps {
   /** Language of the current URL (links stay in it). */
   lang: string;
   ui: UiDict;
-  /** The language's book has word-by-word data (else its switch is hidden). */
-  hasWbw: boolean;
-  languageSwitcher: React.ReactNode;
   searchQuery: string;
   onSearchChange: (query: string) => void;
   onSearchFocus: () => void;
@@ -400,46 +392,40 @@ function resetChapters() {
   if (changed) setPartsState(cur);
 }
 
-/** A small on/off switch row of the sidebar. */
-function PrefSwitch({
-  label,
-  checked,
-  onChange,
-}: {
-  label: string;
-  checked: boolean;
-  onChange: (value: boolean) => void;
-}) {
-  const labelId = useId();
-  // Only the label text and the switch itself act; the empty gap between
-  // them is page space (UI rule 1).
-  return (
-    <div className="flex w-full items-center justify-between gap-3 py-1 text-xs text-[#5C3D2E]">
-      <span
-        id={labelId}
-        onClick={() => onChange(!checked)}
-        className="cursor-pointer select-none hover:text-[#2C1810] transition-colors"
-      >
-        {label}
-      </span>
-      <button
-        type="button"
-        role="switch"
-        aria-checked={checked}
-        aria-labelledby={labelId}
-        onClick={() => onChange(!checked)}
-        className={`relative inline-flex h-4 w-7 shrink-0 items-center rounded-full transition-colors ${
-          checked ? "bg-[#B8860B]" : "bg-[#E8DCC8]"
-        }`}
-      >
-        <span
-          className={`inline-block h-3 w-3 rounded-full bg-white shadow-sm transition-transform ${
-            checked ? "translate-x-3.5" : "translate-x-0.5"
-          }`}
-        />
-      </button>
-    </div>
-  );
+/** The search query's occurrences in `text` marked (Reader v7.8, Satkirti
+ *  07.10.2026: the found word stands out in every result). */
+function Marked({ text, nq }: { text: string; nq: string }) {
+  const ranges = matchRanges(text, nq);
+  if (!ranges.length) return <>{text}</>;
+  const out: React.ReactNode[] = [];
+  let at = 0;
+  ranges.forEach(([a, b], k) => {
+    if (a > at) out.push(text.slice(at, a));
+    out.push(
+      <mark key={k} className="search-mark" data-search-mark="">
+        {text.slice(a, b)}
+      </mark>,
+    );
+    at = b;
+  });
+  if (at < text.length) out.push(text.slice(at));
+  return <>{out}</>;
+}
+
+/** After a group / chapter list opened (second tap): when its rows do not all
+ *  show, the list scrolls so that the opened row goes up as high as it can and
+ *  its rows come into view (Reader v7.8, Satkirti 07.10.2026). */
+function revealOpened(nav: HTMLElement | null, rowId: string): boolean {
+  if (!nav) return false;
+  const row = [...nav.querySelectorAll<HTMLElement>("[data-toc-row]")].find((el) => el.dataset.tocRow === rowId);
+  const group = row?.closest("li");
+  if (!row || !group) return false;
+  const n = nav.getBoundingClientRect();
+  const g = group.getBoundingClientRect();
+  if (g.bottom <= n.bottom + 1) return false;
+  const before = nav.scrollTop;
+  nav.scrollTop = before + (row.getBoundingClientRect().top - n.top);
+  return nav.scrollTop !== before;
 }
 
 export default function Sidebar({
@@ -447,8 +433,6 @@ export default function Sidebar({
   parts,
   lang,
   ui,
-  hasWbw,
-  languageSwitcher,
   searchQuery,
   onSearchChange,
   onSearchFocus,
@@ -458,6 +442,7 @@ export default function Sidebar({
 }: SidebarProps) {
   const pathname = usePathname();
   const searchInputRef = useRef<HTMLInputElement>(null);
+  /** The scrolling list of the contents / search results. */
   const navRef = useRef<HTMLElement>(null);
 
   /** The menu entry keeps the list's scroll offset: "back" to it reopens the
@@ -563,7 +548,7 @@ export default function Sidebar({
       // default "you are here" row of a freshly opened contents, which the
       // scroll-spy could otherwise change before "back" returns to it (v7.5).
       if (typeof st?.[PATH_LIT] !== "string") {
-        const shownRow = navRef.current?.querySelector<HTMLElement>("[data-toc-lit]")?.dataset.tocRow;
+        const shownRow = navRef.current?.closest("nav")?.querySelector<HTMLElement>("[data-toc-lit]")?.dataset.tocRow;
         if (shownRow) patchState({ [PATH_LIT]: shownRow });
       }
       pushOverlay({ apParts: partsSnapshot(), [PATH_LIT]: id, apDepth: menuDepth(st) + 1 });
@@ -579,9 +564,9 @@ export default function Sidebar({
     step(id);
     return false;
   };
-  const showAllTranslations = useShowAllTranslations();
   const offline = useOfflineProgress();
-  const showAllWbw = useShowAllWbw();
+
+  const normalizedQuery = normalizeText(searchQuery.trim());
 
   const sectionHref = (sectionId: string, anchor?: string) =>
     localeHref(lang, sectionId, anchor);
@@ -597,10 +582,13 @@ export default function Sidebar({
   const followLink = (
     e: React.MouseEvent,
     sectionId: string,
-    anchor: string | undefined
+    anchor: string | undefined,
+    fromSearch = false,
   ) => {
     const strip = (p: string) => p.replace(/\/+$/, "");
     const samePage = strip(localeHref(lang, sectionId)) === strip(pathname);
+    // A search result: the found word is marked at the place it opens (Reader v7.8).
+    if (fromSearch && normalizedQuery) setPendingSearchMark(normalizedQuery, sectionId, anchor);
     try {
       // "Back" to the results scrolls to this one again (Reader v7.2).
       if (onLeave && isMenuEntry()) patchState({ [RESULT_KEY]: `${sectionId}#${anchor ?? ""}` });
@@ -672,8 +660,6 @@ export default function Sidebar({
     [searchEntries]
   );
 
-  const normalizedQuery = normalizeText(searchQuery.trim());
-
   // Contents order: front matter, then each part heading with its chapters.
   const layout = useMemo(
     () => tocLayout(sections.map((s) => s.id), parts),
@@ -697,6 +683,19 @@ export default function Sidebar({
         : (partOfSection.get(selectedId) ??
           (sectionById.get(selectedId)?.members?.length ? selectedId : null));
   const [isPartOpen] = usePartsOpen(selectedId, currentPartId);
+
+  /** The row just opened by its second tap: its list is brought into view once rendered. */
+  const [openedRow, setOpenedRow] = useState<{ id: string; at: number } | null>(null);
+  useLayoutEffect(() => {
+    if (!openedRow) return;
+    const run = () => {
+      if (revealOpened(navRef.current, openedRow.id)) saveNavScroll();
+    };
+    run();
+    // again once fonts / the rows' heights settle
+    const t = window.setTimeout(run, 120);
+    return () => window.clearTimeout(t);
+  }, [openedRow]);
 
   // Menu: its history entry keeps the parts (and chapters) as they are now
   // (for "back"). A fresh opening (no saved state yet) starts with only the
@@ -725,7 +724,9 @@ export default function Sidebar({
       step(rowId);
       return;
     }
-    step(rowId, { ...parseParts(partsSnapshot()), [id]: !isPartOpen(id) });
+    const opening = !isPartOpen(id);
+    step(rowId, { ...parseParts(partsSnapshot()), [id]: opening });
+    if (opening) setOpenedRow({ id: rowId, at: Date.now() });
   };
 
   // Full-text results (once the index is loaded).
@@ -945,13 +946,9 @@ export default function Sidebar({
     const headId = `grp:${groupId}`;
     const on = lit(headId, byDefault);
     return (
-      <div
-        className={`px-5 py-1 border-l-3 transition-colors ${
-          on ? "bg-[#FAF3E8] border-[#B8860B]" : "border-transparent"
-        }`}
-      >
-        {/* The heading text and its chevron are the button (no invisible
-            strip to the edge — UI rule 1). */}
+      <div>
+        {/* The whole highlight strip is the button (Reader v7.8, Satkirti
+            07.10.2026: every contents row reacts over its full width). */}
         <button
           type="button"
           onClick={() => onDisclosureTap(groupId, headId)}
@@ -960,8 +957,8 @@ export default function Sidebar({
           data-toc-group={groupId}
           data-toc-lit={on ? "" : undefined}
           data-toc-row={headId}
-          className={`inline-flex items-start gap-1.5 py-1 text-left rounded-sm hover:text-[#B8860B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8860B]/40 transition-colors ${
-            on ? "text-[#B8860B]" : "text-[#9C7A4E]"
+          className={`sidebar-link flex w-full min-h-[44px] items-start gap-1.5 px-5 py-2 text-left border-l-3 hover:text-[#B8860B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#B8860B]/40 transition-colors ${
+            on ? "bg-[#FAF3E8] border-[#B8860B] text-[#B8860B]" : "border-transparent text-[#9C7A4E] hover:bg-[#FDF8F0]"
           }`}
         >
           <svg
@@ -974,7 +971,7 @@ export default function Sidebar({
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={`shrink-0 mt-px transition-transform ${isOpen ? "rotate-90" : ""}`}
+            className={`shrink-0 mt-[3px] transition-transform ${isOpen ? "rotate-90" : ""}`}
           >
             <polyline points="9 6 15 12 9 18" />
           </svg>
@@ -1058,9 +1055,7 @@ export default function Sidebar({
           </svg>
         </button>
       </div>
-        {/* Language menu on its own row so the title never truncates
-            (also in the reader's «Аа» panel) */}
-        <div className="mt-3">{languageSwitcher}</div>
+        {/* The language menu is only in the reader's «Аа» panel (Reader v7.8). */}
       </div>
 
       {/* Search. Enter / the keyboard's "Search"/"Go" key submits the form:
@@ -1130,29 +1125,71 @@ export default function Sidebar({
         </form>
       </div>
 
-      {/* Verse panels: collapsed by default, these switches expand all */}
-      <div className="px-5 py-2 border-b border-[#E8DCC8]">
-        {hasWbw && (
-          <PrefSwitch
-            label={t(ui, "sidebar.showAllWbw")}
-            checked={showAllWbw}
-            onChange={setShowAllWbw}
-          />
-        )}
-        <PrefSwitch
-          label={t(ui, "sidebar.showAllTranslations")}
-          checked={showAllTranslations}
-          onChange={setShowAllTranslations}
-        />
-        {offline && !offline.complete && offline.total > 0 && (
-          <p className="text-[11px] text-[#5C3D2E] mt-1" data-offline-progress="">
-            {t(ui, "offline.progress", { n: String(Math.floor((offline.done / offline.total) * 100)) })}
-          </p>
-        )}
-      </div>
+      {/* The «show all» switches are in the «Аа» panel (Reader v7.8). */}
+      {offline && !offline.complete && offline.total > 0 && (
+        <p className="px-5 py-1.5 border-b border-[#E8DCC8] text-[11px] text-[#5C3D2E]" data-offline-progress="">
+          {t(ui, "offline.progress", { n: String(Math.floor((offline.done / offline.total) * 100)) })}
+        </p>
+      )}
 
-      {/* Sections list / search results */}
-      <nav ref={navRef} className="flex-1 overflow-y-auto sidebar-scroll py-2">
+      {/* Contents (Reader v7.8, Satkirti 07.10.2026): a fixed part — the title,
+          the search and «Обложка» — and the list that scrolls under it. */}
+      <nav className="flex-1 min-h-0 flex flex-col">
+      {!normalizedQuery && (
+        <div className="toc-fixed shrink-0 pt-2 pb-1 border-b border-[#E8DCC8]">
+          <Link
+            href={localeHref(lang)}
+            onClick={(e) => {
+              // «Обложка» = home (Reader v7.5, Satkirti 07.10.2026): the
+              // first tap resets the contents to its base view (every
+              // group and chapter closed) with «Обложка» highlighted; the
+              // second tap opens the cover.
+              if (armed === "cover") {
+                setPartsState(baseParts(parts, sections));
+                leaveTo(e, localeHref(lang));
+                return;
+              }
+              e.preventDefault();
+              step("cover", baseParts(parts, sections));
+            }}
+            aria-current={selectedId === null ? "page" : undefined}
+            data-toc-cover=""
+            data-toc-lit={lit("cover", selectedId === null) ? "" : undefined}
+            data-toc-row="cover"
+            className={`sidebar-link w-full text-left px-5 py-3 flex items-center gap-2 transition-colors ${
+              lit("cover", selectedId === null)
+                ? "bg-[#FAF3E8] border-l-3 border-[#B8860B]"
+                : "hover:bg-[#FDF8F0] border-l-3 border-transparent"
+            }`}
+          >
+            <svg
+              aria-hidden="true"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#B8860B"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="shrink-0"
+            >
+              <path d="M3 10.5 12 3l9 7.5" />
+              <path d="M5 9.5V21h14V9.5" />
+            </svg>
+            <span
+              className={`text-sm leading-snug ${
+                lit("cover", selectedId === null)
+                  ? "font-semibold text-[#B8860B]"
+                  : "text-[#2C1810]"
+              }`}
+            >
+              {t(ui, "sidebar.cover")}
+            </span>
+          </Link>
+        </div>
+      )}
+      <div ref={navRef as React.RefObject<HTMLDivElement>} className="toc-scroll flex-1 min-h-0 overflow-y-auto sidebar-scroll py-2">
         {results ? (
           results.length === 0 ? (
             <p className="px-5 py-4 text-sm text-[#5C3D2E] italic">
@@ -1165,11 +1202,11 @@ export default function Sidebar({
                   <Link
                     href={sectionHref(entry.section, entry.anchor)}
                     data-result={`${entry.section}#${entry.anchor ?? ""}`}
-                    onClick={(e) => followLink(e, entry.section, entry.anchor)}
+                    onClick={(e) => followLink(e, entry.section, entry.anchor, true)}
                     className="block w-full text-left px-5 py-3 border-l-3 border-transparent hover:bg-[#FDF8F0] transition-colors"
                   >
                     <span className="block text-sm leading-snug text-[#2C1810]">
-                      {entry.title}
+                      <Marked text={entry.title} nq={normalizedQuery} />
                     </span>
                     {entry.anchor && (
                       <span className="block text-xs text-[#B8860B]/80 mt-0.5">
@@ -1178,13 +1215,7 @@ export default function Sidebar({
                     )}
                     {(snippet.before || snippet.match || snippet.after) && (
                       <span className="block text-xs leading-relaxed text-[#5C3D2E] mt-1">
-                        {snippet.before}
-                        {snippet.match && (
-                          <mark className="bg-[#F5E6C8] text-[#2C1810] rounded-sm">
-                            {snippet.match}
-                          </mark>
-                        )}
-                        {snippet.after}
+                        <Marked text={snippet.before + snippet.match + snippet.after} nq={normalizedQuery} />
                       </span>
                     )}
                   </Link>
@@ -1198,61 +1229,6 @@ export default function Sidebar({
           </p>
         ) : (
           <ul className="space-y-0.5">
-            {/* Book cover (the language's home page) */}
-            {!normalizedQuery && (
-              <li>
-                <Link
-                  href={localeHref(lang)}
-                  onClick={(e) => {
-                    // «Обложка» = home (Reader v7.5, Satkirti 07.10.2026): the
-                    // first tap resets the contents to its base view (every
-                    // group and chapter closed) with «Обложка» highlighted; the
-                    // second tap opens the cover.
-                    if (armed === "cover") {
-                      setPartsState(baseParts(parts, sections));
-                      leaveTo(e, localeHref(lang));
-                      return;
-                    }
-                    e.preventDefault();
-                    step("cover", baseParts(parts, sections));
-                  }}
-                  aria-current={selectedId === null ? "page" : undefined}
-                  data-toc-cover=""
-                  data-toc-lit={lit("cover", selectedId === null) ? "" : undefined}
-                  data-toc-row="cover"
-                  className={`sidebar-link w-full text-left px-5 py-3 flex items-center gap-2 transition-colors ${
-                    lit("cover", selectedId === null)
-                      ? "bg-[#FAF3E8] border-l-3 border-[#B8860B]"
-                      : "hover:bg-[#FDF8F0] border-l-3 border-transparent"
-                  }`}
-                >
-                  <svg
-                    aria-hidden="true"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#B8860B"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="shrink-0"
-                  >
-                    <path d="M3 10.5 12 3l9 7.5" />
-                    <path d="M5 9.5V21h14V9.5" />
-                  </svg>
-                  <span
-                    className={`text-sm leading-snug ${
-                      lit("cover", selectedId === null)
-                        ? "font-semibold text-[#B8860B]"
-                        : "text-[#2C1810]"
-                    }`}
-                  >
-                    {t(ui, "sidebar.cover")}
-                  </span>
-                </Link>
-              </li>
-            )}
             {normalizedQuery
               ? filteredSections.map(renderSection)
               : layout.map((item) => {
@@ -1321,6 +1297,7 @@ export default function Sidebar({
                 })}
           </ul>
         )}
+      </div>
       </nav>
     </aside>
   );

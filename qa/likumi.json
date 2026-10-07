@@ -56,7 +56,7 @@
      "tests": ["s01:back (Android) returns to search with query", "s03:(d) result -> back -> search with query", "s12:6 back", "s10:§6 Enter закрывает клавиатуру", "s10:§6 «назад» к поиску с запросом", "s06:introduction: browser Back returns"]},
 
     {"id": "UI-7.1", "doc": "UI", "section": "§7", "text": "Русский язык в книге один и называется «Русский»: текст по-русски, санскрит латиницей (IAST). Отдельной русской версии с санскритом кириллицей нет.",
-     "tests": ["s00:contents-panel language menu: one Russian", "s00:Аа language menu: one Russian", "s00:old /ru/", "s00:saved 'ru' migrated", "s00:no links to Cyrillic-Russian pages", "s05:(6) lang: page ru, Sanskrit sa-Latn"]},
+     "tests": ["s00:contents panel has NO language menu", "s00:Аа language menu: one Russian", "s00:old /ru/", "s00:saved 'ru' migrated", "s00:no links to Cyrillic-Russian pages", "s05:(6) lang: page ru, Sanskrit sa-Latn"]},
     {"id": "UI-7.2", "doc": "UI", "section": "§7", "text": "Чтение на весь экран: текст во всю ширину, минимальные поля, крупнее шрифт, шлоки по центру; «Аа» меняет размер самого текста.",
      "tests": ["s02:column >=", "s02:body font >=", "s02:verse centred", "s02:A+x2 body", "s02:A+x2 verse", "s02:size persists after reload", "s10:§7 «Аа» меняет размер текста", "s10:§7 чтение на весь экран, шлоки по центру"]},
     {"id": "UI-7.3", "doc": "UI", "section": "§7", "text": "Меню появляется по касанию (см. §1); на обложке касание в любом месте показывает меню.",
@@ -241,6 +241,27 @@
     {"id": "UI-10.4", "doc": "UI", "section": "§10", "text": "Касание в любом месте экрана, в том числе по портрету в Парампаре, показывает/прячет панели — как касание пустого поля. (07.10.2026 15:39, Саткирти)",
      "tests": ["s23:1 tap on the portrait toggles the bars"]},
     {"id": "STD-S.1", "doc": "STD", "section": "Песни и бхаджаны", "text": "Под песнями нет строк об источниках; заголовок по-русски, под ним одна строка — автор, затем стихи в IAST; повторного названия латиницей нет. (07.10.2026 16:05, Саткирти)",
-     "tests": ["lint:L24", "lint:L25", "s22:c kartika-bhajans"]}
+     "tests": ["lint:L24", "lint:L25", "s22:c kartika-bhajans"]},
+
+    {"id": "UI-11.1", "doc": "UI", "section": "§11", "text": "«Аа» — настройки чтения: переключатели «Показать весь пословный перевод» и «Показать все переводы» в панели «Аа», не в «Содержании». (07.10.2026 20:49, Саткирти)",
+     "tests": ["s26:1/2 «Содержание»: no «Показать…»", "s26:1/2 «Аа»: both switches", "s26:1 «Аа» switch"]},
+    {"id": "UI-11.2", "doc": "UI", "section": "§11", "text": "Выбор языка — только в панели «Аа»; в заголовке «Содержания» выбора языка нет. (07.10.2026 20:49, Саткирти)",
+     "tests": ["s26:1/2", "s00:contents panel has NO language menu", "s00:Аа language menu: one Russian"]},
+    {"id": "UI-11.3", "doc": "UI", "section": "§11", "text": "«Содержание» = неподвижная часть (заголовок, поиск, «Обложка») + прокручиваемый список. (07.10.2026 20:52, Саткирти)",
+     "tests": ["s26:3 «Обложка» in the fixed part"]},
+    {"id": "UI-11.4", "doc": "UI", "section": "§11", "text": "Каждая строка «Содержания» нажимается по всей ширине своей полосы подсветки (части, главы, разделы, подразделы); два касания §10 не меняются. (07.10.2026 20:55, Саткирти)",
+     "tests": ["s26:4 every row type reacts over its full strip", "s24:"]},
+    {"id": "UI-11.5", "doc": "UI", "section": "§11", "text": "Раскрытие у нижнего края: раскрытая строка поднимается как можно выше, её подразделы видны; так же для частей. (07.10.2026 21:00, Саткирти)",
+     "tests": ["s26:5 part IV opened at the bottom", "s26:5 chapter 16 opened at the bottom"]},
+    {"id": "UI-11.6", "doc": "UI", "section": "§11", "text": "Список тилаки: касание части тела, мантры или промежутка между ними подсвечивает всю строку (часть тела и мантру) и место на рисунке; «tat prakṣālana-toyaṁ tu / vāsudevāya mūrdhani» и «oṁ vāsudevāya namaḥ» — макушку. (07.10.2026 21:06–21:49, Саткирти)",
+     "tests": ["s26:6 tilak rows 1–12", "s26:6 crown", "s26:6 right of the mantra stays page", "s10:§2/§5 Tilak"]},
+    {"id": "UI-11.7", "doc": "UI", "section": "§11", "text": "Короткие мантры (одна строка до ~6 слов, «oṁ … namaḥ / svāhā») — без кнопки «пословно», во всей книге. (07.10.2026 21:12, Саткирти)",
+     "tests": ["s26:7 short mantras have no «пословно»", "s07:I ru-iast: every verse but the short mantras", "s071:18 Tilak (12) + ācamana short mantras"]},
+    {"id": "UI-11.8", "doc": "UI", "section": "§11", "text": "Поиск: найденное слово выделено в результатах (каждое вхождение) и подсвечено в тексте после открытия результата; следующее касание только снимает подсветку. (07.10.2026 21:27, Саткирти)",
+     "tests": ["s26:8 results: every occurrence", "s26:8 opened result", "s26:8 next tap only clears the mark"]},
+    {"id": "UI-11.9", "doc": "UI", "section": "§11", "text": "Парампара: овальная рамка без ромбиков сверху и снизу — чистая двойная линия (вариант 1). (07.10.2026 21:51, Саткирти)",
+     "tests": ["s26:9 parampara PNGs: no rhombi", "s26:9 parampara: 9 portraits shown from WebP", "lint:L21"]},
+    {"id": "UI-11.10", "doc": "UI", "section": "§11", "text": "Рисунок и список совпадают: каждому номеру рисунка — ровно одна строка с тем же предметом, по порядку рисунка; предметы не с рисунка — без номера после нумерованных. Глава 3 «16 предметов» — как глава 14. (07.10.2026 22:28, Саткирти)",
+     "tests": ["lint:L26", "s10:§2/§9 Parafernalia: часть рисунка → строка", "s10:§2/§5 Parafernalia: строка → ровно один предмет"]}
   ]
 }

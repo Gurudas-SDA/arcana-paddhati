@@ -140,7 +140,7 @@ def run_one(DEV):
             for i in range(nrows):
                 pg.evaluate("i=>{const r=document.querySelectorAll('.hs-row')[i]; r.scrollIntoView({block:'center'})}", i); wait(0.35)
                 pt = pg.evaluate("""i=>{const r=document.querySelectorAll('.hs-row')[i]; const t=r.querySelector('.hs-text'); const q=t.getClientRects()[0];
-                     return {x:q.left+Math.min(q.width/2,20), y:q.top+q.height/2, num:(r.querySelector('.nl-num')||r.querySelector('span'))?.textContent.trim()}}""", i)
+                     return {x:q.left+Math.min(q.width/2,20), y:q.top+q.height/2, num:r.getAttribute('data-hs-nums')}}""", i)
                 tap(pt["x"], pt["y"], 0.6)
                 st = pg.evaluate("""i=>{const rows=[...document.querySelectorAll('.hs-row')]; const a=rows.map((r,k)=>r.hasAttribute('data-active')?k:-1).filter(k=>k>=0);
                     const lit=[...document.querySelectorAll('.hs-figure .hs-lit')]; const masks=[...document.querySelectorAll('.hs-figure mask image')].map(x=>x.getAttribute('href').split('/').pop());
@@ -183,8 +183,8 @@ def run_one(DEV):
                     badi.append(dict(spot=n, err="нет видимой точки для касания")); continue
                 tap(pt["x"], pt["y"], 1.3)
                 st = pg.evaluate("""()=>{const rows=[...document.querySelectorAll('.hs-row')]; const a=rows.filter(r=>r.hasAttribute('data-active'));
-                   const vh=innerHeight; return {n:a.length, txt:a.map(r=>(r.querySelector('.nl-num')||r).textContent.trim().slice(0,12)), inview:a.map(r=>{const q=r.getBoundingClientRect(); return q.top>=0&&q.bottom<=vh}), lit:document.querySelectorAll('.hs-figure .hs-lit').length, bars:document.documentElement.hasAttribute('data-reader-bars')}}""")
-                numsok = any(n in [x.strip() for x in t.split(')')[0].split(',')] for t in st["txt"])
+                   const vh=innerHeight; return {n:a.length, txt:a.map(r=>r.getAttribute('data-hs-nums')||''), inview:a.map(r=>{const q=r.getBoundingClientRect(); return q.top>=0&&q.bottom<=vh}), lit:document.querySelectorAll('.hs-figure .hs-lit').length, bars:document.documentElement.hasAttribute('data-reader-bars')}}""")
+                numsok = any(n in [x.strip() for x in t.split(',')] for t in st["txt"])  # v7.8: data-hs-nums
                 if st["bars"]: barsspots.append(n)
                 if st["n"] >= 1 and numsok and all(st["inview"]) and st["lit"] == 1:
                     oki += 1

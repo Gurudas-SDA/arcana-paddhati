@@ -2,6 +2,7 @@ import ChapterEndSpace from "@/components/ChapterEndSpace";
 import React from "react";
 import { transcriptLinkProps } from "@/lib/transcripts";
 import {
+  isShortMantra,
   parseInline,
   sanskritLang,
   stripInline,
@@ -17,8 +18,11 @@ import CollapsibleVerse, { MantraWbw } from "@/components/CollapsibleVerse";
 /** A short mantra in a table row («⟦oṁ keśavāya namaḥ⟧», also Cyrillic). */
 const MANTRA_RE = /(namaḥ|намах̣)⟧/;
 import MoodBlock, { type MoodLabels } from "@/components/MoodBlock";
-import { HotspotFigure, HotspotHit, HotspotProvider, HotspotRow } from "@/components/Hotspots";
-import { hotspotsFor, labelNumbers } from "@/lib/hotspots";
+import { HotspotCell, HotspotFigure, HotspotHit, HotspotProvider, HotspotRow } from "@/components/Hotspots";
+import { hotspotsFor, labelNumbers, linkedSpot } from "@/lib/hotspots";
+
+/** A picture whose spots are linked to phrases of the text around it (see lib/hotspots.ts `text`). */
+type HsLink = string | undefined;
 
 /** Localised labels of the verse panel chips and of the mood block. */
 interface VerseLabels {
@@ -52,18 +56,27 @@ const RULE_CLASS = "border-t border-[#E8DCC8]";
 const LONG_CONTENT_BLOCKS = 8;
 
 /** Running text with ⟦…⟧ runs rendered as inline Sanskrit (see .sa-inline in globals.css). */
-function Inline({ text }: { text: string }) {
+function Inline({ text, link }: { text: string; link?: HsLink }) {
+  const data = link ? hotspotsFor(link) : undefined;
   return (
     <>
-      {parseInline(text).map((run, i) =>
-        run.sanskrit ? (
+      {parseInline(text).map((run, i) => {
+        if (!run.sanskrit) return <React.Fragment key={i}>{run.text}</React.Fragment>;
+        const sa = (
           <span key={i} lang={sanskritLang(run.text)} className="sa-inline">
             {run.text}
           </span>
+        );
+        const spot = linkedSpot(data, run.text);
+        // A mantra that names a spot of the picture nearby (the crown: «oṁ vāsudevāya namaḥ»).
+        return spot ? (
+          <HotspotRow key={i} as="span" img={link!} nums={[spot]}>
+            <HotspotHit focus>{sa}</HotspotHit>
+          </HotspotRow>
         ) : (
-          <React.Fragment key={i}>{run.text}</React.Fragment>
-        ),
-      )}
+          sa
+        );
+      })}
     </>
   );
 }
@@ -239,6 +252,7 @@ function ContentBlock({
   title,
   separated = false,
   hsImage,
+  hsText,
 }: {
   item: ContentItem;
   index: number;
@@ -249,32 +263,60 @@ function ContentBlock({
   separated?: boolean;
   /** Numbered list linked to this picture (file name with hotspot data). */
   hsImage?: string;
+  /** The nearby picture whose spots are linked to phrases of the text (lib/hotspots.ts `text`). */
+  hsText?: string;
 }) {
   switch (item.type) {
     case "verse": {
       const isInlineMantra = item.translation === undefined;
+      // A short mantra («oṁ keśavāya namaḥ») has no «пословно» (Satkirti 07.10.2026, Reader v7.8).
+      const wbw = isShortMantra(item.sanskrit) ? undefined : item.wbw || undefined;
+      const hsData = hsText ? hotspotsFor(hsText) : undefined;
+      /** A stanza's lines; consecutive lines linked to the same spot form one row (the crown). */
+      const stanzaLines = (stanza: string) => {
+        const lines = stanza.split('\n');
+        const out: React.ReactNode[] = [];
+        for (let li = 0; li < lines.length; ) {
+          const spot = linkedSpot(hsData, lines[li]);
+          let end = li + 1;
+          while (spot && end < lines.length && linkedSpot(hsData, lines[end]) === spot) end++;
+          const first = li;
+          const body = lines.slice(li, end).map((line, gi) => (
+            <React.Fragment key={gi}>
+              {spot ? <HotspotHit focus={gi === 0}>{line}</HotspotHit> : line}
+              {first + gi < lines.length - 1 && <br />}
+            </React.Fragment>
+          ));
+          out.push(
+            spot ? (
+              <HotspotRow key={li} as="span" img={hsText!} nums={[spot]} imageLink={false}>
+                {body}
+              </HotspotRow>
+            ) : (
+              <React.Fragment key={li}>{body}</React.Fragment>
+            ),
+          );
+          li = end;
+        }
+        return out;
+      };
       const sanskrit = item.sanskrit && (
         <div lang={sanskritLang(item.sanskrit)} className={`sanskrit text-base leading-relaxed text-[#1a1a1a] ${isInlineMantra ? 'ml-8' : 'verse-text'} mb-2`}>
           {item.sanskrit.split('\n\n').map((stanza, si, sarr) => (
             <p key={si} className={si < sarr.length - 1 ? "mb-3" : ""}>
-              {stanza.split('\n').map((line, li, larr) => (
-                <React.Fragment key={li}>
-                  {line}
-                  {li < larr.length - 1 && <br />}
-                </React.Fragment>
-              ))}
+              {stanzaLines(stanza)}
             </p>
           ))}
         </div>
       );
       // Verse with a translation and/or word-by-word: collapsible panels.
-      if (sanskrit && (item.translation || item.wbw)) {
+      if (sanskrit && (item.translation || wbw)) {
         return (
           <CollapsibleVerse
             key={index}
             sanskrit={sanskrit}
             translation={item.translation || undefined}
-            wbw={item.wbw || undefined}
+            wbw={wbw}
             translationLabel={labels.translation}
             wbwLabel={labels.wbw}
           />
@@ -323,7 +365,7 @@ function ContentBlock({
             &bull;
           </span>
           <span className="min-w-0">
-            <Inline text={item.content ?? ""} />
+            <Inline text={item.content ?? ""} link={hsText} />
           </span>
         </p>
       );
@@ -342,7 +384,7 @@ function ContentBlock({
               <div key={i}>
                 {/* The label is already set as Sanskrit: drop its ⟦…⟧ markers. */}
                 <p lang={sanskritLang(pair.label)} className="sanskrit text-base leading-relaxed text-[#1a1a1a]">
-                  {pair.wbw && MANTRA_RE.test(pair.label) ? (
+                  {pair.wbw && MANTRA_RE.test(pair.label) && !isShortMantra(pair.label) ? (
                     <MantraWbw wbw={pair.wbw} label={labels.wbw}>
                       {stripInline(pair.label)}
                     </MantraWbw>
@@ -368,29 +410,54 @@ function ContentBlock({
           key={index}
         >
           {item.items?.map((pair, i) => {
+            // «пословно» only for a mantra that is not short (Reader v7.8).
+            const labelWbw = !!pair.wbw && MANTRA_RE.test(pair.label) && !isShortMantra(pair.label);
+            const valueWbw =
+              !!pair.wbw && !MANTRA_RE.test(pair.label) && MANTRA_RE.test(pair.value) && !isShortMantra(pair.value);
+            // Linked to a picture (the tilak list): the number and the place cells are tap targets over
+            // their whole box — the empty space between the place and the mantra included — and the
+            // marked row is one band from the number to the end of the mantra (Satkirti 07.10.2026).
+            // Right of the mantra the row stays page (UI §1).
+            const linked = !!hsImage && labelNumbers(item.numbers?.[i]).length > 0;
+            const numText = item.numbers ? (item.numbers[i] ? `${item.numbers[i]})` : "–") : "";
             const cells = (
               <>
                 {/* Optional `numbers`: one label per row, e.g. the numbers of an illustration. */}
-                {item.numbers && (
-                  <span className="pr-2 py-0.5 text-right tabular-nums text-[15px] text-[#5C3D2E]">
-                    <HotspotHit focus>{item.numbers[i] ? `${item.numbers[i]})` : "–"}</HotspotHit>
+                {item.numbers &&
+                  (linked ? (
+                    <HotspotCell focus className="hs-cell-first pr-2 py-0.5 text-right tabular-nums text-[15px] text-[#5C3D2E]">
+                      {numText}
+                    </HotspotCell>
+                  ) : (
+                    <span className="pr-2 py-0.5 text-right tabular-nums text-[15px] text-[#5C3D2E]">
+                      <HotspotHit focus>{numText}</HotspotHit>
+                    </span>
+                  ))}
+                {linked && !labelWbw ? (
+                  <HotspotCell className="min-w-0 pr-4 sm:pr-8 py-0.5 text-[15px] [overflow-wrap:anywhere]">
+                    <Inline text={pair.label} />
+                  </HotspotCell>
+                ) : (
+                  <span className="min-w-0 pr-4 sm:pr-8 py-0.5 text-[15px] [overflow-wrap:anywhere]">
+                    {labelWbw ? (
+                      <MantraWbw wbw={pair.wbw!} label={labels.wbw}>
+                        <HotspotHit>
+                          <Inline text={pair.label} />
+                        </HotspotHit>
+                      </MantraWbw>
+                    ) : (
+                      <HotspotHit>
+                        <Inline text={pair.label} />
+                      </HotspotHit>
+                    )}
                   </span>
                 )}
-                <span className="min-w-0 pr-4 sm:pr-8 py-0.5 text-[15px] [overflow-wrap:anywhere]">
-                  {pair.wbw && MANTRA_RE.test(pair.label) ? (
-                    <MantraWbw wbw={pair.wbw} label={labels.wbw}>
-                      <Inline text={pair.label} />
-                    </MantraWbw>
-                  ) : (
-                    <HotspotHit>
-                      <Inline text={pair.label} />
-                    </HotspotHit>
-                  )}
-                </span>
                 <span className="min-w-0 py-0.5 text-[15px] [overflow-wrap:anywhere]">
-                  {pair.wbw && !MANTRA_RE.test(pair.label) && MANTRA_RE.test(pair.value) ? (
-                    <MantraWbw wbw={pair.wbw} label={labels.wbw}>
-                      <Inline text={pair.value} />
+                  {valueWbw ? (
+                    <MantraWbw wbw={pair.wbw!} label={labels.wbw}>
+                      <HotspotHit>
+                        <Inline text={pair.value} />
+                      </HotspotHit>
                     </MantraWbw>
                   ) : (
                     <HotspotHit>
@@ -497,11 +564,11 @@ function ContentBlock({
           {item.content && item.content.includes('\n')
             ? item.content.split('\n').map((line, li, arr) => (
                 <React.Fragment key={li}>
-                  <Inline text={line} />
+                  <Inline text={line} link={hsText} />
                   {li < arr.length - 1 && <br />}
                 </React.Fragment>
               ))
-            : <Inline text={item.content ?? ""} />}
+            : <Inline text={item.content ?? ""} link={hsText} />}
         </p>
       );
   }
@@ -524,6 +591,12 @@ function ContentBlocks({ items, labels, title }: { items: ContentItem[]; labels:
     if (item.type === "paired-list" && item.layout === "vertical") return undefined;
     return pictures.reduce((a, b) => (Math.abs(b.idx - idx) < Math.abs(a.idx - idx) ? b : a)).src;
   };
+  // The picture with text links nearest to a verse / instruction / text block.
+  const textPictures = pictures.filter((p) => hotspotsFor(p.src)?.text);
+  const linkedText = (item: ContentItem, idx: number): string | undefined => {
+    if (!textPictures.length || !["verse", "instruction", "text"].includes(item.type)) return undefined;
+    return textPictures.reduce((a, b) => (Math.abs(b.idx - idx) < Math.abs(a.idx - idx) ? b : a)).src;
+  };
   const blocks = items.map((item, idx) => (
     <ContentBlock
       key={idx}
@@ -533,6 +606,7 @@ function ContentBlocks({ items, labels, title }: { items: ContentItem[]; labels:
       title={title}
       separated={long && idx > offset && item.type === "subtitle"}
       hsImage={linkedImage(item, idx)}
+      hsText={linkedText(item, idx)}
     />
   ));
   return pictures.length ? <HotspotProvider>{blocks}</HotspotProvider> : <>{blocks}</>;
@@ -595,12 +669,18 @@ function PortraitPages({ section, note, after }: { section: Section; note?: stri
         .filter((item) => item.type === "portrait")
         .map((item, i) => (
           <figure key={i} className="portrait-page" data-portrait={i + 1}>
-            <img
-              src={`/arcana-paddhati/images/${item.src}`}
-              alt={item.caption ?? ""}
-              className="portrait-img"
-              draggable={false}
-            />
+            {/* WebP (~1/6 of the PNG, Reader v7.8); the PNG for a browser without WebP. */}
+            <picture className="portrait-picture">
+              {item.src?.endsWith(".png") && (
+                <source srcSet={`/arcana-paddhati/images/${item.src.replace(/\.png$/, ".webp")}`} type="image/webp" />
+              )}
+              <img
+                src={`/arcana-paddhati/images/${item.src}`}
+                alt={item.caption ?? ""}
+                className="portrait-img"
+                draggable={false}
+              />
+            </picture>
             <figcaption className="portrait-caption">{item.caption}</figcaption>
             <CaptionOrnament />
           </figure>

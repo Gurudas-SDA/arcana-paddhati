@@ -150,11 +150,11 @@ def run(p, dev, eng, o):
     open_contents()
     LONG = "arcana-procedure"          # 8. Порядок арчаны (17 subsections)
     act(chap(LONG)); act(chap(LONG))   # v7.5: 1st tap highlights, 2nd expands
-    nav_top = lambda: pg.evaluate("document.querySelector('.mobile-menu nav').scrollTop")
+    nav_top = lambda: pg.evaluate("document.querySelector('.mobile-menu nav .toc-scroll').scrollTop")
     low = sublinks(LONG).last
     low_href = low.get_attribute("href")
     # the reader's own scroll: the low item near the bottom of the list's view
-    pg.evaluate("""(h) => { const nav = document.querySelector('.mobile-menu nav');
+    pg.evaluate("""(h) => { const nav = document.querySelector('.mobile-menu nav .toc-scroll');
         const a = [...nav.querySelectorAll('a')].find(x => x.getAttribute('href') === h);
         nav.scrollTop += a.getBoundingClientRect().bottom - nav.getBoundingClientRect().bottom + 30; }""", low_href)
     pg.wait_for_timeout(400)

@@ -679,6 +679,47 @@ def run(args):
     c.info = f"chapter checked in {nk} books (RU, RU Cyrillic, EN); part list in {len(allb)} books"
     c.report(args.max)
 
+    # L26 — Глава 3 «16 предметов» и глава 14: список = рисунок Parafernalia.png (Satkirti 07.10.2026 22:28):
+    # каждому номеру рисунка 1–18 — ровно одна строка, по порядку рисунка, и название строки — тот же предмет,
+    # что на рисунке (то же соответствие, что в главе 14). Предметы без номера — после нумерованных.
+    c = Check("L26", "ch3 + ch14 list = figure Parafernalia.png: numbers 1–18 one row each, in order, row names = figure objects")
+    FIG = {  # figure number -> (RU words, EN words); every word must be in the row (case-insensitive)
+        "1": (["панча-патра"], ["pañca-pātra"]), "2": (["раковина", "омовения"], ["bathing", "conch"]),
+        "3": (["колокольчик"], ["bell"]), "4": (["дхупа"], ["dhūpa"]), "5": (["дипа"], ["dīpa"]),
+        "6": (["висарджания-патра"], ["visarjanīya-pātra"]), "7": (["пуджа-патра", "божества"], ["pūjā-pātra", "deity"]),
+        "8": (["снана-патра", "божества"], ["snāna-pātra", "deity"]), "9": (["пуджа-патра", "гурудева"], ["pūjā-pātra", "gurudeva"]),
+        "10": (["снана-патра", "гурудева"], ["snāna-pātra", "gurudeva"]), "11": (["асана", "божества"], ["āsana", "deity"]),
+        "12": (["асана", "пуджари"], ["āsana", "pujārī"]), "13": (["сосуд для воды"], ["water-pot"]),
+        "14": (["цветы"], ["flowers"]), "15": (["туласи"], ["tulasī"]), "16": (["чандана"], ["candana"]),
+        "17": (["мадхупарка"], ["madhuparka"]), "18": (["раковина", "трубят"], ["blowing", "conch"])}
+    hs = json.load(open(os.path.join(qa.DATA, "hotspots.json"), encoding="utf-8"))["Parafernalia.png"]["spots"]
+    if sorted(hs, key=int) != list(FIG):
+        c.hit("hotspots.json", "Parafernalia.png", f"figure numbers {sorted(hs, key=int)} != 1–18")
+    nl = 0
+    for fn, k in (("book.ru-iast.json", 0), ("book.ru.json", 0), ("book.json", 1)):
+        b = loaded[os.path.join(qa.DATA, fn)]
+        for sid, subid in (("worship-sixteen-articles", "required-paraphernalia"), ("main-worship-sixteen-items", "main-worship-paraphernalia")):
+            s_ = next((x for x in b["sections"] if x["id"] == sid), None)
+            ss = next((x for x in (s_ or {}).get("subsections") or [] if x["id"] == subid), None)
+            lst = next((x for x in (ss or {}).get("content") or [] if x.get("type") == "list" and x.get("numbers")), None)
+            if not lst:
+                c.hit(fn, f"{sid}/{subid}", "numbered list missing")
+                continue
+            nl += 1
+            rows = [r for r in lst["content"].split(chr(10)) if r.strip()]
+            nums = lst["numbers"]
+            numbered = [n for n in nums if n]
+            if numbered != list(FIG) or nums[:18] != list(FIG) or len(nums) != len(rows):
+                c.hit(fn, f"{sid}/{subid}", f"numbers {numbered} (expected 1–18 in order, first, one each; {len(nums)} numbers / {len(rows)} rows)")
+                continue
+            for n, row in zip(nums[:18], rows):
+                low = row.replace("⟦", "").replace("⟧", "").lower()
+                miss = [w for w in FIG[n][k] if w.lower() not in low]
+                if miss:
+                    c.hit(fn, f"{sid}/{subid} №{n}", f"row «{row[:60]}» does not name the figure object ({miss})")
+    c.info = f"{nl} lists (ch3 + ch14 × RU, RU Cyrillic, EN) against 18 figure objects"
+    c.report(args.max)
+
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует
     c = Check("L17", "atgriešanās punkts: git tags pirms-interfeisa-2026-10-05 eksistē")
     import subprocess

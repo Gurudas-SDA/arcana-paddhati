@@ -389,6 +389,40 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .hs-row .hs-text { transition: none; }
 }
+/* Reader v7.8 (Satkirti 07.10.2026): a list row linked to a picture whose
+   number and place cells are tap targets over their whole box (the tilak
+   list: the place, the mantra and the empty space between them). The marked
+   row is one band from the number to the end of the mantra; right of the
+   mantra the row stays page. */
+.hs-cell {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 180ms ease, color 150ms ease;
+}
+.hs-row[data-active] .hs-cell {
+  background-color: rgba(212, 168, 67, 0.32);
+  color: #2C1810;
+}
+.hs-row[data-active] .hs-cell-first {
+  border-radius: 4px 0 0 4px;
+}
+/* the mantra's band continues the place cell's band (no darker overlap) */
+.hs-cell + span > .hs-text {
+  margin-left: 0;
+  padding-left: 0;
+  border-radius: 0 4px 4px 0;
+}
+@media (hover: hover) {
+  .hs-row:has(.hs-cell:hover) .hs-text,
+  .hs-row:has(.hs-cell:hover) .hs-cell {
+    color: #2C1810;
+  }
+}
+@media print {
+  .hs-row .hs-cell {
+    background-color: transparent !important;
+  }
+}
 .hs-overlay {
   overflow: visible;
   /* The lit (inked) copy only ever darkens what lies beneath it. */
@@ -881,6 +915,75 @@ body,
   font-size: 12px;
   color: var(--rd-fg);
 }
+/* «Аа» panel: «Показать весь пословный перевод» / «Показать все переводы» (Reader v7.8). */
+.reader-switches {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.reader-switch {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.3;
+  color: var(--rd-fg);
+  -webkit-tap-highlight-color: transparent;
+}
+.reader-switch-track {
+  position: relative;
+  flex-shrink: 0;
+  width: 40px;
+  height: 24px;
+  border-radius: 9999px;
+  background: var(--rd-border);
+  transition: background-color 150ms ease;
+}
+.reader-switch-track[data-on] {
+  background: var(--rd-accent);
+}
+.reader-switch-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  transition: transform 150ms ease;
+}
+.reader-switch-track[data-on] .reader-switch-knob {
+  transform: translateX(16px);
+}
+/* Search (Reader v7.8, Satkirti 07.10.2026): the found word stands out — in the
+   results and, after opening one, in the text (CSS Custom Highlight API). */
+.search-mark {
+  background-color: rgba(212, 168, 67, 0.5);
+  color: #1a1a1a;
+  border-radius: 3px;
+  padding: 0 1px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+::highlight(search-hit) {
+  background-color: rgba(212, 168, 67, 0.55);
+  color: #1a1a1a;
+}
+html[data-reader-theme="night"] .search-mark {
+  background-color: rgba(212, 168, 67, 0.45);
+  color: #F2E9DA;
+}
+html[data-reader-theme="night"] ::highlight(search-hit) {
+  background-color: rgba(212, 168, 67, 0.45);
+  color: #F2E9DA;
+}
 .reader-theme-btn[aria-pressed="true"] {
   border-color: var(--rd-accent);
   box-shadow: inset 0 0 0 1px var(--rd-accent);
@@ -1007,6 +1110,7 @@ html[data-reader-theme="night"] .sa-inline {
 html[data-reader-theme="night"] .heading-num {
   color: #A88C63;
 }
+html[data-reader-theme="night"] .hs-row[data-active] .hs-cell,
 html[data-reader-theme="night"] .hs-row[data-active] .hs-text {
   background-color: rgba(212, 168, 67, 0.28);
   color: #F2E9DA;
@@ -1236,6 +1340,9 @@ html[data-hs-peek] .app-main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.portrait-picture {
+  display: contents;
 }
 .portrait-img {
   display: block;

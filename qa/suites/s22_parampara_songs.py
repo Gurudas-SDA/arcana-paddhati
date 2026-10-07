@@ -71,7 +71,7 @@ def run(p, dev, eng, o):
         goto(U); time.sleep(0.6)
         pg.evaluate("document.querySelector('[data-reader-action=contents]') && document.querySelector('[data-reader-action=contents]').click()")
         time.sleep(0.6)
-        order = pg.evaluate("[...document.querySelectorAll('aside nav > ul > li')].map(l=>l.innerText.trim().split('\\n')[0].trim()).filter(Boolean).slice(0,4)")
+        order = pg.evaluate("[...document.querySelectorAll('aside nav [data-toc-cover], aside nav .toc-scroll > ul > li')].map(l=>l.innerText.trim().split('\\n')[0].trim()).filter(Boolean).slice(0,4)")
         chk(dev, "a contents: Обложка → Гуру-парампара → Мангалачарана → ВВЕДЕНИЕ",
             order == ["Обложка", "Гуру-парампара", "Мангалачарана", "ВВЕДЕНИЕ"], order)
 

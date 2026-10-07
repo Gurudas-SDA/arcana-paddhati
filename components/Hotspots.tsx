@@ -28,13 +28,16 @@ interface Active {
   img: string;
   nums: string[];
   source: "list" | "image";
+  /** The list row that was tapped (Reader v7.8): only that row is marked, even
+   *  if another row names the same picture number. */
+  key?: string;
   /** Increments on every selection (restarts the fade-in, re-scrolls). */
   seq: number;
 }
 
 interface Ctx {
   active: Active | null;
-  select: (img: string, nums: string[], source: Active["source"]) => void;
+  select: (img: string, nums: string[], source: Active["source"], key?: string) => void;
   clear: () => void;
   /** True once per selection: the first matching row scrolls to itself. */
   claimScroll: (seq: number) => boolean;
@@ -48,7 +51,7 @@ const HotspotContext = createContext<Ctx | null>(null);
 const IGNORE_TAP = [
   "a", "button", "input", "textarea", "select", "label", "summary",
   "[role=button]", "[role=dialog]", "[contenteditable]",
-  ".hs-text", ".hs-hit", ".hs-inert", ".hs-peek",
+  ".hs-text", ".hs-cell", ".hs-hit", ".hs-inert", ".hs-peek",
 ].join(",");
 
 export function HotspotProvider({ children }: { children: React.ReactNode }) {
@@ -56,12 +59,13 @@ export function HotspotProvider({ children }: { children: React.ReactNode }) {
   const seq = useRef(0);
   const scrolledSeq = useRef(0);
   const figures = useRef(new Map<string, HTMLElement>());
-  const select = useCallback((img: string, nums: string[], source: Active["source"]) => {
+  const select = useCallback((img: string, nums: string[], source: Active["source"], key?: string) => {
     setActive((prev) => {
       // Tapping the active row again switches the highlight off.
-      if (prev && source === "list" && prev.img === img && prev.nums.join() === nums.join()) return null;
+      if (prev && source === "list" && prev.img === img && prev.nums.join() === nums.join() && (prev.key ?? key) === key)
+        return null;
       seq.current += 1;
-      return { img, nums, source, seq: seq.current };
+      return { img, nums, source, key, seq: seq.current };
     });
   }, []);
   const clear = useCallback(() => setActive(null), []);
@@ -167,25 +171,34 @@ export function HotspotRow({
   nums,
   as = "div",
   className = "",
+  imageLink = true,
   children,
 }: {
   img: string;
   nums: string[];
-  as?: "li" | "div";
+  as?: "li" | "div" | "p" | "span";
   className?: string;
+  /** A tap on the picture marks this row too (false: the row only lights the
+   *  picture — e.g. a verse line that names the same spot as a list row). */
+  imageLink?: boolean;
   children: React.ReactNode;
 }) {
   const ctx = useContext(HotspotContext);
   const ref = useRef<HTMLElement>(null);
+  const rowKey = useId();
+  const a = ctx?.active;
   const isActive =
-    !!ctx?.active && ctx.active.img === img && ctx.active.nums.some((n) => nums.includes(n));
+    !!a &&
+    a.img === img &&
+    a.nums.some((n) => nums.includes(n)) &&
+    (a.source === "image" ? imageLink : !a.key || a.key === rowKey);
   const fromImage = isActive && ctx?.active?.source === "image";
   const seq = ctx?.active?.seq ?? 0;
   const select = ctx?.select;
   const numsKey = nums.join(",");
   const rowCtx = useMemo<RowCtx | null>(
-    () => (select ? { activate: () => select(img, numsKey.split(","), "list"), isActive } : null),
-    [select, img, numsKey, isActive],
+    () => (select ? { activate: () => select(img, numsKey.split(","), "list", rowKey), isActive } : null),
+    [select, img, numsKey, isActive, rowKey],
   );
 
   useEffect(() => {
@@ -223,6 +236,7 @@ export function HotspotRow({
     <Tag
       ref={ref as React.RefObject<HTMLDivElement>}
       data-hs-row=""
+      data-hs-nums={numsKey}
       data-active={isActive ? "" : undefined}
       className={`hs-row ${className}`}
     >
@@ -240,6 +254,44 @@ export function HotspotHit({ children, focus = false }: { children: React.ReactN
   return (
     <span
       className="hs-text"
+      role={focus ? "button" : undefined}
+      tabIndex={focus ? 0 : undefined}
+      aria-pressed={focus ? row.isActive : undefined}
+      onClick={row.activate}
+      onKeyDown={
+        focus
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                row.activate();
+              }
+            }
+          : undefined
+      }
+    >
+      {children}
+    </span>
+  );
+}
+
+/** A whole cell of a linked row as the tap target (Reader v7.8, Satkirti
+ *  07.10.2026: in the tilak list the place, the mantra AND the empty space
+ *  between them select the row). The cell's box is the target and, when the
+ *  row is marked, part of its band. Outside a linked row: a plain cell. */
+export function HotspotCell({
+  children,
+  className = "",
+  focus = false,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  focus?: boolean;
+}) {
+  const row = useContext(RowContext);
+  if (!row) return <span className={className}>{children}</span>;
+  return (
+    <span
+      className={`hs-cell ${className}`}
       role={focus ? "button" : undefined}
       tabIndex={focus ? 0 : undefined}
       aria-pressed={focus ? row.isActive : undefined}
