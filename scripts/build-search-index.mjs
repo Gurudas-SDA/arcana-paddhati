@@ -22,6 +22,8 @@ function blockText(block) {
         .join(" ");
     case "image":
       return block.alt ?? "";
+    case "portrait":
+      return block.caption ?? "";
     case "table":
       return [...(block.header ?? []), ...(block.rows ?? []).flatMap((r) => [...r.cells, r.badge ?? ""])].join(" ");
     case "mood":

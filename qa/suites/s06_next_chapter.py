@@ -28,8 +28,12 @@ CASES = [
     ("offering-bhoga", "mantras-honouring-caranamrita", "7. "),
     ("main-worship-sixteen-items", "home-worship", "Часть II. "),
     ("guru-puja-vyasa-puja", "major-festivals", "13. "),
+    # v7.4 (appended last: the loop index decides which history checks run)
+    # (Satkirti 07.10): parampara → Мангалачарана; Part IV ends with the ārati songs
+    ("parampara", "mangalacarana", "Мангалачарана"),
+    ("major-festivals", "mangala-arati-songs", "14. "),
 ]
-LAST = "major-festivals"
+LAST = "gaura-arati-songs"
 res = []
 
 

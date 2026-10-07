@@ -34,11 +34,68 @@
       "sections": [
         "caturmasya-purusottama-masa",
         "guru-puja-vyasa-puja",
-        "major-festivals"
+        "major-festivals",
+        "mangala-arati-songs",
+        "gaura-arati-songs"
       ]
     }
   ],
   "sections": [
+    {
+      "id": "parampara",
+      "title": "Guru-paramparā",
+      "subtitle": null,
+      "page": "",
+      "layout": "portraits",
+      "content": [
+        {
+          "type": "portrait",
+          "src": "parampara/00.png",
+          "caption": "Śrī Pañca-tattva"
+        },
+        {
+          "type": "portrait",
+          "src": "parampara/01.png",
+          "caption": "Śrīla Jagannātha dāsa Bābājī Mahārāja"
+        },
+        {
+          "type": "portrait",
+          "src": "parampara/02.png",
+          "caption": "Śrīla Saccidānanda Bhaktivinoda Ṭhākura"
+        },
+        {
+          "type": "portrait",
+          "src": "parampara/03.png",
+          "caption": "Śrīla Gaura Kiśora dāsa Bābājī Mahārāja"
+        },
+        {
+          "type": "portrait",
+          "src": "parampara/04.png",
+          "caption": "Prabhupāda Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura"
+        },
+        {
+          "type": "portrait",
+          "src": "parampara/05.png",
+          "caption": "Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja"
+        },
+        {
+          "type": "portrait",
+          "src": "parampara/06.png",
+          "caption": "Śrīla AC Bhaktivedānta Svāmī Prabhupāda"
+        },
+        {
+          "type": "portrait",
+          "src": "parampara/07.png",
+          "caption": "Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja"
+        },
+        {
+          "type": "portrait",
+          "src": "parampara/08.png",
+          "caption": "Śrī Prem Prayojan Prabhu"
+        }
+      ],
+      "subsections": []
+    },
     {
       "id": "mangalacarana",
       "title": "Maṅgalācaraṇa",
@@ -6472,6 +6529,338 @@
             {
               "type": "text",
               "content": "On this day, the birth of Śrīmatī Rādhikā, the daughter of Vṛṣabhānu Mahārāja, is celebrated; but for this to be Rādhikā’s appearance for each of us, She must appear in our hearts—this is the true celebration (Gurudev, lecture no. 7972, 11 September 2024; see Gurudev’s Mood). Śrīla Gurudeva would hold a beautiful Rādhāṣṭamī festival in India (lecture no. 2329); before Rādhāṣṭamī, Gurudev holds a festival of rādhā-tattva over several days, with classes on Rādhā (lecture no. 6075, 10 September 2021)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mangala-arati-songs",
+      "title": "Maṅgala-ārati Songs",
+      "subtitle": null,
+      "page": "",
+      "content": [],
+      "subsections": [
+        {
+          "id": "song-gurvastakam",
+          "title": "Śrī Gurvaṣṭakam",
+          "content": [
+            {
+              "type": "text",
+              "content": "⟦Śrī Gurvaṣṭakam⟧ — ⟦Śrīla Viśvanātha Cakravartī Ṭhākura⟧"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "saṁsāra-dāvānala-līḍha-loka-\ntrāṇāya kāruṇya-ghanāghanatvam\nprāptasya kalyāṇa-guṇārṇavasya\nvande guroḥ śrī-caraṇāravindam"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "mahāprabhoḥ kīrtana-nṛtya-gīta-\nvāditra-mādyan manaso rasena\nromañca-kampāśru-taraṅga-bhājo\nvande guroḥ śrī-caraṇāravindam"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "śrī-vigrahārādhana-nitya-nānā-\nśṛṅgāra-tan-mandira-mārjanādau\nyuktasya bhaktāṁś ca niyuñjato ’pi\nvande guroḥ śrī-caraṇāravindam"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "catur-vidha-śrī-bhagavat-prasāda-\nsvādv-anna-tṛptān hari-bhakta-saṅghān\nkṛtvaiva tṛptiṁ bhajataḥ sadaiva\nvande guroḥ śrī-caraṇāravindam"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "śrī-rādhikā-mādhavayor apāra-\nmādhurya-līlā-guṇa-rūpa-nāmnām\nprati-kṣaṇāsvādana-lolupasya\nvande guroḥ śrī-caraṇāravindam"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "nikuñja-yūno rati-keli-siddhyai\nyā yālibhir yuktir apekṣaṇīyā\ntatrāti-dākṣyād ati-vallabhasya\nvande guroḥ śrī-caraṇāravindam"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "sākṣād-dharitvena samasta-śāstrair\nuktas tathā bhāvyata eva sadbhiḥ\nkintu prabhor yaḥ priya eva tasya\nvande guroḥ śrī-caraṇāravindam"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "yasya prasādād bhagavat-prasādo\nyasyāprasādān na gatiḥ kuto ’pi\ndhyāyan stuvaṁs tasya yaśas tri-sandhyaṁ\nvande guroḥ śrī-caraṇāravindam"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "śrīmad-guror aṣṭakam etad uccair\nbrāhme muhūrte paṭhati prayatnāt\nyas tena vṛndāvana-nātha-sākṣāt-\nsevaiva labhyā januṣo ’nta eva"
+            }
+          ]
+        },
+        {
+          "id": "song-prabhupada-padma-stavakah",
+          "title": "Śrī Prabhupāda-padma-stavakaḥ",
+          "content": [
+            {
+              "type": "text",
+              "content": "⟦Śrī Prabhupāda-padma-stavakaḥ⟧ — ⟦Śrīla Bhakti Rakṣaka Śrīdhara Gosvāmī Mahārāja⟧"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "sujanārbuda-rādhita-pāda-yugaṁ\nyuga-dharma-dhurandhara-pātra-varam\nvaradābhaya-dāyaka-pūjya-padaṁ\npraṇamāmi sadā prabhupāda-padam"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "bhajanorjita-sajjana-saṅgha-patiṁ\npatitādhika-kāruṇikaika-gatim\ngati-vañcita-vañcakācintya-padaṁ\npraṇamāmi sadā prabhupāda-padam"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "ati-komala-kāñcana-dīrgha-tanuṁ\ntanu-nindita-hema-mṛṇāla-madam\nmadanārbuda-vandita-candra-padaṁ\npraṇamāmi sadā prabhupāda-padam"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "nija-sevaka-tāraka-rañji-vidhuṁ\nvidhutāhita-huṅkṛta-siṁha-varam\nvaraṇāgata-bāliśa-śanda-padaṁ\npraṇamāmi sadā prabhupāda-padam"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "vipulī-kṛta-vaibhava-gaura-bhuvaṁ\nbhuvaneṣu vikīrtita-gaura-dayam\ndayanīya-gaṇārpita-gaura-padaṁ\npraṇamāmi sadā prabhupāda-padam"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "cira-gaura-janāśraya-viśva-guruṁ\nguru-gaura-kiśoraka-dāsya-param\nparamādṛta-bhaktivinoda-padaṁ\npraṇamāmi sadā prabhupāda-padam"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "raghu-rūpa-sanātana-kīrti-dharaṁ\ndharaṇī-tala-kīrtita-jīva-kavim\nkavirāja-narottama-sakhya-padaṁ\npraṇamāmi sadā prabhupāda-padam"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "kṛpayā hari-kīrtana-mūrti-dharaṁ\ndharaṇī-bhara-hāraka-gaura-janam\njanakādhika-vatsala-snigdha-padaṁ\npraṇamāmi sadā prabhupāda-padam"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "śaraṇāgata-kiṅkara-kalpa-taruṁ\ntaru-dhik-kṛta-dhīra-vadānya-varam\nvaradendra-gaṇārcita-divya-padaṁ\npraṇamāmi sadā prabhupāda-padam"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "parahaṁsa-varaṁ paramārtha-patiṁ\npatitoddharaṇe kṛta-veśa-yatim\nyati-rāja-gaṇaiḥ parisevya-padaṁ\npraṇamāmi sadā prabhupāda-padam"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "vṛṣabhānu-sutā-dayitānucaraṁ\ncaraṇāśrita-reṇu-dharas tam aham\nmahad-adbhuta-pāvana-śakti-padaṁ\npraṇamāmi sadā prabhupāda-padam"
+            }
+          ]
+        },
+        {
+          "id": "song-mangala-arati",
+          "title": "Śrī Maṅgala-ārati (Śrī Gaura-Govinda Maṅgala-ārati)",
+          "content": [
+            {
+              "type": "text",
+              "content": "⟦Śrī Maṅgala-ārati (Śrī Gaura-Govinda Maṅgala-ārati)⟧ — ⟦Śrī Śrīmad Bhakti Prajñāna Keśava Gosvāmī Mahārāja⟧"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "maṅgala śrī guru-gaura maṅgala mūrati\nmaṅgala śrī rādhā-kṛṣṇa yugala pīriti"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "maṅgala niśānta-līlā maṅgala udaye\nmaṅgala ārati jāge bhakata-hṛdaye"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "tomāra nidrāya jīva nidrita dharāya\ntava jāgaraṇe viśva jāgarita haya"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "śubha dṛṣṭi karo ebe (prabhu) jagatera prati\njāguka hṛdaye mora sumaṅgalā rati"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "mayūra-śukādi sāri kato pikarāja\nmaṅgala jāgara-hetu koriche virāja"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "sumadhura dhvani kare jato śākhī-gaṇa\nmaṅgala śravaṇe bāje madhura kūjana"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "kusumita sarovare kamala-hillola\nmaṅgala saurabha bahe pavana-kallola"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jhājhara kāsara ghaṇṭā śaṅkha karatāla\nmaṅgala mṛdaṅga bāje parama rasāla"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "maṅgala ārati kare bhakatera gaṇa\nabhāgā keśava kare nāma-saṅkīrtana\n(śrī keśava dāsa kare nāma-saṅkīrtana)"
+            }
+          ]
+        },
+        {
+          "id": "song-vibhavari-sesa",
+          "title": "Vibhāvarī-śeṣa",
+          "content": [
+            {
+              "type": "text",
+              "content": "⟦Vibhāvarī-śeṣa⟧ — ⟦Śrīla Bhaktivinoda Ṭhākura⟧"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "vibhāvarī-śeṣa, āloka-praveśa, nidrā chāḍi’ uṭho jīva\nbolo’ hari hari, mukunda murāri, rāma-kṛṣṇa hayagrīva"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "nṛsiṁha vāmana, śrī madhusūdana, vrajendra-nandana śyāma\npūtanā-ghātana, kaiṭabha-śātana, jaya dāśarathi-rāma"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "yaśodā-dulāla, govinda-gopāla, vṛndāvana-purandara\ngopī-priya-jana, rādhikā-ramaṇa, bhuvana-sundara-vara"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "rāvaṇāntakara, mākhana-taskara, gopī-jana-vastra-hārī\nvrajera rākhāla, gopa-vṛnda-pāla, citta-hārī vaṁśī-dhārī"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "yogīndra-vandana, śrī nanda-nandana, vraja-jana-bhaya-hārī\nnavīna nīrada, rūpa manohara, mohana-vaṁśī-bihārī"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "yaśodā-nandana, kaṁsa-nisūdana, nikuñja-rāsa-vilāsī\nkadamba-kānana, rāsa-parāyaṇa, vṛndā-vipina-nivāsī"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "ānanda-vardhana, prema-niketana, phula-śara-yojaka kāma\ngopāṅganā-gaṇa-citta-vinodana, samasta-guṇa-gaṇa-dhāma"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "yāmuna-jīvana, keli-parāyaṇa, mānasa-candra-cakora\nnāma-sudhā-rasa, gāo kṛṣṇa-yaśa, rākho vacana mana mora"
+            }
+          ]
+        },
+        {
+          "id": "song-vraja-dhama-mahimamrta",
+          "title": "Śrī Vraja-dhāma-mahimāmṛta (Jaya Rādhe, Jaya Kṛṣṇa)",
+          "content": [
+            {
+              "type": "text",
+              "content": "⟦Śrī Vraja-dhāma-mahimāmṛta (Jaya Rādhe, Jaya Kṛṣṇa)⟧ — ⟦Kṛṣṇadāsa⟧"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jaya rādhe, jaya kṛṣṇa, jaya vṛndāvana\nśrī govinda, gopīnātha, madana-mohana"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "śyāma-kuṇḍa, rādhā-kuṇḍa, giri-govardhana\nkālindī yamunā jaya, jaya mahāvana"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "keśī-ghāṭa, vaṁśī-vaṭa, dvādaśa-kānana\njāṅhā saba līlā koilo śrī nanda-nandana"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "śrī nanda-yaśodā jaya, jaya gopa-gaṇa\nśrīdāmādi jaya, jaya dhenu-vatsa-gaṇa"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jaya vṛṣabhānu, jaya kīrtidā-sundarī\njaya paurṇamāsī, jaya ābhīra-nāgarī"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jaya jaya gopīśvara vṛndāvana-mājha\njaya jaya kṛṣṇa-sakhā baṭu dvija-rāja"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jaya rāma-ghāṭa, jaya rohiṇī-nandana\njaya jaya vṛndāvana-vāsī jato jana"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jaya dvija-patnī, jaya nāga-kanyā-gaṇa\nbhaktite jāṅhārā pāilo govinda-caraṇa"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "śrī rāsa-maṇḍala jaya, jaya rādhā-śyāma\njaya jaya rāsa-līlā sarva-manorama"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jaya jaya ujjvala-rasa sarva-rasa-sāra\nparakīyā-bhāve jāhā vrajete pracāra"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "śrī jāhnavā-pāda-padma koriyā smaraṇa\ndīna kṛṣṇadāsa kahe nāma-saṅkīrtana"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gaura-arati-songs",
+      "title": "Gaura-ārati Songs",
+      "subtitle": null,
+      "page": "",
+      "content": [],
+      "subsections": [
+        {
+          "id": "song-gaura-arati",
+          "title": "Śrī Gaura-ārati (Śrī Gaurasundara Sandhyā-ārati)",
+          "content": [
+            {
+              "type": "text",
+              "content": "⟦Śrī Gaura-ārati (Śrī Gaurasundara Sandhyā-ārati)⟧ — ⟦Śrīla Bhaktivinoda Ṭhākura⟧"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jaya jaya gorācāṅdera āratiko śobhā\njāhnavī-taṭa-vane jaga-mana-lobhā"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "dakṣiṇe nitāicāṅda, bāme gadādhara\nnikaṭe advaita, śrīnivāsa chatra-dhara"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "bosiyāche gorācāṅda ratna-siṁhāsane\nārati karena brahmā-ādi deva-gaṇe"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "narahari-ādi kori’ cāmara ḍhulāya\nsañjaya-mukunda vāsu-ghoṣa-ādi gāya"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "śaṅkha bāje, ghaṇṭā bāje, bāje karatāla\nmadhura mṛdaṅga bāje parama rasāla"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "bahu-koṭi candra jini’ vadana ujjvala\ngala-deśe vana-mālā kare jhalamala"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "śiva-śuka-nārada preme gada-gada\nbhakativinoda dekhe gorāra sampada"
+            }
+          ]
+        },
+        {
+          "id": "song-yugala-arati",
+          "title": "Śrī Yugala-ārati",
+          "content": [
+            {
+              "type": "text",
+              "content": "⟦Śrī Yugala-ārati⟧ — ⟦Śrīla Bhaktivinoda Ṭhākura⟧"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jaya jaya rādhā-kṛṣṇa yugala-milana\nārati karoye lalitādi sakhī-gaṇa"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "madana-mohana-rūpa tri-bhaṅga-sundara\npītāmbara śikhi-puccha-cūḍā manohara"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "lalita-mādhava-bāme vṛṣabhānu-kanyā\nnīla-vasanā gaurī rūpe guṇe dhanyā"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "nānā-vidha alaṅkāra kare jhalamala\nhari-mana-vimohana vadana ujjvala"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "viśākhādi sakhī-gaṇa nānā rāge gāya\npriya-narma-sakhī jato cāmara-ḍhulāya"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "śrī rādhā-mādhava-pada-sarasija-āśe\nbhakativinoda sakhī-pade sukhe bhāse"
             }
           ]
         }

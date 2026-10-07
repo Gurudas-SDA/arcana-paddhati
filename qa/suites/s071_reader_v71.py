@@ -93,7 +93,8 @@ with sync_playwright() as p:
         # 3: contents order
         open_contents(pg)
         order = pg.evaluate("[...document.querySelectorAll('aside nav > ul > li')].map(l=>l.innerText.trim().split('\\n')[0].trim()).filter(Boolean).slice(0,4)")
-        ck(dev, '3 contents: Обложка → Мангалачарана → ВВЕДЕНИЕ', order[:3] == ['Обложка', 'Мангалачарана', 'ВВЕДЕНИЕ'], order)
+        # v7.4 (Satkirti 06.10 / 07.10.2026): the parampara stands between the cover and the Maṅgalācaraṇa
+        ck(dev, '3 contents: Обложка → Гуру-парампара → Мангалачарана → ВВЕДЕНИЕ', order[:4] == ['Обложка', 'Гуру-парампара', 'Мангалачарана', 'ВВЕДЕНИЕ'], order)
         # 1: nav bar on screen and on top while the menu is open
         fb = pg.locator('[data-reader-nav=forward]').bounding_box()
         vh = pg.viewport_size['height']

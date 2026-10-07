@@ -61,6 +61,8 @@ SUITES = [
          devices=["s23fe", "pixel7", "iphone-se", "iphone14"], fast=True),
     dict(id="s14", file="suites/s14_mood_transcript.py", title="«Настроение»: tap «транскрипт» atver transkriptu lietotnē (arī offline)",
          devices=["pixel7", "s23fe", "iphone14", "iphone-se"], fast=True),
+    dict(id="s22", file="suites/s22_parampara_songs.py", title="Reader v7.4: parampara (8 lapas, paraksti, bez apgriešanas) + ārati dziesmas",
+         devices=["pixel7", "iphone14", "s23fe", "iphone-se", "ipad-portrait", "ipad-landscape", "ipad-mini", "desktop", "mac-safari"], fast=True),
     dict(id="s20", file="suites/s20_offline.py", title="OFFLINE: Chromium (Android) — visas nodaļas, navigācija, transkripti", args=["chromium"],
          devices=None, fast=True, timeout_fast=200),
     dict(id="s20wk", file="suites/s20_offline.py", title="OFFLINE: WebKit (iPhone/iPad) — serveris izslēgts", args=["webkit"],

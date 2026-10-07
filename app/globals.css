@@ -1222,3 +1222,52 @@ html[data-hs-peek] .app-main {
 .hs-overlay .hs-inert {
   pointer-events: all;
 }
+
+/* Parampara (Reader v7.4, Satkirti 06.10/07.10.2026): one guru per screen —
+   portrait in the oval frame + caption, no heading, no number. The picture is
+   only scaled as a whole (object-fit: contain): the oval and the figure inside
+   it are never cropped (rule 07.10: the body of a guru is never cut). */
+.portrait-page {
+  min-height: calc(100vh - var(--reader-pad-bottom) - 2rem);
+  min-height: calc(100dvh - var(--reader-pad-bottom) - 2rem);
+  margin: 0;
+  padding: 1rem 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.portrait-img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(100%, 34rem);
+  max-height: calc(100vh - var(--reader-pad-bottom) - 10rem);
+  max-height: calc(100dvh - var(--reader-pad-bottom) - 10rem);
+  object-fit: contain;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.portrait-caption {
+  margin-top: 1rem;
+  max-width: 100%;
+  font-family: var(--font-noto-serif, Georgia, serif);
+  font-style: italic;
+  font-size: 1.08em;
+  line-height: 1.35;
+  text-align: center;
+  color: #3C281E;
+  overflow-wrap: normal;
+}
+.portrait-ornament {
+  display: block;
+  margin-top: 0.85rem;
+  max-width: 60%;
+  height: auto;
+}
+html[data-reader-theme="night"] .portrait-caption {
+  color: var(--rd-fg);
+}
+html[data-reader-theme="night"] .portrait-img {
+  filter: brightness(0.9);
+}

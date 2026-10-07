@@ -60,6 +60,8 @@ export interface ContentItem {
   rows?: TableRow[];
   /** "sources" block (the source line of an intro chapter): links per line of `content`, shown after that line. */
   links?: (SourceLinks | null)[];
+  /** "portrait" block (parampara page): the name under the portrait (`src` = the framed oval picture). */
+  caption?: string;
 }
 
 /** Transcript / audio links of one lecture in a "sources" block. */
@@ -87,6 +89,9 @@ export interface Section {
   title: string;
   subtitle?: string | null;
   page: string;
+  /** "portraits": a parampara section — one portrait per screen/page, no visible heading
+   *  (Satkirti 06.10/07.10.2026: portrait + caption only, no headings, no page numbers). */
+  layout?: string;
   content: ContentItem[];
   subsections: Subsection[];
 }

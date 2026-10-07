@@ -33,6 +33,30 @@ BIJA_OLD = ["aing", "klīng", "śrīng", "hrīng",
             "аинг", "клӣнг", "ш́рӣнг", "хрӣнг"]
 MANTRA_RE = re.compile(r"(namaḥ|намах̣)⟧")   # same as components/SectionContent.tsx
 
+# Parampara captions — exact (Satkirti 06.10/07.10; analysis «Начало книги …» 07.10, §5) — L21, s22.
+PARAMPARA_RU = [
+    "Шри Панча-таттва",   # Satkirti 07.10 13:35: Pañca-tattva page first
+    "Шрила Джаганнатха дас Бабаджи Махарадж",
+    "Шрила Саччидананда Бхактивинода Тхакур",
+    "Шрила Гаура Кишора дас Бабаджи Махарадж",
+    "Прабхупада Шрила Бхактисиддханта Сарасвати Тхакур",
+    "Шрила Бхакти Праджнана Кешава Госвами Махарадж",
+    "Шрила А. Ч. Бхактиведанта Свами Прабхупада",
+    "Шрила Бхактиведанта Нараяна Госвами Махарадж",
+    "Шри Према Прайоджана Прабху",
+]
+PARAMPARA_EN = [
+    "Śrī Pañca-tattva",
+    "Śrīla Jagannātha dāsa Bābājī Mahārāja",
+    "Śrīla Saccidānanda Bhaktivinoda Ṭhākura",
+    "Śrīla Gaura Kiśora dāsa Bābājī Mahārāja",
+    "Prabhupāda Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura",
+    "Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja",
+    "Śrīla AC Bhaktivedānta Svāmī Prabhupāda",
+    "Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja",
+    "Śrī Prem Prayojan Prabhu",
+]
+
 FAILS = []
 RESULTS = []
 
@@ -437,6 +461,79 @@ def run(args):
                 if len(ms) >= 2:
                     c.hit(name(f), f"{ctx}/{key}", ", ".join(ms[:5]) + " | " + o[:70].replace("\n", " / "))
         w19(loaded[f], "")
+    c.report(args.max)
+
+    # L21 — Парампара (Satkirti 06.10 23:15–23:33, 07.10 12:34–13:07): 8 гуру по одному на страницу, в этом
+    # порядке, подписи как в «Ведических мудрых историях», без Гоур Говинды Свами; тело гуру никогда не обрезается.
+    c = Check("L21", "parampara: Śrī Pañca-tattva first, then 8 gurus in order, exact captions, no Gour Govinda Svāmī; every figure fully inside its oval")
+    exp = {"ru": PARAMPARA_RU, "en": PARAMPARA_EN}
+    for fn, lang in (("book.ru-iast.json", "ru"), ("book.ru.json", "ru"), ("book.json", "en")):
+        b = loaded[os.path.join(qa.DATA, fn)]
+        ids = [s["id"] for s in b["sections"]]
+        if ids[:3] != ["parampara", "mangalacarana", "introduction"]:
+            c.hit(fn, "sections", f"order {ids[:3]} (expected parampara → mangalacarana → introduction)")
+            continue
+        sec = b["sections"][0]
+        caps = [x.get("caption") for x in sec["content"] if x.get("type") == "portrait"]
+        srcs = [x.get("src") for x in sec["content"] if x.get("type") == "portrait"]
+        if sec.get("layout") != "portraits" or caps != exp[lang] or srcs != [f"parampara/{i:02d}.png" for i in range(0, 9)]:
+            c.hit(fn, "parampara", f"layout={sec.get('layout')} captions={caps} srcs={srcs}")
+        if sec.get("subsections"):
+            c.hit(fn, "parampara", "has subsections (headings) — portrait + caption only")
+    for f in allb:
+        raw = json.dumps(loaded[f], ensure_ascii=False)
+        for bad in ("Gour Govinda", "Гоур Говинд", "Gour-Govinda"):
+            if bad in raw:
+                c.hit(name(f), "*", f"«{bad}» in the book (Satkirti 06.10: not in our parampara)")
+    chk = json.load(open(os.path.join(qa.REPO, "scripts", "parampara", "check.json"), encoding="utf-8"))
+    for pg in chk["pages"]:
+        cx, cy, cw, ch = pg["crop"]
+        a, bb = cw / 2, ch / 2
+        if abs(cw / ch - chk["aspect"]) > 0.002:
+            c.hit("check.json", pg["id"], f"oval aspect {cw / ch:.4f} != {chk['aspect']}")
+        import math as _m
+        ts = [2 * _m.pi * k / 2880 for k in range(2880)]
+        ell = [(cx + a * _m.cos(t), cy + bb * _m.sin(t)) for t in ts]
+        for x, y in pg["hull"]:
+            q = ((x - cx) / a) ** 2 + ((y - cy) / bb) ** 2
+            d = min(_m.hypot(x - ex, y - ey) for ex, ey in ell) / cw
+            if q >= 1 or d < chk["margin"] - 0.0005:
+                c.hit("check.json", pg["id"], f"contour point {(x, y)} {'OUTSIDE' if q >= 1 else 'too close'} (clearance {d:.3f} < {chk['margin']})")
+        img = os.path.join(qa.REPO, "public", "images", pg["image"])
+        if not os.path.isfile(img):
+            c.hit("public/images", pg["image"], "missing")
+        else:
+            from PIL import Image as _Img
+            with _Img.open(img) as im:
+                if list(im.size) != pg["image_size"] or im.mode != "RGBA":
+                    c.hit("public/images", pg["image"], f"size/mode {im.size} {im.mode} != check.json {pg['image_size']}")
+    if [pg["id"] for pg in chk["pages"]] != [f"{i:02d}" for i in range(0, 9)]:
+        c.hit("check.json", "pages", f"{[pg['id'] for pg in chk['pages']]} (expected 00 Pañca-tattva + 01–08)")
+    c.info = f"{len(chk['pages'])} portraits re-verified"
+    c.report(args.max)
+
+    # L22 — Песни мангала-арати и гаура-арати в книге (Satkirti 07.10 13:07): IAST + пословный перевод + перевод.
+    c = Check("L22", "ārati songs: maṅgala-ārati (5) and gaura-ārati (2) in Part IV with IAST, word-by-word and translation")
+    for fn in ("book.ru-iast.json", "book.ru.json", "book.json"):
+        b = loaded[os.path.join(qa.DATA, fn)]
+        secs = {s["id"]: s for s in b["sections"]}
+        part = next((p for p in b["parts"] if p["id"] == "festivals-vows"), {"sections": []})
+        for sid, n, first in (("mangala-arati-songs", 5, "saṁsāra-dāvānala-līḍha-loka-"),
+                              ("gaura-arati-songs", 2, "jaya jaya gorācāṅdera āratiko śobhā")):
+            s = secs.get(sid)
+            if not s or sid not in part["sections"] or len(s["subsections"]) != n:
+                c.hit(fn, sid, f"missing / not in Part IV / {len(s['subsections']) if s else 0} songs (expected {n})")
+                continue
+            verses = [x for sub in s["subsections"] for x in sub["content"] if x.get("type") == "verse"]
+            if fn == "book.ru.json":
+                first = None  # Cyrillic mirror
+            if first and not verses[0]["sanskrit"].startswith(first):
+                c.hit(fn, sid, "first verse is not " + first)
+            if fn != "book.json":
+                bad = [sub["id"] for sub in s["subsections"] for x in sub["content"]
+                       if x.get("type") == "verse" and not (x.get("wbw") and x.get("translation"))]
+                if bad:
+                    c.hit(fn, sid, f"verses without wbw/translation: {bad[:3]}")
     c.report(args.max)
 
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует

@@ -11,11 +11,12 @@ E picture <-> list: tap on a picture part -> row highlighted (computed bg) + scr
 F cover: no «v.1», CA block (emblem left, text right, centred), cover fully on screen
 G Maṅgalācaraṇa: title only, no subtitle, no explanatory headings; every verse has «пословно»
 H «Праздники, обеты и песни арати» (+ English)
-I every verse of the book (ru-iast, ru) has a «пословно» chip in the UI (180)
+I every verse of the book (ru-iast, ru) has a «пословно» chip in the UI (241 = 180 + 61 verses of the ārati songs, v7.4)
 """
 import os as _os, sys as _sys
 _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "lib"))
-import qa  # noqa: E402  (device profiles, repo paths)
+import qa
+VERSES = 241  # 180 + 61 verses of the maṅgala-/gaura-ārati songs (Reader v7.4, Satkirti 07.10 13:07)
 import io, json, os, sys, urllib.request
 from urllib.parse import urlparse
 from playwright.sync_api import sync_playwright
@@ -307,7 +308,7 @@ def run(p, dev, eng, o):
                 v = pg.evaluate("(() => { const c = [...document.querySelectorAll('.app-main article .verse-chips')]; return [c.length, c.filter(x => /пословно/.test(x.textContent)).length]; })()")
                 tv += v[0]; tw += v[1]
                 if v[0] != v[1]: missing.append(f"{sid}:{v[1]}/{v[0]}")
-            chk(dev, f"I {lang}: every verse in the UI has «пословно» ({tw}/{tv}, 180 expected)", tv == tw == 180, "; ".join(missing))
+            chk(dev, f"I {lang}: every verse in the UI has «пословно» ({tw}/{tv}, {VERSES} expected)", tv == tw == VERSES, "; ".join(missing))
 
     chk(dev, "no requests to third-party hosts", not foreign, "; ".join(foreign[:5]))
     chk(dev, "no page errors", not errs, "; ".join(errs[:3]))
@@ -348,7 +349,7 @@ def data_wbw():
             elif isinstance(o, list):
                 for v in o: walk(v)
         walk(b)
-        chk("data", f"I {f}: {sum(1 for v in vs if v.get('wbw'))}/{len(vs)} verses with wbw", len(vs) == 180 and all(v.get("wbw") for v in vs))
+        chk("data", f"I {f}: {sum(1 for v in vs if v.get('wbw'))}/{len(vs)} verses with wbw", len(vs) == VERSES and all(v.get("wbw") for v in vs))
         s = json.dumps(b, ensure_ascii=False)
         chk("data", f"I {f}: no Bengali letters, no «Камадева » (gen.)", not any("\u0980" <= ch <= "\u09ff" for ch in s) and "Камадева " not in s and "Камадева (" not in s)
 

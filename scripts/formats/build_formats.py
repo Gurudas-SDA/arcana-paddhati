@@ -5,7 +5,7 @@ The app (Next.js, `npm run build`) is the first format; this script produces
 the other two from the same data files (data/book[.<lang>].json, ui.<lang>.json,
 public/cover.jpg, public/images/*).
 
-    python scripts/formats/build_formats.py                  # ru + en, all formats
+    python scripts/formats/build_formats.py                  # ru-iast (= Russian, IAST) + en, all formats
     python scripts/formats/build_formats.py --lang ru,en,lv  # any language with data
     python scripts/formats/build_formats.py --formats print  # only the PDF
 
@@ -17,9 +17,15 @@ Output (default): ../Арчана-паддхати — книга/ next to the r
 
 Numbering: chapters are numbered 1, 2, 3, ... and their subsections 2.1, 2.2, ...,
 computed here from the section order (same rule as the app, lib/book.ts
-sectionNumbers): every section is numbered, front matter included
-(Introduction 1, Mangalacarana 2, then Part I from 3); only the appendix and
-the verse index (generated here, not book sections) stay unnumbered.
+sectionNumbers): the front matter (sections before Part I outside any part:
+parampara, Maṅgalācaraṇa, the Introduction group) is unnumbered (Satkirti
+06.10.2026), Part I starts from 1; the appendix and the verse index stay
+unnumbered.
+
+Parampara (section with "layout": "portraits", Reader v7.4, Satkirti 06.10/07.10):
+one guru per page — the framed oval portrait (public/images/parampara/*.png,
+the whole figure inside the oval) and the caption; no heading, and in the PDF
+no running header and no page number on these pages.
 Parts (book.json "parts": Part I Temple worship, II Home worship, III ...) are
 a level above the chapters, numbered I, II, III: a part page before the part's
 first chapter (an empty part = page with "in preparation"), and a level in the
@@ -124,6 +130,10 @@ LANG_STRINGS = {
         "appendix_block": "блок на",
     },
 }
+
+# The Russian book is ONE: Russian text with Sanskrit in IAST (Satkirti 05.10 «Русский язык в книге один»,
+# 06.10 «Санскрит везде — IAST»): its data is book.ru-iast.json (book.ru.json = legacy Cyrillic mirror).
+LANG_STRINGS["ru-iast"] = LANG_STRINGS["ru"]
 
 # IAST alphabet (Sanskrit order); digraphs are single letters.
 IAST_ORDER = [
@@ -300,8 +310,17 @@ class Edition:
         self.layout = toc_layout([sec["id"] for sec in self.book["sections"]], self.parts)
         part_by_sid = {sid: pi for pi, prt in enumerate(self.parts) for sid in prt["sections"]}
         self.part_of = {si: part_by_sid.get(sec["id"]) for si, sec in enumerate(self.book["sections"])}
-        # Chapter numbers: every section in order, front matter included: 1, 2, 3, ...
-        self.nums = list(range(1, len(self.book["sections"]) + 1))
+        # Chapter numbers (= app, lib/book.ts sectionNumbers): front matter unnumbered, Part I from 1.
+        in_part = {sid for prt in self.parts for sid in prt["sections"]}
+        first = next((i for i, sec in enumerate(self.book["sections"]) if sec["id"] in in_part), 0)
+        front = {i for i, sec in enumerate(self.book["sections"]) if i < first and sec["id"] not in in_part}
+        self.nums, n = [], 0
+        for i in range(len(self.book["sections"])):
+            if i in front:
+                self.nums.append(None)
+            else:
+                n += 1
+                self.nums.append(n)
         # Number every verse once (same ids in PDF and EPUB) and collect the index.
         self.verse_ids = {}
         n = 0
@@ -518,7 +537,22 @@ class Edition:
         out.append("</section>")
         return "\n".join(out)
 
+    def portraits_html(self, si, sec) -> str:
+        """Parampara: one guru per page — the oval portrait + caption + small ornament, no heading."""
+        out = [f'<section class="chap pp" id="s{si}">']
+        for it in sec.get("content", []):
+            if it.get("type") != "portrait":
+                continue
+            out.append(f'<div class="ppage"><div class="pimg"><img src="images/{esc(it["src"])}" alt="{esc(it.get("caption", ""))}"/></div>'
+                       f'<p class="pcap">{esc(it.get("caption", ""))}</p>'
+                       '<p class="porn"><span class="pln"></span><span class="pdot"></span><span class="prh"></span>'
+                       '<span class="pdot"></span><span class="pln"></span></p></div>')
+        out.append("</section>")
+        return "\n".join(out)
+
     def section_html(self, si, sec, epub=False) -> str:
+        if sec.get("layout") == "portraits":
+            return self.portraits_html(si, sec)
         out = [f'<section class="chap" id="s{si}"><h1>{self.label_html(si)}</h1>']
         if sec.get("subtitle"):
             out.append(f'<p class="sub">{esc(sec["subtitle"])}</p>')
@@ -593,6 +627,13 @@ ul.bl li::before { content: "– "; color: #B8860B; }
 .part { text-align: center; }
 .part .pl { color: #9C7A4E; letter-spacing: 0.14em; text-transform: uppercase; }
 .part .pe { font-style: italic; color: #5C3D2E; }
+.ppage { text-align: center; }
+.pcap { font-style: italic; color: #3C281E; text-align: center; margin: 0; }
+.porn { text-align: center; line-height: 1; margin: 0; }
+.porn span { display: inline-block; vertical-align: middle; }
+.porn .pln { width: 3.2em; border-top: 1px solid #D4A843; }
+.porn .pdot { width: 0.25em; height: 0.25em; border-radius: 50%; background: #D4A843; margin: 0 0.3em; }
+.porn .prh { width: 0.42em; height: 0.42em; background: #8B6508; transform: rotate(45deg); margin: 0 0.15em; }
 """
 
 
@@ -677,6 +718,10 @@ h1 + .verse, h2 + .verse, h3 + .verse { break-before: avoid; }
 .mood.ap-q { break-inside: auto; }
 .ap-block > h2, .ap-ref, .mood .ml, .mood .ml2 { break-after: avoid; }
 .ms a { text-decoration: none; }
+.pp .ppage { break-before: page; height: 168mm; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.pp .pimg img { height: 128mm; width: auto; max-width: 100%; object-fit: contain; display: block; }
+.pp .pcap { font-size: 13pt; line-height: 1.3; margin-top: 6mm; }
+.pp .porn { margin-top: 4mm; font-size: 10pt; }
 """
 
 
@@ -816,11 +861,20 @@ def build_print(ed: Edition, fonts: dict, chrome: Path, work: Path, out_pdf: Pat
     f_rg = fitz.Font(fontfile=str(fonts["regular"]))
     col = (0.36, 0.24, 0.18)
     mm = 72 / 25.4
+    # Parampara pages: no running header, no page number (Satkirti 06.10/07.10).
+    bare = set()
+    for si, sec in enumerate(sections):
+        if sec.get("layout") == "portraits":
+            p0 = toc_pages[f"s{si}"]
+            n_p = sum(1 for it in sec.get("content", []) if it.get("type") == "portrait")
+            bare |= set(range(p0, p0 + n_p))
     start_set = ({p for p, _ in starts} | {ix_page, ap_page, first_toc_page}
                  | {toc_pages[f"p{pi}"] for pi in range(len(ed.parts))})
     for pno in range(len(doc)):
         num = pno + 1
         if num < first_toc_page:
+            continue
+        if num in bare:
             continue
         page = doc[pno]
         page.wrap_contents()  # Chrome leaves its content transform active
@@ -913,6 +967,10 @@ nav ol ol { padding-left: 1.2em; }
 .part { margin-top: 30%; }
 .part .pl { font-size: 0.9em; margin: 0 0 0.6em 0; }
 .part h1 { font-size: 1.7em; margin: 0 0 1.5em 0; }
+.ppage { page-break-before: always; margin: 0; padding-top: 1em; }
+.ppage img { max-width: 100%; max-height: 80vh; height: auto; }
+.pcap { font-size: 1.15em; margin-top: 0.8em; }
+.porn { margin-top: 0.6em; }
 """
 
 
@@ -1102,7 +1160,7 @@ def write_app_folder(out: Path):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--lang", default="ru,en", help="comma-separated language codes (en = data/book.json)")
+    ap.add_argument("--lang", default="ru-iast,en", help="comma-separated language codes (en = data/book.json)")
     ap.add_argument("--formats", default="print,epub", help="print (PDF) and/or epub - the only formats produced")
     ap.add_argument("--out", default=str(DEFAULT_OUT), help="output folder (default: %(default)s)")
     ap.add_argument("--work", default="", help="keep intermediate files here (default: temp dir)")

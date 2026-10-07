@@ -566,7 +566,52 @@ function SubsectionBlock({
   );
 }
 
+/** Small ornament under a parampara caption (as on the approved page sample, variant A):
+ *  thin gold lines, a dark-gold rhombus, two dots. */
+function CaptionOrnament() {
+  return (
+    <svg className="portrait-ornament" viewBox="0 0 160 14" width="160" height="14" aria-hidden="true">
+      <line x1="0" y1="7" x2="64" y2="7" stroke="#D4A843" strokeWidth="1" />
+      <line x1="96" y1="7" x2="160" y2="7" stroke="#D4A843" strokeWidth="1" />
+      <circle cx="69" cy="7" r="2" fill="#D4A843" />
+      <circle cx="91" cy="7" r="2" fill="#D4A843" />
+      <path d="M80 1.5 L85.5 7 L80 12.5 L74.5 7 Z" fill="#8B6508" />
+    </svg>
+  );
+}
+
+/**
+ * Parampara (Satkirti 06.10 / 07.10.2026): one guru per screen, the portrait in the
+ * oval frame (variant A) and the caption under it — no heading, no number. The picture
+ * is pre-rendered with the whole figure inside the oval (scripts/parampara/); here it is
+ * only ever scaled as a whole (object-fit: contain), never cropped.
+ */
+function PortraitPages({ section, note, after }: { section: Section; note?: string; after?: React.ReactNode }) {
+  return (
+    <article className="reader-article portraits-article">
+      <h1 className="sr-only">{section.title}</h1>
+      {note && <p className="sr-only">{note}</p>}
+      {section.content
+        .filter((item) => item.type === "portrait")
+        .map((item, i) => (
+          <figure key={i} className="portrait-page" data-portrait={i + 1}>
+            <img
+              src={`/arcana-paddhati/images/${item.src}`}
+              alt={item.caption ?? ""}
+              className="portrait-img"
+              draggable={false}
+            />
+            <figcaption className="portrait-caption">{item.caption}</figcaption>
+            <CaptionOrnament />
+          </figure>
+        ))}
+      {after}
+    </article>
+  );
+}
+
 export default function SectionContent({ section, ui, num = null, note, after }: SectionContentProps) {
+  if (section.layout === "portraits") return <PortraitPages section={section} note={note} after={after} />;
   const labels: VerseLabels = {
     translation: t(ui, "verse.translationHint"),
     wbw: t(ui, "verse.wbwHint"),
