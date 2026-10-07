@@ -108,10 +108,9 @@ if __name__ == "__main__":
         sys.exit(0 if st else 1)
 
 
-# Short mantra (Reader v7.8, Satkirti 07.10.2026; mirror of lib/book.ts isShortMantra): one line, 2–6 words,
-# a bīja first, namaḥ / svāhā / phaṭ last — such a mantra has no «пословно» in the reader.
+# Short mantra (Reader v7.8, Satkirti 07.10.2026; widened v7.8.2; mirror of lib/book.ts isShortMantra): one line,
+# 2–6 words, namaḥ / svāhā / phaṭ last (with or without a bīja) — such a mantra has no «пословно» in the reader.
 import unicodedata as _ud
-_BIJA = {_ud.normalize("NFC", b) for b in ["oṁ", "aiṁ", "klīṁ", "śrīṁ", "hrīṁ", "rāṁ", "ом̇", "аим̇", "клӣм̇", "ш́рӣм̇", "хрӣм̇", "ра̄м̇"]}
 _ENDS = tuple(_ud.normalize("NFC", e) for e in ["namaḥ", "svāhā", "phaṭ", "намах̣", "сва̄ха̄", "пхат̣"])
 
 
@@ -120,4 +119,4 @@ def is_short_mantra(text):
     if not s or "\n" in s:
         return False
     w = s.split()
-    return 2 <= len(w) <= 6 and w[0].lower() in _BIJA and s.rstrip(".!").endswith(_ENDS)
+    return 2 <= len(w) <= 6 and s.rstrip(".!").endswith(_ENDS)

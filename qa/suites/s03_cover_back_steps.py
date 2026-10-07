@@ -123,7 +123,7 @@ def run(p, dev, eng, o):
     C = pg.url.split("#")[0]
     chk(dev, "(b) 3 chapter opened (first subsection), menu closed", f"/{chid}/" in C and not menu(), pg.url)
     show_bars(); act(pg.locator("[data-reader-action=contents]"))
-    subs = pg.locator(".mobile-menu nav ul.ml-6 a")
+    subs = pg.locator(".mobile-menu nav a[data-toc-row^=\"sub:\"]")
     nsub = subs.count()
     if nsub >= 2:
         act(subs.nth(1)); act(subs.nth(1)); pg.wait_for_timeout(900)

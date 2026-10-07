@@ -317,19 +317,18 @@ export function stripInline(text: string): string {
 }
 
 /**
- * A short mantra (Satkirti 07.10.2026, Reader v7.8): one line, at most 6 words,
- * beginning with a bīja (oṁ, aiṁ, klīṁ, śrīṁ, hrīṁ, rāṁ — or the same in
- * Cyrillic) and ending in namaḥ / svāhā / phaṭ — «oṁ keśavāya namaḥ». Such a
- * mantra has no «пословно» button in the reader (its words are self-evident);
- * the data keep their word-by-word text.
+ * A short mantra (Satkirti 07.10.2026, Reader v7.8; widened in v7.8.2): one
+ * line, 2–6 words, ending in namaḥ / svāhā / phaṭ (also «namo namaḥ») — with
+ * or without a bīja: «oṁ keśavāya namaḥ», «idaṁ ācamanīyaṁ aiṁ gurave namaḥ».
+ * Such a mantra has no «пословно» button in the reader (its words are
+ * self-evident); the data keep their word-by-word text.
  */
-const BIJA = new Set(["oṁ", "aiṁ", "klīṁ", "śrīṁ", "hrīṁ", "rāṁ", "ом̇", "аим̇", "клӣм̇", "ш́рӣм̇", "хрӣм̇", "ра̄м̇"].map((b) => b.normalize("NFC")));
 const MANTRA_END = new RegExp(`(${["namaḥ", "svāhā", "phaṭ", "намах̣", "сва̄ха̄", "пхат̣"].map((e) => e.normalize("NFC")).join("|")})[.!]?$`);
 export function isShortMantra(text: string | undefined): boolean {
   const s = stripInline(text ?? "").trim().normalize("NFC");
   if (!s || s.includes("\n")) return false;
   const words = s.split(/\s+/);
-  return words.length >= 2 && words.length <= 6 && BIJA.has(words[0].toLowerCase()) && MANTRA_END.test(s);
+  return words.length >= 2 && words.length <= 6 && MANTRA_END.test(s);
 }
 
 /** Where `nq` (a normalizeText()-ed query) occurs in `text`: [start, end) ranges of

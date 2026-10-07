@@ -3,12 +3,14 @@
   2  the language menu only in the «Аа» panel
   3  «Содержание» = fixed part (title, search, «Обложка») + scrolling list
   4  every contents row (cover, chapter, group heading, chapter with subsections, subsection) reacts to a
-     tap at the far left AND the far right of its highlight strip (1st tap = highlight, §10)
+     tap at the far left AND the far right of its highlight strip (1st tap = highlight, §10); v7.8.2: a
+     subsection row spans the full panel width — tapped at x = panel left + 4 px
   5  a row opened near the bottom (2nd tap): its rows come into view / the row goes up as far as it can
   6  tilak list: a tap on the place, the mantra or the gap between them marks the row — the place AND the
      mantra get the band — and lights exactly that spot (rows 1–12); «tat prakṣālana-toyaṁ tu / vāsudevāya
      mūrdhani» and «oṁ vāsudevāya namaḥ» light the crown (Tilak-13); the crown on the picture marks the mantra
-  7  short mantras («oṁ … namaḥ», one line ≤ 6 words) have no «пословно» — every page, RU and EN
+  7  short mantras (one line ≤ 6 words ending in namaḥ / svāhā / phaṭ — «oṁ … namaḥ», v7.8.2 also without a
+     bīja: «idaṁ ācamanīyaṁ aiṁ gurave namaḥ») have no «пословно» — every page, RU and EN
   8  search: the found word is marked in every result (all its occurrences), and after opening a result
      it is marked in the text (CSS highlight) and in view; the next tap only clears it
   9  parampara: the oval without the rhombi (design 1), WebP shown with the PNG as fallback
@@ -39,8 +41,8 @@ SHORT_PAGES = ["daily-duties-brahma-muhurta", "offering-bhoga", "worship-sixteen
                "arcana-sri-guru", "maha-abhiseka", "arcana-procedure"]
 # JS mirror of isShortMantra
 IS_SHORT = r"""(t) => { const s = (t || '').replace(/[⟦⟧]/g, '').trim().normalize('NFC'); if (!s || s.includes('\n')) return false;
-  const w = s.split(/\s+/); const B = ['oṁ','aiṁ','klīṁ','śrīṁ','hrīṁ','rāṁ'].map(x => x.normalize('NFC'));
-  return w.length >= 2 && w.length <= 6 && B.includes(w[0].toLowerCase()) && /(namaḥ|svāhā|phaṭ)[.!]?$/.test(s.normalize('NFC')); }"""
+  const w = s.split(/\s+/);
+  return w.length >= 2 && w.length <= 6 && /(namaḥ|svāhā|phaṭ)[.!]?$/.test(s.normalize('NFC')); }"""
 
 
 def chk(dev, name, ok, info=""):
@@ -162,7 +164,7 @@ def run(p, dev, eng, o):
             q = pg.evaluate("""([r, side]) => { const el = [...document.querySelectorAll('.mobile-menu nav [data-toc-row]')].find(e => e.getAttribute('data-toc-row') === r);
                 if (!el) return null; el.scrollIntoView({block: 'center'}); const b = el.getBoundingClientRect();
                 const aside = document.querySelector('.mobile-menu aside').getBoundingClientRect();
-                return {x: side === 'right' ? Math.min(b.right, aside.right) - 6 : b.left + 4, y: b.top + b.height / 2, l: b.left, w: b.width, aw: aside.width}; }""", [r, side])
+                return {x: side === 'right' ? Math.min(b.right, aside.right) - 6 : (r.startsWith('sub:') ? aside.left + 4 : b.left + 4), y: b.top + b.height / 2, l: b.left, w: b.width, aw: aside.width}; }""", [r, side])
             if not q:
                 bad.append((r, "missing"))
                 continue
@@ -174,13 +176,14 @@ def run(p, dev, eng, o):
             pg.wait_for_timeout(200)
             q = pg.evaluate("""([r, side]) => { const el = [...document.querySelectorAll('.mobile-menu nav [data-toc-row]')].find(e => e.getAttribute('data-toc-row') === r);
                 if (!el) return null; el.scrollIntoView({block: 'center'}); const b = el.getBoundingClientRect(); const aside = document.querySelector('.mobile-menu aside').getBoundingClientRect();
-                return {x: side === 'right' ? Math.min(b.right, aside.right) - 6 : b.left + 4, y: b.top + b.height / 2, w: b.width, aw: aside.width}; }""", [r, side])
+                return {x: side === 'right' ? Math.min(b.right, aside.right) - 6 : (r.startsWith('sub:') ? aside.left + 4 : b.left + 4), y: b.top + b.height / 2, w: b.width, aw: aside.width}; }""", [r, side])
             if not q:
                 bad.append((r, side, "row gone"))
                 continue
             tapxy(q["x"], q["y"], 300)
             got = lit()
-            if got != [r] or q["w"] < q["aw"] * 0.6 and not r.startswith("sub:"):
+            # v7.8.2: a subsection row spans the full panel too — its left tap is at the panel's left edge + 4 px
+            if got != [r] or q["w"] < q["aw"] * (0.95 if r.startswith("sub:") else 0.6):
                 bad.append((r, side, got, round(q["w"]), round(q["aw"])))
             if not pg.locator(".mobile-menu").count():
                 contents()
@@ -323,6 +326,18 @@ def run(p, dev, eng, o):
                 bad += [f"{lang}/{sid}: {t}" for t in r["bad"]]
         chk(dev, f"7 short mantras have no «пословно» (RU+EN, {len(SHORT_PAGES)} chapters; {n_short} short shown, {n_long} other «пословно» kept)",
             not bad and n_short >= 60 and n_long >= 20, str(bad[:4]))
+        # v7.8.2: one-line mantras without a bīja («idaṁ ācamanīyaṁ aiṁ gurave namaḥ», ch.5 «Арчана Шри Гуру», 16 of
+        # them) — no «пословно», the «перевод» chip stays
+        goto("arcana-sri-guru/")
+        g = pg.evaluate("""() => { const out = {n: 0, wbw: 0, tr: 0};
+            for (const sk of document.querySelectorAll('.app-main .sanskrit')) {
+              const t = sk.innerText.trim().normalize('NFC');
+              if (!/^(idaṁ|etat|eṣa) .*gurave namaḥ$/.test(t)) continue;
+              const chips = sk.parentElement.querySelector(':scope > .verse-chips');
+              out.n++; if (chips && /пословно/.test(chips.textContent)) out.wbw++; if (chips && /перевод/.test(chips.textContent)) out.tr++; }
+            return out; }""")
+        chk(dev, f"7b «Арчана Шри Гуру»: one-line «… aiṁ gurave namaḥ» mantras without «пословно», «перевод» kept ({g})",
+            g["n"] >= 16 and g["wbw"] == 0 and g["tr"] == g["n"], str(g))
 
     # ---------- 8: search marks ----------
     goto("")

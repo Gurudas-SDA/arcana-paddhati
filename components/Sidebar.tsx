@@ -831,7 +831,9 @@ export default function Sidebar({
       </span>
     );
     const subClass = (active: boolean) =>
-      `sidebar-link -ml-px flex items-center min-h-[44px] w-full text-left px-4 py-2 text-xs border-l-2 transition-colors ${
+      // Full panel width (Reader v7.8.2): the indent is padding inside the row, so the tap target and
+      // the highlight band start at the panel's left edge, like the chapters and parts.
+      `sidebar-link relative flex items-center min-h-[44px] w-full text-left pl-[39px] pr-4 py-2 text-xs border-l-3 transition-colors ${
         active
           ? "bg-[#FAF3E8] border-[#B8860B] text-[#B8860B] font-semibold"
           : "border-transparent text-[#5C3D2E] hover:text-[#B8860B] hover:bg-[#FDF8F0]"
@@ -897,7 +899,7 @@ export default function Sidebar({
 
         {/* Subsections of an expanded chapter */}
         {isOpen && (
-          <ul id={listId} className="ml-6 border-l border-[#E8DCC8]">
+          <ul id={listId}>
             {section.subsections.map((sub) => {
               const isActive = isSelected && activeSubId === sub.id;
               const subRow = `sub:${section.id}#${sub.id}`;
@@ -916,6 +918,8 @@ export default function Sidebar({
                     data-toc-row={subRow}
                     className={subClass(subLit)}
                   >
+                    {/* the guide line of the list (was the list's own left border, 24px in) */}
+                    <span aria-hidden="true" className="pointer-events-none absolute left-[21px] top-0 bottom-0 border-l border-[#E8DCC8]" />
                     <span>
                       {sub.num && <span className="heading-num">{`${sub.num}.`}</span>}
                       {sub.title}
