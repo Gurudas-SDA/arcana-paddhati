@@ -24,6 +24,9 @@
  v7.8.3 (Codex review of e8d33aa..bb066eb):
  15  a waiting search mark is dropped by any step that does not lead to its place (never painted later); a painted
      mark goes on any path / #anchor change, also when the #anchor is removed; a same-URL state patch keeps it
+ v7.8.4 (Codex review of v7.8.3):
+ 16  a result in the SAME section but another #subsection (reader at …/<section>/#B, the word only in #A) is
+     marked after opening: the same-page jump's steps (state patch at #B, then #A) do not cancel the waiting mark
 usage: python s26_ksv_0710_evening.py <base-url>   devices: QA_DEVICES"""
 import json
 import os
@@ -578,6 +581,46 @@ def run_v781(p, dev, eng, o):
             moved and not st0["hl"] and clean(st), (moved, st0, st, target[-40:]))
         c.close()
 
+    # ---------- 16 (v7.8.4, Codex review): same section, other #subsection → still marked ----------
+    if dev in ("pixel7", "iphone14", "desktop", "mac-safari"):
+        pick = same_section_pick()
+        if not pick:
+            chk(dev, "16 (setup) a section with 2+ subsections and a word found only in one of them", False, "none in the index")
+        else:
+            sec, a_id, b_id, word = pick
+            c = ctx()
+            pg = c.new_page()
+            tapxy, tap, bars = helpers(pg)
+            pg.goto(f"{BASE}/{L}/{sec}/#{b_id}", wait_until="networkidle")
+            pg.wait_for_timeout(900)
+            bars()
+            tap("[data-reader-action=search]", 1200)
+            pg.keyboard.type(word)
+            want = f"{sec}#{a_id}"
+            sel = f'.mobile-menu [data-result="{want}"]'
+            try:
+                pg.wait_for_selector(sel, timeout=15000)
+            except Exception:
+                pass
+            pg.wait_for_timeout(400)
+            n = pg.locator(sel).count()
+            if n:
+                tap(sel, 300)
+                try:
+                    pg.wait_for_function("() => document.documentElement.hasAttribute('data-search-hl')", timeout=10000)
+                except Exception:
+                    pass
+                pg.wait_for_timeout(800)
+            h = pg.evaluate("""(a) => { const hl = window.CSS && CSS.highlights && CSS.highlights.get('search-hit');
+                const r = hl ? [...hl][0] : null; const b = r ? r.getBoundingClientRect() : null;
+                const inA = !!r && !!document.getElementById(a) && document.getElementById(a).contains(r.startContainer);
+                return {on: document.documentElement.hasAttribute('data-search-hl'), text: r ? r.toString() : null, inA,
+                        inView: !!b && b.top >= 0 && b.bottom <= innerHeight && b.height > 0, hash: decodeURIComponent(location.hash)}; }""", a_id)
+            chk(dev, f"16 at /{sec}/#{b_id}, «{word}» (only in #{a_id}) opened → marked in #{a_id}, in view, URL #{a_id}",
+                n and h["on"] and (h["text"] or "").lower() == word and h["inA"] and h["inView"] and h["hash"] == f"#{a_id}",
+                (n, h))
+            c.close()
+
     # ---------- 11: no CSS Custom Highlight API → <mark> fallback ----------
     if dev in ("pixel7", "desktop", "mac-safari"):
         c = ctx(NO_HL_API)
@@ -742,6 +785,31 @@ def run_v781(p, dev, eng, o):
         chk(dev, f"14 second tap opens every contents row type ({', '.join(f'{k}={v}' for k, v in pick.items())})", not bad and len(pick) == 5, str(bad[:3]))
         c.close()
     b.close()
+
+
+def same_section_pick():
+    """(section, #A, #B, word): a section with 2+ subsections, a word (9+ letters) found in #A only — in the
+    whole ru-iast index — and #B another subsection of it (gaudiya-emblem first: plain prose, always shown)."""
+    import collections
+    import re
+    idx = json.load(open(os.path.join(qa.REPO, "public", f"search-index.{L}.json"), encoding="utf-8"))
+    subs = collections.defaultdict(list)
+    for e in idx:
+        if e.get("anchor"):
+            subs[e["section"]].append(e["anchor"])
+    cnt = collections.Counter()
+    for e in idx:
+        for w in set(re.findall(r"[а-я]{9,}", (e["text"] + " " + e["title"] + " " + e.get("sectionTitle", "")).lower())):
+            cnt[w] += 1
+    order = sorted(idx, key=lambda e: e["section"] != "gaudiya-emblem")
+    for e in order:
+        if not e.get("anchor") or len(subs[e["section"]]) < 2:
+            continue
+        ws = sorted(w for w in set(re.findall(r"[а-я]{9,}", e["text"].lower())) if cnt[w] == 1)
+        if ws:
+            b_id = next(x for x in reversed(subs[e["section"]]) if x != e["anchor"])
+            return e["section"], e["anchor"], b_id, ws[0]
+    return None
 
 
 def rhombi_gone():

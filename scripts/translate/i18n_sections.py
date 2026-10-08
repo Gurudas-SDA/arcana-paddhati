@@ -7,16 +7,45 @@ by the English section order). No translation record: a section the book already
 v7.8.3, Codex review) and reported as MISSING; a book without that section shows English (the app's fallback).
 CLI (night run; touches only the other-language books):  python scripts/translate/i18n_sections.py <section id> ...
 A translation made from an older English section is still used, but reported as STALE (re-run night_sync.py).
-Files are written atomically (temp file + os.replace): a crash mid-write never leaves a cut-off book / cache.
+Files are written atomically (temp file + os.replace): a crash mid-write never leaves a cut-off book / cache;
+a locked file (Windows / OneDrive) is retried, then AtomicWriteError is raised (v7.8.4).
 """
 import hashlib
 import json
 import os
 import tempfile
+import time
+
+
+class AtomicWriteError(OSError):
+    """The new file was written but could not replace the old one (kept whole) - a caller must report it."""
+
+
+REPLACE_TRIES = 5          # os.replace attempts (Windows / OneDrive / antivirus may hold the file a moment)
+REPLACE_BACKOFF = 0.15     # seconds before the 2nd try, doubled each time (0.15 + 0.3 + 0.6 + 1.2 s)
+
+
+def _replace_retry(tmp, path):
+    """os.replace with a short backoff on PermissionError (v7.8.4, Codex review: Windows / OneDrive locks)."""
+    wait = REPLACE_BACKOFF
+    for i in range(REPLACE_TRIES):
+        try:
+            os.replace(tmp, path)
+            return
+        except PermissionError as e:
+            if i == REPLACE_TRIES - 1:
+                raise AtomicWriteError(
+                    e.errno, "write_atomic: could not replace %s after %d tries (%.1f s) - the file is locked "
+                    "(OneDrive sync / antivirus / an open editor?); the old file is unchanged, the new content "
+                    "was NOT saved: %s" % (path, REPLACE_TRIES, REPLACE_BACKOFF * (2 ** (REPLACE_TRIES - 1) - 1), e),
+                    path) from e
+            time.sleep(wait)
+            wait *= 2
 
 
 def write_atomic(path, text, newline=""):
-    """Write `text` to `path` through a temp file in the same folder + os.replace (all or nothing)."""
+    """Write `text` to `path` through a temp file in the same folder + os.replace (all or nothing).
+    A locked target (PermissionError) is retried a few times; then AtomicWriteError is raised (never silent)."""
     d = os.path.dirname(os.path.abspath(path))
     fd, tmp = tempfile.mkstemp(prefix=".tmp-", suffix="-" + os.path.basename(path), dir=d)
     try:
@@ -24,7 +53,7 @@ def write_atomic(path, text, newline=""):
             f.write(text)
             f.flush()
             os.fsync(f.fileno())
-        os.replace(tmp, path)
+        _replace_retry(tmp, path)
     except BaseException:
         try:
             os.remove(tmp)

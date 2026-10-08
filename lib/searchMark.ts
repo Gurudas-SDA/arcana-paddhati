@@ -18,6 +18,9 @@
  * dropped by any step that does not lead to the result's place (it was painted
  * later on an unrelated page), and a painted mark goes on ANY change of the path
  * or the #anchor — also when the #anchor is removed (…#a → the page without it).
+ * v7.8.4 (Codex review of v7.8.3): a result in the same section but another
+ * #subsection kept its mark — the steps of that same-page jump (state patch at the
+ * old #anchor, then the new one) are compared with the target, not cancelled.
  */
 import { normalizeText } from "@/lib/book";
 
@@ -36,6 +39,13 @@ interface Pending {
   from: string;
   /** The path of the result's place, once the reader got there. */
   reached?: string;
+  /**
+   * Tapped on the result's own page (v7.8.4): the #anchor shown then. Until the
+   * jump puts the result's #anchor into the URL, that one is still "here", not a step away.
+   */
+  startHash?: string;
+  /** The URL showed the result's own #anchor (a later other #anchor is a step away). */
+  hashReached?: boolean;
 }
 
 let pending: Pending | null = null;
@@ -132,8 +142,14 @@ function onUrlChange() {
   const p = pending;
   if (p) {
     if (onPlace(p)) {
+      // Compared with the TARGET (path + #anchor): the in-flight same-page jump
+      // (a state patch, the menu closing, then the new #anchor) still leads there (v7.8.4).
+      const want = p.anchor ? `#${p.anchor}` : "";
       if (p.reached !== undefined && p.reached !== h.path) cancelPending();
-      else if (p.anchor && h.hash && h.hash !== `#${p.anchor}`) cancelPending();
+      else if (want && h.hash === want) {
+        p.hashReached = true;
+        p.reached = h.path;
+      } else if (want && h.hash && (p.hashReached || h.hash !== p.startHash)) cancelPending();
       else p.reached = h.path;
     } else if (p.reached !== undefined || h.path !== p.from) {
       // left the result's place, or went somewhere else before getting there
@@ -293,7 +309,11 @@ export function setPendingSearchMark(nq: string, sectionId: string, anchor?: str
   clearSearchMark();
   window.clearInterval(timer);
   pending = { nq, sectionId, anchor, since: Date.now(), until: Date.now() + 8000, from: here().path };
-  if (onPlace(pending)) pending.reached = here().path;
+  if (onPlace(pending)) {
+    pending.reached = here().path;
+    // same page (another #subsection): the #anchor shown now is where the jump starts from
+    pending.startHash = here().hash;
+  }
   // the page shown, its pictures and fonts settled: first try soon, then keep trying a while
   timer = window.setInterval(() => {
     if (tryApply()) window.clearInterval(timer);

@@ -819,9 +819,15 @@ def run(args):
             elif v != en_sk[k]:
                 i = next((j for j in range(min(len(v), len(en_sk[k]))) if v[j] != en_sk[k][j]), min(len(v), len(en_sk[k])))
                 c.hit(fn, k, f"«…{v[max(0, i - 20):i + 30]}» ≠ EN «…{en_sk[k][max(0, i - 20):i + 30]}»".replace("\n", " / "))
+        # compared by the EN paths (v7.8.4, Codex review): a whole top-level section missing in this book
+        # is reported too — every sanskrit field of it, not skipped
+        have = {s.get("id") for s in loaded[f].get("sections") or [] if isinstance(s, dict)}
         for k in en_sk:
-            if k not in sk and any(s.get("id") == k.split("/")[1] for s in loaded[f]["sections"]):
-                c.hit(fn, k, "sanskrit field of book.json missing in this book")
+            if k not in sk:
+                parts = k.split("/")
+                gone = len(parts) > 1 and parts[0] == "sections" and parts[1] not in have
+                c.hit(fn, k, "sanskrit field of book.json missing in this book"
+                      + (f" (the whole section «{parts[1]}» is missing)" if gone else ""))
     c.info = f"{len(en_sk)} sanskrit fields × {nb} translated books; ru-iast differs from EN in {ri_diff} (info)"
     c.report(args.max)
 
@@ -830,16 +836,38 @@ def run(args):
     # (scripts/translate/cache/**, generator i18n.json) — they would bring it back. Lecture transcripts are
     # sources quoted as they are (not checked).
     c = Check("L28", "IAST anusvāra is «ṁ» everywhere — no «ṃ/Ṃ» in books, ui files, translation caches, generator i18n.json")
+    # v7.8.4 (Codex review): the JSON is decoded and every key / value checked after NFC normalization —
+    # «m» + U+0323 (decomposed) and «ṃ» escapes are caught too, not only the raw characters of a line
+    import unicodedata
     bad_m = re.compile("[Ṃṃ]")
     srcs = allb + books("ui*.json")
     srcs += glob.glob(os.path.join(qa.REPO, "scripts", "translate", "cache", "**", "*.json"), recursive=True)
     srcs += glob.glob(os.path.join(qa.REPO, "scripts", "**", "i18n.json"), recursive=True)
+
+    def str_walk(o, path=""):
+        if isinstance(o, str):
+            yield path, o
+        elif isinstance(o, dict):
+            for k, v in o.items():
+                yield f"{path}/{k} (key)", k
+                yield from str_walk(v, f"{path}/{k}")
+        elif isinstance(o, list):
+            for i, v in enumerate(o):
+                yield from str_walk(v, f"{path}/{i}")
+
     for f in srcs:
         rel = os.path.relpath(f, qa.REPO).replace("\\", "/")
-        for i, line in enumerate(open(f, encoding="utf-8"), 1):
-            for m in bad_m.finditer(line):
-                c.hit(rel, f"line {i}", snippet(line, m, 25))
-    c.info = f"{len(srcs)} files"
+        try:
+            data = json.load(open(f, encoding="utf-8"))
+        except ValueError as e:
+            c.hit(rel, "json", f"not valid JSON ({str(e)[:60]}) — cannot check")
+            continue
+        for where, t in str_walk(data):
+            n = unicodedata.normalize("NFC", t)
+            for m in bad_m.finditer(n):
+                raw = "" if t == n else " (decomposed m + U+0323)"
+                c.hit(rel, where or "/", snippet(n, m, 25) + raw)
+    c.info = f"{len(srcs)} files (decoded JSON, NFC)"
     c.report(args.max)
 
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует
