@@ -785,9 +785,9 @@ def run(args):
     # guru-pankti-namaskara was localized in lv/de/fr/es/it/uk, the Ukrainian one even in Cyrillic). WHOLE books,
     # not only the night-synced sections: every `sanskrit` field of a translated book (lv, de, fr, es, it, uk, hu)
     # is byte-identical to the same field of book.json; the same fields exist. The RU pair is the source text:
-    # book.ru.json is its Cyrillic transliteration (not compared) and book.ru-iast.json's differences from EN are
-    # listed as information (EN spelling fixes / RU glosses inside the field — a content decision, not a lint hit).
-    c = Check("L27", "Sanskrit identical in every language: each `sanskrit` field of lv/de/fr/es/it/uk/hu = book.json (byte-identical)")
+    # book.ru.json is its Cyrillic transliteration (not compared). Night 09.10 (A68, Gurudas 08.10): book.ru-iast.json
+    # is strict too — EN spelled after RU-IAST and the sources, RU glosses moved out of the field; a difference is a hit.
+    c = Check("L27", "Sanskrit identical in every language: each `sanskrit` field of ru-iast/lv/de/fr/es/it/uk/hu = book.json (byte-identical)")
 
     def sk_fields(o, path=()):
         if isinstance(o, dict):
@@ -802,15 +802,13 @@ def run(args):
     en_path = os.path.join(qa.DATA, "book.json")
     en_sk = dict(sk_fields(loaded[en_path])) if en_path in loaded else {}
     ru_pair = set(CFG["ru_books"])
-    nb, ri_diff = 0, 0
+    nb = 0
     for f in allb:
         fn = name(f)
         if f == en_path:
             continue
         sk = dict(sk_fields(loaded[f]))
-        if fn in ru_pair:
-            if fn == "book.ru-iast.json":
-                ri_diff = sum(1 for k, v in sk.items() if en_sk.get(k) != v)
+        if fn in ru_pair and fn != "book.ru-iast.json":
             continue
         nb += 1
         for k, v in sk.items():
@@ -828,7 +826,7 @@ def run(args):
                 gone = len(parts) > 1 and parts[0] == "sections" and parts[1] not in have
                 c.hit(fn, k, "sanskrit field of book.json missing in this book"
                       + (f" (the whole section «{parts[1]}» is missing)" if gone else ""))
-    c.info = f"{len(en_sk)} sanskrit fields × {nb} translated books; ru-iast differs from EN in {ri_diff} (info)"
+    c.info = f"{len(en_sk)} sanskrit fields × {nb} books (ru-iast + translated)"
     c.report(args.max)
 
     # L28 — Анусвара в IAST всегда «ṁ» (U+1E41), никогда «ṃ» (U+1E43) (Reader v7.8.3, live verifier 08.10:
