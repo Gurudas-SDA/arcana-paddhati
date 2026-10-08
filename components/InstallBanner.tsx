@@ -8,6 +8,7 @@ import React, {
   useSyncExternalStore,
 } from "react";
 import { t, tNodes, type UiDict } from "@/lib/i18n";
+import { BASE_PATH } from "@/lib/basePath";
 
 type Platform = "ios" | "android" | "unknown";
 
@@ -85,7 +86,7 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
   useEffect(() => {
     // Register service worker
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/arcana-paddhati/sw.js").catch(() => {});
+      navigator.serviceWorker.register(`${BASE_PATH}/sw.js`).catch(() => {});
       startOfflineSync();
     }
 

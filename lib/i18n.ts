@@ -2,6 +2,7 @@
 // The language list lives in lib/languages.json (also read by scripts/*.mjs).
 import { Fragment, createElement, type ReactNode } from "react";
 import languages from "./languages.json";
+import { BASE_PATH } from "./basePath";
 import type { TocPart, TocSection } from "./book";
 
 export interface Language {
@@ -53,7 +54,7 @@ export function liveLang(code: string): string {
  */
 export const LANG_REDIRECT_SCRIPT = `(function(){try{var m=${JSON.stringify(
   Object.fromEntries(LANGUAGES.filter((l) => l.replacedBy).map((l) => [l.code, l.replacedBy])),
-)},k=${JSON.stringify(LANG_STORAGE_KEY)};try{var s=localStorage.getItem(k);if(s&&m[s])localStorage.setItem(k,m[s])}catch(e){}var b="/arcana-paddhati/",p=location.pathname;if(p.indexOf(b)!==0)return;var r=p.slice(b.length),i=r.indexOf("/"),c=i<0?r:r.slice(0,i);if(m[c])location.replace(b+m[c]+(i<0?"/":r.slice(i))+location.search+location.hash)}catch(e){}})();`;
+)},k=${JSON.stringify(LANG_STORAGE_KEY)};try{var s=localStorage.getItem(k);if(s&&m[s])localStorage.setItem(k,m[s])}catch(e){}var b=${JSON.stringify(BASE_PATH + "/")},p=location.pathname;if(p.indexOf(b)!==0)return;var r=p.slice(b.length),i=r.indexOf("/"),c=i<0?r:r.slice(0,i);if(m[c])location.replace(b+m[c]+(i<0?"/":r.slice(i))+location.search+location.hash)}catch(e){}})();`;
 
 export function getLanguage(code: string): Language | undefined {
   return LANGUAGES.find((l) => l.code === code);

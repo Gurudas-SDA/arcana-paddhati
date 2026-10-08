@@ -6,6 +6,7 @@
  * scripts/transcripts/build_transcripts.py and precached by the service worker.
  */
 import pages from "./transcripts.json";
+import { BASE_PATH } from "./basePath";
 
 const PAGES = pages as Record<string, string>;
 const ID_RE = /\/d\/([\w-]+)|[?&]id=([\w-]+)/;
@@ -16,7 +17,7 @@ export function transcriptPage(url: string | undefined): string | null {
   const m = ID_RE.exec(url);
   const id = m ? (m[1] ?? m[2]) : null;
   const name = id ? PAGES[id] : undefined;
-  return name ? `/arcana-paddhati/transcripts/${name}.html` : null;
+  return name ? `${BASE_PATH}/transcripts/${name}.html` : null;
 }
 
 /** Link props for a «транскрипт» link: the in-app page (same window, works

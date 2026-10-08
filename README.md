@@ -54,4 +54,28 @@ and Noto Serif fonts (Windows ships them).
 
 ## Deploying
 
-Push to `main`. The workflow `.github/workflows/deploy.yml` builds the site and publishes `out/` to GitHub Pages.
+Push to `main` or `staging`. The workflow `.github/workflows/deploy.yml` builds BOTH branches into one
+Pages artifact (Pages takes one per site): `main` → `out/` (production), `staging` → `out/staging/` (built with
+`NEXT_PUBLIC_BASE_PATH=/arcana-paddhati/staging`). No `staging` branch, or a broken staging build → only `main` is published.
+
+## Staging: darba plūsma (Gurudas, 2026-10-08)
+
+Izmaiņas → zars `staging` → pārbaudītāji uz `/staging/` → merge `main`.
+
+| | URL |
+|---|---|
+| Produkcija (Satkirti redz) | https://gurudas-sda.github.io/arcana-paddhati/ru-iast/ — zars `main` |
+| Staging (pārbaudei) | https://gurudas-sda.github.io/arcana-paddhati/staging/ru-iast/ — zars `staging` |
+
+1. Strādā zarā `staging` (`git checkout staging`), commit, `git push origin staging` (qa vārti darbojas tāpat; `--no-verify` aizliegts).
+2. Gaidi Actions zaļu; pārbaudītāji (divi neatkarīgi, viens — cits modelis) pārbauda `/staging/`.
+3. Tikai pēc tam: `git checkout main && git merge --ff-only staging && git push origin main`.
+4. Pēc nakts/steidzama labojuma tieši `main` — `git checkout staging && git merge main` (staging nedrīkst atpalikt).
+
+Base path: `lib/basePath.ts` (`BASE_PATH`, `stripBasePath`) — visiem URL, ko Next pats neprefiksē (`<img>`, `fetch`,
+metadata ikonas, SW reģistrācija). Nekad nerakstīt `/arcana-paddhati` kodā. Service worker ņem bāzi no savas atrašanās
+vietas; staging kešs `arcana-paddhati_staging-*` nesajaucas ar produkcijas `arcana-paddhati-*`, un produkcijas SW
+nepieskaras `/staging/` pieprasījumiem. `scripts/apply-base-path.mjs` (postbuild) pārraksta `manifest.json`
+(nosaukums «… STAGING») un transkriptu atpakaļ-saites staging būvē. Lokāli: `MSYS_NO_PATHCONV=1
+NEXT_PUBLIC_BASE_PATH=/arcana-paddhati/staging npm run build` (Git Bash; bez `MSYS_NO_PATHCONV` ceļš sabojājas).
+Pirms push vienmēr atkal parastais `npm run build` — qa vārti testē `out/` zem `/arcana-paddhati`.

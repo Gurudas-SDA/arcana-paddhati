@@ -43,6 +43,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { type TocPart, type TocSection } from "@/lib/book";
 import { parsePath, t, type UiDict } from "@/lib/i18n";
+import { stripBasePath } from "@/lib/basePath";
 import { main as mainEl, pushOverlay } from "@/lib/navHistory";
 import { searchMarkOn } from "@/lib/searchMark";
 import {
@@ -396,7 +397,7 @@ export default function ReaderChrome({
       if (isPanelEntry()) {
         // "Back" to the step where the «Аа» panel was open: open it again
         // (also once the entry's page is rendered, if it is another page).
-        const at = parsePath(window.location.pathname.replace(/^\/arcana-paddhati(?=\/|$)/, "") || "/");
+        const at = parsePath(stripBasePath(window.location.pathname) || "/");
         const key = `${at.lang}/${at.sectionId ?? ""}`;
         setPopPanelKey(key === pathKeyRef.current ? null : key);
         clearTimer();

@@ -28,9 +28,10 @@ import {
   parsePath,
   type LocaleData,
 } from "@/lib/i18n";
+import { BASE_PATH } from "@/lib/basePath";
 
 const searchIndexUrl = (lang: string) =>
-  `/arcana-paddhati/search-index.${lang}.json`;
+  `${BASE_PATH}/search-index.${lang}.json`;
 
 type IndexState = SearchEntry[] | "loading" | "error";
 

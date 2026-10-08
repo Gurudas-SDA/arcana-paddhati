@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { getUi } from "@/lib/content";
 import { t } from "@/lib/i18n";
+import { BASE_PATH } from "@/lib/basePath";
 
 /** Home page for one language (used by / and /<lang>/): only the book cover.
  *  Navigation (contents, language, install) is in the app shell. */
@@ -13,7 +14,7 @@ export default function HomePage({ lang }: { lang: string }) {
           width follows the aspect ratio and never exceeds the panel width.
           Never upscaled beyond the image's own 874x1240. */}
       <Image
-        src="/arcana-paddhati/cover.jpg"
+        src={`${BASE_PATH}/cover.jpg`}
         alt={t(ui, "home.coverAlt")}
         width={874}
         height={1240}

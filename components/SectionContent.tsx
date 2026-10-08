@@ -2,6 +2,7 @@ import ChapterEndSpace from "@/components/ChapterEndSpace";
 import PortraitImg from "@/components/PortraitImg";
 import React from "react";
 import { transcriptLinkProps } from "@/lib/transcripts";
+import { BASE_PATH } from "@/lib/basePath";
 import {
   isShortMantra,
   parseInline,
@@ -537,7 +538,7 @@ function ContentBlock({
         return (
           <HotspotFigure
             key={index}
-            src={`/arcana-paddhati/images/${item.src}`}
+            src={`${BASE_PATH}/images/${item.src}`}
             imgName={item.src}
             alt={item.alt || ""}
             data={hs}
@@ -547,7 +548,7 @@ function ContentBlock({
       return (
         <img
           key={index}
-          src={`/arcana-paddhati/images/${item.src}`}
+          src={`${BASE_PATH}/images/${item.src}`}
           alt={item.alt || ""}
           className="book-image"
           style={{ maxWidth: "420px" }}
@@ -673,8 +674,8 @@ function PortraitPages({ section, note, after }: { section: Section; note?: stri
             {/* WebP (~1/6 of the PNG, Reader v7.8); the PNG for a browser without WebP. */}
             {/* A WebP that fails to load falls back to the PNG (components/PortraitImg.tsx, v7.8.1). */}
             <PortraitImg
-              webp={item.src?.endsWith(".png") ? `/arcana-paddhati/images/${item.src.replace(/\.png$/, ".webp")}` : undefined}
-              png={`/arcana-paddhati/images/${item.src}`}
+              webp={item.src?.endsWith(".png") ? `${BASE_PATH}/images/${item.src.replace(/\.png$/, ".webp")}` : undefined}
+              png={`${BASE_PATH}/images/${item.src}`}
               alt={item.caption ?? ""}
             />
             <figcaption className="portrait-caption">{item.caption}</figcaption>

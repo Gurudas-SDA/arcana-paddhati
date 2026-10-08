@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Noto_Serif } from "next/font/google";
 import AppShell from "@/components/AppShell";
+import { BASE_PATH } from "@/lib/basePath";
 import { availableLanguages, getLocales, getUi } from "@/lib/content";
 import { LANG_REDIRECT_SCRIPT, t } from "@/lib/i18n";
 import { READER_PREFS_SCRIPT } from "@/lib/readerPrefsKeys";
@@ -18,10 +19,10 @@ export const metadata: Metadata = {
   title: t(ui, "meta.title"),
   description: t(ui, "meta.description"),
   icons: {
-    icon: "/arcana-paddhati/favicon.ico",
-    apple: "/arcana-paddhati/apple-touch-icon.png",
+    icon: `${BASE_PATH}/favicon.ico`,
+    apple: `${BASE_PATH}/apple-touch-icon.png`,
   },
-  manifest: "/arcana-paddhati/manifest.json",
+  manifest: `${BASE_PATH}/manifest.json`,
   other: {
     google: "notranslate",
   },

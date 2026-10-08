@@ -18,7 +18,8 @@ import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "
 import { dirname, join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const BASE = "/arcana-paddhati/";
+// Production "/arcana-paddhati/"; staging build "/arcana-paddhati/staging/" (NEXT_PUBLIC_BASE_PATH).
+const BASE = (process.env.NEXT_PUBLIC_BASE_PATH || "/arcana-paddhati") + "/";
 const VERSION_PLACEHOLDER = "__PRECACHE_VERSION__";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");

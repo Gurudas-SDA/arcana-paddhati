@@ -1,8 +1,14 @@
 name: Deploy to GitHub Pages
 
+# GitHub Pages takes ONE artifact per site, so every run builds BOTH branches:
+#   main    -> out/          https://gurudas-sda.github.io/arcana-paddhati/          (production, Satkirti)
+#   staging -> out/staging/  https://gurudas-sda.github.io/arcana-paddhati/staging/  (checks before main)
+# A push to either branch redeploys both (each from its own latest commit).
+# No `staging` branch, or its build not under /arcana-paddhati/staging -> only
+# main is published (a warning in the run), production is never blocked by it.
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "staging"]
   workflow_dispatch:
 
 permissions:
@@ -22,20 +28,65 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
-      - name: Checkout
+      - name: Checkout main
         uses: actions/checkout@v7
+        with:
+          ref: main
+          path: main
+
+      - name: Is there a staging branch?
+        id: staging
+        working-directory: main
+        run: |
+          if git ls-remote --exit-code --heads origin staging >/dev/null; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "No staging branch - publishing main only."
+          fi
+
+      - name: Checkout staging
+        if: steps.staging.outputs.exists == 'true'
+        uses: actions/checkout@v7
+        with:
+          ref: staging
+          path: staging-src
 
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
           node-version: "24"
           cache: "npm"
+          cache-dependency-path: main/package-lock.json
 
-      - name: Install dependencies
+      - name: Install dependencies (main)
+        working-directory: main
         run: npm ci
 
-      - name: Build
+      - name: Build (main, basePath /arcana-paddhati)
+        working-directory: main
         run: npm run build
+
+      - name: Build (staging, basePath /arcana-paddhati/staging)
+        if: steps.staging.outputs.exists == 'true'
+        # A broken staging build must never stop the production deploy.
+        continue-on-error: true
+        working-directory: staging-src
+        env:
+          NEXT_PUBLIC_BASE_PATH: /arcana-paddhati/staging
+        run: |
+          npm ci
+          npm run build
+          # Only a build that really lives under /staging/ may be published
+          # there (an old staging branch without base-path support would load
+          # production assets and register a worker over production's scope).
+          if grep -q '/arcana-paddhati/staging/_next/' out/index.html              && grep -q '"start_url": "/arcana-paddhati/staging/"' out/manifest.json; then
+            mkdir -p ../main/out/staging
+            cp -R out/. ../main/out/staging/
+            echo "Staging published at /arcana-paddhati/staging/ ($(git rev-parse --short HEAD))"
+          else
+            echo "::warning::staging build is not under /arcana-paddhati/staging - NOT published (main only)"
+          fi
 
       - name: Setup Pages
         uses: actions/configure-pages@v6
@@ -43,7 +94,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: ./out
+          path: ./main/out
 
   deploy:
     environment:

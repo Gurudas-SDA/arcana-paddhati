@@ -36,9 +36,18 @@
 //     cover / the start page / a small offline notice — never the browser's
 //     error page.
 const VERSION = '__PRECACHE_VERSION__';
-const BASE = '/arcana-paddhati/';
+// The app's base = the folder of this script: '/arcana-paddhati/' in
+// production, '/arcana-paddhati/staging/' for the staging build (same origin,
+// branch `staging`). Each has its own scope and its own caches.
+const BASE = new URL('./', self.location.href).pathname;
 const START_URL = BASE;
-const CACHE_PREFIX = 'arcana-paddhati-';
+// Production keeps 'arcana-paddhati-' (existing caches stay valid); staging
+// gets 'arcana-paddhati_staging-', which does NOT start with the production
+// prefix — so neither worker reads or deletes the other's caches.
+const CACHE_PREFIX = BASE.replace(/^\/|\/$/g, '').split('/').join('_') + '-';
+// Other builds published below this one (production's scope contains
+// /arcana-paddhati/staging/): this worker never handles their requests.
+const NESTED_APPS = ['staging/'];
 const CACHE_NAME = CACHE_PREFIX + (VERSION.startsWith('__') ? 'dev' : VERSION);
 const MANIFEST_URL = BASE + 'precache-manifest.json';
 const COMPLETE_KEY = BASE + '__precache-complete__';
@@ -75,8 +84,12 @@ function isRscRequest(request, url) {
 }
 
 // Language home for an offline fallback: "/arcana-paddhati/ru/x/" -> "/arcana-paddhati/ru/".
+function langCode(pathname) {
+  return pathname.startsWith(BASE) ? pathname.slice(BASE.length).split('/')[0] : '';
+}
+
 function langHome(url) {
-  const code = url.pathname.split('/')[2];
+  const code = langCode(url.pathname);
   return LANG_CODES.includes(code) ? BASE + code + '/' : START_URL;
 }
 
@@ -190,7 +203,9 @@ async function clientLangs() {
   const out = new Set(['ru-iast']);
   try {
     for (const c of await self.clients.matchAll({ includeUncontrolled: true, type: 'window' })) {
-      const code = new URL(c.url).pathname.split('/')[2];
+      const path = new URL(c.url).pathname;
+      if (!(path + '/').startsWith(BASE) || NESTED_APPS.some((n) => path.startsWith(BASE + n))) continue;
+      const code = langCode(path);
       out.add(LANG_CODES.includes(code) ? code : 'en');
     }
   } catch {
@@ -451,6 +466,7 @@ self.addEventListener('fetch', (event) => {
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin || !(url.pathname + '/').startsWith(BASE)) return;
+  if (NESTED_APPS.some((n) => (url.pathname + '/').startsWith(BASE + n))) return;
   if (url.pathname === BASE + 'sw.js' || url.pathname === MANIFEST_URL) return;
   if (request.headers.has('range')) return;
 
