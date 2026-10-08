@@ -13,6 +13,7 @@ on:
 
 permissions:
   contents: read
+  deployments: read
   pages: write
   id-token: write
 
@@ -27,9 +28,27 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-24.04
-    outputs:
-      artifact_id: ${{ steps.upload.outputs.artifact_id }}
     steps:
+      # GitHub Pages keys a deployment by commit SHA (actions/deploy-pages sends
+      # GITHUB_SHA; the Pages API accepts no other version) and silently ignores
+      # a second deployment of a commit it already has: run 37777322691
+      # (08.10.2026) reported success but published nothing. With two branches
+      # that happens after a fast-forward (main and staging on the same commit),
+      # so merges between them are always `git merge --no-ff` (README «Staging»),
+      # and a run for an already deployed commit fails loudly here instead.
+      - name: Commit not yet on Pages?
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for id in $(gh api "repos/$GITHUB_REPOSITORY/deployments?environment=github-pages&sha=$GITHUB_SHA" --jq '.[].id'); do
+            st=$(gh api "repos/$GITHUB_REPOSITORY/deployments/$id/statuses?per_page=1" --jq '.[0].state // ""')
+            if [ "$st" = success ]; then
+              echo "::error::Commit $GITHUB_SHA is already deployed to Pages - GitHub Pages would ignore this deployment and publish NOTHING. Merge main<->staging with --no-ff (a new commit), then push."
+              exit 1
+            fi
+          done
+          echo "Commit $GITHUB_SHA not deployed yet - OK"
+
       - name: Checkout main
         uses: actions/checkout@v7
         with:
@@ -94,7 +113,6 @@ jobs:
         uses: actions/configure-pages@v6
 
       - name: Upload artifact
-        id: upload
         uses: actions/upload-pages-artifact@v5
         with:
           path: ./main/out
@@ -106,50 +124,6 @@ jobs:
     runs-on: ubuntu-24.04
     needs: build
     steps:
-      # actions/deploy-pages sends GITHUB_SHA as the Pages build version, and
-      # Pages ignores a second deployment with a version it already has. With
-      # two branches the same commit gets deployed twice (push staging X, then
-      # fast-forward main to X) - the second artifact (with the other branch's
-      # newer build) was silently NOT published (run 37777322691, 08.10.2026).
-      # So: the same API calls as deploy-pages, with a build version unique per
-      # run (40 hex chars, like a SHA). If that fails, the official action runs
-      # (production is always deployed; a warning says why).
-      - name: Deploy to GitHub Pages (unique build version)
-        id: custom
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ github.token }}
-          ARTIFACT_ID: ${{ needs.build.outputs.artifact_id }}
-        run: |
-          set -uo pipefail
-          BUILD_VERSION=$(printf '%s' "$GITHUB_SHA-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" | sha1sum | cut -c1-40)
-          OIDC=$(curl -sS -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" | jq -r .value)
-          echo "::add-mask::$OIDC"
-          [ -n "$OIDC" ] && [ "$OIDC" != null ] || { echo "::warning::no OIDC token"; exit 1; }
-          BODY=$(jq -n --arg a "$ARTIFACT_ID" --arg v "$BUILD_VERSION" --arg o "$OIDC"                    '{artifact_id: ($a|tonumber), pages_build_version: $v, oidc_token: $o}')
-          if ! RESP=$(echo "$BODY" | gh api -X POST "repos/$GITHUB_REPOSITORY/pages/deployments" --input -); then
-            echo "::warning::Pages deployment API refused: $RESP"; exit 1
-          fi
-          ID=$(echo "$RESP" | jq -r '(.id // empty) | tostring')
-          [ -n "$ID" ] || ID=$(echo "$RESP" | jq -r '.status_url | split("/") | last')
-          echo "page_url=$(echo "$RESP" | jq -r .page_url)" >> "$GITHUB_OUTPUT"
-          echo "Pages deployment $ID (build version $BUILD_VERSION, commit $GITHUB_SHA)"
-          for i in $(seq 1 120); do
-            S=$(gh api "repos/$GITHUB_REPOSITORY/pages/deployments/$ID" --jq .status 2>/dev/null || echo unknown)
-            echo "status: $S"
-            case "$S" in
-              succeed) exit 0 ;;
-              *fail*|*error*|*cancel*|*lost*) echo "::warning::Pages deployment $S"; exit 1 ;;
-            esac
-            sleep 5
-          done
-          echo "::warning::Pages deployment did not finish in 10 min"; exit 1
-
-      - name: Deploy to GitHub Pages (fallback, official action)
-        id: official
-        if: steps.custom.outcome != 'success'
-        uses: actions/deploy-pages@v5
-
-      - name: Deployment URL
+      - name: Deploy to GitHub Pages
         id: deployment
-        run: echo "page_url=${{ steps.custom.outputs.page_url || steps.official.outputs.page_url }}" >> "$GITHUB_OUTPUT"
+        uses: actions/deploy-pages@v5
