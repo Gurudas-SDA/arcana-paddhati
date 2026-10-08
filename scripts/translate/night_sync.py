@@ -578,6 +578,11 @@ def main():
             futs = [ex.submit(run_lang, l, a.sections, i, a.force) for i, l in enumerate(langs)]
         out = dict(f.result() for f in futs)
     print(json.dumps(out, ensure_ascii=False, indent=1))
+    # A68 (Codex review 08.10): a FAIL must stop the night release (cron / batch sees exit ≠ 0), never pass silently
+    fails = ["%s/%s" % (l, k) for l, r in out.items() for k, v in r.items() if str(v).startswith("FAIL")]
+    if fails:
+        log("EXIT 1: FAIL in " + ", ".join(fails))
+        sys.exit(1)
 
 
 if __name__ == "__main__":

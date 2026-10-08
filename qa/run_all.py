@@ -77,6 +77,8 @@ SUITES = [
          fast_devices=["pixel7", "iphone14", "ipad-portrait"]),
     dict(id="s27", file="suites/s27_night_sync_safety.py", title="v7.8.3: nakts sinhronizācija nedzēš tulkotu sadaļu bez i18n ieraksta; atomiski faili",
          devices=None, fast=True, server=False),
+    dict(id="s28", file="suites/s28_a68_night_0910.py", title="A68 nakts 09.10: sanskrits tikai sanskrits (RU-IAST = EN), avotu rakstība, HU cache pādya-pātra, night_sync exit≠0 pie FAIL",
+         devices=None, fast=True, server=False),
     dict(id="s20", file="suites/s20_offline.py", title="OFFLINE: Chromium (Android) — visas nodaļas, navigācija, transkripti", args=["chromium"],
          devices=None, fast=True, timeout_fast=200),
     dict(id="s20wk", file="suites/s20_offline.py", title="OFFLINE: WebKit (iPhone/iPad) — serveris izslēgts", args=["webkit"],
