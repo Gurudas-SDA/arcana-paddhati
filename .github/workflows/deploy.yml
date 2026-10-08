@@ -27,6 +27,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-24.04
+    outputs:
+      artifact_id: ${{ steps.upload.outputs.artifact_id }}
     steps:
       - name: Checkout main
         uses: actions/checkout@v7
@@ -92,6 +94,7 @@ jobs:
         uses: actions/configure-pages@v6
 
       - name: Upload artifact
+        id: upload
         uses: actions/upload-pages-artifact@v5
         with:
           path: ./main/out
@@ -103,6 +106,34 @@ jobs:
     runs-on: ubuntu-24.04
     needs: build
     steps:
+      # Not actions/deploy-pages: it sends GITHUB_SHA as the Pages build version,
+      # and Pages ignores a second deployment with a version it already has. With
+      # two branches the same commit is deployed twice (push staging X, then
+      # fast-forward main to X) - the second artifact (with the other branch's
+      # newer build) was silently NOT published (run 37777322691, 08.10.2026).
+      # Same API calls as deploy-pages, with a version unique per run.
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARTIFACT_ID: ${{ needs.build.outputs.artifact_id }}
+          BUILD_VERSION: ${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+        run: |
+          set -euo pipefail
+          OIDC=$(curl -sSf -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" | jq -r .value)
+          echo "::add-mask::$OIDC"
+          RESP=$(jq -n --arg a "$ARTIFACT_ID" --arg v "$BUILD_VERSION" --arg o "$OIDC"                    '{artifact_id: ($a|tonumber), pages_build_version: $v, oidc_token: $o}'                  | gh api -X POST "repos/$GITHUB_REPOSITORY/pages/deployments" --input -)
+          ID=$(echo "$RESP" | jq -r '(.id // empty) | tostring')
+          [ -n "$ID" ] || ID=$(echo "$RESP" | jq -r '.status_url | split("/") | last')
+          echo "page_url=$(echo "$RESP" | jq -r .page_url)" >> "$GITHUB_OUTPUT"
+          echo "Pages deployment $ID (build version $BUILD_VERSION)"
+          for i in $(seq 1 120); do
+            S=$(gh api "repos/$GITHUB_REPOSITORY/pages/deployments/$ID" --jq .status || echo unknown)
+            echo "status: $S"
+            case "$S" in
+              succeed) exit 0 ;;
+              *fail*|*error*|*cancel*|*lost*) echo "::error::Pages deployment $S"; exit 1 ;;
+            esac
+            sleep 5
+          done
+          echo "::error::Pages deployment did not finish in 10 min"; exit 1
