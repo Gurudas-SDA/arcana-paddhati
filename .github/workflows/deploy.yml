@@ -13,6 +13,7 @@ on:
 
 permissions:
   contents: read
+  deployments: read
   pages: write
   id-token: write
 
@@ -28,6 +29,26 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
+      # GitHub Pages keys a deployment by commit SHA (actions/deploy-pages sends
+      # GITHUB_SHA; the Pages API accepts no other version) and silently ignores
+      # a second deployment of a commit it already has: run 37777322691
+      # (08.10.2026) reported success but published nothing. With two branches
+      # that happens after a fast-forward (main and staging on the same commit),
+      # so merges between them are always `git merge --no-ff` (README «Staging»),
+      # and a run for an already deployed commit fails loudly here instead.
+      - name: Commit not yet on Pages?
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for id in $(gh api "repos/$GITHUB_REPOSITORY/deployments?environment=github-pages&sha=$GITHUB_SHA" --jq '.[].id'); do
+            st=$(gh api "repos/$GITHUB_REPOSITORY/deployments/$id/statuses?per_page=1" --jq '.[0].state // ""')
+            if [ "$st" = success ]; then
+              echo "::error::Commit $GITHUB_SHA is already deployed to Pages - GitHub Pages would ignore this deployment and publish NOTHING. Merge main<->staging with --no-ff (a new commit), then push."
+              exit 1
+            fi
+          done
+          echo "Commit $GITHUB_SHA not deployed yet - OK"
+
       - name: Checkout main
         uses: actions/checkout@v7
         with:

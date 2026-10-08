@@ -69,8 +69,12 @@ Izmaiņas → zars `staging` → pārbaudītāji uz `/staging/` → merge `main`
 
 1. Strādā zarā `staging` (`git checkout staging`), commit, `git push origin staging` (qa vārti darbojas tāpat; `--no-verify` aizliegts).
 2. Gaidi Actions zaļu; pārbaudītāji (divi neatkarīgi, viens — cits modelis) pārbauda `/staging/`.
-3. Tikai pēc tam: `git checkout main && git merge --ff-only staging && git push origin main`.
-4. Pēc nakts/steidzama labojuma tieši `main` — `git checkout staging && git merge main` (staging nedrīkst atpalikt).
+3. Tikai pēc tam: `git checkout main && git merge --no-ff staging && git push origin main`.
+4. Pēc nakts/steidzama labojuma tieši `main` — `git checkout staging && git merge --no-ff main && git push origin staging` (staging nedrīkst atpalikt).
+
+**Vienmēr `--no-ff`, nekad fast-forward:** GitHub Pages izvietojumu identificē pēc commit SHA un klusi ignorē otru
+izvietojumu ar jau publicētu SHA (Actions zaļš, bet nekas nemainās — 08.10 run 37777322691). Ja main un staging ir uz
+viena commita, otrā zara push neko nepublicētu. Workflow solis «Commit not yet on Pages?» tādu run padara sarkanu.
 
 Base path: `lib/basePath.ts` (`BASE_PATH`, `stripBasePath`) — visiem URL, ko Next pats neprefiksē (`<img>`, `fetch`,
 metadata ikonas, SW reģistrācija). Nekad nerakstīt `/arcana-paddhati` kodā. Service worker ņem bāzi no savas atrašanās
