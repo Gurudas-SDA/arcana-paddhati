@@ -781,6 +781,50 @@ def run(args):
     c.info = f"{nl} lists (ch3 + ch14 × {len(LANGF)} book files) against 18 figure objects"
     c.report(args.max)
 
+    # L27 — Санскрит не переводится (Reader v7.8.3, Codex review of e8d33aa..bb066eb: «Mahā-mantra» in
+    # guru-pankti-namaskara was localized in lv/de/fr/es/it/uk, the Ukrainian one even in Cyrillic). WHOLE books,
+    # not only the night-synced sections: every `sanskrit` field of a translated book (lv, de, fr, es, it, uk, hu)
+    # is byte-identical to the same field of book.json; the same fields exist. The RU pair is the source text:
+    # book.ru.json is its Cyrillic transliteration (not compared) and book.ru-iast.json's differences from EN are
+    # listed as information (EN spelling fixes / RU glosses inside the field — a content decision, not a lint hit).
+    c = Check("L27", "Sanskrit identical in every language: each `sanskrit` field of lv/de/fr/es/it/uk/hu = book.json (byte-identical)")
+
+    def sk_fields(o, path=()):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if k == "sanskrit":
+                    yield "/".join(map(str, path + (k,))), v
+                yield from sk_fields(v, path + (k,))
+        elif isinstance(o, list):
+            for i, v in enumerate(o):
+                yield from sk_fields(v, path + ((v.get("id") if isinstance(v, dict) and isinstance(v.get("id"), str) else i),))
+
+    en_path = os.path.join(qa.DATA, "book.json")
+    en_sk = dict(sk_fields(loaded[en_path])) if en_path in loaded else {}
+    ru_pair = set(CFG["ru_books"])
+    nb, ri_diff = 0, 0
+    for f in allb:
+        fn = name(f)
+        if f == en_path:
+            continue
+        sk = dict(sk_fields(loaded[f]))
+        if fn in ru_pair:
+            if fn == "book.ru-iast.json":
+                ri_diff = sum(1 for k, v in sk.items() if en_sk.get(k) != v)
+            continue
+        nb += 1
+        for k, v in sk.items():
+            if k not in en_sk:
+                c.hit(fn, k, f"«{v[:60]}» — no such sanskrit field in book.json")
+            elif v != en_sk[k]:
+                i = next((j for j in range(min(len(v), len(en_sk[k]))) if v[j] != en_sk[k][j]), min(len(v), len(en_sk[k])))
+                c.hit(fn, k, f"«…{v[max(0, i - 20):i + 30]}» ≠ EN «…{en_sk[k][max(0, i - 20):i + 30]}»".replace("\n", " / "))
+        for k in en_sk:
+            if k not in sk and any(s.get("id") == k.split("/")[1] for s in loaded[f]["sections"]):
+                c.hit(fn, k, "sanskrit field of book.json missing in this book")
+    c.info = f"{len(en_sk)} sanskrit fields × {nb} translated books; ru-iast differs from EN in {ri_diff} (info)"
+    c.report(args.max)
+
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует
     c = Check("L17", "atgriešanās punkts: git tags pirms-interfeisa-2026-10-05 eksistē")
     import subprocess

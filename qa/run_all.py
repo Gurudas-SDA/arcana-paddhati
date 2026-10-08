@@ -75,6 +75,8 @@ SUITES = [
     dict(id="s26", file="suites/s26_ksv_0710_evening.py", title="v7.8 КСВ 07.10 vakars: «Аа» slēdži+valoda, nekustīgā «Обложка», pilna platuma rindas, autoritināšana, tilakas rindas+galvvidus, īsās mantras bez «пословно», meklēšanas izgaismojums, parampara bez rombiem",
          devices=["pixel7", "iphone14", "ipad-portrait", "ipad-landscape", "desktop", "mac-safari"], fast=True,
          fast_devices=["pixel7", "iphone14", "ipad-portrait"]),
+    dict(id="s27", file="suites/s27_night_sync_safety.py", title="v7.8.3: nakts sinhronizācija nedzēš tulkotu sadaļu bez i18n ieraksta; atomiski faili",
+         devices=None, fast=True, server=False),
     dict(id="s20", file="suites/s20_offline.py", title="OFFLINE: Chromium (Android) — visas nodaļas, navigācija, transkripti", args=["chromium"],
          devices=None, fast=True, timeout_fast=200),
     dict(id="s20wk", file="suites/s20_offline.py", title="OFFLINE: WebKit (iPhone/iPad) — serveris izslēgts", args=["webkit"],

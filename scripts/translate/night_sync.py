@@ -76,7 +76,7 @@ KEYS = keys()
 
 
 sys.path.insert(0, HERE)
-from i18n_sections import en_hash  # noqa: E402
+from i18n_sections import en_hash, write_atomic  # noqa: E402
 
 
 # ---------------- model call ----------------
@@ -450,9 +450,7 @@ def save(sid, lang, rec):
         d = json.load(open(p, encoding="utf-8")) if os.path.exists(p) else {}
         d.setdefault(sid, {})[lang] = rec
         d = {k: {l: d[k][l] for l in LANGS if l in d[k]} for k in sorted(d)}
-        with open(p, "w", encoding="utf-8", newline="\n") as f:
-            json.dump(d, f, ensure_ascii=False, indent=1)
-            f.write("\n")
+        write_atomic(p, json.dumps(d, ensure_ascii=False, indent=1) + "\n", newline="\n")
 
 
 def done_already(sid, lang):
@@ -548,9 +546,7 @@ def run_moods(lang, targets, key_i):
                 a.setdefault("translation", {})[lang] = t
                 if lang not in a.setdefault("machine", []):
                     a["machine"].append(lang)
-        with open(MOODS, "w", encoding="utf-8", newline=NL) as f:
-            json.dump(moods, f, ensure_ascii=False, indent=2)
-            f.write(NL)
+        write_atomic(MOODS, json.dumps(moods, ensure_ascii=False, indent=2) + NL)
     log("DONE %s moods: %d quotes" % (lang, len(jobs)))
     return lang, {"moods": "ok %d" % len(jobs)}
 

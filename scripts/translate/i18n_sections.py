@@ -3,13 +3,34 @@
 
 <generator>/i18n.json = {"<section id>": {"<lang>": {"en_hash", "model", "date", "section"}}}.
 put(book, lang, sid, gen_dir, en_section) puts the translated section into a book.<lang>.json (at the place given
-by the English section order) or, when there is no translation yet, removes it (the app then shows English).
+by the English section order). No translation record: a section the book already has is KEPT (never deleted -
+v7.8.3, Codex review) and reported as MISSING; a book without that section shows English (the app's fallback).
 CLI (night run; touches only the other-language books):  python scripts/translate/i18n_sections.py <section id> ...
 A translation made from an older English section is still used, but reported as STALE (re-run night_sync.py).
+Files are written atomically (temp file + os.replace): a crash mid-write never leaves a cut-off book / cache.
 """
 import hashlib
 import json
 import os
+import tempfile
+
+
+def write_atomic(path, text, newline=""):
+    """Write `text` to `path` through a temp file in the same folder + os.replace (all or nothing)."""
+    d = os.path.dirname(os.path.abspath(path))
+    fd, tmp = tempfile.mkstemp(prefix=".tmp-", suffix="-" + os.path.basename(path), dir=d)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8", newline=newline) as f:
+            f.write(text)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp, path)
+    except BaseException:
+        try:
+            os.remove(tmp)
+        except OSError:
+            pass
+        raise
 
 
 def en_hash(sec):
@@ -32,7 +53,11 @@ def put(book, lang, sid, gen_dir, en_section, en_ids):
     p = os.path.join(gen_dir, "i18n.json")
     rec = (json.load(open(p, encoding="utf-8")) if os.path.exists(p) else {}).get(sid, {}).get(lang)
     if not rec:
-        book["sections"] = [s for s in book["sections"] if s["id"] != sid]
+        if any(s["id"] == sid for s in book["sections"]):
+            # never delete a localized section because its cache record is missing (the app would show English)
+            print("MISSING %s/%s: no translation record in %s - the existing localized section is kept; run "
+                  "scripts/translate/night_sync.py %s --langs %s" % (lang, sid, p, sid, lang))
+            return "missing (existing section kept)"
         return "none (English fallback)"
     place(book, rec["section"], en_ids)
     if rec["en_hash"] != en_hash(en_section):
@@ -67,7 +92,7 @@ def apply_sections(sids, gen_dirs, data_dir):
                 for n in [new] + new.get("subsections", []):
                     n["content"] = om.get(n["id"], []) + [b for b in n["content"] if b.get("type") != "mood"]
         nl = "\n" if raw.endswith("\n") else ""
-        open(path, "w", encoding="utf-8", newline="").write(json.dumps(book, ensure_ascii=False, indent=2) + nl)
+        write_atomic(path, json.dumps(book, ensure_ascii=False, indent=2) + nl)
     return rep
 
 

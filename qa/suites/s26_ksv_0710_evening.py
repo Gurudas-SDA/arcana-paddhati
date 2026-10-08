@@ -21,6 +21,9 @@
  12  parampara offline (service worker): the WebP portraits load; WebP failing → the PNG is shown
  13  the keyboard (Tab) reaches the «Аа» switches and the language menu; Space toggles a switch
  14  the second tap opens every contents row type (chapter, subsection, chapter with subsections, group, cover)
+ v7.8.3 (Codex review of e8d33aa..bb066eb):
+ 15  a waiting search mark is dropped by any step that does not lead to its place (never painted later); a painted
+     mark goes on any path / #anchor change, also when the #anchor is removed; a same-URL state patch keeps it
 usage: python s26_ksv_0710_evening.py <base-url>   devices: QA_DEVICES"""
 import json
 import os
@@ -433,13 +436,21 @@ def run_v781(p, dev, eng, o):
                 tapxy(vw["width"] - 6, vw["height"] / 2, 500)
         return tapxy, tap, bars
 
-    def open_result(pg, tap, bars, q="Jayati"):
+    def open_result(pg, tap, bars, q="Jayati", mark=True):
         bars()
         tap("[data-reader-action=search]", 1200)
         pg.keyboard.type(q)
         pg.wait_for_function("() => document.querySelectorAll('.mobile-menu [data-result]').length > 0", timeout=15000)
         pg.wait_for_timeout(400)
+        u0 = pg.url
         tap(".mobile-menu [data-result]", 300)
+        if not mark:  # the page only (the word may not be paintable): wait for the URL, not for the mark
+            try:
+                pg.wait_for_url(lambda u: u.split("#")[0] != u0.split("#")[0], timeout=6000)
+            except Exception:
+                pass
+            pg.wait_for_timeout(500)
+            return
         try:
             pg.wait_for_function("() => document.documentElement.hasAttribute('data-search-hl')", timeout=10000)
         except Exception:
@@ -516,6 +527,55 @@ def run_v781(p, dev, eng, o):
         if not pg.locator(".mobile-menu").count():
             ok, info = first_tap_toggles_bars(pg, tapxy)
             chk(dev, "10 after Back / Forward: the first tap is not eaten", ok, info)
+        c.close()
+
+    # ---------- 15 (v7.8.3, Codex review): any route change cancels a waiting mark; a painted mark goes on any
+    # path / #anchor change, also #anchor → none ----------
+    if dev in ("pixel7", "iphone14", "desktop", "mac-safari"):
+        c = ctx()
+        pg = c.new_page()
+        tapxy, tap, bars = helpers(pg)
+        # a) painted mark: #anchor removed by replaceState / pushState → gone; a same-URL state patch keeps it
+        pg.goto(f"{BASE}/{L}/", wait_until="networkidle")
+        pg.wait_for_timeout(500)
+        open_result(pg, tap, bars)
+        on = pg.evaluate(HL_STATE)["hl"]
+        has_hash = "#" in pg.url
+        chk(dev, "15 (setup) result opened with the word marked and a #anchor in the URL", on and has_hash, (on, pg.url[-50:]))
+        if on:
+            pg.evaluate("() => history.replaceState({...(history.state || {}), qaPatch: 1}, '')")
+            pg.wait_for_timeout(200)
+            chk(dev, "15 same-URL history state patch → mark stays", pg.evaluate(HL_STATE)["hl"])
+        if on and has_hash:
+            pg.evaluate("() => history.replaceState(history.state, '', location.pathname)")
+            pg.wait_for_timeout(300)
+            st = pg.evaluate(HL_STATE)
+            chk(dev, "15 replaceState #anchor → none (same page) → mark and scroll ownership gone", clean(st), str(st))
+        pg.goto(f"{BASE}/{L}/", wait_until="networkidle")
+        pg.wait_for_timeout(500)
+        open_result(pg, tap, bars)
+        if pg.evaluate(HL_STATE)["hl"] and "#" in pg.url:
+            pg.evaluate("() => history.pushState(history.state, '', location.pathname)")
+            pg.wait_for_timeout(300)
+            st = pg.evaluate(HL_STATE)
+            chk(dev, "15 pushState #anchor → none → mark gone", clean(st), str(st))
+        # b) waiting mark (the word not shown yet) + an unrelated forward step → never painted later on returning
+        pg.goto(f"{BASE}/{L}/", wait_until="networkidle")
+        pg.wait_for_timeout(500)
+        pg.evaluate("""() => { const s = document.createElement('style'); s.id = 'qa-hide-article';
+            s.textContent = '.app-main article { display: none !important; }'; document.head.appendChild(s); }""")
+        open_result(pg, tap, bars, mark=False)
+        target = pg.url
+        st0 = pg.evaluate(HL_STATE)
+        moved = target.split("#")[0].rstrip("/") != f"{BASE}/{L}".rstrip("/")
+        pg.evaluate("() => history.pushState(history.state, '', location.pathname.replace(/[^/]+\\/?$/, '') + 'qa-v783-elsewhere/')")
+        pg.wait_for_timeout(300)
+        pg.evaluate("(u) => history.pushState(history.state, '', u)", target)
+        pg.evaluate("() => document.getElementById('qa-hide-article')?.remove()")
+        pg.wait_for_timeout(1500)
+        st = pg.evaluate(HL_STATE)
+        chk(dev, "15 a waiting mark is dropped by an unrelated step (not painted when the place shows again)",
+            moved and not st0["hl"] and clean(st), (moved, st0, st, target[-40:]))
         c.close()
 
     # ---------- 11: no CSS Custom Highlight API → <mark> fallback ----------

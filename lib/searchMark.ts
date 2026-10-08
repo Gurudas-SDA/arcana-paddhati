@@ -14,6 +14,10 @@
  * only clears it; so do "back" / "forward" and any other step to another place
  * (a link, a router push, a new #anchor) — else the mark of a page no longer shown
  * would eat the next page's first tap and stop its anchor alignment (v7.8.1).
+ * v7.8.3 (Codex review of v7.8.1): a mark still waiting (not yet painted) is
+ * dropped by any step that does not lead to the result's place (it was painted
+ * later on an unrelated page), and a painted mark goes on ANY change of the path
+ * or the #anchor — also when the #anchor is removed (…#a → the page without it).
  */
 import { normalizeText } from "@/lib/book";
 
@@ -28,13 +32,20 @@ interface Pending {
   anchor?: string;
   since: number;
   until: number;
+  /** The path the result was tapped on (the menu's page). */
+  from: string;
+  /** The path of the result's place, once the reader got there. */
+  reached?: string;
 }
 
 let pending: Pending | null = null;
 let timer: number | undefined;
 let listening = false;
-/** Where the mark was put (pathname + #anchor): any other place clears it. */
-let markedAt: { path: string; hash: string } | null = null;
+/**
+ * Where the mark was put: pathname + #anchor, and `alt` = the result's own
+ * #anchor (the app may add it to the URL just after the mark). Any other place clears it.
+ */
+let markedAt: { path: string; hash: string; alt?: string } | null = null;
 /** The fallback marks (no Highlight API), unwrapped on clear. */
 let fbMarks: HTMLElement[] = [];
 const FB_CLASS = "search-hit-fb";
@@ -99,15 +110,53 @@ function wrapFallback(range: Range) {
   }
 }
 
-function here(): { path: string; hash: string } {
-  return { path: window.location.pathname.replace(/\/+$/, ""), hash: window.location.hash };
+function dec(s: string): string {
+  try {
+    return decodeURIComponent(s);
+  } catch {
+    return s;
+  }
 }
 
-/** A step to another place (link, router push, back / forward, new #anchor) clears the mark. */
+function here(): { path: string; hash: string } {
+  return { path: dec(window.location.pathname).replace(/\/+$/, ""), hash: dec(window.location.hash) };
+}
+
+/**
+ * Any step (link, router push / replace, back / forward, #anchor added, changed or
+ * removed): a waiting mark not on its way to the result's place is dropped, a
+ * painted mark goes when the path or the #anchor differs from where it was put.
+ */
 function onUrlChange() {
-  if (!markedAt) return;
   const h = here();
-  if (h.path !== markedAt.path || (h.hash && h.hash !== markedAt.hash)) clearSearchMark();
+  const p = pending;
+  if (p) {
+    if (onPlace(p)) {
+      if (p.reached !== undefined && p.reached !== h.path) cancelPending();
+      else if (p.anchor && h.hash && h.hash !== `#${p.anchor}`) cancelPending();
+      else p.reached = h.path;
+    } else if (p.reached !== undefined || h.path !== p.from) {
+      // left the result's place, or went somewhere else before getting there
+      cancelPending();
+    }
+  }
+  if (!markedAt) return;
+  if (h.path !== markedAt.path) {
+    clearSearchMark();
+    return;
+  }
+  if (h.hash === markedAt.hash) return;
+  if (markedAt.alt && h.hash === markedAt.alt) {
+    // the app put the result's own #anchor into the URL: still the same place
+    markedAt.hash = h.hash;
+    return;
+  }
+  clearSearchMark();
+}
+
+function cancelPending() {
+  pending = null;
+  window.clearInterval(timer);
 }
 
 function visibleText(node: Text): boolean {
@@ -183,7 +232,7 @@ function tryApply(): boolean {
   }
   document.documentElement.setAttribute(ATTR, "");
   markedAt = here();
-  if (!markedAt.hash && p.anchor) markedAt.hash = `#${encodeURIComponent(p.anchor)}`;
+  if (p.anchor) markedAt.alt = `#${p.anchor}`;
   // Off screen (a long subsection): bring the word into view.
   const m = main.getBoundingClientRect();
   if (rect.top < m.top + 56 || rect.bottom > m.bottom - 64) {
@@ -213,8 +262,11 @@ function listen() {
   });
   window.addEventListener("popstate", () => {
     // the menu closing itself right after the tap (same page, no move) is not a step away
-    if (pending && Date.now() - pending.since < 1500) return;
-    pending = null;
+    if (pending && Date.now() - pending.since < 1500) {
+      onUrlChange();
+      return;
+    }
+    cancelPending();
     clearSearchMark();
   });
   // Forward steps (Next <Link>, router.push / replace, a new #anchor) send no
@@ -239,8 +291,9 @@ export function setPendingSearchMark(nq: string, sectionId: string, anchor?: str
   if (typeof window === "undefined" || !nq) return;
   listen();
   clearSearchMark();
-  pending = { nq, sectionId, anchor, since: Date.now(), until: Date.now() + 8000 };
   window.clearInterval(timer);
+  pending = { nq, sectionId, anchor, since: Date.now(), until: Date.now() + 8000, from: here().path };
+  if (onPlace(pending)) pending.reached = here().path;
   // the page shown, its pictures and fonts settled: first try soon, then keep trying a while
   timer = window.setInterval(() => {
     if (tryApply()) window.clearInterval(timer);
