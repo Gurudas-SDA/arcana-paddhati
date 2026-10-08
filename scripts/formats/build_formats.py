@@ -585,13 +585,8 @@ class Edition:
 
 
 def content_version() -> str:
-    try:
-        r = subprocess.run(["git", "log", "-1", "--format=%cs", "--", "data"], cwd=REPO,
-                           capture_output=True, text=True, timeout=30)
-        if r.stdout.strip():
-            return r.stdout.strip()
-    except Exception:
-        pass
+    """The date the formats are built (v7.8.3: the PDF / EPUB title page said «Версия от 2026-10-07» when rebuilt on
+    08.10 — the last data/ commit predates a build made before the data commit). The build date is the version."""
     return dt.date.today().isoformat()
 
 

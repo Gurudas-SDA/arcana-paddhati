@@ -825,6 +825,23 @@ def run(args):
     c.info = f"{len(en_sk)} sanskrit fields × {nb} translated books; ru-iast differs from EN in {ri_diff} (info)"
     c.report(args.max)
 
+    # L28 — Анусвара в IAST всегда «ṁ» (U+1E41), никогда «ṃ» (U+1E43) (Reader v7.8.3, live verifier 08.10:
+    # «pṛthvi tvayā dhṛtā…» ch3.2 had «tvaṃ»). Every string of every book + ui file, and the night-sync sources
+    # (scripts/translate/cache/**, generator i18n.json) — they would bring it back. Lecture transcripts are
+    # sources quoted as they are (not checked).
+    c = Check("L28", "IAST anusvāra is «ṁ» everywhere — no «ṃ/Ṃ» in books, ui files, translation caches, generator i18n.json")
+    bad_m = re.compile("[Ṃṃ]")
+    srcs = allb + books("ui*.json")
+    srcs += glob.glob(os.path.join(qa.REPO, "scripts", "translate", "cache", "**", "*.json"), recursive=True)
+    srcs += glob.glob(os.path.join(qa.REPO, "scripts", "**", "i18n.json"), recursive=True)
+    for f in srcs:
+        rel = os.path.relpath(f, qa.REPO).replace("\\", "/")
+        for i, line in enumerate(open(f, encoding="utf-8"), 1):
+            for m in bad_m.finditer(line):
+                c.hit(rel, f"line {i}", snippet(line, m, 25))
+    c.info = f"{len(srcs)} files"
+    c.report(args.max)
+
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует
     c = Check("L17", "atgriešanās punkts: git tags pirms-interfeisa-2026-10-05 eksistē")
     import subprocess

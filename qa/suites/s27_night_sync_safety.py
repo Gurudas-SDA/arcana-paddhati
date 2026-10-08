@@ -114,6 +114,19 @@ try:
     ns = open(os.path.join(TR, "night_sync.py"), encoding="utf-8").read()
     chk("3 i18n_sections / night_sync write book, i18n.json and moods.json only through write_atomic",
         not any(srcs.values()) and ns.count("write_atomic(") >= 2, srcs)
+
+    # ---------- 4 (live verifier 08.10): formats version = build date; «Arghya-pātra» spelled with gh ----------
+    import datetime
+    import glob
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("build_formats", os.path.join(REPO, "scripts", "formats", "build_formats.py"))
+    bf = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(bf)
+    chk("4 PDF / EPUB «Версия от» = the build date (not the last data commit)",
+        bf.content_version() == datetime.date.today().isoformat(), bf.content_version())
+    argya = [os.path.basename(f) for f in glob.glob(os.path.join(REPO, "data", "book*.json"))
+             if re.search(r"⟦[Aa]rgya-", open(f, encoding="utf-8").read())]
+    chk("4 «Arghya-pātra» (never «Argya-pātra») in every book", not argya, argya)
 finally:
     shutil.rmtree(tmp, ignore_errors=True)
 
