@@ -79,6 +79,8 @@ SUITES = [
          devices=None, fast=True, server=False),
     dict(id="s28", file="suites/s28_a68_night_0910.py", title="A68 nakts 09.10: sanskrits tikai sanskrits (RU-IAST = EN), avotu rakstība, HU cache pādya-pātra, night_sync exit≠0 pie FAIL",
          devices=None, fast=True, server=False),
+    dict(id="s29", file="suites/s29_tulasi_patram_0910.py", title="nakts 09.10: 12-пушпа «tulasī-patram» (lapa), ne «pātram» (trauks) — avots p055; visas grāmatas, RU kirilica, 16 upacāra",
+         devices=None, fast=True, server=False),
     dict(id="s20", file="suites/s20_offline.py", title="OFFLINE: Chromium (Android) — visas nodaļas, navigācija, transkripti", args=["chromium"],
          devices=None, fast=True, timeout_fast=200),
     dict(id="s20wk", file="suites/s20_offline.py", title="OFFLINE: WebKit (iPhone/iPad) — serveris izslēgts", args=["webkit"],
