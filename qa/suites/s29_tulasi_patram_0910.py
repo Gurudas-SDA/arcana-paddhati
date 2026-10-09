@@ -6,6 +6,8 @@ draft «Подношение бхоги — черновик 2026-10-05.md» r.1
      identical in every IAST book; RU Cyrillic has «туласӣ-патрам»; RU / RU-IAST wbw gloss the leaf form
   c  the 16-items label (main-worship-sixteen-items) has «tulasī-patram» in every book (RU: «туласӣ-патрам»)
   d  guard: vessel words stay vessel — «arghya-pātra» / «pādya-pātra» still present in book.json
+  e  ṇatva (Night 09.10 #2): no «tulasī-patrāni» / «туласӣ-патра̄ни» (without ṇ) anywhere in books, caches,
+     i18n/glossaries; the 16-items label has «etāni tulasī-patrāṇi» (RU: «ета̄ни туласӣ-патра̄н̣и») in every book
 No browser, no server: python s29_tulasi_patram_0910.py"""
 import glob
 import json
@@ -95,6 +97,17 @@ chk("c 16-items label «etat tulasī-patram / …» in every book", not lab_bad,
 en = TEXT[os.path.join(DATA, "book.json")]
 chk("d guard: vessels untouched («arghya-pātra», «pādya-pātra» present in book.json)",
     "arghya-pātra" in en and "pādya-pātra" in en)
+
+# ---------- e ----------
+NO_N = re.compile(nfc(r"tulas[iī][\s\-]*patrāni|туласӣ[\s\-]*патра̄ни"), re.I)
+non = [f"{rel(f)}: {m.group(0)}" for f, t in TEXT.items() for m in NO_N.finditer(t)]
+chk("e no «tulasī-patrāni» / «туласӣ-патра̄ни» without ṇ (ṇatva) in books, caches, i18n/glossaries", not non, non)
+lab2_bad = []
+for f in BOOKS:
+    want = nfc("ета̄ни туласӣ-патра̄н̣и⟧") if f.endswith("book.ru.json") else nfc("etāni tulasī-patrāṇi⟧")
+    if want not in TEXT[f]:
+        lab2_bad.append(rel(f))
+chk("e 16-items label «… / etāni tulasī-patrāṇi⟧» (RU «туласӣ-патра̄н̣и») in every book", not lab2_bad, lab2_bad)
 
 print(f"s29: {sum(res)}/{len(res)} passed", flush=True)
 sys.exit(0 if res and all(res) else 1)
