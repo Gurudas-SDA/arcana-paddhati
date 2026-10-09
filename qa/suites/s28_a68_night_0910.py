@@ -8,6 +8,8 @@
   d  four EN IAST misspellings fixed after RU-IAST and the sources, in every book / cache / i18n.json:
      māyāvāda (not māyāvada), aravinda-locanaṁ (not locananaṁ), jāgṛvāṁsaḥ (not «jāgṛvaṁ saḥ»), tapta-kāñcana (not kāṣcana)
   e  qa lint L27 is strict for RU-IAST too: every `sanskrit` field of book.ru-iast.json = book.json, a difference is a hit
+     (Codex review 09.10: the lint exit code is checked, the result JSON must be written by THIS run — a crash with an
+     old JSON is a FAIL — and a negative case: one RU-IAST sanskrit difference in a temporary COPY of data/ → L27 FAIL)
 No browser, no server: python s28_a68_night_0910.py"""
 import contextlib
 import glob
@@ -15,8 +17,12 @@ import io
 import json
 import os
 import re
+import shutil
+import stat
 import subprocess
+import tempfile
 import sys
+import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -95,8 +101,23 @@ def puspa(d):
     return next(x for x in s["content"] if x.get("type") == "verse" and re.search(r"tulasī-|туласӣ-", x.get("sanskrit", "")))
 
 
-nog = [b for b, d in books.items() if not (puspa(d).get("translation") or "").strip()]
-chk("c 12-puspa: the «one leaf / several leaves» note is in the verse translation of every book", not nog, nog)
+# Codex review 09.10 (Low): not only «not empty» — the RU / EN wording of the moved note is there, and the
+# sanskrit field of no book carries it
+NOTE = {"book.ru.json": ("для одного листа", "для нескольких листьев"),
+        "book.ru-iast.json": ("для одного листа", "для нескольких листьев"),
+        "book.json": ("one leaf", "several leaves")}
+NOTE_ANY = [w for ws in NOTE.values() for w in ws]
+nog = []
+for b, d in books.items():
+    v = puspa(d)
+    tr = (v.get("translation") or "").strip()
+    if not tr or any(w not in tr for w in NOTE.get(b, ())):
+        nog.append((b, "translation", tr[:80]))
+    if any(w in v.get("sanskrit", "") for w in NOTE_ANY):
+        nog.append((b, "sanskrit", v["sanskrit"][:80]))
+chk("c 12-puspa: the «one leaf / several leaves» note is in the verse translation of every book "
+    "(RU «для одного листа … для нескольких листьев», EN «one leaf … several leaves»), not in the sanskrit field",
+    not nog, nog)
 
 # ---------- d ----------
 WRONG = {"māyāvada": "māyāvāda", "locananaṁ": "locanaṁ", "jāgṛvaṁ": "jāgṛvāṁsaḥ", "kāṣcana": "kāñcana"}
@@ -114,12 +135,49 @@ chk("d EN sanskrit has the source spelling at all four places", not miss, miss)
 ri = dict(sk_fields(books["book.ru-iast.json"]))
 diff = [k for k in en if ri.get(k) != en[k]] + [k for k in ri if k not in en]
 chk("e every sanskrit field of book.ru-iast.json = book.json (byte-identical)", not diff, diff)
+LINT = os.path.join(REPO, "qa", "lint_content.py")
+
+
+def run_lint(root, out):
+    """lint_content.py --no-html over <root>/data (QA_REPO); returns (exit code, results or None, stderr tail).
+    The result file is removed first and must be newer than the start — an old JSON never counts."""
+    with contextlib.suppress(FileNotFoundError):
+        os.remove(out)
+    t0 = time.time() - 1
+    p = subprocess.run([sys.executable, LINT, "--no-html", "--json", out], capture_output=True, text=True,
+                       encoding="utf-8", errors="replace", cwd=REPO, env=dict(os.environ, QA_REPO=root))
+    fresh = os.path.exists(out) and os.path.getmtime(out) >= t0
+    return p.returncode, (json.load(open(out, encoding="utf-8")) if fresh else None), (p.stderr or "")[-300:]
+
+
 lint = os.path.join(REPO, "qa", ".results", "lint_s28.json")
 os.makedirs(os.path.dirname(lint), exist_ok=True)
-subprocess.run([sys.executable, os.path.join(REPO, "qa", "lint_content.py"), "--no-html", "--json", lint],
-               capture_output=True, cwd=REPO)
-l27 = next((c for c in json.load(open(lint, encoding="utf-8")) if c["id"] == "L27"), {})
+code, rr, err = run_lint(REPO, lint)
+l27 = next((c for c in rr or [] if c["id"] == "L27"), {})
+chk("e lint ran to the end on the real data: exit 0 and a fresh result JSON (no crash with an old JSON)",
+    code == 0 and rr is not None, f"exit {code}, fresh JSON {rr is not None} {err}")
 chk("e lint L27 compares RU-IAST strictly (title names ru-iast) and passes", "ru-iast" in l27.get("title", "") and l27.get("ok"), l27)
+
+# negative case: a temporary COPY of data/ (never data/ itself) with ONE RU-IAST sanskrit difference → L27 FAIL
+tmp = tempfile.mkdtemp(prefix="s28_l27_")
+try:
+    shutil.copytree(DATA, os.path.join(tmp, "data"), ignore=shutil.ignore_patterns("desktop.ini"))
+    os.makedirs(os.path.join(tmp, "scripts", "parampara"))
+    shutil.copy(os.path.join(REPO, "scripts", "parampara", "check.json"), os.path.join(tmp, "scripts", "parampara"))
+    key = "sections/mangalacarana/content/16/sanskrit"
+    f = os.path.join(tmp, "data", "book.ru-iast.json")
+    d = json.load(open(f, encoding="utf-8"))
+    v = d["sections"][[s_["id"] for s_ in d["sections"]].index("mangalacarana")]["content"][16]
+    assert "māyāvāda" in v["sanskrit"], v["sanskrit"][:80]
+    v["sanskrit"] = v["sanskrit"].replace("māyāvāda", "māyāvada", 1)   # one letter: ā → a
+    json.dump(d, open(f, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    ncode, nr, nerr = run_lint(tmp, os.path.join(tmp, "lint_neg.json"))
+    n27 = next((c for c in nr or [] if c["id"] == "L27"), {})
+    chk("e negative: one RU-IAST sanskrit difference (māyāvāda → māyāvada, temp copy) → L27 FAIL, lint exit ≠ 0",
+        nr is not None and n27.get("ok") is False and n27.get("hits", 0) >= 1 and ncode != 0,
+        f"exit {ncode}, L27 {n27} {nerr} ({key})")
+finally:
+    shutil.rmtree(tmp, onexc=lambda fn, q, e: (os.chmod(q, stat.S_IWRITE), fn(q)))
 
 print(f"s28: {sum(res)}/{len(res)} passed", flush=True)
 sys.exit(0 if res and all(res) else 1)
