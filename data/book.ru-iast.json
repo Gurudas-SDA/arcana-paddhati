@@ -3199,9 +3199,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "etat tulasī-pātram / etāni tulasī-patrāṇi\nklīṁ kṛṣṇāya namaḥ",
+              "sanskrit": "etat tulasī-patram / etāni tulasī-patrāṇi\nklīṁ kṛṣṇāya namaḥ",
               "translation": "Первая форма — для одного листа, вторая — для нескольких листьев.",
-              "wbw": "etat — этот; tulasī-pātram — лист туласи; etāni — эти; tulasī-patrāṇi — листья туласи; klīṁ — биджа-мантра; kṛṣṇāya — Кришне; namaḥ — поклоны."
+              "wbw": "etat — этот; tulasī-patram — лист туласи; etāni — эти; tulasī-patrāṇi — листья туласи; klīṁ — биджа-мантра; kṛṣṇāya — Кришне; namaḥ — поклоны."
             },
             {
               "type": "instruction",
@@ -4741,7 +4741,7 @@
                   "value": "⟦тилака⟧"
                 },
                 {
-                  "label": "⟦etat tulasī-pātram / etāni tulasī-patrāni⟧",
+                  "label": "⟦etat tulasī-patram / etāni tulasī-patrāni⟧",
                   "value": "листья туласи"
                 },
                 {
