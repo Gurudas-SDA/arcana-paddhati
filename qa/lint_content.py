@@ -731,6 +731,12 @@ def run(args):
         "it": ["panca-patra", "conchiglia bagno", "campana", "dhupa", "dipa", "visarjaniya-patra", "puja-patra divinita", "snana-patra divinita",
                "puja-patra gurudeva", "snana-patra gurudeva", "asana divinita", "asana pujari", "recipiente acqua", "fiori", "tulasi",
                "candana", "madhuparka", "conchiglia soffiare"],
+        "pt": ["panca-patra", "buzio banho", "sino", "dhupa", "dipa", "visarjaniya-patra", "puja-patra deidade", "snana-patra deidade",
+               "puja-patra gurudeva", "snana-patra gurudeva", "asana deidade", "asana pujari", "jarro agua", "flores", "tulasi",
+               "candana", "madhuparka", "buzio soprar"],
+        "lt": ["panca-patra", "maudymo kriaukle", "varpel", "dhupa", "dipa", "visarjaniya-patra", "puja-patra dievyb", "snana-patra dievyb",
+               "puja-patra gurudev", "snana-patra gurudev", "asana dievyb", "asana pujari", "vandens ind", "geles", "tulasi",
+               "candana", "madhuparka", "puciamoji kriaukle"],
         "uk": ["панча-патра", "мушля омовіння", "дзвіночок", "дгупа", "діпа", "вісарджан", "пуджа-патра божества",
                "снана-патра божества", "пуджа-патра ґурудева", "снана-патра ґурудева", "асана божества", "асана пуджарі",
                "посудина води", "квіти", "туласі", "чандана", "мадгупарка", "мушля сурмлення"],
@@ -787,7 +793,7 @@ def run(args):
     # is byte-identical to the same field of book.json; the same fields exist. The RU pair is the source text:
     # book.ru.json is its Cyrillic transliteration (not compared). Night 09.10 (A68, Gurudas 08.10): book.ru-iast.json
     # is strict too — EN spelled after RU-IAST and the sources, RU glosses moved out of the field; a difference is a hit.
-    c = Check("L27", "Sanskrit identical in every language: each `sanskrit` field of ru-iast/lv/de/fr/es/it/uk/hu = book.json (byte-identical)")
+    c = Check("L27", "Sanskrit identical in every language: each `sanskrit` field of ru-iast/lv/de/fr/es/it/uk/hu/pt/lt = book.json (byte-identical)")
 
     def sk_fields(o, path=()):
         if isinstance(o, dict):

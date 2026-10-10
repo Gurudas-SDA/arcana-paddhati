@@ -84,6 +84,8 @@ SUITES = [
     dict(id="s30", file="suites/s30_a65_toc_loading.py", title="A65 КСВ 07.10: «Содержание» 2. pieskāriens — uzreiz ielādes josla + «загружается…», atkārtots pieskāriens nesabojā, vecā lapa nemirgo",
          devices=["pixel7", "iphone14", "ipad-portrait", "desktop", "mac-safari"], fast=True,
          fast_devices=["pixel7", "iphone14", "desktop"]),
+    dict(id="s32", file="suites/s32_lang_pt_lt.py", title="A73: valodas pt + lt — /pt/ un /lt/ atveras, «Аа» valodu izvēlnē, pilns tulkojums, IAST = EN, nav angļu teikumu, UI atslēgas, offline",
+         devices=["pixel7", "iphone14", "desktop"], fast=True, fast_devices=["pixel7", "desktop"]),
     dict(id="s20", file="suites/s20_offline.py", title="OFFLINE: Chromium (Android) — visas nodaļas, navigācija, transkripti", args=["chromium"],
          devices=None, fast=True, timeout_fast=200),
     dict(id="s20wk", file="suites/s20_offline.py", title="OFFLINE: WebKit (iPhone/iPad) — serveris izslēgts", args=["webkit"],

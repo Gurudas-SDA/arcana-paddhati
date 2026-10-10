@@ -78,7 +78,7 @@ def page_ok(pg, kind="chapter"):
 
 def run(p, dev, o):
     mA, mB = manifest(A), manifest(B)
-    sections = sorted({u.split("/")[2] for u in mA["urls"] if u.count("/") == 3 and u.endswith("/") and u.split("/")[2] not in ("ru", "ru-iast", "lv", "de", "fr", "es", "it", "uk", "hu", "")})
+    sections = sorted({u.split("/")[2] for u in mA["urls"] if u.count("/") == 3 and u.endswith("/") and u.split("/")[2] not in ("ru", "ru-iast", "lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt", "")})
     tr_pages = [u for u in mA["urls"] if "/transcripts/" in u]
     set_root(A)
     br = p.chromium.launch()

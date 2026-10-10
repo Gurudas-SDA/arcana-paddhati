@@ -74,7 +74,7 @@ def main():
         print("wrote", fn, [s["id"] for s in book["sections"]][:4])
     # Night 08.10: other languages — the captions translated by scripts/translate/night_sync.py (i18n.json here).
     en_ids = [s["id"] for s in json.load(open(os.path.join(DATA, "book.json"), encoding="utf-8"))["sections"]]
-    for lang in ("lv", "de", "fr", "es", "it", "uk", "hu"):
+    for lang in ("lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"):
         path = os.path.join(DATA, f"book.{lang}.json")
         book = json.load(open(path, encoding="utf-8"))
         st = put(book, lang, SECTION_ID, os.path.dirname(os.path.abspath(__file__)), section("en"), en_ids)

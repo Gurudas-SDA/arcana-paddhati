@@ -28,7 +28,7 @@ def chk(dev, name, ok, info=""):
 def pages():
     """(lang dir, section id, has a table block) for the books under test."""
     out = []
-    langs = ["ru-iast", "ru"] if qa.fast() else ["ru-iast", "ru", "", "lv", "de", "fr", "es", "it", "uk", "hu"]
+    langs = ["ru-iast", "ru"] if qa.fast() else ["ru-iast", "ru", "", "lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"]
     for lang in langs:
         fn = os.path.join(qa.DATA, f"book.{lang}.json" if lang else "book.json")
         b = json.load(open(fn, encoding="utf-8"))

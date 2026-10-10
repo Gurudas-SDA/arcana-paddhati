@@ -6,7 +6,7 @@ The RU master text is chapter_ru.py (hand-written, not machine-translated from E
   python build.py translate   -> en_cache.json (only strings changed in chapter_ru.py), i18n_cache.json (AnyModel)
   python build.py apply       -> writes data/book*.json + data/ui.*.json; idempotent (re-run = no diff)
 After apply: python scripts/moods/apply_moods.py (re-inserts the Gurudev mood blocks), then npm run build.
-Other languages (lv, de, fr, es, it, uk, hu; night release 08.10.2026): the English chapter translated by
+Other languages (lv, de, fr, es, it, uk, hu, pt, lt; night release 08.10.2026): the English chapter translated by
 scripts/translate/night_sync.py -> i18n.json here, put into data/book.<lang>.json by
 `python scripts/translate/i18n_sections.py caturmasya-purusottama-masa` (this apply leaves those books' sections alone).
 The section is locked in scripts/translate/locked_sections.json, so tr.py assemble keeps it as written here.
@@ -24,8 +24,8 @@ spec = importlib.util.spec_from_file_location("ch", os.path.join(HERE, "chapter_
 ch = importlib.util.module_from_spec(spec); spec.loader.exec_module(ch)
 
 PART = {"id": "festivals-vows", "ru": "Праздники и обеты", "en": "Festivals and Vows"}
-OTHER = ["lv", "de", "fr", "es", "it", "uk", "hu"]
-LNAME = {"lv": "Latvian", "de": "German", "fr": "French", "es": "Spanish", "it": "Italian", "uk": "Ukrainian", "hu": "Hungarian", "ru": "Russian"}
+OTHER = ["lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"]
+LNAME = {"lv": "Latvian", "de": "German", "fr": "French", "es": "Spanish", "it": "Italian", "uk": "Ukrainian", "hu": "Hungarian", "pt": "Portuguese", "lt": "Lithuanian", "ru": "Russian"}
 
 # ------------------------------------------------------------ calendar
 ROWS = json.load(open(os.path.join(HERE, "calendar", "table_Riga.json"), encoding="utf-8"))
