@@ -8,6 +8,7 @@
   "sidebar.cover": "Portada",
   "sidebar.closeMenu": "Cerrar menú",
   "sidebar.loading": "cargando",
+  "sidebar.loadFailed": "no se pudo cargar — toque de nuevo",
   "sidebar.showAllTranslations": "Mostrar todas las traducciones",
   "sidebar.showAllWbw": "Mostrar todas las traducciones palabra por palabra",
   "search.placeholder": "Buscar secciones",

@@ -8,6 +8,7 @@
   "sidebar.cover": "Обложка",
   "sidebar.closeMenu": "Закрыть меню",
   "sidebar.loading": "загружается",
+  "sidebar.loadFailed": "не удалось загрузить — коснитесь ещё раз",
   "sidebar.showAllTranslations": "Показать все переводы",
   "sidebar.showAllWbw": "Показать весь пословный перевод",
   "search.placeholder": "Поиск по разделам",

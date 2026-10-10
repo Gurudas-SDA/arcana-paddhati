@@ -53,6 +53,9 @@ interface SidebarProps {
   onLeave?: (navigating?: boolean, href?: string) => void;
   /** A65: the page of a followed link is loading (the menu waits for it). */
   navigating?: boolean;
+  /** A65 (Codex 10.10): that page did not come (load failed / timed out) — the
+   *  tapped row says so quietly; one more tap on it tries again. */
+  navFailed?: boolean;
 }
 
 interface PreparedEntry {
@@ -442,6 +445,7 @@ export default function Sidebar({
   onClose,
   onLeave: onLeaveProp,
   navigating = false,
+  navFailed = false,
 }: SidebarProps) {
   const pathname = usePathname();
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -476,6 +480,12 @@ export default function Sidebar({
       <span className="toc-loading-note">
         <span aria-hidden="true" className="toc-loading-spin" />
         {t(ui, "sidebar.loading")}
+      </span>
+    ) : navFailed && loadingRow === id ? (
+      // The load failed: nothing busy any more; the row is still the armed one,
+      // so one tap opens it again (the live region announces the same text).
+      <span className="toc-loading-note toc-failed-note" data-toc-failed="">
+        {t(ui, "sidebar.loadFailed")}
       </span>
     ) : null;
 

@@ -1272,6 +1272,15 @@ html[data-reader-theme="night"] ::selection {
   font-weight: 400;
   color: #9c7a4e;
 }
+/* A65: the page did not come — a quiet note that may wrap (never widens the row). */
+.toc-failed-note {
+  white-space: normal;
+  flex-shrink: 1;
+  min-width: 0;
+  max-width: 55%;
+  text-align: right;
+  line-height: 1.25;
+}
 .toc-loading-spin {
   width: 10px;
   height: 10px;

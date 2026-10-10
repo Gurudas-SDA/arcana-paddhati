@@ -8,6 +8,7 @@
   "sidebar.cover": "Обкладинка",
   "sidebar.closeMenu": "Закрити меню",
   "sidebar.loading": "завантажується",
+  "sidebar.loadFailed": "не вдалося завантажити — торкніться ще раз",
   "sidebar.showAllTranslations": "Показати всі переклади",
   "sidebar.showAllWbw": "Показати весь дослівний переклад",
   "search.placeholder": "Пошук у розділах",

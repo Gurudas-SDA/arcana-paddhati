@@ -14,6 +14,10 @@ A65 fix (Codex review 10.10): C — a repeated tap AFTER the 8 s safety time on 
 navigation; C2 — another row (two taps) after 8 s replaces the load: history +1, the last choice wins; D — the page
 data fails: no endless «busy»; E — the row of the page already shown: no loading signs; F — «Назад» while loading
 cancels the load (it never lands later); G — a11y: «загружается» in a live region outside aria-busy.
+A65 fix 2 (Codex review 10.10, 2nd): D2 — the page data AND the full page load (Next.js's fallback) both fail
+(.txt and the document request aborted): after AppShell's NAV_FAIL_MS (25 s) the loading state is cleared (no
+bar, no «загружается», nothing aria-busy) and the row says «не удалось загрузить — коснитесь ещё раз»; F waits for
+the state (no fixed 400 ms); F2 — fast «Назад»→«Вперёд» while loading; F3 — «Вперёд» while loading.
 Timings are measured in the page (performance.now from the click event); the delay must really intercept requests.
 usage: python s30_a65_toc_loading.py <base-url>   devices: QA_DEVICES"""
 import os
@@ -29,6 +33,7 @@ L = "ru-iast"
 DEVICES = qa.devices(["pixel7", "iphone14", "ipad-portrait", "desktop", "mac-safari"])
 DELAY_MS = 5000
 SLOW_MS = 12000   # B: longer than AppShell's 8 s safety net (КСВ: sometimes 19 s)
+FAIL_MS = 25000   # AppShell NAV_FAIL_MS: a page not come by then is given up
 res = []
 
 # Slows the page data of client-side navigations (RSC payload, *.txt) while window.__a65delay is set.
@@ -235,7 +240,7 @@ def run(p, dev, eng, o):
         bar: !!document.querySelector('[data-nav-progress]'), row: !!document.querySelector('.mobile-menu [data-toc-loading]'),
         busy: document.querySelectorAll('[aria-busy="true"]').length, hist: history.length})"""
 
-    def fresh(delay, start=f"{L}/introduction/", errors=True, abort=False):
+    def fresh(delay, start=f"{L}/introduction/", errors=True, abort=False, fail_doc=False):
         """A new page at `start`, page data slowed by `delay` ms (or aborted), contents open, row `rid` tapped once
         (highlighted), the recorder installed. Returns the row locator (None if the row is not there)."""
         nonlocal pg
@@ -247,6 +252,11 @@ def run(p, dev, eng, o):
         pg.wait_for_timeout(700)
         if abort:
             pg.route(lambda u: ".txt" in u, lambda route: route.abort())
+        if fail_doc:
+            # the full page load (Next.js's fallback after the page data failed) fails too; ERR_ABORTED keeps
+            # the old document (no browser error page) — like a load the network dropped
+            pg.route("**/*", lambda route: route.abort("aborted") if route.request.resource_type == "document"
+                     else route.fallback())
         pg.evaluate(f"() => {{ window.__a65delay = {delay}; }}")
         contents()
         rw = pg.locator(f".mobile-menu nav [data-toc-row='{rid}']")
@@ -321,6 +331,19 @@ def run(p, dev, eng, o):
             st["hist"] - r["hist0"] == 1 and st["path"] == target2 and not st["menu"] and not st["bar"] and st["busy"] == 0,
             f"history +{st['hist'] - r['hist0']}, pushState ×{r['push']}, now {st}, want {target2} (first target {target})")
         chk(dev, "C2 3 the old page never flashed", not r["flash"], str(r["flash"][:2]))
+        # Claude verifier 11.10 (MED): the loading state must not stay on after the page came — the live region
+        # kept «загружается» and every reopened contents showed a loading bar with nothing loading
+        live = pg.evaluate("() => (document.querySelector('[data-nav-live]') || {}).textContent || ''")
+        chk(dev, "C2 after the page opened: the live region is empty (no «загружается» left)", live.strip() == "", repr(live))
+        contents()
+        pg.wait_for_timeout(600)
+        st2 = pg.evaluate(STATE)
+        live2 = pg.evaluate("() => (document.querySelector('[data-nav-live]') || {}).textContent || ''")
+        chk(dev, "C2 contents opened again on the new page: no loading bar, no «загружается», nothing busy",
+            st2["menu"] and not st2["bar"] and not st2["row"] and st2["busy"] == 0 and live2.strip() == "",
+            f"{st2} live={live2!r}")
+        pg.evaluate("() => history.back()")
+        pg.wait_for_timeout(600)
         pg.evaluate("() => { window.__a65delay = 0; }")
         pg.evaluate("() => history.back()")
         pg.wait_for_timeout(1200)
@@ -341,6 +364,29 @@ def run(p, dev, eng, o):
         chk(dev, "D page data failed: the loading state is cleared (page opened another way, or menu not busy)",
             (opened or cleared) and st["busy"] == 0, str(st))
 
+    # ---------- D2: page data AND the full page load fail: after NAV_FAIL_MS nothing is busy, a quiet note ----------
+    row = fresh(0, errors=False, abort=True, fail_doc=True)
+    if row is None:
+        chk(dev, "D2 setup: the row is there", False)
+    else:
+        tap_at(row)
+        pg.wait_for_timeout(1500)
+        st0 = pg.evaluate(STATE)
+        chk(dev, "D2 setup: page data and document aborted — the loading signs are shown first",
+            st0["menu"] and st0["bar"] and st0["row"], str(st0))
+        try:
+            pg.wait_for_function("() => !document.querySelector('[data-nav-progress]')", timeout=FAIL_MS + 5000)
+        except Exception:
+            pass
+        st = pg.evaluate(STATE)
+        note = pg.evaluate("""() => { const n = document.querySelector('.mobile-menu [data-toc-failed]');
+            const live = document.querySelector('[data-nav-live]');
+            return {note: n ? n.textContent : null, live: live ? live.textContent : null}; }""")
+        chk(dev, f"D2 page data + page load failed: after {FAIL_MS // 1000} s the loading state is cleared (no bar, no row sign, nothing busy)",
+            st["menu"] and not st["bar"] and not st["row"] and st["busy"] == 0 and st["path"] != target, str(st))
+        chk(dev, "D2 the row says «не удалось загрузить — коснитесь ещё раз» (and the live region)",
+            bool(note["note"]) and "не удалось" in note["note"] and "не удалось" in (note["live"] or ""), str(note))
+
     # ---------- E: the row of the page already shown: no loading signs at all ----------
     row = fresh(DELAY_MS, start=target)
     if row is None:
@@ -360,7 +406,11 @@ def run(p, dev, eng, o):
     pg.wait_for_timeout(1000)
     h_before = pg.evaluate("() => history.length")
     pg.evaluate("() => history.back()")
-    pg.wait_for_timeout(400)
+    try:   # the state, not a fixed time (Codex LOW 10.10)
+        pg.wait_for_function("""(old) => location.pathname === old && !!document.querySelector('.mobile-menu')
+            && !document.querySelector('[data-nav-progress]')""", arg=pg.evaluate("() => window.__a65.oldPath"), timeout=5000)
+    except Exception:
+        pass
     st = pg.evaluate(STATE)
     r = pg.evaluate("() => window.__a65")
     chk(dev, "F «Назад» while loading: loading signs cleared at once, the step before (contents) shown",
@@ -372,6 +422,76 @@ def run(p, dev, eng, o):
         st["path"] == r["oldPath"] and st["hist"] == h_before and not st["bar"] and st["busy"] == 0,
         f"{st}, history before back {h_before}, want path {r['oldPath']}")
     chk(dev, "F 3 no flash of the old page after «Назад» (contents stay)", not r["flash"] and st["menu"], f"{r['flash'][:2]} menu={st['menu']}")
+
+
+    # ---------- F2: fast «Назад» → «Вперёд» while loading: nothing busy, the cancelled page never comes ----------
+    def settled(timeout=5000):
+        try:
+            pg.wait_for_function("""() => !document.querySelector('[data-nav-progress]')
+                && !document.querySelector('[aria-busy="true"]')""", timeout=timeout)
+        except Exception:
+            pass
+
+    row = fresh(DELAY_MS)
+    tap_at(row)
+    pg.wait_for_timeout(1000)
+    h_before = pg.evaluate("() => history.length")
+    pg.evaluate("() => { history.back(); setTimeout(() => history.forward(), 60); }")
+    settled()
+    pg.wait_for_timeout(300)
+    st = pg.evaluate(STATE)
+    r = pg.evaluate("() => window.__a65")
+    chk(dev, "F2 fast «Назад»→«Вперёд» while loading: contents (the highlighted step), no loading signs, nothing busy",
+        st["path"] == r["oldPath"] and st["menu"] and not st["bar"] and not st["row"] and st["busy"] == 0, str(st))
+    pg.wait_for_timeout(DELAY_MS + 2500)
+    st = pg.evaluate(STATE)
+    chk(dev, "F2 the cancelled page never opens later (URL, history unchanged)",
+        st["path"] == r["oldPath"] and st["hist"] == h_before and not st["bar"] and st["busy"] == 0,
+        f"{st}, history before {h_before}, want path {r['oldPath']}")
+
+    # ---------- F3: «Вперёд» while a page loads: the forward entry is shown, nothing busy, no extra entry ----------
+    pg.evaluate("() => { window.__a65delay = 0; }")
+    row = fresh(0)
+    tap_at(row)                      # 2nd tap: opens the target (fast)
+    try:
+        pg.wait_for_function(f"() => location.pathname === {target!r} && !document.querySelector('.mobile-menu')", timeout=10000)
+    except Exception:
+        pass
+    pg.evaluate("() => history.back()")   # back to the contents step: the row is highlighted, target is «forward»
+    try:
+        pg.wait_for_function("() => !!document.querySelector('.mobile-menu')", timeout=5000)
+    except Exception:
+        pass
+    pg.wait_for_timeout(500)
+    # reload on the contents step: the router's cache is empty, so the next load really waits (slowed)
+    pg.reload(wait_until="networkidle")
+    pg.wait_for_timeout(900)
+    rw = pg.locator(f".mobile-menu nav [data-toc-row='{rid}']")
+    ok_setup = rw.count() == 1 and pg.locator(f".mobile-menu [data-toc-row='{rid}'][data-toc-lit]").count() == 1
+    chk(dev, "F3 setup: «Назад» from the page → contents (reloaded) with the row highlighted (forward = the page)", ok_setup)
+    if ok_setup:
+        pg.evaluate(f"() => {{ window.__a65delay = {DELAY_MS}; }}")
+        pg.evaluate(RECORDER)
+        h_before = pg.evaluate("() => history.length")
+        rw.scroll_into_view_if_needed()
+        tap_at(rw)                   # the highlighted row: one tap loads it (slowed)
+        pg.wait_for_timeout(800)
+        st0 = pg.evaluate(STATE)
+        pg.evaluate("() => history.forward()")
+        try:
+            pg.wait_for_function(f"""() => location.pathname === {target!r} && !document.querySelector('.mobile-menu')
+                && !document.querySelector('[data-nav-progress]')""", timeout=8000)
+        except Exception:
+            pass
+        st = pg.evaluate(STATE)
+        chk(dev, "F3 «Вперёд» while loading: the forward page shown, contents closed, no loading signs, nothing busy",
+            st0["bar"] and st["path"] == target and not st["menu"] and not st["bar"] and st["busy"] == 0,
+            f"loading before={st0['bar']}, now {st}, want {target}")
+        pg.wait_for_timeout(DELAY_MS + 2500)
+        st = pg.evaluate(STATE)
+        chk(dev, "F3 the pending load adds no history entry later and nothing reopens",
+            st["path"] == target and st["hist"] == h_before and not st["menu"] and st["busy"] == 0,
+            f"{st}, history before {h_before}")
 
     chk(dev, "no page errors", not errs, str(errs[:3]))
     b.close()

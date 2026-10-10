@@ -8,6 +8,7 @@
   "sidebar.cover": "Borító",
   "sidebar.closeMenu": "Menü bezárása",
   "sidebar.loading": "betöltés",
+  "sidebar.loadFailed": "nem sikerült betölteni — koppintson újra",
   "sidebar.showAllTranslations": "Összes fordítás megjelenítése",
   "sidebar.showAllWbw": "Összes szavankénti fordítás megjelenítése",
   "search.placeholder": "Szakaszok keresése",
