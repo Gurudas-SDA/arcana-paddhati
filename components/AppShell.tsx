@@ -30,6 +30,16 @@ import {
 } from "@/lib/i18n";
 import { BASE_PATH } from "@/lib/basePath";
 
+/** A link's place: its pathname (no trailing slash) + hash — what a navigation opens. */
+const placeOf = (href: string): string => {
+  try {
+    const u = new URL(href, window.location.href);
+    return u.pathname.replace(/\/+$/, "") + u.hash;
+  } catch {
+    return href;
+  }
+};
+
 const searchIndexUrl = (lang: string) =>
   `${BASE_PATH}/search-index.${lang}.json`;
 
@@ -90,6 +100,8 @@ export default function AppShell({
 
   /** Close from the UI (the close button, backdrop, Esc): pop all menu entries. */
   const closeMenu = useCallback(() => {
+    // ✕ / backdrop / Esc while a page loads: the load is cancelled — history.go(-d)
+    // is a back navigation, which makes Next.js discard the pending one (A65).
     setLeaving(false);
     setMobileMenuOpen(false);
     const d = menuDepth();
@@ -108,10 +120,17 @@ export default function AppShell({
   const leaveTimer = useRef<number | undefined>(undefined);
   /** While a page is loading, taps in the contents list are ignored (A65: a
    *  repeated tap must not start the navigation again). After the safety time
-   *  the reader may tap again (a retry) — the menu and the loading signs stay
-   *  until the page is shown, or until the reader closes the menu. */
+   *  the reader may choose ANOTHER place: its navigation replaces the pending
+   *  one (Next.js discards a pending navigation when a new one starts — its
+   *  app-router-instance action queue), so history grows by one entry and the
+   *  last choice wins. A tap on the place already loading never starts it again
+   *  (A65 fix, Codex 10.10: after 8 s a repeated tap restarted the load). The
+   *  menu and the loading signs stay until the page is shown, or until the
+   *  reader closes the menu / goes back (that cancels the load). */
   const tapsLocked = useRef(false);
-  const leaveMenu = useCallback((navigating?: boolean) => {
+  /** The place being loaded (pathname + hash): the transition token of the pending navigation. */
+  const pendingHref = useRef<string | null>(null);
+  const leaveMenu = useCallback((navigating?: boolean, href?: string) => {
     try {
       if (isMenuEntry()) patchState({ apQuery: searchQueryRef.current });
       sessionStorage.setItem(QUERY_STORE, searchQueryRef.current);
@@ -122,6 +141,7 @@ export default function AppShell({
     if (navigating) {
       setLeaving(true);
       tapsLocked.current = true;
+      pendingHref.current = href ? placeOf(href) : null;
       // Safety net: if the page does not come, a tap may start it again. The
       // menu is NOT closed here — that showed the old page for the rest of a
       // slow load (A65: loads of 19 s); the close button / backdrop still work.
@@ -131,6 +151,7 @@ export default function AppShell({
       return;
     }
     tapsLocked.current = false;
+    pendingHref.current = null;
     setLeaving(false);
     setMobileMenuOpen(false);
   }, []);
@@ -147,12 +168,22 @@ export default function AppShell({
     if (!leaving) {
       window.clearTimeout(leaveTimer.current);
       tapsLocked.current = false;
+      pendingHref.current = null;
     }
   }, [leaving]);
-  /** A65: a tap in the contents / results list while the tapped page loads does nothing. */
+  // No timer outlives the shell (A65, Codex LOW).
+  useEffect(() => () => window.clearTimeout(leaveTimer.current), []);
+  /** A65: while the tapped page loads, a tap in the contents / results list does
+   *  nothing — until the safety time; after it, only a tap on the place already
+   *  loading is ignored (never a second navigation to it). */
   const guardTaps = (e: React.MouseEvent) => {
-    if (!leaving || !tapsLocked.current) return;
-    if (!(e.target as Element).closest?.("nav")) return;
+    if (!leaving) return;
+    const el = e.target as Element;
+    const link = el.closest?.("a[href]") as HTMLAnchorElement | null;
+    if (!el.closest?.("nav") && !link) return;
+    if (!tapsLocked.current) {
+      if (!link || !pendingHref.current || placeOf(link.href) !== pendingHref.current) return;
+    }
     e.preventDefault();
     e.stopPropagation();
   };
@@ -293,6 +324,13 @@ export default function AppShell({
       for (const ms of [60, 160, 320, 600]) window.setTimeout(apply, ms);
     };
     window.addEventListener("popstate", onPop);
+    // A65: the page came back from the browser's page cache (e.g. after a failed
+    // client navigation fell back to a full page load, then "back") — no loading
+    // state survives from before.
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) setLeaving(false);
+    };
+    window.addEventListener("pageshow", onPageShow);
 
     // Reloaded (or restored from the page cache) on a menu entry: its own open
     // lists, not the session's last ones (a reload in the middle of history —
@@ -305,6 +343,7 @@ export default function AppShell({
     return () => {
       m.removeEventListener("scroll", onScroll);
       window.removeEventListener("popstate", onPop);
+      window.removeEventListener("pageshow", onPageShow);
     };
   }, []);
 
@@ -436,7 +475,6 @@ export default function AppShell({
         <div
           className="mobile-menu no-print fixed inset-0 z-40"
           data-leaving={leaving ? "" : undefined}
-          aria-busy={leaving || undefined}
           onClickCapture={guardTaps}
         >
           {/* A65: the tapped page is loading — shown at once, until it is rendered. */}
@@ -465,6 +503,13 @@ export default function AppShell({
           </div>
         </div>
       )}
+
+      {/* A65: «загружается…» for screen readers — a live region that always exists
+          (announced when its text appears) and is outside the menu, so no aria-busy
+          container hides it. The row itself is aria-busy (Sidebar.tsx). */}
+      <div className="sr-only" role="status" aria-live="polite" data-nav-live="">
+        {leaving ? (ui["sidebar.loading"] ?? "loading") : ""}
+      </div>
 
       {/* Main content area */}
       <main className="app-main flex-1 overflow-y-auto">

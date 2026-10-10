@@ -50,7 +50,7 @@ interface SidebarProps {
    * part expanded in the contents is then a history entry of its own.
    */
   /** `navigating`: another page is being opened (the menu stays until it is shown). */
-  onLeave?: (navigating?: boolean) => void;
+  onLeave?: (navigating?: boolean, href?: string) => void;
   /** A65: the page of a followed link is loading (the menu waits for it). */
   navigating?: boolean;
 }
@@ -463,7 +463,7 @@ export default function Sidebar({
     ? (navigating?: boolean, row?: HTMLElement | null) => {
         saveNavScroll();
         if (navigating) setLoadingRow(row?.dataset.tocRow ?? row?.dataset.result ?? null);
-        onLeaveProp(navigating);
+        onLeaveProp(navigating, (row as HTMLAnchorElement | null | undefined)?.href);
       }
     : undefined;
   /** Props of a row while its page loads: the mark for the eye and for screen readers. */
@@ -471,7 +471,9 @@ export default function Sidebar({
     navigating && loadingRow === id ? { "data-toc-loading": "", "aria-busy": true as const } : {};
   const loadingNote = (id: string) =>
     navigating && loadingRow === id ? (
-      <span className="toc-loading-note" role="status">
+      // The visible mark only; screen readers hear «загружается» from the live
+      // region outside the menu (AppShell, A65 a11y — not inside aria-busy).
+      <span className="toc-loading-note">
         <span aria-hidden="true" className="toc-loading-spin" />
         {t(ui, "sidebar.loading")}
       </span>
@@ -567,8 +569,14 @@ export default function Sidebar({
         const shownRow = navRef.current?.closest("nav")?.querySelector<HTMLElement>("[data-toc-lit]")?.dataset.tocRow;
         if (shownRow) patchState({ [PATH_LIT]: shownRow });
       }
-      pushOverlay({ apParts: partsSnapshot(), [PATH_LIT]: id, apDepth: menuDepth(st) + 1 });
-      patchState({}, [RESULT_KEY, "apExp"]);
+      if (navigating) {
+        // A page is loading (A65): this choice will replace it — no step of its
+        // own in history, so the new page is ONE entry on top of the menu's.
+        patchState({ apParts: partsSnapshot(), [PATH_LIT]: id }, [RESULT_KEY, "apExp"]);
+      } else {
+        pushOverlay({ apParts: partsSnapshot(), [PATH_LIT]: id, apDepth: menuDepth(st) + 1 });
+        patchState({}, [RESULT_KEY, "apExp"]);
+      }
     } catch {
       // history unavailable: the highlight still shows
     }
