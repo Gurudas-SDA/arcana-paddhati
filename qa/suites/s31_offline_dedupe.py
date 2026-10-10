@@ -36,7 +36,7 @@ import server as qa_server  # noqa: E402
 
 ENG = sys.argv[2] if len(sys.argv) > 2 else "chromium"
 LANGS = ["lv", "ru-iast"]
-LANG_DIRS = ["ru", "ru-iast", "lv", "de", "fr", "es", "it", "uk", "hu"]
+LANG_DIRS = ["ru", "ru-iast", "lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"]
 LIMIT = 0.60
 res = []
 

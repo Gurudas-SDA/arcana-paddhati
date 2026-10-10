@@ -8,5 +8,7 @@
   { "code": "es", "name": "Español", "htmlLang": "es" },
   { "code": "it", "name": "Italiano", "htmlLang": "it" },
   { "code": "uk", "name": "Українська", "htmlLang": "uk" },
-  { "code": "hu", "name": "Magyar", "htmlLang": "hu" }
+  { "code": "hu", "name": "Magyar", "htmlLang": "hu" },
+  { "code": "pt", "name": "Português", "htmlLang": "pt" },
+  { "code": "lt", "name": "Lietuvių", "htmlLang": "lt" }
 ]

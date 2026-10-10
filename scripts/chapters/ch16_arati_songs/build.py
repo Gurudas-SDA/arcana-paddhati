@@ -11,7 +11,7 @@ model in this script: IAST, word-by-word and translation are taken from the draf
   * RU Cyrillic mirror (book.ru.json): the same, Sanskrit transliterated (scripts/translate/iast_to_cyrillic.py).
   * EN (book.json): IAST only + title/author in IAST — the draft has no English translation
     (the GVP English text is not in the draft) — open question for Satkirti/Gurudas.
-  * Other languages (lv, de, fr, es, it, uk, hu; since the night release 08.10.2026): the English chapters translated
+  * Other languages (lv, de, fr, es, it, uk, hu, pt, lt; since the night release 08.10.2026): the English chapters translated
     by scripts/translate/night_sync.py, stored in i18n.json here (chapter/song titles and author lines in each
     language's conventions; the verses IAST as in English). Not translated yet -> English fallback.
 Since v7.5 (Satkirti 07.10 16:05) NO source line is shown in the book; source_line() keeps it internal: the draft's «source» (bibliography)
@@ -53,7 +53,7 @@ CHAPTERS = [  # id, draft «part», RU title, EN title, subsection id per song_n
     ("gaura-arati-songs", "Гаура-арати (вечернее арати)", "Песни гаура-арати", "Gaura-ārati Songs",
      {6: "song-gaura-arati", 7: "song-yugala-arati"}),
 ]
-OTHER = ["lv", "de", "fr", "es", "it", "uk", "hu"]
+OTHER = ["lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"]
 FILES = {"en": "book.json", "ru": "book.ru.json", "ru-iast": "book.ru-iast.json"}
 
 

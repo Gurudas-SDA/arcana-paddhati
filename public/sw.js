@@ -57,7 +57,7 @@ const MANIFEST_URL = BASE + 'precache-manifest.json';
 const COMPLETE_KEY = BASE + '__precache-complete__';
 const MANIFEST_KEY = BASE + '__precache-manifest__';
 // Non-default languages live under /arcana-paddhati/<code>/ (lib/languages.json).
-const LANG_CODES = ['ru', 'ru-iast', 'lv', 'de', 'fr', 'es', 'it', 'uk', 'hu'];
+const LANG_CODES = ['ru', 'ru-iast', 'lv', 'de', 'fr', 'es', 'it', 'uk', 'hu', 'pt', 'lt'];
 const NETWORK_TIMEOUT_MS = 3000;
 const CONCURRENCY = 6;
 const RETRIES = 3;

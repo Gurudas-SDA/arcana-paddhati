@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Night sync of the other languages (lv, de, fr, es, it, uk, hu) with the English book (Night release 08.10.2026).
+"""Night sync of the other languages (lv, de, fr, es, it, uk, hu, pt, lt) with the English book (Night release 08.10.2026).
 
 Rule (Gurudas): by day only RU + EN are edited; at night the other languages are brought up to date.
 
@@ -37,9 +37,13 @@ REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 DATA = os.path.join(REPO, "data")
 URL = "https://anymodel.org/v1/chat/completions"
 MODELS = ["cx/gpt-6.1-sol", "cx/gpt-6-sol"]
-LANGS = ["lv", "de", "fr", "es", "it", "uk", "hu"]
+LANGS = ["lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"]
 LNAME = {"lv": "Latvian", "de": "German", "fr": "French", "es": "Spanish", "it": "Italian", "uk": "Ukrainian",
-         "hu": "Hungarian"}
+         "hu": "Hungarian", "pt": "Portuguese", "lt": "Lithuanian"}
+# A73 (Gurudas 10.10): one AnyModel key per language when several languages run in parallel
+# ({lang: key index into KEYS}, set by new_lang.py --keys); a pinned language never borrows another key -
+# on HTTP 429 it backs off (60 s, 120 s, ...) instead.
+KEY_PIN = {}
 LOG = os.path.join(HERE, "night_sync.log")
 GENERATOR = {  # section id -> folder of its generator (i18n.json is written there)
     "parampara": os.path.join(REPO, "scripts", "parampara"),
@@ -84,8 +88,8 @@ def call(lang, messages, key_i, max_tokens=32000):
     """-> (content, model). Tries gpt-6.1-sol on several keys, then gpt-6-sol; raises if both fail."""
     errs = []
     for model in MODELS:
-        for attempt in range(4):
-            key = KEYS[(key_i + attempt) % len(KEYS)]
+        for attempt in range(6 if lang in KEY_PIN else 4):
+            key = KEYS[KEY_PIN[lang]] if lang in KEY_PIN else KEYS[(key_i + attempt) % len(KEYS)]
             body = {"model": model, "messages": messages, "max_tokens": max_tokens, "temperature": 0.2,
                     "response_format": {"type": "json_object"}}
             t0 = time.time()
@@ -109,7 +113,7 @@ def call(lang, messages, key_i, max_tokens=32000):
                 msg = str(e).replace(key, "***")[:250]
                 errs.append("%s: %s" % (model, msg))
                 log("  %s call error %s attempt %d: %s" % (lang, model, attempt + 1, msg))
-                time.sleep(5 * (attempt + 1))
+                time.sleep((60 if "HTTP 429" in msg else 5) * (attempt + 1))
         log("  %s: %s failed on all tried keys -> next model" % (lang, model))
     raise RuntimeError("all models failed: " + " | ".join(errs[-3:]))
 
@@ -241,7 +245,10 @@ EN = json.load(open(os.path.join(DATA, "book.json"), encoding="utf-8"))
 def examples(lang, n_text=6, n_verse=2, n_title=4):
     """Aligned (English, <lang>) pairs from chapters already translated: the book's own conventions
     (⟦…⟧ spans, how names/terms are written, register)."""
-    tb = json.load(open(os.path.join(DATA, "book.%s.json" % lang), encoding="utf-8"))
+    bp = os.path.join(DATA, "book.%s.json" % lang)
+    if not os.path.exists(bp):   # a new language (A73: pt, lt) - glossary + rules only
+        return [], []
+    tb = json.load(open(bp, encoding="utf-8"))
     own = {s["id"]: s for s in tb["sections"]}
     tx, vs, ti, wb = [], [], [], []
     for sid in ("arcana-sri-guru", "daily-duties-brahma-muhurta", "mantras-honouring-caranamrita",
@@ -282,11 +289,19 @@ TERM_RULES = {
            "ṅ н̇, c ч, ch чх, j дж, jh джх, ñ н̃, ṭ т̣, ḍ д̣, ṇ н̣, t т, th тх, d д, dh дг, n н, p п, ph пх, b б, bh бг, "
            "y й, r р, l л, v в, ś ш́, ṣ ш, s с, h х; inflected with Ukrainian case endings."),
 }
-for _l in ("de", "fr", "es", "it", "hu"):
+for _l in ("de", "fr", "es", "it", "hu", "pt"):
     TERM_RULES[_l] = ("Sanskrit names and terms inside prose stay exactly as in the English source (IAST with diacritics: "
                       "Kṛṣṇa, Śrīla Bhaktivinoda Ṭhākura, Gurvaṣṭakam), as this book and vedabase.io/%s do; only the "
                       "English words around them are translated. Names in a caption or heading that are entirely "
                       "Sanskrit/IAST stay byte-identical." % _l)
+TERM_RULES["pt"] += (" Portuguese as in the Brazilian BBT editions on vedabase.io/pt-br (Deidade, mestre espiritual, devoto, "
+                     "reverências, Suprema Personalidade de Deus, serviço devocional, passatempos, búzio); glossary.pt.json.")
+TERM_RULES["lt"] = ("Sanskrit names and terms inside Lithuanian prose keep the IAST letters and diacritics of the English source "
+                    "and take Lithuanian case endings, exactly as vedabase.io/lt does (Kṛṣṇa, Kṛṣṇos, Kṛṣṇai, Kṛṣṇą; "
+                    "Vṛndāvanoje; brāhmaṇus; bhaktas, bhaktai; vaiṣṇavas). Sanskrit mantras, verse quotations and names in a "
+                    "caption or heading that are entirely Sanskrit/IAST stay byte-identical. Lithuanian words as in the BBT "
+                    "Lithuanian editions (Dievybė, dvasinis mokytojas, Aukščiausiasis Dievo Asmuo, pasiaukojimo tarnystė, "
+                    "nusilenkimai, malonė, šventykla); glossary.lt.json.")
 
 
 def system_prompt(lang):
