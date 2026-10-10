@@ -76,7 +76,11 @@ def run(p, dev, eng, o):
                         tapel(G)
                         if not vis():
                             tapel(G)
-            if pg.evaluate(f"{CHB}.getAttribute('aria-expanded')") != "true":
+            # Two-tap contents (v7.5, Satkirti 07.10): the 1st tap on a chapter only highlights it,
+            # the 2nd tap expands it — the same as for the groups above and the subsection below.
+            for _ in range(2):
+                if pg.evaluate(f"{CHB}.getAttribute('aria-expanded')") == "true":
+                    break
                 tapel(CHB)
             A = f"document.querySelector('#toc-ch-{ch} a[href*=\"#{sid}\"]')"
             if not pg.evaluate(f"!!{A}"):
