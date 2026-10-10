@@ -10,6 +10,10 @@
 // the worker), with progress messages to the pages. An older complete cache
 // is kept until the new one is complete.
 //
+// v6.1 (A71, 10.10.2026): about half the download — index.txt is rebuilt from
+// the cached page and byte-identical files are stored once (see "files not
+// stored" below).
+//
 // MAIN RULE (Satkirti, 06.10.2026): the app works OFFLINE on iPad, iPhone,
 // Android and computers after the first visit.
 //
@@ -99,13 +103,81 @@ async function arcanaCacheNames() {
   return (await caches.keys()).filter((k) => k.startsWith(CACHE_PREFIX));
 }
 
+// ---------- files not stored (A71, 10.10.2026) ----------
+// build-precache.mjs leaves two kinds of files out of the download, each
+// version's cache answers them from what it holds:
+//  * duplicates: the manifest's `aliases` {url: stored url} (byte-identical
+//    files, e.g. __next._index.txt — the same on every page of a language);
+//  * <route>/index.txt: rebuilt from the cached page <route>/ — its inline
+//    `self.__next_f.push([1,"…"])` chunks are exactly the file's bytes (checked
+//    per file at build time; qa/suites/s31_offline_dedupe.py).
+const ALIAS_KEY = BASE + '__precache-aliases__';
+const aliasMaps = new Map();
+
+async function aliasesOf(name, cache) {
+  if (aliasMaps.has(name)) return aliasMaps.get(name);
+  try {
+    const res = await cache.match(ALIAS_KEY);
+    if (res) {
+      const map = await res.json();
+      aliasMaps.set(name, map);
+      return map;
+    }
+  } catch {
+    // no map
+  }
+  return {};
+}
+
+const FLIGHT_RE = /<script[^>]*>self\.__next_f\.push\((\[[\s\S]*?\])\)<\/script>/g;
+
+async function rscFromPage(cache, key) {
+  if (!key.endsWith('/index.txt')) return undefined;
+  const page = await cache.match(key.slice(0, -'index.txt'.length), MATCH_OPTS);
+  if (!page) return undefined;
+  const html = await page.text();
+  let out = '';
+  let n = 0;
+  for (const m of html.matchAll(FLIGHT_RE)) {
+    let a;
+    try {
+      a = JSON.parse(m[1]);
+    } catch {
+      return undefined;
+    }
+    if (a[0] === 1 && typeof a[1] === 'string') {
+      out += a[1];
+      n++;
+    } else if (a[0] !== 0) {
+      return undefined;
+    }
+  }
+  if (!n) return undefined;
+  return new Response(out, { status: 200, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+}
+
+// One cache: the file itself, else its stored duplicate, else (index.txt) the
+// payload rebuilt from the page — all from the SAME version.
+async function matchIn(name, key) {
+  const cache = await caches.open(name);
+  const hit = await cache.match(key, MATCH_OPTS);
+  if (hit) return hit;
+  const canonical = (await aliasesOf(name, cache))[key];
+  if (canonical) {
+    const dup = await cache.match(canonical, MATCH_OPTS);
+    // A fresh Response: the page sees its own URL, not the stored one's.
+    if (dup) return new Response(dup.body, { status: dup.status, headers: dup.headers });
+  }
+  return rscFromPage(cache, key);
+}
+
 // This version first, then any other (older) Arcana cache.
 async function cacheMatch(key) {
-  const own = await (await caches.open(CACHE_NAME)).match(key, MATCH_OPTS);
+  const own = await matchIn(CACHE_NAME, key);
   if (own) return own;
   for (const name of await arcanaCacheNames()) {
     if (name === CACHE_NAME) continue;
-    const hit = await (await caches.open(name)).match(key, MATCH_OPTS);
+    const hit = await matchIn(name, key);
     if (hit) return hit;
   }
   return undefined;
@@ -252,6 +324,10 @@ async function doPrecache(only) {
     // will install the new one. Do not mix versions in this cache.
     return { total: 0, fetched: 0, copied: 0, failed: 1, complete: false, stale: true };
   }
+  // The duplicates map first: the files stored so far already answer their aliases.
+  const aliases = manifest.aliases || {};
+  await cache.put(ALIAS_KEY, new Response(JSON.stringify(aliases), { headers: { 'Content-Type': 'application/json' } }));
+  aliasMaps.set(CACHE_NAME, aliases);
   const urls = manifest.urls || [];
   const hashes = manifest.hashes || [];
   const groups = manifest.groups || [];

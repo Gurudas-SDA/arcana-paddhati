@@ -99,19 +99,74 @@ function group(rel) {
 }
 const groups = [];
 
+// A71 (10.10.2026) — no duplicates in the offline cache (was ~20 MB per
+// language, now ~10 MB):
+//  * <route>/index.txt (the full RSC payload; the router fetches it when a link
+//    is followed before its segment prefetch finished, e.g. «След. глава») is
+//    byte-identical to the flight chunks inlined in <route>/index.html
+//    (`self.__next_f.push([1,"…"])`). It is not downloaded: the SW rebuilds it
+//    from the cached page. Skipped ONLY when the rebuild gives exactly the same
+//    bytes (checked here, per file) — otherwise it stays in the manifest.
+//  * Byte-identical files of one download group with the same extension (e.g.
+//    __next._index.txt — the root layout with the whole contents, ~180 KB, the
+//    same on every page of a language) are stored once: `aliases` maps every
+//    other URL to the stored one and the SW answers it from there.
+// qa/suites/s31_offline_dedupe.py checks both, and offline navigation.
+const FLIGHT = /<script[^>]*>self\.__next_f\.push\((\[[\s\S]*?\])\)<\/script>/g;
+function flightFromHtml(html) {
+  let out = "";
+  let n = 0;
+  for (const m of html.matchAll(FLIGHT)) {
+    const a = JSON.parse(m[1]);
+    if (a[0] === 1 && typeof a[1] === "string") {
+      out += a[1];
+      n++;
+    } else if (a[0] !== 0) return null;
+  }
+  return n ? out : null;
+}
+function rebuildable(rel, buf) {
+  if (!(rel === "index.txt" || rel.endsWith("/index.txt"))) return false;
+  const html = join(outDir, rel.slice(0, -"index.txt".length), "index.html");
+  if (!existsSync(html)) return false;
+  const flight = flightFromHtml(readFileSync(html, "utf8"));
+  return flight !== null && Buffer.from(flight, "utf8").equals(buf);
+}
+
 const hash = createHash("sha256");
 let totalBytes = 0;
+let skippedBytes = 0;
+let rebuilt = 0;
 const urls = [];
 // Per-file hash: the SW copies unchanged files from the previous version's
 // cache instead of downloading them again.
 const hashes = [];
+const aliases = {};
+const firstOf = new Map(); // "group|ext|sha1" -> the stored URL
 const counts = { pages: 0, rsc: 0, static: 0, other: 0 };
 for (const rel of ordered) {
   const buf = readFileSync(join(outDir, rel));
+  // The version covers every file, stored or not.
   hash.update(rel).update("\0").update(buf).update("\0");
-  hashes.push(createHash("sha1").update(buf).digest("hex").slice(0, 16));
-  totalBytes += buf.length;
   const url = toUrl(rel);
+  if (rebuildable(rel, buf)) {
+    rebuilt++;
+    skippedBytes += buf.length;
+    continue;
+  }
+  const sha1 = createHash("sha1").update(buf).digest("hex");
+  if (!url.endsWith("/")) {
+    const key = `${group(rel)}|${rel.slice(rel.lastIndexOf("."))}|${sha1}`;
+    const first = firstOf.get(key);
+    if (first) {
+      aliases[url] = first;
+      skippedBytes += buf.length;
+      continue;
+    }
+    firstOf.set(key, url);
+  }
+  hashes.push(sha1.slice(0, 16));
+  totalBytes += buf.length;
   urls.push(url);
   groups.push(group(rel));
   if (url.endsWith("/")) counts.pages++;
@@ -123,7 +178,7 @@ const version = hash.digest("hex").slice(0, 16);
 
 writeFileSync(
   join(outDir, "precache-manifest.json"),
-  JSON.stringify({ version, bytes: totalBytes, urls, hashes, groups })
+  JSON.stringify({ version, bytes: totalBytes, urls, hashes, groups, aliases })
 );
 
 const swPath = join(outDir, "sw.js");
@@ -137,5 +192,6 @@ writeFileSync(swPath, sw.split(VERSION_PLACEHOLDER).join(version));
 console.log(
   `precache: version ${version} — ${urls.length} URLs ` +
     `(${counts.pages} pages, ${counts.rsc} RSC payloads, ${counts.static} static assets, ` +
-    `${counts.other} other), ${(totalBytes / 1e6).toFixed(1)} MB`
+    `${counts.other} other), ${(totalBytes / 1e6).toFixed(1)} MB; not stored: ${rebuilt} index.txt ` +
+    `(rebuilt from the page) + ${Object.keys(aliases).length} duplicates (aliases) = ${(skippedBytes / 1e6).toFixed(1)} MB`
 );
