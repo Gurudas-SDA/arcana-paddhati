@@ -463,8 +463,10 @@ def run(p, dev, eng, o):
     except Exception:
         pass
     pg.wait_for_timeout(500)
-    # reload on the contents step: the router's cache is empty, so the next load really waits (slowed)
-    pg.reload(wait_until="networkidle")
+    # reload on the contents step, page data slowed from the start (also the contents' prefetch): the
+    # router's cache is empty, so the next load really waits
+    pg.add_init_script(f"window.__a65delay = {DELAY_MS};")
+    pg.reload(wait_until="load")
     pg.wait_for_timeout(900)
     rw = pg.locator(f".mobile-menu nav [data-toc-row='{rid}']")
     ok_setup = rw.count() == 1 and pg.locator(f".mobile-menu [data-toc-row='{rid}'][data-toc-lit]").count() == 1
