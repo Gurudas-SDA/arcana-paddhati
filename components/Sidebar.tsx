@@ -51,6 +51,8 @@ interface SidebarProps {
    */
   /** `navigating`: another page is being opened (the menu stays until it is shown). */
   onLeave?: (navigating?: boolean) => void;
+  /** A65: the page of a followed link is loading (the menu waits for it). */
+  navigating?: boolean;
 }
 
 interface PreparedEntry {
@@ -439,6 +441,7 @@ export default function Sidebar({
   searchEntries,
   onClose,
   onLeave: onLeaveProp,
+  navigating = false,
 }: SidebarProps) {
   const pathname = usePathname();
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -454,12 +457,25 @@ export default function Sidebar({
       // history unavailable
     }
   };
+  /** A65: the row whose page is loading (marked «загружается…» while `navigating`). */
+  const [loadingRow, setLoadingRow] = useState<string | null>(null);
   const onLeave = onLeaveProp
-    ? (navigating?: boolean) => {
+    ? (navigating?: boolean, row?: HTMLElement | null) => {
         saveNavScroll();
+        if (navigating) setLoadingRow(row?.dataset.tocRow ?? row?.dataset.result ?? null);
         onLeaveProp(navigating);
       }
     : undefined;
+  /** Props of a row while its page loads: the mark for the eye and for screen readers. */
+  const loadingProps = (id: string) =>
+    navigating && loadingRow === id ? { "data-toc-loading": "", "aria-busy": true as const } : {};
+  const loadingNote = (id: string) =>
+    navigating && loadingRow === id ? (
+      <span className="toc-loading-note" role="status">
+        <span aria-hidden="true" className="toc-loading-spin" />
+        {t(ui, "sidebar.loading")}
+      </span>
+    ) : null;
 
   // Put the list's scroll offset of this menu entry back: on mount (the menu
   // reopened by "back" or a reload) and on "back" between menu steps. Applied
@@ -597,7 +613,7 @@ export default function Sidebar({
     }
     if (!samePage) {
       // The Link navigates (a new entry on top of the menu's).
-      onLeave?.(true);
+      onLeave?.(true, e.currentTarget as HTMLElement);
       return;
     }
     e.preventDefault();
@@ -639,7 +655,7 @@ export default function Sidebar({
     const strip = (p: string) => p.replace(/\/+$/, "");
     if (strip(href) !== strip(pathname)) {
       // The Link navigates (a new entry on top of the menu's).
-      if (onLeave) onLeave(true);
+      if (onLeave) onLeave(true, e.currentTarget as HTMLElement);
       else onClose();
       return;
     }
@@ -891,9 +907,11 @@ export default function Sidebar({
             aria-current={isSelected ? "page" : undefined}
             data-toc-lit={rowLit ? "" : undefined}
             data-toc-row={rowId}
+            {...loadingProps(rowId)}
             className={rowClass}
           >
             {label}
+            {loadingNote(rowId)}
           </Link>
         )}
 
@@ -916,6 +934,7 @@ export default function Sidebar({
                     aria-current={isActive ? "location" : undefined}
                     data-toc-lit={subLit ? "" : undefined}
                     data-toc-row={subRow}
+                    {...loadingProps(subRow)}
                     className={subClass(subLit)}
                   >
                     {/* the guide line of the list (was the list's own left border, 24px in) */}
@@ -924,6 +943,7 @@ export default function Sidebar({
                       {sub.num && <span className="heading-num">{`${sub.num}.`}</span>}
                       {sub.title}
                     </span>
+                    {loadingNote(subRow)}
                   </Link>
                 </li>
               );
@@ -1160,6 +1180,7 @@ export default function Sidebar({
             data-toc-cover=""
             data-toc-lit={lit("cover", selectedId === null) ? "" : undefined}
             data-toc-row="cover"
+            {...loadingProps("cover")}
             className={`sidebar-link w-full text-left px-5 py-3 flex items-center gap-2 transition-colors ${
               lit("cover", selectedId === null)
                 ? "bg-[#FAF3E8] border-l-3 border-[#B8860B]"
@@ -1190,6 +1211,7 @@ export default function Sidebar({
             >
               {t(ui, "sidebar.cover")}
             </span>
+            {loadingNote("cover")}
           </Link>
         </div>
       )}
@@ -1206,6 +1228,7 @@ export default function Sidebar({
                   <Link
                     href={sectionHref(entry.section, entry.anchor)}
                     data-result={`${entry.section}#${entry.anchor ?? ""}`}
+                    {...loadingProps(`${entry.section}#${entry.anchor ?? ""}`)}
                     onClick={(e) => followLink(e, entry.section, entry.anchor, true)}
                     className="block w-full text-left px-5 py-3 border-l-3 border-transparent hover:bg-[#FDF8F0] transition-colors"
                   >
@@ -1222,6 +1245,7 @@ export default function Sidebar({
                         <Marked text={snippet.before + snippet.match + snippet.after} nq={normalizedQuery} />
                       </span>
                     )}
+                    {loadingNote(`${entry.section}#${entry.anchor ?? ""}`)}
                   </Link>
                 </li>
               ))}
@@ -1278,6 +1302,7 @@ export default function Sidebar({
                                 aria-current={isPartSelected ? "page" : undefined}
                                 data-toc-lit={lit(`part:${part.id}`, isPartSelected) ? "" : undefined}
                                 data-toc-row={`part:${part.id}`}
+                                {...loadingProps(`part:${part.id}`)}
                                 className={`sidebar-link w-full text-left px-5 py-3 block border-l-3 transition-colors ${
                                   lit(`part:${part.id}`, isPartSelected)
                                     ? "bg-[#FAF3E8] border-[#B8860B]"
@@ -1291,6 +1316,7 @@ export default function Sidebar({
                                 >
                                   {t(ui, "part.empty")}
                                 </span>
+                                {loadingNote(`part:${part.id}`)}
                               </Link>
                             </li>
                           )}

@@ -90,6 +90,7 @@ export default function AppShell({
 
   /** Close from the UI (the close button, backdrop, Esc): pop all menu entries. */
   const closeMenu = useCallback(() => {
+    setLeaving(false);
     setMobileMenuOpen(false);
     const d = menuDepth();
     if (d > 0) window.history.go(-d);
@@ -99,10 +100,17 @@ export default function AppShell({
    * Leave the menu for a place (link or result): keep its entries (with the query).
    * `navigating` — another page is opening: the menu stays on screen until that
    * page is rendered (Reader v7.1: on a slow device the old page — often the
-   * cover — flashed for 2–3 s between the menu and the chapter).
+   * cover — flashed for 2–3 s between the menu and the chapter), with a
+   * loading bar at the top and «загружается…» on the tapped row (A65, КСВ
+   * 07.10.2026: 0–7 s, sometimes 19 s, with no sign of loading).
    */
   const [leaving, setLeaving] = useState(false);
   const leaveTimer = useRef<number | undefined>(undefined);
+  /** While a page is loading, taps in the contents list are ignored (A65: a
+   *  repeated tap must not start the navigation again). After the safety time
+   *  the reader may tap again (a retry) — the menu and the loading signs stay
+   *  until the page is shown, or until the reader closes the menu. */
+  const tapsLocked = useRef(false);
   const leaveMenu = useCallback((navigating?: boolean) => {
     try {
       if (isMenuEntry()) patchState({ apQuery: searchQueryRef.current });
@@ -113,13 +121,16 @@ export default function AppShell({
     window.clearTimeout(leaveTimer.current);
     if (navigating) {
       setLeaving(true);
-      // Safety net: never keep the menu if the page does not come.
+      tapsLocked.current = true;
+      // Safety net: if the page does not come, a tap may start it again. The
+      // menu is NOT closed here — that showed the old page for the rest of a
+      // slow load (A65: loads of 19 s); the close button / backdrop still work.
       leaveTimer.current = window.setTimeout(() => {
-        setLeaving(false);
-        setMobileMenuOpen(false);
+        tapsLocked.current = false;
       }, 8000);
       return;
     }
+    tapsLocked.current = false;
     setLeaving(false);
     setMobileMenuOpen(false);
   }, []);
@@ -133,8 +144,18 @@ export default function AppShell({
     }
   }
   useEffect(() => {
-    if (!leaving) window.clearTimeout(leaveTimer.current);
+    if (!leaving) {
+      window.clearTimeout(leaveTimer.current);
+      tapsLocked.current = false;
+    }
   }, [leaving]);
+  /** A65: a tap in the contents / results list while the tapped page loads does nothing. */
+  const guardTaps = (e: React.MouseEvent) => {
+    if (!leaving || !tapsLocked.current) return;
+    if (!(e.target as Element).closest?.("nav")) return;
+    e.preventDefault();
+    e.stopPropagation();
+  };
 
   // <html lang> follows the language on client-side navigation (the static
   // HTML already has it, see scripts/patch-html-lang.mjs).
@@ -412,7 +433,21 @@ export default function AppShell({
 
       {/* Contents / search panel (all screen sizes) */}
       {mobileMenuOpen && (
-        <div className="mobile-menu no-print fixed inset-0 z-40" data-leaving={leaving ? "" : undefined}>
+        <div
+          className="mobile-menu no-print fixed inset-0 z-40"
+          data-leaving={leaving ? "" : undefined}
+          aria-busy={leaving || undefined}
+          onClickCapture={guardTaps}
+        >
+          {/* A65: the tapped page is loading — shown at once, until it is rendered. */}
+          {leaving && (
+            <div
+              className="nav-progress"
+              data-nav-progress=""
+              role="progressbar"
+              aria-label={ui["sidebar.loading"] ?? "loading"}
+            />
+          )}
           {/* Backdrop */}
           <div
             className="fixed inset-0 bg-black/30 sidebar-backdrop"
@@ -425,6 +460,7 @@ export default function AppShell({
               {...sidebarProps}
               onClose={closeMenu}
               onLeave={leaveMenu}
+              navigating={leaving}
             />
           </div>
         </div>
