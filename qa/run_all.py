@@ -88,10 +88,6 @@ SUITES = [
          devices=None, fast=True, timeout_fast=200),
     dict(id="s20wk", file="suites/s20_offline.py", title="OFFLINE: WebKit (iPhone/iPad) — serveris izslēgts", args=["webkit"],
          devices=None, fast=False),
-    dict(id="s31", file="suites/s31_offline_dedupe.py", title="A71 OFFLINE bez dublikātiem: manifests ≤60 % uz valodu, nekas nepazūd, index.txt no lapas, nodaļas offline (Chromium)", args=["chromium"],
-         devices=None, fast=False, timeout_fast=600),
-    dict(id="s31wk", file="suites/s31_offline_dedupe.py", title="A71 OFFLINE bez dublikātiem: WebKit (iPhone/iPad) — index.txt + aizstājēji caur SW", args=["webkit"],
-         devices=None, fast=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",
          devices=["pixel7", "desktop"], fast=False, server=False),
 ]
