@@ -40,7 +40,7 @@ PARAMPARA_RU = [
     "Шрила Саччидананда Бхактивинода Тхакур",
     "Шрила Гаура Кишора дас Бабаджи Махарадж",
     "Прабхупада Шрила Бхактисиддханта Сарасвати Тхакур",
-    "Шрила Бхакти Праджнана Кешава Госвами Махарадж",
+    "Шрила Бхакти Прагьяна Кешава Госвами Махарадж",   # Satkirti 11.10 msg 2361: jñ = «гья»
     "Шрила А. Ч. Бхактиведанта Свами Прабхупада",
     "Шрила Бхактиведанта Нараяна Госвами Махарадж",
     "Шри Према Прайоджана Прабху",
@@ -872,6 +872,49 @@ def run(args):
                 raw = "" if t == n else " (decomposed m + U+0323)"
                 c.hit(rel, where or "/", snippet(n, m, 25) + raw)
     c.info = f"{len(srcs)} files (decoded JSON, NFC)"
+    c.report(args.max)
+
+    # L29 — jñ в русском тексте = «гья» (Прагьяна, гьяна, гьяни, вигьяна, адвая-гьяна); санскрит с диакритикой
+    # остаётся «джн̃» (кириллица) / «jñ» (IAST) (Satkirti 11.10.2026 23:25, msg 2361; анализ
+    # «Праджняна или Праджнана — анализ» 08.10). Ловит «джн» без тильды (U+0303) в RU-книгах и в их
+    # генераторах (chapter_ru.py, moods.json ru/ru-iast, parampara) — иначе ночной генератор вернёт старое.
+    # Расшифровки лекций — источники как есть (не проверяются).
+    c = Check("L29", "RU text: jñ = «гья» (Прагьяна, гьяна), not «джн(я/а)»; Sanskrit with diacritics «джн̃»/«jñ» unchanged")
+    bad_jn = re.compile("[Дд]жн(?!̃)")   # «Дж/дж» + «н» not followed by combining tilde
+    ru_jn = [os.path.join(qa.DATA, b) for b in CFG["ru_books"]]
+    for f in ru_jn:
+        for p, a, k, s in walk(loaded[f], True, []):
+            for m in bad_jn.finditer(s):
+                c.hit(name(f), p, snippet(s, m, 30))
+    gen = glob.glob(os.path.join(qa.REPO, "scripts", "chapters", "*", "chapter_ru.py"))
+    gen += glob.glob(os.path.join(qa.REPO, "scripts", "chapters", "*", "en_cache.json"))   # RU keys
+    gen += glob.glob(os.path.join(qa.REPO, "scripts", "chapters", "*", "pesni_arati.json"))
+    gen += [os.path.join(qa.REPO, "scripts", "parampara", "apply_parampara.py")]
+    for f in gen:
+        if not os.path.exists(f):
+            continue
+        raw = open(f, encoding="utf-8").read()
+        for m in bad_jn.finditer(raw):
+            c.hit(os.path.relpath(f, qa.REPO).replace("\\", "/"), "*", snippet(raw, m, 30))
+    mp = os.path.join(qa.REPO, "scripts", "moods", "moods.json")
+    n_gen = len(gen)
+    if os.path.exists(mp):
+        n_gen += 1
+
+        def ru_vals(o, path=""):
+            if isinstance(o, dict):
+                for k2, v in o.items():
+                    if k2 in ("ru", "ru-iast") and isinstance(v, str):
+                        yield f"{path}/{k2}", v
+                    else:
+                        yield from ru_vals(v, f"{path}/{k2}")
+            elif isinstance(o, list):
+                for i, v in enumerate(o):
+                    yield from ru_vals(v, f"{path}/{i}")
+        for where, t in ru_vals(json.load(open(mp, encoding="utf-8"))):
+            for m in bad_jn.finditer(t):
+                c.hit("scripts/moods/moods.json", where, snippet(t, m, 30))
+    c.info = f"{len(ru_jn)} RU books + {n_gen} generator files"
     c.report(args.max)
 
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует
