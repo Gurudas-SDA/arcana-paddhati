@@ -1602,6 +1602,464 @@
      }
     ]
    }
+  },
+  "pt": {
+   "en_hash": "945c6dd73b01ad9d",
+   "model": "cx/gpt-6.1-sol",
+   "date": "2026-10-10 21:22",
+   "section": {
+    "id": "kartika-bhajans",
+    "title": "Bhajans para Kārtika",
+    "subtitle": null,
+    "page": "",
+    "content": [
+     {
+      "type": "text",
+      "content": "Durante todo o mês de Kārtika, estas três orações são cantadas diariamente na Chaitanya Academy: Śrī Dāmodarāṣṭakam, Śrī Nanda-nandanāṣṭakam (“namāmi nanda-nandanam”) e Śrī Rādhā-kṛpā-kaṭākṣa-stava-rāja."
+     }
+    ],
+    "subsections": [
+     {
+      "id": "song-damodarastakam",
+      "title": "Śrī Dāmodarāṣṭakam",
+      "content": [
+       {
+        "type": "text",
+        "content": "Proferido por Satyavrata Muni e registrado no Padma Purāṇa por Śrī Kṛṣṇa Dvaipāyana Vedavyāsa"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "namāmīśvaraṁ sac-cid-ānanda-rūpaṁ\nlasat-kuṇḍalaṁ gokule bhrājamānam\nyaśodā-bhiyolūkhalād dhāvamānaṁ\nparāmṛṣṭam atyantato drutya gopyā",
+        "wbw": "namāmīśvaraṁ — reverências ao Controlador Supremo, o possuidor de toda potência; sac — eternidade; cid — conhecimento; ānanda — e bem-aventurança; rūpaṁ — a própria personificação, a origem de todas as encarnações, Śrī Kṛṣṇa; lasat-kuṇḍalaṁ — em cujas faces brincam brincos em forma de makara; gokule — na morada transcendental de Gokula, o lar dos gopas, gopīs, vacas, bezerros e assim por diante; bhrājamānam — Ele está esplendidamente situado como a concepção brilhante; yaśodā — mãe Yaśodā; bhiyolūkhalād — por medo, depois de saltar do pilão de moer; dhāvamānaṁ — fugindo; parāmṛṣṭam — agarrado à força por trás; atyantato — por fim; drutya — correndo muito velozmente; gopyā — pela mãe Yaśodā",
+        "translation": "Adoro o Controlador Supremo, cuja forma é eterna e plena de conhecimento e bem-aventurança. Em Suas faces, brincos em forma de makara balançam, e Ele resplandece com o máximo esplendor em Gokula. Fugindo com grande medo da mãe Yaśodā, deixando para trás o pilão de moer, Ele acabou sendo capturado por trás."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "rudantaṁ muhur netra-yugmaṁ mṛjantaṁ\nkarāmbhoja-yugmena sātaṅka-netram\nmuhuḥ śvāsa-kampa-tri-rekhāṅka-kaṇṭha-\nsthita-graiva-dāmodaraṁ bhakti-baddham",
+        "wbw": "rudantaṁ — chorando; muhur — incessantemente; netra-yugmaṁ — os dois olhos; mṛjantaṁ — e esfregando ambos simultaneamente; karāmbhoja — mãos de lótus; yugmena — com as duas; sātaṅka-netram — com os olhos tomados de medo; muhuḥ — repetidamente; śvāsa — soluços pesados; kampa — tremor; tri — três; rekhāṅka — marcados por linhas curvas que lembram os sulcos anelados ao redor do pescoço de um búzio; kaṇṭha — Seu pescoço; sthita — situado sobre; graiva — colar; dāmodaraṁ — Śrī Kṛṣṇa, cuja cintura (udara) está atada por uma corda (dāma); bhakti-baddham — amarrado pelo amor devocional",
+        "translation": "Chorando incessantemente, Ele esfrega os olhos com Suas duas mãos de lótus. Seus olhos estão tomados de medo. Ele respira pesadamente repetidas vezes, fazendo tremer as pérolas e outros ornamentos ao redor de Seu pescoço, marcado por três linhas graciosamente curvas. (Ofereço praṇāma a) esse Dāmodara, que é amarrado pela vātsalya-bhakti de Sua mãe."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "itīdṛk sva-līlābhir ānanda-kuṇḍe\nsva-ghoṣaṁ nimajjantam ākhyāpayantam\ntadīyeśita-jñeṣu bhaktair jitatvaṁ\npunaḥ prematas taṁ śatāvṛtti vande",
+        "wbw": "itīdṛk — assim (Seus supremamente encantadores passatempos infantis, como a dāma-bandhana-līlā, na qual Seu ventre foi amarrado); sva-līlābhir — por Seus passatempos únicos e incomuns; ānanda-kuṇḍe — em lagos insondáveis de bem-aventurança; sva-ghoṣaṁ — todos os habitantes de Sua morada de Gokula, ou todos os seres manifestados por Sua potência de passatempos; nimajjantam — mergulhando completa e incessantemente; ākhyāpayantam — informando; tadīyeśita-jñeṣu — Seus associados, aqueles que conhecem Sua divindade absoluta; bhaktair — por Seus devotos amorosos; jitatvaṁ — Ele é conquistado; punaḥ — novamente; prematas — com amor; taṁ — a Ele; śatāvṛtti — centenas de vezes; vande — reverências",
+        "translation": "Através de passatempos como esses, Ele mergulha os habitantes de Gokula em lagos de bem-aventurança, informando assim às pessoas conscientes de Sua divindade que Ele só pode ser conquistado por Seus devotos. Centenas de vezes, ofereço-Lhe novamente minhas amorosas reverências."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "varaṁ deva! mokṣaṁ na mokṣāvadhiṁ vā\nna cānyaṁ vṛṇe ’haṁ vareśād apīha\nidaṁ te vapur nātha! gopāla-bālaṁ\nsadā me manasy āvirāstāṁ kim anyaiḥ",
+        "wbw": "varaṁ — bênçãos; deva — ó divindade supremamente refulgente e brincalhona; mokṣaṁ — libertação dos sofrimentos da existência transitória, o quarto objetivo supremo da vida humana; na — não; mokṣāvadhiṁ — o ápice da salvação, a residência em Śrī Vaikuṇṭha-loka, a morada de felicidade extraordinariamente concentrada; vā — ou; na — não; cānyaṁ — e outras [bênçãos, como a navadhā-bhakti, caracterizada por śravaṇa e kīrtana]; vṛṇe — peço; ’haṁ — eu; vareśād — [de] Ti, o Controlador Supremo, que pode conceder qualquer bênção; apīha — embora, aqui [em Vraja]; idaṁ — esta; te — Tua; vapur — bela forma divina; nātha — refúgio supremo; gopāla-bālaṁ — jovem vaqueirinho; sadā — sempre; me — meu; manasy — no coração; āvirāstāṁ — permaneça manifesta; kim — de que utilidade tenho; anyaiḥ — outras [bênçãos]",
+        "translation": "Ó Deva, não peço libertação [deste mundo], nem a mais elevada libertação (a residência em Vaikuṇṭha). Tampouco busco de Ti, o supremo benfeitor, qualquer outra bênção (uma bênção para executar as nove espécies de bhakti ou qualquer outra conquista digna). Ó Nātha! Que esta Tua forma de Bāla-gopāla (um pequeno vaqueirinho) permaneça para sempre visível em meu coração, em Vṛndāvana. Qual é a utilidade de qualquer outra bênção?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "idaṁ te mukhāmbhojam avyakta-nīlair\nvṛtaṁ kuntalaiḥ snigdha-raktaiś ca gopyā\nmuhuś cumbitaṁ bimba-raktādharaṁ me\nmanasy āvirāstām alaṁ lakṣa-lābhaiḥ",
+        "wbw": "idaṁ — este [supremamente encantador]; te — Teu; mukhāmbhojam — rosto de lótus; avyakta-nīlair — muito negro-azulado; vṛtaṁ — circundado; kuntalaiḥ — por madeixas encaracoladas; snigdha-raktaiś — suaves e avermelhadas; ca — e; gopyā — pela Śrī Yaśodā Gopī; muhuś — repetidamente; cumbitaṁ — beijado; bimba — semelhante ao fruto bimba; raktādharaṁ — lábios vermelhos; me — meu; manasy — na mente [ou no coração purificado por viśuddha-sattva]; āvirāstām — que [esse rosto] se manifeste; alaṁ — não tenho utilidade para; lakṣa-lābhaiḥ — milhões de outras conquistas",
+        "translation": "Teu rosto semelhante a um lótus, circundado por suaves madeixas encaracoladas, negro-azuladas e de brilho avermelhado, é repetidamente beijado pela gopī Śrī Yaśodā. Que Teu rosto de lótus, com lábios semelhantes ao fruto bimba vermelho, permaneça sempre manifesto em meu coração. Não me importo com milhões de outras conquistas."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "namo deva! dāmodarānanta! viṣṇo!\nprasīda prabho! duḥkha-jālābdhi-magnam\nkṛpā-dṛṣṭi-vṛṣṭyāti-dīnaṁ batānu-\ngṛhāṇeśa! mām ajñam edhy akṣi-dṛśyaḥ",
+        "wbw": "namo — reverências respeitosas; deva — Aquele que tem uma forma divina; dāmodarānanta — ó Śrī Dāmodara bhakta-vatsala, ó Senhor de potências magníficas inconcebíveis; viṣṇo — ó Senhor onipenetrante; prasīda — fica satisfeito; prabho — ó meu Senhor; duḥkha — sofrimentos; jālābdhi — uma rede, em um oceano; magnam — afundado; kṛpā — compassivos; dṛṣṭi — de Teus olhares; vṛṣṭyāti — pela chuva, extremamente; dīnaṁ — miserável; batānu — ai de mim, e o início da palavra continuada na linha seguinte; gṛhāṇeśa — [anu-]: trata-me com bondade ou anima-me libertando-me, ó Controlador supremamente independente; mām — a mim; ajñam — ignorante; edhy — por favor, torna-Te; akṣi-dṛśyaḥ — visível aos meus olhos",
+        "translation": "Ó Deva! Ó Dāmodara! Ó Ananta! Ó Viṣṇu! Ofereço-Te minhas reverências! Ó Prabhu, fica satisfeito comigo. Estou me afogando em um oceano de misérias. Ai de mim, estou extremamente aflito e não sei o que fazer. Ó Īśa, derrama sobre mim Teu olhar misericordioso e bondosamente eleva-me, tornando-Te diretamente visível aos meus olhos."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "kuverātmajau baddha-mūrtyaiva yadvat\ntvayā mocitau bhakti-bhājau kṛtau ca\ntathā prema-bhaktiṁ svakāṁ me prayaccha\nna mokṣe graho me ’sti dāmodareha",
+        "wbw": "kuverātmajau — os dois filhos de Kuvera (Nalakūvara e Maṇigrīva); baddha-mūrtyaiva — pela forma divina (śrī vigraha) que estava amarrada, certamente; yadvat — assim como; tvayā — por Ti; mocitau — libertados ambos [da espécie de árvore e também da escravidão ao ciclo de nascimento e morte]; bhakti-bhājau — ambos recipientes de bhakti; kṛtau — feitos ambos; ca — e; tathā — da mesma forma; prema-bhaktiṁ — devoção amorosa; svakāṁ — Sua própria; me — a mim; prayaccha — por favor, concede profusamente; na — não; mokṣe — pela libertação; graho — anseio; me — para mim; ’sti — existe; dāmodareha — ó Dāmodara bhakta-vatsala, somente por isto",
+        "translation": "Assim como libertaste os dois filhos de Kuvera, mesmo estando amarrado ao redor do ventre, e fizeste deles recipientes de devoção, da mesma forma, por favor, concede-me abundante prema-bhakti por Ti (em Tua forma de pequeno vaqueirinho). Ó Dāmodara! É somente por isso que anseio; não quero nenhum outro tipo de libertação."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "namas te ’stu dāmne sphurad-dīpti-dhāmne\ntvadīyodarāyātha viśvasya dhāmne\nnamo rādhikāyai tvadīya priyāyai\nnamo ’nanta-līlāya devāya tubhyam",
+        "wbw": "namas — reverências respeitosas; te — a Ti; ’stu — que assim seja; dāmne — à célebre corda que prende Teu ventre; sphurad — resplandecente; dīpti — fulgor espiritual; dhāmne — morada; tvadīyodarāyātha — ao Teu ventre, além disso; viśvasya — de todo o universo [de entidades móveis e imóveis]; dhāmne — ao sustentáculo; namo — ofereço reverências; rādhikāyai — a Śrīmatī Rādhikā; tvadīya — Tua; priyāyai — à mais amada; namo — reverências respeitosas; ’nanta-līlāya — aos Teus ilimitados passatempos; devāya — ao Senhor divino; tubhyam — a Ti",
+        "translation": "Ó Dāmodara, ofereço praṇāma à corda que prende Teu ventre, pois ela é a morada de um fulgor brilhante. Ofereço praṇāma ao Teu ventre, que é o sustentáculo de todo o universo. Ofereço repetidamente praṇāma a Śrīmatī Rādhikā, Tua mais amada. E ofereço praṇāma a Ti, meu Senhor Divino, que executas ilimitados passatempos transcendentais."
+       }
+      ]
+     },
+     {
+      "id": "song-nanda-nandanastakam",
+      "title": "Śrī Nanda-nandanāṣṭakam",
+      "content": [
+       {
+        "type": "text",
+        "content": "Uma antiga oração de autoria desconhecida de um vaiṣṇava"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "sucāru-vaktra-maṇḍalaṁ sukarṇa-ratna-kuṇḍalam\nsucarcitāṅga-candanaṁ namāmi nanda-nandanam",
+        "wbw": "sucāru — encantador; vaktra — rosto; maṇḍalaṁ — com contorno redondo; sukarṇa — com belas orelhas; ratna — com joias; kuṇḍalam — adornadas com brincos; sucarcitāṅga-candanaṁ — com o corpo belamente untado com pasta de sândalo; namāmi — ofereço praṇāma; nanda-nandanam — ao filho de Nanda",
+        "translation": "Seu rosto redondo é tão encantador, Suas belas orelhas são adornadas com brincos de joias pendentes, e Seu corpo está belamente untado com pasta de sândalo perfumada. Ofereço praṇāma a esse Śrī Nanda-nandana."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "sudīrgha-netra-paṅkajaṁ śikhi-śikhaṇḍa-mūrdhajam\nanaṅga-koṭi-mohanaṁ namāmi nanda-nandanam",
+        "wbw": "sudīrgha — alongados; netra — olhos; paṅkajaṁ — semelhantes a lótus; śikhi — de pavão; śikhaṇḍa — com penas; mūrdhajam — com os cabelos adornados; anaṅga — Cupidos; koṭi — milhões; mohanaṁ — que encanta; namāmi — ofereço praṇāma; nanda-nandanam — ao filho de Nanda",
+        "translation": "Seus olhos são alongados como lótus; penas de pavão adornam Sua cabeça; e Ele encanta milhões de Cupidos. Ofereço praṇāma a esse Śrī Nanda-nandana."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "sunāsikāgra-mauktikaṁ svacchanda-danta-paṅktikam\nnavāmbudāṅga-cikkaṇaṁ namāmi nanda-nandanam",
+        "wbw": "sunāsikāgra-mauktikaṁ — com uma pérola na ponta de Seu belo nariz; svacchanda — que brilha naturalmente; danta — dentes; paṅktikam — com fileiras; navāmbudāṅga-cikkaṇaṁ — com Seu corpo brilhando como uma nuvem de chuva recém-formada; namāmi — ofereço praṇāma; nanda-nandanam — ao filho de Nanda",
+        "translation": "Da ponta de Seu belo nariz pende uma pérola de elefante, Suas fileiras de dentes brilham naturalmente [como pérolas], e Sua tez corporal resplandece como uma nuvem de chuva recém-formada. Ofereço praṇāma a esse Śrī Nanda-nandana."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "kareṇa veṇu-rañjitaṁ gati-karīndra-gañjitam\ndukūla-pīta-śobhanaṁ namāmi nanda-nandanam",
+        "wbw": "kareṇa — com Sua mão; veṇu-rañjitaṁ — adornada com uma flauta; gati — no andar; karīndra — o rei dos elefantes; gañjitam — que supera; dukūla — com finas vestes; pīta — amarelas; śobhanaṁ — embelezado; namāmi — ofereço praṇāma; nanda-nandanam — ao filho de Nanda",
+        "translation": "Suas mãos são adornadas com uma flauta, Seu majestoso andar supera o do rei dos elefantes, e Ele é embelezado por finas vestes amarelas. Ofereço praṇāma a esse Śrī Nanda-nandana."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "tri-bhaṅga-deha-sundaraṁ nakha-dyuti-sudhākaram\namūlya-ratna-bhūṣaṇaṁ namāmi nanda-nandanam",
+        "wbw": "tri — em três lugares; bhaṅga — curvada; deha — forma; sundaraṁ — bela; nakha — de Suas unhas; dyuti — em brilho; sudhākaram — como a Lua; amūlya — inestimáveis; ratna — joias; bhūṣaṇaṁ — adornado com; namāmi — ofereço praṇāma; nanda-nandanam — ao filho de Nanda",
+        "translation": "Sua forma curvada em três pontos é belíssima, Suas unhas brilham como a Lua, e Ele é adornado com joias inestimáveis. Ofereço praṇāma a esse Śrī Nanda-nandana."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "sugandha-aṅga-saurabham uro-virāji-kaustubham\nsphurac-chrīvatsa-lāñchanaṁ namāmi nanda-nandanam",
+        "wbw": "sugandha — docemente perfumado; aṅga — corpo; saurabham — que exala fragrância; uro — sobre Seu peito; virāji — brilhando; kaustubham — com a joia kaustubha; sphurac — brilhando; chrīvatsa — de Śrīvatsa; lāñchanaṁ — com a marca; namāmi — ofereço praṇāma; nanda-nandanam — ao filho de Nanda",
+        "translation": "Seu corpo exala uma fragrância extraordinariamente encantadora, e em Seu amplo peito brilham a joia kaustubha e a marca de Śrīvatsa. Ofereço praṇāma a esse Śrī Nanda-nandana."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "vṛndāvana-sunāgaraṁ vilāsānuga-vāsasam\nsurendra-garva-mocanaṁ namāmi nanda-nandanam",
+        "wbw": "vṛndāvana-sunāgaraṁ — ao hábil amante de Vṛndāvana; vilāsānuga-vāsasam — vestido de modo adequado aos Seus passatempos; surendra — Indra; garva — do orgulho; mocanaṁ — que liberta; namāmi — ofereço praṇāma; nanda-nandanam — ao filho de Nanda",
+        "translation": "Ele é o hábil amante de Vṛndāvana, que Se veste de modo a realçar Seus encantadores e divertidos passatempos e que liberta Indra de seu orgulho. Ofereço praṇāma a esse Śrī Nanda-nandana."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "vrajāṅganā-sunāyakaṁ sadā sukha-pradāyakam\njagan-manaḥ pralobhanaṁ namāmi nanda-nandanam",
+        "wbw": "vrajāṅganā-sunāyakaṁ — ao requintado amante das donzelas de Vraja; sadā — sempre; sukha-pradāyakam — que concede felicidade; jagan-manaḥ — a mente do mundo inteiro; pralobhanaṁ — que encanta; namāmi — ofereço praṇāma; nanda-nandanam — ao filho de Nanda",
+        "translation": "O requintado amante das donzelas de Vraja sempre concede felicidade a todas as entidades vivas e encanta suas mentes. Ofereço praṇāma a esse Śrī Nanda-nandana."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "śrī-nanda-nandanāṣṭakaṁ paṭhed yaḥ śraddhayānvitaḥ\ntared bhavābdhiṁ dustaraṁ labhet tad-aṅghri-yugmakam",
+        "wbw": "śrī — Śrī; nanda — de Nanda; nandanāṣṭakaṁ — oito versos glorificando o filho; paṭhed — recita; yaḥ — quem quer que; śraddhayānvitaḥ — dotado de fé; tared — atravessará; bhavābdhiṁ — o oceano da existência material; dustaraṁ — insuperável; labhet — alcançará; tad — Seus; aṅghri — pés; yugmakam — par",
+        "translation": "Quem quer que, com fé, recite estes oito versos glorificando o filho de Nanda facilmente conquistará o insuperável oceano da existência material e alcançará abrigo em Seus dois pés de lótus."
+       }
+      ]
+     },
+     {
+      "id": "song-radha-krpa-kataksa-stava-raja",
+      "title": "Śrī Rādhā-kṛpā-kaṭākṣa-stava-rāja",
+      "content": [
+       {
+        "type": "text",
+        "content": "Proferido por Śiva no Ūrdhvāmnāya-tantra"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "munīndra-vṛnda-vandite tri-loka-śoka-hāriṇī\nprasanna-vaktra-paṅkaje nikuñja-bhū-vilāsini\nvrajendra-bhānu-nandini vrajendra-sūnu-saṅgate\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "munīndra — grandes sábios; vṛnda — a assembleia de; vandite — ó Tu que és glorificada; tri-loka — dos três mundos; śoka — a lamentação; hāriṇī — ó Tu que dissipas; prasanna — florescendo com um sorriso bem-humorado; vaktra-paṅkaje — ó Tu cujo rosto é um lótus; nikuñja-bhū — nos kuñjas; vilāsini — ó Tu que brincas; vrajendra-bhānu — do Rei Vṛṣabhānu; nandini — ó filha; vrajendra-sūnu — ao filho do rei de Vraja; saṅgate — ó Tu que és a mais próxima e querida; kadā — quando; kariṣyasīha — farás [aqui]; māṁ — de mim; kṛpā-kaṭākṣa-bhājanam — o recipiente de Teu misericordioso olhar de soslaio",
+        "translation": "Ó Śrīmatī Rādhikā, glorificada pelos grandes sábios! Ó Tu que dissipas a lamentação dos três mundos, cujo rosto de lótus floresce com um sorriso bem-humorado e que brincas nos kuñjas! Ó amada filha do Rei Vṛṣabhānu! Ó Tu que és a mais próxima e querida do filho do rei de Vraja, quando farás de mim o recipiente de Teu misericordioso olhar de soslaio?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "aśoka-vṛkṣa-vallarī-vitāna-maṇḍapa-sthite\npravāla-vāla-pallava-prabhāruṇāṅghri-komale\nvarābhaya-sphurat-kare prabhūta-sampadālaye\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "aśoka-vṛkṣa — árvores aśoka; vallarī — trepadeiras; vitāna — formadas pelo entrelaçamento de; maṇḍapa-sthite — ó Tu que estás presente em um pavilhão; pravāla — coral; vāla-pallava — folhas recém-brotadas; prabhāruṇāṅghri-komale — ó Tu cujos delicados pés avermelhados têm tal brilho; varābhaya — bênçãos e destemor; sphurat-kare — ó Tu cuja mão manifesta esses dons; prabhūta — infinitas; sampadālaye — ó morada de opulências; kadā — quando; kariṣyasīha — farás [aqui]; māṁ — de mim; kṛpā-kaṭākṣa-bhājanam — o recipiente de Teu misericordioso olhar de soslaio",
+        "translation": "Ó Tu que estás presente em um pavilhão feito de trepadeiras entrelaçadas em árvores aśoka, cujos belos e delicados pés avermelhados têm o brilho do coral e de folhas avermelhadas recém-brotadas, e cuja mão [erguida] concede bênçãos e destemor! Ó morada de opulências infinitas, quando farás de mim o recipiente de Teu misericordioso olhar de soslaio?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "anaṅga-raṅga-maṅgala-prasaṅga-bhaṅgura-bhruvāṁ\nsavibhramaṁ sasambhramaṁ dṛganta-bāṇa-pātanaiḥ\nnirantaraṁ vaśī-kṛta-pratīti-nanda-nandane\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "anaṅga-raṅga — no palco dos esportes amorosos; maṅgala-prasaṅga — durante uma conversa auspiciosa; bhaṅgura-bhruvāṁ — de sobrancelhas arqueadas; savibhramaṁ — com agitação amorosa; sasambhramaṁ — com espanto; dṛganta — de olhares de soslaio; bāṇa-pātanaiḥ — disparando flechas; nirantaraṁ — perpetuamente; vaśī-kṛta — colocado sob Teu controle; pratīti — certamente; nanda-nandane — ó Tu que subjugaste o filho de Nanda; kadā — quando; kariṣyasīha — farás [aqui]; māṁ — de mim; kṛpā-kaṭākṣa-bhājanam — o recipiente de Teu misericordioso olhar de soslaio",
+        "translation": "Ó Tu que, no palco dos esportes amorosos, durante uma conversa auspiciosa, expressas espanto arqueando as sobrancelhas como arcos e então disparando subitamente as flechas de Teus olhares de soslaio, trespassando o filho de Śrī Nanda com a ilusão amorosa e colocando-O sob Teu controle perpétuo, quando farás de mim o recipiente de Teu misericordioso olhar de soslaio?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "taḍit-suvarṇa-campaka-pradīpta-gaura-vigrahe\nmukha-prabhā-parāsta-koṭi-śāradendu-maṇḍale\nvicitra-citra-sañcarac-cakora-śāva-locane\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "taḍit — relâmpago; suvarṇa — ouro; campaka — flores campaka; pradīpta — radiante; gaura-vigrahe — Ó Tu cuja forma é clara; mukha-prabhā — pelo esplendor de Teu rosto; parāsta — superou; koṭi — milhões; śāradendu-maṇḍale — Ó Tu que superas os discos das luas outonais; vicitra-citra — várias expressões assombrosas; sañcarac — manifestando; cakora-śāva — de um jovem pássaro cakora; locane — Ó Tu cujos olhos se assemelham àqueles; kadā — quando; kariṣyasīha — farás [aqui]; māṁ — de mim; kṛpā-kaṭākṣa-bhājanam — o recipiente de Teu misericordioso olhar de soslaio",
+        "translation": "Ó Tu cuja forma radiante e clara se assemelha ao relâmpago, ao ouro e às flores campaka, cujo rosto de lótus supera o esplendor do fulgor de milhões de luas outonais e cujos olhos, inquietos como os de um jovem pássaro cakora, manifestam a cada momento várias expressões assombrosas, quando farás de mim o recipiente de Teu misericordioso olhar de soslaio?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "madonmadāti-yauvane pramoda-māna-maṇḍite\npriyānurāga-rañjite kalā-vilāsa-paṇḍite\nananya-dhanya-kuñja-rājya-kāma-keli-kovide\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "madonmadāti — intoxicante e levando ao êxtase; yauvane — Ó Tu dotada de juventude; pramoda-māna — com deliciosa ira ressentida; maṇḍite — Ó Tu que és adornada; priyānurāga-rañjite — Ó Tu que Te deleitas com o apego de Teu amado; kalā-vilāsa — na arte dos relacionamentos amorosos; paṇḍite — Ó Tu que és hábil; ananya-dhanya — confidencial e auspicioso; kuñja-rājya — dentro do reino dos bosques; kāma-keli — nos esportes amorosos; kovide — Ó Tu que és erudita; kadā — quando; kariṣyasīha — farás [aqui]; māṁ — de mim; kṛpā-kaṭākṣa-bhājanam — o recipiente de Teu misericordioso olhar de soslaio",
+        "translation": "Ó Tu que estás intoxicada por Tua juventude, adornada com o encantador ornamento da ira ressentida, que Te deleitas com o apego de Teu amado por Ti e és supremamente hábil na arte dos relacionamentos amorosos! Ó Tu que és a mais erudita no conhecimento dos esportes amorosos dentro do reino de Teus bosques confidenciais e auspiciosos, quando farás de mim o recipiente de Teu misericordioso olhar de soslaio?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "aśeṣa-hāva-bhāva-dhīra-hīra-hāra-bhūṣite\nprabhūta-śāta-kumbha-kumbha-kumbhi-kumbha-sustani\npraśasta-manda-hāsya-cūrṇa-pūrṇa-saukhya-sāgare\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "aśeṣa — inumeráveis; hāva-bhāva — expressões de emoções amorosas, tais como hāva e bhāva; dhīra — de gentileza e gravidade; hīra-hāra — com um colar de diamantes; bhūṣite — Ó Tu que és adornada; prabhūta — abundantes; śāta-kumbha — ouro puro; kumbha — jarros de água; kumbhi-kumbha — os dois montes sobre a cabeça de um elefante; sustani — Ó Tu cujos belos seios se assemelham; praśasta — glorioso; manda-hāsya — sorriso gentil; cūrṇa — com o pó de; pūrṇa — pleno; saukhya-sāgare — Ó oceano de bem-aventurança; kadā — quando; kariṣyasīha — farás [aqui]; māṁ — de mim; kṛpā-kaṭākṣa-bhājanam — o recipiente de Teu misericordioso olhar de soslaio",
+        "translation": "Ó Tu que és adornada com os ornamentos de anubhāva, tais como hāva e bhāva, e com um colar de diamantes de gentileza e gravidade, cujos seios são como jarros de água feitos de ouro puro e se assemelham aos dois montes sobre a cabeça de um elefante! Ó Tu cujo glorioso e gentil sorriso é como um oceano pleno de bem-aventurança, quando farás de mim o recipiente de Teu misericordioso olhar de soslaio?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "mṛṇāla-vāla-vallarī taraṅga-raṅga-dor-late\nlatāgra-lāsya-lola-nīla-locanāvalokane\nlalal-lulan-milan-manojña-mugdha-mohanāśrite\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "mṛṇāla — caules de lótus; vāla-vallarī — tenras trepadeiras; taraṅga-raṅga — brincando nas ondas; dor-late — Ó Tu cujos braços são como trepadeiras; latāgra — as pontas das trepadeiras; lāsya-lola — balançando em uma dança; nīla — azuis; locanāvalokane — Ó Tu cujo olhar de Teus olhos se assemelha; lalal — atraente para seguir; lulan — roubando a mente; milan — ao encontrar; manojña — encantador; mugdha — encantado; mohanāśrite — Ó Tu que dás abrigo a Mana-mohana; kadā — quando; kariṣyasīha — farás [aqui]; māṁ — de mim; kṛpā-kaṭākṣa-bhājanam — o recipiente de Teu misericordioso olhar de soslaio",
+        "translation": "Ó Tu cujos braços são como os tenros caules de um lótus balançando nas ondas da água, cujo olhar de olhos azuis se assemelha às pontas de trepadeiras dançando ao vento, que atrais Mana-mohana para que Te siga e, ao encontrá-lO, roubas Sua mente e dás-Lhe abrigo em Seu estado de encantamento, quando farás de mim o recipiente de Teu misericordioso olhar de soslaio?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "suvarṇa-mālikāñcita-tri-rekha-kambu-kaṇṭhage\ntri-sūtra-maṅgalī-guṇa-tri-ratna-dīpti-dīdhiti\nsa-lola-nīla-kuntala-prasūna-guccha-gumphite\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "suvarṇa — dourado; mālikāñcita — adornado com colares; tri-rekha — marcado com três linhas; kambu — como uma concha; kaṇṭhage — Ó Tu cujo pescoço é; tri-sūtra — de um colar de três fios; maṅgalī-guṇa — com fios auspiciosos; tri-ratna — de três tipos de joias; dīpti-dīdhiti — Ó Tu que resplandeces com brilho radiante; sa-lola — balançando de um lado para o outro; nīla-kuntala — madeixas negro-azuladas; prasūna-guccha — com cachos de flores; gumphite — Ó Tu cujo cabelo é entremeado em uma trança; kadā — quando; kariṣyasīha — farás [aqui]; māṁ — de mim; kṛpā-kaṭākṣa-bhājanam — o recipiente de Teu misericordioso olhar de soslaio",
+        "translation": "Ó Tu cujo pescoço é marcado por três linhas como uma concha e adornado com colares dourados e um auspicioso tri-sūtra (um colar especial usado por moças casadas para trazer auspiciosidade), resplandecente com três tipos de joias brilhantes! Ó Tu cujas madeixas negro-azuladas, trançadas e entremeadas com cachos de flores, balançam de um lado para o outro, quando farás de mim o recipiente de Teu misericordioso olhar de soslaio?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "nitamba-bimba-lambamāna-puṣpa-mekhalā-guṇe\npraśasta-ratna-kiṅkiṇī-kalāpa-madhya-mañjule\nkarīndra-śuṇḍa-daṇḍikā-varoha-saubhagoruke\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "nitamba-bimba — dos quadris arredondados; lambamāna — pendente; puṣpa — de flores; mekhalā-guṇe — Ó Tu adornada com uma guirlanda semelhante a um cinto; praśasta-ratna — com excelentes joias; kiṅkiṇī-kalāpa — com um cinto de minúsculos sinos; madhya-mañjule — Ó Tu cuja cintura é encantadora; karīndra — do rei dos elefantes; śuṇḍa-daṇḍikā — a tromba; varoha — afinando-se; saubhagoruke — Ó Tu cujas belas coxas se assemelham; kadā — quando; kariṣyasīha — farás [aqui]; māṁ — de mim; kṛpā-kaṭākṣa-bhājanam — o recipiente de Teu misericordioso olhar de soslaio",
+        "translation": "Ó Tu de cujos quadris arredondados pende uma guirlanda de excelentes flores, em cuja encantadora e esguia cintura um sublime cinto de minúsculos sinos enfeitados com joias ressoa docemente e cujas belas coxas se afinam como a tromba inclinada do rei dos elefantes, quando farás de mim o recipiente de Teu misericordioso olhar de soslaio?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "aneka-mantra-nāda-mañju-nūpurā-rava-skhalat-\nsamāja-rāja-haṁsa-vaṁśa-nikvaṇāti-gaurave\nvilola-hema-vallarī-viḍambi-cāru-caṅkrame\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "aneka-mantra — de uma multidão de mantras; nāda-mañju — com doce ressonância; nūpurā-rava — com o som de sinos de tornozelo; skhalat — interrompido; samāja — a reunião; rāja-haṁsa — de cisnes reais; vaṁśa — o bando; nikvaṇāti-gaurave — Ó Tu que superas a grandiosidade de seu canto; vilola — balançando; hema-vallarī — uma trepadeira dourada; viḍambi — imitando os movimentos de; cāru-caṅkrame — Ó Tu cujo andar é belo; kadā — quando; kariṣyasīha — farás [aqui]; māṁ — de mim; kṛpā-kaṭākṣa-bhājanam — o recipiente de Teu misericordioso olhar de soslaio",
+        "translation": "Ó Tu cujos sinos de tornozelo, ressoando docemente com uma multidão de mantras védicos, assemelham-se ao canto de um bando de cisnes reais e cujo belo andar zomba dos movimentos de uma trepadeira dourada balançando, farás de mim o recipiente de Teu misericordioso olhar de soslaio?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "ananta-koṭi-viṣṇu-loka-namra-padmajārcite\nhimādrijā-pulomajā-viriñcajā-vara-prade\napāra-siddhi-ṛddhi-digdha-sat-padāṅgulī-nakhe\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "ananta-koṭi — de milhões ilimitados; viṣṇu-loka — dos planetas de Vaikuṇṭha; namra — curvando-se humildemente; padmajārcite — Ó Tu que és adorada por Lakṣmī-devī; himādrijā — a Śrī Pārvatī; pulomajā — a Indrāṇī; viriñcajā — a Sarasvatī; vara-prade — Ó Tu que concedes bênçãos; apāra — com infinitas; siddhi-ṛddhi — perfeições e prosperidade; digdha — dotadas; sat — belas; padāṅgulī-nakhe — Ó Tu cujas unhas dos pés são; kadā — quando; kariṣyasīha — farás [aqui]; māṁ — de mim; kṛpā-kaṭākṣa-bhājanam — o recipiente de Teu misericordioso olhar de soslaio",
+        "translation": "Ó Tu que és adorada por Lakṣmī-devī — a senhora dos ilimitados planetas de Vaikuṇṭha — e que concedes bênçãos a Śrī Pārvatī, Indrāṇī e Sarasvatī, até mesmo uma de Suas unhas dos pés de lótus dá origem a uma infinita variedade de perfeições espirituais. Ah, quando farás de mim o recipiente de Teu misericordioso olhar de soslaio?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "makheśvari! kriyeśvari svadheśvari sureśvari\ntriveda-bhāratīśvari pramāṇa-śāsaneśvari\nrameśvari! kṣameśvari pramoda-kānaneśvari\nvrajeśvari vrajādhipe śrī rādhike namo ’stu te",
+        "wbw": "makheśvari — Ó Senhora de todos os tipos de sacrifícios; kriyeśvari — Ó Senhora de todas as atividades; svadheśvari — Ó Senhora dos mantras proferidos durante o yajña; sureśvari — Ó Senhora de todos os deuses; triveda-bhāratīśvari — Ó Senhora dos ensinamentos dos três Vedas; pramāṇa-śāsaneśvari — Ó Senhora da aplicação de todos os princípios escriturais; rameśvari — Ó Senhora da deusa da fortuna; kṣameśvari — Ó Senhora do perdão; pramoda-kānaneśvari — Ó Senhora da encantadora floresta; vrajeśvari — Ó Senhora de Vraja; vrajādhipe — Ó Imperatriz de Vraja; śrī — Ó gloriosa; rādhike — Rādhikā; namo — reverência; ’stu — que haja; te — a Ti",
+        "translation": "Ó Senhora de todos os tipos de sacrifícios, de todas as atividades, dos mantras proferidos durante o yajña, de todos os deuses, dos ensinamentos dos três Vedas, da aplicação de todos os princípios escriturais, da deusa da fortuna, do perdão e da encantadora floresta [de Vṛndāvana], Ó Senhora e Imperatriz de Vraja, Ó Śrīmatī Rādhikā, ofereço-Te minhas reverências."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "itīmam adbhutaṁ-stavaṁ niśamya bhānu-nandinī\nkarotu santataṁ janaṁ kṛpā-kaṭākṣa-bhājanam\nbhavet tadaiva sañcita-tri-rūpa-karma-nāśanaṁ\nbhavet tadā vrajendra-sūnu-maṇḍala-praveśanam",
+        "wbw": "itīmam — isto, assim expresso; adbhutaṁ-stavaṁ — maravilhosa oração; niśamya — ao ouvir; bhānu-nandinī — a filha de Vṛṣabhānu; karotu — que Ela torne; santataṁ — perpetuamente; janaṁ — uma pessoa; kṛpā-kaṭākṣa-bhājanam — o recipiente de Seu misericordioso olhar de soslaio; bhavet — ocorrerá; tadaiva — naquele mesmo momento; sañcita — acumulado; tri-rūpa — de três tipos; karma-nāśanaṁ — a destruição do karma; bhavet — ocorrerá; tadā — então; vrajendra-sūnu — do filho do rei de Vraja; maṇḍala-praveśanam — entrada no círculo",
+        "translation": "Ó filha de Vṛṣabhānu, ao ouvir esta maravilhosa oração, por favor, torna-me qualificado para receber perpetuamente Teu misericordioso olhar de soslaio. Por Tua misericórdia, meus três tipos de karma (consequências acumuladas, consequências que estão frutificando e consequências das ações atuais) serão destruídos e, nesse momento, entrarei no círculo do filho do rei de Vraja e de Suas sakhīs mais queridas."
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "lt": {
+   "en_hash": "945c6dd73b01ad9d",
+   "model": "cx/gpt-6.1-sol",
+   "date": "2026-10-10 21:31",
+   "section": {
+    "id": "kartika-bhajans",
+    "title": "Kārtikos bhajanai",
+    "subtitle": null,
+    "page": "",
+    "content": [
+     {
+      "type": "text",
+      "content": "Visą Kārtikos mėnesį Chaitanya Academy kasdien giedamos šios trys maldos: Śrī Dāmodarāṣṭakam, Śrī Nanda-nandanāṣṭakam („namāmi nanda-nandanam“) ir Śrī Rādhā-kṛpā-kaṭākṣa-stava-rāja."
+     }
+    ],
+    "subsections": [
+     {
+      "id": "song-damodarastakam",
+      "title": "Śrī Dāmodarāṣṭakam",
+      "content": [
+       {
+        "type": "text",
+        "content": "Ištarta Satyavrata Munio, užrašyta Padma Purāṇoje Śrī Kṛṣṇa Dvaipāyana Vedavyāsa"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "namāmīśvaraṁ sac-cid-ānanda-rūpaṁ\nlasat-kuṇḍalaṁ gokule bhrājamānam\nyaśodā-bhiyolūkhalād dhāvamānaṁ\nparāmṛṣṭam atyantato drutya gopyā",
+        "wbw": "namāmīśvaraṁ — nusilenkimai Aukščiausiajam Valdovui, visų galių savininkui; sac — amžinybė; cid — žinojimas; ānanda — ir palaima; rūpaṁ — pats visų avatārų šaltinis, Śrī Kṛṣṇa; lasat-kuṇḍalaṁ — ant kurio skruostų siūbuoja makarų formos auskarai; gokule — transcendentinėje Gokulos buveinėje, gopų, gopių, karvių, veršelių ir kitų namuose; bhrājamānam — Jis didingai spindi kaip švytintis pavidalas; yaśodā — Motina Yaśodā; bhiyolūkhalād — išsigandęs ir nušokęs nuo girnų; dhāvamānaṁ — bėgantis; parāmṛṣṭam — jėga sučiuptas iš už nugaros; atyantato — galiausiai; drutya — labai greitai bėgant; gopyā — Motinos Yaśodos",
+        "translation": "Aš garbinu Aukščiausiąjį Valdovą, kurio pavidalas yra amžinas, kupinas žinojimo ir palaimos. Ant Jo skruostų siūbuoja makarų formos auskarai, o Jis nuostabiausiai spindi Gokuloje. Didžiai išsigandęs Motinos Yaśodos, Jis bėgo nuo girnų ir galiausiai buvo pagautas iš už nugaros."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "rudantaṁ muhur netra-yugmaṁ mṛjantaṁ\nkarāmbhoja-yugmena sātaṅka-netram\nmuhuḥ śvāsa-kampa-tri-rekhāṅka-kaṇṭha-\nsthita-graiva-dāmodaraṁ bhakti-baddham",
+        "wbw": "rudantaṁ — verkiantį; muhur — nepaliaujamai; netra-yugmaṁ — abi akis; mṛjantaṁ — ir vienu metu jas abi trinantį; karāmbhoja — lotosinėmis rankomis; yugmena — abiem; sātaṅka-netram — baimės kupinomis akimis; muhuḥ — vėl ir vėl; śvāsa — sunkų alsavimą; kampa — virpėjimą; tri — trimis; rekhāṅka — pažymėtą grakščiai išlenktomis linijomis, primenančiomis kriauklės kaklą juosiančias žiedines vagas; kaṇṭha — Jo kaklą; sthita — esantį ant; graiva — vėrinį; dāmodaraṁ — Śrī Kṛṣṇą, kurio liemuo (udara) surištas virve (dāma); bhakti-baddham — surištą meilės kupina bhakti",
+        "translation": "Be paliovos verkdamas, Jis abiem lotosinėmis rankomis trina akis. Jo akys kupinos baimės. Jis vėl ir vėl sunkiai alsuoja, todėl perlai ir kiti papuošalai ant Jo kaklo, pažymėto trimis grakščiai išlenktomis linijomis, virpa. (Aš reiškiu praṇāma) tam Dāmodarai, kurį surišo Motinos vātsalya-bhakti."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "itīdṛk sva-līlābhir ānanda-kuṇḍe\nsva-ghoṣaṁ nimajjantam ākhyāpayantam\ntadīyeśita-jñeṣu bhaktair jitatvaṁ\npunaḥ prematas taṁ śatāvṛtti vande",
+        "wbw": "itīdṛk — tokiais (Jo nepaprastai žavingais vaikystės žaidimais (līlā), tokiais kaip dāma-bandhana-līlā, kai Jo pilvas buvo surištas); sva-līlābhir — Savo ypatingais ir neįprastais žaidimais; ānanda-kuṇḍe — beribiuose palaimos ežeruose; sva-ghoṣaṁ — visus Savo Gokulos buveinės gyventojus arba visas būtybes, apreikštas Jo žaidimų galia; nimajjantam — visiškai ir nepaliaujamai paskandinantį; ākhyāpayantam — parodantį; tadīyeśita-jñeṣu — Savo bendražygiams, suvokiantiems Jo absoliutų dieviškumą; bhaktair — Savo meilės kupinų bhaktų; jitatvaṁ — Jį galima nugalėti; punaḥ — vėl; prematas — su meile; taṁ — Jam; śatāvṛtti — šimtus kartų; vande — nusilenkimus",
+        "translation": "Tokiais žaidimais (līlā) Jis paskandina Gokulos gyventojus palaimos ežeruose, taip parodydamas tiems, kurie suvokia Jo dieviškumą, kad Jį gali nugalėti tik Jo bhaktai. Šimtus kartų vėl su meile reiškiu Jam nusilenkimus."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "varaṁ deva! mokṣaṁ na mokṣāvadhiṁ vā\nna cānyaṁ vṛṇe ’haṁ vareśād apīha\nidaṁ te vapur nātha! gopāla-bālaṁ\nsadā me manasy āvirāstāṁ kim anyaiḥ",
+        "wbw": "varaṁ — palaimas; deva — o Aukščiausiasis spindintis ir žaidžiantis Dieviškasis Asmuo; mokṣaṁ — išsivadavimą iš laikinos būties kančių, ketvirtąjį aukščiausią žmogaus gyvenimo tikslą; na — ne; mokṣāvadhiṁ — aukščiausią išsivadavimą, gyvenimą Śrī Vaikuṇṭha-lokoje, nepaprastai sutelktos laimės buveinėje; vā — arba; na — ne; cānyaṁ — ir kitų palaimų, tokių kaip navadhā-bhakti, pasireiškianti śravaṇa ir kīrtana; vṛṇe — prašau; ’haṁ — aš; vareśād — Tavęs, Aukščiausiojo Valdovo, galinčio suteikti bet kokią palaimą; apīha — nors čia, Vrajoje; idaṁ — šis; te — Tavo; vapur — gražus Dieviškasis pavidalas; nātha — aukščiausioji priebėga; gopāla-bālaṁ — jaunas karvių piemuo berniukas; sadā — visada; me — mano; manasy — širdyje; āvirāstāṁ — teišlieka apreikštas; kim — kokia nauda man iš; anyaiḥ — kitų palaimų",
+        "translation": "O Deva, aš neprašau išsivadavimo [iš šio pasaulio] ir netrokštu aukščiausio išsivadavimo (gyventi Vaikuṇṭhoje). Taip pat neprašau Tavęs, aukščiausiojo geradario, jokios kitos palaimos (galimybės atlikti devynias bhakti rūšis ar pasiekti kokį nors kitą vertingą tikslą). O Nātha! Tegul šis Tavo Bāla-gopālos (mažo karvių piemens berniuko) pavidalas Vṛndāvanoje amžinai išlieka matomas mano širdyje. Kam reikalinga bet kokia kita palaima?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "idaṁ te mukhāmbhojam avyakta-nīlair\nvṛtaṁ kuntalaiḥ snigdha-raktaiś ca gopyā\nmuhuś cumbitaṁ bimba-raktādharaṁ me\nmanasy āvirāstām alaṁ lakṣa-lābhaiḥ",
+        "wbw": "idaṁ — šis, nepaprastai žavus; te — Tavo; mukhāmbhojam — lotoso veidas; avyakta-nīlair — labai tamsiai mėlynomis; vṛtaṁ — apsuptas; kuntalaiḥ — garbanomis; snigdha-raktaiś — švelniomis, rausvomis; ca — ir; gopyā — Śrī Yaśodā Gopės; muhuś — vėl ir vėl; cumbitaṁ — bučiuojamas; bimba — panašiais į bimbos vaisių; raktādharaṁ — raudonais lūpomis; me — mano; manasy — prote arba širdyje, apvalytoje viśuddha-sattva; āvirāstām — tegu tas veidas apsireiškia; alaṁ — man nereikia; lakṣa-lābhaiḥ — milijonų kitų pasiekimų",
+        "translation": "Tavo lotoso veidą, apsuptą švelnių juodai melsvų garbanų su rausvu spindesiu, vėl ir vėl bučiuoja gopė Śrī Yaśodā. Tegul Tavo lotoso veidas, kurio lūpos primena raudonus bimbos vaisius, visuomet būna apreikštas mano širdyje. Man nerūpi milijonai kitų pasiekimų."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "namo deva! dāmodarānanta! viṣṇo!\nprasīda prabho! duḥkha-jālābdhi-magnam\nkṛpā-dṛṣṭi-vṛṣṭyāti-dīnaṁ batānu-\ngṛhāṇeśa! mām ajñam edhy akṣi-dṛśyaḥ",
+        "wbw": "namo — pagarbūs nusilenkimai; deva — Tam, kuris turi dievišką pavidalą; dāmodarānanta — o bhakta-vatsala Śrī Dāmodara, meilus Savo bhaktams, o Viešpatie, turintis nesuvokiamas didingas galias; viṣṇo — o visa persmelkiantis Viešpatie; prasīda — būk maloningas; prabho — o mano Viešpatie; duḥkha — kančių; jālābdhi — tinkle, vandenyne; magnam — skęstantį; kṛpā — maloningo; dṛṣṭi — Tavo žvilgsnio; vṛṣṭyāti — labai gausiu lietumi; dīnaṁ — nelaimingą; batānu — deja, ir žodžio, perkelto į kitą eilutę, pradžia; gṛhāṇeśa — [anu-]: pasigailėk manęs arba išgelbėk mane, o Aukščiausiasis nepriklausomas Valdove; mām — mane; ajñam — neišmanantį; edhy — prašau tapk; akṣi-dṛśyaḥ — regimas mano akims",
+        "translation": "O Deva! O Dāmodara! O Ananta! O Viṣṇu! Reiškiu Tau nusilenkimus! O Prabhu, būk man maloningas. Aš skęstu kančių vandenyne. Deja, mane apėmė didžiausia kančia ir nežinau, ką daryti. O Īśa, apšlakstyk mane Savo maloningu žvilgsniu ir maloningai išgelbėk, tapdamas tiesiogiai regimas mano akims."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "kuverātmajau baddha-mūrtyaiva yadvat\ntvayā mocitau bhakti-bhājau kṛtau ca\ntathā prema-bhaktiṁ svakāṁ me prayaccha\nna mokṣe graho me ’sti dāmodareha",
+        "wbw": "kuverātmajau — abu Kuveros sūnus, Nalakūvara ir Maṇigrīva; baddha-mūrtyaiva — neabejotinai surištu Dieviškuoju pavidalu (śrī vigraha); yadvat — kaip; tvayā — Tu; mocitau — išlaisvinai juos abu iš medžio pavidalo ir iš gimimo bei mirties rato vergijos; bhakti-bhājau — abiem bhakti gavėjais; kṛtau — padarei juos abu; ca — ir; tathā — taip pat; prema-bhaktiṁ — meilės kupiną pasiaukojimo tarnystę; svakāṁ — Savo; me — man; prayaccha — prašau gausiai suteik; na — ne; mokṣe — išsivadavimo; graho — troškimas; me — mano; ’sti — yra; dāmodareha — o bhakta-vatsala Dāmodara, tik to",
+        "translation": "Kaip Tu išlaisvinai abu Kuveros sūnus, nors buvai surištas aplink pilvą, ir padarei juos pasiaukojimo tarnystės gavėjais, taip ir man maloningai suteik gausią prema-bhakti Tau (Tavo mažo karvių piemens berniuko pavidalu). O Dāmodara! Aš trokštu tik to; nenoriu jokio kito išsivadavimo."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "namas te ’stu dāmne sphurad-dīpti-dhāmne\ntvadīyodarāyātha viśvasya dhāmne\nnamo rādhikāyai tvadīya priyāyai\nnamo ’nanta-līlāya devāya tubhyam",
+        "wbw": "namas — pagarbūs nusilenkimai; te — Tau; ’stu — tebūna; dāmne — garsiajai virvei, surišusiai Tavo pilvą; sphurad — spindinčios; dīpti — dvasinės šviesos; dhāmne — buveinei; tvadīyodarāyātha — Tavo pilvui, be to; viśvasya — visos visatos, judančių ir nejudančių būtybių; dhāmne — atramai; namo — reiškiu nusilenkimus; rādhikāyai — Śrīmatī Rādhikā; tvadīya — Tavo; priyāyai — mylimiausiai; namo — reiškiu nusilenkimus; ’nanta-līlāya — Tavo beribiams žaidimams; devāya — Dieviškajam Viešpačiui; tubhyam — Tau",
+        "translation": "O Dāmodara, reiškiu praṇāma virvei, surišusiai Tavo pilvą, nes ji yra spindinčios šviesos buveinė. Reiškiu praṇāma Tavo pilvui, kuris yra visos visatos atrama. Vėl ir vėl reiškiu praṇāma Śrīmatī Rādhikā, Tavo mylimiausiai. Ir reiškiu praṇāma Tau, mano Dieviškasis Viešpatie, kuris žaidi beribius transcendentinius žaidimus (līlā)."
+       }
+      ]
+     },
+     {
+      "id": "song-nanda-nandanastakam",
+      "title": "Śrī Nanda-nandanāṣṭakam",
+      "content": [
+       {
+        "type": "text",
+        "content": "Senovinė nežinomo vaiṣṇavo autoriaus malda"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "sucāru-vaktra-maṇḍalaṁ sukarṇa-ratna-kuṇḍalam\nsucarcitāṅga-candanaṁ namāmi nanda-nandanam",
+        "wbw": "sucāru — žavus; vaktra — veidas; maṇḍalaṁ — apvalaus kontūro; sukarṇa — gražių ausų; ratna — brangakmeniais; kuṇḍalam — papuoštas auskarais; sucarcitāṅga-candanaṁ — kurio kūnas gražiai išteptas santalo pasta; namāmi — reiškiu praṇāma; nanda-nandanam — Nandos sūnui",
+        "translation": "Jo apvalus veidas toks žavus, gražias ausis puošia kabantys brangakmeniais inkrustuoti auskarai, o Jo kūnas maloniai išteptas kvapnia santalo pasta (candana). Reiškiu praṇāma tam Śrī Nanda-nandanai."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "sudīrgha-netra-paṅkajaṁ śikhi-śikhaṇḍa-mūrdhajam\nanaṅga-koṭi-mohanaṁ namāmi nanda-nandanam",
+        "wbw": "sudīrgha — pailgos; netra — akys; paṅkajaṁ — panašios į lotosus; śikhi — povo; śikhaṇḍa — plunksnomis; mūrdhajam — papuoštais plaukais; anaṅga — Kupidonus; koṭi — milijonus; mohanaṁ — sužavintis; namāmi — reiškiu praṇāma; nanda-nandanam — Nandos sūnui",
+        "translation": "Jo akys pailgos kaip lotosai, galvą puošia povo plunksnos, o Jis sužavi milijonus Kupidonų. Reiškiu praṇāma tam Śrī Nanda-nandanai."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "sunāsikāgra-mauktikaṁ svacchanda-danta-paṅktikam\nnavāmbudāṅga-cikkaṇaṁ namāmi nanda-nandanam",
+        "wbw": "sunāsikāgra-mauktikaṁ — su perlu ant gražios Jo nosies galiuko; svacchanda — natūraliai spindintys; danta — dantys; paṅktikam — su eilėmis; navāmbudāṅga-cikkaṇaṁ — kurio kūnas švyti kaip šviežias lietaus debesis; namāmi — reiškiu praṇāma; nanda-nandanam — Nandos sūnui",
+        "translation": "Nuo gražios Jo nosies galiuko kabo dramblio perlas, Jo dantų eilės natūraliai spindi [kaip perlai], o kūno spalva švyti kaip šviežias lietaus debesis. Reiškiu praṇāma tam Śrī Nanda-nandanai."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "kareṇa veṇu-rañjitaṁ gati-karīndra-gañjitam\ndukūla-pīta-śobhanaṁ namāmi nanda-nandanam",
+        "wbw": "kareṇa — Savo ranka; veṇu-rañjitaṁ — papuoštas fleita; gati — eisena; karīndra — dramblių karalių; gañjitam — pranokstantis; dukūla — su puikiais drabužiais; pīta — geltonais; śobhanaṁ — papuoštas; namāmi — reiškiu praṇāma; nanda-nandanam — Nandos sūnui",
+        "translation": "Jo rankas puošia fleita, Jo didinga eisena pranoksta dramblių karaliaus eiseną, o Jį puošia puikūs geltoni drabužiai. Reiškiu praṇāma tam Śrī Nanda-nandanai."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "tri-bhaṅga-deha-sundaraṁ nakha-dyuti-sudhākaram\namūlya-ratna-bhūṣaṇaṁ namāmi nanda-nandanam",
+        "wbw": "tri — trijose vietose; bhaṅga — išlenktas; deha — pavidalas; sundaraṁ — gražus; nakha — Jo nagų; dyuti — spindesiu; sudhākaram — kaip mėnulis; amūlya — neįkainojamais; ratna — brangakmeniais; bhūṣaṇaṁ — papuoštas; namāmi — reiškiu praṇāma; nanda-nandanam — Nandos sūnui",
+        "translation": "Jo triskart išlenktas pavidalas nepaprastai gražus, nagai švyti kaip mėnulis, o Jį puošia neįkainojami brangakmeniai. Reiškiu praṇāma tam Śrī Nanda-nandanai."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "sugandha-aṅga-saurabham uro-virāji-kaustubham\nsphurac-chrīvatsa-lāñchanaṁ namāmi nanda-nandanam",
+        "wbw": "sugandha — maloniai kvepiantis; aṅga — kūnas; saurabham — skleidžiantis aromatą; uro — ant Jo krūtinės; virāji — spindintis; kaustubham — su kaustubha brangakmeniu; sphurac — spindintis; chrīvatsa — Śrīvatsos; lāñchanaṁ — su ženklu; namāmi — reiškiu praṇāma; nanda-nandanam — Nandos sūnui",
+        "translation": "Jo kūnas skleidžia nepaprastai kerintį kvapą, o ant plačios krūtinės, greta Śrīvatsos ženklo, spindi kaustubha brangakmenis. Reiškiu praṇāma tam Śrī Nanda-nandanai."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "vṛndāvana-sunāgaraṁ vilāsānuga-vāsasam\nsurendra-garva-mocanaṁ namāmi nanda-nandanam",
+        "wbw": "vṛndāvana-sunāgaraṁ — išmaniam Vṛndāvanos meilužiui; vilāsānuga-vāsasam — apsirengusiam taip, kaip dera Jo žaidimams; surendra — Indrą; garva — iš puikybės; mocanaṁ — išvaduojančiam; namāmi — reiškiu praṇāma; nanda-nandanam — Nandos sūnui",
+        "translation": "Jis – išmanus Vṛndāvano meilužis, kuris rengiasi taip, kad išryškintų Savo kerinčius žaismingus žaidimus (līlā), ir išvaduoja Indrą iš puikybės. Reiškiu praṇāma tam Śrī Nanda-nandanai."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "vrajāṅganā-sunāyakaṁ sadā sukha-pradāyakam\njagan-manaḥ pralobhanaṁ namāmi nanda-nandanam",
+        "wbw": "vrajāṅganā-sunāyakaṁ — nuostabiajam Vrajos mergelių meilužiui; sadā — visuomet; sukha-pradāyakam — suteikiančiam laimę; jagan-manaḥ — viso pasaulio protą; pralobhanaṁ — pavergiančiam; namāmi — reiškiu praṇāma; nanda-nandanam — Nandos sūnui",
+        "translation": "Nuostabusis Vradžos mergelių meilužis visuomet suteikia laimę visoms gyvoms esybėms ir pavergia jų protus. Reiškiu praṇāma tam Śrī Nanda-nandanai."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "śrī-nanda-nandanāṣṭakaṁ paṭhed yaḥ śraddhayānvitaḥ\ntared bhavābdhiṁ dustaraṁ labhet tad-aṅghri-yugmakam",
+        "wbw": "śrī — Śrī; nanda — Nandos; nandanāṣṭakaṁ — aštuonias eilutes, šlovinančias sūnų; paṭhed — recituoja; yaḥ — kas; śraddhayānvitaḥ — kupinas tikėjimo; tared — įveiks; bhavābdhiṁ — materialios egzistencijos vandenyną; dustaraṁ — neįveikiamą; labhet — pasieks; tad — Jo; aṅghri — pėdas; yugmakam — porą",
+        "translation": "Kas su tikėjimu recituoja šias aštuonias eilutes, šlovinančias Nandos sūnų, tas lengvai įveiks neįveikiamą materialios egzistencijos vandenyną ir pasieks prieglobstį prie Jo dviejų lotosinių pėdų."
+       }
+      ]
+     },
+     {
+      "id": "song-radha-krpa-kataksa-stava-raja",
+      "title": "Śrī Rādhā-kṛpā-kaṭākṣa-stava-rāja",
+      "content": [
+       {
+        "type": "text",
+        "content": "Ištarta Śivos Ūrdhvāmnāya-tantroje"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "munīndra-vṛnda-vandite tri-loka-śoka-hāriṇī\nprasanna-vaktra-paṅkaje nikuñja-bhū-vilāsini\nvrajendra-bhānu-nandini vrajendra-sūnu-saṅgate\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "munīndra — didžiųjų išminčių; vṛnda — susirinkimo; vandite — o Tu, kuri esi šlovinama; tri-loka — trijų pasaulių; śoka — sielvartą; hāriṇī — o Tu, kuri išsklaidai; prasanna — pražystantis žaisminga šypsena; vaktra-paṅkaje — o Tu, kurios veidas yra lotosas; nikuñja-bhū — kuñjose; vilāsini — o Tu, kuri žaidi; vrajendra-bhānu — karaliaus Vṛṣabhānu; nandini — o dukra; vrajendra-sūnu — Vrajos karaliaus sūnui; saṅgate — o Tu, kuri esi artimiausia ir brangiausia; kadā — kada; kariṣyasīha — padarysi [čia]; māṁ — mane; kṛpā-kaṭākṣa-bhājanam — Savo maloningo šoninio žvilgsnio gavėju",
+        "translation": "O Śrīmatī Rādhikā, kurią šlovina didieji išminčiai! O Tu, kuri išsklaidai trijų pasaulių sielvartą, kurios lotoso veidas pražysta žaisminga šypsena ir kuri žaidi kuñjose! O mylimoji karaliaus Vṛṣabhānu dukra! O Tu, kuri esi artimiausia ir brangiausia Vradžos karaliaus sūnui, kada padarysi mane Savo maloningo šoninio žvilgsnio gavėju?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "aśoka-vṛkṣa-vallarī-vitāna-maṇḍapa-sthite\npravāla-vāla-pallava-prabhāruṇāṅghri-komale\nvarābhaya-sphurat-kare prabhūta-sampadālaye\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "aśoka-vṛkṣa — aśokos medžiai; vallarī — vijokliai; vitāna — sudaryta susipynus; maṇḍapa-sthite — o Tu, kuri esi pavėsinėje; pravāla — koralai; vāla-pallava — ką tik prasiskleidę lapeliai; prabhāruṇāṅghri-komale — o Tu, kurios švelnios rausvos pėdos taip spindi; varābhaya — palaiminimus ir bebaimiškumą; sphurat-kare — o Tu, kurios ranka teikia šias dovanas; prabhūta — beribių; sampadālaye — o turtų buveine; kadā — kada; kariṣyasīha — padarysi [čia]; māṁ — mane; kṛpā-kaṭākṣa-bhājanam — Savo maloningo šoninio žvilgsnio gavėju",
+        "translation": "O Tu, kuri esi pavėsinėje, apraizgytoje aplink aśokos medžius susipynusių vijoklių, kurios gražios, švelnios rausvos pėdos spindi kaip koralai ir ką tik prasiskleidę rausvi lapeliai, o pakelta ranka suteikia palaiminimus ir bebaimiškumą! O beribių turtų buveine, kada padarysi mane Savo maloningo šoninio žvilgsnio gavėju?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "anaṅga-raṅga-maṅgala-prasaṅga-bhaṅgura-bhruvāṁ\nsavibhramaṁ sasambhramaṁ dṛganta-bāṇa-pātanaiḥ\nnirantaraṁ vaśī-kṛta-pratīti-nanda-nandane\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "anaṅga-raṅga — meilės žaidimų scenoje; maṅgala-prasaṅga — per palankų pokalbį; bhaṅgura-bhruvāṁ — išlenktų antakių; savibhramaṁ — su meilės jauduliu; sasambhramaṁ — su nuostaba; dṛganta — šoninių žvilgsnių; bāṇa-pātanaiḥ — paleidžiant strėles; nirantaraṁ — amžinai; vaśī-kṛta — pajungtas Tavo valdžiai; pratīti — tikrai; nanda-nandane — o Tu, kuri pajungei Nandos sūnų; kadā — kada; kariṣyasīha — padarysi [čia]; māṁ — mane; kṛpā-kaṭākṣa-bhājanam — Savo maloningo šoninio žvilgsnio gavėju",
+        "translation": "O Tu, kuri meilės žaidimų scenoje, per palankų pokalbį, išlenkdama antakius lyg lankus, išreiški nuostabą, o tada staiga paleidi Savo šoninių žvilgsnių strėles, persmelkiančias Śrī Nandos sūnų meilės svaiguliu ir amžiams pajungiančias Jį Savo valdžiai, kada padarysi mane Savo maloningo šoninio žvilgsnio gavėju?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "taḍit-suvarṇa-campaka-pradīpta-gaura-vigrahe\nmukha-prabhā-parāsta-koṭi-śāradendu-maṇḍale\nvicitra-citra-sañcarac-cakora-śāva-locane\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "taḍit — žaibas; suvarṇa — auksas; campaka — campaka žiedai; pradīpta — spindintis; gaura-vigrahe — O Tu, kurios pavidalas šviesus; mukha-prabhā — Tavo veido spindesiu; parāsta — pranokęs; koṭi — milijonus; śāradendu-maṇḍale — O Tu, pranokstanti rudeninių mėnulių skritulius; vicitra-citra — įvairias nuostabias išraiškas; sañcarac — reiškiantis; cakora-śāva — jauno cakora paukščio; locane — O Tu, kurios akys panašios į jas; kadā — kada; kariṣyasīha — padarysi čia; māṁ — mane; kṛpā-kaṭākṣa-bhājanam — Savo maloningo šoninio žvilgsnio gavėju",
+        "translation": "O Tu, kurios spindintis ir šviesus pavidalas primena žaibą, auksą ir campaka žiedus, kurios lotoso veidas pranoksta milijonų rudeninių mėnulių spindesį ir kurios akys, neramios kaip jauno cakora paukščio, kiekvieną akimirką išreiškia įvairiausią nuostabą, kada padarysi mane Savo maloningo šoninio žvilgsnio gavėju?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "madonmadāti-yauvane pramoda-māna-maṇḍite\npriyānurāga-rañjite kalā-vilāsa-paṇḍite\nananya-dhanya-kuñja-rājya-kāma-keli-kovide\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "madonmadāti — svaiginantis ir keliantis ekstazę; yauvane — O Tu, apdovanota jaunyste; pramoda-māna — žavingu įžeistos meilės pykčiu; maṇḍite — O Tu, kuri esi papuošta; priyānurāga-rañjite — O Tu, kuri džiaugiesi Savo mylimojo prisirišimu; kalā-vilāsa — meilės reikalų mene; paṇḍite — O Tu, kuri esi išmananti; ananya-dhanya — slaptose ir palaimingose; kuñja-rājya — miško giraičių karalystėje; kāma-keli — meilės žaidimuose; kovide — O Tu, kuri esi išmananti; kadā — kada; kariṣyasīha — padarysi čia; māṁ — mane; kṛpā-kaṭākṣa-bhājanam — Savo maloningo šoninio žvilgsnio gavėju",
+        "translation": "O Tu, kuri svaigsti nuo Savo jaunystės, kurią puošia žavus įžeistos meilės papuošalas, kuri džiaugiesi Savo mylimojo prisirišimu prie Tavęs ir esi neprilygstamai išmananti meilės reikalų meną! O Tu, kuri geriausiai išmanai meilės žaidimus Savo slaptose, palaimingose miško giraitėse, kada padarysi mane Savo maloningo šoninio žvilgsnio gavėju?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "aśeṣa-hāva-bhāva-dhīra-hīra-hāra-bhūṣite\nprabhūta-śāta-kumbha-kumbha-kumbhi-kumbha-sustani\npraśasta-manda-hāsya-cūrṇa-pūrṇa-saukhya-sāgare\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "aśeṣa — nesuskaičiuojamus; hāva-bhāva — meilės jausmų išraiškomis, tokiomis kaip hāva ir bhāva; dhīra — švelnumo ir rimties; hīra-hāra — deimantiniu vėriniu; bhūṣite — O Tu, kuri esi papuošta; prabhūta — gausiais; śāta-kumbha — tyro aukso; kumbha — vandens indais; kumbhi-kumbha — dviem kauburėliais ant dramblio galvos; sustani — O Tu, kurios gražios krūtys primena; praśasta — šlovingą; manda-hāsya — švelnią šypseną; cūrṇa — milteliais; pūrṇa — kupiną; saukhya-sāgare — O palaimos vandenyne; kadā — kada; kariṣyasīha — padarysi čia; māṁ — mane; kṛpā-kaṭākṣa-bhājanam — Savo maloningo šoninio žvilgsnio gavėju",
+        "translation": "O Tu, kurią puošia anubhāvos, tokios kaip hāva ir bhāva, papuošalai ir švelnumo bei rimties deimantinis vėrinys, kurios krūtys primena iš tyro aukso nulipdytus vandens indus ir du kauburėlius ant dramblio galvos! O Tu, kurios šlovinga, švelni šypsena primena palaimos kupiną vandenyną, kada padarysi mane Savo maloningo šoninio žvilgsnio gavėju?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "mṛṇāla-vāla-vallarī taraṅga-raṅga-dor-late\nlatāgra-lāsya-lola-nīla-locanāvalokane\nlalal-lulan-milan-manojña-mugdha-mohanāśrite\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "mṛṇāla — lotoso stiebai; vāla-vallarī — švelnūs vijokliai; taraṅga-raṅga — žaidžiantys bangose; dor-late — O Tu, kurios rankos lyg vijokliai; latāgra — vijoklių galiukų; lāsya-lola — siūbuojantys šokyje; nīla — mėlynų; locanāvalokane — O Tu, kurios akių žvilgsnis panašus į; lalal — viliojantį sekti; lulan — pavergiantį protą; milan — susitikus; manojña — žavingam; mugdha — susižavėjusiam; mohanāśrite — O Tu, kuri suteiki prieglobstį Mana-mohanai; kadā — kada; kariṣyasīha — padarysi čia; māṁ — mane; kṛpā-kaṭākṣa-bhājanam — Savo maloningo šoninio žvilgsnio gavėju",
+        "translation": "O Tu, kurios rankos primena švelnius lotoso stiebus, siūbuojančius vandens bangose, kurios mėlynų akių žvilgsnis panašus į vėjyje šokančius vijoklių galiukus, kuri vilioji Mana-mohaną sekti paskui Tave ir, susitikusi su Juo, pavergi Jo protą bei suteiki Jam prieglobstį Jo susižavėjimo būsenoje, kada padarysi mane Savo maloningo šoninio žvilgsnio gavėju?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "suvarṇa-mālikāñcita-tri-rekha-kambu-kaṇṭhage\ntri-sūtra-maṅgalī-guṇa-tri-ratna-dīpti-dīdhiti\nsa-lola-nīla-kuntala-prasūna-guccha-gumphite\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "suvarṇa — auksiniais; mālikāñcita — papuoštais vėriniais; tri-rekha — pažymėtu trimis linijomis; kambu — lyg kriauklė; kaṇṭhage — O Tu, kurios kaklas; tri-sūtra — trijų gijų vėrinio; maṅgalī-guṇa — palankiomis gijomis; tri-ratna — trijų rūšių brangakmenių; dīpti-dīdhiti — O Tu, spindinti ryškiu spindesiu; sa-lola — siūbuojančiais; nīla-kuntala — juodai melsvais plaukais; prasūna-guccha — gėlių žiedų kekėmis; gumphite — O Tu, kurios plaukai supinti į kasą; kadā — kada; kariṣyasīha — padarysi čia; māṁ — mane; kṛpā-kaṭākṣa-bhājanam — Savo maloningo šoninio žvilgsnio gavėju",
+        "translation": "O Tu, kurios kaklą žymi trys kriauklę primenančios linijos ir puošia auksiniai vėriniai bei palankus tri-sūtra (ypatingas vėrinys, kurį ištekėjusios merginos nešioja dėl palankumo), spindintis trimis nuostabių brangakmenių rūšimis! O Tu, kurios juodai melsvi plaukai, supinti į kasą su gėlių žiedų kekėmis, siūbuoja į vieną ir kitą pusę, kada padarysi mane Savo maloningo šoninio žvilgsnio gavėju?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "nitamba-bimba-lambamāna-puṣpa-mekhalā-guṇe\npraśasta-ratna-kiṅkiṇī-kalāpa-madhya-mañjule\nkarīndra-śuṇḍa-daṇḍikā-varoha-saubhagoruke\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "nitamba-bimba — nuo apvalių klubų; lambamāna — kabančių; puṣpa — gėlių; mekhalā-guṇe — O Tu, pasipuošusi vainiką primenančiu juosmeniniu diržu; praśasta-ratna — puikiais brangakmeniais; kiṅkiṇī-kalāpa — mažų varpelių diržu; madhya-mañjule — O Tu, kurios liemuo žavingas; karīndra — dramblių karaliaus; śuṇḍa-daṇḍikā — straublio; varoha — siaurėjančiu; saubhagoruke — O Tu, kurios gražios šlaunys panašios į; kadā — kada; kariṣyasīha — padarysi čia; māṁ — mane; kṛpā-kaṭākṣa-bhājanam — Savo maloningo šoninio žvilgsnio gavėju",
+        "translation": "O Tu, nuo kurios apvalių klubų kabo puikių gėlių vainikas, kurios kerintį liekną liemenį juosia nuostabus diržas su mažais brangakmeniais inkrustuotais varpeliais, saldžiai skambančiais, ir kurios gražios šlaunys siaurėja kaip nuožulnus dramblių karaliaus straublys, kada padarysi mane Savo maloningo šoninio žvilgsnio gavėju?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "aneka-mantra-nāda-mañju-nūpurā-rava-skhalat-\nsamāja-rāja-haṁsa-vaṁśa-nikvaṇāti-gaurave\nvilola-hema-vallarī-viḍambi-cāru-caṅkrame\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "aneka-mantra — daugybės mantrų; nāda-mañju — saldžiai skambančiu; nūpurā-rava — čiurnų varpelių skambesiu; skhalat — pertrauktu; samāja — susibūrimo; rāja-haṁsa — karališkųjų gulbių; vaṁśa — pulko; nikvaṇāti-gaurave — O Tu, pranokstanti jų čiulbėjimo didybę; vilola — siūbuojančius; hema-vallarī — auksinio vijoklio; viḍambi — pašiepiamai atkartojanti; cāru-caṅkrame — O Tu, kurios eisena graži; kadā — kada; kariṣyasīha — padarysi čia; māṁ — mane; kṛpā-kaṭākṣa-bhājanam — Savo maloningo šoninio žvilgsnio gavėju",
+        "translation": "O Tu, kurios čiurnų varpeliai, saldžiai skambantys Vedų mantrų gausybe, primena karališkųjų gulbių pulko čiulbėjimą ir kurios graži eisena pašiepiamai atkartoja siūbuojančio auksinio vijoklio judesius, kada padarysi mane Savo maloningo šoninio žvilgsnio gavėju?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "ananta-koṭi-viṣṇu-loka-namra-padmajārcite\nhimādrijā-pulomajā-viriñcajā-vara-prade\napāra-siddhi-ṛddhi-digdha-sat-padāṅgulī-nakhe\nkadā kariṣyasīha māṁ kṛpā-kaṭākṣa-bhājanam?",
+        "wbw": "ananta-koṭi — beribių milijonų; viṣṇu-loka — Vaikuṇṭhos planetų; namra — nuolankiai nusilenkiančios; padmajārcite — O Tu, kurią garbina Lakṣmī-devī; himādrijā — Śrī Pārvatī; pulomajā — Indrāṇī; viriñcajā — Sarasvatī; vara-prade — O Tu, kuri suteiki palaiminimus; apāra — begaliniais; siddhi-ṛddhi — tobulumais ir klestėjimu; digdha — apdovanoti; sat — gražūs; padāṅgulī-nakhe — O Tu, kurios kojų pirštų nagai; kadā — kada; kariṣyasīha — padarysi čia; māṁ — mane; kṛpā-kaṭākṣa-bhājanam — Savo maloningo šoninio žvilgsnio gavėju",
+        "translation": "O Tu, kurią garbina Lakṣmī-devī – beribių Vaikuṇṭhos planetų valdovė – ir kuri suteiki palaiminimus Śrī Pārvatī, Indrāṇī bei Sarasvatī, net vienas iš Tavo lotosinių pėdų nagų sukuria begalinę dvasinių tobulumų įvairovę! O kada padarysi mane Savo maloningo šoninio žvilgsnio gavėju?"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "makheśvari! kriyeśvari svadheśvari sureśvari\ntriveda-bhāratīśvari pramāṇa-śāsaneśvari\nrameśvari! kṣameśvari pramoda-kānaneśvari\nvrajeśvari vrajādhipe śrī rādhike namo ’stu te",
+        "wbw": "makheśvari — O visų rūšių aukų Valdove; kriyeśvari — O visos veiklos Valdove; svadheśvari — O per yajña tariamų mantrų Valdove; sureśvari — O visų dievų Valdove; triveda-bhāratīśvari — O trijų Vedų mokymų Valdove; pramāṇa-śāsaneśvari — O visų šventraščių principų vykdymo Valdove; rameśvari — O sėkmės deivės Valdove; kṣameśvari — O atleidimo Valdove; pramoda-kānaneśvari — O žavingo miško Valdove; vrajeśvari — O Vradžos Valdove; vrajādhipe — O Vradžos Imperatoriene; śrī — O šlovingoji; rādhike — Rādhikā; namo — nusilenkimai; ’stu — tebūna; te — Tau",
+        "translation": "O visų rūšių aukų (yajña), visos veiklos, per yajña tariamų mantrų, visų dievų, trijų Vedų mokymų, visų šventraščių principų vykdymo, sėkmės deivės, atleidimo ir žavingo miško [Vṛndāvanoje] Valdove! O Vradžos Valdove ir Imperatoriene, O Śrīmatī Rādhikā, reiškiu Tau praṇāma."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "itīmam adbhutaṁ-stavaṁ niśamya bhānu-nandinī\nkarotu santataṁ janaṁ kṛpā-kaṭākṣa-bhājanam\nbhavet tadaiva sañcita-tri-rūpa-karma-nāśanaṁ\nbhavet tadā vrajendra-sūnu-maṇḍala-praveśanam",
+        "wbw": "itīmam — šią, taip išreikštą; adbhutaṁ-stavaṁ — nuostabią maldą; niśamya — išgirdusi; bhānu-nandinī — Vṛṣabhānu dukra; karotu — tepadaro Ji; santataṁ — amžinai; janaṁ — žmogų; kṛpā-kaṭākṣa-bhājanam — Savo maloningo šoninio žvilgsnio gavėju; bhavet — įvyks; tadaiva — tą pačią akimirką; sañcita — sukauptos; tri-rūpa — trijų rūšių; karma-nāśanaṁ — karmos sunaikinimas; bhavet — įvyks; tadā — tada; vrajendra-sūnu — Vradžos karaliaus sūnaus; maṇḍala-praveśanam — įžengimas į ratą",
+        "translation": "O Vṛṣabhānu dukra, išgirdusi šią nuostabią maldą, padaryk mane vertu amžinai priimti Tavo maloningą šoninį žvilgsnį. Tavo malone mano trijų rūšių karma (sukauptos pasekmės, subrendusios pasekmės ir dabartinių veiksmų pasekmės) bus sunaikinta, ir tą akimirką aš įžengsiu į Vradžos karaliaus sūnaus bei Jo brangiausių sakhī ratą."
+       }
+      ]
+     }
+    ]
+   }
   }
  }
 }

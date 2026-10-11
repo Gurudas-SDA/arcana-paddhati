@@ -20,7 +20,7 @@ import json, os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "..", "..", "data")
-LANGS = ["en", "ru", "ru-iast", "lv", "de", "fr", "es", "it", "uk", "hu"]
+LANGS = ["en", "ru", "ru-iast", "lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"]
 
 
 def fname(lang):

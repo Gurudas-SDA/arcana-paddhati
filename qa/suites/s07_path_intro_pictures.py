@@ -19,7 +19,7 @@ import qa
 VERSES = 271  # 180 + 61 verses of the maṅgala-/gaura-ārati songs (Reader v7.4, Satkirti 07.10 13:07) + 30 Kārtika bhajans (v7.6)
 import io, json, os, sys, urllib.request
 from urllib.parse import urlparse
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout, Error as PWError
 
 BASE = sys.argv[1].rstrip("/"); SHOTS = sys.argv[2] if len(sys.argv) > 2 else None
 ONLY = None  # device filter: QA_DEVICES (qa/lib/qa.py)
@@ -58,6 +58,13 @@ EMPTY_PT = """() => { const main = document.querySelector('.app-main'); const ar
   const ar = art.getBoundingClientRect(); return {x: Math.max(4, ar.left - 6), y: H / 2}; }"""
 
 
+CHIPS = "(() => { const c = [...document.querySelectorAll('.app-main article .verse-chips')]; return [c.length, c.filter(x => /пословно/.test(x.textContent)).length, location.pathname]; })()"
+ROW_JS = """() => { const row = document.querySelector('.hs-row[data-active]'); if (!row) return null; const rr = row.getBoundingClientRect();
+                const bar = document.querySelector('.reader-chrome[data-shown] .reader-bar-bottom'); const lim = bar ? bar.getBoundingClientRect().top : innerHeight;
+                return {top: rr.top, bottom: rr.bottom, vh: innerHeight, lim, bg: getComputedStyle(row.querySelector('.hs-text')).backgroundColor,
+                  text: row.textContent.trim().slice(0, 40), faded: !!document.querySelector('.hs-img-faded'), lit: !!document.querySelector('.hs-figure .hs-lit')}; }"""
+
+
 def run(p, dev, eng, o):
     br = getattr(p, eng).launch()
     touch = o.get("has_touch", False)
@@ -66,6 +73,12 @@ def run(p, dev, eng, o):
     pg = ctx.new_page()
     pg.on("pageerror", lambda e: errs.append(str(e)))
     pg.on("request", lambda r: foreign.append(r.url) if urlparse(r.url).netloc not in (HOST, "") and not r.url.startswith(("data:", "blob:")) else None)
+    # fetches in flight (the app's own prefetches of linked pages): a goto() that cuts one off makes
+    # WebKit report "… due to access control checks" — the test's doing, not the reader's (A65 gate 10.10)
+    inflight = set()
+    pg.on("request", lambda r: inflight.add(r) if r.resource_type in ("fetch", "xhr") else None)
+    pg.on("requestfinished", lambda r: inflight.discard(r))
+    pg.on("requestfailed", lambda r: inflight.discard(r))
     n_shot = [0]
 
     def shot(name):
@@ -81,20 +94,54 @@ def run(p, dev, eng, o):
         loc.tap(force=force) if touch else loc.click(force=force)
         pg.wait_for_timeout(wait)
 
+    # Waits for a STATE, not a fixed time (A65 gate 10.10: with 6 parallel jobs a page settles slower —
+    # a tap on an unsettled page is ignored, the bars hide by themselves 4 s after they appear).
     def bars():
-        if pg.locator(".reader-chrome[data-shown]").count():
-            return True
-        pt = pg.evaluate(EMPTY_PT); tap_xy(pt["x"], pt["y"]); pg.wait_for_timeout(450)
-        return pg.locator(".reader-chrome[data-shown]").count() > 0
+        """Bars shown: tap free space until they are (one tap may be ignored while the page settles)."""
+        for _ in range(4):
+            if pg.locator(".reader-chrome[data-shown]").count():
+                return True
+            pt = pg.evaluate(EMPTY_PT); tap_xy(pt["x"], pt["y"])
+            try:
+                pg.wait_for_selector(".reader-chrome[data-shown]", state="attached", timeout=1500)
+                pg.wait_for_timeout(300)   # the bars slide in (220 ms)
+                return True
+            except PWTimeout:
+                pass
+        return False
+
+    def bar_act(sel, wait=650, force=False):
+        """Tap a button of the bars. They hide by themselves 4 s after they appear (AUTO_HIDE_MS); a tap
+        that came later found the button slid off screen (30 s tap timeout) — show them again, tap again."""
+        loc = pg.locator(sel)
+        for k in range(4):
+            bars()
+            try:
+                loc.tap(force=force, timeout=2500) if touch else loc.click(force=force, timeout=2500)
+                break
+            except PWError:   # timeout, or (force) "outside of the viewport": the bars went away
+                if k == 3:
+                    raise
+        pg.wait_for_timeout(wait)
 
     def contents():
-        bars(); act(pg.locator("[data-reader-action=contents]"), 700)
+        bar_act("[data-reader-action=contents]", 700)
         return pg.locator(".mobile-menu").count() > 0
 
     def lit():
         return pg.evaluate(LIT)
 
+    def settle(ms=4000):
+        """No fetch in flight for 300 ms (the app's prefetches done), at most `ms`."""
+        quiet = 0
+        for _ in range(ms // 100):
+            quiet = quiet + 100 if not inflight else 0
+            if quiet >= 300:
+                return
+            pg.wait_for_timeout(100)
+
     def goto(path):
+        settle()
         pg.goto(f"{BASE}{path}", wait_until="networkidle"); pg.wait_for_timeout(700)
 
     goto(f"/{L}/daily-duties-brahma-muhurta/")
@@ -138,10 +185,14 @@ def run(p, dev, eng, o):
     chk(dev, "A first tap on «Тота Гопинатх» only highlights it", g.get("href", "").endswith("#vigraha-tota-gopinatha") and pg.url == P0 and pg.locator(".mobile-menu").count() == 1, str(g))
     shot("toc-path-tota")
     act(tota, 1100)
+    try:   # the page shown (the menu goes when it is rendered) — at most 12 s under load
+        pg.wait_for_function("() => !document.querySelector('.mobile-menu') && location.hash === '#vigraha-tota-gopinatha'", timeout=12000)
+    except PWTimeout:
+        pass
     chk(dev, "A second tap opens «Тота Гопинатх»", "/vigraha-tattva/" in pg.url and pg.url.endswith("#vigraha-tota-gopinatha") and pg.locator(".mobile-menu").count() == 0, pg.url)
     P1 = pg.url
     # ‹ Назад (the reader's own button)
-    bars(); act(pg.locator("[data-reader-nav=back]"), 1100)
+    bar_act("[data-reader-nav=back]", 1100)
     g = lit()
     chk(dev, "A ‹ Назад -> contents, «Тота Гопинатх» still lit and in view (iPad case)", g.get("menu") and g.get("n") == 1 and (g.get("href") or "").endswith("#vigraha-tota-gopinatha") and g["inView"] and g["bg"] == LIT_BG, str(g))
     shot("back-1-tota-lit")
@@ -171,7 +222,7 @@ def run(p, dev, eng, o):
     bars()
     fw = pg.locator("[data-reader-nav=forward]")
     chk(dev, "B «Вперёд» is a live button (not disabled)", fw.get_attribute("disabled") is None and fw.get_attribute("aria-disabled") == "false", str(fw.get_attribute("aria-disabled")))
-    act(fw, 1000)
+    bar_act("[data-reader-nav=forward]", 1000)
     g = lit()
     # v7.5: «Вперёд» replays the same steps — first the contents as opened (the current chapter lit),
     # then each tap (Введение ×4, Виграха-таттва ×2, Тота Гопинатх)
@@ -212,7 +263,7 @@ def run(p, dev, eng, o):
     bars(); fw = pg.locator("[data-reader-nav=forward]")
     sel = pg.evaluate("(() => { const b = document.querySelector('.reader-bar-bottom'); const s = getComputedStyle(b); return s.userSelect || s.webkitUserSelect; })()")
     chk(dev, "B bars' text is not selectable (no look-up bar on Android)", sel == "none", str(sel))
-    act(fw, 900, force=True)  # aria-disabled: Playwright would refuse a normal tap
+    bar_act("[data-reader-nav=forward]", 900, force=True)  # aria-disabled: Playwright would refuse a normal tap
     note = pg.locator("[data-reader-nav-note]")
     chk(dev, "B «Вперёд» with no step: stays, says ««Вперёд» — после «Назад»»", pg.url == u0 and note.count() == 1 and "после" in note.inner_text(), pg.url)
     if note.count():
@@ -224,9 +275,9 @@ def run(p, dev, eng, o):
     act(pg.locator(".chapter-next-link"), 1100)
     u1 = pg.url
     chk(dev, "D «След. глава ›» after offering-bhoga -> 7. Мантры почитания чаранамриты", u1.rstrip("/").endswith("/mantras-honouring-caranamrita"), u1)
-    bars(); act(pg.locator("[data-reader-nav=back]"), 1000)
+    bar_act("[data-reader-nav=back]", 1000)
     chk(dev, "B ‹ Назад -> previous chapter", pg.url == u0, pg.url)
-    bars(); act(pg.locator("[data-reader-nav=forward]"), 1000)
+    bar_act("[data-reader-nav=forward]", 1000)
     chk(dev, "B «Вперёд ›» -> next chapter again (Android case)", pg.url == u1, pg.url)
 
     # ---------- D: pages ----------
@@ -279,11 +330,13 @@ def run(p, dev, eng, o):
                 return null; }""", n)
             if not pt:
                 chk(dev, f"E {label} spot {n}: reachable tap point", False, "no point hits the spot"); continue
-            tap_xy(pt["x"], pt["y"]); pg.wait_for_timeout(1300)
-            r = pg.evaluate("""() => { const row = document.querySelector('.hs-row[data-active]'); if (!row) return null; const rr = row.getBoundingClientRect();
-                const bar = document.querySelector('.reader-chrome[data-shown] .reader-bar-bottom'); const lim = bar ? bar.getBoundingClientRect().top : innerHeight;
-                return {top: rr.top, bottom: rr.bottom, vh: innerHeight, lim, bg: getComputedStyle(row.querySelector('.hs-text')).backgroundColor,
-                  text: row.textContent.trim().slice(0, 40), faded: !!document.querySelector('.hs-img-faded'), lit: !!document.querySelector('.hs-figure .hs-lit')}; }""")
+            tap_xy(pt["x"], pt["y"]); pg.wait_for_timeout(700)
+            # the list scrolls to the row smoothly — wait until it is there (at most 6 s), not a fixed time
+            try:
+                pg.wait_for_function(f"() => {{ const r = ({ROW_JS})(); return !!r && r.top >= 0 && r.bottom <= r.lim + 1 && r.faded && r.lit; }}", timeout=6000)
+            except PWTimeout:
+                pass
+            r = pg.evaluate(ROW_JS)
             ok = bool(r) and r["top"] >= 0 and r["bottom"] <= r["lim"] + 1 and r["bg"].startswith("rgba(212, 168, 67") and r["faded"] and r["lit"]
             chk(dev, f"E {label}: tap picture part {n} -> part + row highlighted, list scrolled to the row", ok, str(r))
             if n == spots[0] and SHOTS and dev in ("pixel7", "s23fe", "iphone14", "ipad-portrait"):
@@ -332,8 +385,21 @@ def run(p, dev, eng, o):
         for lang in ("ru-iast", "ru"):
             tv = tw = 0; missing = []
             for sid in secs:
-                pg.goto(f"{BASE}/{lang}/{sid}/", wait_until="domcontentloaded"); pg.wait_for_timeout(250)
-                v = pg.evaluate("(() => { const c = [...document.querySelectorAll('.app-main article .verse-chips')]; return [c.length, c.filter(x => /пословно/.test(x.textContent)).length]; })()")
+                settle(2000)   # no prefetch of the page before cut off by this goto
+                pg.goto(f"{BASE}/{lang}/{sid}/", wait_until="load")
+                # the page rendered: the same count (and place — /ru/ opens the ru-iast page, v7)
+                # twice in a row, not a fixed 250 ms (A65 gate 10.10)
+                v, prev = [0, 0], None
+                for _ in range(20):
+                    try:
+                        cur = pg.evaluate(CHIPS)
+                    except PWError:   # the page went on (/ru/ → /ru-iast/) while counting
+                        cur = None
+                    if cur is not None and cur == prev:
+                        v = cur[:2]
+                        break
+                    prev = cur
+                    pg.wait_for_timeout(150)
                 tv += v[0]; tw += v[1]
                 if v[0] != v[1]: missing.append(f"{sid}:{v[1]}/{v[0]}")
             want_w, want_v = VERSES - short_tr - short_no, VERSES - short_no

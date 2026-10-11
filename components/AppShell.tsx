@@ -30,6 +30,20 @@ import {
 } from "@/lib/i18n";
 import { BASE_PATH } from "@/lib/basePath";
 
+/** A link's place: its pathname (no trailing slash) + hash — what a navigation opens. */
+const placeOf = (href: string): string => {
+  try {
+    const u = new URL(href, window.location.href);
+    return u.pathname.replace(/\/+$/, "") + u.hash;
+  } catch {
+    return href;
+  }
+};
+
+/** A65 (Codex 10.10): a page that has not come by now is given up. The КСВ
+ *  phone's slowest real load was 19 s, so the menu waits longer than that. */
+const NAV_FAIL_MS = 25000;
+
 const searchIndexUrl = (lang: string) =>
   `${BASE_PATH}/search-index.${lang}.json`;
 
@@ -85,11 +99,19 @@ export default function AppShell({
     } catch {
       // history unavailable: the menu still opens
     }
+    // A menu opened now is never "loading" (Claude verifier 11.10: after a
+    // replaced load the bar showed in every reopened contents).
+    setLeaving(false);
+    setNavFailed(false);
     setMobileMenuOpen(true);
   };
 
   /** Close from the UI (the close button, backdrop, Esc): pop all menu entries. */
   const closeMenu = useCallback(() => {
+    // ✕ / backdrop / Esc while a page loads: the load is cancelled — history.go(-d)
+    // is a back navigation, which makes Next.js discard the pending one (A65).
+    setLeaving(false);
+    setNavFailed(false);
     setMobileMenuOpen(false);
     const d = menuDepth();
     if (d > 0) window.history.go(-d);
@@ -99,11 +121,31 @@ export default function AppShell({
    * Leave the menu for a place (link or result): keep its entries (with the query).
    * `navigating` — another page is opening: the menu stays on screen until that
    * page is rendered (Reader v7.1: on a slow device the old page — often the
-   * cover — flashed for 2–3 s between the menu and the chapter).
+   * cover — flashed for 2–3 s between the menu and the chapter), with a
+   * loading bar at the top and «загружается…» on the tapped row (A65, КСВ
+   * 07.10.2026: 0–7 s, sometimes 19 s, with no sign of loading).
    */
   const [leaving, setLeaving] = useState(false);
   const leaveTimer = useRef<number | undefined>(undefined);
-  const leaveMenu = useCallback((navigating?: boolean) => {
+  /** A65 (Codex 10.10): the tapped page never came — the client load (RSC) AND
+   *  Next.js's fallback full page load both failed, or the network hangs. After
+   *  NAV_FAIL_MS the loading state is cleared (no endless «busy») and the row
+   *  says quietly «не удалось загрузить — коснитесь ещё раз». */
+  const [navFailed, setNavFailed] = useState(false);
+  const failTimer = useRef<number | undefined>(undefined);
+  /** While a page is loading, taps in the contents list are ignored (A65: a
+   *  repeated tap must not start the navigation again). After the safety time
+   *  the reader may choose ANOTHER place: its navigation replaces the pending
+   *  one (Next.js discards a pending navigation when a new one starts — its
+   *  app-router-instance action queue), so history grows by one entry and the
+   *  last choice wins. A tap on the place already loading never starts it again
+   *  (A65 fix, Codex 10.10: after 8 s a repeated tap restarted the load). The
+   *  menu and the loading signs stay until the page is shown, or until the
+   *  reader closes the menu / goes back (that cancels the load). */
+  const tapsLocked = useRef(false);
+  /** The place being loaded (pathname + hash): the transition token of the pending navigation. */
+  const pendingHref = useRef<string | null>(null);
+  const leaveMenu = useCallback((navigating?: boolean, href?: string) => {
     try {
       if (isMenuEntry()) patchState({ apQuery: searchQueryRef.current });
       sessionStorage.setItem(QUERY_STORE, searchQueryRef.current);
@@ -111,15 +153,32 @@ export default function AppShell({
       // storage unavailable
     }
     window.clearTimeout(leaveTimer.current);
+    window.clearTimeout(failTimer.current);
+    setNavFailed(false);
     if (navigating) {
       setLeaving(true);
-      // Safety net: never keep the menu if the page does not come.
+      tapsLocked.current = true;
+      const place = href ? placeOf(href) : null;
+      pendingHref.current = place;
+      // Safety net: if the page does not come, a tap may start it again. The
+      // menu is NOT closed here — that showed the old page for the rest of a
+      // slow load (A65: loads of 19 s); the close button / backdrop still work.
       leaveTimer.current = window.setTimeout(() => {
-        setLeaving(false);
-        setMobileMenuOpen(false);
+        tapsLocked.current = false;
       }, 8000);
+      // Still the same transition and no page yet: it failed — clear the
+      // loading state (a page that comes later still closes the menu).
+      failTimer.current = window.setTimeout(() => {
+        if (pendingHref.current !== place || placeOf(window.location.href) === place) return;
+        tapsLocked.current = false;
+        pendingHref.current = null;
+        setLeaving(false);
+        setNavFailed(true);
+      }, NAV_FAIL_MS);
       return;
     }
+    tapsLocked.current = false;
+    pendingHref.current = null;
     setLeaving(false);
     setMobileMenuOpen(false);
   }, []);
@@ -127,14 +186,50 @@ export default function AppShell({
   const [leftFrom, setLeftFrom] = useState(pathname);
   if (leftFrom !== pathname) {
     setLeftFrom(pathname);
-    if (leaving) {
+    // (also a page that comes after its load was given up as failed)
+    if (leaving || navFailed) {
       setLeaving(false);
+      setNavFailed(false);
       setMobileMenuOpen(false);
     }
   }
+  // The loading state lives only in the open menu: with the menu closed (by
+  // whatever path) nothing is loading — no «загружается» left in the live
+  // region (Claude verifier 11.10, A65 «another row after 8 s»).
+  if (!mobileMenuOpen && (leaving || navFailed)) {
+    setLeaving(false);
+    setNavFailed(false);
+  }
   useEffect(() => {
-    if (!leaving) window.clearTimeout(leaveTimer.current);
+    if (!leaving) {
+      window.clearTimeout(leaveTimer.current);
+      window.clearTimeout(failTimer.current);
+      tapsLocked.current = false;
+      pendingHref.current = null;
+    }
   }, [leaving]);
+  // No timer outlives the shell (A65, Codex LOW).
+  useEffect(
+    () => () => {
+      window.clearTimeout(leaveTimer.current);
+      window.clearTimeout(failTimer.current);
+    },
+    []
+  );
+  /** A65: while the tapped page loads, a tap in the contents / results list does
+   *  nothing — until the safety time; after it, only a tap on the place already
+   *  loading is ignored (never a second navigation to it). */
+  const guardTaps = (e: React.MouseEvent) => {
+    if (!leaving) return;
+    const el = e.target as Element;
+    const link = el.closest?.("a[href]") as HTMLAnchorElement | null;
+    if (!el.closest?.("nav") && !link) return;
+    if (!tapsLocked.current) {
+      if (!link || !pendingHref.current || placeOf(link.href) !== pendingHref.current) return;
+    }
+    e.preventDefault();
+    e.stopPropagation();
+  };
 
   // <html lang> follows the language on client-side navigation (the static
   // HTML already has it, see scripts/patch-html-lang.mjs).
@@ -243,6 +338,7 @@ export default function AppShell({
     const onPop = (e: PopStateEvent) => {
       const st = (e.state as Record<string, unknown> | null) ?? null;
       setLeaving(false);
+      setNavFailed(false);
       poppedAt.current = performance.now();
       if (isMenuEntry(st)) {
         if (typeof st?.apParts === "string") restoreParts(st.apParts);
@@ -272,6 +368,16 @@ export default function AppShell({
       for (const ms of [60, 160, 320, 600]) window.setTimeout(apply, ms);
     };
     window.addEventListener("popstate", onPop);
+    // A65: the page came back from the browser's page cache (e.g. after a failed
+    // client navigation fell back to a full page load, then "back") — no loading
+    // state survives from before.
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) {
+        setLeaving(false);
+        setNavFailed(false);
+      }
+    };
+    window.addEventListener("pageshow", onPageShow);
 
     // Reloaded (or restored from the page cache) on a menu entry: its own open
     // lists, not the session's last ones (a reload in the middle of history —
@@ -284,6 +390,7 @@ export default function AppShell({
     return () => {
       m.removeEventListener("scroll", onScroll);
       window.removeEventListener("popstate", onPop);
+      window.removeEventListener("pageshow", onPageShow);
     };
   }, []);
 
@@ -412,7 +519,20 @@ export default function AppShell({
 
       {/* Contents / search panel (all screen sizes) */}
       {mobileMenuOpen && (
-        <div className="mobile-menu no-print fixed inset-0 z-40" data-leaving={leaving ? "" : undefined}>
+        <div
+          className="mobile-menu no-print fixed inset-0 z-40"
+          data-leaving={leaving ? "" : undefined}
+          onClickCapture={guardTaps}
+        >
+          {/* A65: the tapped page is loading — shown at once, until it is rendered. */}
+          {leaving && (
+            <div
+              className="nav-progress"
+              data-nav-progress=""
+              role="progressbar"
+              aria-label={ui["sidebar.loading"] ?? "loading"}
+            />
+          )}
           {/* Backdrop */}
           <div
             className="fixed inset-0 bg-black/30 sidebar-backdrop"
@@ -425,10 +545,23 @@ export default function AppShell({
               {...sidebarProps}
               onClose={closeMenu}
               onLeave={leaveMenu}
+              navigating={leaving}
+              navFailed={navFailed}
             />
           </div>
         </div>
       )}
+
+      {/* A65: «загружается…» for screen readers — a live region that always exists
+          (announced when its text appears) and is outside the menu, so no aria-busy
+          container hides it. The row itself is aria-busy (Sidebar.tsx). */}
+      <div className="sr-only" role="status" aria-live="polite" data-nav-live="">
+        {leaving
+          ? (ui["sidebar.loading"] ?? "loading")
+          : navFailed
+            ? (ui["sidebar.loadFailed"] ?? "")
+            : ""}
+      </div>
 
       {/* Main content area */}
       <main className="app-main flex-1 overflow-y-auto">

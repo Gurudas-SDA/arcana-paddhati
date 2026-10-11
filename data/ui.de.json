@@ -7,6 +7,8 @@
   "sidebar.contents": "Inhalt",
   "sidebar.cover": "Titelseite",
   "sidebar.closeMenu": "Menü schließen",
+  "sidebar.loading": "wird geladen",
+  "sidebar.loadFailed": "Laden fehlgeschlagen — erneut tippen",
   "sidebar.showAllTranslations": "Alle Übersetzungen anzeigen",
   "sidebar.showAllWbw": "Alle Wort-für-Wort-Übersetzungen anzeigen",
   "search.placeholder": "Abschnitte durchsuchen",

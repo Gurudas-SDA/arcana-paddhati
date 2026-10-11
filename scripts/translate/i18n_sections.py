@@ -97,7 +97,7 @@ def put(book, lang, sid, gen_dir, en_section, en_ids):
 
 
 # ---------------- CLI: put the translated sections into the other-language books only ----------------
-OTHER = ["lv", "de", "fr", "es", "it", "uk", "hu"]
+OTHER = ["lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"]
 
 
 def apply_sections(sids, gen_dirs, data_dir):

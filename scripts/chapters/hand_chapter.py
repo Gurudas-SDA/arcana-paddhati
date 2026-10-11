@@ -27,7 +27,7 @@ from iast_to_cyrillic import translit  # noqa: E402
 from i18n_sections import put  # noqa: E402
 
 PART = {"id": "festivals-vows", "ru": "Праздники и обеты", "en": "Festivals and Vows"}
-OTHER = ["lv", "de", "fr", "es", "it", "uk", "hu"]
+OTHER = ["lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"]
 FILES = {"en": "book.json", "ru": "book.ru.json", "ru-iast": "book.ru-iast.json"}
 
 

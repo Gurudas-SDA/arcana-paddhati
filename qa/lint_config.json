@@ -46,6 +46,8 @@
     "book.it.json": "bīja-mantra",
     "book.hu.json": "bīja-mantra",
     "book.lv.json": "bīja-mantra",
+    "book.pt.json": "bīja-mantra",
+    "book.lt.json": "bīja-mantra",
     "book.ru.json": "биджа-мантра",
     "book.ru-iast.json": "биджа-мантра",
     "book.uk.json": "біджа-мантра"
@@ -60,7 +62,9 @@
     "es",
     "it",
     "uk",
-    "hu"
+    "hu",
+    "pt",
+    "lt"
   ],
   "exceptions": [
     {

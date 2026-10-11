@@ -69,7 +69,7 @@ const entries = walk(outDir)
 // then the Russian (IAST) and English books, then the other languages, then
 // the bundled transcripts — an interrupted first visit already holds the
 // most-read parts.
-const LANG_DIRS = ["ru", "ru-iast", "lv", "de", "fr", "es", "it", "uk", "hu"];
+const LANG_DIRS = ["ru", "ru-iast", "lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"];
 const LANG_FIRST = ["ru-iast", "", "ru"];
 function priority(rel) {
   if (rel.startsWith("_next/")) return 0;
