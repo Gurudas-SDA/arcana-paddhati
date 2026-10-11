@@ -37,7 +37,7 @@ CAPTIONS = [  # (image, RU, EN)
     ("02", "Шрила Саччидананда Бхактивинода Тхакур", "Śrīla Saccidānanda Bhaktivinoda Ṭhākura"),
     ("03", "Шрила Гаура Кишора дас Бабаджи Махарадж", "Śrīla Gaura Kiśora dāsa Bābājī Mahārāja"),
     ("04", "Прабхупада Шрила Бхактисиддханта Сарасвати Тхакур", "Prabhupāda Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura"),
-    ("05", "Шрила Бхакти Праджнана Кешава Госвами Махарадж", "Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja"),
+    ("05", "Шрила Бхакти Прагьяна Кешава Госвами Махарадж", "Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja"),
     ("06", "Шрила А. Ч. Бхактиведанта Свами Прабхупада", "Śrīla AC Bhaktivedānta Svāmī Prabhupāda"),
     ("07", "Шрила Бхактиведанта Нараяна Госвами Махарадж", "Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja"),
     ("08", "Шри Према Прайоджана Прабху", "Śrī Prem Prayojan Prabhu"),

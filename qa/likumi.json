@@ -149,7 +149,7 @@
 
     {"id": "STD-3.1", "doc": "STD", "section": "§3", "text": "Вводные главы (эмблема, Адвайта-таттва, Виграха-таттва) — литературное эссе в 3-м лице по плану лекции Гурудева; без «Гурудев сказал в лекции…»; источник одной строкой; каждый элемент рисунка подсвечивается.",
      "tests": ["s10:§2/§5 Emblem: строка → ровно один предмет", "s10:§2/§9 Emblem: часть рисунка → строка"], "daleji": "tikai «каждый элемент рисунка подсвечивается»; stils — cilvēks"},
-    {"id": "STD-3.2", "doc": "STD", "section": "§3", "text": "Адвайта-таттва = адвая-джняна пара-таттва; стоит перед Виграха-таттвой.",
+    {"id": "STD-3.2", "doc": "STD", "section": "§3", "text": "Адвайта-таттва = адвая-гьяна пара-таттва; стоит перед Виграха-таттвой.",
      "tests": [], "nav_testa": "grāmatā pašlaik nav nodaļas «Адвайта-таттва» — kad būs, pievienot secības pārbaudi"},
     {"id": "STD-3.3", "doc": "STD", "section": "§3", "text": "Структура книги: «Arcana paddhati — The Process of Deity Worship» (без «Temple Manual»); части I Храмовый / II Домашний / III для проповеднических центров; нумерация I → 1 → 2.1; первая страница — только обложка.",
      "tests": ["lint:L15", "s07:D Part I starts with chapter «1.»", "s071:3 contents: Обложка", "s06:main-worship-sixteen-items: next chapter's title under it (Часть II.", "s06:empty part page (Часть II) -> Часть III", "s01:cover: no bars"]},
@@ -157,6 +157,8 @@
      "tests": [], "nav_testa": "gramatika — cilvēks (L1/L11 aptver tikai konkrētus locījumus)"},
     {"id": "STD-3.7", "doc": "STD", "section": "§3", "text": "Санскрит везде — IAST с диакритикой (kṣīra-snānīyam, а не ksira-snaniyam); написание молитв и мантр сверяем с изданным источником («Арчана-дипика», Sat-kriyā-sāra-dīpikā и др.).",
      "tests": ["lint:L18", "lint:L8"], "daleji": "L18 — heuristika (ASCII aizvietojumi ks/sh/ng/jn/ñ/aa/-anīya/ṣṇ/visarga-h u.c.); vārdu, kam diakritika vienkārši izlaista bez tipiska marķiera (piem. «sodhana»), ķer tikai cilvēks"},
+    {"id": "STD-3.9", "doc": "STD", "section": "§3", "text": "Санскритское jñ в русском тексте пишем «гья»: Прагьяна, гьяна, гьяни, вигьяна, агьяна, адвая-гьяна; имя ачарьи — «Шрила Бхакти Прагьяна Кешава Госвами Махарадж». В санскрите с диакритикой (стихи, пословный перевод, термины) — как раньше: «джн̃» кириллицей, «jñ» латиницей (IAST).",
+     "tests": ["lint:L29"]},
     {"id": "STD-3.8", "doc": "STD", "section": "§3", "text": "В русской книге нет английского текста, кроме слов Гурудева в оригинале и названий источников.",
      "tests": ["lint:L19"]},
     {"id": "STD-3.5", "doc": "STD", "section": "§3", "text": "Санскритское слово с объяснением → слово жирным, объяснение обычным шрифтом (как в пословном переводе).",
