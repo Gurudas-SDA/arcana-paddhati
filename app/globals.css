@@ -412,6 +412,30 @@ body {
   padding-left: 0;
   border-radius: 0 4px 4px 0;
 }
+/* On phones, keep the shared number column and give the place and mantra
+   the remaining width on separate lines. The existing targets stay intact;
+   only the decoration belongs to the whole selected row. */
+@media screen and (max-width: 639px) {
+  .hs-row:has(> .hs-cell-first) > .hs-cell {
+    grid-row: 1;
+  }
+  .hs-row:has(> .hs-cell-first) > .hs-cell + .hs-cell {
+    grid-column: 2 / -1;
+  }
+  .hs-row:has(> .hs-cell-first) > .hs-cell + span:not(.hs-cell) {
+    grid-column: 2 / -1;
+    grid-row: 2;
+  }
+  .hs-row[data-active]:has(> .hs-cell-first) {
+    background-color: var(--rd-row-active);
+    border-radius: 4px;
+  }
+  /* Paint once behind both lines, without darker overlapping cell bands. */
+  .reader-article .hs-row[data-active]:has(> .hs-cell-first) .hs-cell,
+  .reader-article .hs-row[data-active]:has(> .hs-cell-first) .hs-text {
+    background-color: transparent;
+  }
+}
 @media (hover: hover) {
   .hs-row:has(.hs-cell:hover) .hs-text,
   .hs-row:has(.hs-cell:hover) .hs-cell {
@@ -570,6 +594,7 @@ body {
   --rd-border: #E8DCC8;
   --rd-hover: #F5E6C8;
   --rd-panel-bg: #FFFFFF;
+  --rd-row-active: rgba(212, 168, 67, 0.32);
   --reader-pad-bottom: calc(30px + env(safe-area-inset-bottom, 0px));
 }
 html[data-reader-theme="sepia"] {
@@ -579,6 +604,7 @@ html[data-reader-theme="sepia"] {
   --rd-border: #DCCCAC;
   --rd-hover: #E5D8BC;
   --rd-panel-bg: #F6F0E2;
+  --rd-row-active: rgba(212, 168, 67, 0.32);
 }
 html[data-reader-theme="night"] {
   --rd-bg: #16130F;
@@ -590,6 +616,7 @@ html[data-reader-theme="night"] {
   --rd-border: #3A3128;
   --rd-hover: #2E271F;
   --rd-panel-bg: #211C16;
+  --rd-row-active: rgba(212, 168, 67, 0.28);
   color-scheme: dark;
 }
 
