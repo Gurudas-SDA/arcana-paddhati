@@ -221,11 +221,12 @@ body {
   max-height: 88vh;
   max-height: 88dvh;
   animation: mood-rise 200ms ease-out;
-  --rd-base: clamp(16px, calc(13px + 0.85vw), 23px);
+  --rd-base: clamp(18px, calc(13px + 0.85vw), 23px);
   --fs: calc(var(--rd-base) * var(--reader-zoom, 1));
 }
 @media (min-width: 640px) {
   .mood-dialog {
+    --rd-base: clamp(20px, calc(13px + 0.85vw), 23px);
     width: 88vw;
     min-height: 55dvh;
   }
@@ -661,13 +662,13 @@ body,
 /* Reading column + text size («Аа»).
    The column fills the screen like Apple Books: small side margins on phones
    (13px) and ~4.5% on tablets. The base body size grows with the viewport
-   (phone ~16px, tablet portrait ~20px, landscape / desktop 23px) and is
+   (phone at least 18px, tablet at least 20px, landscape / desktop 23px) and is
    multiplied by the «Аа» step (--reader-zoom). Every text size inside the
    column is derived from --fs below (the book's components use fixed px /
    rem Tailwind classes; these unlayered rules override them), so A−/A+
    change the real font size of body, verses and headings alike. */
 .reader-article {
-  --rd-base: clamp(16px, calc(13px + 0.85vw), 23px);
+  --rd-base: clamp(18px, calc(13px + 0.85vw), 23px);
   --fs: calc(var(--rd-base) * var(--reader-zoom, 1));
   font-size: var(--fs);
   width: 100%;
@@ -677,6 +678,7 @@ body,
 }
 @media (min-width: 640px) {
   .reader-article {
+    --rd-base: clamp(20px, calc(13px + 0.85vw), 23px);
     padding: 2.25rem 4.5vw 3rem;
   }
 }
@@ -695,7 +697,7 @@ body,
 .reader-article .leading-6 { line-height: 1.6; }
 .reader-article .leading-5 { line-height: 1.45; }
 .reader-article .leading-4 { line-height: 1.35; }
-/* Headings: 28 : 22 : 18 : 16, preserved at every «Аа» size. */
+/* Heading ratios: 1.75 : 1.375 : 1.125 : 1 at every «Аа» size. */
 .reader-article h1[class] { font-size: calc(var(--fs) * 1.75); line-height: 1.25; }
 .reader-article h2[class] { font-size: calc(var(--fs) * 1.375); }
 .reader-article h3[class] { font-size: calc(var(--fs) * 1.125); }
