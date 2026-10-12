@@ -447,6 +447,19 @@ body {
     background-color: transparent !important;
   }
 }
+/* Alternating bands on a linked list, so a place and its mantra read as one
+   row on a narrow screen. Decoration, not a state: the selection band
+   (rgba(212,168,67,.32)) sits on top of it and stays clearly stronger.
+   Taps are unchanged, the band is not a target (rules §1, §11). */
+.hs-row:nth-of-type(even) {
+  background-color: var(--rd-row-stripe);
+  border-radius: 4px;
+}
+@media print {
+  .hs-row:nth-of-type(even) {
+    background-color: transparent !important;
+  }
+}
 .hs-overlay {
   overflow: visible;
   /* The lit (inked) copy only ever darkens what lies beneath it. */
@@ -597,6 +610,9 @@ body {
   --rd-hover: #F5E6C8;
   --rd-panel-bg: #FFFFFF;
   --rd-row-active: rgba(212, 168, 67, 0.32);
+  /* alternating band on linked lists (tilak, 16 articles): decoration only,
+     far weaker than the selection band so the two never read alike */
+  --rd-row-stripe: rgba(212, 168, 67, 0.065);
   --reader-pad-bottom: calc(30px + env(safe-area-inset-bottom, 0px));
 }
 html[data-reader-theme="sepia"] {
@@ -609,6 +625,7 @@ html[data-reader-theme="sepia"] {
   --rd-hover: #E5D8BC;
   --rd-panel-bg: #F6F0E2;
   --rd-row-active: rgba(212, 168, 67, 0.32);
+  --rd-row-stripe: rgba(120, 88, 30, 0.06);
 }
 html[data-reader-theme="night"] {
   --rd-bg: #16130F;
@@ -623,6 +640,7 @@ html[data-reader-theme="night"] {
   --rd-hover: #2E271F;
   --rd-panel-bg: #211C16;
   --rd-row-active: rgba(212, 168, 67, 0.28);
+  --rd-row-stripe: rgba(242, 233, 218, 0.045);
   color-scheme: dark;
 }
 
