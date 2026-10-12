@@ -23,6 +23,9 @@ Per device and Contents mode (default one-tap, ?toc=two):
   C  The entry records never break the book: storage blocked (memory only),
      a reload in the middle of the steps, an entry from before apId (its view
      in history.state), entries evicted past the 200-record cap.
+  D  WebKit's quota error forced: a refused push still lets the row act and
+     adds no step; a refused replace is retried for the same entry once the
+     window allows - no second entry, Back retraces one step, not two.
 
 Pacing: Playwright's own taps on WebKit take ~0.75 s each (actionability
 waits), which spreads a burst out and hides the quota defect. The suite drives
@@ -70,6 +73,11 @@ COUNTER = r"""(() => {
     const native = P[name];
     P[name] = function (data, unused, url) {
       log.push({kind, app: app(), t: performance.now()});
+      // Case D: WebKit's quota error on demand (window.__qaFault = {push, replace}).
+      if (window.__qaFault && window.__qaFault[kind]) {
+        errors.push(kind + ': QA fault');
+        throw new DOMException('Attempt to use history.' + name + '() more than 100 times per 10 seconds', 'SecurityError');
+      }
       try { return native.call(this, data, unused, url); }
       catch (e) { errors.push(kind + ': ' + e.message); throw e; }
     };
@@ -108,7 +116,7 @@ def writes(pg, since, until=None):
 
 
 def quota_errors(pg, errors):
-    return pg.evaluate("window.__qaQuota")[:2] + [e for e in errors if "history." in e][:2]
+    return [e for e in pg.evaluate("window.__qaQuota") if "QA fault" not in e][:2] + [e for e in errors if "history." in e][:2]
 
 
 def plan(chapters, mode, n):
@@ -462,6 +470,60 @@ def case_c(browser, dev, options, mode):
         context.close()
 
 
+def case_d(browser, dev, options, mode):
+    tag = "D quota refused"
+    context, pg, flow, errors, chapters = start(browser, options, mode)
+    try:
+        c1, c2 = chapters[0], chapters[1]
+        s0 = flow.state()
+        # A refused push: the row still acts, no step is added, nothing throws out.
+        pg.evaluate("window.__qaFault = {push: true}")
+        press(pg, flow, c1)
+        pg.wait_for_timeout(400)
+        refused = flow.state()
+        pg.evaluate("window.__qaFault = null")
+        lit_ok = refused["lit"] == ["sec:" + c1] and (c1 in refused["open"] if mode.one else True)
+        chk(dev, f"{tag}: a refused push - the row still acts, no step added, no page error",
+            lit_ok and refused["history"] == s0["history"] and not errors, f"{show(refused)} {refused['history']} vs {s0['history']} {errors[:2]}")
+        pg.wait_for_timeout(1500)
+        before = flow.state()
+        press(pg, flow, c2)
+        pg.wait_for_timeout(500)
+        after = flow.state()
+        chk(dev, f"{tag}: after the window, the next action adds exactly one step",
+            after["history"] == before["history"] + 1 and after["lit"] == ["sec:" + c2], f"{after['history']} vs {before['history']}")
+        # Never a late push for the refused action: still one step after 2.5 s.
+        pg.wait_for_timeout(2500)
+        chk(dev, f"{tag}: the refused push is never made later", flow.state()["history"] == after["history"],
+            f"{flow.state()['history']} vs {after['history']}")
+        flow.nav("back")
+        back = flow.state()
+        chk(dev, f"{tag}: Back after a refused push retraces one step, to the step before", back["url"] == before["url"]
+            and back["menu"] == before["menu"], f"{show(back)} want {show(before)}")
+        if mode.one:
+            # A refused replace: closing the one-tap menu clears apMenu with a replace.
+            flow.nav("forward")
+            length, url = flow.state()["history"], flow.state()["url"]
+            pg.evaluate("window.__qaFault = {replace: true}")
+            pg.keyboard.press("Escape")
+            pg.wait_for_timeout(300)
+            pg.evaluate("window.__qaFault = null")
+            pg.wait_for_timeout(2500)
+            st = pg.evaluate("({menu: !!(history.state && history.state.apMenu), length: history.length, url: location.pathname})")
+            chk(dev, f"{tag}: a refused replace is retried for the same entry - no second entry",
+                not st["menu"] and st["length"] == length and st["url"] == url and not flow.state()["menu"], str(st))
+            flow.nav("back")
+            back = flow.state()
+            chk(dev, f"{tag}: Back after the retried replace goes one step, not two", back["url"] == before["url"],
+                f"{show(back)} want {before['url']}")
+        quota_free = [e for e in errors if "history." in e]
+        chk(dev, f"{tag}: the refusals never surface as page errors", not quota_free, str(quota_free[:2]))
+    except Exception as error:  # noqa: BLE001
+        chk(dev, f"{tag}: scenario completed", False, f"{type(error).__name__}: {str(error).splitlines()[0]}")
+    finally:
+        context.close()
+
+
 def main():
     with sync_playwright() as p:
         for dev, eng, opts in qa.devices(DEVICES):
@@ -471,6 +533,7 @@ def main():
                 case_a(browser, dev, opts, mode)
                 case_b(browser, dev, opts, mode)
                 case_c(browser, dev, opts, mode)
+                case_d(browser, dev, opts, mode)
 
             qa.run_toc_modes(body)
             browser.close()
