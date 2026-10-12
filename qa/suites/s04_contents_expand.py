@@ -68,28 +68,30 @@ def run(p, dev, eng, o, mode):
     chk(dev,'(a) tap 5.3 -> URL at 5.3, drawer closed',label.startswith('1.3') and not flow.state()['menu'] and pg.url.endswith('#'+anchor))
     top=qa.reading_eval(pg,'(root,id)=>root.querySelector(`[id="${CSS.escape(id)}"]`).getBoundingClientRect().top',anchor)
     chk(dev,'(a) 5.3 heading at top of the screen',-5<=top<250,str(top))
-    flow.nav('back',native=True);back=flow.state()
+    back_presses=0
+    flow.nav('back',native=True);back_presses+=1;back=flow.state()
     chk(dev,'(a) back1 -> Contents open, chapter 5 expanded, 5.3 lit, original page',back['menu'] and CH5 in back['open'] and back['lit']==['sub:'+CH5+'#'+anchor] and back['url']==before['url'],str(back))
-    # Verify the same chapter row toggles, without jumping away from the current place.
-    current=back['url'];flow.tap(flow.chapter(CH5),right=True)
+    flow.nav('back',native=True);back_presses+=1;second=flow.state()
+    chk(dev,'(a) back2 -> preceding real action / chapter 1 lit and expanded in legacy',second['menu'] and pg.url==P and second['lit']==['sec:'+CH5] and ((CH5 not in second['open']) if mode.one else CH5 in second['open']),str(second))
     if not mode.one:
-        chk(dev,'(b) v7.5: chapter row, first tap only highlights (stays expanded, same page)',CH5 in flow.state()['open'] and flow.state()['url']==current and flow.state()['lit']==['sec:'+CH5])
-        flow.tap(flow.chapter(CH5),right=True)
+        flow.nav('back',native=True);back_presses+=1;third=flow.state()
+        chk(dev,'(a) back3 -> chapter 1 lit, collapsed (the 1st-tap step)',third['menu'] and CH5 not in third['open'] and third['lit']==['sec:'+CH5] and pg.url==P,str(third))
+        flow.nav('back',native=True);back_presses+=1;fourth=flow.state()
+        chk(dev,'(a) back4 -> Contents as opened (chapter 1 collapsed, not lit)',fourth['menu'] and CH5 not in fourth['open'] and fourth['lit']==initial['lit'] and pg.url==P,str(fourth))
     else:
-        chk(dev,'(b) v7.5: chapter row, first tap collapses in default',CH5 not in flow.state()['open'] and flow.state()['lit']==['sec:'+CH5])
-    chk(dev,'(b) v7.5: chapter row, second tap collapses its list (legacy; first in default), no navigation',CH5 not in flow.state()['open'] and flow.state()['url']==current)
-    flow.nav('back',native=True)
-    chk(dev,'(a) back2 -> chapter 1 lit and expanded',CH5 in flow.state()['open'])
-    # Close all menu steps, retaining the original chapter and its reading place.
-    if mode.one:
-        flow.nav('back',native=True);flow.nav('back',native=True)
-    else:
-        pg.locator('.mobile-menu button[aria-label="Закрыть меню"]').click();pg.wait_for_timeout(700)
+        for id in ['(a) back3 -> chapter 1 lit, collapsed (the 1st-tap step)','(a) back4 -> Contents as opened (chapter 1 collapsed, not lit)']:
+            print(f'  [SKIP] {dev} {id} [toc=default] — the highlight updates the original menu entry; there is no separate highlight-only predecessor.',flush=True)
+    flow.nav('back',native=True);back_presses+=1
     chk(dev,'(a) back5 -> Contents closed, original page + scroll',not flow.state()['menu'] and pg.url==P and abs(pg.locator('.app-main').evaluate('e=>e.scrollTop')-y0)<40)
-    # Deep-link auto-selection retains the former (b) contract in both modes.
+    chk(dev,'(a) Back presses to the original chapter match the model',back_presses==(3 if mode.one else 5) and pg.url==P)
+    # B keeps the original deep-link selection AND its two-tap legacy toggle checks.
     pg.goto(f'{BASE}/{LANG}/{CH5}/#{anchor}',wait_until='networkidle');pg.wait_for_timeout(600);flow.contents()
     selected=pg.locator(f'#toc-ch-{CH5} a[aria-current=location]')
     chk(dev,'(b) reading 5.3: chapter 5 auto-expanded, 5.3 highlighted',CH5 in flow.state()['open'] and selected.count()==1 and selected.get_attribute('href')==href)
+    u0=flow.state()['url'];flow.tap(flow.chapter(CH5),right=True)
+    chk(dev,'(b) v7.5: chapter row, first tap follows the model',flow.state()['url']==u0 and flow.state()['lit']==['sec:'+CH5] and (CH5 in flow.state()['open'])!=mode.one)
+    if not mode.one:flow.tap(flow.chapter(CH5),right=True)
+    chk(dev,'(b) v7.5: chapter row, second tap collapses legacy / first collapses default, no navigation',flow.state()['url']==u0 and CH5 not in flow.state()['open'] and flow.state()['lit']==['sec:'+CH5])
     pg.goto(P,wait_until='networkidle');pg.wait_for_timeout(500);flow.contents();long='arcana-procedure';flow.activate(flow.chapter(long))
     low=pg.locator(f'#toc-ch-{long} a').last;low_href=low.get_attribute('href');low.scroll_into_view_if_needed();pg.wait_for_timeout(400)
     t0=pg.locator('.toc-scroll').evaluate('e=>e.scrollTop');p0=low.bounding_box()['y'];u0=flow.state()['url'];flow.activate(low,wait=400)
