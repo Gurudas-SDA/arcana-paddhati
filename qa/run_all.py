@@ -29,7 +29,7 @@ import server as qa_server  # noqa: E402
 
 RESULTS = os.path.join(HERE, ".results")
 LINE = re.compile(r"^\s*\[(PASS|FAIL|SKIP|WARN|INFO)\]\s+(\S+)\s+(.*)$")
-TOC_MODE_SUITES = {"s01", "s03", "s04", "s05", "s23", "s24", "s25", "s30", "s071"}
+TOC_MODE_SUITES = {"s01", "s03", "s04", "s05", "s23", "s24", "s25", "s30", "s071", "s35"}
 
 # name, file, devices (full run; None = the suite has no devices), in fast run?, extra env (fast), extra env (full)
 SUITES = [
@@ -91,6 +91,8 @@ SUITES = [
          devices=["s23fe", "iphone14", "desktop", "mac-safari"], fast=False),
     dict(id="s34", file="suites/s34_continuous_book.py", title="Continuous book: cover scroll, deep links, reload, Back/Forward and offline",
          devices=["s23fe", "iphone14", "desktop", "mac-safari"], fast=False),
+    dict(id="s35", file="suites/s35_history_burst.py", title="History writes under fast tapping: app writes <= actions, no WebKit quota error, Back/Forward retrace (17 and 40 actions, Back burst)",
+         devices=["pixel7", "iphone14", "ipad-portrait", "desktop"], fast=True, fast_devices=["pixel7", "iphone14"]),
     dict(id="s20", file="suites/s20_offline.py", title="OFFLINE: Chromium (Android) — visas nodaļas, navigācija, transkripti", args=["chromium"],
          devices=None, fast=True, timeout_fast=200),
     dict(id="s20wk", file="suites/s20_offline.py", title="OFFLINE: WebKit (iPhone/iPad) — serveris izslēgts", args=["webkit"],
