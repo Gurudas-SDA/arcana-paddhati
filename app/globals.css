@@ -590,6 +590,8 @@ body {
   --rd-muted: #5C3D2E;
   --rd-faint: rgba(92, 61, 46, 0.55);
   --rd-accent: #B8860B;
+  --rd-mantra-fg: color-mix(in srgb, var(--rd-accent) 60%, var(--rd-fg));
+  --rd-mantra-rule: var(--rd-accent);
   --rd-bar-bg: #FFFFFF;
   --rd-border: #E8DCC8;
   --rd-hover: #F5E6C8;
@@ -600,6 +602,8 @@ body {
 html[data-reader-theme="sepia"] {
   --rd-bg: #EFE6D2;
   --rd-fg: #2a2016;
+  --rd-mantra-fg: color-mix(in srgb, var(--rd-accent) 50%, var(--rd-fg));
+  --rd-mantra-rule: var(--rd-accent);
   --rd-bar-bg: #EFE6D2;
   --rd-border: #DCCCAC;
   --rd-hover: #E5D8BC;
@@ -612,6 +616,8 @@ html[data-reader-theme="night"] {
   --rd-muted: #BBAE9A;
   --rd-faint: rgba(187, 174, 154, 0.5);
   --rd-accent: #D4A843;
+  --rd-mantra-fg: var(--color-gold-muted);
+  --rd-mantra-rule: var(--rd-accent);
   --rd-bar-bg: #1C1813;
   --rd-border: #3A3128;
   --rd-hover: #2E271F;
@@ -675,6 +681,18 @@ body,
 .reader-article h1[class] { font-size: calc(var(--fs) * 1.75); line-height: 1.25; }
 .reader-article h2[class] { font-size: calc(var(--fs) * 1.375); }
 .reader-article h3[class] { font-size: calc(var(--fs) * 1.125); }
+/* Standalone mantras have their own voice; centred ślokas and inline names
+   keep the book's bold styling. List mantras use their existing indent. */
+.reader-article .mantra-block[class],
+.reader-article .sa-inline.mantra-text {
+  font-weight: 500;
+  color: var(--rd-mantra-fg);
+}
+.reader-article .mantra-block {
+  margin-inline-start: 1em;
+  padding-inline-start: 0.65em;
+  border-inline-start: 1px solid var(--rd-mantra-rule);
+}
 /* Verses (śloka lines): larger, centred, like the printed book */
 .reader-article .verse-text[class] {
   font-size: calc(var(--fs) * 1.1);
