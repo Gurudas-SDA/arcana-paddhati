@@ -96,8 +96,14 @@ def run(p, dev, eng, o, mode):
         chk(dev, f"2nd tap on the highlighted leaf row opens it ({what})",not bad2,str(bad2[:3]))
         chk(dev, f"Назад from the opened row: contents, the row lit, URL before ({what})",not bad3,str(bad3[:3]))
         chk(dev,"no page errors",not errs,str(errs[:3]))
-        history_roundtrip(b,o,mode,lambda n,ok,i='':chk(dev,n,ok,i),BASE)
-    finally:c.close();b.close()
+    except Exception as error:
+        # A broken setup cannot silently omit the leaf-row checks. Report
+        # each blocked acceptance check, then run history in a fresh context.
+        for name in ['setup: all lists open','1st tap on a leaf row','2nd tap on the highlighted leaf row opens it','Назад from the opened row: contents, the row lit, URL before','no page errors']:
+            chk(dev,name,False,'Blocked by the all-lists failure: '+str(error)[:220])
+    finally:
+        try:history_roundtrip(b,o,mode,lambda n,ok,i='':chk(dev,n,ok,i),BASE)
+        finally:c.close();b.close()
 
 
 with sync_playwright() as p:
