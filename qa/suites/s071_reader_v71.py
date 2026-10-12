@@ -67,14 +67,14 @@ def wait_url(pg, part, t=10):
         pg.wait_for_timeout(100)
 
 
-OPEN_PANELS = "document.querySelectorAll('.app-main .verse-panel:not([hidden])').length"
-BREAKS = r"""(()=>{const bad=[];for(const d of document.querySelectorAll('.app-main .verse-text p')){
+OPEN_PANELS = "root => root.querySelectorAll('.verse-panel:not([hidden])').length"
+BREAKS = r"""root=>{const bad=[];for(const d of root.querySelectorAll('.verse-text p')){
 const w=document.createTreeWalker(d,NodeFilter.SHOW_TEXT);let n;let prevTop=null;let prevCh='';
 while(n=w.nextNode()){const t=n.textContent;prevTop=null;for(let i=0;i<t.length;i++){const r=document.createRange();r.setStart(n,i);r.setEnd(n,i+1);
 const rc=r.getClientRects()[0];if(!rc||t[i]==='\n')continue;
 if(prevTop!==null&&rc.top>prevTop+3&&!/[ \n-]/.test(t.slice(Math.max(0,i-2),i+1)))bad.push(t.slice(Math.max(0,i-12),i+8));
 prevTop=rc.top;prevCh=t[i]}}
-prevTop=null}return bad.slice(0,5)})()"""
+prevTop=null}return bad.slice(0,5)}"""
 
 L = BASE + "/ru-iast/"
 with sync_playwright() as p:
@@ -102,32 +102,32 @@ with sync_playwright() as p:
         ck(dev, '1/2 Вперёд on screen and on top with menu open', fb['y'] + fb['height'] <= vh and hit, fb)
         go_row(pg, 'Мангалачарана', 'mangalacarana')
         pg.wait_for_timeout(1200)
-        h1 = pg.evaluate("document.querySelector('.app-main h1').innerText.trim()")
-        h2 = pg.evaluate("document.querySelectorAll('.app-main article h2, .app-main article h3').length")
-        sub = pg.evaluate("!!document.querySelector('.app-main header p')")
-        orn = pg.evaluate("document.querySelectorAll('.app-main .verse-ornament').length")
-        verses = pg.evaluate("document.querySelectorAll('.app-main .verse-chips').length")
-        wbw = pg.evaluate("[...document.querySelectorAll('.app-main .verse-chips')].filter(c=>/пословно/i.test(c.innerText)).length")
+        h1 = qa.reading_eval(pg, "root => root.querySelector('h1').innerText.trim()")
+        h2 = qa.reading_eval(pg, "root => root.querySelectorAll('article h2, article h3').length")
+        sub = qa.reading_eval(pg, "root => !!root.querySelector('header p')")
+        orn = qa.reading_eval(pg, "root => root.querySelectorAll('.verse-ornament').length")
+        verses = qa.reading_eval(pg, "root => root.querySelectorAll('.verse-chips').length")
+        wbw = qa.reading_eval(pg, "root => [...root.querySelectorAll('.verse-chips')].filter(c=>/пословно/i.test(c.innerText)).length")
         ck(dev, '3 Мангалачарана: title only, no headings, ornaments, 30 verses all with пословно',
            h1 == 'Мангалачарана' and h2 == 0 and not sub and orn == 20 and verses == 30 and wbw == 30, (h1, h2, sub, orn, verses, wbw))
-        ck(dev, '6d «Молитва Шри Радхе-Говинде» gone', 'Радхе-Говинде' not in pg.evaluate("document.querySelector('.app-main').innerText"))
-        nxt = pg.evaluate("(()=>{const a=document.querySelector('.chapter-next');return a?a.innerText.replace(/\\s+/g,' '):''})()")
+        ck(dev, '6d «Молитва Шри Радхе-Говинде» gone', 'Радхе-Говинде' not in qa.reading_eval(pg, "root => root.innerText"))
+        nxt = qa.reading_eval(pg, "root=>{const a=root.querySelector('.chapter-next');return a?a.innerText.replace(/\\s+/g,' '):''}")
         ck(dev, '3 «След. глава ›» after Мангалачарана = Введение', 'ВВЕДЕНИЕ' in nxt.upper(), nxt)
         # 8: verse panels closed by default; no carry-over
-        ck(dev, '8 all verse panels closed on open', pg.evaluate(OPEN_PANELS) == 0)
-        tap(pg, pg.locator('.app-main .verse-chip').nth(1))
+        ck(dev, '8 all verse panels closed on open', qa.reading_eval(pg, OPEN_PANELS) == 0)
+        tap(pg, qa.reading_locator(pg, '.verse-chip').nth(1))
         pg.wait_for_timeout(400)
-        ck(dev, '8 chip opens its own panel', pg.evaluate(OPEN_PANELS) == 1)
+        ck(dev, '8 chip opens its own panel', qa.reading_eval(pg, OPEN_PANELS) == 1)
         # 6a
         pg.goto(L + 'caturmasya-purusottama-masa/', wait_until='networkidle')
         pg.wait_for_timeout(600)
-        raw = pg.evaluate("document.querySelector('.app-main').textContent")
+        raw = qa.reading_eval(pg, "root => root.textContent")
         ck(dev, '6a no ⟦⟧ on screen, āmiṣa translated', '⟦' not in raw and '⟧' not in raw and 'от мясной пищи' in raw)
         # 9: status line one line
         for sec in ['daily-deity-schedule', 'vigraha-tattva', 'gaudiya-emblem']:
             pg.goto(L + sec + '/', wait_until='networkidle')
             pg.wait_for_timeout(600)
-            pg.locator('.app-main').evaluate("e=>e.scrollTop=e.scrollHeight*0.82")
+            qa.scroll_chapter(pg, .82)
             pg.wait_for_timeout(400)
             reveal(pg)
             pg.wait_for_timeout(300)
@@ -137,7 +137,7 @@ with sync_playwright() as p:
         for sec in ['mangalacarana', 'daily-deity-schedule', 'offering-bhoga']:
             pg.goto(L + sec + '/', wait_until='networkidle')
             pg.wait_for_timeout(500)
-            bad = pg.evaluate(BREAKS)
+            bad = qa.reading_eval(pg, BREAKS)
             ck(dev, f'10 Sanskrit breaks only at space/hyphen ({sec})', not bad, bad)
         # 11: subsection heading at top 3 s after a jump (direct load with #hash)
         worst = []
@@ -187,12 +187,12 @@ with sync_playwright() as p:
         # 13: tap a picture part whose row is above -> programmatic scroll up, menu stays hidden
         pg.goto(L + 'daily-duties-brahma-muhurta/', wait_until='networkidle')
         pg.wait_for_timeout(800)
-        fig = pg.locator('.app-main .hs-figure').first
+        fig = qa.reading_locator(pg, '.hs-figure').first
         fig.evaluate("e=>e.scrollIntoView({block:'end'})")
         pg.wait_for_timeout(700)
         opened = []
         for n in ['1', '5', '9']:
-            h = pg.locator(f'.app-main .hs-figure .hs-hit[aria-label="{n}"] ellipse').first
+            h = qa.reading_locator(pg, f'.hs-figure .hs-hit[aria-label="{n}"] ellipse').first
             if not h.count():
                 continue
             bb = h.bounding_box()
@@ -211,7 +211,7 @@ with sync_playwright() as p:
         # 19: empty corner of the emblem picture acts as empty page
         pg.goto(L + 'gaudiya-emblem/', wait_until='networkidle')
         pg.wait_for_timeout(800)
-        fig = pg.locator('.app-main .hs-figure').first
+        fig = qa.reading_locator(pg, '.hs-figure').first
         fig.evaluate("e=>e.scrollIntoView({block:'center'})")
         pg.wait_for_timeout(600)
         bb = fig.bounding_box()
@@ -220,7 +220,7 @@ with sync_playwright() as p:
         pg.wait_for_timeout(700)
         ck(dev, '19 tap on the empty corner of the emblem toggles the menu', pg.evaluate(BARS) != before)
         # 14: numbers drawn on the emblem
-        tags = pg.evaluate("[...document.querySelectorAll('.app-main .hs-figure .hs-tag')].map(t=>t.textContent)")
+        tags = qa.reading_eval(pg, "root => [...root.querySelectorAll('.hs-figure .hs-tag')].map(t=>t.textContent)")
         ck(dev, '14 emblem shows numbers 1, 2.1–2.6, 10–12', sorted(tags) == sorted(['1', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '10', '11', '12']), tags)
         # 18 (v7.8, Satkirti 07.10.2026 вечер): the short Tilak / ācamana mantras («oṁ keśavāya namaḥ») have
         # NO «пословно» any more; the mantras themselves are all still there

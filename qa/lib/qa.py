@@ -53,6 +53,40 @@ READING_ROOT_JS = """(() => {
     || book.querySelector('[data-book-section=""]');
 })()"""
 
+READING_SELECTOR = ".app-main [data-reader-current], .app-main:not(:has([data-continuous-book]))"
+
+
+def reading_eval(page, function, arg=None):
+    """Run a content probe with the chapter root and an optional argument."""
+    return page.evaluate(f"arg => ({function})({READING_ROOT_JS}, arg)", arg)
+
+
+def reading_locator(page, selector):
+    return page.locator(READING_SELECTOR).locator(selector)
+
+
+READING_POSITION_JS = """(() => {
+  const main = document.querySelector('.app-main');
+  const root = __ROOT__;
+  const continuous = root !== main;
+  const start = continuous ? main.scrollTop + root.getBoundingClientRect().top - main.getBoundingClientRect().top : 0;
+  const spacer = root.querySelector('.chapter-end-space')?.offsetHeight || 0;
+  const pad = parseFloat(getComputedStyle(main).paddingBottom) || 0;
+  const max = continuous ? Math.max(0, root.scrollHeight - main.clientHeight + pad - spacer)
+    : Math.max(0, main.scrollHeight - main.clientHeight - spacer);
+  return {start, max, top: main.scrollTop - start};
+})()""".replace("__ROOT__", READING_ROOT_JS)
+
+
+def scroll_chapter(page, fraction):
+    """Scroll within the chapter, retaining the book's global scroll area."""
+    page.evaluate(f"""fraction => {{
+      const main = document.querySelector('.app-main');
+      const position = {READING_POSITION_JS};
+      main.scrollTop = position.start + position.max * fraction;
+      main.dispatchEvent(new Event('scroll'));
+    }}""", fraction)
+
 
 def wanted():
     """Device filter from the environment (QA_DEVICES=pixel7,iphone14); None = all."""
