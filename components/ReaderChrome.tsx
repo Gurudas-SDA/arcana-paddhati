@@ -326,7 +326,8 @@ export default function ReaderChrome({
     // The room after a chapter's end (.chapter-end-space) is not reading:
     // the chapter ends (100 %, the bars come up) where its text ends.
     const maxScroll = () => {
-      const sp = m.querySelector<HTMLElement>(".chapter-end-space");
+      const spaces = m.querySelectorAll<HTMLElement>(".chapter-end-space");
+      const sp = spaces[spaces.length - 1];
       return Math.max(0, m.scrollHeight - m.clientHeight - (sp ? sp.offsetHeight : 0));
     };
     const measure = () => {

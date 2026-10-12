@@ -26,10 +26,12 @@ import {
   liveLang,
   localeHref,
   parsePath,
+  t,
   type LocaleData,
 } from "@/lib/i18n";
-import { BASE_PATH } from "@/lib/basePath";
+import { BASE_PATH, stripBasePath } from "@/lib/basePath";
 import { useOneTapToc } from "@/lib/tocTapMode";
+import { beginReadingArrival, bookTarget } from "@/lib/readingFlow";
 
 /** A link's place: its pathname (no trailing slash) + hash — what a navigation opens. */
 const placeOf = (href: string): string => {
@@ -69,6 +71,19 @@ export default function AppShell({
   // Language of the text actually shown (English when a translation is missing).
   const contentLang = available.includes(lang) ? lang : DEFAULT_LANG;
   const htmlLang = getLanguage(contentLang)?.htmlLang ?? DEFAULT_LANG;
+  const restoredReadingPlace = useRef<string | null>(null);
+  // Deep links keep their existing URLs, but use the same continuous export
+  // as the cover. Replacing this entry adds no navigation/history step.
+  useEffect(() => {
+    if (!sectionId || document.querySelector("[data-continuous-book]")) return;
+    if (!sections.some((section) => section.id === sectionId) && !parts.some((part) => part.id === sectionId)) return;
+    const scroll = savedScroll(window.history.state);
+    if (!beginReadingArrival(window.location.href, scroll)) return;
+    if (window.history.state?.apBook && scroll !== undefined) {
+      restoredReadingPlace.current = placeOf(window.location.href);
+    }
+    router.replace(localeHref(lang), { scroll: false });
+  }, [lang, sectionId, sections, parts, router]);
 
   const [searchQuery, setSearchQuery] = useState("");
   const searchQueryRef = useRef("");
@@ -244,6 +259,11 @@ export default function AppShell({
   useEffect(() => {
     document.documentElement.lang = htmlLang;
   }, [htmlLang]);
+  useEffect(() => {
+    if (!document.querySelector("[data-continuous-book]")) return;
+    const section = sections.find((item) => item.id === sectionId) ?? parts.find((item) => item.id === sectionId);
+    document.title = section ? t(ui, "meta.sectionTitle", { section: section.title }) : t(ui, "meta.title");
+  }, [pathname, sectionId, sections, parts, ui]);
 
   // Start page only (also the PWA start_url): open the remembered language.
   // Any other URL is shown in the language it names.
@@ -369,7 +389,9 @@ export default function AppShell({
           }
           document.getElementById(id)?.scrollIntoView({ block: "start" });
         } else {
-          el.scrollTop = 0;
+          const section = bookTarget(parsePath(stripBasePath(window.location.pathname) || "/").sectionId);
+          if (section) section.scrollIntoView({ block: "start" });
+          else el.scrollTop = 0;
         }
       };
       requestAnimationFrame(apply);
@@ -413,6 +435,10 @@ export default function AppShell({
       stopKeeper?.();
       stopKeeper = null;
       if (performance.now() - poppedAt.current < 1500) return;
+      // A reload restores the saved continuous-book position, including
+      // reading farther below the URL's original subsection heading.
+      if (restoredReadingPlace.current === placeOf(window.location.href)) return;
+      restoredReadingPlace.current = null;
       let id = window.location.hash.slice(1);
       if (!id) return;
       try {

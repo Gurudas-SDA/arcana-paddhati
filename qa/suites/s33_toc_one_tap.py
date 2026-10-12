@@ -1,6 +1,6 @@
 """One-tap TOC proposal: chapter top, action-only history, cover and search.
 
-Exercises real full-width row taps in both modes; the default stays two-tap.
+Exercises real full-width row taps in both modes; the default is one-tap.
 Usage: python s33_toc_one_tap.py <base-url>   devices: QA_DEVICES
 """
 import os
@@ -24,7 +24,12 @@ STATE = """() => {
     open: nav ? [...nav.querySelectorAll('[aria-expanded=true][data-toc-group], [aria-expanded=true][data-toc-chapter]')]
       .map(e => e.dataset.tocGroup || e.dataset.tocChapter).sort() : [],
     length: history.length,
-    scroll: document.querySelector('.app-main').scrollTop,
+    scroll: (() => {
+      const main = document.querySelector('.app-main');
+      const id = location.pathname.split('/').filter(Boolean).at(-1);
+      const section = document.querySelector(`[data-book-section="${id}"]`);
+      return section ? main.getBoundingClientRect().top - section.getBoundingClientRect().top : main.scrollTop;
+    })(),
   };
 }"""
 results = []
@@ -76,7 +81,7 @@ def run(browser, device, options, mode, theme):
     chapter = lambda: page.locator(f"[data-toc-chapter='{CHAPTER}']")
     subsection = lambda: page.locator(f"[data-toc-row='sub:{CHAPTER}#{SUBSECTION}']")
     close = lambda: page.locator(".mobile-menu button[aria-label='Закрыть меню']")
-    one = mode == "one"
+    one = mode != "two"
     try:
         contents()
         for locator in (group, chapter):

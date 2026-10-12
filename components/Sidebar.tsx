@@ -31,6 +31,7 @@ import {
   pushPlace,
 } from "@/lib/navHistory";
 import { setPendingSearchMark } from "@/lib/searchMark";
+import { bookTarget, followBookLink, readingHref } from "@/lib/readingFlow";
 
 interface SidebarProps {
   sections: TocSection[];
@@ -687,6 +688,13 @@ export default function Sidebar({
     } catch {
       // history unavailable
     }
+    if (followBookLink(`${BASE_PATH}${sectionHref(sectionId, anchor)}`, (moved) => {
+      if (moved) onLeave?.();
+      else onClose();
+    })) {
+      e.preventDefault();
+      return;
+    }
     if (!samePage) {
       // The Link navigates (a new entry on top of the menu's).
       onLeave?.(true, e.currentTarget as HTMLElement);
@@ -728,6 +736,13 @@ export default function Sidebar({
 
   /** A contents link (cover, part, chapter) out of the mobile menu. */
   const leaveTo = (e: React.MouseEvent, href: string) => {
+    if (followBookLink(`${BASE_PATH}${href}`, (moved) => {
+      if (moved) onLeave?.();
+      else onClose();
+    })) {
+      e.preventDefault();
+      return;
+    }
     const strip = (p: string) => p.replace(/\/+$/, "");
     if (strip(href) !== strip(pathname)) {
       // The Link navigates (a new entry on top of the menu's).
@@ -814,6 +829,19 @@ export default function Sidebar({
   const onDisclosureTap = (id: string, rowId: string, sectionId?: string) => {
     if (oneTap && sectionId && !isPartOpen(id)) {
       const open = { ...parseParts(partsSnapshot()), [id]: true };
+      if (bookTarget(sectionId)) {
+        mark(rowId);
+        saveNavScroll();
+        let navigated = false;
+        followBookLink(readingHref(lang, sectionId), (moved) => {
+          navigated = moved;
+          if (!moved) step(rowId, open);
+        });
+        setPartsState(open);
+        patchState({ apMenu: true, ...(navigated ? { apDepth: 0 } : {}), apParts: JSON.stringify(open), apQuery: searchQuery, [PATH_LIT]: rowId, [NAV_SCROLL]: navRef.current?.scrollTop ?? 0 });
+        setOpenedRow({ id: rowId, at: Date.now() });
+        return;
+      }
       if (selectedId === sectionId) {
         const main = mainEl();
         if (hashId() || (main && main.scrollTop > 0)) {

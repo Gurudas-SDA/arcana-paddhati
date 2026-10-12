@@ -548,6 +548,8 @@ function ContentBlock({
         );
       }
       return (
+        // Local static images keep their natural size in the offline export.
+        // eslint-disable-next-line @next/next/no-img-element
         <img
           key={index}
           src={`${BASE_PATH}/images/${item.src}`}
