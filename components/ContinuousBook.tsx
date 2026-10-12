@@ -7,8 +7,12 @@ import { parsePath } from "@/lib/i18n";
 import { isMenuEntry, main, patchState, recordScroll, replaceEntry, savedScroll } from "@/lib/navHistory";
 import { bookOffset, bookTarget, finishReadingArrival, followBookLink, readingHref, readingState } from "@/lib/readingFlow";
 
-/** Scrolling replaces the URL at most once per SYNC_GAP_MS (Phase 3). */
-const SYNC_GAP_MS = 800;
+/** Scrolling replaces the URL at most once per SYNC_GAP_MS (Phase 3): a
+ *  chapter entered while reading is named at once; only a fling through
+ *  several chapters is held to 4 writes a second (Next.js mirrors each). The
+ *  URL must follow promptly: the reading indicator, the next-chapter link and
+ *  the chapter tools all read it. */
+const SYNC_GAP_MS = 250;
 
 /** The whole book is exported once per language, on its cover route. Chapter
  *  links move inside it; a deep link reuses this export at its original URL. */
