@@ -45,6 +45,7 @@ import { type TocPart, type TocSection } from "@/lib/book";
 import { parsePath, t, type UiDict } from "@/lib/i18n";
 import { stripBasePath } from "@/lib/basePath";
 import { main as mainEl, pushOverlay } from "@/lib/navHistory";
+import { readingSection } from "@/lib/readingFlow";
 import { searchMarkOn } from "@/lib/searchMark";
 import {
   setShowAllTranslations,
@@ -110,7 +111,7 @@ function selText(): string {
 
 /** Something on a numbered picture / list is highlighted. */
 function highlightOn(): boolean {
-  return !!document.querySelector(".hs-row[data-active], .hs-img-faded") || searchMarkOn();
+  return !!readingSection()?.querySelector(".hs-row[data-active], .hs-img-faded") || searchMarkOn();
 }
 
 /** A window of its own is open (contents/search drawer, «Настроение Гурудева»). */

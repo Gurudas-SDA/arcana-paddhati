@@ -38,6 +38,19 @@ export function bookTarget(sectionId: string | null, anchor?: string): HTMLEleme
   return anchor ? section.querySelector<HTMLElement>(`[id="${CSS.escape(anchor)}"]`) : section;
 }
 
+/** Content of the current reading place. .app-main remains the scroller;
+ *  it is not a chapter selector in the continuous book. */
+export function readingSection(): HTMLElement | null {
+  const scroller = main();
+  if (!scroller?.querySelector('[data-continuous-book]')) return scroller;
+  const place = parsePath(stripBasePath(window.location.pathname) || '/');
+  return bookTarget(place.sectionId);
+}
+
+export function readingAnchor(id: string): HTMLElement | null {
+  return readingSection()?.querySelector<HTMLElement>(`[id="${CSS.escape(id)}"]`) ?? null;
+}
+
 export function bookOffset(target: HTMLElement): number {
   const scroller = main();
   if (!scroller) return 0;

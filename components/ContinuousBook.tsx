@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { stripBasePath } from "@/lib/basePath";
 import { parsePath } from "@/lib/i18n";
 import { isMenuEntry, main, patchState, recordScroll, savedScroll } from "@/lib/navHistory";
@@ -9,6 +10,7 @@ import { bookOffset, bookTarget, finishReadingArrival, followBookLink, readingHr
 /** The whole book is exported once per language, on its cover route. Chapter
  *  links move inside it; a deep link reuses this export at its original URL. */
 export default function ContinuousBook({ lang, children }: { lang: string; children: ReactNode }) {
+  const pathname = usePathname();
   const root = useRef<HTMLDivElement>(null);
   const quietUntil = useRef(0);
 
@@ -38,6 +40,16 @@ export default function ContinuousBook({ lang, children }: { lang: string; child
         : bookOffset(bookTarget(place.sectionId) ?? target) + pending.scroll;
     }
   }, []);
+
+  // A shared scope for content probes and accessible reading-location tools.
+  // URL tracking is independent of the full book's scroll container.
+  useLayoutEffect(() => {
+    const current = parsePath(stripBasePath(window.location.pathname) || '/').sectionId ?? '';
+    root.current?.querySelectorAll<HTMLElement>('[data-book-section]').forEach((section) => {
+      if (section.dataset.bookSection === current) section.setAttribute('data-reader-current', '');
+      else section.removeAttribute('data-reader-current');
+    });
+  }, [pathname]);
 
   useEffect(() => {
     const scroller = main();

@@ -1217,7 +1217,8 @@ html[data-reader-theme="night"] ::selection {
    number and title below it, smaller. Sizes follow «Аа» (--fs), colours the
    reading theme; the whole block is one tap target (>= 44px). The space
    under it keeps it clear of the bottom bar that comes up at the chapter end. */
-.chapter-next {
+.chapter-next,
+.chapter-next-space {
   display: flex;
   justify-content: flex-end;
   margin-top: 3rem;
@@ -1225,7 +1226,8 @@ html[data-reader-theme="night"] ::selection {
   padding-top: 1.25rem;
   border-top: 1px solid var(--rd-border);
 }
-.chapter-next-link {
+.chapter-next-link,
+.chapter-next-link-space {
   display: inline-flex;
   flex-direction: column;
   align-items: flex-end;
@@ -1264,7 +1266,8 @@ html[data-reader-theme="night"] ::selection {
   overflow-wrap: anywhere;
 }
 @media print {
-  .chapter-next {
+  .chapter-next,
+  .chapter-next-space {
     display: none;
   }
 }

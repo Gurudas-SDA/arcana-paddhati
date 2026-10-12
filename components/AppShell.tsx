@@ -31,7 +31,7 @@ import {
 } from "@/lib/i18n";
 import { BASE_PATH, stripBasePath } from "@/lib/basePath";
 import { useOneTapToc } from "@/lib/tocTapMode";
-import { beginReadingArrival, bookTarget } from "@/lib/readingFlow";
+import { beginReadingArrival, bookTarget, readingAnchor, readingSection } from "@/lib/readingFlow";
 
 /** A link's place: its pathname (no trailing slash) + hash — what a navigation opens. */
 const placeOf = (href: string): string => {
@@ -387,7 +387,7 @@ export default function AppShell({
           } catch {
             // keep raw
           }
-          document.getElementById(id)?.scrollIntoView({ block: "start" });
+          readingAnchor(id)?.scrollIntoView({ block: "start" });
         } else {
           const section = bookTarget(parsePath(stripBasePath(window.location.pathname) || "/").sectionId);
           if (section) section.scrollIntoView({ block: "start" });
@@ -456,14 +456,15 @@ export default function AppShell({
         // A search result's word took over the place (lib/searchMark.ts).
         if (document.documentElement.hasAttribute(SEARCH_SCROLL_ATTR)) return stop();
         if (performance.now() > until) return stop();
-        const el = document.getElementById(id);
+        const el = readingAnchor(id);
         if (!el) return;
         const margin = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
         const d = el.getBoundingClientRect().top - m.getBoundingClientRect().top - margin;
         if (Math.abs(d) > 2) m.scrollTop += d;
       };
       const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(align) : null;
-      const article = m.querySelector("article") ?? m.firstElementChild;
+      const scope = readingSection();
+      const article = scope?.querySelector("article") ?? scope;
       if (ro && article) ro.observe(article);
       const onLoad = () => align();
       m.addEventListener("load", onLoad, true);
