@@ -41,6 +41,18 @@ DEVICES = {
 # iPhone (WebKit) — the two engines Satkirti reads on.
 FAST_DEVICES = ["pixel7", "iphone14"]
 
+# A chapter route can display the continuous book. Content measurements
+# must use its current chapter, rather than the first article in the book.
+# Standalone exports retain .app-main as their measurement root.
+READING_ROOT_JS = """(() => {
+  const main = document.querySelector('.app-main');
+  const book = main?.querySelector('[data-continuous-book]');
+  if (!book) return main;
+  const id = decodeURIComponent(location.pathname.split('/').filter(Boolean).at(-1) || '');
+  return book.querySelector(`[data-book-section="${CSS.escape(id)}"]`)
+    || book.querySelector('[data-book-section=""]');
+})()"""
+
 
 def wanted():
     """Device filter from the environment (QA_DEVICES=pixel7,iphone14); None = all."""

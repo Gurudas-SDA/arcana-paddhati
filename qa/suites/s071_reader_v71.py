@@ -143,7 +143,7 @@ with sync_playwright() as p:
         worst = []
         for sec in ['gaudiya-emblem', 'vigraha-tattva', 'daily-deity-schedule']:
             pg.goto(L + sec + '/', wait_until='networkidle')
-            ids = pg.evaluate("[...document.querySelectorAll('.app-main section[data-subsection]')].map(s=>s.id)")
+            ids = pg.evaluate(f"[...{qa.READING_ROOT_JS}.querySelectorAll('section[data-subsection]')].map(s=>s.id)")
             for sid in ids:
                 pg.goto(L + 'introduction/', wait_until='domcontentloaded')
                 pg.goto(L + sec + '/#' + sid)
