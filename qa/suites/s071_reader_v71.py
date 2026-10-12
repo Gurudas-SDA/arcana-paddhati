@@ -16,7 +16,7 @@ MOB = {}
 
 def ck(dev, name, ok, info=""):
     res.append(bool(ok))
-    print(f"  [{'PASS' if ok else 'FAIL'}] {dev} {name} {info}", flush=True)
+    print(f"  [{'PASS' if ok else 'FAIL'}] {dev} {name} [toc={qa.TOC_MODE_NAME}] {info}", flush=True)
 
 
 def click_xy(pg, x, y):
@@ -77,188 +77,193 @@ prevTop=rc.top;prevCh=t[i]}}
 prevTop=null}return bad.slice(0,5)}"""
 
 L = BASE + "/ru-iast/"
-with sync_playwright() as p:
-    for dev, eng, kw in DEV:
-        if ONLY and dev not in ONLY.split(','):
-            continue
-        print('==', dev, flush=True)
-        b = getattr(p, eng).launch()
-        c = b.new_context(locale='ru-RU', **kw)
-        MOB['m'] = kw.get('has_touch', False)
-        pg = c.new_page()
-        errs = []
-        pg.on('pageerror', lambda e: errs.append(str(e)))
-        pg.goto(L, wait_until='networkidle')
-        pg.wait_for_timeout(800)
-        # 3: contents order
-        open_contents(pg)
-        order = pg.evaluate("[...document.querySelectorAll('aside nav [data-toc-cover], aside nav .toc-scroll > ul > li')].map(l=>l.innerText.trim().split('\\n')[0].trim()).filter(Boolean).slice(0,4)")
-        # v7.4 (Satkirti 06.10 / 07.10.2026): the parampara stands between the cover and the Maṅgalācaraṇa
-        ck(dev, '3 contents: Обложка → Гуру-парампара → Мангалачарана → ВВЕДЕНИЕ', order[:4] == ['Обложка', 'Гуру-парампара', 'Мангалачарана', 'ВВЕДЕНИЕ'], order)
-        # 1: nav bar on screen and on top while the menu is open
-        fb = pg.locator('[data-reader-nav=forward]').bounding_box()
-        vh = pg.viewport_size['height']
-        hit = pg.evaluate(f"(()=>{{const e=document.elementFromPoint({fb['x'] + fb['width'] / 2},{fb['y'] + fb['height'] / 2});return !!(e&&e.closest('[data-reader-nav=forward]'))}})()")
-        ck(dev, '1/2 Вперёд on screen and on top with menu open', fb['y'] + fb['height'] <= vh and hit, fb)
-        go_row(pg, 'Мангалачарана', 'mangalacarana')
-        pg.wait_for_timeout(1200)
-        h1 = qa.reading_eval(pg, "root => root.querySelector('h1').innerText.trim()")
-        h2 = qa.reading_eval(pg, "root => root.querySelectorAll('article h2, article h3').length")
-        sub = qa.reading_eval(pg, "root => !!root.querySelector('header p')")
-        orn = qa.reading_eval(pg, "root => root.querySelectorAll('.verse-ornament').length")
-        verses = qa.reading_eval(pg, "root => root.querySelectorAll('.verse-chips').length")
-        wbw = qa.reading_eval(pg, "root => [...root.querySelectorAll('.verse-chips')].filter(c=>/пословно/i.test(c.innerText)).length")
-        ck(dev, '3 Мангалачарана: title only, no headings, ornaments, 30 verses all with пословно',
-           h1 == 'Мангалачарана' and h2 == 0 and not sub and orn == 20 and verses == 30 and wbw == 30, (h1, h2, sub, orn, verses, wbw))
-        ck(dev, '6d «Молитва Шри Радхе-Говинде» gone', 'Радхе-Говинде' not in qa.reading_eval(pg, "root => root.innerText"))
-        nxt = qa.reading_eval(pg, "root=>{const a=root.querySelector('.chapter-next');return a?a.innerText.replace(/\\s+/g,' '):''}")
-        ck(dev, '3 «След. глава ›» after Мангалачарана = Введение', 'ВВЕДЕНИЕ' in nxt.upper(), nxt)
-        # 8: verse panels closed by default; no carry-over
-        ck(dev, '8 all verse panels closed on open', qa.reading_eval(pg, OPEN_PANELS) == 0)
-        tap(pg, qa.reading_locator(pg, '.verse-chip').nth(1))
+def run(p,dev,eng,kw,mode):
+    from toc import Contents, STATE, history_roundtrip
+    print('==',dev,mode.name,flush=True)
+    b = getattr(p, eng).launch()
+    c = b.new_context(locale='ru-RU', service_workers='block', **kw)
+    MOB['m'] = kw.get('has_touch', False)
+    pg = c.new_page()
+    flow = Contents(pg,mode,MOB['m'])
+    errs = []
+    pg.on('pageerror', lambda e: errs.append(str(e)))
+    mode.start(pg,L)
+    pg.wait_for_timeout(800)
+    # 3: contents order
+    open_contents(pg)
+    order = pg.evaluate("[...document.querySelectorAll('aside nav [data-toc-cover], aside nav .toc-scroll > ul > li')].map(l=>l.innerText.trim().split('\\n')[0].trim()).filter(Boolean).slice(0,4)")
+    # v7.4 (Satkirti 06.10 / 07.10.2026): the parampara stands between the cover and the Maṅgalācaraṇa
+    ck(dev, '3 contents: Обложка → Гуру-парампара → Мангалачарана → ВВЕДЕНИЕ', order[:4] == ['Обложка', 'Гуру-парампара', 'Мангалачарана', 'ВВЕДЕНИЕ'], order)
+    # 1: nav bar on screen and on top while the menu is open
+    fb = pg.locator('[data-reader-nav=forward]').bounding_box()
+    vh = pg.viewport_size['height']
+    hit = pg.evaluate(f"(()=>{{const e=document.elementFromPoint({fb['x'] + fb['width'] / 2},{fb['y'] + fb['height'] / 2});return !!(e&&e.closest('[data-reader-nav=forward]'))}})()")
+    ck(dev, '1/2 Вперёд on screen and on top with menu open', fb['y'] + fb['height'] <= vh and hit, fb)
+    go_row(pg, 'Мангалачарана', 'mangalacarana')
+    pg.wait_for_timeout(1200)
+    h1 = qa.reading_eval(pg, "root => root.querySelector('h1').innerText.trim()")
+    h2 = qa.reading_eval(pg, "root => root.querySelectorAll('article h2, article h3').length")
+    sub = qa.reading_eval(pg, "root => !!root.querySelector('header p')")
+    orn = qa.reading_eval(pg, "root => root.querySelectorAll('.verse-ornament').length")
+    verses = qa.reading_eval(pg, "root => root.querySelectorAll('.verse-chips').length")
+    wbw = qa.reading_eval(pg, "root => [...root.querySelectorAll('.verse-chips')].filter(c=>/пословно/i.test(c.innerText)).length")
+    ck(dev, '3 Мангалачарана: title only, no headings, ornaments, 30 verses all with пословно',
+       h1 == 'Мангалачарана' and h2 == 0 and not sub and orn == 20 and verses == 30 and wbw == 30, (h1, h2, sub, orn, verses, wbw))
+    ck(dev, '6d «Молитва Шри Радхе-Говинде» gone', 'Радхе-Говинде' not in qa.reading_eval(pg, "root => root.innerText"))
+    nxt = qa.reading_eval(pg, "root=>{const a=root.querySelector('.chapter-next');return a?a.innerText.replace(/\\s+/g,' '):''}")
+    ck(dev, '3 «След. глава ›» after Мангалачарана = Введение', 'ВВЕДЕНИЕ' in nxt.upper(), nxt)
+    # 8: verse panels closed by default; no carry-over
+    ck(dev, '8 all verse panels closed on open', qa.reading_eval(pg, OPEN_PANELS) == 0)
+    tap(pg, qa.reading_locator(pg, '.verse-chip').nth(1))
+    pg.wait_for_timeout(400)
+    ck(dev, '8 chip opens its own panel', qa.reading_eval(pg, OPEN_PANELS) == 1)
+    # 6a
+    pg.goto(L + 'caturmasya-purusottama-masa/', wait_until='networkidle')
+    pg.wait_for_timeout(600)
+    raw = qa.reading_eval(pg, "root => root.textContent")
+    ck(dev, '6a no ⟦⟧ on screen, āmiṣa translated', '⟦' not in raw and '⟧' not in raw and 'от мясной пищи' in raw)
+    # 9: status line one line
+    for sec in ['daily-deity-schedule', 'vigraha-tattva', 'gaudiya-emblem']:
+        pg.goto(L + sec + '/', wait_until='networkidle')
+        pg.wait_for_timeout(600)
+        qa.scroll_chapter(pg, .82)
         pg.wait_for_timeout(400)
-        ck(dev, '8 chip opens its own panel', qa.reading_eval(pg, OPEN_PANELS) == 1)
-        # 6a
-        pg.goto(L + 'caturmasya-purusottama-masa/', wait_until='networkidle')
-        pg.wait_for_timeout(600)
-        raw = qa.reading_eval(pg, "root => root.textContent")
-        ck(dev, '6a no ⟦⟧ on screen, āmiṣa translated', '⟦' not in raw and '⟧' not in raw and 'от мясной пищи' in raw)
-        # 9: status line one line
-        for sec in ['daily-deity-schedule', 'vigraha-tattva', 'gaudiya-emblem']:
-            pg.goto(L + sec + '/', wait_until='networkidle')
-            pg.wait_for_timeout(600)
-            qa.scroll_chapter(pg, .82)
-            pg.wait_for_timeout(400)
-            reveal(pg)
-            pg.wait_for_timeout(300)
-            lab = pg.evaluate("(()=>{const p=document.querySelector('.reader-progress-label');const r=p.getBoundingClientRect();return {t:p.innerText,h:Math.round(r.height),sw:p.scrollWidth,cw:p.clientWidth}})()")
-            ck(dev, f'9 status one line, not cut ({sec})', lab['h'] <= 20 and lab['sw'] <= lab['cw'] + 1 and '…' not in lab['t'], lab)
-        # 10: Sanskrit breaks only at a space or a hyphen
-        for sec in ['mangalacarana', 'daily-deity-schedule', 'offering-bhoga']:
-            pg.goto(L + sec + '/', wait_until='networkidle')
-            pg.wait_for_timeout(500)
-            bad = qa.reading_eval(pg, BREAKS)
-            ck(dev, f'10 Sanskrit breaks only at space/hyphen ({sec})', not bad, bad)
-        # 11: subsection heading at top 3 s after a jump (direct load with #hash)
-        worst = []
-        for sec in ['gaudiya-emblem', 'vigraha-tattva', 'daily-deity-schedule']:
-            pg.goto(L + sec + '/', wait_until='networkidle')
-            ids = pg.evaluate(f"[...{qa.READING_ROOT_JS}.querySelectorAll('section[data-subsection]')].map(s=>s.id)")
-            for sid in ids:
-                pg.goto(L + 'introduction/', wait_until='domcontentloaded')
-                qa.wait_for_book_chapter(pg, 'introduction')
-                pg.goto(L + sec + '/#' + sid, wait_until='domcontentloaded')
-                qa.wait_for_book_chapter(pg, sec)
-                pg.wait_for_timeout(3000)
-                top = pg.evaluate(f"(()=>{{const e=document.getElementById('{sid}');const m=document.querySelector('.app-main');return Math.round(e.getBoundingClientRect().top-m.getBoundingClientRect().top)}})()")
-                atmax = pg.evaluate("(()=>{const m=document.querySelector('.app-main');return m.scrollTop>=m.scrollHeight-m.clientHeight-2})()")
-                if not (-2 <= top <= 80) and not (atmax and top > 0):
-                    worst.append((sec, sid, top))
-        ck(dev, '11 heading at top after 3 s (all subsections, direct load)', not worst, worst[:4])
-        # 11 + 5: from the contents (client navigation): Эмблема → «Святое имя …»
-        pg.goto(L + 'vigraha-tattva/', wait_until='networkidle')
-        pg.wait_for_timeout(600)
-        open_contents(pg)
-        try:
-            if not pg.evaluate("[...document.querySelectorAll('aside nav [aria-expanded=true]')].some(e=>/Эмблема/.test(e.innerText))"):
-                if not pg.evaluate("[...document.querySelectorAll('aside nav [aria-expanded=true]')].some(e=>/ВВЕДЕНИЕ/.test(e.innerText))"):
-                    tap(pg, row(pg, 'ВВЕДЕНИЕ')); pg.wait_for_timeout(500)
-                    tap(pg, row(pg, 'ВВЕДЕНИЕ')); pg.wait_for_timeout(500)   # v7.5: 2nd tap expands
-                tap(pg, row(pg, 'Эмблема')); pg.wait_for_timeout(600)
-                tap(pg, row(pg, 'Эмблема')); pg.wait_for_timeout(600)       # v7.5: 2nd tap expands
-            r2 = row(pg, 'Святое имя')
-            tap(pg, r2)
-            pg.wait_for_timeout(200)
-            if 'gaudiya-emblem' not in pg.url and pg.locator('.mobile-menu').count() and not pg.evaluate("!!document.querySelector('.mobile-menu[data-leaving]')"):
-                tap(pg, row(pg, 'Святое имя'))  # two-tap contents
-            frames = []
-            t0 = time.time()
-            while time.time() - t0 < 4:
-                frames.append(pg.evaluate("[location.pathname, !!document.querySelector('.mobile-menu'), (document.querySelector('.app-main h1')||{innerText:'(cover)'}).innerText.slice(0,20)]"))
-                pg.wait_for_timeout(80)
-            flash = [f for f in frames if not f[1] and 'gaudiya-emblem' not in f[0]]
-            shown = next((i for i, f in enumerate(frames) if 'gaudiya-emblem' in f[0] and not f[1]), None)
-            ck(dev, '5 no old page between menu and target', not flash and shown is not None, (flash[:2], 'target after ~%s ms' % (None if shown is None else shown * 100)))
-            pg.wait_for_timeout(2500)
-            sid = pg.evaluate("decodeURIComponent(location.hash.slice(1))")
-            top = pg.evaluate(f"(()=>{{const e=document.getElementById('{sid}');const m=document.querySelector('.app-main');return e?Math.round(e.getBoundingClientRect().top-m.getBoundingClientRect().top):null}})()")
-            ck(dev, '11 contents → «Святое имя» heading at top', top is not None and -2 <= top <= 80, (sid, top))
-        except Exception as e:
-            ck(dev, '11/5 contents path', False, str(e)[:160])
-        BARS = "document.documentElement.hasAttribute('data-reader-bars')"
-        # 13: tap a picture part whose row is above -> programmatic scroll up, menu stays hidden
-        pg.goto(L + 'daily-duties-brahma-muhurta/', wait_until='networkidle')
-        pg.wait_for_timeout(800)
-        fig = qa.reading_locator(pg, '.hs-figure').first
+        reveal(pg)
+        pg.wait_for_timeout(300)
+        lab = pg.evaluate("""() => {const p=document.querySelector('.reader-progress-label'),cs=getComputedStyle(p),r=p.getBoundingClientRect();
+          const clone=p.cloneNode(true);Object.assign(clone.style,{position:'fixed',left:'-2000px',top:'0',width:'max-content',maxWidth:'none',flex:'none',whiteSpace:'nowrap',font:cs.font,visibility:'hidden'});
+          document.body.appendChild(clone);const natural=clone.getBoundingClientRect().width;clone.remove();
+          return {t:p.innerText,h:Math.round(r.height),sw:p.scrollWidth,cw:p.clientWidth,natural,sh:p.scrollHeight,ch:p.clientHeight};}""")
+        fits=lab['natural'] <= lab['cw'] + .5
+        ck(dev, f'9 status one line when it fits, wraps intact when needed ({sec})', (lab['h'] <= 20 if fits else lab['h'] > 20) and lab['sw'] <= lab['cw'] + 1 and lab['sh'] <= lab['ch'] + 1 and '…' not in lab['t'], lab)
+    # 10: Sanskrit breaks only at a space or a hyphen
+    for sec in ['mangalacarana', 'daily-deity-schedule', 'offering-bhoga']:
+        pg.goto(L + sec + '/', wait_until='networkidle')
+        pg.wait_for_timeout(500)
+        bad = qa.reading_eval(pg, BREAKS)
+        ck(dev, f'10 Sanskrit breaks only at space/hyphen ({sec})', not bad, bad)
+    # 11: subsection heading at top 3 s after a jump (direct load with #hash)
+    worst = []
+    for sec in ['gaudiya-emblem', 'vigraha-tattva', 'daily-deity-schedule']:
+        pg.goto(L + sec + '/', wait_until='networkidle')
+        ids = pg.evaluate(f"[...{qa.READING_ROOT_JS}.querySelectorAll('section[data-subsection]')].map(s=>s.id)")
+        for sid in ids:
+            pg.goto(L + 'introduction/', wait_until='domcontentloaded')
+            qa.wait_for_book_chapter(pg, 'introduction')
+            pg.goto(L + sec + '/#' + sid, wait_until='domcontentloaded')
+            qa.wait_for_book_chapter(pg, sec)
+            pg.wait_for_timeout(3000)
+            top = pg.evaluate(f"(()=>{{const e=document.getElementById('{sid}');const m=document.querySelector('.app-main');return Math.round(e.getBoundingClientRect().top-m.getBoundingClientRect().top)}})()")
+            atmax = pg.evaluate("(()=>{const m=document.querySelector('.app-main');return m.scrollTop>=m.scrollHeight-m.clientHeight-2})()")
+            if not (-2 <= top <= 80) and not (atmax and top > 0):
+                worst.append((sec, sid, top))
+    ck(dev, '11 heading at top after 3 s (all subsections, direct load)', not worst, worst[:4])
+    # 11 + 5: from the contents (client navigation): Эмблема → «Святое имя …»
+    pg.goto(L + 'vigraha-tattva/', wait_until='networkidle')
+    pg.wait_for_timeout(600)
+    open_contents(pg)
+    try:
+        if not pg.evaluate("[...document.querySelectorAll('aside nav [aria-expanded=true]')].some(e=>/Эмблема/.test(e.innerText))"):
+            if not pg.evaluate("[...document.querySelectorAll('aside nav [aria-expanded=true]')].some(e=>/ВВЕДЕНИЕ/.test(e.innerText))"):
+                flow.activate(flow.group('introduction'))
+            flow.activate(flow.chapter('gaudiya-emblem'))
+        r2 = row(pg, 'Святое имя')
+        tap(pg, r2)
+        pg.wait_for_timeout(200)
+        if 'gaudiya-emblem' not in pg.url and pg.locator('.mobile-menu').count() and not pg.evaluate("!!document.querySelector('.mobile-menu[data-leaving]')"):
+            tap(pg, row(pg, 'Святое имя'))  # two-tap contents
+        frames = []
+        t0 = time.time()
+        while time.time() - t0 < 4:
+            frames.append(qa.reading_eval(pg,"root=>[location.pathname,!!document.querySelector('.mobile-menu'),(root.querySelector('h1')||{innerText:'(cover)'}).innerText.slice(0,20)]"))
+            pg.wait_for_timeout(80)
+        flash = [f for f in frames if not f[1] and 'gaudiya-emblem' not in f[0]]
+        shown = next((i for i, f in enumerate(frames) if 'gaudiya-emblem' in f[0] and not f[1]), None)
+        ck(dev, '5 no old page between menu and target', not flash and shown is not None, (flash[:2], 'target after ~%s ms' % (None if shown is None else shown * 100)))
+        pg.wait_for_timeout(2500)
+        sid = pg.evaluate("decodeURIComponent(location.hash.slice(1))")
+        top = pg.evaluate(f"(()=>{{const e=document.getElementById('{sid}');const m=document.querySelector('.app-main');return e?Math.round(e.getBoundingClientRect().top-m.getBoundingClientRect().top):null}})()")
+        ck(dev, '11 contents → «Святое имя» heading at top', top is not None and -2 <= top <= 80, (sid, top))
+    except Exception as e:
+        ck(dev, '11/5 contents path', False, str(e)[:160])
+    BARS = "document.documentElement.hasAttribute('data-reader-bars')"
+    # 13: tap a picture part whose row is above -> programmatic scroll up, menu stays hidden
+    pg.goto(L + 'daily-duties-brahma-muhurta/', wait_until='networkidle')
+    pg.wait_for_timeout(800)
+    fig = qa.reading_locator(pg, '.hs-figure').first
+    fig.evaluate("e=>e.scrollIntoView({block:'end'})")
+    pg.wait_for_timeout(700)
+    opened = []
+    for n in ['1', '5', '9']:
+        h = qa.reading_locator(pg, f'.hs-figure .hs-hit[aria-label="{n}"] ellipse').first
+        if not h.count():
+            continue
+        bb = h.bounding_box()
+        if not bb:
+            continue
         fig.evaluate("e=>e.scrollIntoView({block:'end'})")
-        pg.wait_for_timeout(700)
-        opened = []
-        for n in ['1', '5', '9']:
-            h = qa.reading_locator(pg, f'.hs-figure .hs-hit[aria-label="{n}"] ellipse').first
-            if not h.count():
-                continue
-            bb = h.bounding_box()
-            if not bb:
-                continue
-            fig.evaluate("e=>e.scrollIntoView({block:'end'})")
+        pg.wait_for_timeout(500)
+        bb = h.bounding_box()
+        click_xy(pg, bb['x'] + bb['width'] / 2, bb['y'] + bb['height'] / 2)
+        pg.wait_for_timeout(1500)
+        if pg.evaluate(BARS):
+            opened.append(n)
+            click_xy(pg, 8, pg.viewport_size['height'] // 2)
             pg.wait_for_timeout(500)
-            bb = h.bounding_box()
-            click_xy(pg, bb['x'] + bb['width'] / 2, bb['y'] + bb['height'] / 2)
-            pg.wait_for_timeout(1500)
-            if pg.evaluate(BARS):
-                opened.append(n)
-                click_xy(pg, 8, pg.viewport_size['height'] // 2)
-                pg.wait_for_timeout(500)
-        ck(dev, '13 picture part tap (scroll to row) does not open the menu (Tilak)', not opened, opened)
-        # 19: empty corner of the emblem picture acts as empty page
-        pg.goto(L + 'gaudiya-emblem/', wait_until='networkidle')
-        pg.wait_for_timeout(800)
-        fig = qa.reading_locator(pg, '.hs-figure').first
-        fig.evaluate("e=>e.scrollIntoView({block:'center'})")
-        pg.wait_for_timeout(600)
-        bb = fig.bounding_box()
-        before = pg.evaluate(BARS)
-        click_xy(pg, bb['x'] + 4, bb['y'] + 4)
-        pg.wait_for_timeout(700)
-        ck(dev, '19 tap on the empty corner of the emblem toggles the menu', pg.evaluate(BARS) != before)
-        # 14: numbers drawn on the emblem
-        tags = qa.reading_eval(pg, "root => [...root.querySelectorAll('.hs-figure .hs-tag')].map(t=>t.textContent)")
-        ck(dev, '14 emblem shows numbers 1, 2.1–2.6, 10–12', sorted(tags) == sorted(['1', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '10', '11', '12']), tags)
-        # 18 (v7.8, Satkirti 07.10.2026 вечер): the short Tilak / ācamana mantras («oṁ keśavāya namaḥ») have
-        # NO «пословно» any more; the mantras themselves are all still there
-        pg.goto(L + 'daily-duties-brahma-muhurta/', wait_until='networkidle')
-        pg.wait_for_timeout(600)
-        n = pg.locator('#applying-tilaka .mantra-chips .verse-chip').count()
-        # (the section's longer verse mantras keep their «пословно» — s26 item 7 checks every short one)
-        n2 = pg.locator('#sadhararana-acamana .mantra-chips .verse-chip').count()
-        m1 = pg.evaluate("[...document.querySelectorAll('#applying-tilaka .hs-row .sa-inline')].filter(e=>/namaḥ/.test(e.textContent)).length")
-        m2 = pg.evaluate("[...document.querySelectorAll('#sadhararana-acamana .sanskrit')].filter(e=>/namaḥ/.test(e.textContent)).length")
-        ok = m1 >= 12 and m2 >= 24
-        ck(dev, '18 Tilak (12) + ācamana short mantras shown WITHOUT «пословно» (v7.8)', n == 0 and n2 == 0 and ok, (n, n2, m1, m2))
-        # 17: Back retraces without a repeated step
-        pg.goto(L + 'daily-duties-brahma-muhurta/', wait_until='networkidle')
-        pg.wait_for_timeout(600)
-        open_contents(pg)
-        LIT = "(()=>{const e=document.querySelector('aside nav [data-toc-lit]');const ex=[...document.querySelectorAll('aside nav [aria-expanded=true]')].map(x=>x.innerText.trim().slice(0,12));return e?e.innerText.trim().slice(0,20)+' | '+[...new Set(ex)].join(','):'-'})()"
-        fwd = [pg.evaluate(LIT)]
-        intro = pg.locator('aside nav [data-toc-group=introduction]')
-        # v7.5 (Satkirti 07.10): 1st tap highlights, 2nd expands; every tap is a step Back retraces
-        tap(pg, intro); pg.wait_for_timeout(700); fwd.append(pg.evaluate(LIT))
-        tap(pg, intro); pg.wait_for_timeout(700); fwd.append(pg.evaluate(LIT))
-        vig = pg.locator('aside nav [data-toc-chapter=vigraha-tattva]')
-        tap(pg, vig); pg.wait_for_timeout(700); fwd.append(pg.evaluate(LIT))
-        tap(pg, vig); pg.wait_for_timeout(700); fwd.append(pg.evaluate(LIT))
-        vsub = pg.locator('aside nav #toc-ch-vigraha-tattva a').first
-        tap(pg, vsub); pg.wait_for_timeout(700); fwd.append(pg.evaluate(LIT))
-        tap(pg, vsub); wait_url(pg, 'vigraha-tattva'); pg.wait_for_timeout(1200)
-        back = []
-        for _ in range(len(fwd) + 1):
-            reveal(pg) if not pg.locator('.mobile-menu').count() else None
-            tap(pg, pg.locator('[data-reader-nav=back]'))
-            pg.wait_for_timeout(1100)
-            back.append(pg.evaluate(LIT) if pg.locator('.mobile-menu').count() else 'page:' + pg.url.split('arcana-paddhati')[-1])
-        dup = [i for i in range(1, len(back)) if back[i] == back[i - 1]]
-        ck(dev, '17 Back mirrors the forward steps, no repeated step', back[:len(fwd)] == fwd[::-1] and back[-1].startswith('page:'), {'fwd': fwd, 'back': back})
-        ck(dev, 'no page errors', not errs, errs[:2])
-        b.close()
+    ck(dev, '13 picture part tap (scroll to row) does not open the menu (Tilak)', not opened, opened)
+    # 19: empty corner of the emblem picture acts as empty page
+    pg.goto(L + 'gaudiya-emblem/', wait_until='networkidle')
+    pg.wait_for_timeout(800)
+    fig = qa.reading_locator(pg, '.hs-figure').first
+    fig.evaluate("e=>e.scrollIntoView({block:'center'})")
+    pg.wait_for_timeout(600)
+    bb = fig.bounding_box()
+    before = pg.evaluate(BARS)
+    click_xy(pg, bb['x'] + 4, bb['y'] + 4)
+    pg.wait_for_timeout(700)
+    ck(dev, '19 tap on the empty corner of the emblem toggles the menu', pg.evaluate(BARS) != before)
+    # 14: numbers drawn on the emblem
+    tags = qa.reading_eval(pg, "root => [...root.querySelectorAll('.hs-figure .hs-tag')].map(t=>t.textContent)")
+    ck(dev, '14 emblem shows numbers 1, 2.1–2.6, 10–12', sorted(tags) == sorted(['1', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '10', '11', '12']), tags)
+    # 18 (v7.8, Satkirti 07.10.2026 вечер): the short Tilak / ācamana mantras («oṁ keśavāya namaḥ») have
+    # NO «пословно» any more; the mantras themselves are all still there
+    pg.goto(L + 'daily-duties-brahma-muhurta/', wait_until='networkidle')
+    pg.wait_for_timeout(600)
+    n = pg.locator('#applying-tilaka .mantra-chips .verse-chip').count()
+    # (the section's longer verse mantras keep their «пословно» — s26 item 7 checks every short one)
+    n2 = pg.locator('#sadhararana-acamana .mantra-chips .verse-chip').count()
+    m1 = pg.evaluate("[...document.querySelectorAll('#applying-tilaka .hs-row .sa-inline')].filter(e=>/namaḥ/.test(e.textContent)).length")
+    m2 = pg.evaluate("[...document.querySelectorAll('#sadhararana-acamana .sanskrit')].filter(e=>/namaḥ/.test(e.textContent)).length")
+    ok = m1 >= 12 and m2 >= 24
+    ck(dev, '18 Tilak (12) + ācamana short mantras shown WITHOUT «пословно» (v7.8)', n == 0 and n2 == 0 and ok, (n, n2, m1, m2))
+    # 17: preserve the full path, with traces on the entry being left.
+    pg.goto(L+'daily-duties-brahma-muhurta/',wait_until='networkidle');pg.wait_for_timeout(500)
+    states=[flow.state()];flow.contents();states.append(flow.state())
+    for kind,id in [('group','introduction'),('chapter','vigraha-tattva')]:
+        loc=flow.group(id) if kind=='group' else flow.chapter(id)
+        if mode.one and kind=='chapter':states[-1]['lit']=['sec:'+id]
+        flow.tap(loc);states.append(flow.state())
+        if not mode.one:flow.tap(loc);states.append(flow.state())
+    sub=pg.locator('#toc-ch-vigraha-tattva a').first;rid=sub.get_attribute('data-toc-row')
+    if mode.one:states[-1]['lit']=[rid]
+    else:flow.tap(sub);states.append(flow.state())
+    flow.tap(sub,wait=400);states.append(flow.state());bad=[];back_count=0
+    for want in reversed(states[:-1]):
+        flow.nav('back');back_count+=1;got=flow.state()
+        if any(got[k]!=want[k] for k in ['url','menu','lit','open']):bad.append((got,want))
+    ck(dev,'17 Back mirrors the forward steps, no repeated step',not bad and not flow.state()['menu'],bad[:2])
+    ck(dev,'17 Back counts exactly the mode actions',back_count==(4 if mode.one else 7),back_count)
+    bad=[];forward_count=0
+    for want in states[1:]:
+        flow.nav('forward');forward_count+=1;got=flow.state()
+        if any(got[k]!=want[k] for k in ['url','menu','lit','open']):bad.append((got,want))
+    ck(dev,'17 Forward mirrors every URL, highlight and open list',not bad and forward_count==(4 if mode.one else 7),bad[:2])
+    history_roundtrip(b,kw,mode,lambda n,ok,i='':ck(dev,n,ok,i),BASE)
+    ck(dev, 'no page errors', not errs, errs[:2])
+    b.close()
+
+with sync_playwright() as p:
+    for dev,eng,kw in DEV:
+        qa.run_toc_modes(lambda mode:run(p,dev,eng,kw,mode),on_error=lambda e:ck(dev,'EXCEPTION',False,str(e)[:900]))
+
 print(f"\n{sum(res)}/{len(res)} passed")
