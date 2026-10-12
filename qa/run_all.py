@@ -28,7 +28,8 @@ import qa  # noqa: E402
 import server as qa_server  # noqa: E402
 
 RESULTS = os.path.join(HERE, ".results")
-LINE = re.compile(r"^\s*\[(PASS|FAIL|WARN|INFO)\]\s+(\S+)\s+(.*)$")
+LINE = re.compile(r"^\s*\[(PASS|FAIL|SKIP|WARN|INFO)\]\s+(\S+)\s+(.*)$")
+TOC_MODE_SUITES = {"s01", "s03", "s04", "s05", "s23", "s24", "s25", "s30", "s071"}
 
 # name, file, devices (full run; None = the suite has no devices), in fast run?, extra env (fast), extra env (full)
 SUITES = [
@@ -125,7 +126,8 @@ def jobs_for(suites, mode_fast, dev_filter, split):
         else:
             groups = [None]
         for i, g in enumerate(groups):
-            jobs.append((s, g, i == 0))
+            for toc_mode in (("default", "two") if s["id"] in TOC_MODE_SUITES else (None,)):
+                jobs.append(({**s, "toc_mode": toc_mode}, g, i == 0))
     return jobs
 
 
@@ -146,6 +148,10 @@ def run_job(job, base, mode_fast, timeout):
     s, devs, first = job
     env = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONUTF8="1")
     env.pop("ONLY", None)
+    if s.get("toc_mode"):
+        env["QA_TOC_MODE"] = s["toc_mode"]
+    else:
+        env.pop("QA_TOC_MODE", None)
     if devs:
         env["QA_DEVICES"] = ",".join(devs)
     if mode_fast:
@@ -158,6 +164,8 @@ def run_job(job, base, mode_fast, timeout):
         cmd.append(base)
     cmd += s.get("args", [])
     tag = s["id"] + ("-" + "+".join(devs) if devs else "")
+    if s.get("toc_mode"):
+        tag += "-" + s["toc_mode"]
     log = os.path.join(RESULTS, tag + ".log")
     t0 = time.time()
     p = subprocess.Popen(cmd, env=env, cwd=qa.REPO, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -185,9 +193,9 @@ def run_job(job, base, mode_fast, timeout):
     counted = [c for c in checks if c["status"] in ("PASS", "FAIL", "KNOWN")]
     if not counted:
         checks.append(dict(suite=s["id"], dev=tag, status="FAIL", name=f"suite produced no checks (rc={rc}), see {os.path.relpath(log, qa.REPO)}"))
-    elif rc not in (0, 1) and not any(c["status"] == "FAIL" for c in checks):
+    elif rc != 0 and not any(c["status"] == "FAIL" for c in checks):
         checks.append(dict(suite=s["id"], dev=tag, status="FAIL", name=f"suite crashed (rc={rc}), see {os.path.relpath(log, qa.REPO)}"))
-    return dict(suite=s["id"], devices=devs, rc=rc, secs=round(time.time() - t0, 1), log=os.path.relpath(log, qa.REPO), checks=checks)
+    return dict(suite=s["id"], devices=devs, toc_mode=s.get("toc_mode"), rc=rc, secs=round(time.time() - t0, 1), log=os.path.relpath(log, qa.REPO), checks=checks)
 
 
 def main():
@@ -248,9 +256,9 @@ def main():
         retry = [r for r in results if r["suite"] != "lint" and any(c["status"] == "FAIL" for c in r["checks"])]
         if retry:
             print(f"  atkārtoju {len(retry)} kritušos darbus vienu reizi …", flush=True)
-            by_key = {(j[0]["id"], tuple(j[1] or [])): j for j in jobs}
+            by_key = {(j[0]["id"], tuple(j[1] or []), j[0].get("toc_mode")): j for j in jobs}
             with cf.ThreadPoolExecutor(max_workers=min(a.jobs, len(retry))) as ex:
-                futs = {ex.submit(run_job, by_key[(r["suite"], tuple(r["devices"] or []))], srv.base, a.fast,
+                futs = {ex.submit(run_job, by_key[(r["suite"], tuple(r["devices"] or []), r.get("toc_mode"))], srv.base, a.fast,
                                   timeout * 2 if a.fast else timeout): r for r in retry}
                 for f in cf.as_completed(futs):
                     old, new = futs[f], f.result()
@@ -268,6 +276,7 @@ def main():
     known_hits = [c for c in checks if c["status"] == "KNOWN"]
     fails = [c for c in checks if c["status"] == "FAIL"]
     passes = [c for c in checks if c["status"] == "PASS"]
+    skipped = [c for c in checks if c["status"] == "SKIP"]
     rules = load_rules()
     broken = []
     for r in rules:
@@ -276,8 +285,10 @@ def main():
             broken.append((r, hit))
     dur = time.time() - t0
     json.dump(dict(mode=mode, finished=time.strftime("%Y-%m-%d %H:%M:%S"), seconds=round(dur), jobs=results,
-                   passed=len(passes), failed=len(fails), known=len(known_hits), flaky=flaky), open(os.path.join(RESULTS, "last.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print(f"\nQA {mode}: {len(passes)} pass, {len(fails)} fail, {dur / 60:.1f} min")
+                   passed=len(passes), failed=len(fails), skipped=len(skipped), known=len(known_hits), flaky=flaky), open(os.path.join(RESULTS, "last.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"\nQA {mode}: {len(passes)} pass, {len(fails)} fail, {len(skipped)} skip, {dur / 60:.1f} min")
+    for c in skipped:
+        print(f"  SKIP {c['suite']} {c['dev']} {c['name']}")
     if known_hits:
         print(f"KNOWN (zināmas, eskalētas kļūdas no qa/known_failures.json — {len(known_hits)}):")
         for c in known_hits[:10]:

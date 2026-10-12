@@ -5,6 +5,8 @@ or by the suite itself when run directly).
 """
 import os
 import sys
+from dataclasses import dataclass
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 QA_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REPO = os.environ.get("QA_REPO") or os.path.dirname(QA_DIR)
@@ -40,6 +42,58 @@ DEVICES = {
 # Devices of the fast (pre-push) run: one Android phone (Chromium) and one
 # iPhone (WebKit) — the two engines Satkirti reads on.
 FAST_DEVICES = ["pixel7", "iphone14"]
+
+TOC_MODE_NAME = "default"
+
+
+@dataclass(frozen=True)
+class TocMode:
+    name: str
+
+    @property
+    def one(self):
+        return self.name == "default"
+
+    def start(self, page, url):
+        """Use the app's real query flag, then keep reading URLs comparable.
+
+        The app resolves and remembers ?toc=two once per page load. Removing
+        only this setup query adds no history entry and leaves that choice on.
+        Default checks use a fresh context without either query or preference.
+        """
+        if self.one:
+            page.goto(url, wait_until="networkidle")
+        else:
+            parts = urlsplit(url)
+            query = dict(parse_qsl(parts.query))
+            query["toc"] = "two"
+            page.goto(urlunsplit(parts._replace(query=urlencode(query))), wait_until="networkidle")
+            page.wait_for_function("localStorage.getItem('ap.tocTap') === 'two'")
+            page.evaluate("""() => {
+              const url = new URL(location.href); url.searchParams.delete('toc');
+              history.replaceState(history.state, '', url.pathname + url.search + url.hash);
+            }""")
+
+
+def run_toc_modes(check_body, on_error=None):
+    """Run the same check body with default and legacy expectations.
+
+    The harness schedules each mode separately within its unchanged timeout;
+    direct suite execution runs both. QA_TOC_MODE only partitions coverage.
+    It never changes the app flag: TocMode.start uses the existing query.
+    """
+    global TOC_MODE_NAME
+    selected = os.environ.get("QA_TOC_MODE")
+    if selected and selected not in ("default", "two"):
+        raise ValueError(f"Unknown QA_TOC_MODE: {selected}")
+    for name in ((selected,) if selected else ("default", "two")):
+        TOC_MODE_NAME = name
+        try:
+            check_body(TocMode(name))
+        except Exception as error:
+            if on_error is None:
+                raise
+            on_error(error)
 
 # A chapter route can display the continuous book. Content measurements
 # must use its current chapter, rather than the first article in the book.
