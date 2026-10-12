@@ -231,7 +231,8 @@ function tryApply(): boolean {
   }
   if (!onPlace(p) || document.querySelector(".mobile-menu")) return false;
   const main = document.querySelector<HTMLElement>(".app-main");
-  const root = (p.anchor && document.getElementById(p.anchor)) || main?.querySelector("article");
+  const chapter = main?.querySelector(`[data-book-section="${CSS.escape(p.sectionId)}"]`);
+  const root = (p.anchor && document.getElementById(p.anchor)) || chapter?.querySelector("article") || main?.querySelector("article");
   if (!root || !main) return false;
   const range = findRange(root, p.nq);
   if (!range) return false;

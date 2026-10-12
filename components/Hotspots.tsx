@@ -22,6 +22,7 @@ import React, {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
+import { usePathname } from "next/navigation";
 import type { HotspotImage } from "@/lib/hotspots";
 
 interface Active {
@@ -55,7 +56,13 @@ const IGNORE_TAP = [
 ].join(",");
 
 export function HotspotProvider({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
   const [active, setActive] = useState<Active | null>(null);
+  const [lastScope, setLastScope] = useState(pathname);
+  if (pathname !== lastScope) {
+    setLastScope(pathname);
+    setActive(null);
+  }
   const seq = useRef(0);
   const scrolledSeq = useRef(0);
   const figures = useRef(new Map<string, HTMLElement>());
@@ -597,7 +604,7 @@ export function HotspotFigure({
       <div
         ref={setRef}
         className="hs-figure relative mx-auto my-6"
-        style={{ width: "100%", maxWidth: width }}
+        style={{ width: "100%", maxWidth: width, aspectRatio: `${data.w} / ${data.h}` }}
         {...Object.fromEntries(Object.entries(data.spots).map(([n, sp]) => [`data-y${n}`, sp.y]))}
       >
         <HotspotCanvas src={src} alt={alt} data={data} imgName={imgName} ctx={ctx} />

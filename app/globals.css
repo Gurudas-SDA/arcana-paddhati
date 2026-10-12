@@ -221,7 +221,7 @@ body {
   max-height: 88vh;
   max-height: 88dvh;
   animation: mood-rise 200ms ease-out;
-  --rd-base: clamp(18px, calc(16.3px + 0.57vw), 23px);
+  --rd-base: clamp(16px, calc(13px + 0.85vw), 23px);
   --fs: calc(var(--rd-base) * var(--reader-zoom, 1));
 }
 @media (min-width: 640px) {
@@ -235,8 +235,8 @@ body {
     width: min(74vw, 1000px);
   }
 }
-.mood-dialog .text-\[11px\] { font-size: max(11px, calc(var(--fs) * 0.68)); }
-.mood-dialog .text-\[12px\] { font-size: calc(var(--fs) * 0.78); line-height: 1.5; }
+.mood-dialog .text-\[11px\] { font-size: max(13px, calc(var(--fs) * 0.68)); }
+.mood-dialog .text-\[12px\] { font-size: max(13px, calc(var(--fs) * 0.78)); line-height: 1.5; }
 .mood-dialog .text-\[15px\] { font-size: var(--fs); }
 .mood-dialog .text-\[16px\] { font-size: calc(var(--fs) * 1.08); }
 .mood-dialog .leading-7 { line-height: 1.6; }
@@ -412,6 +412,30 @@ body {
   padding-left: 0;
   border-radius: 0 4px 4px 0;
 }
+/* On phones, keep the shared number column and give the place and mantra
+   the remaining width on separate lines. The existing targets stay intact;
+   only the decoration belongs to the whole selected row. */
+@media screen and (max-width: 639px) {
+  .hs-row:has(> .hs-cell-first) > .hs-cell {
+    grid-row: 1;
+  }
+  .hs-row:has(> .hs-cell-first) > .hs-cell + .hs-cell {
+    grid-column: 2 / -1;
+  }
+  .hs-row:has(> .hs-cell-first) > .hs-cell + span:not(.hs-cell) {
+    grid-column: 2 / -1;
+    grid-row: 2;
+  }
+  .hs-row[data-active]:has(> .hs-cell-first) {
+    background-color: var(--rd-row-active);
+    border-radius: 4px;
+  }
+  /* Paint once behind both lines, without darker overlapping cell bands. */
+  .reader-article .hs-row[data-active]:has(> .hs-cell-first) .hs-cell,
+  .reader-article .hs-row[data-active]:has(> .hs-cell-first) .hs-text {
+    background-color: transparent;
+  }
+}
 @media (hover: hover) {
   .hs-row:has(.hs-cell:hover) .hs-text,
   .hs-row:has(.hs-cell:hover) .hs-cell {
@@ -420,6 +444,19 @@ body {
 }
 @media print {
   .hs-row .hs-cell {
+    background-color: transparent !important;
+  }
+}
+/* Alternating bands on a linked list, so a place and its mantra read as one
+   row on a narrow screen. Decoration, not a state: the selection band
+   (rgba(212,168,67,.32)) sits on top of it and stays clearly stronger.
+   Taps are unchanged, the band is not a target (rules §1, §11). */
+.hs-row:nth-of-type(even) {
+  background-color: var(--rd-row-stripe);
+  border-radius: 4px;
+}
+@media print {
+  .hs-row:nth-of-type(even) {
     background-color: transparent !important;
   }
 }
@@ -566,19 +603,29 @@ body {
   --rd-muted: #5C3D2E;
   --rd-faint: rgba(92, 61, 46, 0.55);
   --rd-accent: #B8860B;
+  --rd-mantra-fg: color-mix(in srgb, var(--rd-accent) 60%, var(--rd-fg));
+  --rd-mantra-rule: var(--rd-accent);
   --rd-bar-bg: #FFFFFF;
   --rd-border: #E8DCC8;
   --rd-hover: #F5E6C8;
   --rd-panel-bg: #FFFFFF;
-  --reader-pad-bottom: calc(30px + env(safe-area-inset-bottom, 0px));
+  --rd-row-active: rgba(212, 168, 67, 0.32);
+  /* alternating band on linked lists (tilak, 16 articles): decoration only,
+     far weaker than the selection band so the two never read alike */
+  --rd-row-stripe: rgba(212, 168, 67, 0.065);
+  --reader-pad-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
 }
 html[data-reader-theme="sepia"] {
   --rd-bg: #EFE6D2;
   --rd-fg: #2a2016;
+  --rd-mantra-fg: color-mix(in srgb, var(--rd-accent) 50%, var(--rd-fg));
+  --rd-mantra-rule: var(--rd-accent);
   --rd-bar-bg: #EFE6D2;
   --rd-border: #DCCCAC;
   --rd-hover: #E5D8BC;
   --rd-panel-bg: #F6F0E2;
+  --rd-row-active: rgba(212, 168, 67, 0.32);
+  --rd-row-stripe: rgba(120, 88, 30, 0.06);
 }
 html[data-reader-theme="night"] {
   --rd-bg: #16130F;
@@ -586,10 +633,14 @@ html[data-reader-theme="night"] {
   --rd-muted: #BBAE9A;
   --rd-faint: rgba(187, 174, 154, 0.5);
   --rd-accent: #D4A843;
+  --rd-mantra-fg: var(--color-gold-muted);
+  --rd-mantra-rule: var(--rd-accent);
   --rd-bar-bg: #1C1813;
   --rd-border: #3A3128;
   --rd-hover: #2E271F;
   --rd-panel-bg: #211C16;
+  --rd-row-active: rgba(212, 168, 67, 0.28);
+  --rd-row-stripe: rgba(242, 233, 218, 0.045);
   color-scheme: dark;
 }
 
@@ -610,13 +661,13 @@ body,
 /* Reading column + text size («Аа»).
    The column fills the screen like Apple Books: small side margins on phones
    (13px) and ~4.5% on tablets. The base body size grows with the viewport
-   (iPhone ~18.5px, iPad portrait ~21px, iPad landscape / desktop 23px) and is
+   (phone ~16px, tablet portrait ~20px, landscape / desktop 23px) and is
    multiplied by the «Аа» step (--reader-zoom). Every text size inside the
    column is derived from --fs below (the book's components use fixed px /
    rem Tailwind classes; these unlayered rules override them), so A−/A+
    change the real font size of body, verses and headings alike. */
 .reader-article {
-  --rd-base: clamp(18px, calc(16.3px + 0.57vw), 23px);
+  --rd-base: clamp(16px, calc(13px + 0.85vw), 23px);
   --fs: calc(var(--rd-base) * var(--reader-zoom, 1));
   font-size: var(--fs);
   width: 100%;
@@ -630,10 +681,10 @@ body,
   }
 }
 /* px / rem text classes → proportional to the body size (body = 15px class) */
-.reader-article .text-\[11px\] { font-size: max(11px, calc(var(--fs) * 0.72)); }
-.reader-article .text-\[12px\], .reader-article .text-xs { font-size: calc(var(--fs) * 0.8); }
-.reader-article .text-\[13px\] { font-size: calc(var(--fs) * 0.86); }
-.reader-article .text-\[14px\], .reader-article .text-sm { font-size: calc(var(--fs) * 0.92); }
+.reader-article .text-\[11px\] { font-size: max(13px, calc(var(--fs) * 0.72)); }
+.reader-article .text-\[12px\], .reader-article .text-xs { font-size: max(13px, calc(var(--fs) * 0.8)); }
+.reader-article .text-\[13px\] { font-size: max(13px, calc(var(--fs) * 0.86)); }
+.reader-article .text-\[14px\], .reader-article .text-sm { font-size: max(13px, calc(var(--fs) * 0.92)); }
 .reader-article .text-\[15px\] { font-size: var(--fs); }
 .reader-article .text-\[16px\], .reader-article .text-base { font-size: calc(var(--fs) * 1.05); }
 .reader-article .text-\[17px\], .reader-article .text-lg { font-size: calc(var(--fs) * 1.12); }
@@ -644,10 +695,22 @@ body,
 .reader-article .leading-6 { line-height: 1.6; }
 .reader-article .leading-5 { line-height: 1.45; }
 .reader-article .leading-4 { line-height: 1.35; }
-/* Headings */
-.reader-article h1[class] { font-size: calc(var(--fs) * 1.5); line-height: 1.25; }
-.reader-article h2[class] { font-size: calc(var(--fs) * 1.25); }
-.reader-article h3[class] { font-size: calc(var(--fs) * 1.1); }
+/* Headings: 28 : 22 : 18 : 16, preserved at every «Аа» size. */
+.reader-article h1[class] { font-size: calc(var(--fs) * 1.75); line-height: 1.25; }
+.reader-article h2[class] { font-size: calc(var(--fs) * 1.375); }
+.reader-article h3[class] { font-size: calc(var(--fs) * 1.125); }
+/* Standalone mantras have their own voice; centred ślokas and inline names
+   keep the book's bold styling. List mantras use their existing indent. */
+.reader-article .mantra-block[class],
+.reader-article .sa-inline.mantra-text {
+  font-weight: 500;
+  color: var(--rd-mantra-fg);
+}
+.reader-article .mantra-block {
+  margin-inline-start: 1em;
+  padding-inline-start: 0.65em;
+  border-inline-start: 1px solid var(--rd-mantra-rule);
+}
 /* Verses (śloka lines): larger, centred, like the printed book */
 .reader-article .verse-text[class] {
   font-size: calc(var(--fs) * 1.1);
@@ -659,7 +722,7 @@ body,
 }
 /* Word-by-word: smaller */
 .reader-article .verse-wbw[class] {
-  font-size: calc(var(--fs) * 0.88);
+  font-size: max(13px, calc(var(--fs) * 0.88));
 }
 
 .reader-bar {
@@ -1195,7 +1258,7 @@ html[data-reader-theme="night"] ::selection {
   color: var(--rd-accent);
 }
 .chapter-next-title {
-  font-size: calc(var(--fs, 18px) * 0.86);
+  font-size: max(13px, calc(var(--fs, 18px) * 0.86));
   line-height: 1.4;
   color: var(--rd-muted);
   overflow-wrap: anywhere;
@@ -1306,23 +1369,23 @@ html[data-reader-theme="night"] ::selection {
   }
 }
 
-/* Status of the bottom bar: one line, never cut. */
+/* Keep the reading position on one line when it fits; wrap naturally on
+   narrow phones alongside the Back and Forward buttons. */
 .reader-progress-label {
-  white-space: nowrap;
-}
-.reader-progress-label .rp-short {
-  display: none;
-}
-@media (max-width: 479px) {
-  .reader-progress-label .rp-long {
-    display: none;
-  }
-  .reader-progress-label .rp-short {
-    display: inline;
-  }
+  white-space: normal;
+  font-size: 13px;
+  line-height: 1.35;
 }
 .reader-status {
-  white-space: nowrap;
+  white-space: normal;
+  font-size: 13px;
+  line-height: 1.35;
+}
+.reader-location-group {
+  display: inline;
+}
+.reader-progress-label > span:last-child {
+  display: inline-block;
 }
 
 /* Maṅgalācaraṇa: an ornament between the prayers (no headings). */
@@ -1437,6 +1500,18 @@ html[data-hs-peek] .app-main {
   text-align: center;
   color: #3C281E;
   overflow-wrap: normal;
+}
+
+/* Continuous reading starts with a full cover, then follows book order.
+   Following chapters provide the room formerly reserved at each page end. */
+.continuous-book .book-cover {
+  min-height: calc(100dvh - var(--reader-pad-bottom));
+}
+.continuous-book .book-section:not(:last-child) .chapter-end-space {
+  display: none;
+}
+.continuous-book .book-section {
+  scroll-margin-top: 0;
 }
 .portrait-ornament {
   display: block;
