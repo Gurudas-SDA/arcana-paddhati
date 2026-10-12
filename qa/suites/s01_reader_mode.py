@@ -28,14 +28,14 @@ MATRIX = {}
 def check(dev, name, ok, info=""):
     results.append((dev, name, bool(ok), info))
     MATRIX.setdefault(dev, [0, 0])[0 if ok else 1] += 1
-    print(f"  [{'PASS' if ok else 'FAIL'}] {dev} {name} {info if not ok else ''}")
+    print(f"  [{'PASS' if ok else 'FAIL'}] {dev} {name} [toc={qa.TOC_MODE_NAME}] {info if not ok else ''}")
 
 
-JS_EMPTY_POINT = """() => {
+JS_EMPTY_POINT = """root => {
   // A point on plain text (no interactive element) inside the viewport,
   // preferring true empty margin left of the reading column when wide enough.
   const main = document.querySelector('.app-main');
-  const art = document.querySelector('.app-main article');
+  const art = root.querySelector('article');
   const mr = main.getBoundingClientRect();
   const ar = art.getBoundingClientRect();
   const H = window.innerHeight;
@@ -59,7 +59,8 @@ JS_EMPTY_POINT = """() => {
 }"""
 
 
-def run(p, dev, engine, opts, lang):
+def run(p, dev, engine, opts, lang, mode):
+    from toc import Contents, history_roundtrip
     br = getattr(p, engine).launch()
     ctx = br.new_context(service_workers="block", **opts)
     pg = ctx.new_page()
@@ -70,6 +71,7 @@ def run(p, dev, engine, opts, lang):
     prefix = "" if lang == "en" else f"/{lang}"
     url = f"{BASE}{prefix}/{PAGE}/"
     tag = f"{dev}-{lang}"
+    flow = Contents(pg, mode, touch)
 
     def tap_pt(pt):
         if touch:
@@ -89,7 +91,7 @@ def run(p, dev, engine, opts, lang):
         return pg.evaluate("""() => [...document.querySelectorAll('.reader-bar')].map(b => +getComputedStyle(b).opacity)""")
 
     def empty_point():
-        return pg.evaluate(JS_EMPTY_POINT)
+        return qa.reading_eval(pg, JS_EMPTY_POINT)
 
     def show_bars():
         if not shown():
@@ -100,7 +102,7 @@ def run(p, dev, engine, opts, lang):
             os.makedirs(SHOTS, exist_ok=True)
             pg.screenshot(path=os.path.join(SHOTS, f"{dev}-{lang}-{name}.png"))
 
-    pg.goto(url, wait_until="networkidle")
+    mode.start(pg, url)
     pg.wait_for_timeout(1100)
     # 0. one-time hint on the first chapter visit, never blocks taps
     check(tag, "hint shown once on first visit", pg.locator(".reader-hint").count() == 1)
@@ -120,7 +122,7 @@ def run(p, dev, engine, opts, lang):
     pg.wait_for_timeout(250)
     check(tag, "tap again -> bars hidden", not shown())
     # 3. list row <-> picture: no bars
-    row_num = pg.locator("[data-hs-row] .hs-text[role=button]").first
+    row_num = qa.reading_locator(pg,"[data-hs-row] .hs-text[role=button]").first
     row_num.scroll_into_view_if_needed()
     pg.evaluate("document.querySelector('.app-main').scrollBy(0, -120)")
     pg.wait_for_timeout(1000)  # past the scroll quiet period
@@ -139,7 +141,7 @@ def run(p, dev, engine, opts, lang):
     tap_pt(empty_point())
     check(tag, "next tap -> bars", shown())
     # 5b. picture tap does not toggle
-    fig = pg.locator(".hs-figure").first
+    fig = qa.reading_locator(pg,".hs-figure").first
     if fig.count():
         tap_pt(empty_point())  # hide
         fig.scroll_into_view_if_needed(); pg.wait_for_timeout(900)
@@ -151,7 +153,7 @@ def run(p, dev, engine, opts, lang):
         if pg.locator("[data-hs-row][data-active]").count():
             tap_pt(empty_point())
     # 6. auto-hide after ~4 s
-    pg.evaluate("document.querySelector('.app-main').scrollTop = 0"); pg.wait_for_timeout(1000)
+    qa.scroll_chapter(pg,0); pg.wait_for_timeout(1000)
     show_bars()
     seq = []
     for _ in range(12):
@@ -160,7 +162,7 @@ def run(p, dev, engine, opts, lang):
     check(tag, "auto-hide after ~4 s", not shown(), str(dbg) + str(seq))
     # 7. small scroll up shows bars; scroll down hides
     m = "document.querySelector('.app-main')"
-    pg.evaluate(f"{m}.scrollTop = 900"); pg.wait_for_timeout(1000)
+    pg.evaluate(f"{m}.scrollTop = {qa.READING_POSITION_JS}.start + 900"); pg.wait_for_timeout(1000)
     if touch:
         # v7.1 (item 13): only the reader's own scrolling shows the bars -> a finger on the page (touchmove) first
         pg.evaluate(f"{m}.dispatchEvent(new Event('touchmove'))"); pg.evaluate(f"{m}.scrollBy(0, -30)"); pg.wait_for_timeout(60); pg.evaluate(f"{m}.dispatchEvent(new Event('touchmove'))"); pg.evaluate(f"{m}.scrollBy(0, -40)")
@@ -203,15 +205,15 @@ def run(p, dev, engine, opts, lang):
     menu = pg.locator(".mobile-menu").count() == 1
     check(tag, "contents opens", menu)
     shot("3-contents")
-    link = pg.locator(".mobile-menu nav a[href$='/temple-worship/']:visible").first
-    if link.count() == 0:
-        # part closed: open its group
-        link = pg.locator(".mobile-menu nav a:visible").nth(3)
-    href = link.get_attribute("href")
-    act(link); pg.wait_for_timeout(500)
-    check(tag, "contents: first tap only highlights (no navigation)", pg.locator(".mobile-menu").count() == 1 and pg.url == url, pg.url)
-    act(link); pg.wait_for_timeout(1200)
-    check(tag, "contents link navigates, menu closed", pg.url.endswith(href.replace("/arcana-paddhati", "", 1)) and pg.locator(".mobile-menu").count() == 0, f"{pg.url} {href}")
+    link=pg.locator(".mobile-menu [data-toc-cover]");href=link.get_attribute('href')
+    before=flow.state();act(link);pg.wait_for_timeout(350)
+    first=flow.state()
+    check(tag,"contents: first tap follows the selected model",not first['menu'] and first['url'].rstrip('/').endswith(prefix) if mode.one else first['menu'] and first['url']==before['url'] and first['lit']==['cover'],str(first))
+    if not mode.one:act(link)
+    check(tag,"contents link navigates, menu closed",pg.url.rstrip('/')==f"{BASE}{prefix}" and not flow.state()['menu'],pg.url)
+    flow.nav('back',native=True)
+    check(tag,"contents row stays highlighted after navigation and Back",flow.state()['menu'] and flow.state()['lit']==['cover'],str(flow.state()))
+    flow.nav('forward',native=True)
     # 12. search + back returns to search with query
     pg.goto(url, wait_until="networkidle"); pg.wait_for_timeout(1000)
     show_bars()
@@ -280,7 +282,7 @@ def run(p, dev, engine, opts, lang):
     check(tag, "back again -> Аа closed, same page", pg.url == url and pg.locator(".reader-panel").count() == 0, pg.url)
     # 15. mood block opens, no toggle
     pg.goto(f"{BASE}{prefix}/arcana-procedure/", wait_until="networkidle"); pg.wait_for_timeout(900)
-    tog = pg.locator(".mood-toggle").first
+    tog = qa.reading_locator(pg,".mood-toggle").first
     if tog.count():
         tog.scroll_into_view_if_needed(); pg.wait_for_timeout(900)
         before = shown()
@@ -290,7 +292,7 @@ def run(p, dev, engine, opts, lang):
         pg.wait_for_timeout(500)
         check(tag, "«Настроение Гурудева» opens, menu not toggled", opened and shown() == before)
     # 16. verse chip: no toggle
-    chip = pg.locator(".verse-chip").first
+    chip = qa.reading_locator(pg,".verse-chip").first
     if chip.count():
         chip.scroll_into_view_if_needed(); pg.wait_for_timeout(900)
         before = shown()
@@ -299,7 +301,7 @@ def run(p, dev, engine, opts, lang):
     # 17. text selection: a tap that ends a selection does not toggle
     pg.goto(url, wait_until="networkidle"); pg.wait_for_timeout(1000)
     pt = empty_point()
-    pg.evaluate("""() => { const p = [...document.querySelectorAll('.app-main article p')].find(p => p.textContent.length > 40);
+    qa.reading_eval(pg,"""root => { const p = [...root.querySelectorAll('article p')].find(p => p.textContent.length > 40);
         const r = document.createRange(); r.selectNodeContents(p); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }""")
     tap_pt(pt)
     check(tag, "tap ending a text selection -> no toggle", not shown())
@@ -308,6 +310,7 @@ def run(p, dev, engine, opts, lang):
     check(tag, "cover: no bars", not shown())
     # 18. no console errors
     check(tag, "no console / page errors", not errs, "; ".join(errs[:4]))
+    history_roundtrip(br,opts,mode,lambda n,ok,i='':check(tag,n,ok,i),BASE,lang)
     br.close()
 
 
@@ -318,7 +321,7 @@ with sync_playwright() as p:
         for lang in LANGS:
             print(dev, lang)
             try:
-                run(p, dev, engine, opts, lang)
+                qa.run_toc_modes(lambda mode:run(p,dev,engine,opts,lang,mode),on_error=lambda e:check(f"{dev}-{lang}","EXCEPTION",False,str(e)[:1200]))
             except Exception as e:
                 check(f"{dev}-{lang}", "EXCEPTION", False, str(e)[:1200])
 

@@ -18,8 +18,8 @@ DEVICES = qa.devices(['iphone14', 'pixel7', 'ipad-portrait', 'ipad-landscape', '
 LANG = "ru-iast"
 EMB = f"{BASE}/{LANG}/gaudiya-emblem/"
 VIG = "vigraha-tattva"
-EMPTY = """() => {
-  const main = document.querySelector('.app-main'); const art = document.querySelector('.app-main article');
+EMPTY = """root => {
+  const main = document.querySelector('.app-main'); const art = root.querySelector('article');
   const mr = main.getBoundingClientRect(); const ar = art.getBoundingClientRect(); const H = innerHeight;
   const bad = (el) => !el || !!el.closest('a,button,input,select,label,[role=button],img,svg,.hs-text,.hs-figure,.verse-chips,.mood-toggle,[data-no-reader-tap]');
   if (ar.left - mr.left > 80) { const p = {x: mr.left + 40, y: H / 2}; const el = document.elementFromPoint(p.x, p.y); if (!bad(el) && main.contains(el)) return p; }
@@ -35,10 +35,11 @@ res = []
 
 
 def chk(d, n, ok, info=""):
-    res.append((d, n, bool(ok), info)); print(f"  [{'PASS' if ok else 'FAIL'}] {d} {n} {'' if ok else info}")
+    res.append((d, n, bool(ok), info)); print(f"  [{'PASS' if ok else 'FAIL'}] {d} {n} [toc={qa.TOC_MODE_NAME}] {'' if ok else info}")
 
 
-def run(p, dev, eng, o):
+def run(p, dev, eng, o, mode):
+    from toc import Contents, history_roundtrip
     br = getattr(p, eng).launch()
     touch = o.get("has_touch", False)
     errs, foreign = [], []
@@ -46,6 +47,8 @@ def run(p, dev, eng, o):
     pg = ctx.new_page()
     pg.on("pageerror", lambda e: errs.append(str(e)))
     pg.on("request", lambda r: foreign.append(r.url) if urlparse(r.url).netloc not in (HOST, "") and not r.url.startswith(("data:", "blob:")) else None)
+
+    flow=Contents(pg,mode,touch)
 
     def act(loc):
         loc.scroll_into_view_if_needed()
@@ -63,7 +66,7 @@ def run(p, dev, eng, o):
 
     def show_bars():
         if not shown():
-            pt = pg.evaluate(EMPTY); tap_pt(pt["x"], pt["y"])
+            pt = qa.reading_eval(pg, EMPTY); tap_pt(pt["x"], pt["y"])
 
     def open_contents():
         show_bars(); act(pg.locator("[data-reader-action=contents]"))
@@ -72,52 +75,33 @@ def run(p, dev, eng, o):
         if SHOTS:
             pg.screenshot(path=os.path.join(SHOTS, f"v5-{dev}-{n}.png"))
 
-    # ---- (1)(2) contents: highlight follows the tap; two taps open ----
-    pg.goto(EMB, wait_until="networkidle"); pg.wait_for_timeout(900)
-    pg.evaluate("try{localStorage.setItem('ap.readerHintSeen','1')}catch(e){}")
-    open_contents()
-    emb = chap("gaudiya-emblem") if chap("gaudiya-emblem").count() else pg.locator(".mobile-menu nav a[href$='/gaudiya-emblem/']").first
-    lit_in_emb = pg.locator(".mobile-menu nav li:has(> div > button[data-toc-chapter='gaudiya-emblem']) [data-toc-lit], .mobile-menu nav li:has(> a[href$='/gaudiya-emblem/']) [data-toc-lit], .mobile-menu nav [data-toc-lit][href$='/gaudiya-emblem/']").count()
-    chk(dev, "(1) contents opens with exactly one highlight, on the open chapter (Эмблема)", nlit() == 1 and lit_in_emb >= 1, f"nlit={nlit()} in_emb={lit_in_emb}")
-    # [v7.5 law, Satkirti 07.10 15:45: 1st tap only highlights, 2nd expands (no navigation); every tap a Back step]
-    act(chap(VIG))
-    chk(dev, "(1) tap «Виграха-таттва» -> highlight moves to it (only one lit)", lit(chap(VIG)) and not lit(emb) and nlit() == 1, f"nlit={nlit()}")
-    chk(dev, "(2) first tap: highlight only — not expanded, no navigation, drawer open",
-        chap(VIG).get_attribute("aria-expanded") == "false" and pg.url == EMB and menu(), pg.url)
-    shot("1-contents-first-tap")
-    act(chap(VIG)); pg.wait_for_timeout(600)
-    chk(dev, "(2) second tap on the same chapter expands it (no navigation)", chap(VIG).get_attribute("aria-expanded") == "true" and pg.url == EMB and menu(), pg.url)
-    pg.go_back(); pg.wait_for_timeout(1000)
-    chk(dev, "(2) Back -> chapter collapsed, still lit", menu() and chap(VIG).get_attribute("aria-expanded") == "false" and lit(chap(VIG)), pg.url)
-    pg.go_back(); pg.wait_for_timeout(1000)
-    chk(dev, "(2) Back -> contents as opened (Эмблема lit)", menu() and pg.url == EMB and lit_in_emb_now(), pg.url)
-    pg.go_back(); pg.wait_for_timeout(1000)
-    chk(dev, "(2) Back -> contents closed, emblem page", not menu() and pg.url == EMB, pg.url)
-    # a chapter WITHOUT subsections + a subsection + «Начало главы»
-    open_contents()
-    plain = pg.locator(".mobile-menu nav a[href$='/mangalacarana/']").first
-    if plain.count() == 0:
-        plain = pg.locator(".mobile-menu nav li > a.sidebar-link:not([data-toc-cover])").first
-    href = plain.get_attribute("href")
-    act(plain)
-    chk(dev, "(2) plain chapter: first tap highlights only", lit(plain) and menu() and pg.url == EMB and nlit() == 1, pg.url)
-    act(chap(VIG)); act(chap(VIG))
-    sub = pg.locator(f".mobile-menu #toc-ch-{VIG} a").nth(2)
-    act(sub)
-    chk(dev, "(2) subsection: first tap highlights only", lit(sub) and menu() and pg.url == EMB and nlit() == 1, pg.url)
-    shref = sub.get_attribute("href")
-    act(sub); pg.wait_for_timeout(1000)
-    chk(dev, "(2) subsection: second tap opens it", not menu() and shref.split("#")[1] in pg.url, pg.url)
-    pg.go_back(); pg.wait_for_timeout(1200)
-    start = chap(VIG)  # [v7 law C/D, Satkirti 06.10: no «Начало главы»; Introduction group; Part I numbered from 1]
-    if menu() and start.count() == 1:
-        chk(dev, "(2) v7: Back -> the subsection is still lit (path)", lit(sub) and nlit() == 1, pg.url)
-        act(start)
-        chk(dev, "(2) chapter row: first tap highlights only", lit(start) and menu() and pg.url == EMB and start.get_attribute("aria-expanded") == "true", pg.url)
-        act(start); pg.wait_for_timeout(600)
-        chk(dev, "(2) chapter row: second tap collapses its list (v7.5, no navigation)", menu() and pg.url == EMB and start.get_attribute("aria-expanded") == "false", pg.url)
-    else:
-        chk(dev, "(2) Back after subsection -> contents open", False, f"menu={menu()} url={pg.url}")
+    mode.start(pg,EMB);pg.wait_for_timeout(600);open_contents()
+    chk(dev,'(1) contents opens with exactly one highlight, on the open chapter (Эмблема)',nlit()==1 and lit_in_emb_now())
+    before=flow.state();flow.tap(chap(VIG),right=True,wait=350);first=flow.state()
+    chk(dev,'(1) tap «Виграха-таттва» -> highlight moves to it (only one lit)',first['lit']==['sec:'+VIG])
+    chk(dev,'(2) first tap: default opens chapter top + list; legacy highlights only',first['menu'] and ((VIG in first['open'] and first['url'].endswith('/'+VIG+'/') and abs(pg.evaluate(qa.READING_POSITION_JS)['top'])<2) if mode.one else VIG not in first['open'] and pg.url==EMB),str(first))
+    flow.tap(chap(VIG),right=True,wait=350);second=flow.state()
+    chk(dev,'(2) second tap on the same chapter: collapses default / expands legacy, no navigation',(VIG in second['open'])!=mode.one and second['url']==first['url'] and second['lit']==['sec:'+VIG],str(second))
+    flow.nav('back',native=True);state=flow.state()
+    chk(dev,'(2) Back -> the preceding chapter state, still lit',(VIG in state['open'])==mode.one and state['lit']==['sec:'+VIG] and state['url']==first['url'],str(state))
+    flow.nav('back',native=True);state=flow.state()
+    chk(dev,'(2) Back -> contents as opened (path highlight)',state['menu'] and pg.url==EMB and state['lit']==(['sec:'+VIG] if mode.one else before['lit']),str(state))
+    flow.nav('back',native=True)
+    chk(dev,'(2) Back -> contents closed, emblem page',not menu() and pg.url==EMB)
+    open_contents();plain=pg.locator('.mobile-menu [data-toc-row="sec:mangalacarana"]');u0=flow.state()['url'];flow.tap(plain,wait=350)
+    chk(dev,'(2) plain chapter: first tap follows the mode',not menu() and pg.url.endswith('/mangalacarana/') if mode.one else menu() and pg.url==EMB and lit(plain) and nlit()==1,pg.url)
+    if mode.one:flow.nav('back',native=True)
+    flow.activate(chap(VIG));sub=pg.locator(f'#toc-ch-{VIG} a').nth(2);shref=sub.get_attribute('href');anchor=shref.split('#')[1];u0=flow.state()['url']
+    flow.tap(sub,wait=350)
+    chk(dev,'(2) subsection: first tap follows the mode',not menu() and pg.url.endswith('#'+anchor) if mode.one else menu() and lit(sub) and nlit()==1 and flow.state()['url']==u0,pg.url)
+    if not mode.one:flow.tap(sub,wait=350)
+    chk(dev,'(2) subsection: action tap opens it',not menu() and pg.url.endswith('#'+anchor),pg.url)
+    flow.nav('back',native=True)
+    chk(dev,'(2) v7: Back -> the subsection is still lit (path)',menu() and flow.state()['lit']==['sub:'+VIG+'#'+anchor])
+    u0=flow.state()['url'];flow.tap(chap(VIG),right=True)
+    chk(dev,'(2) chapter row: first tap follows the mode',(VIG in flow.state()['open'])!=mode.one and flow.state()['lit']==['sec:'+VIG] and flow.state()['url']==u0)
+    flow.tap(chap(VIG),right=True)
+    chk(dev,'(2) chapter row: second tap toggles its list without leaving the chapter',(VIG in flow.state()['open'])==mode.one and flow.state()['url']==u0)
 
     # ---- (3) bottom bar ----
     pg.goto(f"{BASE}/{LANG}/{VIG}/", wait_until="networkidle"); pg.wait_for_timeout(900)
@@ -134,7 +118,7 @@ def run(p, dev, eng, o):
 
     # ---- (4) large mood / translation window ----
     pg.goto(f"{BASE}/{LANG}/{VIG}/", wait_until="networkidle"); pg.wait_for_timeout(900)
-    act(pg.locator(".mood-toggle").first); pg.wait_for_timeout(500)
+    act(qa.reading_locator(pg,".mood-toggle").first); pg.wait_for_timeout(500)
     d = pg.evaluate("""() => { const dl = document.querySelector('.mood-dialog').getBoundingClientRect();
       const q = document.querySelector('.mood-dialog .mood-quote p'); const c = document.querySelector('.mood-close').getBoundingClientRect();
       return {w: dl.width, h: dl.height, l: dl.left, t: dl.top, vw: innerWidth, vh: innerHeight, fs: parseFloat(getComputedStyle(q).fontSize), cw: c.width, ch: c.height,
@@ -151,7 +135,7 @@ def run(p, dev, eng, o):
     pg.evaluate("try{localStorage.setItem('ap.readerSize','1.22')}catch(e){}")
     fs0 = d["fs"]
     pg.evaluate("document.documentElement.style.setProperty('--reader-zoom','1.22')")
-    act(pg.locator(".mood-toggle").first); pg.wait_for_timeout(400)
+    act(qa.reading_locator(pg,".mood-toggle").first); pg.wait_for_timeout(400)
     fs1 = pg.evaluate("parseFloat(getComputedStyle(document.querySelector('.mood-dialog .mood-quote p')).fontSize)")
     chk(dev, "(4) window text follows «Аа»", fs1 > fs0 * 1.15, f"{fs0} -> {fs1}")
     act(pg.locator(".mood-close"))
@@ -159,8 +143,8 @@ def run(p, dev, eng, o):
 
     # ---- (5) numbering next to the emblem: 2.1 … 2.6 not left of the main numbers ----
     pg.goto(EMB, wait_until="networkidle"); pg.wait_for_timeout(900)
-    nl = pg.evaluate("""() => { const out = [];
-      for (const ol of document.querySelectorAll('ol.numbered-list')) {
+    nl = qa.reading_eval(pg,"""root => { const out = [];
+      for (const ol of root.querySelectorAll('ol.numbered-list')) {
         const rows = [...ol.children]; const main = rows.filter(r => !r.classList.contains('nl-sub')); const subs = rows.filter(r => r.classList.contains('nl-sub'));
         if (!subs.length) continue;
         const numL = r => r.querySelector('.nl-num .hs-text, .nl-num').getBoundingClientRect().left;
@@ -171,7 +155,7 @@ def run(p, dev, eng, o):
       } return out; }""")
     ok = len(nl) >= 1 and all(x["subNumL"] >= x["mainNumR"] - 2 and x["subNumL"] >= x["mainTxtL"] - 6 for x in nl)
     chk(dev, "(5) sub-numbers 2.1–2.6 INDENTED right of their parent «2)» (at its text line)", ok, str(nl))
-    sub21 = pg.locator("ol.numbered-list .nl-sub").first
+    sub21 = qa.reading_locator(pg,"ol.numbered-list .nl-sub").first
     if sub21.count():
         sub21.scroll_into_view_if_needed(); pg.evaluate("document.querySelector('.app-main').scrollBy(0, -200)"); pg.wait_for_timeout(300)
         shot("5-numbering")
@@ -197,7 +181,7 @@ with sync_playwright() as p:
             continue
         print(dev)
         try:
-            run(p, dev, eng, o)
+            qa.run_toc_modes(lambda mode:run(p,dev,eng,o,mode),on_error=lambda e:chk(dev,"EXCEPTION",False,str(e)[:900]))
         except Exception as e:
             chk(dev, "EXCEPTION", False, str(e)[:900])
 fails = [r for r in res if not r[2]]
