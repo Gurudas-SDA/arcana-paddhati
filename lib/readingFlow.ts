@@ -2,7 +2,7 @@
  *  manual scrolling replaces the current place, explicit links push one. */
 import { BASE_PATH, stripBasePath } from "./basePath";
 import { localeHref, parsePath } from "./i18n";
-import { main, recordScroll } from "./navHistory";
+import { entryView, main, pushReading, recordScroll } from "./navHistory";
 
 interface Arrival {
   href: string;
@@ -58,8 +58,15 @@ export function bookOffset(target: HTMLElement): number {
   return Math.max(0, scroller.scrollTop + target.getBoundingClientRect().top - scroller.getBoundingClientRect().top - margin);
 }
 
-/** Returns false on a standalone page or a link outside this language's book. */
-export function followBookLink(href: string, before?: (moved: boolean) => void): boolean {
+/** What a step's new entry starts with, besides the place (lib/navHistory.ts). */
+export interface StepEntry {
+  state?: Record<string, unknown>;
+  view?: Record<string, unknown>;
+}
+
+/** Returns false on a standalone page or a link outside this language's book.
+ *  `entry`: the new entry's own state and view, written with the push itself. */
+export function followBookLink(href: string, before?: (moved: boolean) => void, entry?: () => StepEntry): boolean {
   const url = new URL(href, window.location.href);
   if (url.origin !== window.location.origin || !url.pathname.startsWith(BASE_PATH + "/")) return false;
   const to = parsePath(stripBasePath(url.pathname) || "/");
@@ -78,8 +85,15 @@ export function followBookLink(href: string, before?: (moved: boolean) => void):
   if (moved) {
     recordScroll();
     const state: Record<string, unknown> = changedPage ? {} : readingState();
-    for (const key of ["apKey", "apMenu", "apQuery", "apDepth", "apParts", "apExp", "apAa", "apNav"]) delete state[key];
-    window.history.pushState({ ...state, apBook: true }, "", url.pathname + url.search + url.hash);
+    for (const key of ["apKey", "apId", "apMenu", "apDepth", "apAa"]) delete state[key];
+    // A jump on the same page keeps the highlight and followed result it had.
+    const view: Record<string, unknown> = {};
+    if (!changedPage) {
+      const was = entryView();
+      for (const key of ["apLit", "apResult"]) if (key in was) view[key] = was[key];
+    }
+    const own = entry?.() ?? {};
+    pushReading({ ...state, apBook: true, ...own.state }, url.pathname + url.search + url.hash, { ...view, ...own.view });
   }
   scroller.scrollTop = offset;
   window.dispatchEvent(new HashChangeEvent("hashchange"));

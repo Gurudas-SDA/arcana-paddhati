@@ -23,12 +23,14 @@ import {
 import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
 import { BASE_PATH } from "@/lib/basePath";
 import {
+  entryView,
   isMenuEntry,
   main as mainEl,
   menuDepth,
   patchState,
   pushOverlay,
   pushPlace,
+  setView,
 } from "@/lib/navHistory";
 import { setPendingSearchMark } from "@/lib/searchMark";
 import { bookTarget, followBookLink, readingHref } from "@/lib/readingFlow";
@@ -325,7 +327,7 @@ function usePartsOpen(
     if (!currentPartId) return;
     try {
       const st = window.history.state as Record<string, unknown> | null;
-      if (isMenuEntry(st) && typeof st?.apParts === "string") return;
+      if (isMenuEntry(st) && typeof entryView(st).apParts === "string") return;
     } catch {
       // history unavailable: arrival as usual
     }
@@ -354,17 +356,17 @@ function baseParts(parts: TocPart[], sections: TocSection[]): Record<string, boo
   return st;
 }
 
-/** history.state key: scroll offset of the contents / results list. */
+/** Entry view key (lib/navHistory.ts): scroll offset of the contents / results list. */
 const NAV_SCROLL = "apNav";
-/** history.state key: the highlighted contents row of a menu step (the path). */
+/** Entry view key: the highlighted contents row of a menu step (the path). */
 const PATH_LIT = "apLit";
-/** history.state key: the search result the reader followed out of this menu step. */
+/** Entry view key: the search result the reader followed out of this menu step. */
 const RESULT_KEY = "apResult";
 
 function readPathLit(): string | null {
   if (typeof window === "undefined") return null;
   try {
-    const v = (window.history.state as Record<string, unknown> | null)?.[PATH_LIT];
+    const v = entryView()[PATH_LIT];
     return typeof v === "string" ? v : null;
   } catch {
     return null;
@@ -460,7 +462,7 @@ export default function Sidebar({
    *  contents / results exactly where the reader left them. */
   const saveNavScroll = () => {
     try {
-      if (isMenuEntry()) patchState({ [NAV_SCROLL]: navRef.current?.scrollTop ?? 0 });
+      if (isMenuEntry()) setView({ [NAV_SCROLL]: navRef.current?.scrollTop ?? 0 });
     } catch {
       // history unavailable
     }
@@ -499,7 +501,7 @@ export default function Sidebar({
   useLayoutEffect(() => {
     let timers: number[] = [];
     const apply = () => {
-      const v = (window.history.state as Record<string, unknown> | null)?.[NAV_SCROLL];
+      const v = entryView()[NAV_SCROLL];
       if (typeof v === "number" && navRef.current) navRef.current.scrollTop = v;
       // The highlighted row (the place on the path) is always in view.
       revealLit(navRef.current);
@@ -579,23 +581,25 @@ export default function Sidebar({
       // The step being left keeps the row that was highlighted on it — also the
       // default "you are here" row of a freshly opened contents, which the
       // scroll-spy could otherwise change before "back" returns to it (v7.5).
-      if (typeof st?.[PATH_LIT] !== "string") {
+      if (typeof entryView(st)[PATH_LIT] !== "string") {
         const shownRow = navRef.current?.closest("nav")?.querySelector<HTMLElement>("[data-toc-lit]")?.dataset.tocRow;
-        if (shownRow) patchState({ [PATH_LIT]: shownRow });
+        if (shownRow) setView({ [PATH_LIT]: shownRow });
       }
       if (navigating) {
         // A page is loading (A65): this choice will replace it — no step of its
         // own in history, so the new page is ONE entry on top of the menu's.
-        patchState({ apParts: partsSnapshot(), [PATH_LIT]: id }, [RESULT_KEY, "apExp"]);
+        setView({ apParts: partsSnapshot(), [PATH_LIT]: id }, [RESULT_KEY, "apExp"]);
       } else {
-        pushOverlay({
-          apParts: partsSnapshot(),
-          [PATH_LIT]: id,
-          // Proposal: a menu attached to a chapter navigation is not stacked
-          // over the previous reading place. Closing it keeps this chapter.
-          apDepth: oneTap && st?.apDepth === 0 ? 0 : menuDepth(st) + 1,
-        });
-        patchState({}, [RESULT_KEY, "apExp"]);
+        // One write: the step's entry with its own view.
+        pushOverlay(
+          {
+            // Proposal: a menu attached to a chapter navigation is not stacked
+            // over the previous reading place. Closing it keeps this chapter.
+            apDepth: oneTap && st?.apDepth === 0 ? 0 : menuDepth(st) + 1,
+          },
+          { apParts: partsSnapshot(), [PATH_LIT]: id },
+          [RESULT_KEY, "apExp"],
+        );
       }
     } catch {
       // history unavailable: the highlight still shows
@@ -608,9 +612,9 @@ export default function Sidebar({
     setTapped(id);
     setPathLit(id);
     try {
-      if (isMenuEntry()) patchState({ [PATH_LIT]: id });
+      if (isMenuEntry()) setView({ [PATH_LIT]: id });
     } catch {
-      // History unavailable: the highlight still shows.
+      // Storage unavailable: the highlight still shows.
     }
   };
   const chapterArrival = useRef<{
@@ -684,7 +688,7 @@ export default function Sidebar({
     if (fromSearch && normalizedQuery) setPendingSearchMark(normalizedQuery, sectionId, anchor);
     try {
       // "Back" to the results scrolls to this one again (Reader v7.2).
-      if (onLeave && isMenuEntry()) patchState({ [RESULT_KEY]: `${sectionId}#${anchor ?? ""}` });
+      if (onLeave && isMenuEntry()) setView({ [RESULT_KEY]: `${sectionId}#${anchor ?? ""}` });
     } catch {
       // history unavailable
     }
@@ -811,9 +815,9 @@ export default function Sidebar({
     if (!onLeave) return;
     try {
       const st = window.history.state as Record<string, unknown> | null;
-      if (typeof st?.apParts === "string") return;
+      if (typeof entryView(st).apParts === "string") return;
       resetChapters();
-      if (isMenuEntry(st)) patchState({ apParts: partsSnapshot() });
+      if (isMenuEntry(st)) setView({ apParts: partsSnapshot() });
     } catch {
       // history unavailable
     }
@@ -833,12 +837,14 @@ export default function Sidebar({
         mark(rowId);
         saveNavScroll();
         let navigated = false;
+        const view = () => ({ apParts: JSON.stringify(open), apQuery: searchQuery, [PATH_LIT]: rowId, [NAV_SCROLL]: navRef.current?.scrollTop ?? 0 });
+        // One write: the chapter's entry carries the expanded contents.
         followBookLink(readingHref(lang, sectionId), (moved) => {
           navigated = moved;
           if (!moved) step(rowId, open);
-        });
+        }, () => ({ state: { apMenu: true, apDepth: 0 }, view: view() }));
         setPartsState(open);
-        patchState({ apMenu: true, ...(navigated ? { apDepth: 0 } : {}), apParts: JSON.stringify(open), apQuery: searchQuery, [PATH_LIT]: rowId, [NAV_SCROLL]: navRef.current?.scrollTop ?? 0 });
+        if (!navigated) setView(view());
         setOpenedRow({ id: rowId, at: Date.now() });
         return;
       }
@@ -847,9 +853,9 @@ export default function Sidebar({
         if (hashId() || (main && main.scrollTop > 0)) {
           mark(rowId);
           saveNavScroll();
-          pushPlace(`${BASE_PATH}${sectionHref(sectionId)}`);
           setPartsState(open);
-          patchState({ apMenu: true, apDepth: 0, apParts: partsSnapshot(), [PATH_LIT]: rowId });
+          // One write: the chapter top's entry carries the expanded contents.
+          pushPlace(`${BASE_PATH}${sectionHref(sectionId)}`, { apMenu: true, apDepth: 0 }, { apParts: partsSnapshot(), [PATH_LIT]: rowId });
           window.dispatchEvent(new HashChangeEvent("hashchange"));
           main?.scrollTo({ top: 0 });
         } else {
@@ -914,9 +920,10 @@ export default function Sidebar({
       const nav = navRef.current;
       const st = window.history.state as Record<string, unknown> | null;
       if (!nav || !st || !isMenuEntry(st)) return;
-      const v = st[NAV_SCROLL];
+      const view = entryView(st);
+      const v = view[NAV_SCROLL];
       if (typeof v === "number") nav.scrollTop = v;
-      const key = st[RESULT_KEY];
+      const key = view[RESULT_KEY];
       if (typeof key !== "string") return;
       const row = [...nav.querySelectorAll<HTMLElement>("[data-result]")].find(
         (el) => el.dataset.result === key
@@ -1304,7 +1311,7 @@ export default function Sidebar({
               if (oneTap) {
                 mark("cover");
                 setPartsState(baseParts(parts, sections));
-                if (isMenuEntry()) patchState({ apParts: partsSnapshot() });
+                if (isMenuEntry()) setView({ apParts: partsSnapshot() });
                 leaveTo(e, localeHref(lang));
                 return;
               }

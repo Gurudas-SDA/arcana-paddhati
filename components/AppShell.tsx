@@ -9,6 +9,7 @@ import type { SearchEntry } from "@/lib/book";
 import { SEARCH_SCROLL_ATTR } from "@/lib/searchMark";
 import {
   QUERY_STORE,
+  entryView,
   isMenuEntry,
   main as mainEl,
   menuDepth,
@@ -17,6 +18,7 @@ import {
   pushOverlay,
   recordScroll,
   savedScroll,
+  setView,
 } from "@/lib/navHistory";
 import {
   DEFAULT_LANG,
@@ -170,7 +172,7 @@ export default function AppShell({
   const pendingHref = useRef<string | null>(null);
   const leaveMenu = useCallback((navigating?: boolean, href?: string) => {
     try {
-      if (isMenuEntry()) patchState({ apQuery: searchQueryRef.current });
+      if (isMenuEntry()) setView({ apQuery: searchQueryRef.current });
       sessionStorage.setItem(QUERY_STORE, searchQueryRef.current);
     } catch {
       // storage unavailable
@@ -348,7 +350,8 @@ export default function AppShell({
     m.addEventListener("scroll", onScroll, { passive: true });
 
     const reopenMenu = (st: Record<string, unknown> | null) => {
-      let q = typeof st?.apQuery === "string" ? st.apQuery : null;
+      const query = entryView(st).apQuery;
+      let q = typeof query === "string" ? query : null;
       if (q === null) {
         try {
           q = sessionStorage.getItem(QUERY_STORE);
@@ -369,7 +372,8 @@ export default function AppShell({
       setNavFailed(false);
       poppedAt.current = performance.now();
       if (isMenuEntry(st)) {
-        if (typeof st?.apParts === "string") restoreParts(st.apParts);
+        const parts = entryView(st).apParts;
+        if (typeof parts === "string") restoreParts(parts);
         reopenMenu(st);
       } else setMobileMenuOpen(false);
       // Put the place back after Next.js has rendered the entry's page.
@@ -414,7 +418,8 @@ export default function AppShell({
     // Reader v7.6.1).
     if (isMenuEntry()) {
       const st = window.history.state as Record<string, unknown> | null;
-      if (typeof st?.apParts === "string") restoreParts(st.apParts);
+      const parts = entryView(st).apParts;
+      if (typeof parts === "string") restoreParts(parts);
       reopenMenu(st);
     }
     return () => {
@@ -491,7 +496,8 @@ export default function AppShell({
     };
   }, [pathname]);
 
-  // Each new entry gets its place key once its page is shown.
+  // Each new entry gets its place key once its page is shown (entries made by
+  // the app have it already; one made by Next.js' router gets it once).
   useEffect(() => {
     try {
       placeKey();
