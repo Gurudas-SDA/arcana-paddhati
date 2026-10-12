@@ -1369,8 +1369,8 @@ html[data-reader-theme="night"] ::selection {
   }
 }
 
-/* Part name, then chapter/subsection + progress. Both stay readable on a
-   narrow phone, alongside the full-width Back and Forward buttons. */
+/* Keep the reading position on one line when it fits; wrap naturally on
+   narrow phones alongside the Back and Forward buttons. */
 .reader-progress-label {
   white-space: normal;
   font-size: 13px;
@@ -1382,10 +1382,10 @@ html[data-reader-theme="night"] ::selection {
   line-height: 1.35;
 }
 .reader-location-group {
-  display: block;
-}
-.reader-status .reader-location-group {
   display: inline;
+}
+.reader-progress-label > span:last-child {
+  display: inline-block;
 }
 
 /* Maṅgalācaraṇa: an ornament between the prayers (no headings). */
