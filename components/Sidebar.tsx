@@ -11,7 +11,7 @@ import React, {
   useSyncExternalStore,
 } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   matchRanges,
   normalizeText,
@@ -21,6 +21,7 @@ import {
   type TocSection,
 } from "@/lib/book";
 import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
+import { BASE_PATH } from "@/lib/basePath";
 import {
   isMenuEntry,
   main as mainEl,
@@ -449,6 +450,7 @@ export default function Sidebar({
   navFailed = false,
 }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const searchInputRef = useRef<HTMLInputElement>(null);
   /** The scrolling list of the contents / search results. */
   const navRef = useRef<HTMLElement>(null);
@@ -585,7 +587,13 @@ export default function Sidebar({
         // own in history, so the new page is ONE entry on top of the menu's.
         patchState({ apParts: partsSnapshot(), [PATH_LIT]: id }, [RESULT_KEY, "apExp"]);
       } else {
-        pushOverlay({ apParts: partsSnapshot(), [PATH_LIT]: id, apDepth: menuDepth(st) + 1 });
+        pushOverlay({
+          apParts: partsSnapshot(),
+          [PATH_LIT]: id,
+          // Proposal: a menu attached to a chapter navigation is not stacked
+          // over the previous reading place. Closing it keeps this chapter.
+          apDepth: oneTap && st?.apDepth === 0 ? 0 : menuDepth(st) + 1,
+        });
         patchState({}, [RESULT_KEY, "apExp"]);
       }
     } catch {
@@ -598,7 +606,44 @@ export default function Sidebar({
   const mark = (id: string) => {
     setTapped(id);
     setPathLit(id);
+    try {
+      if (isMenuEntry()) patchState({ [PATH_LIT]: id });
+    } catch {
+      // History unavailable: the highlight still shows.
+    }
   };
+  const chapterArrival = useRef<{
+    sectionId: string;
+    rowId: string;
+    parts: Record<string, boolean>;
+    query: string;
+  } | null>(null);
+  useEffect(() => {
+    if (!oneTap) return;
+    const cancel = () => { chapterArrival.current = null; };
+    window.addEventListener("popstate", cancel);
+    return () => window.removeEventListener("popstate", cancel);
+  }, [oneTap]);
+  useLayoutEffect(() => {
+    if (!oneTap) return;
+    const arrival = chapterArrival.current;
+    if (!arrival || selectedId !== arrival.sectionId) return;
+    chapterArrival.current = null;
+    setPartsState(arrival.parts);
+    setTapped(arrival.rowId);
+    setPathLit(arrival.rowId);
+    // Navigation already pushed the action's entry. Attach its expanded
+    // contents to that entry without adding a highlight/overlay-only step.
+    patchState({
+      apMenu: true,
+      apDepth: 0,
+      apParts: JSON.stringify(arrival.parts),
+      apQuery: arrival.query,
+      [PATH_LIT]: arrival.rowId,
+      [NAV_SCROLL]: navRef.current?.scrollTop ?? 0,
+    });
+    mainEl()?.scrollTo({ top: 0 });
+  }, [oneTap, pathname, selectedId]);
   /** First tap on `id`: highlight only (false). Second tap: go on (true). */
   const secondTap = (e: React.MouseEvent | null, id: string): boolean => {
     if (oneTap) {
@@ -766,13 +811,40 @@ export default function Sidebar({
    * highlight only. Second tap on the highlighted row: expand / collapse.
    * Each is a step of its own (Reader v7.5, Satkirti 07.10.2026).
    */
-  const onDisclosureTap = (id: string, rowId: string) => {
+  const onDisclosureTap = (id: string, rowId: string, sectionId?: string) => {
+    if (oneTap && sectionId && !isPartOpen(id)) {
+      const open = { ...parseParts(partsSnapshot()), [id]: true };
+      if (selectedId === sectionId) {
+        const main = mainEl();
+        if (hashId() || (main && main.scrollTop > 0)) {
+          mark(rowId);
+          saveNavScroll();
+          pushPlace(`${BASE_PATH}${sectionHref(sectionId)}`);
+          setPartsState(open);
+          patchState({ apMenu: true, apDepth: 0, apParts: partsSnapshot(), [PATH_LIT]: rowId });
+          window.dispatchEvent(new HashChangeEvent("hashchange"));
+          main?.scrollTo({ top: 0 });
+        } else {
+          step(rowId, open);
+        }
+      } else {
+        mark(rowId);
+        saveNavScroll();
+        chapterArrival.current = { sectionId, rowId, parts: open, query: searchQuery };
+        setPartsState(open);
+        router.push(sectionHref(sectionId), { scroll: false });
+      }
+      setOpenedRow({ id: rowId, at: Date.now() });
+      return;
+    }
     if (!oneTap && armed !== rowId) {
       step(rowId);
       return;
     }
     const opening = !isPartOpen(id);
-    step(rowId, { ...parseParts(partsSnapshot()), [id]: opening });
+    const open = { ...parseParts(partsSnapshot()), [id]: opening };
+    if (oneTap && chapterArrival.current) chapterArrival.current.parts = open;
+    step(rowId, open);
     if (opening) setOpenedRow({ id: rowId, at: Date.now() });
   };
 
@@ -844,10 +916,10 @@ export default function Sidebar({
   });
 
   /**
-   * A chapter row. A chapter with subsections is a disclosure row (like the
-   * parts): a tap expands / collapses its list in the contents and does not
-   * navigate (a second tap opens the chapter at its top); the list holds its
-   * subsections. A chapter without subsections is a link. Rows are at
+   * A chapter with subsections is a disclosure row: the approved two-tap
+   * mode only expands/collapses it. The one-tap proposal also navigates to
+   * its top on opening, keeping the list visible for the next pick.
+   * A chapter without subsections is a link. Rows are at
    * least 44px tall and tappable over their full width.
    */
   const renderSection = (section: TocSection) => {
@@ -893,7 +965,7 @@ export default function Sidebar({
           <div className="relative">
             <button
               type="button"
-              onClick={() => onDisclosureTap(key, rowId)}
+              onClick={() => onDisclosureTap(key, rowId, section.id)}
               aria-expanded={isOpen}
               aria-controls={isOpen ? listId : undefined}
               aria-current={isSelected ? "page" : undefined}
@@ -904,9 +976,15 @@ export default function Sidebar({
             >
               {label}
             </button>
-            <button
+            {oneTap ? (
+              <span aria-hidden="true" className="pointer-events-none absolute right-0 top-0 flex h-[44px] w-[44px] items-center justify-center">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B8860B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={`shrink-0 transition-transform ${isOpen ? "rotate-90" : ""}`}>
+                  <polyline points="9 6 15 12 9 18" />
+                </svg>
+              </span>
+            ) : <button
               type="button"
-              onClick={() => onDisclosureTap(key, rowId)}
+              onClick={() => onDisclosureTap(key, rowId, section.id)}
               aria-expanded={isOpen}
               aria-controls={isOpen ? listId : undefined}
               aria-label={section.title}
@@ -927,7 +1005,7 @@ export default function Sidebar({
               >
                 <polyline points="9 6 15 12 9 18" />
               </svg>
-            </button>
+            </button>}
           </div>
         ) : (
           <Link
@@ -1195,6 +1273,13 @@ export default function Sidebar({
           <Link
             href={localeHref(lang)}
             onClick={(e) => {
+              if (oneTap) {
+                mark("cover");
+                setPartsState(baseParts(parts, sections));
+                if (isMenuEntry()) patchState({ apParts: partsSnapshot() });
+                leaveTo(e, localeHref(lang));
+                return;
+              }
               // «Обложка» = home (Reader v7.5, Satkirti 07.10.2026): the
               // first tap resets the contents to its base view (every
               // group and chapter closed) with «Обложка» highlighted; the
@@ -1260,8 +1345,14 @@ export default function Sidebar({
                     href={sectionHref(entry.section, entry.anchor)}
                     data-result={`${entry.section}#${entry.anchor ?? ""}`}
                     {...loadingProps(`${entry.section}#${entry.anchor ?? ""}`)}
-                    onClick={(e) => followLink(e, entry.section, entry.anchor, true)}
-                    className="block w-full text-left px-5 py-3 border-l-3 border-transparent hover:bg-[#FDF8F0] transition-colors"
+                    onClick={(e) => {
+                      if (oneTap) mark(entry.anchor ? `sub:${entry.section}#${entry.anchor}` : `sec:${entry.section}`);
+                      followLink(e, entry.section, entry.anchor, true);
+                    }}
+                    data-toc-lit={oneTap && lit(entry.anchor ? `sub:${entry.section}#${entry.anchor}` : `sec:${entry.section}`, false) ? "" : undefined}
+                    className={oneTap && lit(entry.anchor ? `sub:${entry.section}#${entry.anchor}` : `sec:${entry.section}`, false)
+                      ? "block w-full text-left px-5 py-3 border-l-3 border-[#B8860B] bg-[#FAF3E8] transition-colors"
+                      : "block w-full text-left px-5 py-3 border-l-3 border-transparent hover:bg-[#FDF8F0] transition-colors"}
                   >
                     <span className="block text-sm leading-snug text-[#2C1810]">
                       <Marked text={entry.title} nq={normalizedQuery} />
