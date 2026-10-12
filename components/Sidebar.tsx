@@ -1,5 +1,6 @@
 "use client";
 
+import { useOneTapToc } from "@/lib/tocTapMode";
 import { useOfflineProgress } from "@/lib/offlineProgress";
 import React, {
   useEffect,
@@ -591,8 +592,20 @@ export default function Sidebar({
       // history unavailable: the highlight still shows
     }
   };
+  /** PROPOSAL (lib/tocTapMode.ts): one tap does the row's function. */
+  const oneTap = useOneTapToc();
+  /** Highlight a row without adding a step of its own to the history. */
+  const mark = (id: string) => {
+    setTapped(id);
+    setPathLit(id);
+  };
   /** First tap on `id`: highlight only (false). Second tap: go on (true). */
   const secondTap = (e: React.MouseEvent | null, id: string): boolean => {
+    if (oneTap) {
+      // The highlight becomes a trace of where you are, not a step of its own.
+      mark(id);
+      return true;
+    }
     if (armed === id) return true;
     e?.preventDefault();
     step(id);
@@ -754,7 +767,7 @@ export default function Sidebar({
    * Each is a step of its own (Reader v7.5, Satkirti 07.10.2026).
    */
   const onDisclosureTap = (id: string, rowId: string) => {
-    if (armed !== rowId) {
+    if (!oneTap && armed !== rowId) {
       step(rowId);
       return;
     }
