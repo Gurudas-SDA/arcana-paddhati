@@ -86,6 +86,8 @@ SUITES = [
          fast_devices=["pixel7", "iphone14", "desktop"]),
     dict(id="s32", file="suites/s32_lang_pt_lt.py", title="A73: valodas pt + lt — /pt/ un /lt/ atveras, «Аа» valodu izvēlnē, pilns tulkojums, IAST = EN, nav angļu teikumu, UI atslēgas, offline",
          devices=["pixel7", "iphone14", "desktop"], fast=True, fast_devices=["pixel7", "desktop"]),
+    dict(id="s36", file="suites/s36_history_rate.py", title="Safari vēstures kvota (Vraja Lila 13.10): ≤100 pushState/replaceState 10 s ātras grāmatas ritināšanas un «Содержание» lietošanas laikā, bez SecurityError, pārejas nesastingst",
+         devices=["iphone14"], fast=False),
     dict(id="s20", file="suites/s20_offline.py", title="OFFLINE: Chromium (Android) — visas nodaļas, navigācija, transkripti", args=["chromium"],
          devices=None, fast=True, timeout_fast=200),
     dict(id="s20wk", file="suites/s20_offline.py", title="OFFLINE: WebKit (iPhone/iPad) — serveris izslēgts", args=["webkit"],
