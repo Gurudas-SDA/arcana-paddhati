@@ -51,13 +51,24 @@ def run(browser, device, options, theme):
             ("daily-duties-brahma-muhurta", "taking-bath", "1.2"),
             ("daily-deity-schedule", None, "2"),
             ("worship-sixteen-articles", "asana-sthapana", "3.2"),
+            ("vigraha-tattva", None, None),
+            ("vigraha-tattva", "vigraha-not-idol", None),
+            ("vigraha-tattva", "vigraha-sac-cid-ananda", None),
         ):
             target = page.locator(f"[id='{anchor}']" if anchor else f"[data-book-section='{section}']")
             target.evaluate("e => e.scrollIntoView({block: 'start'})")
             page.wait_for_timeout(300)
             status = page.locator(".reader-status")
-            assert status.locator(".reader-location-group").text_content() == "Храмовый стандарт: "
-            assert f"Глава {number} ·" in status.inner_text()
+            if number is None:
+                # Front matter: its title and subsection number, never
+                # «Глава 1» before Chapter 1.
+                expected = {None: "", "vigraha-not-idol": " 1", "vigraha-sac-cid-ananda": " 2"}[anchor]
+                assert not status.locator(".reader-location-group").count()
+                assert status.inner_text().startswith(f"Виграха-таттва{expected} ·")
+                assert "Глава" not in status.inner_text()
+            else:
+                assert status.locator(".reader-location-group").text_content() == "Храмовый стандарт: "
+                assert f"Глава {number} ·" in status.inner_text()
             assert status.evaluate("e => e.scrollWidth <= e.clientWidth")
             assert page.evaluate("history.length") == length
         # The same paraphernalia image occurs in two chapters. Selection

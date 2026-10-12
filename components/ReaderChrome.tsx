@@ -321,16 +321,19 @@ export default function ReaderChrome({
   const part = parts.find((p) => p.id === sectionId);
   const currentPart = part ?? parts.find((p) => p.sections.includes(sectionId ?? ""));
   const subId = useReadingSubsection(pathKey, section?.subsections.map((sub) => sub.id).join("|") ?? "");
-  const placeNumber = section?.subsections.find((sub) => sub.id === subId)?.num ?? section?.num;
+  const subNumber = section?.subsections.find((sub) => sub.id === subId)?.num;
   // «82 %» never breaks (Reader v7.1: on Android the «%» wrapped to a second line).
   const pctText = `${Math.round(pct)} %`;
   // Chapters with numbers (the Introduction group has none — Satkirti 06.10.2026):
-  // there the status line names the chapter itself.
-  const chapterShort = placeNumber
-    ? t(ui, "reader.chapter", { n: placeNumber })
+  // there the status line names the chapter itself, with the subsection's
+  // number after it («Эмблема Гаудия-матха 2»), so it never reads as a
+  // chapter before Chapter 1. In a numbered chapter the number stays whole:
+  // «Глава 10.4», never «Глава 10 · 10.4».
+  const chapterShort = section?.num
+    ? t(ui, "reader.chapter", { n: subNumber ?? section.num })
     : part
       ? t(ui, "part.label", { n: part.numeral })
-      : (section?.title ?? "");
+      : [section?.title, subNumber].filter(Boolean).join(" ");
   const partTitle = section?.num ? currentPart?.title : undefined;
 
   // ---- progress + scroll behaviour --------------------------------------------
