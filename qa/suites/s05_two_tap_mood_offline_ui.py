@@ -103,6 +103,10 @@ def run(p, dev, eng, o, mode):
     flow.tap(chap(VIG),right=True)
     chk(dev,'(2) chapter row: second tap toggles its list without leaving the chapter',(VIG in flow.state()['open'])==mode.one and flow.state()['url']==u0)
 
+    # Finish the menu scenario before measuring unrelated reading controls.
+    if menu():
+        flow.tap(pg.locator('.mobile-menu button[aria-label="Закрыть меню"]'),wait=700)
+    chk(dev,'(2) menu scenario closes before reader geometry checks',not menu())
     # ---- (3) bottom bar ----
     pg.goto(f"{BASE}/{LANG}/{VIG}/", wait_until="networkidle"); pg.wait_for_timeout(900)
     show_bars()
