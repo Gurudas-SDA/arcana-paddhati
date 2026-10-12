@@ -146,7 +146,9 @@ with sync_playwright() as p:
             ids = pg.evaluate(f"[...{qa.READING_ROOT_JS}.querySelectorAll('section[data-subsection]')].map(s=>s.id)")
             for sid in ids:
                 pg.goto(L + 'introduction/', wait_until='domcontentloaded')
-                pg.goto(L + sec + '/#' + sid)
+                qa.wait_for_book_chapter(pg, 'introduction')
+                pg.goto(L + sec + '/#' + sid, wait_until='domcontentloaded')
+                qa.wait_for_book_chapter(pg, sec)
                 pg.wait_for_timeout(3000)
                 top = pg.evaluate(f"(()=>{{const e=document.getElementById('{sid}');const m=document.querySelector('.app-main');return Math.round(e.getBoundingClientRect().top-m.getBoundingClientRect().top)}})()")
                 atmax = pg.evaluate("(()=>{const m=document.querySelector('.app-main');return m.scrollTop>=m.scrollHeight-m.clientHeight-2})()")

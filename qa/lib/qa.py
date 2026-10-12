@@ -65,6 +65,18 @@ def reading_locator(page, selector):
     return page.locator(READING_SELECTOR).locator(selector)
 
 
+def wait_for_book_chapter(page, section_id):
+    """Wait for a deep export's continuous-book arrival before leaving it.
+
+    DOMContentLoaded alone precedes the client-side export switch. Starting
+    another full navigation then can race that switch, especially in WebKit.
+    """
+    page.wait_for_function(f"""id => {{
+      const root = {READING_ROOT_JS};
+      return root?.dataset.bookSection === id && root.hasAttribute('data-reader-current');
+    }}""", arg=section_id)
+
+
 READING_POSITION_JS = """(() => {
   const main = document.querySelector('.app-main');
   const root = __ROOT__;
