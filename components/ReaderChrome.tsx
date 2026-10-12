@@ -126,6 +126,43 @@ function isPanelEntry(): boolean {
   }
 }
 
+/** Number of the subsection actually being read, including scrolls that
+ *  leave the URL's original anchor unchanged. No navigation is added. */
+function useReadingSubsection(pathKey: string, idsKey: string): string | null {
+  const [place, setPlace] = useState<{ pathKey: string; id: string | null }>({ pathKey, id: null });
+  useEffect(() => {
+    const main = mainEl();
+    if (!main) return;
+    const ids = idsKey ? idsKey.split("|") : [];
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      const line = main.getBoundingClientRect().top + main.clientHeight * 0.2;
+      let current: string | null = null;
+      for (const id of ids) {
+        const element = document.getElementById(id);
+        if (element && element.getBoundingClientRect().top <= line) current = id;
+      }
+      setPlace((previous) => previous.pathKey === pathKey && previous.id === current ? previous : { pathKey, id: current });
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(measure); };
+    schedule();
+    main.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    window.addEventListener("hashchange", schedule);
+    const observer = new ResizeObserver(schedule);
+    observer.observe(main);
+    return () => {
+      main.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      window.removeEventListener("hashchange", schedule);
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+    };
+  }, [pathKey, idsKey]);
+  return place.pathKey === pathKey ? place.id : null;
+}
+
 export default function ReaderChrome({
   ui,
   lang,
@@ -282,19 +319,19 @@ export default function ReaderChrome({
   }, [pathKey, shown, panel, menuOpen]);
   const section = sections.find((s) => s.id === sectionId);
   const part = parts.find((p) => p.id === sectionId);
+  const currentPart = part ?? parts.find((p) => p.sections.includes(sectionId ?? ""));
+  const subId = useReadingSubsection(pathKey, section?.subsections.map((sub) => sub.id).join("|") ?? "");
+  const placeNumber = section?.subsections.find((sub) => sub.id === subId)?.num ?? section?.num;
   // «82 %» never breaks (Reader v7.1: on Android the «%» wrapped to a second line).
   const pctText = `${Math.round(pct)} %`;
   // Chapters with numbers (the Introduction group has none — Satkirti 06.10.2026):
   // there the status line names the chapter itself.
-  const numbered = sections.filter((s) => s.num).length;
-  const chapterShort = section?.num
-    ? t(ui, "reader.chapter", { n: section.num })
+  const chapterShort = placeNumber
+    ? t(ui, "reader.chapter", { n: placeNumber })
     : part
       ? t(ui, "part.label", { n: part.numeral })
       : (section?.title ?? "");
-  const chapterLong = section?.num
-    ? t(ui, "reader.chapterOf", { n: section.num, total: String(numbered) })
-    : chapterShort;
+  const partTitle = section?.num ? currentPart?.title : undefined;
 
   // ---- progress + scroll behaviour --------------------------------------------
   useEffect(() => {
@@ -790,13 +827,10 @@ export default function ReaderChrome({
             <span>{t(ui, "reader.back")}</span>
           </button>
           <p className="reader-progress-label">
-            {isHome ? "" : chapterLong ? (
+            {isHome ? "" : chapterShort ? (
               <>
-                <span className="rp-long">{`${chapterLong} · ${pctText}`}</span>
-                {/* Narrow phones: «5/13 · 82 %» (one line, never cut) */}
-                <span className="rp-short">
-                  {section?.num ? `${section.num}/${numbered} · ${pctText}` : pctText}
-                </span>
+                {partTitle && <span className="reader-location-group">{`${partTitle}: `}</span>}
+                <span>{`${chapterShort} · ${pctText}`}</span>
               </>
             ) : (
               pctText
@@ -818,7 +852,8 @@ export default function ReaderChrome({
       {/* Faint status line while reading */}
       {!isHome && (
         <p className="reader-status" aria-hidden="true">
-          {chapterShort ? `${chapterShort} · ${pctText}` : pctText}
+          {partTitle && <span className="reader-location-group">{`${partTitle}: `}</span>}
+          <span>{chapterShort ? `${chapterShort} · ${pctText}` : pctText}</span>
         </p>
       )}
 

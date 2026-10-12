@@ -613,7 +613,7 @@ body {
   /* alternating band on linked lists (tilak, 16 articles): decoration only,
      far weaker than the selection band so the two never read alike */
   --rd-row-stripe: rgba(212, 168, 67, 0.065);
-  --reader-pad-bottom: calc(30px + env(safe-area-inset-bottom, 0px));
+  --reader-pad-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
 }
 html[data-reader-theme="sepia"] {
   --rd-bg: #EFE6D2;
@@ -1369,23 +1369,23 @@ html[data-reader-theme="night"] ::selection {
   }
 }
 
-/* Status of the bottom bar: one line, never cut. */
+/* Part name, then chapter/subsection + progress. Both stay readable on a
+   narrow phone, alongside the full-width Back and Forward buttons. */
 .reader-progress-label {
-  white-space: nowrap;
-}
-.reader-progress-label .rp-short {
-  display: none;
-}
-@media (max-width: 479px) {
-  .reader-progress-label .rp-long {
-    display: none;
-  }
-  .reader-progress-label .rp-short {
-    display: inline;
-  }
+  white-space: normal;
+  font-size: 13px;
+  line-height: 1.35;
 }
 .reader-status {
-  white-space: nowrap;
+  white-space: normal;
+  font-size: 13px;
+  line-height: 1.35;
+}
+.reader-location-group {
+  display: block;
+}
+.reader-status .reader-location-group {
+  display: inline;
 }
 
 /* Maṅgalācaraṇa: an ornament between the prayers (no headings). */

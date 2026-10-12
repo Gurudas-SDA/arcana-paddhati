@@ -2,6 +2,7 @@
 import os
 import sys
 import traceback
+import json
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "lib"))
 import qa  # noqa: E402
@@ -16,6 +17,7 @@ results = []
 def run(browser, device, options, theme):
     context = browser.new_context(service_workers="block", **options)
     context.add_init_script("localStorage.setItem('ap.readerHintSeen','1')")
+    context.add_init_script("localStorage.setItem('ap.readerTheme', " + json.dumps(theme) + ")")
     page = context.new_page()
     errors = []
     external = []
@@ -41,6 +43,37 @@ def run(browser, device, options, theme):
         assert page.evaluate("history.length") == length
         assert not page.locator(".mobile-menu").count()
         assert main.evaluate("e => e.scrollTop") > 500
+        # The reading indicator names the part and follows subsection
+        # numbers even without a URL anchor. Scrolling adds no Back steps.
+        for section, anchor, number in (
+            ("daily-duties-brahma-muhurta", None, "1"),
+            ("daily-duties-brahma-muhurta", "morning-prayers", "1.1"),
+            ("daily-duties-brahma-muhurta", "taking-bath", "1.2"),
+            ("daily-deity-schedule", None, "2"),
+            ("worship-sixteen-articles", "asana-sthapana", "3.2"),
+        ):
+            target = page.locator(f"[id='{anchor}']" if anchor else f"[data-book-section='{section}']")
+            target.evaluate("e => e.scrollIntoView({block: 'start'})")
+            page.wait_for_timeout(300)
+            status = page.locator(".reader-status")
+            assert status.locator(".reader-location-group").text_content() == "Храмовый стандарт: "
+            assert f"Глава {number} ·" in status.inner_text()
+            assert status.evaluate("e => e.scrollWidth <= e.clientWidth")
+            assert page.evaluate("history.length") == length
+        # The same paraphernalia image occurs in two chapters. Selection
+        # stays local to the tapped chapter, with a single floating copy.
+        scopes = [page.locator(f"[data-book-section='{id}']") for id in ("worship-sixteen-articles", "main-worship-sixteen-items")]
+        for index, scope in enumerate(scopes):
+            row = scope.locator(".hs-row .hs-text[role=button]").first
+            row.scroll_into_view_if_needed()
+            page.wait_for_timeout(300)
+            (row.tap if options.get("has_touch") else row.click)()
+            page.wait_for_timeout(400)
+            assert scope.locator(".hs-row[data-active]").count() == 1
+            assert scopes[1 - index].locator(".hs-row[data-active]").count() == 0
+            assert page.locator(".hs-peek").count() <= 1
+            (row.tap if options.get("has_touch") else row.click)()
+            assert not scope.locator(".hs-row[data-active]").count()
 
         # Existing URLs can be opened and reloaded directly. The full book
         # arrives at the same subsection without adding a history entry.
@@ -52,6 +85,7 @@ def run(browser, device, options, theme):
         def aligned():
             return page.locator(f"[id='{ANCHOR}']").evaluate("e => Math.abs(e.getBoundingClientRect().top - document.querySelector('.app-main').getBoundingClientRect().top - (parseFloat(getComputedStyle(e).scrollMarginTop)||0)) < 4")
         assert aligned(), "deep-link heading alignment"
+        assert "Храмовый стандарт: Глава 4.2" in page.locator(".reader-status").inner_text()
         length = page.evaluate("history.length")
         page.reload(wait_until="networkidle")
         page.wait_for_selector("[data-continuous-book]")
