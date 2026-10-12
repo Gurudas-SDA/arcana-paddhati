@@ -2,7 +2,8 @@
   "_doc": "Satkirti likumu reģistrs → testi. Katra rinda no «Правила интерфейса книг.md» (§1–§9) un «Стандарты книги и работы.md» = viens ieraksts. tests: '<scenārijs>:<pārbaudes nosaukuma sākums>' (scenāriji — python qa/run_all.py --list; 'lint:L5' = qa/lint_content.py pārbaude L5; '<scenārijs>:' bez nosaukuma = visas tā pārbaudes). Tukšs tests + nav_testa = punkts bez automātiska testa (pārklājuma atskaitē). Pārklājums: python qa/coverage.py",
   "sources": {
     "UI": "Arcana-paddhati/Правила интерфейса книг.md",
-    "STD": "Arcana-paddhati/Стандарты книги и работы.md"
+    "STD": "Arcana-paddhati/Стандарты книги и работы.md",
+    "UK": "Arcana-paddhati/Правила украинского написания (krishna.ua).md"
   },
   "rules": [
     {"id": "UI-1.1", "doc": "UI", "section": "§1", "text": "Каждая функция (перевод, пословный перевод, «Настроение Гурудева», подсветка) включается только нажатием на свою кнопку или на сам текст пункта.",
@@ -159,6 +160,8 @@
      "tests": ["lint:L18", "lint:L8"], "daleji": "L18 — heuristika (ASCII aizvietojumi ks/sh/ng/jn/ñ/aa/-anīya/ṣṇ/visarga-h u.c.); vārdu, kam diakritika vienkārši izlaista bez tipiska marķiera (piem. «sodhana»), ķer tikai cilvēks"},
     {"id": "STD-3.9", "doc": "STD", "section": "§3", "text": "Санскритское jñ в русском тексте пишем «гья»: Прагьяна, гьяна, гьяни, вигьяна, агьяна, адвая-гьяна; имя ачарьи — «Шрила Бхакти Прагьяна Кешава Госвами Махарадж». В санскрите с диакритикой (стихи, пословный перевод, термины) — как раньше: «джн̃» кириллицей, «jñ» латиницей (IAST).",
      "tests": ["lint:L29"]},
+    {"id": "UK-1", "doc": "UK", "section": "A80", "text": "В укр. версии нет лишних точек и линий над/под буквами и пропущенных букв; написание слов — как на krishna.ua (Крішна, Шрі, Прабгупада, вайшнав, Чайтанья, Нітьянанда, Ачар’я, гья). (12.10.2026 23:00, Саткирти, msg 2615)",
+     "tests": ["lint:L30"]},
     {"id": "STD-3.8", "doc": "STD", "section": "§3", "text": "В русской книге нет английского текста, кроме слов Гурудева в оригинале и названий источников.",
      "tests": ["lint:L19"]},
     {"id": "STD-3.5", "doc": "STD", "section": "§3", "text": "Санскритское слово с объяснением → слово жирным, объяснение обычным шрифтом (как в пословном переводе).",

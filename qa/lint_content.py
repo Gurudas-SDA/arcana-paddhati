@@ -742,7 +742,7 @@ def run(args):
                "посудина води", "квіти", "туласі", "чандана", "мадгупарка", "мушля сурмлення"],
     }
     # ch3 first unnumbered row: pādya / arghya / ācamana pātra (each word stem must be there)
-    TAIL = {"ru": ["падья", "аргхья", "ачамана"], "uk": ["падйа", "арґгйа", "ачамана"],
+    TAIL = {"ru": ["падья", "аргхья", "ачамана"], "uk": ["падья", "арґгья", "ачамана"],
             "lv": ["padja", "arghja", "acamana"], "_": ["padya", "argya|arghya", "acamana"]}
     LANGF = {"book.ru-iast.json": "ru", "book.ru.json": "ru", "book.json": "en"}
     for f in sorted(glob.glob(os.path.join(qa.DATA, "book.*.json"))):
@@ -915,6 +915,72 @@ def run(args):
             for m in bad_jn.finditer(t):
                 c.hit("scripts/moods/moods.json", where, snippet(t, m, 30))
     c.info = f"{len(ru_jn)} RU books + {n_gen} generator files"
+    c.report(args.max)
+
+    # L30 — A80 (Satkirti 12.10.2026 23:00, msg 2615): Ukrainian text like krishna.ua — no extra dots/lines above or
+    # under letters, no missing letters (Кр̣шн̣а -> Крішна, ai -> ай, y -> ья/’я, jñ -> гья, th/kh -> тх/кх).
+    # Rules: «Arcana-paddhati/Правила украинского написания (krishna.ua).md». Checked: book.uk.json + ui.uk.json (every
+    # string except `sanskrit`) and the sources that would bring the old spelling back at night: the «uk» part of
+    # generator i18n.json, moods.json translations.uk, glossary.uk.json. Latin IAST is never checked here.
+    c = Check("L30", "UK text as on krishna.ua: no diacritics over/under Cyrillic letters, no missing letters (Крішна, вайшнав, Чайтанья, Нітьянанда, гья)")
+    import unicodedata
+    UKC = "А-Яа-яІіЇїЄєҐґ"
+    UKCONS = "бвгґджзклмнпрстфхцчшщБВГҐДЖЗКЛМНПРСТФХЦЧШЩ"
+    uk_rules = [
+        ("diacritic", re.compile(f"[{UKC}ı][̀-ͯ]|[ıӯӮӣӢӀӏ]|(?<=[{UKC}])[āīūĀĪŪ]|[āīūĀĪŪ](?=[{UKC}])")),
+        ("ṛ without і (Кршна)", re.compile(f"(?<![{UKC}])[{UKCONS}]р(?=[{UKCONS}])")),
+        ("ai = «аі» (вайшнав, Чайтанья)", re.compile("[аА]і")),
+        ("y after consonant = «й» (Нітьянанда, Ачар’я)", re.compile(f"[{UKCONS}]й[аеуіи]")),
+        ("y + vowel = «я/ю/є/ї», not «йа» (янтра, Нараяна)", re.compile(f"(?<![{UKCONS}])[Йй][аеуі]")),
+        ("jñ = «гья», not «джн»", re.compile("[Дд]жн")),
+        ("Russian letter ы/э/ъ in UK text", re.compile("[ыэъЫЭЪ]")),
+        ("Latin letter inside a Cyrillic word (праtіка, параmpарі)", re.compile(f"[{UKC}][A-Za-z]|[A-Za-z][{UKC}]")),
+        ("th/kh/ph/ch = тх/кх/пх/чх, not «тг/кг» (Тхакур, Вішакха)", re.compile("(?<=[а-яіґ])(?:тг|кг|пг|чг)(?=[аеіиоуя])", re.I)),
+        ("krishna.ua spelling (Крішна, Шрі, Прабгупада)", re.compile("Кришн|Шри(?![а-яіїєґ])|Прабхупад|Тгакур|Т̣")),
+    ]
+    # the converter is code, not data: import it from this checkout even when QA_REPO points at a temp data copy (s28)
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts", "translate"))
+    import uk_plain   # the same Russian-style -> krishna.ua table the converter uses (Шри, Радха, Гуру, Вриндаван …)
+    uk_rules += [(f"krishna.ua spelling «{rep}»", rx) for rx, rep in uk_plain.VARIANTS]
+    uk_skip = {"sanskrit", "src", "id", "audio_url", "transcript_url", "timecode", "date", "type", "layout", "page", "en_hash",
+               "candidate", "target", "quote", "source"}   # source = lecture title as published (not UK text)
+
+    def uk_strings(o, path=""):
+        if isinstance(o, str):
+            yield path, o
+        elif isinstance(o, dict):
+            for k, v in o.items():
+                if k not in uk_skip:
+                    yield from uk_strings(v, f"{path}/{k}")
+        elif isinstance(o, list):
+            for i, v in enumerate(o):
+                yield from uk_strings(v, f"{path}/{i}")
+
+    uk_src = []
+    for fn in ("book.uk.json", "ui.uk.json"):
+        fp = os.path.join(qa.DATA, fn)
+        if os.path.exists(fp):
+            uk_src.append((fn, json.load(open(fp, encoding="utf-8"))))
+    gp = os.path.join(qa.REPO, "scripts", "translate", "glossary.uk.json")
+    if os.path.exists(gp):
+        uk_src.append(("scripts/translate/glossary.uk.json", json.load(open(gp, encoding="utf-8"))))
+    for f in glob.glob(os.path.join(qa.REPO, "scripts", "**", "i18n.json"), recursive=True):
+        j = json.load(open(f, encoding="utf-8"))   # {section id: {lang: {...}}} (or {lang: …})
+        for part in ([j] + [v for v in j.values() if isinstance(v, dict)]) if isinstance(j, dict) else []:
+            if "uk" in part:
+                uk_src.append((os.path.relpath(f, qa.REPO).replace("\\", "/"), part["uk"]))
+    mp = os.path.join(qa.REPO, "scripts", "moods", "moods.json")
+    if os.path.exists(mp):
+        uk_src.append(("scripts/moods/moods.json", [((m.get("translations") or {}).get("uk") or "") for m in json.load(open(mp, encoding="utf-8"))]))
+    n_uk = 0
+    for rel, data in uk_src:
+        for where, t in uk_strings(data):
+            t = unicodedata.normalize("NFC", t)
+            n_uk += 1
+            for rname, rx in uk_rules:
+                for m in rx.finditer(t):
+                    c.hit(rel, f"{where or '/'} [{rname}]", snippet(t, m, 25))
+    c.info = f"{len(uk_src)} UK sources, {n_uk} strings"
     c.report(args.max)
 
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует
