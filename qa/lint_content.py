@@ -1024,6 +1024,58 @@ def run(args):
     c.info = f"{len(uk31)} UK sources"
     c.report(args.max)
 
+    # L32 — A80-3 (13.10.2026; Satkirti: «в укр версии … написание слов — как на krishna.ua» = no Russian text in UK).
+    # L30/L31 check the UK data; L32 checks what a UK reader actually gets: the BUILT UK pages (out/uk/**: visible
+    # HTML + the page's RSC data incl. the UK contents/navigation) and out/search-index.uk.json — so a title that falls
+    # back to Russian somewhere in the build is caught. Also «ё» (L30 has only ы/э/ъ). Every page embeds the contents of
+    # ALL languages (root layout `locales`, used by the language switch): only `locales.uk` is checked, the other
+    # languages are theirs. Not checked: lecture `source` titles (the recording's name as published, as in L30).
+    c = Check("L32", "UK build: no Russian text in UK pages / UK navigation / UK search (ы э ъ ё, Кришна, Шри, Радха …)")
+    ru_in_uk = re.compile(r"[ыэъёЫЭЪЁ]|Кришн|Шри(?![а-яіїєґ])|Радх[аеиуыо]|Прабхупад|Вриндав")
+    for rel, data in uk31:
+        for where, t in uk_strings(data):
+            if where.split("/")[-1] in ("scheme",):
+                continue
+            for m in re.finditer("[ёЁ]", unicodedata.normalize("NFC", t)):
+                c.hit(rel, where or "/", snippet(t, m, 25))
+    push_rx = re.compile(r'self\.__next_f\.push\(\[1,("(?:[^"\\]|\\.)*")\]\)')
+    dec = json.JSONDecoder()
+
+    def only_uk_locale(rsc):
+        out, i = [], 0
+        for m in re.finditer(r'"locales":', rsc):
+            if m.start() < i:
+                continue
+            try:
+                obj, end = dec.raw_decode(rsc, m.end())
+            except ValueError:
+                continue
+            out += [rsc[i:m.start()], json.dumps(obj.get("uk", {}), ensure_ascii=False)]
+            i = end
+        out.append(rsc[i:])
+        return re.sub(r'"source":\{"title":"(?:[^"\\]|\\.)*"', '"source":{', "".join(out))
+
+    n32 = 0
+    uk_out = os.path.join(qa.OUT, "uk")
+    if os.path.isdir(uk_out) and not args.no_html:
+        files = [os.path.join(dp, fn) for dp, _, fns in os.walk(uk_out) for fn in fns if fn.endswith((".html", ".txt"))]
+        si = os.path.join(qa.OUT, "search-index.uk.json")
+        if os.path.exists(si):
+            files.append(si)
+        for f in sorted(files):
+            raw = open(f, encoding="utf-8").read()
+            if f.endswith(".html"):
+                rsc = "".join(json.loads(s) for s in push_rx.findall(raw))
+                text = re.sub(r"<script.*?</script>", " ", raw, flags=re.S) + "\n" + only_uk_locale(rsc)
+            else:
+                text = only_uk_locale(raw)
+            n32 += 1
+            rel = os.path.relpath(f, qa.OUT).replace(os.sep, "/")
+            for m in ru_in_uk.finditer(text):
+                c.hit("out", rel, snippet(text, m, 30))
+    c.info = f"{n32} built UK files" if n32 else "out/uk not built — only the data part checked"
+    c.report(args.max)
+
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует
     c = Check("L17", "atgriešanās punkts: git tags pirms-interfeisa-2026-10-05 eksistē")
     import subprocess
