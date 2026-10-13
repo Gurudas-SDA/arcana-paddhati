@@ -32,7 +32,6 @@ import {
   type LocaleData,
 } from "@/lib/i18n";
 import { BASE_PATH, stripBasePath } from "@/lib/basePath";
-import { useOneTapToc } from "@/lib/tocTapMode";
 import { beginReadingArrival, bookTarget, readingAnchor, readingSection } from "@/lib/readingFlow";
 
 /** A link's place: its pathname (no trailing slash) + hash — what a navigation opens. */
@@ -67,7 +66,6 @@ export default function AppShell({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const oneTap = useOneTapToc();
   const { lang, sectionId } = parsePath(pathname);
   const { toc: sections, parts, ui, hasWbw } = locales[lang] ?? locales[DEFAULT_LANG];
   // Language of the text actually shown (English when a translation is missing).
@@ -132,15 +130,15 @@ export default function AppShell({
     setLeaving(false);
     setNavFailed(false);
     setMobileMenuOpen(false);
-    if (oneTap && isMenuEntry() && window.history.state?.apDepth === 0) {
-      // The proposal's expanded contents share the chapter navigation entry.
+    if (isMenuEntry() && window.history.state?.apDepth === 0) {
+      // The expanded contents share the chapter navigation entry.
       // Closing the panel reveals that chapter instead of returning to cover.
       patchState({}, ["apMenu", "apDepth", "apParts", "apLit", "apNav", "apResult", "apExp"]);
       return;
     }
     const d = menuDepth();
     if (d > 0) window.history.go(-d);
-  }, [oneTap]);
+  }, []);
 
   /**
    * Leave the menu for a place (link or result): keep its entries (with the query).
