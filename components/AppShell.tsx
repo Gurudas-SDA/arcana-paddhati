@@ -72,6 +72,15 @@ export default function AppShell({
   const contentLang = available.includes(lang) ? lang : DEFAULT_LANG;
   const htmlLang = getLanguage(contentLang)?.htmlLang ?? DEFAULT_LANG;
   const restoredReadingPlace = useRef<string | null>(null);
+  // The app restores its own reading scroller. Browser restoration would
+  // compete with it before popstate (WebKit returns to the initial offset).
+  useEffect(() => {
+    try {
+      window.history.scrollRestoration = "manual";
+    } catch {
+      // A browser that disallows this setting retains its default behavior.
+    }
+  }, []);
   // Deep links keep their existing URLs, but use the same continuous export
   // as the cover. Replacing this entry adds no navigation/history step.
   useEffect(() => {

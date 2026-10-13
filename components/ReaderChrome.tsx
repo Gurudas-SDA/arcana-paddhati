@@ -46,6 +46,7 @@ import { parsePath, t, type UiDict } from "@/lib/i18n";
 import { stripBasePath } from "@/lib/basePath";
 import { main as mainEl, pushOverlay } from "@/lib/navHistory";
 import { readingSection } from "@/lib/readingFlow";
+import { useReadingSubsection } from "@/lib/readingPosition";
 import { searchMarkOn } from "@/lib/searchMark";
 import {
   setShowAllTranslations,
@@ -125,43 +126,6 @@ function isPanelEntry(): boolean {
   } catch {
     return false;
   }
-}
-
-/** Number of the subsection actually being read, including scrolls that
- *  leave the URL's original anchor unchanged. No navigation is added. */
-function useReadingSubsection(pathKey: string, idsKey: string): string | null {
-  const [place, setPlace] = useState<{ pathKey: string; id: string | null }>({ pathKey, id: null });
-  useEffect(() => {
-    const main = mainEl();
-    if (!main) return;
-    const ids = idsKey ? idsKey.split("|") : [];
-    let frame = 0;
-    const measure = () => {
-      frame = 0;
-      const line = main.getBoundingClientRect().top + main.clientHeight * 0.2;
-      let current: string | null = null;
-      for (const id of ids) {
-        const element = document.getElementById(id);
-        if (element && element.getBoundingClientRect().top <= line) current = id;
-      }
-      setPlace((previous) => previous.pathKey === pathKey && previous.id === current ? previous : { pathKey, id: current });
-    };
-    const schedule = () => { if (!frame) frame = requestAnimationFrame(measure); };
-    schedule();
-    main.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-    window.addEventListener("hashchange", schedule);
-    const observer = new ResizeObserver(schedule);
-    observer.observe(main);
-    return () => {
-      main.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
-      window.removeEventListener("hashchange", schedule);
-      observer.disconnect();
-      cancelAnimationFrame(frame);
-    };
-  }, [pathKey, idsKey]);
-  return place.pathKey === pathKey ? place.id : null;
 }
 
 export default function ReaderChrome({
@@ -321,7 +285,7 @@ export default function ReaderChrome({
   const section = sections.find((s) => s.id === sectionId);
   const part = parts.find((p) => p.id === sectionId);
   const currentPart = part ?? parts.find((p) => p.sections.includes(sectionId ?? ""));
-  const subId = useReadingSubsection(pathKey, section?.subsections.map((sub) => sub.id).join("|") ?? "");
+  const [subId] = useReadingSubsection(pathKey, section?.subsections.map((sub) => sub.id).join("|") ?? "");
   const subNumber = section?.subsections.find((sub) => sub.id === subId)?.num;
   // «82 %» never breaks (Reader v7.1: on Android the «%» wrapped to a second line).
   const pctText = `${Math.round(pct)} %`;

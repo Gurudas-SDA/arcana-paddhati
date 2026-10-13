@@ -33,6 +33,7 @@ import {
 } from "@/lib/navHistory";
 import { setPendingSearchMark } from "@/lib/searchMark";
 import { bookTarget, followBookLink, readingHref } from "@/lib/readingFlow";
+import { useReadingSubsection } from "@/lib/readingPosition";
 
 interface SidebarProps {
   sections: TocSection[];
@@ -155,15 +156,6 @@ function makeSnippet(p: PreparedEntry, pos: number, qLen: number): Snippet {
   };
 }
 
-/** Scroll-spy line: the subsection block crossing this band (about 20% from
- *  the top of the viewport) is the one "in view". */
-/** The reading line: a fifth of the way down the screen. A block whose top has
- *  passed it is the one being read. (Was the IntersectionObserver's margin.) */
-const SPY_LINE = 0.205;
-/** After a click on a subsection link (or a hash change) the spy is paused
- *  this long, so the chosen item stays active while the page scrolls to it. */
-const CLICK_LOCK_MS = 1000;
-
 function hashId(): string | null {
   const h = window.location.hash.slice(1);
   if (!h) return null;
@@ -174,118 +166,6 @@ function hashId(): string | null {
   }
 }
 
-/**
- * Id of the subsection being read in the shown section: from the URL hash on a
- * jump, and otherwise measured from the blocks' own positions against the spy
- * line, on every scroll. null while in the section's introductory text.
- *
- * Measured, not observed: an IntersectionObserver reports only when a crossing
- * CHANGES, so while the reader scrolls through a long subsection, or after
- * «Назад» puts the place back without crossing anything, it stays silent and
- * the contents would keep marking the row it last reported. The reader's place
- * must never be stale, so it is read from the live geometry (Satkirti,
- * 13.10.2026: the contents mark the place being read, as in Apple Books).
- */
-function useActiveSubsection(
-  pathname: string,
-  subIds: string[]
-): [string | null, (id: string) => void] {
-  const [active, setActive] = useState<string | null>(null);
-  const lockUntil = useRef(0);
-  const idsKey = subIds.join("|");
-
-  // Reset when the page changes (render-time adjustment, no effect needed).
-  const [lastPath, setLastPath] = useState(pathname);
-  if (pathname !== lastPath) {
-    setLastPath(pathname);
-    setActive(null);
-  }
-
-  useEffect(() => {
-    const ids = idsKey ? idsKey.split("|") : [];
-    if (ids.length === 0) return;
-    const known = new Set(ids);
-    let retry: number | undefined;
-    let frame = 0;
-    let scroller: HTMLElement | null = null;
-    let onScroll: (() => void) | null = null;
-    // Every delayed re-measure is kept so cleanup can cancel it: a timer left
-    // from the previous chapter would measure that chapter's blocks after the
-    // reader has already moved on, and wipe the mark (found by review).
-    const settle: number[] = [];
-
-    const fromHash = () => {
-      const id = hashId();
-      if (id && known.has(id)) {
-        lockUntil.current = Date.now() + CLICK_LOCK_MS;
-        setActive(id);
-      }
-    };
-
-    const attach = (attempt: number) => {
-      const els = ids
-        .map((id) => document.getElementById(id))
-        .filter((el): el is HTMLElement => el !== null);
-      if (els.length === 0) {
-        // Content of a freshly navigated page may not be mounted yet.
-        if (attempt < 20) {
-          retry = window.setTimeout(() => attach(attempt + 1), 100);
-        }
-        return;
-      }
-      fromHash();
-      /** The last block that has already passed the spy line: the one being
-       *  read. None of them yet: the section's introductory text. */
-      const measure = () => {
-        if (Date.now() < lockUntil.current) return;
-        const line = window.innerHeight * SPY_LINE;
-        let current: string | null = null;
-        for (const el of els) {
-          if (el.getBoundingClientRect().top <= line) current = el.id;
-        }
-        setActive(current);
-      };
-      measure();
-      onScroll = () => {
-        if (frame) return;
-        frame = requestAnimationFrame(() => {
-          frame = 0;
-          measure();
-        });
-      };
-      scroller = document.querySelector<HTMLElement>(".app-main");
-      scroller?.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", onScroll, { passive: true });
-      window.addEventListener("popstate", onScroll);
-      // The place may be restored a moment after «Назад» or a reload.
-      [80, 240, 500].forEach((ms) => settle.push(window.setTimeout(measure, ms)));
-    };
-
-    attach(0);
-    window.addEventListener("hashchange", fromHash);
-    window.addEventListener("popstate", fromHash);
-    return () => {
-      window.clearTimeout(retry);
-      settle.forEach((t) => window.clearTimeout(t));
-      if (frame) cancelAnimationFrame(frame);
-      if (onScroll) {
-        scroller?.removeEventListener("scroll", onScroll);
-        window.removeEventListener("scroll", onScroll);
-        window.removeEventListener("resize", onScroll);
-        window.removeEventListener("popstate", onScroll);
-      }
-      window.removeEventListener("hashchange", fromHash);
-      window.removeEventListener("popstate", fromHash);
-    };
-  }, [pathname, idsKey]);
-
-  const select = (id: string) => {
-    lockUntil.current = Date.now() + CLICK_LOCK_MS;
-    setActive(id);
-  };
-  return [active, select];
-}
 
 /** sessionStorage key: parts the reader expanded / collapsed by hand. */
 const PARTS_STORE = "toc-parts-open";
@@ -436,9 +316,9 @@ function Marked({ text, nq }: { text: string; nq: string }) {
   return <>{out}</>;
 }
 
-/** After a group / chapter list opened (second tap): when its rows do not all
- *  show, the list scrolls so that the opened row goes up as high as it can and
- *  its rows come into view (Reader v7.8, Satkirti 07.10.2026). */
+/** Keep the opened row and its first child visible (rule 9.13). A chapter
+ *  collapsing above it can leave its top clipped even when the branch fits
+ *  below; native scroll anchoring does not necessarily compensate in full. */
 function revealOpened(nav: HTMLElement | null, rowId: string): boolean {
   if (!nav) return false;
   const row = [...nav.querySelectorAll<HTMLElement>("[data-toc-row]")].find((el) => el.dataset.tocRow === rowId);
@@ -446,9 +326,20 @@ function revealOpened(nav: HTMLElement | null, rowId: string): boolean {
   if (!row || !group) return false;
   const n = nav.getBoundingClientRect();
   const g = group.getBoundingClientRect();
-  if (g.bottom <= n.bottom + 1) return false;
+  if (row.getBoundingClientRect().top >= n.top && g.bottom <= n.bottom + 1) return false;
   const before = nav.scrollTop;
-  nav.scrollTop = before + (row.getBoundingClientRect().top - n.top);
+  const align = () => {
+    // Round toward the visible side on scrollers with integral scrollTop.
+    nav.scrollTop = Math.floor(nav.scrollTop + row.getBoundingClientRect().top - n.top);
+  };
+  const correct = () => {
+    const r = row.getBoundingClientRect();
+    const first = group.querySelector<HTMLElement>("ul [data-toc-row]")?.getBoundingClientRect();
+    if (r.top < n.top || r.bottom > n.bottom || (first && first.bottom > n.bottom)) align();
+  };
+  align();
+  correct();
+  correct();
   return nav.scrollTop !== before;
 }
 
@@ -546,7 +437,7 @@ export default function Sidebar({
     () => (selectedSection?.subsections ?? []).map((sub) => sub.id),
     [selectedSection]
   );
-  const [activeSubId, selectSub] = useActiveSubsection(pathname, subIds);
+  const [activeSubId, selectSub] = useReadingSubsection(pathname, subIds.join("|"));
 
   /**
    * ONE TAP (Satkirti 13.10.2026, «всем управляем стандартом»): a tap on a row

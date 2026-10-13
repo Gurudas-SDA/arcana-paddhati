@@ -159,7 +159,7 @@ def run(browser, device, options, theme):
 
 
 with sync_playwright() as playwright:
-    for device, engine, options in qa.devices(["s23fe", "iphone14", "desktop", "mac-safari"]):
+    for device, engine, options in qa.devices(["s23fe", "iphone14", "pixel7", "desktop", "mac-safari"]):
         browser = getattr(playwright, engine).launch()
         for theme in ("white", "sepia", "night"):
             run(browser, device, options, theme)
