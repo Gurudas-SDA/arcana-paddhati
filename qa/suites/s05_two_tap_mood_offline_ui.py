@@ -39,7 +39,7 @@ def chk(d, n, ok, info=""):
 
 
 def run(p, dev, eng, o, mode):
-    from toc import Contents, history_roundtrip
+    from toc import Contents, history_roundtrip, marks_place
     br = getattr(p, eng).launch()
     touch = o.get("has_touch", False)
     errs, foreign = [], []
@@ -85,19 +85,19 @@ def run(p, dev, eng, o, mode):
     flow.nav('back',native=True);state=flow.state()
     chk(dev,'(2) Back -> the preceding chapter state, still lit',(VIG in state['open'])==mode.one and state['lit']==['sec:'+VIG] and state['url']==first['url'],str(state))
     flow.nav('back',native=True);state=flow.state()
-    chk(dev,'(2) Back -> contents as opened (path highlight)',state['menu'] and pg.url==EMB and state['lit']==(['sec:'+VIG] if mode.one else before['lit']),str(state))
+    chk(dev,'(2) Back -> contents as opened, reading place marked',state['menu'] and pg.url==EMB and (state['open']==before['open'] and marks_place(state) if mode.one else state['lit']==before['lit']),str(state))
     flow.nav('back',native=True)
     chk(dev,'(2) Back -> contents closed, emblem page',not menu() and pg.url==EMB)
     open_contents();plain=pg.locator('.mobile-menu [data-toc-row="sec:mangalacarana"]');u0=flow.state()['url'];flow.tap(plain,wait=350)
     chk(dev,'(2) plain chapter: first tap follows the mode',not menu() and pg.url.endswith('/mangalacarana/') if mode.one else menu() and pg.url==EMB and lit(plain) and nlit()==1,pg.url)
     if mode.one:flow.nav('back',native=True)
-    flow.activate(chap(VIG));sub=pg.locator(f'#toc-ch-{VIG} a').nth(2);shref=sub.get_attribute('href');anchor=shref.split('#')[1];u0=flow.state()['url']
+    flow.activate(chap(VIG));sub=pg.locator(f'#toc-ch-{VIG} a').nth(2);shref=sub.get_attribute('href');anchor=shref.split('#')[1];before_sub=flow.state();u0=before_sub['url']
     flow.tap(sub,wait=350)
     chk(dev,'(2) subsection: first tap follows the mode',not menu() and pg.url.endswith('#'+anchor) if mode.one else menu() and lit(sub) and nlit()==1 and flow.state()['url']==u0,pg.url)
     if not mode.one:flow.tap(sub,wait=350)
     chk(dev,'(2) subsection: action tap opens it',not menu() and pg.url.endswith('#'+anchor),pg.url)
     flow.nav('back',native=True)
-    chk(dev,'(2) v7: Back -> the subsection is still lit (path)',menu() and flow.state()['lit']==['sub:'+VIG+'#'+anchor])
+    chk(dev,'(2) Back -> preceding Contents action, reading place marked',menu() and flow.state()['url']==before_sub['url'] and flow.state()['open']==before_sub['open'] and marks_place(flow.state()))
     u0=flow.state()['url'];flow.tap(chap(VIG),right=True)
     chk(dev,'(2) chapter row: first tap follows the mode',(VIG in flow.state()['open'])!=mode.one and flow.state()['lit']==['sec:'+VIG] and flow.state()['url']==u0)
     flow.tap(chap(VIG),right=True)

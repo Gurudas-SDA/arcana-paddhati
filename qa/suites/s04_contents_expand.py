@@ -38,7 +38,7 @@ def chk(d, n, ok, info=""):
 
 
 def run(p, dev, eng, o, mode):
-    from toc import Contents, history_roundtrip
+    from toc import Contents, history_roundtrip, marks_place
     br=getattr(p,eng).launch();errs=[]
     ctx=br.new_context(service_workers="block",**o)
     ctx.add_init_script("localStorage.setItem('ap.readerHintSeen','1')")
@@ -70,17 +70,19 @@ def run(p, dev, eng, o, mode):
     chk(dev,'(a) 5.3 heading at top of the screen',-5<=top<250,str(top))
     back_presses=0
     flow.nav('back',native=True);back_presses+=1;back=flow.state()
-    chk(dev,'(a) back1 -> Contents open, chapter 5 expanded, 5.3 lit, original page',back['menu'] and CH5 in back['open'] and back['lit']==['sub:'+CH5+'#'+anchor] and back['url']==before['url'],str(back))
+    # One tap (13.10.2026): Back undoes the jump, so the reader is where he was
+    # before it and the contents mark that place, not the row he had tapped.
+    chk(dev,'(a) back1 -> Contents open, chapter 5 expanded, original page, place marked',back['menu'] and CH5 in back['open'] and back['url']==before['url'] and (marks_place(back) if mode.one else back['lit']==['sub:'+CH5+'#'+anchor]),str(back))
     flow.nav('back',native=True);back_presses+=1;second=flow.state()
-    chk(dev,'(a) back2 -> preceding real action / chapter 1 lit and expanded in legacy',second['menu'] and pg.url==P and second['lit']==['sec:'+CH5] and ((CH5 not in second['open']) if mode.one else CH5 in second['open']),str(second))
+    chk(dev,'(a) back2 -> preceding real action, place marked',second['menu'] and pg.url==P and (marks_place(second) if mode.one else second['lit']==['sec:'+CH5]) and ((CH5 not in second['open']) if mode.one else CH5 in second['open']),str(second))
     if not mode.one:
         flow.nav('back',native=True);back_presses+=1;third=flow.state()
         chk(dev,'(a) back3 -> chapter 1 lit, collapsed (the 1st-tap step)',third['menu'] and CH5 not in third['open'] and third['lit']==['sec:'+CH5] and pg.url==P,str(third))
         flow.nav('back',native=True);back_presses+=1;fourth=flow.state()
         chk(dev,'(a) back4 -> Contents as opened (chapter 1 collapsed, not lit)',fourth['menu'] and CH5 not in fourth['open'] and fourth['lit']==initial['lit'] and pg.url==P,str(fourth))
     else:
-        for id in ['(a) back3 -> chapter 1 lit, collapsed (the 1st-tap step)','(a) back4 -> Contents as opened (chapter 1 collapsed, not lit)']:
-            print(f'  [SKIP] {dev} {id} [toc=default] — the highlight updates the original menu entry; there is no separate highlight-only predecessor.',flush=True)
+        for id in ['(a) extra predecessor between chapter opening and Contents','(a) extra predecessor before Contents as opened']:
+            print(f'  [SKIP] {dev} {id} [toc=default] — Contents records opening, toggling and jumping actions; the mark follows the reading place, and the three Back actions assert the complete path.',flush=True)
     flow.nav('back',native=True);back_presses+=1
     chk(dev,'(a) back5 -> Contents closed, original page + scroll',not flow.state()['menu'] and pg.url==P and abs(pg.locator('.app-main').evaluate('e=>e.scrollTop')-y0)<40)
     chk(dev,'(a) Back presses to the original chapter match the model',back_presses==(3 if mode.one else 5) and pg.url==P)
@@ -99,7 +101,7 @@ def run(p, dev, eng, o, mode):
     chk(dev,'(d) low item opened, drawer closed',not flow.state()['menu'] and pg.url.endswith('#'+low_href.split('#')[1]))
     flow.nav('back',native=True);t1=pg.locator('.toc-scroll').evaluate('e=>e.scrollTop');p1=pg.locator(f'#toc-ch-{long} a').last.bounding_box()['y']
     chk(dev,'(d) Back -> drawer at the same scrollTop (±10px), item in place',flow.state()['menu'] and flow.state()['url']==u0 and abs(t1-t0)<=10 and abs(p1-p0)<=10,str([t0,t1,p0,p1]))
-    chk(dev,'(d) Back -> the selected low row stays highlighted',flow.state()['lit']==['sub:'+long+'#'+low_href.split('#')[1]])
+    chk(dev,'(d) Back -> the contents mark the place being read',marks_place(flow.state()) if mode.one else flow.state()['lit']==['sub:'+long+'#'+low_href.split('#')[1]],str(flow.state()))
     flow.nav('back',native=True)
     if not mode.one:
         chk(dev,'(d) Back -> chapter 8 lit and expanded (the step before the low item)',long in flow.state()['open'] and flow.state()['lit']==['sec:'+long])

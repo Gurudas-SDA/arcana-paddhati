@@ -78,7 +78,7 @@ prevTop=null}return bad.slice(0,5)}"""
 
 L = BASE + "/ru-iast/"
 def run(p,dev,eng,kw,mode):
-    from toc import Contents, STATE, history_roundtrip
+    from toc import Contents, STATE, history_roundtrip, marks_place
     print('==',dev,mode.name,flush=True)
     b = getattr(p, eng).launch()
     c = b.new_context(locale='ru-RU', service_workers='block', **kw)
@@ -236,28 +236,26 @@ def run(p,dev,eng,kw,mode):
     m2 = pg.evaluate("[...document.querySelectorAll('#sadhararana-acamana .sanskrit')].filter(e=>/namaḥ/.test(e.textContent)).length")
     ok = m1 >= 12 and m2 >= 24
     ck(dev, '18 Tilak (12) + ācamana short mantras shown WITHOUT «пословно» (v7.8)', n == 0 and n2 == 0 and ok, (n, n2, m1, m2))
-    # 17: preserve the full path, with traces on the entry being left.
+    # 17: preserve the full path; the mark is derived from the reading place.
     pg.goto(L+'daily-duties-brahma-muhurta/',wait_until='networkidle');pg.wait_for_timeout(500)
     states=[flow.state()];flow.contents();states.append(flow.state())
     for kind,id in [('group','introduction'),('chapter','vigraha-tattva')]:
         loc=flow.group(id) if kind=='group' else flow.chapter(id)
-        if mode.one and kind=='chapter':states[-1]['lit']=['sec:'+id]
         flow.tap(loc);states.append(flow.state())
         if not mode.one:flow.tap(loc);states.append(flow.state())
     sub=pg.locator('#toc-ch-vigraha-tattva a').first;rid=sub.get_attribute('data-toc-row')
-    if mode.one:states[-1]['lit']=[rid]
-    else:flow.tap(sub);states.append(flow.state())
+    if not mode.one:flow.tap(sub);states.append(flow.state())
     flow.tap(sub,wait=400);states.append(flow.state());bad=[];back_count=0
     for want in reversed(states[:-1]):
         flow.nav('back');back_count+=1;got=flow.state()
-        if any(got[k]!=want[k] for k in ['url','menu','lit','open']):bad.append((got,want))
+        if any(got[k]!=want[k] for k in ['url','menu','open']) or not marks_place(got):bad.append((got,want))
     ck(dev,'17 Back mirrors the forward steps, no repeated step',not bad and not flow.state()['menu'],bad[:2])
     ck(dev,'17 Back counts exactly the mode actions',back_count==(4 if mode.one else 7),back_count)
     bad=[];forward_count=0
     for want in states[1:]:
         flow.nav('forward');forward_count+=1;got=flow.state()
-        if any(got[k]!=want[k] for k in ['url','menu','lit','open']):bad.append((got,want))
-    ck(dev,'17 Forward mirrors every URL, highlight and open list',not bad and forward_count==(4 if mode.one else 7),bad[:2])
+        if any(got[k]!=want[k] for k in ['url','menu','open']) or not marks_place(got):bad.append((got,want))
+    ck(dev,'17 Forward mirrors every URL and open list, marking the reading place',not bad and forward_count==(4 if mode.one else 7),bad[:2])
     history_roundtrip(b,kw,mode,lambda n,ok,i='':ck(dev,n,ok,i),BASE)
     ck(dev, 'no page errors', not errs, errs[:2])
     b.close()

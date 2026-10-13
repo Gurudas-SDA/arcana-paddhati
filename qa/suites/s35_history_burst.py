@@ -44,7 +44,7 @@ import time
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "lib"))
 import qa  # noqa: E402
-from toc import Contents  # noqa: E402
+from toc import Contents, marks_place  # noqa: E402
 from playwright.sync_api import sync_playwright  # noqa: E402
 
 BASE = sys.argv[1].rstrip("/")
@@ -143,7 +143,13 @@ def did(effect, chapter, before, after):
 
 
 def same(a, b):
-    return all(a[k] == b[k] for k in KEYS)
+    """Same step: URL, menu and open lists, and the mark is on the place read.
+
+    One tap (Satkirti 13.10.2026): the mark is derived from the reading
+    position, not remembered from a tap, so it is checked as an invariant
+    rather than compared value by value (lib/toc.py: marks_place).
+    """
+    return all(a[k] == b[k] for k in ("url", "menu", "open")) and marks_place(a)
 
 
 def show(s):
@@ -151,9 +157,8 @@ def show(s):
 
 
 def traced(state, next_chapter, mode):
-    """The default mode's agreed trace (lib/toc.py, Phase 2): a one-tap action
-    marks the row it taps on the entry being left, so Back to that entry shows
-    the row tapped next. ?toc=two has no trace."""
+    """No trace any more: with one tap the mark follows the reading place, so a
+    step is restored as it was recorded (13.10.2026). Kept for ?toc=two."""
     if not mode.one or next_chapter is None:
         return state
     return {**state, "lit": ["sec:" + next_chapter]}
@@ -298,14 +303,14 @@ def case_a(browser, dev, options, mode):
             got, want = flow.state(), traced(states[i], steps[i][0], mode)
             if not same(got, want) or entry_id(pg) != ids[i]:
                 bad.append({"press": SHORT - i, "got": show(got), "want": show(want)})
-        chk(dev, f"{tag}: Back x{SHORT} restores every URL, highlight and open list", not bad, str(bad[:2]))
+        chk(dev, f"{tag}: Back x{SHORT} restores every URL and open list, marking the place", not bad, str(bad[:2]))
         bad = []
         for i in range(1, SHORT + 1):
             flow.nav("forward", native=i % 2 == 0)
             got, want = flow.state(), traced(states[i], steps[i][0] if i < SHORT else None, mode)
             if not same(got, want) or entry_id(pg) != ids[i]:
                 bad.append({"press": i, "got": show(got), "want": show(want)})
-        chk(dev, f"{tag}: Forward x{SHORT} restores every URL, highlight and open list", not bad, str(bad[:2]))
+        chk(dev, f"{tag}: Forward x{SHORT} restores every URL and open list, marking the place", not bad, str(bad[:2]))
         for _ in range(3):
             flow.nav("back")
         chapter = steps[-3][0]
@@ -394,8 +399,8 @@ def steps_back(pg, flow, states, ids, steps, mode, n, exact=True):
         i = len(states) - 1 - k
         flow.nav("back", native=k % 2 == 0)
         got, want = flow.state(), traced(states[i], steps[i][0], mode)
-        keys = KEYS if exact else ("url", "menu")
-        if any(got[key] != want[key] for key in keys):
+        keys = ("url", "menu", "open") if exact else ("url", "menu")
+        if any(got[key] != want[key] for key in keys) or (exact and not marks_place(got)):
             bad.append({"press": k, "got": show(got), "want": show(want)})
     return bad
 

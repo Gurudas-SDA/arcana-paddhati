@@ -47,7 +47,7 @@ SLOW_FETCH = """(() => { const f = window.fetch.bind(window);
     return f(input, init);
   }; })();"""
 
-# In-page recorder, installed after the 1st tap (the highlight step) and before the 2nd.
+# In-page recorder, installed before the tap that navigates.
 RECORDER = """() => {
   const h1 = () => ((__READING_ROOT__.querySelector('h1') || {}).textContent || '').trim();
   const R = window.__a65 = {click: null, clicks: 0, ind: null, rowInd: null, flash: [], push: 0, closedAt: null,
@@ -134,7 +134,7 @@ PENDING_FETCH_CHECKS = ['1 at once (≤100 ms) after the 2nd tap: loading bar at
  'F3 the pending load adds no history entry later and nothing reopens']
 
 def run(p, dev, eng, o, mode):
-    from toc import Contents, history_roundtrip
+    from toc import Contents, history_roundtrip, marks_place
     browser=getattr(p,eng).launch();context=browser.new_context(locale='ru-RU',service_workers='block',**o)
     context.add_init_script("localStorage.setItem('ap.readerHintSeen','1')");context.add_init_script(SLOW_FETCH)
     page=context.new_page();flow=Contents(page,mode,o.get('has_touch',False));errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
@@ -148,7 +148,7 @@ def run(p, dev, eng, o, mode):
         # Slow-fetch instrumentation remains installed: assert navigation uses no fetch.
         page.evaluate(f'window.__a65delay={DELAY_MS}')
         page.evaluate(RECORDER);row.scroll_into_view_if_needed();flow.tap(row,wait=200);record=page.evaluate('window.__a65');now=flow.state()
-        if mode.one:chk(dev,f'setup: 1st tap on {rid} navigates immediately and records its trace',not now['menu'] and now['url']==target)
+        if mode.one:chk(dev,f'setup: 1st tap on {rid} navigates immediately',not now['menu'] and now['url']==target)
         chk(dev,'1 navigation completes within the unchanged 100 ms budget',record['closedAt'] is not None and record['closedAt']-record['click']<=100,str(record['closedAt']))
         chk(dev,'setup: continuous target is already present, no chapter fetch intercepted',page.evaluate('window.__a65slowed || 0')==0)
         chk(dev,'2 the tapped page opened, contents closed, loading bar gone',now['url']==target and not now['menu'] and not page.locator('[data-nav-progress]').count())
@@ -158,9 +158,9 @@ def run(p, dev, eng, o, mode):
         chk(dev,'3 the old page never flashed (no frame / mutation with contents closed and old page shown)',not record['flash'],str(record['flash'][:2]))
         chk(dev,'C2 after the page opened: the live region is empty (no «загружается» left)',page.locator('[data-nav-live]').inner_text().strip()=='')
         flow.nav('back',native=True);back=flow.state()
-        chk(dev,'2 «Назад» after it: the contents again, on the page before',back['menu'] and back['url']==before['url'] and back['lit']==[rid],str(back))
+        chk(dev,'2 «Назад» after it: the contents again, on the page before, reading place marked',back['menu'] and back['url']==before['url'] and back['open']==before['open'] and marks_place(back),str(back))
         page.reload(wait_until='domcontentloaded');qa.wait_for_book_chapter(page,'introduction');page.wait_for_timeout(500)
-        chk(dev,'F3 setup: «Назад» from the page → contents (reloaded) with the row highlighted (forward = the page)',flow.state()['menu'] and flow.state()['lit']==[rid])
+        chk(dev,'F3 setup: «Назад» from the page → contents (reloaded) marking the reading place (forward = the page)',flow.state()['menu'] and flow.state()['url']==before['url'] and flow.state()['open']==before['open'] and marks_place(flow.state()))
         flow.nav('forward',native=True);flow.contents();current=flow.row(rid)
         chk(dev,'C2 contents opened again on the new page: no loading bar, no «загружается», nothing busy',flow.state()['menu'] and not page.locator('[data-nav-progress],[data-toc-loading],[aria-busy="true"]').count() and page.locator('[data-nav-live]').inner_text().strip()=='')
         for id in ['D setup: the row is there','D2 setup: the row is there','E setup: the row of the shown page is in the contents']:chk(dev,id,current.count()==1)

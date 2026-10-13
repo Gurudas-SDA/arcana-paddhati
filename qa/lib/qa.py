@@ -86,7 +86,10 @@ def run_toc_modes(check_body, on_error=None):
     selected = os.environ.get("QA_TOC_MODE")
     if selected and selected not in ("default", "two"):
         raise ValueError(f"Unknown QA_TOC_MODE: {selected}")
-    for name in ((selected,) if selected else ("default", "two")):
+    # The two-tap mode was removed from the app (Satkirti 13.10.2026), so only
+    # the default mode is run. The legacy branches in the suites stay until
+    # each one is rewritten, and are no longer reached.
+    for name in ((selected,) if selected else ("default",)):
         TOC_MODE_NAME = name
         try:
             check_body(TocMode(name))

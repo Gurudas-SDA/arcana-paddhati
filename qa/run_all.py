@@ -128,7 +128,9 @@ def jobs_for(suites, mode_fast, dev_filter, split):
         else:
             groups = [None]
         for i, g in enumerate(groups):
-            for toc_mode in (("default", "two") if s["id"] in TOC_MODE_SUITES else (None,)):
+            # One Contents mode (Satkirti 13.10.2026): the two-tap mode was
+            # removed from the app, so nothing is run against it any more.
+            for toc_mode in (("default",) if s["id"] in TOC_MODE_SUITES else (None,)):
                 jobs.append(({**s, "toc_mode": toc_mode}, g, i == 0))
     return jobs
 

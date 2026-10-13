@@ -1,18 +1,12 @@
-"""Reader v7.5 — КСВ Satkirti 07.10.2026 15:39–15:45 (each check reproduces the remark exactly).
-  1  Parampara: a tap ON the portrait shows / hides the bars like empty space — every portrait; v7.6.1 (Codex
-     review): also near each edge of the picture, on the caption and on the ornament.
-  2  «Обложка» = home: 1st tap resets the contents to the base view (every group and chapter list
-     closed) with «Обложка» lit, no navigation; 2nd tap opens the cover; contents reopened there
-     stays in the base view.
-  3  «Назад» retraces exactly the forward steps with the same highlights and open lists
-     (Satkirti's path: Храмовый стандарт → 1 (has subsections) → 2 → 2.5 → open → Содержание → Назад…),
-     then «Вперёд» replays them — v7.6.1: EVERY forward step, URL + highlight + open lists each time.
-  (Leaf rows: s24; reload / deep link / rapid double taps: s25.)
-  4  Two taps in «Содержание»: a part / the Introduction / a chapter with subsections — 1st tap only
-     highlights (nothing expands, no navigation), 2nd tap expands; for EVERY such row of the book.
-Devices: phone (Android + iPhone), tablet (iPad portrait + landscape), computer (Windows + Mac) —
-also in the fast pre-push run (run_all.py fast_devices).
-usage: python s23_ksv_0710_taps_back.py <base-url> [shots-dir]   devices: QA_DEVICES"""
+"""Contents and history: one-tap actions (Satkirti 13.10.2026).
+  1 Parampara portrait taps toggle the bars at every tested point.
+  2 One cover tap opens home; reopening Contents shows the base view.
+  3 Back / Forward restore every URL and open list, marking the reading place.
+  4 Every group and chapter disclosure reacts over its full row on one tap;
+    chapter opening navigates to its top, a second tap collapses its list.
+Leaf rows: s24; reload / deep links / rapid taps: s25.
+Devices: phones, tablets, computers; QA_DEVICES selects profiles.
+usage: python3 s23_ksv_0710_taps_back.py <base-url> [shots-dir]"""
 import os
 import sys
 
@@ -41,7 +35,7 @@ def chk(dev, name, ok, info=""):
 
 
 def run(p, dev, eng, o, mode):
-    from toc import Contents, history_roundtrip
+    from toc import Contents, history_roundtrip, marks_place, marks_chapter_top
     b = getattr(p, eng).launch()
     c = b.new_context(locale="ru-RU", service_workers="block", **o)
     c.add_init_script("try{localStorage.setItem('ap.readerHintSeen','1')}catch(e){}")
@@ -149,14 +143,14 @@ def run(p, dev, eng, o, mode):
     bad1,bad2,bad3=[],[],[];tested=0
     for gid in groups:
         loc=flow.group(gid);before=flow.state();rid=loc.get_attribute('data-toc-row');flow.tap(loc,right=True);first=flow.state()
-        if not (first['lit']==[rid] and first['url']==before['url'] and (gid in first['open'])==mode.one and first['pushes']==before['pushes']+1):bad1.append((gid,first))
+        if not (first['lit']==(before['lit'] if mode.one else [rid]) and first['url']==before['url'] and (gid in first['open'])==mode.one and first['pushes']==before['pushes']+1):bad1.append((gid,first))
         flow.tap(loc,right=True);second=flow.state()
-        if not ((gid in second['open'])!=mode.one and second['url']==before['url'] and second['lit']==[rid]):bad2.append((gid,second))
+        if not ((gid in second['open'])!=mode.one and second['url']==before['url'] and second['lit']==(before['lit'] if mode.one else [rid])):bad2.append((gid,second))
         if mode.one:flow.tap(loc,right=True)
         chapters=pg.locator(f'#toc-part-{gid} [data-toc-chapter],#toc-grp-{gid} [data-toc-chapter]').evaluate_all('es=>es.map(e=>e.dataset.tocChapter)')
         for cid in chapters:
             cl=flow.chapter(cid);before=flow.state();flow.tap(cl,right=True);first=flow.state();tested+=1
-            ok=first['lit']==['sec:'+cid] and first['pushes']==before['pushes']+1
+            ok=(marks_chapter_top(pg,first,cid) if mode.one else first['lit']==['sec:'+cid]) and first['pushes']==before['pushes']+1
             ok=ok and (cid in first['open'] and first['url'].endswith('/'+cid+'/') and abs(pg.evaluate(qa.READING_POSITION_JS)['top'])<2 if mode.one else cid not in first['open'] and first['url']==before['url'])
             if not ok:bad1.append((cid,first))
             if mode.one and pg.locator(f'#toc-ch-{cid} a').count()<1:bad3.append((cid,'list missing'))
@@ -181,13 +175,11 @@ def run(p, dev, eng, o, mode):
     states=[flow.state()];flow.contents();states.append(flow.state())
     for kind,id in [('group','temple-worship'),('chapter','daily-duties-brahma-muhurta'),('chapter','daily-deity-schedule')]:
         loc=flow.group(id) if kind=='group' else flow.chapter(id)
-        if mode.one and kind=='chapter':states[-1]['lit']=['sec:'+id]
         flow.tap(loc,wait=250);states.append(flow.state())
         if not mode.one:flow.tap(loc,wait=250);states.append(flow.state())
     sub='sub:daily-deity-schedule#morning-bhoga-arati'
     before=flow.state()
-    if mode.one:states[-1]['lit']=[sub]
-    else:flow.tap(flow.row(sub));states.append(flow.state())
+    if not mode.one:flow.tap(flow.row(sub));states.append(flow.state())
     chk(dev,'3 forward: 2.5 selected, chapters 1 and 2 open','daily-duties-brahma-muhurta' in before['open'] and 'daily-deity-schedule' in before['open'] and flow.row(sub).is_visible())
     flow.tap(flow.row(sub),wait=350);page25=flow.state();states.append(page25)
     chk(dev,'3 action tap opens 2.5',not page25['menu'] and page25['url'].endswith('/daily-deity-schedule/#morning-bhoga-arati'))
@@ -195,14 +187,14 @@ def run(p, dev, eng, o, mode):
     bad=[]
     for i,want in enumerate(reversed(states[1:-1])):
         flow.nav('back',native=i%2==1);got=flow.state()
-        if any(got[k]!=want[k] for k in ['url','menu','lit','open']):bad.append((got,want))
-    chk(dev,'3 every further Назад = the preceding action (same highlight + open lists)',not bad,str(bad[:2]))
+        if any(got[k]!=want[k] for k in ['url','menu','open']) or not marks_place(got):bad.append((got,want))
+    chk(dev,'3 every further Назад = the preceding action (same URL + open lists, reading place marked)',not bad,str(bad[:2]))
     flow.nav('back');got=flow.state();chk(dev,'3 last Назад closes the contents (the page where we started)',not got['menu'] and got['url']==states[0]['url'])
     bad=[]
     for want in states[1:]:
         flow.nav('forward');got=flow.state()
-        if any(got[k]!=want[k] for k in ['url','menu','lit','open']):bad.append((got,want))
-    chk(dev,'3 «Вперёд» replays the same steps (every URL, highlight, open list)',not bad,str(bad[:2]))
+        if any(got[k]!=want[k] for k in ['url','menu','open']) or not marks_place(got):bad.append((got,want))
+    chk(dev,'3 «Вперёд» replays the same steps (every URL and open list, reading place marked)',not bad,str(bad[:2]))
     chk(dev,'3 path has only its real actions or legacy taps',len(states)-1==(5 if mode.one else 9))
     history_roundtrip(b,o,mode,lambda n,ok,i='':chk(dev,n,ok,i),BASE)
     chk(dev, "no page errors", not errs, str(errs[:3]))

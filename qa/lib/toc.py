@@ -10,6 +10,67 @@ STATE = """() => {
    history: history.length, pushes: window.__qaTocPushes || 0};
 }"""
 
+def marks_place(state, langs=('ru', 'ru-iast', 'en', 'lv', 'de', 'fr', 'es', 'it', 'uk', 'hu', 'pt', 'lt')):
+    """The contents mark exactly the place being read (Satkirti 13.10.2026).
+
+    The mark is derived from the reading position and no longer remembers which
+    row was tapped, so a trace cannot compare it value by value: that would only
+    re-test the position and would re-encode the old rule. What must hold at
+    every step is the invariant below.
+
+    Exactly one row is marked, and it is the row that stands for where the
+    reader is, at the deepest level the contents are currently showing:
+
+      * a subsection of the chapter in the URL, or that chapter's own row;
+      * a group heading, when the group IS the page (e.g. «Введение»), or when
+        the branch holding the reader is collapsed and the chapter's row is
+        therefore not on screen. The mark rises to the nearest visible
+        ancestor, as in Apple Books and Kindle;
+      * «Обложка» on the cover;
+      * nothing at all while the contents are closed.
+
+    A group heading whose branch is OPEN may not carry the mark: the chapter's
+    own row is right there and must carry it.
+    """
+    lit = state['lit']
+    if not state['menu']:
+        return lit == []
+    if len(lit) != 1:
+        return False
+    row = lit[0]
+    pathname = state['url'].split('#')[0]
+    # English has no language segment: strip the harness's app prefix before
+    # deciding whether this is the cover or a chapter.
+    if qa.PREFIX and (pathname == qa.PREFIX or pathname.startswith(qa.PREFIX + '/')):
+        pathname = pathname[len(qa.PREFIX):]
+    path = [p for p in pathname.split('/') if p]
+    section = path[-1] if path and path[-1] not in langs else ''
+    if row == 'cover':
+        return section == ''
+    if section == '':
+        return False
+    if row == 'sec:' + section or row.startswith('sub:' + section + '#'):
+        return True
+    if row.startswith('grp:'):
+        group = row[4:]
+        return group == section or group not in state['open']
+    return False
+
+
+def marks_chapter_top(page, state, chapter):
+    """A chapter-top tap keeps the chapter mark unless its first block already
+    crosses the reading line (song chapters, or a taller viewport).
+    URL, top, expanded list and action counts are checked by the caller.
+    """
+    sub_at_line = page.evaluate("""id => {
+      const link = document.querySelector(`#toc-ch-${CSS.escape(id)} a`);
+      const hash = link ? new URL(link.href).hash.slice(1) : '';
+      const block = hash ? document.querySelector('[data-reader-current]')?.querySelector(`#${CSS.escape(decodeURIComponent(hash))}`) : null;
+      return !!block && block.getBoundingClientRect().top <= innerHeight * 0.205;
+    }""", chapter)
+    return marks_place(state) if sub_at_line else state['lit'] == ['sec:' + chapter]
+
+
 EMPTY_POINT = """root => {
  const main=document.querySelector('.app-main'), mr=main.getBoundingClientRect();
  const bad=e=>!e || !!e.closest('a,button,input,select,summary,[role=button],img,svg,.hs-text,.hs-figure,.verse-chips,.mood-toggle,[data-no-reader-tap]');
@@ -107,9 +168,13 @@ def history_roundtrip(browser, options, mode, check, base, lang='ru-iast'):
         for kind,id,row_id in [('group','temple-worship','grp:temple-worship'),('chapter',chapter,'sec:'+chapter)]:
             loc=flow.group(id) if kind=='group' else flow.chapter(id)
             before=flow.state()
-            if mode.one and kind=='chapter':states[-1]['lit']=[row_id]
             flow.tap(loc,right=True,wait=350);after=flow.state()
-            check(f'history: {kind} first tap stays highlighted',after['lit']==[row_id],str(after))
+            # One tap (13.10.2026): opening a chapter moves the reading place to
+            # its top, so the mark follows it; expanding a group moves nobody,
+            # so the mark stays where the reader is.
+            check(f'history: {kind} tap marks the place being read',
+                  (after['lit']==[row_id] if kind=='chapter' else after['lit']==before['lit']) if mode.one
+                  else after['lit']==[row_id],str(after))
             check(f'history: {kind} first tap has exactly one action entry',after['history']==before['history']+1,str(after))
             check(f'history: {kind} first tap expands by mode',(id in after['open'])==mode.one,str(after))
             if kind=='chapter':
@@ -122,8 +187,7 @@ def history_roundtrip(browser, options, mode, check, base, lang='ru-iast'):
                 check(f'history: {kind} second tap expands with one entry',id in after['open'] and after['history']==before['history']+2 and after['url']==before['url'],str(after))
         check('history: subsection list visible without an extra tap',flow.row(sub).is_visible())
         before=flow.state()
-        if mode.one:states[-1]['lit']=[sub]
-        else:
+        if not mode.one:
             flow.tap(flow.row(sub),wait=250);after=flow.state();states.append(after)
             check('history: legacy subsection first tap highlights only',after['lit']==[sub] and after['menu'] and after['url']==before['url'] and after['history']==before['history']+1,str(after))
         before_nav=flow.state()['history'];flow.tap(flow.row(sub),wait=500);target=flow.state();states.append(target)
@@ -133,14 +197,14 @@ def history_roundtrip(browser, options, mode, check, base, lang='ru-iast'):
         bad=[];back_count=0
         for want in reversed(states[:-1]):
             flow.nav('back',native=back_count%2==1);back_count+=1;got=flow.state()
-            if any(got[k]!=want[k] for k in ['url','menu','lit','open']):bad.append({'press':back_count,'got':got,'want':want})
-        check('history: Back restores every URL, highlight and open list',not bad,str(bad[:2]))
+            if any(got[k]!=want[k] for k in ['url','menu','open']) or not marks_place(got):bad.append({'press':back_count,'got':got,'want':want})
+        check('history: Back restores every URL and open list, marking the place',not bad,str(bad[:2]))
         check('history: Back presses from subsection to cover',back_count==expected and not flow.state()['menu'] and flow.state()['url']==states[0]['url'],str(back_count))
         bad=[];forward_count=0
         for want in states[1:]:
             flow.nav('forward',native=forward_count%2==1);forward_count+=1;got=flow.state()
-            if any(got[k]!=want[k] for k in ['url','menu','lit','open']):bad.append({'press':forward_count,'got':got,'want':want})
-        check('history: Forward restores every URL, highlight and open list',not bad,str(bad[:2]))
+            if any(got[k]!=want[k] for k in ['url','menu','open']) or not marks_place(got):bad.append({'press':forward_count,'got':got,'want':want})
+        check('history: Forward restores every URL and open list, marking the place',not bad,str(bad[:2]))
         check('history: Forward presses from cover to subsection',forward_count==expected and flow.state()['url']==target['url'] and not flow.state()['menu'],str(forward_count))
         flow.nav('back');before=flow.state()
         flow.tap(flow.chapter(chapter),right=True,wait=300);first=flow.state()

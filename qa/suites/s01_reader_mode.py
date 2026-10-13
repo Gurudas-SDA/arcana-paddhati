@@ -60,7 +60,7 @@ JS_EMPTY_POINT = """root => {
 
 
 def run(p, dev, engine, opts, lang, mode):
-    from toc import Contents, history_roundtrip
+    from toc import Contents, history_roundtrip, marks_place
     br = getattr(p, engine).launch()
     ctx = br.new_context(service_workers="block", **opts)
     pg = ctx.new_page()
@@ -212,7 +212,7 @@ def run(p, dev, engine, opts, lang, mode):
     if not mode.one:act(link)
     check(tag,"contents link navigates, menu closed",pg.url.rstrip('/')==f"{BASE}{prefix}" and not flow.state()['menu'],pg.url)
     flow.nav('back',native=True)
-    check(tag,"contents row stays highlighted after navigation and Back",flow.state()['menu'] and flow.state()['lit']==['cover'],str(flow.state()))
+    check(tag,"contents after navigation and Back mark the reading place",flow.state()['menu'] and flow.state()['url']==before['url'] and marks_place(flow.state()),str(flow.state()))
     flow.nav('forward',native=True)
     # 12. search + back returns to search with query
     pg.goto(url, wait_until="networkidle"); pg.wait_for_timeout(1000)

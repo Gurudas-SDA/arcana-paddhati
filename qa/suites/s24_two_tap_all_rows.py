@@ -1,11 +1,10 @@
-"""Reader v7.6.1 (Codex review of v7.5) — the two-tap rule (UI §10, Satkirti 06.10 / 07.10.2026) for
-EVERY leaf row of «Содержание»: every chapter without subsections, every subsection, every empty part.
-  1st tap: only highlights it (exactly one row lit = this one), the URL does not change, the contents stay;
-  2nd tap: opens it (the URL becomes the row's link; a subsection of the page shown: its anchor);
-  «Назад» from there: the contents again, this row lit, at the same URL as before.
-Desktop (Windows Chromium): all rows. Phone / iPad: a representative sample (≥30 rows, every chapter's
-first and last subsection, every leaf chapter), all rows with QA_ALL_ROWS=1.
-usage: python s24_two_tap_all_rows.py <base-url>   devices: QA_DEVICES"""
+"""One-tap navigation for EVERY leaf row of Contents (Satkirti 13.10.2026).
+Every chapter without subsections, subsection and empty part opens immediately.
+Back restores the previous URL and open lists, marking the reading place;
+the same row opens again on one tap, regardless of the current mark.
+Desktop: all rows. Phone / iPad: at least 30 rows, every chapter's first and
+last subsection and every leaf chapter; QA_ALL_ROWS=1 tests every row.
+usage: python3 s24_two_tap_all_rows.py <base-url>   devices: QA_DEVICES"""
 import os
 import sys
 from urllib.parse import unquote, urlsplit
@@ -52,7 +51,7 @@ def sample(rows):
 
 
 def run(p, dev, eng, o, mode):
-    from toc import Contents, history_roundtrip
+    from toc import Contents, history_roundtrip, marks_place
     b = getattr(p, eng).launch()
     c = b.new_context(locale="ru-RU", service_workers="block", **o)
     c.add_init_script("localStorage.setItem('ap.readerHintSeen','1')")
@@ -83,23 +82,23 @@ def run(p, dev, eng, o, mode):
             pg.wait_for_function("!document.querySelector('.mobile-menu')",timeout=12000)
             opened = flow.state()
             if here(pg.url)!=href: bad2.append((r,href,opened))
-            # The trace belongs to the entry being left, in both modes.
+            # Back restores the place before the jump, not the tapped row.
             flow.nav('back',native=True);back = flow.state()
-            if not (back['menu'] and back['lit']==[r] and back['url']==before['url']): bad3.append((r,back,before))
+            if not (back['menu'] and marks_place(back) and back['url']==before['url'] and back['open']==before['open']): bad3.append((r,back,before))
             if mode.one:
-                # A row restored highlighted by Back still opens with one tap.
+                # Every row opens again on one tap, regardless of the mark.
                 flow.tap(flow.row(r),wait=100)
-                if flow.state()['menu'] or here(pg.url)!=href: bad2.append((r,'highlighted row did not reopen'))
+                if flow.state()['menu'] or here(pg.url)!=href: bad2.append((r,'row did not reopen on one tap'))
                 flow.nav('back',native=True)
         what = f"{len(todo)} of {len(rows)} leaf rows"
-        chk(dev, f"1st tap on a leaf row: {'opens and records its highlight' if mode.one else 'only highlights, URL unchanged'} ({what})",len(todo)>=30 and not bad1,str(bad1[:3]))
-        chk(dev, f"2nd tap on the highlighted leaf row opens it ({what})",not bad2,str(bad2[:3]))
-        chk(dev, f"Назад from the opened row: contents, the row lit, URL before ({what})",not bad3,str(bad3[:3]))
+        chk(dev, f"1st tap on a leaf row: {'opens immediately' if mode.one else 'only highlights, URL unchanged'} ({what})",len(todo)>=30 and not bad1,str(bad1[:3]))
+        chk(dev, f"Leaf row opens and reopens on one tap after Back ({what})",not bad2,str(bad2[:3]))
+        chk(dev, f"Назад from the opened row: contents, reading place marked, URL and open lists before ({what})",not bad3,str(bad3[:3]))
         chk(dev,"no page errors",not errs,str(errs[:3]))
     except Exception as error:
         # A broken setup cannot silently omit the leaf-row checks. Report
         # each blocked acceptance check, then run history in a fresh context.
-        for name in ['setup: all lists open','1st tap on a leaf row','2nd tap on the highlighted leaf row opens it','Назад from the opened row: contents, the row lit, URL before','no page errors']:
+        for name in ['setup: all lists open','1st tap on a leaf row','Leaf row opens and reopens on one tap after Back','Назад from the opened row: contents, reading place marked, URL and open lists before','no page errors']:
             chk(dev,name,False,'Blocked by the all-lists failure: '+str(error)[:220])
     finally:
         try:history_roundtrip(b,o,mode,lambda n,ok,i='':chk(dev,n,ok,i),BASE)

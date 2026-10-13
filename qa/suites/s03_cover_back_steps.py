@@ -35,7 +35,7 @@ def chk(d, n, ok, info=""):
 
 
 def run(p, dev, eng, o, mode):
-    from toc import Contents, history_roundtrip
+    from toc import Contents, history_roundtrip, marks_place
     br = getattr(p, eng).launch(); ctx = br.new_context(service_workers="block", **o); pg = ctx.new_page()
     errs = []
     if eng == "chromium":
@@ -106,25 +106,28 @@ def run(p, dev, eng, o, mode):
         y0=top();states=[flow.state()];flow.contents();states.append(flow.state())
         chk(dev,'(b) 1 contents opens',menu())
         part=flow.group('festivals-vows');flow.tap(part,wait=350);states.append(flow.state())
-        chk(dev,'(b) 2 part expanded','festivals-vows' in flow.state()['open'] and flow.state()['lit']==['grp:festivals-vows'])
+        # Expanding a group moves nobody, so the mark stays where the reader is.
+        chk(dev,'(b) 2 part expanded','festivals-vows' in flow.state()['open'] and flow.state()['lit']==states[-2]['lit'],str(flow.state()))
         chbtn=pg.locator('#toc-part-festivals-vows [data-toc-chapter],#toc-grp-festivals-vows [data-toc-chapter]').first;chid=chbtn.get_attribute('data-toc-chapter')
-        states[-1]['lit']=['sec:'+chid];flow.tap(chbtn,wait=350);states.append(flow.state())
+        flow.tap(chbtn,wait=350);states.append(flow.state())
         chk(dev,'(b) 2a first chapter tap opens top + subsections',chid in flow.state()['open'] and flow.state()['lit']==['sec:'+chid] and flow.state()['url'].endswith('/'+chid+'/') and abs(pg.evaluate(qa.READING_POSITION_JS)['top'])<2)
         u=flow.state()['url'];flow.tap(flow.chapter(chid),wait=350);states.append(flow.state())
         chk(dev,'(b) 2b second chapter tap collapses without navigating',chid not in flow.state()['open'] and flow.state()['url']==u and flow.state()['lit']==['sec:'+chid])
         flow.tap(flow.chapter(chid),wait=350);states.append(flow.state())
-        subs=pg.locator(f'#toc-ch-{chid} a');first=subs.first;row_id=first.get_attribute('data-toc-row');states[-1]['lit']=[row_id];flow.tap(first,wait=350);states.append(flow.state())
+        subs=pg.locator(f'#toc-ch-{chid} a');first=subs.first;flow.tap(first,wait=350);states.append(flow.state())
         C=pg.url.split('#')[0]
         chk(dev,'(b) 3 chapter opened (first subsection), menu closed',f'/{chid}/' in C and not menu())
-        flow.contents();states.append(flow.state());second=pg.locator(f'#toc-ch-{chid} a').nth(1);row_id=second.get_attribute('data-toc-row');states[-1]['lit']=[row_id];flow.tap(second,wait=350);states.append(flow.state())
+        flow.contents();states.append(flow.state());second=pg.locator(f'#toc-ch-{chid} a').nth(1);flow.tap(second,wait=350);states.append(flow.state())
         chk(dev,'(b) 4 sub-section opened','#' in pg.url and not menu() and top()>100)
         for i,want in enumerate(reversed(states[:-1])):
             flow.nav('back',native=True);got=flow.state()
-            chk(dev,f'(b) back{i+1} -> preceding real action, same path and open rows',all(got[k]==want[k] for k in ['url','menu','lit','open']) and pg.url!=COVER,str([got,want]))
+            # The mark is derived from the reading place, so it is checked as an
+            # invariant (toc.marks_place) instead of compared step by step.
+            chk(dev,f'(b) back{i+1} -> preceding real action, same path and open rows',all(got[k]==want[k] for k in ['url','menu','open']) and marks_place(got) and pg.url!=COVER,str([got,want]))
         chk(dev,'(b) back6 -> original page and scroll restored',pg.url==P and not menu() and abs(top()-y0)<40)
         chk(dev,'(b) never on cover',pg.url!=COVER)
-        for id in ['(b) back1b -> chapter, contents as opened','(b) back3b -> part + chapter expanded (chapter lit)','(b) back4b -> part expanded (part lit)','(b) back5b -> contents as opened']:
-            print(f'  [SKIP] {dev} {id} [toc=default] — highlighting alone is no longer a history entry; real-action predecessors are asserted above.',flush=True)
+        for id in ['(b) extra predecessor before the subsection jump','(b) extra predecessor between chapter opening and group action','(b) extra predecessor between group toggle and Contents opening','(b) extra predecessor before Contents as opened']:
+            print(f'  [SKIP] {dev} {id} [toc=default] — Contents records opening, toggling and jumping actions; the mark follows the reading place, and each real predecessor is asserted above.',flush=True)
 
         if eng=='chromium':chk(dev,'(b) every pushState had a user gesture (no skippable entries)',pg.evaluate('window.__noAct')==[])
     else:
