@@ -983,6 +983,47 @@ def run(args):
     c.info = f"{len(uk_src)} UK sources, {n_uk} strings"
     c.report(args.max)
 
+    # L31 — A80b (13.10.2026; staging checkers A/B, «Для Гурудаса/2026-10-13 A80 UK/parbaude.md»): what L30 did not catch.
+    # UK text = the same sources as L30 + moods «more[].translation.uk»; in `wbw` only the Ukrainian part after «—» is
+    # checked (the heads are IAST by schema); ⟦…⟧ (inline IAST mantras by schema) is removed before the Latin rules.
+    # Decisions 13.10 (Пурохита, по правилу krishna.ua) — rules file «Правила украинского написания (krishna.ua).md».
+    c = Check("L31", "UK text as on krishna.ua (2): typographic apostrophe ’, no Latin/IAST in Ukrainian prose, no a.m./p.m., "
+                     "no Russian forms (бхаджан, Махапрабху, Вринд…), Мангала, ья after ч/ш, «Шрі Ґурудева» capitalised")
+    LAT = "A-Za-zÀ-ɏḀ-ỿ"
+    IAST_D = "āīūṛṝḷṣśṇṭḍṁṅñḥĀĪŪṚṜḶṢŚṆṬḌṀṄÑḤ"
+    uk_rules31 = [
+        ("straight/modifier apostrophe in a Cyrillic word (use ’)", re.compile(f"[{UKC}]['ʼ][{UKC}]")),
+        ("Latin/IAST letter touching a Cyrillic letter (оṁ)", re.compile(f"[{UKC}][{LAT}]|[{LAT}][{UKC}]")),
+        ("IAST word in Ukrainian prose (write it in Ukrainian letters, as krishna.ua)", re.compile(f"[{LAT}]*[{IAST_D}][{LAT}]*")),
+        ("a.m./p.m. (Ukrainian: «4:10 ранку», «6:30 вечора», as «утра/вечера» in the Russian book)", re.compile(r"\b[ap]\.\s?m\.", re.I)),
+        ("Russian form «бхаджан» (бгаджан)", re.compile("[Бб]хаджан")),
+        ("«Махапрабгу» (not Магапрабгу/Махапрабху)", re.compile("Магапрабгу|Махапрабху")),
+        ("ṛ = «рі» (Вріндавана, Врінда-деві)", re.compile("Вринд|вринд")),
+        ("«Мангала» without ґ (krishna.ua)", re.compile("[Мм]анґал")),
+        ("ya after ч/ш/ж/щ = «ья» (Ачьюта; ’ only after б, п, в, м, ф, р)", re.compile(f"[чшжщЧШЖЩ]’[яюєї]")),
+        ("«Шрі Ґурудева» with capitals", re.compile("[шШ]рі ґурудев|шрі Ґурудев")),
+    ]
+    uk31 = list(uk_src)
+    if os.path.exists(mp):
+        for m in json.load(open(mp, encoding="utf-8")):
+            for a in m.get("more") or []:
+                t = (a.get("translation") or {}).get("uk")
+                if t:
+                    uk31.append(("scripts/moods/moods.json:more", t))
+    for rel, data in uk31:
+        for where, t in uk_strings(data):
+            if where.split("/")[-1] in ("scheme", "translation_note", "machine", "model"):
+                continue        # glossary «scheme» = the transliteration table itself (IAST on purpose); metadata
+            t = unicodedata.normalize("NFC", t)
+            if where.endswith("/wbw"):
+                t = " ; ".join(p.split("—", 1)[1] if "—" in p else "" for p in t.split(";"))
+            t = re.sub("⟦[^⟧]*⟧", " ", t)
+            for rname, rx in uk_rules31:
+                for m in rx.finditer(t):
+                    c.hit(rel, f"{where or '/'} [{rname}]", snippet(t, m, 25))
+    c.info = f"{len(uk31)} UK sources"
+    c.report(args.max)
+
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует
     c = Check("L17", "atgriešanās punkts: git tags pirms-interfeisa-2026-10-05 eksistē")
     import subprocess
