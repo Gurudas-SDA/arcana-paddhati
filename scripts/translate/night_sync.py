@@ -283,11 +283,12 @@ TERM_RULES = {
            "Višvanātha Čakravartī Thākurs, Nārājana, Kešava, Panča-tatva). Personal names get Latvian nominative endings "
            "where the book does so (e.g. «Bhaktivinoda Thākurs»). Latvianization: j → dž (Džagannātha, Pradžņāna), c → č, "
            "ś/ṣ → š, ṭ/ḍ/ṇ/ṅ → t/d/n/n, ñ → ņ, y → j, ṛ → ri, ṁ → m; long vowels keep macrons (ā ī ū ē)."),
-    "uk": ("Sanskrit names and terms inside Ukrainian prose are written in the Ukrainian DIACRITIC Cyrillic used by this "
-           "book and vedabase.io/uk (Кр̣шн̣а, Ш́рı̄ Ґуру, Бгактівінода Т̣га̄кура, Кеш́ава, На̄ра̄йан̣а, Пан̃ча-таттва, "
-           "Прабгупа̄да): a а, ā а̄, i і, ī ı̄, u у, ū ӯ, ṛ р̣, e е, o о, ai аі, au ау, ṁ м̇, ḥ х̣, k к, kh кх, g ґ, gh ґг, "
-           "ṅ н̇, c ч, ch чх, j дж, jh джх, ñ н̃, ṭ т̣, ḍ д̣, ṇ н̣, t т, th тх, d д, dh дг, n н, p п, ph пх, b б, bh бг, "
-           "y й, r р, l л, v в, ś ш́, ṣ ш, s с, h х; inflected with Ukrainian case endings."),
+    "uk": ("A80 (Satkirti 12.10.2026): Sanskrit names and terms inside Ukrainian prose are written like krishna.ua - "
+           "WITHOUT diacritics (no dots/lines over or under letters), full letters: Крішна, Шрі Ґуру, Шріла Прабгупада, "
+           "Бгактівінода Тхакура, вайшнав, Чайтанья, Нітьянанда, Ачар’я, В’ясадева, Нараяна, Прагьяна, ягья, Вріндавана, "
+           "Радга, Кешава, Панча-таттва. Scheme: ā→а, ī→і, ū→у, ṛ→рі, ai→ай, au→ау, ś/ṣ→ш, ṁ/ṅ/ñ/ṇ→м/н, ḥ→х, "
+           "g→ґ, gh→ґг, kh→кх, th/ṭh→тх, dh→дг, bh→бг, ph→пх, jh→джх, jñ→гья, y+vowel→я/ю/є (after a consonant ья/ью, "
+           "after б/п/в/м/ф/р ’я); inflected with Ukrainian case endings (Крішни, Крішні)."),
 }
 for _l in ("de", "fr", "es", "it", "hu", "pt"):
     TERM_RULES[_l] = ("Sanskrit names and terms inside prose stay exactly as in the English source (IAST with diacritics: "
@@ -460,6 +461,10 @@ def i18n_path(sid):
 
 
 def save(sid, lang, rec):
+    if lang == "uk":   # A80: no diacritics in Ukrainian prose even if the model writes them (uk_plain = krishna.ua rules)
+        sys.path.insert(0, HERE)
+        import uk_plain
+        rec = uk_plain.conv(rec, {"strings": 0, "marks": 0})
     with _lock:
         p = i18n_path(sid)
         d = json.load(open(p, encoding="utf-8")) if os.path.exists(p) else {}
@@ -552,11 +557,19 @@ def run_moods(lang, targets, key_i):
         for j, (ref, _) in enumerate(jobs):
             t = got["q%d" % j]
             if ref[0] == "m":
+                if lang == "uk":   # A80: krishna.ua spelling, no diacritics
+                    sys.path.insert(0, HERE)
+                    import uk_plain
+                    t = uk_plain.plain(t)
                 m = moods[ref[1]]
                 m.setdefault("translations", {})[lang] = t
                 if lang not in m.setdefault("machine", []):
                     m["machine"].append(lang)
             else:
+                if lang == "uk":
+                    sys.path.insert(0, HERE)
+                    import uk_plain
+                    t = uk_plain.plain(t)
                 a = moods[ref[1]]["more"][ref[2]]
                 a.setdefault("translation", {})[lang] = t
                 if lang not in a.setdefault("machine", []):
