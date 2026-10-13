@@ -90,8 +90,7 @@ def plain_word(w):
         prev, v = m.group(1), m.group(2)
         if prev in LABIAL_R:
             return prev + APO + IOT[v]
-        if prev in "шчжщШЧЖЩ":
-            return prev + APO + IOT[v]
+        # 13.10 (Пурохита, по правилу krishna.ua): ’ only after б, п, в, м, ф, р; after ч/ш/ж/щ it is «ь» (Ачьюта, Вайшья)
         return prev + "ь" + IOT[v]
     s = ASP.sub(lambda m: m.group(1)[0] + ("Х" if m.group(1)[1] == "Г" else "х"), s)
     s = re.sub("(?<=[Дд]ж)г(?=[аеіиоуя])", "х", s)  # jh: Джгулана -> Джхулана
@@ -147,7 +146,134 @@ MIXED = [("праatı̄копа̄сана̄", "пратікопасана"), ("�
          ("прeм", "прем"), ("параmpар", "парампар"), ("Санакa-", "Санака-")]
 
 
-def plain(text):
+# ---- A80b (13.10.2026, staging checkers): IAST words in Ukrainian prose, apostrophes, a.m./p.m., single words ----
+IAST_D = "āīūṛṝḷṣśṇṭḍṁṅñḥĀĪŪṚṜḶṢŚṆṬḌṀṄÑḤ"
+_LATW = "A-Za-zāīūṛṝḷṣśṇṭḍṁṅñḥĀĪŪṚṜḶṢŚṆṬḌṀṄÑḤ"
+_WRD = f"[{_LATW}][{_LATW}’'\\-]*"
+# a run of Latin words (one quoted Sanskrit/Bengali phrase): words joined by spaces, commas, hyphens, ’
+IAST_RUN = re.compile(f"{_WRD}(?:[ ,]+{_WRD})*")
+_I2U = [("kh", "кх"), ("gh", "ґг"), ("ch", "чх"), ("jh", "джх"), ("ṭh", "тх"), ("ḍh", "дг"), ("th", "тх"), ("dh", "дг"),
+        ("ph", "пх"), ("bh", "бг"), ("jñ", "гй"), ("ai", "ай"), ("au", "ау"),
+        ("a", "а"), ("ā", "а"), ("i", "і"), ("ī", "і"), ("u", "у"), ("ū", "у"), ("ṛ", "рі"), ("ṝ", "рі"), ("ḷ", "лі"),
+        ("e", "е"), ("o", "о"), ("k", "к"), ("g", "ґ"), ("ṅ", "н"), ("c", "ч"), ("j", "дж"), ("ñ", "н"), ("ṭ", "т"),
+        ("ḍ", "д"), ("ṇ", "н"), ("t", "т"), ("d", "д"), ("n", "н"), ("p", "п"), ("b", "б"), ("m", "м"), ("y", "й"),
+        ("r", "р"), ("l", "л"), ("v", "в"), ("w", "в"), ("ś", "ш"), ("ṣ", "ш"), ("s", "с"), ("h", "х"), ("ṁ", "м"),
+        ("ḥ", "х"), ("f", "ф"), ("z", "з"), ("x", "кс"), ("q", "к"), ("'", "’")]
+
+
+def _glides(res):
+    res = re.sub("йй([аеуі])", lambda m: "й" + IOT[m.group(1)], res)
+    res = re.sub(f"([{CONS}])йо", lambda m: m.group(1) + ("’йо" if m.group(1) in LABIAL_R else "ьо"), res)   # bhyo -> бгьо
+    res = re.sub(f"([{CONS}])й([аеуіи])", lambda m: m.group(1) + ("’" if m.group(1) in LABIAL_R else "ь") + IOT[m.group(2)], res)
+    res = re.sub(f"(^|[{VOW}’])й([аеуі])", lambda m: m.group(1) + IOT[m.group(2)], res)
+    return res
+
+
+def iast_word(w):
+    """one IAST (or Bengali-IAST) word -> Ukrainian letters by the krishna.ua table (Rādhā-Śyāma -> Радга-Шьяма)."""
+    out = []
+    for part in w.split("-"):
+        low, cap = part.lower(), part[:1].isupper()
+        res, i = "", 0
+        while i < len(low):
+            for a, b in _I2U:
+                if low.startswith(a, i):
+                    res += b
+                    i += len(a)
+                    break
+            else:
+                res += low[i]
+                i += 1
+        res = _glides(res.replace("аі", "ай"))      # ā+i as in plain_word (Нітай): «milāiba» -> мілайба
+        if cap and res:
+            res = res[0].upper() + res[1:]
+        out.append(res)
+    return "-".join(out)
+
+
+def iast_runs(text):
+    """Latin phrases with at least one IAST letter (outside ⟦…⟧, which are inline IAST mantras by schema) -> Ukrainian."""
+    def one(seg):
+        def run(m):
+            r = m.group(0)
+            if not re.search(f"[{IAST_D}]", r):
+                return r                                   # plain Latin (GVP, Chrome, ISKCON) - not Sanskrit
+            return re.sub(_WRD, lambda w: iast_word(w.group(0)), r)
+        return IAST_RUN.sub(run, seg)
+    parts = re.split("(⟦[^⟧]*⟧)", text)
+    return "".join(p if p.startswith("⟦") else one(p) for p in parts)
+
+
+# «оṁ» = Cyrillic «о» + IAST «ṁ» (mixed word): the syllable om
+MIXED2 = [("оṁ", "ом"), ("Оṁ", "Ом")]
+
+
+def _time(m):
+    """«4:10 a.m.» -> «4:10 ранку.» (13.10: Ukrainian time words, as «утра/дня/вечера» in the Russian book)."""
+    h, mm, ap = int(m.group(1)), m.group(2), m.group(3).lower()
+    if ap == "a":
+        word = "ночі" if h == 12 else "ранку"
+    else:
+        word = "дня" if h == 12 or h <= 4 else "вечора"
+    tail = (m.group(4) or "").strip()
+    nxt = m.string[m.end():m.end() + 2].strip()[:1]
+    if tail:
+        punct = tail
+    elif not nxt or nxt.isupper() or nxt == "⟦":
+        punct = "."
+    else:
+        punct = ""
+    return f"{h}:{mm} {word}{punct}"
+
+
+TIME = re.compile(r"(\d{1,2}):(\d\d)\s?([apAP])\.\s?[mM]\.(\s*[.:,;](?=\s|$))?")
+APOS = re.compile(f"(?<=[{CYR}])['ʼ](?=[{CYR}])")
+# single words the staging checkers found (13.10): Russian forms and wrong letters -> the book's / krishna.ua form
+FIX_WORDS = [
+    (re.compile("Магапрабгу"), "Махапрабгу"), (re.compile("Махапрабху"), "Махапрабгу"),
+    (re.compile("([Бб])хаджан"), lambda m: m.group(1) + "гаджан"),
+    (re.compile("([Вв])ринд"), lambda m: m.group(1) + "рінд"),
+    (re.compile("([Мм])анґал"), lambda m: m.group(1) + "ангал"),          # 13.10: «Мангала» (krishna.ua, rules table)
+    (re.compile("([Нн])іт’янанд"), lambda m: m.group(1) + "ітьянанд"),
+    (re.compile("([Чч])айтан’"), lambda m: m.group(1) + "айтань"),
+    (re.compile("([чшжщЧШЖЩ])’(?=[яюєї])"), lambda m: m.group(1) + "ь"),  # Ачьюта, Вайшья, Ґганашьяма
+    (re.compile("[шШ]рі [ґҐ]урудев"), "Шрі Ґурудев"),                      # 13.10: «Шрі Ґурудева» with capitals
+]
+
+
+def fix_more(text, iast=True):
+    for a, b in MIXED2:
+        text = text.replace(a, b)
+    if iast:
+        text = iast_runs(text)
+    text = TIME.sub(_time, text)
+    text = APOS.sub("’", text)
+    for rx, rep in FIX_WORDS:
+        text = rx.sub(rep, text)
+    return text
+
+
+def plain(text, iast=True):
+    if not isinstance(text, str) or not text:
+        return text
+    return fix_more(plain0(text), iast)
+
+
+def plain_wbw(text):
+    """wbw = «IAST head — Ukrainian; …»: the heads stay IAST (schema), only the Ukrainian part gets the IAST rule."""
+    if not isinstance(text, str) or not text:
+        return text
+    out = []
+    for sg in plain0(text).split(";"):
+        if "—" in sg:
+            h, rest = sg.split("—", 1)
+            out.append(fix_more(h, iast=False) + "—" + fix_more(rest))
+        else:
+            out.append(fix_more(sg, iast=False))
+    return ";".join(out)
+
+
+def plain0(text):
     if not isinstance(text, str) or not text:
         return text
     for a, b in MIXED:
@@ -161,7 +287,8 @@ def plain(text):
 
 
 SKIP_KEYS = {"sanskrit", "src", "id", "audio_url", "transcript_url", "timecode", "date", "type", "layout", "page",
-             "en_hash", "candidate", "target", "quote", "source"}   # source = lecture title as published
+             "en_hash", "candidate", "target", "quote", "source", "scheme", "translation_note", "machine", "model"}
+# source = lecture title as published; scheme = the glossary's transliteration table (IAST on purpose)
 
 
 def conv(o, stats, key=None):
@@ -170,7 +297,7 @@ def conv(o, stats, key=None):
     if isinstance(o, list):
         return [conv(v, stats, key) for v in o]
     if isinstance(o, str):
-        n = plain(o)
+        n = plain_wbw(o) if key == "wbw" else plain(o)
         if n != o:
             stats["strings"] += 1
             stats["marks"] += extra_marks(o) - extra_marks(n)
@@ -214,6 +341,15 @@ def convert_file(p, stats):
                     v2 = dict(v)
                     v2["uk"] = conv(v["uk"], stats)
                     m2[k] = v2
+            if isinstance(m.get("more"), list):      # A80b: the other candidate quotes were left in the old spelling
+                more = []
+                for a in m["more"]:
+                    a2 = dict(a)
+                    tr = a.get("translation")
+                    if isinstance(tr, dict) and "uk" in tr:
+                        a2["translation"] = dict(tr, uk=conv(tr["uk"], stats))
+                    more.append(a2)
+                m2["more"] = more
             new.append(m2)
     else:
         new = d
