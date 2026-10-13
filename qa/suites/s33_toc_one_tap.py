@@ -1,13 +1,16 @@
-"""One-tap TOC proposal: chapter top, action-only history, cover and search.
+"""Contents rules 9.2, 9.3, 10.1 and 10.2: place, actions, cover and search.
 
-Exercises real full-width row taps in both modes; the default is one-tap.
+Seven variants retain all themes and historical query flags; every row now
+performs its function on one tap (the two-tap mode was removed on 13.10).
 Usage: python s33_toc_one_tap.py <base-url>   devices: QA_DEVICES
 """
 import os
 import sys
+import traceback
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "lib"))
 import qa  # noqa: E402
+from toc import marks_chapter_top, marks_place  # noqa: E402
 from playwright.sync_api import sync_playwright  # noqa: E402
 
 BASE = sys.argv[1].rstrip("/")
@@ -81,55 +84,46 @@ def run(browser, device, options, mode, theme):
     chapter = lambda: page.locator(f"[data-toc-chapter='{CHAPTER}']")
     subsection = lambda: page.locator(f"[data-toc-row='sub:{CHAPTER}#{SUBSECTION}']")
     close = lambda: page.locator(".mobile-menu button[aria-label='Закрыть меню']")
-    one = mode != "two"
     try:
         contents()
         for locator in (group, chapter):
+            step_before = state()
             tap(locator(), wait=700)
-            if not one:
-                assert locator().get_attribute("aria-expanded") == "false"
-                tap(locator(), right=True, wait=700)
+            assert marks_place(state())
             assert locator().get_attribute("aria-expanded") == "true"
-        if one:
-            assert state()["url"].endswith(f"/{CHAPTER}/") and state()["scroll"] < 2
-            assert chapter().locator("..").locator("button").count() == 1
-        else:
-            assert state()["url"].rstrip("/").endswith("/ru-iast")
+            assert state()["length"] == step_before["length"] + 1
+        assert state()["url"].endswith(f"/{CHAPTER}/") and state()["scroll"] < 2
+        assert chapter().locator("..").locator("button").count() == 1
+        before_subsection = state()
         tap(subsection(), wait=800)
-        if not one:
-            assert state()["menu"]
-            tap(subsection(), right=True, wait=800)
+        assert state()["length"] == before_subsection["length"] + 1
         assert state()["url"].endswith(f"/{CHAPTER}/#{SUBSECTION}") and not state()["menu"]
         back()
-        assert state()["lit"] == [f"sub:{CHAPTER}#{SUBSECTION}"]
+        assert marks_chapter_top(page, state(), CHAPTER)
         assert CHAPTER in state()["open"]
         count = 1
         while state()["menu"]:
             back()
             count += 1
             assert count <= 7
-        assert count == (4 if one else 7)
+        # Rule 9.3: cover → 4.2 is four steps, independently of the observed count.
+        assert count == 4
         assert state()["url"].rstrip("/").endswith("/ru-iast")
 
         contents()
         for locator in (group, chapter):
             tap(locator(), wait=700)
-            if not one:
-                tap(locator(), right=True, wait=700)
-        if one:
-            opened = state()
-            tap(chapter(), right=True)
-            assert CHAPTER not in state()["open"]
-            assert state()["url"] == opened["url"] and state()["length"] == opened["length"] + 1
-            back()
-            assert state()["open"] == opened["open"]
-            tap(close())
-            assert not state()["menu"] and state()["url"] == opened["url"] and state()["scroll"] < 2
-            contents()
+        opened = state()
+        tap(chapter(), right=True)
+        assert CHAPTER not in state()["open"]
+        assert state()["url"] == opened["url"] and state()["length"] == opened["length"] + 1
+        back()
+        assert state()["open"] == opened["open"]
+        tap(close())
+        assert not state()["menu"] and state()["url"] == opened["url"] and state()["scroll"] < 2
+        contents()
         tap(page.locator("[data-toc-cover]"), right=True, wait=800)
-        if not one:
-            assert state()["menu"] and not state()["open"] and state()["lit"] == ["cover"]
-            tap(page.locator("[data-toc-cover]"), wait=800)
+        assert not state()["menu"] and not state()["open"] and state()["lit"] == []
         assert not state()["menu"] and state()["url"].rstrip("/").endswith("/ru-iast")
 
         contents()
@@ -142,12 +136,14 @@ def run(browser, device, options, mode, theme):
         assert not state()["menu"] and state()["length"] == before["length"] + 1
         back()
         assert state()["menu"] and field.input_value() == "Свагата"
-        if one:
-            assert state()["lit"] == [f"{CHAPTER}#{SUBSECTION}"]
+        # Rule 9.2: Back returns to the cover's search, not to the clicked
+        # chapter. None of these result rows stands for that reading place.
+        assert state()["url"] == before["url"] and state()["lit"] == [], state()
         assert not errors, errors
         results.append(True)
         print(f"  [PASS] {device} {mode}/{theme}: chapter, Back, collapse, cover, search and full-width taps", flush=True)
     except Exception as error:
+        traceback.print_exc()
         results.append(False)
         print(f"  [FAIL] {device} {mode}/{theme}: {error}", flush=True)
     finally:
@@ -155,7 +151,7 @@ def run(browser, device, options, mode, theme):
 
 
 with sync_playwright() as playwright:
-    for device, engine, options in qa.devices(["s23fe", "iphone14", "desktop", "mac-safari"]):
+    for device, engine, options in qa.devices(["s23fe", "iphone14", "pixel7", "desktop", "mac-safari"]):
         browser = getattr(playwright, engine).launch()
         for theme in ("white", "sepia", "night"):
             for mode in ("two", "one"):
