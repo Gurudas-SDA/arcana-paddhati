@@ -40,6 +40,7 @@
  * selectable (no word to look up).
  */
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { takeEarlyTap } from "@/lib/earlyTap";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { type TocPart, type TocSection } from "@/lib/book";
 import { parsePath, t, type UiDict } from "@/lib/i18n";
@@ -478,6 +479,20 @@ export default function ReaderChrome({
     m.addEventListener("pointerdown", onDown, true);
     m.addEventListener("pointercancel", onCancel, true);
     m.addEventListener("pointerup", onUp);
+    // §7: a tap made before this handler existed (slow first hydration) still
+    // counts, once, under the same conditions as onUp (lib/earlyTap.ts).
+    const early = takeEarlyTap();
+    if (
+      early &&
+      performance.now() - early.at < 4000 &&
+      early.t instanceof Node && m.contains(early.t) &&
+      !blocked(early.t) && !blocked(early.u) &&
+      !selText() && !highlightOn() && !overlayOpen() &&
+      !panelRef.current && !shownRef.current
+    ) {
+      setHint(false);
+      show();
+    }
     return () => {
       m.removeEventListener("pointerdown", onDown, true);
       m.removeEventListener("pointercancel", onCancel, true);
