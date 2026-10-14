@@ -807,6 +807,8 @@ def run(args):
 
     en_path = os.path.join(qa.DATA, "book.json")
     en_sk = dict(sk_fields(loaded[en_path])) if en_path in loaded else {}
+    en_pending = {s.get("id") for s in (loaded[en_path].get("sections") or []) if isinstance(s, dict)
+                  and s.get("translation_pending")} if en_path in loaded else set()
     ru_pair = set(CFG["ru_books"])
     nb = 0
     for f in allb:
@@ -830,6 +832,12 @@ def run(args):
             if k not in sk:
                 parts = k.split("/")
                 gone = len(parts) > 1 and parts[0] == "sections" and parts[1] not in have
+                # A83 (Satkirti 14.10 msg 3478 «одним языком, рус»): a chapter written in Russian only is in
+                # book.json as the RU text marked "translation_pending"; until it is translated, a translated
+                # book without that whole section shows the book.json section (lib/content.ts fallback, with
+                # the "translation in preparation" note) — the same Sanskrit, nothing localized.
+                if gone and fn not in ru_pair and parts[1] in en_pending:
+                    continue
                 c.hit(fn, k, "sanskrit field of book.json missing in this book"
                       + (f" (the whole section «{parts[1]}» is missing)" if gone else ""))
     c.info = f"{len(en_sk)} sanskrit fields × {nb} books (ru-iast + translated)"
@@ -1055,7 +1063,9 @@ def run(args):
         out.append(rsc[i:])
         return re.sub(r'"source":\{"title":"(?:[^"\\]|\\.)*"', '"source":{', "".join(out))
 
-    n32 = 0
+    n32 = n32_pending = 0
+    en_book = loaded.get(os.path.join(qa.DATA, "book.json")) or {}
+    pending_sections = {x.get("id") for x in en_book.get("sections") or [] if isinstance(x, dict) and x.get("translation_pending")}
     uk_out = os.path.join(qa.OUT, "uk")
     if os.path.isdir(uk_out) and not args.no_html:
         files = [os.path.join(dp, fn) for dp, _, fns in os.walk(uk_out) for fn in fns if fn.endswith((".html", ".txt"))]
@@ -1071,9 +1081,16 @@ def run(args):
                 text = only_uk_locale(raw)
             n32 += 1
             rel = os.path.relpath(f, qa.OUT).replace(os.sep, "/")
+            # A83: the page of a Russian-only chapter (book.json "translation_pending") is the app's English
+            # fallback page, here still the RU text with the "not yet translated" note — skipped until translated
+            # (the mark is removed by the translation; the rest of the UK build stays strict)
+            if rel.split("/")[1:2] and rel.split("/")[1] in pending_sections:
+                n32_pending += 1
+                continue
             for m in ru_in_uk.finditer(text):
                 c.hit("out", rel, snippet(text, m, 30))
-    c.info = f"{n32} built UK files" if n32 else "out/uk not built — only the data part checked"
+    c.info = (f"{n32} built UK files" + (f" ({n32_pending} of Russian-only chapters awaiting translation skipped: "
+              f"{', '.join(sorted(pending_sections))})" if n32_pending else "")) if n32 else "out/uk not built — only the data part checked"
     c.report(args.max)
 
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует
