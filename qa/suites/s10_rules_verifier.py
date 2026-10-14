@@ -518,7 +518,9 @@ def run_one(DEV):
                 if s == "/": break
             rec("§6 системная «назад» пошагово", "page.go_back до обложки", None, sys_seq)
         except Exception:
-            rec("§7/§9 contents/path", "ошибка", False, traceback.format_exc()[-500:])
+            full_traceback = traceback.format_exc()
+            print(full_traceback, flush=True)
+            rec("§7/§9 contents/path", "ошибка", False, full_traceback[-500:])
 
         # ---- Search: Enter closes keyboard, back returns to search with query
         try:
