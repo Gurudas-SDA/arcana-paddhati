@@ -55,6 +55,7 @@ GENERATOR = {  # section id -> folder of its generator (i18n.json is written the
     "caturmasya-purusottama-masa": os.path.join(REPO, "scripts", "chapters", "ch13_caturmasya"),
     "guru-puja-vyasa-puja": os.path.join(REPO, "scripts", "chapters", "ch14_vyasa_puja"),
     "major-festivals": os.path.join(REPO, "scripts", "chapters", "ch15_major_festivals"),
+    "home-worship-one-page": os.path.join(REPO, "scripts", "chapters", "ch_home_one_page"),
 }
 MOODS = os.path.join(REPO, "scripts", "moods", "moods.json")
 NL = chr(10)
@@ -72,7 +73,9 @@ def log(msg):
 
 def keys():
     c = configparser.ConfigParser()
-    c.read(r"C:\Users\gurud\.credentials\ca_pipeline\config.ini", encoding="utf-8")
+    # Windows (Dell) path first; the same file under ~ on the Linux server (15.10.2026)
+    c.read([r"C:\Users\gurud\.credentials\ca_pipeline\config.ini",
+            os.path.expanduser("~/.credentials/ca_pipeline/config.ini")], encoding="utf-8")
     return [c["anymodel"][k] for k in c["anymodel"] if re.fullmatch(r"key_\d+", k)]
 
 

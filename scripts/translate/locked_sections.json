@@ -34,5 +34,12 @@
       "ru-iast"
     ],
     "source": "scripts/chapters/ch00b_vigraha_tattva/build.py"
+  },
+  "home-worship-one-page": {
+    "langs": [
+      "ru",
+      "ru-iast"
+    ],
+    "source": "scripts/chapters/ch_home_one_page/build.py"
   }
 }

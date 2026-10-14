@@ -21,7 +21,9 @@
     {
       "id": "home-worship",
       "title": "Home Standard",
-      "sections": []
+      "sections": [
+        "home-worship-one-page"
+      ]
     },
     {
       "id": "preaching-centres",
@@ -4974,6 +4976,269 @@
             {
               "type": "text",
               "content": "Note: In brief, before one begins ⟦arcana⟧, one should clean the altar and the paraphernalia. Place the articles in a convenient place. It is important to sanctify the water in the ⟦pañca-pātra⟧ with the ⟦mantra⟧ \"⟦gaṅge ca yamune caiva...⟧\" and to purify flowers with the ⟦mantra⟧ \"⟦puṣpe puṣpe mahā-puṣpe...⟧\". ⟦Pādya⟧, ⟦arghya⟧ and ⟦ācamanīya⟧ are usually substituted with pure water from the ⟦pañca-pātra⟧. Similarly, if any item cannot be procured, it can be substituted by meditation and the offering of water from the ⟦pañca-pātra⟧ or conch shell."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "home-worship-one-page",
+      "title": "Deity Worship at Home on One Page",
+      "subtitle": null,
+      "page": "",
+      "content": [
+        {
+          "type": "text",
+          "content": "A brief procedure for daily Deity worship at home. Everything on this page is taken from the chapters of the “Temple Standard”; details are given in the indicated chapters."
+        },
+        {
+          "type": "text",
+          "content": "The procedure upon waking and for worship: first ⟦Gurudev⟧, then ⟦Gaurāṅga⟧, then ⟦Śrī Śrī Rādhā-Kṛṣṇa⟧. During ārati, each item is offered first to ⟦Kṛṣṇa⟧, then to ⟦Rādhikā⟧, ⟦Gaurāṅga⟧, then through the paramparā and to ⟦Gurudev⟧."
+        },
+        {
+          "type": "text",
+          "content": "If an item is unavailable, one may meditate on it and, while reciting the mantra, offer water from the ⟦pañca-pātra⟧ (chapter 2)."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "home-before-service",
+          "title": "Before service",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Bathe, put on clean clothes, and apply ⟦tilaka⟧. Before entering to see the Deities—perform ācamana:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "⟦oṁ keśavāya namaḥ⟧",
+                  "value": "sip water from the ⟦brāhma-tīrtha⟧ of your right hand."
+                },
+                {
+                  "label": "⟦oṁ nārāyaṇāya namaḥ⟧",
+                  "value": "sip water from the ⟦brāhma-tīrtha⟧ of your right hand."
+                },
+                {
+                  "label": "⟦oṁ mādhavāya namaḥ⟧",
+                  "value": "sip water from the ⟦brāhma-tīrtha⟧ of your right hand."
+                }
+              ],
+              "layout": "vertical"
+            },
+            {
+              "type": "text",
+              "content": "For details, see chapter 1, “Daily Duties performed in the Brāhma-muhūrta.”"
+            }
+          ]
+        },
+        {
+          "id": "home-morning",
+          "title": "Morning: awakening and maṅgala-ārati",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Ring the bell outside the door, knock, and enter. Touching Their feet, awaken ⟦Gurudev⟧, ⟦Gaurāṅga⟧, and ⟦Śrī Śrī Rādhā-Kṛṣṇa⟧:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "uttiṣṭhottiṣṭha śrī guro\ntyaja nidrāṁ kṛpāmaya\naiṁ gurave namaḥ",
+              "translation": "O most merciful Gurudeva, please arise, please arise and give up your sleep.",
+              "wbw": "uttiṣṭhottiṣṭha — please arise, please arise; śrī — revered; guro — O Gurudeva; tyaja — give up; nidrāṁ — sleep; kṛpāmaya — most merciful one; aiṁ — bīja-mantra; gurave — unto Gurudeva; namaḥ — obeisances."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "uttiṣṭhottiṣṭha gaurāṅga\njahi nidrāṁ mahāprabho\nśubha-dṛṣṭi pradānena\ntrailokya-maṅgalaṁ kuru\nklīṁ gaurāya svāhā",
+              "translation": "O Gaurāṅga Mahāprabhu, please arise, please arise and give up Your sleep. Please benedict the three worlds with Your auspicious glance.",
+              "wbw": "uttiṣṭhottiṣṭha — please arise, please arise; gaurāṅga — O Gaurāṅga; jahi — give up; nidrāṁ — sleep; mahāprabho — O Mahāprabhu; śubha-dṛṣṭi — auspicious glance; pradānena — by giving; trailokya-maṅgalaṁ — blessing of the three worlds; kuru — please bestow; klīṁ — bīja-mantra; gaurāya — to Gaura; svāhā — offering exclamation “svāhā”."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "go-gopa-gokulānanda\nyaśodānanda vardhana\nuttiṣṭha rādhayā sārddhaṁ\nprātar āsīj jagat-pate\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "O joy of Gokula, the cowherd boys and the cows; O increaser of Mother Yaśodā's bliss; O Lord of the universe; please arise along with Śrī Rādhā, for it is almost morning.",
+              "wbw": "go-gopa-gokulānanda — O joy of Gokula, the cowherd boys and the cows; yaśodānanda — O increaser of Mother Yaśodā's bliss; vardhana — increaser; uttiṣṭha — please arise; rādhayā — along with Śrī Rādhā; sārddhaṁ — together with; prātar — in the morning; āsīj — it is almost; jagat-pate — O Lord of the universe; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — to Śrī Rādhā and Kṛṣṇa; namaḥ — obeisances."
+            },
+            {
+              "type": "instruction",
+              "content": "Offer ācamana (water for the mouth): pour a spoonful of water from the ⟦pañca-pātra⟧ into an empty vessel while ringing the bell:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ ācamanīyaṁ aiṁ gurave namaḥ\nidaṁ ācamanīyaṁ klīṁ gaurāya svāhā\nidaṁ ācamanīyaṁ śrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Then mentally offer a tooth-cleaning twig (⟦eṣa danta-kāṣṭhaḥ⟧ …) and perform ācamana again—12 times (3 is acceptable)."
+            },
+            {
+              "type": "instruction",
+              "content": "Wipe the Deities’ faces, hands, and feet with a clean cloth; remove the old flowers and tulasī, clean the altar; offer tulasī and decorate the Deities."
+            },
+            {
+              "type": "instruction",
+              "content": "Offer bhoga (see “Bhoga”) and perform ⟦maṅgala-ārati⟧ (see “Ārati”)."
+            },
+            {
+              "type": "text",
+              "content": "For details, see chapter 2, “Daily Deity Schedule.”"
+            }
+          ]
+        },
+        {
+          "id": "home-bhoga",
+          "title": "Bhoga (the same each time)",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Offer bhoga with the feeling that ⟦Śrī Gurudev⟧ himself is offering it to ⟦Śrīman Mahāprabhu⟧ and ⟦Śrī Śrī Rādhā-Kṛṣṇa⟧. Perform ācamana. Place a tulasī leaf on each dish. Remove the crown and flute from the Deities."
+            },
+            {
+              "type": "instruction",
+              "content": "While ringing the bell, offer flower petals at Their feet, āsana, pādya, ācamana, and naivedya:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "eṣa puṣpāñjaliḥ klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ naivedyaṁ sa tulasī pānīya jalam klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "Offer naivedya with tulasī and water.",
+              "wbw": "idaṁ — this; naivedyaṁ — naivedya offering; sa — with; tulasī — tulasī; pānīya — drinking; jalam — water; klīṁ — bīja-mantra; gaurāya — to Gaura; svāhā — offering exclamation “svāhā”; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — to Rādhā and Kṛṣṇa; namaḥ — obeisances."
+            },
+            {
+              "type": "text",
+              "content": "Āsana, pādya, and ācamana are offered in the same way, replacing the first words with: ⟦idaṁ āsanaṁ⟧, ⟦etat pādyaṁ⟧, ⟦idaṁ ācamanīyaṁ⟧."
+            },
+            {
+              "type": "instruction",
+              "content": "Holding your right hand over the plate (with the left hand on top of the right), repeat the ⟦Gopāla-mantra⟧ eight times. Leave; repeat ⟦Gaura-gāyatrī⟧ and ⟦Kāma-gāyatrī⟧ ten times each (the mantras received from the guru); wait a little."
+            },
+            {
+              "type": "instruction",
+              "content": "Knock, enter, offer water for rinsing the mouth (⟦idaṁ ācamanīyaṁ⟧), tāmbūla (⟦idaṁ tāmbūlaṁ⟧), and āsana (⟦idaṁ āsanaṁ⟧), and remove the plate. Return the crown and flute. Offer the remnants—⟦mahā-prasāda⟧—to Gurudev and the Vaiṣṇavas (⟦idaṁ mahā-prasādaṁ aiṁ gurave namaḥ⟧ …)."
+            },
+            {
+              "type": "text",
+              "content": "For details, see chapter 6, “Procedure for Offering Bhoga.”"
+            }
+          ]
+        },
+        {
+          "id": "home-arati",
+          "title": "Ārati",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "The ārati items and the order in which they are offered:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "Incense (⟦eṣa dhūpaḥ⟧)",
+                  "value": "Full ārati: Feet 4, Waist 2, Body 7"
+                },
+                {
+                  "label": "Ghee Lamp (⟦eṣa dīpaḥ⟧)",
+                  "value": "Full ārati: Feet 4, Waist 2, Head 3, Body 7"
+                },
+                {
+                  "label": "Water in conch (⟦idaṁ arghyam⟧)",
+                  "value": "7 circles around body"
+                },
+                {
+                  "label": "Handkerchief (⟦idaṁ vastram⟧)",
+                  "value": "Feet 4, Waist 2, Head 3, Body 7"
+                },
+                {
+                  "label": "Flowers (⟦etāni puṣpāni⟧)",
+                  "value": "Feet 4, Body 7"
+                },
+                {
+                  "label": "⟦Cāmara⟧ (⟦eṣā cāmara-sevā⟧)",
+                  "value": "According to available time"
+                },
+                {
+                  "label": "Peacock Fan (⟦eṣā vyajñana-sevā⟧)",
+                  "value": "According to available time"
+                }
+              ]
+            },
+            {
+              "type": "instruction",
+              "content": "Add the mantra of the person to whom the item is being offered to the name of the item: ⟦śrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ⟧, ⟦klīṁ gaurāya svāhā⟧, ⟦aiṁ gurave namaḥ⟧."
+            },
+            {
+              "type": "instruction",
+              "content": "Short ⟦dhūpa-ārati⟧ (after breakfast, during the day, and late in the evening): incense, flowers, ⟦cāmara⟧, and a peacock fan (not in winter)."
+            },
+            {
+              "type": "text",
+              "content": "For details, see chapter 10, “The Main Worship with Sixteen Items,” and “Ārati Ceremony.”"
+            }
+          ]
+        },
+        {
+          "id": "home-day",
+          "title": "During the day",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Offer bhoga (in the same order) and perform full ārati. If the Deities rest during the day, put Them to rest with the same prayers as in the evening, and awaken Them as in the morning (chapter 2)."
+            }
+          ]
+        },
+        {
+          "id": "home-evening",
+          "title": "Evening: sandhyā-ārati and rest",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Bhoga and ⟦sandhyā-ārati⟧; later, more bhoga and ⟦dhūpa-ārati⟧."
+            },
+            {
+              "type": "instruction",
+              "content": "Remove ⟦Tulasī-devī⟧ from the altar, along with the flowers and garlands; dress the Deities simply; remove Their crowns and flute; offer khīr and water."
+            },
+            {
+              "type": "instruction",
+              "content": "Touching Their feet, invite Them to rest:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "O Keśava, kindly come to Your bed along with Your beloved Śrīmatī Rādhikā. O Mādhava, this effulgent bed of fragrant flowers is made for Your joyful sporting.",
+              "wbw": "āgaccha — kindly come; śayana-sthānaṁ — to the bed; priyābhiḥ — with Your beloved Śrīmatī Rādhikā; saha — together with; keśava — O Keśava; divya-puṣpātya-śayyāyāṁ — on this effulgent bed of fragrant flowers; sukhaṁ — joyfully; vihara — sport; mādhava — O Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — to Rādhā and Kṛṣṇa; namaḥ — obeisances."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "translation": "O Lord Gaurāṅga, please come to Your resting place along with Your associates. O Lord, rest comfortably for a moment, enjoying Your pastimes.",
+              "wbw": "āgaccha — please come; viśrama-sthānaṁ — to the resting place; sva-gaṇaiḥ — with Your associates; saha — together with; gaurāṅga — O Lord Gaurāṅga; kṣaṇaṁ — for a moment; viśramya — resting; sukhena — comfortably; līlayā — enjoying Your pastimes; vihara — enjoy; prabhu — O Lord; klīṁ — bīja-mantra; gaurāya — to Gaura; svāhā — offering exclamation “svāhā”."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha śrī-guro\naiṁ gurave namaḥ",
+              "translation": "O Gurudeva, kindly come to your resting place along with all your associates.",
+              "wbw": "āgaccha — kindly come; viśrāma-sthānaṁ — to your resting place; sva-gaṇaiḥ — with all your associates; saha — along with; śrī-guro — O Gurudeva; aiṁ — bīja-mantra; gurave — to Gurudeva; namaḥ — obeisances."
+            },
+            {
+              "type": "instruction",
+              "content": "Recite the prayers begging forgiveness for offences:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "aṅga-hīnaṁ kriyā-hīnaṁ\nvidhi-hīnaṁ ca yad bhavet\nastu tat sarvam acchidraṁ\nkṛṣṇa-kārṣṇa-prasādataḥ\n\nyat kiñcit vaiguṇyaṁ jātaṁ\ntad doṣa-praśamanāya\nśrī-kṛṣṇa-smaraṇaṁ karomi",
+              "translation": "May the mercy of Krsna and His devotees nullify all the mistakes we have made in our observance of the rules of worship and in our performance of the acts of worship. I now remember Krsna to nullify whatever faults there may be. [Sat-kriya-sara-dipika]",
+              "wbw": "aṅga-hīnaṁ — deficient in components; kriyā-hīnaṁ — deficient in acts of worship; vidhi-hīnaṁ — deficient in prescribed rules; ca — and; yad — whatever; bhavet — may be; astu — may it become; tat — that; sarvam — all; acchidraṁ — faultless; kṛṣṇa-kārṣṇa-prasādataḥ — by the mercy of Krsna and His devotees; yat — whatever; kiñcit — any; vaiguṇyaṁ — imperfection; jātaṁ — has arisen; tad — that; doṣa-praśamanāya — for the nullification of the fault; śrī-kṛṣṇa-smaraṇaṁ — remembrance of Sri Krsna; karomi — I perform."
+            },
+            {
+              "type": "text",
+              "content": "For details, see chapter 2, “Daily Deity Schedule,” and chapter 9, “Prayers Begging Forgiveness for Offences.”"
             }
           ]
         }
