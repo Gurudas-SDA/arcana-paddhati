@@ -119,16 +119,21 @@ def run(p, dev, eng, o, mode):
         chk(dev,'(b) 3 chapter opened (first subsection), menu closed',f'/{chid}/' in C and not menu())
         flow.contents();states.append(flow.state());second=pg.locator(f'#toc-ch-{chid} a').nth(1);flow.tap(second,wait=350);states.append(flow.state())
         chk(dev,'(b) 4 sub-section opened','#' in pg.url and not menu() and top()>100)
+        back_landings=[]
         for i,want in enumerate(reversed(states[:-1])):
             flow.nav('back',native=True);got=flow.state()
             # The mark is derived from the reading place, so it is checked as an
             # invariant (toc.marks_place) instead of compared step by step.
-            chk(dev,f'(b) back{i+1} -> preceding real action, same path and open rows',all(got[k]==want[k] for k in ['url','menu','open']) and marks_place(got) and pg.url!=COVER,str([got,want]))
+            back_landings.append(all(got[k]==want[k] for k in ['url','menu','open']) and marks_place(got) and pg.url!=COVER)
+            chk(dev,f'(b) back{i+1} -> preceding real action, same path and open rows',back_landings[-1],str([got,want]))
         chk(dev,'(b) back6 -> original page and scroll restored',pg.url==P and not menu() and abs(top()-y0)<40)
         chk(dev,'(b) never on cover',pg.url!=COVER)
-        # Rule 10.2: only real actions make a step. One entry per action, so the
-        # highlight adds no step of its own (before 13.10 it did).
-        chk(dev,'(b) one history entry per real action, no step for the highlight',states[-1]['history']-states[0]['history']==len(states)-1,f"history +{states[-1]['history']-states[0]['history']}, actions {len(states)-1}")
+        # Rule 10.2: count writes and retrace every real action. history.length
+        # also counts forward entries, which a new push can discard after Back.
+        actions=len(states)-1
+        prefix='(b) one history entry per real action, no step for the highlight'
+        chk(dev,prefix+': Back presses == actions, each expected state',len(back_landings)==actions and all(back_landings),f"Back presses {len(back_landings)}, actions {actions}, landings {back_landings}")
+        chk(dev,prefix+': pushState calls == actions',states[-1]['pushes']-states[0]['pushes']==actions,f"pushState +{states[-1]['pushes']-states[0]['pushes']}, actions {actions}")
 
         if eng=='chromium':chk(dev,'(b) every pushState had a user gesture (no skippable entries)',pg.evaluate('window.__noAct')==[])
     else:
