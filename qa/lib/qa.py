@@ -129,6 +129,8 @@ def wait_for_book_chapter(page, section_id):
     another full navigation then can race that switch, especially in WebKit.
     """
     page.wait_for_function(f"""id => {{
+      if (!document.querySelector('[data-continuous-book]'))  // chapter by chapter
+        return location.pathname.replace(/[/]$/, '').endsWith('/' + id) && !!document.querySelector('.app-main article');
       const root = {READING_ROOT_JS};
       return root?.dataset.bookSection === id && root.hasAttribute('data-reader-current');
     }}""", arg=section_id)
