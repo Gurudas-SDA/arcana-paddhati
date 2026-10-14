@@ -1,24 +1,17 @@
-"""A65 (КСВ-dublieris 07.10.2026): «Содержание» — the page opened by the 2nd tap took 0–7 s (sometimes 19 s)
-with no sign of loading; a repeated tap could break it; 1 time of 3 the contents closed ~100 ms before the URL
-changed, so the OLD page flashed before the new one.
-Acceptance (Satkirti's words):
-  1) коснулся пункта в содержании — СРАЗУ (≤100 ms) видно, что страница загружается:
-     a progress bar at the top ([data-nav-progress]) and the tapped row marked «загружается…» ([data-toc-loading]);
-  2) повторное касание во время загрузки ничего не ломает: one navigation only (one history entry, one
-     pushState), the loading signs stay, the right page opens, «Назад» returns to the contents;
-  3) старая страница не мигает перед новой: at no moment (DOM mutation or animation frame) is the contents
-     closed while the old page (URL or heading) is still shown.
-The page data (RSC .txt) is slowed in the page (fetch wrapper, 5 s, also the prefetch started when the contents open) so that the loading is long enough to see
-on a fast test machine — like Satkirti's phone on a slow network.
-A65 fix (Codex review 10.10): C — a repeated tap AFTER the 8 s safety time on the same row never starts a second
-navigation; C2 — another row (two taps) after 8 s replaces the load: history +1, the last choice wins; D — the page
-data fails: no endless «busy»; E — the row of the page already shown: no loading signs; F — «Назад» while loading
-cancels the load (it never lands later); G — a11y: «загружается» in a live region outside aria-busy.
-A65 fix 2 (Codex review 10.10, 2nd): D2 — the page data AND the full page load (Next.js's fallback) both fail
-(.txt and the document request aborted): after AppShell's NAV_FAIL_MS (25 s) the loading state is cleared (no
-bar, no «загружается», nothing aria-busy) and the row says «не удалось загрузить — коснитесь ещё раз»; F waits for
-the state (no fixed 400 ms); F2 — fast «Назад»→«Вперёд» while loading; F3 — «Вперёд» while loading.
-Timings are measured in the page (performance.now from the click event); the delay must really intercept requests.
+"""A65 (КСВ-dublieris 07.10.2026): «Содержание» — a tap on a row must answer at once, a repeated tap must not
+break anything, and the old page must never flash before the new one.
+
+Since the continuous book (V1) every chapter is already in the page, so a Contents tap loads nothing: the
+states «загружается», «не удалось загрузить» and «Назад» while loading cannot occur. Rule KSV-A65 item 1 now
+reads «opens the place within 100 ms; if the chapter is not loaded yet, the loading sign shows at once».
+Checked here:
+  setup — the slowed page-data fetch intercepts NOTHING (the premise of this file; if chapters are ever loaded
+          over the network again, e.g. lazy chapters in V1.1, this check turns red and the loading scenarios
+          B, C, C2, D, D2, F, F2, F3 must come back — their last full version is in 4a972ab);
+  1) the tapped place opens within the unchanged 100 ms budget;
+  2) one navigation only (one history entry, one pushState), «Назад» returns to the contents;
+  3) the contents close only together with the new page; the old page never flashes;
+  E — the row of the page already shown: no navigation, no loading signs; G — nothing stays aria-busy.
 usage: python s30_a65_toc_loading.py <base-url>   devices: QA_DEVICES"""
 import os
 import sys
@@ -99,40 +92,6 @@ def chk(dev, name, ok, info=""):
 
 
 
-# These original IDs require a pending fetch, absent in either continuous mode.
-PENDING_FETCH_CHECKS = ['1 at once (≤100 ms) after the 2nd tap: loading bar at the top',
- '1 at once (≤100 ms) after the 2nd tap: the tapped row says «загружается…»',
- 'setup: the network delay really intercepted the page data (counter > 0)',
- 'G a11y: «загружается» in a live region (role=status) outside aria-busy, ≤100 ms, present before '
- 'the tap',
- '2 repeated taps while loading: loading signs stay (navigation not restarted / not broken)',
- 'B 9.5 s into a 12 s load: still the contents with the loading signs (not the old page)',
- 'B 3 slow load: the old page never flashed; contents closed together with the new page',
- 'C repeated tap after 8 s: the loading signs stay (nothing restarted, menu not unlocked)',
- 'C repeated tap after 8 s: no second navigation (no new page-data request, page came with the 1st '
- 'load)',
- 'C repeated tap after 8 s: history +1 only, final URL = the tapped (last) target',
- 'C 3 the old page never flashed',
- 'F «Назад» while loading: loading signs cleared at once, the step before (contents) shown',
- 'F «Назад» while loading: the cancelled page never opens later (URL, history unchanged)',
- 'F 3 no flash of the old page after «Назад» (contents stay)',
- 'F2 fast «Назад»→«Вперёд» while loading: contents (the highlighted step), no loading signs, '
- 'nothing busy',
- 'F2 the cancelled page never opens later (URL, history unchanged)',
- 'C2 setup: a second contents row linking to another page',
- 'C2 another row after 8 s: history +1 only, the LAST choice opened and stays (the replaced load '
- 'never lands)',
- 'C2 3 the old page never flashed',
- 'C2 «Назад» from it: the contents on the page before',
- 'D page data failed: the loading state is cleared (page opened another way, or menu not busy)',
- 'D2 setup: page data and document aborted — the loading signs are shown first',
- 'D2 page data + page load failed: after 25 s the loading state is cleared (no bar, no row sign, '
- 'nothing busy)',
- 'D2 the row says «не удалось загрузить — коснитесь ещё раз» (and the live region)',
- 'F3 «Вперёд» while loading: the forward page shown, contents closed, no loading signs, nothing '
- 'busy',
- 'F3 the pending load adds no history entry later and nothing reopens']
-
 def run(p, dev, eng, o, mode):
     from toc import Contents, history_roundtrip, marks_place
     browser=getattr(p,eng).launch();context=browser.new_context(locale='ru-RU',service_workers='block',**o)
@@ -168,8 +127,6 @@ def run(p, dev, eng, o, mode):
         if not mode.one:flow.tap(current)
         previous=flow.state();flow.tap(current,wait=300);same=flow.state()
         chk(dev,'E same page: no loading bar / «загружается», no navigation, nothing busy',same['url']==target and same['pushes']==previous['pushes'] and not page.locator('[data-nav-progress],[aria-busy="true"]').count(),str(same))
-        for name in PENDING_FETCH_CHECKS:
-            print(f'  [SKIP] {dev} {name} [toc={mode.name}] — continuous target is already in the DOM; no pending chapter fetch to delay, fail or cancel.',flush=True)
         history_roundtrip(browser,o,mode,lambda n,ok,i='':chk(dev,n,ok,i),BASE)
         chk(dev,'no page errors',not errors,str(errors[:3]))
     finally:context.close();browser.close()
