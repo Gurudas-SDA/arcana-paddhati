@@ -126,8 +126,9 @@ def run(p, dev, eng, o, mode):
             chk(dev,f'(b) back{i+1} -> preceding real action, same path and open rows',all(got[k]==want[k] for k in ['url','menu','open']) and marks_place(got) and pg.url!=COVER,str([got,want]))
         chk(dev,'(b) back6 -> original page and scroll restored',pg.url==P and not menu() and abs(top()-y0)<40)
         chk(dev,'(b) never on cover',pg.url!=COVER)
-        for id in ['(b) extra predecessor before the subsection jump','(b) extra predecessor between chapter opening and group action','(b) extra predecessor between group toggle and Contents opening','(b) extra predecessor before Contents as opened']:
-            print(f'  [SKIP] {dev} {id} [toc=default] — Contents records opening, toggling and jumping actions; the mark follows the reading place, and each real predecessor is asserted above.',flush=True)
+        # Rule 10.2: only real actions make a step. One entry per action, so the
+        # highlight adds no step of its own (before 13.10 it did).
+        chk(dev,'(b) one history entry per real action, no step for the highlight',states[-1]['history']-states[0]['history']==len(states)-1,f"history +{states[-1]['history']-states[0]['history']}, actions {len(states)-1}")
 
         if eng=='chromium':chk(dev,'(b) every pushState had a user gesture (no skippable entries)',pg.evaluate('window.__noAct')==[])
     else:
