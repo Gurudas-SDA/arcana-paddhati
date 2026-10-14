@@ -5,6 +5,7 @@ import { BASE_PATH } from "@/lib/basePath";
 import { availableLanguages, getLocales, getUi } from "@/lib/content";
 import { LANG_REDIRECT_SCRIPT, t } from "@/lib/i18n";
 import { READER_PREFS_SCRIPT } from "@/lib/readerPrefsKeys";
+import { EARLY_TAP_SCRIPT } from "@/lib/earlyTap";
 import "./globals.css";
 
 const notoSerif = Noto_Serif({
@@ -58,6 +59,7 @@ export default function RootLayout({
         {/* Reader text size / background (lib/readerPrefs.ts) before first
             paint: a reload at night never flashes white. */}
         <script dangerouslySetInnerHTML={{ __html: READER_PREFS_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: EARLY_TAP_SCRIPT }} />
       </head>
       <body className="h-full antialiased" translate="no">
         <AppShell locales={getLocales()} available={availableLanguages()}>

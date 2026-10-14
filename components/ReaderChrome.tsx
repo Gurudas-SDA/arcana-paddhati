@@ -40,11 +40,14 @@
  * selectable (no word to look up).
  */
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { takeEarlyTap } from "@/lib/earlyTap";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { type TocPart, type TocSection } from "@/lib/book";
 import { parsePath, t, type UiDict } from "@/lib/i18n";
 import { stripBasePath } from "@/lib/basePath";
 import { main as mainEl, pushOverlay } from "@/lib/navHistory";
+import { readingSection } from "@/lib/readingFlow";
+import { useReadingSubsection } from "@/lib/readingPosition";
 import { searchMarkOn } from "@/lib/searchMark";
 import {
   setShowAllTranslations,
@@ -110,7 +113,7 @@ function selText(): string {
 
 /** Something on a numbered picture / list is highlighted. */
 function highlightOn(): boolean {
-  return !!document.querySelector(".hs-row[data-active], .hs-img-faded") || searchMarkOn();
+  return !!readingSection()?.querySelector(".hs-row[data-active], .hs-img-faded") || searchMarkOn();
 }
 
 /** A window of its own is open (contents/search drawer, «Настроение Гурудева»). */
@@ -282,19 +285,22 @@ export default function ReaderChrome({
   }, [pathKey, shown, panel, menuOpen]);
   const section = sections.find((s) => s.id === sectionId);
   const part = parts.find((p) => p.id === sectionId);
+  const currentPart = part ?? parts.find((p) => p.sections.includes(sectionId ?? ""));
+  const [subId] = useReadingSubsection(pathKey, section?.subsections.map((sub) => sub.id).join("|") ?? "");
+  const subNumber = section?.subsections.find((sub) => sub.id === subId)?.num;
   // «82 %» never breaks (Reader v7.1: on Android the «%» wrapped to a second line).
   const pctText = `${Math.round(pct)} %`;
   // Chapters with numbers (the Introduction group has none — Satkirti 06.10.2026):
-  // there the status line names the chapter itself.
-  const numbered = sections.filter((s) => s.num).length;
+  // there the status line names the chapter itself, with the subsection's
+  // number after it («Эмблема Гаудия-матха 2»), so it never reads as a
+  // chapter before Chapter 1. In a numbered chapter the number stays whole:
+  // «Глава 10.4», never «Глава 10 · 10.4».
   const chapterShort = section?.num
-    ? t(ui, "reader.chapter", { n: section.num })
+    ? t(ui, "reader.chapter", { n: subNumber ?? section.num })
     : part
       ? t(ui, "part.label", { n: part.numeral })
-      : (section?.title ?? "");
-  const chapterLong = section?.num
-    ? t(ui, "reader.chapterOf", { n: section.num, total: String(numbered) })
-    : chapterShort;
+      : [section?.title, subNumber].filter(Boolean).join(" ");
+  const partTitle = section?.num ? currentPart?.title : undefined;
 
   // ---- progress + scroll behaviour --------------------------------------------
   useEffect(() => {
@@ -326,7 +332,8 @@ export default function ReaderChrome({
     // The room after a chapter's end (.chapter-end-space) is not reading:
     // the chapter ends (100 %, the bars come up) where its text ends.
     const maxScroll = () => {
-      const sp = m.querySelector<HTMLElement>(".chapter-end-space");
+      const spaces = m.querySelectorAll<HTMLElement>(".chapter-end-space");
+      const sp = spaces[spaces.length - 1];
       return Math.max(0, m.scrollHeight - m.clientHeight - (sp ? sp.offsetHeight : 0));
     };
     const measure = () => {
@@ -472,6 +479,20 @@ export default function ReaderChrome({
     m.addEventListener("pointerdown", onDown, true);
     m.addEventListener("pointercancel", onCancel, true);
     m.addEventListener("pointerup", onUp);
+    // §7: a tap made before this handler existed (slow first hydration) still
+    // counts, once, under the same conditions as onUp (lib/earlyTap.ts).
+    const early = takeEarlyTap();
+    if (
+      early &&
+      performance.now() - early.at < 4000 &&
+      early.t instanceof Node && m.contains(early.t) &&
+      !blocked(early.t) && !blocked(early.u) &&
+      !selText() && !highlightOn() && !overlayOpen() &&
+      !panelRef.current && !shownRef.current
+    ) {
+      setHint(false);
+      show();
+    }
     return () => {
       m.removeEventListener("pointerdown", onDown, true);
       m.removeEventListener("pointercancel", onCancel, true);
@@ -789,13 +810,10 @@ export default function ReaderChrome({
             <span>{t(ui, "reader.back")}</span>
           </button>
           <p className="reader-progress-label">
-            {isHome ? "" : chapterLong ? (
+            {isHome ? "" : chapterShort ? (
               <>
-                <span className="rp-long">{`${chapterLong} · ${pctText}`}</span>
-                {/* Narrow phones: «5/13 · 82 %» (one line, never cut) */}
-                <span className="rp-short">
-                  {section?.num ? `${section.num}/${numbered} · ${pctText}` : pctText}
-                </span>
+                {partTitle && <span className="reader-location-group">{`${partTitle}: `}</span>}
+                <span>{`${chapterShort} · ${pctText}`}</span>
               </>
             ) : (
               pctText
@@ -817,7 +835,8 @@ export default function ReaderChrome({
       {/* Faint status line while reading */}
       {!isHome && (
         <p className="reader-status" aria-hidden="true">
-          {chapterShort ? `${chapterShort} · ${pctText}` : pctText}
+          {partTitle && <span className="reader-location-group">{`${partTitle}: `}</span>}
+          <span>{chapterShort ? `${chapterShort} · ${pctText}` : pctText}</span>
         </p>
       )}
 
