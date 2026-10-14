@@ -16,7 +16,7 @@ I every verse of the book (ru-iast, ru) has a «пословно» chip in the U
 import os as _os, sys as _sys
 _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "lib"))
 import qa
-VERSES = 271  # 180 + 61 verses of the maṅgala-/gaura-ārati songs (Reader v7.4, Satkirti 07.10 13:07) + 30 Kārtika bhajans (v7.6)
+VERSES = 283  # 180 + 61 verses of the maṅgala-/gaura-ārati songs (Reader v7.4, Satkirti 07.10 13:07) + 30 Kārtika bhajans (v7.6) + 12 of «Порядок проведения мангала-арати» (A83, 14.10)
 import io, json, os, sys, urllib.request
 from urllib.parse import urlparse
 from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout, Error as PWError

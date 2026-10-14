@@ -25,15 +25,17 @@ CASES = [
     # v7.1 (Satkirti 06.10): Мангалачарана before Введение, outside the group
     ("mangalacarana", "introduction", "Введение"),
     ("vigraha-tattva", "daily-duties-brahma-muhurta", "1. "),
-    ("offering-bhoga", "mantras-honouring-caranamrita", "7. "),
+    ("offering-bhoga", "mantras-honouring-caranamrita", "8. "),
     ("main-worship-sixteen-items", "home-worship", "Часть II. "),
-    ("guru-puja-vyasa-puja", "major-festivals", "13. "),
+    ("guru-puja-vyasa-puja", "major-festivals", "14. "),
     # v7.4 (appended last: the loop index decides which history checks run)
     # (Satkirti 07.10): parampara → Мангалачарана; Part IV ends with the ārati songs
     ("parampara", "mangalacarana", "Мангалачарана"),
-    ("major-festivals", "mangala-arati-songs", "14. "),
+    ("major-festivals", "mangala-arati-songs", "15. "),
     # v7.6 (07.10): «Бхаджаны для Картики» right after «Песни гаура-арати» — now the last chapter
-    ("gaura-arati-songs", "kartika-bhajans", "16. "),
+    ("gaura-arati-songs", "kartika-bhajans", "17. "),
+    # A83 (Satkirti 14.10): «Порядок проведения мангала-арати» = ch. 3, right after the daily schedule (+1 to all later numbers)
+    ("daily-deity-schedule", "mangala-arati-procedure", "3. "),
 ]
 LAST = "kartika-bhajans"
 res = []
