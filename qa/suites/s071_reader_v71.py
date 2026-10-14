@@ -113,10 +113,14 @@ def run(p,dev,eng,kw,mode):
     nxt = qa.reading_eval(pg, "root=>{const a=root.querySelector('.chapter-next');return a?a.innerText.replace(/\\s+/g,' '):''}")
     ck(dev, '3 «След. глава ›» after Мангалачарана = Введение', 'ВВЕДЕНИЕ' in nxt.upper(), nxt)
     # 8: verse panels closed by default; no carry-over
-    ck(dev, '8 all verse panels closed on open', qa.reading_eval(pg, OPEN_PANELS) == 0)
-    tap(pg, qa.reading_locator(pg, '.verse-chip').nth(1))
+    # Centering the first chip can move the reading line into Parampara on a
+    # tall viewport. Keep the action and its assertion in the chapter opened
+    # above, rather than re-resolving [data-reader-current] after scrolling.
+    verse_root = pg.locator('.app-main [data-book-section="mangalacarana"], .app-main:not(:has([data-continuous-book]))')
+    ck(dev, '8 all verse panels closed on open', verse_root.locator('.verse-panel:not([hidden])').count() == 0)
+    tap(pg, verse_root.locator('.verse-chip').nth(1))
     pg.wait_for_timeout(400)
-    ck(dev, '8 chip opens its own panel', qa.reading_eval(pg, OPEN_PANELS) == 1)
+    ck(dev, '8 chip opens its own panel', verse_root.locator('.verse-panel:not([hidden])').count() == 1)
     # 6a
     pg.goto(L + 'caturmasya-purusottama-masa/', wait_until='networkidle')
     pg.wait_for_timeout(600)
