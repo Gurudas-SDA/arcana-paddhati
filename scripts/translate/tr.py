@@ -201,11 +201,11 @@ TERM_RULES = {
     "ru": ("Sanskrit terms and names inside Russian prose: write them in the simplified Russian form WITHOUT diacritics, "
            "exactly as in Russian Gaudiya Vaishnava literature and vedabase.io/ru (Кришна, Чайтанья, вайшнав, тилака, "
            "ачаман, Шри Гуру, прасад, Вриндаван). Decline them according to Russian grammar."),
-    "uk": ("Sanskrit terms and names inside Ukrainian prose: write them in the Ukrainian DIACRITIC Cyrillic transliteration "
-           "used by vedabase.io/uk (e.g. Кр̣шн̣а, Арджуна, бра̄хман̣а, Бгаґавад-ґı̄та̄, праса̄да, Вр̣нда̄вана, Ш́рı̄ Ґуру). Scheme: "
-           "a а, ā а̄, i і, ī ı̄ (dotless ı + macron), u у, ū ӯ, ṛ р̣, e е, o о, ai аі, au ау, ṁ м̇, ḥ х̣, k к, kh кх, g ґ, gh ґг, "
-           "ṅ н̇, c ч, ch чх, j дж, jh джх, ñ н̃, ṭ т̣, ḍ д̣, ṇ н̣, t т, th тх, d д, dh дг, n н, p п, ph пх, b б, bh бг, m м, "
-           "y й, r р, l л, v в, ś ш́, ṣ ш, s с, h х. Inflect them with Ukrainian case endings (Кр̣шн̣и, Кр̣шн̣і). "
+    "uk": ("A80 (Satkirti 12.10.2026): Sanskrit terms and names inside Ukrainian prose are written like krishna.ua - "
+           "WITHOUT diacritics, full letters (Крішна, Шрі Ґуру, Шріла Прабгупада, вайшнав, Чайтанья, Нітьянанда, "
+           "Вріндавана, Ачар’я, Прагьяна). Scheme: ā→а, ī→і, ū→у, ṛ→рі, ai→ай, ś/ṣ→ш, ṁ/ṅ/ñ/ṇ→м/н, ḥ→х, g→ґ, gh→ґг, "
+           "kh→кх, th/ṭh→тх, dh→дг, bh→бг, jñ→гья, y+vowel→я/ю/є (ья after a consonant, ’я after б/п/в/м/ф/р). "
+           "Inflect them with Ukrainian case endings (Крішни, Крішні). "
            "English words (Deity, devotee, spiritual master...) are translated into Ukrainian per the glossary."),
     "lv": ("Sanskrit terms and names inside Latvian prose: latvianize them according to Latvian phonetics and grammar, "
            "with Latvian case endings (Krišna, vaišnavs, tilaka, āčamana, Višnu, Šrī Guru, Čaitanja, prasāds, Vrindāvana). "
