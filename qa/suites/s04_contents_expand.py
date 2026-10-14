@@ -81,8 +81,9 @@ def run(p, dev, eng, o, mode):
         flow.nav('back',native=True);back_presses+=1;fourth=flow.state()
         chk(dev,'(a) back4 -> Contents as opened (chapter 1 collapsed, not lit)',fourth['menu'] and CH5 not in fourth['open'] and fourth['lit']==initial['lit'] and pg.url==P,str(fourth))
     else:
-        for id in ['(a) extra predecessor between chapter opening and Contents','(a) extra predecessor before Contents as opened']:
-            print(f'  [SKIP] {dev} {id} [toc=default] — Contents records opening, toggling and jumping actions; the mark follows the reading place, and the three Back actions assert the complete path.',flush=True)
+        # Rule 10.2: only real actions make a step. Two actions after Contents opened
+        # (open chapter 5, jump to 5.3) = exactly two entries; the highlight adds none.
+        chk(dev,'(a) one history entry per real action, no step for the highlight',first['history']-initial['history']==2,f"history +{first['history']-initial['history']}, actions 2")
     flow.nav('back',native=True);back_presses+=1
     chk(dev,'(a) back5 -> Contents closed, original page + scroll',not flow.state()['menu'] and pg.url==P and abs(pg.locator('.app-main').evaluate('e=>e.scrollTop')-y0)<40)
     chk(dev,'(a) Back presses to the original chapter match the model',back_presses==(3 if mode.one else 5) and pg.url==P)
