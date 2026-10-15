@@ -91,7 +91,7 @@ def opened_chapters(browser, device, options):
 
 
 def mark_follows_reading(browser, device, options):
-    for arrival, target, number in [("11-gandha", "14-dipa", "4.14"), ("2-svagata", "6-madhuparka", "4.6")]:
+    for arrival, target, number in [("11-gandha", "14-dipa", "5.14"), ("2-svagata", "6-madhuparka", "5.6")]:
         context, page, flow = fresh(browser, options, arrival)
         try:
             read_to(page, target)
@@ -183,8 +183,8 @@ def reload_keeps_place(browser, device, options):
         footer = page.locator(".reader-status > span:not(.reader-location-group)").inner_text().split(" · ", 1)[0]
         state = flow.state()
         displacement = max(abs(restored - before), abs(after_open - before))
-        check(device, "s37_reload_keeps_place: reading 4.6",
-              before_footer == "Глава 4.6" and displacement <= 8 and footer == "Глава 4.6"
+        check(device, "s37_reload_keeps_place: reading 5.6",
+              before_footer == "Глава 5.6" and displacement <= 8 and footer == "Глава 5.6"
               and state["lit"] == [f"sub:{CHAPTER}#6-madhuparka"],
               {"before": before, "restored": restored, "afterContentsOpened": after_open,
                "maxDisplacement": displacement, "beforeFooter": before_footer, "footer": footer,

@@ -50,7 +50,7 @@ def run(browser, device, options, theme):
             ("daily-duties-brahma-muhurta", "morning-prayers", "1.1"),
             ("daily-duties-brahma-muhurta", "taking-bath", "1.2"),
             ("daily-deity-schedule", None, "2"),
-            ("worship-sixteen-articles", "asana-sthapana", "3.2"),
+            ("worship-sixteen-articles", "asana-sthapana", "4.2"),
             ("vigraha-tattva", None, None),
             ("vigraha-tattva", "vigraha-not-idol", None),
             ("vigraha-tattva", "vigraha-sac-cid-ananda", None),
@@ -96,7 +96,7 @@ def run(browser, device, options, theme):
         def aligned():
             return page.locator(f"[id='{ANCHOR}']").evaluate("e => Math.abs(e.getBoundingClientRect().top - document.querySelector('.app-main').getBoundingClientRect().top - (parseFloat(getComputedStyle(e).scrollMarginTop)||0)) < 4")
         assert aligned(), "deep-link heading alignment"
-        assert "Храмовый стандарт: Глава 4.2" in page.locator(".reader-status").inner_text()
+        assert "Храмовый стандарт: Глава 5.2" in page.locator(".reader-status").inner_text()
         length = page.evaluate("history.length")
         page.reload(wait_until="networkidle")
         page.wait_for_selector("[data-continuous-book]")

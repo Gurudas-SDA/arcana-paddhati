@@ -422,6 +422,11 @@ body {
   }
   .hs-row:has(> .hs-cell-first) > .hs-cell + .hs-cell {
     grid-column: 2 / -1;
+    /* A gap of at least 8px between the place and its mantra that is still
+       the place cell's box, so a tap on the gap marks this row (Satkirti
+       KSV 07.10, UI-11.6; s26 item 6). Padding, not margin: a margin is not
+       a tap target. */
+    padding-bottom: 6px;
   }
   .hs-row:has(> .hs-cell-first) > .hs-cell + span:not(.hs-cell) {
     grid-column: 2 / -1;
