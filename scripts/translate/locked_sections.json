@@ -34,5 +34,12 @@
       "ru-iast"
     ],
     "source": "scripts/chapters/ch00b_vigraha_tattva/build.py"
+  },
+  "mangala-arati-procedure": {
+    "langs": [
+      "ru",
+      "ru-iast"
+    ],
+    "source": "scripts/chapters/ch02b_mangala_arati/build.py"
   }
 }
