@@ -23,6 +23,7 @@ import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
 import { BASE_PATH } from "@/lib/basePath";
 import {
   entryView,
+  guardRouterPushes,
   isMenuEntry,
   main as mainEl,
   menuDepth,
@@ -711,6 +712,8 @@ export default function Sidebar({
         saveNavScroll();
         chapterArrival.current = { sectionId, rowId, parts: open, query: searchQuery };
         setPartsState(open);
+        // A refused push (WebKit's quota) must not become a page error.
+        guardRouterPushes();
         router.push(sectionHref(sectionId), { scroll: false });
       }
       setOpenedRow({ id: rowId, at: Date.now() });

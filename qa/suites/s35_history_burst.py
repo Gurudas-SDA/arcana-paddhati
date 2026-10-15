@@ -16,8 +16,9 @@ Per device and Contents mode (default one-tap, ?toc=two):
      the whole row is the target) -, Back x17 and Forward x17 restore every
      URL, highlight and open list; every entry has its own apId, never reused
      after Back and a new step; scroll and view live in one record per entry.
-  B  40 actions and a burst of 20 Back presses inside one 10 s window (one
-     tap per 200 ms): at most 85 history writes in all, the same limits as A,
+  B  40 actions (one tap per 200 ms at most) and straight on a burst of 20 Back
+     presses: at most 85 history writes in the densest 10 s window, no WebKit
+     quota error, the same limits as A,
      the Back burst reaches the step 20 actions back and adds no app write,
      20 Forward presses come back, then one more row action still works.
   C  The entry records never break the book: storage blocked (memory only),
@@ -26,6 +27,10 @@ Per device and Contents mode (default one-tap, ?toc=two):
   D  WebKit's quota error forced: a refused push still lets the row act and
      adds no step; a refused replace is retried for the same entry once the
      window allows - no second entry, Back retraces one step, not two.
+
+B no longer asks all of it to fit in one 10 s window: chapter by chapter
+(Vraja PR 2, 15.10) the 40 actions open 20 chapter pages and physically take
+longer than 10 s, so the WebKit limit is measured in the densest 10 s window.
 
 Pacing: Playwright's own taps on WebKit take ~0.75 s each (actionability
 waits), which spreads a burst out and hides the quota defect. The suite drives
@@ -68,7 +73,10 @@ COUNTER = r"""(() => {
   try { Error.stackTraceLimit = 80; } catch (e) {}
   const APP = __APP__, P = History.prototype;
   const log = window.__qaWrites = [], errors = window.__qaQuota = [];
-  const app = () => { const s = new Error().stack || ''; return APP.some(f => s.includes(f)); };
+  // The app's router-push guard (lib/navHistory: guardRouterPushes) only
+  // forwards Next.js's own pushes: its frame is not the writer, so it is left out.
+  const app = () => { const s = (new Error().stack || '').split('\n').filter(l => !l.includes('apRouterPushGuard')).join('\n');
+    return APP.some(f => s.includes(f)); };
   for (const [name, kind] of [['pushState', 'push'], ['replaceState', 'replace']]) {
     const native = P[name];
     P[name] = function (data, unused, url) {
@@ -384,8 +392,8 @@ def case_b(browser, dev, options, mode):
         w_all = count(log)
         info(dev, f"{tag}: {span:.1f} s from the first tap to the last Back; {total} writes "
                   f"(app {w_all['app']}, Next.js {w_all['next']}); peak in any 10 s window {peak}")
-        chk(dev, f"{tag}: setup - all of it inside one {WINDOW_SECONDS:.0f} s window", broke or span <= WINDOW_SECONDS, f"{span:.1f} s")
-        chk(dev, f"{tag}: at most {WINDOW_WRITES} history writes in the window", total <= WINDOW_WRITES, f"{total} writes")
+        chk(dev, f"{tag}: at most {WINDOW_WRITES} history writes in the densest {WINDOW_SECONDS:.0f} s window",
+            bool(times) and peak <= WINDOW_WRITES, f"peak {peak} writes ({total} in {span:.1f} s)")
         burst_checks(dev, pg, errors, tag, steps, states, seconds, since, broke, until)
         w = writes(pg, until)
         info(dev, f"Back burst x{BACK_BURST}: app {w['app']}, Next.js {w['next']}")
@@ -511,8 +519,9 @@ def case_d(browser, dev, options, mode):
         s0 = flow.state()
         # A refused push: the row still acts, no step is added, nothing throws out.
         pg.evaluate("window.__qaFault = {push: true}")
+        here = pg.evaluate("location.pathname + location.hash")
         press(pg, flow, c1)
-        pg.wait_for_timeout(400)
+        arrive(pg, "open" if mode.one else "highlight", here)   # the chapter's page opens (or 6 s)
         refused = flow.state()
         pg.evaluate("window.__qaFault = null")
         lit_ok = refused["lit"] == ["sec:" + c1] and (c1 in refused["open"] if mode.one else True)
