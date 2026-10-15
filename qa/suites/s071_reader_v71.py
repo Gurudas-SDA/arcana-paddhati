@@ -261,6 +261,10 @@ def run(p,dev,eng,kw,mode):
         if any(got[k]!=want[k] for k in ['url','menu','open']) or not marks_place(got):bad.append((got,want))
     ck(dev,'17 Forward mirrors every URL and open list, marking the reading place',not bad and forward_count==(4 if mode.one else 7),bad[:2])
     history_roundtrip(b,kw,mode,lambda n,ok,i='':ck(dev,n,ok,i),BASE)
+    # WebKit reports a link prefetch cut off by the test's own goto() as «… due to access control checks»
+    # (same-origin page URL; the test's doing, not the reader's — as in s07/s22, A65 gate 10.10)
+    host = BASE.split('//', 1)[-1].split('/', 1)[0]
+    errs = [e for e in errs if not (e.rstrip().endswith('due to access control checks.') and host in e)]
     ck(dev, 'no page errors', not errs, errs[:2])
     b.close()
 
