@@ -8,7 +8,8 @@ Checked here:
   setup — the slowed page-data fetch intercepts NOTHING (the premise of this file; if chapters are ever loaded
           over the network again, e.g. lazy chapters in V1.1, this check turns red and the loading scenarios
           B, C, C2, D, D2, F, F2, F3 must come back — their last full version is in 4a972ab);
-  1) the tapped place opens within the unchanged 100 ms budget;
+  1) within 100 ms of the tap the loading sign or the new page shows (the rule's second half); how long the
+     page took is only recorded: chapter by chapter (Vraja PR 2, 15.10) the next chapter is another page;
   2) one navigation only (one history entry, one pushState), «Назад» returns to the contents;
   3) the contents close only together with the new page; the old page never flashes;
   E — the row of the page already shown: no navigation, no loading signs; G — nothing stays aria-busy.
@@ -108,7 +109,11 @@ def run(p, dev, eng, o, mode):
         page.evaluate(f'window.__a65delay={DELAY_MS}')
         page.evaluate(RECORDER);row.scroll_into_view_if_needed();flow.tap(row,wait=200);record=page.evaluate('window.__a65');now=flow.state()
         if mode.one:chk(dev,f'setup: 1st tap on {rid} navigates immediately',not now['menu'] and now['url']==target)
-        chk(dev,'1 navigation completes within the unchanged 100 ms budget',record['closedAt'] is not None and record['closedAt']-record['click']<=100,str(record['closedAt']))
+        ms=lambda k:None if record[k] is None or record['click'] is None else round(record[k]-record['click'])
+        print(f"  [INFO] {dev} 1 timings after the tap (ms): page opened {ms('closedAt')}, loading bar {ms('ind')}, row «загружается» {ms('rowInd')}, live region {ms('live')} [toc={qa.TOC_MODE_NAME}]",flush=True)
+        first=[v for v in (ms('closedAt'),ms('ind'),ms('rowInd')) if v is not None]
+        chk(dev,'1 within 100 ms of the tap the loading sign (bar or row «загружается») or the new page shows',bool(first) and min(first)<=100,
+            f"page opened {ms('closedAt')} ms, loading bar {ms('ind')} ms, row sign {ms('rowInd')} ms")
         chk(dev,'setup: continuous target is already present, no chapter fetch intercepted',page.evaluate('window.__a65slowed || 0')==0)
         chk(dev,'2 the tapped page opened, contents closed, loading bar gone',now['url']==target and not now['menu'] and not page.locator('[data-nav-progress]').count())
         chk(dev,'G a11y: nothing stays aria-busy after the page opened',page.locator('[aria-busy="true"]').count()==0)

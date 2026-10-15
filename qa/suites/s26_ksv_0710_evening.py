@@ -72,6 +72,22 @@ def run(p, dev, eng, o):
         (pg.touchscreen.tap if touch else pg.mouse.click)(x, y)
         pg.wait_for_timeout(ms)
 
+    SETTLED = """() => [location.pathname + location.hash, window.__qaFetching || 0, !!document.querySelector('.mobile-menu nav'),
+      JSON.stringify([...document.querySelectorAll('.mobile-menu nav [data-toc-lit], .mobile-menu nav [aria-expanded=true]')]
+        .map(e => e.dataset.tocRow || e.dataset.tocGroup || e.dataset.tocChapter)), history.length]"""
+
+    def settled(before_url, moves, limit=6000):
+        """Only waits (the checks judge what the tap did): until the URL is no longer before_url when the
+        tap opens another page, then until no fetch is in flight and the state stays the same over 150 ms."""
+        last, waited = None, 0
+        while waited < limit:
+            now = pg.evaluate(SETTLED)
+            ok = (not moves or now[0] != before_url) and not now[1]
+            if ok and now == last:
+                return
+            last = now if ok else None
+            pg.wait_for_timeout(150); waited += 150
+
     def tap(sel_or_loc, ms=350):
         loc = pg.locator(sel_or_loc).first if isinstance(sel_or_loc, str) else sel_or_loc
         loc.scroll_into_view_if_needed()
@@ -220,6 +236,14 @@ def run(p, dev, eng, o):
                 continue
             before = flow.state()
             tapxy(q["x"], q["y"], 300)
+            # Wait for the tap's action to finish - a STATE, not 300 ms (as s35, 15.10): chapter by chapter
+            # (Vraja PR 2) a row may open another page, which WebKit under load shows later than 300 ms.
+            if q['exp'] is None:
+                goal = urlsplit(urljoin(pg.url, q['href']))
+                moves = unquote(goal.path) + ('#' + unquote(goal.fragment) if goal.fragment else '') != unquote(before['url'])
+            else:
+                moves = q['exp'] == 'false' and r.startswith('sec:') and not before['url'].endswith('/' + r[4:] + '/')
+            settled(before['url'], moves)
             after = flow.state()
             if q['exp'] is None:
                 want = urlsplit(urljoin(pg.url, q['href']))
