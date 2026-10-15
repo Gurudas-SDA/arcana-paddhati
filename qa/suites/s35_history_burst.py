@@ -239,23 +239,51 @@ def start(browser, options, mode, scripts=()):
     return context, pg, flow, errors, chapters
 
 
+SETTLED = """() => [location.pathname + location.hash, window.__qaFetching || 0,
+  JSON.stringify([...document.querySelectorAll('.mobile-menu nav [data-toc-lit], .mobile-menu nav [aria-expanded=true]')]
+    .map(e => e.dataset.tocRow || e.dataset.tocGroup || e.dataset.tocChapter)), history.length]"""
+
+
+def arrive(pg, effect, before_url, limit=6.0):
+    """Wait for the tap's action to finish - a STATE, not a fixed time (as s07
+    c739a09 and toc.Contents.settle). Chapter by chapter (no continuous book)
+    an "open" tap opens another page: wait until the URL is no longer the one
+    before the tap; then (every effect) until no fetch is in flight and the
+    URL, highlight, open lists and history length stay the same over 150 ms.
+    It only waits: what the tap did is still judged by the same checks (did,
+    one entry per action) - a tap that did nothing just waits out the limit."""
+    end = time.monotonic() + limit
+    last = None
+    while time.monotonic() < end:
+        now = pg.evaluate(SETTLED)
+        moved = effect != "open" or now[0] != before_url
+        if moved and not now[1] and now == last:
+            return
+        last = now if moved and not now[1] else None
+        pg.wait_for_timeout(150 if last else 50)
+
+
 def burst(pg, flow, steps, pace, edges=None, settle=1200):
-    """Tap every planned row at the pace. Each state (and entry id) is read at
-    the end of its tap's slot, once settled. Returns (states, ids, seconds,
-    write offset, broke): broke = (action number, reason) when a row could no
-    longer be tapped."""
+    """Tap every planned row at the pace (never faster). After each tap the
+    state (and entry id) is read once its action has finished (arrive): chapter
+    by chapter an opened chapter is another page and WebKit needs longer than
+    one slot for it (a state read at the slot's end was one step behind).
+    Returns (states, ids, seconds, write offset, broke): broke = (action number,
+    reason) when a row could no longer be tapped."""
     since = pg.evaluate("window.__qaWrites.length")
     states, ids = [flow.state()], [entry_id(pg)]
     broke = None
     t0 = time.monotonic()
-    for i, (chapter, _) in enumerate(steps):
-        paced(t0, i, pace)
+    for i, (chapter, effect) in enumerate(steps):
+        before = pg.evaluate("location.pathname + location.hash")
         try:
             press(pg, flow, chapter, edge=bool(edges and edges[i]))
         except Exception as error:  # noqa: BLE001
             broke = (i + 1, f"{type(error).__name__}: {str(error).splitlines()[0]}")
             break
-        paced(t0 - 0.03, i + 1, pace)
+        slot = time.monotonic()
+        paced(slot - 0.03, 1, pace)
+        arrive(pg, effect, before)
         states.append(flow.state())
         ids.append(entry_id(pg))
     seconds = time.monotonic() - t0
