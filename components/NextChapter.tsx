@@ -15,8 +15,7 @@ export default function NextChapter({ lang, id, ui }: { lang: string; id: string
     ? `${t(ui, "part.label", { n: next.part })}. ${next.title}`
     : `${next.num ? `${next.num}. ` : ""}${next.title}`;
   return (
-    <nav className="chapter-next" aria-label={t(ui, "reader.next")}>
-      <NextChapterLink href={localeHref(lang, next.id)} id={next.id} className="chapter-next-link">
+      <NextChapterLink href={localeHref(lang, next.id)} id={next.id} fromId={id} label={t(ui, "reader.next")} className="chapter-next-link">
         <span className="chapter-next-label">
           {t(ui, "reader.next")}
           <span aria-hidden="true" className="chapter-next-arrow">
@@ -25,6 +24,5 @@ export default function NextChapter({ lang, id, ui }: { lang: string; id: string
         </span>
         <span className="chapter-next-title">{label}</span>
       </NextChapterLink>
-    </nav>
   );
 }

@@ -1,14 +1,22 @@
 import Image from "next/image";
-import { getUi } from "@/lib/content";
+import { getParts, getSection, getSectionIds, getSectionNumber, getUi, isFallbackSection } from "@/lib/content";
+import { tocLayout } from "@/lib/book";
+import ContinuousBook from "@/components/ContinuousBook";
+import SectionContent from "@/components/SectionContent";
+import PartPage from "@/components/PartPage";
+import GroupContents from "@/components/GroupContents";
+import NextChapter from "@/components/NextChapter";
 import { t } from "@/lib/i18n";
 import { BASE_PATH } from "@/lib/basePath";
 
-/** Home page for one language (used by / and /<lang>/): only the book cover.
+/** Continuous reading export for one language, starting with the book cover.
  *  Navigation (contents, language, install) is in the app shell. */
 export default function HomePage({ lang }: { lang: string }) {
   const ui = getUi(lang);
+  const parts = getParts(lang);
   return (
-    <div className="flex items-center justify-center min-h-full px-4 py-4 sm:px-6 lg:py-6">
+    <ContinuousBook lang={lang}>
+    <div data-book-section="" className="book-cover flex items-center justify-center min-h-full px-4 py-4 sm:px-6 lg:py-6">
       {/* The cover fills the content panel: as tall as the viewport allows
           (minus the mobile header, the install banner and small margins),
           width follows the aspect ratio and never exceeds the panel width.
@@ -22,5 +30,23 @@ export default function HomePage({ lang }: { lang: string }) {
         priority
       />
     </div>
+    {tocLayout(getSectionIds(), parts).map((item) => {
+      const part = item.kind === "part" ? parts.find((p) => p.id === item.id) : undefined;
+      const section = item.kind === "section" ? getSection(lang, item.id) : undefined;
+      return (
+        <div key={item.id} data-book-section={item.id} className="book-section">
+          {part ? <PartPage part={part} lang={lang} /> : section && (
+            <SectionContent
+              section={section}
+              ui={ui}
+              num={getSectionNumber(item.id)}
+              note={isFallbackSection(lang, item.id) ? t(ui, "section.fallback") : undefined}
+              after={<><GroupContents lang={lang} id={item.id} ui={ui} /><NextChapter lang={lang} id={item.id} ui={ui} /></>}
+            />
+          )}
+        </div>
+      );
+    })}
+    </ContinuousBook>
   );
 }

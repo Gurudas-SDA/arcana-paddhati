@@ -58,14 +58,14 @@ const RULE_CLASS = "border-t border-[#E8DCC8]";
 const LONG_CONTENT_BLOCKS = 8;
 
 /** Running text with ⟦…⟧ runs rendered as inline Sanskrit (see .sa-inline in globals.css). */
-function Inline({ text, link }: { text: string; link?: HsLink }) {
+function Inline({ text, link, mantra = false }: { text: string; link?: HsLink; mantra?: boolean }) {
   const data = link ? hotspotsFor(link) : undefined;
   return (
     <>
       {parseInline(text).map((run, i) => {
         if (!run.sanskrit) return <React.Fragment key={i}>{run.text}</React.Fragment>;
         const sa = (
-          <span key={i} lang={sanskritLang(run.text)} className="sa-inline">
+          <span key={i} lang={sanskritLang(run.text)} className={`sa-inline${mantra ? " mantra-text" : ""}`}>
             {run.text}
           </span>
         );
@@ -303,7 +303,7 @@ function ContentBlock({
         return out;
       };
       const sanskrit = item.sanskrit && (
-        <div lang={sanskritLang(item.sanskrit)} className={`sanskrit text-base leading-relaxed text-[#1a1a1a] ${isInlineMantra ? 'ml-8' : 'verse-text'} mb-2`}>
+        <div lang={sanskritLang(item.sanskrit)} className={`sanskrit text-base leading-relaxed text-[#1a1a1a] ${isInlineMantra ? 'mantra-block ml-8' : 'verse-text'} mb-2`}>
           {item.sanskrit.split('\n\n').map((stanza, si, sarr) => (
             <p key={si} className={si < sarr.length - 1 ? "mb-3" : ""}>
               {stanzaLines(stanza)}
@@ -385,7 +385,7 @@ function ContentBlock({
             {item.items?.map((pair, i) => (
               <div key={i}>
                 {/* The label is already set as Sanskrit: drop its ⟦…⟧ markers. */}
-                <p lang={sanskritLang(pair.label)} className="sanskrit text-base leading-relaxed text-[#1a1a1a]">
+                <p lang={sanskritLang(pair.label)} className="sanskrit mantra-block text-base leading-relaxed text-[#1a1a1a]">
                   {pair.wbw && MANTRA_RE.test(pair.label) && !isShortMantra(pair.label) ? (
                     <MantraWbw wbw={pair.wbw} label={labels.wbw}>
                       {stripInline(pair.label)}
@@ -412,6 +412,8 @@ function ContentBlock({
           key={index}
         >
           {item.items?.map((pair, i) => {
+            const labelMantra = MANTRA_RE.test(pair.label) || isShortMantra(pair.label);
+            const valueMantra = MANTRA_RE.test(pair.value) || isShortMantra(pair.value);
             // «пословно» only for a mantra that is not short (Reader v7.8).
             const labelWbw = !!pair.wbw && MANTRA_RE.test(pair.label) && !isShortMantra(pair.label);
             const valueWbw =
@@ -437,19 +439,19 @@ function ContentBlock({
                   ))}
                 {linked && !labelWbw ? (
                   <HotspotCell className="min-w-0 pr-4 sm:pr-8 py-0.5 text-[15px] [overflow-wrap:anywhere]">
-                    <Inline text={pair.label} />
+                    <Inline text={pair.label} mantra={labelMantra} />
                   </HotspotCell>
                 ) : (
                   <span className="min-w-0 pr-4 sm:pr-8 py-0.5 text-[15px] [overflow-wrap:anywhere]">
                     {labelWbw ? (
                       <MantraWbw wbw={pair.wbw!} label={labels.wbw}>
                         <HotspotHit>
-                          <Inline text={pair.label} />
+                          <Inline text={pair.label} mantra={labelMantra} />
                         </HotspotHit>
                       </MantraWbw>
                     ) : (
                       <HotspotHit>
-                        <Inline text={pair.label} />
+                        <Inline text={pair.label} mantra={labelMantra} />
                       </HotspotHit>
                     )}
                   </span>
@@ -458,12 +460,12 @@ function ContentBlock({
                   {valueWbw ? (
                     <MantraWbw wbw={pair.wbw!} label={labels.wbw}>
                       <HotspotHit>
-                        <Inline text={pair.value} />
+                        <Inline text={pair.value} mantra={valueMantra} />
                       </HotspotHit>
                     </MantraWbw>
                   ) : (
                     <HotspotHit>
-                      <Inline text={pair.value} />
+                      <Inline text={pair.value} mantra={valueMantra} />
                     </HotspotHit>
                   )}
                 </span>
@@ -546,6 +548,8 @@ function ContentBlock({
         );
       }
       return (
+        // Local static images keep their natural size in the offline export.
+        // eslint-disable-next-line @next/next/no-img-element
         <img
           key={index}
           src={`${BASE_PATH}/images/${item.src}`}

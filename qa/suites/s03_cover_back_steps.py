@@ -14,8 +14,8 @@ DEVICES = qa.devices(['pixel7', 'iphone14', 'ipad-portrait', 'ipad-landscape', '
 LANG = "ru-iast"
 P = f"{BASE}/{LANG}/daily-duties-brahma-muhurta/"
 COVER = f"{BASE}/{LANG}/"
-EMPTY = """() => {
-  const main = document.querySelector('.app-main'); const art = document.querySelector('.app-main article');
+EMPTY = """root => {
+  const main = document.querySelector('.app-main'); const art = root.querySelector('article');
   const mr = main.getBoundingClientRect(); const ar = art.getBoundingClientRect(); const H = innerHeight;
   const bad = (el) => !el || !!el.closest('a,button,input,select,label,[role=button],img,svg,.hs-text,.hs-figure,.verse-chips,.mood-toggle,[data-no-reader-tap]');
   if (ar.left - mr.left > 80) { const p = {x: mr.left + 40, y: H / 2}; const el = document.elementFromPoint(p.x, p.y); if (!bad(el) && main.contains(el)) return p; }
@@ -31,10 +31,11 @@ res = []
 
 
 def chk(d, n, ok, info=""):
-    res.append((d, n, bool(ok), info)); print(f"  [{'PASS' if ok else 'FAIL'}] {d} {n} {'' if ok else info}")
+    res.append((d, n, bool(ok), info)); print(f"  [{'PASS' if ok else 'FAIL'}] {d} {n} [toc={qa.TOC_MODE_NAME}] {'' if ok else info}")
 
 
-def run(p, dev, eng, o):
+def run(p, dev, eng, o, mode):
+    from toc import Contents, history_roundtrip, marks_place
     br = getattr(p, eng).launch(); ctx = br.new_context(service_workers="block", **o); pg = ctx.new_page()
     errs = []
     if eng == "chromium":
@@ -44,6 +45,8 @@ def run(p, dev, eng, o):
           history.pushState = function (s, t, u) { if (!(navigator.userActivation && navigator.userActivation.isActive)) window.__noAct.push(String(u)); return o(s, t, u); }; })()""")
     pg.on("pageerror", lambda e: errs.append(str(e)))
     touch = o.get("has_touch", False)
+
+    flow=Contents(pg,mode,touch)
 
     def tap_pt(x, y):
         (pg.touchscreen.tap if touch else pg.mouse.click)(x, y); pg.wait_for_timeout(450)
@@ -57,13 +60,13 @@ def run(p, dev, eng, o):
 
     def show_bars():
         if not shown():
-            pt = pg.evaluate(EMPTY); tap_pt(pt["x"], pt["y"])
+            pt = qa.reading_eval(pg, EMPTY); tap_pt(pt["x"], pt["y"])
 
     def shot(n):
         if SHOTS and dev in ("pixel7", "iphone14"):
             pg.screenshot(path=os.path.join(SHOTS, f"v3-{dev}-{n}.png"))
 
-    pg.goto(P, wait_until="networkidle"); pg.wait_for_timeout(800)
+    mode.start(pg, P); pg.wait_for_timeout(800)
     pg.evaluate("try{localStorage.setItem('ap.readerHintSeen','1'); sessionStorage.removeItem('toc-parts-open')}catch(e){}")
 
     # (a) cover: tap at the picture centre -> menu bars; again -> hidden
@@ -97,69 +100,106 @@ def run(p, dev, eng, o):
     chk(dev, "(e) Аа panel below the top bar", pb[0] >= pb[1], str(pb))
     pg.go_back(); pg.wait_for_timeout(600)
 
-    # (b) step-by-step back
-    pg.goto(P, wait_until="networkidle"); pg.wait_for_timeout(1000)
-    pg.evaluate("document.querySelector('.app-main').scrollTop = 1500"); pg.wait_for_timeout(1000)
-    y0 = top()
-    show_bars(); act(pg.locator("[data-reader-action=contents]"))
-    chk(dev, "(b) 1 contents opens", menu())
-    part_btn = pg.locator(".mobile-menu nav button[aria-expanded=false]", has_text="Праздники").first
-    part_name = part_btn.inner_text().strip()
-    act(part_btn); act(part_btn)   # [v7.5 law, Satkirti 07.10: 1st tap highlights, 2nd expands]
-    exp = lambda: pg.locator(".mobile-menu nav button[aria-expanded=true]", has_text=part_name).count() == 1
-    chk(dev, "(b) 2 part expanded", exp(), part_name)
-    shot("b2-part-expanded")
-    # v7.5 (Satkirti 07.10): a chapter with subsections — 1st tap highlights, 2nd expands
-    # (each a Back step); the chapter is opened through its subsections.
-    chbtn = pg.locator(".mobile-menu nav button[aria-expanded=true]", has_text=part_name).locator("xpath=ancestor::li[1]//ul//button[@data-toc-chapter]").first
-    chid = chbtn.get_attribute("data-toc-chapter")
-    act(chbtn)
-    chexp = lambda: pg.locator(f".mobile-menu nav button[data-toc-chapter='{chid}'][aria-expanded=true]").count() == 1
-    chk(dev, "(b) 2a v7.5: first tap on the chapter only highlights", not chexp() and pg.url == P, chid)
-    act(chbtn)
-    chk(dev, "(b) 2b chapter expanded on the second tap", chexp() and pg.url == P, chid)
-    first_sub = pg.locator(f".mobile-menu #toc-ch-{chid} a").first
-    act(first_sub); act(first_sub); pg.wait_for_timeout(1200)
-    C = pg.url.split("#")[0]
-    chk(dev, "(b) 3 chapter opened (first subsection), menu closed", f"/{chid}/" in C and not menu(), pg.url)
-    show_bars(); act(pg.locator("[data-reader-action=contents]"))
-    subs = pg.locator(".mobile-menu nav a[data-toc-row^=\"sub:\"]")
-    nsub = subs.count()
-    if nsub >= 2:
-        act(subs.nth(1)); act(subs.nth(1)); pg.wait_for_timeout(900)
-        S = pg.url
-        chk(dev, "(b) 4 sub-section opened", "#" in S and not menu() and top() > 100, f"{S} top={top()}")
-        shot("b4-subsection")
-        # v7.5: every tap in the contents is a Back step (Satkirti 07.10: «назад — теми же шагами»)
-        steps = [
-            ("back1 -> chapter with contents open (sub 2 lit)", lambda: pg.url.split("#")[0] == C and menu()),
-            ("back1b -> chapter, contents as opened", lambda: pg.url.split("#")[0] == C and menu()),
-            ("back2 -> chapter (first subsection), contents closed", lambda: pg.url.split("#")[0] == C and not menu()),
-            ("back3 -> previous page, contents open, part + chapter expanded (sub 1 lit)", lambda: pg.url == P and menu() and exp() and chexp()),
-            ("back3b -> part + chapter expanded (chapter lit)", lambda: pg.url == P and menu() and exp() and chexp()),
-            ("back4 -> chapter collapsed, part expanded", lambda: pg.url == P and menu() and exp() and not chexp()),
-            ("back4b -> part expanded (part lit)", lambda: pg.url == P and menu() and exp() and not chexp()),
-            ("back5 -> part collapsed (part lit), contents still open", lambda: pg.url == P and menu() and not exp()),
-            ("back5b -> contents as opened", lambda: pg.url == P and menu() and not exp()),
-            ("back6 -> previous page, contents closed, scroll restored", lambda: pg.url == P and not menu() and abs(top() - y0) < 40),
-        ]
+    if mode.one:
+        pg.goto(P,wait_until="networkidle");pg.wait_for_timeout(600)
+        pg.evaluate(f"document.querySelector('.app-main').scrollTop={qa.READING_POSITION_JS}.start+1500");pg.wait_for_timeout(400)
+        y0=top();states=[flow.state()];flow.contents();states.append(flow.state())
+        chk(dev,'(b) 1 contents opens',menu())
+        part=flow.group('festivals-vows');flow.tap(part,wait=350);states.append(flow.state())
+        # Expanding a group moves nobody, so the mark stays where the reader is.
+        chk(dev,'(b) 2 part expanded','festivals-vows' in flow.state()['open'] and flow.state()['lit']==states[-2]['lit'],str(flow.state()))
+        chbtn=pg.locator('#toc-part-festivals-vows [data-toc-chapter],#toc-grp-festivals-vows [data-toc-chapter]').first;chid=chbtn.get_attribute('data-toc-chapter')
+        flow.tap(chbtn,wait=350);states.append(flow.state())
+        chk(dev,'(b) 2a first chapter tap opens top + subsections',chid in flow.state()['open'] and flow.state()['lit']==['sec:'+chid] and flow.state()['url'].endswith('/'+chid+'/') and abs(pg.evaluate(qa.READING_POSITION_JS)['top'])<2)
+        u=flow.state()['url'];flow.tap(flow.chapter(chid),wait=350);states.append(flow.state())
+        chk(dev,'(b) 2b second chapter tap collapses without navigating',chid not in flow.state()['open'] and flow.state()['url']==u and flow.state()['lit']==['sec:'+chid])
+        flow.tap(flow.chapter(chid),wait=350);states.append(flow.state())
+        subs=pg.locator(f'#toc-ch-{chid} a');first=subs.first;flow.tap(first,wait=350);states.append(flow.state())
+        C=pg.url.split('#')[0]
+        chk(dev,'(b) 3 chapter opened (first subsection), menu closed',f'/{chid}/' in C and not menu())
+        flow.contents();states.append(flow.state());second=pg.locator(f'#toc-ch-{chid} a').nth(1);flow.tap(second,wait=350);states.append(flow.state())
+        chk(dev,'(b) 4 sub-section opened','#' in pg.url and not menu() and top()>100)
+        back_landings=[]
+        for i,want in enumerate(reversed(states[:-1])):
+            flow.nav('back',native=True);got=flow.state()
+            # The mark is derived from the reading place, so it is checked as an
+            # invariant (toc.marks_place) instead of compared step by step.
+            back_landings.append(all(got[k]==want[k] for k in ['url','menu','open']) and marks_place(got) and pg.url!=COVER)
+            chk(dev,f'(b) back{i+1} -> preceding real action, same path and open rows',back_landings[-1],str([got,want]))
+        chk(dev,'(b) back6 -> original page and scroll restored',pg.url==P and not menu() and abs(top()-y0)<40)
+        chk(dev,'(b) never on cover',pg.url!=COVER)
+        # Rule 10.2: count writes and retrace every real action. history.length
+        # also counts forward entries, which a new push can discard after Back.
+        actions=len(states)-1
+        prefix='(b) one history entry per real action, no step for the highlight'
+        chk(dev,prefix+': Back presses == actions, each expected state',len(back_landings)==actions and all(back_landings),f"Back presses {len(back_landings)}, actions {actions}, landings {back_landings}")
+        chk(dev,prefix+': pushState calls == actions',states[-1]['pushes']-states[0]['pushes']==actions,f"pushState +{states[-1]['pushes']-states[0]['pushes']}, actions {actions}")
+
+        if eng=='chromium':chk(dev,'(b) every pushState had a user gesture (no skippable entries)',pg.evaluate('window.__noAct')==[])
     else:
-        chk(dev, "(b) chapter has >=2 subsections", False, f"n={nsub} {C}")
-        steps = []
-    for i, (name, f) in enumerate(steps):
-        pg.go_back(); pg.wait_for_timeout(1300)
-        ok = f()
-        chk(dev, f"(b) {name}", ok and pg.url != COVER, f"url={pg.url} menu={menu()} top={top()} y0={y0}")
-        if i in (0, 3, 9):
-            shot(f"b-back{i+1}")
-    chk(dev, "(b) never on cover", pg.url != COVER)
-    if eng == "chromium":
-        na = pg.evaluate("window.__noAct")
-        chk(dev, "(b) every pushState had a user gesture (no skippable entries)", na == [], str(na))
+        # (b) step-by-step back
+        pg.goto(P, wait_until="networkidle"); pg.wait_for_timeout(1000)
+        pg.evaluate(f"document.querySelector('.app-main').scrollTop = {qa.READING_POSITION_JS}.start + 1500"); pg.wait_for_timeout(1000)
+        y0 = top()
+        show_bars(); act(pg.locator("[data-reader-action=contents]"))
+        chk(dev, "(b) 1 contents opens", menu())
+        part_btn = pg.locator(".mobile-menu nav button[aria-expanded=false]", has_text="Праздники").first
+        part_name = part_btn.inner_text().strip()
+        act(part_btn); act(part_btn)   # [v7.5 law, Satkirti 07.10: 1st tap highlights, 2nd expands]
+        exp = lambda: pg.locator(".mobile-menu nav button[aria-expanded=true]", has_text=part_name).count() == 1
+        chk(dev, "(b) 2 part expanded", exp(), part_name)
+        shot("b2-part-expanded")
+        # v7.5 (Satkirti 07.10): a chapter with subsections — 1st tap highlights, 2nd expands
+        # (each a Back step); the chapter is opened through its subsections.
+        chbtn = pg.locator(".mobile-menu nav button[aria-expanded=true]", has_text=part_name).locator("xpath=ancestor::li[1]//ul//button[@data-toc-chapter]").first
+        chid = chbtn.get_attribute("data-toc-chapter")
+        act(chbtn)
+        chexp = lambda: pg.locator(f".mobile-menu nav button[data-toc-chapter='{chid}'][aria-expanded=true]").count() == 1
+        chk(dev, "(b) 2a v7.5: first tap on the chapter only highlights", not chexp() and pg.url == P, chid)
+        act(chbtn)
+        chk(dev, "(b) 2b chapter expanded on the second tap", chexp() and pg.url == P, chid)
+        first_sub = pg.locator(f".mobile-menu #toc-ch-{chid} a").first
+        act(first_sub); act(first_sub); pg.wait_for_timeout(1200)
+        C = pg.url.split("#")[0]
+        chk(dev, "(b) 3 chapter opened (first subsection), menu closed", f"/{chid}/" in C and not menu(), pg.url)
+        show_bars(); act(pg.locator("[data-reader-action=contents]"))
+        subs = pg.locator(".mobile-menu nav a[data-toc-row^=\"sub:\"]")
+        nsub = subs.count()
+        if nsub >= 2:
+            act(subs.nth(1)); act(subs.nth(1)); pg.wait_for_timeout(900)
+            S = pg.url
+            chk(dev, "(b) 4 sub-section opened", "#" in S and not menu() and top() > 100, f"{S} top={top()}")
+            shot("b4-subsection")
+            # v7.5: every tap in the contents is a Back step (Satkirti 07.10: «назад — теми же шагами»)
+            steps = [
+                ("back1 -> chapter with contents open (sub 2 lit)", lambda: pg.url.split("#")[0] == C and menu()),
+                ("back1b -> chapter, contents as opened", lambda: pg.url.split("#")[0] == C and menu()),
+                ("back2 -> chapter (first subsection), contents closed", lambda: pg.url.split("#")[0] == C and not menu()),
+                ("back3 -> previous page, contents open, part + chapter expanded (sub 1 lit)", lambda: pg.url == P and menu() and exp() and chexp()),
+                ("back3b -> part + chapter expanded (chapter lit)", lambda: pg.url == P and menu() and exp() and chexp()),
+                ("back4 -> chapter collapsed, part expanded", lambda: pg.url == P and menu() and exp() and not chexp()),
+                ("back4b -> part expanded (part lit)", lambda: pg.url == P and menu() and exp() and not chexp()),
+                ("back5 -> part collapsed (part lit), contents still open", lambda: pg.url == P and menu() and not exp()),
+                ("back5b -> contents as opened", lambda: pg.url == P and menu() and not exp()),
+                ("back6 -> previous page, contents closed, scroll restored", lambda: pg.url == P and not menu() and abs(top() - y0) < 40),
+            ]
+        else:
+            chk(dev, "(b) chapter has >=2 subsections", False, f"n={nsub} {C}")
+            steps = []
+        for i, (name, f) in enumerate(steps):
+            pg.go_back(); pg.wait_for_timeout(1300)
+            ok = f()
+            chk(dev, f"(b) {name}", ok and pg.url != COVER, f"url={pg.url} menu={menu()} top={top()} y0={y0}")
+            if i in (0, 3, 9):
+                shot(f"b-back{i+1}")
+        chk(dev, "(b) never on cover", pg.url != COVER)
+        if eng == "chromium":
+            na = pg.evaluate("window.__noAct")
+            chk(dev, "(b) every pushState had a user gesture (no skippable entries)", na == [], str(na))
 
     # (b2) closing the contents (✕) after expanding pops all its steps
     show_bars(); act(pg.locator("[data-reader-action=contents]"))
-    act(pg.locator(".mobile-menu nav button[aria-expanded=false]").first)
+    flow.activate(pg.locator(".mobile-menu nav button[aria-expanded=false]").first)
     act(pg.locator(".mobile-menu button[aria-label]").first)  # ✕ close
     pg.wait_for_timeout(600)
     st = pg.evaluate("history.state && history.state.apMenu === true")
@@ -194,6 +234,7 @@ def run(p, dev, eng, o):
     pg.go_back(); pg.wait_for_timeout(800)
     chk(dev, "(d) back again -> search closed, same page", not menu() and pg.url == P, pg.url)
     chk(dev, "no page errors", not errs, "; ".join(errs[:3]))
+    history_roundtrip(br,o,mode,lambda n,ok,i='':chk(dev,n,ok,i),BASE)
     br.close()
 
 
@@ -203,7 +244,7 @@ with sync_playwright() as p:
             continue
         print(dev)
         try:
-            run(p, dev, eng, o)
+            qa.run_toc_modes(lambda mode:run(p,dev,eng,o,mode),on_error=lambda e:chk(dev,"EXCEPTION",False,str(e)[:900]))
         except Exception as e:
             chk(dev, "EXCEPTION", False, str(e)[:900])
 fails = [r for r in res if not r[2]]

@@ -43,8 +43,8 @@ def chk(d, n, ok, info=""):
     res.append((d, n, bool(ok), info)); print(f"  [{'PASS' if ok else 'FAIL'}] {d} {n} {'' if ok else info}", flush=True)
 
 
-GEO = """() => { const a = document.querySelector('.chapter-next-link'); if (!a) return null;
-  const art = document.querySelector('.app-main article'); const r = a.getBoundingClientRect();
+GEO = """root => { const a = root.querySelector('.chapter-next-link'); if (!a) return null;
+  const art = root.querySelector('article'); const r = a.getBoundingClientRect();
   const lab = a.querySelector('.chapter-next-label'), tit = a.querySelector('.chapter-next-title');
   const last = art.lastElementChild; const bar = document.querySelector('.reader-bar-bottom').getBoundingClientRect();
   return {t: r.top, b: r.bottom, l: r.left, r: r.right, w: r.width, h: r.height, vw: innerWidth, vh: innerHeight,
@@ -54,7 +54,7 @@ GEO = """() => { const a = document.querySelector('.chapter-next-link'); if (!a)
     labFs: parseFloat(getComputedStyle(lab).fontSize), titFs: parseFloat(getComputedStyle(tit).fontSize),
     labColor: getComputedStyle(lab).color, titColor: getComputedStyle(tit).color,
     tr: a.closest('[translate]') && a.closest('[translate]').getAttribute('translate'),
-    labFont: getComputedStyle(lab).fontFamily, bodyFont: getComputedStyle(document.querySelector('.app-main article h1')).fontFamily}; }"""
+    labFont: getComputedStyle(lab).fontFamily, bodyFont: getComputedStyle(root.querySelector('article h1')).fontFamily}; }"""
 
 
 def run(p, dev, eng, o):
@@ -73,7 +73,7 @@ def run(p, dev, eng, o):
     def to_end():
         # scroll like a reader: in steps, so the reader sees the chapter end
         for _ in range(3):
-            pg.evaluate("(() => { const m = document.querySelector('.app-main'); m.scrollTop = m.scrollHeight; m.dispatchEvent(new Event('scroll')); })()")
+            qa.scroll_chapter(pg, 1)
             pg.wait_for_timeout(350)
         pg.wait_for_timeout(500)
 
@@ -86,23 +86,24 @@ def run(p, dev, eng, o):
 
     for i, (cid, nid, title0) in enumerate(CASES):
         pg.goto(f"{BASE}/{LANG}/{cid}/", wait_until="networkidle"); pg.wait_for_timeout(800)
-        g = pg.evaluate(GEO)
+        g = qa.reading_eval(pg, GEO)
         if not g:
             chk(dev, f"{cid}: link present", False, "no .chapter-next-link"); continue
+        chk(dev, f"{cid}: at most one next-chapter link in the document", pg.locator('.chapter-next-link').count() <= 1)
         chk(dev, f"{cid}: link is the article's last block (after all content)", g["isLast"], str(g))
         chk(dev, f"{cid}: «След. глава ›» -> {nid}", g["label"].replace(" ", " ") == "След. глава ›" and g["href"].rstrip("/").endswith(f"/{LANG}/{nid}"), str(g))
         chk(dev, f"{cid}: next chapter's title under it ({title0}…), smaller", g["title"].startswith(title0) and g["titFs"] < g["labFs"] and g["t"] < g["b"], str(g))
         chk(dev, f"{cid}: tap target >= 44px high, inside the screen", g["h"] >= 44 and g["w"] >= 44 and g["l"] >= 0 and g["r"] <= g["vw"] + 0.5, str(g))
         chk(dev, f"{cid}: translate=no, book serif font", g["tr"] == "no" and "Noto Serif" in g["labFont"], str(g))
         to_end()
-        g = pg.evaluate(GEO)
+        g = qa.reading_eval(pg, GEO)
         chk(dev, f"{cid}: at the chapter end the link is fully visible above the bottom bar", g["t"] >= 0 and g["b"] <= (g["barTop"] if g["shown"] else g["vh"]) + 0.5, str(g))
         if i == 1:
             shot("1-chapter-end")
         before = pg.url
         act(pg.locator(".chapter-next-link"))
         pg.wait_for_timeout(600)
-        top = pg.evaluate("(() => { const m = document.querySelector('.app-main'); const h = document.querySelector('.app-main article h1, .app-main article header'); return {st: m.scrollTop, h1: h ? h.getBoundingClientRect().top : -1}; })()")
+        top = qa.reading_eval(pg, f"root => {{ const h = root.querySelector('article h1, article header'); return {{st: {qa.READING_POSITION_JS}.top, h1: h ? h.getBoundingClientRect().top : -1}}; }}")
         chk(dev, f"{cid}: tap opens {nid}", pg.url.rstrip("/").endswith(f"/{LANG}/{nid}"), pg.url)
         chk(dev, f"{cid}: next chapter starts at its top", top["st"] <= 2 and 0 <= top["h1"] < 200, str(top))
         if i == 1:
@@ -111,16 +112,16 @@ def run(p, dev, eng, o):
         if i in (0, 3):
             pg.go_back(); pg.wait_for_timeout(1000)
             chk(dev, f"{cid}: browser Back returns to {cid}", pg.url == before, pg.url)
-            pos = pg.evaluate("(() => { const m = document.querySelector('.app-main'); return {st: m.scrollTop, max: m.scrollHeight - m.clientHeight}; })()")
+            pos = pg.evaluate(f"(() => {{ const p = {qa.READING_POSITION_JS}; return {{st: p.top, max: p.max}}; }})()")
             chk(dev, f"{cid}: ...at the place where the reader left it (chapter end)", pos["st"] >= pos["max"] - 40, str(pos))
             pg.go_forward(); pg.wait_for_timeout(1000)
             chk(dev, f"{cid}: browser Forward -> {nid} again", pg.url.rstrip("/").endswith(f"/{nid}"), pg.url)
         else:
             if pg.locator(".reader-chrome[data-shown]").count() == 0:
-                pg.evaluate("(() => { const m = document.querySelector('.app-main'); m.scrollTop = 400; })()"); pg.wait_for_timeout(200)
-                pg.evaluate("(() => { const m = document.querySelector('.app-main'); m.scrollTop = 0; })()"); pg.wait_for_timeout(300)
+                pg.evaluate(f"(() => {{ const m = document.querySelector('.app-main'); m.scrollTop = {qa.READING_POSITION_JS}.start + 400; }})()"); pg.wait_for_timeout(200)
+                qa.scroll_chapter(pg, 0); pg.wait_for_timeout(300)
             if pg.locator(".reader-chrome[data-shown]").count() == 0:
-                h1 = pg.locator(".app-main article p").first.bounding_box()
+                h1 = qa.reading_locator(pg, "article p").first.bounding_box()
                 (pg.touchscreen.tap if touch else pg.mouse.click)(h1["x"] + 4, h1["y"] + h1["height"] / 2); pg.wait_for_timeout(500)
             act(pg.locator("[data-reader-nav=back]")); pg.wait_for_timeout(700)
             chk(dev, f"{cid}: «‹ Назад» returns to {cid}", pg.url == before, pg.url)
@@ -131,28 +132,28 @@ def run(p, dev, eng, o):
     if dev in ("iphone14", "ipad-portrait"):
         to_end(); shot("3-last-chapter-end")
     pg.goto(f"{BASE}/{LANG}/home-worship/", wait_until="networkidle"); pg.wait_for_timeout(600)
-    g = pg.evaluate(GEO)
+    g = qa.reading_eval(pg, GEO)
     chk(dev, "empty part page (Часть II) -> Часть III", bool(g) and g["href"].rstrip("/").endswith("/preaching-centres"), str(g))
 
     # English page: English label
     pg.goto(f"{BASE}/vigraha-tattva/", wait_until="networkidle"); pg.wait_for_timeout(600)
-    g = pg.evaluate(GEO)
+    g = qa.reading_eval(pg, GEO)
     chk(dev, "English page: «Next chapter ›» -> /daily-duties-brahma-muhurta/ (v7.1: Maṅgalācaraṇa before the Introduction)", bool(g) and g["label"].startswith("Next chapter") and g["href"].rstrip("/").endswith("/daily-duties-brahma-muhurta"), str(g))
 
     # themes + «Аа»
     pg.goto(f"{BASE}/{LANG}/vigraha-tattva/", wait_until="networkidle"); pg.wait_for_timeout(600)
-    fs0 = pg.evaluate(GEO)["labFs"]
+    fs0 = qa.reading_eval(pg, GEO)["labFs"]
     pg.evaluate("document.documentElement.style.setProperty('--reader-zoom','1.22')"); pg.wait_for_timeout(200)
-    fs1 = pg.evaluate(GEO)["labFs"]
+    fs1 = qa.reading_eval(pg, GEO)["labFs"]
     chk(dev, "link text follows «Аа»", fs1 > fs0 * 1.15, f"{fs0} -> {fs1}")
     pg.evaluate("document.documentElement.style.removeProperty('--reader-zoom')")
     pg.evaluate("document.documentElement.setAttribute('data-reader-theme','night')"); pg.wait_for_timeout(200)
-    g = pg.evaluate(GEO)
+    g = qa.reading_eval(pg, GEO)
     chk(dev, "night theme: gold label, light-muted title", g["labColor"] == "rgb(212, 168, 67)" and g["titColor"] == "rgb(187, 174, 154)", str(g))
     if dev in ("iphone14", "ipad-portrait"):
         to_end(); shot("4-night")
     pg.evaluate("document.documentElement.setAttribute('data-reader-theme','sepia')"); pg.wait_for_timeout(200)
-    g = pg.evaluate(GEO)
+    g = qa.reading_eval(pg, GEO)
     chk(dev, "sepia theme: accent label, muted title", g["labColor"] == "rgb(184, 134, 11)" and g["titColor"] == "rgb(92, 61, 46)", str(g))
     if dev in ("iphone14", "ipad-portrait"):
         to_end(); shot("5-sepia")

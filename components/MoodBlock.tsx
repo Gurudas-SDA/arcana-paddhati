@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { transcriptLinkProps } from "@/lib/transcripts";
+import { pushOverlay } from "@/lib/navHistory";
 import { createPortal } from "react-dom";
 import type { MoodQuote, MoodSource } from "@/lib/book";
 
@@ -259,13 +260,9 @@ export default function MoodBlock({
   const count = 1 + (more?.length ?? 0);
 
   const openOverlay = () => {
-    try {
-      // Same URL; Next.js' internal history state is kept (spread in), so its router treats it as its own entry.
-      window.history.pushState({ ...(window.history.state ?? {}), moodOverlay: true }, "");
-      pushed.current = true;
-    } catch {
-      pushed.current = false;
-    }
+    // Same URL; Next.js' internal history state is kept (spread in), so its
+    // router treats it as its own entry (lib/navHistory.ts writes it).
+    pushed.current = pushOverlay({ moodOverlay: true });
     setOpen(true);
   };
 

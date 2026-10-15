@@ -111,9 +111,12 @@ with sync_playwright() as p:
     # in-app navigation offline (contents -> chapter)
     pg.goto(ORIGIN + '/arcana-paddhati/ru-iast/daily-duties-brahma-muhurta/', wait_until='load')
     pg.wait_for_timeout(800)
-    pg.evaluate("document.querySelector('.app-main').scrollTop=1e9")
-    pg.wait_for_timeout(600)
-    pg.evaluate("document.querySelector('[data-chapter-next]')&&document.querySelector('[data-chapter-next]').click()")
+    # The continuous view has a next-chapter link for every chapter. Use
+    # this chapter's link, rather than the first link in the whole book.
+    link = pg.locator('[data-book-section="daily-duties-brahma-muhurta"] [data-chapter-next]')
+    if not link.count():
+        link = pg.locator('[data-chapter-next]')
+    link.first.click()
     pg.wait_for_timeout(2500)
     ck('offline in-app «След. глава»', 'daily-deity-schedule' in pg.url, pg.url[-50:])
     c.set_offline(False)

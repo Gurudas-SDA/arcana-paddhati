@@ -5,6 +5,8 @@ or by the suite itself when run directly).
 """
 import os
 import sys
+from dataclasses import dataclass
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 QA_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REPO = os.environ.get("QA_REPO") or os.path.dirname(QA_DIR)
@@ -40,6 +42,119 @@ DEVICES = {
 # Devices of the fast (pre-push) run: one Android phone (Chromium) and one
 # iPhone (WebKit) — the two engines Satkirti reads on.
 FAST_DEVICES = ["pixel7", "iphone14"]
+
+TOC_MODE_NAME = "default"
+
+
+@dataclass(frozen=True)
+class TocMode:
+    name: str
+
+    @property
+    def one(self):
+        return self.name == "default"
+
+    def start(self, page, url):
+        """Use the app's real query flag, then keep reading URLs comparable.
+
+        The app resolves and remembers ?toc=two once per page load. Removing
+        only this setup query adds no history entry and leaves that choice on.
+        Default checks use a fresh context without either query or preference.
+        """
+        if self.one:
+            page.goto(url, wait_until="networkidle")
+        else:
+            parts = urlsplit(url)
+            query = dict(parse_qsl(parts.query))
+            query["toc"] = "two"
+            page.goto(urlunsplit(parts._replace(query=urlencode(query))), wait_until="networkidle")
+            page.wait_for_function("localStorage.getItem('ap.tocTap') === 'two'")
+            page.evaluate("""() => {
+              const url = new URL(location.href); url.searchParams.delete('toc');
+              history.replaceState(history.state, '', url.pathname + url.search + url.hash);
+            }""")
+
+
+def run_toc_modes(check_body, on_error=None):
+    """Run the same check body with default and legacy expectations.
+
+    The harness schedules each mode separately within its unchanged timeout;
+    direct suite execution runs both. QA_TOC_MODE only partitions coverage.
+    It never changes the app flag: TocMode.start uses the existing query.
+    """
+    global TOC_MODE_NAME
+    selected = os.environ.get("QA_TOC_MODE")
+    if selected and selected not in ("default", "two"):
+        raise ValueError(f"Unknown QA_TOC_MODE: {selected}")
+    # The two-tap mode was removed from the app (Satkirti 13.10.2026), so only
+    # the default mode is run. The legacy branches in the suites stay until
+    # each one is rewritten, and are no longer reached.
+    for name in ((selected,) if selected else ("default",)):
+        TOC_MODE_NAME = name
+        try:
+            check_body(TocMode(name))
+        except Exception as error:
+            if on_error is None:
+                raise
+            on_error(error)
+
+# A chapter route can display the continuous book. Content measurements
+# must use its current chapter, rather than the first article in the book.
+# Standalone exports retain .app-main as their measurement root.
+READING_ROOT_JS = """(() => {
+  const main = document.querySelector('.app-main');
+  const book = main?.querySelector('[data-continuous-book]');
+  if (!book) return main;
+  const id = decodeURIComponent(location.pathname.split('/').filter(Boolean).at(-1) || '');
+  return book.querySelector(`[data-book-section="${CSS.escape(id)}"]`)
+    || book.querySelector('[data-book-section=""]');
+})()"""
+
+READING_SELECTOR = ".app-main [data-reader-current], .app-main:not(:has([data-continuous-book]))"
+
+
+def reading_eval(page, function, arg=None):
+    """Run a content probe with the chapter root and an optional argument."""
+    return page.evaluate(f"arg => ({function})({READING_ROOT_JS}, arg)", arg)
+
+
+def reading_locator(page, selector):
+    return page.locator(READING_SELECTOR).locator(selector)
+
+
+def wait_for_book_chapter(page, section_id):
+    """Wait for a deep export's continuous-book arrival before leaving it.
+
+    DOMContentLoaded alone precedes the client-side export switch. Starting
+    another full navigation then can race that switch, especially in WebKit.
+    """
+    page.wait_for_function(f"""id => {{
+      const root = {READING_ROOT_JS};
+      return root?.dataset.bookSection === id && root.hasAttribute('data-reader-current');
+    }}""", arg=section_id)
+
+
+READING_POSITION_JS = """(() => {
+  const main = document.querySelector('.app-main');
+  const root = __ROOT__;
+  const continuous = root !== main;
+  const start = continuous ? main.scrollTop + root.getBoundingClientRect().top - main.getBoundingClientRect().top : 0;
+  const spacer = root.querySelector('.chapter-end-space')?.offsetHeight || 0;
+  const pad = parseFloat(getComputedStyle(main).paddingBottom) || 0;
+  const max = continuous ? Math.max(0, root.scrollHeight - main.clientHeight + pad - spacer)
+    : Math.max(0, main.scrollHeight - main.clientHeight - spacer);
+  return {start, max, top: main.scrollTop - start};
+})()""".replace("__ROOT__", READING_ROOT_JS)
+
+
+def scroll_chapter(page, fraction):
+    """Scroll within the chapter, retaining the book's global scroll area."""
+    page.evaluate(f"""fraction => {{
+      const main = document.querySelector('.app-main');
+      const position = {READING_POSITION_JS};
+      main.scrollTop = position.start + position.max * fraction;
+      main.dispatchEvent(new Event('scroll'));
+    }}""", fraction)
 
 
 def wanted():
