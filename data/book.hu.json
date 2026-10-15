@@ -21,7 +21,9 @@
     {
       "id": "home-worship",
       "title": "Otthoni standard",
-      "sections": []
+      "sections": [
+        "home-worship-one-page"
+      ]
     },
     {
       "id": "preaching-centres",
@@ -5073,6 +5075,269 @@
             {
               "type": "text",
               "content": "Megjegyzés: Röviden, az ⟦arcana⟧ megkezdése előtt meg kell tisztítani az oltárt és a kellékeket. Helyezd a tárgyakat kényelmesen elérhető helyre. Fontos megszentelni a ⟦pañca-pātra⟧ vizét a \"⟦gaṅge ca yamune caiva...⟧\" ⟦mantrával⟧, a virágokat pedig a \"⟦puṣpe puṣpe mahā-puṣpe...⟧\" ⟦mantrával⟧ kell megtisztítani. A ⟦Pādya⟧, az ⟦arghya⟧ és az ⟦ācamanīya⟧ helyett általában a ⟦pañca-pātra⟧ tiszta vizét használják. Hasonlóképpen, ha valamely kelléket nem lehet beszerezni, meditációval, valamint a ⟦pañca-pātra⟧ vagy a kagylókürt vizének felajánlásával lehet helyettesíteni."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "home-worship-one-page",
+      "title": "Otthoni Istenség-imádat egy oldalon",
+      "subtitle": null,
+      "page": "",
+      "content": [
+        {
+          "type": "text",
+          "content": "Az otthoni mindennapos Istenség-imádat rövid menete. Ezen az oldalon minden a „Templomi szabvány” fejezeteiből származik; a részletek a megjelölt fejezetekben találhatók."
+        },
+        {
+          "type": "text",
+          "content": "Az ébresztés és az imádat sorrendje: először ⟦Gurudev⟧, majd ⟦Gaurāṅga⟧, végül ⟦Śrī Śrī Rādhā-Kṛṣṇa⟧. Az ārati során minden kelléket először ⟦Kṛṣṇának⟧, majd ⟦Rādhikānak⟧, ⟦Gaurāṅgának⟧, azután a paramparā tagjainak és ⟦Gurudevnek⟧ ajánlj fel."
+        },
+        {
+          "type": "text",
+          "content": "Ha valamely kellék nem áll rendelkezésre, meditálhatsz rajta, és a mantra elmondása közben vizet ajánlhatsz fel a ⟦pañca-pātra⟧ból (2. fejezet)."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "home-before-service",
+          "title": "A szolgálat előtt",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Fürödj meg, ölts tiszta ruhát, és helyezz fel ⟦tilakát⟧. Mielőtt belépsz az Istenségekhez—végezz ācamana szertartást:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "⟦oṁ keśavāya namaḥ⟧",
+                  "value": "kortyolj vizet jobb kezed ⟦brāhma-tīrtha⟧ részéből."
+                },
+                {
+                  "label": "⟦oṁ nārāyaṇāya namaḥ⟧",
+                  "value": "kortyolj vizet jobb kezed ⟦brāhma-tīrtha⟧ részéből."
+                },
+                {
+                  "label": "⟦oṁ mādhavāya namaḥ⟧",
+                  "value": "kortyolj vizet jobb kezed ⟦brāhma-tīrtha⟧ részéből."
+                }
+              ],
+              "layout": "vertical"
+            },
+            {
+              "type": "text",
+              "content": "A részleteket lásd az 1. fejezetben: „A brāhma-muhūrta idején végzett napi kötelességek.”"
+            }
+          ]
+        },
+        {
+          "id": "home-morning",
+          "title": "Reggel: ébresztés és maṅgala-ārati",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Csengess az ajtó előtt, kopogj, és lépj be. Lábukat megérintve ébreszd fel ⟦Gurudevet⟧, ⟦Gaurāṅgát⟧ és ⟦Śrī Śrī Rādhā-Kṛṣṇát⟧:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "uttiṣṭhottiṣṭha śrī guro\ntyaja nidrāṁ kṛpāmaya\naiṁ gurave namaḥ",
+              "translation": "Ó, legkegyesebb Gurudeva, kérlek, kelj fel, kérlek, kelj fel, és hagyd el álmodat.",
+              "wbw": "uttiṣṭhottiṣṭha — kérlek, kelj fel, kérlek, kelj fel; śrī — tiszteletre méltó; guro — ó, Gurudeva; tyaja — hagyd el; nidrāṁ — az álmot; kṛpāmaya — legkegyesebb; aiṁ — bīja-mantra; gurave — Gurudevának; namaḥ — hódolat."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "uttiṣṭhottiṣṭha gaurāṅga\njahi nidrāṁ mahāprabho\nśubha-dṛṣṭi pradānena\ntrailokya-maṅgalaṁ kuru\nklīṁ gaurāya svāhā",
+              "translation": "Ó, Gaurāṅga Mahāprabhu, kérlek, kelj fel, kérlek, kelj fel, és hagyd el álmodat. Kérlek, áldd meg a három világot áldásos pillantásoddal.",
+              "wbw": "uttiṣṭhottiṣṭha — kérlek, kelj fel, kérlek, kelj fel; gaurāṅga — ó, Gaurāṅga; jahi — hagyd el; nidrāṁ — az álmot; mahāprabho — ó, Mahāprabhu; śubha-dṛṣṭi — áldásos pillantás; pradānena — adásával; trailokya-maṅgalaṁ — a három világ áldása; kuru — kérlek, áraszd rájuk; klīṁ — bīja-mantra; gaurāya — Gaurának; svāhā — a felajánlás felkiáltása: „svāhā”."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "go-gopa-gokulānanda\nyaśodānanda vardhana\nuttiṣṭha rādhayā sārddhaṁ\nprātar āsīj jagat-pate\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "Ó, Gokula, a tehénpásztorfiúk és a tehenek öröme; ó, Yaśodā anya boldogságának gyarapítója; ó, univerzum Ura; kérlek, kelj fel Śrī Rādhāval együtt, mert már közeleg a reggel.",
+              "wbw": "go-gopa-gokulānanda — ó, Gokula, a tehénpásztorfiúk és a tehenek öröme; yaśodānanda — ó, Yaśodā anya boldogságának gyarapítója; vardhana — gyarapító; uttiṣṭha — kérlek, kelj fel; rādhayā — Śrī Rādhāval együtt; sārddhaṁ — együtt; prātar — reggel; āsīj — már közeleg; jagat-pate — ó, univerzum Ura; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Śrī Rādhānak és Kṛṣṇának; namaḥ — hódolat."
+            },
+            {
+              "type": "instruction",
+              "content": "Ajánlj fel ācamana vizet (vizet a szájhoz): csengőszó kíséretében önts egy kanálnyi vizet a ⟦pañca-pātra⟧ból egy üres edénybe:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ ācamanīyaṁ aiṁ gurave namaḥ\nidaṁ ācamanīyaṁ klīṁ gaurāya svāhā\nidaṁ ācamanīyaṁ śrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Ezután gondolatban ajánlj fel egy fogtisztító ágacskát (⟦eṣa danta-kāṣṭhaḥ⟧ …), és végezz ismét ācamana szertartást—12-szer (3 is elfogadható)."
+            },
+            {
+              "type": "instruction",
+              "content": "Tiszta kendővel töröld meg az Istenségek arcát, kezét és lábát; távolítsd el a régi virágokat és a tulasīt, tisztítsd meg az oltárt; ajánlj fel tulasīt, és díszítsd fel az Istenségeket."
+            },
+            {
+              "type": "instruction",
+              "content": "Ajánlj fel bhogát (lásd „Bhoga”), és végezz ⟦maṅgala-āratit⟧ (lásd „Ārati”)."
+            },
+            {
+              "type": "text",
+              "content": "A részleteket lásd a 2. fejezetben: „Az Istenségek napi rendje.”"
+            }
+          ]
+        },
+        {
+          "id": "home-bhoga",
+          "title": "Bhoga (minden alkalommal ugyanaz)",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Azzal az érzéssel ajánld fel a bhogát, hogy maga ⟦Śrī Gurudev⟧ ajánlja fel ⟦Śrīman Mahāprabhunak⟧ és ⟦Śrī Śrī Rādhā-Kṛṣṇának⟧. Végezz ācamana szertartást. Helyezz egy tulasī-levelet minden fogásra. Vedd le az Istenségek koronáját és fuvoláját."
+            },
+            {
+              "type": "instruction",
+              "content": "Csengőszó kíséretében ajánlj fel virágszirmokat a lábukhoz, majd āsanát, pādyát, ācamana vizet és naivedyát:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "eṣa puṣpāñjaliḥ klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ naivedyaṁ sa tulasī pānīya jalam klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "Ajánlj fel naivedyát tulasīval és vízzel.",
+              "wbw": "idaṁ — ez; naivedyaṁ — naivedya felajánlás; sa — együtt; tulasī — tulasī; pānīya — ivásra való; jalam — víz; klīṁ — bīja-mantra; gaurāya — Gaurának; svāhā — a felajánlás felkiáltása: „svāhā”; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhānak és Kṛṣṇának; namaḥ — hódolat."
+            },
+            {
+              "type": "text",
+              "content": "Az āsanát, a pādyát és az ācamana vizet ugyanígy ajánld fel, az első szavakat a következőkre cserélve: ⟦idaṁ āsanaṁ⟧, ⟦etat pādyaṁ⟧, ⟦idaṁ ācamanīyaṁ⟧."
+            },
+            {
+              "type": "instruction",
+              "content": "Jobb kezedet a tányér fölé tartva (bal kezedet a jobb kezedre téve) ismételd el a ⟦Gopāla-mantra⟧t nyolcszor. Menj ki; ismételd el a ⟦Gaura-gāyatrī⟧t és a ⟦Kāma-gāyatrī⟧t tízszer-tízszer (a gurutól kapott mantrákat); várj egy keveset."
+            },
+            {
+              "type": "instruction",
+              "content": "Kopogj, lépj be, ajánlj fel szájöblítő vizet (⟦idaṁ ācamanīyaṁ⟧), tāmbūlát (⟦idaṁ tāmbūlaṁ⟧) és āsanát (⟦idaṁ āsanaṁ⟧), majd vidd el a tányért. Tedd vissza a koronát és a fuvolát. Ajánld fel a maradékot—⟦mahā-prasādát⟧—Gurudevnek és a Vaiṣṇaváknak (⟦idaṁ mahā-prasādaṁ aiṁ gurave namaḥ⟧ …)."
+            },
+            {
+              "type": "text",
+              "content": "A részleteket lásd a 7. fejezetben: „A bhoga felajánlásának menete.”"
+            }
+          ]
+        },
+        {
+          "id": "home-arati",
+          "title": "Ārati",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Az ārati kellékei és felajánlásuk sorrendje:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "Füstölő (⟦eṣa dhūpaḥ⟧)",
+                  "value": "Teljes ārati: lábak 4, derék 2, test 7"
+                },
+                {
+                  "label": "Ghī-lámpa (⟦eṣa dīpaḥ⟧)",
+                  "value": "Teljes ārati: lábak 4, derék 2, fej 3, test 7"
+                },
+                {
+                  "label": "Víz a kagylókürtben (⟦idaṁ arghyam⟧)",
+                  "value": "7 kör a test körül"
+                },
+                {
+                  "label": "Kendő (⟦idaṁ vastram⟧)",
+                  "value": "Lábak 4, derék 2, fej 3, test 7"
+                },
+                {
+                  "label": "Virágok (⟦etāni puṣpāni⟧)",
+                  "value": "Lábak 4, test 7"
+                },
+                {
+                  "label": "⟦Cāmara⟧ (⟦eṣā cāmara-sevā⟧)",
+                  "value": "A rendelkezésre álló idő függvényében"
+                },
+                {
+                  "label": "Pávatoll-legyező (⟦eṣā vyajñana-sevā⟧)",
+                  "value": "A rendelkezésre álló idő függvényében"
+                }
+              ]
+            },
+            {
+              "type": "instruction",
+              "content": "Az elem felajánlásának címzettjéhez tartozó mantrát add hozzá az elem nevéhez: ⟦śrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ⟧, ⟦klīṁ gaurāya svāhā⟧, ⟦aiṁ gurave namaḥ⟧."
+            },
+            {
+              "type": "instruction",
+              "content": "Rövid ⟦dhūpa-ārati⟧ (reggeli után, napközben és késő este): füstölő, virágok, ⟦cāmara⟧ és pávatoll-legyező (télen nem)."
+            },
+            {
+              "type": "text",
+              "content": "A részletekért lásd a 11. fejezetet, „A tizenhat kellékkel végzett fő imádat” és „Az ārati szertartása” című részeket."
+            }
+          ]
+        },
+        {
+          "id": "home-day",
+          "title": "Napközben",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Ajánlj fel bhogát (ugyanebben a sorrendben), és végezz teljes ārati-szertartást. Ha az Istenségek napközben pihennek, ugyanazokkal az imákkal fektesd le Ő Uraságaikat, mint este, reggel pedig a reggeli rend szerint ébreszd fel Őket (2. fejezet)."
+            }
+          ]
+        },
+        {
+          "id": "home-evening",
+          "title": "Este: sandhyā-ārati és pihenés",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Bhoga és ⟦sandhyā-ārati⟧; később további bhoga és ⟦dhūpa-ārati⟧."
+            },
+            {
+              "type": "instruction",
+              "content": "Vedd le ⟦Tulasī-devī⟧t az oltárról a virágokkal és a virágfüzérekkel együtt; öltöztesd egyszerűen az Istenségeket; vedd le Ő Uraságaik koronáját és fuvoláját; ajánlj fel khīrt és vizet."
+            },
+            {
+              "type": "instruction",
+              "content": "Érintsd meg Ő Uraságaik lábát, és kérd meg Őket, hogy pihenjenek meg:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "Ó, Keśava, kérlek, gyere el fekhelyedhez szeretett Śrīmatī Rādhikāddal együtt! Ó, Mādhava, ezt az illatos virágokból készült, ragyogó fekhelyet örömteli kedvteléseidhez készítettük.",
+              "wbw": "āgaccha — kérlek, gyere; śayana-sthānaṁ — a fekhelyhez; priyābhiḥ — szeretett Śrīmatī Rādhikāddal; saha — együtt; keśava — ó, Keśava; divya-puṣpātya-śayyāyāṁ — ezen az illatos virágokból készült, ragyogó fekhelyen; sukhaṁ — örömmel; vihara — élvezd kedvteléseidet; mādhava — ó, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhānak és Kṛṣṇának; namaḥ — hódolat."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "translation": "Ó, Gaurāṅga Úr, kérlek, gyere el pihenőhelyedre társaiddal együtt! Ó, Uram, pihenj meg kényelmesen egy kis időre, kedvteléseidet élvezve.",
+              "wbw": "āgaccha — kérlek, gyere; viśrama-sthānaṁ — a pihenőhelyre; sva-gaṇaiḥ — társaiddal; saha — együtt; gaurāṅga — ó, Gaurāṅga Úr; kṣaṇaṁ — egy kis időre; viśramya — megpihenve; sukhena — kényelmesen; līlayā — kedvteléseidet élvezve; vihara — élvezd; prabhu — ó, Uram; klīṁ — bīja-mantra; gaurāya — Gaurának; svāhā — a felajánlás felkiáltása: „svāhā”."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha śrī-guro\naiṁ gurave namaḥ",
+              "translation": "Ó, Gurudeva, kérlek, gyere el pihenőhelyedre valamennyi társaddal együtt.",
+              "wbw": "āgaccha — kérlek, gyere; viśrāma-sthānaṁ — pihenőhelyedre; sva-gaṇaiḥ — valamennyi társaddal; saha — együtt; śrī-guro — ó, Gurudeva; aiṁ — bīja-mantra; gurave — Gurudevának; namaḥ — hódolat."
+            },
+            {
+              "type": "instruction",
+              "content": "Mondd el a sértések miatti bocsánatkérő imákat:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "aṅga-hīnaṁ kriyā-hīnaṁ\nvidhi-hīnaṁ ca yad bhavet\nastu tat sarvam acchidraṁ\nkṛṣṇa-kārṣṇa-prasādataḥ\n\nyat kiñcit vaiguṇyaṁ jātaṁ\ntad doṣa-praśamanāya\nśrī-kṛṣṇa-smaraṇaṁ karomi",
+              "translation": "Kṛṣṇa és bhaktái kegye semmissé tegyen minden hibát, amelyet az imádat szabályainak követése és az imádat elvégzése során vétettünk. Most Kṛṣṇára emlékezem, hogy semmissé tegyem az esetlegesen előforduló hibákat. [Sat-kriya-sara-dipika]",
+              "wbw": "aṅga-hīnaṁ — hiányos az összetevőiben; kriyā-hīnaṁ — hiányos az imádat cselekedeteiben; vidhi-hīnaṁ — hiányos az előírt szabályok követésében; ca — és; yad — bármi, ami; bhavet — előfordulhat; astu — váljon; tat — az; sarvam — minden; acchidraṁ — hibátlanná; kṛṣṇa-kārṣṇa-prasādataḥ — Krsna és bhaktái kegyéből; yat — bármi, ami; kiñcit — bármilyen; vaiguṇyaṁ — tökéletlenség; jātaṁ — keletkezett; tad — az; doṣa-praśamanāya — a hiba semmissé tételére; śrī-kṛṣṇa-smaraṇaṁ — emlékezés Sri Krsnára; karomi — végzem."
+            },
+            {
+              "type": "text",
+              "content": "A részletekért lásd a 2. fejezetet, „Az Istenség napi programja”, valamint a 10. fejezetet, „Bocsánatkérő imák a sértések miatt”."
             }
           ]
         }

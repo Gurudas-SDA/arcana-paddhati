@@ -21,7 +21,9 @@
     {
       "id": "home-worship",
       "title": "Namų standartas",
-      "sections": []
+      "sections": [
+        "home-worship-one-page"
+      ]
     },
     {
       "id": "preaching-centres",
@@ -5073,6 +5075,269 @@
             {
               "type": "text",
               "content": "Pastaba: trumpai tariant, prieš pradedant ⟦arcana⟧ reikia nuvalyti altorių ir reikmenis. Padėk reikmenis patogioje vietoje. Svarbu pašventinti vandenį ⟦pañca-pātra⟧ inde ⟦mantra⟧ „⟦gaṅge ca yamune caiva...⟧“ ir apvalyti gėles ⟦mantra⟧ „⟦puṣpe puṣpe mahā-puṣpe...⟧“. ⟦Pādya⟧, ⟦arghya⟧ ir ⟦ācamanīya⟧ paprastai pakeičiami tyru vandeniu iš ⟦pañca-pātra⟧. Taip pat, jei kurio nors reikmens neįmanoma gauti, jį galima pakeisti meditacija ir vandens iš ⟦pañca-pātra⟧ arba kriauklės paaukojimu."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "home-worship-one-page",
+      "title": "Dievybės garbinimas namuose viename puslapyje",
+      "subtitle": null,
+      "page": "",
+      "content": [
+        {
+          "type": "text",
+          "content": "Trumpa kasdienio Dievybės garbinimo namuose tvarka. Viskas šiame puslapyje paimta iš „Šventyklos standarto“ skyrių; išsamiau aprašyta nurodytuose skyriuose."
+        },
+        {
+          "type": "text",
+          "content": "Tvarka pabudus ir garbinant: pirmiausia ⟦Gurudevas⟧, tada ⟦Gaurāṅga⟧, tada ⟦Śrī Śrī Rādhā-Kṛṣṇa⟧. Per ārati kiekvienas reikmuo pirmiausia aukojamas ⟦Kṛṣṇai⟧, tada ⟦Rādhikai⟧, ⟦Gaurāṅgai⟧, tada per paramparą ir ⟦Gurudevui⟧."
+        },
+        {
+          "type": "text",
+          "content": "Jei kurio nors reikmens nėra, galima jį įsivaizduoti ir, kartojant mantrą, aukoti vandenį iš ⟦pañca-pātros⟧ (2 skyrius)."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "home-before-service",
+          "title": "Prieš tarnystę",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Išsimaudykite, apsivilkite švariais drabužiais ir pasitepkite ⟦tilaka⟧. Prieš įeidami pamatyti Dievybių—atlikite ācamana:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "⟦oṁ keśavāya namaḥ⟧",
+                  "value": "gurkštelėkite vandens nuo dešinės rankos ⟦brāhma-tīrthos⟧."
+                },
+                {
+                  "label": "⟦oṁ nārāyaṇāya namaḥ⟧",
+                  "value": "gurkštelėkite vandens nuo dešinės rankos ⟦brāhma-tīrthos⟧."
+                },
+                {
+                  "label": "⟦oṁ mādhavāya namaḥ⟧",
+                  "value": "gurkštelėkite vandens nuo dešinės rankos ⟦brāhma-tīrthos⟧."
+                }
+              ],
+              "layout": "vertical"
+            },
+            {
+              "type": "text",
+              "content": "Išsamiau žr. 1 skyrių „Kasdienės pareigos, atliekamos per brāhma-muhūrtą.“"
+            }
+          ]
+        },
+        {
+          "id": "home-morning",
+          "title": "Rytas: žadinimas ir maṅgala-ārati",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Paskambinkite varpeliu už durų, pasibelskite ir įeikite. Liesdami Jų pėdas, pažadinkite ⟦Gurudevą⟧, ⟦Gaurāṅgą⟧ ir ⟦Śrī Śrī Rādhā-Kṛṣṇą⟧:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "uttiṣṭhottiṣṭha śrī guro\ntyaja nidrāṁ kṛpāmaya\naiṁ gurave namaḥ",
+              "translation": "O maloningiausiasis Gurudeva, prašau, kelkis, prašau, kelkis ir palik miegą.",
+              "wbw": "uttiṣṭhottiṣṭha — prašau, kelkis, prašau, kelkis; śrī — garbingasis; guro — o Gurudeva; tyaja — palik; nidrāṁ — miegą; kṛpāmaya — o maloningiausiasis; aiṁ — bīja-mantra; gurave — Gurudevui; namaḥ — nusilenkimai"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "uttiṣṭhottiṣṭha gaurāṅga\njahi nidrāṁ mahāprabho\nśubha-dṛṣṭi pradānena\ntrailokya-maṅgalaṁ kuru\nklīṁ gaurāya svāhā",
+              "translation": "O Gaurāṅga Mahāprabhu, prašau, kelkis, prašau, kelkis ir palik miegą. Prašau, palaimink tris pasaulius Savo palankiu žvilgsniu.",
+              "wbw": "uttiṣṭhottiṣṭha — prašau, kelkis, prašau, kelkis; gaurāṅga — o Gaurāṅga; jahi — palik; nidrāṁ — miegą; mahāprabho — o Mahāprabhu; śubha-dṛṣṭi — palankus žvilgsnis; pradānena — suteikdamas; trailokya-maṅgalaṁ — trijų pasaulių palaiminimą; kuru — prašau, suteik; klīṁ — bīja-mantra; gaurāya — Gaurai; svāhā — aukojimo šūksnis „svāhā“"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "go-gopa-gokulānanda\nyaśodānanda vardhana\nuttiṣṭha rādhayā sārddhaṁ\nprātar āsīj jagat-pate\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "O Gokulos, piemenukų ir karvių džiaugsme; o motinos Yaśodos palaimos didintojau; o visatos Viešpatie; prašau, kelkis drauge su Śrī Rādhā, nes jau beveik rytas.",
+              "wbw": "go-gopa-gokulānanda — o Gokulos, piemenukų ir karvių džiaugsme; yaśodānanda — o motinos Yaśodos palaimos didintojau; vardhana — didintojau; uttiṣṭha — prašau, kelkis; rādhayā — kartu su Śrī Rādhā; sārddhaṁ — kartu su; prātar — ryte; āsīj — jau beveik; jagat-pate — o visatos Viešpatie; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Śrī Rādhā ir Kṛṣṇai; namaḥ — nusilenkimai"
+            },
+            {
+              "type": "instruction",
+              "content": "Aukokite ācamana (vandenį burnai): skambindami varpeliu, įpilkite šaukštelį vandens iš ⟦pañca-pātros⟧ į tuščią indą:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ ācamanīyaṁ aiṁ gurave namaḥ\nidaṁ ācamanīyaṁ klīṁ gaurāya svāhā\nidaṁ ācamanīyaṁ śrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Tada mintyse aukokite dantų valymo šakelę (⟦eṣa danta-kāṣṭhaḥ⟧ …) ir vėl atlikite ācamana—12 kartų (galima ir 3)."
+            },
+            {
+              "type": "instruction",
+              "content": "Švariu audeklu nušluostykite Dievybių veidus, rankas ir pėdas; pašalinkite senas gėles ir tulasī, nuvalykite altorių; aukokite tulasī ir papuoškite Dievybes."
+            },
+            {
+              "type": "instruction",
+              "content": "Aukokite bhogą (žr. „Bhoga“) ir atlikite ⟦maṅgala-ārati⟧ (žr. „Ārati“)."
+            },
+            {
+              "type": "text",
+              "content": "Išsamiau žr. 2 skyrių „Kasdienė Dievybės dienotvarkė.“"
+            }
+          ]
+        },
+        {
+          "id": "home-bhoga",
+          "title": "Bhoga (kaskart tokia pati tvarka)",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Aukokite bhogą jausdami, kad pats ⟦Śrī Gurudevas⟧ ją aukoja ⟦Śrīman Mahāprabhu⟧ ir ⟦Śrī Śrī Rādhā-Kṛṣṇai⟧. Atlikite ācamana. Ant kiekvieno patiekalo uždėkite tulasī lapelį. Nuimkite nuo Dievybių karūną ir fleitą."
+            },
+            {
+              "type": "instruction",
+              "content": "Skambindami varpeliu, aukokite gėlių žiedlapius prie Jų pėdų, āsaną, pādyą, ācamana ir naivedyą:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "eṣa puṣpāñjaliḥ klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ naivedyaṁ sa tulasī pānīya jalam klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "Aukokite naivedyą su tulasī ir vandeniu.",
+              "wbw": "idaṁ — šis; naivedyaṁ — naivedya auka; sa — su; tulasī — tulasī; pānīya — geriamuoju; jalam — vandeniu; klīṁ — bīja-mantra; gaurāya — Gaurai; svāhā — aukojimo šūksnis „svāhā“; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhā ir Kṛṣṇai; namaḥ — nusilenkimai"
+            },
+            {
+              "type": "text",
+              "content": "Āsana, pādya ir ācamana aukojamos taip pat, pirmuosius žodžius pakeičiant šiais: ⟦idaṁ āsanaṁ⟧, ⟦etat pādyaṁ⟧, ⟦idaṁ ācamanīyaṁ⟧."
+            },
+            {
+              "type": "instruction",
+              "content": "Laikydami dešinę ranką virš lėkštės (kairę ranką uždėję ant dešinės), aštuonis kartus pakartokite ⟦Gopāla-mantrą⟧. Išeikite; po dešimt kartų pakartokite ⟦Gaura-gāyatrī⟧ ir ⟦Kāma-gāyatrī⟧ (iš guru gautas mantras); truputį palaukite."
+            },
+            {
+              "type": "instruction",
+              "content": "Pasibelskite, įeikite, aukokite vandenį burnai praskalauti (⟦idaṁ ācamanīyaṁ⟧), tāmbūlą (⟦idaṁ tāmbūlaṁ⟧) ir āsaną (⟦idaṁ āsanaṁ⟧), tada išneškite lėkštę. Grąžinkite karūną ir fleitą. Aukokite likučius—⟦mahā-prasādą⟧—Gurudevui ir vaiṣṇavams (⟦idaṁ mahā-prasādaṁ aiṁ gurave namaḥ⟧ …)."
+            },
+            {
+              "type": "text",
+              "content": "Išsamiau žr. 7 skyrių „Bhogos aukojimo tvarka.“"
+            }
+          ]
+        },
+        {
+          "id": "home-arati",
+          "title": "Ārati",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Ārati reikmenys ir jų aukojimo eilės tvarka:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "Smilkalai (⟦eṣa dhūpaḥ⟧)",
+                  "value": "Visa ārati: pėdos 4, juosmuo 2, kūnas 7"
+                },
+                {
+                  "label": "Lydyto sviesto (ghī) lempelė (⟦eṣa dīpaḥ⟧)",
+                  "value": "Visa ārati: pėdos 4, juosmuo 2, galva 3, kūnas 7"
+                },
+                {
+                  "label": "Vanduo kriauklėje (⟦idaṁ arghyam⟧)",
+                  "value": "7 ratai aplink kūną"
+                },
+                {
+                  "label": "Nosinaitė (⟦idaṁ vastram⟧)",
+                  "value": "Pėdos 4, juosmuo 2, galva 3, kūnas 7"
+                },
+                {
+                  "label": "Gėlės (⟦etāni puṣpāni⟧)",
+                  "value": "Pėdos 4, kūnas 7"
+                },
+                {
+                  "label": "⟦Cāmara⟧ (⟦eṣā cāmara-sevā⟧)",
+                  "value": "Pagal turimą laiką"
+                },
+                {
+                  "label": "Povo vėduoklė (⟦eṣā vyajñana-sevā⟧)",
+                  "value": "Pagal turimą laiką"
+                }
+              ]
+            },
+            {
+              "type": "instruction",
+              "content": "Prie aukojamo reikmens pavadinimo pridėkite asmens, kuriam tas reikmuo aukojamas, mantrą: ⟦śrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ⟧, ⟦klīṁ gaurāya svāhā⟧, ⟦aiṁ gurave namaḥ⟧."
+            },
+            {
+              "type": "instruction",
+              "content": "Trumpa ⟦dhūpa-ārati⟧ (po pusryčių, dieną ir vėlai vakare): smilkalai, gėlės, ⟦cāmara⟧ ir povo vėduoklė (žiemą jos nenaudojama)."
+            },
+            {
+              "type": "text",
+              "content": "Išsamiau žr. 11 skyrių „Pagrindinis garbinimas šešiolika reikmenų“ ir „Ārati apeigos“."
+            }
+          ]
+        },
+        {
+          "id": "home-day",
+          "title": "Dieną",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Paaukokite bhoga (ta pačia tvarka) ir atlikite visą ārati. Jei Dievybės ilsisi dieną, užmigdykite jas tomis pačiomis maldomis kaip vakare, o pažadinkite kaip ryte (2 skyrius)."
+            }
+          ]
+        },
+        {
+          "id": "home-evening",
+          "title": "Vakaras: sandhyā-ārati ir poilsis",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Bhoga ir ⟦sandhyā-ārati⟧; vėliau dar bhoga ir ⟦dhūpa-ārati⟧."
+            },
+            {
+              "type": "instruction",
+              "content": "Nuimkite nuo altoriaus ⟦Tulasī-devī⟧ kartu su gėlėmis ir girliandomis; paprastai aprenkite Dievybes, nuimkite Jų karūnas ir fleitą; paaukokite khīr ir vandens."
+            },
+            {
+              "type": "instruction",
+              "content": "Paliesdami Jų pėdas, pakvieskite jas ilsėtis:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "O Keśava, malonėk ateiti į savo guolį kartu su savo mylimąja Śrīmatī Rādhikā. O Mādhava, ši spindinti, kvapniomis gėlėmis papuošta lova skirta Tavo džiaugsmingiems žaidimams.",
+              "wbw": "āgaccha — malonėk ateiti; śayana-sthānaṁ — į guolį; priyābhiḥ — su savo mylimąja Śrīmatī Rādhikā; saha — kartu su; keśava — o Keśava; divya-puṣpātya-śayyāyāṁ — ant šios spindinčios, kvapniomis gėlėmis papuoštos lovos; sukhaṁ — džiaugsmingai; vihara — žaisk; mādhava — o Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhā ir Kṛṣṇai; namaḥ — nusilenkimai"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "translation": "O Viešpatie Gaurāṅga, prašau ateik į savo poilsio vietą kartu su savo palydovais. O Viešpatie, patogiai pailsėk valandėlę, mėgaudamasis savo žaidimais.",
+              "wbw": "āgaccha — prašau, ateik; viśrama-sthānaṁ — į poilsio vietą; sva-gaṇaiḥ — su savo palydovais; saha — kartu su; gaurāṅga — o Viešpatie Gaurāṅga; kṣaṇaṁ — valandėlę; viśramya — pailsėjęs; sukhena — patogiai; līlayā — mėgaudamasis savo žaidimais; vihara — mėgaukis; prabhu — o Viešpatie; klīṁ — bīja-mantra; gaurāya — Gaurai; svāhā — aukojimo šūksnis „svāhā“"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha śrī-guro\naiṁ gurave namaḥ",
+              "translation": "O Gurudevas, malonėk ateiti į savo poilsio vietą kartu su visais savo palydovais.",
+              "wbw": "āgaccha — malonėk ateiti; viśrāma-sthānaṁ — į savo poilsio vietą; sva-gaṇaiḥ — su visais savo palydovais; saha — kartu su; śrī-guro — o Gurudeva; aiṁ — bīja-mantra; gurave — Gurudevui; namaḥ — nusilenkimai"
+            },
+            {
+              "type": "instruction",
+              "content": "Ištarkite maldas, prašydami atleidimo už nusižengimus:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "aṅga-hīnaṁ kriyā-hīnaṁ\nvidhi-hīnaṁ ca yad bhavet\nastu tat sarvam acchidraṁ\nkṛṣṇa-kārṣṇa-prasādataḥ\n\nyat kiñcit vaiguṇyaṁ jātaṁ\ntad doṣa-praśamanāya\nśrī-kṛṣṇa-smaraṇaṁ karomi",
+              "translation": "Tegul Krsna ir Jo bhaktų malonė panaikina visas mūsų klaidas, padarytas laikantis garbinimo taisyklių ir atliekant garbinimo veiksmus. Dabar prisimenu Krsną, kad panaikinčiau visus galimus trūkumus. [Sat-kriya-sara-dipika]",
+              "wbw": "aṅga-hīnaṁ — stokojantis sudedamųjų dalių; kriyā-hīnaṁ — stokojantis garbinimo veiksmų; vidhi-hīnaṁ — stokojantis nustatytų taisyklių; ca — ir; yad — kas; bhavet — gali būti; astu — tegu tampa; tat — tai; sarvam — visa; acchidraṁ — nepriekaištinga; kṛṣṇa-kārṣṇa-prasādataḥ — Kṛṣṇos ir Jo bhaktų malone; yat — kas; kiñcit — bet koks; vaiguṇyaṁ — trūkumas; jātaṁ — atsirado; tad — to; doṣa-praśamanāya — trūkumui panaikinti; śrī-kṛṣṇa-smaraṇaṁ — Śrī Kṛṣṇos prisiminimą; karomi — atlieku"
+            },
+            {
+              "type": "text",
+              "content": "Išsamiau žr. 2 skyrių „Kasdienė Dievybių dienotvarkė“ ir 10 skyrių „Maldos, prašant atleidimo už nusižengimus“."
             }
           ]
         }

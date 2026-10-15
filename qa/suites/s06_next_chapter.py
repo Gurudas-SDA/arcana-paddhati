@@ -26,16 +26,18 @@ CASES = [
     ("mangalacarana", "introduction", "Введение"),
     ("vigraha-tattva", "daily-duties-brahma-muhurta", "1. "),
     ("offering-bhoga", "mantras-honouring-caranamrita", "8. "),
-    ("main-worship-sixteen-items", "home-worship", "Часть II. "),
-    ("guru-puja-vyasa-puja", "major-festivals", "14. "),
+    ("main-worship-sixteen-items", "home-worship-one-page", "12. "),  # 15.10: Part II has its first page
+    ("guru-puja-vyasa-puja", "major-festivals", "15. "),
     # v7.4 (appended last: the loop index decides which history checks run)
     # (Satkirti 07.10): parampara → Мангалачарана; Part IV ends with the ārati songs
     ("parampara", "mangalacarana", "Мангалачарана"),
-    ("major-festivals", "mangala-arati-songs", "15. "),
+    ("major-festivals", "mangala-arati-songs", "16. "),
     # v7.6 (07.10): «Бхаджаны для Картики» right after «Песни гаура-арати» — now the last chapter
-    ("gaura-arati-songs", "kartika-bhajans", "17. "),
+    ("gaura-arati-songs", "kartika-bhajans", "18. "),
     # A83 (Satkirti 14.10): «Порядок проведения мангала-арати» = ch. 3, right after the daily schedule (+1 to all later numbers)
     ("daily-deity-schedule", "mangala-arati-procedure", "3. "),
+    # 15.10 (Satkirti msg 3486): «Поклонение Божествам дома — на одной странице» = ch. 12, Part II; next = empty Part III
+    ("home-worship-one-page", "preaching-centres", "Часть III. "),
 ]
 LAST = "kartika-bhajans"
 res = []
@@ -133,9 +135,9 @@ def run(p, dev, eng, o):
     chk(dev, f"{LAST} (last chapter): no «След. глава»", pg.locator(".chapter-next").count() == 0)
     if dev in ("iphone14", "ipad-portrait"):
         to_end(); shot("3-last-chapter-end")
-    pg.goto(f"{BASE}/{LANG}/home-worship/", wait_until="networkidle"); pg.wait_for_timeout(600)
+    pg.goto(f"{BASE}/{LANG}/preaching-centres/", wait_until="networkidle"); pg.wait_for_timeout(600)
     g = qa.reading_eval(pg, GEO)
-    chk(dev, "empty part page (Часть II) -> Часть III", bool(g) and g["href"].rstrip("/").endswith("/preaching-centres"), str(g))
+    chk(dev, "empty part page (Часть III) -> first chapter of Part IV", bool(g) and g["href"].rstrip("/").endswith("/caturmasya-purusottama-masa"), str(g))
 
     # English page: English label
     pg.goto(f"{BASE}/vigraha-tattva/", wait_until="networkidle"); pg.wait_for_timeout(600)

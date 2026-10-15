@@ -21,7 +21,9 @@
     {
       "id": "home-worship",
       "title": "Padrão para o Lar",
-      "sections": []
+      "sections": [
+        "home-worship-one-page"
+      ]
     },
     {
       "id": "preaching-centres",
@@ -5073,6 +5075,269 @@
             {
               "type": "text",
               "content": "Nota: Em resumo, antes de começar a ⟦arcana⟧, deve-se limpar o altar e a parafernália. Coloque os artigos em um local conveniente. É importante santificar a água no ⟦pañca-pātra⟧ com o ⟦mantra⟧ \"⟦gaṅge ca yamune caiva...⟧\" e purificar as flores com o ⟦mantra⟧ \"⟦puṣpe puṣpe mahā-puṣpe...⟧\". ⟦Pādya⟧, ⟦arghya⟧ e ⟦ācamanīya⟧ são geralmente substituídos por água pura do ⟦pañca-pātra⟧. Da mesma forma, se algum item não puder ser obtido, ele pode ser substituído pela meditação e pela oferenda de água do ⟦pañca-pātra⟧ ou do búzio."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "home-worship-one-page",
+      "title": "Adoração à Deidade em Casa em Uma Página",
+      "subtitle": null,
+      "page": "",
+      "content": [
+        {
+          "type": "text",
+          "content": "Um breve procedimento para a adoração diária à Deidade em casa. Tudo nesta página foi extraído dos capítulos do “Padrão do Templo”; os detalhes são apresentados nos capítulos indicados."
+        },
+        {
+          "type": "text",
+          "content": "O procedimento ao despertar e para a adoração: primeiro ⟦Gurudev⟧, depois ⟦Gaurāṅga⟧, depois ⟦Śrī Śrī Rādhā-Kṛṣṇa⟧. Durante a ārati, cada artigo é oferecido primeiro a ⟦Kṛṣṇa⟧, depois a ⟦Rādhikā⟧, ⟦Gaurāṅga⟧, então através da paramparā e a ⟦Gurudev⟧."
+        },
+        {
+          "type": "text",
+          "content": "Se um artigo não estiver disponível, pode-se meditar nele e, enquanto se recita o mantra, oferecer água do ⟦pañca-pātra⟧ (capítulo 2)."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "home-before-service",
+          "title": "Antes do serviço",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Tome banho, vista roupas limpas e aplique ⟦tilaka⟧. Antes de entrar para ver as Deidades — faça ācamana:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "⟦oṁ keśavāya namaḥ⟧",
+                  "value": "beba água do ⟦brāhma-tīrtha⟧ de sua mão direita."
+                },
+                {
+                  "label": "⟦oṁ nārāyaṇāya namaḥ⟧",
+                  "value": "beba água do ⟦brāhma-tīrtha⟧ de sua mão direita."
+                },
+                {
+                  "label": "⟦oṁ mādhavāya namaḥ⟧",
+                  "value": "beba água do ⟦brāhma-tīrtha⟧ de sua mão direita."
+                }
+              ],
+              "layout": "vertical"
+            },
+            {
+              "type": "text",
+              "content": "Para obter detalhes, consulte o capítulo 1, “Deveres Diários realizados no Brāhma-muhūrta.”"
+            }
+          ]
+        },
+        {
+          "id": "home-morning",
+          "title": "Manhã: despertar e maṅgala-ārati",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Toque o sino do lado de fora da porta, bata à porta e entre. Tocando Seus pés, desperte ⟦Gurudev⟧, ⟦Gaurāṅga⟧ e ⟦Śrī Śrī Rādhā-Kṛṣṇa⟧:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "uttiṣṭhottiṣṭha śrī guro\ntyaja nidrāṁ kṛpāmaya\naiṁ gurave namaḥ",
+              "translation": "Ó Gurudeva, o mais misericordioso, por favor, levante-se, por favor, levante-se e abandone o seu sono.",
+              "wbw": "uttiṣṭhottiṣṭha — por favor, levante-se, por favor, levante-se; śrī — reverenciado; guro — ó Gurudeva; tyaja — abandone; nidrāṁ — o sono; kṛpāmaya — ó mais misericordioso; aiṁ — bīja-mantra; gurave — a Gurudeva; namaḥ — reverências."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "uttiṣṭhottiṣṭha gaurāṅga\njahi nidrāṁ mahāprabho\nśubha-dṛṣṭi pradānena\ntrailokya-maṅgalaṁ kuru\nklīṁ gaurāya svāhā",
+              "translation": "Ó Gaurāṅga Mahāprabhu, por favor, levante-Se, por favor, levante-Se e abandone Seu sono. Por favor, abençoe os três mundos com Seu olhar auspicioso.",
+              "wbw": "uttiṣṭhottiṣṭha — por favor, levante-Se, por favor, levante-Se; gaurāṅga — ó Gaurāṅga; jahi — abandone; nidrāṁ — o sono; mahāprabho — ó Mahāprabhu; śubha-dṛṣṭi — olhar auspicioso; pradānena — ao conceder; trailokya-maṅgalaṁ — bênção dos três mundos; kuru — por favor, conceda; klīṁ — bīja-mantra; gaurāya — a Gaura; svāhā — exclamação de oferenda “svāhā”."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "go-gopa-gokulānanda\nyaśodānanda vardhana\nuttiṣṭha rādhayā sārddhaṁ\nprātar āsīj jagat-pate\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "Ó alegria de Gokula, dos vaqueirinhos e das vacas; ó Aquele que aumenta a bem-aventurança da mãe Yaśodā; ó Senhor do universo; por favor, levante-Se junto com Śrī Rādhā, pois já está quase amanhecendo.",
+              "wbw": "go-gopa-gokulānanda — ó alegria de Gokula, dos vaqueirinhos e das vacas; yaśodānanda — ó Aquele que aumenta a bem-aventurança da mãe Yaśodā; vardhana — aquele que aumenta; uttiṣṭha — por favor, levante-Se; rādhayā — junto com Śrī Rādhā; sārddhaṁ — junto com; prātar — pela manhã; āsīj — já está quase; jagat-pate — ó Senhor do universo; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — a Śrī Rādhā e Kṛṣṇa; namaḥ — reverências."
+            },
+            {
+              "type": "instruction",
+              "content": "Ofereça ācamana (água para a boca): despeje uma colherada de água do ⟦pañca-pātra⟧ em um recipiente vazio enquanto toca o sino:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ ācamanīyaṁ aiṁ gurave namaḥ\nidaṁ ācamanīyaṁ klīṁ gaurāya svāhā\nidaṁ ācamanīyaṁ śrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Então, mentalmente, ofereça uma vareta para limpar os dentes (⟦eṣa danta-kāṣṭhaḥ⟧ …) e faça ācamana novamente — 12 vezes (3 é aceitável)."
+            },
+            {
+              "type": "instruction",
+              "content": "Limpe o rosto, as mãos e os pés das Deidades com um pano limpo; remova as flores e a tulasī antigas, limpe o altar; ofereça tulasī e decore as Deidades."
+            },
+            {
+              "type": "instruction",
+              "content": "Ofereça bhoga (consulte “Bhoga”) e faça ⟦maṅgala-ārati⟧ (consulte “Ārati”)."
+            },
+            {
+              "type": "text",
+              "content": "Para obter detalhes, consulte o capítulo 2, “Programação Diária da Deidade.”"
+            }
+          ]
+        },
+        {
+          "id": "home-bhoga",
+          "title": "Bhoga (o mesmo todas as vezes)",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Ofereça bhoga com o sentimento de que o próprio ⟦Śrī Gurudev⟧ o está oferecendo a ⟦Śrīman Mahāprabhu⟧ e a ⟦Śrī Śrī Rādhā-Kṛṣṇa⟧. Faça ācamana. Coloque uma folha de tulasī em cada recipiente. Retire a coroa e a flauta das Deidades."
+            },
+            {
+              "type": "instruction",
+              "content": "Enquanto toca o sino, ofereça pétalas de flores aos Seus pés, āsana, pādya, ācamana e naivedya:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "eṣa puṣpāñjaliḥ klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ naivedyaṁ sa tulasī pānīya jalam klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "Ofereça naivedya com tulasī e água.",
+              "wbw": "idaṁ — esta; naivedyaṁ — oferenda de naivedya; sa — com; tulasī — tulasī; pānīya — para beber; jalam — água; klīṁ — bīja-mantra; gaurāya — a Gaura; svāhā — exclamação de oferenda “svāhā”; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — a Rādhā e Kṛṣṇa; namaḥ — reverências."
+            },
+            {
+              "type": "text",
+              "content": "Āsana, pādya e ācamana são oferecidos da mesma maneira, substituindo as primeiras palavras por: ⟦idaṁ āsanaṁ⟧, ⟦etat pādyaṁ⟧, ⟦idaṁ ācamanīyaṁ⟧."
+            },
+            {
+              "type": "instruction",
+              "content": "Mantendo a mão direita sobre o prato (com a mão esquerda sobre a direita), repita o ⟦Gopāla-mantra⟧ oito vezes. Saia; repita ⟦Gaura-gāyatrī⟧ e ⟦Kāma-gāyatrī⟧ dez vezes cada um (os mantras recebidos do guru); espere um pouco."
+            },
+            {
+              "type": "instruction",
+              "content": "Bata à porta, entre, ofereça água para enxaguar a boca (⟦idaṁ ācamanīyaṁ⟧), tāmbūla (⟦idaṁ tāmbūlaṁ⟧) e āsana (⟦idaṁ āsanaṁ⟧), e retire o prato. Recoloque a coroa e a flauta. Ofereça os remanescentes — ⟦mahā-prasāda⟧ — a Gurudev e aos vaiṣṇavas (⟦idaṁ mahā-prasādaṁ aiṁ gurave namaḥ⟧ …)."
+            },
+            {
+              "type": "text",
+              "content": "Para obter detalhes, consulte o capítulo 7, “Procedimento para Oferecer Bhoga.”"
+            }
+          ]
+        },
+        {
+          "id": "home-arati",
+          "title": "Ārati",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Os artigos da ārati e a ordem em que são oferecidos:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "Incenso (⟦eṣa dhūpaḥ⟧)",
+                  "value": "Ārati completa: pés 4, cintura 2, corpo 7"
+                },
+                {
+                  "label": "Lamparina de Ghī (⟦eṣa dīpaḥ⟧)",
+                  "value": "Ārati completa: pés 4, cintura 2, cabeça 3, corpo 7"
+                },
+                {
+                  "label": "Água no búzio (⟦idaṁ arghyam⟧)",
+                  "value": "7 círculos ao redor do corpo"
+                },
+                {
+                  "label": "Lenço (⟦idaṁ vastram⟧)",
+                  "value": "Pés 4, Cintura 2, Cabeça 3, Corpo 7"
+                },
+                {
+                  "label": "Flores (⟦etāni puṣpāni⟧)",
+                  "value": "Pés 4, Corpo 7"
+                },
+                {
+                  "label": "⟦Cāmara⟧ (⟦eṣā cāmara-sevā⟧)",
+                  "value": "De acordo com o tempo disponível"
+                },
+                {
+                  "label": "Leque de penas de pavão (⟦eṣā vyajñana-sevā⟧)",
+                  "value": "De acordo com o tempo disponível"
+                }
+              ]
+            },
+            {
+              "type": "instruction",
+              "content": "Acrescente o mantra da pessoa a quem o artigo está sendo oferecido ao nome do artigo: ⟦śrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ⟧, ⟦klīṁ gaurāya svāhā⟧, ⟦aiṁ gurave namaḥ⟧."
+            },
+            {
+              "type": "instruction",
+              "content": "⟦Dhūpa-ārati⟧ curta (após o desjejum, durante o dia e no fim da noite): incenso, flores, ⟦cāmara⟧ e um leque de penas de pavão (não no inverno)."
+            },
+            {
+              "type": "text",
+              "content": "Para obter detalhes, consulte o capítulo 11, “A adoração principal com dezesseis artigos”, e “Cerimônia de ārati”."
+            }
+          ]
+        },
+        {
+          "id": "home-day",
+          "title": "Durante o dia",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Ofereça bhoga (na mesma ordem) e realize a ārati completa. Se as Deidades descansarem durante o dia, coloque-as para descansar com as mesmas orações usadas à noite e desperte-as como pela manhã (capítulo 2)."
+            }
+          ]
+        },
+        {
+          "id": "home-evening",
+          "title": "À noite: sandhyā-ārati e descanso",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Bhoga e ⟦sandhyā-ārati⟧; mais tarde, mais bhoga e ⟦dhūpa-ārati⟧."
+            },
+            {
+              "type": "instruction",
+              "content": "Retire ⟦Tulasī-devī⟧ do altar, juntamente com as flores e guirlandas; vista as Deidades de maneira simples; retire Suas coroas e flauta; ofereça khīr e água."
+            },
+            {
+              "type": "instruction",
+              "content": "Tocando Seus pés, convide-as a descansar:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "Ó Keśava, por favor, venha para Sua cama junto com Sua amada Śrīmatī Rādhikā. Ó Mādhava, esta cama resplandecente, feita de flores perfumadas, foi preparada para Seus alegres passatempos.",
+              "wbw": "āgaccha — por favor, venha; śayana-sthānaṁ — para a cama; priyābhiḥ — com Sua amada Śrīmatī Rādhikā; saha — junto com; keśava — ó Keśava; divya-puṣpātya-śayyāyāṁ — nesta cama resplandecente de flores perfumadas; sukhaṁ — alegremente; vihara — divirta-Se; mādhava — ó Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — a Rādhā e Kṛṣṇa; namaḥ — reverências."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "translation": "Ó Senhor Gaurāṅga, por favor, venha para Seu local de descanso junto com Seus associados. Ó Senhor, descanse confortavelmente por um momento, desfrutando de Seus passatempos.",
+              "wbw": "āgaccha — por favor, venha; viśrama-sthānaṁ — para o local de descanso; sva-gaṇaiḥ — com Seus associados; saha — junto com; gaurāṅga — ó Senhor Gaurāṅga; kṣaṇaṁ — por um momento; viśramya — descansando; sukhena — confortavelmente; līlayā — desfrutando de Seus passatempos; vihara — desfrute; prabhu — ó Senhor; klīṁ — bīja-mantra; gaurāya — a Gaura; svāhā — exclamação de oferenda “svāhā”."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha śrī-guro\naiṁ gurave namaḥ",
+              "translation": "Ó Gurudeva, por favor, venha para Seu local de descanso junto com todos os Seus associados.",
+              "wbw": "āgaccha — por favor, venha; viśrāma-sthānaṁ — para Seu local de descanso; sva-gaṇaiḥ — com todos os Seus associados; saha — junto com; śrī-guro — ó Gurudeva; aiṁ — bīja-mantra; gurave — a Gurudeva; namaḥ — reverências."
+            },
+            {
+              "type": "instruction",
+              "content": "Recite as orações pedindo perdão pelas ofensas:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "aṅga-hīnaṁ kriyā-hīnaṁ\nvidhi-hīnaṁ ca yad bhavet\nastu tat sarvam acchidraṁ\nkṛṣṇa-kārṣṇa-prasādataḥ\n\nyat kiñcit vaiguṇyaṁ jātaṁ\ntad doṣa-praśamanāya\nśrī-kṛṣṇa-smaraṇaṁ karomi",
+              "translation": "Que a misericórdia de Kṛṣṇa e de Seus devotos anule todos os erros que cometemos na observância das regras da adoração e na execução dos atos de adoração. Agora lembro-me de Kṛṣṇa para anular quaisquer faltas que possa haver. [Sat-kriya-sara-dipika]",
+              "wbw": "aṅga-hīnaṁ — deficiente em componentes; kriyā-hīnaṁ — deficiente em atos de adoração; vidhi-hīnaṁ — deficiente nas regras prescritas; ca — e; yad — o que quer que; bhavet — possa ser; astu — que se torne; tat — isso; sarvam — tudo; acchidraṁ — sem falhas; kṛṣṇa-kārṣṇa-prasādataḥ — pela misericórdia de Krsna e de Seus devotos; yat — o que quer que; kiñcit — qualquer; vaiguṇyaṁ — imperfeição; jātaṁ — tenha surgido; tad — essa; doṣa-praśamanāya — para a anulação da falta; śrī-kṛṣṇa-smaraṇaṁ — lembrança de Sri Krsna; karomi — eu realizo."
+            },
+            {
+              "type": "text",
+              "content": "Para obter detalhes, consulte o capítulo 2, “Programação diária da Deidade”, e o capítulo 10, “Orações pedindo perdão pelas ofensas”."
             }
           ]
         }

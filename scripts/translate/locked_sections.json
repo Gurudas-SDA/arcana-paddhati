@@ -41,5 +41,12 @@
       "ru-iast"
     ],
     "source": "scripts/chapters/ch02b_mangala_arati/build.py"
+  },
+  "home-worship-one-page": {
+    "langs": [
+      "ru",
+      "ru-iast"
+    ],
+    "source": "scripts/chapters/ch_home_one_page/build.py"
   }
 }
