@@ -3,9 +3,9 @@
   2  the language menu only in the «Аа» panel
   3  «Содержание» = fixed part (title, search, «Обложка») + scrolling list
   4  every contents row (cover, chapter, group heading, chapter with subsections, subsection) reacts to a
-     tap at the far left AND the far right of its highlight strip (1st tap = highlight, §10); v7.8.2: a
+     tap at the far left AND the far right of its highlight strip (one tap performs its action); v7.8.2: a
      subsection row spans the full panel width — tapped at x = panel left + 4 px
-  5  a row opened near the bottom (2nd tap): its rows come into view / the row goes up as far as it can
+  5  a row opened near the bottom (one tap): its rows come into view / the row goes up as far as it can
   6  tilak list: a tap on the place, the mantra or the gap between them marks the row — the place AND the
      mantra get the band — and lights exactly that spot (rows 1–12); «tat prakṣālana-toyaṁ tu / vāsudevāya
      mūrdhani» and «oṁ vāsudevāya namaḥ» light the crown (Tilak-13); the crown on the picture marks the mantra
@@ -20,7 +20,7 @@
  11  without the CSS Custom Highlight API the found word is wrapped in a visible mark, removed by the next tap
  12  parampara offline (service worker): the WebP portraits load; WebP failing → the PNG is shown
  13  the keyboard (Tab) reaches the «Аа» switches and the language menu; Space toggles a switch
- 14  the second tap opens every contents row type (chapter, subsection, chapter with subsections, group, cover)
+ 14  the first tap opens every contents row type (chapter, subsection, chapter with subsections, group, cover)
  v7.8.3 (Codex review of e8d33aa..bb066eb):
  15  a waiting search mark is dropped by any step that does not lead to its place (never painted later); a painted
      mark goes on any path / #anchor change, also when the #anchor is removed; a same-URL state patch keeps it
@@ -31,10 +31,11 @@ usage: python s26_ksv_0710_evening.py <base-url>   devices: QA_DEVICES"""
 import json
 import os
 import sys
-from urllib.parse import unquote
+from urllib.parse import unquote, urljoin, urlsplit
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "lib"))
 import qa  # noqa: E402
+from toc import Contents, marks_place, marks_chapter_top  # noqa: E402
 from playwright.sync_api import sync_playwright  # noqa: E402
 
 BASE = sys.argv[1].rstrip("/")
@@ -63,12 +64,29 @@ def run(p, dev, eng, o):
     pg = c.new_page()
     touch = o.get("has_touch", False)
     vw = o["viewport"]
+    flow = Contents(pg, qa.TocMode("default"), touch)
     errs = []
     pg.on("pageerror", lambda e: errs.append(str(e)))
 
     def tapxy(x, y, ms=350):
         (pg.touchscreen.tap if touch else pg.mouse.click)(x, y)
         pg.wait_for_timeout(ms)
+
+    SETTLED = """() => [location.pathname + location.hash, window.__qaFetching || 0, !!document.querySelector('.mobile-menu nav'),
+      JSON.stringify([...document.querySelectorAll('.mobile-menu nav [data-toc-lit], .mobile-menu nav [aria-expanded=true]')]
+        .map(e => e.dataset.tocRow || e.dataset.tocGroup || e.dataset.tocChapter)), history.length]"""
+
+    def settled(before_url, moves, limit=6000):
+        """Only waits (the checks judge what the tap did): until the URL is no longer before_url when the
+        tap opens another page, then until no fetch is in flight and the state stays the same over 150 ms."""
+        last, waited = None, 0
+        while waited < limit:
+            now = pg.evaluate(SETTLED)
+            ok = (not moves or now[0] != before_url) and not now[1]
+            if ok and now == last:
+                return
+            last = now if ok else None
+            pg.wait_for_timeout(150); waited += 150
 
     def tap(sel_or_loc, ms=350):
         loc = pg.locator(sel_or_loc).first if isinstance(sel_or_loc, str) else sel_or_loc
@@ -99,6 +117,14 @@ def run(p, dev, eng, o):
             pg.keyboard.press("Escape")
             pg.wait_for_timeout(500)
 
+    def aa():
+        # Expanding all verses changes the continuous document's layout and
+        # can close the panel on a chapter boundary. Reopen it to inspect the
+        # persisted switch and perform the next switch action.
+        if not pg.locator('.reader-panel').count():
+            flow.bars()
+            tap('[data-reader-action=aa]', 500)
+
     lit = lambda: pg.evaluate("() => [...document.querySelectorAll('.mobile-menu nav [data-toc-lit]')].map(e => e.getAttribute('data-toc-row'))")
 
     # ---------- 1 + 2: switches and language only in «Аа» ----------
@@ -120,12 +146,15 @@ def run(p, dev, eng, o):
         n0 = pg.evaluate("document.querySelectorAll('.app-main .verse-wbw:not([hidden])').length")
         tap(".reader-panel [data-reader-switch=wbw]", 500)
         n1 = pg.evaluate("document.querySelectorAll('.app-main .verse-wbw:not([hidden])').length")
+        aa()
         on = pg.get_attribute(".reader-panel [data-reader-switch=wbw]", "aria-checked")
         tap(".reader-panel [data-reader-switch=wbw]", 500)
         n2 = pg.evaluate("document.querySelectorAll('.app-main .verse-wbw:not([hidden])').length")
         chk(dev, "1 «Аа» switch «весь пословный перевод» opens / closes every word-by-word panel", n0 == 0 and n1 >= 20 and n2 == 0 and on == "true", (n0, n1, n2, on))
+        aa()
         tap(".reader-panel [data-reader-switch=tr]", 500)
         t1 = pg.evaluate("document.querySelectorAll('.app-main .verse-panel:not(.verse-wbw):not([hidden])').length")
+        aa()
         tap(".reader-panel [data-reader-switch=tr]", 500)
         t2 = pg.evaluate("document.querySelectorAll('.app-main .verse-panel:not(.verse-wbw):not([hidden])').length")
         chk(dev, "1 «Аа» switch «все переводы» opens / closes every translation", t1 >= 20 and t2 == 0, (t1, t2))
@@ -145,7 +174,8 @@ def run(p, dev, eng, o):
     pg.evaluate("document.querySelector('.mobile-menu .toc-scroll').scrollTop = 0")
 
     # ---------- 4: full-width rows ----------
-    tap(".mobile-menu [data-toc-cover]")          # base view
+    tap(".mobile-menu [data-toc-cover]")          # opens the cover on one tap
+    contents()
     # open «Введение» and part I, and chapter 1's list (to have every row type)
     for sel in (".mobile-menu [data-toc-group=introduction]", ".mobile-menu [data-toc-group=temple-worship]",
                 ".mobile-menu button[data-toc-chapter=daily-duties-brahma-muhurta]"):
@@ -162,37 +192,88 @@ def run(p, dev, eng, o):
     sample = []
     for k, rs in kinds.items():
         sample += rs if k == "grp" else rs[:2] + rs[-1:]
-    # «Обложка» last: its first tap resets the contents to the base view (everything closed)
+    # Each edge tap starts from the same visible lists; Back restores them
+    # after the action. The cover resets lists, so rebuild only for that row.
     sample = [r for r in sample if r != "cover"] + (["cover"] if "cover" in sample else [])
+
+    def prepare_rows():
+        contents()
+        tap(".mobile-menu [data-toc-cover]")
+        contents()
+        for sel in (".mobile-menu [data-toc-group=introduction]", ".mobile-menu [data-toc-group=temple-worship]",
+                    ".mobile-menu button[data-toc-chapter=daily-duties-brahma-muhurta]"):
+            if pg.get_attribute(sel, "aria-expanded") != "true":
+                tap(sel)
+
+    prepare_rows()
     bad = []
     for r in sample:
         for side in ("right", "left"):
-            q = pg.evaluate("""([r, side]) => { const el = [...document.querySelectorAll('.mobile-menu nav [data-toc-row]')].find(e => e.getAttribute('data-toc-row') === r);
-                if (!el) return null; el.scrollIntoView({block: 'center'}); const b = el.getBoundingClientRect();
-                const aside = document.querySelector('.mobile-menu aside').getBoundingClientRect();
-                return {x: side === 'right' ? Math.min(b.right, aside.right) - 6 : (r.startsWith('sub:') ? aside.left + 4 : b.left + 4), y: b.top + b.height / 2, l: b.left, w: b.width, aw: aside.width}; }""", [r, side])
+            if r == 'cover':
+                prepare_rows()
+            q = pg.evaluate("""async ([r, side]) => {
+                const el = [...document.querySelectorAll('.mobile-menu nav [data-toc-row]')].find(e => e.getAttribute('data-toc-row') === r);
+                if (!el) return null;
+                const list = document.querySelector('.mobile-menu .toc-scroll');
+                const aside = document.querySelector('.mobile-menu aside');
+                const frame = () => new Promise(resolve => requestAnimationFrame(resolve));
+                for (let i = 0; i < 15; i++) {
+                    el.scrollIntoView({block: 'center', behavior: 'instant'}); await frame();
+                    const b = el.getBoundingClientRect(), a = aside.getBoundingClientRect();
+                    // WebKit's overlay scrollbar catches taps without taking
+                    // layout width. Use s35's clearance, then tap near the
+                    // usable right edge. Keep the row width checks unchanged.
+                    const right = list ? list.getBoundingClientRect().right - Math.max(16, list.offsetWidth - list.clientWidth) : a.right;
+                    const x = side === 'right' ? Math.min(b.right, a.right, right) - 6 : (r.startsWith('sub:') ? a.left + 4 : b.left + 4);
+                    const y = b.top + b.height / 2;
+                    if (el.contains(document.elementFromPoint(x, y)))
+                        return {x, y, w: b.width, aw: a.width, exp: el.getAttribute('aria-expanded'), href: el.getAttribute('href')};
+                }
+                return null;
+            }""", [r, side])
             if not q:
-                bad.append((r, "missing"))
+                bad.append((r, side, "row not under the edge tap point"))
                 continue
-            # first move the highlight elsewhere (the row must not be the armed one)
-            # (a plain chapter link: its first tap only highlights — «Обложка» would collapse the lists)
-            cur = lit()
-            other = next(x for x in ("sec:parampara", "sec:mangalacarana", "grp:introduction") if x != r and x not in cur)
-            pg.evaluate("""(o) => { const el = [...document.querySelectorAll('.mobile-menu nav [data-toc-row]')].find(e => e.getAttribute('data-toc-row') === o); el && el.click(); }""", other)
-            pg.wait_for_timeout(200)
-            q = pg.evaluate("""([r, side]) => { const el = [...document.querySelectorAll('.mobile-menu nav [data-toc-row]')].find(e => e.getAttribute('data-toc-row') === r);
-                if (!el) return null; el.scrollIntoView({block: 'center'}); const b = el.getBoundingClientRect(); const aside = document.querySelector('.mobile-menu aside').getBoundingClientRect();
-                return {x: side === 'right' ? Math.min(b.right, aside.right) - 6 : (r.startsWith('sub:') ? aside.left + 4 : b.left + 4), y: b.top + b.height / 2, w: b.width, aw: aside.width}; }""", [r, side])
-            if not q:
-                bad.append((r, side, "row gone"))
-                continue
+            before = flow.state()
             tapxy(q["x"], q["y"], 300)
-            got = lit()
-            # v7.8.2: a subsection row spans the full panel too — its left tap is at the panel's left edge + 4 px
-            if got != [r] or q["w"] < q["aw"] * (0.95 if r.startswith("sub:") else 0.6):
-                bad.append((r, side, got, round(q["w"]), round(q["aw"])))
-            if not pg.locator(".mobile-menu").count():
-                contents()
+            # Wait for the tap's action to finish - a STATE, not 300 ms (as s35, 15.10): chapter by chapter
+            # (Vraja PR 2) a row may open another page, which WebKit under load shows later than 300 ms.
+            if q['exp'] is None:
+                goal = urlsplit(urljoin(pg.url, q['href']))
+                moves = unquote(goal.path) + ('#' + unquote(goal.fragment) if goal.fragment else '') != unquote(before['url'])
+            else:
+                moves = q['exp'] == 'false' and r.startswith('sec:') and not before['url'].endswith('/' + r[4:] + '/')
+            settled(before['url'], moves)
+            after = flow.state()
+            if q['exp'] is None:
+                want = urlsplit(urljoin(pg.url, q['href']))
+                target = unquote(want.path) + ('#' + unquote(want.fragment) if want.fragment else '')
+                reacted = not after['menu'] and unquote(after['url']) == target
+            else:
+                row = flow.row(r)
+                reacted = after['menu'] and row.get_attribute('aria-expanded') != q['exp'] and marks_place(after)
+                if r.startswith('grp:'):
+                    reacted = reacted and after['url'] == before['url']
+                    # An unrelated group never moves the mark. A hidden current
+                    # branch raises it to the nearest visible ancestor.
+                    if before['lit'] != [r] and after['lit'] != [r]:
+                        reacted = reacted and after['lit'] == before['lit']
+                elif q['exp'] == 'false':
+                    chapter = r[4:]
+                    reacted = reacted and after['url'].endswith('/' + chapter + '/') and marks_chapter_top(pg, after, chapter)
+                    reacted = reacted and abs(pg.evaluate(qa.READING_POSITION_JS)['top']) < 2
+                else:
+                    reacted = reacted and after['url'] == before['url']
+                    if before['lit'] == [r]:
+                        reacted = reacted and after['lit'] == [r]
+            # Keep the original full-panel width thresholds at both edges.
+            if not reacted or q["w"] < q["aw"] * (0.95 if r.startswith("sub:") else 0.6):
+                bad.append((r, side, after, round(q["w"]), round(q["aw"])))
+            if r != 'cover':
+                flow.nav('back', native=True)
+                restored = flow.state()
+                if any(restored[k] != before[k] for k in ['url', 'menu', 'open']) or not marks_place(restored):
+                    bad.append((r, side, 'fixture not restored by Back', before, restored))
     chk(dev, f"4 every row type reacts over its full strip, left and right edge ({len(sample)} rows: {', '.join(sorted(kinds))})",
         not bad and {"cover", "grp", "sec", "sub"} <= set(kinds), str(bad[:4]))
     # (no Escape before the next goto: its history.go(-n) would land after the new page loaded)
@@ -202,6 +283,7 @@ def run(p, dev, eng, o):
     goto("kartika-bhajans/")
     contents()
     tap(".mobile-menu [data-toc-cover]")
+    contents()
     REVEAL = """(sel) => { const sc = document.querySelector('.mobile-menu .toc-scroll'); const row = document.querySelector(sel);
         const li = row.closest('li'); const n = sc.getBoundingClientRect(), g = li.getBoundingClientRect(), r = row.getBoundingClientRect();
         return {allIn: g.bottom <= n.bottom + 1, rowTop: Math.round(r.top - n.top), atEnd: sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 2,
@@ -213,15 +295,15 @@ def run(p, dev, eng, o):
             chk(dev, f"5 {name}: row present", False, (sel, pg.url, pg.locator(".mobile-menu").count(),
                 pg.evaluate("() => [...document.querySelectorAll('.mobile-menu [data-toc-row]')].map(e => e.getAttribute('data-toc-row')).join(' ')")))
             continue
-        if loc.get_attribute("aria-expanded") == "true":     # close it first (two taps)
-            tap(loc); tap(loc)
+        if loc.get_attribute("aria-expanded") == "true":
+            tap(loc)
         # bring the row to the bottom of the list's view, then open it
         pg.evaluate("""(sel) => { const sc = document.querySelector('.mobile-menu .toc-scroll'); const row = document.querySelector(sel);
             sc.scrollTop += row.getBoundingClientRect().bottom - sc.getBoundingClientRect().bottom + 4; }""", sel)
         pg.wait_for_timeout(200)
         bb = loc.bounding_box()
         tapxy(bb["x"] + 30, bb["y"] + bb["height"] / 2, 300)
-        tapxy(bb["x"] + 30, bb["y"] + bb["height"] / 2, 600)
+        pg.wait_for_timeout(600)
         st = pg.evaluate(REVEAL, sel)
         chk(dev, f"5 {name} opened at the bottom → its rows in view (or the row at the top / list at its end)",
             st["kids"] > 0 and (st["allIn"] or st["rowTop"] <= 2) and st["rowTop"] >= -1, str(st))
@@ -229,21 +311,27 @@ def run(p, dev, eng, o):
     # ---------- 6: tilak rows + crown ----------
     # (no #anchor: the anchor keeper would pull the page back to the heading for 4 s after load)
     goto("daily-duties-brahma-muhurta/", 1500)
-    STATE = """() => { const rows = [...document.querySelectorAll('.hs-row')];
+    STATE = """() => { const rows = [...document.querySelectorAll('[data-reader-current] .hs-row')];
         const act = rows.filter(r => r.hasAttribute('data-active')).map(r => r.getAttribute('data-hs-nums'));
-        const masks = [...document.querySelectorAll('.hs-figure mask image')].map(x => x.getAttribute('href').split('/').pop());
+        const masks = [...document.querySelectorAll('[data-reader-current] .hs-figure mask image')].map(x => x.getAttribute('href').split('/').pop());
         return {act, masks, bars: document.documentElement.hasAttribute('data-reader-bars')}; }"""
-    BAND = """(n) => { const r = document.querySelector('.hs-row[data-hs-nums="' + n + '"]:not(span)'); if (!r) return null;
+    BAND = """(n) => { const r = document.querySelector('[data-reader-current] .hs-row[data-hs-nums="' + n + '"]:not(span)'); if (!r) return null;
         const cells = [...r.children]; const place = cells[1], mantra = cells[2].querySelector('.hs-text');
-        const bg = (e) => e ? getComputedStyle(e).backgroundColor : null;
+        const bg = (e) => { if (!e) return null;
+          const c = getComputedStyle(e).backgroundColor;
+          return c === 'rgba(0, 0, 0, 0)' || c === 'transparent' ? getComputedStyle(r).backgroundColor : c; };
         return {place: bg(place), mantra: bg(mantra), num: bg(cells[0])}; }"""
-    POINTS = """(n) => { const r = document.querySelector('.hs-row[data-hs-nums="' + n + '"]:not(span)'); r.scrollIntoView({block: 'center'});
+    POINTS = """(n) => { const r = document.querySelector('[data-reader-current] .hs-row[data-hs-nums="' + n + '"]:not(span)'); r.scrollIntoView({block: 'center'});
         const cells = [...r.children]; const lab = cells[1], man = cells[2].querySelector('.hs-text');
         const range = document.createRange(); range.selectNodeContents(lab); const lr = range.getClientRects(); const last = lr[lr.length - 1];
         const mr = man.getClientRects()[0];
+        const stacked = mr.top >= last.bottom;
+        const gap = stacked
+          ? {x: (Math.max(last.left, mr.left) + Math.min(last.right, mr.right)) / 2, y: (last.bottom + mr.top) / 2, w: mr.top - last.bottom}
+          : {x: (last.right + mr.left) / 2, y: mr.top + mr.height / 2, w: mr.left - last.right};
         return {label: {x: last.left + Math.min(10, last.width / 2), y: last.top + last.height / 2},
                 mantra: {x: mr.left + mr.width / 2, y: mr.top + mr.height / 2},
-                gap: {x: (last.right + mr.left) / 2, y: mr.top + mr.height / 2, w: mr.left - last.right}}; }"""
+                gap}; }"""
     bad = []
     banded = 0
     for n in range(1, 13):
@@ -269,7 +357,7 @@ def run(p, dev, eng, o):
                 pg.keyboard.press("Escape")
     chk(dev, "6 tilak rows 1–12: place / mantra / gap → this row (place AND mantra banded) + exactly its spot", not bad and banded == 36, str(bad[:3]))
     # right of the mantra: page (UI §1)
-    q = pg.evaluate("""() => { const r = document.querySelector('.hs-row[data-hs-nums="1"]:not(span)'); r.scrollIntoView({block: 'center'});
+    q = pg.evaluate("""() => { const r = document.querySelector('[data-reader-current] .hs-row[data-hs-nums="1"]:not(span)'); r.scrollIntoView({block: 'center'});
         const m = r.children[2].querySelector('.hs-text').getClientRects()[0]; const rr = r.getBoundingClientRect();
         return {x: Math.min(m.right + 40, rr.right - 4), y: m.top + m.height / 2, room: rr.right - m.right}; }""")
     if q["room"] > 30:
@@ -282,27 +370,28 @@ def run(p, dev, eng, o):
     for label, js in (("verse «tat prakṣālana-toyaṁ tu»", "span.hs-row[data-hs-nums='13'] .hs-text"),
                       ("verse «vāsudevāya mūrdhani»", "span.hs-row[data-hs-nums='13'] .hs-text:last-of-type"),
                       ("«oṁ vāsudevāya namaḥ»", "p span.hs-row[data-hs-nums='13'] .hs-text")):
-        el = pg.locator(f".app-main {js}")
+        el = qa.reading_locator(pg, js)
         txt = el.first.inner_text() if el.count() else ""
         if not el.count():
             crown.append((label, "missing"))
             continue
         tap(el.first, 500)
         st = pg.evaluate(STATE)
-        bg = el.first.evaluate("e => getComputedStyle(e).backgroundColor")
+        bg = el.first.evaluate("""e => { const c = getComputedStyle(e).backgroundColor;
+          return c === 'rgba(0, 0, 0, 0)' || c === 'transparent' ? getComputedStyle(e.closest('.hs-row')).backgroundColor : c; }""")
         if st["masks"] != ["Tilak-13.png"] or st["act"] != ["13"] or bg in ("rgba(0, 0, 0, 0)", "transparent"):
             crown.append((label, txt, st, bg))
         tap(el.first, 350)
     chk(dev, "6 crown: «tat prakṣālana-toyaṁ tu / vāsudevāya mūrdhani» and «oṁ vāsudevāya namaḥ» → marked + the crown (Tilak-13)", not crown, str(crown[:3]))
     # the crown on the picture → the mantra «oṁ vāsudevāya namaḥ» marked (the instruction under the picture)
-    pg.evaluate("() => document.querySelector('.hs-figure').scrollIntoView({block: 'center'})")
+    pg.evaluate("() => document.querySelector('[data-reader-current] .hs-figure').scrollIntoView({block: 'center'})")
     pg.wait_for_timeout(400)
-    pt = pg.evaluate("""() => { const g = [...document.querySelectorAll('.hs-figure .hs-hit')].find(x => x.getAttribute('aria-label') === '13');
+    pt = pg.evaluate("""() => { const g = [...document.querySelectorAll('[data-reader-current] .hs-figure .hs-hit')].find(x => x.getAttribute('aria-label') === '13');
         const r = g.querySelector('ellipse').getBoundingClientRect(); return {x: r.left + r.width / 2, y: r.top + r.height / 2}; }""")
     tapxy(pt["x"], pt["y"], 1200)
-    st = pg.evaluate("""() => { const a = [...document.querySelectorAll('.hs-row[data-active]')];
+    st = pg.evaluate("""() => { const a = [...document.querySelectorAll('[data-reader-current] .hs-row[data-active]')];
         return {n: a.length, txt: a.map(r => r.textContent.trim()), inView: a.every(r => { const b = r.getBoundingClientRect(); return b.top >= 0 && b.bottom <= innerHeight; }),
-                masks: [...document.querySelectorAll('.hs-figure mask image')].map(x => x.getAttribute('href').split('/').pop())}; }""")
+                masks: [...document.querySelectorAll('[data-reader-current] .hs-figure mask image')].map(x => x.getAttribute('href').split('/').pop())}; }""")
     chk(dev, "6 crown on the picture → «oṁ vāsudevāya namaḥ» marked, in view", st["n"] == 1 and "vāsudevāya namaḥ" in st["txt"][0]
         and st["inView"] and "Tilak-13.png" in st["masks"], str(st))
 
@@ -312,10 +401,12 @@ def run(p, dev, eng, o):
         n_short = n_long = 0
         for lang in ("ru-iast", "en"):
             for sid in SHORT_PAGES:
-                pg.goto(f"{BASE}/{lang}/{sid}/", wait_until="domcontentloaded")
+                prefix = '' if lang == 'en' else '/' + lang
+                pg.goto(f"{BASE}{prefix}/{sid}/", wait_until="domcontentloaded")
+                qa.wait_for_book_chapter(pg, sid)
                 pg.wait_for_timeout(300)
                 r = pg.evaluate("""(isShort) => { isShort = eval(isShort); const out = {bad: [], short: 0, long: 0};
-                    for (const chip of document.querySelectorAll('.app-main .verse-chip')) {
+                    for (const chip of document.querySelectorAll('[data-reader-current] .verse-chip')) {
                       const panel = document.getElementById(chip.getAttribute('aria-controls'));
                       if (!panel || !panel.classList.contains('verse-wbw')) continue;
                       let text;
@@ -325,7 +416,7 @@ def run(p, dev, eng, o):
                       if (isShort(text)) out.bad.push(text.trim().slice(0, 40)); else out.long++;
                     }
                     // short mantras shown (verses and table mantras)
-                    for (const e of document.querySelectorAll('.app-main .sanskrit, .app-main .sa-inline')) if (isShort(e.innerText)) out.short++;
+                    for (const e of document.querySelectorAll('[data-reader-current] .sanskrit, [data-reader-current] .sa-inline')) if (isShort(e.innerText)) out.short++;
                     return out; }""", IS_SHORT)
                 n_short += r["short"]
                 n_long += r["long"]
@@ -336,7 +427,7 @@ def run(p, dev, eng, o):
         # them) — no «пословно», the «перевод» chip stays
         goto("arcana-sri-guru/")
         g = pg.evaluate("""() => { const out = {n: 0, wbw: 0, tr: 0};
-            for (const sk of document.querySelectorAll('.app-main .sanskrit')) {
+            for (const sk of document.querySelectorAll('[data-reader-current] .sanskrit')) {
               const t = sk.innerText.trim().normalize('NFC');
               if (!/^(idaṁ|etat|eṣa) .*gurave namaḥ$/.test(t)) continue;
               const chips = sk.parentElement.querySelector(':scope > .verse-chips');
@@ -410,7 +501,7 @@ PORTRAITS = """() => [...document.querySelectorAll('.portrait-page img')].map(i 
 
 def run_v781(p, dev, eng, o):
     """Reader v7.8.1 (Codex review of v7.8): search mark cleanup on every kind of step away + fallback without
-    the Highlight API, offline WebP portraits, PNG fallback when WebP fails, keyboard into «Аа», second tap of
+    the Highlight API, offline WebP portraits, PNG fallback when WebP fails, keyboard into «Аа», first tap of
     every contents row type."""
     touch = o.get("has_touch", False)
     vw = o["viewport"]
@@ -705,10 +796,11 @@ def run_v781(p, dev, eng, o):
             chk(dev, "13 the switch toggles from the keyboard (Space)", before != after and after is not None, (before, after))
         c.close()
 
-    # ---------- 14: second tap of every contents row type ----------
+    # ---------- 14: one tap of every contents row type ----------
     if dev in ("pixel7", "iphone14", "desktop", "mac-safari"):
         c = ctx()
         pg = c.new_page()
+        flow = Contents(pg, qa.TocMode("default"), touch)
         tapxy, tap, bars = helpers(pg)
         LIT = "() => [...document.querySelectorAll('.mobile-menu nav [data-toc-lit]')].map(e => e.getAttribute('data-toc-row'))"
         ROW = """(r) => { const el = [...document.querySelectorAll('.mobile-menu nav [data-toc-row]')].find(e => e.getAttribute('data-toc-row') === r);
@@ -760,29 +852,32 @@ def run_v781(p, dev, eng, o):
                 bad.append((kind, "no row"))
                 continue
             prepare()
-            other = next(x for x in ("sec:parampara", "sec:mangalacarana", "grp:introduction") if x != r and x not in pg.evaluate(LIT))
-            pg.evaluate("""(o) => { const el = [...document.querySelectorAll('.mobile-menu nav [data-toc-row]')].find(e => e.getAttribute('data-toc-row') === o); el && el.click(); }""", other)
-            pg.wait_for_timeout(250)
+            before = flow.state()
             u0 = pg.url
             q = pg.evaluate(ROW, r)
             if not q:
                 bad.append((kind, r, "row gone"))
                 continue
             tapxy(q["x"], q["y"], 400)
-            q1 = pg.evaluate(ROW, r)
-            if pg.evaluate(LIT) != [r] or pg.url != u0 or not q1 or q1["exp"] != q["exp"]:
-                bad.append((kind, r, "1st tap", pg.evaluate(LIT), pg.url[-30:], q1 and q1["exp"]))
-                continue
-            tapxy(q1["x"], q1["y"], 1200)
-            if q["exp"] is not None:      # disclosure: the 2nd tap opens / closes it
-                q2 = pg.evaluate(ROW, r)
-                if not q2 or q2["exp"] == q["exp"]:
-                    bad.append((kind, r, "2nd tap did not toggle", q["exp"], q2 and q2["exp"]))
-            else:                          # a link: the 2nd tap opens it
-                want = (q["href"] or "").rstrip("/")
-                if pg.url == u0 or not unquote(pg.url).split("?")[0].rstrip("/").endswith(unquote(want).rsplit("/arcana-paddhati", 1)[-1].rstrip("/")):
-                    bad.append((kind, r, "2nd tap did not open", want[-40:], pg.url[-40:]))
-        chk(dev, f"14 second tap opens every contents row type ({', '.join(f'{k}={v}' for k, v in pick.items())})", not bad and len(pick) == 5, str(bad[:3]))
+            after = flow.state()
+            if q["exp"] is not None:
+                q1 = pg.evaluate(ROW, r)
+                ok = q1 and q1["exp"] != q["exp"] and after['menu'] and marks_place(after)
+                if kind == 'group heading':
+                    ok = ok and pg.url == u0 and after['lit'] == before['lit']
+                elif q["exp"] == 'false':
+                    ok = ok and after['url'].endswith('/' + r[4:] + '/') and marks_chapter_top(pg, after, r[4:])
+                    ok = ok and abs(pg.evaluate(qa.READING_POSITION_JS)['top']) < 2
+                else:
+                    ok = ok and pg.url == u0 and after['lit'] == [r]
+                if not ok:
+                    bad.append((kind, r, "one tap did not toggle/open", before, after, q1))
+            else:
+                want = urlsplit(urljoin(u0, q["href"]))
+                got = urlsplit(pg.url)
+                if after['menu'] or pg.url == u0 or (unquote(got.path).rstrip('/'), unquote(got.fragment)) != (unquote(want.path).rstrip('/'), unquote(want.fragment)):
+                    bad.append((kind, r, "one tap did not open", q['href'], pg.url))
+        chk(dev, f"14 first tap opens every contents row type ({', '.join(f'{k}={v}' for k, v in pick.items())})", not bad and len(pick) == 5, str(bad[:3]))
         c.close()
     b.close()
 

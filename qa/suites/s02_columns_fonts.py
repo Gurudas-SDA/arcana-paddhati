@@ -12,11 +12,11 @@ IPAD = IOS.replace("iPhone; CPU iPhone OS", "iPad; CPU OS")
 PIX = "Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36"
 MIN_COL_FONT = {"iphone14": (0.92, 18), "pixel7": (0.92, 18), "ipad-portrait": (0.85, 20), "ipad-landscape": (0.85, 21), "desktop": (0.0, 21)}
 DEV = [(n, e, o, *MIN_COL_FONT[n]) for n, e, o in qa.devices(list(MIN_COL_FONT))]
-JS_EMPTY_POINT = """() => {
+JS_EMPTY_POINT = """root => {
   // A point on plain text (no interactive element) inside the viewport,
   // preferring true empty margin left of the reading column when wide enough.
   const main = document.querySelector('.app-main');
-  const art = document.querySelector('.app-main article');
+  const art = root.querySelector('article');
   const mr = main.getBoundingClientRect();
   const ar = art.getBoundingClientRect();
   const H = window.innerHeight;
@@ -40,7 +40,7 @@ JS_EMPTY_POINT = """() => {
 }"""
 ONLY = None  # device filter: QA_DEVICES (qa/lib/qa.py)
 URL = f"{BASE}/ru-iast/daily-duties-brahma-muhurta/"
-M = """() => { const a = document.querySelector('.app-main article'); const ar = a.getBoundingClientRect();
+M = """root => { const a = root.querySelector('article'); const ar = a.getBoundingClientRect();
  const cs = getComputedStyle(a); const inner = ar.width - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
  const body = [...a.querySelectorAll('p')].find(p => p.className.includes('text-[15px]'));
  const verse = a.querySelector('.sanskrit');
@@ -60,7 +60,7 @@ with sync_playwright() as p:
         pg.goto(URL, wait_until="networkidle"); pg.wait_for_timeout(1200)
         pg.evaluate("try{localStorage.setItem('ap.readerHintSeen','1')}catch(e){}")
         pg.reload(wait_until="networkidle"); pg.wait_for_timeout(1000)
-        m0 = pg.evaluate(M); print(dev, "default", m0)
+        m0 = qa.reading_eval(pg, M); print(dev, "default", m0)
         if SHOTS: pg.screenshot(path=os.path.join(SHOTS, f"{PFX}-{dev}-default.png"))
         if minr: chk(dev, f"column >= {minr:.0%} of viewport", m0["ratio"] >= minr, f"{m0['ratio']:.3f}")
         chk(dev, f"body font >= {minfs}px", (m0["body"] or 0) >= minfs, m0["body"])
@@ -68,23 +68,23 @@ with sync_playwright() as p:
             chk(dev, "verse centred", m0["vAlign"] == "center", m0["vAlign"])
             # A+ x2
             pg.evaluate("document.querySelector('.app-main').click()") if False else None
-            ep = pg.evaluate(JS_EMPTY_POINT)
+            ep = qa.reading_eval(pg, JS_EMPTY_POINT)
             (pg.touchscreen.tap if touch else pg.mouse.click)(ep["x"], ep["y"]); pg.wait_for_timeout(500); print("tap", ep, pg.url)
             if pg.locator(".reader-chrome[data-shown]").count() == 0:
-                ep = pg.evaluate(JS_EMPTY_POINT); (pg.touchscreen.tap if touch else pg.mouse.click)(ep["x"], ep["y"]); pg.wait_for_timeout(500); print("tap", ep, pg.url)
+                ep = qa.reading_eval(pg, JS_EMPTY_POINT); (pg.touchscreen.tap if touch else pg.mouse.click)(ep["x"], ep["y"]); pg.wait_for_timeout(500); print("tap", ep, pg.url)
             act(pg.locator("[data-reader-action=aa]"))
             act(pg.locator("[data-reader-size='+']")); act(pg.locator("[data-reader-size='+']"))
             if SHOTS: pg.screenshot(path=os.path.join(SHOTS, f"{PFX}-{dev}-aa-panel.png"))
-            m2 = pg.evaluate(M); print(dev, "A+x2", m2)
+            m2 = qa.reading_eval(pg, M); print(dev, "A+x2", m2)
             chk(dev, "A+x2 body >= +15%", m2["body"] >= m0["body"] * 1.15, f"{m0['body']}->{m2['body']}")
             chk(dev, "A+x2 verse >= +15%", m2["verse"] >= m0["verse"] * 1.15, f"{m0['verse']}->{m2['verse']}")
             chk(dev, "A+x2 h1 scales", m2["h1"] > m0["h1"] * 1.15, f"{m0['h1']}->{m2['h1']}")
             act(pg.locator("[data-reader-size='-']"))
-            m1 = pg.evaluate(M); chk(dev, "A- reduces", m1["body"] < m2["body"], f"{m2['body']}->{m1['body']}")
+            m1 = qa.reading_eval(pg, M); chk(dev, "A- reduces", m1["body"] < m2["body"], f"{m2['body']}->{m1['body']}")
             act(pg.locator("[data-reader-size='+']"))
             pg.keyboard.press("Escape") if not touch else act(pg.locator(".reader-panel-close"))
             pg.reload(wait_until="networkidle"); pg.wait_for_timeout(1000)
-            m3 = pg.evaluate(M); chk(dev, "size persists after reload", abs(m3["body"] - m2["body"]) < 0.2, f"{m3['body']}")
+            m3 = qa.reading_eval(pg, M); chk(dev, "size persists after reload", abs(m3["body"] - m2["body"]) < 0.2, f"{m3['body']}")
             if SHOTS: pg.screenshot(path=os.path.join(SHOTS, f"{PFX}-{dev}-aplus2.png"))
             # sepia contrast
             pg.evaluate("localStorage.setItem('ap.readerTheme','sepia'); localStorage.removeItem('ap.readerSize')")

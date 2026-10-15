@@ -1,7 +1,7 @@
 """Reader v7 (Satkirti 06.10.2026) — real behaviour on 7 device profiles.
 usage: python v7_test.py <base-url> [shots-dir]   (ONLY=pixel,iphone ...)
 A path highlight in «Содержание» + stepwise Back (‹ Назад button + system/browser back),
-  part / Introduction headings highlight, lit row scrolled into view (rects), computed colours
+  group toggles keep the reading place; marks follow the visible branch; rects and computed colours
 B «Вперёд ›» steps forward (button), never a dead/disabled tap, note when no step, bars unselectable
 C no «Начало главы» row
 D Introduction = expandable group (Emblem, Vigraha-tattva, Maṅgalācaraṇa), no chapter numbers,
@@ -16,7 +16,8 @@ I every verse of the book (ru-iast, ru) has a «пословно» chip in the U
 import os as _os, sys as _sys
 _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "lib"))
 import qa
-VERSES = 271  # 180 + 61 verses of the maṅgala-/gaura-ārati songs (Reader v7.4, Satkirti 07.10 13:07) + 30 Kārtika bhajans (v7.6)
+from toc import Contents, marks_place
+VERSES = 293  # 180 + 61 verses of the maṅgala-/gaura-ārati songs (Reader v7.4, Satkirti 07.10 13:07) + 30 Kārtika bhajans (v7.6) + 12 of «Порядок проведения мангала-арати» (A83, 14.10) + 10 copied verses of «Поклонение Божествам дома — на одной странице» (15.10)
 import io, json, os, sys, urllib.request
 from urllib.parse import urlparse
 from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout, Error as PWError
@@ -49,7 +50,7 @@ LIT = """() => { const nav = document.querySelector('.mobile-menu nav'); if (!na
     inView: r.top >= nr.top - 1 && r.bottom <= nr.bottom + 1 && r.height > 0,
     bg: getComputedStyle(box).backgroundColor, color: getComputedStyle(txt).color}; }"""
 
-EMPTY_PT = """() => { const main = document.querySelector('.app-main'); const art = document.querySelector('.app-main article');
+EMPTY_PT = """() => { const main = document.querySelector('.app-main'); const art = document.querySelector('[data-reader-current] article');
   const H = innerHeight; const bad = (el) => !el || !!el.closest('a,button,input,select,label,[role=button],img,svg,.hs-text,.hs-figure,.verse-chips,.mood-toggle,[data-no-reader-tap]');
   if (!art) return {x: innerWidth / 2, y: H / 2};
   for (const p of art.querySelectorAll('p, h1')) { if (p.closest('[data-hs-row]') || p.querySelector('a,button,.hs-text')) continue;
@@ -58,11 +59,13 @@ EMPTY_PT = """() => { const main = document.querySelector('.app-main'); const ar
   const ar = art.getBoundingClientRect(); return {x: Math.max(4, ar.left - 6), y: H / 2}; }"""
 
 
-CHIPS = "(() => { const c = [...document.querySelectorAll('.app-main article .verse-chips')]; return [c.length, c.filter(x => /пословно/.test(x.textContent)).length, location.pathname]; })()"
-ROW_JS = """() => { const row = document.querySelector('.hs-row[data-active]'); if (!row) return null; const rr = row.getBoundingClientRect();
+CHIPS = "(() => { const c = [...document.querySelectorAll('[data-reader-current] article .verse-chips')]; return [c.length, c.filter(x => /пословно/.test(x.textContent)).length, location.pathname]; })()"
+ROW_JS = """() => { const row = document.querySelector('[data-reader-current] .hs-row[data-active]'); if (!row) return null; const rr = row.getBoundingClientRect();
                 const bar = document.querySelector('.reader-chrome[data-shown] .reader-bar-bottom'); const lim = bar ? bar.getBoundingClientRect().top : innerHeight;
-                return {top: rr.top, bottom: rr.bottom, vh: innerHeight, lim, bg: getComputedStyle(row.querySelector('.hs-text')).backgroundColor,
-                  text: row.textContent.trim().slice(0, 40), faded: !!document.querySelector('.hs-img-faded'), lit: !!document.querySelector('.hs-figure .hs-lit')}; }"""
+                const textBg = getComputedStyle(row.querySelector('.hs-text')).backgroundColor;
+                const bg = textBg === 'rgba(0, 0, 0, 0)' || textBg === 'transparent' ? getComputedStyle(row).backgroundColor : textBg;
+                return {top: rr.top, bottom: rr.bottom, vh: innerHeight, lim, bg,
+                  text: row.textContent.trim().slice(0, 40), faded: !!document.querySelector('[data-reader-current] .hs-img-faded'), lit: !!document.querySelector('[data-reader-current] .hs-figure .hs-lit')}; }"""
 
 
 def run(p, dev, eng, o):
@@ -71,6 +74,7 @@ def run(p, dev, eng, o):
     errs, foreign = [], []
     ctx = br.new_context(service_workers="block", **o)
     pg = ctx.new_page()
+    flow = Contents(pg, qa.TocMode('default'), touch)
     pg.on("pageerror", lambda e: errs.append(str(e)))
     pg.on("request", lambda r: foreign.append(r.url) if urlparse(r.url).netloc not in (HOST, "") and not r.url.startswith(("data:", "blob:")) else None)
     # fetches in flight (the app's own prefetches of linked pages): a goto() that cuts one off makes
@@ -131,6 +135,12 @@ def run(p, dev, eng, o):
     def lit():
         return pg.evaluate(LIT)
 
+    def in_view(loc):
+        return loc.evaluate("""el => {
+          const r = el.getBoundingClientRect(), n = el.closest('nav').getBoundingClientRect();
+          return r.top >= n.top - 1 && r.bottom <= n.bottom + 1 && r.height > 0;
+        }""")
+
     def settle(ms=4000):
         """No fetch in flight for 300 ms (the app's prefetches done), at most `ms`."""
         quiet = 0
@@ -149,8 +159,10 @@ def run(p, dev, eng, o):
     goto(f"/{L}/daily-duties-brahma-muhurta/")
     P0 = pg.url
 
-    # ---------- A + C + D: path through the contents ----------
+    # ---------- A + C + D: one-tap actions through the contents ----------
+    states = [flow.state()]
     chk(dev, "A open «Содержание»", contents())
+    states.append(flow.state())
     g = lit()
     chk(dev, "A fresh contents: one row lit = current chapter, in view, beige band", g.get("n") == 1 and g.get("chapter") == "daily-duties-brahma-muhurta" and g["inView"] and g["bg"] == LIT_BG, str(g))
     chk(dev, "C no «Начало главы» row (open chapter list)", pg.locator(".mobile-menu [data-toc-chapter-start]").count() == 0 and "Начало главы" not in pg.locator(".mobile-menu nav").inner_text(), "")
@@ -158,65 +170,89 @@ def run(p, dev, eng, o):
     chk(dev, "C chapter list starts with subsection «1.1.»", first.startswith("1.1."), first)
     intro = pg.locator(".mobile-menu [data-toc-group=introduction]")
     chk(dev, "D «Введение» is a group heading without number", intro.count() == 1 and intro.inner_text().strip().upper() == "ВВЕДЕНИЕ", intro.inner_text() if intro.count() else "none")
-    # [v7.5 law, Satkirti 07.10 15:45: 1st tap only highlights, 2nd expands; every tap is a Back step]
-    act(intro)
-    chk(dev, "D v7.5 first tap on «Введение» only highlights (not expanded)", intro.get_attribute("aria-expanded") == "false" and lit().get("group") == "introduction", str(lit()))
-    act(intro)
+    # Real expand / collapse actions replace the removed highlight-only steps.
+    before = flow.state()
+    act(intro); states.append(flow.state())
+    chk(dev, "D first tap on «Введение» expands without moving the reader's mark",
+        intro.get_attribute("aria-expanded") == "true" and flow.state()['lit'] == before['lit']
+        and pg.url == P0, str(flow.state()))
     g = lit()
     rows = pg.locator(".mobile-menu #toc-grp-introduction > li")
     names = [rows.nth(i).inner_text().strip() for i in range(rows.count())]
-    chk(dev, "D second tap «Введение» -> expands: Эмблема / Виграха-таттва (Мангалачарана before Введение — v7.1), no numbers", names == ["Эмблема Гаудия-матха", "Виграха-таттва"], str(names))
-    chk(dev, "A «Введение» heading lit (like a subsection), in view, one highlight", g.get("n") == 1 and g.get("group") == "introduction" and g["inView"] and g["bg"] == LIT_BG and g["color"] == "rgb(184, 134, 11)", str(g))
-    act(intro)
-    chk(dev, "D second tap on «Введение» collapses it", intro.get_attribute("aria-expanded") == "false" and pg.locator(".mobile-menu #toc-grp-introduction").count() == 0)
-    chk(dev, "A after collapse the heading stays lit", lit().get("group") == "introduction", str(lit()))
-    act(intro)
+    chk(dev, "D one tap «Введение» -> Эмблема / Виграха-таттва, no numbers",
+        names == ["Эмблема Гаудия-матха", "Виграха-таттва"], str(names))
+    chk(dev, "A expanding «Введение» keeps one reading-place mark, in view, with its colours",
+        marks_place(flow.state()) and flow.state()['lit'] == before['lit'] and g["inView"]
+        and g["bg"] == LIT_BG and g["color"] == "rgb(184, 134, 11)", str(g))
+    act(intro); states.append(flow.state())
+    chk(dev, "D second tap on «Введение» collapses it",
+        intro.get_attribute("aria-expanded") == "false" and pg.locator(".mobile-menu #toc-grp-introduction").count() == 0)
+    chk(dev, "A collapsing an unrelated group keeps the reading-place mark",
+        flow.state()['lit'] == before['lit'] and marks_place(flow.state()), str(flow.state()))
+    act(intro); states.append(flow.state())
+    # Hiding the reader's branch raises its mark to that visible ancestor.
+    act(flow.group('temple-worship')); states.append(flow.state())
     vig = pg.locator(".mobile-menu [data-toc-chapter=vigraha-tattva]")
-    act(vig)
-    chk(dev, "A v7.5 first tap «Виграха-таттва» -> lit, list still closed", lit().get("chapter") == "vigraha-tattva" and pg.locator(".mobile-menu #toc-ch-vigraha-tattva").count() == 0, str(lit()))
-    act(vig)
-    g = lit()
-    chk(dev, "A second tap «Виграха-таттва» -> lit + its list open", g.get("chapter") == "vigraha-tattva" and g.get("n") == 1 and pg.locator(".mobile-menu #toc-ch-vigraha-tattva").count() == 1, str(g))
+    act(vig); states.append(flow.state())
+    chk(dev, "A first tap «Виграха-таттва» opens its top and subsection list",
+        flow.state()['lit'] == ['sec:vigraha-tattva'] and flow.state()['menu']
+        and pg.url.endswith('/vigraha-tattva/') and abs(pg.evaluate(qa.READING_POSITION_JS)['top']) < 2
+        and pg.locator(".mobile-menu #toc-ch-vigraha-tattva").count() == 1, str(flow.state()))
+    chapter_url = pg.url
+    act(vig); states.append(flow.state()); collapsed = flow.state()
+    act(vig); states.append(flow.state()); g = lit()
+    chk(dev, "A chapter collapses without navigation or losing its mark, then reopens on one tap",
+        'vigraha-tattva' not in collapsed['open'] and collapsed['lit'] == ['sec:vigraha-tattva']
+        and collapsed['url'] == states[-3]['url'] and pg.url == chapter_url
+        and g.get("chapter") == "vigraha-tattva" and g.get("n") == 1
+        and pg.locator(".mobile-menu #toc-ch-vigraha-tattva").count() == 1, str(g))
     tota = pg.locator('.mobile-menu a[href*="#vigraha-tota-gopinatha"]')
     tt = tota.inner_text().strip()
     chk(dev, "D subsection numbering inside the Introduction: «10. Тота Гопинатх…»", tt.startswith("10."), tt)
-    act(tota)
-    g = lit()
-    chk(dev, "A first tap on «Тота Гопинатх» only highlights it", g.get("href", "").endswith("#vigraha-tota-gopinatha") and pg.url == P0 and pg.locator(".mobile-menu").count() == 1, str(g))
+    act(tota, 1100); states.append(flow.state())
+    chk(dev, "A first tap on «Тота Гопинатх» opens it and closes Contents",
+        pg.url.endswith('/vigraha-tattva/#vigraha-tota-gopinatha') and not flow.state()['menu'], pg.url)
     shot("toc-path-tota")
-    act(tota, 1100)
-    try:   # the page shown (the menu goes when it is rendered) — at most 12 s under load
+    try:
         pg.wait_for_function("() => !document.querySelector('.mobile-menu') && location.hash === '#vigraha-tota-gopinatha'", timeout=12000)
     except PWTimeout:
         pass
-    chk(dev, "A second tap opens «Тота Гопинатх»", "/vigraha-tattva/" in pg.url and pg.url.endswith("#vigraha-tota-gopinatha") and pg.locator(".mobile-menu").count() == 0, pg.url)
+    chk(dev, "A one tap opens «Тота Гопинатх» at its subsection",
+        "/vigraha-tattva/" in pg.url and pg.url.endswith("#vigraha-tota-gopinatha")
+        and pg.locator(".mobile-menu").count() == 0, pg.url)
     P1 = pg.url
-    # ‹ Назад (the reader's own button)
+
+    def same_place(got, want):
+        return all(got[k] == want[k] for k in ['url', 'menu', 'open']) and marks_place(got)
+
     bar_act("[data-reader-nav=back]", 1100)
     g = lit()
-    chk(dev, "A ‹ Назад -> contents, «Тота Гопинатх» still lit and in view (iPad case)", g.get("menu") and g.get("n") == 1 and (g.get("href") or "").endswith("#vigraha-tota-gopinatha") and g["inView"] and g["bg"] == LIT_BG, str(g))
-    shot("back-1-tota-lit")
-    # next steps back: system / browser back (Android). v7.5 (Satkirti 07.10 15:45): every Back step
-    # shows exactly the state of the forward step before it — same highlight, same open lists.
-    grp_open = lambda: pg.locator(".mobile-menu #toc-grp-introduction").count() == 1
-    vig_open = lambda: pg.locator(".mobile-menu #toc-ch-vigraha-tattva").count() == 1
+    chk(dev, "A ‹ Назад -> preceding Contents action, reading place marked and in view",
+        same_place(flow.state(), states[-2]) and g.get("menu") and g.get("n") == 1
+        and g["inView"] and g["bg"] == LIT_BG, str(g))
+    shot("back-1-reading-place")
     back_steps = [
-        ("A Back step 2 -> «Виграха-таттва» lit, its list open", lambda g: g.get("chapter") == "vigraha-tattva" and vig_open()),
-        ("A Back step 3 -> «Виграха-таттва» lit, its list closed, «Введение» open", lambda g: g.get("chapter") == "vigraha-tattva" and not vig_open() and grp_open()),
-        ("A Back step 4 -> «Введение» lit, group open", lambda g: g.get("group") == "introduction" and grp_open() and not vig_open()),
-        ("A Back step 5 -> «Введение» lit, group closed (its collapse step)", lambda g: g.get("group") == "introduction" and not grp_open()),
-        ("A Back step 6 -> «Введение» lit, group open", lambda g: g.get("group") == "introduction" and grp_open()),
-        ("A Back step 7 -> «Введение» lit, group closed (first tap)", lambda g: g.get("group") == "introduction" and not grp_open()),
-        ("A Back step 8 -> contents as opened: the current chapter lit", lambda g: g.get("chapter") == "daily-duties-brahma-muhurta" and not grp_open()),
+        "A Back step 2 -> chapter collapsed, same URL and open lists",
+        "A Back step 3 -> chapter open at its top, same URL and open lists",
+        "A Back step 4 -> reader's original branch collapsed, Introduction open",
+        "A Back step 5 -> original chapter, Introduction and Temple Worship open",
+        "A Back step 6 -> original chapter, Introduction collapsed",
+        "A Back step 7 -> original chapter, Introduction open",
+        "A Back step 8 -> Contents as opened",
     ]
-    for k, (name, ok) in enumerate(back_steps):
+    for k, (name, want) in enumerate(zip(back_steps, reversed(states[1:-2]))):
         pg.go_back(); pg.wait_for_timeout(900)
         g = lit()
-        chk(dev, name, g.get("menu") and g.get("n") == 1 and g.get("inView") and ok(g), str(g))
+        chk(dev, name, same_place(flow.state(), want) and g.get("menu")
+            and g.get("n") == 1 and g.get("inView"), str([flow.state(), want, g]))
         if k in (0, 3):
             shot(f"back-{k + 2}")
     pg.go_back(); pg.wait_for_timeout(900)
-    chk(dev, "A Back step 9 -> menu closed, the page where the reader was", pg.locator(".mobile-menu").count() == 0 and pg.url == P0, pg.url)
+    chk(dev, "A Back step 9 -> menu closed, the page where the reader was",
+        same_place(flow.state(), states[0]) and pg.locator(".mobile-menu").count() == 0 and pg.url == P0, pg.url)
+    chk(dev, "A path contains exactly nine real action entries",
+        len(states) == 10 and states[-1]['history'] - states[0]['history'] == 9
+        and states[-1]['pushes'] - states[0]['pushes'] == 9, str(states))
 
     # ---------- B: «Вперёд ›» steps forward ----------
     bars()
@@ -224,36 +260,44 @@ def run(p, dev, eng, o):
     chk(dev, "B «Вперёд» is a live button (not disabled)", fw.get_attribute("disabled") is None and fw.get_attribute("aria-disabled") == "false", str(fw.get_attribute("aria-disabled")))
     bar_act("[data-reader-nav=forward]", 1000)
     g = lit()
-    # v7.5: «Вперёд» replays the same steps — first the contents as opened (the current chapter lit),
-    # then each tap (Введение ×4, Виграха-таттва ×2, Тота Гопинатх)
-    chk(dev, "B «Вперёд» -> step forward: contents as opened (current chapter lit)", g.get("menu") and g.get("chapter") == "daily-duties-brahma-muhurta", str(g))
-    for _ in range(7):
+    chk(dev, "B «Вперёд» -> Contents as opened, original reading place marked",
+        same_place(flow.state(), states[1]) and g.get("menu")
+        and g.get("chapter") == "daily-duties-brahma-muhurta", str(g))
+    bad = []
+    for want in states[2:-1]:
         pg.go_forward(); pg.wait_for_timeout(800)
-    g = lit()
-    chk(dev, "B forward steps retrace the path («Тота Гопинатх» lit)", (g.get("href") or "").endswith("#vigraha-tota-gopinatha"), str(g))
+        if not same_place(flow.state(), want):
+            bad.append((flow.state(), want))
+    chk(dev, "B forward steps retrace every URL and open list, marking the reading place", not bad, str(bad[:2]))
     pg.go_forward(); pg.wait_for_timeout(1000)
-    chk(dev, "B forward -> «Тота Гопинатх» page again", pg.url == P1 and pg.locator(".mobile-menu").count() == 0, pg.url)
+    chk(dev, "B forward -> «Тота Гопинатх» page again", same_place(flow.state(), states[-1]) and pg.url == P1 and pg.locator(".mobile-menu").count() == 0, pg.url)
 
-    # ---------- A: part headings highlight ----------
+    # ---------- A: group actions keep the reading place ----------
     contents()
     g = lit()
     chk(dev, "A contents on Тота Гопинатх page: that subsection lit by default", (g.get("href") or "").endswith("#vigraha-tota-gopinatha") and g["inView"], str(g))
     temple = pg.locator(".mobile-menu [data-toc-group=temple-worship]")
+    before = flow.state()
     act(temple)
     g = lit()
-    chk(dev, "A tap «Храмовый стандарт» -> it is lit (only it)", g.get("group") == "temple-worship" and g.get("n") == 1 and g["bg"] == LIT_BG, str(g))
+    chk(dev, "A tap «Храмовый стандарт» keeps the reading-place mark (only it)",
+        flow.state()['lit'] == before['lit'] and marks_place(flow.state())
+        and g.get("n") == 1 and g["bg"] == LIT_BG, str(g))
     fv = pg.locator(".mobile-menu [data-toc-group=festivals-vows]")
     chk(dev, "H part title «Праздники, обеты и песни арати»", "ПРАЗДНИКИ, ОБЕТЫ И ПЕСНИ АРАТИ" in fv.inner_text().upper(), fv.inner_text())
+    before = flow.state()
     act(fv)
     g = lit()
-    chk(dev, "A tap «Праздники, обеты и песни арати» -> lit moves there", g.get("group") == "festivals-vows" and g.get("n") == 1 and g["inView"], str(g))
-    shot("part-heading-lit")
+    chk(dev, "A tap «Праздники, обеты и песни арати» keeps the reading-place mark and reveals the group",
+        flow.state()['lit'] == before['lit'] and marks_place(flow.state()) and g.get("n") == 1 and in_view(fv), str(g))
+    shot("part-heading-reading-place")
     pre = pg.locator(".mobile-menu [data-toc-group=preaching-centres]")
+    before = flow.state()
     act(pre)
-    chk(dev, "A tap «Стандарт для проповеднических центров» -> lit", lit().get("group") == "preaching-centres", str(lit()))
-    # numbering of Part I
+    chk(dev, "A tap «Стандарт для проповеднических центров» keeps the reading-place mark",
+        flow.state()['lit'] == before['lit'] and marks_place(flow.state()), str(flow.state()))
     if pg.locator(".mobile-menu #toc-part-temple-worship").count() == 0:
-        act(temple); act(temple)   # v7.5: 1st tap highlights, 2nd expands
+        act(temple)
     t1 = pg.locator(".mobile-menu [data-toc-chapter=daily-duties-brahma-muhurta]").inner_text().strip()
     chk(dev, "D Part I starts with chapter «1.»", t1.startswith("1."), t1)
 
@@ -271,8 +315,8 @@ def run(p, dev, eng, o):
         chk(dev, "B the note sits above the bottom bar, on screen", nb["y"] + nb["height"] <= bb["y"] + 1 and nb["x"] >= 0 and nb["x"] + nb["width"] <= o["viewport"]["width"] + 1, f"{nb} {bb}")
         shot("forward-note")
     # next chapter -> back -> forward with the buttons
-    pg.evaluate("(() => { const m = document.querySelector('.app-main'); m.scrollTop = m.scrollHeight; })()"); pg.wait_for_timeout(500)
-    act(pg.locator(".chapter-next-link"), 1100)
+    qa.scroll_chapter(pg, 1); pg.wait_for_timeout(500)
+    act(qa.reading_locator(pg, ".chapter-next-link"), 1100)
     u1 = pg.url
     chk(dev, "D «След. глава ›» after offering-bhoga -> 7. Мантры почитания чаранамриты", u1.rstrip("/").endswith("/mantras-honouring-caranamrita"), u1)
     bar_act("[data-reader-nav=back]", 1000)
@@ -284,26 +328,26 @@ def run(p, dev, eng, o):
     goto(f"/{L}/introduction/")
     links = pg.locator(".group-contents a")
     chk(dev, "D Introduction page lists its 2 chapters (v7.1)", links.count() == 2, str(links.count()))
-    nx = pg.locator(".chapter-next-title")
+    nx = qa.reading_locator(pg, ".chapter-next-title")
     chk(dev, "D Introduction «След. глава ›» -> «Эмблема Гаудия-матха» (no number)", nx.count() == 1 and nx.inner_text().strip() == "Эмблема Гаудия-матха", nx.inner_text() if nx.count() else "")
     goto(f"/{L}/mangalacarana/")
-    nx = pg.locator(".chapter-next-title").inner_text().strip()
+    nx = qa.reading_locator(pg, ".chapter-next-title").inner_text().strip()
     chk(dev, "D Мангалачарана «След. глава ›» -> «Введение» (v7.1)", nx == "Введение", nx)
     goto(f"/{L}/vigraha-tattva/")
-    h1 = pg.locator(".app-main article h1")
+    h1 = qa.reading_locator(pg, "article h1")
     chk(dev, "D Виграха-таттва page: no chapter number in the title", h1.locator(".heading-num").count() == 0, h1.inner_text())
-    st = pg.locator(".reader-status").inner_text()
+    st = pg.locator(".reader-status > span:not(.reader-location-group)").inner_text()
     chk(dev, "D status line names the chapter (no «Глава N»)", st.startswith("Виграха-таттва"), st)
     goto(f"/{L}/daily-deity-schedule/")
-    st = pg.locator(".reader-status").inner_text()
+    st = pg.locator(".reader-status > span:not(.reader-location-group)").inner_text()
     chk(dev, "D status line «Глава 2 · …»", st.startswith("Глава 2 "), st)
 
     # ---------- G: Maṅgalācaraṇa ----------
     goto(f"/{L}/mangalacarana/")
-    head = pg.evaluate("(() => { const h = document.querySelector('.app-main article header'); return {h1: h.querySelector('h1').textContent.trim(), ps: h.querySelectorAll('p').length,"
-                       " h2: [...document.querySelectorAll('.app-main article h2')].map(e => e.textContent.trim()),"
-                       " verses: document.querySelectorAll('.app-main article .verse-chips').length,"
-                       " wbw: [...document.querySelectorAll('.app-main article .verse-chips')].filter(c => /пословно/.test(c.textContent)).length}; })()")
+    head = pg.evaluate("(() => { const h = document.querySelector('[data-reader-current] article header'); return {h1: h.querySelector('h1').textContent.trim(), ps: h.querySelectorAll('p').length,"
+                       " h2: [...document.querySelectorAll('[data-reader-current] article h2')].map(e => e.textContent.trim()),"
+                       " verses: document.querySelectorAll('[data-reader-current] article .verse-chips').length,"
+                       " wbw: [...document.querySelectorAll('[data-reader-current] article .verse-chips')].filter(c => /пословно/.test(c.textContent)).length}; })()")
     chk(dev, "G title only «Мангалачарана», no subtitle", head["h1"] == "Мангалачарана" and head["ps"] == 0, str(head)[:200])
     chk(dev, "G v7.1 no headings at all on the page", not head["h2"], str(head["h2"])[:120])
     bad = [h for h in head["h2"] if "Прославление" in h or "покровител" in h or "призывающ" in h]
@@ -315,16 +359,16 @@ def run(p, dev, eng, o):
     # ---------- E: picture <-> list ----------
     def spot_test(page, spots, label):
         goto(page)
-        fig = pg.locator(".hs-figure").first
+        fig = qa.reading_locator(pg, ".hs-figure").first
         for n in spots:
             # picture at the top of the screen, list below (off-screen on phones)
-            pg.evaluate("(() => { const m = document.querySelector('.app-main'); const f = document.querySelector('.hs-figure'); m.scrollTop += f.getBoundingClientRect().top - 70; })()")
+            pg.evaluate("(() => { const m = document.querySelector('.app-main'); const f = document.querySelector('[data-reader-current] .hs-figure'); m.scrollTop += f.getBoundingClientRect().top - 70; })()")
             pg.wait_for_timeout(400)
-            if pg.locator(".hs-row[data-active]").count():
+            if qa.reading_locator(pg, ".hs-row[data-active]").count():
                 pt = pg.evaluate(EMPTY_PT); tap_xy(pt["x"], pt["y"]); pg.wait_for_timeout(300)
-                pg.evaluate("(() => { const m = document.querySelector('.app-main'); const f = document.querySelector('.hs-figure'); m.scrollTop += f.getBoundingClientRect().top - 70; })()")
+                pg.evaluate("(() => { const m = document.querySelector('.app-main'); const f = document.querySelector('[data-reader-current] .hs-figure'); m.scrollTop += f.getBoundingClientRect().top - 70; })()")
                 pg.wait_for_timeout(300)
-            pt = pg.evaluate("""(n) => { const g = [...document.querySelectorAll('.hs-figure .hs-hit')].find(e => e.getAttribute('aria-label') === n);
+            pt = pg.evaluate("""(n) => { const g = [...document.querySelectorAll('[data-reader-current] .hs-figure .hs-hit')].find(e => e.getAttribute('aria-label') === n);
                 const cands = [...g.querySelectorAll('ellipse, circle')].map(e => e.getBoundingClientRect()).map(r => ({x: r.left + r.width / 2, y: r.top + r.height / 2}));
                 for (const c of cands.reverse()) { const el = document.elementFromPoint(c.x, c.y); if (el && el.closest('.hs-hit') === g) return c; }
                 return null; }""", n)
@@ -343,9 +387,16 @@ def run(p, dev, eng, o):
                 shot(f"emblem-row-{label}")
         # row -> picture
         pt = pg.evaluate(EMPTY_PT); tap_xy(pt["x"], pt["y"]); pg.wait_for_timeout(300)
-        row = pg.locator(".hs-row .hs-text").nth(2)
+        row = qa.reading_locator(pg, ".hs-row .hs-text").nth(2)
         act(row, 700)
-        r = pg.evaluate("(() => ({row: !!document.querySelector('.hs-row[data-active]'), bg: (document.querySelector('.hs-row[data-active] .hs-text')||document.body).style && getComputedStyle(document.querySelector('.hs-row[data-active] .hs-text')).backgroundColor, faded: !!document.querySelector('.hs-img-faded'), lit: document.querySelectorAll('.hs-lit').length}))()")
+        r = pg.evaluate("""() => {
+          const row = document.querySelector('[data-reader-current] .hs-row[data-active]');
+          const text = row?.querySelector('.hs-text');
+          const textBg = text ? getComputedStyle(text).backgroundColor : null;
+          const bg = row && (textBg === 'rgba(0, 0, 0, 0)' || textBg === 'transparent') ? getComputedStyle(row).backgroundColor : textBg;
+          return {row: !!row, bg, faded: !!document.querySelector('[data-reader-current] .hs-img-faded'),
+            lit: document.querySelectorAll('[data-reader-current] .hs-lit').length};
+        }""")
         chk(dev, f"E {label}: tap a list row -> row band + picture part highlighted", r["row"] and r["faded"] and r["lit"] >= 1 and r["bg"].startswith("rgba(212, 168, 67"), str(r))
 
     spot_test(f"/{L}/gaudiya-emblem/", ["3", "2.1", "10", "11", "12"], "emblem")
@@ -385,8 +436,20 @@ def run(p, dev, eng, o):
         for lang in ("ru-iast", "ru"):
             tv = tw = 0; missing = []
             for sid in secs:
+                # Each chapter probe owns its page. Repeatedly navigating the
+                # complete continuous document retains large WebKit pages;
+                # disposal keeps the original load timeout and checks intact.
+                pg.close()
+                inflight.clear()
+                pg = ctx.new_page()
+                pg.on("pageerror", lambda e: errs.append(str(e)))
+                pg.on("request", lambda r: foreign.append(r.url) if urlparse(r.url).netloc not in (HOST, "") and not r.url.startswith(("data:", "blob:")) else None)
+                pg.on("request", lambda r: inflight.add(r) if r.resource_type in ("fetch", "xhr") else None)
+                pg.on("requestfinished", lambda r: inflight.discard(r))
+                pg.on("requestfailed", lambda r: inflight.discard(r))
                 settle(2000)   # no prefetch of the page before cut off by this goto
                 pg.goto(f"{BASE}/{lang}/{sid}/", wait_until="load")
+                qa.wait_for_book_chapter(pg, sid)
                 # the page rendered: the same count (and place — /ru/ opens the ru-iast page, v7)
                 # twice in a row, not a fixed 250 ms (A65 gate 10.10)
                 v, prev = [0, 0], None

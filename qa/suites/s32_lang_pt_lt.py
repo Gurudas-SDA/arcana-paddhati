@@ -84,6 +84,7 @@ def data_checks():
     en = load("book.json")
     ri = load("book.ru-iast.json")
     en_ids = [s["id"] for s in en["sections"]]
+    pending = {s["id"] for s in en["sections"] if s.get("translation_pending")}
     en_sk = dict(sk_fields(en))
     ri_sk = dict(sk_fields(ri))
     ui_en = load("ui.en.json")
@@ -98,14 +99,20 @@ def data_checks():
         if b is None:
             continue
         ids = [s["id"] for s in b["sections"]]
-        chk(dev, f"{code}: every chapter of the English book, same order ({len(en_ids)})", ids == en_ids,
-            f"missing {[i for i in en_ids if i not in ids]} extra {[i for i in ids if i not in en_ids]}")
+        # A83 (Satkirti 14.10 msg 3478): a Russian-only chapter, marked "translation_pending" in book.json, is not
+        # yet in the translated books (the app shows the book.json section with its note) — left out of the
+        # completeness checks until it is translated (the translation removes the mark)
+        skip = {i for i in pending if i not in ids}
+        en_ids_c = [i for i in en_ids if i not in skip]
+        en_sk_c = {k: v for k, v in en_sk.items() if k.split("/")[1] not in skip}
+        chk(dev, f"{code}: every chapter of the English book, same order ({len(en_ids_c)})", ids == en_ids_c,
+            f"missing {[i for i in en_ids_c if i not in ids]} extra {[i for i in ids if i not in en_ids_c]}")
         chk(dev, f"{code}: book title/parts translated", b.get("subtitle") and b["subtitle"] != en["subtitle"]
             and [p["id"] for p in b["parts"]] == [p["id"] for p in en["parts"]]
             and all(p["title"] != q["title"] for p, q in zip(b["parts"], en["parts"])), str(b.get("parts"))[:200])
         sk = dict(sk_fields(b))
-        bad = [k for k in en_sk if sk.get(k) != en_sk[k]] + [k for k in sk if k not in en_sk]
-        chk(dev, f"{code}: every Sanskrit (IAST) field byte-identical to EN ({len(en_sk)})", not bad, str(bad[:5]))
+        bad = [k for k in en_sk_c if sk.get(k) != en_sk_c[k]] + [k for k in sk if k not in en_sk_c]
+        chk(dev, f"{code}: every Sanskrit (IAST) field byte-identical to EN ({len(en_sk_c)})", not bad, str(bad[:5]))
         bad_ri = [k for k in ri_sk if k in sk and sk[k] != ri_sk[k]]
         chk(dev, f"{code}: Sanskrit fields = RU-IAST ({len(ri_sk)})", not bad_ri, str(bad_ri[:5]))
         en_t = dict(texts(en))
@@ -130,7 +137,8 @@ def data_checks():
                 for v in o:
                     mw(v)
         mw(b)
-        mw_en = sum(1 for _ in re.finditer(r'"type": "mood"', json.dumps(en, ensure_ascii=False)))
+        mw_en = sum(1 for _ in re.finditer(r'"type": "mood"', json.dumps(
+            {**en, "sections": [x for x in en["sections"] if x["id"] not in skip]}, ensure_ascii=False)))
         chk(dev, f"{code}: Gurudev's quotes ({mw_en}) present with a translation",
             len(moods) == mw_en and all(m.get("translation", "").strip() and m["translation"] != m["quote"] for m in moods),
             f"{len(moods)} blocks")

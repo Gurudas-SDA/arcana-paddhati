@@ -21,7 +21,9 @@
     {
       "id": "home-worship",
       "title": "Mājas standarts",
-      "sections": []
+      "sections": [
+        "home-worship-one-page"
+      ]
     },
     {
       "id": "preaching-centres",
@@ -1674,15 +1676,15 @@
             },
             {
               "type": "verse",
-              "sanskrit": "deva prapannārti-hara prasādaṁ kuru keśava\navalokana-dānena bhūyo māṁ parayācyuta",
+              "sanskrit": "deva prapannārti-hara prasādaṁ kuru keśava\navalokana-dānena bhūyo māṁ pārayācyuta",
               "translation": "Ak, Kešava, nemaldīgais, padevīgo dvēseļu ciešanu remdētāj, lūdzu, dāvā man Savu žēlastību, vēlreiz apveltot mani ar Savu transcendentālo skatienu.",
-              "wbw": "deva — ak, Kungs; prapannārti-hara — padevīgo dvēseļu ciešanu remdētāj; prasādaṁ — Savu žēlastību; kuru — lūdzu, dāvā; keśava — ak, Kešava; avalokana-dānena — apveltot ar skatienu; bhūyo — vēlreiz; māṁ — mani; parayācyuta — ar transcendentālo, ak, Ačjuta."
+              "wbw": "deva — ak, Kungs; prapannārti-hara — padevīgo dvēseļu ciešanu remdētāj; prasādaṁ — Savu žēlastību; kuru — lūdzu, dāvā; keśava — ak, Kešava; avalokana-dānena — apveltot ar skatienu; bhūyo — vēlreiz; māṁ — mani; pārayācyuta — ar transcendentālo, ak, Ačjuta."
             },
             {
               "type": "verse",
-              "sanskrit": "jaya jaya kṛpamaya jagatera nātha\nsarva jagatere koro śubha-dṛṣṭī-pāta",
+              "sanskrit": "jaya jaya kṛpāmaya jagatera nātha\nsarva jagatere koro śubha-dṛṣṭi-pāta",
               "translation": "Ak, Bhagavān! Visa slava, visa slava Tev! Ak, žēlsirdīgais Visuma Kungs, lūdzu, uzlūko visas pasaules ar Savu svētīgo skatienu.",
-              "wbw": "jaya — visa slava; jaya — visa slava; kṛpamaya — ak, žēlsirdīgais; jagatera — Visuma; nātha — Kungs; sarva — visas; jagatere — pasaules; koro — lūdzu, uzlūko; śubha-dṛṣṭī-pāta — ar Savu svētīgo skatienu."
+              "wbw": "jaya — visa slava; jaya — visa slava; kṛpamaya — ak, žēlsirdīgais; jagatera — Visuma; nātha — Kungs; sarva — visas; jagatere — pasaules; koro — lūdzu, uzlūko; śubha-dṛṣṭi-pāta — ar Savu svētīgo skatienu."
             },
             {
               "type": "instruction",
@@ -2096,9 +2098,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "Ak, Kešava, lūdzu, nāc pie Savas gultas kopā ar Savu mīļoto Šrīmatī Rādhiku. Ak, Mādhava, šī starojošā smaržīgo ziedu gulta ir sagatavota Jūsu līksmajām spēlēm.",
-              "wbw": "āgaccha — lūdzu, nāc; śayana-sthānaṁ — pie Savas gultas; priyābhiḥ — kopā ar Savu mīļoto; saha — kopā ar; keśava — Ak, Kešava; divya-puṣpātya-śayyāyāṁ — uz šīs starojošās smaržīgo ziedu gultas; sukhaṁ — līksmi; vihara — spēlējieties; mādhava — Ak, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhikai un Krišnam; namaḥ — pranāma."
+              "wbw": "āgaccha — lūdzu, nāc; śayana-sthānaṁ — pie Savas gultas; priyābhiḥ — kopā ar Savu mīļoto; saha — kopā ar; keśava — Ak, Kešava; divya-puṣpāḍhya-śayyāyāṁ — uz šīs starojošās smaržīgo ziedu gultas; sukhaṁ — līksmi; vihara — spēlējieties; mādhava — Ak, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhikai un Krišnam; namaḥ — pranāma."
             },
             {
               "type": "subtitle",
@@ -2372,9 +2374,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "Ak, Kešava, lūdzu, nāc pie Savas gultas kopā ar Savu mīļoto Šrīmatī Rādhiku. Ak, Mādhava, šī starojošā smaržīgo ziedu gulta ir sagatavota Jūsu līksmajām spēlēm.",
-              "wbw": "āgaccha — lūdzu, nāc; śayana-sthānaṁ — pie Savas gultas; priyābhiḥ — kopā ar Savu mīļoto Šrīmatī Rādhiku; saha — kopā ar; keśava — Ak, Kešava; divya-puṣpātya-śayyāyāṁ — uz šīs starojošās smaržīgo ziedu gultas; sukhaṁ — līksmi; vihara — rotaļājies; mādhava — Ak, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhas un Krišnas; namaḥ — praṇāma."
+              "wbw": "āgaccha — lūdzu, nāc; śayana-sthānaṁ — pie Savas gultas; priyābhiḥ — kopā ar Savu mīļoto Šrīmatī Rādhiku; saha — kopā ar; keśava — Ak, Kešava; divya-puṣpāḍhya-śayyāyāṁ — uz šīs starojošās smaržīgo ziedu gultas; sukhaṁ — līksmi; vihara — rotaļājies; mādhava — Ak, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhas un Krišnas; namaḥ — praṇāma."
             },
             {
               "type": "subtitle",
@@ -3167,7 +3169,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "etāni puṣpāni klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "etāni puṣpāṇi klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -4854,22 +4856,6 @@
               "type": "paired-list",
               "items": [
                 {
-                  "label": "Garīgais skolotājs",
-                  "value": "⟦aiṁ gurave namaḥ⟧"
-                },
-                {
-                  "label": "Garīgie skolotāji",
-                  "value": "⟦oṁ parama-gurave namaḥ⟧"
-                },
-                {
-                  "label": "Kungs ⟦Čaitanja⟧",
-                  "value": "⟦klīṁ gaurāya svāhā⟧"
-                },
-                {
-                  "label": "Kungs ⟦Nitjānanda⟧",
-                  "value": "⟦oṁ nityanandāya namaḥ⟧"
-                },
-                {
                   "label": "⟦Šrī Šrī Rādhā-Krišna⟧",
                   "value": "⟦śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ⟧"
                 },
@@ -4880,6 +4866,22 @@
                 {
                   "label": "⟦Šrī Govardhana-šila⟧",
                   "value": "⟦klīṁ govardhanāya namaḥ⟧"
+                },
+                {
+                  "label": "Kungs ⟦Čaitanja⟧",
+                  "value": "⟦klīṁ gaurāya svāhā⟧"
+                },
+                {
+                  "label": "Kungs ⟦Nitjānanda⟧",
+                  "value": "⟦oṁ nityānandāya namaḥ⟧"
+                },
+                {
+                  "label": "Garīgie skolotāji",
+                  "value": "⟦oṁ parama-gurave namaḥ⟧"
+                },
+                {
+                  "label": "Garīgais skolotājs",
+                  "value": "⟦aiṁ gurave namaḥ⟧"
                 },
                 {
                   "label": "⟦Šrī Tulasī-devī⟧",
@@ -4911,7 +4913,7 @@
                   "value": "4 apļi pie pēdām, 2 pie vidukļa, 3 pie galvas, 7 ap ķermeni"
                 },
                 {
-                  "label": "Ziedi (⟦etāni puṣpāni⟧)",
+                  "label": "Ziedi (⟦etāni puṣpāṇi⟧)",
                   "value": "4 apļi pie pēdām, 7 ap ķermeni"
                 },
                 {
@@ -4919,7 +4921,7 @@
                   "value": "Atbilstoši pieejamajam laikam"
                 },
                 {
-                  "label": "Pāva spalvu vēdeklis (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Pāva spalvu vēdeklis (⟦eṣā vyajana-sevā⟧)",
                   "value": "Atbilstoši pieejamajam laikam"
                 }
               ]
@@ -5073,6 +5075,269 @@
             {
               "type": "text",
               "content": "Piezīme: pirms ⟦arčanas⟧ sākšanas īsumā jānotīra altāris un piederumi. Novietojiet priekšmetus ērtā vietā. Ir svarīgi šķīstīt ⟦panča-pātras⟧ ūdeni ar ⟦mantru⟧ \"⟦gaṅge ca yamune caiva...⟧\" un ziedus ar ⟦mantru⟧ \"⟦puṣpe puṣpe mahā-puṣpe...⟧\". ⟦Pādju⟧, ⟦arghju⟧ un ⟦āčamanīju⟧ parasti aizstāj ar tīru ūdeni no ⟦panča-pātras⟧. Tāpat, ja kādu priekšmetu nav iespējams sagādāt, to var aizstāt ar meditāciju un ūdens piedāvāšanu no ⟦panča-pātras⟧ vai gliemežnīcas."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "home-worship-one-page",
+      "title": "Dievību godināšana mājās vienā lappusē",
+      "subtitle": null,
+      "page": "",
+      "content": [
+        {
+          "type": "text",
+          "content": "Īsa ikdienas Dievību godināšanas kārtība mājās. Viss šajā lappusē ir ņemts no nodaļām “Tempļa standarts”; sīkāka informācija sniegta norādītajās nodaļās."
+        },
+        {
+          "type": "text",
+          "content": "Kārtība pēc pamošanās un godināšanai: vispirms ⟦Gurudēvu⟧, pēc tam ⟦Gaurāngu⟧, tad ⟦Šrī Šrī Rādhā-Krišnu⟧. Ārati laikā katrs piederums vispirms tiek veltīts ⟦Krišnam⟧, pēc tam ⟦Rādhikai⟧, ⟦Gaurāngam⟧, tad caur paramparu ⟦Gurudēvam⟧."
+        },
+        {
+          "type": "text",
+          "content": "Ja kāds piederums nav pieejams, par to var meditēt un, skaitot mantru, veltīt ūdeni no ⟦panča-pātras⟧ (2. nodaļa)."
+        }
+      ],
+      "subsections": [
+        {
+          "id": "home-before-service",
+          "title": "Pirms kalpošanas",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Nomazgājieties, uzvelciet tīras drēbes un uzklājiet ⟦tilaku⟧. Pirms ieiešanas pie Dievībām, lai tās redzētu, veiciet āčamanu:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "⟦oṁ keśavāya namaḥ⟧",
+                  "value": "iesūciet ūdeni no savas labās rokas ⟦brāhma-tīrthas⟧."
+                },
+                {
+                  "label": "⟦oṁ nārāyaṇāya namaḥ⟧",
+                  "value": "iesūciet ūdeni no savas labās rokas ⟦brāhma-tīrthas⟧."
+                },
+                {
+                  "label": "⟦oṁ mādhavāya namaḥ⟧",
+                  "value": "iesūciet ūdeni no savas labās rokas ⟦brāhma-tīrthas⟧."
+                }
+              ],
+              "layout": "vertical"
+            },
+            {
+              "type": "text",
+              "content": "Sīkāku informāciju skatiet 1. nodaļā “Ikdienas pienākumi brāhma-muhūrtā”."
+            }
+          ]
+        },
+        {
+          "id": "home-morning",
+          "title": "Rīts: pamodināšana un mangala-ārati",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Piezvaniet pie durvīm esošajam zvaniņam, pieklauvējiet un ieejiet. Pieskaroties Viņu pēdām, pamodiniet ⟦Gurudēvu⟧, ⟦Gaurāngu⟧ un ⟦Šrī Šrī Rādhā-Krišnu⟧:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "uttiṣṭhottiṣṭha śrī guro\ntyaja nidrāṁ kṛpāmaya\naiṁ gurave namaḥ",
+              "translation": "Ak, visžēlīgais Gurudēva, lūdzu, celies, lūdzu, celies un pārtrauc savu miegu.",
+              "wbw": "uttiṣṭhottiṣṭha — lūdzu, celies, lūdzu, celies; śrī — godājamais; guro — ak, Gurudēva; tyaja — atsakies no; nidrāṁ — miega; kṛpāmaya — visžēlīgais; aiṁ — bīja-mantra; gurave — Gurudēvam; namaḥ — pazemīgi noliecos."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "uttiṣṭhottiṣṭha gaurāṅga\njahi nidrāṁ mahāprabho\nśubha-dṛṣṭi pradānena\ntrailokya-maṅgalaṁ kuru\nklīṁ gaurāya svāhā",
+              "translation": "Ak, Gaurānga Mahāprabhu, lūdzu, celies, lūdzu, celies un pārtrauc Savu miegu. Lūdzu, svētī trīs pasaules ar Savu labvēlīgo skatienu.",
+              "wbw": "uttiṣṭhottiṣṭha — lūdzu, celies, lūdzu, celies; gaurāṅga — ak, Gaurānga; jahi — atsakies no; nidrāṁ — miega; mahāprabho — ak, Mahāprabhu; śubha-dṛṣṭi — labvēlīgais skatiens; pradānena — sniedzot; trailokya-maṅgalaṁ — svētību trim pasaulēm; kuru — lūdzu, dāvā; klīṁ — bīja-mantra; gaurāya — Gauram; svāhā — veltījuma izsauciens “svāhā”."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "go-gopa-gokulānanda\nyaśodānanda vardhana\nuttiṣṭha rādhayā sārddhaṁ\nprātar āsīj jagat-pate\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "Ak, Gokulas prieks, ganu zēnu un govju prieks; ak, Mātes Jašodas svētlaimes vairotāj; ak, Visuma Kungs, lūdzu, celies kopā ar Šrī Rādhu, jo rīts jau gandrīz ir klāt.",
+              "wbw": "go-gopa-gokulānanda — ak, Gokulas, ganu zēnu un govju prieks; yaśodānanda — ak, Mātes Jašodas svētlaimes vairotāj; vardhana — vairotāj; uttiṣṭha — lūdzu, celies; rādhayā — kopā ar Šrī Rādhu; sārddhaṁ — kopā ar; prātar — no rīta; āsīj — gandrīz ir klāt; jagat-pate — ak, Visuma Kungs; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Šrī Rādhai un Krišnam; namaḥ — pazemīga noliekšanās."
+            },
+            {
+              "type": "instruction",
+              "content": "Veltiet āčamanu (ūdeni mutes izskalošanai): ielejiet karotīti ūdens no ⟦panča-pātras⟧ tukšā traukā, vienlaikus zvanot zvaniņu:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ ācamanīyaṁ aiṁ gurave namaḥ\nidaṁ ācamanīyaṁ klīṁ gaurāya svāhā\nidaṁ ācamanīyaṁ śrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "instruction",
+              "content": "Pēc tam prātā veltiet zobu tīrāmo zariņu (⟦eṣa danta-kāṣṭhaḥ⟧ …) un vēlreiz veiciet āčamanu — 12 reizes (pieļaujamas arī 3 reizes)."
+            },
+            {
+              "type": "instruction",
+              "content": "Ar tīru audumu noslaukiet Dievību sejas, rokas un pēdas; noņemiet vecos ziedus un tulasī, notīriet altāri; veltiet tulasī un izrotājiet Dievības."
+            },
+            {
+              "type": "instruction",
+              "content": "Veltiet bhogu (skatiet “Bhoga”) un veiciet ⟦maṅgala-ārati⟧ (skatiet “Ārati”)."
+            },
+            {
+              "type": "text",
+              "content": "Sīkāku informāciju skatiet 2. nodaļā “Dievību ikdienas grafiks”."
+            }
+          ]
+        },
+        {
+          "id": "home-bhoga",
+          "title": "Bhoga (vienāda katru reizi)",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Veltiet bhogu ar sajūtu, ka ⟦Šrī Gurudēva⟧ pats to veltī ⟦Šrīmanam Mahāprabhu⟧ un ⟦Šrī Šrī Rādhā-Krišnam⟧. Veiciet āčamanu. Uzlieciet tulasī lapu uz katra trauka. Noņemiet Dievībām kroni un flautu."
+            },
+            {
+              "type": "instruction",
+              "content": "Zvanot zvaniņu, veltiet ziedlapiņas Viņu pēdām, āsanu, pādju, āčamanu un naivēdju:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "eṣa puṣpāñjaliḥ klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": ""
+            },
+            {
+              "type": "verse",
+              "sanskrit": "idaṁ naivedyaṁ sa tulasī pānīya jalam klīṁ gaurāya svāhā\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "Veltiet naivēdju ar tulasī un ūdeni.",
+              "wbw": "idaṁ — šis; naivedyaṁ — naivēdjas veltījums; sa — ar; tulasī — tulasī; pānīya — dzeramais; jalam — ūdens; klīṁ — bīja-mantra; gaurāya — Gauram; svāhā — veltījuma izsauciens “svāhā”; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādāi un Krišnam; namaḥ — pazemīga noliekšanās."
+            },
+            {
+              "type": "text",
+              "content": "Āsanu, pādju un āčamanu veltī tādā pašā veidā, pirmos vārdus aizstājot ar: ⟦idaṁ āsanaṁ⟧, ⟦etat pādyaṁ⟧, ⟦idaṁ ācamanīyaṁ⟧."
+            },
+            {
+              "type": "instruction",
+              "content": "Turot labo roku virs šķīvja (kreiso roku novietojot virs labās), astoņas reizes atkārtojiet ⟦Gopāla-mantru⟧. Izejiet; desmit reizes katru atkārtojiet ⟦Gaura-gāyatrī⟧ un ⟦Kāma-gāyatrī⟧ (mantras, ko saņēmāt no guru); nedaudz pagaidiet."
+            },
+            {
+              "type": "instruction",
+              "content": "Pieklauvējiet, ieejiet, veltiet ūdeni mutes izskalošanai (⟦idaṁ ācamanīyaṁ⟧), tāmbūlu (⟦idaṁ tāmbūlaṁ⟧) un āsanu (⟦idaṁ āsanaṁ⟧), un noņemiet šķīvi. Uzlieciet atpakaļ kroni un flautu. Veltiet atlikumus — ⟦mahā-prasāda⟧ — Gurudēvam un vaišnaviem (⟦idaṁ mahā-prasādaṁ aiṁ gurave namaḥ⟧ …)."
+            },
+            {
+              "type": "text",
+              "content": "Sīkāku informāciju skatiet 7. nodaļā “Bhogas veltīšanas kārtība”."
+            }
+          ]
+        },
+        {
+          "id": "home-arati",
+          "title": "Ārati",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Ārati piederumi un kārtība, kādā tie tiek veltīti:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "Vīraks (⟦eṣa dhūpaḥ⟧)",
+                  "value": "Pilna ārati: pēdas 4, viduklis 2, ķermenis 7"
+                },
+                {
+                  "label": "Gī lampa (⟦eṣa dīpaḥ⟧)",
+                  "value": "Pilna ārati: pēdas 4, viduklis 2, galva 3, ķermenis 7"
+                },
+                {
+                  "label": "Ūdens gliemežnīcā (⟦idaṁ arghyam⟧)",
+                  "value": "7 apļi ap ķermeni"
+                },
+                {
+                  "label": "Kabatas lakatiņš (⟦idaṁ vastram⟧)",
+                  "value": "Pēdas 4, viduklis 2, galva 3, ķermenis 7"
+                },
+                {
+                  "label": "Ziedi (⟦etāni puṣpāṇi⟧)",
+                  "value": "Pēdas 4, ķermenis 7"
+                },
+                {
+                  "label": "⟦Čāmara⟧ (⟦eṣā cāmara-sevā⟧)",
+                  "value": "Atbilstoši pieejamajam laikam"
+                },
+                {
+                  "label": "Pāva spalvu vēdeklis (⟦eṣā vyajana-sevā⟧)",
+                  "value": "Atbilstoši pieejamajam laikam"
+                }
+              ]
+            },
+            {
+              "type": "instruction",
+              "content": "Pievienojiet tā cilvēka mantru, kuram tiek veltīts piederums, piederuma nosaukumam: ⟦śrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ⟧, ⟦klīṁ gaurāya svāhā⟧, ⟦aiṁ gurave namaḥ⟧."
+            },
+            {
+              "type": "instruction",
+              "content": "Īsa ⟦dhūpa-ārati⟧ (pēc brokastīm, dienas laikā un vēlu vakarā): vīraks, ziedi, ⟦čāmara⟧ un pāva spalvu vēdeklis (ziemā neizmanto)."
+            },
+            {
+              "type": "text",
+              "content": "Sīkāku informāciju skatiet 11. nodaļā “Galvenā godināšana ar sešpadsmit piederumiem” un “Ārati ceremonija”."
+            }
+          ]
+        },
+        {
+          "id": "home-day",
+          "title": "Dienas laikā",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Veltiet bhogu (tādā pašā secībā) un izpildiet pilnu ārati. Ja Dievības dienas laikā atpūšas, guldiniet Viņas ar tām pašām lūgšanām kā vakarā un pamodiniet Viņas tāpat kā no rīta (2. nodaļa)."
+            }
+          ]
+        },
+        {
+          "id": "home-evening",
+          "title": "Vakars: sandhjā-ārati un atpūta",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Bhoga un ⟦sandhyā-ārati⟧; vēlāk — vēl bhoga un ⟦dhūpa-ārati⟧."
+            },
+            {
+              "type": "instruction",
+              "content": "Noņemiet ⟦Tulasī-devī⟧ no altāra kopā ar ziediem un vītnēm; vienkārši apģērbiet Dievības; noņemiet Viņu kroņus un flautu; veltiet khīru un ūdeni."
+            },
+            {
+              "type": "instruction",
+              "content": "Pieskaroties Viņu pēdām, aiciniet Viņas atpūsties:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "translation": "Ak, Kešava, lūdzu, nāc Savā guļvietā kopā ar Savu mīļoto Šrīmatī Rādhiku. Ak, Mādhava, šī spožā, smaržīgiem ziediem rotātā guļvieta ir sagatavota Tavai priecīgajai spēlei.",
+              "wbw": "āgaccha — lūdzu, nāc; śayana-sthānaṁ — uz guļvietu; priyābhiḥ — kopā ar Savu mīļoto Šrīmatī Rādhiku; saha — kopā ar; keśava — ak, Kešava; divya-puṣpāḍhya-śayyāyāṁ — uz šīs spožās, smaržīgiem ziediem rotātās guļvietas; sukhaṁ — priecīgi; vihara — spēlējies; mādhava — ak, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādāi un Krišnam; namaḥ — pazemīga noliekšanās."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "translation": "Ak, Kungs Gaurānga, lūdzu, nāc Savā atpūtas vietā kopā ar Saviem pavadoņiem. Ak, Kungs, ērti atpūties brīdi, baudot Savas spēles.",
+              "wbw": "āgaccha — lūdzu, nāc; viśrama-sthānaṁ — uz atpūtas vietu; sva-gaṇaiḥ — kopā ar Saviem pavadoņiem; saha — kopā ar; gaurāṅga — ak, Kungs Gaurānga; kṣaṇaṁ — uz brīdi; viśramya — atpūties; sukhena — ērti; līlayā — baudot Savas spēles; vihara — baudi; prabhu — ak, Kungs; klīṁ — bīja-mantra; gaurāya — Gauram; svāhā — veltījuma izsauciens “svāhā”."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha śrī-guro\naiṁ gurave namaḥ",
+              "translation": "Ak, Gurudēva, lūdzu, nāc Savā atpūtas vietā kopā ar visiem Saviem pavadoņiem.",
+              "wbw": "āgaccha — lūdzu, nāc; viśrāma-sthānaṁ — uz Savu atpūtas vietu; sva-gaṇaiḥ — kopā ar visiem Saviem pavadoņiem; saha — kopā ar; śrī-guro — ak, Gurudēva; aiṁ — bīja-mantra; gurave — Gurudēvam; namaḥ — pazemīga noliekšanās."
+            },
+            {
+              "type": "instruction",
+              "content": "Skaitiet piedošanas lūgšanas par pieļautajiem apvainojumiem:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "aṅga-hīnaṁ kriyā-hīnaṁ\nvidhi-hīnaṁ ca yad bhavet\nastu tat sarvam acchidraṁ\nkṛṣṇa-kārṣṇa-prasādataḥ\n\nyat kiñcit vaiguṇyaṁ jātaṁ\ntad doṣa-praśamanāya\nśrī-kṛṣṇa-smaraṇaṁ karomi",
+              "translation": "Lai Krišnas un Viņa bhaktu žēlastība iznīcina visas kļūdas, ko esam pieļāvuši, ievērojot godināšanas noteikumus un izpildot godināšanas darbības. Tagad es atceros Krišnu, lai iznīcinātu visus iespējamos trūkumus. [Sat-kriya-sara-dipika]",
+              "wbw": "aṅga-hīnaṁ — kam trūkst sastāvdaļu; kriyā-hīnaṁ — kam trūkst godināšanas darbību; vidhi-hīnaṁ — kam trūkst noteikto noteikumu; ca — un; yad — kas; bhavet — varētu būt; astu — lai kļūst; tat — tas; sarvam — viss; acchidraṁ — nevainojams; kṛṣṇa-kārṣṇa-prasādataḥ — Krišnas un Viņa bhaktu žēlastības dēļ; yat — kas; kiñcit — jebkāds; vaiguṇyaṁ — trūkums; jātaṁ — radies; tad — tā; doṣa-praśamanāya — kļūdas novēršanai; śrī-kṛṣṇa-smaraṇaṁ — Šrī Krišnas atcerēšanos; karomi — es veicu."
+            },
+            {
+              "type": "text",
+              "content": "Sīkāku informāciju skatiet 2. nodaļā “Dievību ikdienas kārtība” un 10. nodaļā “Piedošanas lūgšanas par pieļautajiem apvainojumiem”."
             }
           ]
         }

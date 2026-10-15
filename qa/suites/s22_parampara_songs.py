@@ -23,7 +23,7 @@ U = BASE + "/ru-iast/"
 DEVICES = qa.devices(["pixel7", "iphone14", "s23fe", "iphone-se", "ipad-portrait", "ipad-landscape", "ipad-mini", "desktop", "mac-safari"])
 res = []
 
-PORTRAITS = """() => [...document.querySelectorAll('.app-main figure.portrait-page')].map(f => {
+PORTRAITS = """root => [...root.querySelectorAll('figure.portrait-page')].map(f => {
   const i = f.querySelector('img.portrait-img'), c = f.querySelector('figcaption');
   const r = i.getBoundingClientRect(), cs = getComputedStyle(i);
   return {cap: c.textContent.trim(), nw: i.naturalWidth, nh: i.naturalHeight, w: r.width, h: r.height,
@@ -31,7 +31,7 @@ PORTRAITS = """() => [...document.querySelectorAll('.app-main figure.portrait-pa
           alt: i.alt, sw: document.documentElement.scrollWidth, vw: innerWidth};
 })"""
 
-ONE_SCREEN = """k => { const f = document.querySelectorAll('.app-main figure.portrait-page')[k];
+ONE_SCREEN = """(root, k) => { const f = root.querySelectorAll('figure.portrait-page')[k];
   const m = document.querySelector('.app-main'); f.scrollIntoView({block: 'start'});
   const i = f.querySelector('img').getBoundingClientRect(), c = f.querySelector('figcaption').getBoundingClientRect();
   const bar = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--reader-pad-bottom')) || 0;
@@ -78,16 +78,16 @@ def run(p, dev, eng, o):
         # a) the parampara pages
         goto(U + "parampara/"); time.sleep(0.8)
         pg.wait_for_function("[...document.querySelectorAll('.app-main img.portrait-img')].every(i => i.complete && i.naturalWidth > 0)", timeout=20000)
-        ps = pg.evaluate(PORTRAITS)
+        ps = qa.reading_eval(pg, PORTRAITS)
         caps = [x["cap"] for x in ps]
         chk(dev, "a Śrī Pañca-tattva page first (Satkirti 07.10 13:35)", caps[:1] == ["Шри Панча-таттва"], caps[:1])
         chk(dev, "a 8 parampara pages in order with exact captions", caps == PARAMPARA_RU, caps)
-        txt = pg.evaluate("document.querySelector('.app-main').innerText")
+        txt = qa.reading_eval(pg, "root => root.innerText")
         chk(dev, "a no Gour Govinda Svāmī", "Гоур" not in txt and "Gour" not in txt)
-        vis = pg.evaluate("""[...document.querySelectorAll('.app-main h1, .app-main h2, .app-main h3, .app-main .heading-num')]
+        vis = qa.reading_eval(pg, """root => [...root.querySelectorAll('h1, h2, h3, .heading-num')]
             .filter(e => { const r = e.getBoundingClientRect(); return r.width > 2 && r.height > 2; }).map(e => e.innerText)""")
         chk(dev, "a no visible heading / number on the portrait pages", vis == [], vis)
-        nxt = pg.evaluate("(()=>{const a=document.querySelector('.chapter-next');return a?a.innerText.replace(/\\s+/g,' '):''})()")
+        nxt = qa.reading_eval(pg, "root=>{const a=root.querySelector('.chapter-next');return a?a.innerText.replace(/\\s+/g,' '):''}")
         chk(dev, "a «След. глава ›» after the parampara = Мангалачарана", "Мангалачарана" in nxt, nxt)
 
         # b) portraits shown whole
@@ -99,8 +99,8 @@ def run(p, dev, eng, o):
         chk(dev, "b no horizontal page scroll", ps and ps[0]["sw"] <= ps[0]["vw"] + 1, ps[0] if ps else None)
         off = []
         for k in range(len(ps)):
-            g = pg.evaluate(ONE_SCREEN, k); time.sleep(0.15)
-            g = pg.evaluate(ONE_SCREEN, k)
+            g = qa.reading_eval(pg, ONE_SCREEN, k); time.sleep(0.15)
+            g = qa.reading_eval(pg, ONE_SCREEN, k)
             if not (g["imgTop"] >= -1 and g["imgL"] >= -1 and g["imgR"] <= g["vw"] + 1 and g["capBottom"] <= g["vh"] + 1):
                 off.append((k + 1, {kk: round(v) for kk, v in g.items()}))
             if SHOTS and k in (0, 1, 4, 8):
@@ -109,7 +109,7 @@ def run(p, dev, eng, o):
 
         # a) English captions
         goto(BASE + "/parampara/"); time.sleep(0.6)
-        en = [x["cap"] for x in pg.evaluate(PORTRAITS)]
+        en = [x["cap"] for x in qa.reading_eval(pg, PORTRAITS)]
         chk(dev, "a EN captions exact", en == PARAMPARA_EN, en)
 
         # c) songs
@@ -118,9 +118,9 @@ def run(p, dev, eng, o):
                                      # v7.6 (07.10): Kārtika bhajans — 3 songs, 8 + 9 + 13 = 30 verses
                                      ("kartika-bhajans", 3, "namāmīśvaraṁ sac-cid-ānanda-rūpaṁ", "Шри Дамодараштака")):
             goto(U + sid + "/"); time.sleep(0.6)
-            info = pg.evaluate("""() => ({subs: [...document.querySelectorAll('.app-main section[data-subsection] h2')].map(h => h.innerText),
-                sk: [...document.querySelectorAll('.app-main .sanskrit')].map(e => e.innerText),
-                chips: [...document.querySelectorAll('.app-main .verse-chips')].map(c => c.innerText)})""")
+            info = qa.reading_eval(pg, """root => ({subs: [...root.querySelectorAll('section[data-subsection] h2')].map(h => h.innerText),
+                sk: [...root.querySelectorAll('.sanskrit')].map(e => e.innerText),
+                chips: [...root.querySelectorAll('.verse-chips')].map(c => c.innerText)})""")
             chips = info["chips"]
             ok_chips = chips and all(("пословно" in x.lower() and "перевод" in x.lower()) for x in chips)
             chk(dev, f"c {sid}: {n} songs, IAST, every verse with «пословно» + «перевод»",
@@ -128,7 +128,7 @@ def run(p, dev, eng, o):
                 and len(chips) == len(info["sk"]) and ok_chips,
                 (info["subs"], info["sk"][:1], len(chips), len(info["sk"]), chips[:2]))
             if SHOTS and sid == "gaura-arati-songs":
-                pg.locator(".app-main .verse-chip").first.click(); time.sleep(0.4)
+                qa.reading_locator(pg, ".verse-chip").first.click(); time.sleep(0.4)
                 shot(pg, f"{dev}-gaura-arati")
         if SHOTS:
             goto(U + "mangalacarana/"); time.sleep(0.6)

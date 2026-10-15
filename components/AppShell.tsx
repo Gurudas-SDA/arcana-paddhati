@@ -9,6 +9,7 @@ import type { SearchEntry } from "@/lib/book";
 import { SEARCH_SCROLL_ATTR } from "@/lib/searchMark";
 import {
   QUERY_STORE,
+  entryView,
   isMenuEntry,
   main as mainEl,
   menuDepth,
@@ -17,6 +18,7 @@ import {
   pushOverlay,
   recordScroll,
   savedScroll,
+  setView,
 } from "@/lib/navHistory";
 import {
   DEFAULT_LANG,
@@ -26,9 +28,11 @@ import {
   liveLang,
   localeHref,
   parsePath,
+  t,
   type LocaleData,
 } from "@/lib/i18n";
-import { BASE_PATH } from "@/lib/basePath";
+import { BASE_PATH, stripBasePath } from "@/lib/basePath";
+import { beginReadingArrival, bookTarget, readingAnchor, readingSection } from "@/lib/readingFlow";
 
 /** A link's place: its pathname (no trailing slash) + hash — what a navigation opens. */
 const placeOf = (href: string): string => {
@@ -39,6 +43,9 @@ const placeOf = (href: string): string => {
     return href;
   }
 };
+
+/** Whole book in one scroll on the cover (PR #2). Off: Satkirti 14.10.2026 msg 3480. */
+const CONTINUOUS_BOOK = false;
 
 /** A65 (Codex 10.10): a page that has not come by now is given up. The КСВ
  *  phone's slowest real load was 19 s, so the menu waits longer than that. */
@@ -67,6 +74,61 @@ export default function AppShell({
   // Language of the text actually shown (English when a translation is missing).
   const contentLang = available.includes(lang) ? lang : DEFAULT_LANG;
   const htmlLang = getLanguage(contentLang)?.htmlLang ?? DEFAULT_LANG;
+  const restoredReadingPlace = useRef<string | null>(null);
+  // The app restores its own reading scroller. Browser restoration would
+  // compete with it before popstate (WebKit returns to the initial offset).
+  useEffect(() => {
+    try {
+      window.history.scrollRestoration = "manual";
+    } catch {
+      // A browser that disallows this setting retains its default behavior.
+    }
+  }, []);
+  // Continuous reading is off (Satkirti 14.10.2026: chapter by chapter, as in
+  // Kindle). Each chapter keeps its own page; set CONTINUOUS_BOOK to restore
+  // the switch of deep links to the cover's whole-book export.
+  // Chapter by chapter: a reload puts the reader back where he was reading
+  // (the entry's recorded scroll), not at the URL's subsection heading — as
+  // Kindle and Apple Books reopen the book at the last place. A touch, wheel
+  // or key of the reader stops the re-application (pictures load meanwhile).
+  useEffect(() => {
+    if (CONTINUOUS_BOOK) return;
+    const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+    if (nav?.type !== "reload") return;
+    const scroll = savedScroll(window.history.state);
+    if (scroll === undefined) return;
+    restoredReadingPlace.current = placeOf(window.location.href);
+    let stopped = false;
+    const stop = () => { stopped = true; };
+    const events = ["touchstart", "wheel", "keydown", "pointerdown"] as const;
+    for (const ev of events) window.addEventListener(ev, stop, { passive: true, capture: true });
+    const apply = () => {
+      if (stopped) return;
+      const el = mainEl();
+      if (el) el.scrollTop = scroll;
+    };
+    requestAnimationFrame(apply);
+    const timers = [60, 160, 320, 600, 1000, 1600].map((ms) => window.setTimeout(apply, ms));
+    const end = window.setTimeout(() => {
+      for (const ev of events) window.removeEventListener(ev, stop, { capture: true });
+    }, 1700);
+    return () => {
+      timers.forEach((t) => window.clearTimeout(t));
+      window.clearTimeout(end);
+      for (const ev of events) window.removeEventListener(ev, stop, { capture: true });
+    };
+  }, []);
+  useEffect(() => {
+    if (!CONTINUOUS_BOOK) return;
+    if (!sectionId || document.querySelector("[data-continuous-book]")) return;
+    if (!sections.some((section) => section.id === sectionId) && !parts.some((part) => part.id === sectionId)) return;
+    const scroll = savedScroll(window.history.state);
+    if (!beginReadingArrival(window.location.href, scroll)) return;
+    if (window.history.state?.apBook && scroll !== undefined) {
+      restoredReadingPlace.current = placeOf(window.location.href);
+    }
+    router.replace(localeHref(lang), { scroll: false });
+  }, [lang, sectionId, sections, parts, router]);
 
   const [searchQuery, setSearchQuery] = useState("");
   const searchQueryRef = useRef("");
@@ -106,13 +168,19 @@ export default function AppShell({
     setMobileMenuOpen(true);
   };
 
-  /** Close from the UI (the close button, backdrop, Esc): pop all menu entries. */
+  /** Close from the UI: pop menu entries, or reveal the proposal's chapter. */
   const closeMenu = useCallback(() => {
     // ✕ / backdrop / Esc while a page loads: the load is cancelled — history.go(-d)
     // is a back navigation, which makes Next.js discard the pending one (A65).
     setLeaving(false);
     setNavFailed(false);
     setMobileMenuOpen(false);
+    if (isMenuEntry() && window.history.state?.apDepth === 0) {
+      // The expanded contents share the chapter navigation entry.
+      // Closing the panel reveals that chapter instead of returning to cover.
+      patchState({}, ["apMenu", "apDepth", "apParts", "apLit", "apNav", "apResult", "apExp"]);
+      return;
+    }
     const d = menuDepth();
     if (d > 0) window.history.go(-d);
   }, []);
@@ -147,7 +215,7 @@ export default function AppShell({
   const pendingHref = useRef<string | null>(null);
   const leaveMenu = useCallback((navigating?: boolean, href?: string) => {
     try {
-      if (isMenuEntry()) patchState({ apQuery: searchQueryRef.current });
+      if (isMenuEntry()) setView({ apQuery: searchQueryRef.current });
       sessionStorage.setItem(QUERY_STORE, searchQueryRef.current);
     } catch {
       // storage unavailable
@@ -236,6 +304,11 @@ export default function AppShell({
   useEffect(() => {
     document.documentElement.lang = htmlLang;
   }, [htmlLang]);
+  useEffect(() => {
+    if (!document.querySelector("[data-continuous-book]")) return;
+    const section = sections.find((item) => item.id === sectionId) ?? parts.find((item) => item.id === sectionId);
+    document.title = section ? t(ui, "meta.sectionTitle", { section: section.title }) : t(ui, "meta.title");
+  }, [pathname, sectionId, sections, parts, ui]);
 
   // Start page only (also the PWA start_url): open the remembered language.
   // Any other URL is shown in the language it names.
@@ -320,7 +393,8 @@ export default function AppShell({
     m.addEventListener("scroll", onScroll, { passive: true });
 
     const reopenMenu = (st: Record<string, unknown> | null) => {
-      let q = typeof st?.apQuery === "string" ? st.apQuery : null;
+      const query = entryView(st).apQuery;
+      let q = typeof query === "string" ? query : null;
       if (q === null) {
         try {
           q = sessionStorage.getItem(QUERY_STORE);
@@ -341,7 +415,8 @@ export default function AppShell({
       setNavFailed(false);
       poppedAt.current = performance.now();
       if (isMenuEntry(st)) {
-        if (typeof st?.apParts === "string") restoreParts(st.apParts);
+        const parts = entryView(st).apParts;
+        if (typeof parts === "string") restoreParts(parts);
         reopenMenu(st);
       } else setMobileMenuOpen(false);
       // Put the place back after Next.js has rendered the entry's page.
@@ -359,9 +434,11 @@ export default function AppShell({
           } catch {
             // keep raw
           }
-          document.getElementById(id)?.scrollIntoView({ block: "start" });
+          readingAnchor(id)?.scrollIntoView({ block: "start" });
         } else {
-          el.scrollTop = 0;
+          const section = bookTarget(parsePath(stripBasePath(window.location.pathname) || "/").sectionId);
+          if (section) section.scrollIntoView({ block: "start" });
+          else el.scrollTop = 0;
         }
       };
       requestAnimationFrame(apply);
@@ -384,7 +461,8 @@ export default function AppShell({
     // Reader v7.6.1).
     if (isMenuEntry()) {
       const st = window.history.state as Record<string, unknown> | null;
-      if (typeof st?.apParts === "string") restoreParts(st.apParts);
+      const parts = entryView(st).apParts;
+      if (typeof parts === "string") restoreParts(parts);
       reopenMenu(st);
     }
     return () => {
@@ -405,6 +483,10 @@ export default function AppShell({
       stopKeeper?.();
       stopKeeper = null;
       if (performance.now() - poppedAt.current < 1500) return;
+      // A reload restores the saved continuous-book position, including
+      // reading farther below the URL's original subsection heading.
+      if (restoredReadingPlace.current === placeOf(window.location.href)) return;
+      restoredReadingPlace.current = null;
       let id = window.location.hash.slice(1);
       if (!id) return;
       try {
@@ -422,14 +504,15 @@ export default function AppShell({
         // A search result's word took over the place (lib/searchMark.ts).
         if (document.documentElement.hasAttribute(SEARCH_SCROLL_ATTR)) return stop();
         if (performance.now() > until) return stop();
-        const el = document.getElementById(id);
+        const el = readingAnchor(id);
         if (!el) return;
         const margin = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
         const d = el.getBoundingClientRect().top - m.getBoundingClientRect().top - margin;
         if (Math.abs(d) > 2) m.scrollTop += d;
       };
       const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(align) : null;
-      const article = m.querySelector("article") ?? m.firstElementChild;
+      const scope = readingSection();
+      const article = scope?.querySelector("article") ?? scope;
       if (ro && article) ro.observe(article);
       const onLoad = () => align();
       m.addEventListener("load", onLoad, true);
@@ -456,7 +539,8 @@ export default function AppShell({
     };
   }, [pathname]);
 
-  // Each new entry gets its place key once its page is shown.
+  // Each new entry gets its place key once its page is shown (entries made by
+  // the app have it already; one made by Next.js' router gets it once).
   useEffect(() => {
     try {
       placeKey();
@@ -564,7 +648,9 @@ export default function AppShell({
       </div>
 
       {/* Main content area */}
-      <main className="app-main flex-1 overflow-y-auto">
+      {/* Chapter by chapter, the page itself is the place being read: the same
+          marker as the continuous book's current chapter (tools and QA probes). */}
+      <main className="app-main flex-1 overflow-y-auto" {...(CONTINUOUS_BOOK ? {} : { "data-reader-current": "" })}>
         <InstallBanner ui={ui} />
         {/* Content */}
         {children}
