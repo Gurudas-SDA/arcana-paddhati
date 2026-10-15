@@ -2098,9 +2098,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "O Keśava, begib Dich bitte gemeinsam mit Deiner geliebten Śrīmatī Rādhikā zu Deinem Bett. O Mādhava, dieses strahlende Bett aus duftenden Blumen ist für Deine freudvollen Spiele bereitet.",
-              "wbw": "āgaccha — begib Dich bitte; śayana-sthānaṁ — zu Deinem Bett; priyābhiḥ — gemeinsam mit Deiner Geliebten; saha — gemeinsam mit; keśava — O Keśava; divya-puṣpātya-śayyāyāṁ — auf diesem strahlenden Bett aus duftenden Blumen; sukhaṁ — freudvoll; vihara — spiele; mādhava — O Mādhava; śrīṁ — Bīja-Mantra; klīṁ — Bīja-Mantra; rādhā-kṛṣṇābhyāṁ — Rādhā und Kṛṣṇa; namaḥ — Ehrerbietungen."
+              "wbw": "āgaccha — begib Dich bitte; śayana-sthānaṁ — zu Deinem Bett; priyābhiḥ — gemeinsam mit Deiner Geliebten; saha — gemeinsam mit; keśava — O Keśava; divya-puṣpāḍhya-śayyāyāṁ — auf diesem strahlenden Bett aus duftenden Blumen; sukhaṁ — freudvoll; vihara — spiele; mādhava — O Mādhava; śrīṁ — Bīja-Mantra; klīṁ — Bīja-Mantra; rādhā-kṛṣṇābhyāṁ — Rādhā und Kṛṣṇa; namaḥ — Ehrerbietungen."
             },
             {
               "type": "subtitle",
@@ -2374,9 +2374,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "O Keśava, begib Dich bitte gemeinsam mit Deiner geliebten Śrīmatī Rādhikā zu Deinem Bett. O Mādhava, dieses strahlende Bett aus duftenden Blumen ist für Deine freudvollen Spiele bereitet.",
-              "wbw": "āgaccha — begib Dich bitte; śayana-sthānaṁ — zu Deinem Bett; priyābhiḥ — gemeinsam mit Deiner geliebten Śrīmatī Rādhikā; saha — gemeinsam mit; keśava — O Keśava; divya-puṣpātya-śayyāyāṁ — auf diesem strahlenden Bett aus duftenden Blumen; sukhaṁ — freudvoll; vihara — spiele; mādhava — O Mādhava; śrīṁ — Bīja-Mantra; klīṁ — Bīja-Mantra; rādhā-kṛṣṇābhyāṁ — vor Rādhā und Kṛṣṇa; namaḥ — Ehrerbietungen."
+              "wbw": "āgaccha — begib Dich bitte; śayana-sthānaṁ — zu Deinem Bett; priyābhiḥ — gemeinsam mit Deiner geliebten Śrīmatī Rādhikā; saha — gemeinsam mit; keśava — O Keśava; divya-puṣpāḍhya-śayyāyāṁ — auf diesem strahlenden Bett aus duftenden Blumen; sukhaṁ — freudvoll; vihara — spiele; mādhava — O Mādhava; śrīṁ — Bīja-Mantra; klīṁ — Bīja-Mantra; rādhā-kṛṣṇābhyāṁ — vor Rādhā und Kṛṣṇa; namaḥ — Ehrerbietungen."
             },
             {
               "type": "subtitle",
@@ -3169,7 +3169,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "etāni puṣpāni klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "etāni puṣpāṇi klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -4856,22 +4856,6 @@
               "type": "paired-list",
               "items": [
                 {
-                  "label": "Spiritueller Meister",
-                  "value": "⟦aiṁ gurave namaḥ⟧"
-                },
-                {
-                  "label": "Spirituelle Meister",
-                  "value": "⟦oṁ parama-gurave namaḥ⟧"
-                },
-                {
-                  "label": "Herr ⟦Caitanya⟧",
-                  "value": "⟦klīṁ gaurāya svāhā⟧"
-                },
-                {
-                  "label": "Herr ⟦Nityananda⟧",
-                  "value": "⟦oṁ nityanandāya namaḥ⟧"
-                },
-                {
                   "label": "⟦Śrī Śrī Rādhā-Kṛṣṇa⟧",
                   "value": "⟦śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ⟧"
                 },
@@ -4882,6 +4866,22 @@
                 {
                   "label": "⟦Śrī Govardhana-śilā⟧",
                   "value": "⟦klīṁ govardhanāya namaḥ⟧"
+                },
+                {
+                  "label": "Herr ⟦Caitanya⟧",
+                  "value": "⟦klīṁ gaurāya svāhā⟧"
+                },
+                {
+                  "label": "Herr ⟦Nityananda⟧",
+                  "value": "⟦oṁ nityānandāya namaḥ⟧"
+                },
+                {
+                  "label": "Spirituelle Meister",
+                  "value": "⟦oṁ parama-gurave namaḥ⟧"
+                },
+                {
+                  "label": "Spiritueller Meister",
+                  "value": "⟦aiṁ gurave namaḥ⟧"
                 },
                 {
                   "label": "⟦Śrī Tulasī Devī⟧",
@@ -4913,7 +4913,7 @@
                   "value": "Füße 4, Taille 2, Kopf 3, Körper 7"
                 },
                 {
-                  "label": "Blumen (⟦etāni puṣpāni⟧)",
+                  "label": "Blumen (⟦etāni puṣpāṇi⟧)",
                   "value": "Füße 4, Körper 7"
                 },
                 {
@@ -4921,7 +4921,7 @@
                   "value": "Je nach verfügbarer Zeit"
                 },
                 {
-                  "label": "Pfauenfederfächer (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Pfauenfederfächer (⟦eṣā vyajana-sevā⟧)",
                   "value": "Je nach verfügbarer Zeit"
                 }
               ]
@@ -5254,7 +5254,7 @@
                   "value": "Füße 4, Taille 2, Kopf 3, Körper 7"
                 },
                 {
-                  "label": "Blumen (⟦etāni puṣpāni⟧)",
+                  "label": "Blumen (⟦etāni puṣpāṇi⟧)",
                   "value": "Füße 4, Körper 7"
                 },
                 {
@@ -5262,7 +5262,7 @@
                   "value": "Entsprechend der verfügbaren Zeit"
                 },
                 {
-                  "label": "Pfauenfächer (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Pfauenfächer (⟦eṣā vyajana-sevā⟧)",
                   "value": "Entsprechend der verfügbaren Zeit"
                 }
               ]
@@ -5309,9 +5309,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "O Keśava, komm bitte zusammen mit Deiner geliebten Śrīmatī Rādhikā zu Deinem Bett. O Mādhava, dieses strahlende Bett aus duftenden Blumen ist für Deine freudvollen Spiele bereitet.",
-              "wbw": "āgaccha — komm bitte; śayana-sthānaṁ — zum Bett; priyābhiḥ — mit Deiner geliebten Śrīmatī Rādhikā; saha — gemeinsam mit; keśava — o Keśava; divya-puṣpātya-śayyāyāṁ — auf diesem strahlenden Bett aus duftenden Blumen; sukhaṁ — freudvoll; vihara — spiele; mādhava — o Mādhava; śrīṁ — Bīja-Mantra; klīṁ — Bīja-Mantra; rādhā-kṛṣṇābhyāṁ — an Rādhā und Kṛṣṇa; namaḥ — Ehrerbietungen."
+              "wbw": "āgaccha — komm bitte; śayana-sthānaṁ — zum Bett; priyābhiḥ — mit Deiner geliebten Śrīmatī Rādhikā; saha — gemeinsam mit; keśava — o Keśava; divya-puṣpāḍhya-śayyāyāṁ — auf diesem strahlenden Bett aus duftenden Blumen; sukhaṁ — freudvoll; vihara — spiele; mādhava — o Mādhava; śrīṁ — Bīja-Mantra; klīṁ — Bīja-Mantra; rādhā-kṛṣṇābhyāṁ — an Rādhā und Kṛṣṇa; namaḥ — Ehrerbietungen."
             },
             {
               "type": "verse",

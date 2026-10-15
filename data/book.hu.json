@@ -2098,9 +2098,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "Ó, Keśava, kérlek, térj ágyadhoz szeretett Śrīmatī Rādhikāddal együtt! Ó, Mādhava, ezt az illatos virágokból készült ragyogó ágyat örömteli kedvteléseid számára készítették.",
-              "wbw": "āgaccha — kérlek, jöjj; śayana-sthānaṁ — az ágyhoz; priyābhiḥ — szeretetteddel; saha — együtt; keśava — ó, Keśava; divya-puṣpātya-śayyāyāṁ — ezen az illatos virágokból készült ragyogó ágyon; sukhaṁ — örömmel; vihara — végezd kedvteléseidet; mādhava — ó, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhānak és Kṛṣṇának; namaḥ — hódolat."
+              "wbw": "āgaccha — kérlek, jöjj; śayana-sthānaṁ — az ágyhoz; priyābhiḥ — szeretetteddel; saha — együtt; keśava — ó, Keśava; divya-puṣpāḍhya-śayyāyāṁ — ezen az illatos virágokból készült ragyogó ágyon; sukhaṁ — örömmel; vihara — végezd kedvteléseidet; mādhava — ó, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhānak és Kṛṣṇának; namaḥ — hódolat."
             },
             {
               "type": "subtitle",
@@ -2374,9 +2374,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "Ó, Keśava, kérlek, térj ágyadhoz szeretett Śrīmatī Rādhikāddal együtt! Ó, Mādhava, ezt az illatos virágokból készült ragyogó ágyat örömteli kedvteléseid számára készítették.",
-              "wbw": "āgaccha — kérlek, jöjj; śayana-sthānaṁ — az ágyhoz; priyābhiḥ — szeretett Śrīmatī Rādhikāddal; saha — együtt; keśava — ó, Keśava; divya-puṣpātya-śayyāyāṁ — ezen az illatos virágokból készült ragyogó ágyon; sukhaṁ — örömmel; vihara — élvezd kedvteléseidet; mādhava — ó, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhānak és Kṛṣṇának; namaḥ — hódolat."
+              "wbw": "āgaccha — kérlek, jöjj; śayana-sthānaṁ — az ágyhoz; priyābhiḥ — szeretett Śrīmatī Rādhikāddal; saha — együtt; keśava — ó, Keśava; divya-puṣpāḍhya-śayyāyāṁ — ezen az illatos virágokból készült ragyogó ágyon; sukhaṁ — örömmel; vihara — élvezd kedvteléseidet; mādhava — ó, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhānak és Kṛṣṇának; namaḥ — hódolat."
             },
             {
               "type": "subtitle",
@@ -3169,7 +3169,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "etāni puṣpāni klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "etāni puṣpāṇi klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -4856,22 +4856,6 @@
               "type": "paired-list",
               "items": [
                 {
-                  "label": "Lelki tanítómester",
-                  "value": "⟦aiṁ gurave namaḥ⟧"
-                },
-                {
-                  "label": "Lelki tanítómesterek",
-                  "value": "⟦oṁ parama-gurave namaḥ⟧"
-                },
-                {
-                  "label": "⟦Caitanya⟧ Úr",
-                  "value": "⟦klīṁ gaurāya svāhā⟧"
-                },
-                {
-                  "label": "⟦Nityananda⟧ Úr",
-                  "value": "⟦oṁ nityanandāya namaḥ⟧"
-                },
-                {
                   "label": "⟦Śrī Śrī Rādhā-Kṛṣṇa⟧",
                   "value": "⟦śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ⟧"
                 },
@@ -4882,6 +4866,22 @@
                 {
                   "label": "⟦Śrī Govardhana-śilā⟧",
                   "value": "⟦klīṁ govardhanāya namaḥ⟧"
+                },
+                {
+                  "label": "⟦Caitanya⟧ Úr",
+                  "value": "⟦klīṁ gaurāya svāhā⟧"
+                },
+                {
+                  "label": "⟦Nityananda⟧ Úr",
+                  "value": "⟦oṁ nityānandāya namaḥ⟧"
+                },
+                {
+                  "label": "Lelki tanítómesterek",
+                  "value": "⟦oṁ parama-gurave namaḥ⟧"
+                },
+                {
+                  "label": "Lelki tanítómester",
+                  "value": "⟦aiṁ gurave namaḥ⟧"
                 },
                 {
                   "label": "⟦Śrī Tulasī Devī⟧",
@@ -4913,7 +4913,7 @@
                   "value": "Lábak 4 kör, derék 2 kör, fej 3 kör, test 7 kör"
                 },
                 {
-                  "label": "Virágok (⟦etāni puṣpāni⟧)",
+                  "label": "Virágok (⟦etāni puṣpāṇi⟧)",
                   "value": "Lábak 4 kör, test 7 kör"
                 },
                 {
@@ -4921,7 +4921,7 @@
                   "value": "A rendelkezésre álló idő függvényében"
                 },
                 {
-                  "label": "Pávatoll-legyező (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Pávatoll-legyező (⟦eṣā vyajana-sevā⟧)",
                   "value": "A rendelkezésre álló idő függvényében"
                 }
               ]
@@ -5254,7 +5254,7 @@
                   "value": "Lábak 4, derék 2, fej 3, test 7"
                 },
                 {
-                  "label": "Virágok (⟦etāni puṣpāni⟧)",
+                  "label": "Virágok (⟦etāni puṣpāṇi⟧)",
                   "value": "Lábak 4, test 7"
                 },
                 {
@@ -5262,7 +5262,7 @@
                   "value": "A rendelkezésre álló idő függvényében"
                 },
                 {
-                  "label": "Pávatoll-legyező (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Pávatoll-legyező (⟦eṣā vyajana-sevā⟧)",
                   "value": "A rendelkezésre álló idő függvényében"
                 }
               ]
@@ -5309,9 +5309,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "Ó, Keśava, kérlek, gyere el fekhelyedhez szeretett Śrīmatī Rādhikāddal együtt! Ó, Mādhava, ezt az illatos virágokból készült, ragyogó fekhelyet örömteli kedvteléseidhez készítettük.",
-              "wbw": "āgaccha — kérlek, gyere; śayana-sthānaṁ — a fekhelyhez; priyābhiḥ — szeretett Śrīmatī Rādhikāddal; saha — együtt; keśava — ó, Keśava; divya-puṣpātya-śayyāyāṁ — ezen az illatos virágokból készült, ragyogó fekhelyen; sukhaṁ — örömmel; vihara — élvezd kedvteléseidet; mādhava — ó, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhānak és Kṛṣṇának; namaḥ — hódolat."
+              "wbw": "āgaccha — kérlek, gyere; śayana-sthānaṁ — a fekhelyhez; priyābhiḥ — szeretett Śrīmatī Rādhikāddal; saha — együtt; keśava — ó, Keśava; divya-puṣpāḍhya-śayyāyāṁ — ezen az illatos virágokból készült, ragyogó fekhelyen; sukhaṁ — örömmel; vihara — élvezd kedvteléseidet; mādhava — ó, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhānak és Kṛṣṇának; namaḥ — hódolat."
             },
             {
               "type": "verse",

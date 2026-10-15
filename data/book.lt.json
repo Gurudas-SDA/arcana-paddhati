@@ -2098,9 +2098,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "O Keśava, maloniai ateik į Savo lovą kartu su Savo mylimąja Śrīmatī Rādhikā. O Mādhava, ši spindinti, kvapnių gėlių lova skirta Tavo džiaugsmingiems žaidimams.",
-              "wbw": "āgaccha — prašau, ateik; śayana-sthānaṁ — į lovą; priyābhiḥ — su Savo mylimąja; saha — kartu su; keśava — o Keśava; divya-puṣpātya-śayyāyāṁ — ant šios spindinčios, kvapnių gėlių lovos; sukhaṁ — džiaugsmingai; vihara — žaisk; mādhava — o Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhā ir Kṛṣṇai; namaḥ — nusilenkimai."
+              "wbw": "āgaccha — prašau, ateik; śayana-sthānaṁ — į lovą; priyābhiḥ — su Savo mylimąja; saha — kartu su; keśava — o Keśava; divya-puṣpāḍhya-śayyāyāṁ — ant šios spindinčios, kvapnių gėlių lovos; sukhaṁ — džiaugsmingai; vihara — žaisk; mādhava — o Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhā ir Kṛṣṇai; namaḥ — nusilenkimai."
             },
             {
               "type": "subtitle",
@@ -2374,9 +2374,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "O Keśava, maloniai ateik į savo lovą kartu su savo mylimąja Śrīmatī Rādhikā. O Mādhava, ši spindinti, kvapniomis gėlėmis išpuošta lova skirta tavo džiaugsmingiems žaidimams.",
-              "wbw": "āgaccha — maloniai ateik; śayana-sthānaṁ — į lovą; priyābhiḥ — su savo mylimąja Śrīmatī Rādhikā; saha — kartu su; keśava — o Keśava; divya-puṣpātya-śayyāyāṁ — ant šios spindinčios, kvapniomis gėlėmis išpuoštos lovos; sukhaṁ — džiaugsmingai; vihara — žaisk; mādhava — o Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhā ir Kṛṣṇai; namaḥ — nusilenkimai."
+              "wbw": "āgaccha — maloniai ateik; śayana-sthānaṁ — į lovą; priyābhiḥ — su savo mylimąja Śrīmatī Rādhikā; saha — kartu su; keśava — o Keśava; divya-puṣpāḍhya-śayyāyāṁ — ant šios spindinčios, kvapniomis gėlėmis išpuoštos lovos; sukhaṁ — džiaugsmingai; vihara — žaisk; mādhava — o Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhā ir Kṛṣṇai; namaḥ — nusilenkimai."
             },
             {
               "type": "subtitle",
@@ -3169,7 +3169,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "etāni puṣpāni klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "etāni puṣpāṇi klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -4856,22 +4856,6 @@
               "type": "paired-list",
               "items": [
                 {
-                  "label": "Dvasinis mokytojas",
-                  "value": "⟦aiṁ gurave namaḥ⟧"
-                },
-                {
-                  "label": "Dvasiniai mokytojai",
-                  "value": "⟦oṁ parama-gurave namaḥ⟧"
-                },
-                {
-                  "label": "Viešpats ⟦Caitanya⟧",
-                  "value": "⟦klīṁ gaurāya svāhā⟧"
-                },
-                {
-                  "label": "Viešpats ⟦Nityānanda⟧",
-                  "value": "⟦oṁ nityanandāya namaḥ⟧"
-                },
-                {
                   "label": "⟦Śrī Śrī Rādhā-Kṛṣṇa⟧",
                   "value": "⟦śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ⟧"
                 },
@@ -4882,6 +4866,22 @@
                 {
                   "label": "⟦Śrī Govardhana-śilā⟧",
                   "value": "⟦klīṁ govardhanāya namaḥ⟧"
+                },
+                {
+                  "label": "Viešpats ⟦Caitanya⟧",
+                  "value": "⟦klīṁ gaurāya svāhā⟧"
+                },
+                {
+                  "label": "Viešpats ⟦Nityānanda⟧",
+                  "value": "⟦oṁ nityānandāya namaḥ⟧"
+                },
+                {
+                  "label": "Dvasiniai mokytojai",
+                  "value": "⟦oṁ parama-gurave namaḥ⟧"
+                },
+                {
+                  "label": "Dvasinis mokytojas",
+                  "value": "⟦aiṁ gurave namaḥ⟧"
                 },
                 {
                   "label": "⟦Śrī Tulasī Devī⟧",
@@ -4913,7 +4913,7 @@
                   "value": "Pėdos 4, liemuo 2, galva 3, kūnas 7"
                 },
                 {
-                  "label": "Gėlės (⟦etāni puṣpāni⟧)",
+                  "label": "Gėlės (⟦etāni puṣpāṇi⟧)",
                   "value": "Pėdos 4, kūnas 7"
                 },
                 {
@@ -4921,7 +4921,7 @@
                   "value": "Pagal turimą laiką"
                 },
                 {
-                  "label": "Povo vėduoklė (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Povo vėduoklė (⟦eṣā vyajana-sevā⟧)",
                   "value": "Pagal turimą laiką"
                 }
               ]
@@ -5254,7 +5254,7 @@
                   "value": "Pėdos 4, juosmuo 2, galva 3, kūnas 7"
                 },
                 {
-                  "label": "Gėlės (⟦etāni puṣpāni⟧)",
+                  "label": "Gėlės (⟦etāni puṣpāṇi⟧)",
                   "value": "Pėdos 4, kūnas 7"
                 },
                 {
@@ -5262,7 +5262,7 @@
                   "value": "Pagal turimą laiką"
                 },
                 {
-                  "label": "Povo vėduoklė (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Povo vėduoklė (⟦eṣā vyajana-sevā⟧)",
                   "value": "Pagal turimą laiką"
                 }
               ]
@@ -5309,9 +5309,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "O Keśava, malonėk ateiti į savo guolį kartu su savo mylimąja Śrīmatī Rādhikā. O Mādhava, ši spindinti, kvapniomis gėlėmis papuošta lova skirta Tavo džiaugsmingiems žaidimams.",
-              "wbw": "āgaccha — malonėk ateiti; śayana-sthānaṁ — į guolį; priyābhiḥ — su savo mylimąja Śrīmatī Rādhikā; saha — kartu su; keśava — o Keśava; divya-puṣpātya-śayyāyāṁ — ant šios spindinčios, kvapniomis gėlėmis papuoštos lovos; sukhaṁ — džiaugsmingai; vihara — žaisk; mādhava — o Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhā ir Kṛṣṇai; namaḥ — nusilenkimai"
+              "wbw": "āgaccha — malonėk ateiti; śayana-sthānaṁ — į guolį; priyābhiḥ — su savo mylimąja Śrīmatī Rādhikā; saha — kartu su; keśava — o Keśava; divya-puṣpāḍhya-śayyāyāṁ — ant šios spindinčios, kvapniomis gėlėmis papuoštos lovos; sukhaṁ — džiaugsmingai; vihara — žaisk; mādhava — o Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhā ir Kṛṣṇai; namaḥ — nusilenkimai"
             },
             {
               "type": "verse",

@@ -2098,9 +2098,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "О Кешаво, будь ласка, прийди до Свого ліжка разом зі Своєю коханою Шріматі Радгікою. О Мадгаво, це сяйне ложе з ароматних квітів приготоване для Ваших радісних ігор.",
-              "wbw": "āgaccha — будь ласка, прийди; śayana-sthānaṁ — до Свого ложа; priyābhiḥ — разом зі Своєю коханою; saha — разом із; keśava — О Кешаво; divya-puṣpātya-śayyāyāṁ — на цьому сяйному ложі з ароматних квітів; sukhaṁ — радісно; vihara — грай; mādhava — О Мадгаво; śrīṁ — біджа-мантра; klīṁ — біджа-мантра; rādhā-kṛṣṇābhyāṁ — Радсі та Крішні; namaḥ — поклони."
+              "wbw": "āgaccha — будь ласка, прийди; śayana-sthānaṁ — до Свого ложа; priyābhiḥ — разом зі Своєю коханою; saha — разом із; keśava — О Кешаво; divya-puṣpāḍhya-śayyāyāṁ — на цьому сяйному ложі з ароматних квітів; sukhaṁ — радісно; vihara — грай; mādhava — О Мадгаво; śrīṁ — біджа-мантра; klīṁ — біджа-мантра; rādhā-kṛṣṇābhyāṁ — Радсі та Крішні; namaḥ — поклони."
             },
             {
               "type": "subtitle",
@@ -2374,9 +2374,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "О Кешаво, будь ласка, прийди до Свого ліжка разом зі Своєю коханою Шріматі Радгікою. О Мадгаво, це сяйне ложе з ароматних квітів приготоване для Ваших радісних ігор.",
-              "wbw": "āgaccha — будь ласка, прийди; śayana-sthānaṁ — до Свого ложа; priyābhiḥ — разом зі Своєю коханою Шріматі Радгікою; saha — разом із; keśava — О Кешаво; divya-puṣpātya-śayyāyāṁ — на цьому сяйному ложі з ароматних квітів; sukhaṁ — радісно; vihara — грай; mādhava — О Мадгаво; śrīṁ — біджа-мантра; klīṁ — біджа-мантра; rādhā-kṛṣṇābhyāṁ — Радзі та Крішні; namaḥ — поклони."
+              "wbw": "āgaccha — будь ласка, прийди; śayana-sthānaṁ — до Свого ложа; priyābhiḥ — разом зі Своєю коханою Шріматі Радгікою; saha — разом із; keśava — О Кешаво; divya-puṣpāḍhya-śayyāyāṁ — на цьому сяйному ложі з ароматних квітів; sukhaṁ — радісно; vihara — грай; mādhava — О Мадгаво; śrīṁ — біджа-мантра; klīṁ — біджа-мантра; rādhā-kṛṣṇābhyāṁ — Радзі та Крішні; namaḥ — поклони."
             },
             {
               "type": "subtitle",
@@ -3169,7 +3169,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "etāni puṣpāni klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "etāni puṣpāṇi klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -4856,22 +4856,6 @@
               "type": "paired-list",
               "items": [
                 {
-                  "label": "Духовний вчитель",
-                  "value": "⟦aiṁ gurave namaḥ⟧"
-                },
-                {
-                  "label": "Духовні вчителі",
-                  "value": "⟦oṁ parama-gurave namaḥ⟧"
-                },
-                {
-                  "label": "Господь ⟦Чайтанья⟧",
-                  "value": "⟦klīṁ gaurāya svāhā⟧"
-                },
-                {
-                  "label": "Господь ⟦Нітьянанда⟧",
-                  "value": "⟦oṁ nityanandāya namaḥ⟧"
-                },
-                {
                   "label": "⟦Шрі Шрі Радга-Крішна⟧",
                   "value": "⟦śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ⟧"
                 },
@@ -4882,6 +4866,22 @@
                 {
                   "label": "⟦Шрі Ґовардгана-шіла⟧",
                   "value": "⟦klīṁ govardhanāya namaḥ⟧"
+                },
+                {
+                  "label": "Господь ⟦Чайтанья⟧",
+                  "value": "⟦klīṁ gaurāya svāhā⟧"
+                },
+                {
+                  "label": "Господь ⟦Нітьянанда⟧",
+                  "value": "⟦oṁ nityānandāya namaḥ⟧"
+                },
+                {
+                  "label": "Духовні вчителі",
+                  "value": "⟦oṁ parama-gurave namaḥ⟧"
+                },
+                {
+                  "label": "Духовний вчитель",
+                  "value": "⟦aiṁ gurave namaḥ⟧"
                 },
                 {
                   "label": "⟦Шрі Туласі-деві⟧",
@@ -4913,7 +4913,7 @@
                   "value": "Стопи — 4, талія — 2, голова — 3, усе тіло — 7"
                 },
                 {
-                  "label": "Квіти (⟦etāni puṣpāni⟧)",
+                  "label": "Квіти (⟦etāni puṣpāṇi⟧)",
                   "value": "Стопи — 4, усе тіло — 7"
                 },
                 {
@@ -4921,7 +4921,7 @@
                   "value": "Відповідно до наявного часу"
                 },
                 {
-                  "label": "Віяло з павичевого пір’я (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Віяло з павичевого пір’я (⟦eṣā vyajana-sevā⟧)",
                   "value": "Відповідно до наявного часу"
                 }
               ]
@@ -5254,7 +5254,7 @@
                   "value": "Стопи — 4, талія — 2, голова — 3, тіло — 7"
                 },
                 {
-                  "label": "Квіти (⟦etāni puṣpāni⟧)",
+                  "label": "Квіти (⟦etāni puṣpāṇi⟧)",
                   "value": "Стопи — 4, тіло — 7"
                 },
                 {
@@ -5262,7 +5262,7 @@
                   "value": "Залежно від наявного часу"
                 },
                 {
-                  "label": "Павичеве віяло (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Павичеве віяло (⟦eṣā vyajana-sevā⟧)",
                   "value": "Залежно від наявного часу"
                 }
               ]
@@ -5309,9 +5309,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "О Кешаво, будь ласка, прийди на Своє ложе разом зі Своєю коханою Шріматі Радгікою. О Мадгаво, це сяюче ложе з пахучих квітів створене для Твоїх радісних ігор.",
-              "wbw": "āgaccha — будь ласка, прийди; śayana-sthānaṁ — на ложе; priyābhiḥ — зі Своєю коханою Шріматі Радгікою; saha — разом із; keśava — о Кешаво; divya-puṣpātya-śayyāyāṁ — на цьому сяючому ложі з пахучих квітів; sukhaṁ — радісно; vihara — грайся; mādhava — о Мадгаво; śrīṁ — біджа-мантра; klīṁ — біджа-мантра; rādhā-kṛṣṇābhyāṁ — Радзі та Крішні; namaḥ — поклони."
+              "wbw": "āgaccha — будь ласка, прийди; śayana-sthānaṁ — на ложе; priyābhiḥ — зі Своєю коханою Шріматі Радгікою; saha — разом із; keśava — о Кешаво; divya-puṣpāḍhya-śayyāyāṁ — на цьому сяючому ложі з пахучих квітів; sukhaṁ — радісно; vihara — грайся; mādhava — о Мадгаво; śrīṁ — біджа-мантра; klīṁ — біджа-мантра; rādhā-kṛṣṇābhyāṁ — Радзі та Крішні; namaḥ — поклони."
             },
             {
               "type": "verse",

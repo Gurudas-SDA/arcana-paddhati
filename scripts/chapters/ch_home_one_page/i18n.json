@@ -1,7 +1,7 @@
 {
  "home-worship-one-page": {
   "lv": {
-   "en_hash": "2c3c215947b3679c",
+   "en_hash": "de52060be4fbce40",
    "model": "cx/gpt-6.1-sol",
    "date": "2026-10-14 23:33",
    "section": {
@@ -178,7 +178,7 @@
           "value": "Pēdas 4, viduklis 2, galva 3, ķermenis 7"
          },
          {
-          "label": "Ziedi (⟦etāni puṣpāni⟧)",
+          "label": "Ziedi (⟦etāni puṣpāṇi⟧)",
           "value": "Pēdas 4, ķermenis 7"
          },
          {
@@ -186,7 +186,7 @@
           "value": "Atbilstoši pieejamajam laikam"
          },
          {
-          "label": "Pāva spalvu vēdeklis (⟦eṣā vyajñana-sevā⟧)",
+          "label": "Pāva spalvu vēdeklis (⟦eṣā vyajana-sevā⟧)",
           "value": "Atbilstoši pieejamajam laikam"
          }
         ]
@@ -233,9 +233,9 @@
        },
        {
         "type": "verse",
-        "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+        "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
         "translation": "Ak, Kešava, lūdzu, nāc Savā guļvietā kopā ar Savu mīļoto Šrīmatī Rādhiku. Ak, Mādhava, šī spožā, smaržīgiem ziediem rotātā guļvieta ir sagatavota Tavai priecīgajai spēlei.",
-        "wbw": "āgaccha — lūdzu, nāc; śayana-sthānaṁ — uz guļvietu; priyābhiḥ — kopā ar Savu mīļoto Šrīmatī Rādhiku; saha — kopā ar; keśava — ak, Kešava; divya-puṣpātya-śayyāyāṁ — uz šīs spožās, smaržīgiem ziediem rotātās guļvietas; sukhaṁ — priecīgi; vihara — spēlējies; mādhava — ak, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādāi un Krišnam; namaḥ — pazemīga noliekšanās."
+        "wbw": "āgaccha — lūdzu, nāc; śayana-sthānaṁ — uz guļvietu; priyābhiḥ — kopā ar Savu mīļoto Šrīmatī Rādhiku; saha — kopā ar; keśava — ak, Kešava; divya-puṣpāḍhya-śayyāyāṁ — uz šīs spožās, smaržīgiem ziediem rotātās guļvietas; sukhaṁ — priecīgi; vihara — spēlējies; mādhava — ak, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādāi un Krišnam; namaḥ — pazemīga noliekšanās."
        },
        {
         "type": "verse",
@@ -269,7 +269,7 @@
    }
   },
   "de": {
-   "en_hash": "2c3c215947b3679c",
+   "en_hash": "de52060be4fbce40",
    "model": "cx/gpt-6.1-sol",
    "date": "2026-10-14 23:33",
    "section": {
@@ -446,7 +446,7 @@
           "value": "Füße 4, Taille 2, Kopf 3, Körper 7"
          },
          {
-          "label": "Blumen (⟦etāni puṣpāni⟧)",
+          "label": "Blumen (⟦etāni puṣpāṇi⟧)",
           "value": "Füße 4, Körper 7"
          },
          {
@@ -454,7 +454,7 @@
           "value": "Entsprechend der verfügbaren Zeit"
          },
          {
-          "label": "Pfauenfächer (⟦eṣā vyajñana-sevā⟧)",
+          "label": "Pfauenfächer (⟦eṣā vyajana-sevā⟧)",
           "value": "Entsprechend der verfügbaren Zeit"
          }
         ]
@@ -501,9 +501,9 @@
        },
        {
         "type": "verse",
-        "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+        "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
         "translation": "O Keśava, komm bitte zusammen mit Deiner geliebten Śrīmatī Rādhikā zu Deinem Bett. O Mādhava, dieses strahlende Bett aus duftenden Blumen ist für Deine freudvollen Spiele bereitet.",
-        "wbw": "āgaccha — komm bitte; śayana-sthānaṁ — zum Bett; priyābhiḥ — mit Deiner geliebten Śrīmatī Rādhikā; saha — gemeinsam mit; keśava — o Keśava; divya-puṣpātya-śayyāyāṁ — auf diesem strahlenden Bett aus duftenden Blumen; sukhaṁ — freudvoll; vihara — spiele; mādhava — o Mādhava; śrīṁ — Bīja-Mantra; klīṁ — Bīja-Mantra; rādhā-kṛṣṇābhyāṁ — an Rādhā und Kṛṣṇa; namaḥ — Ehrerbietungen."
+        "wbw": "āgaccha — komm bitte; śayana-sthānaṁ — zum Bett; priyābhiḥ — mit Deiner geliebten Śrīmatī Rādhikā; saha — gemeinsam mit; keśava — o Keśava; divya-puṣpāḍhya-śayyāyāṁ — auf diesem strahlenden Bett aus duftenden Blumen; sukhaṁ — freudvoll; vihara — spiele; mādhava — o Mādhava; śrīṁ — Bīja-Mantra; klīṁ — Bīja-Mantra; rādhā-kṛṣṇābhyāṁ — an Rādhā und Kṛṣṇa; namaḥ — Ehrerbietungen."
        },
        {
         "type": "verse",
@@ -537,7 +537,7 @@
    }
   },
   "fr": {
-   "en_hash": "2c3c215947b3679c",
+   "en_hash": "de52060be4fbce40",
    "model": "cx/gpt-6.1-sol",
    "date": "2026-10-14 23:33",
    "section": {
@@ -714,7 +714,7 @@
           "value": "Pieds 4, taille 2, tête 3, corps 7"
          },
          {
-          "label": "Fleurs (⟦etāni puṣpāni⟧)",
+          "label": "Fleurs (⟦etāni puṣpāṇi⟧)",
           "value": "Pieds 4, corps 7"
          },
          {
@@ -722,7 +722,7 @@
           "value": "Selon le temps disponible"
          },
          {
-          "label": "Éventail en plumes de paon (⟦eṣā vyajñana-sevā⟧)",
+          "label": "Éventail en plumes de paon (⟦eṣā vyajana-sevā⟧)",
           "value": "Selon le temps disponible"
          }
         ]
@@ -769,9 +769,9 @@
        },
        {
         "type": "verse",
-        "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+        "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
         "translation": "Ô Keśava, veuillez venir à Votre lit avec Votre bien-aimée Śrīmatī Rādhikā. Ô Mādhava, ce lit resplendissant de fleurs parfumées est fait pour Vos joyeux divertissements.",
-        "wbw": "āgaccha — veuillez venir; śayana-sthānaṁ — au lit; priyābhiḥ — avec Votre bien-aimée Śrīmatī Rādhikā; saha — avec; keśava — ô Keśava; divya-puṣpātya-śayyāyāṁ — sur ce lit resplendissant de fleurs parfumées; sukhaṁ — joyeusement; vihara — divertissez-Vous; mādhava — ô Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — à Rādhā et Kṛṣṇa; namaḥ — hommages respectueux"
+        "wbw": "āgaccha — veuillez venir; śayana-sthānaṁ — au lit; priyābhiḥ — avec Votre bien-aimée Śrīmatī Rādhikā; saha — avec; keśava — ô Keśava; divya-puṣpāḍhya-śayyāyāṁ — sur ce lit resplendissant de fleurs parfumées; sukhaṁ — joyeusement; vihara — divertissez-Vous; mādhava — ô Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — à Rādhā et Kṛṣṇa; namaḥ — hommages respectueux"
        },
        {
         "type": "verse",
@@ -805,7 +805,7 @@
    }
   },
   "es": {
-   "en_hash": "2c3c215947b3679c",
+   "en_hash": "de52060be4fbce40",
    "model": "cx/gpt-6.1-sol",
    "date": "2026-10-14 23:33",
    "section": {
@@ -982,7 +982,7 @@
           "value": "Pies 4, cintura 2, cabeza 3, cuerpo 7"
          },
          {
-          "label": "Flores (⟦etāni puṣpāni⟧)",
+          "label": "Flores (⟦etāni puṣpāṇi⟧)",
           "value": "Pies 4, cuerpo 7"
          },
          {
@@ -990,7 +990,7 @@
           "value": "Según el tiempo disponible"
          },
          {
-          "label": "Abanico de plumas de pavo real (⟦eṣā vyajñana-sevā⟧)",
+          "label": "Abanico de plumas de pavo real (⟦eṣā vyajana-sevā⟧)",
           "value": "Según el tiempo disponible"
          }
         ]
@@ -1037,9 +1037,9 @@
        },
        {
         "type": "verse",
-        "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+        "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
         "translation": "Oh Keśava, por favor ven a Tu cama junto con Tu amada Śrīmatī Rādhikā. Oh Mādhava, esta cama resplandeciente de fragantes flores ha sido preparada para Tus jubilosos pasatiempos.",
-        "wbw": "āgaccha — por favor ven; śayana-sthānaṁ — a la cama; priyābhiḥ — con Tu amada Śrīmatī Rādhikā; saha — junto con; keśava — oh Keśava; divya-puṣpātya-śayyāyāṁ — en esta resplandeciente cama de fragantes flores; sukhaṁ — jubilosamente; vihara — disfruta de Tus pasatiempos; mādhava — oh Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — a Rādhā y Kṛṣṇa; namaḥ — reverencias."
+        "wbw": "āgaccha — por favor ven; śayana-sthānaṁ — a la cama; priyābhiḥ — con Tu amada Śrīmatī Rādhikā; saha — junto con; keśava — oh Keśava; divya-puṣpāḍhya-śayyāyāṁ — en esta resplandeciente cama de fragantes flores; sukhaṁ — jubilosamente; vihara — disfruta de Tus pasatiempos; mādhava — oh Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — a Rādhā y Kṛṣṇa; namaḥ — reverencias."
        },
        {
         "type": "verse",
@@ -1073,7 +1073,7 @@
    }
   },
   "it": {
-   "en_hash": "2c3c215947b3679c",
+   "en_hash": "de52060be4fbce40",
    "model": "cx/gpt-6.1-sol",
    "date": "2026-10-14 23:33",
    "section": {
@@ -1250,7 +1250,7 @@
           "value": "Piedi 4, Vita 2, Testa 3, Corpo 7"
          },
          {
-          "label": "Fiori (⟦etāni puṣpāni⟧)",
+          "label": "Fiori (⟦etāni puṣpāṇi⟧)",
           "value": "Piedi 4, Corpo 7"
          },
          {
@@ -1258,7 +1258,7 @@
           "value": "Secondo il tempo disponibile"
          },
          {
-          "label": "Ventaglio di piume di pavone (⟦eṣā vyajñana-sevā⟧)",
+          "label": "Ventaglio di piume di pavone (⟦eṣā vyajana-sevā⟧)",
           "value": "Secondo il tempo disponibile"
          }
         ]
@@ -1305,9 +1305,9 @@
        },
        {
         "type": "verse",
-        "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+        "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
         "translation": "O Keśava, Ti prego, vieni al Tuo letto insieme alla Tua amata Śrīmatī Rādhikā. O Mādhava, questo splendente letto di fiori profumati è preparato per i Tuoi gioiosi passatempi.",
-        "wbw": "āgaccha — ti prego, vieni; śayana-sthānaṁ — al letto; priyābhiḥ — con la Tua amata Śrīmatī Rādhikā; saha — insieme a; keśava — o Keśava; divya-puṣpātya-śayyāyāṁ — su questo splendente letto di fiori profumati; sukhaṁ — gioiosamente; vihara — divertiti; mādhava — o Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — a Rādhā e Kṛṣṇa; namaḥ — omaggi."
+        "wbw": "āgaccha — ti prego, vieni; śayana-sthānaṁ — al letto; priyābhiḥ — con la Tua amata Śrīmatī Rādhikā; saha — insieme a; keśava — o Keśava; divya-puṣpāḍhya-śayyāyāṁ — su questo splendente letto di fiori profumati; sukhaṁ — gioiosamente; vihara — divertiti; mādhava — o Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — a Rādhā e Kṛṣṇa; namaḥ — omaggi."
        },
        {
         "type": "verse",
@@ -1341,7 +1341,7 @@
    }
   },
   "uk": {
-   "en_hash": "2c3c215947b3679c",
+   "en_hash": "de52060be4fbce40",
    "model": "cx/gpt-6.1-sol",
    "date": "2026-10-14 23:33",
    "section": {
@@ -1518,7 +1518,7 @@
           "value": "Стопи — 4, талія — 2, голова — 3, тіло — 7"
          },
          {
-          "label": "Квіти (⟦etāni puṣpāni⟧)",
+          "label": "Квіти (⟦etāni puṣpāṇi⟧)",
           "value": "Стопи — 4, тіло — 7"
          },
          {
@@ -1526,7 +1526,7 @@
           "value": "Залежно від наявного часу"
          },
          {
-          "label": "Павичеве віяло (⟦eṣā vyajñana-sevā⟧)",
+          "label": "Павичеве віяло (⟦eṣā vyajana-sevā⟧)",
           "value": "Залежно від наявного часу"
          }
         ]
@@ -1573,9 +1573,9 @@
        },
        {
         "type": "verse",
-        "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+        "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
         "translation": "О Кешаво, будь ласка, прийди на Своє ложе разом зі Своєю коханою Шріматі Радгікою. О Мадгаво, це сяюче ложе з пахучих квітів створене для Твоїх радісних ігор.",
-        "wbw": "āgaccha — будь ласка, прийди; śayana-sthānaṁ — на ложе; priyābhiḥ — зі Своєю коханою Шріматі Радгікою; saha — разом із; keśava — о Кешаво; divya-puṣpātya-śayyāyāṁ — на цьому сяючому ложі з пахучих квітів; sukhaṁ — радісно; vihara — грайся; mādhava — о Мадгаво; śrīṁ — біджа-мантра; klīṁ — біджа-мантра; rādhā-kṛṣṇābhyāṁ — Радзі та Крішні; namaḥ — поклони."
+        "wbw": "āgaccha — будь ласка, прийди; śayana-sthānaṁ — на ложе; priyābhiḥ — зі Своєю коханою Шріматі Радгікою; saha — разом із; keśava — о Кешаво; divya-puṣpāḍhya-śayyāyāṁ — на цьому сяючому ложі з пахучих квітів; sukhaṁ — радісно; vihara — грайся; mādhava — о Мадгаво; śrīṁ — біджа-мантра; klīṁ — біджа-мантра; rādhā-kṛṣṇābhyāṁ — Радзі та Крішні; namaḥ — поклони."
        },
        {
         "type": "verse",
@@ -1609,7 +1609,7 @@
    }
   },
   "hu": {
-   "en_hash": "2c3c215947b3679c",
+   "en_hash": "de52060be4fbce40",
    "model": "cx/gpt-6.1-sol",
    "date": "2026-10-14 23:34",
    "section": {
@@ -1786,7 +1786,7 @@
           "value": "Lábak 4, derék 2, fej 3, test 7"
          },
          {
-          "label": "Virágok (⟦etāni puṣpāni⟧)",
+          "label": "Virágok (⟦etāni puṣpāṇi⟧)",
           "value": "Lábak 4, test 7"
          },
          {
@@ -1794,7 +1794,7 @@
           "value": "A rendelkezésre álló idő függvényében"
          },
          {
-          "label": "Pávatoll-legyező (⟦eṣā vyajñana-sevā⟧)",
+          "label": "Pávatoll-legyező (⟦eṣā vyajana-sevā⟧)",
           "value": "A rendelkezésre álló idő függvényében"
          }
         ]
@@ -1841,9 +1841,9 @@
        },
        {
         "type": "verse",
-        "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+        "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
         "translation": "Ó, Keśava, kérlek, gyere el fekhelyedhez szeretett Śrīmatī Rādhikāddal együtt! Ó, Mādhava, ezt az illatos virágokból készült, ragyogó fekhelyet örömteli kedvteléseidhez készítettük.",
-        "wbw": "āgaccha — kérlek, gyere; śayana-sthānaṁ — a fekhelyhez; priyābhiḥ — szeretett Śrīmatī Rādhikāddal; saha — együtt; keśava — ó, Keśava; divya-puṣpātya-śayyāyāṁ — ezen az illatos virágokból készült, ragyogó fekhelyen; sukhaṁ — örömmel; vihara — élvezd kedvteléseidet; mādhava — ó, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhānak és Kṛṣṇának; namaḥ — hódolat."
+        "wbw": "āgaccha — kérlek, gyere; śayana-sthānaṁ — a fekhelyhez; priyābhiḥ — szeretett Śrīmatī Rādhikāddal; saha — együtt; keśava — ó, Keśava; divya-puṣpāḍhya-śayyāyāṁ — ezen az illatos virágokból készült, ragyogó fekhelyen; sukhaṁ — örömmel; vihara — élvezd kedvteléseidet; mādhava — ó, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhānak és Kṛṣṇának; namaḥ — hódolat."
        },
        {
         "type": "verse",
@@ -1877,7 +1877,7 @@
    }
   },
   "pt": {
-   "en_hash": "2c3c215947b3679c",
+   "en_hash": "de52060be4fbce40",
    "model": "cx/gpt-6.1-sol",
    "date": "2026-10-14 23:33",
    "section": {
@@ -2054,7 +2054,7 @@
           "value": "Pés 4, Cintura 2, Cabeça 3, Corpo 7"
          },
          {
-          "label": "Flores (⟦etāni puṣpāni⟧)",
+          "label": "Flores (⟦etāni puṣpāṇi⟧)",
           "value": "Pés 4, Corpo 7"
          },
          {
@@ -2062,7 +2062,7 @@
           "value": "De acordo com o tempo disponível"
          },
          {
-          "label": "Leque de penas de pavão (⟦eṣā vyajñana-sevā⟧)",
+          "label": "Leque de penas de pavão (⟦eṣā vyajana-sevā⟧)",
           "value": "De acordo com o tempo disponível"
          }
         ]
@@ -2109,9 +2109,9 @@
        },
        {
         "type": "verse",
-        "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+        "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
         "translation": "Ó Keśava, por favor, venha para Sua cama junto com Sua amada Śrīmatī Rādhikā. Ó Mādhava, esta cama resplandecente, feita de flores perfumadas, foi preparada para Seus alegres passatempos.",
-        "wbw": "āgaccha — por favor, venha; śayana-sthānaṁ — para a cama; priyābhiḥ — com Sua amada Śrīmatī Rādhikā; saha — junto com; keśava — ó Keśava; divya-puṣpātya-śayyāyāṁ — nesta cama resplandecente de flores perfumadas; sukhaṁ — alegremente; vihara — divirta-Se; mādhava — ó Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — a Rādhā e Kṛṣṇa; namaḥ — reverências."
+        "wbw": "āgaccha — por favor, venha; śayana-sthānaṁ — para a cama; priyābhiḥ — com Sua amada Śrīmatī Rādhikā; saha — junto com; keśava — ó Keśava; divya-puṣpāḍhya-śayyāyāṁ — nesta cama resplandecente de flores perfumadas; sukhaṁ — alegremente; vihara — divirta-Se; mādhava — ó Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — a Rādhā e Kṛṣṇa; namaḥ — reverências."
        },
        {
         "type": "verse",
@@ -2145,7 +2145,7 @@
    }
   },
   "lt": {
-   "en_hash": "2c3c215947b3679c",
+   "en_hash": "de52060be4fbce40",
    "model": "cx/gpt-6.1-sol",
    "date": "2026-10-14 23:33",
    "section": {
@@ -2322,7 +2322,7 @@
           "value": "Pėdos 4, juosmuo 2, galva 3, kūnas 7"
          },
          {
-          "label": "Gėlės (⟦etāni puṣpāni⟧)",
+          "label": "Gėlės (⟦etāni puṣpāṇi⟧)",
           "value": "Pėdos 4, kūnas 7"
          },
          {
@@ -2330,7 +2330,7 @@
           "value": "Pagal turimą laiką"
          },
          {
-          "label": "Povo vėduoklė (⟦eṣā vyajñana-sevā⟧)",
+          "label": "Povo vėduoklė (⟦eṣā vyajana-sevā⟧)",
           "value": "Pagal turimą laiką"
          }
         ]
@@ -2377,9 +2377,9 @@
        },
        {
         "type": "verse",
-        "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+        "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
         "translation": "O Keśava, malonėk ateiti į savo guolį kartu su savo mylimąja Śrīmatī Rādhikā. O Mādhava, ši spindinti, kvapniomis gėlėmis papuošta lova skirta Tavo džiaugsmingiems žaidimams.",
-        "wbw": "āgaccha — malonėk ateiti; śayana-sthānaṁ — į guolį; priyābhiḥ — su savo mylimąja Śrīmatī Rādhikā; saha — kartu su; keśava — o Keśava; divya-puṣpātya-śayyāyāṁ — ant šios spindinčios, kvapniomis gėlėmis papuoštos lovos; sukhaṁ — džiaugsmingai; vihara — žaisk; mādhava — o Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhā ir Kṛṣṇai; namaḥ — nusilenkimai"
+        "wbw": "āgaccha — malonėk ateiti; śayana-sthānaṁ — į guolį; priyābhiḥ — su savo mylimąja Śrīmatī Rādhikā; saha — kartu su; keśava — o Keśava; divya-puṣpāḍhya-śayyāyāṁ — ant šios spindinčios, kvapniomis gėlėmis papuoštos lovos; sukhaṁ — džiaugsmingai; vihara — žaisk; mādhava — o Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhā ir Kṛṣṇai; namaḥ — nusilenkimai"
        },
        {
         "type": "verse",

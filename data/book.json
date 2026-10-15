@@ -2058,9 +2058,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "O Keśava, kindly come to Your bed along with Your beloved Śrīmatī Rādhikā. O Mādhava, this effulgent bed of fragrant flowers is made for Your joyful sporting.",
-              "wbw": "āgaccha — please come; śayana-sthānaṁ — to the bed; priyābhiḥ — with Your beloved; saha — together with; keśava — O Keśava; divya-puṣpātya-śayyāyāṁ — upon this effulgent bed of fragrant flowers; sukhaṁ — joyfully; vihara — sport; mādhava — O Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — unto Rādhā and Kṛṣṇa; namaḥ — obeisances."
+              "wbw": "āgaccha — please come; śayana-sthānaṁ — to the bed; priyābhiḥ — with Your beloved; saha — together with; keśava — O Keśava; divya-puṣpāḍhya-śayyāyāṁ — upon this effulgent bed of fragrant flowers; sukhaṁ — joyfully; vihara — sport; mādhava — O Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — unto Rādhā and Kṛṣṇa; namaḥ — obeisances."
             },
             {
               "type": "subtitle",
@@ -2326,9 +2326,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "O Keśava, kindly come to Your bed along with Your beloved Śrīmatī Rādhikā. O Mādhava, this effulgent bed of fragrant flowers is made for Your joyful sporting.",
-              "wbw": "āgaccha — kindly come; śayana-sthānaṁ — to the bed; priyābhiḥ — with Your beloved Śrīmatī Rādhikā; saha — together with; keśava — O Keśava; divya-puṣpātya-śayyāyāṁ — on this effulgent bed of fragrant flowers; sukhaṁ — joyfully; vihara — sport; mādhava — O Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — to Rādhā and Kṛṣṇa; namaḥ — obeisances."
+              "wbw": "āgaccha — kindly come; śayana-sthānaṁ — to the bed; priyābhiḥ — with Your beloved Śrīmatī Rādhikā; saha — together with; keśava — O Keśava; divya-puṣpāḍhya-śayyāyāṁ — on this effulgent bed of fragrant flowers; sukhaṁ — joyfully; vihara — sport; mādhava — O Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — to Rādhā and Kṛṣṇa; namaḥ — obeisances."
             },
             {
               "type": "subtitle",
@@ -3557,7 +3557,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "etāni puṣpāni klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "etāni puṣpāṇi klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -5202,22 +5202,6 @@
               "type": "paired-list",
               "items": [
                 {
-                  "label": "Spiritual Master",
-                  "value": "⟦aiṁ gurave namaḥ⟧"
-                },
-                {
-                  "label": "Spiritual Masters",
-                  "value": "⟦oṁ parama-gurave namaḥ⟧"
-                },
-                {
-                  "label": "Lord ⟦Caitanya⟧",
-                  "value": "⟦klīṁ gaurāya svāhā⟧"
-                },
-                {
-                  "label": "Lord ⟦Nityananda⟧",
-                  "value": "⟦oṁ nityanandāya namaḥ⟧"
-                },
-                {
                   "label": "⟦Śrī Śrī Rādhā-Kṛṣṇa⟧",
                   "value": "⟦śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ⟧"
                 },
@@ -5228,6 +5212,22 @@
                 {
                   "label": "⟦Śrī Govardhana-śilā⟧",
                   "value": "⟦klīṁ govardhanāya namaḥ⟧"
+                },
+                {
+                  "label": "Lord ⟦Caitanya⟧",
+                  "value": "⟦klīṁ gaurāya svāhā⟧"
+                },
+                {
+                  "label": "Lord ⟦Nityananda⟧",
+                  "value": "⟦oṁ nityānandāya namaḥ⟧"
+                },
+                {
+                  "label": "Spiritual Masters",
+                  "value": "⟦oṁ parama-gurave namaḥ⟧"
+                },
+                {
+                  "label": "Spiritual Master",
+                  "value": "⟦aiṁ gurave namaḥ⟧"
                 },
                 {
                   "label": "⟦Śrī Tulasī Devī⟧",
@@ -5259,7 +5259,7 @@
                   "value": "Feet 4, Waist 2, Head 3, Body 7"
                 },
                 {
-                  "label": "Flowers (⟦etāni puṣpāni⟧)",
+                  "label": "Flowers (⟦etāni puṣpāṇi⟧)",
                   "value": "Feet 4, Body 7"
                 },
                 {
@@ -5267,7 +5267,7 @@
                   "value": "According to available time"
                 },
                 {
-                  "label": "Peacock Fan (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Peacock Fan (⟦eṣā vyajana-sevā⟧)",
                   "value": "According to available time"
                 }
               ]
@@ -5600,7 +5600,7 @@
                   "value": "Feet 4, Waist 2, Head 3, Body 7"
                 },
                 {
-                  "label": "Flowers (⟦etāni puṣpāni⟧)",
+                  "label": "Flowers (⟦etāni puṣpāṇi⟧)",
                   "value": "Feet 4, Body 7"
                 },
                 {
@@ -5608,7 +5608,7 @@
                   "value": "According to available time"
                 },
                 {
-                  "label": "Peacock Fan (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Peacock Fan (⟦eṣā vyajana-sevā⟧)",
                   "value": "According to available time"
                 }
               ]
@@ -5655,9 +5655,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "O Keśava, kindly come to Your bed along with Your beloved Śrīmatī Rādhikā. O Mādhava, this effulgent bed of fragrant flowers is made for Your joyful sporting.",
-              "wbw": "āgaccha — kindly come; śayana-sthānaṁ — to the bed; priyābhiḥ — with Your beloved Śrīmatī Rādhikā; saha — together with; keśava — O Keśava; divya-puṣpātya-śayyāyāṁ — on this effulgent bed of fragrant flowers; sukhaṁ — joyfully; vihara — sport; mādhava — O Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — to Rādhā and Kṛṣṇa; namaḥ — obeisances."
+              "wbw": "āgaccha — kindly come; śayana-sthānaṁ — to the bed; priyābhiḥ — with Your beloved Śrīmatī Rādhikā; saha — together with; keśava — O Keśava; divya-puṣpāḍhya-śayyāyāṁ — on this effulgent bed of fragrant flowers; sukhaṁ — joyfully; vihara — sport; mādhava — O Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — to Rādhā and Kṛṣṇa; namaḥ — obeisances."
             },
             {
               "type": "verse",

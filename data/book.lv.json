@@ -2098,9 +2098,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "Ak, Kešava, lūdzu, nāc pie Savas gultas kopā ar Savu mīļoto Šrīmatī Rādhiku. Ak, Mādhava, šī starojošā smaržīgo ziedu gulta ir sagatavota Jūsu līksmajām spēlēm.",
-              "wbw": "āgaccha — lūdzu, nāc; śayana-sthānaṁ — pie Savas gultas; priyābhiḥ — kopā ar Savu mīļoto; saha — kopā ar; keśava — Ak, Kešava; divya-puṣpātya-śayyāyāṁ — uz šīs starojošās smaržīgo ziedu gultas; sukhaṁ — līksmi; vihara — spēlējieties; mādhava — Ak, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhikai un Krišnam; namaḥ — pranāma."
+              "wbw": "āgaccha — lūdzu, nāc; śayana-sthānaṁ — pie Savas gultas; priyābhiḥ — kopā ar Savu mīļoto; saha — kopā ar; keśava — Ak, Kešava; divya-puṣpāḍhya-śayyāyāṁ — uz šīs starojošās smaržīgo ziedu gultas; sukhaṁ — līksmi; vihara — spēlējieties; mādhava — Ak, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhikai un Krišnam; namaḥ — pranāma."
             },
             {
               "type": "subtitle",
@@ -2374,9 +2374,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "Ak, Kešava, lūdzu, nāc pie Savas gultas kopā ar Savu mīļoto Šrīmatī Rādhiku. Ak, Mādhava, šī starojošā smaržīgo ziedu gulta ir sagatavota Jūsu līksmajām spēlēm.",
-              "wbw": "āgaccha — lūdzu, nāc; śayana-sthānaṁ — pie Savas gultas; priyābhiḥ — kopā ar Savu mīļoto Šrīmatī Rādhiku; saha — kopā ar; keśava — Ak, Kešava; divya-puṣpātya-śayyāyāṁ — uz šīs starojošās smaržīgo ziedu gultas; sukhaṁ — līksmi; vihara — rotaļājies; mādhava — Ak, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhas un Krišnas; namaḥ — praṇāma."
+              "wbw": "āgaccha — lūdzu, nāc; śayana-sthānaṁ — pie Savas gultas; priyābhiḥ — kopā ar Savu mīļoto Šrīmatī Rādhiku; saha — kopā ar; keśava — Ak, Kešava; divya-puṣpāḍhya-śayyāyāṁ — uz šīs starojošās smaržīgo ziedu gultas; sukhaṁ — līksmi; vihara — rotaļājies; mādhava — Ak, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādhas un Krišnas; namaḥ — praṇāma."
             },
             {
               "type": "subtitle",
@@ -3169,7 +3169,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "etāni puṣpāni klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "etāni puṣpāṇi klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -4856,22 +4856,6 @@
               "type": "paired-list",
               "items": [
                 {
-                  "label": "Garīgais skolotājs",
-                  "value": "⟦aiṁ gurave namaḥ⟧"
-                },
-                {
-                  "label": "Garīgie skolotāji",
-                  "value": "⟦oṁ parama-gurave namaḥ⟧"
-                },
-                {
-                  "label": "Kungs ⟦Čaitanja⟧",
-                  "value": "⟦klīṁ gaurāya svāhā⟧"
-                },
-                {
-                  "label": "Kungs ⟦Nitjānanda⟧",
-                  "value": "⟦oṁ nityanandāya namaḥ⟧"
-                },
-                {
                   "label": "⟦Šrī Šrī Rādhā-Krišna⟧",
                   "value": "⟦śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ⟧"
                 },
@@ -4882,6 +4866,22 @@
                 {
                   "label": "⟦Šrī Govardhana-šila⟧",
                   "value": "⟦klīṁ govardhanāya namaḥ⟧"
+                },
+                {
+                  "label": "Kungs ⟦Čaitanja⟧",
+                  "value": "⟦klīṁ gaurāya svāhā⟧"
+                },
+                {
+                  "label": "Kungs ⟦Nitjānanda⟧",
+                  "value": "⟦oṁ nityānandāya namaḥ⟧"
+                },
+                {
+                  "label": "Garīgie skolotāji",
+                  "value": "⟦oṁ parama-gurave namaḥ⟧"
+                },
+                {
+                  "label": "Garīgais skolotājs",
+                  "value": "⟦aiṁ gurave namaḥ⟧"
                 },
                 {
                   "label": "⟦Šrī Tulasī-devī⟧",
@@ -4913,7 +4913,7 @@
                   "value": "4 apļi pie pēdām, 2 pie vidukļa, 3 pie galvas, 7 ap ķermeni"
                 },
                 {
-                  "label": "Ziedi (⟦etāni puṣpāni⟧)",
+                  "label": "Ziedi (⟦etāni puṣpāṇi⟧)",
                   "value": "4 apļi pie pēdām, 7 ap ķermeni"
                 },
                 {
@@ -4921,7 +4921,7 @@
                   "value": "Atbilstoši pieejamajam laikam"
                 },
                 {
-                  "label": "Pāva spalvu vēdeklis (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Pāva spalvu vēdeklis (⟦eṣā vyajana-sevā⟧)",
                   "value": "Atbilstoši pieejamajam laikam"
                 }
               ]
@@ -5254,7 +5254,7 @@
                   "value": "Pēdas 4, viduklis 2, galva 3, ķermenis 7"
                 },
                 {
-                  "label": "Ziedi (⟦etāni puṣpāni⟧)",
+                  "label": "Ziedi (⟦etāni puṣpāṇi⟧)",
                   "value": "Pēdas 4, ķermenis 7"
                 },
                 {
@@ -5262,7 +5262,7 @@
                   "value": "Atbilstoši pieejamajam laikam"
                 },
                 {
-                  "label": "Pāva spalvu vēdeklis (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Pāva spalvu vēdeklis (⟦eṣā vyajana-sevā⟧)",
                   "value": "Atbilstoši pieejamajam laikam"
                 }
               ]
@@ -5309,9 +5309,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpātya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
+              "sanskrit": "āgaccha śayana-sthānaṁ\npriyābhiḥ saha keśava\ndivya-puṣpāḍhya-śayyāyāṁ\nsukhaṁ vihara mādhava\nśrīṁ klīṁ rādhā-kṛṣṇābhyāṁ namaḥ",
               "translation": "Ak, Kešava, lūdzu, nāc Savā guļvietā kopā ar Savu mīļoto Šrīmatī Rādhiku. Ak, Mādhava, šī spožā, smaržīgiem ziediem rotātā guļvieta ir sagatavota Tavai priecīgajai spēlei.",
-              "wbw": "āgaccha — lūdzu, nāc; śayana-sthānaṁ — uz guļvietu; priyābhiḥ — kopā ar Savu mīļoto Šrīmatī Rādhiku; saha — kopā ar; keśava — ak, Kešava; divya-puṣpātya-śayyāyāṁ — uz šīs spožās, smaržīgiem ziediem rotātās guļvietas; sukhaṁ — priecīgi; vihara — spēlējies; mādhava — ak, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādāi un Krišnam; namaḥ — pazemīga noliekšanās."
+              "wbw": "āgaccha — lūdzu, nāc; śayana-sthānaṁ — uz guļvietu; priyābhiḥ — kopā ar Savu mīļoto Šrīmatī Rādhiku; saha — kopā ar; keśava — ak, Kešava; divya-puṣpāḍhya-śayyāyāṁ — uz šīs spožās, smaržīgiem ziediem rotātās guļvietas; sukhaṁ — priecīgi; vihara — spēlējies; mādhava — ak, Mādhava; śrīṁ — bīja-mantra; klīṁ — bīja-mantra; rādhā-kṛṣṇābhyāṁ — Rādāi un Krišnam; namaḥ — pazemīga noliekšanās."
             },
             {
               "type": "verse",
