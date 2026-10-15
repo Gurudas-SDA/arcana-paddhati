@@ -263,13 +263,20 @@ function scheduleRetry() {
   }, 1000);
 }
 
+/** True while write() calls the history (guardRouterPushes leaves its errors to it). */
+let writing = false;
 /** The one place that calls pushState / replaceState. False if it failed. */
 function write(kind: "push" | "replace", data: Data, url: string | undefined, reason: WriteReason,
   again?: { build: () => Data; tries: number }): boolean {
   devCount(reason);
   try {
-    if (kind === "push") window.history.pushState(data, "", url);
-    else window.history.replaceState(data, "", url);
+    writing = true;
+    try {
+      if (kind === "push") window.history.pushState(data, "", url);
+      else window.history.replaceState(data, "", url);
+    } finally {
+      writing = false;
+    }
     if (kind === "push") {
       // Another entry now: a retry or an identity meant for the one left is void.
       retry = null;
@@ -291,6 +298,40 @@ function write(kind: "push" | "replace", data: Data, url: string | undefined, re
     }
     return false;
   }
+}
+
+let routerGuard = false;
+/**
+ * Chapter by chapter (no continuous book) opening a chapter is Next.js's own
+ * router.push, whose pushState is not ours: when WebKit refuses it (its quota)
+ * the error went uncaught - a page error, the menu gone. Same rule as for our
+ * own pushes (see the header): the action still happens (the chapter is
+ * shown), it only has no step of its own - the current entry takes the
+ * chapter's URL with a replace (if that is refused too, it keeps its URL).
+ * Our own write() sees its errors as before. Installed once, before the push.
+ */
+export function guardRouterPushes() {
+  if (routerGuard || typeof window === "undefined") return;
+  routerGuard = true;
+  const push = window.history.pushState;
+  // A method of an object: its name stays in a stack trace after minifying -
+  // the guard only forwards, so it is not the writer (QA s35 tells them apart).
+  const guard = {
+    apRouterPushGuard(this: History, ...args: Parameters<History["pushState"]>) {
+      try {
+        return push.apply(this, args);
+      } catch (error) {
+        if (writing || !(error instanceof Error && error.name === "SecurityError")) throw error;
+        if (dev) dev.failed += 1;
+        try {
+          window.history.replaceState(...args);
+        } catch {
+          // refused too: the chapter is shown, the entry keeps its URL
+        }
+      }
+    },
+  };
+  window.history.pushState = guard.apRouterPushGuard as History["pushState"];
 }
 
 /** Replace the current entry with `build()` (recomputed on a retry). */
