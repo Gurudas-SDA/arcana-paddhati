@@ -648,7 +648,9 @@ export default function AppShell({
       </div>
 
       {/* Main content area */}
-      <main className="app-main flex-1 overflow-y-auto">
+      {/* Chapter by chapter, the page itself is the place being read: the same
+          marker as the continuous book's current chapter (tools and QA probes). */}
+      <main className="app-main flex-1 overflow-y-auto" {...(CONTINUOUS_BOOK ? {} : { "data-reader-current": "" })}>
         <InstallBanner ui={ui} />
         {/* Content */}
         {children}
