@@ -10,6 +10,14 @@
 // the worker), with progress messages to the pages. An older complete cache
 // is kept until the new one is complete.
 //
+// КСВ 15.10.2026 (iPad: a tapped chapter stayed «загружается» over the cover
+// while «Книга сохраняется… 76 %»): the reader first — RSC payloads, pictures
+// and search indexes this version has stored are answered from the device at
+// once, a stored page waits for the network at most STORED_TIMEOUT_MS, and the
+// background download starts no new file while a page request waits for the
+// network. (The release re-downloaded the whole book because Next.js's random
+// build id changed every page: scripts/stable-build-id.mjs.)
+//
 // MAIN RULE (Satkirti, 06.10.2026): the app works OFFLINE on iPad, iPhone,
 // Android and computers after the first visit.
 //
@@ -55,6 +63,8 @@ const MANIFEST_KEY = BASE + '__precache-manifest__';
 // Non-default languages live under /arcana-paddhati/<code>/ (lib/languages.json).
 const LANG_CODES = ['ru', 'ru-iast', 'lv', 'de', 'fr', 'es', 'it', 'uk', 'hu', 'pt', 'lt'];
 const NETWORK_TIMEOUT_MS = 3000;
+// A page this version has already stored: how long a navigation waits for the network.
+const STORED_TIMEOUT_MS = 1000;
 const CONCURRENCY = 6;
 const RETRIES = 3;
 const TOPUP_INTERVAL_MS = 2 * 60 * 1000;
@@ -99,9 +109,14 @@ async function arcanaCacheNames() {
   return (await caches.keys()).filter((k) => k.startsWith(CACHE_PREFIX));
 }
 
+// This version's own cache only (all its files belong to this build).
+async function ownMatch(key) {
+  return (await caches.open(CACHE_NAME)).match(key, MATCH_OPTS);
+}
+
 // This version first, then any other (older) Arcana cache.
 async function cacheMatch(key) {
-  const own = await (await caches.open(CACHE_NAME)).match(key, MATCH_OPTS);
+  const own = await ownMatch(key);
   if (own) return own;
   for (const name of await arcanaCacheNames()) {
     if (name === CACHE_NAME) continue;
@@ -118,10 +133,25 @@ function cachePut(key, response) {
   caches.open(CACHE_NAME).then((cache) => cache.put(key, clone)).catch(() => {});
 }
 
+// КСВ 15.10.2026 (iPad: «1.2. Совершите омовение» stayed «загружается» while the
+// book was being saved, 76 %): the reader's own requests first. While a page
+// waits for the network, the background download starts no new file.
+let foreground = 0;
+function foregroundFetch(request) {
+  foreground++;
+  const done = () => { foreground--; };
+  const p = fetch(request);
+  p.then(done, done);
+  return p;
+}
+async function foregroundIdle() {
+  for (let i = 0; foreground > 0 && i < 150; i++) await new Promise((r) => setTimeout(r, 100));
+}
+
 function fetchWithTimeout(request, ms) {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => reject(new Error('timeout')), ms);
-    fetch(request).then(
+    foregroundFetch(request).then(
       (res) => { clearTimeout(timer); resolve(res); },
       (err) => { clearTimeout(timer); reject(err); }
     );
@@ -158,6 +188,7 @@ async function fetchWithRetry(url) {
   let lastError;
   for (let attempt = 0; attempt < RETRIES; attempt++) {
     if (isOffline()) throw new Error('offline');
+    await foregroundIdle();
     try {
       // Bypass the HTTP cache so a new version never stores stale files.
       const res = await fetch(new Request(url, { cache: 'reload', credentials: 'same-origin' }));
@@ -394,11 +425,15 @@ async function handleNavigation(event, url) {
     return offlinePage(url);
   };
   if (isOffline()) return fallback();
-  const net = fetch(event.request);
+  // Network first (a reload after a release shows the new book), but a page
+  // this version has stored waits for the network only briefly (КСВ 15.10.2026:
+  // the network was busy with the background download of the whole book).
+  const stored = !!(await ownMatch(key));
+  const net = foregroundFetch(event.request);
   try {
     const res = await Promise.race([
       net,
-      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), NETWORK_TIMEOUT_MS)),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), stored ? STORED_TIMEOUT_MS : NETWORK_TIMEOUT_MS)),
     ]);
     if (res.ok) {
       cachePut(key, res);
@@ -423,6 +458,13 @@ async function handleNavigation(event, url) {
 // RSC payloads: cache by path (the `_rsc` query is a cache-buster).
 async function handleRsc(request, url) {
   const key = url.pathname;
+  // This version's payload: from the device at once (КСВ 15.10.2026 — a tapped
+  // chapter waited up to 3 s per payload for a network busy with the background
+  // download). Normally the page is of the same build; if the page is newer
+  // (a release not yet installed here), Next.js sees the other build id in the
+  // payload and loads the page as a whole instead (handleNavigation).
+  const own = await ownMatch(key);
+  if (own) return own;
   if (isOffline()) {
     const cached = await cacheMatch(key);
     if (cached) return cached;
@@ -440,13 +482,16 @@ async function handleRsc(request, url) {
 async function handleStatic(request, url) {
   const cached = await cacheMatch(url.pathname);
   if (cached) return cached;
-  const res = await fetch(request);
+  const res = await foregroundFetch(request);
   cachePut(url.pathname, res);
   return res;
 }
 
 // Everything else (search indexes, images, icons, transcripts): network-first.
 async function handleOther(request, url) {
+  // Stored by this version (pictures, search index, transcripts): at once.
+  const own = await ownMatch(url.pathname);
+  if (own) return own;
   if (isOffline()) {
     const cached = await cacheMatch(url.pathname);
     if (cached) return cached;

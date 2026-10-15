@@ -23,6 +23,7 @@
  * old #anchor, then the new one) are compared with the target, not cancelled.
  */
 import { normalizeText } from "@/lib/book";
+import { readingSection } from "@/lib/readingFlow";
 
 const NAME = "search-hit";
 const ATTR = "data-search-hl";
@@ -231,7 +232,9 @@ function tryApply(): boolean {
   }
   if (!onPlace(p) || document.querySelector(".mobile-menu")) return false;
   const main = document.querySelector<HTMLElement>(".app-main");
-  const root = (p.anchor && document.getElementById(p.anchor)) || main?.querySelector("article");
+  const chapter = main?.querySelector(`[data-book-section="${CSS.escape(p.sectionId)}"]`);
+  const scope = chapter ?? readingSection();
+  const root = (p.anchor && scope?.querySelector(`[id="${CSS.escape(p.anchor)}"]`)) || scope?.querySelector("article");
   if (!root || !main) return false;
   const range = findRange(root, p.nq);
   if (!range) return false;
