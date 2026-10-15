@@ -10,7 +10,7 @@ import React, {
   useSyncExternalStore,
 } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   matchRanges,
   normalizeText,
@@ -20,15 +20,20 @@ import {
   type TocSection,
 } from "@/lib/book";
 import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
+import { BASE_PATH } from "@/lib/basePath";
 import {
+  entryView,
   isMenuEntry,
   main as mainEl,
   menuDepth,
   patchState,
   pushOverlay,
   pushPlace,
+  setView,
 } from "@/lib/navHistory";
 import { setPendingSearchMark } from "@/lib/searchMark";
+import { bookTarget, followBookLink, readingHref } from "@/lib/readingFlow";
+import { useReadingSubsection } from "@/lib/readingPosition";
 
 interface SidebarProps {
   sections: TocSection[];
@@ -151,13 +156,6 @@ function makeSnippet(p: PreparedEntry, pos: number, qLen: number): Snippet {
   };
 }
 
-/** Scroll-spy line: the subsection block crossing this band (about 20% from
- *  the top of the viewport) is the one "in view". */
-const SPY_ROOT_MARGIN = "-20% 0px -79% 0px";
-/** After a click on a subsection link (or a hash change) the spy is paused
- *  this long, so the chosen item stays active while the page scrolls to it. */
-const CLICK_LOCK_MS = 1000;
-
 function hashId(): string | null {
   const h = window.location.hash.slice(1);
   if (!h) return null;
@@ -168,93 +166,6 @@ function hashId(): string | null {
   }
 }
 
-/**
- * Id of the current subsection of the shown section: from the URL hash, and
- * while scrolling from the subsection block crossing the spy line
- * (IntersectionObserver). null while in the section's introductory text.
- */
-function useActiveSubsection(
-  pathname: string,
-  subIds: string[]
-): [string | null, (id: string) => void] {
-  const [active, setActive] = useState<string | null>(null);
-  const lockUntil = useRef(0);
-  const idsKey = subIds.join("|");
-
-  // Reset when the page changes (render-time adjustment, no effect needed).
-  const [lastPath, setLastPath] = useState(pathname);
-  if (pathname !== lastPath) {
-    setLastPath(pathname);
-    setActive(null);
-  }
-
-  useEffect(() => {
-    const ids = idsKey ? idsKey.split("|") : [];
-    if (ids.length === 0) return;
-    const known = new Set(ids);
-    const visible = new Set<string>();
-    let observer: IntersectionObserver | null = null;
-    let retry: number | undefined;
-
-    const fromHash = () => {
-      const id = hashId();
-      if (id && known.has(id)) {
-        lockUntil.current = Date.now() + CLICK_LOCK_MS;
-        setActive(id);
-      }
-    };
-
-    const attach = (attempt: number) => {
-      const els = ids
-        .map((id) => document.getElementById(id))
-        .filter((el): el is HTMLElement => el !== null);
-      if (els.length === 0) {
-        // Content of a freshly navigated page may not be mounted yet.
-        if (attempt < 20) {
-          retry = window.setTimeout(() => attach(attempt + 1), 100);
-        }
-        return;
-      }
-      fromHash();
-      const obs = new IntersectionObserver(
-        (entries) => {
-          for (const e of entries) {
-            if (e.isIntersecting) visible.add(e.target.id);
-            else visible.delete(e.target.id);
-          }
-          if (Date.now() < lockUntil.current) return;
-          const current = ids.find((id) => visible.has(id));
-          // Nothing on the line: keep the last one unless we are back above
-          // the first subsection (the section's introductory text).
-          if (current) setActive(current);
-          else {
-            const first = els[0].getBoundingClientRect().top;
-            if (first > window.innerHeight * 0.2) setActive(null);
-          }
-        },
-        { rootMargin: SPY_ROOT_MARGIN, threshold: 0 }
-      );
-      els.forEach((el) => obs.observe(el));
-      observer = obs;
-    };
-
-    attach(0);
-    window.addEventListener("hashchange", fromHash);
-    window.addEventListener("popstate", fromHash);
-    return () => {
-      window.clearTimeout(retry);
-      observer?.disconnect();
-      window.removeEventListener("hashchange", fromHash);
-      window.removeEventListener("popstate", fromHash);
-    };
-  }, [pathname, idsKey]);
-
-  const select = (id: string) => {
-    lockUntil.current = Date.now() + CLICK_LOCK_MS;
-    setActive(id);
-  };
-  return [active, select];
-}
 
 /** sessionStorage key: parts the reader expanded / collapsed by hand. */
 const PARTS_STORE = "toc-parts-open";
@@ -322,7 +233,7 @@ function usePartsOpen(
     if (!currentPartId) return;
     try {
       const st = window.history.state as Record<string, unknown> | null;
-      if (isMenuEntry(st) && typeof st?.apParts === "string") return;
+      if (isMenuEntry(st) && typeof entryView(st).apParts === "string") return;
     } catch {
       // history unavailable: arrival as usual
     }
@@ -351,22 +262,10 @@ function baseParts(parts: TocPart[], sections: TocSection[]): Record<string, boo
   return st;
 }
 
-/** history.state key: scroll offset of the contents / results list. */
+/** Entry view key (lib/navHistory.ts): scroll offset of the contents / results list. */
 const NAV_SCROLL = "apNav";
-/** history.state key: the highlighted contents row of a menu step (the path). */
-const PATH_LIT = "apLit";
-/** history.state key: the search result the reader followed out of this menu step. */
+/** Entry view key: the search result the reader followed out of this menu step. */
 const RESULT_KEY = "apResult";
-
-function readPathLit(): string | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const v = (window.history.state as Record<string, unknown> | null)?.[PATH_LIT];
-    return typeof v === "string" ? v : null;
-  } catch {
-    return null;
-  }
-}
 
 /** Scroll the contents list so that the highlighted row is fully in view
  *  (centred if it was outside). Only the list moves, never the page. */
@@ -417,9 +316,9 @@ function Marked({ text, nq }: { text: string; nq: string }) {
   return <>{out}</>;
 }
 
-/** After a group / chapter list opened (second tap): when its rows do not all
- *  show, the list scrolls so that the opened row goes up as high as it can and
- *  its rows come into view (Reader v7.8, Satkirti 07.10.2026). */
+/** Keep the opened row and its first child visible (rule 9.13). A chapter
+ *  collapsing above it can leave its top clipped even when the branch fits
+ *  below; native scroll anchoring does not necessarily compensate in full. */
 function revealOpened(nav: HTMLElement | null, rowId: string): boolean {
   if (!nav) return false;
   const row = [...nav.querySelectorAll<HTMLElement>("[data-toc-row]")].find((el) => el.dataset.tocRow === rowId);
@@ -427,9 +326,20 @@ function revealOpened(nav: HTMLElement | null, rowId: string): boolean {
   if (!row || !group) return false;
   const n = nav.getBoundingClientRect();
   const g = group.getBoundingClientRect();
-  if (g.bottom <= n.bottom + 1) return false;
+  if (row.getBoundingClientRect().top >= n.top && g.bottom <= n.bottom + 1) return false;
   const before = nav.scrollTop;
-  nav.scrollTop = before + (row.getBoundingClientRect().top - n.top);
+  const align = () => {
+    // Round toward the visible side on scrollers with integral scrollTop.
+    nav.scrollTop = Math.floor(nav.scrollTop + row.getBoundingClientRect().top - n.top);
+  };
+  const correct = () => {
+    const r = row.getBoundingClientRect();
+    const first = group.querySelector<HTMLElement>("ul [data-toc-row]")?.getBoundingClientRect();
+    if (r.top < n.top || r.bottom > n.bottom || (first && first.bottom > n.bottom)) align();
+  };
+  align();
+  correct();
+  correct();
   return nav.scrollTop !== before;
 }
 
@@ -448,6 +358,7 @@ export default function Sidebar({
   navFailed = false,
 }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const searchInputRef = useRef<HTMLInputElement>(null);
   /** The scrolling list of the contents / search results. */
   const navRef = useRef<HTMLElement>(null);
@@ -456,7 +367,7 @@ export default function Sidebar({
    *  contents / results exactly where the reader left them. */
   const saveNavScroll = () => {
     try {
-      if (isMenuEntry()) patchState({ [NAV_SCROLL]: navRef.current?.scrollTop ?? 0 });
+      if (isMenuEntry()) setView({ [NAV_SCROLL]: navRef.current?.scrollTop ?? 0 });
     } catch {
       // history unavailable
     }
@@ -482,8 +393,8 @@ export default function Sidebar({
         {t(ui, "sidebar.loading")}
       </span>
     ) : navFailed && loadingRow === id ? (
-      // The load failed: nothing busy any more; the row is still the armed one,
-      // so one tap opens it again (the live region announces the same text).
+      // The load failed: nothing busy any more, so one tap opens the row
+      // again (the live region announces the same text).
       <span className="toc-loading-note toc-failed-note" data-toc-failed="">
         {t(ui, "sidebar.loadFailed")}
       </span>
@@ -495,9 +406,16 @@ export default function Sidebar({
   useLayoutEffect(() => {
     let timers: number[] = [];
     const apply = () => {
-      const v = (window.history.state as Record<string, unknown> | null)?.[NAV_SCROLL];
-      if (typeof v === "number" && navRef.current) navRef.current.scrollTop = v;
-      // The highlighted row (the place on the path) is always in view.
+      const v = entryView()[NAV_SCROLL];
+      if (typeof v === "number" && navRef.current) {
+        // This entry recorded where the list stood: putting the reader back
+        // exactly where he was wins over anything else (rule 10). Bringing the
+        // place being read into view would move the list under him.
+        navRef.current.scrollTop = v;
+        return;
+      }
+      // Nothing recorded: a freshly opened contents comes to the reader, with
+      // the row he is reading in view (Apple Books / Kindle).
       revealLit(navRef.current);
     };
     const schedule = () => {
@@ -519,46 +437,20 @@ export default function Sidebar({
     () => (selectedSection?.subsections ?? []).map((sub) => sub.id),
     [selectedSection]
   );
-  const [activeSubId, selectSub] = useActiveSubsection(pathname, subIds);
+  const [activeSubId, selectSub] = useReadingSubsection(pathname, subIds.join("|"));
 
   /**
-   * Two-tap contents (Satkirti 06.10.2026, made exact 07.10.2026 — Reader v7.5):
-   * the FIRST tap on any row only highlights it; the SECOND tap on the
-   * highlighted row does its function — a chapter / subsection / cover opens,
-   * a part, the Introduction or a chapter with subsections expands (and, once
-   * open, collapses). Exactly one row is highlighted: the tapped one, or
-   * (before any tap) the place being read.
+   * ONE TAP (Satkirti 13.10.2026, «всем управляем стандартом»): a tap on a row
+   * does the row's work at once, and the highlight in the contents means one
+   * thing only — the place being read. It comes from the reading position (the
+   * chapter of the URL, which the continuous book keeps current, and
+   * `activeSubId` from the scroll spy), never from where the reader tapped.
+   * This is how Apple Books and Kindle mark the current chapter, and it keeps
+   * rule 9 literally: after «Назад» the highlight still shows the place being
+   * read, because taps do not move it. The earlier two-tap mode is gone.
    */
-  const [tapped, setTapped] = useState<string | null>(null);
-  /**
-   * The path (Satkirti, 06.10.2026): every menu step (history entry) keeps the
-   * row that was highlighted on it (`apLit`). Every tap that changes the
-   * highlight or what is open is a step of its own (a history entry), so
-   * "Назад" retraces exactly the steps taken forward, with the same
-   * highlights and open lists (Reader v7.5, Satkirti 07.10.2026). A row shown
-   * highlighted by "back" is highlighted: the next tap on it is the second tap.
-   */
-  const [pathLit, setPathLit] = useState<string | null>(readPathLit);
-  const [tappedPath, setTappedPath] = useState(pathname);
-  if (pathname !== tappedPath) {
-    setTappedPath(pathname);
-    setTapped(null);
-  }
-  useEffect(() => {
-    const onPop = () => {
-      setTapped(null);
-      setPathLit(readPathLit());
-    };
-    window.addEventListener("popstate", onPop);
-    return () => window.removeEventListener("popstate", onPop);
-  }, []);
-  /** Row highlighted: the tapped one, else the path's row of this menu step,
-   *  else `byDefault` (the current place). */
-  const lit = (id: string, byDefault: boolean) =>
-    tapped !== null ? tapped === id : pathLit !== null ? pathLit === id : byDefault;
-  /** The row a tap on which is a second tap: the highlighted one (by a tap
-   *  or by the path of this step), never the default "you are here" row. */
-  const armed = tapped ?? pathLit;
+  /** Row highlighted: the place being read. Nothing else moves it. */
+  const lit = (_id: string, byDefault: boolean) => byDefault;
   /**
    * One step in the contents: highlight `id` and (optionally) set what is
    * open — as a NEW history entry (menu depth +1), so "back" returns to the
@@ -566,38 +458,57 @@ export default function Sidebar({
    */
   const step = (id: string, open?: Record<string, boolean>) => {
     if (open) setPartsState(open);
-    setTapped(id);
-    setPathLit(id);
     try {
       const st = window.history.state as Record<string, unknown> | null;
       if (!isMenuEntry(st)) return;
       saveNavScroll();
-      // The step being left keeps the row that was highlighted on it — also the
-      // default "you are here" row of a freshly opened contents, which the
-      // scroll-spy could otherwise change before "back" returns to it (v7.5).
-      if (typeof st?.[PATH_LIT] !== "string") {
-        const shownRow = navRef.current?.closest("nav")?.querySelector<HTMLElement>("[data-toc-lit]")?.dataset.tocRow;
-        if (shownRow) patchState({ [PATH_LIT]: shownRow });
-      }
       if (navigating) {
         // A page is loading (A65): this choice will replace it — no step of its
         // own in history, so the new page is ONE entry on top of the menu's.
-        patchState({ apParts: partsSnapshot(), [PATH_LIT]: id }, [RESULT_KEY, "apExp"]);
+        setView({ apParts: partsSnapshot() }, [RESULT_KEY, "apExp"]);
       } else {
-        pushOverlay({ apParts: partsSnapshot(), [PATH_LIT]: id, apDepth: menuDepth(st) + 1 });
-        patchState({}, [RESULT_KEY, "apExp"]);
+        // One write: the step's entry with its own view.
+        pushOverlay(
+          {
+            // Proposal: a menu attached to a chapter navigation is not stacked
+            // over the previous reading place. Closing it keeps this chapter.
+            apDepth: st?.apDepth === 0 ? 0 : menuDepth(st) + 1,
+          },
+          { apParts: partsSnapshot() },
+          [RESULT_KEY, "apExp"],
+        );
       }
     } catch {
       // history unavailable: the highlight still shows
     }
   };
-  /** First tap on `id`: highlight only (false). Second tap: go on (true). */
-  const secondTap = (e: React.MouseEvent | null, id: string): boolean => {
-    if (armed === id) return true;
-    e?.preventDefault();
-    step(id);
-    return false;
-  };
+  const chapterArrival = useRef<{
+    sectionId: string;
+    rowId: string;
+    parts: Record<string, boolean>;
+    query: string;
+  } | null>(null);
+  useEffect(() => {
+    const cancel = () => { chapterArrival.current = null; };
+    window.addEventListener("popstate", cancel);
+    return () => window.removeEventListener("popstate", cancel);
+  }, []);
+  useLayoutEffect(() => {
+    const arrival = chapterArrival.current;
+    if (!arrival || selectedId !== arrival.sectionId) return;
+    chapterArrival.current = null;
+    setPartsState(arrival.parts);
+    // Navigation already pushed the action's entry. Attach its expanded
+    // contents to that entry without adding a highlight/overlay-only step.
+    patchState({
+      apMenu: true,
+      apDepth: 0,
+      apParts: JSON.stringify(arrival.parts),
+      apQuery: arrival.query,
+      [NAV_SCROLL]: navRef.current?.scrollTop ?? 0,
+    });
+    mainEl()?.scrollTo({ top: 0 });
+  }, [pathname, selectedId]);
   const offline = useOfflineProgress();
 
   const normalizedQuery = normalizeText(searchQuery.trim());
@@ -625,9 +536,16 @@ export default function Sidebar({
     if (fromSearch && normalizedQuery) setPendingSearchMark(normalizedQuery, sectionId, anchor);
     try {
       // "Back" to the results scrolls to this one again (Reader v7.2).
-      if (onLeave && isMenuEntry()) patchState({ [RESULT_KEY]: `${sectionId}#${anchor ?? ""}` });
+      if (onLeave && isMenuEntry()) setView({ [RESULT_KEY]: `${sectionId}#${anchor ?? ""}` });
     } catch {
       // history unavailable
+    }
+    if (followBookLink(`${BASE_PATH}${sectionHref(sectionId, anchor)}`, (moved) => {
+      if (moved) onLeave?.();
+      else onClose();
+    })) {
+      e.preventDefault();
+      return;
     }
     if (!samePage) {
       // The Link navigates (a new entry on top of the menu's).
@@ -670,6 +588,13 @@ export default function Sidebar({
 
   /** A contents link (cover, part, chapter) out of the mobile menu. */
   const leaveTo = (e: React.MouseEvent, href: string) => {
+    if (followBookLink(`${BASE_PATH}${href}`, (moved) => {
+      if (moved) onLeave?.();
+      else onClose();
+    })) {
+      e.preventDefault();
+      return;
+    }
     const strip = (p: string) => p.replace(/\/+$/, "");
     if (strip(href) !== strip(pathname)) {
       // The Link navigates (a new entry on top of the menu's).
@@ -738,9 +663,9 @@ export default function Sidebar({
     if (!onLeave) return;
     try {
       const st = window.history.state as Record<string, unknown> | null;
-      if (typeof st?.apParts === "string") return;
+      if (typeof entryView(st).apParts === "string") return;
       resetChapters();
-      if (isMenuEntry(st)) patchState({ apParts: partsSnapshot() });
+      if (isMenuEntry(st)) setView({ apParts: partsSnapshot() });
     } catch {
       // history unavailable
     }
@@ -753,13 +678,48 @@ export default function Sidebar({
    * highlight only. Second tap on the highlighted row: expand / collapse.
    * Each is a step of its own (Reader v7.5, Satkirti 07.10.2026).
    */
-  const onDisclosureTap = (id: string, rowId: string) => {
-    if (armed !== rowId) {
-      step(rowId);
+  const onDisclosureTap = (id: string, rowId: string, sectionId?: string) => {
+    if (sectionId && !isPartOpen(id)) {
+      const open = { ...parseParts(partsSnapshot()), [id]: true };
+      if (bookTarget(sectionId)) {
+        saveNavScroll();
+        let navigated = false;
+        const view = () => ({ apParts: JSON.stringify(open), apQuery: searchQuery, [NAV_SCROLL]: navRef.current?.scrollTop ?? 0 });
+        // One write: the chapter's entry carries the expanded contents.
+        followBookLink(readingHref(lang, sectionId), (moved) => {
+          navigated = moved;
+          if (!moved) step(rowId, open);
+        }, () => ({ state: { apMenu: true, apDepth: 0 }, view: view() }));
+        setPartsState(open);
+        if (!navigated) setView(view());
+        setOpenedRow({ id: rowId, at: Date.now() });
+        return;
+      }
+      if (selectedId === sectionId) {
+        const main = mainEl();
+        if (hashId() || (main && main.scrollTop > 0)) {
+          saveNavScroll();
+          setPartsState(open);
+          // One write: the chapter top's entry carries the expanded contents.
+          pushPlace(`${BASE_PATH}${sectionHref(sectionId)}`, { apMenu: true, apDepth: 0 }, { apParts: partsSnapshot() });
+          window.dispatchEvent(new HashChangeEvent("hashchange"));
+          main?.scrollTo({ top: 0 });
+        } else {
+          step(rowId, open);
+        }
+      } else {
+        saveNavScroll();
+        chapterArrival.current = { sectionId, rowId, parts: open, query: searchQuery };
+        setPartsState(open);
+        router.push(sectionHref(sectionId), { scroll: false });
+      }
+      setOpenedRow({ id: rowId, at: Date.now() });
       return;
     }
     const opening = !isPartOpen(id);
-    step(rowId, { ...parseParts(partsSnapshot()), [id]: opening });
+    const open = { ...parseParts(partsSnapshot()), [id]: opening };
+    if (chapterArrival.current) chapterArrival.current.parts = open;
+    step(rowId, open);
     if (opening) setOpenedRow({ id: rowId, at: Date.now() });
   };
 
@@ -801,9 +761,10 @@ export default function Sidebar({
       const nav = navRef.current;
       const st = window.history.state as Record<string, unknown> | null;
       if (!nav || !st || !isMenuEntry(st)) return;
-      const v = st[NAV_SCROLL];
+      const view = entryView(st);
+      const v = view[NAV_SCROLL];
       if (typeof v === "number") nav.scrollTop = v;
-      const key = st[RESULT_KEY];
+      const key = view[RESULT_KEY];
       if (typeof key !== "string") return;
       const row = [...nav.querySelectorAll<HTMLElement>("[data-result]")].find(
         (el) => el.dataset.result === key
@@ -831,10 +792,10 @@ export default function Sidebar({
   });
 
   /**
-   * A chapter row. A chapter with subsections is a disclosure row (like the
-   * parts): a tap expands / collapses its list in the contents and does not
-   * navigate (a second tap opens the chapter at its top); the list holds its
-   * subsections. A chapter without subsections is a link. Rows are at
+   * A chapter with subsections is a disclosure row: the approved two-tap
+   * mode only expands/collapses it. The one-tap proposal also navigates to
+   * its top on opening, keeping the list visible for the next pick.
+   * A chapter without subsections is a link. Rows are at
    * least 44px tall and tappable over their full width.
    */
   const renderSection = (section: TocSection) => {
@@ -880,7 +841,7 @@ export default function Sidebar({
           <div className="relative">
             <button
               type="button"
-              onClick={() => onDisclosureTap(key, rowId)}
+              onClick={() => onDisclosureTap(key, rowId, section.id)}
               aria-expanded={isOpen}
               aria-controls={isOpen ? listId : undefined}
               aria-current={isSelected ? "page" : undefined}
@@ -891,36 +852,17 @@ export default function Sidebar({
             >
               {label}
             </button>
-            <button
-              type="button"
-              onClick={() => onDisclosureTap(key, rowId)}
-              aria-expanded={isOpen}
-              aria-controls={isOpen ? listId : undefined}
-              aria-label={section.title}
-              data-toc-toggle={section.id}
-              className="absolute right-0 top-0 flex h-[44px] w-[44px] items-center justify-center"
-            >
-              <svg
-                aria-hidden="true"
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#B8860B"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className={`shrink-0 transition-transform ${isOpen ? "rotate-90" : ""}`}
-              >
+            <span aria-hidden="true" className="pointer-events-none absolute right-0 top-0 flex h-[44px] w-[44px] items-center justify-center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B8860B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={`shrink-0 transition-transform ${isOpen ? "rotate-90" : ""}`}>
                 <polyline points="9 6 15 12 9 18" />
               </svg>
-            </button>
+            </span>
           </div>
         ) : (
           <Link
             href={sectionHref(section.id)}
             onClick={(e) => {
-              if (secondTap(e, rowId)) leaveTo(e, sectionHref(section.id));
+              leaveTo(e, sectionHref(section.id));
             }}
             aria-current={isSelected ? "page" : undefined}
             data-toc-lit={rowLit ? "" : undefined}
@@ -945,7 +887,6 @@ export default function Sidebar({
                   <Link
                     href={sectionHref(section.id, sub.id)}
                     onClick={(e) => {
-                      if (!secondTap(e, subRow)) return;
                       if (isSelected) selectSub(sub.id);
                       followLink(e, section.id, sub.id);
                     }}
@@ -1182,17 +1123,11 @@ export default function Sidebar({
           <Link
             href={localeHref(lang)}
             onClick={(e) => {
-              // «Обложка» = home (Reader v7.5, Satkirti 07.10.2026): the
-              // first tap resets the contents to its base view (every
-              // group and chapter closed) with «Обложка» highlighted; the
-              // second tap opens the cover.
-              if (armed === "cover") {
-                setPartsState(baseParts(parts, sections));
-                leaveTo(e, localeHref(lang));
-                return;
-              }
-              e.preventDefault();
-              step("cover", baseParts(parts, sections));
+              // «Обложка»: one tap opens the cover and resets the contents to
+              // its base view (every group and chapter closed).
+              setPartsState(baseParts(parts, sections));
+              if (isMenuEntry()) setView({ apParts: partsSnapshot() });
+              leaveTo(e, localeHref(lang));
             }}
             aria-current={selectedId === null ? "page" : undefined}
             data-toc-cover=""
@@ -1247,8 +1182,13 @@ export default function Sidebar({
                     href={sectionHref(entry.section, entry.anchor)}
                     data-result={`${entry.section}#${entry.anchor ?? ""}`}
                     {...loadingProps(`${entry.section}#${entry.anchor ?? ""}`)}
-                    onClick={(e) => followLink(e, entry.section, entry.anchor, true)}
-                    className="block w-full text-left px-5 py-3 border-l-3 border-transparent hover:bg-[#FDF8F0] transition-colors"
+                    onClick={(e) => {
+                      followLink(e, entry.section, entry.anchor, true);
+                    }}
+                    data-toc-lit={lit(entry.anchor ? `sub:${entry.section}#${entry.anchor}` : `sec:${entry.section}`, false) ? "" : undefined}
+                    className={lit(entry.anchor ? `sub:${entry.section}#${entry.anchor}` : `sec:${entry.section}`, false)
+                      ? "block w-full text-left px-5 py-3 border-l-3 border-[#B8860B] bg-[#FAF3E8] transition-colors"
+                      : "block w-full text-left px-5 py-3 border-l-3 border-transparent hover:bg-[#FDF8F0] transition-colors"}
                   >
                     <span className="block text-sm leading-snug text-[#2C1810]">
                       <Marked text={entry.title} nq={normalizedQuery} />
@@ -1315,7 +1255,7 @@ export default function Sidebar({
                               <Link
                                 href={sectionHref(part.id)}
                                 onClick={(e) => {
-                                  if (secondTap(e, `part:${part.id}`)) leaveTo(e, sectionHref(part.id));
+                                  leaveTo(e, sectionHref(part.id));
                                 }}
                                 aria-current={isPartSelected ? "page" : undefined}
                                 data-toc-lit={lit(`part:${part.id}`, isPartSelected) ? "" : undefined}
