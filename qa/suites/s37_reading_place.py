@@ -37,7 +37,7 @@ def read_to(page, anchor):
     page.touchscreen.tap(page.viewport_size["width"] - 6, 400)
     page.evaluate("""id => {
       const main = document.querySelector('.app-main');
-      const target = document.querySelector('[data-reader-current]').querySelector(`[id="${CSS.escape(id)}"]`);
+      const target = (document.querySelector('[data-reader-current]') || document).querySelector(`[id="${CSS.escape(id)}"]`);
       main.scrollTop += target.getBoundingClientRect().top - 110;
     }""", anchor)
     page.wait_for_timeout(1100)

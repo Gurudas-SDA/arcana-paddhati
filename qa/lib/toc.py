@@ -89,14 +89,45 @@ EMPTY_POINT = """root => {
 }"""
 
 
+def locator_navigates(locator):
+    """Rows that can open another page: chapters, subsections, cover, parts."""
+    try:
+        return locator.evaluate("e => !!e.closest('.mobile-menu') && !!e.closest('a[href],[data-toc-chapter],[data-toc-row],[data-toc-toggle]')")
+    except Exception:
+        return False
+
+
 class Contents:
     def __init__(self, page, mode, touch):
         self.page, self.mode, self.touch = page, mode, touch
         observer = """(() => {
           if(window.__qaTocObserved)return;window.__qaTocObserved=true;window.__qaTocPushes=0;window.__qaTocWithoutGesture=[];
           const push=history.pushState;history.pushState=function(...args){window.__qaTocPushes++;if(navigator.userActivation&&!navigator.userActivation.isActive)window.__qaTocWithoutGesture.push(args[2]);return push.apply(this,args)};
+          window.__qaFetching=0;const f=window.fetch;window.fetch=function(...args){window.__qaFetching++;return f.apply(this,args).finally(()=>{window.__qaFetching--})};
         })()"""
         page.add_init_script(observer);page.evaluate(observer)
+
+    def settle(self, before_url=None, quiet_ms=1500, limit_ms=6000):
+        """Chapter by chapter (no continuous book) a contents tap or Back opens
+        another page: WebKit needs up to ~1.5 s for that, with no fetch in flight
+        when the page was prefetched. Wait for the URL to change (or stay put
+        for quiet_ms), then for fetches to finish and the page to render."""
+        if self.page.evaluate("!!document.querySelector('[data-continuous-book]')"):
+            return
+        waited, changed = 0, False
+        while waited < limit_ms:
+            try:
+                url, busy = self.page.evaluate("[location.href, window.__qaFetching || 0]")
+            except Exception:
+                url, busy = None, 1
+            if url is not None and before_url is not None and url != before_url:
+                changed = True
+            if changed and not busy:
+                self.page.wait_for_timeout(300)
+                return
+            if not changed and waited >= quiet_ms and not busy:
+                return
+            self.page.wait_for_timeout(100); waited += 100
 
     def state(self):
         return self.page.evaluate(STATE)
@@ -110,8 +141,11 @@ class Contents:
         locator.scroll_into_view_if_needed()
         box = locator.bounding_box()
         point={'x':box['width']-9 if right else min(60,box['width']/2),'y':box['height']/2}
+        before, navigates = self.page.url, locator_navigates(locator)
         (locator.tap if self.touch else locator.click)(position=point)
         self.page.wait_for_timeout(wait)
+        if navigates:
+            self.settle(before)
 
     def bars(self):
         for _ in range(3):
@@ -142,11 +176,13 @@ class Contents:
         if not self.mode.one:self.tap(locator,wait=wait)
 
     def nav(self, direction, native=False):
+        before = self.page.url
         if native:
             (self.page.go_back if direction=='back' else self.page.go_forward)()
         else:
             self.bars();self.tap(self.page.locator(f'[data-reader-nav={direction}]'),wait=0)
         self.page.wait_for_timeout(650)
+        self.settle(before, quiet_ms=600)
 
 
 def history_roundtrip(browser, options, mode, check, base, lang='ru-iast'):

@@ -44,6 +44,9 @@ const placeOf = (href: string): string => {
   }
 };
 
+/** Whole book in one scroll on the cover (PR #2). Off: Satkirti 14.10.2026 msg 3480. */
+const CONTINUOUS_BOOK = false;
+
 /** A65 (Codex 10.10): a page that has not come by now is given up. The КСВ
  *  phone's slowest real load was 19 s, so the menu waits longer than that. */
 const NAV_FAIL_MS = 25000;
@@ -81,9 +84,42 @@ export default function AppShell({
       // A browser that disallows this setting retains its default behavior.
     }
   }, []);
-  // Deep links keep their existing URLs, but use the same continuous export
-  // as the cover. Replacing this entry adds no navigation/history step.
+  // Continuous reading is off (Satkirti 14.10.2026: chapter by chapter, as in
+  // Kindle). Each chapter keeps its own page; set CONTINUOUS_BOOK to restore
+  // the switch of deep links to the cover's whole-book export.
+  // Chapter by chapter: a reload puts the reader back where he was reading
+  // (the entry's recorded scroll), not at the URL's subsection heading — as
+  // Kindle and Apple Books reopen the book at the last place. A touch, wheel
+  // or key of the reader stops the re-application (pictures load meanwhile).
   useEffect(() => {
+    if (CONTINUOUS_BOOK) return;
+    const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+    if (nav?.type !== "reload") return;
+    const scroll = savedScroll(window.history.state);
+    if (scroll === undefined) return;
+    restoredReadingPlace.current = placeOf(window.location.href);
+    let stopped = false;
+    const stop = () => { stopped = true; };
+    const events = ["touchstart", "wheel", "keydown", "pointerdown"] as const;
+    for (const ev of events) window.addEventListener(ev, stop, { passive: true, capture: true });
+    const apply = () => {
+      if (stopped) return;
+      const el = mainEl();
+      if (el) el.scrollTop = scroll;
+    };
+    requestAnimationFrame(apply);
+    const timers = [60, 160, 320, 600, 1000, 1600].map((ms) => window.setTimeout(apply, ms));
+    const end = window.setTimeout(() => {
+      for (const ev of events) window.removeEventListener(ev, stop, { capture: true });
+    }, 1700);
+    return () => {
+      timers.forEach((t) => window.clearTimeout(t));
+      window.clearTimeout(end);
+      for (const ev of events) window.removeEventListener(ev, stop, { capture: true });
+    };
+  }, []);
+  useEffect(() => {
+    if (!CONTINUOUS_BOOK) return;
     if (!sectionId || document.querySelector("[data-continuous-book]")) return;
     if (!sections.some((section) => section.id === sectionId) && !parts.some((part) => part.id === sectionId)) return;
     const scroll = savedScroll(window.history.state);
@@ -612,7 +648,9 @@ export default function AppShell({
       </div>
 
       {/* Main content area */}
-      <main className="app-main flex-1 overflow-y-auto">
+      {/* Chapter by chapter, the page itself is the place being read: the same
+          marker as the continuous book's current chapter (tools and QA probes). */}
+      <main className="app-main flex-1 overflow-y-auto" {...(CONTINUOUS_BOOK ? {} : { "data-reader-current": "" })}>
         <InstallBanner ui={ui} />
         {/* Content */}
         {children}

@@ -89,8 +89,9 @@ SUITES = [
          devices=["pixel7", "iphone14", "desktop"], fast=True, fast_devices=["pixel7", "desktop"]),
     dict(id="s33", file="suites/s33_toc_one_tap.py", title="TOC: chapter top, action-only Back, cover/search; one-tap default",
          devices=["s23fe", "iphone14", "pixel7", "desktop", "mac-safari"], fast=False),
-    dict(id="s34", file="suites/s34_continuous_book.py", title="Continuous book: cover scroll, deep links, reload, Back/Forward and offline",
-         devices=["s23fe", "iphone14", "pixel7", "desktop", "mac-safari"], fast=False),
+    # s34 off: continuous reading is not used (Satkirti 14.10.2026 msg 3480); re-enable with CONTINUOUS_BOOK.
+    # dict(id="s34", file="suites/s34_continuous_book.py", title="Continuous book: cover scroll, deep links, reload, Back/Forward and offline",
+    #      devices=["s23fe", "iphone14", "pixel7", "desktop", "mac-safari"], fast=False),
     dict(id="s35", file="suites/s35_history_burst.py", title="History writes under fast tapping: app writes <= actions, no WebKit quota error, Back/Forward retrace (17 and 40 actions, Back burst)",
          devices=["pixel7", "iphone14", "ipad-portrait", "desktop"], fast=True, fast_devices=["pixel7", "iphone14"]),
     dict(id="s37", file="suites/s37_reading_place.py", title="Contents reading place: closing, subsection marks and opened chapter visibility",
