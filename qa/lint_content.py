@@ -1063,6 +1063,50 @@ def run(args):
         out.append(rsc[i:])
         return re.sub(r'"source":\{"title":"(?:[^"\\]|\\.)*"', '"source":{', "".join(out))
 
+    def drop_pending_blocks(text, pending):
+        mark = re.compile(r'data-book-section(?:="|":")([\w-]+)"')
+        rows, order = {}, []
+        lines = text.split("\n")
+        cur = None
+        other = []
+        for ln in lines:
+            m = re.match(r"([0-9a-f]+):", ln)
+            if m and (m.group(1) not in rows):
+                cur = m.group(1)
+                rows[cur] = [ln]
+                order.append(cur)
+            elif cur is not None:
+                rows[cur].append(ln)
+            else:
+                other.append(ln)
+        rows = {k: "\n".join(v) for k, v in rows.items()}
+        ref = re.compile(r'"\$[LQWKBF@]?([0-9a-f]+)"')
+        prow = {k for k, v in rows.items()
+                if re.match(r'[0-9a-f]+:\["\$","div","([\w-]+)",\{"data-book-section"', v)
+                and re.match(r'[0-9a-f]+:\["\$","div","([\w-]+)"', v).group(1) in pending}
+
+        def cut(t):
+            ms = list(mark.finditer(t))
+            keep, pos = [], 0
+            for i, m in enumerate(ms):
+                if m.group(1) in pending and m.start() >= pos:
+                    keep.append(t[pos:m.start()])
+                    pos = ms[i + 1].start() if i + 1 < len(ms) else len(t)
+            keep.append(t[pos:])
+            return "".join(keep)
+
+        seen = set()
+        # roots: rows not referenced by anyone (the page root) — walk from them, never into a pending block
+        refd = {r for v in rows.values() for r in ref.findall(v)}
+        stack = [k for k in order if k not in prow and k not in refd] or [k for k in order if k not in prow]
+        while stack:
+            k = stack.pop()
+            if k in seen or k in prow or k not in rows:
+                continue
+            seen.add(k)
+            stack += ref.findall(cut(rows[k]))
+        return cut("\n".join(other)) + "\n" + "\n".join(cut(rows[k]) for k in order if k in seen)
+
     n32 = n32_pending = 0
     en_book = loaded.get(os.path.join(qa.DATA, "book.json")) or {}
     pending_sections = {x.get("id") for x in en_book.get("sections") or [] if isinstance(x, dict) and x.get("translation_pending")}
@@ -1087,6 +1131,12 @@ def run(args):
             if rel.split("/")[1:2] and rel.split("/")[1] in pending_sections:
                 n32_pending += 1
                 continue
+            # A89 «Прокручивать» (uk/book/): the whole book in one page — the block of a Russian-only chapter is that
+            # same fallback text: drop only that block (its RSC rows reachable from nothing else; the inline part from
+            # its data-book-section mark to the next one) — the rest of the book page stays strict
+            if rel.split("/")[1:2] == ["book"] and pending_sections:
+                text = drop_pending_blocks(text, pending_sections)
+                n32_pending += 1
             for m in ru_in_uk.finditer(text):
                 c.hit("out", rel, snippet(text, m, 30))
     c.info = (f"{n32} built UK files" + (f" ({n32_pending} of Russian-only chapters awaiting translation skipped: "
