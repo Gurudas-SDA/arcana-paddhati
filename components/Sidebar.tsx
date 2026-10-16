@@ -509,6 +509,11 @@ export default function Sidebar({
       [NAV_SCROLL]: navRef.current?.scrollTop ?? 0,
     });
     mainEl()?.scrollTo({ top: 0 });
+    // Rule 9.13: the arrival collapses the chapter left (its list closes
+    // above the tapped row). WebKit has no scroll anchoring, so the row moved
+    // up out of the list (iPhone: 96 px above it) whenever the page came later
+    // than the tap's own reveal (+120 ms). Reveal it again now.
+    setOpenedRow({ id: arrival.rowId, at: Date.now() });
   }, [pathname, selectedId]);
   const offline = useOfflineProgress();
 

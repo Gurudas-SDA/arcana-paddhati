@@ -106,6 +106,8 @@ SUITES = [
          devices=None, fast=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",
          devices=["pixel7", "desktop"], fast=False, server=False),
+    dict(id="s45", file="suites/s45_scroll_option.py", title="A89: «Аа» «Листать / Прокручивать» — noklusējums lapas, režīms saglabājas pēc pārlādes, pārslēdzot vieta nezūd",
+         devices=["iphone14", "ipad-portrait", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s40", file="suites/s40_chapter_during_update.py", title="КСВ 15.10 iPad: grāmata saglabāta → jauns izlaidums, lēns tīkls → nodaļa ≤2 s, teksta labojums lejupielādē tikai mainīto",
          devices=["ipad-portrait", "iphone14"], fast=False, server=False),
 ]
