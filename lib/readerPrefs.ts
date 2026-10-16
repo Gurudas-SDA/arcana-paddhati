@@ -9,10 +9,14 @@
  * app/layout.tsx before first paint, so a reload never flashes white at night.
  */
 import { useSyncExternalStore } from "react";
-import { SIZE_KEY, THEME_KEY } from "@/lib/readerPrefsKeys";
+import { LAYOUT_KEY, SIZE_KEY, THEME_KEY } from "@/lib/readerPrefsKeys";
 
 export const THEMES = ["white", "sepia", "night"] as const;
 export type ReaderTheme = (typeof THEMES)[number];
+/** «Листать» (chapter by chapter, the default) / «Прокручивать» (the whole
+ *  book in one scroll) — A89, Gurudas reading standard A3 (Pagination). */
+export const LAYOUTS = ["page", "scroll"] as const;
+export type ReaderLayout = (typeof LAYOUTS)[number];
 
 /** Text size steps: factor of every text size in the reading column
  *  (app/globals.css .reader-article --fs). ~10% per step. */
@@ -56,6 +60,10 @@ function sizeSnapshot(): number {
   return SIZES.reduce((a, b) => (Math.abs(b - v) < Math.abs(a - v) ? b : a));
 }
 
+function layoutSnapshot(): ReaderLayout {
+  return read(LAYOUT_KEY) === "scroll" ? "scroll" : "page";
+}
+
 /** Put the stored preferences on <html>. */
 export function applyReaderPrefs() {
   const root = document.documentElement;
@@ -80,6 +88,19 @@ export function useReaderTheme(): ReaderTheme {
 
 export function useReaderSize(): number {
   return useSyncExternalStore(subscribe, sizeSnapshot, () => 1);
+}
+
+export function useReaderLayout(): ReaderLayout {
+  return useSyncExternalStore(subscribe, layoutSnapshot, () => "page");
+}
+
+/** The stored layout, outside React (effects at mount, event handlers). */
+export function readerLayout(): ReaderLayout {
+  return layoutSnapshot();
+}
+
+export function setReaderLayout(layout: ReaderLayout) {
+  write(LAYOUT_KEY, layout);
 }
 
 export function setReaderTheme(theme: ReaderTheme) {

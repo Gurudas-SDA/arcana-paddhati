@@ -33,6 +33,8 @@ import {
 } from "@/lib/i18n";
 import { BASE_PATH, stripBasePath } from "@/lib/basePath";
 import { beginReadingArrival, bookTarget, readingAnchor, readingSection } from "@/lib/readingFlow";
+import { readerLayout, useReaderLayout } from "@/lib/readerPrefs";
+import { BOOK_EVENT, BOOK_SEGMENT, bookHref, capturePlace, keepPlace, restorePlace } from "@/lib/readingMode";
 
 /** A link's place: its pathname (no trailing slash) + hash — what a navigation opens. */
 const placeOf = (href: string): string => {
@@ -44,8 +46,10 @@ const placeOf = (href: string): string => {
   }
 };
 
-/** Whole book in one scroll on the cover (PR #2). Off: Satkirti 14.10.2026 msg 3480. */
-const CONTINUOUS_BOOK = false;
+/** Whole book in one scroll (PR #2): off by default (Satkirti 14.10.2026 msg
+ *  3480: chapter by chapter, as in Kindle); since A89 the «Аа» option
+ *  «Прокручивать» (lib/readingMode.ts, Gurudas reading standard A3). */
+const scrollMode = () => readerLayout() === "scroll";
 
 /** A65 (Codex 10.10): a page that has not come by now is given up. The КСВ
  *  phone's slowest real load was 19 s, so the menu waits longer than that. */
@@ -75,6 +79,35 @@ export default function AppShell({
   const contentLang = available.includes(lang) ? lang : DEFAULT_LANG;
   const htmlLang = getLanguage(contentLang)?.htmlLang ?? DEFAULT_LANG;
   const restoredReadingPlace = useRef<string | null>(null);
+  /** The reader has just chosen another layout in «Аа» (not a page load). */
+  const switchedLayout = useRef(false);
+  const layoutSeen = useRef<string | null>(null);
+  /** When the reader last chose another layout (a back's place keeper yields). */
+  const layoutChangedAt = useRef(-1e9);
+  const layout = useReaderLayout();
+  /** The whole book is shown (ContinuousBook announces itself). */
+  const [bookShown, setBookShown] = useState(false);
+  useEffect(() => {
+    const check = () => setBookShown(!!document.querySelector("[data-continuous-book]"));
+    // After the unmount's DOM removal too.
+    const onBook = () => { check(); window.setTimeout(check, 0); };
+    check();
+    window.addEventListener(BOOK_EVENT, onBook);
+    return () => window.removeEventListener(BOOK_EVENT, onBook);
+  }, [pathname]);
+  // A change of the stored layout after the page's own (hydration starts
+  // from «Листать»): the reader chose it in «Аа».
+  useEffect(() => {
+    if (layoutSeen.current === null) {
+      layoutSeen.current = readerLayout();
+      return;
+    }
+    if (layout !== layoutSeen.current) {
+      layoutSeen.current = layout;
+      switchedLayout.current = true;
+      layoutChangedAt.current = performance.now();
+    }
+  }, [layout]);
   // The app restores its own reading scroller. Browser restoration would
   // compete with it before popstate (WebKit returns to the initial offset).
   useEffect(() => {
@@ -85,14 +118,14 @@ export default function AppShell({
     }
   }, []);
   // Continuous reading is off (Satkirti 14.10.2026: chapter by chapter, as in
-  // Kindle). Each chapter keeps its own page; set CONTINUOUS_BOOK to restore
-  // the switch of deep links to the cover's whole-book export.
+  // Kindle). Each chapter keeps its own page; «Прокручивать» in «Аа» switches
+  // chapter pages to the whole-book export (A89, below).
   // Chapter by chapter: a reload puts the reader back where he was reading
   // (the entry's recorded scroll), not at the URL's subsection heading — as
   // Kindle and Apple Books reopen the book at the last place. A touch, wheel
   // or key of the reader stops the re-application (pictures load meanwhile).
   useEffect(() => {
-    if (CONTINUOUS_BOOK) return;
+    if (scrollMode()) return;
     const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
     if (nav?.type !== "reload") return;
     const scroll = savedScroll(window.history.state);
@@ -118,17 +151,45 @@ export default function AppShell({
       for (const ev of events) window.removeEventListener(ev, stop, { capture: true });
     };
   }, []);
+  // «Прокручивать»: a chapter page is replaced by the whole book at the same
+  // place (its URL kept). A switch from «Листать» keeps the words at the top.
   useEffect(() => {
-    if (!CONTINUOUS_BOOK) return;
+    if (layout !== "scroll" || !scrollMode()) return;
     if (!sectionId || document.querySelector("[data-continuous-book]")) return;
     if (!sections.some((section) => section.id === sectionId) && !parts.some((part) => part.id === sectionId)) return;
     const scroll = savedScroll(window.history.state);
+    if (switchedLayout.current) {
+      switchedLayout.current = false;
+      keepPlace(capturePlace());
+    }
     if (!beginReadingArrival(window.location.href, scroll)) return;
     if (window.history.state?.apBook && scroll !== undefined) {
       restoredReadingPlace.current = placeOf(window.location.href);
     }
-    router.replace(localeHref(lang), { scroll: false });
-  }, [lang, sectionId, sections, parts, router]);
+    router.replace(bookHref(lang), { scroll: false });
+  }, [layout, lang, sectionId, sections, parts, router]);
+  // «Листать» chosen in the book: the chapter being read on its own page, the
+  // same words at the top. (Its URL is already the chapter's.)
+  useEffect(() => {
+    if (layout !== "page" || scrollMode() || !document.querySelector("[data-continuous-book]")) return;
+    switchedLayout.current = false;
+    const place = capturePlace();
+    keepPlace(place);
+    const at = parsePath(stripBasePath(window.location.pathname) || "/");
+    if (!at.sectionId || at.sectionId === BOOK_SEGMENT) {
+      router.replace(localeHref(at.lang), { scroll: false });
+      return;
+    }
+    const href = localeHref(at.lang, at.sectionId);
+    router.replace(href, { scroll: false });
+    // Should the router keep the book (same URL), load the chapter page itself.
+    const fallback = window.setTimeout(() => {
+      if (document.querySelector("[data-continuous-book]")) window.location.replace(BASE_PATH + href);
+    }, 2500);
+    return () => window.clearTimeout(fallback);
+  }, [layout, router]);
+  // A kept place is put back once its chapter is shown in the other export.
+  useEffect(() => restorePlace() ?? undefined, [pathname, bookShown]);
 
   const [searchQuery, setSearchQuery] = useState("");
   const searchQueryRef = useRef("");
@@ -422,9 +483,13 @@ export default function AppShell({
       // Put the place back after Next.js has rendered the entry's page.
       const target = savedScroll(st);
       const hash = window.location.hash.slice(1);
+      const popAt = performance.now();
       const apply = () => {
         const el = mainEl();
         if (!el) return;
+        // «Аа» closed by this back, then another layout chosen: its export
+        // keeps the place (A89), not this entry's old offset.
+        if (layoutChangedAt.current > popAt) return;
         if (target !== undefined) {
           el.scrollTop = target;
         } else if (hash) {
@@ -650,7 +715,7 @@ export default function AppShell({
       {/* Main content area */}
       {/* Chapter by chapter, the page itself is the place being read: the same
           marker as the continuous book's current chapter (tools and QA probes). */}
-      <main className="app-main flex-1 overflow-y-auto" {...(CONTINUOUS_BOOK ? {} : { "data-reader-current": "" })}>
+      <main className="app-main flex-1 overflow-y-auto" {...(bookShown ? {} : { "data-reader-current": "" })}>
         <InstallBanner ui={ui} />
         {/* Content */}
         {children}

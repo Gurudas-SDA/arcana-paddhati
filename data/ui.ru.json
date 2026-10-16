@@ -75,5 +75,8 @@
   "reader.noForward": "«Вперёд» — после «Назад»",
   "reader.noBack": "Это начало пути",
   "group.contents": "Содержание введения",
-  "offline.progress": "Книга сохраняется для чтения без интернета: {n} %"
+  "offline.progress": "Книга сохраняется для чтения без интернета: {n} %",
+  "reader.layout": "Чтение",
+  "reader.layout.page": "Листать",
+  "reader.layout.scroll": "Прокручивать"
 }
