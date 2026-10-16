@@ -343,7 +343,11 @@ export default function ReaderChrome({
     const measure = () => {
       raf = 0;
       const max = maxScroll();
-      setPct(max > 4 ? Math.min(100, Math.max(0, (m.scrollTop / max) * 100)) : 100);
+      // Whole percents (all the status line shows): a scroll frame that does
+      // not change the number does not re-render the chrome. Every frame did,
+      // and on a busy phone that render held back the next scroll event, so
+      // the bars came late to the reader's scroll up (s01, A89 push 16.10).
+      setPct(max > 4 ? Math.round(Math.min(100, Math.max(0, (m.scrollTop / max) * 100))) : 100);
     };
     measure();
     const onScroll = () => {

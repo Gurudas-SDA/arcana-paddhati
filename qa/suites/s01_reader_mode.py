@@ -93,6 +93,15 @@ def run(p, dev, engine, opts, lang, mode):
     def empty_point():
         return qa.reading_eval(pg, JS_EMPTY_POINT)
 
+    def wait_shown(want, ms=1500):
+        """The bars reach `want` within `ms` (polled; first look after 400 ms as before)."""
+        pg.wait_for_timeout(400)
+        waited = 400
+        while shown() != want and waited < ms:
+            pg.wait_for_timeout(100)
+            waited += 100
+        return shown() == want
+
     def show_bars():
         if not shown():
             tap_pt(empty_point())
@@ -168,14 +177,17 @@ def run(p, dev, engine, opts, lang, mode):
         pg.evaluate(f"{m}.dispatchEvent(new Event('touchmove'))"); pg.evaluate(f"{m}.scrollBy(0, -30)"); pg.wait_for_timeout(60); pg.evaluate(f"{m}.dispatchEvent(new Event('touchmove'))"); pg.evaluate(f"{m}.scrollBy(0, -40)")
     else:
         pg.mouse.move(700, 450); pg.mouse.wheel(0, -80)
-    pg.wait_for_timeout(400)
-    check(tag, "small scroll up -> bars", shown())
+    # The bars follow the browser's scroll events. Under QA load WebKit's
+    # frames stalled 400–900 ms (16.10 probe: the second scrollBy's event not
+    # yet dispatched at a fixed 400 ms check, both before and with A89), so
+    # wait for the state — well inside the 4 s auto-hide and the 1.5 s
+    # gesture window, so a missing reaction still fails.
+    check(tag, "small scroll up -> bars", wait_shown(True))
     if touch:
         pg.evaluate(f"{m}.dispatchEvent(new Event('touchmove'))"); pg.evaluate(f"{m}.scrollBy(0, 60)")
     else:
         pg.mouse.wheel(0, 120)
-    pg.wait_for_timeout(400)
-    check(tag, "scroll down -> bars hidden", not shown())
+    check(tag, "scroll down -> bars hidden", wait_shown(False))
     # 8. end of chapter -> bars with next chapter
     pg.evaluate(f"{m}.scrollTop = {m}.scrollHeight - {m}.clientHeight - 300"); pg.wait_for_timeout(1000)
     pg.evaluate(f"{m}.dispatchEvent(new Event('touchmove'))"); pg.evaluate(f"{m}.scrollBy(0, 400)"); pg.wait_for_timeout(500)
@@ -219,6 +231,12 @@ def run(p, dev, engine, opts, lang, mode):
     show_bars()
     act(pg.locator("[data-reader-action=search]"))
     inp = pg.locator(".mobile-menu input[type=search]")
+    # The box takes the focus when the menu has rendered; under QA load that
+    # came after the fixed 450 ms (16.10: flaky on 2e08c61 and A89 alike).
+    try:
+        pg.wait_for_function("document.activeElement && document.activeElement.type === 'search'", timeout=1500)
+    except Exception:
+        pass
     focused = pg.evaluate("document.activeElement && document.activeElement.type === 'search'")
     check(tag, "search opens with focused box", inp.count() == 1 and focused, f"focused={focused}")
     inp.fill(QUERY[lang])
