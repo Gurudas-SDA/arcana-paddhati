@@ -56,10 +56,13 @@ import {
   useShowAllWbw,
 } from "@/lib/translationsPref";
 import {
+  LAYOUTS,
   SIZES,
   THEMES,
+  setReaderLayout,
   setReaderTheme,
   stepReaderSize,
+  useReaderLayout,
   useReaderSize,
   useReaderTheme,
   type ReaderTheme,
@@ -163,6 +166,7 @@ export default function ReaderChrome({
   const showAllWbw = useShowAllWbw();
   const showAllTranslations = useShowAllTranslations();
   const size = useReaderSize();
+  const layout = useReaderLayout();
   const [canBack, setCanBack] = useState(true);
   const [canForward, setCanForward] = useState(true);
   /** Short note when «Назад» / «Вперёд» has no step to go to. */
@@ -339,7 +343,11 @@ export default function ReaderChrome({
     const measure = () => {
       raf = 0;
       const max = maxScroll();
-      setPct(max > 4 ? Math.min(100, Math.max(0, (m.scrollTop / max) * 100)) : 100);
+      // Whole percents (all the status line shows): a scroll frame that does
+      // not change the number does not re-render the chrome. Every frame did,
+      // and on a busy phone that render held back the next scroll event, so
+      // the bars came late to the reader's scroll up (s01, A89 push 16.10).
+      setPct(max > 4 ? Math.round(Math.min(100, Math.max(0, (m.scrollTop / max) * 100))) : 100);
     };
     measure();
     const onScroll = () => {
@@ -562,6 +570,28 @@ export default function ReaderChrome({
     clearTimer();
   };
 
+  /** «Листать» / «Прокручивать» (A89): the panel closes (its history entry
+   *  popped first), then the layout changes — the app shell shows the other
+   *  export at the same place (components/AppShell.tsx). */
+  const chooseLayout = (next: (typeof LAYOUTS)[number]) => {
+    if (next === layout) return;
+    let done = false;
+    const go = () => {
+      if (done) return;
+      done = true;
+      setReaderLayout(next);
+    };
+    panelRef.current = false;
+    setPanel(false);
+    if (isPanelEntry()) {
+      window.addEventListener("popstate", () => window.setTimeout(go, 0), { once: true });
+      window.setTimeout(go, 700);
+      window.history.back();
+    } else {
+      go();
+    }
+  };
+
   /**
    * Leave the «Аа» panel for another step (chapter, language, contents):
    * the panel's history entry stays under the new one, so "back" returns to
@@ -756,6 +786,21 @@ export default function ReaderChrome({
               >
                 <span aria-hidden="true" className="reader-swatch" style={{ background: THEME_SWATCH[th] }} />
                 <span>{t(ui, `reader.bg.${th}`)}</span>
+              </button>
+            ))}
+          </div>
+          <p className="reader-panel-label">{t(ui, "reader.layout")}</p>
+          <div className="reader-theme-row" role="group" aria-label={t(ui, "reader.layout")}>
+            {LAYOUTS.map((m) => (
+              <button
+                key={m}
+                type="button"
+                className="reader-theme-btn"
+                aria-pressed={layout === m}
+                onClick={() => chooseLayout(m)}
+                data-reader-layout-btn={m}
+              >
+                <span>{t(ui, `reader.layout.${m}`)}</span>
               </button>
             ))}
           </div>

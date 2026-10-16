@@ -75,5 +75,8 @@
   "reader.noForward": "Pirmyn veikia tik grįžus atgal",
   "reader.noBack": "Tai kelio pradžia",
   "group.contents": "Įvado turinys",
-  "offline.progress": "Knyga išsaugoma skaitymui neprisijungus: {n} %"
+  "offline.progress": "Knyga išsaugoma skaitymui neprisijungus: {n} %",
+  "reader.layout": "Skaitymas",
+  "reader.layout.page": "Versti puslapius",
+  "reader.layout.scroll": "Slinkti"
 }

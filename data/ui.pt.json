@@ -75,5 +75,8 @@
   "reader.noForward": "Avançar funciona depois de voltar",
   "reader.noBack": "Este é o início do caminho",
   "group.contents": "Sumário da introdução",
-  "offline.progress": "Salvando o livro para leitura off-line: {n} %"
+  "offline.progress": "Salvando o livro para leitura off-line: {n} %",
+  "reader.layout": "Leitura",
+  "reader.layout.page": "Páginas",
+  "reader.layout.scroll": "Rolagem"
 }

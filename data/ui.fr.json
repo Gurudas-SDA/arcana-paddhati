@@ -75,5 +75,8 @@
   "reader.noForward": "Suivant fonctionne après Retour",
   "reader.noBack": "C’est le début du parcours",
   "group.contents": "Contenu de l’introduction",
-  "offline.progress": "Enregistrement du livre pour la lecture hors ligne : {n} %"
+  "offline.progress": "Enregistrement du livre pour la lecture hors ligne : {n} %",
+  "reader.layout": "Lecture",
+  "reader.layout.page": "Pages",
+  "reader.layout.scroll": "Défilement"
 }

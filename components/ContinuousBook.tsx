@@ -6,6 +6,7 @@ import { stripBasePath } from "@/lib/basePath";
 import { parsePath } from "@/lib/i18n";
 import { isMenuEntry, main, patchState, recordScroll, replaceEntry, savedScroll } from "@/lib/navHistory";
 import { bookOffset, bookTarget, finishReadingArrival, followBookLink, readingHref, readingState } from "@/lib/readingFlow";
+import { BOOK_EVENT } from "@/lib/readingMode";
 
 /** Scrolling replaces the URL at most once per SYNC_GAP_MS (Phase 3): a
  *  chapter entered while reading is named at once; only a fling through
@@ -20,6 +21,14 @@ export default function ContinuousBook({ lang, children }: { lang: string; child
   const pathname = usePathname();
   const root = useRef<HTMLDivElement>(null);
   const quietUntil = useRef(0);
+
+  // The app shell follows whether the book is shown (A89: «Прокручивать»).
+  useLayoutEffect(() => {
+    window.dispatchEvent(new Event(BOOK_EVENT));
+    return () => {
+      window.dispatchEvent(new Event(BOOK_EVENT));
+    };
+  }, []);
 
   useLayoutEffect(() => {
     const pending = finishReadingArrival();

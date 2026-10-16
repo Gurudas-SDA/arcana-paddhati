@@ -3,6 +3,9 @@
 // server component — hence a module without React).
 export const THEME_KEY = "ap.readerTheme";
 export const SIZE_KEY = "ap.readerSize";
+/** «Листать» (page — chapter by chapter, the default: Gurudas reading standard A3)
+ *  or «Прокручивать» (scroll — the whole book in one scroll, Vraja Lila PR 2). */
+export const LAYOUT_KEY = "ap.readerLayout";
 
 /** Inline script for <head>: applies the stored preferences before first paint. */
 export const READER_PREFS_SCRIPT = `(function(){try{var d=document.documentElement,t=localStorage.getItem(${JSON.stringify(
