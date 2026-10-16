@@ -72,7 +72,7 @@
      "tests": ["lint:L17"]},
 
     {"id": "UI-8.1", "doc": "UI", "section": "§8", "text": "Главное правило: приложение работает ОФЛАЙН — на iPad, iPhone, Android, компьютере. Проверять «тысячу раз».",
-     "tests": ["s20:", "s20wk:", "s21:"]},
+     "tests": ["s20:", "s20wk:", "s21:", "s40:"]},
     {"id": "UI-8.2", "doc": "UI", "section": "§8", "text": "Транскрипты лекций, на которые ссылается книга (источники), открываются офлайн внутри приложения (аудио — нет).",
      "tests": ["s21:2 «транскрипт» link points inside the app", "s21:2 offline: tap «транскрипт» opens the transcript", "s21:2 offline: 5 random transcript pages", "s20:offline after fill: transcripts", "s10:§8 транскрипт открывается внутри приложения", "lint:L16"]},
     {"id": "UI-8.3", "doc": "UI", "section": "§8", "text": "Приложение подстраивается под все размеры: iPad Pro / обычный / Mini, большие iPhone, Android-телефоны (Samsung S21 FE / S23 FE), компьютеры.",

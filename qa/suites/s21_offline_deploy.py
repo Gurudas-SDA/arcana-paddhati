@@ -121,7 +121,11 @@ def run(p, dev, o):
     tap(pg.locator("[data-reader-action=contents]")); pg.wait_for_timeout(600)
     link = pg.locator(".mobile-menu nav a[href$='/mangalacarana/']").first
     if link.count():
-        tap(link); pg.wait_for_timeout(300); tap(link); pg.wait_for_timeout(1500)
+        # One-tap Contents is the default (PR 2, d65b4c0): the first tap opens the
+        # chapter; the legacy two-tap mode needs a second tap on the same row.
+        tap(link); pg.wait_for_timeout(1500)
+        if "/mangalacarana/" not in pg.url and link.is_visible():
+            tap(link); pg.wait_for_timeout(1500)
         chk(dev, "2 offline: client-side navigation from Contents", "/mangalacarana/" in pg.url and page_ok(pg), pg.url)
     # search offline
     pg.goto(f"{BASE}/ru-iast/daily-deity-schedule/", wait_until="load"); pg.wait_for_timeout(800)
