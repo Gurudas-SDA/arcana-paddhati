@@ -1,4 +1,4 @@
-<!-- Base branch must be `staging`, never `main`. -->
+<!-- Base branch is `main` (the staging copy was closed on 18.10.2026, Satkirti «никаких копий»). -->
 
 ## Problem
 <!-- What is wrong or awkward for the reader? Which screen / device? -->
@@ -18,4 +18,4 @@
 - [ ] `npm run build` passes locally
 - [ ] No content changed (texts, translations, Sanskrit, quotations, `data/`, `public/transcripts/`)
 - [ ] No interface rules changed without Satkirti's explicit approval (if an idea contradicts a rule, it is described here as a proposal only)
-- [ ] PR base is `staging`
+- [ ] PR base is `main`

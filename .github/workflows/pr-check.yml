@@ -3,7 +3,7 @@ name: PR check
 # Lint + build for pull requests. No secrets, no deploy.
 on:
   pull_request:
-    branches: ["staging", "main"]
+    branches: ["main"]
 
 permissions:
   contents: read
