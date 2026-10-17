@@ -153,27 +153,27 @@ function QuoteBody({
         .filter(Boolean)
         .join(" · ")
     : "";
+  // «Стандарты» 30 (Satkirti 17.10.2026): the book in each language is wholly in that language — Gurudev's
+  // words are given in translation into the book's language, not in English. So a book with a translation
+  // shows only the translation as «Gurudev's words»; the English original stays in the data
+  // (scripts/moods/moods.json) and is shown only in the English book (translation "").
   return (
     <>
       <p className="mood-label mb-1 text-[11px] font-semibold uppercase tracking-wider text-[#8B6508]">
         {labels.words}
+        {translation && machine && (
+          <span className="ml-2 font-normal normal-case tracking-normal text-[#5C3D2E]/80">
+            ({labels.machine})
+          </span>
+        )}
       </p>
-      <div lang="en" className="mood-quote space-y-3">
-        <Paragraphs text={quote} className="text-[15px] leading-7 text-[#2C1810]" />
-      </div>
-      {translation && (
-        <div className="mt-4 border-t border-[#E8DCC8] pt-3">
-          <p className="mood-label mb-1 text-[11px] font-semibold uppercase tracking-wider text-[#8B6508]">
-            {labels.translation}
-            {machine && (
-              <span className="ml-2 font-normal normal-case tracking-normal text-[#5C3D2E]/80">
-                ({labels.machine})
-              </span>
-            )}
-          </p>
-          <div className="mood-translation translation space-y-3">
-            <Paragraphs text={translation} className="text-[15px] leading-7" />
-          </div>
+      {translation ? (
+        <div className="mood-quote mood-translation space-y-3">
+          <Paragraphs text={translation} className="text-[15px] leading-7 text-[#2C1810]" />
+        </div>
+      ) : (
+        <div lang="en" className="mood-quote space-y-3">
+          <Paragraphs text={quote} className="text-[15px] leading-7 text-[#2C1810]" />
         </div>
       )}
       {source && (
@@ -205,8 +205,9 @@ function QuoteBody({
 }
 
 /**
- * "Mood — Gurudev": verbatim quotes of Gurudev (English, his own words) on the
- * inner mood of the action described below them, with a translation and source.
+ * "Mood — Gurudev": verbatim quotes of Gurudev on the inner mood of the action
+ * described below them, with the source. The English book shows his own English
+ * words; every other book shows them in translation into its language («Стандарты» 30).
  *
  * Screen: a button ("Gurudev's mood · N") opens ALL quotes at once in a focused
  * overlay — full screen on phones, a centred modal from 640px up. The overlay has

@@ -319,11 +319,11 @@ def run(args):
     c.info = f"{n} citāti"
     c.report(args.max)
 
-    # L13 — «Ещё цитаты»: главная + 3 лучших + «Показать все», всего не больше 20
-    c = Check("L13", "«Ещё цитаты»: kopā ar galveno ne vairāk par 20")
+    # L13 — «Стандарты» 21 (Satkirti 17.10.2026, msg 4239/4243): в «Настроении Гурудева» не больше 6 цитат вместе с главной
+    c = Check("L13", "«Настроение Гурудева»: kopā ar galveno ne vairāk par 6 citātiem")
     for f in ru:
         for ctx_id, m in moods(loaded[f]):
-            if 1 + len(m.get("more") or []) > 20:
+            if 1 + len(m.get("more") or []) > 6:
                 c.hit(name(f), ctx_id, f"{1 + len(m.get('more') or [])} citāti")
     c.report(args.max)
 
@@ -1074,6 +1074,37 @@ def run(args):
             for m in ru_in_uk.finditer(text):
                 c.hit("out", rel, snippet(text, m, 30))
     c.info = f"{n32} built UK files" if n32 else "out/uk not built — only the data part checked"
+    c.report(args.max)
+
+    # L33 — «Стандарты» 30 (Satkirti 17.10.2026, msg 4247/4250): книга на каждом языке полностью на этом языке —
+    # слова Гурудева в «Настроении Гурудева» даём в переводе на язык книги, не по-английски (для всех языков).
+    # Data: every mood quote (chosen + more) of every non-English book has a translation. Build: no built page of a
+    # non-English book shows the English words (MoodBlock renders `lang="en" class="mood-quote` only without one).
+    c = Check("L33", "«Стандарты» 30: non-EN books show Gurudev's words in translation (data: translation present; build: no English mood-quote)")
+    for fn in sorted(os.listdir(qa.DATA)):
+        if not (fn.startswith("book.") and fn.endswith(".json")) or fn == "book.json":
+            continue
+        bk = loaded.get(os.path.join(qa.DATA, fn)) or json.load(open(os.path.join(qa.DATA, fn), encoding="utf-8"))
+        for ctx_id, m in moods(bk):
+            for i, q in enumerate([m] + list(m.get("more") or [])):
+                if not (q.get("translation") or "").strip():
+                    c.hit(fn, f"{ctx_id}/{'quote' if i == 0 else 'more[%d]' % (i - 1)}", "no translation — the English words would be shown")
+    n33 = 0
+    if not args.no_html and os.path.isdir(qa.OUT):
+        en_quote = re.compile(r'lang="en"[^>]*class="mood-quote')
+        for lang_dir in sorted(os.listdir(qa.OUT)):
+            if not os.path.isfile(os.path.join(qa.DATA, f"book.{lang_dir}.json")):
+                continue
+            for dp, _, fns in os.walk(os.path.join(qa.OUT, lang_dir)):
+                for fn in fns:
+                    if not fn.endswith(".html"):
+                        continue
+                    f = os.path.join(dp, fn)
+                    raw = open(f, encoding="utf-8").read()
+                    n33 += 1
+                    for m in en_quote.finditer(raw):
+                        c.hit("out", os.path.relpath(f, qa.OUT).replace(os.sep, "/"), snippet(raw, m, 40))
+    c.info = f"{n33} built non-EN pages" if n33 else "out/ not built — only the data part checked"
     c.report(args.max)
 
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует
