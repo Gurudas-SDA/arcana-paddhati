@@ -1,14 +1,13 @@
 name: Deploy to GitHub Pages
 
-# GitHub Pages takes ONE artifact per site, so every run builds BOTH branches:
-#   main    -> out/          https://gurudas-sda.github.io/arcana-paddhati/          (production, Satkirti)
-#   staging -> out/staging/  https://gurudas-sda.github.io/arcana-paddhati/staging/  (checks before main)
-# A push to either branch redeploys both (each from its own latest commit).
-# No `staging` branch, or its build not under /arcana-paddhati/staging -> only
-# main is published (a warning in the run), production is never blocked by it.
+# Publishes ONLY the main branch: main -> out/ -> https://gurudas-sda.github.io/arcana-paddhati/
+# (production, Satkirti). The staging copy was removed on 18.10.2026 (Satkirti msg 4469
+# «нет необходимости в staging»): no other branch triggers a deploy and nothing is ever
+# built into out/staging/, so a `staging` branch, if someone creates one, publishes nothing.
+# Every deploy replaces the whole Pages site with this one artifact.
 on:
   push:
-    branches: ["main", "staging"]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -32,10 +31,9 @@ jobs:
       # GitHub Pages keys a deployment by commit SHA (actions/deploy-pages sends
       # GITHUB_SHA; the Pages API accepts no other version) and silently ignores
       # a second deployment of a commit it already has: run 37777322691
-      # (08.10.2026) reported success but published nothing. With two branches
-      # that happens after a fast-forward (main and staging on the same commit),
-      # so merges between them are always `git merge --no-ff` (README «Staging»),
-      # and a run for an already deployed commit fails loudly here instead.
+      # (08.10.2026) reported success but published nothing. With main only this
+      # happens on a re-run / workflow_dispatch of an already deployed commit, so
+      # such a run fails loudly here instead of a false green.
       - name: Commit not yet on Pages?
         env:
           GH_TOKEN: ${{ github.token }}
@@ -43,7 +41,7 @@ jobs:
           for id in $(gh api "repos/$GITHUB_REPOSITORY/deployments?environment=github-pages&sha=$GITHUB_SHA" --jq '.[].id'); do
             st=$(gh api "repos/$GITHUB_REPOSITORY/deployments/$id/statuses?per_page=1" --jq '.[0].state // ""')
             if [ "$st" = success ]; then
-              echo "::error::Commit $GITHUB_SHA is already deployed to Pages - GitHub Pages would ignore this deployment and publish NOTHING. Merge main<->staging with --no-ff (a new commit), then push."
+              echo "::error::Commit $GITHUB_SHA is already deployed to Pages - GitHub Pages would ignore this deployment and publish NOTHING. Push a new commit to main to redeploy."
               exit 1
             fi
           done
@@ -55,24 +53,6 @@ jobs:
           ref: main
           path: main
 
-      - name: Is there a staging branch?
-        id: staging
-        working-directory: main
-        run: |
-          if git ls-remote --exit-code --heads origin staging >/dev/null; then
-            echo "exists=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "exists=false" >> "$GITHUB_OUTPUT"
-            echo "No staging branch - publishing main only."
-          fi
-
-      - name: Checkout staging
-        if: steps.staging.outputs.exists == 'true'
-        uses: actions/checkout@v7
-        with:
-          ref: staging
-          path: staging-src
-
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
@@ -80,34 +60,13 @@ jobs:
           cache: "npm"
           cache-dependency-path: main/package-lock.json
 
-      - name: Install dependencies (main)
+      - name: Install dependencies
         working-directory: main
         run: npm ci
 
-      - name: Build (main, basePath /arcana-paddhati)
+      - name: Build (basePath /arcana-paddhati)
         working-directory: main
         run: npm run build
-
-      - name: Build (staging, basePath /arcana-paddhati/staging)
-        if: steps.staging.outputs.exists == 'true'
-        # A broken staging build must never stop the production deploy.
-        continue-on-error: true
-        working-directory: staging-src
-        env:
-          NEXT_PUBLIC_BASE_PATH: /arcana-paddhati/staging
-        run: |
-          npm ci
-          npm run build
-          # Only a build that really lives under /staging/ may be published
-          # there (an old staging branch without base-path support would load
-          # production assets and register a worker over production's scope).
-          if grep -q '/arcana-paddhati/staging/_next/' out/index.html              && grep -q '"start_url": "/arcana-paddhati/staging/"' out/manifest.json; then
-            mkdir -p ../main/out/staging
-            cp -R out/. ../main/out/staging/
-            echo "Staging published at /arcana-paddhati/staging/ ($(git rev-parse --short HEAD))"
-          else
-            echo "::warning::staging build is not under /arcana-paddhati/staging - NOT published (main only)"
-          fi
 
       - name: Setup Pages
         uses: actions/configure-pages@v6

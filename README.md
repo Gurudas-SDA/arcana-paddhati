@@ -54,27 +54,14 @@ and Noto Serif fonts (Windows ships them).
 
 ## Deploying
 
-Push to `main` or `staging`. The workflow `.github/workflows/deploy.yml` builds BOTH branches into one
-Pages artifact (Pages takes one per site): `main` → `out/` (production), `staging` → `out/staging/` (built with
-`NEXT_PUBLIC_BASE_PATH=/arcana-paddhati/staging`). No `staging` branch, or a broken staging build → only `main` is published.
+Push to `main` (qa vārti pre-push; `--no-verify` aizliegts). The workflow `.github/workflows/deploy.yml` builds
+ONLY `main` → `out/` → https://gurudas-sda.github.io/arcana-paddhati/ru-iast/ (produkcija, Satkirti redz).
+Staging kopija izņemta 18.10.2026 (Satkirti msg 4469 «нет необходимости в staging»): citi zari deploy neizraisa un
+`/staging/` netiek būvēts — arī ja kāds izveido zaru `staging`.
 
-## Staging: darba plūsma (Gurudas, 2026-10-08)
-
-Izmaiņas → zars `staging` → pārbaudītāji uz `/staging/` → merge `main`.
-
-| | URL |
-|---|---|
-| Produkcija (Satkirti redz) | https://gurudas-sda.github.io/arcana-paddhati/ru-iast/ — zars `main` |
-| Staging (pārbaudei) | https://gurudas-sda.github.io/arcana-paddhati/staging/ru-iast/ — zars `staging` |
-
-1. Strādā zarā `staging` (`git checkout staging`), commit, `git push origin staging` (qa vārti darbojas tāpat; `--no-verify` aizliegts).
-2. Gaidi Actions zaļu; pārbaudītāji (divi neatkarīgi, viens — cits modelis) pārbauda `/staging/`.
-3. Tikai pēc tam: `git checkout main && git merge --no-ff staging && git push origin main`.
-4. Pēc nakts/steidzama labojuma tieši `main` — `git checkout staging && git merge --no-ff main && git push origin staging` (staging nedrīkst atpalikt).
-
-**Vienmēr `--no-ff`, nekad fast-forward:** GitHub Pages izvietojumu identificē pēc commit SHA un klusi ignorē otru
-izvietojumu ar jau publicētu SHA (Actions zaļš, bet nekas nemainās — 08.10 run 37777322691). Ja main un staging ir uz
-viena commita, otrā zara push neko nepublicētu. Workflow solis «Commit not yet on Pages?» tādu run padara sarkanu.
+GitHub Pages izvietojumu identificē pēc commit SHA un klusi ignorē otru izvietojumu ar jau publicētu SHA (Actions
+zaļš, bet nekas nemainās — 08.10 run 37777322691). Workflow solis «Commit not yet on Pages?» tādu run (re-run /
+workflow_dispatch tam pašam commitam) padara sarkanu; lai pārpublicētu — jauns commits `main`.
 
 Base path: `lib/basePath.ts` (`BASE_PATH`, `stripBasePath`) — visiem URL, ko Next pats neprefiksē (`<img>`, `fetch`,
 metadata ikonas, SW reģistrācija). Nekad nerakstīt `/arcana-paddhati` kodā. Service worker ņem bāzi no savas atrašanās
