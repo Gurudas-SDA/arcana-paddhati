@@ -1076,6 +1076,45 @@ def run(args):
     c.info = f"{n32} built UK files" if n32 else "out/uk not built — only the data part checked"
     c.report(args.max)
 
+    # L33 — A91 (Satkirti 16.10 msg 3796): 2.2 «3:40 утра. Пробуждение Господа» — «Настроение Гурудева» = 5 цитат;
+    # 5-я: CA № 735 «Ratha Yatra» 21.06.2012 00:18:03 — EN «praṇāma», RU/ru-iast «пранам» (не «кланяться/поклониться»).
+    c = Check("L33", "2.2 waking-the-lord: «Настроение Гурудева» = 5 quotes in every book; 5th = CA № 735 (EN «praṇāma», RU «пранам»)")
+    for f in allb:
+        node = None
+        for s in loaded[f]["sections"]:
+            for sub in s.get("subsections") or []:
+                if sub.get("id") == "waking-the-lord":
+                    node = sub
+        if node is None:
+            c.hit(name(f), "waking-the-lord", "apakšnodaļa nav atrasta")
+            continue
+        ms = [b for b in node["content"] if b.get("type") == "mood"]
+        if len(ms) != 1:
+            c.hit(name(f), "waking-the-lord", "mood bloku skaits %d (vajag 1)" % len(ms))
+            continue
+        qs = [ms[0]] + list(ms[0].get("more") or [])
+        if len(qs) != 5:
+            c.hit(name(f), "waking-the-lord/mood", "citātu skaits %d (vajag 5)" % len(qs))
+            continue
+        q5 = qs[4]
+        src5 = q5.get("source") or {}
+        if "praṇāma" not in (q5.get("quote") or ""):
+            c.hit(name(f), "waking-the-lord/mood/more/3/quote", "5. citātā nav «praṇāma»")
+        if src5.get("nr") != "735" or src5.get("timecode") != "00:18:03" or src5.get("date") != "2012-06-21":
+            c.hit(name(f), "waking-the-lord/mood/more/3/source", "avots nav CA № 735, 2012-06-21, 00:18:03")
+        for k in ("title", "transcript_url", "audio_url"):
+            if not src5.get(k):
+                c.hit(name(f), "waking-the-lord/mood/more/3/source", "nav lauka %s" % k)
+        tr5 = q5.get("translation") or ""
+        if name(f) in ("book.ru.json", "book.ru-iast.json"):
+            if "пранам" not in tr5:
+                c.hit(name(f), "waking-the-lord/mood/more/3/translation", "RU tulkojumā nav «пранам»")
+            if re.search(r"кланят|поклон", tr5):
+                c.hit(name(f), "waking-the-lord/mood/more/3/translation", "RU: «кланяться/поклониться» (vajag «пранама»)")
+        elif name(f) != "book.json" and not tr5.strip():
+            c.hit(name(f), "waking-the-lord/mood/more/3/translation", "nav tulkojuma")
+    c.report(args.max)
+
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует
     c = Check("L17", "atgriešanās punkts: git tags pirms-interfeisa-2026-10-05 eksistē")
     import subprocess
