@@ -78,5 +78,6 @@
   "offline.progress": "A könyv mentése offline olvasáshoz: {n} %",
   "reader.layout": "Olvasás",
   "reader.layout.page": "Lapozás",
-  "reader.layout.scroll": "Görgetés"
+  "reader.layout.scroll": "Görgetés",
+  "book.machineNote": "A fordítás gépi úton készült, és anyanyelvi beszélő még nem ellenőrizte"
 }

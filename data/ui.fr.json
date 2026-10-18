@@ -78,5 +78,6 @@
   "offline.progress": "Enregistrement du livre pour la lecture hors ligne : {n} %",
   "reader.layout": "Lecture",
   "reader.layout.page": "Pages",
-  "reader.layout.scroll": "Défilement"
+  "reader.layout.scroll": "Défilement",
+  "book.machineNote": "La traduction a été effectuée automatiquement et n’a pas encore été vérifiée par un locuteur natif"
 }

@@ -78,5 +78,6 @@
   "offline.progress": "Salvataggio del libro per la lettura offline: {n} %",
   "reader.layout": "Lettura",
   "reader.layout.page": "Pagine",
-  "reader.layout.scroll": "Scorrimento"
+  "reader.layout.scroll": "Scorrimento",
+  "book.machineNote": "La traduzione è stata effettuata automaticamente e non è stata ancora verificata da un madrelingua"
 }

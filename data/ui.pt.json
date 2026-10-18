@@ -78,5 +78,6 @@
   "offline.progress": "Salvando o livro para leitura off-line: {n} %",
   "reader.layout": "Leitura",
   "reader.layout.page": "Páginas",
-  "reader.layout.scroll": "Rolagem"
+  "reader.layout.scroll": "Rolagem",
+  "book.machineNote": "A tradução foi feita por máquina e ainda não foi verificada por um falante nativo"
 }

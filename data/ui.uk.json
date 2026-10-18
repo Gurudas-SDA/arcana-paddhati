@@ -78,5 +78,6 @@
   "offline.progress": "Книга зберігається для читання без інтернету: {n} %",
   "reader.layout": "Читання",
   "reader.layout.page": "Гортати",
-  "reader.layout.scroll": "Прокручувати"
+  "reader.layout.scroll": "Прокручувати",
+  "book.machineNote": "Переклад здійснено за допомогою машинного перекладу і ще не перевірено носієм мови"
 }

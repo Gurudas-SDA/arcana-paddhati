@@ -490,7 +490,6 @@ function ContentBlock({
           key={index}
           quote={item.quote ?? ""}
           translation={item.translation || undefined}
-          machine={item.translation_note === "machine"}
           source={item.source}
           more={item.more}
           title={title}

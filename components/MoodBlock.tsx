@@ -106,13 +106,13 @@ function TranscriptLink({ url, label }: { url: string; label: string }) {
 }
 
 /** One alternative quote, separated from the previous one by a dotted rule. */
-function AltQuote({ m, labels }: { m: MoodQuote; labels: MoodLabels }) {
+function AltQuote({ m, num, labels }: { m: MoodQuote; num: number; labels: MoodLabels }) {
   return (
     <div className="mood-alt mt-4 border-t-2 border-dotted border-[#D4A843] pt-3">
       <QuoteBody
         quote={m.quote}
         translation={m.translation || undefined}
-        machine={m.translation_note === "machine"}
+        num={num}
         source={m.source}
         labels={labels}
       />
@@ -138,13 +138,14 @@ function Paragraphs({ text, className }: { text: string; className: string }) {
 function QuoteBody({
   quote,
   translation,
-  machine,
+  num,
   source,
   labels,
 }: {
   quote: string;
   translation?: string;
-  machine?: boolean;
+  /** «Стандарты» 21а: number of the quote in the opened block (1 … N); none in the print panel. */
+  num?: number;
   source?: MoodSource;
   labels: MoodLabels;
 }) {
@@ -153,27 +154,28 @@ function QuoteBody({
         .filter(Boolean)
         .join(" · ")
     : "";
+  // «Стандарты» 30 (Satkirti 17.10.2026): the book in each language is wholly in that language — Gurudev's
+  // words are given in translation into the book's language, not in English. So a book with a translation
+  // shows only the translation as «Gurudev's words»; the English original stays in the data
+  // (scripts/moods/moods.json) and is shown only in the English book (translation "").
+  // Satkirti 18.10.2026 (msg 4497–4519; «Стандарты» 30, 76): no «machine translation» mark at the quotes in any
+  // language — a machine-translated book says so once, at its start (lib/content.ts sectionNote).
+  // «Стандарты» 21а (Satkirti 18.10.2026 msg 4527): in the opened block the quotes are numbered 1 … N.
   return (
     <>
       <p className="mood-label mb-1 text-[11px] font-semibold uppercase tracking-wider text-[#8B6508]">
+        {num !== undefined && (
+          <span className="mood-num mr-1.5 text-[13px] font-bold tracking-normal text-[#B8860B]">{`${num}.`}</span>
+        )}
         {labels.words}
       </p>
-      <div lang="en" className="mood-quote space-y-3">
-        <Paragraphs text={quote} className="text-[15px] leading-7 text-[#2C1810]" />
-      </div>
-      {translation && (
-        <div className="mt-4 border-t border-[#E8DCC8] pt-3">
-          <p className="mood-label mb-1 text-[11px] font-semibold uppercase tracking-wider text-[#8B6508]">
-            {labels.translation}
-            {machine && (
-              <span className="ml-2 font-normal normal-case tracking-normal text-[#5C3D2E]/80">
-                ({labels.machine})
-              </span>
-            )}
-          </p>
-          <div className="mood-translation translation space-y-3">
-            <Paragraphs text={translation} className="text-[15px] leading-7" />
-          </div>
+      {translation ? (
+        <div className="mood-quote mood-translation space-y-3">
+          <Paragraphs text={translation} className="text-[15px] leading-7 text-[#2C1810]" />
+        </div>
+      ) : (
+        <div lang="en" className="mood-quote space-y-3">
+          <Paragraphs text={quote} className="text-[15px] leading-7 text-[#2C1810]" />
         </div>
       )}
       {source && (
@@ -205,8 +207,9 @@ function QuoteBody({
 }
 
 /**
- * "Mood — Gurudev": verbatim quotes of Gurudev (English, his own words) on the
- * inner mood of the action described below them, with a translation and source.
+ * "Mood — Gurudev": verbatim quotes of Gurudev on the inner mood of the action
+ * described below them, with the source. The English book shows his own English
+ * words; every other book shows them in translation into its language («Стандарты» 30).
  *
  * Screen: a button ("Gurudev's mood · N") opens ALL quotes at once in a focused
  * overlay — full screen on phones, a centred modal from 640px up. The overlay has
@@ -231,7 +234,6 @@ function QuoteBody({
 export default function MoodBlock({
   quote,
   translation,
-  machine,
   source,
   more,
   title,
@@ -239,8 +241,6 @@ export default function MoodBlock({
 }: {
   quote: string;
   translation?: string;
-  /** The translation is a machine translation (not the Academy's). */
-  machine?: boolean;
   source?: MoodSource;
   /** The other quotes for this block (best first), shown after the chosen one. */
   more?: MoodQuote[];
@@ -424,8 +424,8 @@ export default function MoodBlock({
         </header>
         <div className="mood-scroll min-h-0 flex-1 overflow-y-auto px-4 py-4 sm:px-6 sm:py-5">
           <div className="rounded-sm border-l-2 border-[#B8860B] bg-white/60 px-4 py-3 sm:px-5">
-            <QuoteBody quote={quote} translation={translation} machine={machine} source={source} labels={labels} />
-            {more?.map((m, i) => <AltQuote key={i} m={m} labels={labels} />)}
+            <QuoteBody quote={quote} translation={translation} num={1} source={source} labels={labels} />
+            {more?.map((m, i) => <AltQuote key={i} m={m} num={i + 2} labels={labels} />)}
           </div>
         </div>
       </div>
@@ -465,7 +465,7 @@ export default function MoodBlock({
       </button>
       {/* Print only: the chosen quote inline (hidden on screen, see .mood-panel in globals.css). */}
       <div className="mood-panel mt-2 rounded-sm border-l-2 border-[#B8860B] bg-[#FDF8F0] px-4 py-3 sm:px-5">
-        <QuoteBody quote={quote} translation={translation} machine={machine} source={source} labels={labels} />
+        <QuoteBody quote={quote} translation={translation} source={source} labels={labels} />
       </div>
       {open && createPortal(overlay, document.body)}
     </div>

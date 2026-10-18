@@ -78,5 +78,6 @@
   "offline.progress": "Grāmata tiek saglabāta lasīšanai bez interneta: {n} %",
   "reader.layout": "Lasīšana",
   "reader.layout.page": "Lapot",
-  "reader.layout.scroll": "Ritināt"
+  "reader.layout.scroll": "Ritināt",
+  "book.machineNote": "Tulkojums veikts ar mašīntulkošanas palīdzību un to vēl nav pārbaudījis dzimtās valodas runātājs"
 }

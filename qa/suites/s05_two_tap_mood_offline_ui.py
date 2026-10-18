@@ -132,6 +132,13 @@ def run(p, dev, eng, o, mode):
     chk(dev, "(4) window tall enough (>= 50% height) and fits screen", d["h"] >= 0.5 * d["vh"] - 1 and d["t"] >= 0 and d["t"] + d["h"] <= d["vh"] + 1, str(d))
     chk(dev, "(4) comfortable font (>= 17px) and scrollable", d["fs"] >= 17 and d["sc"] in ("auto", "scroll"), str(d))
     chk(dev, "(4) ✕ close >= 44x44", d["cw"] >= 44 and d["ch"] >= 44, str(d))
+    # «Стандарты» 21а (Satkirti 18.10 msg 4527): quotes in the opened block numbered 1 … N; Satkirti 18.10
+    # msg 4497–4519: no «машинный перевод» mark at the quotes.
+    nm = pg.evaluate("""() => ({nums: [...document.querySelectorAll('.mood-dialog .mood-num')].map(e => e.textContent.trim()),
+      quotes: document.querySelectorAll('.mood-dialog .mood-quote').length,
+      machine: /машинн/i.test(document.querySelector('.mood-dialog').textContent)})""")
+    chk(dev, "(4) 21а: quotes numbered 1 … N in the opened block", nm["quotes"] >= 1 and nm["nums"] == [f"{i}." for i in range(1, nm["quotes"] + 1)], str(nm))
+    chk(dev, "(4) no «машинный перевод» mark at the quotes", not nm["machine"], str(nm))
     shot("4-mood-window")
     act(pg.locator(".mood-close")); pg.wait_for_timeout(400)
     chk(dev, "(4) ✕ closes", pg.locator(".mood-overlay").count() == 0)

@@ -13,7 +13,7 @@ import {
   getSectionIds,
   getSectionNumber,
   getUi,
-  isFallbackSection,
+  sectionNote,
 } from "@/lib/content";
 import { PREFIXED_LANGUAGES, isPrefixedLang, t } from "@/lib/i18n";
 
@@ -54,7 +54,7 @@ export default async function LangSectionPage({
       section={section}
       ui={ui}
       num={getSectionNumber(id)}
-      note={isFallbackSection(lang, id) ? t(ui, "section.fallback") : undefined}
+      note={sectionNote(lang, id)}
       after={
         <>
           <GroupContents lang={lang} id={id} ui={ui} />

@@ -27,7 +27,10 @@ function blockText(block) {
     case "table":
       return [...(block.header ?? []), ...(block.rows ?? []).flatMap((r) => [...r.cells, r.badge ?? ""])].join(" ");
     case "mood":
-      return [block.quote, block.translation, ...(block.more ?? []).flatMap((m) => [m.quote, m.translation])]
+      // «Стандарты» 30: a book with a translation shows only the translation (the English words only in the
+      // English book) — search the text the reader sees.
+      return [block, ...(block.more ?? [])]
+        .map((m) => m.translation || m.quote)
         .filter(Boolean)
         .join(" ");
     default:

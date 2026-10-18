@@ -15,6 +15,7 @@ import json
 import os
 import re
 import sys
+import html
 from html.parser import HTMLParser
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "lib"))
@@ -319,11 +320,11 @@ def run(args):
     c.info = f"{n} citāti"
     c.report(args.max)
 
-    # L13 — «Ещё цитаты»: главная + 3 лучших + «Показать все», всего не больше 20
-    c = Check("L13", "«Ещё цитаты»: kopā ar galveno ne vairāk par 20")
+    # L13 — «Стандарты» 21 (Satkirti 17.10.2026, msg 4239/4243): в «Настроении Гурудева» не больше 6 цитат вместе с главной
+    c = Check("L13", "«Настроение Гурудева»: kopā ar galveno ne vairāk par 6 citātiem")
     for f in ru:
         for ctx_id, m in moods(loaded[f]):
-            if 1 + len(m.get("more") or []) > 20:
+            if 1 + len(m.get("more") or []) > 6:
                 c.hit(name(f), ctx_id, f"{1 + len(m.get('more') or [])} citāti")
     c.report(args.max)
 
@@ -1076,9 +1077,40 @@ def run(args):
     c.info = f"{n32} built UK files" if n32 else "out/uk not built — only the data part checked"
     c.report(args.max)
 
-    # L33 — A91 (Satkirti 16.10 msg 3796): 2.2 «3:40 утра. Пробуждение Господа» — «Настроение Гурудева» = 5 цитат;
+    # L33 — «Стандарты» 30 (Satkirti 17.10.2026, msg 4247/4250): книга на каждом языке полностью на этом языке —
+    # слова Гурудева в «Настроении Гурудева» даём в переводе на язык книги, не по-английски (для всех языков).
+    # Data: every mood quote (chosen + more) of every non-English book has a translation. Build: no built page of a
+    # non-English book shows the English words (MoodBlock renders `lang="en" class="mood-quote` only without one).
+    c = Check("L33", "«Стандарты» 30: non-EN books show Gurudev's words in translation (data: translation present; build: no English mood-quote)")
+    for fn in sorted(os.listdir(qa.DATA)):
+        if not (fn.startswith("book.") and fn.endswith(".json")) or fn == "book.json":
+            continue
+        bk = loaded.get(os.path.join(qa.DATA, fn)) or json.load(open(os.path.join(qa.DATA, fn), encoding="utf-8"))
+        for ctx_id, m in moods(bk):
+            for i, q in enumerate([m] + list(m.get("more") or [])):
+                if not (q.get("translation") or "").strip():
+                    c.hit(fn, f"{ctx_id}/{'quote' if i == 0 else 'more[%d]' % (i - 1)}", "no translation — the English words would be shown")
+    n33 = 0
+    if not args.no_html and os.path.isdir(qa.OUT):
+        en_quote = re.compile(r'lang="en"[^>]*class="mood-quote')
+        for lang_dir in sorted(os.listdir(qa.OUT)):
+            if not os.path.isfile(os.path.join(qa.DATA, f"book.{lang_dir}.json")):
+                continue
+            for dp, _, fns in os.walk(os.path.join(qa.OUT, lang_dir)):
+                for fn in fns:
+                    if not fn.endswith(".html"):
+                        continue
+                    f = os.path.join(dp, fn)
+                    raw = open(f, encoding="utf-8").read()
+                    n33 += 1
+                    for m in en_quote.finditer(raw):
+                        c.hit("out", os.path.relpath(f, qa.OUT).replace(os.sep, "/"), snippet(raw, m, 40))
+    c.info = f"{n33} built non-EN pages" if n33 else "out/ not built — only the data part checked"
+    c.report(args.max)
+
+    # L34 — A91 (bija L33 18.10) (Satkirti 16.10 msg 3796): 2.2 «3:40 утра. Пробуждение Господа» — «Настроение Гурудева» = 5 цитат;
     # 5-я: CA № 735 «Ratha Yatra» 21.06.2012 00:18:03 — EN «praṇāma», RU/ru-iast «пранам» (не «кланяться/поклониться»).
-    c = Check("L33", "2.2 waking-the-lord: «Настроение Гурудева» = 5 quotes in every book; 5th = CA № 735 (EN «praṇāma», RU «пранам»)")
+    c = Check("L34", "2.2 waking-the-lord: «Настроение Гурудева» = 5 quotes in every book; 5th = CA № 735 (EN «praṇāma», RU «пранам»)")
     for f in allb:
         node = None
         for s in loaded[f]["sections"]:
@@ -1113,6 +1145,53 @@ def run(args):
                 c.hit(name(f), "waking-the-lord/mood/more/3/translation", "RU: «кланяться/поклониться» (vajag «пранама»)")
         elif name(f) != "book.json" and not tr5.strip():
             c.hit(name(f), "waking-the-lord/mood/more/3/translation", "nav tulkojuma")
+    c.report(args.max)
+
+    # L35 — «Стандарты» 76 + Satkirti 18.10.2026 msg 4497–4519: the 9 machine-translated languages have, at the start
+    # of the book (top of the Introduction — the cover stays only the cover, rule 25), the line «Перевод выполнен
+    # машинно и ещё не проверен носителем языка» in their language; RU / ru-iast / EN do not; no mark «машинный
+    # перевод» at the Gurudev quotes in any language (data key mood.machine is no longer shown).
+    MACHINE_LANGS = ("lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt")
+    c = Check("L35", "«Стандарты» 76: machine-translation line at the start of the 9 machine-translated books, not in RU/EN; no mark at quotes")
+    uis = {}
+    for fn in sorted(os.listdir(qa.DATA)):
+        if fn.startswith("ui.") and fn.endswith(".json"):
+            uis[fn[3:-5]] = json.load(open(os.path.join(qa.DATA, fn), encoding="utf-8"))
+    for lg in MACHINE_LANGS:
+        if not (uis.get(lg, {}).get("book.machineNote") or "").strip():
+            c.hit(f"ui.{lg}.json", "book.machineNote", "nav rindas «Перевод выполнен машинно…»")
+    for lg in ("en", "ru", "ru-iast"):
+        if lg in uis and "book.machineNote" in uis[lg]:
+            c.hit(f"ui.{lg}.json", "book.machineNote", "RU/EN grāmatā šīs rindas nav (Satkirti 18.10)")
+    n35 = 0
+    if not args.no_html and os.path.isdir(qa.OUT):
+        for lg in MACHINE_LANGS:
+            f = os.path.join(qa.OUT, lg, "introduction", "index.html")
+            note = (uis.get(lg, {}).get("book.machineNote") or "").strip()
+            if not os.path.isfile(f):
+                c.hit("out", f"{lg}/introduction/index.html", "nav uzbūvēts")
+                continue
+            n35 += 1
+            raw = open(f, encoding="utf-8").read()
+            if note and html.escape(note, quote=False) not in raw and note not in raw:
+                c.hit("out", f"{lg}/introduction/index.html", "nav rindas «%s»" % note[:40])
+        marks = {lg: (u.get("mood.machine") or "").strip() for lg, u in uis.items() if lg != "en"}
+        lab = re.compile(r'class="mood-label[^"]*"[^>]*>(.{0,400}?)</p>', re.S)
+        for lang_dir in sorted(os.listdir(qa.OUT)):
+            mk = marks.get(lang_dir)
+            if not mk:
+                continue
+            for dp, _, fns in os.walk(os.path.join(qa.OUT, lang_dir)):
+                for fn in fns:
+                    if not fn.endswith(".html"):
+                        continue
+                    f = os.path.join(dp, fn)
+                    raw = open(f, encoding="utf-8").read()
+                    for m in lab.finditer(raw):
+                        if mk in m.group(1):
+                            c.hit("out", os.path.relpath(f, qa.OUT).replace(os.sep, "/"), "«%s» pie citāta" % mk)
+                            break
+    c.info = f"{n35} built Introduction pages" if n35 else "out/ not built — only the data part checked"
     c.report(args.max)
 
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует

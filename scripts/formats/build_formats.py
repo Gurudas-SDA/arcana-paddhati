@@ -110,7 +110,7 @@ LANG_STRINGS = {
         "cover": "Cover",
         "pages": "p.",
         "appendix": "Gurudev's words — all quotes",
-        "appendix_note": "For each “Gurudev's mood” block: the other quotes of Gurudev on the same theme (the block itself has the chosen one). Verbatim from the lecture transcripts, with translation and source.",
+        "appendix_note": "For each “Gurudev's mood” block: the other quotes of Gurudev on the same theme (the block itself has the chosen one). Verbatim from the lecture transcripts, with the source.",
         "appendix_block": "block on",
     },
     "ru": {
@@ -126,7 +126,7 @@ LANG_STRINGS = {
         "cover": "Обложка",
         "pages": "с.",
         "appendix": "Цитаты Гурудева — все варианты",
-        "appendix_note": "Для каждого блока «Настроение Гурудева» — остальные цитаты Гурудева на ту же тему (в самом блоке напечатана выбранная). Дословно из транскриптов лекций, с переводом и источником.",
+        "appendix_note": "Для каждого блока «Настроение Гурудева» — остальные цитаты Гурудева на ту же тему (в самом блоке напечатана выбранная). Дословно из транскриптов лекций, в переводе на русский, с источником.",
         "appendix_block": "блок на",
     },
 }
@@ -518,16 +518,20 @@ class Edition:
         return f'<div class="mood"{attr}>{self.quote_html(it, epub)}</div>'
 
     def quote_html(self, it, epub) -> str:
-        """Gurudev's words (EN), translation, source line (+ links in EPUB)."""
+        """Gurudev's words, source line (+ links in EPUB). «Стандарты» 30 (Satkirti 17.10.2026): the book in
+        each language is wholly in that language — a book with a translation prints only the translation as
+        Gurudev's words; the English original only in the English book (translation "")."""
         ui = self.ui
         def paras(text, cls):
             return "".join(f'<p class="{cls}{" gap" if p.strip() == "[…]" else ""}">{esc(p)}</p>'
                            for p in (text or "").split("\n\n"))
-        out = [f'<p class="ml">{esc(ui["mood.words"])}</p>',
-               f'<div lang="en">{paras(it.get("quote", ""), "mq")}</div>']
         if it.get("translation"):
-            note = f' <span class="mn">({esc(ui["mood.machine"])})</span>' if it.get("translation_note") == "machine" else ""
-            out.append(f'<p class="ml ml2">{esc(ui["mood.translation"])}{note}</p>{paras(it["translation"], "mt")}')
+            # Satkirti 18.10.2026 (msg 4497–4519): no «machine translation» mark at the quotes — a machine-translated
+            # book says so once, at the start of the Introduction (section_html, «Стандарты» 76).
+            out = [f'<p class="ml">{esc(ui["mood.words"])}</p>', f'<div>{paras(it["translation"], "mq")}</div>']
+        else:
+            out = [f'<p class="ml">{esc(ui["mood.words"])}</p>',
+                   f'<div lang="en">{paras(it.get("quote", ""), "mq")}</div>']
         src = it.get("source")
         if src:
             line = " · ".join(x for x in [src.get("title"), src.get("date"),
@@ -575,6 +579,10 @@ class Edition:
         out = [f'<section class="chap" id="s{si}"><h1>{self.label_html(si)}</h1>']
         if sec.get("subtitle"):
             out.append(f'<p class="sub">{esc(sec["subtitle"])}</p>')
+        # «Стандарты» 76 (Satkirti 18.10.2026): a machine-translated language — the line at the start of the book
+        # (ui.<lang>.json «book.machineNote», only those languages have it; the cover stays only the cover — rule 25).
+        if sec.get("id") == "introduction" and self.ui.get("book.machineNote") and self.lang != "en":
+            out.append(f'<p class="sub machine-note">{esc(self.ui["book.machineNote"])}</p>')
         out.append(self.blocks_html(sec.get("content", []), epub))
         for sj, sub in enumerate(sec.get("subsections", [])):
             out.append(f'<section class="subsec" id="s{si}-{sj}"><h2>{self.label_html(si, sj)}</h2>')

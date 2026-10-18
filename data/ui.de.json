@@ -78,5 +78,6 @@
   "offline.progress": "Das Buch wird für das Lesen ohne Internet gespeichert: {n} %",
   "reader.layout": "Lesen",
   "reader.layout.page": "Blättern",
-  "reader.layout.scroll": "Scrollen"
+  "reader.layout.scroll": "Scrollen",
+  "book.machineNote": "Die Übersetzung wurde maschinell erstellt und noch nicht von einem Muttersprachler überprüft"
 }

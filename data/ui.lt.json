@@ -78,5 +78,6 @@
   "offline.progress": "Knyga išsaugoma skaitymui neprisijungus: {n} %",
   "reader.layout": "Skaitymas",
   "reader.layout.page": "Versti puslapius",
-  "reader.layout.scroll": "Slinkti"
+  "reader.layout.scroll": "Slinkti",
+  "book.machineNote": "Vertimas atliktas automatiškai ir dar nepatikrintas gimtakalbio"
 }

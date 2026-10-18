@@ -23,6 +23,7 @@ import {
   DEFAULT_LANG,
   LANGUAGES,
   getLanguage,
+  t,
   type LocaleData,
   type UiDict,
 } from "./i18n";
@@ -188,6 +189,28 @@ export function getUi(lang: string): UiDict {
   const en = readJson<UiDict>(`ui.${DEFAULT_LANG}.json`) ?? {};
   if (lang === DEFAULT_LANG) return en;
   return { ...en, ...(readJson<UiDict>(`ui.${lang}.json`) ?? {}) };
+}
+
+/** First section of the book after the cover and the front pages: the Introduction. */
+export const MACHINE_NOTE_SECTION = "introduction";
+
+/**
+ * The line under a section's heading (or undefined):
+ *  - an English section shown in another language's book → «section.fallback»;
+ *  - «Стандарты» 76 (Satkirti 18.10.2026 msg 4507/4509): a machine-translated language has, at the start
+ *    of the book in its own language, the line «Перевод выполнен машинно и ещё не проверен носителем
+ *    языка» (ui.<lang>.json «book.machineNote»; only the 9 machine-translated languages have the key —
+ *    remove it when a native speaker has checked the language). The cover stays only the cover
+ *    («Стандарты» 25), so the line is at the top of the Introduction.
+ */
+export function sectionNote(lang: string, id: string): string | undefined {
+  const ui = getUi(lang);
+  if (isFallbackSection(lang, id)) return t(ui, "section.fallback");
+  if (id === MACHINE_NOTE_SECTION && lang !== DEFAULT_LANG) {
+    const own = readJson<UiDict>(`ui.${lang}.json`);
+    if (own?.["book.machineNote"]) return own["book.machineNote"];
+  }
+  return undefined;
 }
 
 /** <html lang> for pages of `lang`: English when the text falls back to English. */

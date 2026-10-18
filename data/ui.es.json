@@ -78,5 +78,6 @@
   "offline.progress": "Guardando el libro para leer sin conexión: {n} %",
   "reader.layout": "Lectura",
   "reader.layout.page": "Páginas",
-  "reader.layout.scroll": "Desplazar"
+  "reader.layout.scroll": "Desplazar",
+  "book.machineNote": "La traducción se ha realizado automáticamente y aún no ha sido revisada por un hablante nativo"
 }
