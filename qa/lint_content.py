@@ -96,6 +96,13 @@ def exception_for(check, fname, where, frag):
     return None
 
 
+def portraits_manifest():
+    """lib/parampara-portraits.json, or an empty manifest when the checked tree has none (e.g. s28's temp copy of data/:
+    the entries are then reported as not matching, lint does not crash)."""
+    f = os.path.join(qa.REPO, "lib", "parampara-portraits.json")
+    return json.load(open(f, encoding="utf-8")) if os.path.isfile(f) else {"portraits": {}}
+
+
 class Check:
     def __init__(self, cid, title):
         self.cid, self.title, self.hits, self.warns, self.info = cid, title, [], [], ""
@@ -505,21 +512,59 @@ def run(args):
     for pg in chk["pages"]:
         cx, cy, cw, ch = pg["crop"]
         a, bb = cw / 2, ch / 2
-        if abs(cw / ch - chk["aspect"]) > 0.002:
-            c.hit("check.json", pg["id"], f"oval aspect {cw / ch:.4f} != {chk['aspect']}")
+        # v8.0: a code-masked photo has its own aspect (736:1000 — the oval is inscribed in the photo box)
+        if abs(cw / ch - pg.get("aspect", chk["aspect"])) > 0.002:
+            c.hit("check.json", pg["id"], f"oval aspect {cw / ch:.4f} != {pg.get('aspect', chk['aspect'])}")
+        if not pg.get("hull"):
+            c.hit("check.json", pg["id"], "контур не проверен — no figure contour for this photo (the 5 % body rule cannot be verified)")
         import math as _m
         ts = [2 * _m.pi * k / 2880 for k in range(2880)]
         ell = [(cx + a * _m.cos(t), cy + bb * _m.sin(t)) for t in ts]
-        for x, y in pg["hull"]:
+        for x, y in pg.get("hull") or []:
             q = ((x - cx) / a) ** 2 + ((y - cy) / bb) ** 2
             d = min(_m.hypot(x - ex, y - ey) for ex, ey in ell) / cw
             if q >= 1 or d < chk["margin"] - 0.0005:
                 c.hit("check.json", pg["id"], f"contour point {(x, y)} {'OUTSIDE' if q >= 1 else 'too close'} (clearance {d:.3f} < {chk['margin']})")
+        from PIL import Image as _Img
+        if pg.get("mode") == "mask":
+            # v8.0 (Vraja Lila 18.10.2026): the app masks this photo by code (no baked picture). The photo is never
+            # distorted or cropped: it is 736:1000 and the oval window is the whole photo box (uniform scale only,
+            # object-fit: cover on the same proportion); the derivatives exist with the declared size and keep the
+            # master's proportion; the app's lib/parampara-portraits.json points at the same files and frame; the
+            # contour clearance above (5 %, rule 07.10) applies unchanged.
+            sw, sh = pg["source_size"]
+            if abs(sw / sh - 0.736) > 0.004:
+                c.hit("check.json", pg["id"], f"photo {sw}x{sh} is not 736:1000")
+            if any(abs(u - v) > 0.01 for u, v in zip(pg["crop"], [sw / 2, sh / 2, sw, sh])):
+                c.hit("check.json", pg["id"], f"window {pg['crop']} != the whole photo box {[sw / 2, sh / 2, sw, sh]} (cropped / off-centre)")
+            pw, ph = pg["photo_size"]
+            if abs(pw / ph - sw / sh) > 0.002:
+                c.hit("check.json", pg["id"], f"photo aspect {pw}x{ph} != master {sw}x{sh} (distorted)")
+            for key in ("photo_fallback", "photo_webp"):
+                if not pg.get(key):
+                    continue
+                f = os.path.join(qa.REPO, "public", "images", pg[key])
+                if not os.path.isfile(f):
+                    c.hit("public/images", pg[key], "missing")
+                    continue
+                with _Img.open(f) as im:
+                    if list(im.size) != [pw, ph]:
+                        c.hit("public/images", pg[key], f"size {im.size} != check.json photo_size {[pw, ph]}")
+            if not os.path.isfile(os.path.join(qa.REPO, pg["source"])):
+                c.hit("check.json", pg["id"], f"master {pg['source']} missing")
+            mk = portraits_manifest()
+            m = mk["portraits"].get(f"parampara/{pg['id']}.png")
+            if (not m or m.get("mode") != "mask" or m["fallback"] != pg["photo_fallback"] or m["webp"] != pg.get("photo_webp")
+                    or [m["width"], m["height"]] != [pw, ph] or m["frame"] != pg.get("frame")):
+                c.hit("lib/parampara-portraits.json", pg["id"], "app entry does not match check.json (re-run render_parampara.py --only)")
+            continue
+        mk = portraits_manifest()
+        if mk["portraits"].get(f"parampara/{pg['id']}.png", {}).get("mode") != "baked":
+            c.hit("lib/parampara-portraits.json", pg["id"], "baked in check.json but not «baked» in the app manifest")
         img = os.path.join(qa.REPO, "public", "images", pg["image"])
         if not os.path.isfile(img):
             c.hit("public/images", pg["image"], "missing")
         else:
-            from PIL import Image as _Img
             with _Img.open(img) as im:
                 if list(im.size) != pg["image_size"] or im.mode != "RGBA":
                     c.hit("public/images", pg["image"], f"size/mode {im.size} {im.mode} != check.json {pg['image_size']}")
