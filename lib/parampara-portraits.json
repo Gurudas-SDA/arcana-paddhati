@@ -28,24 +28,108 @@
    }
   },
   "parampara/01-jagannatha-dasa-babaji.png": {
-   "mode": "baked",
-   "width": 641,
-   "height": 857
+   "mode": "mask",
+   "fallback": "parampara/photo/01-jagannatha-dasa-babaji-b484238fa22a.png",
+   "webp": "parampara/photo/01-jagannatha-dasa-babaji-f1540e9b0e91.webp",
+   "width": 736,
+   "height": 1000,
+   "frame": {
+    "win_w": 600,
+    "win_h": 815,
+    "pad": 20.6667,
+    "width": 641.3333,
+    "height": 856.3333,
+    "lines": [
+     {
+      "offset": 7.0588,
+      "stroke": 2.3333,
+      "color": "#8B6508"
+     },
+     {
+      "offset": 12.1008,
+      "stroke": 1.0,
+      "color": "#D4A843"
+     }
+    ]
+   }
   },
   "parampara/02-bhaktivinoda-thakura.png": {
-   "mode": "baked",
-   "width": 641,
-   "height": 857
+   "mode": "mask",
+   "fallback": "parampara/photo/02-bhaktivinoda-thakura-4a7fe83af216.png",
+   "webp": "parampara/photo/02-bhaktivinoda-thakura-a31b8bbc21ee.webp",
+   "width": 736,
+   "height": 1000,
+   "frame": {
+    "win_w": 600,
+    "win_h": 815,
+    "pad": 20.6667,
+    "width": 641.3333,
+    "height": 856.3333,
+    "lines": [
+     {
+      "offset": 7.0588,
+      "stroke": 2.3333,
+      "color": "#8B6508"
+     },
+     {
+      "offset": 12.1008,
+      "stroke": 1.0,
+      "color": "#D4A843"
+     }
+    ]
+   }
   },
   "parampara/03-gaura-kishora-dasa-babaji.png": {
-   "mode": "baked",
-   "width": 641,
-   "height": 857
+   "mode": "mask",
+   "fallback": "parampara/photo/03-gaura-kishora-dasa-babaji-fc6f86cdc186.png",
+   "webp": "parampara/photo/03-gaura-kishora-dasa-babaji-3072ebf84fdc.webp",
+   "width": 736,
+   "height": 1000,
+   "frame": {
+    "win_w": 600,
+    "win_h": 815,
+    "pad": 20.6667,
+    "width": 641.3333,
+    "height": 856.3333,
+    "lines": [
+     {
+      "offset": 7.0588,
+      "stroke": 2.3333,
+      "color": "#8B6508"
+     },
+     {
+      "offset": 12.1008,
+      "stroke": 1.0,
+      "color": "#D4A843"
+     }
+    ]
+   }
   },
   "parampara/04-bhaktisiddhanta-sarasvati.png": {
-   "mode": "baked",
-   "width": 641,
-   "height": 857
+   "mode": "mask",
+   "fallback": "parampara/photo/04-bhaktisiddhanta-sarasvati-f748be0b5315.png",
+   "webp": "parampara/photo/04-bhaktisiddhanta-sarasvati-4e23105bf9ea.webp",
+   "width": 736,
+   "height": 1000,
+   "frame": {
+    "win_w": 600,
+    "win_h": 815,
+    "pad": 20.6667,
+    "width": 641.3333,
+    "height": 856.3333,
+    "lines": [
+     {
+      "offset": 7.0588,
+      "stroke": 2.3333,
+      "color": "#8B6508"
+     },
+     {
+      "offset": 12.1008,
+      "stroke": 1.0,
+      "color": "#D4A843"
+     }
+    ]
+   }
   },
   "parampara/05-bhakti-prajnana-keshava.png": {
    "mode": "baked",
@@ -58,14 +142,56 @@
    "height": 857
   },
   "parampara/07-bhaktivedanta-narayana.png": {
-   "mode": "baked",
-   "width": 641,
-   "height": 857
+   "mode": "mask",
+   "fallback": "parampara/photo/07-bhaktivedanta-narayana-17b9c3d25764.png",
+   "webp": "parampara/photo/07-bhaktivedanta-narayana-6e07023cb1ff.webp",
+   "width": 736,
+   "height": 1000,
+   "frame": {
+    "win_w": 600,
+    "win_h": 815,
+    "pad": 20.6667,
+    "width": 641.3333,
+    "height": 856.3333,
+    "lines": [
+     {
+      "offset": 7.0588,
+      "stroke": 2.3333,
+      "color": "#8B6508"
+     },
+     {
+      "offset": 12.1008,
+      "stroke": 1.0,
+      "color": "#D4A843"
+     }
+    ]
+   }
   },
   "parampara/08-prem-prayojan.png": {
-   "mode": "baked",
-   "width": 641,
-   "height": 857
+   "mode": "mask",
+   "fallback": "parampara/photo/08-prem-prayojan-2330223ce125.png",
+   "webp": "parampara/photo/08-prem-prayojan-8abce880717b.webp",
+   "width": 736,
+   "height": 1000,
+   "frame": {
+    "win_w": 600,
+    "win_h": 815,
+    "pad": 20.6667,
+    "width": 641.3333,
+    "height": 856.3333,
+    "lines": [
+     {
+      "offset": 7.0588,
+      "stroke": 2.3333,
+      "color": "#8B6508"
+     },
+     {
+      "offset": 12.1008,
+      "stroke": 1.0,
+      "color": "#D4A843"
+     }
+    ]
+   }
   }
  }
 }
