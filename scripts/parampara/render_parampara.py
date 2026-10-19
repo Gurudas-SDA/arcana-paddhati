@@ -464,10 +464,13 @@ def _rgb(im):
     return im.convert("RGBA" if im.mode in ("RGBA", "LA") or "transparency" in im.info else "RGB")
 
 
+LEGACY_WEBP_QUALITY = 90   # only for a portraits.json entry without "webp_quality" (before 19.10.2026); replace_photo.py writes it
+
+
 def build_masked(gid):
     """v8.0: optimise Vraja's photo for the app (the frame is drawn by code). Pipeline rules (his document
     2026.10.18_image-pipeline-agent-prompt.md): master untouched (1); ≤ 2× the real box, never upscale, Lanczos (2);
-    RGB before encoding, WebP q90 method 6 (3); content-hash names (4); keep the master bytes when the WebP is not
+    RGB before encoding, WebP method 6 at the entry's webp_quality (3; q58 since Vraja msg 5167, 19.10); content-hash names (4); keep the master bytes when the WebP is not
     meaningfully smaller (6); atomic writes (7). The PNG/JPG fallback is the master's own bytes (no re-encode)
     unless it had to be downscaled."""
     import hashlib
@@ -486,8 +489,9 @@ def build_masked(gid):
         fb, fb_ext = buf.getvalue(), "png"
     else:
         der, fb, fb_ext = src, raw, path.suffix.lower().lstrip(".").replace("jpeg", "jpg")
+    q = int(ent.get("webp_quality") or LEGACY_WEBP_QUALITY)    # set by replace_photo.py (default 58, Vraja msg 5167)
     buf = io.BytesIO()
-    der.save(buf, "WEBP", quality=90, method=6, alpha_quality=100)
+    der.save(buf, "WEBP", quality=q, method=6, alpha_quality=100)
     webp = buf.getvalue()
     use_webp = len(webp) < 0.95 * len(fb)
     PHOTO_DIR.mkdir(parents=True, exist_ok=True)
@@ -506,7 +510,7 @@ def build_masked(gid):
     hull = ent.get("contour")
     ok, cl = clearance(np.array(hull, float), 0, 0, w, aspect) if hull else (None, None)
     print(f"{gid} mask: master {len(raw):,} B {w}x{h} -> {fb_ext} {len(fb):,} B"
-          + (f", webp {len(webp):,} B" if use_webp else " (webp not smaller: master kept)")
+          + (f", webp q{q} {len(webp):,} B" if use_webp else f" (webp q{q} not smaller: master kept)")
           + f" {der.size[0]}x{der.size[1]}; "
           + (f"inside={ok} clearance={cl:.3f}" if hull else "контур не проверен (no contour)"))
     return {"id": gid, "mode": "mask", "source": ent["master"], "source_name": ent.get("source_name"),
@@ -515,7 +519,7 @@ def build_masked(gid):
             "min_clearance": round(cl, 4) if hull else None, "extended_background_share": 0.0,
             "photo_fallback": f"parampara/photo/{names['fallback']}",
             "photo_webp": f"parampara/photo/{names['webp']}" if use_webp else None,
-            "photo_size": list(der.size), "frame": frame_geometry(WIN_W, aspect)}
+            "photo_size": list(der.size), "webp_quality": q, "frame": frame_geometry(WIN_W, aspect)}
 
 
 def write_portraits(report):
