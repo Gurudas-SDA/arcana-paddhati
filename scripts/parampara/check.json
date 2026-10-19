@@ -805,189 +805,369 @@
   },
   {
    "id": "05",
-   "source": "5 Bhakti Prajnana Kesava Gosvami — VictoryOfPureLove_p11.jpeg",
+   "mode": "mask",
+   "source": "masters/parampara/05-bhakti-prajnana-keshava-ff1fa4305594.png",
+   "source_name": "05-bhakti-prajnana-keshava-ff1fa4305594.png",
+   "source_sha256": "ff1fa4305594743fd90b1bdea92f68ccf81ec6a5c353e1ba200366465101cae9",
    "source_size": [
-    391,
-    508
+    736,
+    1000
    ],
+   "aspect": 0.736,
    "crop": [
-    204.5,
-    313.0,
-    421.0,
-    572.79
+    368.0,
+    500.0,
+    736,
+    1000
    ],
    "hull": [
     [
-     183,
-     53
+     270,
+     130
     ],
     [
-     140,
-     85
+     335,
+     78
     ],
     [
-     224,
-     85
+     400,
+     110
     ],
     [
-     73,
+     405,
      200
     ],
     [
-     284,
-     190
+     390,
+     260
     ],
     [
-     48,
-     330
+     470,
+     290
     ],
     [
-     297,
-     340
+     520,
+     350
     ],
     [
-     33,
-     370
+     545,
+     450
     ],
     [
-     31,
-     410
+     550,
+     580
     ],
     [
-     73,
-     474
-    ],
-    [
-     150,
-     477
-    ],
-    [
-     250,
-     457
-    ],
-    [
-     374,
-     395
-    ],
-    [
-     368,
-     442
-    ]
-   ],
-   "all_inside": true,
-   "min_clearance": 0.0541,
-   "extended_background_share": 0.29,
-   "image": "parampara/05-bhakti-prajnana-keshava.png",
-   "image_size": [
-    641,
-    857
-   ],
-   "oval_pad": 20.67
-  },
-  {
-   "id": "06",
-   "source": "internet — AC Bhaktivedanta Swami Prabhupada 1972 Paris (Wikimedia Commons, CC BY-SA 4.0).jpg",
-   "source_size": [
-    475,
-    699
-   ],
-   "crop": [
-    240.0,
-    376.0,
-    516.52,
-    702.75
-   ],
-   "hull": [
-    [
-     237,
-     52
-    ],
-    [
-     198,
-     88
-    ],
-    [
-     280,
-     88
-    ],
-    [
-     190,
-     160
-    ],
-    [
-     310,
-     150
-    ],
-    [
-     130,
-     200
-    ],
-    [
-     128,
-     300
-    ],
-    [
-     130,
-     460
-    ],
-    [
-     138,
-     560
-    ],
-    [
-     140,
+     650,
      620
     ],
     [
+     675,
+     650
+    ],
+    [
+     690,
+     690
+    ],
+    [
+     691,
+     705
+    ],
+    [
+     686,
+     730
+    ],
+    [
+     685,
+     742
+    ],
+    [
+     681,
+     750
+    ],
+    [
+     660,
+     762
+    ],
+    [
+     600,
+     765
+    ],
+    [
+     500,
+     770
+    ],
+    [
+     400,
+     790
+    ],
+    [
+     300,
+     820
+    ],
+    [
+     180,
+     830
+    ],
+    [
      160,
-     680
+     790
     ],
     [
-     265,
-     660
+     140,
+     760
     ],
     [
-     310,
-     684
+     100,
+     700
     ],
     [
-     330,
-     640
+     98,
+     650
     ],
     [
-     352,
-     612
+     130,
+     600
     ],
     [
-     378,
-     560
+     125,
+     440
     ],
     [
-     400,
-     470
+     170,
+     330
     ],
     [
-     400,
-     380
+     240,
+     270
     ],
     [
-     392,
+     290,
      250
     ],
     [
-     345,
-     160
+     275,
+     200
     ]
    ],
    "all_inside": true,
-   "min_clearance": 0.0525,
-   "extended_background_share": 0.139,
-   "image": "parampara/06-bhaktivedanta-svami-prabhupada.png",
-   "image_size": [
-    641,
-    857
+   "min_clearance": 0.0063,
+   "extended_background_share": 0.0,
+   "photo_fallback": "parampara/photo/05-bhakti-prajnana-keshava-ff1fa4305594.png",
+   "photo_webp": "parampara/photo/05-bhakti-prajnana-keshava-d2bdf8df36ae.webp",
+   "photo_size": [
+    736,
+    1000
    ],
-   "oval_pad": 20.67
+   "webp_quality": 58,
+   "frame": {
+    "win_w": 600,
+    "win_h": 815,
+    "pad": 20.6667,
+    "width": 641.3333,
+    "height": 856.3333,
+    "lines": [
+     {
+      "offset": 7.0588,
+      "stroke": 2.3333,
+      "color": "#8B6508"
+     },
+     {
+      "offset": 12.1008,
+      "stroke": 1.0,
+      "color": "#D4A843"
+     }
+    ]
+   }
+  },
+  {
+   "id": "06",
+   "mode": "mask",
+   "source": "masters/parampara/06-bhaktivedanta-svami-prabhupada-636b337fe669.png",
+   "source_name": "06-bhaktivedanta-svami-prabhupada-636b337fe669.png",
+   "source_sha256": "636b337fe669871b6263653b8ef023ebbeba09894e6112726308c7049338d3fe",
+   "source_size": [
+    736,
+    1000
+   ],
+   "aspect": 0.736,
+   "crop": [
+    368.0,
+    500.0,
+    736,
+    1000
+   ],
+   "hull": [
+    [
+     255,
+     140
+    ],
+    [
+     320,
+     95
+    ],
+    [
+     390,
+     140
+    ],
+    [
+     400,
+     220
+    ],
+    [
+     380,
+     260
+    ],
+    [
+     440,
+     330
+    ],
+    [
+     490,
+     370
+    ],
+    [
+     505,
+     500
+    ],
+    [
+     560,
+     560
+    ],
+    [
+     610,
+     610
+    ],
+    [
+     660,
+     640
+    ],
+    [
+     675,
+     700
+    ],
+    [
+     665,
+     740
+    ],
+    [
+     653,
+     780
+    ],
+    [
+     640,
+     800
+    ],
+    [
+     650,
+     821
+    ],
+    [
+     636,
+     830
+    ],
+    [
+     560,
+     830
+    ],
+    [
+     480,
+     810
+    ],
+    [
+     410,
+     800
+    ],
+    [
+     300,
+     815
+    ],
+    [
+     260,
+     830
+    ],
+    [
+     165,
+     810
+    ],
+    [
+     95,
+     790
+    ],
+    [
+     65,
+     760
+    ],
+    [
+     55,
+     730
+    ],
+    [
+     60,
+     700
+    ],
+    [
+     75,
+     680
+    ],
+    [
+     110,
+     650
+    ],
+    [
+     110,
+     560
+    ],
+    [
+     125,
+     420
+    ],
+    [
+     150,
+     350
+    ],
+    [
+     210,
+     300
+    ],
+    [
+     250,
+     270
+    ],
+    [
+     245,
+     200
+    ]
+   ],
+   "all_inside": true,
+   "min_clearance": 0.0002,
+   "extended_background_share": 0.0,
+   "photo_fallback": "parampara/photo/06-bhaktivedanta-svami-prabhupada-636b337fe669.png",
+   "photo_webp": "parampara/photo/06-bhaktivedanta-svami-prabhupada-6133151a093c.webp",
+   "photo_size": [
+    736,
+    1000
+   ],
+   "webp_quality": 58,
+   "frame": {
+    "win_w": 600,
+    "win_h": 815,
+    "pad": 20.6667,
+    "width": 641.3333,
+    "height": 856.3333,
+    "lines": [
+     {
+      "offset": 7.0588,
+      "stroke": 2.3333,
+      "color": "#8B6508"
+     },
+     {
+      "offset": 12.1008,
+      "stroke": 1.0,
+      "color": "#D4A843"
+     }
+    ]
+   }
   },
   {
    "id": "07",
