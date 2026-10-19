@@ -323,6 +323,7 @@ export function HotspotCell({
 /** Image + SVG overlay (highlight and tap targets). */
 function HotspotCanvas({
   src,
+  webp,
   alt,
   data,
   imgName,
@@ -330,6 +331,8 @@ function HotspotCanvas({
   compact = false,
 }: {
   src: string;
+  /** WebP q58 of the picture (msg 5338); masks are still found next to the original `src`. */
+  webp?: string;
   alt: string;
   data: HotspotImage;
   imgName: string;
@@ -356,7 +359,7 @@ function HotspotCanvas({
     <>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={src}
+        src={webp ?? src}
         alt={alt}
         className={`hs-img block w-full h-auto${shown.length ? " hs-img-faded" : ""}`}
         draggable={false}
@@ -414,7 +417,7 @@ function HotspotCanvas({
           // The selected object(s): the same picture in strong black ink, seen
           // through a soft-edged window over the faded picture.
           <g key={active!.seq} pointerEvents="none" className="hs-lit">
-            <image href={src} width={w} height={h} filter={`url(#${inkId})`} mask={`url(#${maskId})`} />
+            <image href={webp ?? src} width={w} height={h} filter={`url(#${inkId})`} mask={`url(#${maskId})`} />
           </g>
         )}
 
@@ -480,6 +483,7 @@ function HotspotCanvas({
 /** A numbered picture with hotspots (replaces the plain book image). */
 export function HotspotFigure({
   src,
+  webp,
   imgName,
   alt,
   data,
@@ -487,6 +491,7 @@ export function HotspotFigure({
   closeLabel = "✕",
 }: {
   src: string;
+  webp?: string;
   imgName: string;
   alt: string;
   data: HotspotImage;
@@ -596,7 +601,7 @@ export function HotspotFigure({
 
   if (!ctx) {
     // eslint-disable-next-line @next/next/no-img-element
-    return <img src={src} alt={alt} className="book-image" style={{ maxWidth }} />;
+    return <img src={webp ?? src} alt={alt} className="book-image" style={{ maxWidth }} />;
   }
   const width = Math.min(maxWidth, data.w);
 
@@ -608,7 +613,7 @@ export function HotspotFigure({
         style={{ width: "100%", maxWidth: width, aspectRatio: `${data.w} / ${data.h}` }}
         {...Object.fromEntries(Object.entries(data.spots).map(([n, sp]) => [`data-y${n}`, sp.y]))}
       >
-        <HotspotCanvas src={src} alt={alt} data={data} imgName={imgName} ctx={ctx} />
+        <HotspotCanvas src={src} webp={webp} alt={alt} data={data} imgName={imgName} ctx={ctx} />
       </div>
       {peek &&
         createPortal(
@@ -630,7 +635,7 @@ export function HotspotFigure({
             {/* Only the numbers/objects and the close button act; the
                 background does nothing. */}
             <div className="relative">
-              <HotspotCanvas src={src} alt="" data={data} imgName={imgName} ctx={ctx} compact />
+              <HotspotCanvas src={src} webp={webp} alt="" data={data} imgName={imgName} ctx={ctx} compact />
             </div>
           </div>,
           document.body,

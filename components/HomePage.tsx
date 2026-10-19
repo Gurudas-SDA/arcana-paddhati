@@ -2,13 +2,16 @@ import { preload } from "react-dom";
 import { getUi } from "@/lib/content";
 import { t } from "@/lib/i18n";
 import { BASE_PATH } from "@/lib/basePath";
+import { webpFor } from "@/lib/webpImages";
 
 /* 19.10.2026 (load speed, Vraja Lila msg 5076; «Скорость загрузки книги — разбор» p. 1): the cover is the
    page's LCP. It is fetched first (preload + fetchpriority high), as WebP in the size the screen needs
    (440 / 874 px wide, never upscaled beyond the original 874×1240), the JPG for a browser without WebP.
    Files: public/media/cover/ (media layout, Vraja Lila msg 5075). */
 const COVER = `${BASE_PATH}/media/cover`;
-const SRCSET = `${COVER}/cover-440.webp 440w, ${COVER}/cover.webp 874w`;
+// 19.10.2026 (Vraja Lila msg 5338 / 5334): WebP q58 with content-hashed names (scripts/images_webp.py).
+const COVER_WEBP = `${BASE_PATH}/media/${webpFor("cover/cover.webp")}`;
+const SRCSET = `${BASE_PATH}/media/${webpFor("cover/cover-440.webp")} 440w, ${COVER_WEBP} 874w`;
 // Shown width: the panel width, at most the screen height minus margins × the cover's aspect (874/1240).
 const SIZES = "min(100vw, calc((100vh - 2rem) * 0.705))";
 
@@ -16,7 +19,7 @@ const SIZES = "min(100vw, calc((100vh - 2rem) * 0.705))";
  *  Navigation (contents, language, install) is in the app shell. */
 export default function HomePage({ lang }: { lang: string }) {
   const ui = getUi(lang);
-  preload(`${COVER}/cover.webp`, { as: "image", type: "image/webp", imageSrcSet: SRCSET, imageSizes: SIZES, fetchPriority: "high" });
+  preload(COVER_WEBP, { as: "image", type: "image/webp", imageSrcSet: SRCSET, imageSizes: SIZES, fetchPriority: "high" });
   return (
     <div className="flex items-center justify-center min-h-full px-4 py-4 sm:px-6 lg:py-6">
       {/* The cover fills the content panel: as tall as the viewport allows

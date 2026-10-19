@@ -4,6 +4,7 @@ import MaskedPortrait, { portraitMask, portraitSize } from "@/components/MaskedP
 import React from "react";
 import { transcriptLinkProps } from "@/lib/transcripts";
 import { BASE_PATH } from "@/lib/basePath";
+import { webpFor } from "@/lib/webpImages";
 import {
   isShortMantra,
   parseInline,
@@ -541,22 +542,26 @@ function ContentBlock({
           <HotspotFigure
             key={index}
             src={`${BASE_PATH}/media/${item.src}`}
+            webp={webpFor(item.src) && `${BASE_PATH}/media/${webpFor(item.src)}`}
             imgName={item.src}
             alt={item.alt || ""}
             data={hs}
           />
         );
       }
+      const webp = webpFor(item.src);
       return (
-        // Local static images keep their natural size in the offline export.
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          key={index}
-          src={`${BASE_PATH}/media/${item.src}`}
-          alt={item.alt || ""}
-          className="book-image"
-          style={{ maxWidth: "420px" }}
-        />
+        // Local static images keep their natural size in the offline export; WebP q58 first (msg 5338).
+        <picture key={index}>
+          {webp && <source srcSet={`${BASE_PATH}/media/${webp}`} type="image/webp" />}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`${BASE_PATH}/media/${item.src}`}
+            alt={item.alt || ""}
+            className="book-image"
+            style={{ maxWidth: "420px" }}
+          />
+        </picture>
       );
     }
 
