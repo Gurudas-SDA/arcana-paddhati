@@ -72,7 +72,10 @@ def page_name(gid):
 CHECK = Path(__file__).resolve().parent / "check.json"
 
 ASPECT = 0.735          # oval width / height (variant A)
-MARGIN = 0.05           # min clearance of the contour: 5 % of the oval width
+MARGIN = 0.05           # crop search for the baked pages: clearance 5 % of the oval width (how they were cut 07.10)
+# What L21 requires (check.json "margin"; qa/lint_content.py L21_MARGIN): rule 105 «вокруг есть поле» — 1.5 % of the oval
+# width (Lipikāras 19.10 tehniskais lēmums, Vraja msg 5143); the baked pages keep their 5 %.
+CHECK_MARGIN = 0.015
 WIN_W = 600             # oval width in the output image, px (sources are ~430 px across the oval)
 SS = 3                  # supersampling of the frame lines
 GOLD_D = (139, 101, 8, 255)
@@ -152,7 +155,7 @@ EXTRA = {
 # baking). The oval is inscribed in the photo box itself (window = the whole photo, aspect = the photo's own
 # 736/1000 = 0.736, not the 0.735 search + background extension used for the baked pages); uniform scale only,
 # never stretching («изображения никогда не искажаем»). Which page is baked and which is masked by code, the
-# master of each masked page and its figure contour (photo px; checked by L21 with the 5 % margin) live in the
+# master of each masked page and its figure contour (photo px; checked by L21 with CHECK_MARGIN 1.5 %) live in the
 # manifest scripts/parampara/portraits.json — scripts/parampara/replace_photo.py switches a page by itself.
 # Masters are kept unchanged in masters/parampara/ (repo root, outside public/) (never served; Vraja's image-pipeline rule 1).
 MANIFEST = Path(__file__).resolve().parent / "portraits.json"
@@ -562,7 +565,7 @@ def only(ids):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    report = {"aspect": ASPECT, "margin": MARGIN, "pages": []}
+    report = {"aspect": ASPECT, "margin": CHECK_MARGIN, "pages": []}
     masked = masked_ids()
     jobs = [(gid, SRC / fname, None, hull, None) for gid, fname, hull in GURUS if gid not in EXTRA and gid not in masked]
     jobs += [(gid, path, valid, hull, prep) for gid, (path, valid, hull, prep) in EXTRA.items() if gid not in masked]

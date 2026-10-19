@@ -104,6 +104,8 @@ SUITES = [
          devices=None, fast=True, timeout_fast=200),
     dict(id="s20wk", file="suites/s20_offline.py", title="OFFLINE: WebKit (iPhone/iPad) — serveris izslēgts", args=["webkit"],
          devices=None, fast=False),
+    dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
+         devices=None, fast=True, server=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",
          devices=["pixel7", "desktop"], fast=False, server=False),
     dict(id="s45", file="suites/s45_scroll_option.py", title="A89: «Аа» «Листать / Прокручивать» — noklusējums lapas, režīms saglabājas pēc pārlādes, pārslēdzot vieta nezūd",
