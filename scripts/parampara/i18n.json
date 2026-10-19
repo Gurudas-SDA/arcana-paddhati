@@ -1,7 +1,7 @@
 {
  "parampara": {
   "lv": {
-   "en_hash": "00f13cd4d9e02c4a",
+   "en_hash": "15c4d3b0a108c2f7",
    "model": "cx/gpt-6.1-sol",
    "date": "2026-10-08 01:41",
    "section": {
@@ -61,7 +61,7 @@
    }
   },
   "de": {
-   "en_hash": "00f13cd4d9e02c4a",
+   "en_hash": "15c4d3b0a108c2f7",
    "model": "cx/gpt-6.1-sol",
    "date": "2026-10-08 01:40",
    "section": {
@@ -121,7 +121,7 @@
    }
   },
   "fr": {
-   "en_hash": "00f13cd4d9e02c4a",
+   "en_hash": "15c4d3b0a108c2f7",
    "model": "cx/gpt-6.1-sol",
    "date": "2026-10-08 01:40",
    "section": {
@@ -181,7 +181,7 @@
    }
   },
   "es": {
-   "en_hash": "00f13cd4d9e02c4a",
+   "en_hash": "15c4d3b0a108c2f7",
    "model": "cx/gpt-6.1-sol",
    "date": "2026-10-08 01:40",
    "section": {
@@ -241,7 +241,7 @@
    }
   },
   "it": {
-   "en_hash": "00f13cd4d9e02c4a",
+   "en_hash": "15c4d3b0a108c2f7",
    "model": "cx/gpt-6.1-sol",
    "date": "2026-10-08 01:40",
    "section": {
@@ -301,7 +301,7 @@
    }
   },
   "uk": {
-   "en_hash": "00f13cd4d9e02c4a",
+   "en_hash": "15c4d3b0a108c2f7",
    "model": "cx/gpt-6.1-sol",
    "date": "2026-10-08 01:40",
    "section": {
@@ -361,7 +361,7 @@
    }
   },
   "hu": {
-   "en_hash": "00f13cd4d9e02c4a",
+   "en_hash": "15c4d3b0a108c2f7",
    "model": "cx/gpt-6.1-sol",
    "date": "2026-10-08 01:40",
    "section": {
@@ -421,7 +421,7 @@
    }
   },
   "pt": {
-   "en_hash": "00f13cd4d9e02c4a",
+   "en_hash": "15c4d3b0a108c2f7",
    "model": "cx/gpt-6.1-sol",
    "date": "2026-10-10 20:44",
    "section": {
@@ -481,7 +481,7 @@
    }
   },
   "lt": {
-   "en_hash": "00f13cd4d9e02c4a",
+   "en_hash": "15c4d3b0a108c2f7",
    "model": "cx/gpt-6.1-sol",
    "date": "2026-10-10 20:43",
    "section": {
