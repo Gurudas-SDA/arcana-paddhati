@@ -132,14 +132,56 @@
    }
   },
   "parampara/05-bhakti-prajnana-keshava.png": {
-   "mode": "baked",
-   "width": 641,
-   "height": 857
+   "mode": "mask",
+   "fallback": "parampara/photo/05-bhakti-prajnana-keshava-ff1fa4305594.png",
+   "webp": "parampara/photo/05-bhakti-prajnana-keshava-d2bdf8df36ae.webp",
+   "width": 736,
+   "height": 1000,
+   "frame": {
+    "win_w": 600,
+    "win_h": 815,
+    "pad": 20.6667,
+    "width": 641.3333,
+    "height": 856.3333,
+    "lines": [
+     {
+      "offset": 7.0588,
+      "stroke": 2.3333,
+      "color": "#8B6508"
+     },
+     {
+      "offset": 12.1008,
+      "stroke": 1.0,
+      "color": "#D4A843"
+     }
+    ]
+   }
   },
   "parampara/06-bhaktivedanta-svami-prabhupada.png": {
-   "mode": "baked",
-   "width": 641,
-   "height": 857
+   "mode": "mask",
+   "fallback": "parampara/photo/06-bhaktivedanta-svami-prabhupada-636b337fe669.png",
+   "webp": "parampara/photo/06-bhaktivedanta-svami-prabhupada-6133151a093c.webp",
+   "width": 736,
+   "height": 1000,
+   "frame": {
+    "win_w": 600,
+    "win_h": 815,
+    "pad": 20.6667,
+    "width": 641.3333,
+    "height": 856.3333,
+    "lines": [
+     {
+      "offset": 7.0588,
+      "stroke": 2.3333,
+      "color": "#8B6508"
+     },
+     {
+      "offset": 12.1008,
+      "stroke": 1.0,
+      "color": "#D4A843"
+     }
+    ]
+   }
   },
   "parampara/07-bhaktivedanta-narayana.png": {
    "mode": "mask",

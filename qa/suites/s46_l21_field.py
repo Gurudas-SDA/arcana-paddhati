@@ -96,5 +96,22 @@ def webp_weight():
 
 
 webp_weight()
+
+
+def exception_0506():
+    """f) 19.10: pages 05, 06 = Vraja Lila's photos, field < 1.5 %; Vraja checked by hand (rule 0а) → the contour
+    clearance of 05/06 only is a WARN (qa/lint_config.json exceptions); 00 stays strict (cases b, c above)."""
+    tmp = copy_tree()
+    try:
+        l21, tail = lint_l21(tmp)
+        warns = [l for l in tail.splitlines() if "[WARN] data L21" in l]
+        ids = {w.split(" :: ")[2] for w in warns if w.count(" :: ") >= 3}
+        ok = l21 is not None and l21["ok"] and ids == {"05", "06"}
+        chk("f 05/06 L21 field exception (Vraja 0а, 19.10) = WARN only, nothing else excepted", ok, f"{l21} warn ids={ids}")
+    finally:
+        shutil.rmtree(tmp, onexc=lambda fn, q, e: (os.chmod(q, stat.S_IWRITE), fn(q)))
+
+
+exception_0506()
 print(f"s46: {sum(res)}/{len(res)} passed", flush=True)
 sys.exit(0 if res and all(res) else 1)

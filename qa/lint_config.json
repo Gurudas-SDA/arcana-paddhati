@@ -114,6 +114,22 @@
       "reason": "Lekcija № 10011 (12.04.2026) ПОИСКОВИК indeksā bez laika zīmēm (ts_quality=none, start_ts nav) — taimkodu nevar noteikt bez audio/transkripta mērījuma; citāts atrasts block 0 (06.10, obs-20261006-232205-79f4cc). Dzēst, kad taimkods izmērīts.",
       "since": "2026-10-06",
       "by": "Gurudas (v7.3 uzdevums, p.7: «ja neatrod — atstāj izņēmumu un ziņo»)"
+    },
+    {
+      "check": "L21",
+      "file": "check.json",
+      "match": "05 :: contour point",
+      "reason": "Vraja Lila manuāli pārbaudīja, 0а, 19.10 — parampara 05 (Bhakti Prajñāna Keśava) Vraja foto, kontūras atstarpe 0,6 % < 1,5 % (1,5 % = Lipikāras tehniskais slieksnis, ne Satkirti noteikums); Satkirti noteikums 0а dod Vraja Lila absolūtas tiesības uz saskarni. Tikai kontūras atstarpe → WARN; pārējās L21 pārbaudes (ovāls, proporcija, faili, manifests) paliek stingras.",
+      "since": "2026-10-19",
+      "by": "Vraja Lila (noteikums 0а), Lipikāra uzdevums 19.10"
+    },
+    {
+      "check": "L21",
+      "file": "check.json",
+      "match": "06 :: contour point",
+      "reason": "Vraja Lila manuāli pārbaudīja, 0а, 19.10 — parampara 06 (Śrīla Prabhupāda) Vraja foto, kontūras atstarpe 0,0 % < 1,5 % (1,5 % = Lipikāras tehniskais slieksnis, ne Satkirti noteikums); Satkirti noteikums 0а dod Vraja Lila absolūtas tiesības uz saskarni. Tikai kontūras atstarpe → WARN; pārējās L21 pārbaudes (ovāls, proporcija, faili, manifests) paliek stingras.",
+      "since": "2026-10-19",
+      "by": "Vraja Lila (noteikums 0а), Lipikāra uzdevums 19.10"
     }
   ]
 }
