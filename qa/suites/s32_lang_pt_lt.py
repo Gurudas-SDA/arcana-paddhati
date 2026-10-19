@@ -134,9 +134,12 @@ def data_checks():
         chk(dev, f"{code}: Gurudev's quotes ({mw_en}) present with a translation",
             len(moods) == mw_en and all(m.get("translation", "").strip() and m["translation"] != m["quote"] for m in moods),
             f"{len(moods)} blocks")
+        # Keys a language file may have and ui.en.json has not: «Стандарты» 76 — the machine-translation line at the
+        # start of a machine-translated book (Satkirti 18.10.2026 msg 4507/4509; never in the English book, lint L35).
+        LANG_ONLY_UI = {"book.machineNote"}
         ui = load(f"ui.{code}.json")
         chk(dev, f"{code}: ui.{code}.json has every key of ui.en.json ({len(ui_en)})",
-            ui is not None and set(ui) == set(ui_en) and all(isinstance(ui[k], str) and ui[k].strip() for k in ui),
+            ui is not None and set(ui) - LANG_ONLY_UI == set(ui_en) and all(isinstance(ui[k], str) and ui[k].strip() for k in ui),
             "missing %s" % (sorted(set(ui_en) - set(ui or {}))[:8]))
         if ui:
             same = [k for k in ui_en if ui[k] == ui_en[k] and english_ratio(ui_en[k])[1] >= 3
