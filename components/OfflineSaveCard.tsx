@@ -86,7 +86,7 @@ export default function OfflineSaveCard({ labels }: { labels: OfflineSaveLabels 
   if (mounted && !hidden) {
     if (doneShown || save?.s === "done") view = "done";
     else if (save?.s === "loading") view = online ? "loading" : "paused";
-    else if (save?.s === "partial") view = online ? "loading" : "paused";
+    else if (save?.s === "partial") view = online ? "partial" : "paused";
     else if (!save && reserved && registered !== "no") view = online ? "loading" : "paused";
   }
 
@@ -135,6 +135,15 @@ export default function OfflineSaveCard({ labels }: { labels: OfflineSaveLabels 
   } else if (view) {
     const title = view === "loading" ? labels.loading : view === "paused" ? labels.paused : labels.partial;
     let note = view === "loading" ? labels.loadingNote : labels.pausedNote;
+    if (view === "partial") {
+      const k = save?.k ?? {};
+      const kinds = (Object.keys(labels.kinds) as (keyof FailedKinds)[]).filter((x) => (k[x] ?? 0) > 0);
+      const what = fill(labels.partialWhat, {
+        n: save?.f ?? 0,
+        what: kinds.map((x) => labels.kinds[x]).join(", "),
+      });
+      note = `${what} ${(k.text ?? 0) > 0 ? labels.textMissing : labels.textOk} ${labels.retry}`;
+    }
     body = (
       <>
         <div className="home-save-top">
