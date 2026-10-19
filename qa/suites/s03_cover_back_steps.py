@@ -55,7 +55,7 @@ def run(p, dev, eng, o, mode):
         loc.tap() if touch else loc.click(); pg.wait_for_timeout(500)
 
     shown = lambda: pg.locator(".reader-chrome[data-shown]").count() == 1
-    menu = lambda: pg.locator(".mobile-menu").count() == 1
+    menu = lambda: pg.locator(".mobile-menu[data-open]").count() == 1
     top = lambda: pg.evaluate("document.querySelector('.app-main').scrollTop")
 
     def show_bars():
@@ -143,27 +143,27 @@ def run(p, dev, eng, o, mode):
         y0 = top()
         show_bars(); act(pg.locator("[data-reader-action=contents]"))
         chk(dev, "(b) 1 contents opens", menu())
-        part_btn = pg.locator(".mobile-menu nav button[aria-expanded=false]", has_text="Праздники").first
+        part_btn = pg.locator(".mobile-menu[data-open] nav button[aria-expanded=false]", has_text="Праздники").first
         part_name = part_btn.inner_text().strip()
         act(part_btn); act(part_btn)   # [v7.5 law, Satkirti 07.10: 1st tap highlights, 2nd expands]
-        exp = lambda: pg.locator(".mobile-menu nav button[aria-expanded=true]", has_text=part_name).count() == 1
+        exp = lambda: pg.locator(".mobile-menu[data-open] nav button[aria-expanded=true]", has_text=part_name).count() == 1
         chk(dev, "(b) 2 part expanded", exp(), part_name)
         shot("b2-part-expanded")
         # v7.5 (Satkirti 07.10): a chapter with subsections — 1st tap highlights, 2nd expands
         # (each a Back step); the chapter is opened through its subsections.
-        chbtn = pg.locator(".mobile-menu nav button[aria-expanded=true]", has_text=part_name).locator("xpath=ancestor::li[1]//ul//button[@data-toc-chapter]").first
+        chbtn = pg.locator(".mobile-menu[data-open] nav button[aria-expanded=true]", has_text=part_name).locator("xpath=ancestor::li[1]//ul//button[@data-toc-chapter]").first
         chid = chbtn.get_attribute("data-toc-chapter")
         act(chbtn)
-        chexp = lambda: pg.locator(f".mobile-menu nav button[data-toc-chapter='{chid}'][aria-expanded=true]").count() == 1
+        chexp = lambda: pg.locator(f".mobile-menu[data-open] nav button[data-toc-chapter='{chid}'][aria-expanded=true]").count() == 1
         chk(dev, "(b) 2a v7.5: first tap on the chapter only highlights", not chexp() and pg.url == P, chid)
         act(chbtn)
         chk(dev, "(b) 2b chapter expanded on the second tap", chexp() and pg.url == P, chid)
-        first_sub = pg.locator(f".mobile-menu #toc-ch-{chid} a").first
+        first_sub = pg.locator(f".mobile-menu[data-open] #toc-ch-{chid} a").first
         act(first_sub); act(first_sub); pg.wait_for_timeout(1200)
         C = pg.url.split("#")[0]
         chk(dev, "(b) 3 chapter opened (first subsection), menu closed", f"/{chid}/" in C and not menu(), pg.url)
         show_bars(); act(pg.locator("[data-reader-action=contents]"))
-        subs = pg.locator(".mobile-menu nav a[data-toc-row^=\"sub:\"]")
+        subs = pg.locator(".mobile-menu[data-open] nav a[data-toc-row^=\"sub:\"]")
         nsub = subs.count()
         if nsub >= 2:
             act(subs.nth(1)); act(subs.nth(1)); pg.wait_for_timeout(900)
@@ -199,8 +199,8 @@ def run(p, dev, eng, o, mode):
 
     # (b2) closing the contents (✕) after expanding pops all its steps
     show_bars(); act(pg.locator("[data-reader-action=contents]"))
-    flow.activate(pg.locator(".mobile-menu nav button[aria-expanded=false]").first)
-    act(pg.locator(".mobile-menu button[aria-label]").first)  # ✕ close
+    flow.activate(pg.locator(".mobile-menu[data-open] nav button[aria-expanded=false]").first)
+    act(pg.locator(".mobile-menu[data-open] button[aria-label]").first)  # ✕ close
     pg.wait_for_timeout(600)
     st = pg.evaluate("history.state && history.state.apMenu === true")
     chk(dev, "(b) ✕ after expanding -> menu closed, no menu entry left", not menu() and not st and pg.url == P, pg.url)
@@ -218,14 +218,14 @@ def run(p, dev, eng, o, mode):
 
     # (d) search -> result -> back -> search with query -> back -> closed
     show_bars(); act(pg.locator("[data-reader-action=search]"))
-    inp = pg.locator(".mobile-menu input[type=search]")
+    inp = pg.locator(".mobile-menu[data-open] input[type=search]")
     inp.fill("тилака")
     try:
-        pg.locator(".mobile-menu nav a:visible mark").first.wait_for(timeout=15000)
+        pg.locator(".mobile-menu[data-open] nav a:visible mark").first.wait_for(timeout=15000)
     except Exception:
         pass
     inp.press("Enter"); pg.wait_for_timeout(300)
-    act(pg.locator(".mobile-menu nav a:visible").nth(1)); pg.wait_for_timeout(1300)
+    act(pg.locator(".mobile-menu[data-open] nav a:visible").nth(1)); pg.wait_for_timeout(1300)
     R = pg.url
     pg.go_back(); pg.wait_for_timeout(1300)
     q = inp.input_value() if inp.count() else None

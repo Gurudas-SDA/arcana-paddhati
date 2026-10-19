@@ -46,10 +46,10 @@ with sync_playwright() as p:
         c = pg.locator("[data-reader-action=contents]")
         c.tap() if touch else c.click()
         pg.wait_for_timeout(500)
-        opts_ = pg.locator(".mobile-menu select option").evaluate_all("os => os.map(o => [o.value, o.textContent.trim()])")
+        opts_ = pg.locator(".mobile-menu[data-open] select option").evaluate_all("os => os.map(o => [o.value, o.textContent.trim()])")
         rus = [o for o in opts_ if o[0].startswith("ru")]
         # v7.8 (Satkirti 07.10.2026 вечер): the language menu is ONLY in the «Аа» panel — none in «Содержание»
-        check(dev, "contents panel has NO language menu (v7.8: only in «Аа»)", opts_ == [] and pg.locator(".mobile-menu select").count() == 0, str(opts_))
+        check(dev, "contents panel has NO language menu (v7.8: only in «Аа»)", opts_ == [] and pg.locator(".mobile-menu[data-open] select").count() == 0, str(opts_))
         pg.go_back(); pg.wait_for_timeout(500)
         # open the Аа panel too
         if pg.locator(".reader-chrome[data-shown]").count() == 0:
@@ -67,12 +67,12 @@ with sync_playwright() as p:
         s = pg.locator("[data-reader-action=search]")
         s.tap() if touch else s.click()
         pg.wait_for_timeout(400)
-        pg.locator(".mobile-menu input[type=search]").fill("тилака")
+        pg.locator(".mobile-menu[data-open] input[type=search]").fill("тилака")
         try:
-            pg.locator(".mobile-menu nav a:visible mark").first.wait_for(timeout=15000)
+            pg.locator(".mobile-menu[data-open] nav a:visible mark").first.wait_for(timeout=15000)
         except Exception:
             pass
-        n = pg.locator(".mobile-menu nav a:visible").count()
+        n = pg.locator(".mobile-menu[data-open] nav a:visible").count()
         check(dev, "Russian search loads search-index.ru-iast.json, has results",
               any(u.endswith("search-index.ru-iast.json") for u in reqs) and not any(u.endswith("search-index.ru.json") for u in reqs) and n > 0,
               f"{reqs} n={n}")

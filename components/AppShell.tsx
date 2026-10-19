@@ -400,7 +400,7 @@ export default function AppShell({
   // Close mobile menu on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && document.querySelector(".mobile-menu")) {
+      if (e.key === "Escape" && document.querySelector(".mobile-menu[data-open]")) {
         closeMenu();
       }
     };
@@ -670,6 +670,8 @@ export default function AppShell({
       {mobileMenuOpen && (
         <div
           className="mobile-menu no-print fixed inset-0 z-40"
+          // Vraja Lila msg 5316 p. 3a: «the menu is open» is this attribute, not the panel's presence in the DOM.
+          data-open=""
           data-leaving={leaving ? "" : undefined}
           onClickCapture={guardTaps}
         >

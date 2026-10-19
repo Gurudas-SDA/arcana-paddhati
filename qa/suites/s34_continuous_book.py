@@ -41,7 +41,7 @@ def run(browser, device, options, theme):
         page.wait_for_timeout(1300)
         assert page.url.rstrip("/").endswith("/parampara")
         assert page.evaluate("history.length") == length
-        assert not page.locator(".mobile-menu").count()
+        assert not page.locator(".mobile-menu[data-open]").count()
         assert main.evaluate("e => e.scrollTop") > 500
         # The reading indicator names the part and follows subsection
         # numbers even without a URL anchor. Scrolling adds no Back steps.

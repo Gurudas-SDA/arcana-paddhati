@@ -2,7 +2,7 @@
 import qa
 
 STATE = """() => {
- const nav = document.querySelector('.mobile-menu nav');
+ const nav = document.querySelector('.mobile-menu[data-open] nav');
  return {url: location.pathname + location.hash, menu: !!nav,
    lit: nav ? [...nav.querySelectorAll('[data-toc-lit]')].map(e=>e.dataset.tocRow) : [],
    open: nav ? [...nav.querySelectorAll('[aria-expanded=true][data-toc-group],[aria-expanded=true][data-toc-chapter]')]
@@ -92,7 +92,7 @@ EMPTY_POINT = """root => {
 def locator_navigates(locator):
     """Rows that can open another page: chapters, subsections, cover, parts."""
     try:
-        return locator.evaluate("e => !!e.closest('.mobile-menu') && !!e.closest('a[href],[data-toc-chapter],[data-toc-row],[data-toc-toggle]')")
+        return locator.evaluate("e => !!e.closest('.mobile-menu[data-open]') && !!e.closest('a[href],[data-toc-chapter],[data-toc-row],[data-toc-toggle]')")
     except Exception:
         return False
 
@@ -163,13 +163,13 @@ class Contents:
         self.bars();self.tap(self.page.locator('[data-reader-action=contents]'),wait=350)
 
     def group(self, id):
-        return self.page.locator(f'.mobile-menu [data-toc-group="{id}"]')
+        return self.page.locator(f'.mobile-menu[data-open] [data-toc-group="{id}"]')
 
     def chapter(self, id):
-        return self.page.locator(f'.mobile-menu [data-toc-chapter="{id}"]')
+        return self.page.locator(f'.mobile-menu[data-open] [data-toc-chapter="{id}"]')
 
     def row(self, id):
-        return self.page.locator(f'.mobile-menu [data-toc-row="{id}"]')
+        return self.page.locator(f'.mobile-menu[data-open] [data-toc-row="{id}"]')
 
     def activate(self, locator, wait=350):
         self.tap(locator,wait=wait)

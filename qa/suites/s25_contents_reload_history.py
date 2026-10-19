@@ -18,7 +18,7 @@ L = "ru-iast"
 DEVICES = qa.devices(["pixel7", "iphone14", "ipad-portrait", "ipad-landscape", "desktop", "mac-safari"])
 res = []
 
-STATE = """() => { const nav = document.querySelector('.mobile-menu nav');
+STATE = """() => { const nav = document.querySelector('.mobile-menu[data-open] nav');
   const r = {url: decodeURI(location.pathname) + decodeURIComponent(location.hash), menu: !!nav, lit: [], open: []};
   if (nav) {
     r.lit = [...nav.querySelectorAll('[data-toc-lit]')].map(e => e.getAttribute('data-toc-row'));

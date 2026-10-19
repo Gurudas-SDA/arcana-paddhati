@@ -72,8 +72,8 @@ def run(p, dev, eng, o):
         (pg.touchscreen.tap if touch else pg.mouse.click)(x, y)
         pg.wait_for_timeout(ms)
 
-    SETTLED = """() => [location.pathname + location.hash, window.__qaFetching || 0, !!document.querySelector('.mobile-menu nav'),
-      JSON.stringify([...document.querySelectorAll('.mobile-menu nav [data-toc-lit], .mobile-menu nav [aria-expanded=true]')]
+    SETTLED = """() => [location.pathname + location.hash, window.__qaFetching || 0, !!document.querySelector('.mobile-menu[data-open] nav'),
+      JSON.stringify([...document.querySelectorAll('.mobile-menu[data-open] nav [data-toc-lit], .mobile-menu[data-open] nav [aria-expanded=true]')]
         .map(e => e.dataset.tocRow || e.dataset.tocGroup || e.dataset.tocChapter)), history.length]"""
 
     def settled(before_url, moves, limit=6000):
@@ -104,7 +104,7 @@ def run(p, dev, eng, o):
 
     def contents():
         for _ in range(3):
-            if pg.locator(".mobile-menu").count():
+            if pg.locator(".mobile-menu[data-open]").count():
                 return
             bars()
             try:
@@ -113,7 +113,7 @@ def run(p, dev, eng, o):
                 pass
 
     def close_menu():
-        if pg.locator(".mobile-menu").count():
+        if pg.locator(".mobile-menu[data-open]").count():
             pg.keyboard.press("Escape")
             pg.wait_for_timeout(500)
 
@@ -125,12 +125,12 @@ def run(p, dev, eng, o):
             flow.bars()
             tap('[data-reader-action=aa]', 500)
 
-    lit = lambda: pg.evaluate("() => [...document.querySelectorAll('.mobile-menu nav [data-toc-lit]')].map(e => e.getAttribute('data-toc-row'))")
+    lit = lambda: pg.evaluate("() => [...document.querySelectorAll('.mobile-menu[data-open] nav [data-toc-lit]')].map(e => e.getAttribute('data-toc-row'))")
 
     # ---------- 1 + 2: switches and language only in «Аа» ----------
     goto("kartika-bhajans/")
     contents()
-    m = pg.evaluate("""() => { const a = document.querySelector('.mobile-menu aside');
+    m = pg.evaluate("""() => { const a = document.querySelector('.mobile-menu[data-open] aside');
         return {sw: a.querySelectorAll('[role=switch]').length, sel: a.querySelectorAll('select').length,
                 txt: /пословный перевод|все переводы/i.test(a.innerText)}; }""")
     chk(dev, "1/2 «Содержание»: no «Показать…» switches, no language menu", m["sw"] == 0 and m["sel"] == 0 and not m["txt"], str(m))
@@ -163,7 +163,7 @@ def run(p, dev, eng, o):
 
     # ---------- 3: fixed part ----------
     contents()
-    f = pg.evaluate("""() => { const nav = document.querySelector('.mobile-menu nav'); const sc = nav.querySelector('.toc-scroll');
+    f = pg.evaluate("""() => { const nav = document.querySelector('.mobile-menu[data-open] nav'); const sc = nav.querySelector('.toc-scroll');
         const cov = nav.querySelector('[data-toc-cover]'); const r0 = cov.getBoundingClientRect().top;
         const fits = sc.scrollHeight <= sc.clientHeight + 2; sc.scrollTop = sc.scrollHeight; const r1 = cov.getBoundingClientRect().top;
         const first = sc.querySelector('[data-toc-row]');
@@ -171,20 +171,20 @@ def run(p, dev, eng, o):
                 firstRow: first && first.textContent.trim(), coverTop: r1, scTop: sc.getBoundingClientRect().top}; }""")
     chk(dev, "3 «Обложка» in the fixed part (does not scroll), list scrolls under it from «Гуру-парампара»",
         not f["inScroll"] and f["moved"] < 1 and (f["scrolled"] > 50 or f["fits"]) and f["firstRow"] == "Гуру-парампара" and f["coverTop"] < f["scTop"], str(f))
-    pg.evaluate("document.querySelector('.mobile-menu .toc-scroll').scrollTop = 0")
+    pg.evaluate("document.querySelector('.mobile-menu[data-open] .toc-scroll').scrollTop = 0")
 
     # ---------- 4: full-width rows ----------
-    tap(".mobile-menu [data-toc-cover]")          # opens the cover on one tap
+    tap(".mobile-menu[data-open] [data-toc-cover]")          # opens the cover on one tap
     contents()
     # open «Введение» and part I, and chapter 1's list (to have every row type)
-    for sel in (".mobile-menu [data-toc-group=introduction]", ".mobile-menu [data-toc-group=temple-worship]",
-                ".mobile-menu button[data-toc-chapter=daily-duties-brahma-muhurta]"):
+    for sel in (".mobile-menu[data-open] [data-toc-group=introduction]", ".mobile-menu[data-open] [data-toc-group=temple-worship]",
+                ".mobile-menu[data-open] button[data-toc-chapter=daily-duties-brahma-muhurta]"):
         for _ in range(3):
             if pg.locator(sel).count() and pg.get_attribute(sel, "aria-expanded") == "true":
                 break
             if pg.locator(sel).count():
                 tap(sel)
-    rows = pg.evaluate("""() => [...document.querySelectorAll('.mobile-menu nav [data-toc-row]')].map(e => e.getAttribute('data-toc-row'))""")
+    rows = pg.evaluate("""() => [...document.querySelectorAll('.mobile-menu[data-open] nav [data-toc-row]')].map(e => e.getAttribute('data-toc-row'))""")
     kinds = {}
     for r in rows:
         k = r.split(":")[0]
@@ -198,10 +198,10 @@ def run(p, dev, eng, o):
 
     def prepare_rows():
         contents()
-        tap(".mobile-menu [data-toc-cover]")
+        tap(".mobile-menu[data-open] [data-toc-cover]")
         contents()
-        for sel in (".mobile-menu [data-toc-group=introduction]", ".mobile-menu [data-toc-group=temple-worship]",
-                    ".mobile-menu button[data-toc-chapter=daily-duties-brahma-muhurta]"):
+        for sel in (".mobile-menu[data-open] [data-toc-group=introduction]", ".mobile-menu[data-open] [data-toc-group=temple-worship]",
+                    ".mobile-menu[data-open] button[data-toc-chapter=daily-duties-brahma-muhurta]"):
             if pg.get_attribute(sel, "aria-expanded") != "true":
                 tap(sel)
 
@@ -212,10 +212,10 @@ def run(p, dev, eng, o):
             if r == 'cover':
                 prepare_rows()
             q = pg.evaluate("""async ([r, side]) => {
-                const el = [...document.querySelectorAll('.mobile-menu nav [data-toc-row]')].find(e => e.getAttribute('data-toc-row') === r);
+                const el = [...document.querySelectorAll('.mobile-menu[data-open] nav [data-toc-row]')].find(e => e.getAttribute('data-toc-row') === r);
                 if (!el) return null;
-                const list = document.querySelector('.mobile-menu .toc-scroll');
-                const aside = document.querySelector('.mobile-menu aside');
+                const list = document.querySelector('.mobile-menu[data-open] .toc-scroll');
+                const aside = document.querySelector('.mobile-menu[data-open] aside');
                 const frame = () => new Promise(resolve => requestAnimationFrame(resolve));
                 for (let i = 0; i < 15; i++) {
                     el.scrollIntoView({block: 'center', behavior: 'instant'}); await frame();
@@ -282,23 +282,23 @@ def run(p, dev, eng, o):
     goto("introduction/", 300)     # (a goto to the URL shown is a reload: it keeps that menu step)
     goto("kartika-bhajans/")
     contents()
-    tap(".mobile-menu [data-toc-cover]")
+    tap(".mobile-menu[data-open] [data-toc-cover]")
     contents()
-    REVEAL = """(sel) => { const sc = document.querySelector('.mobile-menu .toc-scroll'); const row = document.querySelector(sel);
+    REVEAL = """(sel) => { const sc = document.querySelector('.mobile-menu[data-open] .toc-scroll'); const row = document.querySelector(sel);
         const li = row.closest('li'); const n = sc.getBoundingClientRect(), g = li.getBoundingClientRect(), r = row.getBoundingClientRect();
         return {allIn: g.bottom <= n.bottom + 1, rowTop: Math.round(r.top - n.top), atEnd: sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 2,
                 kids: li.querySelectorAll('ul [data-toc-row]').length}; }"""
-    for name, sel in (("part IV", ".mobile-menu [data-toc-group=festivals-vows]"),
-                      ("chapter 16", ".mobile-menu button[data-toc-chapter=kartika-bhajans]")):
+    for name, sel in (("part IV", ".mobile-menu[data-open] [data-toc-group=festivals-vows]"),
+                      ("chapter 16", ".mobile-menu[data-open] button[data-toc-chapter=kartika-bhajans]")):
         loc = pg.locator(sel)
         if not loc.count():
-            chk(dev, f"5 {name}: row present", False, (sel, pg.url, pg.locator(".mobile-menu").count(),
-                pg.evaluate("() => [...document.querySelectorAll('.mobile-menu [data-toc-row]')].map(e => e.getAttribute('data-toc-row')).join(' ')")))
+            chk(dev, f"5 {name}: row present", False, (sel, pg.url, pg.locator(".mobile-menu[data-open]").count(),
+                pg.evaluate("() => [...document.querySelectorAll('.mobile-menu[data-open] [data-toc-row]')].map(e => e.getAttribute('data-toc-row')).join(' ')")))
             continue
         if loc.get_attribute("aria-expanded") == "true":
             tap(loc)
         # bring the row to the bottom of the list's view, then open it
-        pg.evaluate("""(sel) => { const sc = document.querySelector('.mobile-menu .toc-scroll'); const row = document.querySelector(sel);
+        pg.evaluate("""(sel) => { const sc = document.querySelector('.mobile-menu[data-open] .toc-scroll'); const row = document.querySelector(sel);
             sc.scrollTop += row.getBoundingClientRect().bottom - sc.getBoundingClientRect().bottom + 4; }""", sel)
         pg.wait_for_timeout(200)
         bb = loc.bounding_box()
@@ -442,11 +442,11 @@ def run(p, dev, eng, o):
     tap("[data-reader-action=search]", 1200)
     pg.keyboard.type("Jayati")
     try:
-        pg.wait_for_function("() => document.querySelectorAll('.mobile-menu [data-result]').length > 0", timeout=15000)
+        pg.wait_for_function("() => document.querySelectorAll('.mobile-menu[data-open] [data-result]').length > 0", timeout=15000)
     except Exception:
         pass
     pg.wait_for_timeout(400)
-    r = pg.evaluate("""() => { const rs = [...document.querySelectorAll('.mobile-menu [data-result]')];
+    r = pg.evaluate("""() => { const rs = [...document.querySelectorAll('.mobile-menu[data-open] [data-result]')];
         const per = rs.map(a => { const t = a.innerText.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');
             const occ = (t.match(/jayati/g) || []).length; const marks = [...a.querySelectorAll('mark.search-mark')];
             return {occ, marks: marks.length, ok: marks.every(m => m.textContent.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '') === 'jayati'),
@@ -456,7 +456,7 @@ def run(p, dev, eng, o):
     bg = r["per"][0]["bg"] if r["per"] else None
     alpha = float(bg.split(",")[3].strip(" )")) if bg and bg.count(",") == 3 else 1.0
     chk(dev, f"8 results: every occurrence of «Jayati» marked ({r['n']} results), clearly visible band", okm and bg and alpha >= 0.4, str(r)[:300])
-    tap(".mobile-menu [data-result]", 300)
+    tap(".mobile-menu[data-open] [data-result]", 300)
     try:
         pg.wait_for_function("() => document.documentElement.hasAttribute('data-search-hl')", timeout=10000)
     except Exception:
@@ -535,10 +535,10 @@ def run_v781(p, dev, eng, o):
         bars()
         tap("[data-reader-action=search]", 1200)
         pg.keyboard.type(q)
-        pg.wait_for_function("() => document.querySelectorAll('.mobile-menu [data-result]').length > 0", timeout=15000)
+        pg.wait_for_function("() => document.querySelectorAll('.mobile-menu[data-open] [data-result]').length > 0", timeout=15000)
         pg.wait_for_timeout(400)
         u0 = pg.url
-        tap(".mobile-menu [data-result]", 300)
+        tap(".mobile-menu[data-open] [data-result]", 300)
         if not mark:  # the page only (the word may not be paintable): wait for the URL, not for the mark
             try:
                 pg.wait_for_url(lambda u: u.split("#")[0] != u0.split("#")[0], timeout=6000)
@@ -611,7 +611,7 @@ def run_v781(p, dev, eng, o):
         chk(dev, "10 Back from the marked result → no mark", on and clean(st), (on, st))
         # step back until the page (out of the menu), then Forward to the result page
         for _ in range(3):
-            if not pg.locator(".mobile-menu").count():
+            if not pg.locator(".mobile-menu[data-open]").count():
                 break
             pg.go_back()
             pg.wait_for_timeout(700)
@@ -619,7 +619,7 @@ def run_v781(p, dev, eng, o):
         pg.wait_for_timeout(1200)
         st = pg.evaluate(HL_STATE)
         chk(dev, "10 Forward → no stale mark", clean(st), str(st))
-        if not pg.locator(".mobile-menu").count():
+        if not pg.locator(".mobile-menu[data-open]").count():
             ok, info = first_tap_toggles_bars(pg, tapxy)
             chk(dev, "10 after Back / Forward: the first tap is not eaten", ok, info)
         c.close()
@@ -689,7 +689,7 @@ def run_v781(p, dev, eng, o):
             tap("[data-reader-action=search]", 1200)
             pg.keyboard.type(word)
             want = f"{sec}#{a_id}"
-            sel = f'.mobile-menu [data-result="{want}"]'
+            sel = f'.mobile-menu[data-open] [data-result="{want}"]'
             try:
                 pg.wait_for_selector(sel, timeout=15000)
             except Exception:
@@ -805,8 +805,8 @@ def run_v781(p, dev, eng, o):
         pg = c.new_page()
         flow = Contents(pg, qa.TocMode("default"), touch)
         tapxy, tap, bars = helpers(pg)
-        LIT = "() => [...document.querySelectorAll('.mobile-menu nav [data-toc-lit]')].map(e => e.getAttribute('data-toc-row'))"
-        ROW = """(r) => { const el = [...document.querySelectorAll('.mobile-menu nav [data-toc-row]')].find(e => e.getAttribute('data-toc-row') === r);
+        LIT = "() => [...document.querySelectorAll('.mobile-menu[data-open] nav [data-toc-lit]')].map(e => e.getAttribute('data-toc-row'))"
+        ROW = """(r) => { const el = [...document.querySelectorAll('.mobile-menu[data-open] nav [data-toc-row]')].find(e => e.getAttribute('data-toc-row') === r);
             if (!el) return null; el.scrollIntoView({block: 'center'}); const b = el.getBoundingClientRect();
             return {x: b.left + Math.min(40, b.width / 2), y: b.top + b.height / 2, tag: el.tagName, exp: el.getAttribute('aria-expanded'),
                     href: el.getAttribute('href')}; }"""
@@ -815,15 +815,15 @@ def run_v781(p, dev, eng, o):
             pg.goto(f"{BASE}/{L}/kartika-bhajans/", wait_until="networkidle")
             pg.wait_for_timeout(500)
             for _ in range(3):
-                if pg.locator(".mobile-menu").count():
+                if pg.locator(".mobile-menu[data-open]").count():
                     break
                 bars()
                 try:
                     tap("[data-reader-action=contents]", 800)
                 except Exception:
                     pass
-            for sel in (".mobile-menu [data-toc-group=introduction]", ".mobile-menu [data-toc-group=temple-worship]",
-                        ".mobile-menu button[data-toc-chapter=daily-duties-brahma-muhurta]"):
+            for sel in (".mobile-menu[data-open] [data-toc-group=introduction]", ".mobile-menu[data-open] [data-toc-group=temple-worship]",
+                        ".mobile-menu[data-open] button[data-toc-chapter=daily-duties-brahma-muhurta]"):
                 for _ in range(3):
                     if pg.locator(sel).count() and pg.get_attribute(sel, "aria-expanded") == "true":
                         break
@@ -831,7 +831,7 @@ def run_v781(p, dev, eng, o):
                         tap(sel)
 
         prepare()
-        rows = pg.evaluate("""() => [...document.querySelectorAll('.mobile-menu nav [data-toc-row]')].map(e => ({r: e.getAttribute('data-toc-row'),
+        rows = pg.evaluate("""() => [...document.querySelectorAll('.mobile-menu[data-open] nav [data-toc-row]')].map(e => ({r: e.getAttribute('data-toc-row'),
             tag: e.tagName, exp: e.getAttribute('aria-expanded')}))""")
         pick = {}
         for x in rows:

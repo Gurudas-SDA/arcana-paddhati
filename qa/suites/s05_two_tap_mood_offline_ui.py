@@ -58,11 +58,11 @@ def run(p, dev, eng, o, mode):
         (pg.touchscreen.tap if touch else pg.mouse.click)(x, y); pg.wait_for_timeout(450)
 
     shown = lambda: pg.locator(".reader-chrome[data-shown]").count() == 1
-    menu = lambda: pg.locator(".mobile-menu").count() == 1
-    chap = lambda sid: pg.locator(f".mobile-menu nav button[data-toc-chapter='{sid}']")
+    menu = lambda: pg.locator(".mobile-menu[data-open]").count() == 1
+    chap = lambda sid: pg.locator(f".mobile-menu[data-open] nav button[data-toc-chapter='{sid}']")
     lit = lambda loc: loc.count() == 1 and loc.get_attribute("data-toc-lit") is not None
-    lit_in_emb_now = lambda: pg.locator(".mobile-menu nav [data-toc-lit][href$='/gaudiya-emblem/'], .mobile-menu nav [data-toc-lit][data-toc-chapter='gaudiya-emblem'], .mobile-menu nav li:has(> div > button[data-toc-chapter='gaudiya-emblem']) [data-toc-lit]").count() >= 1
-    nlit = lambda: pg.locator(".mobile-menu nav [data-toc-lit]").count()
+    lit_in_emb_now = lambda: pg.locator(".mobile-menu[data-open] nav [data-toc-lit][href$='/gaudiya-emblem/'], .mobile-menu[data-open] nav [data-toc-lit][data-toc-chapter='gaudiya-emblem'], .mobile-menu[data-open] nav li:has(> div > button[data-toc-chapter='gaudiya-emblem']) [data-toc-lit]").count() >= 1
+    nlit = lambda: pg.locator(".mobile-menu[data-open] nav [data-toc-lit]").count()
 
     def show_bars():
         if not shown():
@@ -88,7 +88,7 @@ def run(p, dev, eng, o, mode):
     chk(dev,'(2) Back -> contents as opened, reading place marked',state['menu'] and pg.url==EMB and (state['open']==before['open'] and marks_place(state) if mode.one else state['lit']==before['lit']),str(state))
     flow.nav('back',native=True)
     chk(dev,'(2) Back -> contents closed, emblem page',not menu() and pg.url==EMB)
-    open_contents();plain=pg.locator('.mobile-menu [data-toc-row="sec:mangalacarana"]');u0=flow.state()['url'];flow.tap(plain,wait=350)
+    open_contents();plain=pg.locator('.mobile-menu[data-open] [data-toc-row="sec:mangalacarana"]');u0=flow.state()['url'];flow.tap(plain,wait=350)
     chk(dev,'(2) plain chapter: first tap follows the mode',not menu() and pg.url.endswith('/mangalacarana/') if mode.one else menu() and pg.url==EMB and lit(plain) and nlit()==1,pg.url)
     if mode.one:flow.nav('back',native=True)
     flow.activate(chap(VIG));sub=pg.locator(f'#toc-ch-{VIG} a').nth(2);shref=sub.get_attribute('href');anchor=shref.split('#')[1];before_sub=flow.state();u0=before_sub['url']
@@ -105,7 +105,7 @@ def run(p, dev, eng, o, mode):
 
     # Finish the menu scenario before measuring unrelated reading controls.
     if menu():
-        flow.tap(pg.locator('.mobile-menu button[aria-label="Закрыть меню"]'),wait=700)
+        flow.tap(pg.locator('.mobile-menu[data-open] button[aria-label="Закрыть меню"]'),wait=700)
     chk(dev,'(2) menu scenario closes before reader geometry checks',not menu())
     # ---- (3) bottom bar ----
     pg.goto(f"{BASE}/{LANG}/{VIG}/", wait_until="networkidle"); pg.wait_for_timeout(900)

@@ -44,7 +44,7 @@ def read_to(page, anchor):
 
 
 ROW_VISIBILITY = """id => {
-  const nav = document.querySelector('.mobile-menu .toc-scroll');
+  const nav = document.querySelector('.mobile-menu[data-open] .toc-scroll');
   const row = nav.querySelector(`[data-toc-chapter="${CSS.escape(id)}"]`);
   const first = nav.querySelector(`#toc-ch-${CSS.escape(id)} [data-toc-row]`);
   const n = nav.getBoundingClientRect();
@@ -146,7 +146,7 @@ def close_keeps_place(browser, device, options):
             opened = scroll()
             page.wait_for_timeout(300)  # Flush the entry records used by the observation.
             if how == "x":
-                flow.tap(page.locator('.mobile-menu button[aria-label="Закрыть меню"]'), wait=700)
+                flow.tap(page.locator('.mobile-menu[data-open] button[aria-label="Закрыть меню"]'), wait=700)
             else:
                 page.touchscreen.tap(options["viewport"]["width"] - 6, 400)
                 page.wait_for_timeout(700)

@@ -20,7 +20,7 @@ L = "ru-iast"
 DEVICES = qa.devices(["pixel7", "iphone14", "ipad-portrait", "ipad-landscape", "desktop", "mac-safari"])
 res = []
 
-STATE = """() => { const nav = document.querySelector('.mobile-menu nav');
+STATE = """() => { const nav = document.querySelector('.mobile-menu[data-open] nav');
   const r = {url: location.pathname + location.hash, menu: !!nav, lit: [], open: []};
   if (nav) {
     r.lit = [...nav.querySelectorAll('[data-toc-lit]')].map(e => e.hasAttribute('data-toc-cover') ? 'cover' : (e.getAttribute('data-toc-group') || e.getAttribute('data-toc-chapter') || e.getAttribute('href') || e.textContent.trim().slice(0, 30)));
@@ -54,7 +54,7 @@ def run(p, dev, eng, o, mode):
         pg.wait_for_timeout(ms)
 
     shown = lambda: pg.locator(".reader-chrome[data-shown]").count() == 1
-    menu = lambda: pg.locator(".mobile-menu").count() == 1
+    menu = lambda: pg.locator(".mobile-menu[data-open]").count() == 1
     st = lambda: pg.evaluate(STATE)
 
     def shot(n):
@@ -140,7 +140,7 @@ def run(p, dev, eng, o, mode):
     # 4: every disclosure row uses the chosen model across its full band.
     pg.close();pg=c.new_page();pg.on('pageerror',lambda e:errs.append(str(e)));flow=Contents(pg,mode,touch)
     mode.start(pg,f'{BASE}/{L}/');flow.contents()
-    groups=pg.locator('.mobile-menu [data-toc-group]').evaluate_all('es=>es.map(e=>e.dataset.tocGroup)')
+    groups=pg.locator('.mobile-menu[data-open] [data-toc-group]').evaluate_all('es=>es.map(e=>e.dataset.tocGroup)')
     bad1,bad2,bad3=[],[],[];tested=0
     for gid in groups:
         loc=flow.group(gid);before=flow.state();rid=loc.get_attribute('data-toc-row');flow.tap(loc,right=True);first=flow.state()
@@ -166,9 +166,9 @@ def run(p, dev, eng, o, mode):
     for gid in ['introduction','festivals-vows']:
         if gid not in flow.state()['open']:flow.activate(flow.group(gid))
     before=flow.state();chk(dev,'2 setup: groups and a chapter list open',len(before['open'])>=3,str(before))
-    flow.tap(pg.locator('.mobile-menu [data-toc-cover]'),right=True,wait=350);first=flow.state()
+    flow.tap(pg.locator('.mobile-menu[data-open] [data-toc-cover]'),right=True,wait=350);first=flow.state()
     chk(dev,'2 first tap «Обложка»: default opens; legacy resets + highlights',not first['menu'] and first['url'].rstrip('/').endswith('/'+L) if mode.one else first['menu'] and first['open']==[] and first['lit']==['cover'] and first['url']==before['url'],str(first))
-    if not mode.one:flow.tap(pg.locator('.mobile-menu [data-toc-cover]'),wait=350)
+    if not mode.one:flow.tap(pg.locator('.mobile-menu[data-open] [data-toc-cover]'),wait=350)
     chk(dev,'2 action tap «Обложка» opens the cover',not flow.state()['menu'] and pg.url.rstrip('/').endswith('/'+L))
     flow.contents();state=flow.state();chk(dev,'2 contents reopened on the cover: base view, «Обложка» lit',state['open']==[] and state['lit']==['cover'],str(state))
     # 3: the original multi-chapter path, with actual action counts and exact states.

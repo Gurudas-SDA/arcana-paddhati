@@ -119,7 +119,7 @@ def run(p, dev, o):
         box = pg.locator("article h1").bounding_box()
         (pg.touchscreen.tap if o.get("has_touch") else pg.mouse.click)(box["x"] + 5, box["y"] + box["height"] + 40); pg.wait_for_timeout(500)
     tap(pg.locator("[data-reader-action=contents]")); pg.wait_for_timeout(600)
-    link = pg.locator(".mobile-menu nav a[href$='/mangalacarana/']").first
+    link = pg.locator(".mobile-menu[data-open] nav a[href$='/mangalacarana/']").first
     if link.count():
         # One-tap Contents is the default (PR 2, d65b4c0): the first tap opens the
         # chapter; the legacy two-tap mode needs a second tap on the same row.
@@ -133,10 +133,10 @@ def run(p, dev, o):
         box = pg.locator("article h1").bounding_box()
         (pg.touchscreen.tap if o.get("has_touch") else pg.mouse.click)(box["x"] + 5, box["y"] + box["height"] + 40); pg.wait_for_timeout(500)
     tap(pg.locator("[data-reader-action=search]")); pg.wait_for_timeout(500)
-    pg.locator(".mobile-menu input[type=search]").fill("тилака")
+    pg.locator(".mobile-menu[data-open] input[type=search]").fill("тилака")
     try:
-        pg.locator(".mobile-menu nav a:visible mark").first.wait_for(timeout=10000)
-        n = pg.locator(".mobile-menu nav a:visible").count()
+        pg.locator(".mobile-menu[data-open] nav a:visible mark").first.wait_for(timeout=10000)
+        n = pg.locator(".mobile-menu[data-open] nav a:visible").count()
     except Exception:
         n = 0
     chk(dev, "2 offline: full-text search gives results", n > 0, str(n))

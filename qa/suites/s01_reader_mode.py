@@ -214,10 +214,10 @@ def run(p, dev, engine, opts, lang, mode):
     # 11. contents opens and navigates
     show_bars()
     act(pg.locator("[data-reader-action=contents]"))
-    menu = pg.locator(".mobile-menu").count() == 1
+    menu = pg.locator(".mobile-menu[data-open]").count() == 1
     check(tag, "contents opens", menu)
     shot("3-contents")
-    link=pg.locator(".mobile-menu [data-toc-cover]");href=link.get_attribute('href')
+    link=pg.locator(".mobile-menu[data-open] [data-toc-cover]");href=link.get_attribute('href')
     before=flow.state();act(link);pg.wait_for_timeout(350)
     first=flow.state()
     check(tag,"contents: first tap follows the selected model",not first['menu'] and first['url'].rstrip('/').endswith(prefix) if mode.one else first['menu'] and first['url']==before['url'] and first['lit']==['cover'],str(first))
@@ -230,7 +230,7 @@ def run(p, dev, engine, opts, lang, mode):
     pg.goto(url, wait_until="networkidle"); pg.wait_for_timeout(1000)
     show_bars()
     act(pg.locator("[data-reader-action=search]"))
-    inp = pg.locator(".mobile-menu input[type=search]")
+    inp = pg.locator(".mobile-menu[data-open] input[type=search]")
     # The box takes the focus when the menu has rendered; under QA load that
     # came after the fixed 450 ms (16.10: flaky on 2e08c61 and A89 alike).
     try:
@@ -241,19 +241,19 @@ def run(p, dev, engine, opts, lang, mode):
     check(tag, "search opens with focused box", inp.count() == 1 and focused, f"focused={focused}")
     inp.fill(QUERY[lang])
     try:
-        pg.locator(".mobile-menu nav a:visible mark").first.wait_for(timeout=15000)
+        pg.locator(".mobile-menu[data-open] nav a:visible mark").first.wait_for(timeout=15000)
     except Exception:
         pass
     inp.press("Enter"); pg.wait_for_timeout(300)
-    n = pg.locator(".mobile-menu nav a:visible").count()
+    n = pg.locator(".mobile-menu[data-open] nav a:visible").count()
     check(tag, "search shows results", n > 0, f"n={n}")
-    act(pg.locator(".mobile-menu nav a:visible").first); pg.wait_for_timeout(1500)
+    act(pg.locator(".mobile-menu[data-open] nav a:visible").first); pg.wait_for_timeout(1500)
     went = pg.url
     pg.go_back(); pg.wait_for_timeout(1500)
     q = inp.input_value() if inp.count() else None
-    check(tag, "back (Android) returns to search with query", pg.locator(".mobile-menu").count() == 1 and q == QUERY[lang], f"went={went} q={q} url={pg.url}")
+    check(tag, "back (Android) returns to search with query", pg.locator(".mobile-menu[data-open]").count() == 1 and q == QUERY[lang], f"went={went} q={q} url={pg.url}")
     pg.go_back(); pg.wait_for_timeout(900)
-    check(tag, "second back closes search, stays on page", pg.locator(".mobile-menu").count() == 0 and pg.url == url, pg.url)
+    check(tag, "second back closes search, stays on page", pg.locator(".mobile-menu[data-open]").count() == 0 and pg.url == url, pg.url)
     # 13. Аа: size + night persist after reload
     show_bars()
     act(pg.locator("[data-reader-action=aa]"))

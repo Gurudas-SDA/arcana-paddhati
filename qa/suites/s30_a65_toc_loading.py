@@ -58,7 +58,7 @@ RECORDER = """() => {
     if (R.click === null) return;
     const now = performance.now();
     if (R.ind === null && vis(document.querySelector('[data-nav-progress]'))) R.ind = now;
-    if (R.rowInd === null) { const r = document.querySelector('.mobile-menu [data-toc-loading]');
+    if (R.rowInd === null) { const r = document.querySelector('.mobile-menu[data-open] [data-toc-loading]');
       if (r && vis(r) && /загружа/i.test(r.textContent)) R.rowInd = now; }
     if (R.live === null) {
       // «загружается» announced: a status / live region with the text, NOT inside an aria-busy="true" container
@@ -66,7 +66,7 @@ RECORDER = """() => {
         .find(el => /загружа/i.test(el.textContent || '') && !el.closest('[aria-busy="true"]'));
       if (lr) { R.live = now; R.livePre = !!lr.__a65pre; }
     }
-    const menu = !!document.querySelector('.mobile-menu');
+    const menu = !!document.querySelector('.mobile-menu[data-open]');
     if (!menu) {
       if (R.closedAt === null) { R.closedAt = now; R.closedPath = location.pathname; R.closedH1 = h1(); }
       if (location.pathname === R.oldPath || h1() === R.oldH1)
@@ -82,7 +82,7 @@ RECORDER = """() => {
 RECORDER = RECORDER.replace("__READING_ROOT__", qa.READING_ROOT_JS)
 
 PICK = """() => { const here = location.pathname.replace(/\\/+$/, '');
-  const rows = [...document.querySelectorAll('.mobile-menu nav a[data-toc-row^="sec:"]')]
+  const rows = [...document.querySelectorAll('.mobile-menu[data-open] nav a[data-toc-row^="sec:"]')]
     .filter(a => new URL(a.href).pathname.replace(/\\/+$/, '') !== here);
   return rows.length ? rows[0].getAttribute('data-toc-row') : null; }"""
 
