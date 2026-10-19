@@ -88,7 +88,7 @@
   "offline.save.hide": "hide",
   "offline.save.count": "{done} of {total}",
   "offline.save.partial": "Not everything was saved",
-  "offline.save.partialWhat": "Parts not downloaded: {n} — {what}.",
+  "offline.save.partialWhat": "Parts that could not be downloaded: {n} — {what}.",
   "offline.save.textOk": "The text of the book is saved in full.",
   "offline.save.textMissing": "These pages open only with internet.",
   "offline.save.retry": "We will try again the next time you open the book.",
