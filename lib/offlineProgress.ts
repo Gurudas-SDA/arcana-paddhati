@@ -1,15 +1,29 @@
 "use client";
 
 // Progress of the background offline download (service worker v6, public/sw.js):
-// the worker posts {type: "precache-progress", done, total, complete}; the
+// the worker posts {type: "precache-progress", done, total, complete, failed,
+// failedKinds, final} (failures: Vraja Lila msg 5318, «Видимая загрузка»); the
 // page pings it ("precache-continue") on load and every minute, so the
 // download resumes on every visit until the whole book is stored.
 import { useSyncExternalStore } from "react";
+
+/** Files the worker could not store, by kind (public/sw.js failKind). */
+export interface FailedKinds {
+  text?: number;
+  images?: number;
+  transcripts?: number;
+  other?: number;
+}
 
 export interface OfflineProgress {
   done: number;
   total: number;
   complete: boolean;
+  /** Files that could not be stored in this run (0 while none failed). */
+  failed: number;
+  failedKinds: FailedKinds;
+  /** The run has ended (complete, or ended with failures). */
+  final: boolean;
 }
 
 let current: OfflineProgress | null = null;
@@ -31,7 +45,14 @@ export function startOfflineSync() {
   navigator.serviceWorker.addEventListener("message", (e: MessageEvent) => {
     const d = e.data as { type?: string } & Partial<OfflineProgress>;
     if (d?.type !== "precache-progress" || typeof d.done !== "number" || typeof d.total !== "number") return;
-    current = { done: d.done, total: d.total, complete: !!d.complete };
+    current = {
+      done: d.done,
+      total: d.total,
+      complete: !!d.complete,
+      failed: typeof d.failed === "number" ? d.failed : 0,
+      failedKinds: d.failedKinds && typeof d.failedKinds === "object" ? d.failedKinds : {},
+      final: !!d.final,
+    };
     listeners.forEach((l) => l());
   });
   navigator.serviceWorker.ready.then(() => ping()).catch(() => {});
