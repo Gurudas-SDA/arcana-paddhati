@@ -191,6 +191,22 @@ export function getUi(lang: string): UiDict {
   return { ...en, ...(readJson<UiDict>(`ui.${lang}.json`) ?? {}) };
 }
 
+/** UI strings for `keys` in `lang`. A key this language has not got yet shows
+ *  the English text; per the book's fallback convention the first such string
+ *  of a group gets the «(EN)» suffix (language.fallbackSuffix) — Vraja Lila
+ *  msg 5316/5318: new interface labels RU + EN by hand, no machine translation. */
+export function uiWithFallback(lang: string, keys: string[]): { strings: Record<string, string>; fallback: boolean } {
+  const ui = getUi(lang);
+  const own = lang === DEFAULT_LANG ? ui : (readJson<UiDict>(`ui.${lang}.json`) ?? {});
+  const strings: Record<string, string> = {};
+  let fallback = false;
+  for (const k of keys) {
+    strings[k] = ui[k] ?? k;
+    if (!(k in own)) fallback = true;
+  }
+  return { strings, fallback };
+}
+
 /** First section of the book after the cover and the front pages: the Introduction. */
 export const MACHINE_NOTE_SECTION = "introduction";
 

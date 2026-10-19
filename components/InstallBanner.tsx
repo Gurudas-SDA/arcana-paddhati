@@ -1,5 +1,5 @@
 "use client";
-import { startOfflineSync } from "@/lib/offlineProgress";
+import { noteRegistration, startOfflineSync } from "@/lib/offlineProgress";
 import React, {
   useState,
   useEffect,
@@ -86,7 +86,9 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
   useEffect(() => {
     // Register service worker
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register(`${BASE_PATH}/sw.js`).catch(() => {});
+      const reg = navigator.serviceWorker.register(`${BASE_PATH}/sw.js`);
+      reg.catch(() => {});
+      noteRegistration(reg);
       startOfflineSync();
     }
 

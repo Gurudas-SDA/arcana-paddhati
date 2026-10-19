@@ -6,6 +6,7 @@ import { availableLanguages, getLocales, getUi } from "@/lib/content";
 import { LANG_REDIRECT_SCRIPT, t } from "@/lib/i18n";
 import { READER_PREFS_SCRIPT } from "@/lib/readerPrefsKeys";
 import { EARLY_TAP_SCRIPT } from "@/lib/earlyTap";
+import { HOME_CARDS_SCRIPT } from "@/lib/homeCards";
 import "./globals.css";
 
 const notoSerif = Noto_Serif({
@@ -60,6 +61,8 @@ export default function RootLayout({
             paint: a reload at night never flashes white. */}
         <script dangerouslySetInnerHTML={{ __html: READER_PREFS_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: EARLY_TAP_SCRIPT }} />
+        {/* Cover cards (offline saving): their place reserved before first paint. */}
+        <script dangerouslySetInnerHTML={{ __html: HOME_CARDS_SCRIPT }} />
       </head>
       <body className="h-full antialiased" translate="no">
         <AppShell locales={getLocales()} available={availableLanguages()}>

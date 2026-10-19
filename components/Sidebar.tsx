@@ -1,6 +1,6 @@
 "use client";
 
-import { useOfflineProgress } from "@/lib/offlineProgress";
+import { useOfflineProgress, useOfflineSave } from "@/lib/offlineProgress";
 import React, {
   useEffect,
   useLayoutEffect,
@@ -515,7 +515,9 @@ export default function Sidebar({
     // than the tap's own reveal (+120 ms). Reveal it again now.
     setOpenedRow({ id: arrival.rowId, at: Date.now() });
   }, [pathname, selectedId]);
-  const offline = useOfflineProgress();
+  useOfflineProgress();
+  // Vraja Lila msg 5318 (state 5): the same wording and the same count in parts as on the cover, shorter.
+  const offlineSave = useOfflineSave();
 
   const normalizedQuery = normalizeText(searchQuery.trim());
 
@@ -1117,9 +1119,12 @@ export default function Sidebar({
       </div>
 
       {/* The «show all» switches are in the «Аа» panel (Reader v7.8). */}
-      {offline && !offline.complete && offline.total > 0 && (
-        <p className="px-5 py-1.5 border-b border-[#E8DCC8] text-[11px] text-[#5C3D2E]" data-offline-progress="">
-          {t(ui, "offline.progress", { n: String(Math.floor((offline.done / offline.total) * 100)) })}
+      {offlineSave && (offlineSave.s === "loading" || offlineSave.s === "partial") && offlineSave.t > 0 && (
+        <p className="px-5 py-1.5 border-b border-[#E8DCC8] text-[11px] text-[#5C3D2E] flex items-center gap-2" data-offline-progress="">
+          <span>{t(ui, offlineSave.s === "partial" ? "offline.save.partial" : "offline.save.loading")}</span>
+          <span className="ml-auto tabular-nums text-[#6B5440]">
+            {t(ui, "offline.save.countShort", { done: String(offlineSave.d), total: String(offlineSave.t) })}
+          </span>
         </p>
       )}
 
