@@ -6,6 +6,9 @@
 // (app/globals.css .home-save-slot). A server component imports this module,
 // hence no React here.
 
+/** Where the reader stopped (lib/readingPlace.ts; «Продолжить», components/ResumeCard.tsx). */
+export const READING_PLACE_KEY = "ap.readingPlace";
+
 /** Saved-for-offline state shown on the cover (components/OfflineSaveCard.tsx):
  *  {s: "loading" | "partial" | "done" | "seen", d: done, t: total, f: failed, k: failedKinds}.
  *  "done" = finished, not yet shown on the cover; "seen" = shown once, the cover stays clean. */
