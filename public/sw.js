@@ -13,7 +13,7 @@
 // КСВ 15.10.2026 (iPad: a tapped chapter stayed «загружается» over the cover
 // while «Книга сохраняется… 76 %»): the reader first — RSC payloads, pictures
 // and search indexes this version has stored are answered from the device at
-// once, a stored page waits for the network at most STORED_TIMEOUT_MS, and the
+// once, and the
 // background download starts no new file while a page request waits for the
 // network. (The release re-downloaded the whole book because Next.js's random
 // build id changed every page: scripts/stable-build-id.mjs.)
@@ -63,8 +63,6 @@ const MANIFEST_KEY = BASE + '__precache-manifest__';
 // Non-default languages live under /arcana-paddhati/<code>/ (lib/languages.json).
 const LANG_CODES = ['ru', 'ru-iast', 'lv', 'de', 'fr', 'es', 'it', 'uk', 'hu', 'pt', 'lt'];
 const NETWORK_TIMEOUT_MS = 3000;
-// A page this version has already stored: how long a navigation waits for the network.
-const STORED_TIMEOUT_MS = 1000;
 const CONCURRENCY = 6;
 const RETRIES = 3;
 const TOPUP_INTERVAL_MS = 2 * 60 * 1000;
@@ -166,14 +164,6 @@ async function isComplete(name) {
   const cache = await caches.open(name);
   const mark = await cache.match(COMPLETE_KEY);
   return !!mark;
-}
-
-// A complete Arcana cache other than this version's (the one still serving).
-async function completeOlderCache() {
-  for (const name of await arcanaCacheNames()) {
-    if (name !== CACHE_NAME && (await isComplete(name))) return name;
-  }
-  return null;
 }
 
 async function dropOlderCaches() {
@@ -374,16 +364,18 @@ function topUp() {
 
 // ---------- lifecycle ----------
 
+// 20.10.2026 (Vraja Lila msg 5316 p. 2; Satkirti's iPad showed the old
+// Panca-tattva): the new version takes over even when part of its files is not
+// downloaded yet. Before, an incomplete core made the install fail on purpose
+// and the OLD worker kept serving the old book until the new one was complete —
+// on a slow network for days. Nothing is lost offline: every lookup falls back
+// to the older complete cache (cacheMatch), which is deleted only when this
+// version is complete; the rest is fetched in the background as before.
 self.addEventListener('install', (event) => {
   event.waitUntil((async () => {
-    // Only the core here (small, well within the browser's install time).
-    const status = await precacheCore(await clientLangs()).catch(() => ({ core: false }));
-    if (!status.core && (await completeOlderCache())) {
-      // Keep the complete older version in charge; the download resumes on
-      // the next visit (this cache is kept). Failing install is on purpose.
-      throw new Error('core precache incomplete — keeping the previous version');
-    }
-    // Core complete (or first install, nothing older): take over at once.
+    // Only the core here (small, well within the browser's install time); an
+    // unfinished core continues in the background after activation.
+    await precacheCore(await clientLangs()).catch(() => ({ core: false }));
     await self.skipWaiting();
   })());
 });
@@ -445,16 +437,19 @@ async function handleNavigation(event, url) {
     }
     return offlinePage(url);
   };
+  // Offline: the stored page at once.
   if (isOffline()) return fallback();
-  // Network first (a reload after a release shows the new book), but a page
-  // this version has stored waits for the network only briefly (КСВ 15.10.2026:
-  // the network was busy with the background download of the whole book).
-  const stored = !!(await ownMatch(key));
+  // Online: network first, so a page of a new release is the new page (Vraja
+  // Lila msg 5316 p. 2: the short wait is for offline only — before, a stored
+  // page of THIS version was answered after a 1 s wait even online, and
+  // after a release the reader kept getting the stored old page). The network
+  // gets NETWORK_TIMEOUT_MS; the background download yields to it meanwhile
+  // (foregroundIdle). Only then the stored copy.
   const net = foregroundFetch(event.request);
   try {
     const res = await Promise.race([
       net,
-      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), stored ? STORED_TIMEOUT_MS : NETWORK_TIMEOUT_MS)),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), NETWORK_TIMEOUT_MS)),
     ]);
     if (res.ok) {
       cachePut(key, res);

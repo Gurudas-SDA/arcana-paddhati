@@ -106,6 +106,8 @@ SUITES = [
          devices=None, fast=False),
     dict(id="s49", file="suites/s49_offline_save_card.py", title="Vraja 5318: «Видимая загрузка» — bloks uz vāka (stāvokļi 1–4), bez lēciena, skaits = «Содержание» rinda",
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
+    dict(id="s50", file="suites/s50_sw_updates.py", title="Vraja 5316 p.2: SW — jaunā versija pārņem arī nepilnu; tiešsaistē tīkls pirmais; updateViaCache none, update(), viena pārlāde",
+         devices=["pixel7", "desktop"], fast=True, fast_devices=["pixel7"]),
     dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
          devices=None, fast=True, server=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",
