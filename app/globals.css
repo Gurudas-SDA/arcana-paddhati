@@ -340,6 +340,120 @@ body {
   max-height: calc(100dvh - 2rem - var(--reader-pad-bottom) - env(safe-area-inset-top, 0px) - var(--install-banner-h, 0px));
 }
 
+/* Cards under the cover (Vraja Lila msg 5317/5318 «Видимая загрузка»): the
+   place is reserved by the <head> script (lib/homeCards.ts) before first paint,
+   the cover is shorter by exactly that height — no jump when the card appears. */
+:root {
+  --home-save-h: 0px;
+}
+html[data-home-save] {
+  --home-save-h: 8.5rem;
+}
+html[data-home-save] .home-cover {
+  max-height: calc(100vh - 2rem - var(--reader-pad-bottom) - var(--install-banner-h, 0px) - var(--home-save-h));
+  max-height: calc(100dvh - 2rem - var(--reader-pad-bottom) - env(safe-area-inset-top, 0px) - var(--install-banner-h, 0px) - var(--home-save-h));
+}
+.home-save-slot {
+  display: none;
+}
+html[data-home-save] .home-save-slot {
+  display: block;
+  box-sizing: border-box;
+  height: var(--home-save-h);
+  width: min(100%, 26rem);
+  padding-top: 0.75rem;
+  overflow: hidden;
+}
+.home-save {
+  border: 1px solid #E5D8BC;
+  background: #FFFFFF;
+  border-radius: 9px;
+  padding: 11px 12px;
+  color: #2C1810;
+}
+.home-save-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 0 8px;
+}
+.home-save-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  margin: 0;
+}
+.home-save-count {
+  font-size: 12px;
+  color: #6B5440;
+  font-variant-numeric: tabular-nums;
+  flex: none;
+}
+.home-save-note {
+  font-size: 12px;
+  color: #6B5440;
+  margin: 8px 0 0;
+  line-height: 1.5;
+}
+.home-save-track {
+  display: flex;
+  gap: 2px;
+  height: 7px;
+}
+.home-save-track i {
+  flex: 1;
+  background: #F5E6C8;
+  border-radius: 1px;
+}
+.home-save-track i.on {
+  background: #D4A843;
+}
+.home-save-track i.part {
+  background: linear-gradient(90deg, #D4A843 var(--part, 50%), #F5E6C8 var(--part, 50%));
+}
+.home-save-track.is-idle i.on,
+.home-save-track.is-idle i.part {
+  background: #E6D3A8;
+}
+.home-save-done {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #B8860B;
+}
+.home-save-done .home-save-title {
+  color: #2C1810;
+}
+.home-save-hide {
+  margin-left: auto;
+  font-size: 12px;
+  color: #6B5440;
+  flex: none;
+  padding: 2px 4px;
+}
+html[data-reader-theme="night"] .home-save {
+  background: #1B1712;
+  border-color: #3A3228;
+  color: #EFE6D2;
+}
+html[data-reader-theme="night"] .home-save-done .home-save-title {
+  color: #EFE6D2;
+}
+html[data-reader-theme="night"] .home-save-count,
+html[data-reader-theme="night"] .home-save-note,
+html[data-reader-theme="night"] .home-save-hide {
+  color: #A89479;
+}
+html[data-reader-theme="night"] .home-save-track i {
+  background: #2E271E;
+}
+html[data-reader-theme="night"] .home-save-track i.on {
+  background: #B8860B;
+}
+html[data-reader-theme="night"] .home-save-track i.part {
+  background: linear-gradient(90deg, #B8860B var(--part, 50%), #2E271E var(--part, 50%));
+}
+
 /* Numbered lists: a sub-item (2.1 …) starts at the main items' text line. */
 .numbered-list .nl-sub {
   padding-left: calc(var(--nl-main) + 0.5rem);

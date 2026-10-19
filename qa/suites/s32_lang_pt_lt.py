@@ -137,12 +137,19 @@ def data_checks():
         # Keys a language file may have and ui.en.json has not: «Стандарты» 76 — the machine-translation line at the
         # start of a machine-translated book (Satkirti 18.10.2026 msg 4507/4509; never in the English book, lint L35).
         LANG_ONLY_UI = {"book.machineNote"}
+        # Keys shown in English with «(EN)» in this language on purpose (Vraja Lila msg 5316/5318, 19.10.2026:
+        # new interface labels RU + EN by hand, no machine translation): listed in lib/ui-en-fallback.json.
+        # Each listed key must still exist in ui.en.json; every other key is required as before.
+        EN_FALLBACK_UI = set(json.load(open(os.path.join(qa.REPO, "lib", "ui-en-fallback.json"), encoding="utf-8"))["keys"])
+        chk(dev, f"{code}: lib/ui-en-fallback.json keys all exist in ui.en.json ({len(EN_FALLBACK_UI)})",
+            EN_FALLBACK_UI <= set(ui_en), str(sorted(EN_FALLBACK_UI - set(ui_en))[:5]))
         ui = load(f"ui.{code}.json")
-        chk(dev, f"{code}: ui.{code}.json has every key of ui.en.json ({len(ui_en)})",
-            ui is not None and set(ui) - LANG_ONLY_UI == set(ui_en) and all(isinstance(ui[k], str) and ui[k].strip() for k in ui),
-            "missing %s" % (sorted(set(ui_en) - set(ui or {}))[:8]))
+        need = set(ui_en) - (EN_FALLBACK_UI - set(ui or {}))
+        chk(dev, f"{code}: ui.{code}.json has every key of ui.en.json ({len(need)} + {len(set(ui_en) - need)} EN fallback)",
+            ui is not None and set(ui) - LANG_ONLY_UI == need and all(isinstance(ui[k], str) and ui[k].strip() for k in ui),
+            "missing %s" % (sorted(need - set(ui or {}))[:8]))
         if ui:
-            same = [k for k in ui_en if ui[k] == ui_en[k] and english_ratio(ui_en[k])[1] >= 3
+            same = [k for k in ui_en if k in ui and ui[k] == ui_en[k] and english_ratio(ui_en[k])[1] >= 3
                     and not re.search(r"Arcana|Chrome|\{", ui_en[k])]
             chk(dev, f"{code}: UI strings translated (identical to English ≤ 3)", len(same) <= 3, str(same[:8]))
         chk(dev, f"{code}: public/sw.js LANG_CODES has '{code}'", re.search(r"LANG_CODES = \[[^\]]*'%s'" % code, sw), "")

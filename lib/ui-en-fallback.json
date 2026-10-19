@@ -1,0 +1,23 @@
+{
+  "_why": "Interface labels shown in English in languages other than RU/EN (language.fallbackSuffix «(EN)»): Vraja Lila msg 5316/5318, 19.10.2026 — RU and EN by hand, no machine translation (a character outside the font subset). qa s32 accepts these keys missing in other ui.<lang>.json.",
+  "keys": [
+    "offline.kind.images",
+    "offline.kind.other",
+    "offline.kind.text",
+    "offline.kind.transcripts",
+    "offline.save.count",
+    "offline.save.countShort",
+    "offline.save.done",
+    "offline.save.doneNote",
+    "offline.save.hide",
+    "offline.save.loading",
+    "offline.save.loadingNote",
+    "offline.save.partial",
+    "offline.save.partialWhat",
+    "offline.save.paused",
+    "offline.save.pausedNote",
+    "offline.save.retry",
+    "offline.save.textMissing",
+    "offline.save.textOk"
+  ]
+}
