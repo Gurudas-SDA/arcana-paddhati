@@ -313,7 +313,7 @@ def run(p, dev, eng, o):
     goto("daily-duties-brahma-muhurta/", 1500)
     STATE = """() => { const rows = [...document.querySelectorAll('[data-reader-current] .hs-row')];
         const act = rows.filter(r => r.hasAttribute('data-active')).map(r => r.getAttribute('data-hs-nums'));
-        const masks = [...document.querySelectorAll('[data-reader-current] .hs-figure mask image')].map(x => x.getAttribute('href').split('/').pop());
+        const masks = [...document.querySelectorAll('[data-reader-current] .hs-figure mask image')].map(x => x.getAttribute('href').split('/').slice(-2).join('/'));
         return {act, masks, bars: document.documentElement.hasAttribute('data-reader-bars')}; }"""
     BAND = """(n) => { const r = document.querySelector('[data-reader-current] .hs-row[data-hs-nums="' + n + '"]:not(span)'); if (!r) return null;
         const cells = [...r.children]; const place = cells[1], mantra = cells[2].querySelector('.hs-text');
@@ -349,7 +349,7 @@ def run(p, dev, eng, o):
             ok_band = band and all(v and v not in ("rgba(0, 0, 0, 0)", "transparent") for v in band.values())
             if ok_band:
                 banded += 1
-            if st["act"] != [str(n)] or st["masks"] != [f"Tilak-{n:02d}.png"] or st["bars"] or not ok_band:
+            if st["act"] != [str(n)] or st["masks"] != [f"tilak/{n:02d}.png"] or st["bars"] or not ok_band:
                 bad.append((n, where, st, band))
             tapxy(p_["x"], p_["y"], 350)           # the same row again: off
             if pg.evaluate(STATE)["act"]:
@@ -379,7 +379,7 @@ def run(p, dev, eng, o):
         st = pg.evaluate(STATE)
         bg = el.first.evaluate("""e => { const c = getComputedStyle(e).backgroundColor;
           return c === 'rgba(0, 0, 0, 0)' || c === 'transparent' ? getComputedStyle(e.closest('.hs-row')).backgroundColor : c; }""")
-        if st["masks"] != ["Tilak-13.png"] or st["act"] != ["13"] or bg in ("rgba(0, 0, 0, 0)", "transparent"):
+        if st["masks"] != ["tilak/13.png"] or st["act"] != ["13"] or bg in ("rgba(0, 0, 0, 0)", "transparent"):
             crown.append((label, txt, st, bg))
         tap(el.first, 350)
     chk(dev, "6 crown: «tat prakṣālana-toyaṁ tu / vāsudevāya mūrdhani» and «oṁ vāsudevāya namaḥ» → marked + the crown (Tilak-13)", not crown, str(crown[:3]))
@@ -391,9 +391,9 @@ def run(p, dev, eng, o):
     tapxy(pt["x"], pt["y"], 1200)
     st = pg.evaluate("""() => { const a = [...document.querySelectorAll('[data-reader-current] .hs-row[data-active]')];
         return {n: a.length, txt: a.map(r => r.textContent.trim()), inView: a.every(r => { const b = r.getBoundingClientRect(); return b.top >= 0 && b.bottom <= innerHeight; }),
-                masks: [...document.querySelectorAll('[data-reader-current] .hs-figure mask image')].map(x => x.getAttribute('href').split('/').pop())}; }""")
+                masks: [...document.querySelectorAll('[data-reader-current] .hs-figure mask image')].map(x => x.getAttribute('href').split('/').slice(-2).join('/'))}; }""")
     chk(dev, "6 crown on the picture → «oṁ vāsudevāya namaḥ» marked, in view", st["n"] == 1 and "vāsudevāya namaḥ" in st["txt"][0]
-        and st["inView"] and "Tilak-13.png" in st["masks"], str(st))
+        and st["inView"] and "tilak/13.png" in st["masks"], str(st))
 
     # ---------- 7: short mantras without «пословно» (RU and EN) ----------
     if dev in ("pixel7", "iphone14", "desktop"):
@@ -473,6 +473,7 @@ def run(p, dev, eng, o):
 
     # ---------- 9: parampara oval without rhombi, WebP ----------
     goto("parampara/", 1200)
+    qa.load_portraits(pg)       # 19.10.2026: portraits 2–9 load lazily, as the reader reaches them
     pp = pg.evaluate("""() => [...document.querySelectorAll('.portrait-page img')].map(i => ({src: i.currentSrc.split('/').pop(), ok: i.complete && i.naturalWidth > 0,
         pic: !!i.closest('picture.portrait-picture')}))""")
     chk(dev, "9 parampara: 9 portraits shown from WebP (PNG fallback in <picture>)",
@@ -747,10 +748,11 @@ def run_v781(p, dev, eng, o):
             pg.wait_for_function("navigator.serviceWorker && navigator.serviceWorker.controller", timeout=90000)
             cached = pg.evaluate("""async () => { const want = [...Array(9).keys()]; let n = 0;
                 for (const k of await caches.keys()) { const c = await caches.open(k);
-                  for (const r of await c.keys()) if (/\\/images\\/.*\\.webp$/.test(r.url)) n++; } return n; }""")
+                  for (const r of await c.keys()) if (/\\/media\\/.*\\.webp$/.test(r.url)) n++; } return n; }""")
             c.set_offline(True)
             pg.goto(f"{BASE}/{L}/parampara/", wait_until="load", timeout=30000)
             pg.wait_for_timeout(1500)
+            qa.load_portraits(pg)
             pp = pg.evaluate(PORTRAITS)
             chk(dev, "12 offline (SW): the 9 parampara portraits load from WebP",
                 len(pp) == 9 and all(x["ok"] and x["src"].endswith(".webp") for x in pp), (cached, pp[:3]))
@@ -762,6 +764,7 @@ def run_v781(p, dev, eng, o):
         pg = c.new_page()
         pg.goto(f"{BASE}/{L}/parampara/", wait_until="load")
         pg.wait_for_timeout(2000)
+        qa.load_portraits(pg)
         pp = pg.evaluate(PORTRAITS)
         chk(dev, "12 WebP fails to load → the PNG is shown (9 portraits, naturalWidth > 0)",
             len(pp) == 9 and all(x["ok"] and x["src"].endswith(".png") for x in pp), str(pp[:3]))
@@ -915,10 +918,10 @@ def rhombi_gone():
     bad = []
     for pgd in chkf["pages"]:
         if pgd.get("mode") == "mask":     # v8.0: frame drawn by code (inline SVG, no rhombi); photo has its WebP
-            if not pgd.get("photo_webp") or not os.path.isfile(os.path.join(qa.REPO, "public", "images", pgd["photo_webp"])):
+            if not pgd.get("photo_webp") or not os.path.isfile(os.path.join(qa.REPO, "public", "media", pgd["photo_webp"])):
                 bad.append((pgd["id"], "no webp"))
             continue
-        f = os.path.join(qa.REPO, "public", "images", pgd["image"])
+        f = os.path.join(qa.REPO, "public", "media", pgd["image"])
         im = Image.open(f).convert("RGBA")
         w, h = im.size
         pad = pgd["oval_pad"]

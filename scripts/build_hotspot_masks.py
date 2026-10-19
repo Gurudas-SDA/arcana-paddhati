@@ -6,7 +6,7 @@ number) darkens, never a piece of a neighbour.
 
 What: for every number in data/hotspots.json this builds an alpha mask of
 that object's own line pixels (+ its printed number), dilated ~2 px and
-slightly feathered, and writes it to public/images/hotspots/<image>-<NN>.png
+slightly feathered, and writes it to public/media/hotspots/<image-stem>/<NN>.png (19.10.2026 media layout)
 (white, alpha = mask). Ink pixels that belong to anything else are cut out
 of the mask again after dilation/feathering, so a neighbour can never darken.
 The JSON entry of the number gets "mask": "<file name>".
@@ -17,7 +17,7 @@ hand-tuned polygon in CONFIG when objects touch). Components that touch
 several objects (e.g. the tray under 1-3) are split by those polygons; lines
 that belong to no numbered object (the tray rim) are removed via "exclude".
 
-Run:  python scripts/build_hotspot_masks.py [--only Tilak.png] [--check out_dir]
+Run:  python scripts/build_hotspot_masks.py [--only common/tilak.png] [--check out_dir]
 Needs numpy, scipy, Pillow. Rerun after changing a picture or CONFIG.
 """
 import json
@@ -30,7 +30,7 @@ from scipy import ndimage as ndi
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "hotspots.json"
-IMAGES = ROOT / "public" / "images"
+IMAGES = ROOT / "public" / "media"          # data keys are paths under it, e.g. "common/tilak.png"
 OUT = IMAGES / "hotspots"
 
 INK = 235        # luminance below this = a drawn pixel (incl. anti-aliasing)
@@ -45,7 +45,7 @@ FEATHER = 0.8    # gaussian sigma of the soft edge (px)
 _TILAK_ELL = {"clip_ellipse": 1.15}
 
 CONFIG = {
-    "Parafernalia.png": {
+    "common/paraphernalia.png": {
         # Rim of the big tray under 1-3: belongs to no numbered object.
         "exclude": [{"cx": 276, "cy": 307.5, "rx": 69.5, "ry": 38.5, "band": 3.5}],
         # The Deities: never a tap target (Vaishnava etiquette).
@@ -71,7 +71,7 @@ CONFIG = {
     # Emblem of the Gauḍīya Maṭha (Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura): fields enclosed by the sector lines.
     # The three Deity fields are numbered list items 10-12 HERE ONLY — Satkirti's exception of 06.10.2026 to
     # «Deities are not tap targets» (10 Mahāprabhu, 11 Rādhā-Kṛṣṇa, 12 Lakṣmī-Nārāyaṇa); no "inert" any more.
-    "Gaudiya_emblem.png": {
+    "common/gaudiya-emblem.png": {
         "label_r": 18,
         "label_clip": False,
         "items": {
@@ -105,7 +105,7 @@ CONFIG = {
                            [(0, 588), (128, 588), (128, 612), (0, 612)], [(300, 588), (400, 588), (400, 612), (300, 612)]]},
         },
     },
-    "Tilak.png": {
+    "common/tilak.png": {
         "label_r": 11,
         # Plain digits (no circles) with a white halo: each digit is its own
         # ink component, so take only components lying mostly in the circle.
@@ -244,7 +244,8 @@ def main():
             print(f"{name}: pixels claimed by several objects: {conflicts}")
         for n, soft in masks.items():
             head, *sub = n.split(".")
-            fn = f"{stem}-{int(head):02d}" + "".join(f"-{x}" for x in sub) + ".png"  # "2.1" -> <stem>-02-1.png
+            fn = f"{stem}/{int(head):02d}" + "".join(f"-{x}" for x in sub) + ".png"  # "2.1" -> <stem>/02-1.png
+            (OUT / stem).mkdir(parents=True, exist_ok=True)
             alpha = Image.fromarray((soft * 255).round().astype(np.uint8), "L")
             img = Image.new("LA", alpha.size, 255)
             img.putalpha(alpha)

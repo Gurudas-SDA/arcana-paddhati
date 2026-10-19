@@ -90,6 +90,7 @@ def run(p, dev, eng, o, mode):
 
     # ---------- 1: tap on every parampara portrait toggles the bars ----------
     mode.start(pg,f"{BASE}/{L}/parampara/");pg.wait_for_timeout(700)
+    qa.load_portraits(pg)   # 19.10.2026: portraits 2–9 load lazily, as the reader reaches them
     pg.wait_for_function("[...document.querySelectorAll('.app-main img.portrait-img')].every(i => i.complete && i.naturalWidth > 0)", timeout=20000)
     n = pg.locator(".app-main figure.portrait-page").count()
     bad = []

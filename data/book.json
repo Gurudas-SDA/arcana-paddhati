@@ -51,47 +51,47 @@
       "content": [
         {
           "type": "portrait",
-          "src": "parampara/00.png",
+          "src": "parampara/00-pancha-tattva.png",
           "caption": "Śrī Pañca-tattva"
         },
         {
           "type": "portrait",
-          "src": "parampara/01.png",
+          "src": "parampara/01-jagannatha-dasa-babaji.png",
           "caption": "Śrīla Jagannātha dāsa Bābājī Mahārāja"
         },
         {
           "type": "portrait",
-          "src": "parampara/02.png",
+          "src": "parampara/02-bhaktivinoda-thakura.png",
           "caption": "Śrīla Saccidānanda Bhaktivinoda Ṭhākura"
         },
         {
           "type": "portrait",
-          "src": "parampara/03.png",
+          "src": "parampara/03-gaura-kishora-dasa-babaji.png",
           "caption": "Śrīla Gaura Kiśora dāsa Bābājī Mahārāja"
         },
         {
           "type": "portrait",
-          "src": "parampara/04.png",
+          "src": "parampara/04-bhaktisiddhanta-sarasvati.png",
           "caption": "Prabhupāda Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura"
         },
         {
           "type": "portrait",
-          "src": "parampara/05.png",
+          "src": "parampara/05-bhakti-prajnana-keshava.png",
           "caption": "Śrīla Bhakti Prajñāna Keśava Gosvāmī Mahārāja"
         },
         {
           "type": "portrait",
-          "src": "parampara/06.png",
+          "src": "parampara/06-bhaktivedanta-svami-prabhupada.png",
           "caption": "Śrīla AC Bhaktivedānta Svāmī Prabhupāda"
         },
         {
           "type": "portrait",
-          "src": "parampara/07.png",
+          "src": "parampara/07-bhaktivedanta-narayana.png",
           "caption": "Śrīla Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja"
         },
         {
           "type": "portrait",
-          "src": "parampara/08.png",
+          "src": "parampara/08-prem-prayojan.png",
           "caption": "Śrī Prem Prayojan Prabhu"
         }
       ],
@@ -381,7 +381,7 @@
         },
         {
           "type": "image",
-          "src": "Gaudiya_emblem.png",
+          "src": "common/gaudiya-emblem.png",
           "alt": "Эмблема Гаудия-матха"
         },
         {
@@ -1309,7 +1309,7 @@
             },
             {
               "type": "image",
-              "src": "Tilak.png",
+              "src": "common/tilak.png",
               "alt": "Tilaka application diagram"
             },
             {
@@ -2400,7 +2400,7 @@
             },
             {
               "type": "image",
-              "src": "Parafernalia.png",
+              "src": "common/paraphernalia.png",
               "alt": "Worship paraphernalia illustration"
             },
             {
@@ -4737,7 +4737,7 @@
           "content": [
             {
               "type": "image",
-              "src": "Parafernalia.png",
+              "src": "common/paraphernalia.png",
               "alt": "Worship paraphernalia illustration"
             },
             {

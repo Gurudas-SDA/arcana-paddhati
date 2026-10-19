@@ -152,9 +152,8 @@ def run_one(DEV):
                     return {a, lit:lit.length, masks, faded:fig, bg:cs.backgroundColor, bl:rc.borderLeftWidth+' '+rc.borderLeftStyle, bars:document.documentElement.hasAttribute('data-reader-bars')}}""", i)
                 num = (pt["num"] or "").rstrip(").").replace(" ", "")
                 exp = [x.strip() for x in num.split(",") if x.strip()]
-                mask_nums = [mm.rsplit("-", 1)[-1].replace(".png", "").lstrip("0") for mm in st["masks"]]
-                # 02-1 style
-                mask_nums = [mm.split(".")[0].split("-",1)[1].replace("-", ".").lstrip("0") if mm.count("-") >= 2 else mm.rsplit("-",1)[1].replace(".png","").lstrip("0") for mm in st["masks"]]
+                # mask file = media/hotspots/<picture>/<NN>[-<sub>].png (19.10.2026 layout): "05.png" -> "5", "02-1.png" -> "2.1"
+                mask_nums = [mm.split(".")[0].replace("-", ".").lstrip("0") for mm in st["masks"]]
                 good = st["a"] == [i] and st["lit"] == 1 and st["faded"] >= 1 and not st["bars"] and (not exp or sorted(mask_nums) == sorted(exp))
                 if style is None: style = st
                 if good: ok_n += 1

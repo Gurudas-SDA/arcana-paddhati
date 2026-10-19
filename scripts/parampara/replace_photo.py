@@ -2,7 +2,7 @@
 """Put Vraja Lila's prepared photo into a parampara page (oval drawn by code, no baking) — one command.
 1. python scripts/parampara/replace_photo.py NN "<path to the photo>"   (NN = 00…08; photo 736:1000, PNG/JPG/WebP)
 2. Optional: --contour contour.json  (figure outline [[x, y], …] in photo px — needed for L21, margin 5 %).
-3. The master is copied unchanged to scripts/parampara/masters/; WebP q90 (≤ 2× the box, never upscaled) + fallback → public/.
+3. The master is copied unchanged to masters/parampara/ (outside public/, never served); WebP q90 (≤ 2× the box, never upscaled) + fallback → public/.
 4. portraits.json, check.json and lib/parampara-portraits.json are updated; the L21 verdict is printed (or «контур не проверен»).
 5. Then: npm run build && python qa/lint_content.py → commit (the app switches the page by the manifest; no code change).
 
@@ -10,12 +10,12 @@ How Lipikāra switches a page (19.10.2026: the code mask is published, every pag
   a. Wait for BOTH: Vraja's final photo (736:1000) AND Satkirti's decision on the 5 % margin (question №12) —
      the 18.10 master of 00 has only 1.98 % clearance, so L21 fails for it until Satkirti decides.
   b. Worktree from origin/main; source wk-libs/env.sh; replace_photo.py NN "<photo>" [--contour c.json]
-     (00 with the 18.10 master: replace_photo.py 00 scripts/parampara/masters/00-2e085029e773.png — keeps its contour).
-  c. The script removes public/images/parampara/NN.png/.webp (baked page) and writes photo/NN-<hash>.webp + fallback;
+     (00 with the 18.10 master: replace_photo.py 00 masters/parampara/00-pancha-tattva-2e085029e773.png — keeps its contour).
+  c. The script removes public/media/parampara/NN-<slug>.png/.webp (baked page), writes photo/NN-<slug>-<hash>.webp + fallback;
      check L21 verdict, npm run build, qa/run_all.py (no --no-verify), npm run formats (PDF/EPUB draw the frame), screenshots
      desktop+mobile vs. before; git merge --no-ff into main, push, Actions green, check the live page.
-  d. Going back to baked: set "mode": "baked" in portraits.json, restore NN.png/NN.webp + its check.json entry from git,
-     set lib/parampara-portraits.json NN = {"mode": "baked"}, delete photo/NN-*.
+  d. Going back to baked: set "mode": "baked" in portraits.json, restore NN-<slug>.png/.webp + its check.json entry from git,
+     set lib/parampara-portraits.json entry to {"mode": "baked", width, height}, delete photo/NN-<slug>-*.
 
 Vraja Lila 18.10.2026 (group msg 4997–4999, 5004, 5006): «никаких „впеканий" — все фото я подготовлю вручную
 (кадрирование), кодом будут вставляться в овал»; every photo 736:1000 with the same safe area; replacing a page
@@ -36,7 +36,7 @@ from PIL import Image
 sys.stdout.reconfigure(encoding="utf-8")
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
-MASTERS = HERE / "masters"
+MASTERS = REPO / "masters" / "parampara"          # 19.10.2026 media layout: originals outside public/
 ALLOWED = {".png", ".jpg", ".jpeg", ".webp"}
 
 
@@ -79,8 +79,8 @@ def main():
     else:
         contour, note = None, None                         # a new photo: an old contour does not apply
 
-    MASTERS.mkdir(exist_ok=True)
-    master = MASTERS / f"{nn}-{sha[:12]}{'.jpg' if ext == '.jpeg' else ext}"
+    MASTERS.mkdir(parents=True, exist_ok=True)
+    master = MASTERS / f"{r.page_name(nn)}-{sha[:12]}{'.jpg' if ext == '.jpeg' else ext}"
     same = a.photo.resolve() == master.resolve()           # the master already kept here (e.g. 00, prepared 18.10)
     for f in MASTERS.glob(f"{nn}-*"):
         if f != master:

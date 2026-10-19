@@ -1,5 +1,5 @@
 {
- "Tilak.png": {
+ "common/tilak.png": {
   "w": 756,
   "h": 521,
   "spots": {
@@ -10,7 +10,7 @@
     "ry": 6.91,
     "lx": 27.91,
     "ly": 13.44,
-    "mask": "Tilak-01.png"
+    "mask": "tilak/01.png"
    },
    "2": {
     "x": 25.26,
@@ -19,7 +19,7 @@
     "ry": 4.99,
     "lx": 28.04,
     "ly": 80.23,
-    "mask": "Tilak-02.png"
+    "mask": "tilak/02.png"
    },
    "3": {
     "x": 25.26,
@@ -28,7 +28,7 @@
     "ry": 4.99,
     "lx": 28.04,
     "ly": 63.34,
-    "mask": "Tilak-03.png"
+    "mask": "tilak/03.png"
    },
    "4": {
     "x": 25.26,
@@ -37,7 +37,7 @@
     "ry": 4.99,
     "lx": 28.04,
     "ly": 45.68,
-    "mask": "Tilak-04.png"
+    "mask": "tilak/04.png"
    },
    "5": {
     "x": 18.65,
@@ -46,7 +46,7 @@
     "ry": 4.99,
     "lx": 16.4,
     "ly": 74.47,
-    "mask": "Tilak-05.png"
+    "mask": "tilak/05.png"
    },
    "6": {
     "x": 5.95,
@@ -55,7 +55,7 @@
     "ry": 5.18,
     "lx": 9.26,
     "ly": 71.4,
-    "mask": "Tilak-06.png"
+    "mask": "tilak/06.png"
    },
    "7": {
     "x": 8.33,
@@ -64,7 +64,7 @@
     "ry": 5.18,
     "lx": 11.11,
     "ly": 50.29,
-    "mask": "Tilak-07.png"
+    "mask": "tilak/07.png"
    },
    "8": {
     "x": 32.41,
@@ -73,7 +73,7 @@
     "ry": 4.99,
     "lx": 34.66,
     "ly": 74.47,
-    "mask": "Tilak-08.png"
+    "mask": "tilak/08.png"
    },
    "9": {
     "x": 43.78,
@@ -82,7 +82,7 @@
     "ry": 5.18,
     "lx": 40.74,
     "ly": 69.48,
-    "mask": "Tilak-09.png"
+    "mask": "tilak/09.png"
    },
    "10": {
     "x": 42.72,
@@ -91,7 +91,7 @@
     "ry": 5.18,
     "lx": 39.95,
     "ly": 50.29,
-    "mask": "Tilak-10.png"
+    "mask": "tilak/10.png"
    },
    "11": {
     "x": 71.43,
@@ -100,7 +100,7 @@
     "ry": 4.99,
     "lx": 74.07,
     "ly": 45.68,
-    "mask": "Tilak-11.png"
+    "mask": "tilak/11.png"
    },
    "12": {
     "x": 71.43,
@@ -109,14 +109,14 @@
     "ry": 4.99,
     "lx": 74.07,
     "ly": 69.1,
-    "mask": "Tilak-12.png"
+    "mask": "tilak/12.png"
    },
    "13": {
     "x": 71.1,
     "y": 14.0,
     "rx": 2.6,
     "ry": 6.5,
-    "mask": "Tilak-13.png"
+    "mask": "tilak/13.png"
    }
   },
   "text": {
@@ -127,7 +127,7 @@
    ]
   }
  },
- "Parafernalia.png": {
+ "common/paraphernalia.png": {
   "w": 693,
   "h": 449,
   "spots": {
@@ -138,7 +138,7 @@
     "ry": 4.0,
     "lx": 33.19,
     "ly": 71.49,
-    "mask": "Parafernalia-01.png"
+    "mask": "paraphernalia/01.png"
    },
    "2": {
     "x": 43.0,
@@ -147,7 +147,7 @@
     "ry": 6.24,
     "lx": 47.47,
     "ly": 67.48,
-    "mask": "Parafernalia-02.png"
+    "mask": "paraphernalia/02.png"
    },
    "3": {
     "x": 36.22,
@@ -156,7 +156,7 @@
     "ry": 7.13,
     "lx": 32.61,
     "ly": 65.03,
-    "mask": "Parafernalia-03.png"
+    "mask": "paraphernalia/03.png"
    },
    "4": {
     "x": 39.68,
@@ -165,7 +165,7 @@
     "ry": 8.91,
     "lx": 42.42,
     "ly": 55.68,
-    "mask": "Parafernalia-04.png"
+    "mask": "paraphernalia/04.png"
    },
    "5": {
     "x": 31.9,
@@ -174,7 +174,7 @@
     "ry": 2.67,
     "lx": 31.17,
     "ly": 56.12,
-    "mask": "Parafernalia-05.png"
+    "mask": "paraphernalia/05.png"
    },
    "6": {
     "x": 51.08,
@@ -183,7 +183,7 @@
     "ry": 6.68,
     "lx": 51.08,
     "ly": 49.0,
-    "mask": "Parafernalia-06.png"
+    "mask": "paraphernalia/06.png"
    },
    "7": {
     "x": 51.8,
@@ -192,7 +192,7 @@
     "ry": 3.12,
     "lx": 53.82,
     "ly": 65.7,
-    "mask": "Parafernalia-07.png"
+    "mask": "paraphernalia/07.png"
    },
    "8": {
     "x": 62.05,
@@ -201,7 +201,7 @@
     "ry": 6.24,
     "lx": 66.38,
     "ly": 67.71,
-    "mask": "Parafernalia-08.png"
+    "mask": "paraphernalia/08.png"
    },
    "9": {
     "x": 52.53,
@@ -210,7 +210,7 @@
     "ry": 2.9,
     "lx": 54.4,
     "ly": 78.4,
-    "mask": "Parafernalia-09.png"
+    "mask": "paraphernalia/09.png"
    },
    "10": {
     "x": 61.18,
@@ -219,7 +219,7 @@
     "ry": 5.35,
     "lx": 66.09,
     "ly": 80.18,
-    "mask": "Parafernalia-10.png"
+    "mask": "paraphernalia/10.png"
    },
    "11": {
     "x": 81.39,
@@ -228,7 +228,7 @@
     "ry": 14.7,
     "lx": 81.1,
     "ly": 68.6,
-    "mask": "Parafernalia-11.png"
+    "mask": "paraphernalia/11.png"
    },
    "12": {
     "x": 17.32,
@@ -237,7 +237,7 @@
     "ry": 13.81,
     "lx": 17.32,
     "ly": 69.71,
-    "mask": "Parafernalia-12.png"
+    "mask": "paraphernalia/12.png"
    },
    "13": {
     "x": 22.08,
@@ -246,7 +246,7 @@
     "ry": 6.68,
     "lx": 17.75,
     "ly": 52.78,
-    "mask": "Parafernalia-13.png"
+    "mask": "paraphernalia/13.png"
    },
    "14": {
     "x": 45.31,
@@ -255,7 +255,7 @@
     "ry": 4.01,
     "lx": 50.65,
     "ly": 90.87,
-    "mask": "Parafernalia-14.png"
+    "mask": "paraphernalia/14.png"
    },
    "15": {
     "x": 43.0,
@@ -264,7 +264,7 @@
     "ry": 2.9,
     "lx": 38.38,
     "ly": 82.41,
-    "mask": "Parafernalia-15.png"
+    "mask": "paraphernalia/15.png"
    },
    "16": {
     "x": 38.38,
@@ -273,7 +273,7 @@
     "ry": 2.23,
     "lx": 34.92,
     "ly": 88.86,
-    "mask": "Parafernalia-16.png"
+    "mask": "paraphernalia/16.png"
    },
    "17": {
     "x": 31.17,
@@ -282,7 +282,7 @@
     "ry": 2.67,
     "lx": 30.74,
     "ly": 39.87,
-    "mask": "Parafernalia-17.png"
+    "mask": "paraphernalia/17.png"
    },
    "18": {
     "x": 13.85,
@@ -291,7 +291,7 @@
     "ry": 4.45,
     "lx": 8.95,
     "ly": 49.44,
-    "mask": "Parafernalia-18.png"
+    "mask": "paraphernalia/18.png"
    }
   },
   "inert": [
@@ -323,7 +323,7 @@
    ]
   ]
  },
- "Gaudiya_emblem.png": {
+ "common/gaudiya-emblem.png": {
   "w": 1000,
   "h": 1000,
   "spots": {
@@ -335,7 +335,7 @@
     "ry": 9.0,
     "lx": 41.1,
     "ly": 50.0,
-    "mask": "Gaudiya_emblem-01.png"
+    "mask": "gaudiya-emblem/01.png"
    },
    "2": {
     "x": 50.0,
@@ -344,7 +344,7 @@
     "ry": 15.0,
     "lx": 63.2,
     "ly": 50.0,
-    "mask": "Gaudiya_emblem-02.png"
+    "mask": "gaudiya-emblem/02.png"
    },
    "2.1": {
     "tag": [50.0, 34.0],
@@ -352,7 +352,7 @@
     "y": 36.6,
     "rx": 3.6,
     "ry": 3.0,
-    "mask": "Gaudiya_emblem-02-1.png"
+    "mask": "gaudiya-emblem/02-1.png"
    },
    "2.2": {
     "tag": [63.6, 41.3],
@@ -360,7 +360,7 @@
     "y": 43.2,
     "rx": 3.6,
     "ry": 3.0,
-    "mask": "Gaudiya_emblem-02-2.png"
+    "mask": "gaudiya-emblem/02-2.png"
    },
    "2.3": {
     "tag": [63.6, 58.7],
@@ -368,7 +368,7 @@
     "y": 56.6,
     "rx": 3.6,
     "ry": 3.0,
-    "mask": "Gaudiya_emblem-02-3.png"
+    "mask": "gaudiya-emblem/02-3.png"
    },
    "2.4": {
     "tag": [50.0, 66.2],
@@ -376,7 +376,7 @@
     "y": 62.8,
     "rx": 3.6,
     "ry": 3.0,
-    "mask": "Gaudiya_emblem-02-4.png"
+    "mask": "gaudiya-emblem/02-4.png"
    },
    "2.5": {
     "tag": [36.4, 58.7],
@@ -384,7 +384,7 @@
     "y": 56.6,
     "rx": 3.6,
     "ry": 3.0,
-    "mask": "Gaudiya_emblem-02-5.png"
+    "mask": "gaudiya-emblem/02-5.png"
    },
    "2.6": {
     "tag": [36.4, 41.3],
@@ -392,7 +392,7 @@
     "y": 43.2,
     "rx": 3.6,
     "ry": 3.0,
-    "mask": "Gaudiya_emblem-02-6.png"
+    "mask": "gaudiya-emblem/02-6.png"
    },
    "3": {
     "x": 32.0,
@@ -401,7 +401,7 @@
     "ry": 11.0,
     "lx": 30.0,
     "ly": 10.5,
-    "mask": "Gaudiya_emblem-03.png"
+    "mask": "gaudiya-emblem/03.png"
    },
    "4": {
     "x": 65.0,
@@ -410,7 +410,7 @@
     "ry": 10.0,
     "lx": 65.0,
     "ly": 34.5,
-    "mask": "Gaudiya_emblem-04.png"
+    "mask": "gaudiya-emblem/04.png"
    },
    "5": {
     "x": 16.5,
@@ -419,7 +419,7 @@
     "ry": 4.0,
     "lx": 16.5,
     "ly": 76.0,
-    "mask": "Gaudiya_emblem-05.png"
+    "mask": "gaudiya-emblem/05.png"
    },
    "6": {
     "x": 83.2,
@@ -428,7 +428,7 @@
     "ry": 4.0,
     "lx": 83.2,
     "ly": 76.0,
-    "mask": "Gaudiya_emblem-06.png"
+    "mask": "gaudiya-emblem/06.png"
    },
    "7": {
     "x": 34.0,
@@ -437,7 +437,7 @@
     "ry": 15.0,
     "lx": 40.0,
     "ly": 79.0,
-    "mask": "Gaudiya_emblem-07.png"
+    "mask": "gaudiya-emblem/07.png"
    },
    "8": {
     "x": 65.0,
@@ -446,7 +446,7 @@
     "ry": 16.0,
     "lx": 59.0,
     "ly": 81.5,
-    "mask": "Gaudiya_emblem-08.png"
+    "mask": "gaudiya-emblem/08.png"
    },
    "9": {
     "x": 50.0,
@@ -455,7 +455,7 @@
     "ry": 10.0,
     "lx": 52.7,
     "ly": 76.8,
-    "mask": "Gaudiya_emblem-09.png"
+    "mask": "gaudiya-emblem/09.png"
    },
    "10": {
     "tag": [58.0, 14.0],
@@ -463,7 +463,7 @@
     "y": 14.0,
     "rx": 8.0,
     "ry": 13.0,
-    "mask": "Gaudiya_emblem-10.png"
+    "mask": "gaudiya-emblem/10.png"
    },
    "11": {
     "tag": [93.0, 57.0],
@@ -471,7 +471,7 @@
     "y": 46.0,
     "rx": 13.0,
     "ry": 17.0,
-    "mask": "Gaudiya_emblem-11.png"
+    "mask": "gaudiya-emblem/11.png"
    },
    "12": {
     "tag": [9.0, 33.5],
@@ -479,7 +479,7 @@
     "y": 46.0,
     "rx": 15.0,
     "ry": 15.0,
-    "mask": "Gaudiya_emblem-12.png"
+    "mask": "gaudiya-emblem/12.png"
    }
   }
  }

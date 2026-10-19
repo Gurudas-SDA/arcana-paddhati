@@ -8,7 +8,7 @@
 // which were missing offline — tapping a section did nothing.
 //
 // The manifest lists every URL the book needs offline (pages as directory URLs,
-// RSC payloads, /_next/static assets, search indexes, icons, images). Its
+// RSC payloads, /_next/static assets, search indexes, icons, media pictures). Its
 // `version` is a hash of all listed files; it is injected into out/sw.js so the
 // SW file changes on every content change and the browser installs the new SW.
 //
@@ -77,7 +77,7 @@ const LANG_DIRS = ["ru", "ru-iast", "lv", "de", "fr", "es", "it", "uk", "hu", "p
 const LANG_FIRST = ["ru-iast", "", "ru"];
 function priority(rel) {
   if (rel.startsWith("_next/")) return 0;
-  if (rel.startsWith("images/")) return 1;
+  if (rel.startsWith("media/")) return 1;
   if (!rel.includes("/") && !rel.endsWith(".html") && !rel.endsWith(".txt")) return 1;
   if (rel.startsWith("transcripts/")) return 20;
   const first = rel.split("/")[0];
@@ -96,7 +96,7 @@ function group(rel) {
   if (rel.startsWith("transcripts/")) return "transcripts";
   const m = /^search-index\.([a-z-]+)\.json$/.exec(rel);
   if (m) return m[1];
-  if (rel.startsWith("_next/") || rel.startsWith("images/")) return "shell";
+  if (rel.startsWith("_next/") || rel.startsWith("media/")) return "shell";
   if (!rel.includes("/")) return rel.endsWith(".html") || rel.endsWith(".txt") ? "en" : "shell";
   const first = rel.split("/")[0];
   return LANG_DIRS.includes(first) ? first : "en";
