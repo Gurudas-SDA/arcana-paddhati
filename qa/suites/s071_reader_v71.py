@@ -56,7 +56,7 @@ def row(pg, text):
 def go_row(pg, text, part):
     tap(pg, row(pg, text))
     pg.wait_for_timeout(500)
-    if part not in pg.url and not pg.evaluate("!!document.querySelector('.mobile-menu[data-leaving]')"):
+    if part not in pg.url and not pg.evaluate("!!document.querySelector('.mobile-menu[data-open][data-leaving]')"):
         tap(pg, row(pg, text))
     wait_url(pg, part)
 
@@ -174,12 +174,12 @@ def run(p,dev,eng,kw,mode):
         r2 = row(pg, 'Святое имя')
         tap(pg, r2)
         pg.wait_for_timeout(200)
-        if 'gaudiya-emblem' not in pg.url and pg.locator('.mobile-menu').count() and not pg.evaluate("!!document.querySelector('.mobile-menu[data-leaving]')"):
+        if 'gaudiya-emblem' not in pg.url and pg.locator('.mobile-menu[data-open]').count() and not pg.evaluate("!!document.querySelector('.mobile-menu[data-open][data-leaving]')"):
             tap(pg, row(pg, 'Святое имя'))  # two-tap contents
         frames = []
         t0 = time.time()
         while time.time() - t0 < 4:
-            frames.append(qa.reading_eval(pg,"root=>[location.pathname,!!document.querySelector('.mobile-menu'),(root.querySelector('h1')||{innerText:'(cover)'}).innerText.slice(0,20)]"))
+            frames.append(qa.reading_eval(pg,"root=>[location.pathname,!!document.querySelector('.mobile-menu[data-open]'),(root.querySelector('h1')||{innerText:'(cover)'}).innerText.slice(0,20)]"))
             pg.wait_for_timeout(80)
         flash = [f for f in frames if not f[1] and 'gaudiya-emblem' not in f[0]]
         shown = next((i for i, f in enumerate(frames) if 'gaudiya-emblem' in f[0] and not f[1]), None)

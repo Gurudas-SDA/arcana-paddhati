@@ -243,7 +243,7 @@ def run(p, dev, eng, o):
         pg.wait_for_timeout(3000)
         # ---- the reader: contents → a chapter ----
         def menu():
-            return pg.locator(".mobile-menu").count() == 1
+            return pg.locator(".mobile-menu[data-open]").count() == 1
 
         def contents():
             for _ in range(5):
@@ -262,7 +262,7 @@ def run(p, dev, eng, o):
             return menu()
 
         def row(rid):
-            return pg.locator(f".mobile-menu nav [data-toc-row='{rid}']").first
+            return pg.locator(f".mobile-menu[data-open] nav [data-toc-row='{rid}']").first
 
         def tap(loc):
             loc.scroll_into_view_if_needed(timeout=5000)
@@ -291,7 +291,7 @@ def run(p, dev, eng, o):
                 tap(row(rid))
                 t = time.time()
                 pg.wait_for_timeout(200)
-                if slug in pg.url or not menu() or pg.locator(".mobile-menu [data-toc-loading]").count():
+                if slug in pg.url or not menu() or pg.locator(".mobile-menu[data-open] [data-toc-loading]").count():
                     break
             while time.time() - t < limit_s:
                 if slug in pg.url and not menu() and pg.locator("main h1").count() > 0:

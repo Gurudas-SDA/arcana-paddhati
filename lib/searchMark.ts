@@ -230,7 +230,7 @@ function tryApply(): boolean {
     pending = null;
     return true;
   }
-  if (!onPlace(p) || document.querySelector(".mobile-menu")) return false;
+  if (!onPlace(p) || document.querySelector(".mobile-menu[data-open]")) return false;
   const main = document.querySelector<HTMLElement>(".app-main");
   const chapter = main?.querySelector(`[data-book-section="${CSS.escape(p.sectionId)}"]`);
   const scope = chapter ?? readingSection();

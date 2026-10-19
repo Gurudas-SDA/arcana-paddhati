@@ -121,7 +121,7 @@ function highlightOn(): boolean {
 
 /** A window of its own is open (contents/search drawer, «Настроение Гурудева»). */
 function overlayOpen(): boolean {
-  return !!document.querySelector(".mobile-menu, .mood-overlay");
+  return !!document.querySelector(".mobile-menu[data-open], .mood-overlay");
 }
 
 function isPanelEntry(): boolean {

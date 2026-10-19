@@ -18,7 +18,7 @@ CHAPTER = "arcana-procedure"
 SUBSECTION = "2-svagata"
 GROUP = "temple-worship"
 STATE = """() => {
-  const nav = document.querySelector('.mobile-menu nav');
+  const nav = document.querySelector('.mobile-menu[data-open] nav');
   return {
     url: location.pathname + location.hash,
     menu: !!nav,
@@ -83,7 +83,7 @@ def run(browser, device, options, mode, theme):
     group = lambda: page.locator(f"[data-toc-group='{GROUP}']")
     chapter = lambda: page.locator(f"[data-toc-chapter='{CHAPTER}']")
     subsection = lambda: page.locator(f"[data-toc-row='sub:{CHAPTER}#{SUBSECTION}']")
-    close = lambda: page.locator(".mobile-menu button[aria-label='Закрыть меню']")
+    close = lambda: page.locator(".mobile-menu[data-open] button[aria-label='Закрыть меню']")
     try:
         contents()
         for locator in (group, chapter):
@@ -127,7 +127,7 @@ def run(browser, device, options, mode, theme):
         assert not state()["menu"] and state()["url"].rstrip("/").endswith("/ru-iast")
 
         contents()
-        field = page.locator(".mobile-menu input[type=search]")
+        field = page.locator(".mobile-menu[data-open] input[type=search]")
         field.fill("Свагата")
         result = page.locator(f"[data-result='{CHAPTER}#{SUBSECTION}']")
         result.wait_for(state="visible")

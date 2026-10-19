@@ -57,21 +57,21 @@ def run(p, dev, eng, o):
     bad = []
     for ch, sid in SUBS:
         try:
-            if not pg.evaluate("!!document.querySelector('.mobile-menu')"):
+            if not pg.evaluate("!!document.querySelector('.mobile-menu[data-open]')"):
                 try:
                     open_contents()
                 except Exception:
                     pg.keyboard.press("Escape"); pg.wait_for_timeout(500); reveal()
                     pg.evaluate("document.querySelector('[data-reader-action=contents]').click()"); pg.wait_for_timeout(900)
-            if not pg.evaluate("!!document.querySelector('.mobile-menu')"):
+            if not pg.evaluate("!!document.querySelector('.mobile-menu[data-open]')"):
                 bad.append((ch, sid, "menu did not open")); continue
-            CHB = f"document.querySelector('.mobile-menu [data-toc-chapter=\"{ch}\"]')"
+            CHB = f"document.querySelector('.mobile-menu[data-open] [data-toc-chapter=\"{ch}\"]')"
             vis = lambda: pg.evaluate(f"(()=>{{const e={CHB}; return !!(e && e.getClientRects().length)}})()")
             if not vis():
-                for gid in pg.evaluate("[...document.querySelectorAll('.mobile-menu [data-toc-group]')].map(g=>g.getAttribute('data-toc-group'))"):
+                for gid in pg.evaluate("[...document.querySelectorAll('.mobile-menu[data-open] [data-toc-group]')].map(g=>g.getAttribute('data-toc-group'))"):
                     if vis():
                         break
-                    G = f"document.querySelector('.mobile-menu [data-toc-group=\"{gid}\"]')"
+                    G = f"document.querySelector('.mobile-menu[data-open] [data-toc-group=\"{gid}\"]')"
                     if pg.evaluate(f"{G}.getAttribute('aria-expanded')") != "true":
                         tapel(G)
                         if not vis():
@@ -87,12 +87,12 @@ def run(p, dev, eng, o):
                 bad.append((ch, sid, "subsection row not found")); pg.keyboard.press("Escape"); continue
             u0 = pg.url
             tapel(A)
-            if pg.evaluate("!!document.querySelector('.mobile-menu')") and pg.url == u0:
+            if pg.evaluate("!!document.querySelector('.mobile-menu[data-open]')") and pg.url == u0:
                 tapel(A)  # two-tap contents
             pg.wait_for_timeout(3000)
             st = pg.evaluate(f"""(()=>{{const h=document.getElementById({json.dumps(sid)}); if(!h) return null; const hh=h.querySelector('h1,h2,h3,h4')||h; const r=hh.getBoundingClientRect();
                 const pe=document.elementFromPoint(Math.min(innerWidth-2,r.left+20), r.top+Math.min(r.height/2,12)); const visible=!!(pe&&hh.contains(pe));
-                return {{visible, top:Math.round(r.top), menu:!!document.querySelector('.mobile-menu'), path:location.pathname.split('/').slice(-2)[0]}}}})()""")
+                return {{visible, top:Math.round(r.top), menu:!!document.querySelector('.mobile-menu[data-open]'), path:location.pathname.split('/').slice(-2)[0]}}}})()""")
             ok = bool(st) and not st["menu"] and 0 <= st["top"] <= 80 and st["path"] == ch and st["visible"]
             if not ok:
                 bad.append((ch, sid, st))

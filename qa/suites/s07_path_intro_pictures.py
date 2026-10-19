@@ -40,7 +40,7 @@ def chk(d, n, ok, info=""):
     res.append((d, n, bool(ok), info)); print(f"  [{'PASS' if ok else 'FAIL'}] {d} {n} {'' if ok else info}", flush=True)
 
 
-LIT = """() => { const nav = document.querySelector('.mobile-menu nav'); if (!nav) return {menu: false};
+LIT = """() => { const nav = document.querySelector('.mobile-menu[data-open] nav'); if (!nav) return {menu: false};
   const lits = [...nav.querySelectorAll('[data-toc-lit]')]; if (!lits.length) return {menu: true, n: 0};
   const el = lits[0]; const box = el;  // v7.8: the group heading's button is the whole strip
   const r = box.getBoundingClientRect(), nr = nav.getBoundingClientRect();
@@ -130,7 +130,7 @@ def run(p, dev, eng, o):
 
     def contents():
         bar_act("[data-reader-action=contents]", 700)
-        return pg.locator(".mobile-menu").count() > 0
+        return pg.locator(".mobile-menu[data-open]").count() > 0
 
     def lit():
         return pg.evaluate(LIT)
@@ -165,10 +165,10 @@ def run(p, dev, eng, o):
     states.append(flow.state())
     g = lit()
     chk(dev, "A fresh contents: one row lit = current chapter, in view, beige band", g.get("n") == 1 and g.get("chapter") == "daily-duties-brahma-muhurta" and g["inView"] and g["bg"] == LIT_BG, str(g))
-    chk(dev, "C no «Начало главы» row (open chapter list)", pg.locator(".mobile-menu [data-toc-chapter-start]").count() == 0 and "Начало главы" not in pg.locator(".mobile-menu nav").inner_text(), "")
-    first = pg.locator(".mobile-menu #toc-ch-daily-duties-brahma-muhurta li").first.inner_text().strip()
+    chk(dev, "C no «Начало главы» row (open chapter list)", pg.locator(".mobile-menu[data-open] [data-toc-chapter-start]").count() == 0 and "Начало главы" not in pg.locator(".mobile-menu[data-open] nav").inner_text(), "")
+    first = pg.locator(".mobile-menu[data-open] #toc-ch-daily-duties-brahma-muhurta li").first.inner_text().strip()
     chk(dev, "C chapter list starts with subsection «1.1.»", first.startswith("1.1."), first)
-    intro = pg.locator(".mobile-menu [data-toc-group=introduction]")
+    intro = pg.locator(".mobile-menu[data-open] [data-toc-group=introduction]")
     chk(dev, "D «Введение» is a group heading without number", intro.count() == 1 and intro.inner_text().strip().upper() == "ВВЕДЕНИЕ", intro.inner_text() if intro.count() else "none")
     # Real expand / collapse actions replace the removed highlight-only steps.
     before = flow.state()
@@ -177,7 +177,7 @@ def run(p, dev, eng, o):
         intro.get_attribute("aria-expanded") == "true" and flow.state()['lit'] == before['lit']
         and pg.url == P0, str(flow.state()))
     g = lit()
-    rows = pg.locator(".mobile-menu #toc-grp-introduction > li")
+    rows = pg.locator(".mobile-menu[data-open] #toc-grp-introduction > li")
     names = [rows.nth(i).inner_text().strip() for i in range(rows.count())]
     chk(dev, "D one tap «Введение» -> Эмблема / Виграха-таттва, no numbers",
         names == ["Эмблема Гаудия-матха", "Виграха-таттва"], str(names))
@@ -186,18 +186,18 @@ def run(p, dev, eng, o):
         and g["bg"] == LIT_BG and g["color"] == "rgb(184, 134, 11)", str(g))
     act(intro); states.append(flow.state())
     chk(dev, "D second tap on «Введение» collapses it",
-        intro.get_attribute("aria-expanded") == "false" and pg.locator(".mobile-menu #toc-grp-introduction").count() == 0)
+        intro.get_attribute("aria-expanded") == "false" and pg.locator(".mobile-menu[data-open] #toc-grp-introduction").count() == 0)
     chk(dev, "A collapsing an unrelated group keeps the reading-place mark",
         flow.state()['lit'] == before['lit'] and marks_place(flow.state()), str(flow.state()))
     act(intro); states.append(flow.state())
     # Hiding the reader's branch raises its mark to that visible ancestor.
     act(flow.group('temple-worship')); states.append(flow.state())
-    vig = pg.locator(".mobile-menu [data-toc-chapter=vigraha-tattva]")
+    vig = pg.locator(".mobile-menu[data-open] [data-toc-chapter=vigraha-tattva]")
     act(vig); states.append(flow.state())
     chk(dev, "A first tap «Виграха-таттва» opens its top and subsection list",
         flow.state()['lit'] == ['sec:vigraha-tattva'] and flow.state()['menu']
         and pg.url.endswith('/vigraha-tattva/') and abs(pg.evaluate(qa.READING_POSITION_JS)['top']) < 2
-        and pg.locator(".mobile-menu #toc-ch-vigraha-tattva").count() == 1, str(flow.state()))
+        and pg.locator(".mobile-menu[data-open] #toc-ch-vigraha-tattva").count() == 1, str(flow.state()))
     chapter_url = pg.url
     act(vig); states.append(flow.state()); collapsed = flow.state()
     act(vig); states.append(flow.state()); g = lit()
@@ -205,8 +205,8 @@ def run(p, dev, eng, o):
         'vigraha-tattva' not in collapsed['open'] and collapsed['lit'] == ['sec:vigraha-tattva']
         and collapsed['url'] == states[-3]['url'] and pg.url == chapter_url
         and g.get("chapter") == "vigraha-tattva" and g.get("n") == 1
-        and pg.locator(".mobile-menu #toc-ch-vigraha-tattva").count() == 1, str(g))
-    tota = pg.locator('.mobile-menu a[href*="#vigraha-tota-gopinatha"]')
+        and pg.locator(".mobile-menu[data-open] #toc-ch-vigraha-tattva").count() == 1, str(g))
+    tota = pg.locator('.mobile-menu[data-open] a[href*="#vigraha-tota-gopinatha"]')
     tt = tota.inner_text().strip()
     chk(dev, "D subsection numbering inside the Introduction: «10. Тота Гопинатх…»", tt.startswith("10."), tt)
     act(tota, 1100); states.append(flow.state())
@@ -214,12 +214,12 @@ def run(p, dev, eng, o):
         pg.url.endswith('/vigraha-tattva/#vigraha-tota-gopinatha') and not flow.state()['menu'], pg.url)
     shot("toc-path-tota")
     try:
-        pg.wait_for_function("() => !document.querySelector('.mobile-menu') && location.hash === '#vigraha-tota-gopinatha'", timeout=12000)
+        pg.wait_for_function("() => !document.querySelector('.mobile-menu[data-open]') && location.hash === '#vigraha-tota-gopinatha'", timeout=12000)
     except PWTimeout:
         pass
     chk(dev, "A one tap opens «Тота Гопинатх» at its subsection",
         "/vigraha-tattva/" in pg.url and pg.url.endswith("#vigraha-tota-gopinatha")
-        and pg.locator(".mobile-menu").count() == 0, pg.url)
+        and pg.locator(".mobile-menu[data-open]").count() == 0, pg.url)
     P1 = pg.url
 
     def same_place(got, want):
@@ -249,7 +249,7 @@ def run(p, dev, eng, o):
             shot(f"back-{k + 2}")
     pg.go_back(); pg.wait_for_timeout(900)
     chk(dev, "A Back step 9 -> menu closed, the page where the reader was",
-        same_place(flow.state(), states[0]) and pg.locator(".mobile-menu").count() == 0 and pg.url == P0, pg.url)
+        same_place(flow.state(), states[0]) and pg.locator(".mobile-menu[data-open]").count() == 0 and pg.url == P0, pg.url)
     chk(dev, "A path contains exactly nine real action entries",
         len(states) == 10 and states[-1]['history'] - states[0]['history'] == 9
         and states[-1]['pushes'] - states[0]['pushes'] == 9, str(states))
@@ -270,20 +270,20 @@ def run(p, dev, eng, o):
             bad.append((flow.state(), want))
     chk(dev, "B forward steps retrace every URL and open list, marking the reading place", not bad, str(bad[:2]))
     pg.go_forward(); pg.wait_for_timeout(1000)
-    chk(dev, "B forward -> «Тота Гопинатх» page again", same_place(flow.state(), states[-1]) and pg.url == P1 and pg.locator(".mobile-menu").count() == 0, pg.url)
+    chk(dev, "B forward -> «Тота Гопинатх» page again", same_place(flow.state(), states[-1]) and pg.url == P1 and pg.locator(".mobile-menu[data-open]").count() == 0, pg.url)
 
     # ---------- A: group actions keep the reading place ----------
     contents()
     g = lit()
     chk(dev, "A contents on Тота Гопинатх page: that subsection lit by default", (g.get("href") or "").endswith("#vigraha-tota-gopinatha") and g["inView"], str(g))
-    temple = pg.locator(".mobile-menu [data-toc-group=temple-worship]")
+    temple = pg.locator(".mobile-menu[data-open] [data-toc-group=temple-worship]")
     before = flow.state()
     act(temple)
     g = lit()
     chk(dev, "A tap «Храмовый стандарт» keeps the reading-place mark (only it)",
         flow.state()['lit'] == before['lit'] and marks_place(flow.state())
         and g.get("n") == 1 and g["bg"] == LIT_BG, str(g))
-    fv = pg.locator(".mobile-menu [data-toc-group=festivals-vows]")
+    fv = pg.locator(".mobile-menu[data-open] [data-toc-group=festivals-vows]")
     chk(dev, "H part title «Праздники, обеты и песни арати»", "ПРАЗДНИКИ, ОБЕТЫ И ПЕСНИ АРАТИ" in fv.inner_text().upper(), fv.inner_text())
     before = flow.state()
     act(fv)
@@ -291,14 +291,14 @@ def run(p, dev, eng, o):
     chk(dev, "A tap «Праздники, обеты и песни арати» keeps the reading-place mark and reveals the group",
         flow.state()['lit'] == before['lit'] and marks_place(flow.state()) and g.get("n") == 1 and in_view(fv), str(g))
     shot("part-heading-reading-place")
-    pre = pg.locator(".mobile-menu [data-toc-group=preaching-centres]")
+    pre = pg.locator(".mobile-menu[data-open] [data-toc-group=preaching-centres]")
     before = flow.state()
     act(pre)
     chk(dev, "A tap «Стандарт для проповеднических центров» keeps the reading-place mark",
         flow.state()['lit'] == before['lit'] and marks_place(flow.state()), str(flow.state()))
-    if pg.locator(".mobile-menu #toc-part-temple-worship").count() == 0:
+    if pg.locator(".mobile-menu[data-open] #toc-part-temple-worship").count() == 0:
         act(temple)
-    t1 = pg.locator(".mobile-menu [data-toc-chapter=daily-duties-brahma-muhurta]").inner_text().strip()
+    t1 = pg.locator(".mobile-menu[data-open] [data-toc-chapter=daily-duties-brahma-muhurta]").inner_text().strip()
     chk(dev, "D Part I starts with chapter «1.»", t1.startswith("1."), t1)
 
     # ---------- B: no forward step -> note, no dead tap ----------
@@ -414,9 +414,9 @@ def run(p, dev, eng, o):
     # ---------- H: English ----------
     goto("/vigraha-tattva/")
     contents()
-    en = pg.locator(".mobile-menu [data-toc-group=festivals-vows]").inner_text().strip().upper()
+    en = pg.locator(".mobile-menu[data-open] [data-toc-group=festivals-vows]").inner_text().strip().upper()
     chk(dev, "H English part title «Festivals, Vows and Ārati Songs»", "FESTIVALS, VOWS AND ĀRATI SONGS" in en, en)
-    chk(dev, "D English: «Introduction» group heading", pg.locator(".mobile-menu [data-toc-group=introduction]").inner_text().strip().upper() == "INTRODUCTION")
+    chk(dev, "D English: «Introduction» group heading", pg.locator(".mobile-menu[data-open] [data-toc-group=introduction]").inner_text().strip().upper() == "INTRODUCTION")
 
     # ---------- I: every verse has «пословно» (one profile per engine family is enough for data; all pages) ----------
     if dev in ("desktop", "iphone14"):

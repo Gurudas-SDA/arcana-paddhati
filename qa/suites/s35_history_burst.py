@@ -183,13 +183,13 @@ POINT = """async ([id, edge]) => {
   // Where a person would tap: once the list has stopped moving (the app
   // scrolls an opened list into view), at most ~200 ms.
   const frame = () => new Promise(r => requestAnimationFrame(r));
-  const list = document.querySelector('.mobile-menu .toc-scroll');
+  const list = document.querySelector('.mobile-menu[data-open] .toc-scroll');
   for (let i = 0, last = -1; list && i < 12; i++) {
     await frame();
     if (list.scrollTop === last) break;
     last = list.scrollTop;
   }
-  const row = document.querySelector(`.mobile-menu [data-toc-chapter="${id}"]`);
+  const row = document.querySelector(`.mobile-menu[data-open] [data-toc-chapter="${id}"]`);
   if (!row) return null;
   // The row's own box (the button and, with ?toc=two, its toggle - one target).
   const box = row.parentElement;
@@ -242,13 +242,13 @@ def start(browser, options, mode, scripts=()):
     flow.contents()
     flow.activate(flow.group(PART))
     pg.wait_for_timeout(1200)
-    chapters = pg.locator(".mobile-menu [data-toc-chapter]").evaluate_all(
+    chapters = pg.locator(".mobile-menu[data-open] [data-toc-chapter]").evaluate_all(
         "es => es.filter(e => e.offsetParent).map(e => e.dataset.tocChapter)")
     return context, pg, flow, errors, chapters
 
 
 SETTLED = """() => [location.pathname + location.hash, window.__qaFetching || 0,
-  JSON.stringify([...document.querySelectorAll('.mobile-menu nav [data-toc-lit], .mobile-menu nav [aria-expanded=true]')]
+  JSON.stringify([...document.querySelectorAll('.mobile-menu[data-open] nav [data-toc-lit], .mobile-menu[data-open] nav [aria-expanded=true]')]
     .map(e => e.dataset.tocRow || e.dataset.tocGroup || e.dataset.tocChapter)), history.length]"""
 
 

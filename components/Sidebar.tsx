@@ -1091,7 +1091,7 @@ export default function Sidebar({
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             onFocus={onSearchFocus}
-            className="search-input w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-[#E8DCC8] bg-[#FDF8F0] text-[#2C1810] placeholder-[#B8860B]/50 focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B]/30 transition-colors"
+            className="search-input w-full pl-9 pr-3 py-2 text-[16px] rounded-lg border border-[#E8DCC8] bg-[#FDF8F0] text-[#2C1810] placeholder-[#8B6508] focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B]/30 transition-colors"
           />
           {searchQuery && (
             <button

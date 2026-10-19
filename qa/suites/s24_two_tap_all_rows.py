@@ -19,7 +19,7 @@ DEVICES = qa.devices(["desktop", "pixel7", "iphone14", "ipad-portrait", "ipad-la
 FULL_ON = {"desktop"}
 res = []
 
-LIT = "() => [...document.querySelectorAll('.mobile-menu nav [data-toc-lit]')].map(e => e.getAttribute('data-toc-row'))"
+LIT = "() => [...document.querySelectorAll('.mobile-menu[data-open] nav [data-toc-lit]')].map(e => e.getAttribute('data-toc-row'))"
 
 
 def chk(dev, name, ok, info=""):
@@ -61,11 +61,11 @@ def run(p, dev, eng, o, mode):
         mode.start(pg, f"{BASE}/{L}/")
         flow.contents()
         for attr in ("data-toc-group", "data-toc-chapter"):
-            ids = pg.locator(f".mobile-menu [{attr}]").evaluate_all("es=>es.map(e=>e.getAttribute('"+attr+"'))")
+            ids = pg.locator(f".mobile-menu[data-open] [{attr}]").evaluate_all("es=>es.map(e=>e.getAttribute('"+attr+"'))")
             for id in ids:
-                loc = pg.locator(f".mobile-menu [{attr}='{id}']")
+                loc = pg.locator(f".mobile-menu[data-open] [{attr}='{id}']")
                 if loc.get_attribute("aria-expanded") != "true": flow.activate(loc)
-        rows = pg.locator(".mobile-menu nav a[data-toc-row]").evaluate_all("es=>es.map(e=>e.dataset.tocRow).filter(r=>r!=='cover')")
+        rows = pg.locator(".mobile-menu[data-open] nav a[data-toc-row]").evaluate_all("es=>es.map(e=>e.dataset.tocRow).filter(r=>r!=='cover')")
         n_sub = sum(r.startswith("sub:") for r in rows)
         chk(dev, f"setup: all lists open ({len(rows)} leaf rows, {n_sub} subsections)", len(rows)>=100 and n_sub>=100)
         todo = rows if dev in FULL_ON or os.environ.get("QA_ALL_ROWS")=="1" else sample(rows)
@@ -79,7 +79,7 @@ def run(p, dev, eng, o, mode):
             else:
                 if not (first['menu'] and first['lit']==[r] and first['url']==before['url']): bad1.append((r,first))
                 flow.tap(loc,wait=100)
-            pg.wait_for_function("!document.querySelector('.mobile-menu')",timeout=12000)
+            pg.wait_for_function("!document.querySelector('.mobile-menu[data-open]')",timeout=12000)
             opened = flow.state()
             if here(pg.url)!=href: bad2.append((r,href,opened))
             # Back restores the place before the jump, not the tapped row.
