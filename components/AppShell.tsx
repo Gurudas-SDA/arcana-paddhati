@@ -33,6 +33,7 @@ import {
   type LocaleData,
 } from "@/lib/i18n";
 import { BASE_PATH, stripBasePath } from "@/lib/basePath";
+import { captureReadingPlace, saveReadingPlace } from "@/lib/readingPlace";
 import { beginReadingArrival, bookTarget, readingAnchor, readingSection } from "@/lib/readingFlow";
 import { readerLayout, useReaderLayout } from "@/lib/readerPrefs";
 import { BOOK_EVENT, BOOK_SEGMENT, bookHref, capturePlace, keepPlace, restorePlace } from "@/lib/readingMode";
@@ -604,6 +605,43 @@ export default function AppShell({
       stopKeeper?.();
     };
   }, [pathname]);
+
+  // The reading place on the device (Vraja Lila msg 5316 p. 5; lib/readingPlace.ts):
+  // silently, when scrolling stops (~1 s), a moment after arrival, and when the
+  // page is hidden or closed. Chapters only — the cover and part pages never write.
+  useEffect(() => {
+    const section = sections.find((item) => item.id === sectionId);
+    if (!section) return;
+    const ids = section.subsections.map((sub) => sub.id);
+    const save = () => {
+      try {
+        const place = captureReadingPlace(lang, ids);
+        if (place && place.section === section.id) saveReadingPlace(place);
+      } catch {
+        // not measurable now
+      }
+    };
+    const scroller = document.querySelector<HTMLElement>(".app-main");
+    let timer: number | undefined;
+    const onScroll = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(save, 1000);
+    };
+    const onHide = () => {
+      if (document.visibilityState === "hidden") save();
+    };
+    const first = window.setTimeout(save, 1500);
+    scroller?.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("visibilitychange", onHide);
+    window.addEventListener("pagehide", save);
+    return () => {
+      window.clearTimeout(timer);
+      window.clearTimeout(first);
+      scroller?.removeEventListener("scroll", onScroll);
+      document.removeEventListener("visibilitychange", onHide);
+      window.removeEventListener("pagehide", save);
+    };
+  }, [pathname, lang, sectionId, sections]);
 
   // Each new entry gets its place key once its page is shown (entries made by
   // the app have it already; one made by Next.js' router gets it once).
