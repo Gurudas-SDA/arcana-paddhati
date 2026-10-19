@@ -4,7 +4,7 @@ import type { TocPart } from "@/lib/book";
 import { getSection, getSectionNumber, getUi } from "@/lib/content";
 import { localeHref, t } from "@/lib/i18n";
 
-const HEADING_FONT = { fontFamily: "var(--font-noto-serif, Georgia, serif)" };
+const HEADING_FONT = { fontFamily: "var(--font-book, Georgia, serif)" };
 
 /** Page of a part of the book (Part I, II, …): its chapters, or a
  *  "in preparation" line while the part has none yet. */

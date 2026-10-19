@@ -168,7 +168,7 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
       >
         <span
           className="min-w-0 break-words text-xs sm:text-sm leading-tight"
-          style={{ fontFamily: "var(--font-noto-serif, Georgia, serif)" }}
+          style={{ fontFamily: "var(--font-book, Georgia, serif)" }}
         >
           {t(ui, "install.bannerText")}
         </span>
@@ -235,7 +235,7 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
 
             <h2
               className="text-lg font-bold mb-4 text-[#2C1810] pr-6"
-              style={{ fontFamily: "var(--font-noto-serif, Georgia, serif)" }}
+              style={{ fontFamily: "var(--font-book, Georgia, serif)" }}
             >
               {t(ui, "install.modalTitle")}
             </h2>

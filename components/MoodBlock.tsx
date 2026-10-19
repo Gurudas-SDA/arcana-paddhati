@@ -18,7 +18,7 @@ export interface MoodLabels {
   close: string;
 }
 
-const HEADING_FONT = { fontFamily: "var(--font-noto-serif, Georgia, serif)" };
+const HEADING_FONT = { fontFamily: "var(--font-book, Georgia, serif)" };
 
 /** Focusable elements inside the dialog (focus trap). */
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';

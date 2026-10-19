@@ -18,7 +18,7 @@
   --color-gold: var(--color-gold);
   --color-gold-light: var(--color-gold-light);
   --color-gold-muted: var(--color-gold-muted);
-  --font-serif: var(--font-noto-serif);
+  --font-serif: var(--font-book);
 }
 
 * {
@@ -34,7 +34,7 @@ html, body {
 body {
   background-color: #FFFFFF;
   color: #1a1a1a;
-  font-family: var(--font-serif, 'Noto Serif', Georgia, 'Times New Roman', serif);
+  font-family: var(--font-book, 'Noto Serif', Georgia, 'Times New Roman', serif);
 }
 
 /* Custom scrollbar for sidebar */
@@ -63,7 +63,7 @@ body {
 
 /* Sanskrit text styling — bold serif (like printed book) */
 .sanskrit {
-  font-family: var(--font-serif, 'Noto Serif', Georgia, serif);
+  font-family: var(--font-book, 'Noto Serif', Georgia, serif);
   font-weight: bold;
   font-style: normal;
   line-height: 1.8;
@@ -73,7 +73,7 @@ body {
    same serif family as the verse Sanskrit, bold (700, like the verse text), in the book's brown so mantra
    fragments and terms stand out from the instruction text. */
 .sa-inline {
-  font-family: var(--font-serif, 'Noto Serif', Georgia, serif);
+  font-family: var(--font-book, 'Noto Serif', Georgia, serif);
   font-weight: 700;
   font-style: normal;
   color: #5C3D2E;
@@ -81,7 +81,7 @@ body {
 
 /* Word-by-word panel: the Sanskrit word bold (as in the verse), its meaning regular */
 .verse-wbw .wbw-word {
-  font-family: var(--font-serif, 'Noto Serif', Georgia, serif);
+  font-family: var(--font-book, 'Noto Serif', Georgia, serif);
   font-weight: 700;
   font-style: italic;
   color: #1a1a1a;
@@ -89,7 +89,7 @@ body {
 
 /* Translation text — italic serif */
 .translation {
-  font-family: var(--font-serif, 'Noto Serif', Georgia, serif);
+  font-family: var(--font-book, 'Noto Serif', Georgia, serif);
   font-style: italic;
   color: #333;
   line-height: 1.7;
@@ -331,6 +331,12 @@ body {
   color: #9C7A4E;
   font-variant-numeric: tabular-nums;
   margin-right: 0.4em;
+}
+
+/* The book's font (app/layout.tsx): our own cut of Noto Serif first, the full
+   Noto Serif (next/font, not preloaded) for any character outside it. */
+:root {
+  --font-book: var(--font-arcana-latin), var(--font-arcana-ext), var(--font-arcana-cyr), var(--font-noto-serif);
 }
 
 /* Home-page cover: fill the reading area's height (aspect ratio kept);
@@ -856,7 +862,7 @@ body,
   opacity: 0;
   pointer-events: none;
   transition: transform 220ms ease, opacity 200ms ease;
-  font-family: var(--font-serif, 'Noto Serif', Georgia, serif);
+  font-family: var(--font-book, 'Noto Serif', Georgia, serif);
 }
 .reader-bar-top {
   top: 0;
@@ -1362,7 +1368,7 @@ html[data-reader-theme="night"] ::selection {
   border-radius: 10px;
   text-align: right;
   text-decoration: none;
-  font-family: var(--font-noto-serif, Georgia, serif);
+  font-family: var(--font-book, Georgia, serif);
   -webkit-tap-highlight-color: transparent;
   transition: background-color 150ms ease;
 }
@@ -1617,7 +1623,7 @@ html[data-hs-peek] .app-main {
 .portrait-caption {
   margin-top: 1rem;
   max-width: 100%;
-  font-family: var(--font-noto-serif, Georgia, serif);
+  font-family: var(--font-book, Georgia, serif);
   font-style: italic;
   font-size: 1.08em;
   line-height: 1.35;

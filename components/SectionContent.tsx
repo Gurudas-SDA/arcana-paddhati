@@ -49,7 +49,7 @@ interface SectionContentProps {
 
 /** Heading scale, one weight + size per level, used everywhere:
  *  h1 section title > h2 subsection title > h3 in-text subtitle block. */
-const HEADING_FONT = { fontFamily: "var(--font-noto-serif, Georgia, serif)" };
+const HEADING_FONT = { fontFamily: "var(--font-book, Georgia, serif)" };
 const H1_CLASS = "text-2xl sm:text-3xl font-semibold leading-tight text-[#1a1a1a]";
 const H2_CLASS = "text-xl sm:text-[22px] font-semibold leading-snug text-[#1a1a1a]";
 const H3_CLASS = "text-[17px] font-semibold leading-snug text-[#2C1810]";
@@ -731,7 +731,7 @@ export default function SectionContent({ section, ui, num = null, note, after }:
         {section.subtitle && (
           <p
             className="text-base text-[#555] mt-2 italic"
-            style={{ fontFamily: "var(--font-noto-serif, Georgia, serif)" }}
+            style={{ fontFamily: "var(--font-book, Georgia, serif)" }}
           >
             {section.subtitle}
           </p>
