@@ -24,7 +24,8 @@ unnumbered.
 
 Parampara (section with "layout": "portraits", Reader v7.4, Satkirti 06.10/07.10):
 one guru per page — the framed oval portrait (public/images/parampara/*.png,
-the whole figure inside the oval) and the caption; no heading, and in the PDF
+the whole figure inside the oval; v8.0: a portrait the app masks by code is drawn
+here from the same photo with the same frame, see portrait_png()) and the caption; no heading, and in the PDF
 no running header and no page number on these pages.
 Parts (book.json "parts": Part I Temple worship, II Home worship, III ...) are
 a level above the chapters, numbered I, II, III: a part page before the part's
@@ -67,6 +68,41 @@ import fitz  # PyMuPDF
 REPO = Path(__file__).resolve().parents[2]
 DATA = REPO / "data"
 PUBLIC = REPO / "public"
+
+
+def portrait_png(rel: str) -> bytes | None:
+    """v8.0 (Vraja Lila 18.10.2026): a parampara portrait the app masks by code (lib/parampara-portraits.json, mode «mask») has no
+    baked picture in public/. The PDF / EPUB get it drawn here, at build time, from the same photo with the same
+    frame (scripts/parampara/render_parampara.py framed() = render_page()). None for an ordinary image."""
+    masks = REPO / "lib" / "parampara-portraits.json"
+    if not masks.is_file() or json.loads(masks.read_text(encoding="utf-8"))["portraits"].get(rel, {}).get("mode") != "mask":
+        return None
+    import importlib.util
+    import io
+    spec = importlib.util.spec_from_file_location("render_parampara", REPO / "scripts" / "parampara" / "render_parampara.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    buf = io.BytesIO()
+    mod.framed(rel).save(buf, "PNG", optimize=True)
+    return buf.getvalue()
+
+
+def image_bytes(rel: str) -> bytes:
+    """public/images/<rel>, or the build-time framed portrait for a code-masked parampara page."""
+    data = portrait_png(rel)
+    return data if data is not None else (PUBLIC / "images" / rel).read_bytes()
+
+
+def write_masked_portraits(images_dir: Path) -> None:
+    """Put the framed code-masked portraits into a copy of public/images (print build)."""
+    masks = REPO / "lib" / "parampara-portraits.json"
+    if not masks.is_file():
+        return
+    for rel, ent in json.loads(masks.read_text(encoding="utf-8"))["portraits"].items():
+        if ent.get("mode") != "mask":
+            continue
+        (images_dir / rel).parent.mkdir(parents=True, exist_ok=True)
+        (images_dir / rel).write_bytes(portrait_png(rel))
 DEFAULT_OUT = REPO.parent / "Арчана-паддхати — книга"
 APP_URL = "https://gurudas-sda.github.io/arcana-paddhati/"
 
@@ -831,6 +867,7 @@ def build_print(ed: Edition, fonts: dict, chrome: Path, work: Path, out_pdf: Pat
     shutil.copy(PUBLIC / "cover.jpg", work / "cover.jpg")
     shutil.copytree(PUBLIC / "images", work / "images", dirs_exist_ok=True,
                     ignore=shutil.ignore_patterns("desktop.ini"))
+    write_masked_portraits(work / "images")
     furl = {k: Path(v).resolve().as_uri() for k, v in fonts.items()}
     profile = work / "chrome-profile"
     html1, pdf1 = work / "pass1.html", work / "pass1.pdf"
@@ -1119,7 +1156,7 @@ def build_epub(ed: Edition, fonts: dict, out_epub: Path, work: Path):
     files["cover.jpg"] = (PUBLIC / "cover.jpg").read_bytes()
     used_imgs = set(re.findall(r'src="images/([^"]+)"', "".join(v for v in files.values() if isinstance(v, str))))
     for img in sorted(used_imgs):
-        files[f"images/{img}"] = (PUBLIC / "images" / img).read_bytes()
+        files[f"images/{img}"] = image_bytes(img)
     # manifest + spine
     mt = {".xhtml": "application/xhtml+xml", ".css": "text/css", ".jpg": "image/jpeg", ".png": "image/png",
           ".ttf": "font/ttf", ".ncx": "application/x-dtbncx+xml"}

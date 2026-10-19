@@ -2,7 +2,8 @@
   a) Contents: Обложка → Гуру-парампара (Шри Панча-таттва first, Satkirti 07.10 13:35) → Мангалачарана → ВВЕДЕНИЕ; the parampara has 8 pages,
      one guru each, in this order, exact captions; no Gour Govinda Svāmī; no visible heading,
      no number; «След. глава ›» → Мангалачарана.
-  b) every portrait is shown whole: the framed oval picture is only scaled (object-fit: contain,
+  b) every portrait is shown whole: the framed oval picture is only scaled (object-fit: contain; v8.0 code mask:
+     the photo object-fit: cover in an elliptic clip-path — uniform scale, aspect within 1 %;
      rendered aspect = natural aspect), never cropped by its box or by the screen; portrait +
      caption fit on one screen (one guru per screen).
   c) maṅgala-ārati (5 songs) and gaura-ārati (2 songs) with IAST, «пословно» and «перевод».
@@ -28,12 +29,12 @@ PORTRAITS = """root => [...root.querySelectorAll('figure.portrait-page')].map(f 
   const r = i.getBoundingClientRect(), cs = getComputedStyle(i);
   return {cap: c.textContent.trim(), nw: i.naturalWidth, nh: i.naturalHeight, w: r.width, h: r.height,
           complete: i.complete, fit: cs.objectFit, clip: cs.clipPath, ovx: getComputedStyle(f).overflow,
-          alt: i.alt, sw: document.documentElement.scrollWidth, vw: innerWidth};
+          alt: i.alt, sw: document.documentElement.scrollWidth, vw: innerWidth, mask: !!f.querySelector('[data-portrait-mask]')};
 })"""
 
 ONE_SCREEN = """(root, k) => { const f = root.querySelectorAll('figure.portrait-page')[k];
   const m = document.querySelector('.app-main'); f.scrollIntoView({block: 'start'});
-  const i = f.querySelector('img').getBoundingClientRect(), c = f.querySelector('figcaption').getBoundingClientRect();
+  const i = (f.querySelector('.portrait-frame') || f.querySelector('img')).getBoundingClientRect(), c = f.querySelector('figcaption').getBoundingClientRect();
   const bar = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--reader-pad-bottom')) || 0;
   return {imgTop: i.top, imgL: i.left, imgR: i.right, capBottom: c.bottom, vh: innerHeight, vw: innerWidth}; }"""
 
@@ -92,9 +93,12 @@ def run(p, dev, eng, o):
 
         # b) portraits shown whole
         bad = [(x["cap"][:20], x["fit"], round(x["w"] / x["h"], 4), round(x["nw"] / x["nh"], 4))
-               for x in ps if not (x["complete"] and x["nw"] > 0 and x["fit"] == "contain" and x["clip"] == "none"
+               for x in ps if not (x["complete"] and x["nw"] > 0
+                                   and ((x["fit"] == "contain" and x["clip"] == "none") if not x["mask"]
+                                        # v8.0: photo masked by code — uniform scale (cover), elliptic window
+                                        else (x["fit"] == "cover" and x["clip"].startswith("ellipse")))
                                    and abs(x["w"] / x["h"] - x["nw"] / x["nh"]) < 0.01)]
-        chk(dev, "b every portrait scaled as a whole (object-fit contain, aspect kept, no clip)", not bad, bad)
+        chk(dev, "b every portrait scaled as a whole (baked: contain, no clip; code mask: cover + ellipse), aspect kept", not bad, bad)
         chk(dev, "b alt = caption", all(x["alt"] == x["cap"] for x in ps))
         chk(dev, "b no horizontal page scroll", ps and ps[0]["sw"] <= ps[0]["vw"] + 1, ps[0] if ps else None)
         off = []

@@ -31,6 +31,16 @@ Output (in git):
 
     python scripts/parampara/render_parampara.py
     python scripts/parampara/render_parampara.py --strip-rhombi   (v7.8: patch the published PNGs)
+    python scripts/parampara/render_parampara.py --only 00        (v8.0: rebuild only code-masked pages, e.g. 00)
+
+v8.0 (Vraja Lila 18.10.2026, group msg 4997–4999: «никаких „впеканий" — все фото я подготовлю вручную
+(кадрирование), кодом будут вставляться в овал»): a page with mode «mask» in scripts/parampara/portraits.json is NOT baked any more. Its photo
+(prepared by Vraja, kept unchanged as the master outside the served folder) is only optimised
+(public/images/parampara/photo/<id>-<hash>.webp + the master's PNG/JPG as fallback) and the app draws the frame in code
+(components/PortraitImg.tsx: the photo with object-fit: cover under an elliptic clip-path, the double gold
+line as inline SVG with exactly the geometry of render_page() below — lib/parampara-portraits.json carries both).
+The PDF / EPUB still need a raster: build_formats.py calls framed() here, so the print picture is drawn
+from the same photo with the same frame at build time (never stored in public/).
 """
 import importlib.util
 import json
@@ -101,6 +111,8 @@ GURUDEV = ("08", "Sri Prem Prayojan Prabhu portrait 2025, long gareland B.jpg")
 LIB_GD = REPO.parent / "Библиотека" / "Книги Гурудева" / "Gaudiya Darsana (фото, 06.10)" / "05.jpg"
 EXTRA = {
     # id: (source path, usable rectangle (l, t, r, b, corner r) or None = whole picture, contour, preprocessing)
+    # v7.9: «00» moved to the code mask (portraits.json) (Vraja Lila's new painting); this phone-photo entry is kept for reference
+    # only and is skipped while portraits.json masks the same id.
     # v7.4.1 (independent check 07.10): the v7.4 contours of 00 and 03 were traced too tight — the raised
     # fingertips (00) and the knees / lap cloth at the photo's sides (03) touched the oval. Re-traced
     # generously; the background outside the usable picture now fades softly into a light neutral tone
@@ -124,6 +136,37 @@ EXTRA = {
             (378, 560), (400, 470), (400, 380), (392, 250), (345, 160)], None),                          # walking stick = object
 }
 
+# v8.0 (Vraja Lila 18.10.2026, msg 281/283/285, group msg 4997–4999, 5004, 5006): photos prepared by the interface
+# editor in ONE proportion, 736:1000, with the same safe area — inserted into the oval BY CODE in the app (no
+# baking). The oval is inscribed in the photo box itself (window = the whole photo, aspect = the photo's own
+# 736/1000 = 0.736, not the 0.735 search + background extension used for the baked pages); uniform scale only,
+# never stretching («изображения никогда не искажаем»). Which page is baked and which is masked by code, the
+# master of each masked page and its figure contour (photo px; checked by L21 with the 5 % margin) live in the
+# manifest scripts/parampara/portraits.json — scripts/parampara/replace_photo.py switches a page by itself.
+# Masters are kept unchanged in scripts/parampara/masters/ (never served; Vraja's image-pipeline rule 1).
+MANIFEST = Path(__file__).resolve().parent / "portraits.json"
+MASK_ASPECT = 736 / 1000          # Vraja 18.10 msg 5006: every prepared photo is 736:1000
+MASK_ASPECT_TOL = 0.004           # a photo outside 0.732–0.740 is refused (would need cropping)
+# Derivative size (Vraja's image-pipeline rule 2: 2× the real CSS box, never upscale): the portrait box
+# (.portrait-frame, app/globals.css) is at most min(100%, 34rem) = 544 CSS px wide for the whole frame, of which
+# the oval window is 600/641 → 509 CSS px (measured 18.10: desktop 1440×900 → 518×692 page box, mobile 390 →
+# 364×487). 2× = 1018 px oval width; the 00 master is 736 px wide, so it is used at its own size (no upscale).
+MASK_WIN_CAP = 2 * round(544 * 600 / 641)
+PHOTO_DIR = OUT / "photo"
+PORTRAITS_JSON = REPO / "lib" / "parampara-portraits.json"
+
+
+def manifest():
+    return json.loads(MANIFEST.read_text(encoding="utf-8"))
+
+
+def save_manifest(m):
+    MANIFEST.write_text(json.dumps(m, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+
+
+def masked_ids():
+    return sorted(k for k, v in manifest()["portraits"].items() if v["mode"] == "mask")
+
 # Background outside the usable picture (v7.4.1): fade into a light neutral tone over FADE_OUT × oval width;
 # the photo 00 also fades its own border inwards (FADE_IN) — only outside the figure's contour (+ PROTECT).
 # Book paintings and the 06 photo keep their colours but end in a soft, heavily blurred tone of their own edge.
@@ -142,9 +185,9 @@ def oval(w, h, n=720):
     return Polygon(np.c_[w / 2 + w / 2 * np.cos(t), h / 2 + h / 2 * np.sin(t)])
 
 
-def clearance(hull, x0, y0, cw):
+def clearance(hull, x0, y0, cw, aspect=ASPECT):
     """(all inside, min distance of a contour point to the oval edge / oval width) — exact (shapely)."""
-    poly = oval(cw, cw / ASPECT)
+    poly = oval(cw, cw / aspect)
     px, py = hull[:, 0] - x0, hull[:, 1] - y0
     inside = shapely.contains_xy(poly, px, py)
     dist = shapely.distance(poly.exterior, shapely.points(px, py))
@@ -306,10 +349,10 @@ def rhombus(d, x, y, r, fill=None, outline_c=None, width=1):
         d.line(pts + [pts[0]], fill=outline_c, width=width, joint="curve")
 
 
-def render_page(photo, box):
-    """Photo (PIL RGB) → RGBA: oval window WIN_W wide, variant-A double gold line, rhombi."""
-    k = WIN_W / 1190.0                    # variant A was drawn for a 1190 px oval
-    ww, wh = WIN_W * SS, round(WIN_W / ASPECT) * SS
+def render_page(photo, box, win_w=WIN_W, aspect=ASPECT):
+    """Photo (PIL RGB) → RGBA: oval window win_w wide, variant-A double gold line, rhombi."""
+    k = win_w / 1190.0                    # variant A was drawn for a 1190 px oval
+    ww, wh = win_w * SS, round(win_w / aspect) * SS
     g1, g2 = 14 * k * SS, 24 * k * SS
     r_out = 11 * k * SS
     pad = int(math.ceil(g2 + r_out + 3 * SS))
@@ -375,11 +418,142 @@ def gurudev_crop():
     return src, crop, rep, [list(p) for p in m.HULL]
 
 
+def frame_geometry(win_w=WIN_W, aspect=ASPECT):
+    """The frame of render_page() in output px (before the final integer crop): oval window, the two gold lines
+    (offset from the window edge, stroke width — exactly as render_page draws them) and the page size."""
+    k = win_w / 1190.0
+    wh = round(win_w / aspect)
+    pad = int(math.ceil(24 * k * SS + 11 * k * SS + 3 * SS)) / SS
+    return {"win_w": win_w, "win_h": wh, "pad": round(pad, 4),
+            "width": round(win_w + 2 * pad, 4), "height": round(wh + 2 * pad, 4),
+            "lines": [{"offset": round(14 * k, 4), "stroke": round(max(SS, round(4.5 * k * SS)) / SS, 4),
+                       "color": "#%02X%02X%02X" % GOLD_D[:3]},
+                      {"offset": round(24 * k, 4), "stroke": round(max(SS, round(2.2 * k * SS)) / SS, 4),
+                       "color": "#%02X%02X%02X" % GOLD[:3]}]}
+
+
+def check_aspect(w, h):
+    """Never distort, never crop a prepared photo: it must be 736:1000 (± MASK_ASPECT_TOL)."""
+    if abs(w / h - MASK_ASPECT) > MASK_ASPECT_TOL:
+        raise SystemExit(f"photo {w}x{h} (aspect {w / h:.4f}) is not 736:1000 — refused: the oval is inscribed in "
+                         f"the photo box, another proportion would have to be cropped or stretched")
+
+
+def _atomic(path, data):
+    """Vraja's pipeline rule 7: write to a temp file, then replace."""
+    tmp = path.with_name(path.name + ".tmp")
+    tmp.write_bytes(data)
+    tmp.replace(path)
+
+
+def _rgb(im):
+    return im.convert("RGBA" if im.mode in ("RGBA", "LA") or "transparency" in im.info else "RGB")
+
+
+def build_masked(gid):
+    """v8.0: optimise Vraja's photo for the app (the frame is drawn by code). Pipeline rules (his document
+    2026.10.18_image-pipeline-agent-prompt.md): master untouched (1); ≤ 2× the real box, never upscale, Lanczos (2);
+    RGB before encoding, WebP q90 method 6 (3); content-hash names (4); keep the master bytes when the WebP is not
+    meaningfully smaller (6); atomic writes (7). The PNG/JPG fallback is the master's own bytes (no re-encode)
+    unless it had to be downscaled."""
+    import hashlib
+    import io
+    ent = manifest()["portraits"][gid]
+    path = REPO / ent["master"]
+    raw = path.read_bytes()
+    src = _rgb(Image.open(io.BytesIO(raw)))
+    w, h = src.size
+    check_aspect(w, h)
+    aspect = w / h
+    if w > MASK_WIN_CAP:
+        der = src.resize((MASK_WIN_CAP, round(h * MASK_WIN_CAP / w)), Image.LANCZOS)
+        buf = io.BytesIO()
+        der.save(buf, "PNG", optimize=True)
+        fb, fb_ext = buf.getvalue(), "png"
+    else:
+        der, fb, fb_ext = src, raw, path.suffix.lower().lstrip(".").replace("jpeg", "jpg")
+    buf = io.BytesIO()
+    der.save(buf, "WEBP", quality=90, method=6, alpha_quality=100)
+    webp = buf.getvalue()
+    use_webp = len(webp) < 0.95 * len(fb)
+    PHOTO_DIR.mkdir(parents=True, exist_ok=True)
+    names = {}
+    for kind, ext, data in (("fallback", fb_ext, fb),) + ((("webp", "webp", webp),) if use_webp else ()):
+        name = f"{gid}-{hashlib.sha256(data).hexdigest()[:12]}.{ext}"
+        _atomic(PHOTO_DIR / name, data)
+        with Image.open(PHOTO_DIR / name) as chk:
+            assert chk.size == der.size, (name, chk.size, der.size)
+        names[kind] = name
+    for old in PHOTO_DIR.glob(f"{gid}-*.*"):              # derivatives of an older photo are not referenced
+        if old.name not in names.values():
+            old.unlink()
+    for stale in (OUT / f"{gid}.png", OUT / f"{gid}.webp"):   # the baked page of this id is no longer used
+        stale.unlink(missing_ok=True)
+    hull = ent.get("contour")
+    ok, cl = clearance(np.array(hull, float), 0, 0, w, aspect) if hull else (None, None)
+    print(f"{gid} mask: master {len(raw):,} B {w}x{h} -> {fb_ext} {len(fb):,} B"
+          + (f", webp {len(webp):,} B" if use_webp else " (webp not smaller: master kept)")
+          + f" {der.size[0]}x{der.size[1]}; "
+          + (f"inside={ok} clearance={cl:.3f}" if hull else "контур не проверен (no contour)"))
+    return {"id": gid, "mode": "mask", "source": ent["master"], "source_name": ent.get("source_name"),
+            "source_sha256": hashlib.sha256(raw).hexdigest(), "source_size": [w, h], "aspect": round(aspect, 6),
+            "crop": [w / 2, h / 2, w, h], "hull": hull, "all_inside": ok,
+            "min_clearance": round(cl, 4) if hull else None, "extended_background_share": 0.0,
+            "photo_fallback": f"parampara/photo/{names['fallback']}",
+            "photo_webp": f"parampara/photo/{names['webp']}" if use_webp else None,
+            "photo_size": list(der.size), "frame": frame_geometry(WIN_W, aspect)}
+
+
+def write_portraits(report):
+    """lib/parampara-portraits.json for the app: every page 00–08 with its mode; for a code-masked page its photo
+    files and frame geometry. Generated from check.json — switching a page needs no code change."""
+    pages = {}
+    for pg in report["pages"]:
+        if pg.get("mode") == "mask":
+            pages[f"parampara/{pg['id']}.png"] = {"mode": "mask", "fallback": pg["photo_fallback"], "webp": pg["photo_webp"],
+                                                 "width": pg["photo_size"][0], "height": pg["photo_size"][1],
+                                                 "frame": pg["frame"]}
+        else:
+            pages[f"parampara/{pg['id']}.png"] = {"mode": "baked"}
+    data = {"_comment": "generated by scripts/parampara/render_parampara.py (v8.0) from portraits.json — do not edit",
+            "portraits": pages}
+    PORTRAITS_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+
+
+def framed(src_rel, repo=REPO):
+    """For the PDF / EPUB (build_formats.py): the framed RGBA page of a code-masked portrait, drawn at build
+    time from the same photo with the same frame (render_page) — or None when src_rel is a baked PNG.
+    The oval window takes the photo's own width (no upscaling)."""
+    data = json.loads((repo / "lib" / "parampara-portraits.json").read_text(encoding="utf-8"))
+    m = data["portraits"].get(src_rel)
+    if not m or m["mode"] != "mask":
+        return None
+    src = Image.open(repo / "public" / "images" / m["fallback"]).convert("RGB")
+    w, h = src.size
+    page, _ = render_page(src, (0, 0, w, h), w, w / h)
+    return page
+
+
+def only(ids):
+    """Rebuild just these pages (masked ids) and replace their entries in check.json; the others stay untouched."""
+    report = json.loads(CHECK.read_text(encoding="utf-8"))
+    for gid in ids:
+        if gid not in masked_ids():
+            raise SystemExit(f"--only supports masked ids {masked_ids()} (portraits.json), not {gid}")
+        entry = build_masked(gid)
+        report["pages"] = [entry if pg["id"] == gid else pg for pg in report["pages"]]
+    CHECK.write_text(json.dumps(report, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    write_portraits(report)
+    return report
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     report = {"aspect": ASPECT, "margin": MARGIN, "pages": []}
-    jobs = [(gid, SRC / fname, None, hull, None) for gid, fname, hull in GURUS if gid not in EXTRA]
-    jobs += [(gid, path, valid, hull, prep) for gid, (path, valid, hull, prep) in EXTRA.items()]
+    masked = masked_ids()
+    jobs = [(gid, SRC / fname, None, hull, None) for gid, fname, hull in GURUS if gid not in EXTRA and gid not in masked]
+    jobs += [(gid, path, valid, hull, prep) for gid, (path, valid, hull, prep) in EXTRA.items() if gid not in masked]
+    report["pages"] += [build_masked(gid) for gid in masked]
     for gid, path, valid, hull, prep in sorted(jobs):
         fname = path.name if path.parent == SRC else str(path.relative_to(REPO.parent))
         src = Image.open(path).convert("RGB")
@@ -411,8 +585,15 @@ def main():
                             "variant_a_verify": {k: (v if isinstance(v, (bool, int, float)) else str(v)) for k, v in rep.items()},
                             "image": f"parampara/{GURUDEV[0]}.png", "image_size": list(page.size), "oval_pad": round(pad, 2)})
     print(f"{GURUDEV[0]} crop {tuple(round(v) for v in crop)} inside={ok} clearance={cl:.3f} -> {page.size}")
+    report["pages"].sort(key=lambda pg: pg["id"])
     CHECK.write_text(json.dumps(report, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    write_portraits(report)
 
 
 if __name__ == "__main__":
-    strip_rhombi() if "--strip-rhombi" in sys.argv else main()
+    if "--strip-rhombi" in sys.argv:
+        strip_rhombi()
+    elif "--only" in sys.argv:
+        only(sys.argv[sys.argv.index("--only") + 1].split(","))
+    else:
+        main()

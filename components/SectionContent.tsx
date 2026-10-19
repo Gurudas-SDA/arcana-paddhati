@@ -1,5 +1,6 @@
 import ChapterEndSpace from "@/components/ChapterEndSpace";
 import PortraitImg from "@/components/PortraitImg";
+import MaskedPortrait, { portraitMask } from "@/components/MaskedPortrait";
 import React from "react";
 import { transcriptLinkProps } from "@/lib/transcripts";
 import { BASE_PATH } from "@/lib/basePath";
@@ -663,7 +664,8 @@ function CaptionOrnament() {
  * Parampara (Satkirti 06.10 / 07.10.2026): one guru per screen, the portrait in the
  * oval frame (variant A) and the caption under it — no heading, no number. The picture
  * is pre-rendered with the whole figure inside the oval (scripts/parampara/); here it is
- * only ever scaled as a whole (object-fit: contain), never cropped.
+ * only ever scaled as a whole (object-fit: contain), never cropped. v8.0: portraits listed in
+ * lib/parampara-portraits.json (mode «mask») show the editor's photo in an oval drawn by code (MaskedPortrait).
  */
 function PortraitPages({ section, note, after }: { section: Section; note?: string; after?: React.ReactNode }) {
   return (
@@ -676,11 +678,16 @@ function PortraitPages({ section, note, after }: { section: Section; note?: stri
           <figure key={i} className="portrait-page" data-portrait={i + 1}>
             {/* WebP (~1/6 of the PNG, Reader v7.8); the PNG for a browser without WebP. */}
             {/* A WebP that fails to load falls back to the PNG (components/PortraitImg.tsx, v7.8.1). */}
-            <PortraitImg
-              webp={item.src?.endsWith(".png") ? `${BASE_PATH}/images/${item.src.replace(/\.png$/, ".webp")}` : undefined}
-              png={`${BASE_PATH}/images/${item.src}`}
-              alt={item.caption ?? ""}
-            />
+            {/* v8.0: a portrait with Vraja's prepared photo is masked by code (frame = inline SVG, no baking). */}
+            {portraitMask(item.src) ? (
+              <MaskedPortrait mask={portraitMask(item.src)!} base={BASE_PATH} alt={item.caption ?? ""} />
+            ) : (
+              <PortraitImg
+                webp={item.src?.endsWith(".png") ? `${BASE_PATH}/images/${item.src.replace(/\.png$/, ".webp")}` : undefined}
+                png={`${BASE_PATH}/images/${item.src}`}
+                alt={item.caption ?? ""}
+              />
+            )}
             <figcaption className="portrait-caption">{item.caption}</figcaption>
             <CaptionOrnament />
           </figure>

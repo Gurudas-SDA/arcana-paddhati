@@ -1532,6 +1532,42 @@ html[data-hs-peek] .app-main {
 html[data-reader-theme="night"] .portrait-caption {
   color: var(--rd-fg);
 }
-html[data-reader-theme="night"] .portrait-img {
+html[data-reader-theme="night"] .portrait-img,
+html[data-reader-theme="night"] .portrait-frame-lines {
   filter: brightness(0.9);
+}
+/* v8.0 (Vraja Lila 18.10.2026): a portrait masked by code (components/PortraitImg.tsx MaskedPortrait).
+   The box is exactly what a baked page picture of the same frame (641×857) gets above: at most
+   min(100%, 34rem), its natural width, and the screen height minus the caption room — same aspect.
+   The photo is only scaled uniformly (object-fit: cover, centred) and clipped by the window ellipse;
+   the double gold line is the SVG over it, in the same proportions as render_page(). */
+.portrait-frame {
+  position: relative;
+  display: block;
+  flex: none;
+  width: min(100%, 34rem, var(--pf-w), calc((100vh - var(--reader-pad-bottom) - 10rem) * var(--pf-ratio)));
+  width: min(100%, 34rem, var(--pf-w), calc((100dvh - var(--reader-pad-bottom) - 10rem) * var(--pf-ratio)));
+  -webkit-user-select: none;
+  user-select: none;
+}
+.portrait-window {
+  position: absolute;
+  display: block;
+}
+.portrait-frame .portrait-img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  object-position: 50% 50%;
+  clip-path: ellipse(50% 50% at 50% 50%);
+}
+.portrait-frame-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
 }

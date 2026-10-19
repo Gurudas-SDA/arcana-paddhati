@@ -77,7 +77,7 @@ const NO_TOGGLE = [
   // A parampara portrait (and its ornament) is page: a tap on it toggles the
   // bars like empty space (Reader v7.5, Satkirti 07.10.2026 — the old
   // exception for this photo is cancelled).
-  "img:not(.hs-img):not(.portrait-img)", "svg:not(.hs-overlay):not(.portrait-ornament)",
+  "img:not(.hs-img):not(.portrait-img)", "svg:not(.hs-overlay):not(.portrait-ornament):not(.portrait-frame-lines)",
   "picture:not(.portrait-picture)", "video", "canvas",
   ".hs-text", ".hs-cell", ".hs-hit", ".hs-peek", ".hs-inert",
   ".mood-toggle", ".verse-chips", ".mantra-chips", "[data-no-reader-tap]",

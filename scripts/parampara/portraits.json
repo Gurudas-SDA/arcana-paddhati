@@ -1,0 +1,151 @@
+{
+ "_comment": "Parampara pages 00–08: «baked» = pre-rendered PNG (public/images/parampara/NN.png, render_parampara.py); «mask» = Vraja's photo (736:1000) in an oval drawn by code. Switch a page: python scripts/parampara/replace_photo.py NN <photo>. contour = figure outline in photo px (L21, margin 5 %), null = not verified.",
+ "portraits": {
+  "00": {
+   "mode": "baked",
+   "_note": "19.10: published BAKED (as before). Vraja's prepared master below is ready but NOT switched: its contour clearance 1.98 % < 5 % — Satkirti's decision pending (question №12). Switch: python scripts/parampara/replace_photo.py 00 scripts/parampara/masters/00-2e085029e773.png (keeps this contour).",
+   "master": "scripts/parampara/masters/00-2e085029e773.png",
+   "source_name": "2026.10.18_Парампара 00 — мастер (Панча-таттва, 736x1000).png",
+   "master_sha256": "2e085029e773c94267ab0ce39c31f1127a0e153a93c69b0ffc3b3d309902dd58",
+   "contour": [
+    [
+     130,
+     150
+    ],
+    [
+     141,
+     143
+    ],
+    [
+     160,
+     168
+    ],
+    [
+     216,
+     168
+    ],
+    [
+     256,
+     160
+    ],
+    [
+     310,
+     190
+    ],
+    [
+     342,
+     162
+    ],
+    [
+     390,
+     165
+    ],
+    [
+     430,
+     162
+    ],
+    [
+     468,
+     170
+    ],
+    [
+     512,
+     162
+    ],
+    [
+     586,
+     165
+    ],
+    [
+     602,
+     150
+    ],
+    [
+     620,
+     160
+    ],
+    [
+     621,
+     182
+    ],
+    [
+     60,
+     400
+    ],
+    [
+     52,
+     470
+    ],
+    [
+     50,
+     560
+    ],
+    [
+     55,
+     600
+    ],
+    [
+     86,
+     775
+    ],
+    [
+     92,
+     792
+    ],
+    [
+     112,
+     797
+    ],
+    [
+     190,
+     780
+    ],
+    [
+     672,
+     540
+    ],
+    [
+     668,
+     580
+    ],
+    [
+     648,
+     778
+    ],
+    [
+     640,
+     792
+    ],
+    [
+     600,
+     790
+    ]
+   ],
+   "contour_note": "traced 18.10 on the master: raised hands/fingertips, Advaita left cloth, feet, Śrīvāsa right cloth/feet"
+  },
+  "01": {
+   "mode": "baked"
+  },
+  "02": {
+   "mode": "baked"
+  },
+  "03": {
+   "mode": "baked"
+  },
+  "04": {
+   "mode": "baked"
+  },
+  "05": {
+   "mode": "baked"
+  },
+  "06": {
+   "mode": "baked"
+  },
+  "07": {
+   "mode": "baked"
+  },
+  "08": {
+   "mode": "baked"
+  }
+ }
+}

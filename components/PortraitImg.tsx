@@ -7,6 +7,7 @@
  * portrait empty. On that error the <source> is pointed at the PNG, so the
  * picture selects again and shows it. Also checked once on mount: the error may
  * have happened before hydration (static page), when no handler was listening.
+ * v8.0: also the photo inside a code-masked portrait (components/MaskedPortrait.tsx).
  */
 import { useCallback } from "react";
 
@@ -21,7 +22,9 @@ function toPng(img: HTMLImageElement) {
   img.setAttribute("src", png);
 }
 
-export default function PortraitImg({ webp, png, alt }: { webp?: string; png: string; alt: string }) {
+type ImgProps = { webp?: string; png: string; alt: string; width?: number; height?: number; className?: string };
+
+export default function PortraitImg({ webp, png, alt, width, height, className = "portrait-img" }: ImgProps) {
   const ref = useCallback((img: HTMLImageElement | null) => {
     if (img && img.complete && img.naturalWidth === 0) toPng(img);
   }, []);
@@ -32,7 +35,10 @@ export default function PortraitImg({ webp, png, alt }: { webp?: string; png: st
         ref={ref}
         src={png}
         alt={alt}
-        className="portrait-img"
+        width={width}
+        height={height}
+        decoding={width ? "async" : undefined /* masked photo only; a baked portrait keeps its markup */}
+        className={className}
         draggable={false}
         onError={(e) => toPng(e.currentTarget)}
       />

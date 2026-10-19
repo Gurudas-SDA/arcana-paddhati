@@ -914,6 +914,10 @@ def rhombi_gone():
     chkf = json.load(open(os.path.join(qa.REPO, "scripts", "parampara", "check.json"), encoding="utf-8"))
     bad = []
     for pgd in chkf["pages"]:
+        if pgd.get("mode") == "mask":     # v8.0: frame drawn by code (inline SVG, no rhombi); photo has its WebP
+            if not pgd.get("photo_webp") or not os.path.isfile(os.path.join(qa.REPO, "public", "images", pgd["photo_webp"])):
+                bad.append((pgd["id"], "no webp"))
+            continue
         f = os.path.join(qa.REPO, "public", "images", pgd["image"])
         im = Image.open(f).convert("RGBA")
         w, h = im.size
