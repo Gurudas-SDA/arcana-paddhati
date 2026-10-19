@@ -110,6 +110,12 @@ PP_SRCS = ["parampara/00-pancha-tattva.png", "parampara/01-jagannatha-dasa-babaj
            "parampara/07-bhaktivedanta-narayana.png", "parampara/08-prem-prayojan.png"]
 
 
+# L21 clearance of the figure contour from the oval edge, share of the oval width. Satkirti's rule 105 («Стандарты»):
+# «фигура никогда не обрезается… вокруг есть поле… в овальной рамке фигура полностью внутри» — no number in it;
+# slieksnis 1,5 % — Lipikāras 19.10 tehniskais lēmums, Vraja msg 5143 (was 5 %, our technical choice of 07.10).
+L21_MARGIN = 0.015
+
+
 class Check:
     def __init__(self, cid, title):
         self.cid, self.title, self.hits, self.warns, self.info = cid, title, [], [], ""
@@ -480,7 +486,7 @@ def run(args):
 
     # L21 — Парампара (Satkirti 06.10 23:15–23:33, 07.10 12:34–13:07): 8 гуру по одному на страницу, в этом
     # порядке, подписи как в «Ведических мудрых историях», без Гоур Говинды Свами; тело гуру никогда не обрезается.
-    c = Check("L21", "parampara: Śrī Pañca-tattva first, then 8 gurus in order, exact captions, no Gour Govinda Svāmī; every figure fully inside its oval")
+    c = Check("L21", "parampara: Śrī Pañca-tattva first, then 8 gurus in order, exact captions, no Gour Govinda Svāmī; every figure fully inside its oval with a field ≥ 1.5 % of the oval width (rule 105)")
     exp = {"ru": PARAMPARA_RU, "en": PARAMPARA_EN}
     for fn, lang in (("book.ru-iast.json", "ru"), ("book.ru.json", "ru"), ("book.json", "en")):
         b = loaded[os.path.join(qa.DATA, fn)]
@@ -523,22 +529,22 @@ def run(args):
         if abs(cw / ch - pg.get("aspect", chk["aspect"])) > 0.002:
             c.hit("check.json", pg["id"], f"oval aspect {cw / ch:.4f} != {pg.get('aspect', chk['aspect'])}")
         if not pg.get("hull"):
-            c.hit("check.json", pg["id"], "контур не проверен — no figure contour for this photo (the 5 % body rule cannot be verified)")
+            c.hit("check.json", pg["id"], "контур не проверен — no figure contour for this photo (rule 105 «вокруг есть поле» cannot be verified)")
         import math as _m
         ts = [2 * _m.pi * k / 2880 for k in range(2880)]
         ell = [(cx + a * _m.cos(t), cy + bb * _m.sin(t)) for t in ts]
         for x, y in pg.get("hull") or []:
             q = ((x - cx) / a) ** 2 + ((y - cy) / bb) ** 2
             d = min(_m.hypot(x - ex, y - ey) for ex, ey in ell) / cw
-            if q >= 1 or d < chk["margin"] - 0.0005:
-                c.hit("check.json", pg["id"], f"contour point {(x, y)} {'OUTSIDE' if q >= 1 else 'too close'} (clearance {d:.3f} < {chk['margin']})")
+            if q >= 1 or d < L21_MARGIN - 0.0005:
+                c.hit("check.json", pg["id"], f"contour point {(x, y)} {'OUTSIDE' if q >= 1 else 'too close'} (clearance {d:.3f} < {L21_MARGIN})")
         from PIL import Image as _Img
         if pg.get("mode") == "mask":
             # v8.0 (Vraja Lila 18.10.2026): the app masks this photo by code (no baked picture). The photo is never
             # distorted or cropped: it is 736:1000 and the oval window is the whole photo box (uniform scale only,
             # object-fit: cover on the same proportion); the derivatives exist with the declared size and keep the
             # master's proportion; the app's lib/parampara-portraits.json points at the same files and frame; the
-            # contour clearance above (5 %, rule 07.10) applies unchanged.
+            # contour clearance above (L21_MARGIN, rule 105) applies unchanged.
             sw, sh = pg["source_size"]
             if abs(sw / sh - 0.736) > 0.004:
                 c.hit("check.json", pg["id"], f"photo {sw}x{sh} is not 736:1000")
@@ -1265,8 +1271,11 @@ def run(args):
             elif isinstance(o, list):
                 for v in o:
                     yield from walk36(v)
+        masked36 = {k for k, v in portraits_manifest()["portraits"].items() if v.get("mode") == "mask"}
         for src in set(walk36(json.load(open(f, encoding="utf-8")))):
             n36 += 1
+            if src in masked36:      # a code-masked portrait: its photo files are checked from the manifest below
+                continue
             if not os.path.isfile(os.path.join(media, src)):
                 c.hit(os.path.basename(f), src, "missing in public/media/")
             if src.endswith(".png") and "parampara/" in src and not os.path.isfile(os.path.join(media, src[:-4] + ".webp")):

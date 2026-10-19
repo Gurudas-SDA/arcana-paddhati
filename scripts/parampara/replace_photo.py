@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """Put Vraja Lila's prepared photo into a parampara page (oval drawn by code, no baking) — one command.
 1. python scripts/parampara/replace_photo.py NN "<path to the photo>"   (NN = 00…08; photo 736:1000, PNG/JPG/WebP)
-2. Optional: --contour contour.json  (figure outline [[x, y], …] in photo px — needed for L21, margin 5 %).
+2. Optional: --contour contour.json  (figure outline [[x, y], …] in photo px — needed for L21, field ≥ 1.5 % of the oval width).
 3. The master is copied unchanged to masters/parampara/ (outside public/, never served); WebP q90 (≤ 2× the box, never upscaled) + fallback → public/.
 4. portraits.json, check.json and lib/parampara-portraits.json are updated; the L21 verdict is printed (or «контур не проверен»).
 5. Then: npm run build && python qa/lint_content.py → commit (the app switches the page by the manifest; no code change).
 
-How Lipikāra switches a page (19.10.2026: the code mask is published, every page 00–08 still «baked»):
-  a. Wait for BOTH: Vraja's final photo (736:1000) AND Satkirti's decision on the 5 % margin (question №12) —
-     the 18.10 master of 00 has only 1.98 % clearance, so L21 fails for it until Satkirti decides.
+How Lipikāra switches a page (19.10.2026: page 00 masked by code, 01–08 baked):
+  a. 19.10.2026: page 00 is switched to Vraja's 18.10 master (min clearance 2.0 % ≥ 1.5 %). For a further page: Vraja's photo
+     (736:1000) + its figure contour; L21 must pass (whole figure inside the oval, field ≥ 1.5 %).
   b. Worktree from origin/main; source wk-libs/env.sh; replace_photo.py NN "<photo>" [--contour c.json]
      (00 with the 18.10 master: replace_photo.py 00 masters/parampara/00-pancha-tattva-2e085029e773.png — keeps its contour).
   c. The script removes public/media/parampara/NN-<slug>.png/.webp (baked page), writes photo/NN-<slug>-<hash>.webp + fallback;
@@ -19,8 +19,9 @@ How Lipikāra switches a page (19.10.2026: the code mask is published, every pag
 
 Vraja Lila 18.10.2026 (group msg 4997–4999, 5004, 5006): «никаких „впеканий" — все фото я подготовлю вручную
 (кадрирование), кодом будут вставляться в овал»; every photo 736:1000 with the same safe area; replacing a page
-must be fast. Pipeline rules: his «2026.10.18_image-pipeline-agent-prompt.md». The 5 % rule of Satkirti 07.10
-(«тело никогда не обрезается, с запасом 5 %») is checked unchanged; a photo without a contour is reported as
+must be fast. Pipeline rules: his «2026.10.18_image-pipeline-agent-prompt.md». Satkirti's rule 105
+(«фигура никогда не обрезается… вокруг есть поле… в овальной рамке фигура полностью внутри») is checked by L21 with a field
+≥ 1.5 % of the oval width (Lipikāras 19.10 tehniskais lēmums, Vraja msg 5143); a photo without a contour is reported as
 not verified (L21 then fails until a contour is traced — no exception without Satkirti's decision).
 """
 import argparse
@@ -99,11 +100,11 @@ def main():
     print(f"   app: {pg['photo_webp'] or '(no WebP)'} + fallback {pg['photo_fallback']}  size {pg['photo_size']}")
     if not contour:
         print(f"   L21: контур не проверен — no figure contour for this photo; L21 FAILS for {nn} until one is traced"
-              f" (--contour), margin stays 5 %")
-    elif pg["all_inside"] and pg["min_clearance"] >= r.MARGIN:
-        print(f"   L21: OK — whole figure inside, min clearance {pg['min_clearance'] * 100:.1f} % ≥ 5 %")
+              f" (--contour), field ≥ {r.CHECK_MARGIN * 100:.1f} %")
+    elif pg["all_inside"] and pg["min_clearance"] >= r.CHECK_MARGIN:
+        print(f"   L21: OK — whole figure inside, min clearance {pg['min_clearance'] * 100:.1f} % ≥ {r.CHECK_MARGIN * 100:.1f} %")
     else:
-        print(f"   L21: FAIL — min clearance {pg['min_clearance'] * 100:.1f} % < 5 %"
+        print(f"   L21: FAIL — min clearance {pg['min_clearance'] * 100:.1f} % < {r.CHECK_MARGIN * 100:.1f} %"
               f"{'' if pg['all_inside'] else ' (contour point OUTSIDE the oval)'}; needs Satkirti's decision or a new photo")
     print("   next: npm run build && python qa/lint_content.py, then commit")
 
