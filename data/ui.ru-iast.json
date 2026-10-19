@@ -97,5 +97,7 @@
   "offline.kind.images": "картинки",
   "offline.kind.transcripts": "транскрипты лекций",
   "offline.kind.other": "файлы приложения",
-  "resume.title": "Продолжить чтение"
+  "resume.title": "Продолжить чтение",
+  "sidebar.bookmarks": "Закладки",
+  "bookmarks.empty": "Закладок пока нет."
 }

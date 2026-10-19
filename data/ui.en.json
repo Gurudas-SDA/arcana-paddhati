@@ -97,5 +97,7 @@
   "offline.kind.transcripts": "lecture transcripts",
   "offline.kind.other": "app files",
   "offline.save.countShort": "{done} / {total}",
-  "resume.title": "Continue reading"
+  "resume.title": "Continue reading",
+  "sidebar.bookmarks": "Bookmarks",
+  "bookmarks.empty": "No bookmarks yet."
 }
