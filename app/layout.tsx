@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Noto_Serif } from "next/font/google";
+import localFont from "next/font/local";
 import AppShell from "@/components/AppShell";
 import { BASE_PATH } from "@/lib/basePath";
 import { availableLanguages, getLocales, getUi } from "@/lib/content";
@@ -9,10 +10,47 @@ import { EARLY_TAP_SCRIPT } from "@/lib/earlyTap";
 import { HOME_CARDS_SCRIPT } from "@/lib/homeCards";
 import "./globals.css";
 
+// 20.10.2026 (Vraja Lila msg 5316 p. 4, «Шрифты — разбор»): the upright Noto
+// Serif in our own cut — only the characters the book and the interface use
+// (scripts/font_subset.py), the same variable font (weights 100–900), so the
+// text looks the same. 3 files, 67 KB preloaded instead of 248 KB (Google's
+// latin-ext alone was 187 KB for ~70 IAST letters). No italic (as before:
+// italic stays the browser's slant). Noto Serif from next/font stays behind
+// them, not preloaded: a character outside our cut is still drawn by it.
+// All text uses var(--font-book) (app/globals.css).
+const arcanaSerifLatin = localFont({
+  src: "./fonts/arcana-serif-latin.woff2",
+  weight: "100 900",
+  style: "normal",
+  display: "swap",
+  variable: "--font-arcana-latin",
+  adjustFontFallback: false,
+  declarations: [{ prop: "unicode-range", value: "U+20-7E,U+A0-FF,U+153,U+301,U+303-304,U+323,U+2002,U+2009,U+200B,U+2013-2014,U+2018-201A,U+201C-201E,U+2022,U+2026,U+2032-2033,U+2039-203A,U+2044,U+20AC,U+2122,U+2212" }],
+});
+const arcanaSerifExt = localFont({
+  src: "./fonts/arcana-serif-latinext.woff2",
+  weight: "100 900",
+  style: "normal",
+  display: "swap",
+  variable: "--font-arcana-ext",
+  adjustFontFallback: false,
+  declarations: [{ prop: "unicode-range", value: "U+20,U+A0,U+100-101,U+104-105,U+10C-10D,U+112-113,U+117,U+119,U+123,U+129-12B,U+12E-12F,U+134-137,U+13B-13C,U+146,U+14D,U+150-151,U+15A-15B,U+15F-161,U+169-16B,U+171,U+173,U+175,U+17D-17E,U+219,U+21B,U+301,U+303-304,U+323,U+1D43,U+1E0C-1E0D,U+1E13,U+1E25,U+1E37,U+1E39,U+1E3B,U+1E41,U+1E43,U+1E45-1E47,U+1E5A-1E5B,U+1E5D,U+1E62-1E63,U+1E6C-1E6D,U+1E8F,U+2020" }],
+});
+const arcanaSerifCyr = localFont({
+  src: "./fonts/arcana-serif-cyrillic.woff2",
+  weight: "100 900",
+  style: "normal",
+  display: "swap",
+  variable: "--font-arcana-cyr",
+  adjustFontFallback: false,
+  declarations: [{ prop: "unicode-range", value: "U+20,U+A0,U+301,U+400,U+404,U+406-407,U+410-429,U+42B,U+42D-44F,U+451,U+454,U+456-457,U+490-491,U+2116" }],
+});
+
 const notoSerif = Noto_Serif({
   variable: "--font-noto-serif",
   subsets: ["latin", "latin-ext", "cyrillic"],
   display: "swap",
+  preload: false,
 });
 
 const ui = getUi("en");
@@ -51,7 +89,7 @@ export default function RootLayout({
     <html
       lang="en"
       translate="no"
-      className={`${notoSerif.variable} h-full`}
+      className={`${arcanaSerifLatin.variable} ${arcanaSerifExt.variable} ${arcanaSerifCyr.variable} ${notoSerif.variable} h-full`}
       suppressHydrationWarning
     >
       <head>
