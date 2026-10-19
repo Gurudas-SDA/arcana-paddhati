@@ -18,6 +18,7 @@
     "offline.save.pausedNote",
     "offline.save.retry",
     "offline.save.textMissing",
-    "offline.save.textOk"
+    "offline.save.textOk",
+    "resume.title"
   ]
 }

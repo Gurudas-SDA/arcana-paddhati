@@ -96,5 +96,6 @@
   "offline.kind.text": "страницы текста",
   "offline.kind.images": "картинки",
   "offline.kind.transcripts": "транскрипты лекций",
-  "offline.kind.other": "файлы приложения"
+  "offline.kind.other": "файлы приложения",
+  "resume.title": "Продолжить чтение"
 }

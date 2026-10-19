@@ -96,5 +96,6 @@
   "offline.kind.images": "pictures",
   "offline.kind.transcripts": "lecture transcripts",
   "offline.kind.other": "app files",
-  "offline.save.countShort": "{done} / {total}"
+  "offline.save.countShort": "{done} / {total}",
+  "resume.title": "Continue reading"
 }
