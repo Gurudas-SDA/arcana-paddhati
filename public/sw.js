@@ -250,14 +250,29 @@ function precacheCore(langs) {
   return doPrecache((group) => group === 'shell' || langs.has(group));
 }
 
+// 20.10.2026 (Vraja Lila msg 5318, «Видимая загрузка», commit 1): the progress
+// message also carries the failures — how many files could not be stored and
+// of which kind — so the page can say «Сохранено не всё» and what is missing
+// (before, `failed` was counted here and lost).
+function failKind(url) {
+  const path = url.split('?')[0];
+  if (path.startsWith(BASE + 'transcripts/')) return 'transcripts';
+  if (/\.(webp|png|jpe?g|gif|svg|avif|ico)$/i.test(path)) return 'images';
+  if (path.endsWith('/') || path.endsWith('.txt') || /\/search-index\.[a-z-]+\.json$/.test(path)) return 'text';
+  return 'other';
+}
+
 let lastProgress = 0;
-async function postProgress(done, total, final) {
+async function postProgress(done, total, final, failed = 0, failedKinds = {}) {
   const now = Date.now();
   if (!final && now - lastProgress < 1500) return;
   lastProgress = now;
   try {
     for (const c of await self.clients.matchAll({ type: 'window' })) {
-      c.postMessage({ type: 'precache-progress', version: VERSION, done, total, complete: !!final && done >= total });
+      c.postMessage({
+        type: 'precache-progress', version: VERSION, done, total,
+        complete: !!final && done >= total && !failed, failed, failedKinds, final: !!final,
+      });
     }
   } catch {
     // ignore
@@ -267,6 +282,9 @@ async function postProgress(done, total, final) {
 async function doPrecache(only) {
   const cache = await caches.open(CACHE_NAME);
   if (await cache.match(COMPLETE_KEY)) {
+    // Already whole: tell the page (a page that saw an unfinished download
+    // must learn that it is done, without a new download run).
+    if (!only) postProgress(0, 0, true);
     return { total: 0, fetched: 0, copied: 0, failed: 0, complete: true };
   }
   let manifest;
@@ -300,6 +318,7 @@ async function doPrecache(only) {
   }
   const scope = have + missing.length;
   let failed = 0;
+  const failedKinds = {};
   let fetched = 0;
   let copied = 0;
   let next = 0;
@@ -326,13 +345,15 @@ async function doPrecache(only) {
         }
       } catch {
         failed++;
+        const kind = failKind(url);
+        failedKinds[kind] = (failedKinds[kind] || 0) + 1;
       }
-      if (!only) postProgress(have + fetched + copied, scope, false);
+      if (!only) postProgress(have + fetched + copied, scope, false, failed, failedKinds);
     }
   }
   await Promise.all(Array.from({ length: CONCURRENCY }, worker));
   if (only) return { total: scope, fetched, copied, failed, complete: false, core: failed === 0 };
-  postProgress(have + fetched + copied, scope, failed === 0);
+  postProgress(have + fetched + copied, scope, true, failed, failedKinds);
   const complete = failed === 0;
   if (complete) {
     await cache.put(MANIFEST_KEY, new Response(JSON.stringify(manifest), { headers: { 'Content-Type': 'application/json' } }));
