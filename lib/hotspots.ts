@@ -20,7 +20,7 @@ export interface Hotspot {
    *  itself has no printed number (emblem: 2.1–2.6, 10–12; «1» moved clear
    *  of the hexagon — Reader v7.1). */
   tag?: number[];
-  /** Per-object alpha mask (public/images/hotspots/<file>), built by
+  /** Per-object alpha mask (public/media/hotspots/<picture>/<NN>.png), built by
    * scripts/build_hotspot_masks.py: exactly this object + its number. */
   mask?: string;
 }

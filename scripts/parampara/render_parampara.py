@@ -24,7 +24,7 @@ Sources (not in git): ../Арчана-паддхати — книга/Черно
        (Gour Govinda Svāmī) is not in our parampara (Satkirti 06.10).
 
 Output (in git):
-  public/images/parampara/01.png … 08.png   RGBA: photo in the oval + gold double line +
+  public/media/parampara/NN-<slug>.png …    RGBA (19.10.2026 media layout: 00-pancha-tattva … 08-prem-prayojan): photo in the oval + gold double line +
                                               (v7.8: no rhombi — design 1); transparent outside
   scripts/parampara/check.json              crop, oval and the contour check of every page
                                               (re-verified by qa/lint_content.py L21)
@@ -36,7 +36,7 @@ Output (in git):
 v8.0 (Vraja Lila 18.10.2026, group msg 4997–4999: «никаких „впеканий" — все фото я подготовлю вручную
 (кадрирование), кодом будут вставляться в овал»): a page with mode «mask» in scripts/parampara/portraits.json is NOT baked any more. Its photo
 (prepared by Vraja, kept unchanged as the master outside the served folder) is only optimised
-(public/images/parampara/photo/<id>-<hash>.webp + the master's PNG/JPG as fallback) and the app draws the frame in code
+(public/media/parampara/photo/<id>-<slug>-<hash>.webp + the master's PNG/JPG as fallback) and the app draws the frame in code
 (components/PortraitImg.tsx: the photo with object-fit: cover under an elliptic clip-path, the double gold
 line as inline SVG with exactly the geometry of render_page() below — lib/parampara-portraits.json carries both).
 The PDF / EPUB still need a raster: build_formats.py calls framed() here, so the print picture is drawn
@@ -57,7 +57,18 @@ sys.stdout.reconfigure(encoding="utf-8")
 REPO = Path(__file__).resolve().parents[2]
 DRAFT = REPO.parent / "Арчана-паддхати — книга" / "Черновики" / "2026-10-07 Песни арати, парампара, прамана" / "_исходники"
 SRC = DRAFT / "парампара"
-OUT = REPO / "public" / "images" / "parampara"
+OUT = REPO / "public" / "media" / "parampara"
+# 19.10.2026 (Vraja Lila msg 5075, media layout): file names say who is on the page — NN-<slug>, Latin letters,
+# from the captions in the app. The book data refers to "parampara/<NN>-<slug>.png" (under public/media/).
+SLUG = {"00": "pancha-tattva", "01": "jagannatha-dasa-babaji", "02": "bhaktivinoda-thakura",
+        "03": "gaura-kishora-dasa-babaji", "04": "bhaktisiddhanta-sarasvati", "05": "bhakti-prajnana-keshava",
+        "06": "bhaktivedanta-svami-prabhupada", "07": "bhaktivedanta-narayana", "08": "prem-prayojan"}
+
+
+def page_name(gid):
+    """"00" -> "00-pancha-tattva" (file stem of the page under public/media/parampara/)."""
+    return f"{gid}-{SLUG[gid]}"
+
 CHECK = Path(__file__).resolve().parent / "check.json"
 
 ASPECT = 0.735          # oval width / height (variant A)
@@ -143,7 +154,7 @@ EXTRA = {
 # never stretching («изображения никогда не искажаем»). Which page is baked and which is masked by code, the
 # master of each masked page and its figure contour (photo px; checked by L21 with the 5 % margin) live in the
 # manifest scripts/parampara/portraits.json — scripts/parampara/replace_photo.py switches a page by itself.
-# Masters are kept unchanged in scripts/parampara/masters/ (never served; Vraja's image-pipeline rule 1).
+# Masters are kept unchanged in masters/parampara/ (repo root, outside public/) (never served; Vraja's image-pipeline rule 1).
 MANIFEST = Path(__file__).resolve().parent / "portraits.json"
 MASK_ASPECT = 736 / 1000          # Vraja 18.10 msg 5006: every prepared photo is 736:1000
 MASK_ASPECT_TOL = 0.004           # a photo outside 0.732–0.740 is refused (would need cropping)
@@ -400,7 +411,7 @@ def strip_rhombi():
     m = np.zeros((H, W), bool)
     for y in (pad - g2, pad + round(WIN_W / ASPECT) + g2):
         m |= (np.abs(xx - W / 2) + np.abs(yy - y)) <= r
-    for f in sorted(OUT.glob("0[0-8].png")):
+    for f in sorted(OUT.glob("0[0-8]-*.png")):
         im = np.asarray(Image.open(f).convert("RGBA")).copy()
         assert im.shape[:2] == (H, W), (f.name, im.shape, (H, W))
         im[m] = fa[m]
@@ -479,15 +490,15 @@ def build_masked(gid):
     PHOTO_DIR.mkdir(parents=True, exist_ok=True)
     names = {}
     for kind, ext, data in (("fallback", fb_ext, fb),) + ((("webp", "webp", webp),) if use_webp else ()):
-        name = f"{gid}-{hashlib.sha256(data).hexdigest()[:12]}.{ext}"
+        name = f"{page_name(gid)}-{hashlib.sha256(data).hexdigest()[:12]}.{ext}"
         _atomic(PHOTO_DIR / name, data)
         with Image.open(PHOTO_DIR / name) as chk:
             assert chk.size == der.size, (name, chk.size, der.size)
         names[kind] = name
-    for old in PHOTO_DIR.glob(f"{gid}-*.*"):              # derivatives of an older photo are not referenced
+    for old in PHOTO_DIR.glob(f"{page_name(gid)}-*.*"):              # derivatives of an older photo are not referenced
         if old.name not in names.values():
             old.unlink()
-    for stale in (OUT / f"{gid}.png", OUT / f"{gid}.webp"):   # the baked page of this id is no longer used
+    for stale in (OUT / f"{page_name(gid)}.png", OUT / f"{page_name(gid)}.webp"):   # the baked page of this id is no longer used
         stale.unlink(missing_ok=True)
     hull = ent.get("contour")
     ok, cl = clearance(np.array(hull, float), 0, 0, w, aspect) if hull else (None, None)
@@ -510,11 +521,13 @@ def write_portraits(report):
     pages = {}
     for pg in report["pages"]:
         if pg.get("mode") == "mask":
-            pages[f"parampara/{pg['id']}.png"] = {"mode": "mask", "fallback": pg["photo_fallback"], "webp": pg["photo_webp"],
+            pages[f"parampara/{page_name(pg['id'])}.png"] = {"mode": "mask", "fallback": pg["photo_fallback"], "webp": pg["photo_webp"],
                                                  "width": pg["photo_size"][0], "height": pg["photo_size"][1],
                                                  "frame": pg["frame"]}
         else:
-            pages[f"parampara/{pg['id']}.png"] = {"mode": "baked"}
+            # width/height: the app reserves the box before the picture arrives (19.10.2026, no layout shift)
+            pages[f"parampara/{page_name(pg['id'])}.png"] = {"mode": "baked", "width": pg["image_size"][0],
+                                                              "height": pg["image_size"][1]}
     data = {"_comment": "generated by scripts/parampara/render_parampara.py (v8.0) from portraits.json — do not edit",
             "portraits": pages}
     PORTRAITS_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
@@ -528,7 +541,7 @@ def framed(src_rel, repo=REPO):
     m = data["portraits"].get(src_rel)
     if not m or m["mode"] != "mask":
         return None
-    src = Image.open(repo / "public" / "images" / m["fallback"]).convert("RGB")
+    src = Image.open(repo / "public" / "media" / m["fallback"]).convert("RGB")
     w, h = src.size
     page, _ = render_page(src, (0, 0, w, h), w, w / h)
     return page
@@ -567,23 +580,23 @@ def main():
         im, box, ext = extended_crop(src, crop, valid, hull, STYLE.get(gid, STYLE_PAINTING))
         ok, cl = clearance(H, crop[0] - crop[2] / 2, crop[1] - crop[3] / 2, crop[2])
         page, pad = render_page(im, box)
-        save_page(page, OUT / f"{gid}.png")
+        save_page(page, OUT / f"{page_name(gid)}.png")
         report["pages"].append({"id": gid, "source": fname, "source_size": list(src.size),
                                 "crop": [round(v, 2) for v in crop], "hull": [list(p) for p in hull],
                                 "all_inside": ok, "min_clearance": round(cl, 4),
                                 "extended_background_share": round(ext, 3),
-                                "image": f"parampara/{gid}.png", "image_size": list(page.size), "oval_pad": round(pad, 2)})
+                                "image": f"parampara/{page_name(gid)}.png", "image_size": list(page.size), "oval_pad": round(pad, 2)})
         print(f"{gid} crop {tuple(round(v) for v in crop)} inside={ok} clearance={cl:.3f} ext={ext:.2f} -> {page.size}")
     src, crop, rep, hull = gurudev_crop()
     cx, cy, cw, ch = crop
     page, pad = render_page(src, (cx - cw / 2, cy - ch / 2, cx + cw / 2, cy + ch / 2))
-    save_page(page, OUT / f"{GURUDEV[0]}.png")
+    save_page(page, OUT / f"{page_name(GURUDEV[0])}.png")
     ok, cl = clearance(np.array(hull, float), cx - cw / 2, cy - ch / 2, cw)
     report["pages"].append({"id": GURUDEV[0], "source": GURUDEV[1] + " (+ mirrored 700 px of the cloth below, as in variant A)",
                             "source_size": [src.size[0], src.size[1]], "crop": [round(float(v), 2) for v in crop],
                             "hull": hull, "all_inside": ok, "min_clearance": round(cl, 4),
                             "variant_a_verify": {k: (v if isinstance(v, (bool, int, float)) else str(v)) for k, v in rep.items()},
-                            "image": f"parampara/{GURUDEV[0]}.png", "image_size": list(page.size), "oval_pad": round(pad, 2)})
+                            "image": f"parampara/{page_name(GURUDEV[0])}.png", "image_size": list(page.size), "oval_pad": round(pad, 2)})
     print(f"{GURUDEV[0]} crop {tuple(round(v) for v in crop)} inside={ok} clearance={cl:.3f} -> {page.size}")
     report["pages"].sort(key=lambda pg: pg["id"])
     CHECK.write_text(json.dumps(report, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

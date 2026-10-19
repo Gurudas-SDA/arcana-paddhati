@@ -118,6 +118,28 @@ def reading_eval(page, function, arg=None):
     return page.evaluate(f"arg => ({function})({READING_ROOT_JS}, arg)", arg)
 
 
+LOAD_PORTRAITS_JS = """async (timeout) => {
+  // 19.10.2026: parampara portraits 2–9 load lazily (loading="lazy"). Walk the pages like a reader —
+  // each portrait scrolled into view, wait until it has loaded (or failed) — then back to the top.
+  const figs = [...document.querySelectorAll('figure.portrait-page')];
+  const t0 = performance.now();
+  for (const f of figs) {
+    f.scrollIntoView({block: 'start'});
+    const i = f.querySelector('img');
+    while (i && !(i.complete && (i.naturalWidth > 0 || i.dataset.pngFallback)) && performance.now() - t0 < timeout)
+      await new Promise(r => setTimeout(r, 50));
+  }
+  if (figs.length) figs[0].scrollIntoView({block: 'start'});
+  await new Promise(r => setTimeout(r, 300));
+  return figs.length;
+}"""
+
+
+def load_portraits(page, timeout_ms=20000):
+    """Scroll through the parampara so every lazily loaded portrait is fetched; returns the number of pages."""
+    return page.evaluate(LOAD_PORTRAITS_JS, timeout_ms)
+
+
 def reading_locator(page, selector):
     return page.locator(READING_SELECTOR).locator(selector)
 

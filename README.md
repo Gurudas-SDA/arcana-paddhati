@@ -10,7 +10,14 @@ Built with Next.js (App Router) as a fully static export and hosted on GitHub Pa
 
 - **`data/book.json`** — the whole book: `{ title, subtitle, sections: [{ id, title, subtitle, page, content, subsections: [{ id, title, content }] }] }`.
   Content blocks: `verse` (`sanskrit`, optional `translation`), `instruction`, `text`, `subtitle`, `paired-list` (`items`, `layout`), `image` (`src`, `alt`).
-- `public/images/` — images referenced by `image` blocks.
+- `public/media/` — the book's pictures (19.10.2026 layout; data `src` values are paths under it):
+  - `parampara/NN-<slug>.webp` (+ `.png` fallback) — guru-paramparā portraits 00-pancha-tattva … 08-prem-prayojan;
+    `parampara/photo/` — photos masked by code (scripts/parampara/replace_photo.py);
+  - `hotspots/<picture>/NN.png` — per-object masks of the interactive pictures (scripts/build_hotspot_masks.py);
+  - `common/` — single pictures: gaudiya-emblem, tilak, paraphernalia, ca-logo (+ conch-shankha, frame-red-cartouche: not used in the app);
+  - `cover/` — cover.jpg + cover.webp / cover-440.webp (the home page shows the WebP).
+- `masters/` — originals (never served), same layout, e.g. `masters/parampara/`.
+- Icons, favicon and manifest.json stay in `public/`.
 - `lib/book.ts` — TypeScript types for the book and helpers; `lib/content.ts` — build-time loading per language.
 
 ## Languages

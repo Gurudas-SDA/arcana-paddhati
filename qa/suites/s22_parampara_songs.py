@@ -78,6 +78,15 @@ def run(p, dev, eng, o):
 
         # a) the parampara pages
         goto(U + "parampara/"); time.sleep(0.8)
+        # 19.10.2026 load speed (Vraja Lila msg 5076): only the first portrait is fetched at once (eager +
+        # fetchpriority high), portraits 2–9 lazily; each still loads when the reader reaches it.
+        la = pg.evaluate("""() => [...document.querySelectorAll('figure.portrait-page img')].map(i => ({l: i.getAttribute('loading'),
+            fp: i.getAttribute('fetchpriority'), w: i.getAttribute('width'), h: i.getAttribute('height'), done: i.complete && i.naturalWidth > 0}))""")
+        chk(dev, "a load speed: portrait 1 eager + fetchpriority high, 2–9 loading=lazy, all with width/height",
+            len(la) == 9 and la[0]["l"] == "eager" and la[0]["fp"] == "high" and all(x["l"] == "lazy" for x in la[1:])
+            and all(x["w"] and x["h"] for x in la), la)
+        chk(dev, "a load speed: the last portrait is not fetched before the reader nears it", not la[-1]["done"], la[-1])
+        qa.load_portraits(pg)
         pg.wait_for_function("[...document.querySelectorAll('.app-main img.portrait-img')].every(i => i.complete && i.naturalWidth > 0)", timeout=20000)
         ps = qa.reading_eval(pg, PORTRAITS)
         caps = [x["cap"] for x in ps]

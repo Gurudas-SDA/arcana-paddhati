@@ -406,7 +406,9 @@ def run(p, dev, eng, o):
     # ---------- F: cover ----------
     goto(f"/{L}/")
     c = pg.evaluate("(() => { const i = document.querySelector('img.home-cover'); const r = i.getBoundingClientRect(); return {l: r.left, t: r.top, r: r.right, b: r.bottom, w: r.width, vw: innerWidth, vh: innerHeight, nw: i.naturalWidth, src: i.currentSrc}; })()")
-    chk(dev, "F cover fully on screen", c["l"] >= 0 and c["t"] >= 0 and c["r"] <= c["vw"] + 0.5 and c["b"] <= c["vh"] + 0.5 and c["nw"] == 874, str(c))
+    chk(dev, "F cover fully on screen", c["l"] >= 0 and c["t"] >= 0 and c["r"] <= c["vw"] + 0.5 and c["b"] <= c["vh"] + 0.5
+        # 19.10.2026: WebP srcset 440w / 874w (naturalWidth then follows `sizes`); shown loaded, never wider than 874 px
+        and c["nw"] > 0 and c["w"] <= 874.5 and c["src"].endswith((".webp", ".jpg")), str(c))
     shot("cover")
 
     # ---------- H: English ----------
@@ -476,7 +478,7 @@ def run(p, dev, eng, o):
 
 def cover_pixels():
     from PIL import Image
-    im = Image.open(io.BytesIO(urllib.request.urlopen(f"{BASE}/cover.jpg").read())).convert("RGB")
+    im = Image.open(io.BytesIO(urllib.request.urlopen(f"{BASE}/media/cover/cover.jpg").read())).convert("RGB")
     W, H = im.size
     px = im.load()
     dark = lambda c: sum(c) < 330

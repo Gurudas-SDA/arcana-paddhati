@@ -104,7 +104,7 @@
    "all_inside": true,
    "min_clearance": 0.0523,
    "extended_background_share": 0.51,
-   "image": "parampara/00.png",
+   "image": "parampara/00-pancha-tattva.png",
    "image_size": [
     641,
     857
@@ -197,7 +197,7 @@
    "all_inside": true,
    "min_clearance": 0.0539,
    "extended_background_share": 0.053,
-   "image": "parampara/01.png",
+   "image": "parampara/01-jagannatha-dasa-babaji.png",
    "image_size": [
     641,
     857
@@ -282,7 +282,7 @@
    "all_inside": true,
    "min_clearance": 0.0534,
    "extended_background_share": 0.312,
-   "image": "parampara/02.png",
+   "image": "parampara/02-bhaktivinoda-thakura.png",
    "image_size": [
     641,
     857
@@ -367,7 +367,7 @@
    "all_inside": true,
    "min_clearance": 0.0538,
    "extended_background_share": 0.311,
-   "image": "parampara/03.png",
+   "image": "parampara/03-gaura-kishora-dasa-babaji.png",
    "image_size": [
     641,
     857
@@ -472,7 +472,7 @@
    "all_inside": true,
    "min_clearance": 0.0532,
    "extended_background_share": 0.454,
-   "image": "parampara/04.png",
+   "image": "parampara/04-bhaktisiddhanta-sarasvati.png",
    "image_size": [
     641,
     857
@@ -553,7 +553,7 @@
    "all_inside": true,
    "min_clearance": 0.0541,
    "extended_background_share": 0.29,
-   "image": "parampara/05.png",
+   "image": "parampara/05-bhakti-prajnana-keshava.png",
    "image_size": [
     641,
     857
@@ -658,7 +658,7 @@
    "all_inside": true,
    "min_clearance": 0.0525,
    "extended_background_share": 0.139,
-   "image": "parampara/06.png",
+   "image": "parampara/06-bhaktivedanta-svami-prabhupada.png",
    "image_size": [
     641,
     857
@@ -739,7 +739,7 @@
    "all_inside": true,
    "min_clearance": 0.0537,
    "extended_background_share": 0.252,
-   "image": "parampara/07.png",
+   "image": "parampara/07-bhaktivedanta-narayana.png",
    "image_size": [
     641,
     857
@@ -862,7 +862,7 @@
     "поля габарита Л/П/В/Н, %": "(10.3, 7.1, 4.2, 18.2)",
     "углы габарита внутри окна": false
    },
-   "image": "parampara/08.png",
+   "image": "parampara/08-prem-prayojan.png",
    "image_size": [
     641,
     857

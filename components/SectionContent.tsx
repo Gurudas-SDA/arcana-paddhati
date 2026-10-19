@@ -1,6 +1,6 @@
 import ChapterEndSpace from "@/components/ChapterEndSpace";
 import PortraitImg from "@/components/PortraitImg";
-import MaskedPortrait, { portraitMask } from "@/components/MaskedPortrait";
+import MaskedPortrait, { portraitMask, portraitSize } from "@/components/MaskedPortrait";
 import React from "react";
 import { transcriptLinkProps } from "@/lib/transcripts";
 import { BASE_PATH } from "@/lib/basePath";
@@ -540,7 +540,7 @@ function ContentBlock({
         return (
           <HotspotFigure
             key={index}
-            src={`${BASE_PATH}/images/${item.src}`}
+            src={`${BASE_PATH}/media/${item.src}`}
             imgName={item.src}
             alt={item.alt || ""}
             data={hs}
@@ -552,7 +552,7 @@ function ContentBlock({
         // eslint-disable-next-line @next/next/no-img-element
         <img
           key={index}
-          src={`${BASE_PATH}/images/${item.src}`}
+          src={`${BASE_PATH}/media/${item.src}`}
           alt={item.alt || ""}
           className="book-image"
           style={{ maxWidth: "420px" }}
@@ -680,12 +680,14 @@ function PortraitPages({ section, note, after }: { section: Section; note?: stri
             {/* A WebP that fails to load falls back to the PNG (components/PortraitImg.tsx, v7.8.1). */}
             {/* v8.0: a portrait with Vraja's prepared photo is masked by code (frame = inline SVG, no baking). */}
             {portraitMask(item.src) ? (
-              <MaskedPortrait mask={portraitMask(item.src)!} base={BASE_PATH} alt={item.caption ?? ""} />
+              <MaskedPortrait mask={portraitMask(item.src)!} base={BASE_PATH} alt={item.caption ?? ""} eager={i === 0} />
             ) : (
               <PortraitImg
-                webp={item.src?.endsWith(".png") ? `${BASE_PATH}/images/${item.src.replace(/\.png$/, ".webp")}` : undefined}
-                png={`${BASE_PATH}/images/${item.src}`}
+                webp={item.src?.endsWith(".png") ? `${BASE_PATH}/media/${item.src.replace(/\.png$/, ".webp")}` : undefined}
+                png={`${BASE_PATH}/media/${item.src}`}
                 alt={item.caption ?? ""}
+                {...portraitSize(item.src)}
+                eager={i === 0 /* 19.10.2026: only the first portrait at once, the others lazily */}
               />
             )}
             <figcaption className="portrait-caption">{item.caption}</figcaption>

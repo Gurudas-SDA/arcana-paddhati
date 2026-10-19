@@ -51,47 +51,47 @@
       "content": [
         {
           "type": "portrait",
-          "src": "parampara/00.png",
+          "src": "parampara/00-pancha-tattva.png",
           "caption": "Šrī Panča-tatva"
         },
         {
           "type": "portrait",
-          "src": "parampara/01.png",
+          "src": "parampara/01-jagannatha-dasa-babaji.png",
           "caption": "Šrīla Džagannātha dāsa Bābādžī Mahārādža"
         },
         {
           "type": "portrait",
-          "src": "parampara/02.png",
+          "src": "parampara/02-bhaktivinoda-thakura.png",
           "caption": "Šrīla Saččidānanda Bhaktivinoda Thākurs"
         },
         {
           "type": "portrait",
-          "src": "parampara/03.png",
+          "src": "parampara/03-gaura-kishora-dasa-babaji.png",
           "caption": "Šrīla Gaura Kišora dāsa Bābādžī Mahārādža"
         },
         {
           "type": "portrait",
-          "src": "parampara/04.png",
+          "src": "parampara/04-bhaktisiddhanta-sarasvati.png",
           "caption": "Prabhupāda Šrīla Bhaktisiddhānta Sarasvatī Thākurs"
         },
         {
           "type": "portrait",
-          "src": "parampara/05.png",
+          "src": "parampara/05-bhakti-prajnana-keshava.png",
           "caption": "Šrīla Bhakti Pradžņāna Kešava Gosvāmī Mahārādža"
         },
         {
           "type": "portrait",
-          "src": "parampara/06.png",
+          "src": "parampara/06-bhaktivedanta-svami-prabhupada.png",
           "caption": "Šrīla Bhaktivēdānta Svāmī Prabhupāda"
         },
         {
           "type": "portrait",
-          "src": "parampara/07.png",
+          "src": "parampara/07-bhaktivedanta-narayana.png",
           "caption": "Šrīla Bhaktivēdānta Nārājana Gosvāmī Mahārādža"
         },
         {
           "type": "portrait",
-          "src": "parampara/08.png",
+          "src": "parampara/08-prem-prayojan.png",
           "caption": "Šrī Prēma Pradžojana Prabhu"
         }
       ],
@@ -381,7 +381,7 @@
         },
         {
           "type": "image",
-          "src": "Gaudiya_emblem.png",
+          "src": "common/gaudiya-emblem.png",
           "alt": "Gaudīja Matha emblēma"
         },
         {
@@ -1331,7 +1331,7 @@
             },
             {
               "type": "image",
-              "src": "Tilak.png",
+              "src": "common/tilak.png",
               "alt": "Tilakas uzlikšanas shēma"
             },
             {
@@ -2450,7 +2450,7 @@
             },
             {
               "type": "image",
-              "src": "Parafernalia.png",
+              "src": "common/paraphernalia.png",
               "alt": "Godināšanas piederumu attēls"
             },
             {
@@ -4828,7 +4828,7 @@
           "content": [
             {
               "type": "image",
-              "src": "Parafernalia.png",
+              "src": "common/paraphernalia.png",
               "alt": "Godināšanas piederumu attēls"
             },
             {

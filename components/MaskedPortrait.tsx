@@ -18,13 +18,20 @@ type Frame = {
   lines: { offset: number; stroke: number; color: string }[];
 };
 type MaskEntry = { mode: "mask"; fallback: string; webp: string | null; width: number; height: number; frame: Frame };
-type Entry = MaskEntry | { mode: "baked" };
+type BakedEntry = { mode: "baked"; width?: number; height?: number };
+type Entry = MaskEntry | BakedEntry;
 const PORTRAITS = manifest.portraits as Record<string, Entry>;
 
-/** The code-masked photo of a portrait (`src` as in the book data, e.g. "parampara/00.png"), or undefined (baked). */
+/** The code-masked photo of a portrait (`src` as in the book data, e.g. "parampara/00-pancha-tattva.png"), or undefined (baked). */
 export function portraitMask(src: string | undefined): MaskEntry | undefined {
   const e = src ? PORTRAITS[src] : undefined;
   return e && e.mode === "mask" ? e : undefined;
+}
+
+/** Natural size of a baked portrait picture (from check.json via render_parampara.py), for width/height. */
+export function portraitSize(src: string | undefined): { width?: number; height?: number } {
+  const e = src ? PORTRAITS[src] : undefined;
+  return e && e.mode === "baked" ? { width: e.width, height: e.height } : {};
 }
 
 /** Parallel curve of the window ellipse at distance d (what render_page draws: the oval buffered by d). */
@@ -42,7 +49,7 @@ function offsetPath(f: Frame, d: number, n = 360): string {
 }
 const pct = (v: number, of: number) => `${((100 * v) / of).toFixed(4)}%`;
 
-export default function MaskedPortrait({ mask, base, alt }: { mask: MaskEntry; base: string; alt: string }) {
+export default function MaskedPortrait({ mask, base, alt, eager = false }: { mask: MaskEntry; base: string; alt: string; eager?: boolean }) {
   const f = mask.frame;
   const { width: W, height: H, pad } = f;
   return (
@@ -56,12 +63,13 @@ export default function MaskedPortrait({ mask, base, alt }: { mask: MaskEntry; b
         style={{ left: pct(pad, W), top: pct(pad, H), width: pct(f.win_w, W), height: pct(f.win_h, H) }}
       >
         <PortraitImg
-          webp={mask.webp ? `${base}/images/${mask.webp}` : undefined}
-          png={`${base}/images/${mask.fallback}`}
+          webp={mask.webp ? `${base}/media/${mask.webp}` : undefined}
+          png={`${base}/media/${mask.fallback}`}
           alt={alt}
           width={mask.width}
           height={mask.height}
           className="portrait-img portrait-photo"
+          eager={eager}
         />
       </span>
       <svg className="portrait-frame-lines" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">

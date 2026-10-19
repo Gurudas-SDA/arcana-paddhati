@@ -139,9 +139,10 @@ export function HotspotProvider({ children }: { children: React.ReactNode }) {
   return <HotspotContext.Provider value={value}>{children}</HotspotContext.Provider>;
 }
 
-/** URL of a per-object mask: next to the picture, in hotspots/. */
+/** URL of a per-object mask: public/media/hotspots/<picture>/<NN>.png (19.10.2026 media layout;
+ *  `src` is the picture's URL under <base>/media/, `file` e.g. "tilak/01.png"). */
 function maskUrl(src: string, file: string): string {
-  return src.replace(/[^/]*$/, `hotspots/${file}`);
+  return src.replace(/\/media\/.*$/, `/media/hotspots/${file}`);
 }
 
 /** Fraction (0..1) of the element visible in the viewport (also below the sticky header). */

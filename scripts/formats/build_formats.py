@@ -3,7 +3,7 @@
 
 The app (Next.js, `npm run build`) is the first format; this script produces
 the other two from the same data files (data/book[.<lang>].json, ui.<lang>.json,
-public/cover.jpg, public/images/*).
+public/media/cover/cover.jpg, public/media/*; 19.10.2026 media layout).
 
     python scripts/formats/build_formats.py                  # ru-iast (= Russian, IAST) + en, all formats
     python scripts/formats/build_formats.py --lang ru,en,lv  # any language with data
@@ -23,7 +23,7 @@ parampara, Maṅgalācaraṇa, the Introduction group) is unnumbered (Satkirti
 unnumbered.
 
 Parampara (section with "layout": "portraits", Reader v7.4, Satkirti 06.10/07.10):
-one guru per page — the framed oval portrait (public/images/parampara/*.png,
+one guru per page — the framed oval portrait (public/media/parampara/NN-<slug>.png,
 the whole figure inside the oval; v8.0: a portrait the app masks by code is drawn
 here from the same photo with the same frame, see portrait_png()) and the caption; no heading, and in the PDF
 no running header and no page number on these pages.
@@ -88,13 +88,13 @@ def portrait_png(rel: str) -> bytes | None:
 
 
 def image_bytes(rel: str) -> bytes:
-    """public/images/<rel>, or the build-time framed portrait for a code-masked parampara page."""
+    """public/media/<rel>, or the build-time framed portrait for a code-masked parampara page."""
     data = portrait_png(rel)
-    return data if data is not None else (PUBLIC / "images" / rel).read_bytes()
+    return data if data is not None else (PUBLIC / "media" / rel).read_bytes()
 
 
 def write_masked_portraits(images_dir: Path) -> None:
-    """Put the framed code-masked portraits into a copy of public/images (print build)."""
+    """Put the framed code-masked portraits into a copy of public/media (print build)."""
     masks = REPO / "lib" / "parampara-portraits.json"
     if not masks.is_file():
         return
@@ -530,7 +530,7 @@ class Edition:
                     for k, lab in (("transcript_url", "mood.transcript"), ("audio_url", "mood.audio")) if l and l.get(k)))
             return '<p class="srcnote">' + "<br/>".join(rows) + "</p>"
         if t == "image":
-            return (f'<div class="img"><img src="images/{esc(it.get("src", ""))}" alt="{esc(it.get("alt", ""))}"/></div>')
+            return (f'<div class="img"><img src="media/{esc(it.get("src", ""))}" alt="{esc(it.get("alt", ""))}"/></div>')
         content = it.get("content", "")
         return f"<p>{lines_br(content)}</p>"
 
@@ -602,7 +602,7 @@ class Edition:
         for it in sec.get("content", []):
             if it.get("type") != "portrait":
                 continue
-            out.append(f'<div class="ppage"><div class="pimg"><img src="images/{esc(it["src"])}" alt="{esc(it.get("caption", ""))}"/></div>'
+            out.append(f'<div class="ppage"><div class="pimg"><img src="media/{esc(it["src"])}" alt="{esc(it.get("caption", ""))}"/></div>'
                        f'<p class="pcap">{esc(it.get("caption", ""))}</p>'
                        '<p class="porn"><span class="pln"></span><span class="pdot"></span><span class="prh"></span>'
                        '<span class="pdot"></span><span class="pln"></span></p></div>')
@@ -790,7 +790,7 @@ def print_html(ed: Edition, fonts_url: dict, toc_pages=None, verse_pages=None, m
              '<div class="blank"></div>',
              f'<div class="titlepage"><div class="t1">{esc(b["title"])}</div>'
              f'<div class="orn">❦</div>' + (f'<div class="t2">{esc(b["subtitle"])}</div>' if b.get("subtitle") else "") +
-             f'<img src="images/CA_logo.png" alt=""/></div>',
+             f'<img src="media/common/ca-logo.png" alt=""/></div>',
              f'<div class="imprint">' + (f'<p>{esc(b["subtitle"])}</p>' if b.get("subtitle") else "") +
              f'<p>{esc(s["version"])} {ed.version}</p>'
              f'<p>{esc(s["app"])}<br/>{esc(APP_URL)}</p></div>']
@@ -864,10 +864,10 @@ def dest_pages(doc):
 
 def build_print(ed: Edition, fonts: dict, chrome: Path, work: Path, out_pdf: Path):
     work.mkdir(parents=True, exist_ok=True)
-    shutil.copy(PUBLIC / "cover.jpg", work / "cover.jpg")
-    shutil.copytree(PUBLIC / "images", work / "images", dirs_exist_ok=True,
+    shutil.copy(PUBLIC / "media" / "cover" / "cover.jpg", work / "cover.jpg")
+    shutil.copytree(PUBLIC / "media", work / "media", dirs_exist_ok=True,
                     ignore=shutil.ignore_patterns("desktop.ini"))
-    write_masked_portraits(work / "images")
+    write_masked_portraits(work / "media")
     furl = {k: Path(v).resolve().as_uri() for k, v in fonts.items()}
     profile = work / "chrome-profile"
     html1, pdf1 = work / "pass1.html", work / "pass1.pdf"
@@ -1093,7 +1093,7 @@ def build_epub(ed: Edition, fonts: dict, out_epub: Path, work: Path):
         f'<div class="title"><p class="t1">{esc(b["title"])}</p><p class="orn">❦</p>'
         + (f'<p class="t2">{esc(b["subtitle"])}</p>' if b.get("subtitle") else "") +
         f'<p class="imp">{esc(s["version"])} {ed.version}<br/>{esc(s["app"])}<br/><a href="{APP_URL}">{APP_URL}</a></p>'
-        f'<img src="images/CA_logo.png" alt=""/></div>')
+        f'<img src="media/common/ca-logo.png" alt=""/></div>')
     # nav
     # contents tree: (label, href, children) - front matter, parts > chapters > subsections
     tree, cur = [(b["title"], "title.xhtml", [])], None
@@ -1153,10 +1153,10 @@ def build_epub(ed: Edition, fonts: dict, out_epub: Path, work: Path):
         font_names[k] = f"fonts/{p.name}"
         files[font_names[k]] = dst.read_bytes()
     files["style.css"] = font_face_css(font_names) + BASE_CSS + EPUB_CSS
-    files["cover.jpg"] = (PUBLIC / "cover.jpg").read_bytes()
-    used_imgs = set(re.findall(r'src="images/([^"]+)"', "".join(v for v in files.values() if isinstance(v, str))))
+    files["cover.jpg"] = (PUBLIC / "media" / "cover" / "cover.jpg").read_bytes()
+    used_imgs = set(re.findall(r'src="media/([^"]+)"', "".join(v for v in files.values() if isinstance(v, str))))
     for img in sorted(used_imgs):
-        files[f"images/{img}"] = image_bytes(img)
+        files[f"media/{img}"] = image_bytes(img)
     # manifest + spine
     mt = {".xhtml": "application/xhtml+xml", ".css": "text/css", ".jpg": "image/jpeg", ".png": "image/png",
           ".ttf": "font/ttf", ".ncx": "application/x-dtbncx+xml"}

@@ -103,6 +103,13 @@ def portraits_manifest():
     return json.load(open(f, encoding="utf-8")) if os.path.isfile(f) else {"portraits": {}}
 
 
+# Parampara page files in order (19.10.2026 media layout, scripts/parampara/render_parampara.py SLUG): public/media/<src>
+PP_SRCS = ["parampara/00-pancha-tattva.png", "parampara/01-jagannatha-dasa-babaji.png", "parampara/02-bhaktivinoda-thakura.png",
+           "parampara/03-gaura-kishora-dasa-babaji.png", "parampara/04-bhaktisiddhanta-sarasvati.png",
+           "parampara/05-bhakti-prajnana-keshava.png", "parampara/06-bhaktivedanta-svami-prabhupada.png",
+           "parampara/07-bhaktivedanta-narayana.png", "parampara/08-prem-prayojan.png"]
+
+
 class Check:
     def __init__(self, cid, title):
         self.cid, self.title, self.hits, self.warns, self.info = cid, title, [], [], ""
@@ -484,7 +491,7 @@ def run(args):
         sec = b["sections"][0]
         caps = [x.get("caption") for x in sec["content"] if x.get("type") == "portrait"]
         srcs = [x.get("src") for x in sec["content"] if x.get("type") == "portrait"]
-        if sec.get("layout") != "portraits" or caps != exp[lang] or srcs != [f"parampara/{i:02d}.png" for i in range(0, 9)]:
+        if sec.get("layout") != "portraits" or caps != exp[lang] or srcs != PP_SRCS:
             c.hit(fn, "parampara", f"layout={sec.get('layout')} captions={caps} srcs={srcs}")
         if sec.get("subsections"):
             c.hit(fn, "parampara", "has subsections (headings) — portrait + caption only")
@@ -501,7 +508,7 @@ def run(args):
         sec = b["sections"][0]
         caps = [x.get("caption") for x in sec["content"] if x.get("type") == "portrait"]
         srcs = [x.get("src") for x in sec["content"] if x.get("type") == "portrait"]
-        if sec.get("layout") != "portraits" or len(caps) != 9 or not all(caps) or srcs != [f"parampara/{i:02d}.png" for i in range(0, 9)] or sec.get("subsections"):
+        if sec.get("layout") != "portraits" or len(caps) != 9 or not all(caps) or srcs != PP_SRCS or sec.get("subsections"):
             c.hit(fn, "parampara", f"layout={sec.get('layout')} captions={caps} srcs={srcs}")
     for f in allb:
         raw = json.dumps(loaded[f], ensure_ascii=False)
@@ -543,31 +550,31 @@ def run(args):
             for key in ("photo_fallback", "photo_webp"):
                 if not pg.get(key):
                     continue
-                f = os.path.join(qa.REPO, "public", "images", pg[key])
+                f = os.path.join(qa.REPO, "public", "media", pg[key])
                 if not os.path.isfile(f):
-                    c.hit("public/images", pg[key], "missing")
+                    c.hit("public/media", pg[key], "missing")
                     continue
                 with _Img.open(f) as im:
                     if list(im.size) != [pw, ph]:
-                        c.hit("public/images", pg[key], f"size {im.size} != check.json photo_size {[pw, ph]}")
+                        c.hit("public/media", pg[key], f"size {im.size} != check.json photo_size {[pw, ph]}")
             if not os.path.isfile(os.path.join(qa.REPO, pg["source"])):
                 c.hit("check.json", pg["id"], f"master {pg['source']} missing")
             mk = portraits_manifest()
-            m = mk["portraits"].get(f"parampara/{pg['id']}.png")
+            m = next((v for k, v in mk["portraits"].items() if k.startswith(f"parampara/{pg['id']}-")), None)
             if (not m or m.get("mode") != "mask" or m["fallback"] != pg["photo_fallback"] or m["webp"] != pg.get("photo_webp")
                     or [m["width"], m["height"]] != [pw, ph] or m["frame"] != pg.get("frame")):
                 c.hit("lib/parampara-portraits.json", pg["id"], "app entry does not match check.json (re-run render_parampara.py --only)")
             continue
         mk = portraits_manifest()
-        if mk["portraits"].get(f"parampara/{pg['id']}.png", {}).get("mode") != "baked":
+        if mk["portraits"].get(pg["image"], {}).get("mode") != "baked":
             c.hit("lib/parampara-portraits.json", pg["id"], "baked in check.json but not «baked» in the app manifest")
-        img = os.path.join(qa.REPO, "public", "images", pg["image"])
+        img = os.path.join(qa.REPO, "public", "media", pg["image"])
         if not os.path.isfile(img):
-            c.hit("public/images", pg["image"], "missing")
+            c.hit("public/media", pg["image"], "missing")
         else:
             with _Img.open(img) as im:
                 if list(im.size) != pg["image_size"] or im.mode != "RGBA":
-                    c.hit("public/images", pg["image"], f"size/mode {im.size} {im.mode} != check.json {pg['image_size']}")
+                    c.hit("public/media", pg["image"], f"size/mode {im.size} {im.mode} != check.json {pg['image_size']}")
     if [pg["id"] for pg in chk["pages"]] != [f"{i:02d}" for i in range(0, 9)]:
         c.hit("check.json", "pages", f"{[pg['id'] for pg in chk['pages']]} (expected 00 Pañca-tattva + 01–08)")
     c.info = f"{len(chk['pages'])} portraits re-verified"
@@ -795,10 +802,10 @@ def run(args):
         m_ = re.match(r"book\.([a-z]+)\.json$", os.path.basename(f))
         if m_ and m_.group(1) in FIG:
             LANGF[os.path.basename(f)] = m_.group(1)
-    hs = json.load(open(os.path.join(qa.DATA, "hotspots.json"), encoding="utf-8"))["Parafernalia.png"]["spots"]
+    hs = json.load(open(os.path.join(qa.DATA, "hotspots.json"), encoding="utf-8"))["common/paraphernalia.png"]["spots"]
     NUMS = [str(i) for i in range(1, 19)]
     if sorted(hs, key=int) != NUMS:
-        c.hit("hotspots.json", "Parafernalia.png", f"figure numbers {sorted(hs, key=int)} != 1–18")
+        c.hit("hotspots.json", "common/paraphernalia.png", f"figure numbers {sorted(hs, key=int)} != 1–18")
     for f in sorted(glob.glob(os.path.join(qa.DATA, "book*.json"))):
         if os.path.basename(f) not in LANGF:
             c.hit(os.path.basename(f), "L26", "language has no figure keywords in L26 (add them)")
@@ -1237,6 +1244,50 @@ def run(args):
                             c.hit("out", os.path.relpath(f, qa.OUT).replace(os.sep, "/"), "«%s» pie citāta" % mk)
                             break
     c.info = f"{n35} built Introduction pages" if n35 else "out/ not built — only the data part checked"
+    c.report(args.max)
+
+    # L36 — media layout (Vraja Lila 19.10.2026 msg 5075): every picture the book data names (image / portrait src,
+    # hotspots.json keys and masks, the app's parampara manifest) is a file under public/media/; the old folder
+    # public/images/ and public/cover.jpg are gone; file names are Latin, lower case (no spaces).
+    c = Check("L36", "media layout: every book picture / hotspot mask / portrait file exists under public/media/; no public/images/")
+    media = os.path.join(qa.REPO, "public", "media")
+    for old in (os.path.join(qa.REPO, "public", "images"), os.path.join(qa.REPO, "public", "cover.jpg")):
+        if os.path.exists(old):
+            c.hit("public", os.path.relpath(old, qa.REPO), "old location (19.10.2026: public/media/)")
+    n36 = 0
+    for f in books():
+        def walk36(o):
+            if isinstance(o, dict):
+                if o.get("type") in ("image", "portrait") and o.get("src"):
+                    yield o["src"]
+                for v in o.values():
+                    yield from walk36(v)
+            elif isinstance(o, list):
+                for v in o:
+                    yield from walk36(v)
+        for src in set(walk36(json.load(open(f, encoding="utf-8")))):
+            n36 += 1
+            if not os.path.isfile(os.path.join(media, src)):
+                c.hit(os.path.basename(f), src, "missing in public/media/")
+            if src.endswith(".png") and "parampara/" in src and not os.path.isfile(os.path.join(media, src[:-4] + ".webp")):
+                c.hit(os.path.basename(f), src, "portrait without its WebP twin")
+    hs36 = json.load(open(os.path.join(qa.DATA, "hotspots.json"), encoding="utf-8"))
+    for key, spec in hs36.items():
+        if not os.path.isfile(os.path.join(media, key)):
+            c.hit("hotspots.json", key, "picture missing in public/media/")
+        for n, sp in spec["spots"].items():
+            if sp.get("mask") and not os.path.isfile(os.path.join(media, "hotspots", sp["mask"])):
+                c.hit("hotspots.json", f"{key} {n}", f"mask hotspots/{sp['mask']} missing")
+    for key, ent in portraits_manifest()["portraits"].items():
+        for rel in [key] + [ent.get(k) for k in ("fallback", "webp") if ent.get(k)]:
+            if ent["mode"] == "baked" or rel != key:
+                if not os.path.isfile(os.path.join(media, rel)):
+                    c.hit("lib/parampara-portraits.json", rel, "missing in public/media/")
+    for dp, dns, fns in os.walk(media):
+        for fn in fns:
+            if fn != fn.lower() or " " in fn or not re.fullmatch(r"[a-z0-9._-]+", fn):
+                c.hit("public/media", os.path.relpath(os.path.join(dp, fn), media), "name: Latin lower case, no spaces")
+    c.info = f"{n36} picture references"
     c.report(args.max)
 
     # L17 — Откат: метка pirms-interfeisa-2026-10-05 существует
