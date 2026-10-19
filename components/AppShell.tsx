@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { flushSync } from "react-dom";
 import Sidebar, { restoreParts } from "@/components/Sidebar";
 import InstallBanner from "@/components/InstallBanner";
 import ReaderChrome from "@/components/ReaderChrome";
@@ -618,7 +619,16 @@ export default function AppShell({
   const openSearch = () => {
     // The index starts loading now (on iPhone it takes seconds), not on focus.
     loadSearchIndex();
-    openMenu();
+    // Vraja Lila msg 5316 p. 3 (iPhone: the keyboard only on the second tap):
+    // the panel is rendered synchronously and the field focused inside this
+    // tap, so Safari opens the keyboard at once (a focus from a timer is not
+    // a user gesture). The retry below stays for a panel that is not there.
+    flushSync(() => openMenu());
+    const now = document.querySelector<HTMLInputElement>(".mobile-menu[data-open] input[type=search]");
+    if (now) {
+      now.focus();
+      return;
+    }
     let tries = 0;
     const focus = () => {
       const input = document.querySelector<HTMLInputElement>(".mobile-menu input[type=search]");
