@@ -86,9 +86,28 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
   useEffect(() => {
     // Register service worker
     if ("serviceWorker" in navigator) {
-      const reg = navigator.serviceWorker.register(`${BASE_PATH}/sw.js`);
+      // 20.10.2026 (Vraja Lila msg 5316 p. 2; Satkirti's iPad kept the old book):
+      // updates arrive by themselves — sw.js is never taken from the HTTP cache
+      // (updateViaCache "none"), the browser is asked to check for a new version
+      // on every open and every return to the app, and when a new worker takes
+      // over a page the old worker served, the page reloads ONCE to show the new book.
+      const hadController = !!navigator.serviceWorker.controller;
+      const reg = navigator.serviceWorker.register(`${BASE_PATH}/sw.js`, { updateViaCache: "none" });
       reg.catch(() => {});
       noteRegistration(reg);
+      const check = () => {
+        reg.then((r) => r?.update?.()).catch(() => {});
+      };
+      check();
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") check();
+      });
+      let reloaded = false;
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (!hadController || reloaded) return;
+        reloaded = true;
+        window.location.reload();
+      });
       startOfflineSync();
     }
 
