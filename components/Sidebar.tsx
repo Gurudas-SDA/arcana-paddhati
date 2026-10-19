@@ -1,6 +1,7 @@
 "use client";
 
 import { useOfflineProgress, useOfflineSave } from "@/lib/offlineProgress";
+import { readBookmarks, type Bookmark } from "@/lib/bookmarks";
 import React, {
   useEffect,
   useLayoutEffect,
@@ -520,6 +521,38 @@ export default function Sidebar({
   const offlineSave = useOfflineSave();
 
   const normalizedQuery = normalizeText(searchQuery.trim());
+
+  // Tabs «Содержание · Закладки» (Vraja Lila msg 5316 p. 7, plan «Закладки» B3):
+  // the tab is part of the entry's view (setView), so «Назад» comes back to it.
+  const [tab, setTab] = useState<"contents" | "bookmarks">("contents");
+  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
+  useEffect(() => {
+    try {
+      if (entryView().apTab === "bookmarks") setTab("bookmarks");
+    } catch {
+      // history unavailable
+    }
+  }, []);
+  useEffect(() => {
+    if (tab === "bookmarks") setBookmarks(readBookmarks());
+  }, [tab]);
+  const chooseTab = (next: "contents" | "bookmarks") => {
+    setTab(next);
+    try {
+      if (next === "bookmarks") setView({ apTab: "bookmarks" });
+      else setView({}, ["apTab"]);
+    } catch {
+      // history unavailable
+    }
+  };
+  const bookmarkLine = (b: Bookmark) => {
+    const sec = sections.find((x) => x.id === b.section);
+    if (!sec) return null;
+    const head = sec.num ? `${sec.num}. ${sec.title}` : sec.title;
+    const sub = b.anchor ? sec.subsections.find((x) => x.id === b.anchor) : undefined;
+    return { head, second: sub ? (sub.num ? `${sub.num}. ${sub.title}` : sub.title) : null };
+  };
+  const showBookmarks = tab === "bookmarks" && !normalizedQuery;
 
   const sectionHref = (sectionId: string, anchor?: string) =>
     localeHref(lang, sectionId, anchor);
@@ -1118,6 +1151,26 @@ export default function Sidebar({
         </form>
       </div>
 
+      {!normalizedQuery && (
+        <div className="sidebar-tabs shrink-0 flex border-b border-[#E8DCC8]" role="tablist" data-sidebar-tabs="">
+          {(["contents", "bookmarks"] as const).map((k) => (
+            <button
+              key={k}
+              type="button"
+              role="tab"
+              aria-selected={tab === k}
+              data-sidebar-tab={k}
+              onClick={() => chooseTab(k)}
+              className={`flex-1 px-3 py-2.5 text-sm transition-colors border-b-2 ${
+                tab === k ? "border-[#B8860B] text-[#2C1810] font-semibold" : "border-transparent text-[#5C3D2E]"
+              }`}
+            >
+              {t(ui, k === "contents" ? "sidebar.contents" : "sidebar.bookmarks")}
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* The «show all» switches are in the «Аа» panel (Reader v7.8). */}
       {offlineSave && (offlineSave.s === "loading" || offlineSave.s === "partial") && offlineSave.t > 0 && (
         <p className="px-5 py-1.5 border-b border-[#E8DCC8] text-[11px] text-[#5C3D2E] flex items-center gap-2" data-offline-progress="">
@@ -1130,7 +1183,37 @@ export default function Sidebar({
 
       {/* Contents (Reader v7.8, Satkirti 07.10.2026): a fixed part — the title,
           the search and «Обложка» — and the list that scrolls under it. */}
-      <nav className="flex-1 min-h-0 flex flex-col">
+      {showBookmarks && (
+        <div className="flex-1 min-h-0 overflow-y-auto" role="tabpanel" data-bookmarks-list="">
+          {bookmarks.length === 0 ? (
+            <p className="px-5 py-4 text-sm text-[#5C3D2E]" data-bookmarks-empty="">
+              {t(ui, "bookmarks.empty")}
+            </p>
+          ) : (
+            bookmarks.map((b) => {
+              const line = bookmarkLine(b);
+              if (!line) return null;
+              const href = sectionHref(b.section, b.anchor ?? undefined);
+              return (
+                <Link
+                  key={b.id}
+                  href={href}
+                  onClick={(e) => leaveTo(e, href)}
+                  data-bookmark-row=""
+                  className="sidebar-link block w-full text-left px-5 py-3 border-b border-[#E8DCC8] hover:bg-[#FDF8F0]"
+                >
+                  <span className="block text-sm text-[#2C1810]">{line.head}</span>
+                  {line.second && <span className="block text-sm text-[#5C3D2E]">{line.second}</span>}
+                  <span className="block text-[11px] text-[#6B5440]">
+                    {new Date(b.time).toLocaleDateString(lang === "en" ? "en" : lang.split("-")[0])}
+                  </span>
+                </Link>
+              );
+            })
+          )}
+        </div>
+      )}
+      <nav className="flex-1 min-h-0 flex flex-col" hidden={showBookmarks || undefined}>
       {!normalizedQuery && (
         <div className="toc-fixed shrink-0 pt-2 pb-1 border-b border-[#E8DCC8]">
           <Link
