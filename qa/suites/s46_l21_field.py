@@ -4,7 +4,9 @@
   a) the real data → L21 passes (portrait 00 = Vraja's photo masked by code, clearance 2.0 %);
   b) one contour point of 00 at 1.0 % from the oval edge → L21 FAIL («too close»);
   c) one contour point of 00 outside the oval → L21 FAIL («OUTSIDE»);
-  d) one contour point of 00 at 1.6 % → L21 still passes (the threshold is 1.5 %, not the old 5 %).
+  d) one contour point of 00 at 1.6 % → L21 still passes (the threshold is 1.5 %, not the old 5 %);
+  e) portrait 00 WebP weight (Vraja Lila msg 5167, 19.10): q58 method 6, 736 px, recorded in portraits.json/check.json,
+     the served WebP ≤ 125 KB (test: q58 = 119 KB, SSIM 0.919) and its file exists.
 usage: python s46_l21_field.py
 """
 import contextlib
@@ -77,5 +79,22 @@ case("a real data → L21 passes (00 masked by code, field 2.0 %)", None, True)
 case("b a contour point at 1.0 % of the oval width → L21 FAIL (too close)", 0.010, False, "too close")
 case("c a contour point outside the oval → L21 FAIL (OUTSIDE)", -0.01, False, "OUTSIDE")
 case("d a contour point at 1.6 % → L21 passes (threshold 1.5 %, not 5 %)", 0.016, True)
+
+def webp_weight():
+    man = json.load(open(os.path.join(REPO, "scripts", "parampara", "portraits.json"), encoding="utf-8"))["portraits"]["00"]
+    pg = next(p for p in json.load(open(os.path.join(REPO, "scripts", "parampara", "check.json"), encoding="utf-8"))["pages"]
+              if p["id"] == "00")
+    rel = pg.get("photo_webp")
+    f = os.path.join(REPO, "public", "media", rel) if rel else None
+    size = os.path.getsize(f) if f and os.path.exists(f) else None
+    ok = (man.get("webp_quality") == 58 and pg.get("webp_quality") == 58 and size is not None and size <= 125_000
+          and pg.get("photo_size") == [736, 1000])
+    chk("e 00 WebP q58 (Vraja msg 5167): recorded in portraits.json + check.json, ≤ 125 KB, 736x1000", ok,
+        f"manifest q={man.get('webp_quality')} check q={pg.get('webp_quality')} file={rel} size={size} {pg.get('photo_size')}")
+    if ok:
+        print(f"        {rel}: {size:,} B", flush=True)
+
+
+webp_weight()
 print(f"s46: {sum(res)}/{len(res)} passed", flush=True)
 sys.exit(0 if res and all(res) else 1)

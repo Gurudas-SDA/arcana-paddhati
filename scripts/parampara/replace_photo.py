@@ -2,7 +2,9 @@
 """Put Vraja Lila's prepared photo into a parampara page (oval drawn by code, no baking) — one command.
 1. python scripts/parampara/replace_photo.py NN "<path to the photo>"   (NN = 00…08; photo 736:1000, PNG/JPG/WebP)
 2. Optional: --contour contour.json  (figure outline [[x, y], …] in photo px — needed for L21, field ≥ 1.5 % of the oval width).
-3. The master is copied unchanged to masters/parampara/ (outside public/, never served); WebP q90 (≤ 2× the box, never upscaled) + fallback → public/.
+3. The master is copied unchanged to masters/parampara/ (outside public/, never served); WebP method 6 at --quality
+   (default 58, Vraja msg 5167, 19.10; ≤ 2× the box, never upscaled) + fallback → public/. The quality used is kept in
+   portraits.json ("webp_quality") and check.json; if the WebP is not < 95 % of the fallback, the master is served.
 4. portraits.json, check.json and lib/parampara-portraits.json are updated; the L21 verdict is printed (or «контур не проверен»).
 5. Then: npm run build && python qa/lint_content.py → commit (the app switches the page by the manifest; no code change).
 
@@ -39,6 +41,9 @@ HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 MASTERS = REPO / "masters" / "parampara"          # 19.10.2026 media layout: originals outside public/
 ALLOWED = {".png", ".jpg", ".jpeg", ".webp"}
+# Vraja Lila msg 5167, 19.10; atgriešana — no mastera ar --quality 90
+# (test «2026.10.19_Вес изображений — варианты.md»: q58 = 119 KB, SSIM 0.919, not visible at the real size in the book)
+DEFAULT_WEBP_QUALITY = 58
 
 
 def load_render():
@@ -53,7 +58,11 @@ def main():
     ap.add_argument("nn", help="page 00…08")
     ap.add_argument("photo", type=Path, help="Vraja's prepared photo (736:1000)")
     ap.add_argument("--contour", type=Path, help="JSON [[x, y], …] — figure outline in photo px")
+    ap.add_argument("--quality", type=int, default=DEFAULT_WEBP_QUALITY,
+                    help=f"WebP quality 1…100 (default {DEFAULT_WEBP_QUALITY}, Vraja msg 5167); always encoded from the master")
     a = ap.parse_args()
+    if not 1 <= a.quality <= 100:
+        raise SystemExit(f"--quality {a.quality}: expected 1…100")
     nn = a.nn.zfill(2)
     if nn not in {f"{i:02d}" for i in range(9)}:
         raise SystemExit(f"page {a.nn}: expected 00…08")
@@ -91,7 +100,7 @@ def main():
     assert hashlib.sha256(master.read_bytes()).hexdigest() == sha
     src_name = old.get("source_name") if same and old.get("master_sha256") == sha else a.photo.name
     m["portraits"][nn] = {"mode": "mask", "master": str(master.relative_to(REPO)), "source_name": src_name,
-                          "master_sha256": sha, "contour": contour, "contour_note": note}
+                          "master_sha256": sha, "webp_quality": a.quality, "contour": contour, "contour_note": note}
     r.save_manifest(m)
 
     report = r.only([nn])

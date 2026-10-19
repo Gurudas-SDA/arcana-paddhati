@@ -137,11 +137,12 @@
    "min_clearance": 0.0198,
    "extended_background_share": 0.0,
    "photo_fallback": "parampara/photo/00-pancha-tattva-2e085029e773.png",
-   "photo_webp": "parampara/photo/00-pancha-tattva-ad3549a5ffa2.webp",
+   "photo_webp": "parampara/photo/00-pancha-tattva-957fc42c53c7.webp",
    "photo_size": [
     736,
     1000
    ],
+   "webp_quality": 58,
    "frame": {
     "win_w": 600,
     "win_h": 815,
