@@ -29,8 +29,8 @@
   },
   "parampara/01-jagannatha-dasa-babaji.png": {
    "mode": "mask",
-   "fallback": "parampara/photo/01-jagannatha-dasa-babaji-b484238fa22a.png",
-   "webp": "parampara/photo/01-jagannatha-dasa-babaji-f1540e9b0e91.webp",
+   "fallback": "parampara/photo/01-jagannatha-dasa-babaji-ccdaf3537edc.png",
+   "webp": "parampara/photo/01-jagannatha-dasa-babaji-6661ef4a308a.webp",
    "width": 736,
    "height": 1000,
    "frame": {
@@ -55,8 +55,8 @@
   },
   "parampara/02-bhaktivinoda-thakura.png": {
    "mode": "mask",
-   "fallback": "parampara/photo/02-bhaktivinoda-thakura-4a7fe83af216.png",
-   "webp": "parampara/photo/02-bhaktivinoda-thakura-a31b8bbc21ee.webp",
+   "fallback": "parampara/photo/02-bhaktivinoda-thakura-ed7184440b48.png",
+   "webp": "parampara/photo/02-bhaktivinoda-thakura-358cce458ca1.webp",
    "width": 736,
    "height": 1000,
    "frame": {
@@ -81,8 +81,8 @@
   },
   "parampara/03-gaura-kishora-dasa-babaji.png": {
    "mode": "mask",
-   "fallback": "parampara/photo/03-gaura-kishora-dasa-babaji-fc6f86cdc186.png",
-   "webp": "parampara/photo/03-gaura-kishora-dasa-babaji-3072ebf84fdc.webp",
+   "fallback": "parampara/photo/03-gaura-kishora-dasa-babaji-634675903ce5.png",
+   "webp": "parampara/photo/03-gaura-kishora-dasa-babaji-a896bb202b7e.webp",
    "width": 736,
    "height": 1000,
    "frame": {
@@ -107,8 +107,8 @@
   },
   "parampara/04-bhaktisiddhanta-sarasvati.png": {
    "mode": "mask",
-   "fallback": "parampara/photo/04-bhaktisiddhanta-sarasvati-f748be0b5315.png",
-   "webp": "parampara/photo/04-bhaktisiddhanta-sarasvati-4e23105bf9ea.webp",
+   "fallback": "parampara/photo/04-bhaktisiddhanta-sarasvati-def1601cdf3d.png",
+   "webp": "parampara/photo/04-bhaktisiddhanta-sarasvati-78315937cce1.webp",
    "width": 736,
    "height": 1000,
    "frame": {
@@ -133,8 +133,8 @@
   },
   "parampara/05-bhakti-prajnana-keshava.png": {
    "mode": "mask",
-   "fallback": "parampara/photo/05-bhakti-prajnana-keshava-ff1fa4305594.png",
-   "webp": "parampara/photo/05-bhakti-prajnana-keshava-d2bdf8df36ae.webp",
+   "fallback": "parampara/photo/05-bhakti-prajnana-keshava-66648bc1b890.png",
+   "webp": "parampara/photo/05-bhakti-prajnana-keshava-cb3cfbb130bf.webp",
    "width": 736,
    "height": 1000,
    "frame": {
@@ -159,8 +159,8 @@
   },
   "parampara/06-bhaktivedanta-svami-prabhupada.png": {
    "mode": "mask",
-   "fallback": "parampara/photo/06-bhaktivedanta-svami-prabhupada-636b337fe669.png",
-   "webp": "parampara/photo/06-bhaktivedanta-svami-prabhupada-6133151a093c.webp",
+   "fallback": "parampara/photo/06-bhaktivedanta-svami-prabhupada-207efd62749b.png",
+   "webp": "parampara/photo/06-bhaktivedanta-svami-prabhupada-e0b410d48bb2.webp",
    "width": 736,
    "height": 1000,
    "frame": {
@@ -185,8 +185,8 @@
   },
   "parampara/07-bhaktivedanta-narayana.png": {
    "mode": "mask",
-   "fallback": "parampara/photo/07-bhaktivedanta-narayana-17b9c3d25764.png",
-   "webp": "parampara/photo/07-bhaktivedanta-narayana-6e07023cb1ff.webp",
+   "fallback": "parampara/photo/07-bhaktivedanta-narayana-359fc0455130.png",
+   "webp": "parampara/photo/07-bhaktivedanta-narayana-1d5151106c09.webp",
    "width": 736,
    "height": 1000,
    "frame": {
@@ -211,8 +211,8 @@
   },
   "parampara/08-prem-prayojan.png": {
    "mode": "mask",
-   "fallback": "parampara/photo/08-prem-prayojan-2330223ce125.png",
-   "webp": "parampara/photo/08-prem-prayojan-8abce880717b.webp",
+   "fallback": "parampara/photo/08-prem-prayojan-0f84d3054183.png",
+   "webp": "parampara/photo/08-prem-prayojan-acbc14e05b9b.webp",
    "width": 736,
    "height": 1000,
    "frame": {

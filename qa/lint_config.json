@@ -118,18 +118,66 @@
     {
       "check": "L21",
       "file": "check.json",
-      "match": "05 :: contour point",
-      "reason": "Vraja Lila manuāli pārbaudīja, 0а, 19.10 — parampara 05 (Bhakti Prajñāna Keśava) Vraja foto, kontūras atstarpe 0,6 % < 1,5 % (1,5 % = Lipikāras tehniskais slieksnis, ne Satkirti noteikums); Satkirti noteikums 0а dod Vraja Lila absolūtas tiesības uz saskarni. Tikai kontūras atstarpe → WARN; pārējās L21 pārbaudes (ovāls, proporcija, faili, manifests) paliek stingras.",
+      "match": "01 :: контур не проверен",
+      "reason": "Vraja Lila manuāli pārbaudīja, 0а, 19.10 — parampara 01 (Jagannātha dāsa Bābājī) = Vraja jaunais centrētais foto (msg 5332), figūras kontūra šim foto nav izvilkta (1,5 % lauks = Lipikāras tehniskais slieksnis, ne Satkirti noteikums); Satkirti noteikums 0а dod Vraja Lila absolūtas tiesības uz saskarni. Tikai «kontūra nav pārbaudīta» → WARN; pārējās L21 pārbaudes (ovāls, proporcija, faili, manifests) paliek stingras.",
       "since": "2026-10-19",
-      "by": "Vraja Lila (noteikums 0а), Lipikāra uzdevums 19.10"
+      "by": "Vraja Lila (noteikums 0а, msg 5332), Lipikāra uzdevums 19.10"
     },
     {
       "check": "L21",
       "file": "check.json",
-      "match": "06 :: contour point",
-      "reason": "Vraja Lila manuāli pārbaudīja, 0а, 19.10 — parampara 06 (Śrīla Prabhupāda) Vraja foto, kontūras atstarpe 0,0 % < 1,5 % (1,5 % = Lipikāras tehniskais slieksnis, ne Satkirti noteikums); Satkirti noteikums 0а dod Vraja Lila absolūtas tiesības uz saskarni. Tikai kontūras atstarpe → WARN; pārējās L21 pārbaudes (ovāls, proporcija, faili, manifests) paliek stingras.",
+      "match": "02 :: контур не проверен",
+      "reason": "Vraja Lila manuāli pārbaudīja, 0а, 19.10 — parampara 02 (Bhaktivinoda Ṭhākura) = Vraja jaunais centrētais foto (msg 5332), figūras kontūra šim foto nav izvilkta (1,5 % lauks = Lipikāras tehniskais slieksnis, ne Satkirti noteikums); Satkirti noteikums 0а dod Vraja Lila absolūtas tiesības uz saskarni. Tikai «kontūra nav pārbaudīta» → WARN; pārējās L21 pārbaudes (ovāls, proporcija, faili, manifests) paliek stingras.",
       "since": "2026-10-19",
-      "by": "Vraja Lila (noteikums 0а), Lipikāra uzdevums 19.10"
+      "by": "Vraja Lila (noteikums 0а, msg 5332), Lipikāra uzdevums 19.10"
+    },
+    {
+      "check": "L21",
+      "file": "check.json",
+      "match": "03 :: контур не проверен",
+      "reason": "Vraja Lila manuāli pārbaudīja, 0а, 19.10 — parampara 03 (Gaura-kiśora dāsa Bābājī) = Vraja jaunais centrētais foto (msg 5332), figūras kontūra šim foto nav izvilkta (1,5 % lauks = Lipikāras tehniskais slieksnis, ne Satkirti noteikums); Satkirti noteikums 0а dod Vraja Lila absolūtas tiesības uz saskarni. Tikai «kontūra nav pārbaudīta» → WARN; pārējās L21 pārbaudes (ovāls, proporcija, faili, manifests) paliek stingras.",
+      "since": "2026-10-19",
+      "by": "Vraja Lila (noteikums 0а, msg 5332), Lipikāra uzdevums 19.10"
+    },
+    {
+      "check": "L21",
+      "file": "check.json",
+      "match": "04 :: контур не проверен",
+      "reason": "Vraja Lila manuāli pārbaudīja, 0а, 19.10 — parampara 04 (Bhaktisiddhānta Sarasvatī) = Vraja jaunais centrētais foto (msg 5332), figūras kontūra šim foto nav izvilkta (1,5 % lauks = Lipikāras tehniskais slieksnis, ne Satkirti noteikums); Satkirti noteikums 0а dod Vraja Lila absolūtas tiesības uz saskarni. Tikai «kontūra nav pārbaudīta» → WARN; pārējās L21 pārbaudes (ovāls, proporcija, faili, manifests) paliek stingras.",
+      "since": "2026-10-19",
+      "by": "Vraja Lila (noteikums 0а, msg 5332), Lipikāra uzdevums 19.10"
+    },
+    {
+      "check": "L21",
+      "file": "check.json",
+      "match": "05 :: контур не проверен",
+      "reason": "Vraja Lila manuāli pārbaudīja, 0а, 19.10 — parampara 05 (Bhakti Prajñāna Keśava) = Vraja jaunais centrētais foto (msg 5332), figūras kontūra šim foto nav izvilkta (1,5 % lauks = Lipikāras tehniskais slieksnis, ne Satkirti noteikums); Satkirti noteikums 0а dod Vraja Lila absolūtas tiesības uz saskarni. Tikai «kontūra nav pārbaudīta» → WARN; pārējās L21 pārbaudes (ovāls, proporcija, faili, manifests) paliek stingras.",
+      "since": "2026-10-19",
+      "by": "Vraja Lila (noteikums 0а, msg 5332), Lipikāra uzdevums 19.10"
+    },
+    {
+      "check": "L21",
+      "file": "check.json",
+      "match": "06 :: контур не проверен",
+      "reason": "Vraja Lila manuāli pārbaudīja, 0а, 19.10 — parampara 06 (Śrīla Prabhupāda) = Vraja jaunais centrētais foto (msg 5332), figūras kontūra šim foto nav izvilkta (1,5 % lauks = Lipikāras tehniskais slieksnis, ne Satkirti noteikums); Satkirti noteikums 0а dod Vraja Lila absolūtas tiesības uz saskarni. Tikai «kontūra nav pārbaudīta» → WARN; pārējās L21 pārbaudes (ovāls, proporcija, faili, manifests) paliek stingras.",
+      "since": "2026-10-19",
+      "by": "Vraja Lila (noteikums 0а, msg 5332), Lipikāra uzdevums 19.10"
+    },
+    {
+      "check": "L21",
+      "file": "check.json",
+      "match": "07 :: контур не проверен",
+      "reason": "Vraja Lila manuāli pārbaudīja, 0а, 19.10 — parampara 07 (Bhaktivedānta Nārāyaṇa) = Vraja jaunais centrētais foto (msg 5332), figūras kontūra šim foto nav izvilkta (1,5 % lauks = Lipikāras tehniskais slieksnis, ne Satkirti noteikums); Satkirti noteikums 0а dod Vraja Lila absolūtas tiesības uz saskarni. Tikai «kontūra nav pārbaudīta» → WARN; pārējās L21 pārbaudes (ovāls, proporcija, faili, manifests) paliek stingras.",
+      "since": "2026-10-19",
+      "by": "Vraja Lila (noteikums 0а, msg 5332), Lipikāra uzdevums 19.10"
+    },
+    {
+      "check": "L21",
+      "file": "check.json",
+      "match": "08 :: контур не проверен",
+      "reason": "Vraja Lila manuāli pārbaudīja, 0а, 19.10 — parampara 08 (Prem Prayojana Prabhu) = Vraja jaunais centrētais foto (msg 5332), figūras kontūra šim foto nav izvilkta (1,5 % lauks = Lipikāras tehniskais slieksnis, ne Satkirti noteikums); Satkirti noteikums 0а dod Vraja Lila absolūtas tiesības uz saskarni. Tikai «kontūra nav pārbaudīta» → WARN; pārējās L21 pārbaudes (ovāls, proporcija, faili, manifests) paliek stingras.",
+      "since": "2026-10-19",
+      "by": "Vraja Lila (noteikums 0а, msg 5332), Lipikāra uzdevums 19.10"
     }
   ]
 }
