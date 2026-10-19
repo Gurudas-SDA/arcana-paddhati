@@ -355,9 +355,59 @@ body {
 html[data-home-save] {
   --home-save-h: 8.5rem;
 }
-html[data-home-save] .home-cover {
-  max-height: calc(100vh - 2rem - var(--reader-pad-bottom) - var(--install-banner-h, 0px) - var(--home-save-h));
-  max-height: calc(100dvh - 2rem - var(--reader-pad-bottom) - env(safe-area-inset-top, 0px) - var(--install-banner-h, 0px) - var(--home-save-h));
+html[data-home-resume] {
+  --home-resume-h: 4.5rem;
+}
+html[data-home-save] .home-cover,
+html[data-home-resume] .home-cover {
+  max-height: calc(100vh - 2rem - var(--reader-pad-bottom) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px));
+  max-height: calc(100dvh - 2rem - var(--reader-pad-bottom) - env(safe-area-inset-top, 0px) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px));
+}
+/* «Продолжить» (components/ResumeCard.tsx): one row under the cover. */
+.home-resume-slot {
+  display: none;
+}
+html[data-home-resume] .home-resume-slot {
+  display: block;
+  box-sizing: border-box;
+  height: var(--home-resume-h);
+  width: min(100%, 26rem);
+  padding-top: 0.75rem;
+  overflow: hidden;
+}
+.home-resume {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  border: 1px solid #E5D8BC;
+  background: #FFFFFF;
+  border-radius: 9px;
+  padding: 7px 12px;
+  color: #2C1810;
+  text-decoration: none;
+  overflow: hidden;
+}
+.home-resume-title {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8B6508;
+  font-weight: 600;
+}
+.home-resume-line {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+html[data-reader-theme="night"] .home-resume {
+  background: #1B1712;
+  border-color: #3A3228;
+  color: #EFE6D2;
+}
+html[data-reader-theme="night"] .home-resume-title {
+  color: #D4A843;
 }
 .home-save-slot {
   display: none;

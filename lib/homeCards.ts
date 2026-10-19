@@ -14,10 +14,13 @@ export const READING_PLACE_KEY = "ap.readingPlace";
  *  "done" = finished, not yet shown on the cover; "seen" = shown once, the cover stays clean. */
 export const OFFLINE_SAVE_KEY = "ap.offlineSave";
 
-/** Inline script for <head> (app/layout.tsx). Reserve the save card's place when
+/** Inline script for <head> (app/layout.tsx). Reserve the «Продолжить» card's
+ *  place when a reading place is stored (html[data-home-resume]); reserve the save card's place when
  *  a download is unfinished / ended with failures / finished but not yet shown,
  *  or on the very first visit (no stored state, no service worker in charge yet:
  *  the book is about to be saved). */
 export const HOME_CARDS_SCRIPT = `(function(){try{var d=document.documentElement,v=null;try{v=JSON.parse(localStorage.getItem(${JSON.stringify(
   OFFLINE_SAVE_KEY,
-)})||"null")}catch(e){}var s=v&&v.s;if(s?(s==="loading"||s==="partial"||s==="done"):("serviceWorker" in navigator&&!navigator.serviceWorker.controller))d.setAttribute("data-home-save","")}catch(e){}})();`;
+)})||"null")}catch(e){}var s=v&&v.s;if(s?(s==="loading"||s==="partial"||s==="done"):("serviceWorker" in navigator&&!navigator.serviceWorker.controller))d.setAttribute("data-home-save","");var r=null;try{r=JSON.parse(localStorage.getItem(${JSON.stringify(
+  READING_PLACE_KEY,
+)})||"null")}catch(e){}if(r&&r.v===1&&typeof r.section==="string")d.setAttribute("data-home-resume","")}catch(e){}})();`;

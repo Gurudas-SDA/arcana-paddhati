@@ -1,6 +1,7 @@
 import { preload } from "react-dom";
 import { getUi, uiWithFallback } from "@/lib/content";
 import OfflineSaveCard, { type OfflineSaveLabels } from "@/components/OfflineSaveCard";
+import ResumeCard from "@/components/ResumeCard";
 import { t } from "@/lib/i18n";
 import { BASE_PATH } from "@/lib/basePath";
 import { webpFor } from "@/lib/webpImages";
@@ -49,6 +50,11 @@ function saveLabels(lang: string): OfflineSaveLabels {
   };
 }
 
+function resumeTitle(lang: string): string {
+  const { strings, fallback } = uiWithFallback(lang, ["resume.title"]);
+  return strings["resume.title"] + (fallback ? ` ${getUi(lang)["language.fallbackSuffix"] ?? "(EN)"}` : "");
+}
+
 /** Home page for one language (used by / and /<lang>/): only the book cover.
  *  Navigation (contents, language, install) is in the app shell. */
 export default function HomePage({ lang }: { lang: string }) {
@@ -75,6 +81,8 @@ export default function HomePage({ lang }: { lang: string }) {
           style={{ color: "transparent", maxWidth: "min(100%, 874px)" /* srcset w-descriptors set the natural size from `sizes`; never above the original 874 px */ }}
         />
       </picture>
+      {/* «Продолжить» (Vraja Lila msg 5316 p. 6): drawn before first paint (components/ResumeCard.tsx). */}
+      <ResumeCard lang={lang} title={resumeTitle(lang)} />
       {/* Saving for offline (Vraja Lila msg 5318): place reserved before first paint (lib/homeCards.ts). */}
       <OfflineSaveCard labels={saveLabels(lang)} />
     </div>
