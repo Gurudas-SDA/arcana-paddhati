@@ -111,13 +111,14 @@ def run(p, dev, eng, o, mode):
     pg.goto(f"{BASE}/{LANG}/{VIG}/", wait_until="networkidle"); pg.wait_for_timeout(900)
     show_bars()
     g = pg.evaluate("""() => { const r = s => { const e = document.querySelector(s); if (!e) return null; const b = e.getBoundingClientRect(); return {l: b.left, r: b.right, w: b.width, h: b.height, t: e.textContent.trim()}; };
-      return {vw: innerWidth, b: r('[data-reader-nav=back]'), f: r('[data-reader-nav=forward]'), lab: r('.reader-progress-label'),
+      return {vw: innerWidth, b: r('[data-reader-nav=back]'), f: r('[data-reader-nav=forward]'), lab: r('.reader-bar-bottom .reader-progress-label'), status: r('.reader-status'),
               slider: document.querySelectorAll('.reader-slider, .reader-bar input[type=range]').length}; }""")
     vw = g["vw"]
     chk(dev, "(3) no chapter slider", g["slider"] == 0, str(g["slider"]))
     chk(dev, "(3) «‹ Назад» at left edge, «Вперёд ›» at right edge", g["b"] and g["f"] and g["b"]["l"] <= 24 and g["f"]["r"] >= vw - 24, str(g))
     chk(dev, "(3) both >= 44x44", g["b"]["w"] >= 44 and g["b"]["h"] >= 44 and g["f"]["w"] >= 44 and g["f"]["h"] >= 44, str(g))
-    chk(dev, "(3) labels «Назад» / «Вперёд», faint «Глава N из M · %»", "Назад" in g["b"]["t"] and "Вперёд" in g["f"]["t"] and ("Глава" in g["lab"]["t"] or g["lab"]["t"].startswith("Виграха-таттва")) and "%" in g["lab"]["t"], str(g))
+    # V17 (Vraja Lila msg 796): no «where we are / %» line in the bar; the faint status line at the bottom stays
+    chk(dev, "(3) labels «Назад» / «Вперёд»; no «глава · %» in the bar, faint status line «глава · %» stays", "Назад" in g["b"]["t"] and "Вперёд" in g["f"]["t"] and g["lab"] is None and g["status"] and g["status"]["t"].startswith("Виграха-таттва") and "%" in g["status"]["t"], str(g))
     shot("3-bottom-bar")
 
     # ---- (4) large mood / translation window ----

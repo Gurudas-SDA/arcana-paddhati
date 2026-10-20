@@ -334,6 +334,9 @@ def run(p, dev, eng, o):
                 gap}; }"""
     bad = []
     banded = 0
+    # V17 (Vraja Lila msg 5645): at the chapter's start the bars are out — reading mode first (a tap on the page)
+    if pg.evaluate(STATE)["bars"]:
+        tapxy(vw["width"] - 6, vw["height"] / 2, 450)
     for n in range(1, 13):
         for where in ("label", "mantra", "gap"):
             pts = pg.evaluate(POINTS, str(n))
@@ -573,10 +576,11 @@ def run_v781(p, dev, eng, o):
         on = pg.evaluate(HL_STATE)
         res_url = pg.url
         chk(dev, "10 (setup) result opened with the word marked", on["hl"], str(on))
-        # forward step through a Link without a pointer (keyboard Enter on «Вперёд ›»)
-        has_next = pg.locator(".app-main .chapter-next-link").count() > 0
+        # forward step without a pointer (keyboard Enter on «Вперёд ›»). V17 (Vraja Lila msg 796): the next
+        # chapter is the bottom bar's «Вперёд ›» (no block at the chapter's end any more)
+        has_next = pg.locator("[data-reader-nav=forward]").count() > 0
         if has_next:
-            pg.locator(".app-main .chapter-next-link").first.focus()
+            pg.locator("[data-reader-nav=forward]").focus()
             pg.keyboard.press("Enter")
             try:
                 pg.wait_for_url(lambda u: u.split("#")[0] != res_url.split("#")[0], timeout=8000)
@@ -584,9 +588,9 @@ def run_v781(p, dev, eng, o):
                 pass
             pg.wait_for_timeout(900)
             st = pg.evaluate(HL_STATE)
-            chk(dev, "10 Link to the next chapter (keyboard, no tap) → mark gone on the new page", pg.url != res_url and clean(st), (pg.url[-40:], st))
+            chk(dev, "10 «Вперёд ›» to the next chapter (keyboard, no tap) → mark gone on the new page", pg.url != res_url and clean(st), (pg.url[-40:], st))
             ok, info = first_tap_toggles_bars(pg, tapxy)
-            chk(dev, "10 after the Link: the first tap on the new page is not eaten (menu toggles)", ok, info)
+            chk(dev, "10 after «Вперёд ›»: the first tap on the new page is not eaten (menu toggles)", ok, info)
         else:
             chk(dev, "10 result page has «Вперёд ›»", False, pg.url)
         # router.push-like step: a pushState to another chapter's URL from the marked page

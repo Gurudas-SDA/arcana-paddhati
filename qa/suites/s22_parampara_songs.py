@@ -97,8 +97,9 @@ def run(p, dev, eng, o):
         vis = qa.reading_eval(pg, """root => [...root.querySelectorAll('h1, h2, h3, .heading-num')]
             .filter(e => { const r = e.getBoundingClientRect(); return r.width > 2 && r.height > 2; }).map(e => e.innerText)""")
         chk(dev, "a no visible heading / number on the portrait pages", vis == [], vis)
-        nxt = qa.reading_eval(pg, "root=>{const a=root.querySelector('.chapter-next');return a?a.innerText.replace(/\\s+/g,' '):''}")
-        chk(dev, "a «Вперёд ›» after the parampara = Мангалачарана", "Мангалачарана" in nxt, nxt)
+        # V17 (Vraja Lila msg 796): the next chapter is the bottom bar's «Вперёд ›» (its target)
+        nxt = pg.evaluate("() => document.querySelector('[data-reader-nav=forward]')?.getAttribute('data-chapter-target') || ''")
+        chk(dev, "a «Вперёд ›» after the parampara = Мангалачарана", nxt == "mangalacarana", nxt)
 
         # b) portraits shown whole
         bad = [(x["cap"][:20], x["fit"], round(x["w"] / x["h"], 4), round(x["nw"] / x["nh"], 4))

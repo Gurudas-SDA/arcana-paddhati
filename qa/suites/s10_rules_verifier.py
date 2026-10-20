@@ -405,7 +405,9 @@ def run_one(DEV):
         try:
             go("daily-duties-brahma-muhurta/")
             qa.scroll_chapter(pg, 1.0); wait(0.8)
-            nx = pg.evaluate("""()=>{const a=__qaRoot().querySelector('[data-chapter-next]'); if(!a) return null; const r=a.getBoundingClientRect(); return {txt:a.innerText.replace(/\\s+/g,' ').trim(), href:a.getAttribute('href'), x:r.left+Math.min(r.width/2,60), y:r.top+r.height/2, inview:r.bottom<=innerHeight&&r.top>=0}}""")
+            # V17 (Vraja Lila msg 796): the next chapter is the bottom bar's «Вперёд ›» (the bars are out at the chapter's end)
+            show_bars()
+            nx = pg.evaluate("""()=>{const a=document.querySelector('[data-reader-nav=forward]'); if(!a) return null; const r=a.getBoundingClientRect(); return {txt:a.innerText.replace(/\\s+/g,' ').trim(), target:a.getAttribute('data-chapter-target'), x:r.left+r.width/2, y:r.top+r.height/2, inview:r.bottom<=innerHeight && r.top>=0}}""")
             shot(pg, f"{DEV}_chapter_end")
             u_before = pg.url; tap(nx["x"], nx["y"], 0.2); t0 = time.time()
             while pg.url == u_before and time.time() - t0 < 10: time.sleep(0.2)
@@ -413,7 +415,7 @@ def run_one(DEV):
             # top = offset from the start of the chapter now being read (in the continuous book the
             # absolute scrollTop of a chapter start is its position in the book)
             st = pg.evaluate("({u:location.pathname, top:" + qa.READING_POSITION_JS + ".top, h1:__qaRoot().querySelector('h1, h2')?.textContent})")
-            rec("§9 «Вперёд ›» в конце главы", "текст ссылки содержит «Вперёд» и название; тап ведёт на начало следующей главы", "Вперёд" in nx["txt"] and "daily-deity-schedule" in st["u"] and abs(st["top"]) < 5, f"link='{nx['txt']}', после тапа {st}, смена URL через {nav_dt:.1f}s")
+            rec("§9 «Вперёд ›» в конце главы", "V17: кнопка «Вперёд ›» нижней панели (блока в конце главы нет); тап ведёт на начало следующей главы", "Вперёд" in nx["txt"] and pg.locator(".chapter-next").count() == 0 and "daily-deity-schedule" in st["u"] and abs(st["top"]) < 5, f"link='{nx['txt']}', после тапа {st}, смена URL через {nav_dt:.1f}s")
         except Exception:
             rec("§9 next", "ошибка", False, traceback.format_exc()[-300:])
 
@@ -488,24 +490,17 @@ def run_one(DEV):
             toc_tap(SUB, 1.2)
             path.append(state())
             shot(pg, f"{DEV}_after_toc_nav")
-            # back via app button step by step
+            # back step by step. V17 (Vraja Lila msg 796): the app's «‹ Назад» is the previous chapter; the
+            # step-by-step history is the system Back
             back_seq = [state()]
             for k in range(10):
-                show_bars()
-                q = el_center("[data-reader-nav=back]") if not menu_open() else None
-                if q: tap(q["x"], q["y"], 1.0)
-                else:
-                    # inside menu the reader bar is covered; use system back as user would
-                    pg.go_back(); wait(1.0)
-                s = state(); back_seq.append(("app " if q else "sys ") + s)
+                pg.go_back(); wait(1.0)
+                s = state(); back_seq.append("sys " + s)
                 if s == "/" or s.startswith("/ ") and "menu" not in s: break
-            rec("§6/§7/§9 «Назад» пошагово (кнопки приложения; в меню — системная)", "последовательность шагов назад", None, back_seq)
+            rec("§6/§7/§9 «Назад» пошагово (системная; V17: кнопка приложения = пред. глава)", "последовательность шагов назад", None, back_seq)
             fwd_seq = [state()]
             for k in range(10):
-                if menu_open():
-                    pg.go_forward(); wait(1.0); how = "sys "
-                else:
-                    show_bars(); q = el_center("[data-reader-nav=forward]"); tap(q["x"], q["y"], 1.0); how = "app "
+                pg.go_forward(); wait(1.0); how = "sys "
                 s = state(); fwd_seq.append(how + s)
                 if "daily-duties" in s and "menu" not in s: break
             rec("§9 «Вперёд» пошагово", "последовательность шагов вперёд", None, fwd_seq)

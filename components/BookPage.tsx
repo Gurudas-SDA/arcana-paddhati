@@ -4,7 +4,6 @@ import ContinuousBook from "@/components/ContinuousBook";
 import SectionContent from "@/components/SectionContent";
 import PartPage from "@/components/PartPage";
 import GroupContents from "@/components/GroupContents";
-import NextChapter from "@/components/NextChapter";
 
 /** «Прокручивать» (A89, lib/readingMode.ts): the whole book of one language in
  *  one scroll (Vraja Lila PR 2), on its own route — the cover stays light.
@@ -25,7 +24,7 @@ export default function BookPage({ lang }: { lang: string }) {
                 ui={ui}
                 num={getSectionNumber(item.id)}
                 note={sectionNote(lang, item.id)}
-                after={<><GroupContents lang={lang} id={item.id} ui={ui} /><NextChapter lang={lang} id={item.id} ui={ui} /></>}
+                after={<GroupContents lang={lang} id={item.id} ui={ui} />}
               />
             )}
           </div>

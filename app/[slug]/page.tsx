@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import HomePage from "@/components/HomePage";
 import GroupContents from "@/components/GroupContents";
-import NextChapter from "@/components/NextChapter";
 import PartPage from "@/components/PartPage";
 import SectionContent from "@/components/SectionContent";
 import {
@@ -65,7 +64,6 @@ export default async function SlugPage({ params }: PageProps<"/[slug]">) {
       after={
         <>
           <GroupContents lang={DEFAULT_LANG} id={slug} ui={ui} />
-          <NextChapter lang={DEFAULT_LANG} id={slug} ui={ui} />
         </>
       }
     />

@@ -176,11 +176,11 @@ class Contents:
         if not self.mode.one:self.tap(locator,wait=wait)
 
     def nav(self, direction, native=False):
+        # V17 (Vraja Lila msg 796, 20.10.2026): «‹ Назад» / «Вперёд ›» of the bottom bar go to the
+        # previous / next chapter; the step-by-step history is the system / browser Back and Forward.
+        # Every history step of the suites is that one now (`native` kept for the callers).
         before = self.page.url
-        if native:
-            (self.page.go_back if direction=='back' else self.page.go_forward)()
-        else:
-            self.bars();self.tap(self.page.locator(f'[data-reader-nav={direction}]'),wait=0)
+        (self.page.go_back if direction=='back' else self.page.go_forward)()
         self.page.wait_for_timeout(650)
         self.settle(before, quiet_ms=600)
 

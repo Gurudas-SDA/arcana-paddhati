@@ -45,7 +45,7 @@ interface SectionContentProps {
   num?: string | null;
   /** Shown under the title, e.g. "translation in preparation — shown in English". */
   note?: string;
-  /** After the last block: the «След. глава ›» link (components/NextChapter.tsx). */
+  /** After the last block (the group's own contents). The chapter steps are in the bottom bar (V17). */
   after?: React.ReactNode;
 }
 

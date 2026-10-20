@@ -1,5 +1,4 @@
 import Link from "next/link";
-import NextChapter from "@/components/NextChapter";
 import type { TocPart } from "@/lib/book";
 import { getSection, getSectionNumber, getUi } from "@/lib/content";
 import { localeHref, t } from "@/lib/i18n";
@@ -46,7 +45,6 @@ export default function PartPage({ part, lang }: { part: TocPart; lang: string }
           })}
         </ol>
       )}
-      <NextChapter lang={lang} id={part.id} ui={ui} />
     </article>
   );
 }

@@ -153,6 +153,22 @@ export function tocLayout(sectionIds: string[], parts: { id: string; sections: s
   return out;
 }
 
+/**
+ * The pages «‹ Назад» / «Вперёд ›» of the bottom bar step through (V17, Vraja
+ * Lila msg 796, 20.10.2026): every page of the contents in its order — the
+ * chapters and the parts' own pages (tocLayout). Data, not a list in the code.
+ */
+export function readingOrder(sectionIds: string[], parts: { id: string; sections: string[] }[]): string[] {
+  return tocLayout(sectionIds, parts).map((item) => item.id);
+}
+
+/** The pages before and after `id` in readingOrder (undefined: none — first / last page, or not in the order). */
+export function chapterNeighbours(order: string[], id: string | null): { prev?: string; next?: string } {
+  const i = id ? order.indexOf(id) : -1;
+  if (i < 0) return {};
+  return { prev: i > 0 ? order[i - 1] : undefined, next: i < order.length - 1 ? order[i + 1] : undefined };
+}
+
 /** 1 -> "I", 4 -> "IV", … (part numbers). */
 export function toRoman(n: number): string {
   const table: [number, string][] = [

@@ -33,30 +33,29 @@
  * (rule 10.1). It only writes to the device: no history step, «Назад» never
  * touches it (rule 10.2); works offline. Not on the cover / part pages.
  *
- * Bottom bar (Satkirti, 06.10.2026): no progress slider; «‹ Назад» and
- * «Вперёд ›» at the screen edges are the browser's Back / Forward — the same
- * step-by-step history — because iPhone / iPad have no system Back button
- * (on Android they duplicate it).
- *
- * The two buttons are never `disabled` (Reader v7, Satkirti on Android,
- * 06.10.2026): a tap on a disabled button is not handled by the page, and
- * Chrome on Android then treats it as a tap on the plain word «Вперёд» and
- * opens its own bar at the bottom of the screen (Google «Touch to Search» —
- * «строка, связанная с интернетом»). Without a step to go to, the button is
- * only dimmed and says so in a short note; the bars' texts are not
- * selectable (no word to look up).
+ * Bottom bar — chapter navigation (V17, Vraja Lila msg 796 / 5635 / 5639,
+ * 20.10.2026; «Стандарты» 0а): «‹ Назад» and «Вперёд ›» at the screen edges go
+ * to the previous / next page of the contents (lib/book.ts readingOrder: the
+ * chapters and the parts' pages, in the contents' order), in «Страницы» and in
+ * «Лента» (there: a jump to the chapter's start, as from the contents). On the
+ * first page there is no «‹ Назад», on the last no «Вперёд ›» (absent, not
+ * pale). No «where we are / %» line in the bar (the faint status line at the
+ * bottom of the page stays) and no own history notes; the system / browser
+ * Back still retraces the steps (lib/navHistory.ts). The bars' texts are not
+ * selectable (Reader v7: Chrome on Android would look the word up).
  */
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { takeEarlyTap } from "@/lib/earlyTap";
 import { exitGhost } from "@/lib/exitGhost";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { type TocPart, type TocSection } from "@/lib/book";
-import { parsePath, t, type UiDict } from "@/lib/i18n";
+import { chapterNeighbours, readingOrder, type TocPart, type TocSection } from "@/lib/book";
+import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
 import { BOOKMARK_TOAST_END_EVENT, BOOKMARK_TOAST_EVENT, BOOKMARKS_EVENT, bookmarkAt, readBookmarks, toggleBookmark, writeBookmarks, type Bookmark } from "@/lib/bookmarks";
 import { captureReadingPlace } from "@/lib/readingPlace";
 import { stripBasePath } from "@/lib/basePath";
-import { main as mainEl, pushOverlay } from "@/lib/navHistory";
-import { readingSection } from "@/lib/readingFlow";
+import { main as mainEl, pushOverlay, recordScroll } from "@/lib/navHistory";
+import { followBookLink, readingHref, readingSection } from "@/lib/readingFlow";
 import { useReadingSubsection } from "@/lib/readingPosition";
 import { searchMarkOn } from "@/lib/searchMark";
 import {
@@ -102,8 +101,8 @@ const NO_TOGGLE_COVER = [
 
 /** Bars hide after this long without interaction. */
 const AUTO_HIDE_MS = 4000;
-/** Scroll back up by this much shows the bars ("a small scroll up"). */
-const SHOW_ON_UP_PX = 48;
+/** The chapter's start: the reading area is this close to it (V17). */
+const EDGE_PX = 4;
 /** Scroll down by this much hides them. */
 const HIDE_ON_DOWN_PX = 24;
 /** The one-time hint stays this long. */
@@ -134,6 +133,29 @@ function highlightOn(): boolean {
 /** A window of its own is open (contents/search drawer, «Настроение Гурудева», install instructions). */
 function overlayOpen(): boolean {
   return !!document.querySelector(".mobile-menu[data-open], .mood-overlay, .install-modal");
+}
+
+/**
+ * Where the reading area is in the chapter being read (V17, Vraja Lila msg 5645,
+ * 20.10.2026): at its very start, or at its end (the room after the end,
+ * .chapter-end-space, is not reading). «Страницы»: the page; «Лента»: the
+ * chapter's own section of the book.
+ */
+function chapterEdges(): { start: boolean; end: boolean } {
+  const m = mainEl();
+  if (!m) return { start: false, end: false };
+  const root = readingSection();
+  if (!root || root === m) {
+    const spaces = m.querySelectorAll<HTMLElement>(".chapter-end-space");
+    const sp = spaces[spaces.length - 1];
+    const max = Math.max(0, m.scrollHeight - m.clientHeight - (sp ? sp.offsetHeight : 0));
+    return { start: m.scrollTop <= EDGE_PX, end: max > 120 && m.scrollTop >= max - 2 };
+  }
+  const mr = m.getBoundingClientRect();
+  const r = root.getBoundingClientRect();
+  const margin = parseFloat(getComputedStyle(root).scrollMarginTop) || 0;
+  const sp = root.querySelector<HTMLElement>(".chapter-end-space")?.offsetHeight ?? 0;
+  return { start: r.top - mr.top >= margin - EDGE_PX, end: r.bottom - sp <= mr.bottom + 2 };
 }
 
 function isPanelEntry(): boolean {
@@ -182,21 +204,13 @@ export default function ReaderChrome({
   const showAllTranslations = useShowAllTranslations();
   const size = useReaderSize();
   const layout = useReaderLayout();
-  const [canBack, setCanBack] = useState(true);
-  const [canForward, setCanForward] = useState(true);
-  /** The drawer is on screen (open, or sliding back). While it is, the bottom bar
-   *  does not change its look — not even «‹ Назад» / «Вперёд ›» going pale because
-   *  the drawer took a history step (Vraja Lila 20.10.2026: «нижняя панель не
-   *  должна мерцать при выдвижении боковой панели и её задвижении»). Only the look
-   *  (data-pale) waits; aria-disabled and the taps stay exact. */
+  /** The drawer is on screen (open, or sliding back): the bottom bar stays above
+   *  its dimming (V19, Vraja Lila 20.10.2026). */
   const menuShown = menuOpen || menuClosing;
-  const [navLook, setNavLook] = useState({ back: true, forward: true });
-  if (!menuShown && (navLook.back !== canBack || navLook.forward !== canForward)) {
-    setNavLook({ back: canBack, forward: canForward });
-  }
-  /** Short note when «Назад» / «Вперёд» has no step to go to. */
-  const [navNote, setNavNote] = useState<string | null>(null);
-  const navNoteTimer = useRef<number | undefined>(undefined);
+  const router = useRouter();
+  /** The contents' pages in order, and this page's neighbours (V17). */
+  const order = useMemo(() => readingOrder(sections.map((s) => s.id), parts), [sections, parts]);
+  const { prev: prevPage, next: nextPage } = chapterNeighbours(order, sectionId);
 
   // Mirrors of the state for the (long-lived) event listeners.
   const shownRef = useRef(false);
@@ -217,13 +231,19 @@ export default function ReaderChrome({
   // A new page: reading mode again (render-time adjustment, no effect) —
   // unless "back" returned to a step of that page with the «Аа» panel open.
   const [lastPath, setLastPath] = useState(`${lang}/${sectionId ?? ""}`);
+  /** «‹ Назад» / «Вперёд ›» was pressed: the next page keeps the bars (V17). */
+  const [chapterSwitch, setChapterSwitch] = useState(false);
   const [popPanelKey, setPopPanelKey] = useState<string | null>(null);
   const pathKey = `${lang}/${sectionId ?? ""}`;
   if (pathKey !== lastPath) {
     setLastPath(pathKey);
     const keepPanel = popPanelKey === pathKey;
     setPopPanelKey(null);
-    setShown(keepPanel);
+    // After «‹ Назад» / «Вперёд ›» the bars simply stay where they are (V17,
+    // Vraja Lila msg 5645: «нечего не дёргается»); in «Лента» the address
+    // follows the reading — the bars follow the scroll there, not the address.
+    setShown(keepPanel || (chapterSwitch && shown) || (layout === "scroll" && shown));
+    setChapterSwitch(false);
     setPanel(keepPanel);
     setPct(0);
   }
@@ -248,6 +268,11 @@ export default function ReaderChrome({
   const arm = useCallback(() => {
     clearTimer();
     if (!shownRef.current || panelRef.current || menuRef.current || atEnd.current || hover.current) return;
+    // At the chapter's start or end the bars stay (V17, Vraja Lila msg 5645).
+    if (!isHomeRef.current) {
+      const edge = chapterEdges();
+      if (edge.start || edge.end) return;
+    }
     const active = document.activeElement;
     if (active && barsRef.current?.contains(active) && active.matches(":focus-visible")) return;
     hideTimer.current = window.setTimeout(() => {
@@ -293,30 +318,6 @@ export default function ReaderChrome({
     isHomeRef.current = isHome;
   }, [isHome]);
 
-  // ---- history Back / Forward availability ------------------------------------
-  // Navigation API (Chrome / Edge / Android): exact. Elsewhere (Safari): Back
-  // when the tab has history, Forward always (a no-op at the newest step).
-  useEffect(() => {
-    type Nav = EventTarget & { canGoBack?: boolean; canGoForward?: boolean };
-    const nav = (window as unknown as { navigation?: Nav }).navigation;
-    const update = () => {
-      if (nav && typeof nav.canGoBack === "boolean") {
-        setCanBack(nav.canGoBack);
-        setCanForward(!!nav.canGoForward);
-      } else {
-        setCanBack(window.history.length > 1);
-        setCanForward(true);
-      }
-    };
-    const id = window.setTimeout(update, 0);
-    nav?.addEventListener("currententrychange", update);
-    window.addEventListener("popstate", update);
-    return () => {
-      window.clearTimeout(id);
-      nav?.removeEventListener("currententrychange", update);
-      window.removeEventListener("popstate", update);
-    };
-  }, [pathKey, shown, panel, menuOpen]);
   const section = sections.find((s) => s.id === sectionId);
   const part = parts.find((p) => p.id === sectionId);
   const currentPart = part ?? parts.find((p) => p.sections.includes(sectionId ?? ""));
@@ -418,11 +419,10 @@ export default function ReaderChrome({
     m.addEventListener("pointermove", onPointerMove, { passive: true });
     document.addEventListener("keydown", onKeyScroll);
     let last = m.scrollTop;
-    let up = 0;
     let down = 0;
     let raf = 0;
     // The room after a chapter's end (.chapter-end-space) is not reading:
-    // the chapter ends (100 %, the bars come up) where its text ends.
+    // the chapter ends (100 %) where its text ends.
     const maxScroll = () => {
       const spaces = m.querySelectorAll<HTMLElement>(".chapter-end-space");
       const sp = spaces[spaces.length - 1];
@@ -438,6 +438,10 @@ export default function ReaderChrome({
       setPct(max > 4 ? Math.round(Math.min(100, Math.max(0, (m.scrollTop / max) * 100))) : 100);
     };
     measure();
+    // The bars and the reader's scrolling (V17, Vraja Lila msg 796 / 5645): at
+    // the chapter's start and at its end they are out; reading on (down) takes
+    // them away; scrolling up from the end takes them away too; they come back
+    // only on a tap, at the chapter's end, or back at the chapter's start.
     const onScroll = () => {
       lastScrollAt.current = performance.now();
       if (!raf) raf = requestAnimationFrame(measure);
@@ -446,15 +450,15 @@ export default function ReaderChrome({
       last = top;
       // Momentum after a swipe keeps counting for a while (no touchmove then).
       if (performance.now() < quietUntil.current || overlayOpen() || performance.now() - userAt > 1500) {
-        up = down = 0;
+        down = 0;
         return;
       }
-      const max = maxScroll();
+      if (isHomeRef.current) return;
+      const edge = chapterEdges();
       if (d > 0) {
         down += d;
-        up = 0;
-        if (max > 120 && top >= max - 2) {
-          // End of the chapter: the bars come up.
+        if (edge.end) {
+          // End of the chapter: the bars come up (once — they stay while here).
           atEnd.current = true;
           if (!shownRef.current) show();
           else clearTimer();
@@ -467,14 +471,18 @@ export default function ReaderChrome({
           setShown(false);
         }
       } else if (d < 0) {
-        up -= d;
         down = 0;
-        if (atEnd.current) {
+        if (atEnd.current && !edge.end) {
+          // Leaving the chapter's end upwards takes away the bars it brought.
           atEnd.current = false;
-          arm();
+          if (shownRef.current && !panelRef.current) {
+            clearTimer();
+            shownRef.current = false;
+            setShown(false);
+          }
         }
-        if (up > SHOW_ON_UP_PX && !shownRef.current) {
-          up = 0;
+        if (edge.start && !shownRef.current) {
+          // Back at the chapter's start: the bars are out again.
           show();
         }
       }
@@ -489,6 +497,32 @@ export default function ReaderChrome({
       if (raf) cancelAnimationFrame(raf);
     };
   }, [pathKey, show, arm]);
+
+  // A chapter page that opens at its start has the bars out (V17, Vraja Lila
+  // msg 5645); one that opens elsewhere (Back to a place in it, a link to a
+  // subsection) gets the usual auto-hide once its place is restored.
+  useEffect(() => {
+    if (isHome) return;
+    // Once, shortly after the page opens (its place is set by then); later the
+    // reader's own taps decide — a tap that hid the bars is never overruled.
+    const check = (mayShow: boolean) => {
+      if (panelRef.current || menuRef.current) return;
+      const edge = chapterEdges();
+      // A link to a subsection (#…) is not the chapter's start.
+      if (mayShow && edge.start && !window.location.hash && layout !== "scroll") {
+        clearTimer();
+        if (!shownRef.current) {
+          shownRef.current = true;
+          setShown(true);
+        }
+      } else {
+        arm();
+      }
+    };
+    const timers = [window.setTimeout(() => check(true), 450), window.setTimeout(() => check(false), 1300)];
+    return () => timers.forEach((id) => window.clearTimeout(id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathKey]);
 
   // Programmatic scrolls (back/forward restore, anchor jumps) do not count.
   useEffect(() => {
@@ -717,40 +751,35 @@ export default function ReaderChrome({
   };
 
   const sizeIdx = SIZES.indexOf(size);
-  /** «‹ Назад» / «Вперёд ›»: one step through the browser history; no step
-   *  there — a short note instead (never a dead tap, see the top comment). */
-  const historyStep = (dir: "back" | "forward") => {
+  /** «‹ Назад» / «Вперёд ›»: the previous / next page of the contents (V17).
+   *  «Лента»: a jump to the chapter's start inside the book, as from the
+   *  contents (lib/readingFlow.ts followBookLink — a history entry, so the
+   *  system Back returns). «Страницы»: that chapter's page, at its very top
+   *  (the reading area stays mounted across pages, so Next.js' own scroll
+   *  would leave it a little below its top). */
+  const goChapter = (id: string) => {
     arm();
-    const can = dir === "back" ? canBack : canForward;
-    const note = () => {
-      window.clearTimeout(navNoteTimer.current);
-      setNavNote(t(ui, dir === "back" ? "reader.noBack" : "reader.noForward"));
-      navNoteTimer.current = window.setTimeout(() => setNavNote(null), 2500);
+    setChapterSwitch(true);
+    if (followBookLink(readingHref(lang, id))) return;
+    recordScroll();
+    const from = window.location.pathname;
+    const t0 = performance.now();
+    const toTop = () => {
+      const m = mainEl();
+      if (m) m.scrollTop = 0;
     };
-    if (!can) {
-      note();
-      return;
-    }
-    setNavNote(null);
-    // Without the Navigation API (Safari) "can" is a guess: if the step did
-    // not happen (no popstate), say so instead of a silent tap.
-    const exact = typeof (window as unknown as { navigation?: { canGoForward?: boolean } }).navigation
-      ?.canGoForward === "boolean";
-    if (!exact) {
-      let moved = false;
-      const onPop = () => {
-        moved = true;
-      };
-      window.addEventListener("popstate", onPop, { once: true });
-      window.setTimeout(() => {
-        window.removeEventListener("popstate", onPop);
-        if (!moved) note();
-      }, 450);
-    }
-    if (dir === "back") window.history.back();
-    else window.history.forward();
+    const wait = () => {
+      if (window.location.pathname !== from) {
+        toTop();
+        requestAnimationFrame(toTop);
+        for (const ms of [60, 160, 320]) window.setTimeout(toTop, ms);
+      } else if (performance.now() - t0 < 4000) {
+        requestAnimationFrame(wait);
+      }
+    };
+    router.push(localeHref(lang, id), { scroll: false });
+    requestAnimationFrame(wait);
   };
-  useEffect(() => () => window.clearTimeout(navNoteTimer.current), []);
 
   return (
     <div
@@ -948,41 +977,33 @@ export default function ReaderChrome({
         </div>
       )}
 
-      {/* Bottom bar: «‹ Назад» · chapter · % · «Вперёд ›» (history steps) */}
+      {/* Bottom bar: «‹ Назад» · «Вперёд ›» — the previous / next page of the contents (V17) */}
       <div className="reader-bar reader-bar-bottom" {...barEvents}>
         <div className="reader-bar-inner reader-nav-row">
-          <button
-            type="button"
-            className="reader-btn reader-history-btn"
-            onClick={() => historyStep("back")}
-            aria-disabled={!canBack}
-            data-pale={navLook.back ? undefined : ""}
-            data-reader-nav="back"
-          >
-            <span aria-hidden="true" className="reader-history-arrow">‹</span>
-            <span>{t(ui, "reader.back")}</span>
-          </button>
-          <p className="reader-progress-label">
-            {isHome ? "" : chapterShort ? (
-              <>
-                {partTitle && <span className="reader-location-group">{`${partTitle}: `}</span>}
-                <span>{`${chapterShort} · ${pctText}`}</span>
-              </>
-            ) : (
-              pctText
-            )}
-          </p>
-          <button
-            type="button"
-            className="reader-btn reader-history-btn"
-            onClick={() => historyStep("forward")}
-            aria-disabled={!canForward}
-            data-pale={navLook.forward ? undefined : ""}
-            data-reader-nav="forward"
-          >
-            <span>{t(ui, "reader.forward")}</span>
-            <span aria-hidden="true" className="reader-history-arrow">›</span>
-          </button>
+          {prevPage && (
+            <button
+              type="button"
+              className="reader-btn reader-history-btn"
+              onClick={() => goChapter(prevPage)}
+              data-reader-nav="back"
+              data-chapter-target={prevPage}
+            >
+              <span aria-hidden="true" className="reader-history-arrow">‹</span>
+              <span>{t(ui, "reader.back")}</span>
+            </button>
+          )}
+          {nextPage && (
+            <button
+              type="button"
+              className="reader-btn reader-history-btn"
+              onClick={() => goChapter(nextPage)}
+              data-reader-nav="forward"
+              data-chapter-target={nextPage}
+            >
+              <span>{t(ui, "reader.forward")}</span>
+              <span aria-hidden="true" className="reader-history-arrow">›</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -991,12 +1012,6 @@ export default function ReaderChrome({
         <p className="reader-status" aria-hidden="true">
           {partTitle && <span className="reader-location-group">{`${partTitle}: `}</span>}
           <span>{chapterShort ? `${chapterShort} · ${pctText}` : pctText}</span>
-        </p>
-      )}
-
-      {navNote && shown && (
-        <p className="reader-hint reader-nav-note" role="status" data-reader-nav-note="">
-          {navNote}
         </p>
       )}
 

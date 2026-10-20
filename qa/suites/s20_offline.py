@@ -111,11 +111,11 @@ with sync_playwright() as p:
     # in-app navigation offline (contents -> chapter)
     pg.goto(ORIGIN + '/arcana-paddhati/ru-iast/daily-duties-brahma-muhurta/', wait_until='load')
     pg.wait_for_timeout(800)
-    # The continuous view has a next-chapter link for every chapter. Use
-    # this chapter's link, rather than the first link in the whole book.
-    link = pg.locator('[data-book-section="daily-duties-brahma-muhurta"] [data-chapter-next]')
-    if not link.count():
-        link = pg.locator('[data-chapter-next]')
+    # V17 (Vraja Lila msg 796): the next chapter is the bottom bar's «Вперёд ›» (the bars are out at the
+    # chapter's start; a tap shows them otherwise)
+    if not pg.locator('.reader-chrome[data-shown]').count():
+        pg.mouse.click(8, 400); pg.wait_for_timeout(500)
+    link = pg.locator('[data-reader-nav=forward]')
     link.first.click()
     pg.wait_for_timeout(2500)
     ck('offline in-app «Вперёд»', 'daily-deity-schedule' in pg.url, pg.url[-50:])

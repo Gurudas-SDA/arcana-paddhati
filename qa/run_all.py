@@ -144,6 +144,8 @@ SUITES = [
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s68", file="suites/s68_dim_close_x.py", title="Vraja V18 (5603/5606/5610): aptumšojums melns 60 % bez izpludinājuma («Настроение», instalēšanas logs, «Содержание»), apakšējā josla neaptumšota; ✕ augšējās rindas līmenī (telefons/desktop ≥1024 px, «Аа» panelis)",
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
+    dict(id="s69", file="suites/s69_chapter_nav.py", title="V17 Vraja 796/5639: navigācija pa nodaļām — apakšā «‹ Назад»/«Вперёд ›» = iepr./nāk. nodaļa satura secībā (Pages un Scroll), pirmajā/pēdējā nav, bez «где мы / %» rindas, bez «Next chapter» bloka, nodaļas beigās joslas 1×, augšup aiziet",
+         devices=["pixel7", "iphone14", "iphone-se", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
          devices=None, fast=True, server=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",

@@ -1058,20 +1058,15 @@ body,
 .reader-aa-big {
   font-size: 20px;
 }
-.reader-progress-label {
-  flex: 1 1 auto;
-  min-width: 0;
-  margin: 0;
-  text-align: center;
-  font-size: 12px;
-  color: var(--rd-muted);
-  font-variant-numeric: tabular-nums;
-}
-/* Bottom bar: «‹ Назад» at the left edge, «Вперёд ›» at the right edge
-   (history steps — iPhone / iPad have no Back button; Satkirti 06.10.2026). */
+/* Bottom bar: «‹ Назад» at the left edge, «Вперёд ›» at the right edge — the
+   previous / next page of the contents (V17, Vraja Lila 20.10.2026). On the
+   first page only «Вперёд ›» (still at the right), on the last only «‹ Назад». */
 .reader-nav-row {
   justify-content: space-between;
   gap: 8px;
+}
+.reader-nav-row [data-reader-nav="forward"] {
+  margin-left: auto;
 }
 .reader-history-btn {
   flex: 0 0 auto;
@@ -1084,11 +1079,6 @@ body,
   font-size: 24px;
   line-height: 1;
   margin-top: -3px;
-}
-/* pale = no step there; the look holds while «Содержание» is on screen (data-pale, V19) */
-.reader-history-btn[data-pale] {
-  opacity: 0.35;
-  cursor: default;
 }
 /* No selectable words in the bars (Chrome on Android would offer to look
    them up in its own bottom bar — Reader v7). */
@@ -1140,11 +1130,6 @@ html[data-reader-bars] .reader-toast {
   color: #E8B04A;
   font-weight: 700;
   -webkit-tap-highlight-color: transparent;
-}
-/* «Вперёд — после «Назад»»: just above the bottom bar. */
-.reader-hint.reader-nav-note {
-  bottom: calc(68px + env(safe-area-inset-bottom, 0px));
-  z-index: 31;
 }
 
 /* Faint status line while reading: «Глава 8 · 35 %». */
@@ -1656,68 +1641,6 @@ html[data-reader-theme="night"] ::selection {
   height: 0;
 }
 
-/* «След. глава ›» at the end of a chapter (components/NextChapter.tsx;
-   Satkirti, 06.10.2026): right-aligned under a thin rule, the next chapter's
-   number and title below it, smaller. Sizes follow «Аа» (--fs), colours the
-   reading theme; the whole block is one tap target (>= 44px). The space
-   under it keeps it clear of the bottom bar that comes up at the chapter end. */
-.chapter-next,
-.chapter-next-space {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--rd-border);
-}
-.chapter-next-link,
-.chapter-next-link-space {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.15em;
-  max-width: 100%;
-  min-height: 44px;
-  min-width: 44px;
-  justify-content: center;
-  padding: 0.5rem 0.75rem;
-  /* No negative margin (20.10.2026, Vraja Lila msg 5393/5402): the pressed band — and iPhone Safari's
-     lifted long-press copy of the link — stays inside the text column, with the same inner margin on
-     both sides, and never runs past the right edge of the screen. */
-  border-radius: 10px;
-  text-align: right;
-  text-decoration: none;
-  font-family: var(--font-book, Georgia, serif);
-  -webkit-tap-highlight-color: transparent;
-  transition: background-color 150ms ease;
-}
-.chapter-next-link:active {
-  background: var(--rd-hover);
-}
-@media (hover: hover) {
-  .chapter-next-link:hover {
-    background: var(--rd-hover);
-  }
-}
-.chapter-next-label {
-  font-size: calc(var(--fs, 18px) * 1.05);
-  font-weight: 600;
-  line-height: 1.3;
-  color: var(--rd-accent);
-}
-.chapter-next-title {
-  font-size: max(13px, calc(var(--fs, 18px) * 0.86));
-  line-height: 1.4;
-  color: var(--rd-muted);
-  overflow-wrap: break-word;
-}
-@media print {
-  .chapter-next,
-  .chapter-next-space {
-    display: none;
-  }
-}
-
 /* =====================================================================
    Reader v7.1 (Satkirti, 06.10.2026)
    ===================================================================== */
@@ -1732,9 +1655,6 @@ html[data-reader-theme="night"] ::selection {
   pointer-events: auto;
   transform: none;
   z-index: 60;
-}
-.reader-chrome[data-menu] .reader-nav-note {
-  z-index: 61;
 }
 .mobile-menu > .sidebar-transition {
   bottom: calc(57px + env(safe-area-inset-bottom, 0px));
@@ -1888,13 +1808,7 @@ html[data-reader-theme="night"] ::selection {
   }
 }
 
-/* Keep the reading position on one line when it fits; wrap naturally on
-   narrow phones alongside the Back and Forward buttons. */
-.reader-progress-label {
-  white-space: normal;
-  font-size: 13px;
-  line-height: 1.35;
-}
+/* The faint reading position line: one line when it fits, wraps naturally on narrow phones. */
 .reader-status {
   white-space: normal;
   font-size: 13px;
@@ -1902,9 +1816,6 @@ html[data-reader-theme="night"] ::selection {
 }
 .reader-location-group {
   display: inline;
-}
-.reader-progress-label > span:last-child {
-  display: inline-block;
 }
 
 /* Maṅgalācaraṇa: an ornament between the prayers (no headings). */

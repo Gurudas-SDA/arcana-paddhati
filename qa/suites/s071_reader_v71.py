@@ -94,11 +94,12 @@ def run(p,dev,eng,kw,mode):
     order = pg.evaluate("[...document.querySelectorAll('aside nav [data-toc-cover], aside nav .toc-scroll > ul > li')].map(l=>l.innerText.trim().split('\\n')[0].trim()).filter(Boolean).slice(0,4)")
     # v7.4 (Satkirti 06.10 / 07.10.2026): the parampara stands between the cover and the Maṅgalācaraṇa
     ck(dev, '3 contents: Обложка → Гуру-парампара → Мангалачарана → ВВЕДЕНИЕ', order[:4] == ['Обложка', 'Гуру-парампара', 'Мангалачарана', 'ВВЕДЕНИЕ'], order)
-    # 1: nav bar on screen and on top while the menu is open
-    fb = pg.locator('[data-reader-nav=forward]').bounding_box()
+    # 1: the bottom bar on screen and on top while the menu is open. V17 (Vraja Lila msg 796): its
+    # buttons are the previous / next chapter — the cover has none (it is not a chapter), so the bar itself.
+    fb = pg.locator('.reader-bar-bottom').bounding_box()
     vh = pg.viewport_size['height']
-    hit = pg.evaluate(f"(()=>{{const e=document.elementFromPoint({fb['x'] + fb['width'] / 2},{fb['y'] + fb['height'] / 2});return !!(e&&e.closest('[data-reader-nav=forward]'))}})()")
-    ck(dev, '1/2 Вперёд on screen and on top with menu open', fb['y'] + fb['height'] <= vh and hit, fb)
+    hit = pg.evaluate(f"(()=>{{const e=document.elementFromPoint({fb['x'] + fb['width'] / 2},{fb['y'] + fb['height'] / 2});return !!(e&&e.closest('.reader-bar-bottom'))}})()")
+    ck(dev, '1/2 bottom bar on screen and on top with menu open', fb['y'] + fb['height'] <= vh and hit, fb)
     go_row(pg, 'Мангалачарана', 'mangalacarana')
     pg.wait_for_timeout(1200)
     h1 = qa.reading_eval(pg, "root => root.querySelector('h1').innerText.trim()")
@@ -110,8 +111,9 @@ def run(p,dev,eng,kw,mode):
     ck(dev, '3 Мангалачарана: title only, no headings, ornaments, 30 verses all with пословно',
        h1 == 'Мангалачарана' and h2 == 0 and not sub and orn == 20 and verses == 30 and wbw == 30, (h1, h2, sub, orn, verses, wbw))
     ck(dev, '6d «Молитва Шри Радхе-Говинде» gone', 'Радхе-Говинде' not in qa.reading_eval(pg, "root => root.innerText"))
-    nxt = qa.reading_eval(pg, "root=>{const a=root.querySelector('.chapter-next');return a?a.innerText.replace(/\\s+/g,' '):''}")
-    ck(dev, '3 «Вперёд ›» after Мангалачарана = Введение', 'ВВЕДЕНИЕ' in nxt.upper(), nxt)
+    # V17: the next chapter is the bottom bar's «Вперёд ›» (no block at the chapter's end)
+    nxt = pg.evaluate("() => document.querySelector('[data-reader-nav=forward]')?.getAttribute('data-chapter-target') || ''")
+    ck(dev, '3 «Вперёд ›» after Мангалачарана = Введение', nxt == 'introduction', nxt)
     # 8: verse panels closed by default; no carry-over
     # Centering the first chip can move the reading line into Parampara on a
     # tall viewport. Keep the action and its assertion in the chapter opened
@@ -134,12 +136,16 @@ def run(p,dev,eng,kw,mode):
         pg.wait_for_timeout(400)
         reveal(pg)
         pg.wait_for_timeout(300)
-        lab = pg.evaluate("""() => {const p=document.querySelector('.reader-progress-label'),cs=getComputedStyle(p),r=p.getBoundingClientRect();
+        # V17: the bottom bar has no «where we are / %» line; the faint status line at the bottom stays
+        lab = pg.evaluate("""() => {const p=document.querySelector('.reader-status'),cs=getComputedStyle(p),r=p.getBoundingClientRect();
           const clone=p.cloneNode(true);Object.assign(clone.style,{position:'fixed',left:'-2000px',top:'0',width:'max-content',maxWidth:'none',flex:'none',whiteSpace:'nowrap',font:cs.font,visibility:'hidden'});
           document.body.appendChild(clone);const natural=clone.getBoundingClientRect().width;clone.remove();
-          return {t:p.innerText,h:Math.round(r.height),sw:p.scrollWidth,cw:p.clientWidth,natural,sh:p.scrollHeight,ch:p.clientHeight};}""")
-        fits=lab['natural'] <= lab['cw'] + .5
-        ck(dev, f'9 status one line when it fits, wraps intact when needed ({sec})', (lab['h'] <= 20 if fits else lab['h'] > 20) and lab['sw'] <= lab['cw'] + 1 and lab['sh'] <= lab['ch'] + 1 and '…' not in lab['t'], lab)
+          const lh=parseFloat(cs.lineHeight)||parseFloat(cs.fontSize)*1.35, pad=parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom);
+          const lines=Math.round((r.height-pad)/lh), avail=p.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
+          return {t:p.innerText,h:Math.round(r.height),lines,sw:p.scrollWidth,cw:p.clientWidth,avail,natural,sh:p.scrollHeight,ch:p.clientHeight};}""")
+        fits=lab['natural'] <= lab['avail'] + .5
+        # the status line has its own padding: counted in lines of its line height (was: label h <= 20 px)
+        ck(dev, f'9 status one line when it fits, wraps intact when needed ({sec})', (lab['lines'] == 1 if fits else lab['lines'] > 1) and lab['sw'] <= lab['cw'] + 1 and lab['sh'] <= lab['ch'] + 1 and '…' not in lab['t'], lab)
     # 10: Sanskrit breaks only at a space or a hyphen
     for sec in ['mangalacarana', 'daily-deity-schedule', 'offering-bhoga']:
         pg.goto(L + sec + '/', wait_until='networkidle')
@@ -197,6 +203,10 @@ def run(p,dev,eng,kw,mode):
     fig = qa.reading_locator(pg, '.hs-figure').first
     fig.evaluate("e=>e.scrollIntoView({block:'end'})")
     pg.wait_for_timeout(700)
+    # V17 (Vraja Lila msg 5645): the bars are out at the chapter's start — reading mode first (a tap on the page)
+    if pg.evaluate(BARS):
+        click_xy(pg, 8, pg.viewport_size['height'] // 2)
+        pg.wait_for_timeout(500)
     opened = []
     for n in ['1', '5', '9']:
         h = qa.reading_locator(pg, f'.hs-figure .hs-hit[aria-label="{n}"] ellipse').first

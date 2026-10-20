@@ -1,6 +1,7 @@
 """«Назад» returns to the search with the query AND the opened result in view
-(Правила §6; v7.2 verifier "back_search"), system Back and the app's ‹ Назад,
-alternating. Ported from v72/back_search.py.
+(Правила §6; v7.2 verifier "back_search"), system Back and the page's own history.back(),
+alternating. V17 (Vraja Lila msg 796, 20.10.2026): the app's «‹ Назад» is the previous chapter now, so the
+second way is the page's history.back() (what a browser / OS Back gesture does inside the page). Ported from v72/back_search.py.
 usage: python s12_back_to_search.py <base-url>   devices: QA_DEVICES; QA_FAST=1 -> 2 rounds"""
 import json
 import os
@@ -41,7 +42,7 @@ def run(p, dev, eng, o):
         return None
 
     for it in range(N):
-        how = "sys" if it % 2 == 0 else "app"
+        how = "sys" if it % 2 == 0 else "page"
         try:
             pg.goto(U + "introduction/?i=%d" % it, wait_until="networkidle"); time.sleep(0.6)
             if pg.evaluate("!!document.querySelector('.mobile-menu[data-open]')"):
@@ -59,12 +60,7 @@ def run(p, dev, eng, o):
             if how == "sys":
                 pg.go_back()
             else:
-                for _ in range(3):
-                    if pg.evaluate("document.documentElement.hasAttribute('data-reader-bars')"):
-                        break
-                    vp = pg.viewport_size; tap(6, vp["height"] // 2); time.sleep(0.6)
-                bb = pg.evaluate("(()=>{const q=document.querySelector('[data-reader-nav=back]').getBoundingClientRect(); return [q.left+q.width/2,q.top+q.height/2]})()")
-                tap(*bb)
+                pg.evaluate("history.back()")
             dt = wait_until(f"""(()=>{{const m=document.querySelector('.mobile-menu[data-open]'); if(!m) return false; const i=m.querySelector('input[type=search]'); const nav=m.querySelector('nav');
                const e=[...m.querySelectorAll('[data-result]')].find(x=>x.dataset.result==={json.dumps(r['key'])}); if(!i||i.value!=='тилак'||!e) return false;
                const a=e.getBoundingClientRect(), n=nav.getBoundingClientRect(); return a.top>=n.top-1 && a.bottom<=n.bottom+1}})()""", 8)

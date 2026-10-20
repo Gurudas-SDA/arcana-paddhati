@@ -225,9 +225,11 @@ def run(p, dev, eng, o):
     def same_place(got, want):
         return all(got[k] == want[k] for k in ['url', 'menu', 'open']) and marks_place(got)
 
-    bar_act("[data-reader-nav=back]", 1100)
+    # V17 (Vraja Lila msg 796): the bottom bar's «‹ Назад» is the previous chapter now; the step back
+    # through the contents' actions is the system / browser Back.
+    pg.go_back(); pg.wait_for_timeout(1100)
     g = lit()
-    chk(dev, "A ‹ Назад -> preceding Contents action, reading place marked and in view",
+    chk(dev, "A Back -> preceding Contents action, reading place marked and in view",
         same_place(flow.state(), states[-2]) and g.get("menu") and g.get("n") == 1
         and g["inView"] and g["bg"] == LIT_BG, str(g))
     shot("back-1-reading-place")
@@ -254,13 +256,15 @@ def run(p, dev, eng, o):
         len(states) == 10 and states[-1]['history'] - states[0]['history'] == 9
         and states[-1]['pushes'] - states[0]['pushes'] == 9, str(states))
 
-    # ---------- B: «Вперёд ›» steps forward ----------
+    # ---------- B: Forward steps forward (system / browser Forward — V17) ----------
     bars()
     fw = pg.locator("[data-reader-nav=forward]")
-    chk(dev, "B «Вперёд» is a live button (not disabled)", fw.get_attribute("disabled") is None and fw.get_attribute("aria-disabled") == "false", str(fw.get_attribute("aria-disabled")))
-    bar_act("[data-reader-nav=forward]", 1000)
+    chk(dev, "B «Вперёд ›» is a live button (not disabled), to the next page of the contents",
+        fw.count() == 1 and fw.get_attribute("disabled") is None and fw.get_attribute("aria-disabled") is None
+        and fw.get_attribute("data-chapter-target") == "daily-deity-schedule", str(fw.get_attribute("data-chapter-target") if fw.count() else None))
+    pg.go_forward(); pg.wait_for_timeout(1000)
     g = lit()
-    chk(dev, "B «Вперёд» -> Contents as opened, original reading place marked",
+    chk(dev, "B Forward -> Contents as opened, original reading place marked",
         same_place(flow.state(), states[1]) and g.get("menu")
         and g.get("chapter") == "daily-duties-brahma-muhurta", str(g))
     bad = []
@@ -301,22 +305,18 @@ def run(p, dev, eng, o):
     t1 = pg.locator(".mobile-menu[data-open] [data-toc-chapter=daily-duties-brahma-muhurta]").inner_text().strip()
     chk(dev, "D Part I starts with chapter «1.»", t1.startswith("1."), t1)
 
-    # ---------- B: no forward step -> note, no dead tap ----------
+    # ---------- B: no next chapter -> no «Вперёд ›» at all, no note (V17, Vraja Lila msg 796) ----------
+    goto(f"/{L}/kartika-bhajans/")
+    bars()
+    chk(dev, "B last chapter: no «Вперёд ›» at all (no dead tap)", pg.locator("[data-reader-nav=forward]").count() == 0, pg.url)
+    chk(dev, "B no own history note («Вперёд — после Назад») anywhere", pg.locator("[data-reader-nav-note]").count() == 0)
     goto(f"/{L}/offering-bhoga/")
     u0 = pg.url
     bars(); fw = pg.locator("[data-reader-nav=forward]")
     sel = pg.evaluate("(() => { const b = document.querySelector('.reader-bar-bottom'); const s = getComputedStyle(b); return s.userSelect || s.webkitUserSelect; })()")
     chk(dev, "B bars' text is not selectable (no look-up bar on Android)", sel == "none", str(sel))
-    bar_act("[data-reader-nav=forward]", 900, force=True)  # aria-disabled: Playwright would refuse a normal tap
-    note = pg.locator("[data-reader-nav-note]")
-    chk(dev, "B «Вперёд» with no step: stays, says ««Вперёд» — после «Назад»»", pg.url == u0 and note.count() == 1 and "после" in note.inner_text(), pg.url)
-    if note.count():
-        nb = note.bounding_box(); bb = pg.locator(".reader-bar-bottom").bounding_box()
-        chk(dev, "B the note sits above the bottom bar, on screen", nb["y"] + nb["height"] <= bb["y"] + 1 and nb["x"] >= 0 and nb["x"] + nb["width"] <= o["viewport"]["width"] + 1, f"{nb} {bb}")
-        shot("forward-note")
-    # next chapter -> back -> forward with the buttons
-    qa.scroll_chapter(pg, 1); pg.wait_for_timeout(500)
-    act(qa.reading_locator(pg, ".chapter-next-link"), 1100)
+    # next chapter -> previous -> next with the buttons (V17: chapters)
+    bar_act("[data-reader-nav=forward]", 1100)
     u1 = pg.url
     chk(dev, "D «Вперёд ›» after offering-bhoga -> 7. Мантры почитания чаранамриты", u1.rstrip("/").endswith("/mantras-honouring-caranamrita"), u1)
     bar_act("[data-reader-nav=back]", 1000)
@@ -328,11 +328,12 @@ def run(p, dev, eng, o):
     goto(f"/{L}/introduction/")
     links = pg.locator(".group-contents a")
     chk(dev, "D Introduction page lists its 2 chapters (v7.1)", links.count() == 2, str(links.count()))
-    nx = qa.reading_locator(pg, ".chapter-next-title")
-    chk(dev, "D Introduction «Вперёд ›» -> «Эмблема Гаудия-матха» (no number)", nx.count() == 1 and nx.inner_text().strip() == "Эмблема Гаудия-матха", nx.inner_text() if nx.count() else "")
+    # V17: the next chapter is the bottom bar's «Вперёд ›» (its target), not a block at the chapter's end
+    nx = pg.locator("[data-reader-nav=forward]")
+    chk(dev, "D Introduction «Вперёд ›» -> «Эмблема Гаудия-матха»", nx.count() == 1 and nx.get_attribute("data-chapter-target") == "gaudiya-emblem", nx.get_attribute("data-chapter-target") if nx.count() else "")
     goto(f"/{L}/mangalacarana/")
-    nx = qa.reading_locator(pg, ".chapter-next-title").inner_text().strip()
-    chk(dev, "D Мангалачарана «Вперёд ›» -> «Введение» (v7.1)", nx == "Введение", nx)
+    nx = pg.locator("[data-reader-nav=forward]").get_attribute("data-chapter-target")
+    chk(dev, "D Мангалачарана «Вперёд ›» -> «Введение» (v7.1)", nx == "introduction", nx)
     goto(f"/{L}/vigraha-tattva/")
     h1 = qa.reading_locator(pg, "article h1")
     chk(dev, "D Виграха-таттва page: no chapter number in the title", h1.locator(".heading-num").count() == 0, h1.inner_text())

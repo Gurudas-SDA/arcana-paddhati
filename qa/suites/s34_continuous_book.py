@@ -119,12 +119,18 @@ def run(browser, device, options, theme):
         # entry, with Back/Forward restoring the exact reading position.
         before_url = page.url
         before_scroll = main.evaluate("e => e.scrollTop")
-        next_link = page.locator(f"[data-book-section='{CHAPTER}'] [data-chapter-next]").first
-        next_link.scroll_into_view_if_needed()
+        # V17 (Vraja Lila msg 796): the next chapter is the bottom bar's «Вперёд ›» (no block at the chapter's
+        # end); reach this chapter's end, show the bars if they are not out, then «Вперёд ›»
+        page.evaluate(f"""() => {{ const m = document.querySelector('.app-main'); const s = document.querySelector("[data-book-section='{CHAPTER}']");
+            m.scrollTop += s.getBoundingClientRect().bottom - m.getBoundingClientRect().bottom - 40; }}""")
         page.wait_for_timeout(1200)
+        if not page.locator(".reader-chrome[data-shown]").count():
+            (page.touchscreen.tap if options.get("has_touch") else page.mouse.click)(options["viewport"]["width"] - 6, 400)
+            page.wait_for_timeout(500)
+        next_link = page.locator("[data-reader-nav=forward]")
         before_scroll = main.evaluate("e => e.scrollTop")
         before_url = page.url
-        next_id = next_link.get_attribute("data-chapter-next")
+        next_id = next_link.get_attribute("data-chapter-target")
         (next_link.tap if options.get("has_touch") else next_link.click)()
         page.wait_for_timeout(1200)
         assert page.url.rstrip("/").endswith("/" + next_id)

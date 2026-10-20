@@ -79,7 +79,9 @@ def run(p, dev, eng, o, mode):
     chk(dev, "(a) cover: tap image again -> bars hidden", not shown())
     tap_pt(b["x"] + 10, b["y"] + b["height"] - 10)
     chk(dev, "(a) cover: tap image corner -> bars", shown())
-    chk(dev, "(a) cover: bottom bar has «Назад» / «Вперёд»", pg.locator("[data-reader-nav=back]").count() == 1 and pg.locator("[data-reader-nav=forward]").count() == 1)
+    # V17 (Vraja Lila msg 796, mock msg 5639): the bar's buttons are the previous / next chapter; the cover is
+    # not a chapter of the contents' order -> none there
+    chk(dev, "(a) cover: no chapter buttons in the bottom bar (V17)", pg.locator("[data-reader-nav=back]").count() == 0 and pg.locator("[data-reader-nav=forward]").count() == 0)
 
     # (e) bars span the full width: buttons at the screen edges, >= 44x44
     pg.goto(P, wait_until="networkidle"); pg.wait_for_timeout(900)
@@ -213,8 +215,8 @@ def run(p, dev, eng, o, mode):
     show_bars(); act(pg.locator("[data-reader-action=aa]"))
     chk(dev, "(c) Аа opens again", pg.locator(".reader-panel").count() == 1)
     shot("c-back-aa-open")
-    act(pg.locator("[data-reader-nav=back]")); pg.wait_for_timeout(900)
-    chk(dev, "(c) «‹ Назад» button closes Аа (a history step)", pg.url == P and pg.locator(".reader-panel").count() == 0, pg.url)
+    pg.go_back(); pg.wait_for_timeout(900)   # V17: the history step is the system Back
+    chk(dev, "(c) system Back closes Аа (a history step)", pg.url == P and pg.locator(".reader-panel").count() == 0, pg.url)
 
     # (d) search -> result -> back -> search with query -> back -> closed
     show_bars(); act(pg.locator("[data-reader-action=search]"))

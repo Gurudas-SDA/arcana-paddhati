@@ -115,10 +115,17 @@ def run(p, dev, engine, opts, lang, mode):
     pg.wait_for_timeout(1100)
     # 0. one-time hint on the first chapter visit, never blocks taps
     check(tag, "hint shown once on first visit", pg.locator(".reader-hint").count() == 1)
-    # 1. reading mode: no bars, faint status line
+    # 1. V17 (Vraja Lila msg 5645): at the chapter's start the bars are out; reading on takes them
+    #    away -> reading mode: no bars, faint status line
+    check(tag, "chapter start: bars out (V17)", shown() and all(o > 0.95 for o in bars_visible()), f"opacity={bars_visible()}")
+    m0 = "document.querySelector('.app-main')"
+    for _ in range(4):
+        pg.evaluate(f"{m0}.dispatchEvent(new Event('touchmove'))"); pg.evaluate(f"{m0}.dispatchEvent(new WheelEvent('wheel'))")
+        pg.evaluate(f"{m0}.scrollBy(0, 60)"); pg.wait_for_timeout(120)
+    wait_shown(False)
     op = bars_visible()
     status = pg.locator(".reader-status").inner_text() if pg.locator(".reader-status").count() else ""
-    check(tag, "reading mode: no bars", not shown() and all(o < 0.05 for o in op), f"opacity={op}")
+    check(tag, "reading mode (after reading on): no bars", not shown() and all(o < 0.05 for o in op), f"opacity={op}")
     check(tag, "faint status line «глава · %»", "%" in status and status.strip() != "", status)
     shot("1-reading")
     # 2. tap empty -> bars; again -> hidden
@@ -161,15 +168,16 @@ def run(p, dev, engine, opts, lang, mode):
         check(tag, "tap on the empty area of a numbered picture -> menu toggles (v7.1)", shown() != before)
         if pg.locator("[data-hs-row][data-active]").count():
             tap_pt(empty_point())
-    # 6. auto-hide after ~4 s
-    qa.scroll_chapter(pg,0); pg.wait_for_timeout(1000)
+    # 6. auto-hide after ~4 s — in the middle of the chapter (at its start / end they stay, V17)
+    qa.scroll_chapter(pg,0.4); pg.wait_for_timeout(1000)
     show_bars()
     seq = []
     for _ in range(12):
         seq.append(int(shown())); pg.wait_for_timeout(500)
     dbg = pg.evaluate("[document.querySelector('.app-main').scrollTop, document.querySelectorAll('[data-hs-row][data-active]').length, !!document.querySelector('.hs-peek'), document.activeElement && document.activeElement.className && String(document.activeElement.className.baseVal ?? document.activeElement.className)]")
     check(tag, "auto-hide after ~4 s", not shown(), str(dbg) + str(seq))
-    # 7. small scroll up shows bars; scroll down hides
+    # 7. V17 (Vraja Lila msg 5645): a small scroll up in the middle of the chapter does NOT bring the
+    #    bars (only a tap, the chapter's end or back at its start); scroll down hides them
     m = "document.querySelector('.app-main')"
     pg.evaluate(f"{m}.scrollTop = {qa.READING_POSITION_JS}.start + 900"); pg.wait_for_timeout(1000)
     if touch:
@@ -182,7 +190,8 @@ def run(p, dev, engine, opts, lang, mode):
     # yet dispatched at a fixed 400 ms check, both before and with A89), so
     # wait for the state — well inside the 4 s auto-hide and the 1.5 s
     # gesture window, so a missing reaction still fails.
-    check(tag, "small scroll up -> bars", wait_shown(True))
+    check(tag, "small scroll up in the middle -> no bars (V17)", wait_shown(False))
+    show_bars()
     if touch:
         pg.evaluate(f"{m}.dispatchEvent(new Event('touchmove'))"); pg.evaluate(f"{m}.scrollBy(0, 60)")
     else:
@@ -196,20 +205,21 @@ def run(p, dev, engine, opts, lang, mode):
     if not touch:
         pg.keyboard.press("Escape"); pg.wait_for_timeout(300)
         check(tag, "Esc hides bars", not shown())
-    # 10. v5: «‹ Назад» / «Вперёд ›» = history steps (no slider, no prev/next chapter)
+    # 10. V17 (Vraja Lila msg 796): «‹ Назад» / «Вперёд ›» = the previous / next chapter (no slider)
     pg.goto(url, wait_until="networkidle"); pg.wait_for_timeout(800)
     other = BASE + prefix + "/arcana-procedure/"
+    prev_ch = BASE + prefix + "/worship-sixteen-articles/"
     pg.goto(other, wait_until="networkidle"); pg.wait_for_timeout(1000)
     show_bars()
     check(tag, "no progress slider", pg.locator(".reader-slider, input[type=range]").count() == 0)
     act(pg.locator("[data-reader-nav=back]"))
     pg.wait_for_timeout(1200)
-    check(tag, "«Назад» button = history back", pg.url == url, pg.url)
-    check(tag, "page after back starts in reading mode", not shown())
+    check(tag, "«Назад» button = previous chapter", pg.url == prev_ch, pg.url)
+    check(tag, "page after «Назад» starts at its start with the bars out (V17)", shown())
     show_bars()
     act(pg.locator("[data-reader-nav=forward]"))
     pg.wait_for_timeout(1200)
-    check(tag, "«Вперёд» button = history forward", pg.url == other, pg.url)
+    check(tag, "«Вперёд» button = next chapter", pg.url == other, pg.url)
     pg.goto(url, wait_until="networkidle"); pg.wait_for_timeout(800)
     # 11. contents opens and navigates
     show_bars()
@@ -318,12 +328,14 @@ def run(p, dev, engine, opts, lang, mode):
         act(chip)
         check(tag, "verse chip toggles panel only", shown() == before and chip.get_attribute("aria-expanded") == "true")
     # 17. text selection: a tap that ends a selection does not toggle
-    pg.goto(url, wait_until="networkidle"); pg.wait_for_timeout(1000)
+    # (V17: the bars come out at the chapter's start up to ~1.3 s after the page opens — wait for that first)
+    pg.goto(url, wait_until="networkidle"); pg.wait_for_timeout(1800)
     pt = empty_point()
     qa.reading_eval(pg,"""root => { const p = [...root.querySelectorAll('article p')].find(p => p.textContent.length > 40);
         const r = document.createRange(); r.selectNodeContents(p); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }""")
+    before = shown()
     tap_pt(pt)
-    check(tag, "tap ending a text selection -> no toggle", not shown())
+    check(tag, "tap ending a text selection -> no toggle", shown() == before)
     # home page: reading mode, next = first chapter
     pg.goto(f"{BASE}{prefix}/", wait_until="networkidle"); pg.wait_for_timeout(900)
     check(tag, "cover: no bars", not shown())

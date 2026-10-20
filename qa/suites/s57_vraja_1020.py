@@ -158,16 +158,17 @@ def run(p, dev, eng, o):
             if h and not h["first"]:
                 chk(dev, f"4 {tag} list {i + 1}: rule above «{h['text'][:30]}»", h["rule"], str(h))
 
-    # ---- 5. «Next chapter» box inside the text column -------------------------------------------------
+    # ---- 5. «Next chapter» inside the screen. V17 (Vraja Lila msg 796): the block at the chapter's end is
+    #      gone; the next chapter is the bottom bar's «Вперёд ›» — its band stays inside the screen ----------
     pg.goto(url("", NEXT_PAGE), wait_until="networkidle")
-    pg.wait_for_timeout(600)
-    n = pg.evaluate("""()=>{const a=document.querySelector('.chapter-next-link'); if(!a) return null;
-      const box=a.closest('.chapter-next').getBoundingClientRect(), r=a.getBoundingClientRect();
-      return {right:r.right, col:box.right, vw:innerWidth}}""")
+    pg.wait_for_timeout(900)
+    n = pg.evaluate("""()=>{const a=document.querySelector('[data-reader-nav=forward]'); if(!a) return null;
+      const r=a.getBoundingClientRect();
+      return {right:r.right, left:r.left, col:innerWidth, vw:innerWidth, block:document.querySelectorAll('.chapter-next').length}}""")
     if n is None:
-        chk(dev, "5 «Next chapter» present", False, "no .chapter-next-link")
+        chk(dev, "5 «Next chapter» present", False, "no [data-reader-nav=forward]")
     else:
-        chk(dev, "5 «Next chapter» box inside the text column", n["right"] <= n["col"] + 0.5, str(n))
+        chk(dev, "5 «Next chapter» (bar «Вперёд ›») inside the screen, no block at the chapter's end", n["right"] <= n["col"] + 0.5 and n["left"] >= 0 and n["block"] == 0, str(n))
     b.close()
 
 

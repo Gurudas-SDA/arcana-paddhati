@@ -77,8 +77,8 @@ def run(browser, device, options, mode, theme):
         tap(page.locator("[data-reader-action=contents]"))
 
     def back():
-        bars()
-        tap(page.locator("[data-reader-nav=back]"), wait=700)
+        # V17 (Vraja Lila msg 796): the app's «‹ Назад» is the previous chapter; a history step is the system Back
+        page.go_back(); page.wait_for_timeout(700)
 
     group = lambda: page.locator(f"[data-toc-group='{GROUP}']")
     chapter = lambda: page.locator(f"[data-toc-chapter='{CHAPTER}']")

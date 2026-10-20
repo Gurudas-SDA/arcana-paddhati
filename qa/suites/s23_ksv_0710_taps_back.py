@@ -78,15 +78,12 @@ def run(p, dev, eng, o, mode):
     def contents():
         bars(); act(pg.locator("[data-reader-action=contents]"), 800)
 
+    # V17: the bottom bar's buttons are the previous / next chapter; history steps = system Back / Forward
     def back():
-        if not menu():
-            bars()
-        act(pg.locator("[data-reader-nav=back]"), 1100, force=True)
+        pg.go_back(); pg.wait_for_timeout(1100)
 
     def forward():
-        if not menu():
-            bars()
-        act(pg.locator("[data-reader-nav=forward]"), 1100, force=True)
+        pg.go_forward(); pg.wait_for_timeout(1100)
 
     # ---------- 1: tap on every parampara portrait toggles the bars ----------
     mode.start(pg,f"{BASE}/{L}/parampara/");pg.wait_for_timeout(700)

@@ -3,7 +3,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import GroupContents from "@/components/GroupContents";
-import NextChapter from "@/components/NextChapter";
 import PartPage from "@/components/PartPage";
 import SectionContent from "@/components/SectionContent";
 import {
@@ -58,7 +57,6 @@ export default async function LangSectionPage({
       after={
         <>
           <GroupContents lang={lang} id={id} ui={ui} />
-          <NextChapter lang={lang} id={id} ui={ui} />
         </>
       }
     />
