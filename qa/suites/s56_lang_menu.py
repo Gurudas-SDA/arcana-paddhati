@@ -9,7 +9,7 @@ Checks: no native <select>; dimmed page behind the open list; ARIA listbox/optio
 choosing a language changes the URL and keeps the chapter; Esc and a tap outside close it, focus back on the field;
 arrow keys + Enter choose; small landscape screen — the list scrolls inside the viewport; Ночь — readable colours.
 # tehniskais slieksnis Lipikāra, nav S noteikums: contrast ≥ 4.5 (WCAG AA) for option text in Ночь / Бежевый.
-usage: python s54_lang_menu.py <base-url>
+usage: python s56_lang_menu.py <base-url>
 """
 import json
 import os
