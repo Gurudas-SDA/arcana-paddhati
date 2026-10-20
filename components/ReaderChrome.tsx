@@ -153,6 +153,7 @@ export default function ReaderChrome({
   available,
   hasWbw,
   menuOpen,
+  menuClosing = false,
   onOpenContents,
   onOpenSearch,
 }: {
@@ -166,6 +167,8 @@ export default function ReaderChrome({
   hasWbw: boolean;
   /** The contents / search drawer is open. */
   menuOpen: boolean;
+  /** The drawer is closed for the page but still sliding back (components/AppShell.tsx, V16). */
+  menuClosing?: boolean;
   onOpenContents: () => void;
   /** Also from the open «Аа» panel: the menu then replaces its history entry. */
   onOpenSearch: () => void;
@@ -181,6 +184,16 @@ export default function ReaderChrome({
   const layout = useReaderLayout();
   const [canBack, setCanBack] = useState(true);
   const [canForward, setCanForward] = useState(true);
+  /** The drawer is on screen (open, or sliding back). While it is, the bottom bar
+   *  does not change at all — not even «‹ Назад» / «Вперёд ›» going pale because
+   *  the drawer took a history step (Vraja Lila 20.10.2026: «нижняя панель не
+   *  должна мерцать при выдвижении боковой панели и её задвижении»). The taps
+   *  still use the exact canBack / canForward. */
+  const menuShown = menuOpen || menuClosing;
+  const [navLook, setNavLook] = useState({ back: true, forward: true });
+  if (!menuShown && (navLook.back !== canBack || navLook.forward !== canForward)) {
+    setNavLook({ back: canBack, forward: canForward });
+  }
   /** Short note when «Назад» / «Вперёд» has no step to go to. */
   const [navNote, setNavNote] = useState<string | null>(null);
   const navNoteTimer = useRef<number | undefined>(undefined);
@@ -745,7 +758,8 @@ export default function ReaderChrome({
       className="reader-chrome no-print"
       data-shown={shown ? "" : undefined}
       data-panel={panel ? "" : undefined}
-      data-menu={menuOpen ? "" : undefined}
+      // Also while the drawer slides back: the bottom bar stays above its fading dimming (V16 fix).
+      data-menu={menuShown ? "" : undefined}
     >
       {/* Top bar: contents · search · Аа */}
       <div className="reader-bar reader-bar-top" {...barEvents}>
@@ -941,7 +955,7 @@ export default function ReaderChrome({
             type="button"
             className="reader-btn reader-history-btn"
             onClick={() => historyStep("back")}
-            aria-disabled={!canBack}
+            aria-disabled={!navLook.back}
             data-reader-nav="back"
           >
             <span aria-hidden="true" className="reader-history-arrow">‹</span>
@@ -961,7 +975,7 @@ export default function ReaderChrome({
             type="button"
             className="reader-btn reader-history-btn"
             onClick={() => historyStep("forward")}
-            aria-disabled={!canForward}
+            aria-disabled={!navLook.forward}
             data-reader-nav="forward"
           >
             <span>{t(ui, "reader.forward")}</span>
