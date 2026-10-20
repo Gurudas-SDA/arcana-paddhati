@@ -15,7 +15,17 @@ Checks
       nav S noteikums) — no stretching; the box ratio comes from the data (aspect-ratio), so the page does not jump;
     - tapping each object 1–18 lights the list row with that number (desktop: all 18; phones: 1, 3, 7, 14, 18).
 
-usage: python s61_paraphernalia_schema.py <base-url>   devices: QA_DEVICES
+V20 — highlight masks whole (Vraja Lila msg 5617–5620, 20.10.2026, iPhone screenshots of the live book, objects 1, 2, 3).
+Rule text (verbatim): «3 элемента не выделены/вырезаны целиком на пересечении серых линий, а также цифры — при выделении.
+Исправь». Criterion (Lipikāra, Vraja's words): the lit object is the whole object, also where the tray's grey lines cross
+it, and its printed number is whole.
+  static (masks, alpha ≥ 0.5 = lit):
+    - crossing points: every pixel listed in CROSSINGS (the drawn line of the object / its number exactly where a tray
+      rim crosses it — measured on the picture 20.10.2026) is lit in its own mask and in no other mask;
+    - all 18: a drawn black pixel (luminance < 128 — # tehniskais slieksnis Lipikāra, nav S noteikums) enclosed by an
+      object's lit outline is lit too (no line inside the object left faded); no drawn pixel is lit in two masks.
+
+usage: python s61_paraphernalia_schema.py <base-url> [--static]   devices: QA_DEVICES
 """
 import hashlib
 import io
@@ -29,6 +39,7 @@ from PIL import Image  # noqa: E402
 from playwright.sync_api import sync_playwright  # noqa: E402
 
 BASE = sys.argv[1].rstrip("/")
+STATIC_ONLY = "--static" in sys.argv
 SHA1 = "cf19467b6043b909b1c709f925fded80730e24b5"   # Vraja Lila's PNG (inbox 1792488731998-AgADECAAAnI-uFI.png, 662 288 B)
 SIZE = (1254, 1254)
 TOL = 0.5          # % — tehniskais slieksnis Lipikāra, nav S noteikums
@@ -68,7 +79,63 @@ def static_checks():
         if not m or not os.path.exists(p) or Image.open(p).size != SIZE:
             bad.append(n)
     check("static", "18 object masks, each of the picture's size", not bad, bad)
+    if not bad:
+        mask_checks(hs)
     return webp
+
+
+# (number, x, y, what) — pixels of the drawing where a grey tray rim crosses the object or its number
+# (picture coordinates, 1254 × 1254; Vraja Lila msg 5617–5620: 1, 2, 3 cut at the crossings, numbers too).
+CROSSINGS = [
+    ("1", 467, 974, "spoon, upper end beside the bell's saucer"),
+    ("1", 437, 1048, "cup bottom on the inner rim"),
+    ("2", 503, 935, "shell top left, under the inner rim"),
+    ("2", 543, 941, "shell top, under the inner rim"),
+    ("2", 587, 944, "spout tip, under the inner rim"),
+    ("2", 582, 955, "spout underside"),
+    ("2", 576, 1012, "right foot of the stand"),
+    ("3", 440, 918, "bell neck under the outer rim"),
+    ("3", 452, 938, "bell dome right, under the inner rim"),
+    ("3", 422, 945, "bell dome left, under the inner rim"),
+    ("3", 432, 943, "bell band, under the inner rim"),
+    ("3", 392, 959, "number 3, top stroke under the outer rim"),
+    ("5", 407, 876, "lamp foot, right end"),
+]
+DARK = 128   # tehniskais slieksnis Lipikāra, nav S noteikums
+
+
+def mask_checks(hs):
+    import numpy as np
+    from scipy import ndimage as ndi
+    lum = np.asarray(Image.open(os.path.join(qa.REPO, "public", "media", "common", "paraphernalia.png")).convert("L"))
+    lit = {n: np.asarray(Image.open(os.path.join(qa.REPO, "public", "media", "hotspots",
+                                                 *hs["spots"][n]["mask"].split("/"))).getchannel("A")) >= 128
+           for n in NUMS}
+    bad = []
+    for n, x, y, what in CROSSINGS:
+        others = [k for k in NUMS if k != n and lit[k][y, x]]
+        if not lit[n][y, x] or others:
+            bad.append({"n": n, "xy": [x, y], "what": what, "lit_in_own": bool(lit[n][y, x]), "lit_in": others})
+    check("static", f"crossings: {len(CROSSINGS)} pixels where a tray rim crosses objects 1, 2, 3, 5 / number 3 are lit "
+                    f"in their own mask only", not bad, bad)
+    dark = lum < DARK
+    ink = lum < 235
+    holes = {}
+    for n in NUMS:
+        own = lit[n] & ink
+        inside = ndi.binary_fill_holes(own) & ~own
+        miss = dark & inside & ~lit[n]
+        if miss.any():
+            ys, xs = np.where(miss)
+            holes[n] = {"px": int(miss.sum()), "first": [int(xs[0]), int(ys[0])]}
+    check("static", "all 18: no black line enclosed by an object's lit outline is left faded", not holes, holes)
+    shared = {}
+    for i, a in enumerate(NUMS):
+        for b in NUMS[i + 1:]:
+            c = int((lit[a] & lit[b] & ink).sum())
+            if c:
+                shared[f"{a}+{b}"] = c
+    check("static", "all 18: no drawn pixel lit in two masks (never a piece of a neighbour)", not shared, shared)
 
 
 PROBE = """() => {
@@ -155,6 +222,9 @@ def run(p, dev, eng, o, webp):
 
 def main():
     webp = static_checks()
+    if STATIC_ONLY:
+        print(f"RESULT {'PASS' if all(results) else 'FAIL'} {sum(results)}/{len(results)}")
+        sys.exit(0 if all(results) else 1)
     with sync_playwright() as p:
         for dev, eng, o in DEVICES:
             try:
