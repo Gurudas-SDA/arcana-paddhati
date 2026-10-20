@@ -72,7 +72,12 @@ def log(msg):
 
 def keys():
     c = configparser.ConfigParser()
-    c.read(r"C:\Users\gurud\.credentials\ca_pipeline\config.ini", encoding="utf-8")
+    # Windows PC or the Linux server (~/.credentials, night release 20.10); first existing file wins
+    c.read([p for p in (r"C:\Users\gurud\.credentials\ca_pipeline\config.ini",
+                        os.path.expanduser("~/.credentials/ca_pipeline/config.ini")) if os.path.isfile(p)][:1],
+           encoding="utf-8")
+    if "anymodel" not in c:
+        return []
     return [c["anymodel"][k] for k in c["anymodel"] if re.fullmatch(r"key_\d+", k)]
 
 
