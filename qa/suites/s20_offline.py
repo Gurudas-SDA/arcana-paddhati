@@ -118,7 +118,7 @@ with sync_playwright() as p:
         link = pg.locator('[data-chapter-next]')
     link.first.click()
     pg.wait_for_timeout(2500)
-    ck('offline in-app «След. глава»', 'daily-deity-schedule' in pg.url, pg.url[-50:])
+    ck('offline in-app «Вперёд»', 'daily-deity-schedule' in pg.url, pg.url[-50:])
     c.set_offline(False)
     if qa.fast():
         b.close()

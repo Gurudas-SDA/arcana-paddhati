@@ -10,7 +10,7 @@ Rule text (verbatim, msg 5429/5432): «утверждено» / «делай с 
   - the app's picture carries no burned-in numbers (they are drawn by the app); the PNG for the
     PDF / EPUB keeps its numbers.
 Checks: every language (desktop: 18 numbers, style, places); iPhone / iPad / desktop: also taps on the
-numbers 1–11 select their row, and «Ночь»: number contrast on its pill ≥ 4.5 (# tehniskais slieksnis
+numbers 1–11 select their row, and «Тёмный»: number contrast on its pill ≥ 4.5 (# tehniskais slieksnis
 Lipikāra, nav S noteikums — WCAG AA). usage: python s59_emblem_numbers.py <base-url>
 """
 import io

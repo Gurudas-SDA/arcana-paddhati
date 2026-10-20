@@ -1,7 +1,7 @@
 """Reader v7.4 (Satkirti 06.10 23:15–23:33, 07.10 12:34–13:07): parampara + ārati songs.
   a) Contents: Обложка → Гуру-парампара (Шри Панча-таттва first, Satkirti 07.10 13:35) → Мангалачарана → ВВЕДЕНИЕ; the parampara has 8 pages,
      one guru each, in this order, exact captions; no Gour Govinda Svāmī; no visible heading,
-     no number; «След. глава ›» → Мангалачарана.
+     no number; «Вперёд ›» → Мангалачарана.
   b) every portrait is shown whole: the framed oval picture is only scaled (object-fit: contain; v8.0 code mask:
      the photo object-fit: cover in an elliptic clip-path — uniform scale, aspect within 1 %;
      rendered aspect = natural aspect), never cropped by its box or by the screen; portrait +
@@ -98,7 +98,7 @@ def run(p, dev, eng, o):
             .filter(e => { const r = e.getBoundingClientRect(); return r.width > 2 && r.height > 2; }).map(e => e.innerText)""")
         chk(dev, "a no visible heading / number on the portrait pages", vis == [], vis)
         nxt = qa.reading_eval(pg, "root=>{const a=root.querySelector('.chapter-next');return a?a.innerText.replace(/\\s+/g,' '):''}")
-        chk(dev, "a «След. глава ›» after the parampara = Мангалачарана", "Мангалачарана" in nxt, nxt)
+        chk(dev, "a «Вперёд ›» after the parampara = Мангалачарана", "Мангалачарана" in nxt, nxt)
 
         # b) portraits shown whole
         bad = [(x["cap"][:20], x["fit"], round(x["w"] / x["h"], 4), round(x["nw"] / x["nh"], 4))

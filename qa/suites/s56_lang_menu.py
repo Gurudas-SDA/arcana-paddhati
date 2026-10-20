@@ -7,8 +7,8 @@ Language switching itself (URL, liveLang, history) does not change.
 Vraja msg 5423 (verbatim): «можно так же затемнить всё на фоне, под выборкой языка, как на варианте 2».
 Checks: no native <select>; dimmed page behind the open list; ARIA listbox/option; opens; rows ≥ 44 px; current = aria-selected + ✓;
 choosing a language changes the URL and keeps the chapter; Esc and a tap outside close it, focus back on the field;
-arrow keys + Enter choose; small landscape screen — the list scrolls inside the viewport; Ночь — readable colours.
-# tehniskais slieksnis Lipikāra, nav S noteikums: contrast ≥ 4.5 (WCAG AA) for option text in Ночь / Бежевый.
+arrow keys + Enter choose; small landscape screen — the list scrolls inside the viewport; Тёмный — readable colours.
+# tehniskais slieksnis Lipikāra, nav S noteikums: contrast ≥ 4.5 (WCAG AA) for option text in Тёмный / Бежевый.
 usage: python s56_lang_menu.py <base-url>
 """
 import json
@@ -112,7 +112,7 @@ with sync_playwright() as p:
         (pg.touchscreen.tap if touch else pg.mouse.click)(6, vw["height"] - 6); pg.wait_for_timeout(400)
         o = pg.evaluate("""() => ({list: !!document.querySelector('[role=listbox]'), url: location.pathname})""")
         check(dev, "tap on the dimmed page outside the list closes it, language unchanged", not o["list"] and o["url"].endswith(f"/ru-iast/{PAGE}/"), o)
-        # Ночь: colours readable
+        # Тёмный: colours readable
         if pg.locator(".reader-panel").count() == 0:
             open_panel(pg, flow, touch)
         nb = pg.locator("[data-reader-theme-btn=night]")
@@ -120,7 +120,7 @@ with sync_playwright() as p:
         trig = pg.locator(".reader-panel [data-lang-trigger]")
         (trig.tap if touch else trig.click)(); pg.wait_for_timeout(400)
         cr = pg.evaluate(CONTRAST)
-        check(dev, "Ночь: option text contrast ≥ 4.5", cr and min(cr) >= 4.5, cr)
+        check(dev, "Тёмный: option text contrast ≥ 4.5", cr and min(cr) >= 4.5, cr)
         pg.keyboard.press("Escape"); pg.wait_for_timeout(200)
         sb = pg.locator("[data-reader-theme-btn=sepia]")
         (sb.tap if touch else sb.click)(); pg.wait_for_timeout(300)

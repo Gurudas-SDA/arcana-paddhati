@@ -1,4 +1,4 @@
-"""Reader UI v6 (Satkirti 06.10.2026): «След. глава ›» at the end of every chapter.
+"""Reader UI v6 (Satkirti 06.10.2026): «Вперёд ›» at the end of every chapter.
 usage: python v6_test.py <base-url> [shots-dir]   (ONLY=pixel,iphone ...)
 Checks per device: link after the last block, next chapter's number + title,
 >= 44px target, clear of the bottom bar at the chapter end, opens the next
@@ -91,7 +91,7 @@ def run(p, dev, eng, o):
             chk(dev, f"{cid}: link present", False, "no .chapter-next-link"); continue
         chk(dev, f"{cid}: at most one next-chapter link in the document", pg.locator('.chapter-next-link').count() <= 1)
         chk(dev, f"{cid}: link is the article's last block (after all content)", g["isLast"], str(g))
-        chk(dev, f"{cid}: «След. глава ›» -> {nid}", g["label"].replace(" ", " ") == "След. глава ›" and g["href"].rstrip("/").endswith(f"/{LANG}/{nid}"), str(g))
+        chk(dev, f"{cid}: «Вперёд ›» -> {nid}", g["label"].replace(" ", " ") == "Вперёд ›" and g["href"].rstrip("/").endswith(f"/{LANG}/{nid}"), str(g))
         chk(dev, f"{cid}: next chapter's title under it ({title0}…), smaller", g["title"].startswith(title0) and g["titFs"] < g["labFs"] and g["t"] < g["b"], str(g))
         chk(dev, f"{cid}: tap target >= 44px high, inside the screen", g["h"] >= 44 and g["w"] >= 44 and g["l"] >= 0 and g["r"] <= g["vw"] + 0.5, str(g))
         chk(dev, f"{cid}: translate=no, book serif font", g["tr"] == "no" and "Noto Serif" in g["labFont"], str(g))
@@ -128,7 +128,7 @@ def run(p, dev, eng, o):
 
     # last chapter: no link; non-empty part page: no link
     pg.goto(f"{BASE}/{LANG}/{LAST}/", wait_until="networkidle"); pg.wait_for_timeout(600)
-    chk(dev, f"{LAST} (last chapter): no «След. глава»", pg.locator(".chapter-next").count() == 0)
+    chk(dev, f"{LAST} (last chapter): no «Вперёд»", pg.locator(".chapter-next").count() == 0)
     if dev in ("iphone14", "ipad-portrait"):
         to_end(); shot("3-last-chapter-end")
     pg.goto(f"{BASE}/{LANG}/home-worship/", wait_until="networkidle"); pg.wait_for_timeout(600)
@@ -138,7 +138,7 @@ def run(p, dev, eng, o):
     # English page: English label
     pg.goto(f"{BASE}/vigraha-tattva/", wait_until="networkidle"); pg.wait_for_timeout(600)
     g = qa.reading_eval(pg, GEO)
-    chk(dev, "English page: «Next chapter ›» -> /daily-duties-brahma-muhurta/ (v7.1: Maṅgalācaraṇa before the Introduction)", bool(g) and g["label"].startswith("Next chapter") and g["href"].rstrip("/").endswith("/daily-duties-brahma-muhurta"), str(g))
+    chk(dev, "English page: «Forward ›» -> /daily-duties-brahma-muhurta/ (v7.1: Maṅgalācaraṇa before the Introduction)", bool(g) and g["label"].startswith("Forward") and g["href"].rstrip("/").endswith("/daily-duties-brahma-muhurta"), str(g))
 
     # themes + «Аа»
     pg.goto(f"{BASE}/{LANG}/vigraha-tattva/", wait_until="networkidle"); pg.wait_for_timeout(600)
