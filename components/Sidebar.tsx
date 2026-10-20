@@ -1,7 +1,7 @@
 "use client";
 
 import { useOfflineProgress, useOfflineSave } from "@/lib/offlineProgress";
-import { readBookmarks, type Bookmark } from "@/lib/bookmarks";
+import { BOOKMARK_TOAST_END_EVENT, BOOKMARKS_EVENT, bookmarkAt, readBookmarks, removeBookmark, type Bookmark } from "@/lib/bookmarks";
 import React, {
   useEffect,
   useLayoutEffect,
@@ -536,6 +536,29 @@ export default function Sidebar({
   useEffect(() => {
     if (tab === "bookmarks") setBookmarks(readBookmarks());
   }, [tab]);
+  // Removed with the icon on its row (Vraja Lila msg 5439/5440, variant 2а): the
+  // row stays in place, pale, with an empty icon, until the top bar's toast
+  // «Закладка убрана · Отменить» is over; «Отменить» puts it back.
+  const [paleRows, setPaleRows] = useState<Record<string, Bookmark>>({});
+  useEffect(() => {
+    if (tab !== "bookmarks") return;
+    const update = () => setBookmarks(readBookmarks());
+    const over = () => setPaleRows({});
+    window.addEventListener(BOOKMARKS_EVENT, update);
+    window.addEventListener(BOOKMARK_TOAST_END_EVENT, over);
+    return () => {
+      window.removeEventListener(BOOKMARKS_EVENT, update);
+      window.removeEventListener(BOOKMARK_TOAST_END_EVENT, over);
+    };
+  }, [tab]);
+  const bookmarkRows = useMemo(() => {
+    const pale = Object.values(paleRows).filter((p) => !bookmarks.some((b) => b.id === p.id));
+    return [...bookmarks, ...pale].sort((a, b) => b.time - a.time);
+  }, [bookmarks, paleRows]);
+  const removeBookmarkRow = (b: Bookmark) => {
+    setPaleRows((cur) => ({ ...cur, [b.id]: b }));
+    removeBookmark(b.id);
+  };
   const chooseTab = (next: "contents" | "bookmarks") => {
     setTab(next);
     try {
@@ -553,6 +576,23 @@ export default function Sidebar({
     return { head, second: sub ? (sub.num ? `${sub.num}. ${sub.title}` : sub.title) : null };
   };
   const showBookmarks = tab === "bookmarks" && !normalizedQuery;
+  // The bookmark on the place being read (Vraja Lila msg 5436): the same place
+  // the ribbon button shows as set (chapter + subsection from the scroll spy;
+  // no subsection — the chapter). Several there — the newest (the list is
+  // newest first). Lit exactly like the current row of «Содержание» (rule 9.2).
+  const litBookmarkId = selectedId ? bookmarkAt(bookmarks, selectedId, activeSubId ?? null)?.id : undefined;
+  const bookmarksRef = useRef<HTMLDivElement>(null);
+  // Opening the tab brings the lit bookmark into view, as «Содержание» does (9.12).
+  useLayoutEffect(() => {
+    if (!showBookmarks) return;
+    const box = bookmarksRef.current;
+    const row = box?.querySelector<HTMLElement>("[data-bookmark-lit]");
+    if (!box || !row) return;
+    const n = box.getBoundingClientRect();
+    const r = row.getBoundingClientRect();
+    if (r.top >= n.top && r.bottom <= n.bottom) return;
+    box.scrollTop += r.top - n.top - (n.height - r.height) / 2;
+  }, [showBookmarks, bookmarks, litBookmarkId]);
 
   const sectionHref = (sectionId: string, anchor?: string) =>
     localeHref(lang, sectionId, anchor);
@@ -1184,30 +1224,61 @@ export default function Sidebar({
       {/* Contents (Reader v7.8, Satkirti 07.10.2026): a fixed part — the title,
           the search and «Обложка» — and the list that scrolls under it. */}
       {showBookmarks && (
-        <div className="flex-1 min-h-0 overflow-y-auto" role="tabpanel" data-bookmarks-list="">
-          {bookmarks.length === 0 ? (
+        <div ref={bookmarksRef} className="flex-1 min-h-0 overflow-y-auto" role="tabpanel" data-bookmarks-list="">
+          {bookmarkRows.length === 0 ? (
             <p className="px-5 py-4 text-sm text-[#5C3D2E]" data-bookmarks-empty="">
               {t(ui, "bookmarks.empty")}
             </p>
           ) : (
-            bookmarks.map((b) => {
+            bookmarkRows.map((b) => {
               const line = bookmarkLine(b);
               if (!line) return null;
               const href = sectionHref(b.section, b.anchor ?? undefined);
+              const isLit = b.id === litBookmarkId;
+              const isPale = !bookmarks.some((x) => x.id === b.id);
+              // Lit = the look of the current row in «Содержание»: background,
+              // gold left bar, gold semibold title (one sign, rule 9.2). Every
+              // row keeps a 3px left bar (transparent) so the text never moves.
+              const titleClass = isLit ? "font-semibold text-[#B8860B]" : "";
               return (
-                <Link
+                <div
                   key={b.id}
+                  data-bookmark-row=""
+                  data-bookmark-id={b.id}
+                  data-bookmark-lit={isLit ? "" : undefined}
+                  data-bookmark-faded={isPale ? "" : undefined}
+                  className={`relative border-b border-[#E8DCC8] border-l-3 transition-colors ${
+                    isLit ? "bg-[#FAF3E8] border-l-[#B8860B]" : "border-l-transparent hover:bg-[#FDF8F0]"
+                  }`}
+                >
+                <Link
                   href={href}
                   onClick={(e) => leaveTo(e, href)}
-                  data-bookmark-row=""
-                  className="sidebar-link block w-full text-left px-5 py-3 border-b border-[#E8DCC8] hover:bg-[#FDF8F0]"
+                  aria-current={isLit ? "location" : undefined}
+                  className={`sidebar-link block w-full text-left pl-5 pr-14 py-3 transition-opacity ${isPale ? "opacity-45" : ""}`}
                 >
-                  <span className="block text-sm text-[#2C1810]">{line.head}</span>
-                  {line.second && <span className="block text-sm text-[#5C3D2E]">{line.second}</span>}
+                  <span className={`block text-sm ${titleClass || "text-[#2C1810]"}`} data-bookmark-title="">{line.head}</span>
+                  {line.second && <span className={`block text-sm ${titleClass || "text-[#5C3D2E]"}`}>{line.second}</span>}
                   <span className="block text-[11px] text-[#6B5440]">
                     {new Date(b.time).toLocaleDateString(lang === "en" ? "en" : lang.split("-")[0])}
                   </span>
                 </Link>
+                {/* The ribbon of the top bar, filled (Vraja Lila msg 5439/5440, frame 1):
+                    a tap removes this bookmark (2а); a 44px target, outside the row link. */}
+                <button
+                  type="button"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 flex h-[44px] w-[44px] items-center justify-center text-[#8B6508] disabled:cursor-default"
+                  onClick={() => removeBookmarkRow(b)}
+                  disabled={isPale}
+                  aria-label={t(ui, "reader.bookmarkRemove")}
+                  title={t(ui, "reader.bookmarkRemove")}
+                  data-bookmark-remove=""
+                >
+                  <svg aria-hidden="true" width="18" height="20" viewBox="0 0 18 20" fill={isPale ? "none" : "currentColor"} stroke="currentColor" strokeWidth="2" strokeLinejoin="round" className={isPale ? "opacity-45" : undefined}>
+                    <path d="M3 1.5h12v17l-6-4.6-6 4.6z" />
+                  </svg>
+                </button>
+                </div>
               );
             })
           )}
