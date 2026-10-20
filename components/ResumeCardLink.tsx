@@ -36,7 +36,22 @@ export default function ResumeCardLink({ script }: { script: string }) {
       router.push(stripBasePath(new URL(a.href).pathname) + new URL(a.href).hash);
     };
     slot.addEventListener("click", onClick);
-    return () => slot.removeEventListener("click", onClick);
+    // The line wraps, so the card's height follows the width (rotation, window
+    // resize): keep the cover's reserved place equal to the drawn card.
+    const ro =
+      typeof ResizeObserver === "undefined"
+        ? null
+        : new ResizeObserver(() => {
+            const d = document.documentElement;
+            if (!slot.firstChild || !d.hasAttribute("data-home-resume")) return;
+            const h = `${Math.ceil(slot.getBoundingClientRect().height)}px`;
+            if (d.style.getPropertyValue("--home-resume-h") !== h) d.style.setProperty("--home-resume-h", h);
+          });
+    ro?.observe(slot);
+    return () => {
+      slot.removeEventListener("click", onClick);
+      ro?.disconnect();
+    };
   }, [router, script]);
   return null;
 }
