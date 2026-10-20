@@ -119,9 +119,9 @@ function highlightOn(): boolean {
   return !!readingSection()?.querySelector(".hs-row[data-active], .hs-img-faded") || searchMarkOn();
 }
 
-/** A window of its own is open (contents/search drawer, «Настроение Гурудева»). */
+/** A window of its own is open (contents/search drawer, «Настроение Гурудева», install instructions). */
 function overlayOpen(): boolean {
-  return !!document.querySelector(".mobile-menu[data-open], .mood-overlay");
+  return !!document.querySelector(".mobile-menu[data-open], .mood-overlay, .install-modal");
 }
 
 function isPanelEntry(): boolean {

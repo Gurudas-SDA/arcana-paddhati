@@ -65,6 +65,20 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
   // Measured, not fixed: the text may wrap to two lines on narrow phones
   // (UI rule: no truncated labels).
   const bannerRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  /** The current press started outside the instructions window (only such a press closes it). */
+  const modalDownOutside = useRef(false);
+  // Esc closes the instructions window (desktop), like its ✕.
+  useEffect(() => {
+    if (!showModal) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      e.preventDefault();
+      setShowModal(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [showModal]);
   useEffect(() => {
     const root = document.documentElement;
     const el = bannerRef.current;
@@ -204,12 +218,27 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
 
       {/* Instructions modal (for iOS / non-Chrome browsers) */}
       {showModal && (
-        <div data-no-reader-tap="" className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          {/* Backdrop: does nothing; the modal closes only with its ✕ */}
-          <div className="absolute inset-0 bg-black/30" />
+        <div
+          data-no-reader-tap=""
+          className="install-modal fixed inset-0 z-[100] flex items-center justify-center p-4"
+          // A tap / click outside the window closes it like its ✕ (Vraja Lila msg 5391, 20.10.2026);
+          // only a press that starts AND ends outside (a drag from inside never closes it).
+          onPointerDown={(e) => {
+            modalDownOutside.current = !modalRef.current?.contains(e.target as Node);
+          }}
+          onClick={(e) => {
+            const outside = modalDownOutside.current && !modalRef.current?.contains(e.target as Node);
+            modalDownOutside.current = false;
+            if (outside) setShowModal(false);
+          }}
+        >
+          <div className="install-backdrop absolute inset-0 bg-black/30" aria-hidden="true" />
 
           {/* Modal */}
           <div
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
             className="relative bg-white rounded-xl shadow-2xl w-full max-w-[360px] p-5"
           >
             {/* Close button */}
