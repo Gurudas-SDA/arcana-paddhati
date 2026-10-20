@@ -165,8 +165,9 @@ def data_checks():
                 chk(dev, f"{code}: precache manifest has /{code}/ pages", any(f"/{code}/" in u for u in urls), "")
 
 
-SWITCH = """() => { const s = document.querySelector('.reader-panel select'); if (!s) return null;
-  return [...s.options].map(o => [o.value, o.textContent.trim()]); }"""
+# language menu in the book's style (Vraja Lila msg 5418): the options live in the open listbox
+SWITCH = """() => { if (!document.querySelector('[role=listbox]')) return null;
+  return [...document.querySelectorAll('[role=listbox] [role=option]')].map(o => [o.getAttribute('data-lang'), o.querySelector('.lang-option-name').textContent.trim()]); }"""
 
 
 def run(p, dev, eng, o):
@@ -204,11 +205,19 @@ def run(p, dev, eng, o):
             except Exception:
                 pass
             pg.wait_for_timeout(600)
+        lt = pg.locator(".reader-panel [data-lang-trigger]")
+        if lt.count():
+            try:
+                lt.tap(timeout=3000) if touch else lt.click(timeout=3000)
+            except Exception:
+                pass
+            pg.wait_for_timeout(300)
         opts = pg.evaluate(SWITCH) or []
         d = dict(opts)
         chk(dev, f"{code}: «Аа» language menu has Português and Lietuvių (own names, not «(EN)»)",
             d.get("pt") == "Português" and d.get("lt") == "Lietuvių", str(opts))
-        sel = pg.evaluate("(document.querySelector('.reader-panel select')||{}).value")
+        sel = pg.evaluate("(document.querySelector('[role=listbox] [role=option][aria-selected=true]')||{getAttribute:()=>null}).getAttribute('data-lang')")
+        pg.keyboard.press("Escape"); pg.wait_for_timeout(200)
         chk(dev, f"{code}: language menu shows {code} as the current language", sel == code, str(sel))
     chk(dev, "no page errors", not errs, str(errs[:3]))
     c.close()
