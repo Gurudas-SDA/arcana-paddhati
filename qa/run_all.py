@@ -128,6 +128,8 @@ SUITES = [
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s60", file="suites/s60_bookmark_remove_icon.py", title="Vraja 5439/5440: cilnē «Закладки» ikona labajā pusē noņem grāmatzīmi (2а) — rinda bāla līdz tosta beigām, «Отменить» atjauno, rinda pati joprojām ved uz vietu",
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
+    dict(id="s65", file="suites/s65_menu_slide.py", title="Vraja 20.10 (ДА 5520, 5521): «Содержание» izbīdās/iebīdās ar augšējās joslas easing un ilgumu, izvēlētā rinda #F5E6C8, A65 kārtība, «Аа» panelis aizveras plūstoši; reduced motion — bez animācijas",
+         devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
          devices=None, fast=True, server=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",

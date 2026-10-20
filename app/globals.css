@@ -1028,7 +1028,8 @@ body,
 /* No selectable words in the bars (Chrome on Android would offer to look
    them up in its own bottom bar — Reader v7). */
 .reader-bar,
-.reader-panel {
+.reader-panel,
+.reader-panel-out {
   -webkit-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
@@ -1103,8 +1104,9 @@ html[data-reader-bars] .reader-toast {
   opacity: 0;
 }
 
-/* «Аа» panel */
-.reader-panel {
+/* «Аа» panel (.reader-panel-out = its closing copy, lib/exitGhost.ts) */
+.reader-panel,
+.reader-panel-out {
   position: fixed;
   z-index: 31;
   top: calc(env(safe-area-inset-top, 0px) + 62px);
@@ -1666,6 +1668,69 @@ html[data-reader-theme="night"] ::selection {
 }
 .mobile-menu > .sidebar-transition {
   bottom: calc(57px + env(safe-area-inset-bottom, 0px));
+}
+/* «Содержание» slides out from the left and back (Vraja Lila 20.10.2026, ДА msg
+   5520), with the top bar's easing and duration both ways (msg 5521: .reader-bar
+   transform 220ms ease); the dimming fades with it. Closing = [data-closing]
+   (components/AppShell.tsx): a chosen row lights up first (150 ms), then
+   [data-closing-run] slides the panel back and the node is removed. */
+@keyframes ap-menu-in {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+@keyframes ap-menu-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.mobile-menu > .sidebar-transition {
+  animation: ap-menu-in 220ms ease both;
+}
+.mobile-menu > .sidebar-backdrop {
+  animation: ap-menu-fade 220ms ease both;
+}
+.mobile-menu[data-closing] {
+  pointer-events: none;
+}
+.mobile-menu[data-closing] > .sidebar-transition,
+.mobile-menu[data-closing] > .sidebar-backdrop {
+  animation: none;
+}
+.mobile-menu[data-closing-run] > .sidebar-transition {
+  animation: ap-menu-in 220ms ease reverse forwards;
+}
+.mobile-menu[data-closing-run] > .sidebar-backdrop {
+  animation: ap-menu-fade 220ms ease reverse forwards;
+}
+.mobile-menu [data-menu-picked],
+.mobile-menu [data-menu-picked]:hover {
+  background-color: #F5E6C8 !important;
+  color: #8B6508 !important;
+  transition: background-color 150ms ease-out, color 150ms ease-out;
+}
+/* «Аа» panel and the language list: closing = the opening animation backwards
+   (lib/exitGhost.ts, msg 5521; before, they vanished in one frame). */
+.reader-panel-out {
+  animation: reader-pop 160ms ease-out reverse forwards;
+  pointer-events: none;
+}
+.lang-card.lang-card-out {
+  animation: reader-pop 140ms ease-out reverse forwards;
+  pointer-events: none;
+}
+.lang-backdrop.lang-backdrop-out {
+  animation: lang-fade 140ms ease-out reverse forwards;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu > .sidebar-transition,
+  .mobile-menu > .sidebar-backdrop,
+  .mobile-menu[data-closing-run] > .sidebar-transition,
+  .mobile-menu[data-closing-run] > .sidebar-backdrop {
+    animation: none;
+  }
+  .mobile-menu [data-menu-picked] {
+    transition: none;
+  }
 }
 /* Opening a page from the menu: the menu stays until the page is shown. */
 .mobile-menu[data-leaving] aside {
