@@ -104,6 +104,10 @@ def write_masked_portraits(images_dir: Path) -> None:
         (images_dir / rel).parent.mkdir(parents=True, exist_ok=True)
         (images_dir / rel).write_bytes(portrait_png(rel))
 DEFAULT_OUT = REPO.parent / "Арчана-паддхати — книга"
+# Night release 21.10.2026 (V8, Vraja Lila msg 742): the cover with the vector Chaitanya Academy logo, drawn by
+# scripts/formats/cover_print.py at 2x; the old raster-logo cover only if that file is missing.
+_COVER_PRINT = REPO / "masters" / "media" / "cover" / "cover-print.jpg"
+COVER = _COVER_PRINT if _COVER_PRINT.is_file() else PUBLIC / "media" / "cover" / "cover.jpg"
 APP_URL = "https://gurudas-sda.github.io/arcana-paddhati/"
 
 FONT_FILES = {
@@ -864,7 +868,7 @@ def dest_pages(doc):
 
 def build_print(ed: Edition, fonts: dict, chrome: Path, work: Path, out_pdf: Path):
     work.mkdir(parents=True, exist_ok=True)
-    shutil.copy(PUBLIC / "media" / "cover" / "cover.jpg", work / "cover.jpg")
+    shutil.copy(COVER, work / "cover.jpg")
     shutil.copytree(PUBLIC / "media", work / "media", dirs_exist_ok=True,
                     ignore=shutil.ignore_patterns("desktop.ini"))
     write_masked_portraits(work / "media")
@@ -1153,7 +1157,7 @@ def build_epub(ed: Edition, fonts: dict, out_epub: Path, work: Path):
         font_names[k] = f"fonts/{p.name}"
         files[font_names[k]] = dst.read_bytes()
     files["style.css"] = font_face_css(font_names) + BASE_CSS + EPUB_CSS
-    files["cover.jpg"] = (PUBLIC / "media" / "cover" / "cover.jpg").read_bytes()
+    files["cover.jpg"] = COVER.read_bytes()
     used_imgs = set(re.findall(r'src="media/([^"]+)"', "".join(v for v in files.values() if isinstance(v, str))))
     for img in sorted(used_imgs):
         files[f"media/{img}"] = image_bytes(img)
