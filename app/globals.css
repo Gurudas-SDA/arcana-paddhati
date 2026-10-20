@@ -1025,7 +1025,9 @@ body,
 /* «Закладка поставлена · Отменить»: dark pill above the bottom bar, «Отменить» in gold. */
 .reader-toast {
   position: fixed;
-  z-index: 32;
+  /* above the open contents (.mobile-menu z-40): «Закладка убрана · Отменить»
+     also comes from the «Закладки» list (Vraja Lila msg 5439/5440, 2а) */
+  z-index: 45;
   left: 50%;
   bottom: calc(40px + env(safe-area-inset-bottom, 0px));
   transform: translateX(-50%);

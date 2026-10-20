@@ -13,6 +13,12 @@ export const BOOKMARKS_KEY = "ap.bookmarks";
 export const BOOKMARKS_MAX = 500;
 /** Fired on window after every write (the button and the list follow it). */
 export const BOOKMARKS_EVENT = "ap:bookmarks";
+/** «Закладка убрана · Отменить» asked from elsewhere (the «Закладки» list,
+ *  Vraja Lila msg 5439/5440 variant 2а): detail = {undo: list before}. The top
+ *  bar (components/ReaderChrome.tsx) shows its own toast for it — one toast. */
+export const BOOKMARK_TOAST_EVENT = "ap:bookmark-toast";
+/** Fired by the top bar when its bookmark toast is over (time out or «Отменить»). */
+export const BOOKMARK_TOAST_END_EVENT = "ap:bookmark-toast-end";
 
 export interface Bookmark {
   id: string;
@@ -58,6 +64,18 @@ export function writeBookmarks(items: Bookmark[]) {
 /** The bookmark on this place: same chapter and same subsection (any language). */
 export function bookmarkAt(items: Bookmark[], section: string, anchor: string | null): Bookmark | undefined {
   return items.find((b) => b.section === section && (b.anchor ?? null) === (anchor ?? null));
+}
+
+/** Remove one bookmark (the icon on its row in «Закладки») and show the top
+ *  bar's toast «Закладка убрана · Отменить», which can put the list back. */
+export function removeBookmark(id: string) {
+  const before = readBookmarks();
+  writeBookmarks(before.filter((b) => b.id !== id));
+  try {
+    window.dispatchEvent(new CustomEvent(BOOKMARK_TOAST_EVENT, { detail: { undo: before } }));
+  } catch {
+    // no window (server)
+  }
 }
 
 /** Set the bookmark on this place, or remove it if it is there (rule 10.1).

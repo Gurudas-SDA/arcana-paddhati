@@ -51,7 +51,7 @@ import { takeEarlyTap } from "@/lib/earlyTap";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { type TocPart, type TocSection } from "@/lib/book";
 import { parsePath, t, type UiDict } from "@/lib/i18n";
-import { BOOKMARKS_EVENT, bookmarkAt, readBookmarks, toggleBookmark, writeBookmarks, type Bookmark } from "@/lib/bookmarks";
+import { BOOKMARK_TOAST_END_EVENT, BOOKMARK_TOAST_EVENT, BOOKMARKS_EVENT, bookmarkAt, readBookmarks, toggleBookmark, writeBookmarks, type Bookmark } from "@/lib/bookmarks";
 import { captureReadingPlace } from "@/lib/readingPlace";
 import { stripBasePath } from "@/lib/basePath";
 import { main as mainEl, pushOverlay } from "@/lib/navHistory";
@@ -311,15 +311,32 @@ export default function ReaderChrome({
   useEffect(() => {
     const update = () => setBookmarks(readBookmarks());
     const id = window.setTimeout(update, 0);
+    // A bookmark removed from the «Закладки» list (Vraja Lila msg 5439/5440,
+    // variant 2а): the same toast as for this button, with «Отменить».
+    const removedElsewhere = (e: Event) => {
+      const undo = (e as CustomEvent<{ undo?: Bookmark[] }>).detail?.undo;
+      if (!Array.isArray(undo)) return;
+      window.clearTimeout(bmToastTimer.current);
+      setBmToast({ added: false, undo });
+      bmToastTimer.current = window.setTimeout(() => setBmToast(null), BOOKMARK_TOAST_MS);
+    };
     window.addEventListener(BOOKMARKS_EVENT, update);
+    window.addEventListener(BOOKMARK_TOAST_EVENT, removedElsewhere);
     window.addEventListener("storage", update);
     return () => {
       window.clearTimeout(id);
       window.clearTimeout(bmToastTimer.current);
       window.removeEventListener(BOOKMARKS_EVENT, update);
+      window.removeEventListener(BOOKMARK_TOAST_EVENT, removedElsewhere);
       window.removeEventListener("storage", update);
     };
   }, []);
+  // The toast is over (time out, «Отменить» or replaced by none): the «Закладки»
+  // list drops the rows it kept pale until now.
+  const bmToastOn = !!bmToast;
+  useEffect(() => {
+    if (!bmToastOn) window.dispatchEvent(new Event(BOOKMARK_TOAST_END_EVENT));
+  }, [bmToastOn]);
   const bookmarkHere = section ? bookmarkAt(bookmarks, section.id, subId ?? null) : undefined;
   /** Set / remove the bookmark on the place on screen; storage only, no history step. */
   const onBookmark = () => {
