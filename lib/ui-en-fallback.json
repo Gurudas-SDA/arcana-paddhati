@@ -1,31 +1,4 @@
 {
-  "_why": "Interface labels shown in English in languages other than RU/EN (language.fallbackSuffix «(EN)»): Vraja Lila msg 5316/5318, 19.10.2026 — RU and EN by hand, no machine translation (a character outside the font subset). qa s32 accepts these keys missing in other ui.<lang>.json.",
-  "keys": [
-    "bookmark.added",
-    "bookmark.removed",
-    "bookmark.undo",
-    "bookmarks.empty",
-    "offline.kind.images",
-    "offline.kind.other",
-    "offline.kind.text",
-    "offline.kind.transcripts",
-    "offline.save.count",
-    "offline.save.countShort",
-    "offline.save.done",
-    "offline.save.doneNote",
-    "offline.save.hide",
-    "offline.save.loading",
-    "offline.save.loadingNote",
-    "offline.save.partial",
-    "offline.save.partialWhat",
-    "offline.save.paused",
-    "offline.save.pausedNote",
-    "offline.save.retry",
-    "offline.save.textMissing",
-    "offline.save.textOk",
-    "reader.bookmarkAdd",
-    "reader.bookmarkRemove",
-    "resume.title",
-    "sidebar.bookmarks"
-  ]
+  "_why": "Interface labels shown in English with «(EN)» in languages other than RU/EN. Empty since the night release 21.10.2026: Vraja Lila msg 5625–5627 (20.10.2026) removed the rule «new labels RU + EN by hand, no machine translation» — all interface keys are machine-translated into every language (AnyModel cx/gpt-6.1-sol). qa s32 still accepts keys listed here as missing in other ui.<lang>.json.",
+  "keys": []
 }
