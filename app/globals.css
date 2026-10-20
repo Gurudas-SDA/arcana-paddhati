@@ -363,30 +363,33 @@ html[data-home-resume] .home-cover {
   max-height: calc(100vh - 2rem - var(--reader-pad-bottom) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px));
   max-height: calc(100dvh - 2rem - var(--reader-pad-bottom) - env(safe-area-inset-top, 0px) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px));
 }
-/* «Продолжить» (components/ResumeCard.tsx): one row under the cover. */
+/* «Продолжить» (components/ResumeCard.tsx) under the cover: the line wraps
+   (no «…»), the card grows with it; arrow › in the book's gold in the
+   bottom-right corner, the text keeps clear of it (Vraja Lila msg 5430).
+   --home-resume-h = 4.5rem (one line) from the <head> script, then the
+   card's measured height, set by the card's own script before first paint. */
 .home-resume-slot {
   display: none;
 }
 html[data-home-resume] .home-resume-slot {
   display: block;
   box-sizing: border-box;
-  height: var(--home-resume-h);
   width: min(100%, 26rem);
   padding-top: 0.75rem;
-  overflow: hidden;
 }
 .home-resume {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
+  box-sizing: border-box;
+  min-height: 3.75rem;
   border: 1px solid #E5D8BC;
   background: #FFFFFF;
   border-radius: 9px;
-  padding: 7px 12px;
+  padding: 7px 34px 7px 12px;
   color: #2C1810;
   text-decoration: none;
-  overflow: hidden;
 }
 .home-resume-title {
   font-size: 11px;
@@ -397,16 +400,25 @@ html[data-home-resume] .home-resume-slot {
 }
 .home-resume-line {
   font-size: 14px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.35;
+  overflow-wrap: break-word;
+}
+.home-resume-arrow {
+  position: absolute;
+  right: 12px;
+  bottom: 6px;
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 600;
+  color: #8B6508;
 }
 html[data-reader-theme="night"] .home-resume {
   background: #1B1712;
   border-color: #3A3228;
   color: #EFE6D2;
 }
-html[data-reader-theme="night"] .home-resume-title {
+html[data-reader-theme="night"] .home-resume-title,
+html[data-reader-theme="night"] .home-resume-arrow {
   color: #D4A843;
 }
 .home-save-slot {
@@ -1440,7 +1452,7 @@ html[data-reader-theme="night"] ::selection {
   font-size: max(13px, calc(var(--fs, 18px) * 0.86));
   line-height: 1.4;
   color: var(--rd-muted);
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 @media print {
   .chapter-next,

@@ -114,6 +114,8 @@ SUITES = [
          devices=["pixel7", "iphone14", "desktop"], fast=True, fast_devices=["pixel7", "iphone14"]),
     dict(id="s52", file="suites/s52_reading_place.py", title="Vraja 5316 p.5–7: lasīšanas vieta (klusi, liveLang), «Продолжить» uz vāka bez lēciena, cilne «Закладки»",
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
+    dict(id="s58", file="suites/s58_resume_arrow.py", title="Vraja 5430: «Продолжить чтение» — bultiņa › #8B6508 labajā apakšā, teksts nezem bultiņas, garie nosaukumi 2–3 rindās bez «…», vāks nelēkā",
+         devices=["iphone14", "ipad-portrait", "pixel7"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
          devices=None, fast=True, server=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",
