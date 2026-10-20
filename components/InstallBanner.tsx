@@ -232,7 +232,7 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
             if (outside) setShowModal(false);
           }}
         >
-          <div className="install-backdrop absolute inset-0 bg-black/30" aria-hidden="true" />
+          <div className="install-backdrop absolute inset-0" aria-hidden="true" />
 
           {/* Modal */}
           <div

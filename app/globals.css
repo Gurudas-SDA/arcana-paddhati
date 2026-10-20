@@ -205,8 +205,11 @@ body {
   animation: mood-fade 160ms ease-out;
 }
 
-.mood-backdrop {
-  background: rgba(44, 24, 16, 0.45);
+/* Dimming behind the windows (V18, Vraja Lila msg 5603/5610, maket): black 60 %, no
+   blur — the same for «Настроение Гурудева», the install window and «Содержание». */
+.mood-backdrop,
+.install-backdrop {
+  background: rgba(0, 0, 0, 0.6);
 }
 
 /* The window is LARGE and in the screen's proportions, with a margin of page
@@ -262,6 +265,27 @@ body {
   .mood-dialog-head {
     padding-top: 0.625rem;
   }
+}
+/* ✕ on the level of the top line («НАСТРОЕНИЕ ГУРУДЕВА · 2») at the right edge
+   (V18, Vraja Lila msg 5603/5610, maket); the phone's top padding stays (10 px). */
+.mood-dialog-head {
+  align-items: flex-start;
+  padding-right: 0;
+}
+.mood-dialog-head .mood-close {
+  margin-right: -8px;
+  margin-top: -14px;
+  margin-bottom: -14px;
+}
+@media (min-width: 1024px) {
+  .mood-dialog .mood-dialog-head {
+    padding-top: 20px;
+  }
+  .mood-dialog-head .mood-close {
+    margin-right: 6px;
+  }
+}
+@media (min-width: 640px) {
   .mood-scroll {
     padding-bottom: 1.25rem;
   }
@@ -1167,7 +1191,8 @@ html[data-reader-bars] .reader-toast {
 }
 .reader-panel-head {
   display: flex;
-  align-items: center;
+  /* ✕ on the level of the top line, at the right (V18, maket) */
+  align-items: flex-start;
   justify-content: space-between;
   gap: 8px;
 }
@@ -1180,7 +1205,8 @@ html[data-reader-bars] .reader-toast {
   display: inline-flex;
   width: 36px;
   height: 36px;
-  margin-right: -8px;
+  margin-right: -14px;
+  margin-top: -8px;
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
@@ -1731,6 +1757,11 @@ html[data-reader-theme="night"] ::selection {
 }
 .mobile-menu > .sidebar-backdrop {
   animation: ap-menu-fade 220ms ease both;
+  /* V18: black 60 %, no blur, like the windows; it ends above the bottom bar
+     (57 px = its 44 px buttons + 2 × 6 px + 1 px border), which is never dimmed
+     (Vraja Lila msg 5606). */
+  background: rgba(0, 0, 0, 0.6);
+  bottom: calc(57px + env(safe-area-inset-bottom, 0px));
 }
 .mobile-menu[data-closing] {
   pointer-events: none;

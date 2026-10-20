@@ -802,7 +802,7 @@ export default function AppShell({
           )}
           {/* Backdrop */}
           <div
-            className="fixed inset-0 bg-black/30 sidebar-backdrop"
+            className="fixed inset-0 sidebar-backdrop"
             onClick={closeMenu}
             aria-hidden="true"
           />
