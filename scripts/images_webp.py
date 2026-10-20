@@ -40,7 +40,11 @@ def encode(im, out_stem):
 
 
 def keep_master(rel):
+    # The master is the untouched original: copied once, never overwritten (20.10.2026: public/media/common/tilak.png
+    # is cropped symmetrically FROM masters/ — Vraja Lila msg 5392 — and must not replace its original).
     dst = MASTERS / rel
+    if dst.exists():
+        return
     dst.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(MEDIA / rel, dst)
 

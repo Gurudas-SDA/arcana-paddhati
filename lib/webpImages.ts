@@ -5,7 +5,7 @@ import map from "./webp-images.json";
    PDF / EPUB use. Paths are relative to public/media/. */
 const WEBP: Record<string, string> = map;
 
-/** "common/tilak.png" -> "common/tilak-6fabb5e1.webp" (undefined if the picture has no WebP). */
+/** "common/tilak.png" -> "common/tilak-09a8f00d.webp" (undefined if the picture has no WebP). */
 export function webpFor(rel: string | undefined): string | undefined {
   return rel ? WEBP[rel] : undefined;
 }

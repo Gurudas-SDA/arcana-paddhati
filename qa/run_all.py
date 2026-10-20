@@ -116,6 +116,8 @@ SUITES = [
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s54", file="suites/s54_bookmark_button.py", title="Vraja 5380: grāmatzīmes poga (variants A) augšējā joslā — tosts «Закладка поставлена · Отменить», 10.1 otrs pieskāriens noņem, 10.2 bez vēstures soļa, offline, 12 valodas 320–390 px",
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
+    dict(id="s57", file="suites/s57_vraja_1020.py", title="Vraja 20.10 (5391–5402): «Настроение» aizveras ar pieskārienu fonam (kā ✕, Esc), numurēti attēli centrā, divkolonnu sarakstu joslas + līnija pirms grupas, «Next chapter» kolonnā",
+         devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
          devices=None, fast=True, server=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",

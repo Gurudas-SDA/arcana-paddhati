@@ -217,8 +217,9 @@ function QuoteBody({
  * is locked (the .app-main scroller and, for iOS Safari, the body via
  * position: fixed with the saved scroll offset), so a fast flick stops at the
  * first / last quote. Close: the ✕ in the header (the only visible control, on
- * every device), plus Esc or the browser / Android back button (a tap on the
- * backdrop does nothing) (opening pushes a history entry; closing pops it). After closing, the
+ * every device), plus a tap / click outside the window (on the darkened backdrop — Vraja Lila
+ * msg 5391, 20.10.2026; the same close path as the ✕), Esc or the browser / Android back button
+ * (opening pushes a history entry; closing pops it). After closing, the
  * reader is back exactly where he was and focus returns to the button.
  *
  * The overlay covers the VISUAL viewport: if the reader has pinch-zoomed the
@@ -253,6 +254,8 @@ export default function MoodBlock({
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
+  /** The current press started outside the window (only such a press closes it). */
+  const downOutside = useRef(false);
   /** A history entry was pushed for the open overlay (Back closes it). */
   const pushed = useRef(false);
   const titleId = useId();
@@ -374,8 +377,21 @@ export default function MoodBlock({
   }, [open, requestClose]);
 
   const overlay = (
-    <div ref={overlayRef} className="mood-overlay no-print fixed inset-0 z-[60] flex items-center justify-center">
-      {/* The backdrop does nothing: the window closes only with its ✕ (and Esc / back). */}
+    <div
+      ref={overlayRef}
+      className="mood-overlay no-print fixed inset-0 z-[60] flex items-center justify-center"
+      // A tap / click outside the window closes it like the ✕ (Vraja Lila msg 5391): only when the
+      // press both starts and ends outside, so a scroll or a text selection that begins inside the
+      // window and is released over the backdrop never closes it.
+      onPointerDown={(e) => {
+        downOutside.current = !dialogRef.current?.contains(e.target as Node);
+      }}
+      onClick={(e) => {
+        const outside = downOutside.current && !dialogRef.current?.contains(e.target as Node);
+        downOutside.current = false;
+        if (outside) requestClose();
+      }}
+    >
       <div className="mood-backdrop absolute inset-0" aria-hidden="true" />
       <div
         ref={dialogRef}
