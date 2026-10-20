@@ -290,10 +290,13 @@ TERM_RULES = {
            "ś/ṣ → š, ṭ/ḍ/ṇ/ṅ → t/d/n/n, ñ → ņ, y → j, ṛ → ri, ṁ → m; long vowels keep macrons (ā ī ū ē)."),
     "uk": ("A80 (Satkirti 12.10.2026): Sanskrit names and terms inside Ukrainian prose are written like krishna.ua - "
            "WITHOUT diacritics (no dots/lines over or under letters), full letters: Крішна, Шрі Ґуру, Шріла Прабгупада, "
-           "Бгактівінода Тхакура, вайшнав, Чайтанья, Нітьянанда, Ачар’я, В’ясадева, Нараяна, Прагьяна, ягья, Вріндавана, "
+           "Бгактівінода Тхакур, вайшнав, Чайтанья, Нітьянанда, Ачар’я, В’ясадева, Нараяна, Прагьяна, ягья, Вріндавана, "
            "Радга, Кешава, Панча-таттва. Scheme: ā→а, ī→і, ū→у, ṛ→рі, ai→ай, au→ау, ś/ṣ→ш, ṁ/ṅ/ñ/ṇ→м/н, ḥ→х, "
            "g→ґ, gh→ґг, kh→кх, th/ṭh→тх, dh→дг, bh→бг, ph→пх, jh→джх, jñ→гья, y+vowel→я/ю/є (after a consonant ья/ью, "
-           "after б/п/в/м/ф/р ’я); inflected with Ukrainian case endings (Крішни, Крішні)."),
+           "after б/п/в/м/ф/р ’я); inflected with Ukrainian case endings (Крішни, Крішні). Tulasi Sundari 20.10.2026: in "
+           "«Радга-Крішна» only «Крішна» is inflected (Радга-Крішни, Радга-Крішні, Радга-Крішну); the titles in a guru's "
+           "name are Тхакур, Махарадж, дас — without a final «а» and never inflected (Шріли Бгактівіноди Тхакур, "
+           "Шріли Кешави Ґосвамі Махарадж, Джаґаннатха дас Бабаджі); a king stays «Махараджа» (Нанда Махараджа)."),
 }
 for _l in ("de", "fr", "es", "it", "hu", "pt"):
     TERM_RULES[_l] = ("Sanskrit names and terms inside prose stay exactly as in the English source (IAST with diacritics: "
