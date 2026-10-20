@@ -37,6 +37,9 @@ function excluded(rel) {
   // router (its RSC payloads below are stored); its 3.2 MB HTML per language
   // would be read only by a full load, which the network serves.
   if (/^([a-z-]+\/)?book\/index\.html$/.test(rel)) return true;
+  // iOS startup pictures (public/splash/): the system takes them when the book is
+  // added to the home screen, the page never requests them.
+  if (rel.startsWith("splash/")) return true;
   // 404 pages are not needed offline.
   if (rel === "404.html" || rel.startsWith("404/") || rel.startsWith("_not-found/")) return true;
   return false;

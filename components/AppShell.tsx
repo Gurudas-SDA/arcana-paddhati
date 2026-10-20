@@ -53,6 +53,11 @@ const placeOf = (href: string): string => {
  *  «Прокручивать» (lib/readingMode.ts, Gurudas reading standard A3). */
 const scrollMode = () => readerLayout() === "scroll";
 
+/** «Содержание»: a chosen row's highlight shows this long before the panel goes (Vraja Lila 20.10.2026). */
+const MENU_PICK_MS = 150;
+/** «Содержание» slides back in this long — the top bar's transform time (app/globals.css .reader-bar, msg 5521). */
+const MENU_CLOSE_MS = 220;
+
 /** A65 (Codex 10.10): a page that has not come by now is given up. The КСВ
  *  phone's slowest real load was 19 s, so the menu waits longer than that. */
 const NAV_FAIL_MS = 25000;
@@ -89,8 +94,21 @@ export default function AppShell({
   const layout = useReaderLayout();
   /** The whole book is shown (ContinuousBook announces itself). */
   const [bookShown, setBookShown] = useState(false);
+  // Start screen (lib/caSplash.ts, Vraja Lila 20.10.2026): the page is hydrated;
+  // once its first frame is drawn the sign leaves. No artificial delay.
   useEffect(() => {
-    const check = () => setBookShown(!!document.querySelector("[data-continuous-book]"));
+    let a = 0;
+    let b = 0;
+    a = requestAnimationFrame(() => {
+      b = requestAnimationFrame(() => (window as { __apSplashDone?: () => void }).__apSplashDone?.());
+    });
+    return () => {
+      cancelAnimationFrame(a);
+      cancelAnimationFrame(b);
+    };
+  }, []);
+  useEffect(() => {
+    const check =() => setBookShown(!!document.querySelector("[data-continuous-book]"));
     // After the unmount's DOM removal too.
     const onBook = () => { check(); window.setTimeout(check, 0); };
     check();
@@ -199,6 +217,41 @@ export default function AppShell({
     searchQueryRef.current = searchQuery;
   }, [searchQuery]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  /** «Содержание» slides out / back (Vraja Lila 20.10.2026, ДА msg 5520; easing and
+   *  duration of the top bar, msg 5521 — app/globals.css .mobile-menu). Closing is a
+   *  state of its own: the panel stays in the DOM, without data-open (for the page
+   *  and the tests the menu is closed at once), inert, and slides back; a row just
+   *  chosen first shows its highlight for MENU_PICK_MS, then the panel goes and is
+   *  removed after MENU_CLOSE_MS. The A65 order is unchanged: the menu still closes
+   *  only once the new page is rendered. Reduced motion: removed at once. */
+  const [menuClosing, setMenuClosing] = useState(false);
+  const [menuClosingRun, setMenuClosingRun] = useState(false);
+  const [menuWasOpen, setMenuWasOpen] = useState(false);
+  const pickedAt = useRef(-1e9);
+  if (menuWasOpen !== mobileMenuOpen) {
+    setMenuWasOpen(mobileMenuOpen);
+    const reduce = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    setMenuClosing(!mobileMenuOpen && !reduce);
+    setMenuClosingRun(false);
+  }
+  useEffect(() => {
+    if (!menuClosing) return;
+    const wait = Math.max(0, MENU_PICK_MS - (performance.now() - pickedAt.current));
+    const run = window.setTimeout(() => setMenuClosingRun(true), wait);
+    const end = window.setTimeout(() => {
+      setMenuClosing(false);
+      setMenuClosingRun(false);
+    }, wait + MENU_CLOSE_MS + 30);
+    return () => {
+      window.clearTimeout(run);
+      window.clearTimeout(end);
+    };
+  }, [menuClosing]);
+  // A menu opened again starts without the last pick's highlight.
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    document.querySelectorAll(".mobile-menu [data-menu-picked]").forEach((n) => n.removeAttribute("data-menu-picked"));
+  }, [mobileMenuOpen]);
   /** Time of the last back / forward (its saved place wins over the anchor). */
   const poppedAt = useRef(-1e9);
   const [searchIndexes, setSearchIndexes] = useState<Record<string, IndexState>>({});
@@ -351,6 +404,16 @@ export default function AppShell({
    *  nothing — until the safety time; after it, only a tap on the place already
    *  loading is ignored (never a second navigation to it). */
   const guardTaps = (e: React.MouseEvent) => {
+    guardLoadingTaps(e);
+    if (e.defaultPrevented) return;
+    // A place chosen in the contents / results: its row lights up at once (#F5E6C8, 150 ms).
+    const link = (e.target as Element).closest?.("aside a[href]") as HTMLElement | null;
+    if (!link || !link.closest("nav, [data-result]")) return;
+    document.querySelectorAll(".mobile-menu [data-menu-picked]").forEach((n) => n.removeAttribute("data-menu-picked"));
+    link.setAttribute("data-menu-picked", "");
+    pickedAt.current = performance.now();
+  };
+  const guardLoadingTaps = (e: React.MouseEvent) => {
     if (!leaving) return;
     const el = e.target as Element;
     const link = el.closest?.("a[href]") as HTMLAnchorElement | null;
@@ -715,11 +778,15 @@ export default function AppShell({
       />
 
       {/* Contents / search panel (all screen sizes) */}
-      {mobileMenuOpen && (
+      {(mobileMenuOpen || menuClosing) && (
         <div
           className="mobile-menu no-print fixed inset-0 z-40"
           // Vraja Lila msg 5316 p. 3a: «the menu is open» is this attribute, not the panel's presence in the DOM.
-          data-open=""
+          data-open={mobileMenuOpen ? "" : undefined}
+          data-closing={mobileMenuOpen ? undefined : ""}
+          data-closing-run={!mobileMenuOpen && menuClosingRun ? "" : undefined}
+          inert={!mobileMenuOpen}
+          aria-hidden={mobileMenuOpen ? undefined : true}
           data-leaving={leaving ? "" : undefined}
           onClickCapture={guardTaps}
         >
