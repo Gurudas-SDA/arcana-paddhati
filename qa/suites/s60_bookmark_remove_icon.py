@@ -8,7 +8,7 @@ Vraja_Lila/faili/2026.10.20_Закладки — снять значком (ма
    «Закладка убрана · Отменить» (the same toast as for the top-bar button); «Отменить» brings it back;
    when the toast is over the row is gone;
  - a tap on the row itself (not the icon) still goes to the place.
-usage: python s56_bookmark_remove_icon.py <base-url>
+usage: python s60_bookmark_remove_icon.py <base-url>
 """
 import json
 import os
