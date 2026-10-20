@@ -904,6 +904,9 @@ def build_print(ed: Edition, fonts: dict, chrome: Path, work: Path, out_pdf: Pat
     html2.write_text(print_html(ed, furl, toc_pages, verse_pages, mood_pages), encoding="utf-8")
     chrome_pdf(chrome, html2, pdf2, profile)
     doc = fitz.open(pdf2)
+    # Night 21.10.2026: Chromium on the Linux server lays the cover picture at ~76 % of the page (317 x 451 pt of
+    # 420 x 595, also in the 19./20.10 builds) — the cover is drawn again over the whole first page, edge to edge.
+    doc[0].insert_image(doc[0].rect, filename=str(work / "cover.jpg"), keep_proportion=False)
     # Check pass 2 kept the layout of pass 1 (section starts).
     # (a verse listed twice on one page is linked once, so it has no destination)
     names2 = dest_pages(doc)
