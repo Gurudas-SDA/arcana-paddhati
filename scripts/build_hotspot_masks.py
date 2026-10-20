@@ -17,8 +17,16 @@ hand-tuned polygon in CONFIG when objects touch). Components that touch
 several objects (e.g. the tray under 1-3) are split by those polygons; lines
 that belong to no numbered object (the tray rim) are removed via "exclude".
 
+A picture with a layered SVG master (CONFIG "svg"; the «16 предметов» schematic, V20c — Vraja Lila msg 5658)
+takes none of the above: the SVG is rasterised with Chromium (Playwright) and mask N = exactly the pixels of
+layer N (the object and its printed number, as Vraja grouped them); the book's PNG and the lit picture come
+from the same rasterisation, so mask and picture match pixel for pixel (build_svg). After it, rerun
+scripts/images_webp.py (the app's WebP of the new PNG).
+
 Run:  python scripts/build_hotspot_masks.py [--only common/tilak.png] [--check out_dir]
-Needs numpy, scipy, Pillow. Rerun after changing a picture or CONFIG.
+Needs numpy, scipy, Pillow (+ Playwright Chromium for "svg"). Rerun after changing a picture or CONFIG.
+The svgo copy of a layered SVG: npx svgo@4.1.0 --config scripts/svgo/paraphernalia.svgo.config.mjs
+  -i masters/media/common/paraphernalia-layers-original.svg -o masters/media/common/paraphernalia-layers.svg
 """
 import json
 import sys
@@ -36,7 +44,6 @@ OUT = IMAGES / "hotspots"
 INK = 235        # luminance below this = a drawn pixel (incl. anti-aliasing)
 DILATE = 2       # px grown around the object's own pixels
 FEATHER = 0.8    # gaussian sigma of the soft edge (px)
-DARK = 128       # luminance below this = a black stroke (printed numbers), not a grey rim
 
 # Per image, per number (pixel coordinates of the natural-size picture):
 #   clip:  polygon; only pixels inside it can belong to the object
@@ -46,42 +53,19 @@ DARK = 128       # luminance below this = a black stroke (printed numbers), not 
 _TILAK_ELL = {"clip_ellipse": 1.15}
 
 CONFIG = {
-    # Vraja Lila's schematic (20.10.2026 msg 736/738; 1254 x 1254, three Deities + objects 1-18).
+    # Vraja Lila's schematic from her layered SVG (V20c, msg 5658, 21.10.2026: «разбил всё по слоям и по номерам»):
+    # layer _x31_ … _x31_8 (Illustrator's code for the ids "1" … "18") = object N with its printed number. The book
+    # picture, every mask and the lit picture are rasterised from that SVG (Chromium) — mask N = exactly layer N,
+    # no pixel guessing (build_svg). Master: masters/media/common/paraphernalia-layers.svg (svgo; Vraja's file
+    # unchanged next to it as paraphernalia-layers-original.svg).
     "common/paraphernalia.png": {
-        "label_r": 18,   # printed numbers ~30 x 24 px: both digits of "10"-"18" lie inside the circle
-        "solid": 5,      # whole object and number incl. lines crossing them (solidify; Vraja Lila msg 5617-5620)
-        "ink": True,     # lit picture baked in advance (write_ink; Vraja Lila msg 5637/5638)
-        # Rim of the big tray under 1-3 (outer double line + inner grey ring): belongs to no numbered object.
-        "exclude": [{"cx": 488.5, "cy": 993, "rx": 139.5, "ry": 77, "band": 6},
-                    {"cx": 490, "cy": 994, "rx": 123, "ry": 59, "band": 3}],
-        # The Deities: never a tap target (Vaishnava etiquette).
+        "svg": "masters/media/common/paraphernalia-layers.svg",
+        "ink": True,
+        # The Deities (layer "Deities"): never a tap target (Vaishnava etiquette). build_svg checks that the polygon
+        # holds all of the Deities and none of objects 1-18 (the notch over the incense 4 raised to y 660: its smoke
+        # reaches y 674 in the SVG; the Deities end at y 584 there).
         "inert": [[(85, 10), (1185, 10), (1185, 722), (1100, 724), (1060, 750), (900, 762), (830, 760), (760, 747),
-                   (712, 732), (712, 714), (560, 714), (560, 680), (415, 680), (415, 714), (85, 714)]],
-        "items": {
-            # cup with its spoon (the spoon's top end lies right of the bell's saucer)
-            "1": {"clip": [(406, 982), (460, 980), (471, 960), (476, 950), (485, 950), (485, 1053), (406, 1053)]},
-            # shell on its stand (both feet; the printed 2 sits right of the stand)
-            "2": {"clip": [(488, 920), (597, 920), (597, 965), (584, 968), (584, 1027), (488, 1027)]},
-            # bell on its saucer (stops before the spoon and the incense holder)
-            "3": {"clip": [(420, 848), (455, 848), (455, 915), (464, 935), (470, 950), (471, 960), (460, 980), (406, 980),
-                           (406, 930), (420, 915)]},
-            "4": {"clip": [(456, 676), (522, 676), (522, 877), (456, 877)]},
-            "5": {"clip": [(335, 800), (426, 800), (426, 850), (418, 872), (412, 888), (335, 888)]},
-            "6": {"clip": [(581, 734), (706, 734), (706, 862), (581, 862)]},
-            "7": {"clip": [(610, 904), (701, 904), (701, 961), (610, 961)]},
-            "8": {"clip": [(703, 873), (883, 873), (883, 983), (703, 983)]},
-            "9": {"clip": [(620, 1020), (708, 1020), (708, 1077), (620, 1077)]},
-            "10": {"clip": [(712, 1009), (853, 1009), (853, 1100), (712, 1100)]},
-            "11": {"clip": [(897, 867), (1231, 867), (1231, 1127), (897, 1127)]},
-            "12": {"clip": [(15, 877), (341, 877), (341, 1140), (15, 1140)]},
-            "13": {"clip": [(195, 746), (297, 746), (297, 863), (195, 863)]},
-            # flower plate + garland (the Tulasī bowl 15 sits at its upper left)
-            "14": {"clip": [(576, 1098), (830, 1098), (830, 1212), (543, 1212), (543, 1142), (556, 1134), (576, 1112)]},
-            "15": {"clip": [(488, 1082), (574, 1082), (574, 1110), (552, 1134), (540, 1141), (488, 1141)]},
-            "16": {"clip": [(436, 1142), (502, 1142), (502, 1190), (436, 1190)]},
-            "17": {"clip": [(302, 751), (438, 751), (438, 796), (302, 796)]},
-            "18": {"clip": [(72, 751), (193, 751), (193, 831), (72, 831)]},
-        },
+                   (712, 732), (712, 714), (560, 714), (560, 660), (415, 660), (415, 714), (85, 714)]],
     },
     # Emblem of the Gauḍīya Maṭha (Śrīla Bhaktisiddhānta Sarasvatī Ṭhākura): fields enclosed by the sector lines.
     # The three Deity fields are numbered list items 10-12 HERE ONLY — Satkirti's exception of 06.10.2026 to
@@ -170,54 +154,6 @@ def seed_region(ink, seeds, close):
     return reg
 
 
-def solidify(ink, core, ring, region, k):
-    """The whole object, not just its pieces (Vraja Lila msg 5617-5620, 20.10.2026: «не выделены целиком на
-    пересечении серых линий, а также цифры»). Where the tray's rims cross an object, the "exclude" bands cut
-    the object's own outline too, and the highlight showed gaps. Put the rim pixels of the object's region
-    back, find what that outline encloses (its inside), and take every drawn pixel within k px of the inside:
-    the object's own lines under the crossing and the stretch of rim that runs over the object. Rim that only
-    touches the outline from outside stays out (it borders no inside of the object)."""
-    if not core.any():
-        return core
-    outline = core | (ink & ring & region)
-    inside = ndi.binary_fill_holes(outline) & ~outline
-    inside = ndi.binary_opening(inside)          # no 1-px slivers between two touching lines
-    # only the object's own insides: mostly bounded by its own lines (not a sliver between two rim lines)
-    lab, n = ndi.label(inside)
-    if n:
-        rim = ndi.binary_dilation(inside, iterations=2) & ink & ~inside
-        idx = np.arange(1, n + 1)
-        near_lab = ndi.grey_dilation(lab, size=5)
-        own_b = ndi.sum(rim & core, near_lab, idx)
-        all_b = ndi.sum(rim, near_lab, idx)
-        good = np.zeros(n + 1, bool)
-        good[1:] = own_b >= 0.5 * np.maximum(all_b, 1)
-        inside = good[lab]
-    near = ndi.binary_dilation(inside, iterations=k)
-    return core | (ink & region & near)
-
-
-def solid_label(ink, core, region, dark):
-    """A printed number in full (Vraja Lila msg 5617-5620, 5637 «ты обрезал цифру»): every drawn pixel of the
-    number's box — the box of its black strokes, 2 px wider for the serifs — and the black pixels inside the
-    convex hull of its strokes. The serifs are thin and grey (anti-aliased), and where a tray rim runs along
-    a serif (the foot of «1») only the box keeps the serif whole; the bit of rim inside the box goes with it."""
-    if core.sum() < 3:
-        return core
-    ys, xs = np.where(dark & region & ndi.binary_dilation(core, iterations=3))   # its black strokes, also under a rim
-    if len(ys):
-        box = np.zeros_like(core)
-        box[max(ys.min() - 1, 0):ys.max() + 2, max(xs.min() - 2, 0):xs.max() + 3] = True
-        strokes = dark & region & ndi.binary_dilation(core, iterations=3)
-        core = core | (ink & region & box & ndi.binary_dilation(strokes, iterations=3))   # serif = next to a stroke
-    from scipy.spatial import ConvexHull
-    pts = np.argwhere(core)[:, ::-1].astype(float)
-    hull = ConvexHull(pts)
-    poly = [tuple(pts[v]) for v in hull.vertices]
-    hullm = ndi.binary_dilation(poly_mask(ink.shape, poly) | core, iterations=1)
-    return core | (ink & dark & region & hullm)
-
-
 def build(name, spec, cfg):
     W, H = spec["w"], spec["h"]
     a = np.asarray(Image.open(IMAGES / name).convert("RGBA")).astype(float) / 255
@@ -253,20 +189,14 @@ def build(name, spec, cfg):
             keep[0] = False
             return keep[lab] & reg
 
-        solid_k = ic.get("solid", cfg.get("solid", 0))
         m = pick(region, clip)
-        if solid_k:
-            m = solidify(ink, m, ring, region, solid_k)
         if "lx" in s:
             # The printed number: only components lying mostly inside its
             # circle, unless the label touches a line ("label_clip").
             lx, ly = s["lx"] / 100 * W, s["ly"] / 100 * H
             lr = ic.get("label_r", cfg.get("label_r", 12))
             circle = (xx - lx) ** 2 + (yy - ly) ** 2 <= lr * lr
-            lab_m = pick(circle, cfg.get("label_clip", False))
-            if solid_k:
-                lab_m = solid_label(ink, lab_m, (xx - lx) ** 2 + (yy - ly) ** 2 <= (lr + 6) ** 2, lum < DARK)
-            m |= lab_m
+            m |= pick(circle, cfg.get("label_clip", False))
         for cut in ic.get("cut", []):
             m &= ~poly_mask(ink.shape, cut)
         own[n] = m
@@ -297,6 +227,115 @@ def build(name, spec, cfg):
     return masks, own, conflicts, lum, stem
 
 
+# --- V20c: masks straight from the layers of Vraja Lila's SVG (msg 5658, 21.10.2026) -------------------------------
+
+def svg_layer_id(n):
+    """Illustrator's id of layer "n": every digit d as _x3d_, the first digit escaped only ("1" -> _x31_,
+    "10" -> _x31_0, "18" -> _x31_8)."""
+    return f"_x3{n[0]}_{n[1:]}"
+
+
+# A printed number's glyph on the rasterised layer: one connected piece (lines >= 50 % coverage) of the number font's
+# size, 21-26 px high, 12-19 px wide (measured on Vraja's SVG 21.10.2026: 14-17 x 23-24 for all 18 numbers; nothing
+# else in the 18 layers has that size). Used for the tap target's label position only — the mask is the whole layer.
+GLYPH_H = (21, 26)
+GLYPH_W = (12, 19)
+
+
+def number_glyphs(cov):
+    """Boxes (x0, y0, x1, y1) of the number glyphs in one layer's coverage."""
+    lab, _ = ndi.label(cov >= 0.5, structure=np.ones((3, 3)))
+    out = []
+    for sl in ndi.find_objects(lab):
+        h, w = sl[0].stop - sl[0].start, sl[1].stop - sl[1].start
+        if GLYPH_H[0] <= h <= GLYPH_H[1] and GLYPH_W[0] <= w <= GLYPH_W[1]:
+            out.append((sl[1].start, sl[0].start, sl[1].stop, sl[0].stop))
+    return out
+
+
+_SVG_SETUP = """([w, h]) => { const s = document.querySelector('svg'); s.setAttribute('width', w); s.setAttribute('height', h);
+  s.style.display = 'block'; const bg = document.getElementById('background'); if (bg) bg.remove(); }"""
+_SVG_SHOW = """(ids) => { for (const c of document.querySelector('svg').children)
+  if (c.tagName !== 'defs' && c.tagName !== 'style') c.style.display = ids === null || ids.includes(c.id) ? '' : 'none'; }"""
+def render_svg(svg_path, w, h, layers):
+    """Rasterise the SVG with Chromium (Playwright) at w x h, 1 px = 1 SVG unit. Returns the whole picture on white
+    (luminance), the coverage 0..1 of every layer id in `layers` and the objects-only picture (all but the last id)."""
+    import io
+    import re
+    from playwright.sync_api import sync_playwright
+    svg = re.sub(r"^\s*<\?xml[^>]*>", "", Path(svg_path).read_text(encoding="utf8"))
+
+    def shot(pg):
+        a = np.asarray(Image.open(io.BytesIO(pg.screenshot(omit_background=True))).convert("RGBA")).astype(float)
+        cov = a[..., 3] / 255
+        lum = a[..., :3] @ [0.299, 0.587, 0.114]
+        return cov, lum * cov + 255 * (1 - cov)
+
+    with sync_playwright() as p:
+        b = p.chromium.launch()
+        pg = b.new_page(viewport={"width": w, "height": h}, device_scale_factor=1)
+        pg.set_content(f'<!doctype html><html><body style="margin:0;background:transparent">{svg}</body></html>')
+        pg.evaluate(_SVG_SETUP, [w, h])
+        pg.evaluate(_SVG_SHOW, None)
+        _, whole = shot(pg)
+        pg.evaluate(_SVG_SHOW, list(layers[:-1]))
+        _, objects = shot(pg)
+        cov = {}
+        for lid in layers:
+            pg.evaluate(_SVG_SHOW, [lid])
+            cov[lid], _ = shot(pg)
+        b.close()
+    return whole, cov, objects
+
+
+def build_svg(name, spec, cfg):
+    """Picture, masks and lit picture from the SVG layers: mask N = every pixel layer N covers (its lines and its
+    printed number), nothing else. The spot geometry (tap ellipse = the object's box, label = its number's box)
+    comes from the same layer. Writes public/media/<name> (the book's PNG, also PDF / EPUB). Returns problems
+    instead of guessing when a layer is missing or has no number."""
+    W, H = spec["w"], spec["h"]
+    nums = sorted(spec["spots"], key=lambda n: [int(x) for x in n.split(".")])
+    ids = {n: svg_layer_id(n) for n in nums}
+    whole, cov, objects = render_svg(ROOT / cfg["svg"], W, H, [ids[n] for n in nums] + ["Deities"])
+    Image.fromarray(whole.round().astype(np.uint8), "L").save(IMAGES / name, optimize=True)
+    problems = []
+    own, masks = {}, {}
+    yy, xx = np.mgrid[0:H, 0:W]
+    for n in nums:
+        c = cov[ids[n]]
+        m = c > 0
+        if not m.any():
+            problems.append(f"layer {ids[n]} (object {n}) missing or empty")
+            continue
+        own[n] = m
+        masks[n] = m.astype(float)
+        g = number_glyphs(c)
+        if len(g) != len(n):
+            problems.append(f"layer {ids[n]}: {len(g)} number glyphs, expected {len(n)} (number {n})")
+            continue
+        g = np.array(g)
+        x0, y0, x1, y1 = g[:, 0].min(), g[:, 1].min(), g[:, 2].max(), g[:, 3].max()
+        sp = spec["spots"][n]
+        sp["lx"], sp["ly"] = round((x0 + x1) / 2 / W * 100, 2), round((y0 + y1) / 2 / H * 100, 2)
+        label = (xx >= x0 - 3) & (xx < x1 + 3) & (yy >= y0 - 3) & (yy < y1 + 3)
+        ys, xs = np.where((c >= 0.5) & ~label)
+        sp["x"], sp["y"] = round((xs.min() + xs.max() + 1) / 2 / W * 100, 2), round((ys.min() + ys.max() + 1) / 2 / H * 100, 2)
+        sp["rx"], sp["ry"] = round((xs.max() + 1 - xs.min()) / 2 / W * 100, 2), round((ys.max() + 1 - ys.min()) / 2 / H * 100, 2)
+    conflicts = {}
+    for n, m in own.items():
+        k = int(sum((m & m2).sum() for n2, m2 in own.items() if n2 != n))
+        if k:
+            conflicts[n] = k
+    inert = np.logical_or.reduce([poly_mask((H, W), p) for p in cfg.get("inert", [])] or [np.zeros((H, W), bool)])
+    deities = cov["Deities"] > 0
+    if cfg.get("inert") and (deities & ~inert).any():
+        problems.append(f"{int((deities & ~inert).sum())} px of the Deities outside the inert polygon")
+    for n, m in own.items():
+        if (m & inert).any():
+            problems.append(f"object {n}: {int((m & inert).sum())} px inside the inert polygon")
+    return masks, own, conflicts, objects, problems
+
+
 def main():
     data = json.loads(DATA.read_text(encoding="utf8"))
     OUT.mkdir(parents=True, exist_ok=True)
@@ -307,7 +346,14 @@ def main():
         if only and name != only:
             continue
         cfg = CONFIG.get(name, {})
-        masks, own, conflicts, lum, stem = build(name, spec, cfg)
+        if "svg" in cfg:
+            masks, own, conflicts, lit, problems = build_svg(name, spec, cfg)
+            stem = Path(name).stem
+            if problems:
+                ok = False
+                print(f"{name}: " + "; ".join(problems))
+        else:
+            masks, own, conflicts, lum, stem = build(name, spec, cfg)
         if conflicts:
             ok = False
             print(f"{name}: pixels claimed by several objects: {conflicts}")
@@ -322,7 +368,7 @@ def main():
             spec["spots"][n]["mask"] = fn
             print(f"{name} {n}: {int(own[n].sum())} px -> {fn}")
         if cfg.get("ink"):
-            spec["ink"] = write_ink(name, stem, masks)
+            spec["ink"] = write_ink(stem, lit)
             print(f"{name}: ink -> {spec['ink']}")
         else:
             spec.pop("ink", None)
@@ -338,25 +384,15 @@ def main():
         sys.exit(1)
 
 
-INK_WHITE = 0.94   # luminance at/above this = paper (white) in the lit picture
-INK_POWER = 4.5    # darkening curve of the lit picture (stronger than the SVG filter's gamma 3.2: grey inner lines dark too)
-
-
-def write_ink(name, stem, masks):
-    """The lit picture baked in advance (Vraja Lila msg 5637/5638, 20.10.2026: on the iPhone the inner lines of a
-    lit object — the shell's spiral, the spoon — stayed grey; the SVG gamma filter on the zoomed picture is not
-    reliable there). Every drawn line, grey ones too, pushed towards black; paper stays white; outside all
-    masks plain white (smaller file). Written as <stem>/ink-<hash>.webp next to the masks; the app draws it
-    through the mask without any filter."""
+def write_ink(stem, lit):
+    """The lit picture baked in advance (Vraja Lila msg 5637/5638, 20.10.2026: on the iPhone the SVG filter left the
+    inner lines of a lit object grey). V20c: the objects 1-18 exactly as Vraja drew them (her SVG layers, no Deities,
+    no tray), on white — `lit` = luminance 0..255. Written as <stem>/ink-<hash>.webp (lossless) next to the masks;
+    the app draws it through the mask without any filter."""
     import hashlib
-    a = np.asarray(Image.open(IMAGES / name).convert("RGBA")).astype(float) / 255
-    rgb = a[..., :3] * a[..., 3:4] + (1 - a[..., 3:4])
-    t = np.clip(rgb / INK_WHITE, 0, 1) ** INK_POWER
-    any_mask = np.logical_or.reduce([m > 0 for m in masks.values()])
-    any_mask = ndi.binary_dilation(any_mask, iterations=2)
-    t[~any_mask] = 1
-    img = Image.fromarray((t * 255).round().astype(np.uint8), "RGB").convert("L")
-    buf = __import__("io").BytesIO()
+    import io
+    img = Image.fromarray(np.asarray(lit).round().astype(np.uint8), "L")
+    buf = io.BytesIO()
     img.save(buf, "WEBP", lossless=True, method=6)
     h = hashlib.sha1(buf.getvalue()).hexdigest()[:8]
     for old in (OUT / stem).glob("ink-*.webp"):
