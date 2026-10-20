@@ -99,5 +99,10 @@
   "offline.save.countShort": "{done} / {total}",
   "resume.title": "Continue reading",
   "sidebar.bookmarks": "Bookmarks",
-  "bookmarks.empty": "No bookmarks yet."
+  "bookmarks.empty": "No bookmarks yet.",
+  "reader.bookmarkAdd": "Add a bookmark",
+  "reader.bookmarkRemove": "Remove the bookmark",
+  "bookmark.added": "Bookmark added",
+  "bookmark.removed": "Bookmark removed",
+  "bookmark.undo": "Undo"
 }

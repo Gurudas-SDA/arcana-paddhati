@@ -1,6 +1,9 @@
 {
   "_why": "Interface labels shown in English in languages other than RU/EN (language.fallbackSuffix «(EN)»): Vraja Lila msg 5316/5318, 19.10.2026 — RU and EN by hand, no machine translation (a character outside the font subset). qa s32 accepts these keys missing in other ui.<lang>.json.",
   "keys": [
+    "bookmark.added",
+    "bookmark.removed",
+    "bookmark.undo",
     "bookmarks.empty",
     "offline.kind.images",
     "offline.kind.other",
@@ -20,6 +23,8 @@
     "offline.save.retry",
     "offline.save.textMissing",
     "offline.save.textOk",
+    "reader.bookmarkAdd",
+    "reader.bookmarkRemove",
     "resume.title",
     "sidebar.bookmarks"
   ]
