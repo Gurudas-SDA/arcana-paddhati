@@ -185,10 +185,10 @@ export default function ReaderChrome({
   const [canBack, setCanBack] = useState(true);
   const [canForward, setCanForward] = useState(true);
   /** The drawer is on screen (open, or sliding back). While it is, the bottom bar
-   *  does not change at all — not even «‹ Назад» / «Вперёд ›» going pale because
+   *  does not change its look — not even «‹ Назад» / «Вперёд ›» going pale because
    *  the drawer took a history step (Vraja Lila 20.10.2026: «нижняя панель не
-   *  должна мерцать при выдвижении боковой панели и её задвижении»). The taps
-   *  still use the exact canBack / canForward. */
+   *  должна мерцать при выдвижении боковой панели и её задвижении»). Only the look
+   *  (data-pale) waits; aria-disabled and the taps stay exact. */
   const menuShown = menuOpen || menuClosing;
   const [navLook, setNavLook] = useState({ back: true, forward: true });
   if (!menuShown && (navLook.back !== canBack || navLook.forward !== canForward)) {
@@ -955,7 +955,8 @@ export default function ReaderChrome({
             type="button"
             className="reader-btn reader-history-btn"
             onClick={() => historyStep("back")}
-            aria-disabled={!navLook.back}
+            aria-disabled={!canBack}
+            data-pale={navLook.back ? undefined : ""}
             data-reader-nav="back"
           >
             <span aria-hidden="true" className="reader-history-arrow">‹</span>
@@ -975,7 +976,8 @@ export default function ReaderChrome({
             type="button"
             className="reader-btn reader-history-btn"
             onClick={() => historyStep("forward")}
-            aria-disabled={!navLook.forward}
+            aria-disabled={!canForward}
+            data-pale={navLook.forward ? undefined : ""}
             data-reader-nav="forward"
           >
             <span>{t(ui, "reader.forward")}</span>

@@ -1039,7 +1039,8 @@ body,
   line-height: 1;
   margin-top: -3px;
 }
-.reader-history-btn[aria-disabled="true"] {
+/* pale = no step there; the look holds while «Содержание» is on screen (data-pale, V19) */
+.reader-history-btn[data-pale] {
   opacity: 0.35;
   cursor: default;
 }
