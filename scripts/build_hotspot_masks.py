@@ -50,6 +50,7 @@ CONFIG = {
     "common/paraphernalia.png": {
         "label_r": 18,   # printed numbers ~30 x 24 px: both digits of "10"-"18" lie inside the circle
         "solid": 5,      # whole object and number incl. lines crossing them (solidify; Vraja Lila msg 5617-5620)
+        "ink": True,     # lit picture baked in advance (write_ink; Vraja Lila msg 5637/5638)
         # Rim of the big tray under 1-3 (outer double line + inner grey ring): belongs to no numbered object.
         "exclude": [{"cx": 488.5, "cy": 993, "rx": 139.5, "ry": 77, "band": 6},
                     {"cx": 490, "cy": 994, "rx": 123, "ry": 59, "band": 3}],
@@ -197,11 +198,18 @@ def solidify(ink, core, ring, region, k):
 
 
 def solid_label(ink, core, region, dark):
-    """A printed number in full: the black stroke pixels inside the convex hull of its own strokes (a rim
-    crossing the digit cut the strokes it passes through). Only black (the digits are printed black, the
-    rims are grey): a rim passing through the digit's hull stays faded and does not look like part of it."""
+    """A printed number in full (Vraja Lila msg 5617-5620, 5637 «ты обрезал цифру»): every drawn pixel of the
+    number's box — the box of its black strokes, 2 px wider for the serifs — and the black pixels inside the
+    convex hull of its strokes. The serifs are thin and grey (anti-aliased), and where a tray rim runs along
+    a serif (the foot of «1») only the box keeps the serif whole; the bit of rim inside the box goes with it."""
     if core.sum() < 3:
         return core
+    ys, xs = np.where(dark & region & ndi.binary_dilation(core, iterations=3))   # its black strokes, also under a rim
+    if len(ys):
+        box = np.zeros_like(core)
+        box[max(ys.min() - 1, 0):ys.max() + 2, max(xs.min() - 2, 0):xs.max() + 3] = True
+        strokes = dark & region & ndi.binary_dilation(core, iterations=3)
+        core = core | (ink & region & box & ndi.binary_dilation(strokes, iterations=3))   # serif = next to a stroke
     from scipy.spatial import ConvexHull
     pts = np.argwhere(core)[:, ::-1].astype(float)
     hull = ConvexHull(pts)
@@ -313,6 +321,11 @@ def main():
             img.save(OUT / fn, optimize=True)
             spec["spots"][n]["mask"] = fn
             print(f"{name} {n}: {int(own[n].sum())} px -> {fn}")
+        if cfg.get("ink"):
+            spec["ink"] = write_ink(name, stem, masks)
+            print(f"{name}: ink -> {spec['ink']}")
+        else:
+            spec.pop("ink", None)
         inert = cfg.get("inert", [])
         if inert:
             spec["inert"] = [[[round(x / spec["w"] * 100, 2), round(y / spec["h"] * 100, 2)] for x, y in p] for p in inert]
@@ -323,6 +336,34 @@ def main():
     DATA.write_text(json.dumps(data, ensure_ascii=False, indent=1) + "\n", encoding="utf8")
     if not ok:
         sys.exit(1)
+
+
+INK_WHITE = 0.94   # luminance at/above this = paper (white) in the lit picture
+INK_POWER = 4.5    # darkening curve of the lit picture (stronger than the SVG filter's gamma 3.2: grey inner lines dark too)
+
+
+def write_ink(name, stem, masks):
+    """The lit picture baked in advance (Vraja Lila msg 5637/5638, 20.10.2026: on the iPhone the inner lines of a
+    lit object — the shell's spiral, the spoon — stayed grey; the SVG gamma filter on the zoomed picture is not
+    reliable there). Every drawn line, grey ones too, pushed towards black; paper stays white; outside all
+    masks plain white (smaller file). Written as <stem>/ink-<hash>.webp next to the masks; the app draws it
+    through the mask without any filter."""
+    import hashlib
+    a = np.asarray(Image.open(IMAGES / name).convert("RGBA")).astype(float) / 255
+    rgb = a[..., :3] * a[..., 3:4] + (1 - a[..., 3:4])
+    t = np.clip(rgb / INK_WHITE, 0, 1) ** INK_POWER
+    any_mask = np.logical_or.reduce([m > 0 for m in masks.values()])
+    any_mask = ndi.binary_dilation(any_mask, iterations=2)
+    t[~any_mask] = 1
+    img = Image.fromarray((t * 255).round().astype(np.uint8), "RGB").convert("L")
+    buf = __import__("io").BytesIO()
+    img.save(buf, "WEBP", lossless=True, method=6)
+    h = hashlib.sha1(buf.getvalue()).hexdigest()[:8]
+    for old in (OUT / stem).glob("ink-*.webp"):
+        old.unlink()
+    fn = f"{stem}/ink-{h}.webp"
+    (OUT / fn).write_bytes(buf.getvalue())
+    return fn
 
 
 def preview(name, spec, masks, out_dir):
