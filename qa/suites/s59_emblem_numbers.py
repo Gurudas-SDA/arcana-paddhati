@@ -9,6 +9,11 @@ Rule text (verbatim, msg 5429/5432): «утверждено» / «делай с 
     11 right of Rādhā (93.5; 49.5); the others in their places (12 by the throne);
   - the app's picture carries no burned-in numbers (they are drawn by the app); the PNG for the
     PDF / EPUB keeps its numbers.
+Vraja Lila msg 5664 (21.10.2026, verbatim): «отодвинь цифры с подложкой подальше» — the numbers 2.1–2.6
+  (with their pill) do not cover the Sanskrit words of the triangles (यशः, श्रीः, ज्ञानम्, वैराग्यम्, ऐश्वर्यम्, वीर्यम्) and stay by
+  their own triangle (at its outer point). Word boxes are measured from the clean picture (px of 1000 × 1000);
+  gap ≥ 15 ‰ of the picture width and «by its triangle» ≤ 60 ‰ from the outer point — tehniskais slieksnis
+  Lipikāra, nav S noteikums.
 Checks: every language (desktop: 18 numbers, style, places); iPhone / iPad / desktop: also taps on the
 numbers 1–11 select their row, and «Тёмный»: number contrast on its pill ≥ 4.5 (# tehniskais slieksnis
 Lipikāra, nav S noteikums — WCAG AA). usage: python s59_emblem_numbers.py <base-url>
@@ -28,12 +33,19 @@ BASE = sys.argv[1].rstrip("/")
 ORIGIN = BASE.split("/arcana-paddhati")[0]
 NUMS = ["1", "2", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
 # places on the picture (% of width / height) — the maquette «после исправления»
-PLACE = {"1": (40.4, 50.0), "2": (63.2, 50.0), "2.1": (50.0, 34.0), "2.2": (63.6, 41.3), "2.3": (63.6, 58.7),
-         "2.4": (50.0, 66.2), "2.5": (36.4, 58.7), "2.6": (36.4, 41.3), "3": (30.0, 10.5), "4": (65.0, 34.5),
+PLACE = {"1": (40.4, 50.0), "2": (63.2, 50.0), "2.1": (50.0, 32.8), "2.2": (68.5, 41.0), "2.3": (68.5, 59.0),
+         "2.4": (50.0, 67.2), "2.5": (30.5, 59.0), "2.6": (30.5, 41.0), "3": (30.0, 10.5), "4": (65.0, 34.5),
          "5": (16.5, 76.0), "6": (83.2, 76.0), "7": (40.0, 79.0), "8": (78.0, 86.0), "9": (52.7, 76.8),
          "10": (57.0, 8.0), "11": (93.5, 49.5), "12": (9.0, 33.5)}
 TOL = 1.0          # % — tehniskais slieksnis Lipikāra, nav S noteikums
 CONTRAST_MIN = 4.5  # tehniskais slieksnis Lipikāra, nav S noteikums (WCAG AA)
+# Sanskrit words in the six triangles (x0, y0, x1, y1 — px of the 1000 × 1000 clean picture, msg 5664)
+WORDS = {"2.1": (480, 372, 509, 384), "2.2": (590, 424, 611, 441), "2.3": (588, 561, 620, 577),
+         "2.4": (477, 607, 514, 627), "2.5": (372, 559, 406, 577), "2.6": (371, 423, 400, 445)}
+# outer point of each triangle (px of the same picture)
+TIPS = {"2.1": (494, 325), "2.2": (647, 408), "2.3": (646, 586), "2.4": (494, 672), "2.5": (347, 590), "2.6": (343, 410)}
+WORD_GAP = 15   # ‰ of the picture width — tehniskais slieksnis Lipikāra, nav S noteikums
+TIP_NEAR = 60   # ‰ — tehniskais slieksnis Lipikāra, nav S noteikums
 TAP_NUMS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
 # burned-in numbers 1–9 of the original picture (px of the 1000×1000 PNG)
 BURNED = {"2": (623, 639, 491, 512), "3": (291, 307, 97, 118), "4": (641, 659, 337, 357),
@@ -63,6 +75,51 @@ PROBE = """() => {
   });
   return {tags, img: img.currentSrc || img.src, fig: [fr.left, fr.top, fr.width, fr.height]};
 }"""
+
+
+def contrast_low(pg, opts, info):
+    shot = Image.open(io.BytesIO(pg.screenshot())).convert("RGB")
+    sc = shot.width / opts["viewport"]["width"]
+    low = {}
+    for t in info["tags"]:
+        x, y, w, h = [v * sc for v in t["box"]]
+        crop = shot.crop((int(x), int(y), int(x + w), int(y + h)))
+        ls = sorted(lum(crop.getpixel((i, j))) for i in range(crop.width) for j in range(crop.height))
+        if not ls:
+            low[t["n"]] = "empty"
+            continue
+        dark, light = ls[int(len(ls) * 0.05)], ls[int(len(ls) * 0.9)]
+        cr = (light + 0.05) / (dark + 0.05)
+        if cr < CONTRAST_MIN:
+            low[t["n"]] = round(cr, 2)
+    return low
+
+
+def rect_gap(a, b):
+    dx = max(b[0] - a[2], a[0] - b[2], 0)
+    dy = max(b[1] - a[3], a[1] - b[3], 0)
+    return (dx * dx + dy * dy) ** 0.5
+
+
+def word_checks(dev, lang, info):
+    """msg 5664: 2.1–2.6 with their pill clear of the triangle words, each by its own triangle."""
+    fx, fy, fw, fh = info["fig"]
+    close, far = {}, {}
+    for t in info["tags"]:
+        if t["n"] not in WORDS:
+            continue
+        x, y, w, h = t["box"]
+        r = ((x - fx) / fw * 1000, (y - fy) / fh * 1000, (x + w - fx) / fw * 1000, (y + h - fy) / fh * 1000)
+        g = min(rect_gap(r, wb) for wb in WORDS.values())
+        if g < WORD_GAP:
+            close[t["n"]] = round(g, 1)
+        tx, ty = TIPS[t["n"]]
+        d = ((tx - (r[0] + r[2]) / 2) ** 2 + (ty - (r[1] + r[3]) / 2) ** 2) ** 0.5
+        if d > TIP_NEAR:
+            far[t["n"]] = round(d)
+    check(dev, f"{lang}: numbers 2.1–2.6 with their pill do not cover the Sanskrit words (gap ≥ {WORD_GAP} ‰)",
+          not close, close)
+    check(dev, f"{lang}: each of 2.1–2.6 stays by its own triangle (≤ {TIP_NEAR} ‰ from its outer point)", not far, far)
 
 
 def check(dev, name, ok, evidence=""):
@@ -150,6 +207,7 @@ with sync_playwright() as p:
             check("desktop", f"{lang}: emblem picture found", False)
             continue
         style_checks("desktop", lang, info)
+        word_checks("desktop", lang, info)
     b.close()
 
     for dev, eng, opts in DEVICES:
@@ -165,27 +223,27 @@ with sync_playwright() as p:
                     check(dev, f"{lang} {theme}: emblem picture found", False)
                     continue
                 style_checks(dev, f"{lang} {theme}", info)
-                # contrast of each number on its pill (rendered pixels)
-                shot = Image.open(io.BytesIO(pg.screenshot())).convert("RGB")
-                sc = shot.width / opts["viewport"]["width"]
-                low = {}
-                for t in info["tags"]:
-                    x, y, w, h = [v * sc for v in t["box"]]
-                    crop = shot.crop((int(x), int(y), int(x + w), int(y + h)))
-                    ls = sorted(lum(crop.getpixel((i, j))) for i in range(crop.width) for j in range(crop.height))
-                    if not ls:
-                        low[t["n"]] = "empty"
-                        continue
-                    dark, light = ls[int(len(ls) * 0.05)], ls[int(len(ls) * 0.9)]
-                    cr = (light + 0.05) / (dark + 0.05)
-                    if cr < CONTRAST_MIN:
-                        low[t["n"]] = round(cr, 2)
+                word_checks(dev, f"{lang} {theme}", info)
+                # contrast of each number on its pill (rendered pixels); up to 3 shots — under server load
+                # the first shot can fall into the page's fade / a scroll still settling (same numbers on live
+                # 21.10 gave 1.0–2.5 on every pill, then ≥ 4.5 on the next shot)
+                for attempt in range(3):
+                    if attempt:
+                        pg.wait_for_timeout(900)
+                        info = pg.evaluate(PROBE)
+                        pg.wait_for_timeout(500)
+                        info = pg.evaluate(PROBE)
+                    low = contrast_low(pg, opts, info)
+                    if not low:
+                        break
                 check(dev, f"{lang} {theme}: every number readable on its pill (contrast ≥ {CONTRAST_MIN})", not low, low)
                 if theme != "day" or lang != "ru-iast":
                     continue
                 # taps on the numbers select their row (as before; 8 now by the mridanga)
                 missed = {}
                 for n in TAP_NUMS:
+                    pg.evaluate(PROBE)
+                    pg.wait_for_timeout(350)  # PROBE scrolls the picture into view — measure after it settles
                     info = pg.evaluate(PROBE)
                     t = next((t for t in info["tags"] if t["n"] == n), None)
                     if not t:
