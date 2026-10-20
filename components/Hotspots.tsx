@@ -417,7 +417,13 @@ function HotspotCanvas({
           // The selected object(s): the same picture in strong black ink, seen
           // through a soft-edged window over the faded picture.
           <g key={active!.seq} pointerEvents="none" className="hs-lit">
-            <image href={webp ?? src} width={w} height={h} filter={`url(#${inkId})`} mask={`url(#${maskId})`} />
+            {data.ink ? (
+              // Lit picture baked in advance (scripts/build_hotspot_masks.py write_ink; Vraja Lila msg 5637/5638:
+              // on the iPhone the SVG filter left the object's inner lines grey) — no filter needed.
+              <image href={maskUrl(src, data.ink)} width={w} height={h} mask={`url(#${maskId})`} />
+            ) : (
+              <image href={webp ?? src} width={w} height={h} filter={`url(#${inkId})`} mask={`url(#${maskId})`} />
+            )}
           </g>
         )}
 
@@ -593,6 +599,7 @@ export function HotspotFigure({
     for (const sp of Object.values(data.spots)) {
       if (sp.mask) new Image().src = maskUrl(src, sp.mask);
     }
+    if (data.ink) new Image().src = maskUrl(src, data.ink);
   }, [ctx, data, src]);
 
   if (!ctx) {

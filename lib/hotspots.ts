@@ -31,6 +31,9 @@ export interface HotspotImage {
   spots: Record<string, Hotspot>;
   /** Polygons ([x%, y%] points) that are no tap target at all (the Deities). */
   inert?: number[][][];
+  /** The lit picture baked in advance, under public/media/hotspots/ (e.g. "paraphernalia/ink-4b887a8a.webp"):
+   *  drawn through the masks instead of the picture with the SVG ink filter. */
+  ink?: string;
   /** Text (outside the numbered list) linked to a spot: per spot number, the
    *  exact Sanskrit phrases — a verse line or an inline ⟦mantra⟧ — whose tap
    *  lights it (Reader v7.8: the crown, «vāsudevāya mūrdhani» /

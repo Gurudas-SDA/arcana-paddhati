@@ -25,6 +25,15 @@ it, and its printed number is whole.
     - all 18: a drawn black pixel (luminance < 128 — # tehniskais slieksnis Lipikāra, nav S noteikums) enclosed by an
       object's lit outline is lit too (no line inside the object left faded); no drawn pixel is lit in two masks.
 
+V20b — Vraja Lila msg 5637 «ты обрезал цифру» (the foot of «1») + 5638 (the shell's spiral and the stand's inner lines,
+the spoon in the cup stay grey on the iPhone; all lines of the object inside its outline must be lit).
+  static:
+    - all 18 numbers whole: every drawn pixel (luminance < 200 — # tehniskais slieksnis Lipikāra, nav S noteikums)
+      next to the number's black strokes (≤ 2 px, inside their box + 2 px) is lit in its own mask;
+    - the lit picture is baked (data "ink", picture size) and every drawn pixel (< 200) under a lit mask is dark in it
+      (< 128 — tehniskais slieksnis Lipikāra) — no inner line of a lit object stays grey; spoon / spiral in CROSSINGS.
+  browser: after a tap the lit layer draws that baked picture, with no SVG filter.
+
 usage: python s61_paraphernalia_schema.py <base-url> [--static]   devices: QA_DEVICES
 """
 import hashlib
@@ -100,6 +109,8 @@ CROSSINGS = [
     ("3", 432, 943, "bell band, under the inner rim"),
     ("3", 392, 959, "number 3, top stroke under the outer rim"),
     ("5", 407, 876, "lamp foot, right end"),
+    ("1", 452, 1000, "spoon inside the cup"),
+    ("2", 491, 960, "shell spiral"),
 ]
 DARK = 128   # tehniskais slieksnis Lipikāra, nav S noteikums
 
@@ -136,6 +147,47 @@ def mask_checks(hs):
             if c:
                 shared[f"{a}+{b}"] = c
     check("static", "all 18: no drawn pixel lit in two masks (never a piece of a neighbour)", not shared, shared)
+
+    # numbers whole, serifs included
+    H, W = lum.shape
+    yy, xx = np.mgrid[0:H, 0:W]
+    drawn = lum < 200
+    cut = {}
+    for n in NUMS:
+        sp = hs["spots"][n]
+        lx, ly = sp["lx"] / 100 * W, sp["ly"] / 100 * H
+        circle = (xx - lx) ** 2 + (yy - ly) ** 2 <= 18 ** 2
+        lab, k = ndi.label(dark, structure=np.ones((3, 3)))
+        ins = np.bincount(lab[circle].ravel(), minlength=k + 1)
+        tot = np.bincount(lab.ravel(), minlength=k + 1)
+        keep = (ins >= 0.6 * np.maximum(tot, 1))
+        keep[0] = False
+        strokes = keep[lab] & circle
+        ys, xs = np.where(strokes)
+        box = np.zeros_like(strokes)
+        box[ys.min() - 1:ys.max() + 2, xs.min() - 2:xs.max() + 3] = True
+        need = drawn & box & ndi.binary_dilation(strokes, iterations=2)
+        miss = need & ~lit[n]
+        if miss.any():
+            my, mx = np.where(miss)
+            cut[n] = {"px": int(miss.sum()), "first": [int(mx[0]), int(my[0])]}
+    check("static", "all 18 numbers whole: every drawn pixel of the number (serifs too) lit in its mask", not cut, cut)
+
+    # the baked lit picture: every line under a lit mask dark
+    ink_rel = hs.get("ink")
+    p = os.path.join(qa.REPO, "public", "media", "hotspots", *(ink_rel or "-").split("/"))
+    if not ink_rel or not os.path.exists(p):
+        check("static", "lit picture baked (hotspots.json \"ink\")", False, ink_rel)
+        return
+    ink_img = np.asarray(Image.open(p).convert("L"))
+    check("static", f"lit picture {ink_rel} has the picture's size", ink_img.shape == lum.shape, list(ink_img.shape))
+    grey = {}
+    for n in NUMS:
+        g = drawn & lit[n] & (ink_img >= 128)
+        if g.any():
+            gy, gx = np.where(g)
+            grey[n] = {"px": int(g.sum()), "first": [int(gx[0]), int(gy[0])]}
+    check("static", "all 18: every line inside a lit object is dark in the lit picture (no grey inner lines)", not grey, grey)
 
 
 PROBE = """() => {
@@ -217,6 +269,10 @@ def run(p, dev, eng, o, webp):
                 if not act or not all(n in a.split(",") for a in act):
                     bad[n] = act
             check(dev, f"{lang}/{sid}: tap on object {','.join(nums)} → its row lit", not bad, bad)
+            lit_img = pg.evaluate("""() => { const i = document.querySelector('.app-main .hs-lit image');
+                return i ? {href: i.getAttribute('href'), filter: i.getAttribute('filter')} : null; }""")
+            check(dev, f"{lang}/{sid}: the lit layer draws the baked picture, no SVG filter",
+                  lit_img and "/media/hotspots/paraphernalia/ink-" in (lit_img["href"] or "") and not lit_img["filter"], lit_img)
     b.close()
 
 
