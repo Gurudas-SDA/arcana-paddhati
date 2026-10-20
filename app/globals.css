@@ -627,12 +627,15 @@ html[data-reader-theme="night"] .home-save-track i.part {
    row on a narrow screen. Decoration, not a state: the selection band
    (rgba(212,168,67,.32)) sits on top of it and stays clearly stronger.
    Taps are unchanged, the band is not a target (rules §1, §11). */
-.hs-row:nth-of-type(even) {
+/* The same bands on every two-column list (.pl-row; Vraja Lila msg 5398/5399, 20.10.2026). */
+.hs-row:nth-of-type(even),
+.pl-row:nth-of-type(even) {
   background-color: var(--rd-row-stripe);
   border-radius: 4px;
 }
 @media print {
-  .hs-row:nth-of-type(even) {
+  .hs-row:nth-of-type(even),
+  .pl-row:nth-of-type(even) {
     background-color: transparent !important;
   }
 }

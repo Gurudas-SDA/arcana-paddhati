@@ -480,7 +480,11 @@ function ContentBlock({
                 {cells}
               </HotspotRow>
             ) : (
-              <React.Fragment key={i}>{cells}</React.Fragment>
+              // One subgrid row per entry, so the alternating band (.pl-row, same as the tilak list's
+              // .hs-row) keeps a wrapped label and its value together (Vraja Lila msg 5398/5399, 20.10.2026).
+              <div key={i} className="pl-row col-span-full grid grid-cols-subgrid">
+                {cells}
+              </div>
             );
           })}
         </div>
@@ -608,6 +612,7 @@ function ContentBlocks({ items, labels, title }: { items: ContentItem[]; labels:
     if (!textPictures.length || !["verse", "instruction", "text"].includes(item.type)) return undefined;
     return textPictures.reduce((a, b) => (Math.abs(b.idx - idx) < Math.abs(a.idx - idx) ? b : a)).src;
   };
+  const pairedListAt = (i: number) => items[i]?.type === "paired-list" && items[i]?.layout !== "vertical";
   const blocks = items.map((item, idx) => (
     <ContentBlock
       key={idx}
@@ -615,7 +620,10 @@ function ContentBlocks({ items, labels, title }: { items: ContentItem[]; labels:
       index={Math.max(0, idx - offset)}
       labels={labels}
       title={title}
-      separated={long && idx > offset && item.type === "subtitle"}
+      // A rule before an in-text subtitle: in a long block list, and (Vraja Lila msg 5400, 20.10.2026) before
+      // every group heading of a two-column list («Reception:», «Bathing & Dressing:» …) — never before the
+      // block list's first element (right under the section heading).
+      separated={idx > offset && item.type === "subtitle" && (long || pairedListAt(idx + 1))}
       hsImage={linkedImage(item, idx)}
       hsText={linkedText(item, idx)}
     />
