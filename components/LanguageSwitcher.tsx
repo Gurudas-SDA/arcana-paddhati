@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { exitGhost } from "@/lib/exitGhost";
 import { useRouter } from "next/navigation";
 import {
   LANG_STORAGE_KEY,
@@ -70,6 +71,19 @@ export default function LanguageSwitcher({
   const optId = (code: string) => `${uid}-opt-${code}`;
   const triggerRef = useRef<HTMLButtonElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+  // The list and its dimming close the way they opened, backwards (lib/exitGhost.ts, Vraja Lila msg 5521).
+  const setListRef = useCallback((node: HTMLUListElement | null) => {
+    listRef.current = node;
+    if (!node) return;
+    return () => {
+      listRef.current = null;
+      exitGhost(node, "lang-card lang-card-out", 140);
+    };
+  }, []);
+  const backdropRef = useCallback((node: HTMLDivElement | null) => {
+    if (!node) return;
+    return () => exitGhost(node, "lang-backdrop lang-backdrop-out", 140);
+  }, []);
   const [place, setPlace] = useState<Place | null>(null);
   const open = place !== null;
   const curIndex = Math.max(0, OFFERED_LANGUAGES.findIndex((l) => l.code === lang));
@@ -240,6 +254,7 @@ export default function LanguageSwitcher({
         createPortal(
           <>
             <div
+              ref={backdropRef}
               className="lang-backdrop"
               data-lang-backdrop=""
               data-no-reader-tap=""
@@ -247,7 +262,7 @@ export default function LanguageSwitcher({
               onClick={closeList}
             />
             <ul
-              ref={listRef}
+              ref={setListRef}
               id={listId}
               role="listbox"
               tabIndex={-1}

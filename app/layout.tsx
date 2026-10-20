@@ -8,6 +8,8 @@ import { LANG_REDIRECT_SCRIPT, t } from "@/lib/i18n";
 import { READER_PREFS_SCRIPT } from "@/lib/readerPrefsKeys";
 import { EARLY_TAP_SCRIPT } from "@/lib/earlyTap";
 import { HOME_CARDS_SCRIPT } from "@/lib/homeCards";
+import { CA_LOADER_CSS, CA_LOADER_SVG, SPLASH_CSS, SPLASH_SCRIPT } from "@/lib/caSplash";
+import { SPLASH_LINKS_SCRIPT } from "@/lib/splashImages";
 import "./globals.css";
 
 // 20.10.2026 (Vraja Lila msg 5316 p. 4, «Шрифты — разбор»): the upright Noto
@@ -65,6 +67,9 @@ export const metadata: Metadata = {
   manifest: `${BASE_PATH}/manifest.json`,
   other: {
     google: "notranslate",
+    // iOS uses the startup pictures only for a web app it treats as standalone
+    // (the manifest already says "display": "standalone").
+    "apple-mobile-web-app-capable": "yes",
   },
 };
 
@@ -101,8 +106,22 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: EARLY_TAP_SCRIPT }} />
         {/* Cover cards (offline saving): their place reserved before first paint. */}
         <script dangerouslySetInnerHTML={{ __html: HOME_CARDS_SCRIPT }} />
+        {/* Start screen (lib/caSplash.ts): Vraja Lila's CA loader + our white layer. */}
+        <style dangerouslySetInnerHTML={{ __html: (CA_LOADER_CSS + SPLASH_CSS).replace(/\/\*[\s\S]*?\*\//g, "").replace(/\s+/g, " ") }} />
+        {/* iOS home-screen app: the system's first picture = the start screen's first
+            frame (lib/splashImages.ts, public/splash/). */}
+        <script dangerouslySetInnerHTML={{ __html: SPLASH_LINKS_SCRIPT }} />
       </head>
       <body className="h-full antialiased" translate="no">
+        {/* Start screen, before anything else is painted; leaves when the page is
+            hydrated and drawn (AppShell), at the latest after 4 s. Never takes a tap. */}
+        <div
+          id="ap-splash"
+          aria-hidden="true"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{ __html: `<div class="ap-splash-sign">${CA_LOADER_SVG.replace(/\s+/g, " ")}</div>` }}
+        />
+        <script dangerouslySetInnerHTML={{ __html: SPLASH_SCRIPT }} />
         <AppShell locales={getLocales()} available={availableLanguages()}>
           {children}
         </AppShell>
