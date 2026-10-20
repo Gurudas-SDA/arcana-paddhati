@@ -37,19 +37,34 @@ export default function ResumeCardLink({ script }: { script: string }) {
     };
     slot.addEventListener("click", onClick);
     // The line wraps, so the card's height follows the width (rotation, window
-    // resize): keep the cover's reserved place equal to the drawn card.
+    // resize): keep the cover's reserved place equal to the drawn card. The card
+    // is as wide as the cover (20.10.2026), and the cover narrows with the
+    // reserved height — so settle it here at once (a few rounds), and observe
+    // again only from the next frame: a size changed inside the observer's own
+    // callback is reported as «ResizeObserver loop … undelivered notifications».
+    let frame = 0;
     const ro =
       typeof ResizeObserver === "undefined"
         ? null
         : new ResizeObserver(() => {
             const d = document.documentElement;
             if (!slot.firstChild || !d.hasAttribute("data-home-resume")) return;
-            const h = `${Math.ceil(slot.getBoundingClientRect().height)}px`;
-            if (d.style.getPropertyValue("--home-resume-h") !== h) d.style.setProperty("--home-resume-h", h);
+            let changed = false;
+            for (let i = 0; i < 4; i++) {
+              const h = `${Math.ceil(slot.getBoundingClientRect().height)}px`;
+              if (d.style.getPropertyValue("--home-resume-h") === h) break;
+              d.style.setProperty("--home-resume-h", h);
+              changed = true;
+            }
+            if (!changed || !ro) return;
+            ro.unobserve(slot);
+            cancelAnimationFrame(frame);
+            frame = requestAnimationFrame(() => ro.observe(slot));
           });
     ro?.observe(slot);
     return () => {
       slot.removeEventListener("click", onClick);
+      cancelAnimationFrame(frame);
       ro?.disconnect();
     };
   }, [router, script]);
