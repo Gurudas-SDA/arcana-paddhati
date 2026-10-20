@@ -421,7 +421,7 @@ export default function MoodBlock({
             onClick={requestClose}
             aria-label={labels.close}
             title={labels.close}
-            className="mood-close -mr-1 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-[#8B6508] transition-colors hover:bg-[#F5E6C8]"
+            className="mood-close inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-[#8B6508] transition-colors hover:bg-[#F5E6C8]"
           >
             <svg
               aria-hidden="true"
