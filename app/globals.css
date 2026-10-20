@@ -374,8 +374,27 @@ html[data-home-resume] .home-cover {
 html[data-home-resume] .home-resume-slot {
   display: block;
   box-sizing: border-box;
-  width: min(100%, 26rem);
   padding-top: 0.75rem;
+}
+/* Cards under the cover = exactly the cover's width, edges aligned (Vraja Lila
+   20.10.2026, mockup «Обложка — карточки по ширине обложки»). The cover's drawn
+   width = min(panel, 874px, its max-height × 874/1240) (HomePage.tsx maxWidth +
+   .home-cover max-height above) — the slots take the same expression. */
+html[data-home-resume] .home-resume-slot,
+html[data-home-save] .home-save-slot {
+  width: min(100%, 874px, calc((100vh - 2rem - var(--reader-pad-bottom) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px)) * 874 / 1240));
+  width: min(100%, 874px, calc((100dvh - 2rem - var(--reader-pad-bottom) - env(safe-area-inset-top, 0px) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px)) * 874 / 1240));
+  /* never narrower than 12rem: the card's height feeds back into the cover's
+     width (narrower card -> more lines -> shorter cover -> narrower card) */
+  min-width: min(100%, 12rem);
+}
+/* A phone turned sideways (very little height): the cover is a thumbnail there,
+   a card as narrow as it would wrap into dozens of lines — keep the earlier width. */
+@media (orientation: landscape) and (max-height: 500px) {
+  html[data-home-resume] .home-resume-slot,
+  html[data-home-save] .home-save-slot {
+    width: min(100%, 26rem);
+  }
 }
 .home-resume {
   position: relative;
@@ -428,7 +447,6 @@ html[data-home-save] .home-save-slot {
   display: block;
   box-sizing: border-box;
   height: var(--home-save-h);
-  width: min(100%, 26rem);
   padding-top: 0.75rem;
   overflow: hidden;
 }
