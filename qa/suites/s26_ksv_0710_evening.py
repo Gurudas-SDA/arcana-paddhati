@@ -131,7 +131,7 @@ def run(p, dev, eng, o):
     goto("kartika-bhajans/")
     contents()
     m = pg.evaluate("""() => { const a = document.querySelector('.mobile-menu[data-open] aside');
-        return {sw: a.querySelectorAll('[role=switch]').length, sel: a.querySelectorAll('select').length,
+        return {sw: a.querySelectorAll('[role=switch]').length, sel: a.querySelectorAll('select, [data-lang-trigger]').length,
                 txt: /пословный перевод|все переводы/i.test(a.innerText)}; }""")
     chk(dev, "1/2 «Содержание»: no «Показать…» switches, no language menu", m["sw"] == 0 and m["sel"] == 0 and not m["txt"], str(m))
     close_menu()
@@ -139,7 +139,7 @@ def run(p, dev, eng, o):
     tap("[data-reader-action=aa]", 500)
     a = pg.evaluate("""() => { const p = document.querySelector('.reader-panel'); if (!p) return null;
         return {wbw: !!p.querySelector('[data-reader-switch=wbw]'), tr: !!p.querySelector('[data-reader-switch=tr]'),
-                sel: p.querySelectorAll('select').length, txt: p.innerText}; }""")
+                sel: p.querySelectorAll('[data-lang-trigger]').length, txt: p.innerText}; }""")
     chk(dev, "1/2 «Аа»: both switches and the language menu", a and a["wbw"] and a["tr"] and a["sel"] == 1
         and "пословный" in a["txt"] and "переводы" in a["txt"], str(a)[:200])
     if a and a["wbw"]:
@@ -783,7 +783,7 @@ def run_v781(p, dev, eng, o):
         for _ in range(60):
             pg.keyboard.press("Tab")
             k = pg.evaluate("""() => { const a = document.activeElement; if (!a || !a.closest('.reader-panel')) return null;
-                return a.getAttribute('data-reader-switch') ? 'sw:' + a.getAttribute('data-reader-switch') : a.tagName === 'SELECT' ? 'select' : 'other'; }""")
+                return a.getAttribute('data-reader-switch') ? 'sw:' + a.getAttribute('data-reader-switch') : a.matches('[data-lang-trigger]') ? 'select' : 'other'; }""")
             if k:
                 seen.add(k)
             if {"sw:wbw", "sw:tr", "select"} <= seen:

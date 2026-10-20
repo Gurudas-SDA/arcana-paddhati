@@ -49,7 +49,7 @@ with sync_playwright() as p:
         opts_ = pg.locator(".mobile-menu[data-open] select option").evaluate_all("os => os.map(o => [o.value, o.textContent.trim()])")
         rus = [o for o in opts_ if o[0].startswith("ru")]
         # v7.8 (Satkirti 07.10.2026 вечер): the language menu is ONLY in the «Аа» panel — none in «Содержание»
-        check(dev, "contents panel has NO language menu (v7.8: only in «Аа»)", opts_ == [] and pg.locator(".mobile-menu[data-open] select").count() == 0, str(opts_))
+        check(dev, "contents panel has NO language menu (v7.8: only in «Аа»)", opts_ == [] and pg.locator(".mobile-menu[data-open] select, .mobile-menu[data-open] [data-lang-trigger]").count() == 0, str(opts_))
         pg.go_back(); pg.wait_for_timeout(500)
         # open the Аа panel too
         if pg.locator(".reader-chrome[data-shown]").count() == 0:
@@ -57,7 +57,13 @@ with sync_playwright() as p:
         aa = pg.locator("[data-reader-action=aa]")
         aa.tap() if touch else aa.click()
         pg.wait_for_timeout(400)
-        vals = pg.locator(".reader-panel select option").evaluate_all("os => os.map(o => [o.value, o.textContent.trim()])")
+        # language menu in the book's style (Vraja Lila msg 5418): open the list, read its options
+        lt = pg.locator(".reader-panel [data-lang-trigger]")
+        if lt.count():
+            lt.tap() if touch else lt.click()
+            pg.wait_for_timeout(300)
+        vals = pg.evaluate("""() => [...document.querySelectorAll('[role=listbox] [role=option]')].map(o => [o.getAttribute('data-lang'), o.querySelector('.lang-option-name').textContent.trim()])""")
+        pg.keyboard.press("Escape"); pg.wait_for_timeout(200)
         check(dev, "Аа language menu: one Russian «Русский»", [v for v in vals if v[0].startswith("ru")] == [["ru-iast", "Русский"]], str(vals))
         # 4. Russian search uses the IAST index
         reqs = []

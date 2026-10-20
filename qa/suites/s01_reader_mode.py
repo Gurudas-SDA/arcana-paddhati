@@ -288,9 +288,10 @@ def run(p, dev, engine, opts, lang, mode):
     act(pg.locator("[data-reader-theme-btn=white]"))
     check(tag, "white theme restores", pg.evaluate("document.documentElement.getAttribute('data-reader-theme')") is None)
     # 14. language switch from Аа keeps the chapter
-    sel = pg.locator(".reader-panel select")
+    # language menu in the book's style (Vraja Lila msg 5418): field → list → option
     other = "en" if lang != "en" else "ru-iast"
-    sel.select_option(other); pg.wait_for_timeout(1500)
+    act(pg.locator(".reader-panel [data-lang-trigger]"))
+    act(pg.locator(f"[role=listbox] [role=option][data-lang='{other}']")); pg.wait_for_timeout(1500)
     exp = f"{BASE}{'' if other == 'en' else '/' + other}/{PAGE}/"
     check(tag, "language switch in Аа keeps chapter, closes panel", pg.url == exp and pg.locator(".reader-panel").count() == 0, pg.url)
     pg.go_back(); pg.wait_for_timeout(1200)
