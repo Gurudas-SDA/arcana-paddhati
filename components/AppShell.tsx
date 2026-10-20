@@ -89,8 +89,21 @@ export default function AppShell({
   const layout = useReaderLayout();
   /** The whole book is shown (ContinuousBook announces itself). */
   const [bookShown, setBookShown] = useState(false);
+  // Start screen (lib/caSplash.ts, Vraja Lila 20.10.2026): the page is hydrated;
+  // once its first frame is drawn the sign leaves. No artificial delay.
   useEffect(() => {
-    const check = () => setBookShown(!!document.querySelector("[data-continuous-book]"));
+    let a = 0;
+    let b = 0;
+    a = requestAnimationFrame(() => {
+      b = requestAnimationFrame(() => (window as { __apSplashDone?: () => void }).__apSplashDone?.());
+    });
+    return () => {
+      cancelAnimationFrame(a);
+      cancelAnimationFrame(b);
+    };
+  }, []);
+  useEffect(() => {
+    const check =() => setBookShown(!!document.querySelector("[data-continuous-book]"));
     // After the unmount's DOM removal too.
     const onBook = () => { check(); window.setTimeout(check, 0); };
     check();
