@@ -6,7 +6,9 @@
 // time (only the anchor is stored). The line wraps (2–3 lines for the longest
 // titles, never «…»), the arrow › sits in the bottom-right corner (Vraja Lila
 // msg 5430); the script measures the drawn card and reserves exactly its
-// height (--home-resume-h) before first paint. First visit: no card. A tap opens the
+// height (--home-resume-h) before first paint — repeated until stable, since
+// the card is as wide as the cover (20.10.2026) and the cover narrows with
+// the reserved height, so the line may re-wrap. First visit: no card. A tap opens the
 // place (components/ResumeCardLink.tsx: the app's router; same language ->
 // also the exact block). Server component.
 import { getToc } from "@/lib/content";
@@ -41,7 +43,7 @@ export default function ResumeCard({ lang, title }: { lang: string; title: strin
     live,
   )})a.setAttribute("data-same-lang","");var t=document.createElement("span");t.className="home-resume-title";t.textContent=${JSON.stringify(
     title,
-  )};var l=document.createElement("span");l.className="home-resume-line";l.textContent=line;a.appendChild(t);a.appendChild(l);var g=document.createElement("span");g.className="home-resume-arrow";g.setAttribute("aria-hidden","true");g.textContent="\u203A";a.appendChild(g);el.appendChild(a);d.style.setProperty("--home-resume-h",Math.ceil(el.getBoundingClientRect().height)+"px")}catch(e){try{document.documentElement.removeAttribute("data-home-resume");document.documentElement.style.removeProperty("--home-resume-h")}catch(_){}}})();`;
+  )};var l=document.createElement("span");l.className="home-resume-line";l.textContent=line;a.appendChild(t);a.appendChild(l);var g=document.createElement("span");g.className="home-resume-arrow";g.setAttribute("aria-hidden","true");g.textContent="\u203A";a.appendChild(g);el.appendChild(a);for(var i=0,h;i<4;i++){h=Math.ceil(el.getBoundingClientRect().height)+"px";if(d.style.getPropertyValue("--home-resume-h")===h)break;d.style.setProperty("--home-resume-h",h)}}catch(e){try{document.documentElement.removeAttribute("data-home-resume");document.documentElement.style.removeProperty("--home-resume-h")}catch(_){}}})();`;
   return (
     <>
       {/* Filled by the script below before first paint; React leaves its inside alone. */}

@@ -128,6 +128,8 @@ SUITES = [
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s60", file="suites/s60_bookmark_remove_icon.py", title="Vraja 5439/5440: cilnē «Закладки» ikona labajā pusē noņem grāmatzīmi (2а) — rinda bāla līdz tosta beigām, «Отменить» atjauno, rinda pati joprojām ved uz vietu",
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
+    dict(id="s64", file="suites/s64_cover_cards_width.py", title="Vraja 20.10 (ДА 5520): kartītes zem vāka («Продолжить», «Сохраняется») tieši vāka platumā — malas sakrīt ±1 px (iPhone SE/14, iPad portrets/ainava, dators)",
+         devices=["iphone-se", "iphone14", "ipad-portrait", "ipad-landscape", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
          devices=None, fast=True, server=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",
