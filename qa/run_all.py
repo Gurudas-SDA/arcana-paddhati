@@ -130,6 +130,8 @@ SUITES = [
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s61", file="suites/s61_paraphernalia_schema.py", title="V13 Vraja 736/738: «16 предметов» → Vraja shēma (oriģināls masters/ nemainīts, WebP 1254×1254 bez kropļojuma, 1:1 kaste no datiem, 18 objektu pieskārieni → rinda)",
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
+    dict(id="s62", file="suites/s62_ca_logo_vector.py", title="V8 Vraja 742: Chaitanya Academy logotips uz vāka — Vraja SVG inline (viewBox 257,42:83,23, bez kropļojuma), vecā logotipa vietā, WebP bez rastra logotipa, lasāms arī «Ночь», vāks nelēkā",
+         devices=["iphone14", "pixel7", "ipad-portrait", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
          devices=None, fast=True, server=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",

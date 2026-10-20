@@ -346,6 +346,28 @@ body {
   max-height: calc(100dvh - 2rem - var(--reader-pad-bottom) - env(safe-area-inset-top, 0px) - var(--install-banner-h, 0px));
 }
 
+/* V8 (Vraja Lila msg 742, 20.10.2026): Chaitanya Academy logo as a vector over the cover, in the place of the
+   raster logo of cover.jpg (logo of the 874 × 1240 cover: mark 92 px high, centred: x 294.7–579.3, y 1085.5).
+   The box wraps the cover image exactly; the logo keeps its viewBox proportion 257.42 : 83.23 (aspect-ratio, never
+   stretched) and takes no taps (a tap on the cover still opens the menu). The lettering is dark in every theme:
+   the cover stays a light page in «Ночь» too (dimmed by the same brightness filter as the cover). */
+.home-cover-box {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  line-height: 0;
+}
+.home-cover-logo {
+  position: absolute;
+  left: 33.72%;
+  top: 87.54%;
+  width: 32.56%;
+  height: auto;
+  aspect-ratio: 257.42361 / 83.22854;
+  color: #110f0f;
+  pointer-events: none;
+}
+
 /* Cards under the cover (Vraja Lila msg 5317/5318 «Видимая загрузка»): the
    place is reserved by the <head> script (lib/homeCards.ts) before first paint,
    the cover is shorter by exactly that height — no jump when the card appears. */
@@ -1554,7 +1576,8 @@ html[data-reader-theme="night"] .hs-row[data-active] .hs-text {
 }
 html[data-reader-theme="night"] .book-image,
 html[data-reader-theme="night"] .hs-figure,
-html[data-reader-theme="night"] .home-cover {
+html[data-reader-theme="night"] .home-cover,
+html[data-reader-theme="night"] .home-cover-logo {
   filter: brightness(0.9);
 }
 html[data-reader-theme="night"] ::selection {

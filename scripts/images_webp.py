@@ -7,7 +7,8 @@
   Its name carries the first 8 hex of its sha1 (Vraja msg 5334: a new name per content, so neither the HTTP cache nor
   the service worker can show an old picture).
 * lib/webp-images.json maps "<path under public/media/>" -> "<webp path under public/media/>"; the app looks it up
-  (lib/webpImages.ts). The cover WebP pair (874 / 440 px) is encoded from cover.jpg.
+  (lib/webpImages.ts). The cover WebP pair (874 / 440 px) is encoded from masters/media/cover/cover-clean.png = cover.jpg
+  without its raster logo (V8, Vraja Lila msg 742: the app draws the logo as a vector — scripts/cover_clean_logo.py).
 
     python scripts/images_webp.py
 """
@@ -62,7 +63,7 @@ def main():
             img = im.convert("RGBA") if im.mode in ("RGBA", "LA", "P") else im.convert("RGB")
         out[rel] = encode(img, rel[:-4])
     keep_master("cover/cover.jpg")
-    with Image.open(MEDIA / "cover" / "cover.jpg") as im:
+    with Image.open(MASTERS / "cover" / "cover-clean.png") as im:
         big = im.convert("RGB")
     old = json.loads(MAP.read_text(encoding="utf-8")) if MAP.exists() else {}
     with Image.open(MEDIA / old.get("cover/cover-440.webp", "cover/cover-440.webp")) as im:
