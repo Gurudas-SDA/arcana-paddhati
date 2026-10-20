@@ -2,13 +2,13 @@
 
 Pagination by default MUST; a scroll-mode option SHOULD, and if present the
 mode is kept and switching keeps the position. Checks, per device:
-  1. default: «Листать» pressed, the chapter is its own page (no continuous book);
-  2. «Прокручивать»: the whole book in one scroll, the same chapter and the same
+  1. default: «Страницы» pressed, the chapter is its own page (no continuous book);
+  2. «Лента»: the whole book in one scroll, the same chapter and the same
      words at the top of the screen;
-  3. reload: still «Прокручивать» (stored), the same chapter and words;
+  3. reload: still «Лента» (stored), the same chapter and words;
   4. scrolling on crosses into the next chapter without a tap (continuous);
-  5. «Листать» again: the chapter page, the same words at the top;
-  6. reload: still «Листать».
+  5. «Страницы» again: the chapter page, the same words at the top;
+  6. reload: still «Страницы».
 usage: python s45_scroll_option.py <base-url>
 """
 import os
@@ -115,14 +115,14 @@ def run(browser, device, options):
     try:
         page.goto(f"{BASE}/{LANG}/{CHAPTER}/", wait_until="networkidle")
         page.wait_for_timeout(1200)
-        # 1. Default: page by page («Листать»).
+        # 1. Default: page by page («Страницы»).
         check(device, "default: the chapter is its own page", not continuous() and chapter_url(), page.url)
         open_panel()
         has_row = page.locator("[data-reader-layout-btn]").count() == 2
-        check(device, "«Аа» has «Листать» / «Прокручивать»", has_row)
+        check(device, "«Аа» has «Страницы» / «Лента»", has_row)
         if not has_row:
             return
-        check(device, "default: «Листать» pressed", pressed("page") and not pressed("scroll"))
+        check(device, "default: «Страницы» pressed", pressed("page") and not pressed("scroll"))
         close_panel()
 
         # A place in the middle of the chapter.
@@ -131,23 +131,23 @@ def run(browser, device, options):
         place = qa.reading_eval(page, TOP_BLOCK_JS)
         check(device, "a place in the middle of the chapter", place and place["delta"] < 0 or page.locator(".app-main").evaluate("e => e.scrollTop") > 1000, place)
 
-        # 2. «Прокручивать»: the whole book, the same words.
+        # 2. «Лента»: the whole book, the same words.
         choose("scroll")
         settle()
         here = qa.reading_eval(page, TOP_BLOCK_JS)
-        check(device, "«Прокручивать»: the whole book in one scroll", continuous() and page.locator("[data-book-section]").count() > 20)
-        check(device, "«Прокручивать»: the same chapter", chapter_url(), page.url)
-        check(device, "«Прокручивать»: the same words at the top", same_place(place, here), f"{place} -> {here}")
+        check(device, "«Лента»: the whole book in one scroll", continuous() and page.locator("[data-book-section]").count() > 20)
+        check(device, "«Лента»: the same chapter", chapter_url(), page.url)
+        check(device, "«Лента»: the same words at the top", same_place(place, here), f"{place} -> {here}")
 
         # 3. Reload keeps the mode and the place.
         page.reload(wait_until="networkidle")
         page.wait_for_selector("[data-continuous-book]", timeout=15000)
         page.wait_for_timeout(1800)
         again = qa.reading_eval(page, TOP_BLOCK_JS)
-        check(device, "reload: still «Прокручивать»", continuous() and page.evaluate("localStorage.getItem('ap.readerLayout')") == "scroll")
+        check(device, "reload: still «Лента»", continuous() and page.evaluate("localStorage.getItem('ap.readerLayout')") == "scroll")
         check(device, "reload: the same chapter and words", chapter_url() and same_place(place, again), f"{page.url} {place} -> {again}")
         open_panel()
-        check(device, "reload: «Прокручивать» pressed", pressed("scroll") and not pressed("page"))
+        check(device, "reload: «Лента» pressed", pressed("scroll") and not pressed("page"))
         close_panel()
 
         # 4. Continuous: scrolling past the chapter's end enters the next one.
@@ -160,19 +160,19 @@ def run(browser, device, options):
         # Back to the place for the switch.
         place2 = qa.reading_eval(page, TOP_BLOCK_JS)
 
-        # 5. «Листать» again: that chapter's page, the same words.
+        # 5. «Страницы» again: that chapter's page, the same words.
         choose("page")
         settle()
         back = qa.reading_eval(page, TOP_BLOCK_JS)
-        check(device, "«Листать»: the chapter is its own page", not continuous() and page.url.split("#")[0].rstrip("/").endswith("/" + next_id), page.url)
-        check(device, "«Листать»: the same words at the top", same_place(place2, back), f"{place2} -> {back}")
+        check(device, "«Страницы»: the chapter is its own page", not continuous() and page.url.split("#")[0].rstrip("/").endswith("/" + next_id), page.url)
+        check(device, "«Страницы»: the same words at the top", same_place(place2, back), f"{place2} -> {back}")
 
-        # 6. Reload keeps «Листать».
+        # 6. Reload keeps «Страницы».
         page.reload(wait_until="networkidle")
         page.wait_for_timeout(1800)
-        check(device, "reload: still «Листать»", not continuous() and page.evaluate("localStorage.getItem('ap.readerLayout')") == "page")
+        check(device, "reload: still «Страницы»", not continuous() and page.evaluate("localStorage.getItem('ap.readerLayout')") == "page")
         open_panel()
-        check(device, "reload: «Листать» pressed", pressed("page") and not pressed("scroll"))
+        check(device, "reload: «Страницы» pressed", pressed("page") and not pressed("scroll"))
         close_panel()
         check(device, "no page errors", not errors, errors[:3])
     except Exception as error:

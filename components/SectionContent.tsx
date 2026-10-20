@@ -33,6 +33,8 @@ interface VerseLabels {
   translation: string;
   wbw: string;
   mood: MoodLabels;
+  /** reader.close — spoken name of the ✕ of a picture's floating copy. */
+  close: string;
 }
 
 interface SectionContentProps {
@@ -550,6 +552,7 @@ function ContentBlock({
             imgName={item.src}
             alt={item.alt || ""}
             data={hs}
+            closeAria={labels.close}
           />
         );
       }
@@ -726,6 +729,7 @@ export default function SectionContent({ section, ui, num = null, note, after }:
       audio: t(ui, "mood.audio"),
       close: t(ui, "mood.close"),
     },
+    close: t(ui, "reader.close"),
   };
   return (
     <>

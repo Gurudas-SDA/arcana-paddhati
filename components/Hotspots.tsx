@@ -491,6 +491,7 @@ export function HotspotFigure({
   data,
   maxWidth = 420,
   closeLabel = "✕",
+  closeAria,
 }: {
   src: string;
   webp?: string;
@@ -499,6 +500,8 @@ export function HotspotFigure({
   data: HotspotImage;
   maxWidth?: number;
   closeLabel?: string;
+  /** Spoken name of the ✕ button (reader.close of the page language); "Close" if not given. */
+  closeAria?: string;
 }) {
   const ctx = useContext(HotspotContext);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -630,7 +633,7 @@ export function HotspotFigure({
             <button
               type="button"
               className="hs-peek-close"
-              aria-label="Close"
+              aria-label={closeAria || "Close"}
               onClick={() => setDismissed(activeSeq)}
             >
               {closeLabel}

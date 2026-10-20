@@ -5,7 +5,7 @@ A path highlight in «Содержание» + stepwise Back (‹ Назад but
 B «Вперёд ›» steps forward (button), never a dead/disabled tap, note when no step, bars unselectable
 C no «Начало главы» row
 D Introduction = expandable group (Emblem, Vigraha-tattva, Maṅgalācaraṇa), no chapter numbers,
-  second tap collapses; numbering 1.. from Part I; «След. глава ›» order; Introduction page list
+  second tap collapses; numbering 1.. from Part I; «Вперёд ›» order; Introduction page list
 E picture <-> list: tap on a picture part -> row highlighted (computed bg) + scrolled into view;
   tap on a row -> picture part highlighted; emblem, Tilak, Parafernalia
 F cover: no «v.1», CA block (emblem left, text right, centred), cover fully on screen
@@ -318,7 +318,7 @@ def run(p, dev, eng, o):
     qa.scroll_chapter(pg, 1); pg.wait_for_timeout(500)
     act(qa.reading_locator(pg, ".chapter-next-link"), 1100)
     u1 = pg.url
-    chk(dev, "D «След. глава ›» after offering-bhoga -> 7. Мантры почитания чаранамриты", u1.rstrip("/").endswith("/mantras-honouring-caranamrita"), u1)
+    chk(dev, "D «Вперёд ›» after offering-bhoga -> 7. Мантры почитания чаранамриты", u1.rstrip("/").endswith("/mantras-honouring-caranamrita"), u1)
     bar_act("[data-reader-nav=back]", 1000)
     chk(dev, "B ‹ Назад -> previous chapter", pg.url == u0, pg.url)
     bar_act("[data-reader-nav=forward]", 1000)
@@ -329,10 +329,10 @@ def run(p, dev, eng, o):
     links = pg.locator(".group-contents a")
     chk(dev, "D Introduction page lists its 2 chapters (v7.1)", links.count() == 2, str(links.count()))
     nx = qa.reading_locator(pg, ".chapter-next-title")
-    chk(dev, "D Introduction «След. глава ›» -> «Эмблема Гаудия-матха» (no number)", nx.count() == 1 and nx.inner_text().strip() == "Эмблема Гаудия-матха", nx.inner_text() if nx.count() else "")
+    chk(dev, "D Introduction «Вперёд ›» -> «Эмблема Гаудия-матха» (no number)", nx.count() == 1 and nx.inner_text().strip() == "Эмблема Гаудия-матха", nx.inner_text() if nx.count() else "")
     goto(f"/{L}/mangalacarana/")
     nx = qa.reading_locator(pg, ".chapter-next-title").inner_text().strip()
-    chk(dev, "D Мангалачарана «След. глава ›» -> «Введение» (v7.1)", nx == "Введение", nx)
+    chk(dev, "D Мангалачарана «Вперёд ›» -> «Введение» (v7.1)", nx == "Введение", nx)
     goto(f"/{L}/vigraha-tattva/")
     h1 = qa.reading_locator(pg, "article h1")
     chk(dev, "D Виграха-таттва page: no chapter number in the title", h1.locator(".heading-num").count() == 0, h1.inner_text())

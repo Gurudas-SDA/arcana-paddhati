@@ -4,7 +4,7 @@ saskarnes īpašnieks, «Стандарты» 0а; nodots-izpildei 20.10 12:40).
 Rule text (verbatim, msg 742): «масштабируй его правильно». Criteria (assistant, Vraja's words): «логотип векторный,
 пропорции 257:83, чёткий на iPhone/desktop, обложка не прыгает; скриншот светлая тема и „Ночь"».
 
-Checks (every device, light theme and «Ночь»):
+Checks (every device, light theme and «Тёмный»):
   - the cover carries an inline <svg class="home-cover-logo"> with Vraja's viewBox 0 0 257.42361 83.22854 and
     width / height attributes, already in the page's HTML (drawn with it — nothing loads later, no jump);
   - drawn box proportion = 257.42 : 83.23 (≤ 0.5 % — # tehniskais slieksnis Lipikāra, nav S noteikums);
@@ -12,7 +12,7 @@ Checks (every device, light theme and «Ночь»):
     cover — # tehniskais slieksnis Lipikāra, nav S noteikums), inside the cover;
   - the served cover WebP has no raster logo left under it (no red / dark pixels in the logo area);
   - the lettering is readable: contrast to the cover's background ≥ 4.5 (# tehniskais slieksnis Lipikāra, nav S
-    noteikums — WCAG AA), also in «Ночь»;
+    noteikums — WCAG AA), also in «Тёмный»;
   - a tap on the logo reaches the cover (the logo takes no taps).
 Static: masters/ and public/media/common/ca-logo.svg = Vraja's file byte for byte; public/media/cover/cover.jpg (PDF /
 EPUB) keeps its logo.

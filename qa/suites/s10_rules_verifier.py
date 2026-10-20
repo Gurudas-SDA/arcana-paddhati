@@ -82,7 +82,7 @@ def run_one(DEV):
         def go(path):
             pg.goto(RU + path, wait_until="networkidle"); wait(0.8)
             # dismiss install banner
-            pg.evaluate("""()=>{const el=[...document.querySelectorAll('main *')].find(e=>e.children.length<=3 && /Установить приложение/.test(e.textContent||'') && e.querySelector('button'));
+            pg.evaluate("""()=>{const el=[...document.querySelectorAll('main *')].find(e=>e.children.length<=3 && /Книга может жить на домашнем экране/.test(e.textContent||'') && e.querySelector('button'));
               if(!el) return; const bs=[...(el.closest('[data-no-reader-tap]')||el).querySelectorAll('button')]; const x=bs[bs.length-1]; if(x) x.click();}""")
             wait(0.4)
             if bars():  # make sure reading mode
@@ -413,7 +413,7 @@ def run_one(DEV):
             # top = offset from the start of the chapter now being read (in the continuous book the
             # absolute scrollTop of a chapter start is its position in the book)
             st = pg.evaluate("({u:location.pathname, top:" + qa.READING_POSITION_JS + ".top, h1:__qaRoot().querySelector('h1, h2')?.textContent})")
-            rec("§9 «След. глава ›» в конце главы", "текст ссылки содержит «След. глава» и название; тап ведёт на начало следующей главы", "След. глава" in nx["txt"] and "daily-deity-schedule" in st["u"] and abs(st["top"]) < 5, f"link='{nx['txt']}', после тапа {st}, смена URL через {nav_dt:.1f}s")
+            rec("§9 «Вперёд ›» в конце главы", "текст ссылки содержит «Вперёд» и название; тап ведёт на начало следующей главы", "Вперёд" in nx["txt"] and "daily-deity-schedule" in st["u"] and abs(st["top"]) < 5, f"link='{nx['txt']}', после тапа {st}, смена URL через {nav_dt:.1f}s")
         except Exception:
             rec("§9 next", "ошибка", False, traceback.format_exc()[-300:])
 

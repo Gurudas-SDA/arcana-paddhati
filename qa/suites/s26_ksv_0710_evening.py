@@ -573,7 +573,7 @@ def run_v781(p, dev, eng, o):
         on = pg.evaluate(HL_STATE)
         res_url = pg.url
         chk(dev, "10 (setup) result opened with the word marked", on["hl"], str(on))
-        # forward step through a Link without a pointer (keyboard Enter on «След. глава ›»)
+        # forward step through a Link without a pointer (keyboard Enter on «Вперёд ›»)
         has_next = pg.locator(".app-main .chapter-next-link").count() > 0
         if has_next:
             pg.locator(".app-main .chapter-next-link").first.focus()
@@ -588,7 +588,7 @@ def run_v781(p, dev, eng, o):
             ok, info = first_tap_toggles_bars(pg, tapxy)
             chk(dev, "10 after the Link: the first tap on the new page is not eaten (menu toggles)", ok, info)
         else:
-            chk(dev, "10 result page has «След. глава ›»", False, pg.url)
+            chk(dev, "10 result page has «Вперёд ›»", False, pg.url)
         # router.push-like step: a pushState to another chapter's URL from the marked page
         pg.goto(f"{BASE}/{L}/", wait_until="networkidle")
         pg.wait_for_timeout(500)
