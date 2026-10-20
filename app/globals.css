@@ -1018,6 +1018,46 @@ body,
   user-select: none;
   -webkit-touch-callout: none;
 }
+/* Bookmark (variant A, Vraja Lila msg 5380): ribbon icon only, before «Аа». */
+.reader-bookmark {
+  padding: 6px 10px;
+}
+/* «Закладка поставлена · Отменить»: dark pill above the bottom bar, «Отменить» in gold. */
+.reader-toast {
+  position: fixed;
+  z-index: 32;
+  left: 50%;
+  bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  margin: 0;
+  padding: 4px 6px 4px 18px;
+  border-radius: 9999px;
+  background: #2C1810;
+  color: #fff;
+  font-family: var(--font-book, 'Noto Serif', Georgia, serif);
+  font-size: 15px;
+  line-height: 1.3;
+  box-shadow: 0 6px 18px rgba(44, 24, 16, 0.28);
+  -webkit-user-select: none;
+  user-select: none;
+  animation: reader-hint-in 220ms ease-out;
+}
+html[data-reader-bars] .reader-toast {
+  bottom: calc(68px + env(safe-area-inset-bottom, 0px));
+}
+.reader-toast-undo {
+  min-height: 40px;
+  padding: 4px 12px 4px 4px;
+  border-radius: 9999px;
+  color: #E8B04A;
+  font-weight: 700;
+  -webkit-tap-highlight-color: transparent;
+}
 /* «Вперёд — после «Назад»»: just above the bottom bar. */
 .reader-hint.reader-nav-note {
   bottom: calc(68px + env(safe-area-inset-bottom, 0px));
@@ -1277,7 +1317,8 @@ html[data-reader-bars] .hs-peek {
     transition: none;
   }
   .reader-panel,
-  .reader-hint {
+  .reader-hint,
+  .reader-toast {
     animation: none;
   }
 }

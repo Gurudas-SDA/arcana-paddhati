@@ -99,5 +99,10 @@
   "offline.kind.other": "файлы приложения",
   "resume.title": "Продолжить чтение",
   "sidebar.bookmarks": "Закладки",
-  "bookmarks.empty": "Закладок пока нет."
+  "bookmarks.empty": "Закладок пока нет.",
+  "reader.bookmarkAdd": "Поставить закладку",
+  "reader.bookmarkRemove": "Убрать закладку",
+  "bookmark.added": "Закладка поставлена",
+  "bookmark.removed": "Закладка убрана",
+  "bookmark.undo": "Отменить"
 }

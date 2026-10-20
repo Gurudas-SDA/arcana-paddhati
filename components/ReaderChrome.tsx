@@ -26,6 +26,13 @@
  * Back (UI rule 6): the «Аа» panel is a history entry; "back" to it opens it
  * again, so Back retraces every step (lib/navHistory.ts).
  *
+ * Bookmark (variant A, Vraja Lila msg 5380, 20.10.2026): a 4th button — a
+ * ribbon — in the top bar before «Аа». A tap sets a bookmark on the place on
+ * screen (chapter + subsection, lib/bookmarks.ts) and shows a toast
+ * «Закладка поставлена · Отменить»; a tap on a place that has one removes it
+ * (rule 10.1). It only writes to the device: no history step, «Назад» never
+ * touches it (rule 10.2); works offline. Not on the cover / part pages.
+ *
  * Bottom bar (Satkirti, 06.10.2026): no progress slider; «‹ Назад» and
  * «Вперёд ›» at the screen edges are the browser's Back / Forward — the same
  * step-by-step history — because iPhone / iPad have no system Back button
@@ -44,6 +51,8 @@ import { takeEarlyTap } from "@/lib/earlyTap";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { type TocPart, type TocSection } from "@/lib/book";
 import { parsePath, t, type UiDict } from "@/lib/i18n";
+import { BOOKMARKS_EVENT, bookmarkAt, readBookmarks, toggleBookmark, writeBookmarks, type Bookmark } from "@/lib/bookmarks";
+import { captureReadingPlace } from "@/lib/readingPlace";
 import { stripBasePath } from "@/lib/basePath";
 import { main as mainEl, pushOverlay } from "@/lib/navHistory";
 import { readingSection } from "@/lib/readingFlow";
@@ -99,6 +108,8 @@ const HIDE_ON_DOWN_PX = 24;
 /** The one-time hint stays this long. */
 const HINT_MS = 6000;
 const HINT_KEY = "ap.readerHintSeen";
+/** The bookmark toast («Закладка поставлена · Отменить») stays this long. */
+const BOOKMARK_TOAST_MS = 4000;
 
 const THEME_SWATCH: Record<ReaderTheme, string> = {
   white: "#FFFFFF",
@@ -292,6 +303,47 @@ export default function ReaderChrome({
   const currentPart = part ?? parts.find((p) => p.sections.includes(sectionId ?? ""));
   const [subId] = useReadingSubsection(pathKey, section?.subsections.map((sub) => sub.id).join("|") ?? "");
   const subNumber = section?.subsections.find((sub) => sub.id === subId)?.num;
+
+  // ---- bookmark (variant A) ------------------------------------------------------
+  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
+  const [bmToast, setBmToast] = useState<{ added: boolean; undo: Bookmark[] } | null>(null);
+  const bmToastTimer = useRef<number | undefined>(undefined);
+  useEffect(() => {
+    const update = () => setBookmarks(readBookmarks());
+    const id = window.setTimeout(update, 0);
+    window.addEventListener(BOOKMARKS_EVENT, update);
+    window.addEventListener("storage", update);
+    return () => {
+      window.clearTimeout(id);
+      window.clearTimeout(bmToastTimer.current);
+      window.removeEventListener(BOOKMARKS_EVENT, update);
+      window.removeEventListener("storage", update);
+    };
+  }, []);
+  const bookmarkHere = section ? bookmarkAt(bookmarks, section.id, subId ?? null) : undefined;
+  /** Set / remove the bookmark on the place on screen; storage only, no history step. */
+  const onBookmark = () => {
+    if (!section) return;
+    let place = null;
+    try {
+      place = captureReadingPlace(lang, section.subsections.map((sub) => sub.id));
+    } catch {
+      // not measurable now: chapter + subsection are enough
+    }
+    const anchor = subId ?? place?.anchor ?? null;
+    const block = place && place.section === section.id ? place.block : 0;
+    const { added, before } = toggleBookmark(section.id, anchor, block, lang);
+    setBookmarks(readBookmarks());
+    window.clearTimeout(bmToastTimer.current);
+    setBmToast({ added, undo: before });
+    bmToastTimer.current = window.setTimeout(() => setBmToast(null), BOOKMARK_TOAST_MS);
+  };
+  const undoBookmark = () => {
+    window.clearTimeout(bmToastTimer.current);
+    if (bmToast) writeBookmarks(bmToast.undo);
+    setBookmarks(readBookmarks());
+    setBmToast(null);
+  };
   // «82 %» never breaks (Reader v7.1: on Android the «%» wrapped to a second line).
   const pctText = `${Math.round(pct)} %`;
   // Chapters with numbers (the Introduction group has none — Satkirti 06.10.2026):
@@ -703,9 +755,27 @@ export default function ReaderChrome({
             </svg>
             <span>{t(ui, "reader.search")}</span>
           </button>
+          {!isHome && section && (
+            <button
+              type="button"
+              className="reader-btn reader-bookmark ml-auto"
+              aria-pressed={!!bookmarkHere}
+              aria-label={t(ui, bookmarkHere ? "reader.bookmarkRemove" : "reader.bookmarkAdd")}
+              title={t(ui, bookmarkHere ? "reader.bookmarkRemove" : "reader.bookmarkAdd")}
+              onClick={() => {
+                arm();
+                onBookmark();
+              }}
+              data-reader-action="bookmark"
+            >
+              <svg aria-hidden="true" width="18" height="20" viewBox="0 0 18 20" fill={bookmarkHere ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
+                <path d="M3 1.5h12v17l-6-4.6-6 4.6z" />
+              </svg>
+            </button>
+          )}
           <button
             type="button"
-            className="reader-btn reader-aa ml-auto"
+            className={`reader-btn reader-aa${!isHome && section ? "" : " ml-auto"}`}
             aria-label={t(ui, "reader.textSettings")}
             aria-expanded={panel}
             title={t(ui, "reader.textSettings")}
@@ -889,6 +959,16 @@ export default function ReaderChrome({
         <p className="reader-hint reader-nav-note" role="status" data-reader-nav-note="">
           {navNote}
         </p>
+      )}
+
+      {bmToast && (
+        <div className="reader-toast" role="status" data-bookmark-toast="">
+          <span>{t(ui, bmToast.added ? "bookmark.added" : "bookmark.removed")}</span>
+          <span aria-hidden="true">{"\u00a0·"}</span>
+          <button type="button" className="reader-toast-undo" onClick={undoBookmark}>
+            {t(ui, "bookmark.undo")}
+          </button>
+        </div>
       )}
 
       {hint && (
