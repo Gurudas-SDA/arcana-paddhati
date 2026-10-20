@@ -36,6 +36,7 @@ OUT = IMAGES / "hotspots"
 INK = 235        # luminance below this = a drawn pixel (incl. anti-aliasing)
 DILATE = 2       # px grown around the object's own pixels
 FEATHER = 0.8    # gaussian sigma of the soft edge (px)
+DARK = 128       # luminance below this = a black stroke (printed numbers), not a grey rim
 
 # Per image, per number (pixel coordinates of the natural-size picture):
 #   clip:  polygon; only pixels inside it can belong to the object
@@ -48,6 +49,7 @@ CONFIG = {
     # Vraja Lila's schematic (20.10.2026 msg 736/738; 1254 x 1254, three Deities + objects 1-18).
     "common/paraphernalia.png": {
         "label_r": 18,   # printed numbers ~30 x 24 px: both digits of "10"-"18" lie inside the circle
+        "solid": 5,      # whole object and number incl. lines crossing them (solidify; Vraja Lila msg 5617-5620)
         # Rim of the big tray under 1-3 (outer double line + inner grey ring): belongs to no numbered object.
         "exclude": [{"cx": 488.5, "cy": 993, "rx": 139.5, "ry": 77, "band": 6},
                     {"cx": 490, "cy": 994, "rx": 123, "ry": 59, "band": 3}],
@@ -56,12 +58,14 @@ CONFIG = {
                    (712, 732), (712, 714), (560, 714), (560, 680), (415, 680), (415, 714), (85, 714)]],
         "items": {
             # cup with its spoon (the spoon's top end lies right of the bell's saucer)
-            "1": {"clip": [(410, 984), (470, 984), (474, 958), (487, 958), (482, 1053), (410, 1053)]},
-            "2": {"clip": [(488, 922), (598, 922), (598, 960), (562, 1027), (488, 1027)]},
+            "1": {"clip": [(406, 982), (460, 980), (471, 960), (476, 950), (485, 950), (485, 1053), (406, 1053)]},
+            # shell on its stand (both feet; the printed 2 sits right of the stand)
+            "2": {"clip": [(488, 920), (597, 920), (597, 965), (584, 968), (584, 1027), (488, 1027)]},
             # bell on its saucer (stops before the spoon and the incense holder)
-            "3": {"clip": [(420, 848), (455, 848), (455, 915), (468, 930), (471, 978), (406, 978), (410, 930), (420, 915)]},
+            "3": {"clip": [(420, 848), (455, 848), (455, 915), (464, 935), (470, 950), (471, 960), (460, 980), (406, 980),
+                           (406, 930), (420, 915)]},
             "4": {"clip": [(456, 676), (522, 676), (522, 877), (456, 877)]},
-            "5": {"clip": [(335, 800), (426, 800), (426, 850), (410, 872), (395, 884), (335, 884)]},
+            "5": {"clip": [(335, 800), (426, 800), (426, 850), (418, 872), (412, 888), (335, 888)]},
             "6": {"clip": [(581, 734), (706, 734), (706, 862), (581, 862)]},
             "7": {"clip": [(610, 904), (701, 904), (701, 961), (610, 961)]},
             "8": {"clip": [(703, 873), (883, 873), (883, 983), (703, 983)]},
@@ -165,6 +169,47 @@ def seed_region(ink, seeds, close):
     return reg
 
 
+def solidify(ink, core, ring, region, k):
+    """The whole object, not just its pieces (Vraja Lila msg 5617-5620, 20.10.2026: «не выделены целиком на
+    пересечении серых линий, а также цифры»). Where the tray's rims cross an object, the "exclude" bands cut
+    the object's own outline too, and the highlight showed gaps. Put the rim pixels of the object's region
+    back, find what that outline encloses (its inside), and take every drawn pixel within k px of the inside:
+    the object's own lines under the crossing and the stretch of rim that runs over the object. Rim that only
+    touches the outline from outside stays out (it borders no inside of the object)."""
+    if not core.any():
+        return core
+    outline = core | (ink & ring & region)
+    inside = ndi.binary_fill_holes(outline) & ~outline
+    inside = ndi.binary_opening(inside)          # no 1-px slivers between two touching lines
+    # only the object's own insides: mostly bounded by its own lines (not a sliver between two rim lines)
+    lab, n = ndi.label(inside)
+    if n:
+        rim = ndi.binary_dilation(inside, iterations=2) & ink & ~inside
+        idx = np.arange(1, n + 1)
+        near_lab = ndi.grey_dilation(lab, size=5)
+        own_b = ndi.sum(rim & core, near_lab, idx)
+        all_b = ndi.sum(rim, near_lab, idx)
+        good = np.zeros(n + 1, bool)
+        good[1:] = own_b >= 0.5 * np.maximum(all_b, 1)
+        inside = good[lab]
+    near = ndi.binary_dilation(inside, iterations=k)
+    return core | (ink & region & near)
+
+
+def solid_label(ink, core, region, dark):
+    """A printed number in full: the black stroke pixels inside the convex hull of its own strokes (a rim
+    crossing the digit cut the strokes it passes through). Only black (the digits are printed black, the
+    rims are grey): a rim passing through the digit's hull stays faded and does not look like part of it."""
+    if core.sum() < 3:
+        return core
+    from scipy.spatial import ConvexHull
+    pts = np.argwhere(core)[:, ::-1].astype(float)
+    hull = ConvexHull(pts)
+    poly = [tuple(pts[v]) for v in hull.vertices]
+    hullm = ndi.binary_dilation(poly_mask(ink.shape, poly) | core, iterations=1)
+    return core | (ink & dark & region & hullm)
+
+
 def build(name, spec, cfg):
     W, H = spec["w"], spec["h"]
     a = np.asarray(Image.open(IMAGES / name).convert("RGBA")).astype(float) / 255
@@ -200,14 +245,20 @@ def build(name, spec, cfg):
             keep[0] = False
             return keep[lab] & reg
 
+        solid_k = ic.get("solid", cfg.get("solid", 0))
         m = pick(region, clip)
+        if solid_k:
+            m = solidify(ink, m, ring, region, solid_k)
         if "lx" in s:
             # The printed number: only components lying mostly inside its
             # circle, unless the label touches a line ("label_clip").
             lx, ly = s["lx"] / 100 * W, s["ly"] / 100 * H
             lr = ic.get("label_r", cfg.get("label_r", 12))
             circle = (xx - lx) ** 2 + (yy - ly) ** 2 <= lr * lr
-            m |= pick(circle, cfg.get("label_clip", False))
+            lab_m = pick(circle, cfg.get("label_clip", False))
+            if solid_k:
+                lab_m = solid_label(ink, lab_m, (xx - lx) ** 2 + (yy - ly) ** 2 <= (lr + 6) ** 2, lum < DARK)
+            m |= lab_m
         for cut in ic.get("cut", []):
             m &= ~poly_mask(ink.shape, cut)
         own[n] = m
