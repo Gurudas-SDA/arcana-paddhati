@@ -48,6 +48,7 @@
  */
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { takeEarlyTap } from "@/lib/earlyTap";
+import { exitGhost } from "@/lib/exitGhost";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { type TocPart, type TocSection } from "@/lib/book";
 import { parsePath, t, type UiDict } from "@/lib/i18n";
@@ -194,6 +195,11 @@ export default function ReaderChrome({
   const hideTimer = useRef<number | undefined>(undefined);
   const lastScrollAt = useRef(0);
   const barsRef = useRef<HTMLDivElement>(null);
+  /** «Аа» panel: closes the way it opened, backwards (lib/exitGhost.ts, Vraja Lila msg 5521). */
+  const panelNodeRef = useCallback((node: HTMLDivElement | null) => {
+    if (!node) return;
+    return () => exitGhost(node, "reader-panel-out", 160);
+  }, []);
 
   // A new page: reading mode again (render-time adjustment, no effect) —
   // unless "back" returned to a step of that page with the «Аа» panel open.
@@ -807,7 +813,7 @@ export default function ReaderChrome({
 
       {/* «Аа» panel: text size, background, language */}
       {panel && (
-        <div className="reader-panel" role="group" aria-label={t(ui, "reader.textSettings")} {...barEvents}>
+        <div ref={panelNodeRef} className="reader-panel" role="group" aria-label={t(ui, "reader.textSettings")} {...barEvents}>
           <div className="reader-panel-head">
             <p className="reader-panel-title">{t(ui, "reader.textSettings")}</p>
             <button

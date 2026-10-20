@@ -132,6 +132,8 @@ SUITES = [
          devices=["iphone14", "ipad-portrait", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s64", file="suites/s64_cover_cards_width.py", title="Vraja 20.10 (ДА 5520): kartītes zem vāka («Продолжить», «Сохраняется») tieši vāka platumā — malas sakrīt ±1 px (iPhone SE/14, iPad portrets/ainava, dators)",
          devices=["iphone-se", "iphone14", "ipad-portrait", "ipad-landscape", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
+    dict(id="s65", file="suites/s65_menu_slide.py", title="Vraja 20.10 (ДА 5520, 5521): «Содержание» izbīdās/iebīdās ar augšējās joslas easing un ilgumu, izvēlētā rinda #F5E6C8, A65 kārtība, «Аа» panelis aizveras plūstoši; reduced motion — bez animācijas",
+         devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
          devices=None, fast=True, server=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",
