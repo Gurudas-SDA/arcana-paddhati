@@ -773,6 +773,7 @@ export default function AppShell({
         available={available}
         hasWbw={hasWbw}
         menuOpen={mobileMenuOpen}
+        menuClosing={menuClosing}
         onOpenContents={openMenu}
         onOpenSearch={openSearch}
       />

@@ -1061,7 +1061,8 @@ body,
   line-height: 1;
   margin-top: -3px;
 }
-.reader-history-btn[aria-disabled="true"] {
+/* pale = no step there; the look holds while «Содержание» is on screen (data-pale, V19) */
+.reader-history-btn[data-pale] {
   opacity: 0.35;
   cursor: default;
 }
@@ -1697,7 +1698,9 @@ html[data-reader-theme="night"] ::selection {
 /* While the contents / search menu is open, «‹ Назад / Вперёд ›» are always
    on screen and above the menu's backdrop (iPad has no system Back; on
    Android a tap there closed the menu instead). The menu panel ends above
-   the bar. */
+   the bar. [data-menu] stays while the panel slides back too (V16 «closing»),
+   so the bar never goes under the fading dimming (Vraja Lila 20.10.2026,
+   «нижняя панель не должна мерцать … не должна затемняться»). */
 .reader-chrome[data-menu] .reader-bar-bottom {
   opacity: 1;
   pointer-events: auto;
