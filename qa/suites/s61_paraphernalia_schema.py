@@ -85,13 +85,16 @@ PROBE = """() => {
 }"""
 
 TAP_PT = """(n) => {
-  const fig = [...document.querySelectorAll('.app-main .hs-figure')]
-    .find(f => /paraphernalia/.test(f.querySelector('img')?.getAttribute('src') || ''));
-  const g = [...fig.querySelectorAll('.hs-hit')].find(e => e.getAttribute('aria-label') === n);
-  if (!g) return null;
-  const cands = [...g.querySelectorAll('ellipse, circle')].map(e => e.getBoundingClientRect())
-    .map(r => ({x: r.left + r.width / 2, y: r.top + r.height / 2}));
-  for (const c of cands) { const el = document.elementFromPoint(c.x, c.y); if (el && el.closest('.hs-hit') === g) return c; }
+  // the picture in the text, or its floating copy (.hs-peek) when the picture is off-screen
+  const imgs = [...document.querySelectorAll('img')].filter(i => /paraphernalia/.test(i.getAttribute('src') || ''));
+  for (const img of imgs) {
+    const box = img.parentElement;
+    const g = [...box.querySelectorAll('.hs-hit')].find(e => e.getAttribute('aria-label') === n);
+    if (!g) continue;
+    const cands = [...g.querySelectorAll('ellipse, circle')].map(e => e.getBoundingClientRect())
+      .map(r => ({x: r.left + r.width / 2, y: r.top + r.height / 2}));
+    for (const c of cands) { const el = document.elementFromPoint(c.x, c.y); if (el && el.closest('.hs-hit') === g) return c; }
+  }
   return null;
 }"""
 
@@ -143,6 +146,7 @@ def run(p, dev, eng, o, webp):
                 (pg.touchscreen.tap if touch else pg.mouse.click)(pt["x"], pt["y"])
                 pg.wait_for_timeout(450)
                 act = pg.evaluate(ACTIVE)
+                pg.wait_for_timeout(600)   # the row's own scroll fix-up (Hotspots.tsx, 700 ms) is over before the next tap
                 if not act or not all(n in a.split(",") for a in act):
                     bad[n] = act
             check(dev, f"{lang}/{sid}: tap on object {','.join(nums)} → its row lit", not bad, bad)
