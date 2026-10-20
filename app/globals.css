@@ -1414,7 +1414,9 @@ html[data-reader-theme="night"] ::selection {
   min-width: 44px;
   justify-content: center;
   padding: 0.5rem 0.75rem;
-  margin-right: -0.75rem;
+  /* No negative margin (20.10.2026, Vraja Lila msg 5393/5402): the pressed band — and iPhone Safari's
+     lifted long-press copy of the link — stays inside the text column, with the same inner margin on
+     both sides, and never runs past the right edge of the screen. */
   border-radius: 10px;
   text-align: right;
   text-decoration: none;
