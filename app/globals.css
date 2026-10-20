@@ -1806,14 +1806,33 @@ html[data-hs-peek] .app-main {
 }
 
 /* Numbers drawn over a picture where it prints none (emblem 2.1–2.6, 10–12). */
+/* Numbers on a picture (Vraja Lila msg 5429/5432, 20.10.2026): one HTML layer above the picture
+   and its SVG overlay, no mix-blend-mode (it would cancel the pill and the blur); every number
+   alike — #6E1A2E on a white 60 % pill, backdrop blur 3.5 px. Size = 3.6 % of the picture width. */
+.hs-tags {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  container-type: inline-size;
+  mix-blend-mode: normal;
+}
 .hs-tag {
+  position: absolute;
+  transform: translate(-50%, -50%);
   font-family: Montserrat, "Segoe UI", Arial, sans-serif;
   font-weight: 700;
-  fill: #1a1a1a;
-  stroke: #fff;
-  stroke-width: 6px;
-  paint-order: stroke;
-  stroke-linejoin: round;
+  font-size: 13px;
+  font-size: 3.6cqw;
+  line-height: 1.15;
+  padding: 0.04em 0.28em;
+  border-radius: 9999px;
+  white-space: nowrap;
+  color: #6E1A2E;
+  background-color: rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: blur(3.5px);
+  backdrop-filter: blur(3.5px);
+  mix-blend-mode: normal;
+  pointer-events: none;
   -webkit-user-select: none;
   user-select: none;
 }

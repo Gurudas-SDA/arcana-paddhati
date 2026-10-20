@@ -112,6 +112,8 @@ SUITES = [
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s53", file="suites/s53_fonts_own_cut.py", title="Vraja 5316 p.4: sava fonta nogriezne (taisnais), Google Noto Serif netiek lejupielādēts, preload ≤ 80 KB",
          devices=["pixel7", "iphone14", "desktop"], fast=True, fast_devices=["pixel7", "iphone14"]),
+    dict(id="s54", file="suites/s54_emblem_numbers.py", title="Vraja 5429/5432: emblēmas numuri 1–12, 2.1–2.6 — #6E1A2E, balta 60 % pill + blur 3,5 px, HTML slānis bez mix-blend; 8/10/11 jaunās vietas; attēlā nav iededzinātu ciparu",
+         devices=["iphone14", "ipad-portrait", "desktop"], fast=True, fast_devices=["iphone14"]),
     dict(id="s52", file="suites/s52_reading_place.py", title="Vraja 5316 p.5–7: lasīšanas vieta (klusi, liveLang), «Продолжить» uz vāka bez lēciena, cilne «Закладки»",
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s54", file="suites/s54_bookmark_button.py", title="Vraja 5380: grāmatzīmes poga (variants A) augšējā joslā — tosts «Закладка поставлена · Отменить», 10.1 otrs pieskāriens noņem, 10.2 bez vēstures soļa, offline, 12 valodas 320–390 px",

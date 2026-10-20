@@ -26,6 +26,10 @@ MAP = REPO / "lib" / "webp-images.json"
 Q = 58
 # the pictures the app shows (ca-logo, conch-shankha, frame-red-cartouche: PDF / EPUB only or unused — left as they are)
 PICTURES = ["common/gaudiya-emblem.png", "common/paraphernalia.png", "common/tilak.png"]
+# The app's WebP is encoded from a different master where the app draws the numbers itself (Vraja Lila msg 5429/5432,
+# 20.10.2026: emblem numbers 1-12, 2.1-2.6 = HTML tags over the picture). The PNG with the burned-in numbers stays in
+# public/media/ (PDF / EPUB) and masters/media/ (history); the clean master = scripts/emblem_clean_numbers.py output.
+WEBP_SOURCE = {"common/gaudiya-emblem.png": MASTERS / "common" / "gaudiya-emblem-clean.png"}
 
 
 def encode(im, out_stem):
@@ -53,14 +57,15 @@ def main():
     out = {}
     for rel in PICTURES:
         keep_master(rel)
-        with Image.open(MEDIA / rel) as im:
+        with Image.open(WEBP_SOURCE.get(rel, MEDIA / rel)) as im:
             im.load()
             img = im.convert("RGBA") if im.mode in ("RGBA", "LA", "P") else im.convert("RGB")
         out[rel] = encode(img, rel[:-4])
     keep_master("cover/cover.jpg")
     with Image.open(MEDIA / "cover" / "cover.jpg") as im:
         big = im.convert("RGB")
-    with Image.open(MEDIA / "cover" / "cover-440.webp") as im:
+    old = json.loads(MAP.read_text(encoding="utf-8")) if MAP.exists() else {}
+    with Image.open(MEDIA / old.get("cover/cover-440.webp", "cover/cover-440.webp")) as im:
         small_size = im.size                                  # the existing 440 px variant's size, unchanged
     out["cover/cover.webp"] = encode(big, "cover/cover")
     out["cover/cover-440.webp"] = encode(big.resize(small_size, Image.LANCZOS), "cover/cover-440")

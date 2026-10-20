@@ -228,7 +228,8 @@ def run(p,dev,eng,kw,mode):
     ck(dev, '19 tap on the empty corner of the emblem toggles the menu', pg.evaluate(BARS) != before)
     # 14: numbers drawn on the emblem
     tags = qa.reading_eval(pg, "root => [...root.querySelectorAll('.hs-figure .hs-tag')].map(t=>t.textContent)")
-    ck(dev, '14 emblem shows numbers 1, 2.1–2.6, 10–12', sorted(tags) == sorted(['1', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '10', '11', '12']), tags)
+    # (20.10.2026, Vraja Lila msg 5429/5432: the app draws ALL numbers — the picture has none burned in; s54)
+    ck(dev, '14 emblem shows numbers 1–12, 2.1–2.6', sorted(tags) == sorted(['1', '2', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']), tags)
     # 18 (v7.8, Satkirti 07.10.2026 вечер): the short Tilak / ācamana mantras («oṁ keśavāya namaḥ») have
     # NO «пословно» any more; the mantras themselves are all still there
     pg.goto(L + 'daily-duties-brahma-muhurta/', wait_until='networkidle')

@@ -447,25 +447,6 @@ function HotspotCanvas({
           </g>
         ))}
 
-        {/* Numbers the picture itself does not print (drawn, not tappable on
-            their own: the object's tap target lies under them). */}
-        {Object.entries(spots).map(([n, s]) =>
-          s.tag ? (
-            <text
-              key={`tag-${n}`}
-              className="hs-tag"
-              x={px(s.tag[0], w)}
-              y={px(s.tag[1], h)}
-              fontSize={Math.max(w, h) * 0.036}
-              textAnchor="middle"
-              dominantBaseline="central"
-              pointerEvents="none"
-            >
-              {n}
-            </text>
-          ) : null,
-        )}
-
         {/* Not a tap target at all (the Deities): taps here do nothing. */}
         {data.inert?.map((poly, i) => (
           <polygon
@@ -476,6 +457,21 @@ function HotspotCanvas({
           />
         ))}
       </svg>
+      {/* The numbers drawn by the app (Vraja Lila msg 5429/5432, 20.10.2026: all alike — #6E1A2E on a
+          white 60 % pill with a 3.5 px backdrop blur). Their own HTML layer above the picture: inside
+          the SVG (mix-blend-mode: multiply) the pill and the blur would not work. Not tappable on
+          their own: the object's / number's tap target lies under them. */}
+      {Object.values(spots).some((s) => s.tag) && (
+        <div className="hs-tags" aria-hidden="true">
+          {Object.entries(spots).map(([n, s]) =>
+            s.tag ? (
+              <span key={n} className="hs-tag" style={{ left: `${s.tag[0]}%`, top: `${s.tag[1]}%` }}>
+                {n}
+              </span>
+            ) : null,
+          )}
+        </div>
+      )}
     </>
   );
 }
