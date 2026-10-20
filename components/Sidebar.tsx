@@ -1,7 +1,7 @@
 "use client";
 
 import { useOfflineProgress, useOfflineSave } from "@/lib/offlineProgress";
-import { readBookmarks, type Bookmark } from "@/lib/bookmarks";
+import { bookmarkAt, readBookmarks, type Bookmark } from "@/lib/bookmarks";
 import React, {
   useEffect,
   useLayoutEffect,
@@ -553,6 +553,23 @@ export default function Sidebar({
     return { head, second: sub ? (sub.num ? `${sub.num}. ${sub.title}` : sub.title) : null };
   };
   const showBookmarks = tab === "bookmarks" && !normalizedQuery;
+  // The bookmark on the place being read (Vraja Lila msg 5436): the same place
+  // the ribbon button shows as set (chapter + subsection from the scroll spy;
+  // no subsection — the chapter). Several there — the newest (the list is
+  // newest first). Lit exactly like the current row of «Содержание» (rule 9.2).
+  const litBookmarkId = selectedId ? bookmarkAt(bookmarks, selectedId, activeSubId ?? null)?.id : undefined;
+  const bookmarksRef = useRef<HTMLDivElement>(null);
+  // Opening the tab brings the lit bookmark into view, as «Содержание» does (9.12).
+  useLayoutEffect(() => {
+    if (!showBookmarks) return;
+    const box = bookmarksRef.current;
+    const row = box?.querySelector<HTMLElement>("[data-bookmark-lit]");
+    if (!box || !row) return;
+    const n = box.getBoundingClientRect();
+    const r = row.getBoundingClientRect();
+    if (r.top >= n.top && r.bottom <= n.bottom) return;
+    box.scrollTop += r.top - n.top - (n.height - r.height) / 2;
+  }, [showBookmarks, bookmarks, litBookmarkId]);
 
   const sectionHref = (sectionId: string, anchor?: string) =>
     localeHref(lang, sectionId, anchor);
@@ -1184,7 +1201,7 @@ export default function Sidebar({
       {/* Contents (Reader v7.8, Satkirti 07.10.2026): a fixed part — the title,
           the search and «Обложка» — and the list that scrolls under it. */}
       {showBookmarks && (
-        <div className="flex-1 min-h-0 overflow-y-auto" role="tabpanel" data-bookmarks-list="">
+        <div ref={bookmarksRef} className="flex-1 min-h-0 overflow-y-auto" role="tabpanel" data-bookmarks-list="">
           {bookmarks.length === 0 ? (
             <p className="px-5 py-4 text-sm text-[#5C3D2E]" data-bookmarks-empty="">
               {t(ui, "bookmarks.empty")}
@@ -1194,16 +1211,26 @@ export default function Sidebar({
               const line = bookmarkLine(b);
               if (!line) return null;
               const href = sectionHref(b.section, b.anchor ?? undefined);
+              const isLit = b.id === litBookmarkId;
+              // Lit = the look of the current row in «Содержание»: background,
+              // gold left bar, gold semibold title (one sign, rule 9.2). Every
+              // row keeps a 3px left bar (transparent) so the text never moves.
+              const titleClass = isLit ? "font-semibold text-[#B8860B]" : "";
               return (
                 <Link
                   key={b.id}
                   href={href}
                   onClick={(e) => leaveTo(e, href)}
                   data-bookmark-row=""
-                  className="sidebar-link block w-full text-left px-5 py-3 border-b border-[#E8DCC8] hover:bg-[#FDF8F0]"
+                  data-bookmark-id={b.id}
+                  data-bookmark-lit={isLit ? "" : undefined}
+                  aria-current={isLit ? "location" : undefined}
+                  className={`sidebar-link block w-full text-left px-5 py-3 border-b border-[#E8DCC8] border-l-3 transition-colors ${
+                    isLit ? "bg-[#FAF3E8] border-l-[#B8860B]" : "border-l-transparent hover:bg-[#FDF8F0]"
+                  }`}
                 >
-                  <span className="block text-sm text-[#2C1810]">{line.head}</span>
-                  {line.second && <span className="block text-sm text-[#5C3D2E]">{line.second}</span>}
+                  <span className={`block text-sm ${titleClass || "text-[#2C1810]"}`} data-bookmark-title="">{line.head}</span>
+                  {line.second && <span className={`block text-sm ${titleClass || "text-[#5C3D2E]"}`}>{line.second}</span>}
                   <span className="block text-[11px] text-[#6B5440]">
                     {new Date(b.time).toLocaleDateString(lang === "en" ? "en" : lang.split("-")[0])}
                   </span>
