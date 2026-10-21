@@ -924,13 +924,13 @@ export default function Sidebar({
     const rowLit = lit(rowId, isSelected && (!isOpen || atStart));
     const rowClass = `sidebar-link w-full min-h-[44px] text-left px-5 py-3 flex items-start justify-between gap-2 transition-colors ${
       rowLit
-        ? "bg-[#FAF3E8] border-l-3 border-[#B8860B]"
+        ? "bg-[#FAF3E8] border-l-3 border-[var(--ap-gold)]"
         : "hover:bg-[#FDF8F0] border-l-3 border-transparent"
     }`;
     const label = (
       <span
         className={`text-sm leading-snug ${
-          rowLit ? "font-semibold text-[#B8860B]" : "text-[#2C1810]"
+          rowLit ? "font-semibold text-[var(--ap-gold)]" : "text-[#2C1810]"
         }`}
       >
         {section.num && <span className="heading-num">{`${section.num}.`}</span>}
@@ -942,8 +942,8 @@ export default function Sidebar({
       // the highlight band start at the panel's left edge, like the chapters and parts.
       `sidebar-link relative flex items-center min-h-[44px] w-full text-left pl-[39px] pr-4 py-2 text-xs border-l-3 transition-colors ${
         active
-          ? "bg-[#FAF3E8] border-[#B8860B] text-[#B8860B] font-semibold"
-          : "border-transparent text-[#5C3D2E] hover:text-[#B8860B] hover:bg-[#FDF8F0]"
+          ? "bg-[#FAF3E8] border-[var(--ap-gold)] text-[var(--ap-gold)] font-semibold"
+          : "border-transparent text-[#5C3D2E] hover:text-[var(--ap-gold)] hover:bg-[#FDF8F0]"
       }`;
     return (
       <li key={section.id}>
@@ -965,7 +965,7 @@ export default function Sidebar({
               {label}
             </button>
             <span aria-hidden="true" className="pointer-events-none absolute right-0 top-0 flex h-[44px] w-[44px] items-center justify-center">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B8860B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={`shrink-0 transition-transform ${isOpen ? "rotate-90" : ""}`}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style={{ color: "var(--ap-gold)" }} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={`shrink-0 transition-transform ${isOpen ? "rotate-90" : ""}`}>
                 <polyline points="9 6 15 12 9 18" />
               </svg>
             </span>
@@ -1054,7 +1054,7 @@ export default function Sidebar({
       <div
         data-toc-group-row={groupId}
         className={`flex items-stretch border-l-3 transition-colors ${
-          on ? "border-[#B8860B] bg-[#FAF3E8]" : "border-transparent hover:bg-[#FDF8F0]"
+          on ? "border-[var(--ap-gold)] bg-[#FAF3E8]" : "border-transparent hover:bg-[#FDF8F0]"
         }`}
       >
         <Link
@@ -1073,8 +1073,8 @@ export default function Sidebar({
           data-toc-lit={on ? "" : undefined}
           data-toc-row={headId}
           {...loadingProps(headId)}
-          className={`sidebar-link flex flex-1 min-w-0 min-h-[44px] flex-col justify-center pl-5 pr-1 py-2 text-left hover:text-[#B8860B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#B8860B]/40 transition-colors ${
-            on ? "text-[#B8860B]" : "text-[#9C7A4E]"
+          className={`sidebar-link flex flex-1 min-w-0 min-h-[44px] flex-col justify-center pl-5 pr-1 py-2 text-left hover:text-[var(--ap-gold)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--ap-gold)] transition-colors ${
+            on ? "text-[var(--ap-gold)]" : "text-[#9C7A4E]"
           }`}
         >
           <span className="text-[11px] uppercase tracking-[0.12em] font-semibold leading-snug">{label}</span>
@@ -1088,8 +1088,8 @@ export default function Sidebar({
           aria-controls={isOpen ? listId : undefined}
           aria-label={name}
           data-toc-toggle={groupId}
-          className={`sidebar-link flex min-h-[44px] w-[44px] shrink-0 items-center justify-center hover:text-[#B8860B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#B8860B]/40 transition-colors ${
-            on ? "text-[#B8860B]" : "text-[#9C7A4E]"
+          className={`sidebar-link flex min-h-[44px] w-[44px] shrink-0 items-center justify-center hover:text-[var(--ap-gold)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--ap-gold)]/40 transition-colors ${
+            on ? "text-[var(--ap-gold)]" : "text-[#9C7A4E]"
           }`}
         >
           <svg
@@ -1149,7 +1149,7 @@ export default function Sidebar({
             height="20"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#B8860B"
+            stroke="currentColor" style={{ color: "var(--ap-gold)" }}
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -1158,8 +1158,8 @@ export default function Sidebar({
             <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
           </svg>
           <h2
-            className="text-lg font-semibold leading-snug break-words"
-            style={{ color: "#B8860B" }}
+            className="contents-title text-lg font-semibold leading-snug break-words"
+            style={{ color: "var(--ap-gold)" }}
           >
             {t(ui, "sidebar.contents")}
           </h2>
@@ -1167,15 +1167,16 @@ export default function Sidebar({
         {/* Mobile close button */}
         <button
           onClick={onClose}
-          className="p-1 rounded hover:bg-[#F5E6C8] transition-colors"
+          className="sidebar-close p-1 rounded text-[#2C1810] hover:bg-[#F5E6C8] transition-colors"
           aria-label={t(ui, "sidebar.closeMenu")}
         >
+          {/* V33: currentColor, so the dark background repaints it (was a fixed #2C1810: 1.0:1 on the dark panel) */}
           <svg
             width="20"
             height="20"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#2C1810"
+            stroke="currentColor"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -1207,7 +1208,7 @@ export default function Sidebar({
             height="16"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#B8860B"
+            stroke="currentColor" style={{ color: "var(--ap-gold)" }}
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -1228,13 +1229,13 @@ export default function Sidebar({
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             onFocus={onSearchFocus}
-            className="search-input w-full pl-9 pr-3 py-2 text-[16px] rounded-lg border border-[#E8DCC8] bg-[#FDF8F0] text-[#2C1810] placeholder-[#8B6508] focus:outline-none focus:border-[#B8860B] focus:ring-1 focus:ring-[#B8860B]/30 transition-colors"
+            className="search-input w-full pl-9 pr-3 py-2 text-[16px] rounded-lg border border-[#E8DCC8] bg-[#FDF8F0] text-[#2C1810] placeholder-[var(--ap-gold)] focus:outline-none focus:border-[var(--ap-gold)] focus:ring-1 focus:ring-[var(--ap-gold)] transition-colors"
           />
           {searchQuery && (
             <button
               type="button"
               onClick={() => onSearchChange("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#5C3D2E] hover:text-[#2C1810]"
+              className="search-clear absolute right-3 top-1/2 -translate-y-1/2 text-[#5C3D2E] hover:text-[#2C1810]"
               aria-label={t(ui, "search.clear")}
             >
               <svg
@@ -1266,7 +1267,7 @@ export default function Sidebar({
               data-sidebar-tab={k}
               onClick={() => chooseTab(k)}
               className={`flex-1 px-3 py-2.5 text-sm transition-colors border-b-2 ${
-                tab === k ? "border-[#B8860B] text-[#2C1810] font-semibold" : "border-transparent text-[#5C3D2E]"
+                tab === k ? "border-[var(--ap-gold)] text-[#2C1810] font-semibold" : "border-transparent text-[#5C3D2E]"
               }`}
             >
               {t(ui, k === "contents" ? "sidebar.contents" : "sidebar.bookmarks")}
@@ -1306,7 +1307,7 @@ export default function Sidebar({
               // Lit = the look of the current row in «Содержание»: background,
               // gold left bar, gold semibold title (one sign, rule 9.2). Every
               // row keeps a 3px left bar (transparent) so the text never moves.
-              const titleClass = isLit ? "font-semibold text-[#B8860B]" : "";
+              const titleClass = isLit ? "font-semibold text-[var(--ap-gold)]" : "";
               return (
                 <div
                   key={b.id}
@@ -1315,7 +1316,7 @@ export default function Sidebar({
                   data-bookmark-lit={isLit ? "" : undefined}
                   data-bookmark-faded={isPale ? "" : undefined}
                   className={`relative border-b border-[#E8DCC8] border-l-3 transition-colors ${
-                    isLit ? "bg-[#FAF3E8] border-l-[#B8860B]" : "border-l-transparent hover:bg-[#FDF8F0]"
+                    isLit ? "bg-[#FAF3E8] border-l-[var(--ap-gold)]" : "border-l-transparent hover:bg-[#FDF8F0]"
                   }`}
                 >
                 <Link
@@ -1360,7 +1361,7 @@ export default function Sidebar({
                     a tap removes this bookmark (2а); a 44px target, outside the row link. */}
                 <button
                   type="button"
-                  className="absolute right-0 top-1/2 -translate-y-1/2 flex h-[44px] w-[44px] items-center justify-center text-[#8B6508] disabled:cursor-default"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 flex h-[44px] w-[44px] items-center justify-center text-[var(--ap-gold)] disabled:cursor-default"
                   onClick={() => removeBookmarkRow(b)}
                   disabled={isPale}
                   aria-label={t(ui, "reader.bookmarkRemove")}
@@ -1405,7 +1406,7 @@ export default function Sidebar({
             {...loadingProps("cover")}
             className={`sidebar-link w-full text-left px-5 py-3 flex items-center gap-2 transition-colors ${
               lit("cover", selectedId === null)
-                ? "bg-[#FAF3E8] border-l-3 border-[#B8860B]"
+                ? "bg-[#FAF3E8] border-l-3 border-[var(--ap-gold)]"
                 : "hover:bg-[#FDF8F0] border-l-3 border-transparent"
             }`}
           >
@@ -1415,7 +1416,7 @@ export default function Sidebar({
               height="14"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#B8860B"
+              stroke="currentColor" style={{ color: "var(--ap-gold)" }}
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -1427,7 +1428,7 @@ export default function Sidebar({
             <span
               className={`text-sm leading-snug ${
                 lit("cover", selectedId === null)
-                  ? "font-semibold text-[#B8860B]"
+                  ? "font-semibold text-[var(--ap-gold)]"
                   : "text-[#2C1810]"
               }`}
             >
@@ -1456,14 +1457,14 @@ export default function Sidebar({
                     }}
                     data-toc-lit={lit(entry.anchor ? `sub:${entry.section}#${entry.anchor}` : `sec:${entry.section}`, false) ? "" : undefined}
                     className={lit(entry.anchor ? `sub:${entry.section}#${entry.anchor}` : `sec:${entry.section}`, false)
-                      ? "block w-full text-left px-5 py-3 border-l-3 border-[#B8860B] bg-[#FAF3E8] transition-colors"
+                      ? "block w-full text-left px-5 py-3 border-l-3 border-[var(--ap-gold)] bg-[#FAF3E8] transition-colors"
                       : "block w-full text-left px-5 py-3 border-l-3 border-transparent hover:bg-[#FDF8F0] transition-colors"}
                   >
                     <span className="block text-sm leading-snug text-[#2C1810]">
                       <Marked text={entry.title} nq={normalizedQuery} />
                     </span>
                     {entry.anchor && (
-                      <span className="block text-xs text-[#B8860B]/80 mt-0.5">
+                      <span className="block text-xs text-[var(--ap-gold)] mt-0.5">
                         {entry.sectionTitle}
                       </span>
                     )}
@@ -1533,13 +1534,13 @@ export default function Sidebar({
                                 {...loadingProps(`part:${part.id}`)}
                                 className={`sidebar-link w-full text-left px-5 py-3 block border-l-3 transition-colors ${
                                   lit(`part:${part.id}`, false)
-                                    ? "bg-[#FAF3E8] border-[#B8860B]"
+                                    ? "bg-[#FAF3E8] border-[var(--ap-gold)]"
                                     : "hover:bg-[#FDF8F0] border-transparent"
                                 }`}
                               >
                                 <span
                                   className={`text-sm leading-snug italic ${
-                                    lit(`part:${part.id}`, false) ? "text-[#B8860B]" : "text-[#5C3D2E]"
+                                    lit(`part:${part.id}`, false) ? "text-[var(--ap-gold)]" : "text-[#5C3D2E]"
                                   }`}
                                 >
                                   {t(ui, "part.empty")}

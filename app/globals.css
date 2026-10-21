@@ -150,7 +150,7 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid rgba(184, 134, 11, 0.55);
+  outline: 2px solid var(--ap-gold);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -473,7 +473,7 @@ html[data-home-save] .home-save-slot {
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #8B6508;
+  color: var(--ap-gold);
   font-weight: 600;
 }
 .home-resume-line {
@@ -488,7 +488,7 @@ html[data-home-save] .home-save-slot {
   font-size: 20px;
   line-height: 1;
   font-weight: 600;
-  color: #8B6508;
+  color: var(--ap-gold);
 }
 html[data-reader-theme="night"] .home-resume {
   background: #1B1712;
@@ -497,7 +497,7 @@ html[data-reader-theme="night"] .home-resume {
 }
 html[data-reader-theme="night"] .home-resume-title,
 html[data-reader-theme="night"] .home-resume-arrow {
-  color: #D4A843;
+  color: var(--ap-gold);
 }
 .home-save-slot {
   display: none;
@@ -564,7 +564,7 @@ html[data-home-save] .home-save-slot {
   display: flex;
   align-items: center;
   gap: 9px;
-  color: #B8860B;
+  color: var(--ap-gold);
 }
 .home-save-done .home-save-title {
   color: #2C1810;
@@ -628,7 +628,7 @@ html[data-reader-theme="night"] .home-save-track i.part {
   -webkit-tap-highlight-color: transparent;
 }
 .hs-text[role="button"]:focus-visible {
-  outline: 2px solid #D4A017;
+  outline: 2px solid var(--ap-gold);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -766,7 +766,9 @@ html:root .hs-row:is(li, div)[data-active] :is(.hs-text, .hs-cell) {
 .hs-hit circle {
   fill: transparent;
   stroke: transparent;
-  stroke-width: 1.5px;
+  /* V33: the transparent stroke takes taps too (pointer-events: all) — the tap
+     area of small items (2.1–2.6, the small copy) is 12 px wider, unseen. */
+  stroke-width: 12px;
 }
 /* Areas that are no tap target at all (the Deities). */
 .hs-inert {
@@ -777,7 +779,8 @@ html:root .hs-row:is(li, div)[data-active] :is(.hs-text, .hs-cell) {
 }
 /* Keyboard focus only: a faint dashed outline (no ring on tap or hover). */
 .hs-hit:focus-visible ellipse {
-  stroke: rgba(44, 24, 16, 0.45);
+  stroke: #2C1810;
+  stroke-width: 2px;
   stroke-dasharray: 4 3;
 }
 .hs-img {
@@ -894,9 +897,9 @@ html:root .hs-row:is(li, div)[data-active] :is(.hs-text, .hs-cell) {
   --rd-fg: #1a1a1a;
   --rd-muted: #5C3D2E;
   --rd-faint: rgba(92, 61, 46, 0.55);
-  --rd-accent: #B8860B;
-  --rd-mantra-fg: color-mix(in srgb, var(--rd-accent) 60%, var(--rd-fg));
-  --rd-mantra-rule: var(--rd-accent);
+  --rd-accent: var(--ap-gold);
+  --rd-mantra-fg: color-mix(in srgb, #B8860B 60%, var(--rd-fg));
+  --rd-mantra-rule: #B8860B;
   --rd-bar-bg: #FFFFFF;
   --rd-border: #E8DCC8;
   --rd-hover: #F5E6C8;
@@ -910,8 +913,8 @@ html:root .hs-row:is(li, div)[data-active] :is(.hs-text, .hs-cell) {
 html[data-reader-theme="sepia"] {
   --rd-bg: #EFE6D2;
   --rd-fg: #2a2016;
-  --rd-mantra-fg: color-mix(in srgb, var(--rd-accent) 50%, var(--rd-fg));
-  --rd-mantra-rule: var(--rd-accent);
+  --rd-mantra-fg: color-mix(in srgb, #B8860B 50%, var(--rd-fg));
+  --rd-mantra-rule: #B8860B;
   --rd-bar-bg: #EFE6D2;
   --rd-border: #DCCCAC;
   --rd-hover: #E5D8BC;
@@ -924,9 +927,9 @@ html[data-reader-theme="night"] {
   --rd-fg: #E4DCCF;
   --rd-muted: #BBAE9A;
   --rd-faint: rgba(187, 174, 154, 0.5);
-  --rd-accent: #D4A843;
+  --rd-accent: var(--ap-gold);
   --rd-mantra-fg: var(--color-gold-muted);
-  --rd-mantra-rule: var(--rd-accent);
+  --rd-mantra-rule: #D4A843;
   --rd-bar-bg: #1C1813;
   --rd-border: #3A3128;
   --rd-hover: #2E271F;
@@ -1451,7 +1454,7 @@ html[data-reader-theme="night"] ::highlight(search-hit) {
   --lang-dim: rgba(0, 0, 0, 0.6);
   --lang-sel-bg: #F5E6C8;
   --lang-sel-fg: #2C1810;
-  --lang-check: #B8860B;
+  --lang-check: var(--ap-gold);
 }
 html[data-reader-theme="sepia"] {
   --lang-sel-bg: #E9D3A6;
@@ -1459,7 +1462,7 @@ html[data-reader-theme="sepia"] {
 html[data-reader-theme="night"] {
   --lang-sel-bg: #3A3020;
   --lang-sel-fg: #F2E9DA;
-  --lang-check: #D4A843;
+  --lang-check: var(--ap-gold);
 }
 .lang-field-wrap {
   position: relative;
@@ -1810,7 +1813,7 @@ html[data-reader-theme="night"] ::selection {
 .mobile-menu [data-menu-picked],
 .mobile-menu [data-menu-picked]:hover {
   background-color: #F5E6C8 !important;
-  color: #8B6508 !important;
+  color: var(--ap-gold) !important;
   transition: background-color 150ms ease-out, color 150ms ease-out;
 }
 /* V38c (Vraja Lila msg 1321 / 1322): a section heading picked in the contents lights as
@@ -1879,7 +1882,7 @@ html[data-reader-theme="night"] ::selection {
   bottom: 0;
   left: 0;
   width: 40%;
-  background: #b8860b;
+  background: var(--ap-gold);
   animation: nav-progress-run 1.1s ease-in-out infinite;
 }
 @keyframes nav-progress-run {
@@ -1911,7 +1914,7 @@ html[data-reader-theme="night"] ::selection {
   width: 10px;
   height: 10px;
   border: 1.5px solid rgba(184, 134, 11, 0.3);
-  border-top-color: #b8860b;
+  border-top-color: var(--ap-gold);
   border-radius: 50%;
   animation: toc-loading-spin 0.8s linear infinite;
 }
@@ -1948,7 +1951,7 @@ html[data-reader-theme="night"] ::selection {
   text-align: center;
   font-size: 1.1em;
   line-height: 1;
-  color: var(--rd-accent);
+  color: #B8860B; /* ornaments: content decor, tone unchanged */
   opacity: 0.7;
   -webkit-user-select: none;
   user-select: none;
@@ -2189,3 +2192,73 @@ html[data-resume-fade="in"] .app-main {
 }
 
 /* V39 «В этом разделе» box: a master component — design-system/components.css (.section-chapters). */
+/* =====================================================================
+   WCAG 2.1 AA (V33, Vraja Lila msg 5865/5900–5907, variant B «делай по-красоте»).
+   ONE accent tone for every gold icon, gold text, frame and focus ring:
+   --ap-gold — light backgrounds (white, sepia) #965700 (honey amber: 5.74 on
+   white, 4.62 on sepia, 4.65 on #F5E6C8), dark background #E3A03C (7.5–8.3).
+   The «Установить» band keeps white text and ✕ (as before) on a darker gold:
+   --ap-band-1 -> --ap-band-2 (white 4.91–5.74).
+   Mantras, ornaments, link underlines, pictures and body text are unchanged.
+   qa/suites/s79_wcag_v33.py guards every value.
+   ===================================================================== */
+:root {
+  --ap-gold: #965700;
+  --ap-band-1: #A56000;
+  --ap-band-2: #965700;
+  /* status line (chapter · %): the same brown, less transparent */
+  --rd-faint: rgba(92, 61, 46, 0.75);
+}
+html[data-reader-theme="sepia"] {
+  --rd-faint: rgba(92, 61, 46, 0.80);
+  /* the highlight under a finger / an open button: lighter than the sepia page
+     (it was #E5D8BC, darker — gold on it 4.07); gold on #FAF5EA 5.28 */
+  --rd-hover: #FAF5EA;
+}
+html[data-reader-theme="night"] {
+  --ap-gold: #E3A03C;
+  --rd-faint: rgba(187, 174, 154, 0.70);
+}
+html[data-reader-theme="night"] .verse-ornament {
+  color: #D4A843;
+}
+/* part labels and small numbers in «Содержание» (brown, not gold): #9C7A4E -> #7A5E38 */
+html:not([data-reader-theme="night"]) .text-\[\#9C7A4E\],
+html:not([data-reader-theme="night"]) aside .heading-num {
+  color: #7A5E38;
+}
+/* search field frame — the same tone as the magnifier and the placeholder */
+.search-input {
+  border-color: var(--ap-gold) !important;
+}
+.search-input::placeholder {
+  color: var(--ap-gold);
+  opacity: 1;
+}
+/* band button: white layer 20 % -> 8 %, so white text stays >= 4.5:1 over the whole button (4.46 at its left edge with 10 %) */
+.install-banner-btn {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+/* Tap areas — invisible, the look does not change (Vraja Lila: absolute
+   rights on the interface, «Стандарты» 0а). ✕ in the search field 44×44: */
+.search-clear {
+  right: -3px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* ✕ of «Содержание» on the dark background: hover is the dark «pressed» tone, not cream */
+html[data-reader-theme="night"] .sidebar-close:hover {
+  background-color: #3A2F1F;
+}
+/* ✕ of the «Установить» band: 22 px icon, 44×44 area */
+.banner-close {
+  position: relative;
+}
+.banner-close::after {
+  content: "";
+  position: absolute;
+  inset: -11px;
+}

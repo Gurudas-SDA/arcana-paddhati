@@ -94,7 +94,7 @@ function BulletList({ content }: { content: string }) {
     <ul role="list" className="my-3 ml-5 space-y-0.5 text-[15px] leading-7 text-[#1a1a1a]">
       {items.map((line, i) => (
         <li key={i} className="flex gap-2">
-          <span aria-hidden="true" className="shrink-0 select-none text-[#B8860B]">
+          <span aria-hidden="true" className="shrink-0 select-none text-[var(--ap-gold)]">
             &ndash;
           </span>
           <span className="min-w-0">
@@ -193,7 +193,7 @@ function DataTable({ header, rows }: { header: string[]; rows: TableRow[] }) {
                       <Inline text={c} />
                     </th>
                   ) : (
-                    <td key={ci} className={`px-2 py-1.5 tabular-nums ${/\d/.test(c) && c.length <= (ci < r.cells.length - 1 ? 18 : 10) ? "whitespace-nowrap" : ""} ${r.highlight && ci === r.cells.length - 1 ? "font-semibold text-[#8B6508]" : ""}`}>
+                    <td key={ci} className={`px-2 py-1.5 tabular-nums ${/\d/.test(c) && c.length <= (ci < r.cells.length - 1 ? 18 : 10) ? "whitespace-nowrap" : ""} ${r.highlight && ci === r.cells.length - 1 ? "font-semibold text-[var(--ap-gold)]" : ""}`}>
                       <Inline text={c} />
                     </td>
                   ),
@@ -214,7 +214,7 @@ function DataTable({ header, rows }: { header: string[]; rows: TableRow[] }) {
                 <Inline text={r.cells[0]} />
               </span>
               {r.highlight && r.badge && (
-                <span className="rounded-full border border-[#B8860B] px-2 py-0.5 text-[11px] font-semibold leading-4 text-[#8B6508]">
+                <span className="rounded-full border border-[var(--ap-gold)] px-2 py-0.5 text-[11px] font-semibold leading-4 text-[var(--ap-gold)]">
                   {r.badge}
                 </span>
               )}
@@ -518,7 +518,7 @@ function ContentBlock({
           <a
             {...(transcript ? transcriptLinkProps(href) : { href, target: "_blank", rel: "noopener noreferrer" })}
             data-transcript-link={transcript ? "" : undefined}
-            className="not-italic text-[#8B6508] underline decoration-[#D4A843] underline-offset-2 hover:text-[#B8860B]"
+            className="not-italic text-[var(--ap-gold)] underline decoration-[#D4A843] underline-offset-2 hover:text-[var(--ap-gold)]"
           >
             {label}
           </a>

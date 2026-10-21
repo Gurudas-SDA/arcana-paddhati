@@ -47,8 +47,8 @@ with sync_playwright() as p:
             walk(rs); }
           return {size: parseFloat(getComputedStyle(i).fontSize), ph: getComputedStyle(i, '::placeholder').color, rule}; }""")
         check(dev, "search field font-size ≥ 16 px", st and st["size"] >= 16, st)
-        ok_ph = lambda v: (v or "").replace(" ", "").lower() in ("rgb(139,101,8)", "rgba(139,101,8,1)", "#8b6508")
-        check(dev, "placeholder colour #8B6508", st and (ok_ph(st["ph"]) or (eng == "webkit" and ok_ph(st["rule"]))), st)
+        ok_ph = lambda v: (v or "").replace(" ", "").lower() in ("rgb(150,87,0)", "rgba(150,87,0,1)", "#965700", "var(--ap-gold)")  # V33 (Vraja Lila msg 5907): --ap-gold #965700, was #8B6508
+        check(dev, "placeholder colour --ap-gold #965700", st and (ok_ph(st["ph"]) or (eng == "webkit" and ok_ph(st["rule"]))), st)
         c.close()
         c = b.new_context(service_workers="block", locale="ru-RU", **opts)
         c.add_init_script("localStorage.setItem('ap.readerHintSeen','1')")

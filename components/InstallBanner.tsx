@@ -203,9 +203,9 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
         ref={bannerRef}
         data-no-reader-tap=""
         style={{
-          background: "linear-gradient(90deg, #D4A843, #B8860B)",
+          background: "linear-gradient(90deg, var(--ap-band-1), var(--ap-band-2))",
         }}
-        className="no-print flex items-center justify-between gap-2 px-3 py-2.5 sm:px-4 sm:py-2.5 text-white text-sm"
+        className="install-banner no-print flex items-center justify-between gap-2 px-3 py-2.5 sm:px-4 sm:py-2.5 text-white text-sm"
       >
         <span
           className="min-w-0 break-words text-xs sm:text-sm leading-tight"
@@ -217,13 +217,13 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
         <div className="flex items-center gap-2 shrink-0">
           <button
             onClick={handleInstall}
-            className="px-3 py-1 rounded-full bg-white/20 hover:bg-white/30 active:bg-white/40 text-white text-xs sm:text-sm font-semibold transition-colors border border-white/40"
+            className="install-banner-btn px-3 py-1 rounded-full bg-white/20 hover:bg-white/30 active:bg-white/40 text-white text-xs sm:text-sm font-semibold transition-colors border border-white/40"
           >
             {t(ui, "install.button")}
           </button>
           <button
             onClick={handleDismiss}
-            className="p-1 rounded-full hover:bg-white/20 transition-colors"
+            className="banner-close p-1 rounded-full hover:bg-white/20 transition-colors"
             aria-label={t(ui, "install.dismiss")}
           >
             <svg
@@ -299,7 +299,7 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
             {platform === "ios" ? (
               <ol className="space-y-3 text-sm text-[#2C1810]">
                 <li className="flex gap-3">
-                  <span className="shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-[#D4A843] to-[#B8860B] text-white flex items-center justify-center text-xs font-bold">
+                  <span className="shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-[var(--ap-band-1)] to-[var(--ap-band-2)] text-white flex items-center justify-center text-xs font-bold">
                     1
                   </span>
                   <span>
@@ -314,7 +314,7 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-[#D4A843] to-[#B8860B] text-white flex items-center justify-center text-xs font-bold">
+                  <span className="shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-[var(--ap-band-1)] to-[var(--ap-band-2)] text-white flex items-center justify-center text-xs font-bold">
                     2
                   </span>
                   <span>
@@ -324,7 +324,7 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-[#D4A843] to-[#B8860B] text-white flex items-center justify-center text-xs font-bold">
+                  <span className="shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-[var(--ap-band-1)] to-[var(--ap-band-2)] text-white flex items-center justify-center text-xs font-bold">
                     3
                   </span>
                   <span>
@@ -337,7 +337,7 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
             ) : (
               <ol className="space-y-3 text-sm text-[#2C1810]">
                 <li className="flex gap-3">
-                  <span className="shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-[#D4A843] to-[#B8860B] text-white flex items-center justify-center text-xs font-bold">
+                  <span className="shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-[var(--ap-band-1)] to-[var(--ap-band-2)] text-white flex items-center justify-center text-xs font-bold">
                     1
                   </span>
                   <span>
@@ -351,7 +351,7 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-[#D4A843] to-[#B8860B] text-white flex items-center justify-center text-xs font-bold">
+                  <span className="shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-[var(--ap-band-1)] to-[var(--ap-band-2)] text-white flex items-center justify-center text-xs font-bold">
                     2
                   </span>
                   <span>
@@ -361,7 +361,7 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-[#D4A843] to-[#B8860B] text-white flex items-center justify-center text-xs font-bold">
+                  <span className="shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-[var(--ap-band-1)] to-[var(--ap-band-2)] text-white flex items-center justify-center text-xs font-bold">
                     3
                   </span>
                   <span>
@@ -373,7 +373,7 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <span className="shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-[#D4A843] to-[#B8860B] text-white flex items-center justify-center text-xs font-bold">
+                  <span className="shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-[var(--ap-band-1)] to-[var(--ap-band-2)] text-white flex items-center justify-center text-xs font-bold">
                     4
                   </span>
                   <span>

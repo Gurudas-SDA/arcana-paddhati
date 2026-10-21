@@ -99,7 +99,7 @@ function TranscriptLink({ url, label }: { url: string; label: string }) {
       onPointerCancel={() => {
         down.current = null;
       }}
-      className="-my-2 inline-block py-2 text-[#8B6508] underline decoration-[#D4A843] underline-offset-2 hover:text-[#B8860B]"
+      className="-my-2 inline-block py-2 text-[var(--ap-gold)] underline decoration-[#D4A843] underline-offset-2 hover:text-[var(--ap-gold)]"
     >
       {label}
     </a>
@@ -126,7 +126,7 @@ function Paragraphs({ text, className }: { text: string; className: string }) {
   return (
     <>
         {text.split("\n\n").map((para, i) => (
-          <p key={i} className={`${className} ${para.trim() === "[…]" ? "text-[#8B6508] not-italic" : ""}`}>
+          <p key={i} className={`${className} ${para.trim() === "[…]" ? "text-[var(--ap-gold)] not-italic" : ""}`}>
             {para}
           </p>
         ))}
@@ -164,9 +164,9 @@ function QuoteBody({
   // «Стандарты» 21а (Satkirti 18.10.2026 msg 4527): in the opened block the quotes are numbered 1 … N.
   return (
     <>
-      <p className="mood-label mb-1 text-[11px] font-semibold uppercase tracking-wider text-[#8B6508]">
+      <p className="mood-label mb-1 text-[11px] font-semibold uppercase tracking-wider text-[var(--ap-gold)]">
         {num !== undefined && (
-          <span className="mood-num mr-1.5 text-[13px] font-bold tracking-normal text-[#B8860B]">{`${num}.`}</span>
+          <span className="mood-num mr-1.5 text-[13px] font-bold tracking-normal text-[var(--ap-gold)]">{`${num}.`}</span>
         )}
         {labels.words}
       </p>
@@ -195,7 +195,7 @@ function QuoteBody({
                 href={source.audio_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#8B6508] underline decoration-[#D4A843] underline-offset-2 hover:text-[#B8860B]"
+                className="text-[var(--ap-gold)] underline decoration-[#D4A843] underline-offset-2 hover:text-[var(--ap-gold)]"
               >
                 {labels.audio}
               </a>
@@ -404,7 +404,7 @@ export default function MoodBlock({
       >
         <header className="mood-dialog-head flex shrink-0 items-center gap-3 border-b border-[#E8DCC8] bg-[#FDF8F0] px-4 py-2.5 rounded-t-md sm:px-6">
           <div className="min-w-0 flex-1">
-            <p className="mood-label text-[11px] font-semibold uppercase tracking-wider text-[#8B6508]">
+            <p className="mood-label text-[11px] font-semibold uppercase tracking-wider text-[var(--ap-gold)]">
               {labels.button}
               {count > 1 && <span className="font-normal">{` · ${count}`}</span>}
             </p>
@@ -422,7 +422,7 @@ export default function MoodBlock({
             onClick={requestClose}
             aria-label={labels.close}
             title={labels.close}
-            className="mood-close inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-[#8B6508] transition-colors hover:bg-[#F5E6C8]"
+            className="mood-close inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-[var(--ap-gold)] transition-colors hover:bg-[#F5E6C8]"
           >
             <svg
               aria-hidden="true"
@@ -440,7 +440,7 @@ export default function MoodBlock({
           </button>
         </header>
         <div className="mood-scroll min-h-0 flex-1 overflow-y-auto px-4 py-4 sm:px-6 sm:py-5">
-          <div className="rounded-sm border-l-2 border-[#B8860B] bg-white/60 px-4 py-3 sm:px-5">
+          <div className="rounded-sm border-l-2 border-[var(--ap-gold)] bg-white/60 px-4 py-3 sm:px-5">
             <QuoteBody quote={quote} translation={translation} num={1} source={source} labels={labels} />
             {more?.map((m, i) => <AltQuote key={i} m={m} num={i + 2} labels={labels} />)}
           </div>
@@ -468,7 +468,7 @@ export default function MoodBlock({
         {count > 1 && <span className="font-normal">{` · ${count}`}</span>}
       </Pill>
       {/* Print only: the chosen quote inline (hidden on screen, see .mood-panel in globals.css). */}
-      <div className="mood-panel mt-2 rounded-sm border-l-2 border-[#B8860B] bg-[#FDF8F0] px-4 py-3 sm:px-5">
+      <div className="mood-panel mt-2 rounded-sm border-l-2 border-[var(--ap-gold)] bg-[#FDF8F0] px-4 py-3 sm:px-5">
         <QuoteBody quote={quote} translation={translation} source={source} labels={labels} />
       </div>
       {open && createPortal(overlay, document.body)}

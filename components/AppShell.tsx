@@ -253,6 +253,31 @@ export default function AppShell({
     if (!mobileMenuOpen) return;
     document.querySelectorAll(".mobile-menu [data-menu-picked]").forEach((n) => n.removeAttribute("data-menu-picked"));
   }, [mobileMenuOpen]);
+  /** V33 (Vraja Lila msg 5907, WCAG 2.1 AA 2.4.3 focus order): «Содержание» opened
+   *  from the keyboard puts the focus into the panel — on the search field, the
+   *  panel's first control after its title (before, it stayed on the button under
+   *  the dimming and Tab went through the hidden top bar first). When the menu
+   *  closes, the focus goes back to the button that opened it (before: <body>).
+   *  A tap or a mouse click changes nothing: no field focus (no phone keyboard). */
+  const menuOpener = useRef<HTMLElement | null>(null);
+  const menuByKeyboard = useRef(false);
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      if (!menuByKeyboard.current) return;
+      const menu = document.querySelector<HTMLElement>(".mobile-menu[data-open]");
+      if (!menu || menu.contains(document.activeElement)) return;
+      menu.querySelector<HTMLInputElement>("input[type=search]")?.focus({ preventScroll: true });
+      return;
+    }
+    const opener = menuOpener.current;
+    const byKeyboard = menuByKeyboard.current;
+    menuOpener.current = null;
+    menuByKeyboard.current = false;
+    if (!byKeyboard || !opener || !opener.isConnected) return;
+    const a = document.activeElement;
+    if (a && a !== document.body && !a.closest(".mobile-menu")) return;
+    opener.focus({ preventScroll: true });
+  }, [mobileMenuOpen]);
   /** Time of the last back / forward (its saved place wins over the anchor). */
   const poppedAt = useRef(-1e9);
   const [searchIndexes, setSearchIndexes] = useState<Record<string, IndexState>>({});
@@ -265,6 +290,19 @@ export default function AppShell({
   // that place reopens the menu exactly as it was (same query, same parts).
   // Back/forward set the menu from the entry's state (lib/navHistory.ts).
   const openMenu = () => {
+    // V33 (WCAG 2.4.3): remember who opened the menu and whether by keyboard.
+    if (!mobileMenuOpen) {
+      const a = document.activeElement as HTMLElement | null;
+      const real = a && a !== document.body && !a.closest(".mobile-menu") ? a : null;
+      menuOpener.current = real;
+      let kb = false;
+      try {
+        kb = !!real && real.matches(":focus-visible");
+      } catch {
+        // :focus-visible unsupported: no focus move (pointer behaviour unchanged)
+      }
+      menuByKeyboard.current = kb;
+    }
     try {
       const st = window.history.state as Record<string, unknown> | null;
       if (isMenuEntry()) {

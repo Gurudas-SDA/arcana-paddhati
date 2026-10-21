@@ -84,8 +84,8 @@ with sync_playwright() as p:
                 c.close()
                 continue
             ar = st["arrow"] or {}
-            check(dev, f"{name}: arrow › visible, gold #8B6508",
-                  ar.get("visible") and ar.get("txt", "").strip() == "›" and ar.get("color") == "rgb(139, 101, 8)", ar)
+            check(dev, f"{name}: arrow › visible, gold --ap-gold #965700 (V33)",
+                  ar.get("visible") and ar.get("txt", "").strip() == "›" and ar.get("color") == "rgb(150, 87, 0)", ar)
             check(dev, f"{name}: arrow in the bottom-right corner",
                   ar and 0 <= ar.get("right", 99) <= 18 and 0 <= ar.get("bottom", 99) <= 18, ar)
             check(dev, f"{name}: text not under the arrow (right padding)",

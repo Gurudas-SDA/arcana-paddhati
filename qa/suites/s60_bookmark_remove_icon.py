@@ -31,7 +31,7 @@ INIT = ("if (!sessionStorage.getItem('qaSeeded')) { localStorage.setItem('ap.rea
         "sessionStorage.setItem('qaSeeded','1'); }")
 MENU = ".mobile-menu[data-open]"
 TOAST = "[data-bookmark-toast]"
-GOLD = "rgb(139, 101, 8)"  # #8B6508
+GOLD = "rgb(150, 87, 0)"  # --ap-gold #965700 (V33 Vraja Lila msg 5907: one accent tone; was #8B6508)
 results = []
 
 
@@ -83,7 +83,7 @@ with sync_playwright() as p:
         if not all(x["btn"] for x in looks) or len(looks) != 3:
             c.close(); b.close()
             continue
-        check(dev, "1 icon filled, #8B6508 (the ribbon of the top bar)", all(x["fill"] == GOLD for x in looks), [x["fill"] for x in looks])
+        check(dev, "1 icon filled, --ap-gold #965700 (the ribbon of the top bar)", all(x["fill"] == GOLD for x in looks), [x["fill"] for x in looks])
         check(dev, "1 tap target ≥ 44 px", all(x["w"] >= 44 and x["h"] >= 44 for x in looks), [(x["w"], x["h"]) for x in looks])
         check(dev, "icon is not inside the row link (two separate targets)", not any(x["nested"] for x in looks), [x["nested"] for x in looks])
 

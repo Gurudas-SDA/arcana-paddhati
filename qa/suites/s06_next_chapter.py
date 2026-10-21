@@ -155,12 +155,12 @@ def run(p, dev, eng, o):
     pg.evaluate("document.documentElement.style.removeProperty('--reader-zoom')")
     pg.evaluate("document.documentElement.setAttribute('data-reader-theme','night')"); pg.wait_for_timeout(200)
     g = qa.reading_eval(pg, GEO)
-    chk(dev, "night theme: gold «Вперёд ›»", g["color"] == "rgb(212, 168, 67)", str(g))
+    chk(dev, "night theme: gold «Вперёд ›»", g["color"] == "rgb(227, 160, 60)", str(g))
     if dev in ("iphone14", "ipad-portrait"):
         shot("4-night")
     pg.evaluate("document.documentElement.setAttribute('data-reader-theme','sepia')"); pg.wait_for_timeout(200)
     g = qa.reading_eval(pg, GEO)
-    chk(dev, "sepia theme: accent «Вперёд ›»", g["color"] == "rgb(184, 134, 11)", str(g))
+    chk(dev, "sepia theme: accent «Вперёд ›»", g["color"] == "rgb(150, 87, 0)", str(g))
     if dev in ("iphone14", "ipad-portrait"):
         shot("5-sepia")
     pg.evaluate("document.documentElement.removeAttribute('data-reader-theme')")

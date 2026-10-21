@@ -78,7 +78,7 @@ export default function CollapsibleVerse({
         <p
           id={wbwId}
           hidden={!wbwOpen}
-          className="verse-panel verse-wbw text-[14px] leading-relaxed mt-2 pl-4 border-l border-[#B8860B]/50 ml-1 text-[#2C1810]"
+          className="verse-panel verse-wbw text-[14px] leading-relaxed mt-2 pl-4 border-l border-[var(--ap-gold)]/50 ml-1 text-[#2C1810]"
         >
           {parseWbw(wbw).map((pair, i) => (
             <React.Fragment key={i}>
@@ -129,7 +129,7 @@ export function MantraWbw({ wbw, label, children }: { wbw: string; label: string
       <span
         id={id}
         hidden={!open}
-        className="verse-panel verse-wbw block text-[14px] leading-relaxed mt-1 mb-1 pl-3 border-l border-[#B8860B]/50 text-[#2C1810]"
+        className="verse-panel verse-wbw block text-[14px] leading-relaxed mt-1 mb-1 pl-3 border-l border-[var(--ap-gold)]/50 text-[#2C1810]"
       >
         {parseWbw(wbw).map((pair, i) => (
           <React.Fragment key={i}>

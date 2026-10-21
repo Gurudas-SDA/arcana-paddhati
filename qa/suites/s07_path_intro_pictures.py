@@ -184,7 +184,7 @@ def run(p, dev, eng, o):
         names == ["Эмблема Гаудия-матха", "Виграха-таттва"], str(names))
     chk(dev, "A expanding «Введение» keeps one reading-place mark, in view, with its colours",
         marks_place(flow.state()) and flow.state()['lit'] == before['lit'] and g["inView"]
-        and g["bg"] == LIT_BG and g["color"] == "rgb(184, 134, 11)", str(g))
+        and g["bg"] == LIT_BG and g["color"] == "rgb(150, 87, 0)", str(g))
     act(intro_arrow); states.append(flow.state())
     chk(dev, "D second tap on «Введение» collapses it",
         intro_arrow.get_attribute("aria-expanded") == "false" and pg.locator(".mobile-menu[data-open] #toc-grp-introduction").count() == 0)
