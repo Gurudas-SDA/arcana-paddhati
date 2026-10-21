@@ -1,0 +1,18 @@
+{
+ "_doc": "Satkirti 21.10 msg 6038 «Эмблему не трогаешь, только стих»: sha256 of the «gaudiya-emblem» section (json.dumps sort_keys, ensure_ascii=False) per book file at origin/main 68ddcd9, before the Introduction verse change. Refresh only on a direct request of Satkirti (or Vraja Lila for the interface).",
+ "base": "68ddcd9",
+ "sha256": {
+  "book.de.json": "e02c2d4a159711beb608db662d0128ba4f78086b6ce32661137972c7fa9c77b2",
+  "book.es.json": "4891fa4cfa4bfc4eff04a5513b2d561603e232c9c0e4d7af35fa6f8dcc2727b1",
+  "book.fr.json": "990396100059912ad939e42888c6513d3b24c540a741c249a7c18f84a06bd994",
+  "book.hu.json": "6fce137e0300b518a3e285cb340c77da17bb1e773f86a9689d2347492efacd9a",
+  "book.it.json": "ba5ecdbb615190527ac221267c51a062d570f3efc868d6c10bd4ec596b53f8db",
+  "book.json": "9f2c3f67f0e8a8158c80118bce6bc306a51e38188558e7ba3df091d3456d78dc",
+  "book.lt.json": "70b080f9dfd6c4b272a606c8fdb7c34de9c4e924b9b507ead0b3bb345a181bc0",
+  "book.lv.json": "a024ac00f78e2f28ba5d227f806e2b803056bd4a07f56de7e5e7dbd7ab8685fb",
+  "book.pt.json": "ffdfdcc5dfc798e21117b0e4eeff94ad1cdd7af1509e887ea6a966e95acb14ca",
+  "book.ru-iast.json": "aa62bf0d169adda7d26a5ed2ec8a145614dab35247e1879578a4e8838299511d",
+  "book.ru.json": "b983b02ae112c6a39a1d96bc831a940397b34911f9a06790a5d07fb772946a73",
+  "book.uk.json": "843bf2e15e9b85516d1e64eb207f24a8fa659b2860d05e668fd4424bfc271f18"
+ }
+}

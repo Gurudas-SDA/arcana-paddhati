@@ -58,6 +58,11 @@ def main():
             if m["target"] not in by_id:
                 # A section not yet translated into this language (the app shows the English one, with its mood).
                 continue
+            if lang != "en" and lang not in m["translations"]:
+                # New quotes are written in RU + EN by day; the other languages get their (machine) translation
+                # at the night release — until then that language shows no mood block here (no KeyError, no English).
+                print("%s: %s — no translation yet, mood block left out" % (lang, m["target"]))
+                continue
             node = by_id[m["target"]]
             block = {"type": "mood", "quote": m["quote"],
                      "translation": "" if lang == "en" else m["translations"][lang]}
@@ -66,6 +71,8 @@ def main():
             block["source"] = src_for(m["source"], lang)
             more = []
             for a in m.get("more", []):
+                if lang != "en" and lang not in a["translation"]:
+                    continue
                 alt = {"quote": a["quote"], "translation": "" if lang == "en" else a["translation"][lang]}
                 if lang != "en" and lang in a.get("machine", []):
                     alt["translation_note"] = "machine"
