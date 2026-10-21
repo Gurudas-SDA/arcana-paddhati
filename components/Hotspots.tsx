@@ -573,7 +573,7 @@ export function HotspotFigure({
       const cs = getComputedStyle(pk);
       const bottomGap = parseFloat(cs.getPropertyValue("--hs-peek-bottom")) || 40;
       const lowTop = vh - bottomGap - h - 8;
-      const highBottom = 12 + h + 8 + (parseFloat(cs.getPropertyValue("--hs-peek-topgap")) || 0);
+      const highBottom = 20 + h + 8 + (parseFloat(cs.getPropertyValue("--hs-peek-topgap")) || 0);
       const hitsLow = rows.some((r) => {
         const b = r.getBoundingClientRect();
         return b.bottom > lowTop && b.top < vh;
@@ -630,6 +630,8 @@ export function HotspotFigure({
             ref={peekRef}
             className="hs-peek no-print"
             data-top={peekTop ? "" : undefined}
+            // its proportion: the CSS keeps the window (and its ✕) inside the screen's height (V28)
+            style={{ "--hs-ar": `${data.w / data.h}` } as React.CSSProperties}
             role="dialog"
             aria-label={alt}
           >

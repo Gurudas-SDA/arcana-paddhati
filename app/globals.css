@@ -1907,10 +1907,31 @@ html[data-reader-bars] .hs-peek {
 }
 .hs-peek[data-top] {
   bottom: auto !important;
-  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  top: calc(env(safe-area-inset-top, 0px) + 20px);
+}
+/* V28 (Vraja Lila msg 5782): the window and its ✕ (10 px outside the corner) are
+   always whole on the screen — 16 px from the side, and never taller than the
+   room between the bars / the screen's edges (the width follows the picture's
+   proportion --hs-ar), in portrait and landscape. Room = the screen's height less
+   the window's bottom gap, the ✕ above it and the safe areas; with the bars
+   shown, less both bars as well. */
+.hs-peek {
+  --hs-peek-reserve: calc(48px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px));
+  right: 16px;
+  max-width: calc((100vh - var(--hs-peek-reserve)) * var(--hs-ar, 1));
+  max-width: calc((100dvh - var(--hs-peek-reserve)) * var(--hs-ar, 1));
+}
+html[data-reader-bars] .hs-peek {
+  --hs-peek-reserve: calc(210px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px));
+}
+@media (max-width: 639px) {
+  .hs-peek {
+    right: 16px;
+  }
 }
 html[data-reader-bars] .hs-peek[data-top] {
-  top: calc(env(safe-area-inset-top, 0px) + 68px);
+  /* its ✕ (10 px above) clear of the top bar (57 px) — V28 */
+  top: calc(env(safe-area-inset-top, 0px) + 72px);
 }
 html[data-hs-peek] .app-main {
   padding-bottom: calc(var(--reader-pad-bottom) + var(--hs-peek-h, 0px) + 16px);

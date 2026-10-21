@@ -152,6 +152,8 @@ SUITES = [
          devices=None, fast=True, server=False),
     dict(id="s75", file="suites/s75_aa_panel_v27.py", title="V27 Vraja 5769–5779: «Аа» panelis — «Язык» pirmā funkcija, logs nav apgriezts, kamēr ekrānā vieta, aiz tā aptumšojums melns 60 % (pieskāriens aizver), valodu sarakstam tie paši 60 % visos fonos (telefoni arī ainavā)",
          devices=["iphone14", "pixel7", "s23fe", "iphone-se", "ipad-portrait", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
+    dict(id="s76", file="suites/s76_item_peek_v28.py", title="V28 Vraja 5782: «16 предметов» peldošais attēla lodziņš vienmēr pilnībā ekrānā, ✕ virspusē un nospiežams (iPhone 14, Pixel 7, iPad, desktop; portrets/ainava; joslas rādītas/slēptas; lodziņš augšā/apakšā)",
+         devices=["iphone14", "pixel7", "ipad-portrait", "ipad-landscape", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
          devices=None, fast=True, server=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",
