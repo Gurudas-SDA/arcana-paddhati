@@ -104,5 +104,11 @@
   "reader.bookmarkRemove": "Убрать закладку",
   "bookmark.added": "Закладка поставлена",
   "bookmark.removed": "Закладка убрана",
-  "bookmark.undo": "Отменить"
+  "bookmark.undo": "Отменить",
+  "bookmark.dialog.addTitle": "Новая закладка",
+  "bookmark.dialog.renameTitle": "Переименовать закладку",
+  "bookmark.dialog.label": "Название",
+  "bookmark.dialog.confirm": "Подтвердить",
+  "bookmark.dialog.cancel": "Отмена",
+  "bookmark.rename": "Переименовать закладку"
 }

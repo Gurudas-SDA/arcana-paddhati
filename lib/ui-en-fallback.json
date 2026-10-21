@@ -1,4 +1,11 @@
 {
   "_why": "Interface labels shown in English with «(EN)» in languages other than RU/EN. Empty since the night release 21.10.2026: Vraja Lila msg 5625–5627 (20.10.2026) removed the rule «new labels RU + EN by hand, no machine translation» — all interface keys are machine-translated into every language (AnyModel cx/gpt-6.1-sol). qa s32 still accepts keys listed here as missing in other ui.<lang>.json.",
-  "keys": []
+  "keys": [
+    "bookmark.dialog.addTitle",
+    "bookmark.dialog.cancel",
+    "bookmark.dialog.confirm",
+    "bookmark.dialog.label",
+    "bookmark.dialog.renameTitle",
+    "bookmark.rename"
+  ]
 }

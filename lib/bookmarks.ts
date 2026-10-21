@@ -1,16 +1,27 @@
 "use client";
 
 // Bookmarks on the device (plan «Закладки» B1/B3, Vraja Lila msg 5316 p. 7):
-//   ap.bookmarks = {v: 1, items: [{id, section, anchor, block, lang, time}]}
+//   ap.bookmarks = {v: 1, items: [{id, section, anchor, block, lang, time, name?}]}
 // newest first, at most 500. The second line of a row is NOT stored as text:
 // only the anchor; the line is taken from the current language's contents when
 // shown. The reading place (lib/readingPlace.ts) never goes in here.
 // Setting one: variant A (Vraja Lila msg 5380) — the ribbon button in the top
 // bar (components/ReaderChrome.tsx); a second tap on the same place removes it.
-import { liveLang } from "./i18n";
+// Name (V34, Satkirti msg 5866, Vraja Lila msg 5869): setting one opens a window
+// with the chapter's (subsection's) name, which can be changed; the pencil on a
+// row of «Закладки» opens it again. Only a name that differs from that default
+// is stored (`name`); old bookmarks and unchanged names have none and show as
+// before (chapter + subsection, in the current language).
+import { liveLang, parsePath } from "./i18n";
+import { stripBasePath } from "./basePath";
+import { BLOCKS } from "./readingMode";
+import { main } from "./navHistory";
+import { readingSection } from "./readingFlow";
 
 export const BOOKMARKS_KEY = "ap.bookmarks";
 export const BOOKMARKS_MAX = 500;
+/** The longest name the window takes. */
+export const BOOKMARK_NAME_MAX = 120;
 /** Fired on window after every write (the button and the list follow it). */
 export const BOOKMARKS_EVENT = "ap:bookmarks";
 /** «Закладка убрана · Отменить» asked from elsewhere (the «Закладки» list,
@@ -27,6 +38,24 @@ export interface Bookmark {
   block: number;
   lang: string;
   time: number;
+  /** The reader's own name (V34); absent = the chapter's / subsection's name. */
+  name?: string;
+}
+
+type NamedPart = { title: string; num: string | null };
+
+/** The window's default name: the subsection's name (with its number), or the
+ *  chapter's when the place has no subsection — as the «Закладки» rows read. */
+export function defaultBookmarkName(sec: NamedPart & { subsections: ({ id: string } & NamedPart)[] }, anchor: string | null): string {
+  const sub = anchor ? sec.subsections.find((x) => x.id === anchor) : undefined;
+  const part: NamedPart = sub ?? sec;
+  return part.num ? `${part.num}. ${part.title}` : part.title;
+}
+
+/** A name worth keeping: trimmed, not empty, not the default one. */
+export function ownName(name: string | undefined, defaultName: string): string | undefined {
+  const n = (name ?? "").trim().slice(0, BOOKMARK_NAME_MAX);
+  return n && n !== defaultName.trim() ? n : undefined;
 }
 
 let mem: Bookmark[] = [];
@@ -38,7 +67,9 @@ export function readBookmarks(): Bookmark[] {
     if (raw) {
       const v = JSON.parse(raw) as { v?: number; items?: unknown };
       if (v && v.v === 1 && Array.isArray(v.items)) {
-        items = (v.items as Bookmark[]).filter((b) => b && typeof b.section === "string" && typeof b.id === "string");
+        items = (v.items as Bookmark[])
+          .filter((b) => b && typeof b.section === "string" && typeof b.id === "string")
+          .map((b) => (b.name === undefined || (typeof b.name === "string" && b.name.trim()) ? b : { ...b, name: undefined }));
       }
     }
   } catch {
@@ -78,9 +109,23 @@ export function removeBookmark(id: string) {
   }
 }
 
+/** Rename one bookmark (the pencil in «Закладки», V34); `name` undefined = back
+ *  to the chapter's / subsection's name. No toast, no history step. */
+export function renameBookmark(id: string, name: string | undefined) {
+  const items = readBookmarks();
+  if (!items.some((b) => b.id === id)) return;
+  writeBookmarks(items.map((b) => {
+    if (b.id !== id) return b;
+    const next = { ...b };
+    if (name) next.name = name;
+    else delete next.name;
+    return next;
+  }));
+}
+
 /** Set the bookmark on this place, or remove it if it is there (rule 10.1).
  *  Returns whether it was added and the list before (for «Отменить»). */
-export function toggleBookmark(section: string, anchor: string | null, block: number, lang: string): { added: boolean; before: Bookmark[] } {
+export function toggleBookmark(section: string, anchor: string | null, block: number, lang: string, name?: string): { added: boolean; before: Bookmark[] } {
   const before = readBookmarks();
   const here = bookmarkAt(before, section, anchor);
   if (here) {
@@ -89,6 +134,104 @@ export function toggleBookmark(section: string, anchor: string | null, block: nu
   }
   const now = Date.now();
   const id = `${now.toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
-  writeBookmarks([{ id, section, anchor, block, lang: liveLang(lang), time: now }, ...before]);
+  const item: Bookmark = { id, section, anchor, block, lang: liveLang(lang), time: now };
+  if (name) item.name = name;
+  writeBookmarks([item, ...before]);
   return { added: true, before };
+}
+
+// ---- the exact place (V34, Vraja Lila msg 5872) ----------------------------------
+// «хочу иметь возможность делать закладку на конкретном месте в главе… мантра,
+// которую я учу… поставить закладку там и назвать „Мантра при пробуждении“… и
+// тогда легко вернуться конкретно к этому месту». `block` = the text block (lib/
+// readingMode.ts BLOCKS) at the top of what is visible — below the top bar when
+// it is out — in «Страницы» and «Лента» alike. Opening the bookmark in the same
+// language brings that block back a little below the top and lights it for a
+// moment; in another language (other blocks) — its subsection, as before.
+
+/** Where the opened block stands: just below the top bar. */
+const PLACE_TOP_PX = 72;
+/** html attribute while a bookmark's block is being put in place: the anchor
+ *  keeper (components/AppShell.tsx) leaves the scroll alone meanwhile. */
+export const BOOKMARK_PLACE_ATTR = "data-bookmark-place";
+
+/** The index of the first block a reader sees at the top: the first that starts
+ *  below the top bar, or one cut by it that still shows most of itself. */
+export function captureBookmarkBlock(): number | null {
+  const scroller = main();
+  const root = readingSection();
+  if (!scroller || !root) return null;
+  let line = scroller.getBoundingClientRect().top;
+  const bar = document.querySelector<HTMLElement>("html[data-reader-bars] .reader-bar-top");
+  if (bar) line = Math.max(line, bar.getBoundingClientRect().bottom);
+  const blocks = [...root.querySelectorAll<HTMLElement>(BLOCKS)];
+  for (let i = 0; i < blocks.length; i++) {
+    const r = blocks[i].getBoundingClientRect();
+    if (!r.height || r.bottom <= line + 24) continue;
+    if (r.top >= line - 8 || r.bottom - line >= r.height / 2) return i;
+  }
+  return null;
+}
+
+/** The bookmark keeps its own block (taken in this language, not the chapter's start). */
+export function hasExactPlace(b: Bookmark, lang: string): boolean {
+  return b.block > 0 && liveLang(b.lang) === liveLang(lang);
+}
+
+let stopPlacing: (() => void) | null = null;
+
+/** After the move to the bookmark's chapter: put its block a little below the top
+ *  (re-applied while pictures above it load; the reader's own touch stops it) and
+ *  light it once. Gives up after 5 s if the chapter never shows. */
+export function placeBookmark(b: Bookmark) {
+  stopPlacing?.();
+  const root = document.documentElement;
+  root.setAttribute(BOOKMARK_PLACE_ATTR, "");
+  const t0 = performance.now();
+  let stopped = false;
+  let lit = false;
+  let found = 0;
+  const timers: number[] = [];
+  const events = ["touchstart", "wheel", "keydown", "pointerdown"] as const;
+  const stop = () => {
+    if (stopped) return;
+    stopped = true;
+    timers.forEach((t) => window.clearTimeout(t));
+    for (const ev of events) window.removeEventListener(ev, onTouch, { capture: true });
+    root.removeAttribute(BOOKMARK_PLACE_ATTR);
+    if (stopPlacing === stop) stopPlacing = null;
+  };
+  // A touch inside the open contents (the tap that chose this row) does not count.
+  const onTouch = (e: Event) => {
+    if (performance.now() - t0 < 400) return;
+    if ((e.target as Element | null)?.closest?.(".mobile-menu")) return;
+    stop();
+  };
+  for (const ev of events) window.addEventListener(ev, onTouch, { passive: true, capture: true });
+  const tick = () => {
+    if (stopped) return;
+    const now = performance.now();
+    const here = parsePath(stripBasePath(window.location.pathname) || "/").sectionId === b.section;
+    const scroller = main();
+    const sec = here ? readingSection() : null;
+    const block = sec?.querySelectorAll<HTMLElement>(BLOCKS)[b.block];
+    if (scroller && block && (!b.anchor || sec?.querySelector(`[id="${CSS.escape(b.anchor)}"]`))) {
+      if (!found) found = now;
+      const d = block.getBoundingClientRect().top - scroller.getBoundingClientRect().top - PLACE_TOP_PX;
+      if (Math.abs(d) > 2) scroller.scrollTop += d;
+      if (!lit && now - found > 250) {
+        lit = true;
+        block.classList.remove("bookmark-flash");
+        void block.offsetWidth;
+        block.classList.add("bookmark-flash");
+        window.setTimeout(() => block.classList.remove("bookmark-flash"), 2700);
+      }
+      if (now - found > 2500) return stop();
+    } else if (now - t0 > 5000) {
+      return stop();
+    }
+    timers.push(window.setTimeout(tick, found ? 120 : 60));
+  };
+  stopPlacing = stop;
+  requestAnimationFrame(tick);
 }

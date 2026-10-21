@@ -148,6 +148,8 @@ SUITES = [
          devices=["pixel7", "iphone14", "iphone-se", "ipad-portrait", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s70", file="suites/s70_en_theme_label.py", title="Vraja 5780: EN tumšais fons «Dark» (RU «Тёмный»), nekur EN saskarnē «Night»",
          devices=None, fast=True, server=False),
+    dict(id="s71", file="suites/s71_bookmark_name.py", title="V34 Satkirti 5866 + Vraja 5869/5872: grāmatzīmes nosaukuma logs (vidū, aptumšojums 60 % bez izpludinājuma, ✕, noklusējums = apakšnodaļas nosaukums, Enter/Отмена/Esc), zīmulītis pa kreisi no dzēšanas, pārdēvētai tikai nosaukums 1 rindā ar «…», precīza vieta (bloks) atveras zem augšējās joslas un iezīmējas — «Страницы» un «Лента»",
+         devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s78", file="suites/s78_bg_dark_all_langs.py", title="V26b Vraja 5817: «Аа» fons «Тёмный» visās valodās nozīmē «tumšs», ne «nakts» (de/es/fr/hu/it/lt/lv/pt/uk + ru); visas V21 pārdēvētās atslēgas visās valodās, vietturi kā RU",
          devices=None, fast=True, server=False),
     dict(id="s75", file="suites/s75_aa_panel_v27.py", title="V27 Vraja 5769–5779: «Аа» panelis — «Язык» pirmā funkcija, logs nav apgriezts, kamēr ekrānā vieta, aiz tā aptumšojums melns 60 % (pieskāriens aizver), valodu sarakstam tie paši 60 % visos fonos (telefoni arī ainavā)",

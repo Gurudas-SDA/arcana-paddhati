@@ -1,7 +1,20 @@
 "use client";
 
 import { useOfflineProgress, useOfflineSave } from "@/lib/offlineProgress";
-import { BOOKMARK_TOAST_END_EVENT, BOOKMARKS_EVENT, bookmarkAt, readBookmarks, removeBookmark, type Bookmark } from "@/lib/bookmarks";
+import {
+  BOOKMARK_TOAST_END_EVENT,
+  BOOKMARKS_EVENT,
+  bookmarkAt,
+  defaultBookmarkName,
+  hasExactPlace,
+  ownName,
+  placeBookmark,
+  readBookmarks,
+  removeBookmark,
+  renameBookmark,
+  type Bookmark,
+} from "@/lib/bookmarks";
+import BookmarkNameDialog from "@/components/BookmarkNameDialog";
 import React, {
   useEffect,
   useLayoutEffect,
@@ -568,12 +581,28 @@ export default function Sidebar({
       // history unavailable
     }
   };
+  /** A renamed bookmark (V34, Vraja Lila msg 5869): only its name — no chapter
+   *  line, no date («никаких мелких шрифтов»). */
   const bookmarkLine = (b: Bookmark) => {
     const sec = sections.find((x) => x.id === b.section);
     if (!sec) return null;
+    if (b.name) return { head: b.name, second: null, named: true };
     const head = sec.num ? `${sec.num}. ${sec.title}` : sec.title;
     const sub = b.anchor ? sec.subsections.find((x) => x.id === b.anchor) : undefined;
-    return { head, second: sub ? (sub.num ? `${sub.num}. ${sub.title}` : sub.title) : null };
+    return { head, second: sub ? (sub.num ? `${sub.num}. ${sub.title}` : sub.title) : null, named: false };
+  };
+  /** The pencil on a row: the same name window (V34). */
+  const [renaming, setRenaming] = useState<{ id: string; name: string; def: string } | null>(null);
+  const askRename = (b: Bookmark) => {
+    const sec = sections.find((x) => x.id === b.section);
+    if (!sec) return;
+    const def = defaultBookmarkName(sec, b.anchor ?? null);
+    setRenaming({ id: b.id, name: b.name ?? def, def });
+  };
+  const confirmRename = (name: string) => {
+    const r = renaming;
+    setRenaming(null);
+    if (r) renameBookmark(r.id, ownName(name, r.def));
   };
   const showBookmarks = tab === "bookmarks" && !normalizedQuery;
   // The bookmark on the place being read (Vraja Lila msg 5436): the same place
@@ -1233,7 +1262,10 @@ export default function Sidebar({
             bookmarkRows.map((b) => {
               const line = bookmarkLine(b);
               if (!line) return null;
-              const href = sectionHref(b.section, b.anchor ?? undefined);
+              // Its own block in this language (msg 5872): the chapter, then the block
+              // put in place by lib/bookmarks.ts; otherwise the subsection, as before.
+              const exact = hasExactPlace(b, lang);
+              const href = sectionHref(b.section, exact ? undefined : (b.anchor ?? undefined));
               const isLit = b.id === litBookmarkId;
               const isPale = !bookmarks.some((x) => x.id === b.id);
               // Lit = the look of the current row in «Содержание»: background,
@@ -1253,16 +1285,38 @@ export default function Sidebar({
                 >
                 <Link
                   href={href}
-                  onClick={(e) => leaveTo(e, href)}
+                  onClick={(e) => {
+                    leaveTo(e, href);
+                    if (exact) placeBookmark(b);
+                  }}
                   aria-current={isLit ? "location" : undefined}
-                  className={`sidebar-link block w-full text-left pl-5 pr-14 py-3 transition-opacity ${isPale ? "opacity-45" : ""}`}
+                  className={`sidebar-link block w-full text-left pl-5 pr-[96px] py-3 transition-opacity ${isPale ? "opacity-45" : ""}`}
                 >
-                  <span className={`block text-sm ${titleClass || "text-[#2C1810]"}`} data-bookmark-title="">{line.head}</span>
-                  {line.second && <span className={`block text-sm ${titleClass || "text-[#5C3D2E]"}`}>{line.second}</span>}
-                  <span className="block text-[11px] text-[#6B5440]">
-                    {new Date(b.time).toLocaleDateString(lang === "en" ? "en" : lang.split("-")[0])}
-                  </span>
+                  {/* One line each, «…» at the end (V34, Vraja Lila msg 5869: «не должно рябить в глазах»). */}
+                  <span className={`block truncate text-sm ${titleClass || "text-[#2C1810]"}`} data-bookmark-title="" data-bookmark-named={line.named ? "" : undefined}>{line.head}</span>
+                  {line.second && <span className={`block truncate text-sm ${titleClass || "text-[#5C3D2E]"}`} data-bookmark-second="">{line.second}</span>}
+                  {!line.named && (
+                    <span className="block text-[11px] text-[#6B5440]" data-bookmark-date="">
+                      {new Date(b.time).toLocaleDateString(lang === "en" ? "en" : lang.split("-")[0])}
+                    </span>
+                  )}
                 </Link>
+                {/* The pencil (V34, Vraja Lila msg 5869): left of the remove icon, the
+                    same line weight; opens the name window. A 44px target. */}
+                <button
+                  type="button"
+                  className="absolute right-[44px] top-1/2 -translate-y-1/2 flex h-[44px] w-[44px] items-center justify-center text-[#8B6508] disabled:cursor-default"
+                  onClick={() => askRename(b)}
+                  disabled={isPale}
+                  aria-label={t(ui, "bookmark.rename")}
+                  title={t(ui, "bookmark.rename")}
+                  data-bookmark-rename=""
+                >
+                  <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={isPale ? "opacity-45" : undefined}>
+                    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z" />
+                    <path d="M14 6l3 3" />
+                  </svg>
+                </button>
                 {/* The ribbon of the top bar, filled (Vraja Lila msg 5439/5440, frame 1):
                     a tap removes this bookmark (2а); a 44px target, outside the row link. */}
                 <button
@@ -1283,6 +1337,15 @@ export default function Sidebar({
             })
           )}
         </div>
+      )}
+      {renaming && (
+        <BookmarkNameDialog
+          ui={ui}
+          mode="rename"
+          initial={renaming.name}
+          onConfirm={confirmRename}
+          onCancel={() => setRenaming(null)}
+        />
       )}
       <nav className="flex-1 min-h-0 flex flex-col" hidden={showBookmarks || undefined}>
       {!normalizedQuery && (

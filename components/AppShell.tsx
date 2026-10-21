@@ -8,6 +8,7 @@ import InstallBanner from "@/components/InstallBanner";
 import ReaderChrome from "@/components/ReaderChrome";
 import type { SearchEntry } from "@/lib/book";
 import { SEARCH_SCROLL_ATTR } from "@/lib/searchMark";
+import { BOOKMARK_PLACE_ATTR } from "@/lib/bookmarks";
 import {
   QUERY_STORE,
   entryView,
@@ -635,6 +636,8 @@ export default function AppShell({
         if (stopped) return;
         // A search result's word took over the place (lib/searchMark.ts).
         if (document.documentElement.hasAttribute(SEARCH_SCROLL_ATTR)) return stop();
+        // A bookmark's own block is being put in place (V34, lib/bookmarks.ts).
+        if (document.documentElement.hasAttribute(BOOKMARK_PLACE_ATTR)) return stop();
         if (performance.now() > until) return stop();
         const el = readingAnchor(id);
         if (!el) return;

@@ -104,5 +104,11 @@
   "reader.bookmarkRemove": "Remove the bookmark",
   "bookmark.added": "Bookmark added",
   "bookmark.removed": "Bookmark removed",
-  "bookmark.undo": "Undo"
+  "bookmark.undo": "Undo",
+  "bookmark.dialog.addTitle": "New bookmark",
+  "bookmark.dialog.renameTitle": "Rename the bookmark",
+  "bookmark.dialog.label": "Name",
+  "bookmark.dialog.confirm": "Confirm",
+  "bookmark.dialog.cancel": "Cancel",
+  "bookmark.rename": "Rename the bookmark"
 }

@@ -22,7 +22,8 @@ export { BOOK_SEGMENT, bookHref } from "./bookRoute";
 /** ContinuousBook announces its mount / unmount (AppShell follows it). */
 export const BOOK_EVENT = "ap:book";
 
-const BLOCKS = "article :is(h1,h2,h3,h4,p)";
+/** The text blocks a place is counted in (also the bookmarks, lib/bookmarks.ts). */
+export const BLOCKS = "article :is(h1,h2,h3,h4,p)";
 const STORE = "ap.pendingPlace";
 
 export interface Place {

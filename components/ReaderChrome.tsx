@@ -30,7 +30,9 @@
  * ribbon — in the top bar before «Аа». A tap sets a bookmark on the place on
  * screen (chapter + subsection, lib/bookmarks.ts) and shows a toast
  * «Закладка поставлена · Отменить»; a tap on a place that has one removes it
- * (rule 10.1). It only writes to the device: no history step, «Назад» never
+ * (rule 10.1). Before it is set, a window asks its name (V34, Satkirti msg 5866,
+ * Vraja Lila msg 5869): the subsection's (chapter's) name, which can be changed;
+ * the bookmark keeps the exact block at the top of the screen (msg 5872). It only writes to the device: no history step, «Назад» never
  * touches it (rule 10.2); works offline. Not on the cover / part pages.
  *
  * Bottom bar — chapter navigation (V17, Vraja Lila msg 796 / 5635 / 5639,
@@ -51,7 +53,20 @@ import { exitGhost } from "@/lib/exitGhost";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { chapterNeighbours, readingOrder, type TocPart, type TocSection } from "@/lib/book";
 import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
-import { BOOKMARK_TOAST_END_EVENT, BOOKMARK_TOAST_EVENT, BOOKMARKS_EVENT, bookmarkAt, readBookmarks, toggleBookmark, writeBookmarks, type Bookmark } from "@/lib/bookmarks";
+import {
+  BOOKMARK_TOAST_END_EVENT,
+  BOOKMARK_TOAST_EVENT,
+  BOOKMARKS_EVENT,
+  bookmarkAt,
+  captureBookmarkBlock,
+  defaultBookmarkName,
+  ownName,
+  readBookmarks,
+  toggleBookmark,
+  writeBookmarks,
+  type Bookmark,
+} from "@/lib/bookmarks";
+import BookmarkNameDialog from "@/components/BookmarkNameDialog";
 import { captureReadingPlace } from "@/lib/readingPlace";
 import { stripBasePath } from "@/lib/basePath";
 import { main as mainEl, pushOverlay, recordScroll } from "@/lib/navHistory";
@@ -132,7 +147,7 @@ function highlightOn(): boolean {
 
 /** A window of its own is open (contents/search drawer, «Настроение Гурудева», install instructions). */
 function overlayOpen(): boolean {
-  return !!document.querySelector(".mobile-menu[data-open], .mood-overlay, .install-modal");
+  return !!document.querySelector(".mobile-menu[data-open], .mood-overlay, .install-modal, .bookmark-name-modal");
 }
 
 /**
@@ -366,9 +381,23 @@ export default function ReaderChrome({
     if (!bmToastOn) window.dispatchEvent(new Event(BOOKMARK_TOAST_END_EVENT));
   }, [bmToastOn]);
   const bookmarkHere = section ? bookmarkAt(bookmarks, section.id, subId ?? null) : undefined;
-  /** Set / remove the bookmark on the place on screen; storage only, no history step. */
+  /** The name window of a bookmark about to be set (V34). */
+  const [bmAsk, setBmAsk] = useState<{ section: string; anchor: string | null; block: number; name: string } | null>(null);
+  const showBmToast = (added: boolean, before: Bookmark[]) => {
+    setBookmarks(readBookmarks());
+    window.clearTimeout(bmToastTimer.current);
+    setBmToast({ added, undo: before });
+    bmToastTimer.current = window.setTimeout(() => setBmToast(null), BOOKMARK_TOAST_MS);
+  };
+  /** Remove the bookmark on the place on screen, or ask the name of a new one
+   *  (V34); storage only, no history step. */
   const onBookmark = () => {
     if (!section) return;
+    if (bookmarkHere) {
+      const { added, before } = toggleBookmark(section.id, bookmarkHere.anchor ?? null, bookmarkHere.block, lang);
+      showBmToast(added, before);
+      return;
+    }
     let place = null;
     try {
       place = captureReadingPlace(lang, section.subsections.map((sub) => sub.id));
@@ -376,12 +405,21 @@ export default function ReaderChrome({
       // not measurable now: chapter + subsection are enough
     }
     const anchor = subId ?? place?.anchor ?? null;
-    const block = place && place.section === section.id ? place.block : 0;
-    const { added, before } = toggleBookmark(section.id, anchor, block, lang);
-    setBookmarks(readBookmarks());
-    window.clearTimeout(bmToastTimer.current);
-    setBmToast({ added, undo: before });
-    bmToastTimer.current = window.setTimeout(() => setBmToast(null), BOOKMARK_TOAST_MS);
+    let block = place && place.section === section.id ? place.block : 0;
+    try {
+      // The exact place (msg 5872): the block at the top of what is visible.
+      block = captureBookmarkBlock() ?? block;
+    } catch {
+      // not measurable now
+    }
+    setBmAsk({ section: section.id, anchor, block, name: defaultBookmarkName(section, anchor) });
+  };
+  const confirmBookmark = (name: string) => {
+    const ask = bmAsk;
+    setBmAsk(null);
+    if (!ask) return;
+    const { added, before } = toggleBookmark(ask.section, ask.anchor, ask.block, lang, ownName(name, ask.name));
+    showBmToast(added, before);
   };
   const undoBookmark = () => {
     window.clearTimeout(bmToastTimer.current);
@@ -1052,6 +1090,16 @@ export default function ReaderChrome({
             {t(ui, "bookmark.undo")}
           </button>
         </div>
+      )}
+
+      {bmAsk && (
+        <BookmarkNameDialog
+          ui={ui}
+          mode="add"
+          initial={bmAsk.name}
+          onConfirm={confirmBookmark}
+          onCancel={() => setBmAsk(null)}
+        />
       )}
 
       {hint && (

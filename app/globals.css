@@ -208,8 +208,25 @@ body {
 /* Dimming behind the windows (V18, Vraja Lila msg 5603/5610, maket): black 60 %, no
    blur — the same for «Настроение Гурудева», the install window and «Содержание». */
 .mood-backdrop,
-.install-backdrop {
+.install-backdrop,
+.bookmark-name-backdrop {
   background: rgba(0, 0, 0, 0.6);
+}
+/* The bookmark's name window (V34) appears like the other windows. */
+.bookmark-name-modal {
+  animation: mood-fade 160ms ease-out;
+}
+/* A bookmark's own place on arrival (V34, Vraja Lila msg 5872): a soft gold glow for a moment. */
+.bookmark-flash {
+  border-radius: 6px;
+  animation: bookmark-flash 2.6s ease-out;
+}
+@keyframes bookmark-flash {
+  0%, 35% { background-color: rgba(232, 176, 74, 0.38); box-shadow: 0 0 0 6px rgba(232, 176, 74, 0.38); }
+  100% { background-color: transparent; box-shadow: 0 0 0 6px transparent; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bookmark-name-modal { animation: none; }
 }
 
 /* The window is LARGE and in the screen's proportions, with a margin of page
