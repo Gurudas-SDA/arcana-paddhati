@@ -55,6 +55,7 @@ GENERATOR = {  # section id -> folder of its generator (i18n.json is written the
     "caturmasya-purusottama-masa": os.path.join(REPO, "scripts", "chapters", "ch13_caturmasya"),
     "guru-puja-vyasa-puja": os.path.join(REPO, "scripts", "chapters", "ch14_vyasa_puja"),
     "major-festivals": os.path.join(REPO, "scripts", "chapters", "ch15_major_festivals"),
+    "conclusion": os.path.join(REPO, "scripts", "chapters", "ch99_conclusion"),
 }
 MOODS = os.path.join(REPO, "scripts", "moods", "moods.json")
 NL = chr(10)

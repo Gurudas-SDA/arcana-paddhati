@@ -34,5 +34,12 @@
       "ru-iast"
     ],
     "source": "scripts/chapters/ch00b_vigraha_tattva/build.py"
+  },
+  "conclusion": {
+    "langs": [
+      "ru",
+      "ru-iast"
+    ],
+    "source": "scripts/chapters/ch99_conclusion/build.py"
   }
 }

@@ -373,6 +373,9 @@ class Edition:
         in_part = {sid for prt in self.parts for sid in prt["sections"]}
         first = next((i for i, sec in enumerate(self.book["sections"]) if sec["id"] in in_part), 0)
         front = {i for i, sec in enumerate(self.book["sections"]) if i < first and sec["id"] not in in_part}
+        # back matter (= lib/book.ts backMatter): sections after the last chapter of the parts, outside them (Conclusion)
+        last = max((i for i, sec in enumerate(self.book["sections"]) if sec["id"] in in_part), default=len(self.book["sections"]))
+        front |= {i for i, sec in enumerate(self.book["sections"]) if i > last and sec["id"] not in in_part}
         self.nums, n = [], 0
         for i in range(len(self.book["sections"])):
             if i in front:

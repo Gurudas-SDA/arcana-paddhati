@@ -251,10 +251,21 @@ export function sectionNumbers(
   sections: { id: string }[],
   parts: { sections: string[] }[] = [],
 ): (number | null)[] {
-  // All the front matter (Maṅgalācaraṇa, the Introduction group) is unnumbered.
-  const front = new Set(parts.length ? frontMatter(sections.map((s) => s.id), parts) : []);
+  // All the front matter (Maṅgalācaraṇa, the Introduction group) is unnumbered,
+  // and so is the back matter (the Conclusion — Satkirti msg 6065, 22.10.2026).
+  const ids = sections.map((s) => s.id);
+  const front = new Set(parts.length ? frontMatter(ids, parts) : []);
+  const back = new Set(parts.length ? backMatter(ids, parts) : []);
   let n = 0;
-  return sections.map((s) => (front.has(s.id) ? null : ++n));
+  return sections.map((s) => (front.has(s.id) || back.has(s.id) ? null : ++n));
+}
+
+/** Sections after the last chapter of the parts, outside any part (the Conclusion): no chapter numbers. */
+export function backMatter(sectionIds: string[], parts: { sections: string[] }[]): string[] {
+  const inPart = new Set(parts.flatMap((p) => p.sections));
+  const back: string[] = [];
+  for (let i = sectionIds.length - 1; i >= 0 && !inPart.has(sectionIds[i]); i--) back.unshift(sectionIds[i]);
+  return back.length === sectionIds.length ? [] : back;
 }
 
 /** "2.1"-style number of the i-th (0-based) subsection of chapter `num`;

@@ -162,6 +162,8 @@ SUITES = [
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s79", file="suites/s79_intro_sb11348.py", title="Satkirti 21.10 msg 6026/6030/6038: «Введение» — ŚB 11.3.48 ar BBT tulkojumu un пословный (vedabase), «arcye viṣṇau» vairs nav; «Настроение Гурудева» 5 citāti ar avotiem (en/ru/ru-iast); emblēma nemainīta",
          devices=None, fast=True, server=False),
+    dict(id="s88", file="suites/s88_conclusion.py", title="Satkirti 21.10 msg 6065 + Idea №2 (msg 5692): «Заключение» — pēdējā sadaļa ārpus daļām, bez numura; dienas cikls no pamodināšanas līdz noguldīšanai; katram Gurudeva citātam avots (№, datums, laiks, saite); ru-iast bez kirilicas ar diakritiku",
+         devices=None, fast=True, server=False),
     dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
          devices=None, fast=True, server=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",
