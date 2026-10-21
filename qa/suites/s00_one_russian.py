@@ -71,8 +71,10 @@ with sync_playwright() as p:
         # 4. Russian search uses the IAST index
         reqs = []
         pg.on("request", lambda r: reqs.append(r.url) if "search-index" in r.url else None)
-        pg.goto(f"{BASE}/ru-iast/offering-bhoga/", wait_until="networkidle"); pg.wait_for_timeout(800)
-        (pg.touchscreen.tap if touch else pg.mouse.click)(b["x"], b["y"]); pg.wait_for_timeout(400)
+        pg.goto(f"{BASE}/ru-iast/offering-bhoga/", wait_until="networkidle"); pg.wait_for_timeout(1500)
+        # V17 (Vraja Lila msg 5645): the bars are already out at the chapter's start — a tap only when they are not
+        if pg.locator(".reader-chrome[data-shown]").count() == 0:
+            (pg.touchscreen.tap if touch else pg.mouse.click)(b["x"], b["y"]); pg.wait_for_timeout(400)
         s = pg.locator("[data-reader-action=search]")
         s.tap() if touch else s.click()
         pg.wait_for_timeout(400)

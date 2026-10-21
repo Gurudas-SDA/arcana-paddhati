@@ -149,9 +149,12 @@ function maskUrl(src: string, file: string): string {
 function visibleFraction(el: Element): number {
   const r = el.getBoundingClientRect();
   const top = Math.max(r.top, 56);
-  const bottom = Math.min(r.bottom, window.innerHeight);
+  // V17: the bars are out at a chapter's start — a row under the shown bottom bar is not in view
+  const bar = document.querySelector(".reader-chrome[data-shown] .reader-bar-bottom");
+  const limit = bar ? Math.min(window.innerHeight, bar.getBoundingClientRect().top) : window.innerHeight;
+  const bottom = Math.min(r.bottom, limit);
   const h = Math.max(0, bottom - top);
-  return r.height > 0 ? h / Math.min(r.height, window.innerHeight - 56) : 0;
+  return r.height > 0 ? h / Math.min(r.height, limit - 56) : 0;
 }
 
 /** True if the picture's highlighted spot(s) lie inside the viewport (below the sticky header). */
