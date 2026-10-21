@@ -24,8 +24,8 @@ STATE = """() => {
     menu: !!nav,
     lit: nav ? [...nav.querySelectorAll('[data-toc-lit]')]
       .map(e => e.dataset.tocRow || e.dataset.result) : [],
-    open: nav ? [...nav.querySelectorAll('[aria-expanded=true][data-toc-group], [aria-expanded=true][data-toc-chapter]')]
-      .map(e => e.dataset.tocGroup || e.dataset.tocChapter).sort() : [],
+    open: nav ? [...nav.querySelectorAll('[aria-expanded=true][data-toc-group], [aria-expanded=true][data-toc-toggle], [aria-expanded=true][data-toc-chapter]')]
+      .map(e => e.dataset.tocGroup || e.dataset.tocToggle || e.dataset.tocChapter).sort() : [],
     length: history.length,
     scroll: (() => {
       const main = document.querySelector('.app-main');
@@ -80,7 +80,7 @@ def run(browser, device, options, mode, theme):
         # V17 (Vraja Lila msg 796): the app's «‹ Назад» is the previous chapter; a history step is the system Back
         page.go_back(); page.wait_for_timeout(700)
 
-    group = lambda: page.locator(f"[data-toc-group='{GROUP}']")
+    group = lambda: page.locator(f"[data-toc-toggle='{GROUP}']")  # V37: the group expands by its arrow
     chapter = lambda: page.locator(f"[data-toc-chapter='{CHAPTER}']")
     subsection = lambda: page.locator(f"[data-toc-row='sub:{CHAPTER}#{SUBSECTION}']")
     close = lambda: page.locator(".mobile-menu[data-open] button[aria-label='Закрыть меню']")

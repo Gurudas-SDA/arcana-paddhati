@@ -71,7 +71,7 @@ def run(p, dev, eng, o):
                 for gid in pg.evaluate("[...document.querySelectorAll('.mobile-menu[data-open] [data-toc-group]')].map(g=>g.getAttribute('data-toc-group'))"):
                     if vis():
                         break
-                    G = f"document.querySelector('.mobile-menu[data-open] [data-toc-group=\"{gid}\"]')"
+                    G = f"document.querySelector('.mobile-menu[data-open] [data-toc-toggle=\"{gid}\"]')"  # V37: the arrow
                     if pg.evaluate(f"{G}.getAttribute('aria-expanded')") != "true":
                         tapel(G)
                         if not vis():

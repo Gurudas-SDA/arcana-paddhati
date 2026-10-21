@@ -158,6 +158,8 @@ SUITES = [
          devices=["iphone14", "pixel7", "ipad-portrait", "ipad-landscape", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s77", file="suites/s77_resume_fade_v29.py", title="V29 Vraja 5783: «Продолжить» — mērķa lapa bez lēciena (vieta nekustas, kamēr lapa redzama), parādās ar īsu fade (CSS 200 ms, mērīts 100–450 ms); reduced motion — uzreiz, bez animācijas",
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
+    dict(id="s83", file="suites/s83_section_text_v37.py", title="V37 Vraja 1306/1308: izvēlnē sadaļas («Введение», daļas) NOSAUKUMS atver tās tekstu, sadaļa izcelta un izvērsta; bultiņa ▸ pa labi — tikai izvērst/sakļaut; «Назад»/«Вперёд» caur sadaļas tekstu (Lapas + Lente); rinda «Введение · N %» paliek",
+         devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
          devices=None, fast=True, server=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",

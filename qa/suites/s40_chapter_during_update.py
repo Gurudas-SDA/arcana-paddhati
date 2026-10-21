@@ -275,7 +275,8 @@ def run(p, dev, eng, o):
             for _ in range(4):
                 if row(inner).count():
                     return True
-                tap(row(rid))
+                # V37: a group expands by its arrow ▸ (its name opens the section's page)
+                tap(pg.locator(f".mobile-menu[data-open] [data-toc-toggle='{rid[4:]}']") if rid.startswith("grp:") else row(rid))
                 pg.wait_for_timeout(500)
             return row(inner).count() > 0
 

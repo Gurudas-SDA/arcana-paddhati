@@ -177,7 +177,7 @@ def run(p, dev, eng, o):
     tap(".mobile-menu[data-open] [data-toc-cover]")          # opens the cover on one tap
     contents()
     # open «Введение» and part I, and chapter 1's list (to have every row type)
-    for sel in (".mobile-menu[data-open] [data-toc-group=introduction]", ".mobile-menu[data-open] [data-toc-group=temple-worship]",
+    for sel in (".mobile-menu[data-open] [data-toc-toggle=introduction]", ".mobile-menu[data-open] [data-toc-toggle=temple-worship]",
                 ".mobile-menu[data-open] button[data-toc-chapter=daily-duties-brahma-muhurta]"):
         for _ in range(3):
             if pg.locator(sel).count() and pg.get_attribute(sel, "aria-expanded") == "true":
@@ -200,7 +200,7 @@ def run(p, dev, eng, o):
         contents()
         tap(".mobile-menu[data-open] [data-toc-cover]")
         contents()
-        for sel in (".mobile-menu[data-open] [data-toc-group=introduction]", ".mobile-menu[data-open] [data-toc-group=temple-worship]",
+        for sel in (".mobile-menu[data-open] [data-toc-toggle=introduction]", ".mobile-menu[data-open] [data-toc-toggle=temple-worship]",
                     ".mobile-menu[data-open] button[data-toc-chapter=daily-duties-brahma-muhurta]"):
             if pg.get_attribute(sel, "aria-expanded") != "true":
                 tap(sel)
@@ -288,7 +288,7 @@ def run(p, dev, eng, o):
         const li = row.closest('li'); const n = sc.getBoundingClientRect(), g = li.getBoundingClientRect(), r = row.getBoundingClientRect();
         return {allIn: g.bottom <= n.bottom + 1, rowTop: Math.round(r.top - n.top), atEnd: sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 2,
                 kids: li.querySelectorAll('ul [data-toc-row]').length}; }"""
-    for name, sel in (("part IV", ".mobile-menu[data-open] [data-toc-group=festivals-vows]"),
+    for name, sel in (("part IV", ".mobile-menu[data-open] [data-toc-toggle=festivals-vows]"),
                       ("chapter 16", ".mobile-menu[data-open] button[data-toc-chapter=kartika-bhajans]")):
         loc = pg.locator(sel)
         if not loc.count():
@@ -826,7 +826,7 @@ def run_v781(p, dev, eng, o):
                     tap("[data-reader-action=contents]", 800)
                 except Exception:
                     pass
-            for sel in (".mobile-menu[data-open] [data-toc-group=introduction]", ".mobile-menu[data-open] [data-toc-group=temple-worship]",
+            for sel in (".mobile-menu[data-open] [data-toc-toggle=introduction]", ".mobile-menu[data-open] [data-toc-toggle=temple-worship]",
                         ".mobile-menu[data-open] button[data-toc-chapter=daily-duties-brahma-muhurta]"):
                 for _ in range(3):
                     if pg.locator(sel).count() and pg.get_attribute(sel, "aria-expanded") == "true":

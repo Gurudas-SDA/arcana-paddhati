@@ -438,7 +438,7 @@ def run_one(DEV):
             path.append(state())
             toc_txt = pg.evaluate("document.querySelector('.mobile-menu[data-open]').innerText")
             rec("§9 нет строки «Начало главы»", "текст оглавления (до раскрытий)", "Начало главы" not in toc_txt, f"{'Начало главы' in toc_txt}")
-            INTRO = "document.querySelector('.mobile-menu[data-open] [data-toc-group=introduction]')"
+            INTRO = "document.querySelector('.mobile-menu[data-open] [data-toc-toggle=introduction]')"  # V37: expand / collapse = the arrow
             LIT = "[...document.querySelectorAll('.mobile-menu[data-open] [data-toc-lit]')].map(e=>e.getAttribute('data-toc-row')||e.getAttribute('data-toc-group')||e.getAttribute('data-toc-chapter')||e.textContent.trim().slice(0,30))"
             intro_open = lambda: pg.evaluate("!!document.getElementById('toc-grp-introduction')")
             # §10.1 (13.10): one tap does the row's function; for «Введение» it expands, the next tap collapses
@@ -468,9 +468,9 @@ def run_one(DEV):
             rec("§9.2 свёрнутая ветка: отметка поднимается на строку выше", "свернуть «Введение» при чтении «Эмблемы» → отмечено «Введение»", up == ["grp:introduction"], up)
             toc_tap(INTRO); path.append(state())
             # part heading: one tap expands it, the mark stays on the reading place
-            PART = "document.querySelector('.mobile-menu[data-open] [data-toc-group]:not([data-toc-group=introduction])')"
+            PART = "document.querySelector('.mobile-menu[data-open] [data-toc-toggle]:not([data-toc-toggle=introduction])')"
             lit0 = pg.evaluate(LIT); toc_tap(PART)
-            part_state = pg.evaluate("""()=>{const e=document.querySelector('.mobile-menu[data-open] [data-toc-group]:not([data-toc-group=introduction])'); return {t:e.textContent.trim(), exp:e.getAttribute('aria-expanded')}}""")
+            part_state = pg.evaluate("""()=>{const e=document.querySelector('.mobile-menu[data-open] [data-toc-toggle]:not([data-toc-toggle=introduction])'); return {t:e.getAttribute('aria-label'), exp:e.getAttribute('aria-expanded')}}""")
             lit1 = pg.evaluate(LIT)
             rec("§10 часть: одно касание раскрывает", "aria-expanded=true после первого касания", part_state["exp"] == "true", part_state)
             rec("§9.2 касание части не переносит отметку", "отмечена та же одна строка, что до касания", len(lit1) == 1 and lit1 == lit0, f"до={lit0} после={lit1}")

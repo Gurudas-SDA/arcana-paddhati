@@ -24,7 +24,7 @@ STATE = """() => { const nav = document.querySelector('.mobile-menu[data-open] n
   const r = {url: location.pathname + location.hash, menu: !!nav, lit: [], open: []};
   if (nav) {
     r.lit = [...nav.querySelectorAll('[data-toc-lit]')].map(e => e.hasAttribute('data-toc-cover') ? 'cover' : (e.getAttribute('data-toc-group') || e.getAttribute('data-toc-chapter') || e.getAttribute('href') || e.textContent.trim().slice(0, 30)));
-    r.open = [...nav.querySelectorAll('[aria-expanded=true][data-toc-chapter],[aria-expanded=true][data-toc-group]')].map(e => e.getAttribute('data-toc-chapter') || e.getAttribute('data-toc-group')).sort();
+    r.open = [...nav.querySelectorAll('[aria-expanded=true][data-toc-chapter],[aria-expanded=true][data-toc-group],[aria-expanded=true][data-toc-toggle]')].map(e => e.getAttribute('data-toc-chapter') || e.getAttribute('data-toc-group') || e.getAttribute('data-toc-toggle')).sort();
   }
   return r; }"""
 

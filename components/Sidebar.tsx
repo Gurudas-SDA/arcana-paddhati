@@ -1027,50 +1027,80 @@ export default function Sidebar({
 
   /**
    * Heading of a group of the contents — a part («I. Храмовый стандарт») or
-   * the Introduction: a tap expands / collapses it (a second tap collapses)
-   * and highlights it like any other row, so the highlight always follows
-   * the reader's last step (Satkirti, 06.10.2026).
+   * the Introduction. V37 (Vraja Lila msg 1306 / 1308, 21.10.2026): the
+   * section's NAME opens the section's own page (its text / its list), the way
+   * a chapter row opens its chapter; arriving there, the group is lit and
+   * expanded (usePartsOpen: the current group is open), so the menu opened
+   * again shows the section and its chapters. The arrow ▸ at the right is a
+   * separate control: it only expands / collapses the chapters (a step of the
+   * menu, no navigation).
    */
   const renderGroupHeading = (
     groupId: string,
     label: React.ReactNode,
+    name: string,
     isOpen: boolean,
     listId: string,
     byDefault: boolean,
   ) => {
     const headId = `grp:${groupId}`;
     const on = lit(headId, byDefault);
+    const href = sectionHref(groupId);
     return (
-      <div>
-        {/* The whole highlight strip is the button (Reader v7.8, Satkirti
-            07.10.2026: every contents row reacts over its full width). */}
+      <div
+        className={`flex items-stretch border-l-3 transition-colors ${
+          on ? "border-[#B8860B]" : "border-transparent"
+        }`}
+      >
+        <Link
+          href={href}
+          onClick={(e) => {
+            // The section opens expanded (its chapters ready in the menu).
+            const cur = parseParts(partsSnapshot());
+            if (cur[groupId] === false) {
+              delete cur[groupId];
+              setPartsState(cur);
+            }
+            leaveTo(e, href);
+          }}
+          aria-current={selectedId === groupId ? "page" : undefined}
+          data-toc-group={groupId}
+          data-toc-lit={on ? "" : undefined}
+          data-toc-row={headId}
+          {...loadingProps(headId)}
+          className={`sidebar-link flex flex-1 min-w-0 min-h-[44px] flex-col justify-center pl-5 pr-1 py-2 text-left hover:text-[#B8860B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#B8860B]/40 transition-colors ${
+            on ? "bg-[#FAF3E8] text-[#B8860B]" : "text-[#9C7A4E] hover:bg-[#FDF8F0]"
+          }`}
+        >
+          <span className="text-[11px] uppercase tracking-[0.12em] font-semibold leading-snug">{label}</span>
+          {loadingNote(headId)}
+        </Link>
+        {/* The arrow: expand / collapse only (a 44 px target of its own). */}
         <button
           type="button"
           onClick={() => onDisclosureTap(groupId, headId)}
           aria-expanded={isOpen}
           aria-controls={isOpen ? listId : undefined}
-          data-toc-group={groupId}
-          data-toc-lit={on ? "" : undefined}
-          data-toc-row={headId}
-          className={`sidebar-link flex w-full min-h-[44px] items-start gap-1.5 px-5 py-2 text-left border-l-3 hover:text-[#B8860B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#B8860B]/40 transition-colors ${
-            on ? "bg-[#FAF3E8] border-[#B8860B] text-[#B8860B]" : "border-transparent text-[#9C7A4E] hover:bg-[#FDF8F0]"
+          aria-label={name}
+          data-toc-toggle={groupId}
+          className={`sidebar-link flex h-[44px] w-[44px] shrink-0 items-center justify-center hover:text-[#B8860B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#B8860B]/40 transition-colors ${
+            on ? "bg-[#FAF3E8] text-[#B8860B]" : "text-[#9C7A4E] hover:bg-[#FDF8F0]"
           }`}
         >
           <svg
             aria-hidden="true"
-            width="12"
-            height="12"
+            width="14"
+            height="14"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={`shrink-0 mt-[3px] transition-transform ${isOpen ? "rotate-90" : ""}`}
+            className={`shrink-0 transition-transform ${isOpen ? "rotate-90" : ""}`}
           >
             <polyline points="9 6 15 12 9 18" />
           </svg>
-          <span className="text-[11px] uppercase tracking-[0.12em] font-semibold leading-snug">{label}</span>
         </button>
       </div>
     );
@@ -1087,7 +1117,7 @@ export default function Sidebar({
     const here = selectedId === head.id || (!isOpen && currentPartId === head.id);
     return (
       <li key={`grp-${head.id}`} className="mt-2 border-t border-[#E8DCC8] pt-2">
-        {renderGroupHeading(head.id, head.title, isOpen, listId, here)}
+        {renderGroupHeading(head.id, head.title, head.title, isOpen, listId, here)}
         {isOpen && (
           <ul id={listId} className="space-y-0.5">
             {members.map(renderSection)}
@@ -1475,9 +1505,11 @@ export default function Sidebar({
                           <span className="mr-1.5">{`${part.numeral}.`}</span>
                           {part.title}
                         </>,
+                        `${part.numeral}. ${part.title}`,
                         isOpen,
                         listId,
-                        !isOpen && currentPartId === part.id && !isPartSelected,
+                        // V37: the part's own page is lit on its heading (the one highlight).
+                        isPartSelected || (!isOpen && currentPartId === part.id),
                       )}
                       {isOpen && (
                         <ul id={listId} className="space-y-0.5">
@@ -1491,19 +1523,18 @@ export default function Sidebar({
                                 onClick={(e) => {
                                   leaveTo(e, sectionHref(part.id));
                                 }}
-                                aria-current={isPartSelected ? "page" : undefined}
-                                data-toc-lit={lit(`part:${part.id}`, isPartSelected) ? "" : undefined}
+                                data-toc-lit={lit(`part:${part.id}`, false) ? "" : undefined}
                                 data-toc-row={`part:${part.id}`}
                                 {...loadingProps(`part:${part.id}`)}
                                 className={`sidebar-link w-full text-left px-5 py-3 block border-l-3 transition-colors ${
-                                  lit(`part:${part.id}`, isPartSelected)
+                                  lit(`part:${part.id}`, false)
                                     ? "bg-[#FAF3E8] border-[#B8860B]"
                                     : "hover:bg-[#FDF8F0] border-transparent"
                                 }`}
                               >
                                 <span
                                   className={`text-sm leading-snug italic ${
-                                    lit(`part:${part.id}`, isPartSelected) ? "text-[#B8860B]" : "text-[#5C3D2E]"
+                                    lit(`part:${part.id}`, false) ? "text-[#B8860B]" : "text-[#5C3D2E]"
                                   }`}
                                 >
                                   {t(ui, "part.empty")}

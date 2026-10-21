@@ -60,7 +60,7 @@ def run(p, dev, eng, o, mode):
     try:
         mode.start(pg, f"{BASE}/{L}/")
         flow.contents()
-        for attr in ("data-toc-group", "data-toc-chapter"):
+        for attr in ("data-toc-toggle", "data-toc-chapter"):  # V37: a group expands by its arrow
             ids = pg.locator(f".mobile-menu[data-open] [{attr}]").evaluate_all("es=>es.map(e=>e.getAttribute('"+attr+"'))")
             for id in ids:
                 loc = pg.locator(f".mobile-menu[data-open] [{attr}='{id}']")

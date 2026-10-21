@@ -174,7 +174,7 @@ def run(p,dev,eng,kw,mode):
     open_contents(pg)
     try:
         if not pg.evaluate("[...document.querySelectorAll('aside nav [aria-expanded=true]')].some(e=>/Эмблема/.test(e.innerText))"):
-            if not pg.evaluate("[...document.querySelectorAll('aside nav [aria-expanded=true]')].some(e=>/ВВЕДЕНИЕ/.test(e.innerText))"):
+            if flow.group('introduction').get_attribute('aria-expanded') != 'true':  # V37: the arrow carries the state
                 flow.activate(flow.group('introduction'))
             flow.activate(flow.chapter('gaudiya-emblem'))
         r2 = row(pg, 'Святое имя')

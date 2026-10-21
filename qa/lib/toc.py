@@ -5,8 +5,9 @@ STATE = """() => {
  const nav = document.querySelector('.mobile-menu[data-open] nav');
  return {url: location.pathname + location.hash, menu: !!nav,
    lit: nav ? [...nav.querySelectorAll('[data-toc-lit]')].map(e=>e.dataset.tocRow) : [],
-   open: nav ? [...nav.querySelectorAll('[aria-expanded=true][data-toc-group],[aria-expanded=true][data-toc-chapter]')]
-      .map(e=>e.dataset.tocGroup || e.dataset.tocChapter).sort() : [],
+   // V37: a group's expanded state is on its arrow ([data-toc-toggle]), its name opens its page
+   open: nav ? [...nav.querySelectorAll('[aria-expanded=true][data-toc-group],[aria-expanded=true][data-toc-toggle],[aria-expanded=true][data-toc-chapter]')]
+      .map(e=>e.dataset.tocGroup || e.dataset.tocToggle || e.dataset.tocChapter).sort() : [],
    history: history.length, pushes: window.__qaTocPushes || 0};
 }"""
 
@@ -133,6 +134,11 @@ class Contents:
         return self.page.evaluate(STATE)
 
     def tap(self, locator, wait=180, right=False):
+        # V37 (Vraja Lila msg 1308): a group heading's right edge is its arrow ▸ — expand / collapse only
+        group = locator.get_attribute('data-toc-group') if right else None
+        if group:
+            toggle = self.page.locator(f'.mobile-menu[data-open] [data-toc-toggle="{group}"]')
+            if toggle.count(): locator = toggle
         if right and not self.mode.one:
             chapter = locator.get_attribute('data-toc-chapter')
             if chapter:
@@ -163,6 +169,11 @@ class Contents:
         self.bars();self.tap(self.page.locator('[data-reader-action=contents]'),wait=350)
 
     def group(self, id):
+        # V37 (Vraja Lila msg 1308): a group's expand / collapse is its arrow ▸ at the right;
+        # its name (name()) opens the section's own page.
+        return self.page.locator(f'.mobile-menu[data-open] [data-toc-toggle="{id}"]')
+
+    def name(self, id):
         return self.page.locator(f'.mobile-menu[data-open] [data-toc-group="{id}"]')
 
     def chapter(self, id):

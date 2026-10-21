@@ -22,7 +22,7 @@ STATE = """() => { const nav = document.querySelector('.mobile-menu[data-open] n
   const r = {url: decodeURI(location.pathname) + decodeURIComponent(location.hash), menu: !!nav, lit: [], open: []};
   if (nav) {
     r.lit = [...nav.querySelectorAll('[data-toc-lit]')].map(e => e.getAttribute('data-toc-row'));
-    r.open = [...nav.querySelectorAll('[aria-expanded=true][data-toc-chapter],[aria-expanded=true][data-toc-group]')].map(e => e.getAttribute('data-toc-chapter') || e.getAttribute('data-toc-group')).sort();
+    r.open = [...nav.querySelectorAll('[aria-expanded=true][data-toc-chapter],[aria-expanded=true][data-toc-group],[aria-expanded=true][data-toc-toggle]')].map(e => e.getAttribute('data-toc-chapter') || e.getAttribute('data-toc-group') || e.getAttribute('data-toc-toggle')).sort();
   }
   return r; }"""
 
@@ -91,7 +91,7 @@ def run(p, dev, eng, o, mode):
     pg,f=fresh('introduction/');f.contents();d0=f.state()
     def double(loc):
         loc.scroll_into_view_if_needed();box=loc.bounding_box();x=box['x']+min(60,box['width']/2);y=box['y']+box['height']/2
-        if mode.one and loc.get_attribute('data-toc-group'):
+        if mode.one and (loc.get_attribute('data-toc-group') or loc.get_attribute('data-toc-toggle')):  # V37: a group's arrow
             tap=loc.tap if o.get('has_touch') else loc.click;tap();tap()
         else:
             tap=pg.touchscreen.tap if o.get('has_touch') else pg.mouse.click;tap(x,y);tap(x,y)
