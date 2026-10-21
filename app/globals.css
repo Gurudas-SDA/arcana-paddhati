@@ -936,6 +936,30 @@ body,
     padding: 2.25rem 4.5vw 3rem;
   }
 }
+/* V17 (Vraja Lila msg 5784/5787): a chapter starts with the bars out, so its
+   title begins below the top bar (its height: 44 px button + 2 × 6 px + 1 px
+   border = 57 px; the notch is already the reading area's own padding) with
+   the usual gap — never under it. Pages: the page's own top; Scroll: the
+   section's scroll margin (a jump lands the section right below the bar). */
+:root {
+  --reader-bar-top-h: 57px;
+}
+.reader-article {
+  padding-top: calc(var(--reader-bar-top-h) + 1.25rem);
+}
+@media (min-width: 640px) {
+  .reader-article {
+    padding-top: calc(var(--reader-bar-top-h) + 2.25rem);
+  }
+}
+.continuous-book .reader-article {
+  padding-top: 1.25rem;
+}
+@media (min-width: 640px) {
+  .continuous-book .reader-article {
+    padding-top: 2.25rem;
+  }
+}
 /* px / rem text classes → proportional to the body size (body = 15px class) */
 .reader-article .text-\[11px\] { font-size: max(13px, calc(var(--fs) * 0.72)); }
 .reader-article .text-\[12px\], .reader-article .text-xs { font-size: max(13px, calc(var(--fs) * 0.8)); }
@@ -1541,6 +1565,7 @@ html[data-reader-bars] .hs-peek {
     --rd-base: 15px !important;
     --reader-zoom: 1 !important;
     max-width: none !important;
+    padding-top: 1.25rem !important; /* no bars on paper (V17 room under the top bar) */
   }
 }
 
@@ -1960,7 +1985,7 @@ html[data-hs-peek] .app-main {
   display: none;
 }
 .continuous-book .book-section {
-  scroll-margin-top: 0;
+  scroll-margin-top: var(--reader-bar-top-h);
 }
 .portrait-ornament {
   display: block;

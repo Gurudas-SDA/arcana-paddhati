@@ -31,6 +31,9 @@ pieskāriens, nodaļas beigas, vai lietotājs atritina atpakaļ uz nodaļas sāk
      starts with them out;
   L  reading on (scrolling down) takes them away;
   M  scrolling up in the middle of the chapter does not bring them; back at the chapter's start does.
+Vraja Lila msg 5784 «СРОЧНО ИСПРАВИТЬ» / 5786–5787 (mock «как надо»: «8. Маха-абхишека» whole right under the top bar):
+  T  after «Вперёд ›» / «‹ Назад» (Pages and Scroll) the chapter's title is whole on screen below the shown top bar
+     (title top ≥ top bar bottom, title bottom inside the screen).
 usage: python s69_chapter_nav.py <base-url>
 """
 import json
@@ -103,11 +106,19 @@ WATCH_JS = """() => { window.__barsGone = 0; const t0 = performance.now();
   requestAnimationFrame(tick); }"""
 TOP_JS = """() => { const m = document.querySelector('.app-main'); return m ? m.scrollTop : -1; }"""
 PAGE_ID_JS = """() => location.pathname.replace(/\\/$/, '').split('/').pop()"""
+# the current chapter's visible title (Pages: the page's; Scroll: the section's) against the top bar
+TITLE_JS = """id => { const scope = document.querySelector(`[data-book-section="${id}"]`) || document.querySelector('.app-main');
+  const h = [...scope.querySelectorAll('h1')].find(e => !e.classList.contains('sr-only') && e.getClientRects().length);
+  const bar = document.querySelector('.reader-chrome[data-shown] .reader-bar-top');
+  if (!h) return null; const r = h.getBoundingClientRect();
+  return {top: Math.round(r.top), bottom: Math.round(r.bottom), bar: bar ? Math.round(bar.getBoundingClientRect().bottom) : null,
+          vh: innerHeight, text: h.textContent.trim().slice(0, 40)}; }"""
 
 
 def run(browser, device, options, walk):
     context = browser.new_context(service_workers="block", **options)
-    context.add_init_script("try{localStorage.setItem('ap.readerHintSeen','1')}catch(e){}")
+    # no install banner (as on Vraja's iPhone, msg 5786): it would push the page down and hide a title under the bar
+    context.add_init_script("try{localStorage.setItem('ap.readerHintSeen','1');localStorage.setItem('installDismissed','true')}catch(e){}")
     page = context.new_page()
     errors = []
     host = BASE.split("//")[1].split("/")[0]
@@ -147,6 +158,11 @@ def run(browser, device, options, walk):
         page.wait_for_timeout(700)
         return page.url != before
 
+    def title_check(label, pid):
+        t = page.evaluate(TITLE_JS, pid)
+        check(device, f"T {label}: the chapter title is whole on screen below the top bar", bool(t) and t["bar"] is not None
+              and t["top"] >= t["bar"] and t["bottom"] <= t["vh"], t)
+
     def page_id():
         return page.evaluate(PAGE_ID_JS)
 
@@ -180,9 +196,11 @@ def run(browser, device, options, walk):
         check(device, "K Pages «Вперёд ›»: the bars never leave during the switch; the new chapter starts with them out", gone == 0 and st["shown"] and st["bottom"] > 0.9, {"gone": gone, **st})
         check(device, f"B Pages «Вперёд ›»: {ORDER[mid]} -> {ORDER[mid + 1]}", ok and page_id() == ORDER[mid + 1], page.url)
         check(device, "B Pages: the next page opens at its top", page.evaluate(TOP_JS) <= 2, page.evaluate(TOP_JS))
+        title_check("Pages «Вперёд ›»", ORDER[mid + 1])
         ok = press("back")
         check(device, f"C Pages «‹ Назад»: {ORDER[mid + 1]} -> {ORDER[mid]}", ok and page_id() == ORDER[mid], page.url)
         check(device, "C Pages: the previous page opens at its top", page.evaluate(TOP_JS) <= 2, page.evaluate(TOP_JS))
+        title_check("Pages «‹ Назад»", ORDER[mid])
         ok = press("back")
         check(device, f"C Pages «‹ Назад»: {ORDER[mid]} -> {ORDER[mid - 1]}", ok and page_id() == ORDER[mid - 1], page.url)
         b = page.evaluate(BAR_JS)
@@ -264,9 +282,11 @@ def run(browser, device, options, walk):
         check(device, "K Scroll «Вперёд ›»: the bars never leave during the jump and are out at the new chapter", gone == 0 and st["shown"] and st["bottom"] > 0.9, {"gone": gone, **st})
         g = page.evaluate(GEO, ORDER[i + 1])
         check(device, f"G Scroll «Вперёд ›»: jump to the start of {ORDER[i + 1]}", ok and g and abs(g["off"]) <= 2 and g["url"].rstrip("/").endswith("/" + ORDER[i + 1]), g)
+        title_check("Scroll «Вперёд ›»", ORDER[i + 1])
         ok = press("back")
         g = page.evaluate(GEO, ORDER[i])
         check(device, f"G Scroll «‹ Назад»: jump to the start of {ORDER[i]}", ok and g and abs(g["off"]) <= 2 and g["url"].rstrip("/").endswith("/" + ORDER[i]), g)
+        title_check("Scroll «‹ Назад»", ORDER[i])
         ok = press("back")
         g = page.evaluate(GEO, ORDER[i - 1])
         check(device, f"G Scroll «‹ Назад» again: the start of {ORDER[i - 1]}", ok and g and abs(g["off"]) <= 2, g)
@@ -282,7 +302,7 @@ def run(browser, device, options, walk):
 
 
 with sync_playwright() as playwright:
-    for device, engine, options in qa.devices(["pixel7", "iphone14", "iphone-se", "desktop"]):
+    for device, engine, options in qa.devices(["pixel7", "iphone14", "iphone-se", "ipad-portrait", "desktop"]):
         browser = getattr(playwright, engine).launch()
         run(browser, device, options, walk=device in ("pixel7", "desktop"))
         browser.close()
