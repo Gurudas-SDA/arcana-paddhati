@@ -614,7 +614,8 @@ html[data-reader-theme="night"] .home-save-track i.part {
    Selected row (rule for all lists): a light, semi-transparent band in the
    interface's own beige (--color-cream-dark #F5E6C8) behind the TEXT only
    (each text part its own band; wrapped lines each get one), never the row's
-   empty space or full width; no vertical line, no bold. */
+   empty space or full width; no vertical line, no bold. A list row is one
+   band around its number and text since V36 (below, before the stripes). */
 .hs-row {
   scroll-margin: 80px 0;
 }
@@ -715,6 +716,24 @@ html[data-reader-theme="night"] .home-save-track i.part {
   .hs-row .hs-cell {
     background-color: transparent !important;
   }
+}
+/* V36 (Vraja Lila msg 5962: «делай одним блоком/подложкой — цифру + текст одним
+   прямоугольником со скруглёнными краями», here and in every such place from now on):
+   a marked list row (the numbered lists, the tilak list) is ONE band — the row's
+   own box with rounded corners around its number and its text; its parts carry no
+   bands of their own. Lines in running text (inline rows) keep their text band —
+   one piece already. The taps stay on the text (.hs-text / .hs-cell). */
+.numbered-list > li.hs-row {
+  /* room for the band around the number and the text; the layout does not move */
+  padding-inline: 6px;
+  margin-inline: -6px;
+}
+.hs-row:is(li, div)[data-active] {
+  background-color: var(--rd-row-active);
+  border-radius: 6px;
+}
+html:root .hs-row:is(li, div)[data-active] :is(.hs-text, .hs-cell) {
+  background-color: transparent;
 }
 /* Alternating bands on a linked list, so a place and its mantra read as one
    row on a narrow screen. Decoration, not a state: the selection band
