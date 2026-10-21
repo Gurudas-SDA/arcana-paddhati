@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { stripBasePath } from "@/lib/basePath";
 import { keepPlace } from "@/lib/readingMode";
 import { readReadingPlace } from "@/lib/readingPlace";
+import { startResumeFade } from "@/lib/resumeFade";
 
 export default function ResumeCardLink({ script }: { script: string }) {
   const router = useRouter();
@@ -33,6 +34,8 @@ export default function ResumeCardLink({ script }: { script: string }) {
       if (a.hasAttribute("data-same-lang") && place && place.section === a.dataset.section) {
         keepPlace({ sectionId: place.section, index: place.block, delta: place.offset });
       }
+      // no visible jump to the place: the page appears there with a short fade (V29)
+      startResumeFade(window.location.pathname);
       router.push(stripBasePath(new URL(a.href).pathname) + new URL(a.href).hash);
     };
     slot.addEventListener("click", onClick);

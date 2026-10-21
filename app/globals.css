@@ -2077,3 +2077,22 @@ html[data-reader-theme="night"] .portrait-frame-lines {
   overflow: visible;
   pointer-events: none;
 }
+
+/* «Продолжить» (V29, Vraja Lila msg 5783, lib/resumeFade.ts): on the tap the reading
+   area is hidden at once (a fading cover could still be half-visible when the new
+   page, not yet at its place, comes in); the new page stays hidden until it is at
+   the place, then fades in (soft, quick). Reduced motion: shown at once. */
+html[data-resume-fade] .app-main {
+  opacity: 0;
+  transition: none;
+}
+html[data-resume-fade="in"] .app-main {
+  opacity: 1;
+  transition: opacity 200ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-resume-fade] .app-main,
+  html[data-resume-fade="in"] .app-main {
+    transition: none;
+  }
+}
