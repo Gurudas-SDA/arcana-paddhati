@@ -36,7 +36,7 @@ import { BASE_PATH, stripBasePath } from "@/lib/basePath";
 import { captureReadingPlace, saveReadingPlace } from "@/lib/readingPlace";
 import { beginReadingArrival, bookTarget, readingAnchor, readingSection } from "@/lib/readingFlow";
 import { readerLayout, useReaderLayout } from "@/lib/readerPrefs";
-import { BOOK_EVENT, BOOK_SEGMENT, bookHref, capturePlace, keepPlace, restorePlace } from "@/lib/readingMode";
+import { BOOK_EVENT, BOOK_SEGMENT, bookHref, capturePlace, keepPlace, placeBeingRestored, restorePlace } from "@/lib/readingMode";
 
 /** A link's place: its pathname (no trailing slash) + hash — what a navigation opens. */
 const placeOf = (href: string): string => {
@@ -613,6 +613,8 @@ export default function AppShell({
       stopKeeper?.();
       stopKeeper = null;
       if (performance.now() - poppedAt.current < 1500) return;
+      // «Продолжить» / a kept place: its exact block wins over the subsection heading (V29b).
+      if (placeBeingRestored()) return;
       // A reload restores the saved continuous-book position, including
       // reading farther below the URL's original subsection heading.
       if (restoredReadingPlace.current === placeOf(window.location.href)) return;

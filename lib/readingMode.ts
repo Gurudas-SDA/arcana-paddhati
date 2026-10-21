@@ -73,6 +73,17 @@ function takePending(): Place | null {
   return pending;
 }
 
+/** Until when a kept place is being put back (performance.now() ms). */
+let restoringUntil = 0;
+
+/** A kept place (the exact block) is being put back on this page right now: the
+ *  subsection anchor of the URL must not pull the page to its heading meanwhile
+ *  (components/AppShell.tsx anchor keeper; V29b — «Продолжить» jumped between
+ *  the place and the heading for ~2 s after the fade). */
+export function placeBeingRestored(): boolean {
+  return performance.now() < restoringUntil;
+}
+
 /** Put a kept place back once its chapter is shown (pictures may still move
  *  the text: re-applied for a while, until the reader touches the page).
  *  Returns a cancel function, or null when there is nothing to put back. */
@@ -82,8 +93,9 @@ export function restorePlace(): (() => void) | null {
   const { sectionId } = parsePath(stripBasePath(window.location.pathname) || "/");
   if (sectionId !== place.sectionId) return null;
   keepPlace(null);
+  restoringUntil = performance.now() + 1700;
   let stopped = false;
-  const stop = () => { stopped = true; };
+  const stop = () => { stopped = true; restoringUntil = 0; };
   const events = ["touchstart", "wheel", "keydown", "pointerdown"] as const;
   for (const ev of events) window.addEventListener(ev, stop, { passive: true, capture: true });
   const apply = () => {

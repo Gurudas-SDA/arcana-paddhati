@@ -9,7 +9,8 @@ prefers-reduced-motion → no animation (the page appears at once, already at it
   # tehniskais slieksnis Lipikāra, nav S noteikums: «short fade» = from first visible (opacity > 0.02) to full
   #   (≥ 0.99) 100–450 ms with at least one in-between frame (the CSS fade is 200 ms; a loaded test server
 #   stretches frames — measured up to 371 ms); «stays» = the returned block's top within 2 px of its
-  #   final place in every visible frame; sampled every animation frame for 2.5 s after the tap.
+  #   final place in every visible frame; sampled every animation frame for 4.5 s after the tap (the anchor keeper of
+  #   components/AppShell.tsx runs up to 3.9 s).
 usage: python s77_resume_fade_v29.py <base-url>
 """
 import json
@@ -23,7 +24,11 @@ from playwright.sync_api import sync_playwright  # noqa: E402
 
 BASE = sys.argv[1].rstrip("/")
 DEVICES = qa.devices(["iphone14", "pixel7", "desktop"])
-CASES = [("vigraha-tattva", 24, 0), ("worship-sixteen-articles", 12, 0)]
+# (section, block, offset, anchor). The last case is a place as the app itself stores it while reading — with the
+# subsection anchor (V29b, 21.10: the link then carries #anchor, and the anchor keeper pulled the page to the
+# subsection heading and back — ~350 px jumps for ~2 s after the fade; found on the V29 screen recording for Vraja).
+CASES = [("vigraha-tattva", 24, 0, None), ("worship-sixteen-articles", 12, 0, None),
+         ("worship-sixteen-articles", 25, -7, "guru-pankti-namaskara")]
 results = []
 
 
@@ -46,9 +51,9 @@ with sync_playwright() as p:
     for dev, eng, opts in DEVICES:
         b = getattr(p, eng).launch()
         for reduce in (False, True):
-            for section, block, offset in CASES:
-                tag = f"{section}{' (reduced motion)' if reduce else ''}"
-                place = dict(v=1, section=section, anchor=None, block=block, offset=offset, lang="ru-iast", time=int(time.time() * 1000))
+            for section, block, offset, anchor in CASES:
+                tag = f"{section}{'#' + anchor if anchor else ''}{' (reduced motion)' if reduce else ''}"
+                place = dict(v=1, section=section, anchor=anchor, block=block, offset=offset, lang="ru-iast", time=int(time.time() * 1000))
                 c = b.new_context(service_workers="block", locale="ru-RU", reduced_motion="reduce" if reduce else "no-preference", **opts)
                 c.add_init_script("localStorage.setItem('ap.readerHintSeen','1');localStorage.setItem('installDismissed','true');"
                                   "localStorage.setItem('ap.offlineSave', %s);localStorage.setItem('ap.readingPlace', %s);"
@@ -66,7 +71,7 @@ with sync_playwright() as p:
                     a.tap()
                 else:
                     a.click()
-                pg.wait_for_timeout(2500)
+                pg.wait_for_timeout(4500)
                 fs = pg.evaluate("window.__fsStop(), window.__fs")
                 on_page = [f for f in fs if f[1] and f[3] is not None]
                 if not on_page:
