@@ -148,6 +148,8 @@ SUITES = [
          devices=["pixel7", "iphone14", "iphone-se", "ipad-portrait", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s70", file="suites/s70_en_theme_label.py", title="Vraja 5780: EN tumšais fons «Dark» (RU «Тёмный»), nekur EN saskarnē «Night»",
          devices=None, fast=True, server=False),
+    dict(id="s78", file="suites/s78_bg_dark_all_langs.py", title="V26b Vraja 5817: «Аа» fons «Тёмный» visās valodās nozīmē «tumšs», ne «nakts» (de/es/fr/hu/it/lt/lv/pt/uk + ru); visas V21 pārdēvētās atslēgas visās valodās, vietturi kā RU",
+         devices=None, fast=True, server=False),
     dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
          devices=None, fast=True, server=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",
