@@ -1304,7 +1304,9 @@ export default function Sidebar({
                 {/* The pencil (V34, Vraja Lila msg 5869): left of the remove icon; opens the
                     name window. A 44px target. Its line thin like the other thin icons (1.5)
                     and drawn at the right side of its target, a little closer to the remove
-                    icon (Vraja Lila msg 5897); the two targets still do not overlap. */}
+                    icon (Vraja Lila msg 5897); the two targets still do not overlap. The drawing is
+                    moved down 0.56 of its 24 units so its middle (y 2.9…20) is the icon's middle,
+                    level with the bookmark icon (Vraja Lila msg 5939). */}
                 <button
                   type="button"
                   className="absolute right-[44px] top-1/2 -translate-y-1/2 flex h-[44px] w-[44px] items-center justify-end pr-[3px] text-[#8B6508] disabled:cursor-default"
@@ -1314,7 +1316,7 @@ export default function Sidebar({
                   title={t(ui, "bookmark.rename")}
                   data-bookmark-rename=""
                 >
-                  <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={isPale ? "opacity-45" : undefined}>
+                  <svg aria-hidden="true" width="18" height="18" viewBox="0 -0.56 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={isPale ? "opacity-45" : undefined}>
                     <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z" />
                     <path d="M14 6l3 3" />
                   </svg>

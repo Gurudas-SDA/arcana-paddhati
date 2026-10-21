@@ -34,6 +34,11 @@ V34 fix (Vraja Lila msg 5897, passed on by Lipikāra): the pencil's line thinner
 and the pencil a little closer to the bookmark (remove) icon.
 # tehniskais slieksnis Lipikāra, nav S noteikums: pencil stroke-width 1.5; «closer» = gap between the two drawn icons
 # 8–18 px (before: 26 px); both 44 px tap targets stay and do not overlap.
+V34b (Vraja Lila msg 5939, verbatim): «карандаш отцентруй по вертикали относительно иконки закладки» — the drawn
+pencil's vertical middle = the drawn bookmark icon's vertical middle.
+# tehniskais slieksnis Lipikāra, nav S noteikums: middles of the drawn shapes (SVG geometry, getBBox × screen CTM)
+# within 0.25 px (before: 0.4–0.5 px — under the 1 px asked as the limit, so the test measures finer than that).
+
 # tehniskais slieksnis Lipikāra, nav S noteikums: the opened block 40–140 px below the reading area's top; «…» =
 # text-overflow ellipsis with scrollWidth > clientWidth.
 usage: python s71_bookmark_name.py <base-url> [--shots <dir>]
@@ -129,6 +134,11 @@ ROW = """(row) => { const t = row.querySelector('[data-bookmark-title]'); const 
           cut: t.scrollWidth > t.clientWidth, second: !!row.querySelector('[data-bookmark-second]'), small,
           pen: !!pen, penLeftOfRemove: !!(pr && rr) && pr.right <= rr.left + 1 && Math.abs((pr.top + pr.height / 2) - (rr.top + rr.height / 2)) < 2,
           penSize: pr ? [Math.round(pr.width), Math.round(pr.height)] : null, stroke: [sw(pen), sw(rm)],
+          inkDy: (pen && rm) ? (() => { const mid = (svg) => { let t = 1e9, bo = -1e9;
+              for (const g of svg.querySelectorAll('path')) { const bb = g.getBBox(), m = g.getScreenCTM();
+                const y1 = m.b * bb.x + m.d * bb.y + m.f, y2 = m.b * (bb.x + bb.width) + m.d * (bb.y + bb.height) + m.f;
+                t = Math.min(t, y1, y2); bo = Math.max(bo, y1, y2); } return (t + bo) / 2; };
+            return +(mid(pen.querySelector('svg')) - mid(rm.querySelector('svg'))).toFixed(2); })() : null,
           gap: (pen && rm) ? Math.round(rm.querySelector('svg').getBoundingClientRect().left - pen.querySelector('svg').getBoundingClientRect().right) : null,
           textClear: !!pr && tr.right <= pr.left + 1,
           nested: !!(pen && pen.closest('a'))}; }"""
@@ -271,8 +281,8 @@ with sync_playwright() as p:
             check(tag, "3 long name: one line with «…»", looks["b-long"]["ellipsis"] and looks["b-long"]["cut"] and looks["b-long"]["lines"] == 1, looks["b-long"])
             check(tag, "3 old bookmark (no name): chapter + subsection + date as before",
                   looks["b-svagata"]["second"] and looks["b-svagata"]["small"] == 1 and looks["b-svagata"]["title"].startswith("4."), looks["b-svagata"])
-            check(tag, "3 pencil left of the remove icon, thin line 1.5, close to it (icon gap 8–18 px, Vraja 5897), 44 px, not in the row link",
-                  all(v["pen"] and v["penLeftOfRemove"] and v["stroke"] == ["1.5", "2"] and v["gap"] is not None and 8 <= v["gap"] <= 18 and v["penSize"][0] >= 44 and v["penSize"][1] >= 44
+            check(tag, "3 pencil left of the remove icon, thin line 1.5, close to it (icon gap 8–18 px, Vraja 5897), vertically centred on it (±0.25 px, Vraja 5939), 44 px, not in the row link",
+                  all(v["pen"] and v["penLeftOfRemove"] and v["stroke"] == ["1.5", "2"] and v["gap"] is not None and 8 <= v["gap"] <= 18 and v["inkDy"] is not None and abs(v["inkDy"]) <= 0.25 and v["penSize"][0] >= 44 and v["penSize"][1] >= 44
                       and v["textClear"] and not v["nested"] for v in looks.values()), list(looks.values()))
             if layout == "page":
                 shot(pg, dev, 3, "боковое меню Закладки")
