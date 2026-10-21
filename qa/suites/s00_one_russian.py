@@ -42,7 +42,10 @@ with sync_playwright() as p:
         # 3. switcher: one Russian, label «Русский», value ru-iast
         pg.goto(f"{BASE}/ru-iast/offering-bhoga/", wait_until="networkidle"); pg.wait_for_timeout(800)
         b = pg.evaluate("""() => { const a = document.querySelector('.app-main article').getBoundingClientRect(); return {x: a.left + 6, y: innerHeight / 2}; }""")
-        (pg.touchscreen.tap if touch else pg.mouse.click)(b["x"], b["y"]); pg.wait_for_timeout(400)
+        # V17 (Vraja Lila msg 5645): the bars are already out at the chapter's start — a tap only when they are not
+        pg.wait_for_timeout(700)
+        if pg.locator(".reader-chrome[data-shown]").count() == 0:
+            (pg.touchscreen.tap if touch else pg.mouse.click)(b["x"], b["y"]); pg.wait_for_timeout(400)
         c = pg.locator("[data-reader-action=contents]")
         c.tap() if touch else c.click()
         pg.wait_for_timeout(500)

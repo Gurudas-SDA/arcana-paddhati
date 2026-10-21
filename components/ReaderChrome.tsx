@@ -503,9 +503,15 @@ export default function ReaderChrome({
   // subsection) gets the usual auto-hide once its place is restored.
   useEffect(() => {
     if (isHome) return;
-    // Once, shortly after the page opens (its place is set by then); later the
-    // reader's own taps decide — a tap that hid the bars is never overruled.
+    // Once, shortly after the page opens (its place is set by then); the
+    // reader's own taps decide — a tap before that is never overruled.
+    let touched = false;
+    const onDown = () => {
+      touched = true;
+    };
+    document.addEventListener("pointerdown", onDown, { capture: true, passive: true });
     const check = (mayShow: boolean) => {
+      if (touched) mayShow = false;
       if (panelRef.current || menuRef.current) return;
       const edge = chapterEdges();
       // A link to a subsection (#…) is not the chapter's start.
@@ -520,7 +526,10 @@ export default function ReaderChrome({
       }
     };
     const timers = [window.setTimeout(() => check(true), 450), window.setTimeout(() => check(false), 1300)];
-    return () => timers.forEach((id) => window.clearTimeout(id));
+    return () => {
+      timers.forEach((id) => window.clearTimeout(id));
+      document.removeEventListener("pointerdown", onDown, { capture: true });
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathKey]);
 
