@@ -9,6 +9,8 @@ Rule text (plan 2026.10.19 «План на ночь — закладки и ис
  (the plan's «s48» became s52 for the list and this suite for the button)
 Picture: Vraja_Lila/faili/2026.10.20_Закладка — вариант А.png — ribbon icon between «Поиск» and «Аа»,
 filled after the tap; dark toast «Закладка поставлена · Отменить» («Отменить» in gold).
+V34 (Satkirti msg 5866, Vraja Lila msg 5869/5881, 21.10.2026): setting now goes through the name window
+(«Подтвердить»); the ribbon is filled for the exact place (block) on screen, a tap there removes it (10.1).
 usage: python s54_bookmark_button.py <base-url>
 """
 import json
@@ -52,6 +54,14 @@ def tap(pg, loc, touch):
     pg.wait_for_timeout(350)
 
 
+def set_bm(pg, loc, touch):
+    """A tap on the ribbon, then «Подтвердить» in the name window (V34)."""
+    tap(pg, loc, touch)
+    ok = pg.locator("[data-bookmark-dialog-confirm]")
+    if ok.count():
+        tap(pg, ok, touch)
+
+
 with sync_playwright() as p:
     for dev, eng, opts in DEVICES:
         b = getattr(p, eng).launch()
@@ -80,11 +90,11 @@ with sync_playwright() as p:
 
         h0 = pg.evaluate("history.length")
         url0 = pg.url
-        tap(pg, btn, touch)
+        set_bm(pg, btn, touch)
         it = items(pg)
         toast = pg.locator(TOAST)
         ttxt = toast.inner_text() if toast.count() else ""
-        check(dev, "B4 tap sets a bookmark here (chapter + subsection)", len(it) == 1 and it[0]["section"] == CH and it[0]["anchor"], it)
+        check(dev, "B4 tap + «Подтвердить» sets a bookmark here (chapter + subsection)", len(it) == 1 and it[0]["section"] == CH and it[0]["anchor"], it)
         check(dev, "B4 toast «Закладка поставлена · Отменить»", "Закладка поставлена" in ttxt and pg.locator(f"{TOAST} button").count() == 1
               and "Отменить" in pg.locator(f"{TOAST} button").inner_text(), ttxt)
         check(dev, "A icon filled (pressed) after the tap", btn.get_attribute("aria-pressed") == "true", btn.get_attribute("aria-pressed"))
@@ -97,7 +107,7 @@ with sync_playwright() as p:
 
         # 10.1: a second tap removes
         flow.bars()
-        tap(pg, btn, touch)
+        set_bm(pg, btn, touch)
         n1 = len(items(pg))
         flow.bars()
         tap(pg, btn, touch)
@@ -107,7 +117,7 @@ with sync_playwright() as p:
 
         # 10.2: «Назад» does not touch the bookmark
         flow.bars()
-        tap(pg, btn, touch)
+        set_bm(pg, btn, touch)
         flow.nav("back")
         check(dev, "10.2 «Назад» leaves the chapter, bookmark stays", f"/{CH}/" not in pg.url and len(items(pg)) == 1,
               {"url": pg.url, "items": items(pg)})
@@ -134,7 +144,7 @@ with sync_playwright() as p:
         flow = Contents(pg, qa.TocMode("default"), touch)
         flow.bars()
         if pg.locator(BTN).count():
-            tap(pg, pg.locator(BTN), touch)
+            set_bm(pg, pg.locator(BTN), touch)
         check(dev, "B4 offline: the bookmark is set, toast shown", len(items(pg)) == 1 and pg.locator(TOAST).count() == 1, items(pg))
         c.set_offline(False)
         c.close()

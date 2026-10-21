@@ -57,7 +57,7 @@ import {
   BOOKMARK_TOAST_END_EVENT,
   BOOKMARK_TOAST_EVENT,
   BOOKMARKS_EVENT,
-  bookmarkAt,
+  bookmarkOnScreen,
   captureBookmarkBlock,
   defaultBookmarkName,
   ownName,
@@ -380,7 +380,35 @@ export default function ReaderChrome({
   useEffect(() => {
     if (!bmToastOn) window.dispatchEvent(new Event(BOOKMARK_TOAST_END_EVENT));
   }, [bmToastOn]);
-  const bookmarkHere = section ? bookmarkAt(bookmarks, section.id, subId ?? null) : undefined;
+  // The place on screen (V34, msg 5872/5881/5882): the ribbon is filled when a
+  // bookmark of this chapter is on screen (or ±1 block from the top) — «примерно
+  // на том же месте»; several bookmarks per subsection. Measured when scrolling stops.
+  const [hereId, setHereId] = useState<string | null>(null);
+  const sectionKey = section?.id ?? "";
+  const subKey = subId ?? null;
+  useEffect(() => {
+    const m = mainEl();
+    let timer: number | undefined;
+    const measure = () => {
+      try {
+        setHereId(sectionKey ? (bookmarkOnScreen(readBookmarks(), sectionKey, lang, subKey)?.id ?? null) : null);
+      } catch {
+        setHereId(null);
+      }
+    };
+    const onScroll = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(measure, 150);
+    };
+    const first = window.setTimeout(measure, 300);
+    m?.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.clearTimeout(first);
+      window.clearTimeout(timer);
+      m?.removeEventListener("scroll", onScroll);
+    };
+  }, [pathKey, layout, bookmarks, sectionKey, subKey, lang]);
+  const bookmarkHere = hereId ? bookmarks.find((b) => b.id === hereId) : undefined;
   /** The name window of a bookmark about to be set (V34). */
   const [bmAsk, setBmAsk] = useState<{ section: string; anchor: string | null; block: number; name: string } | null>(null);
   const showBmToast = (added: boolean, before: Bookmark[]) => {
@@ -393,11 +421,6 @@ export default function ReaderChrome({
    *  (V34); storage only, no history step. */
   const onBookmark = () => {
     if (!section) return;
-    if (bookmarkHere) {
-      const { added, before } = toggleBookmark(section.id, bookmarkHere.anchor ?? null, bookmarkHere.block, lang);
-      showBmToast(added, before);
-      return;
-    }
     let place = null;
     try {
       place = captureReadingPlace(lang, section.subsections.map((sub) => sub.id));
@@ -411,6 +434,18 @@ export default function ReaderChrome({
       block = captureBookmarkBlock() ?? block;
     } catch {
       // not measurable now
+    }
+    // A bookmark about here: the tap removes it (rule 10.1; Vraja Lila msg 5882).
+    let here: Bookmark | undefined;
+    try {
+      here = bookmarkOnScreen(readBookmarks(), section.id, lang, anchor);
+    } catch {
+      here = undefined;
+    }
+    if (here) {
+      const { added, before } = toggleBookmark(section.id, here.anchor ?? null, here.block, lang);
+      showBmToast(added, before);
+      return;
     }
     setBmAsk({ section: section.id, anchor, block, name: defaultBookmarkName(section, anchor) });
   };

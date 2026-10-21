@@ -97,6 +97,15 @@ export function bookmarkAt(items: Bookmark[], section: string, anchor: string | 
   return items.find((b) => b.section === section && (b.anchor ?? null) === (anchor ?? null));
 }
 
+/** The bookmark on this exact place (V34, Vraja Lila msg 5881: «в разделе может
+ *  быть несколько закладок»): the same block of the same chapter, taken in this
+ *  language. A place without a measured block (0) falls back to chapter +
+ *  subsection among such bookmarks. Rule 10.1 applies to this place. */
+export function bookmarkAtPlace(items: Bookmark[], section: string, block: number, lang: string, anchor: string | null): Bookmark | undefined {
+  if (block > 0) return items.find((b) => b.section === section && b.block === block && liveLang(b.lang) === liveLang(lang));
+  return items.find((b) => b.section === section && !(b.block > 0) && (b.anchor ?? null) === (anchor ?? null));
+}
+
 /** Remove one bookmark (the icon on its row in «Закладки») and show the top
  *  bar's toast «Закладка убрана · Отменить», which can put the list back. */
 export function removeBookmark(id: string) {
@@ -127,7 +136,7 @@ export function renameBookmark(id: string, name: string | undefined) {
  *  Returns whether it was added and the list before (for «Отменить»). */
 export function toggleBookmark(section: string, anchor: string | null, block: number, lang: string, name?: string): { added: boolean; before: Bookmark[] } {
   const before = readBookmarks();
-  const here = bookmarkAt(before, section, anchor);
+  const here = bookmarkAtPlace(before, section, block, lang, anchor);
   if (here) {
     writeBookmarks(before.filter((b) => b.id !== here.id));
     return { added: false, before };
@@ -149,21 +158,23 @@ export function toggleBookmark(section: string, anchor: string | null, block: nu
 // language brings that block back a little below the top and lights it for a
 // moment; in another language (other blocks) — its subsection, as before.
 
-/** Where the opened block stands: just below the top bar. */
-const PLACE_TOP_PX = 72;
+/** Where the opened block stands: right below the top bar, all of it visible
+ *  (Vraja Lila msg 5883 — like a chapter's title, V25). */
+const PLACE_GAP_PX = 10;
 /** html attribute while a bookmark's block is being put in place: the anchor
  *  keeper (components/AppShell.tsx) leaves the scroll alone meanwhile. */
 export const BOOKMARK_PLACE_ATTR = "data-bookmark-place";
 
 /** The index of the first block a reader sees at the top: the first that starts
- *  below the top bar, or one cut by it that still shows most of itself. */
+ *  below the top bar, or one cut by it that still shows most of itself. The bar's
+ *  height counts whether it is out or not, so the place does not change when
+ *  the bars come and go. */
 export function captureBookmarkBlock(): number | null {
   const scroller = main();
   const root = readingSection();
   if (!scroller || !root) return null;
-  let line = scroller.getBoundingClientRect().top;
-  const bar = document.querySelector<HTMLElement>("html[data-reader-bars] .reader-bar-top");
-  if (bar) line = Math.max(line, bar.getBoundingClientRect().bottom);
+  const bar = document.querySelector<HTMLElement>(".reader-bar-top");
+  const line = scroller.getBoundingClientRect().top + (bar ? bar.offsetHeight : 0);
   const blocks = [...root.querySelectorAll<HTMLElement>(BLOCKS)];
   for (let i = 0; i < blocks.length; i++) {
     const r = blocks[i].getBoundingClientRect();
@@ -217,7 +228,8 @@ export function placeBookmark(b: Bookmark) {
     const block = sec?.querySelectorAll<HTMLElement>(BLOCKS)[b.block];
     if (scroller && block && (!b.anchor || sec?.querySelector(`[id="${CSS.escape(b.anchor)}"]`))) {
       if (!found) found = now;
-      const d = block.getBoundingClientRect().top - scroller.getBoundingClientRect().top - PLACE_TOP_PX;
+      const bar = document.querySelector<HTMLElement>(".reader-bar-top")?.offsetHeight ?? 0;
+      const d = block.getBoundingClientRect().top - scroller.getBoundingClientRect().top - bar - PLACE_GAP_PX;
       if (Math.abs(d) > 2) scroller.scrollTop += d;
       if (!lit && now - found > 250) {
         lit = true;
@@ -234,4 +246,39 @@ export function placeBookmark(b: Bookmark) {
   };
   stopPlacing = stop;
   requestAnimationFrame(tick);
+}
+
+/** «Примерно на том же месте» (Vraja Lila msg 5882/5883: «можем померить
+ *  определённой порцией скролла»): a bookmark's block is at most this part of the
+ *  reading area's height away from the reading line (just below the top bar). */
+export const NEAR_SCREEN_PART = 0.5;
+
+/** The bookmark about here: one of this chapter (this language) whose block is
+ *  within NEAR_SCREEN_PART of a screen from the reading line; several — the
+ *  nearest. Old bookmarks without a block: chapter + subsection, as before. */
+export function bookmarkOnScreen(items: Bookmark[], section: string, lang: string, anchor: string | null): Bookmark | undefined {
+  const mine = items.filter((b) => b.section === section);
+  const exact = mine.filter((b) => b.block > 0 && liveLang(b.lang) === liveLang(lang));
+  const scroller = main();
+  const root = readingSection();
+  if (exact.length && scroller && root) {
+    const sr = scroller.getBoundingClientRect();
+    const topBar = document.querySelector<HTMLElement>(".reader-bar-top")?.offsetHeight ?? 0;
+    const line = sr.top + topBar;
+    const limit = (sr.height - topBar) * NEAR_SCREEN_PART;
+    const blocks = root.querySelectorAll<HTMLElement>(BLOCKS);
+    let best: Bookmark | undefined;
+    let bestD = Infinity;
+    for (const b of exact) {
+      const r = blocks[b.block]?.getBoundingClientRect();
+      if (!r || !r.height) continue;
+      const d = Math.abs(r.top - line);
+      if (d <= limit && d < bestD) {
+        bestD = d;
+        best = b;
+      }
+    }
+    if (best) return best;
+  }
+  return mine.find((b) => !(b.block > 0) && (b.anchor ?? null) === (anchor ?? null));
 }

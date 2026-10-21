@@ -10,6 +10,17 @@ Rule text (Vraja Lila msg 5869, verbatim):
  «название закладок не должно рябить в глазах, поэтому нужно ограничить видимую часть… после скольки-то символов
   идёт „...“»
  «не показывается вовсе, если сделано переименование... никаких мелких шрифтов»
+Rule text (Vraja Lila msg 5881, verbatim):
+ «если я в разделе закладок с открытым боковым меню, модальное окно при „изменить“ открывается НЕ закрывая панель,
+  я переименовал, подтвердил и вижу закладку с новым названием»; «ДА, в разделе может быть несколько закладок»
+Rule text (Vraja Lila msg 5882, verbatim):
+ «повторное нажатие на ленточку при учёте, что я примерно на том же месте, снимет закладку»
+ (Purohita's reading, msg to Mantrī: a bookmark's block on screen between the bars, or ±1 block from the top one)
+Rule text (Vraja Lila msg 5883, verbatim):
+ «скорее можем померить определённой порцией скролла... если закладка стоит на определённом стихе или разделе, то при
+  открытии он будет на самом верху практически... (как „продолжить“ открывало главу и она была видна)»
+ # tehniskais slieksnis Lipikāra, nav S noteikums: «примерно на том же месте» = the bookmark's block ≤ ½ of the reading
+ # area's height from the reading line (lib/bookmarks.ts NEAR_SCREEN_PART); opened block 0–24 px below the top bar.
 Rule text (Vraja Lila msg 5872, verbatim):
  «хочу иметь возможность делать закладку на конкретном месте в главе... если я листаю и там мантра, которую я учу...
   поставить закладку там и назвать „Мантра при пробуждении“... и тогда легко вернуться конкретно к этому месту»
@@ -70,12 +81,33 @@ def tap(pg, loc, touch, wait=400):
 
 
 # The 3rd verse of 1.1 «Утренние молитвы» (udgāyatīnām…): its index among the place blocks, put at the top.
-TO_VERSE = """() => { const m = document.querySelector('.app-main');
+TO_VERSE = """([sub, n]) => { const m = document.querySelector('.app-main');
   const sec = document.querySelector('[data-continuous-book]') ? document.querySelector('[data-book-section="%s"]') : m;
-  const verses = [...sec.querySelectorAll('#morning-prayers .verse-text p')];
-  const v = verses[2]; const blocks = [...sec.querySelectorAll('article :is(h1,h2,h3,h4,p)')];
+  const verses = [...sec.querySelectorAll('#' + sub + ' .verse-text p')];
+  const v = verses[n]; const blocks = [...sec.querySelectorAll('article :is(h1,h2,h3,h4,p)')];
   m.scrollTop += v.getBoundingClientRect().top - m.getBoundingClientRect().top - 90;
-  return {index: blocks.indexOf(v), text: v.textContent.slice(0, 20)}; }""" % CH
+  return {index: blocks.indexOf(v), text: v.textContent.slice(0, 20), count: verses.length}; }""" % CH
+SEEN = """(i) => { const m = document.querySelector('.app-main');
+  const sec = document.querySelector('[data-continuous-book]') ? document.querySelector('[data-book-section="%s"]') : m;
+  const b = sec.querySelectorAll('article :is(h1,h2,h3,h4,p)')[i]; const r = b.getBoundingClientRect(); const s = m.getBoundingClientRect();
+  return r.bottom > s.top && r.top < s.bottom; }""" % CH
+LONG_SUB = "sadhararana-acamana"
+# Two blocks of 1.5 far apart: its first visible paragraph and one ≥ 2 screens below it; each put at the top.
+FAR_PAIR = """(sub) => { const m = document.querySelector('.app-main');
+  const sec = document.querySelector('[data-continuous-book]') ? document.querySelector('[data-book-section="%s"]') : m;
+  const blocks = [...sec.querySelectorAll('article :is(h1,h2,h3,h4,p)')]; const box = sec.querySelector('#' + sub);
+  const mine = blocks.map((b, i) => [b, i]).filter(([b]) => box.contains(b) && b.tagName === 'P' && b.getClientRects().length);
+  const a = mine[0]; const y0 = a[0].getBoundingClientRect().top;
+  const b = mine.find(([el]) => el.getBoundingClientRect().top - y0 > 2 * m.clientHeight);
+  return [a[1], b ? b[1] : null]; }""" % CH
+TO_BLOCK = """(i) => { const m = document.querySelector('.app-main'); const bar = document.querySelector('.reader-bar-top').offsetHeight;
+  const sec = document.querySelector('[data-continuous-book]') ? document.querySelector('[data-book-section="%s"]') : m;
+  const b = sec.querySelectorAll('article :is(h1,h2,h3,h4,p)')[i];
+  m.scrollTop += b.getBoundingClientRect().top - m.getBoundingClientRect().top - bar - 20; return i; }""" % CH
+DIST = """(i) => { const m = document.querySelector('.app-main'); const bar = document.querySelector('.reader-bar-top').offsetHeight;
+  const sec = document.querySelector('[data-continuous-book]') ? document.querySelector('[data-book-section="%s"]') : m;
+  const b = sec.querySelectorAll('article :is(h1,h2,h3,h4,p)')[i]; const s = m.getBoundingClientRect();
+  return Math.abs(b.getBoundingClientRect().top - s.top - bar) / (s.height - bar); }""" % CH
 DIALOG = """() => { const d = document.querySelector('[data-bookmark-dialog]'); if (!d) return null;
   const card = d.querySelector('[role=dialog]'); const r = card.getBoundingClientRect();
   const bd = getComputedStyle(d.querySelector('.bookmark-name-backdrop'));
@@ -94,10 +126,10 @@ ROW = """(row) => { const t = row.querySelector('[data-bookmark-title]'); const 
           pen: !!pen, penLeftOfRemove: !!(pr && rr) && pr.right <= rr.left + 1 && Math.abs((pr.top + pr.height / 2) - (rr.top + rr.height / 2)) < 2,
           penSize: pr ? [Math.round(pr.width), Math.round(pr.height)] : null, stroke: [sw(pen), sw(rm)], textClear: !!pr && tr.right <= pr.left + 1,
           nested: !!(pen && pen.closest('a'))}; }"""
-PLACED = """(i) => { const m = document.querySelector('.app-main');
+PLACED = """(i) => { const m = document.querySelector('.app-main'); const bar = document.querySelector('.reader-bar-top').offsetHeight;
   const sec = document.querySelector('[data-continuous-book]') ? document.querySelector('[data-book-section="%s"]') : m;
   const b = sec && sec.querySelectorAll('article :is(h1,h2,h3,h4,p)')[i]; if (!b) return null;
-  return {top: Math.round(b.getBoundingClientRect().top - m.getBoundingClientRect().top), lit: b.classList.contains('bookmark-flash'),
+  return {top: Math.round(b.getBoundingClientRect().top - m.getBoundingClientRect().top - bar), lit: b.classList.contains('bookmark-flash'),
           text: b.textContent.slice(0, 20), path: location.pathname}; }""" % CH
 
 
@@ -136,7 +168,7 @@ with sync_playwright() as p:
             pg.goto(f"{BASE}/ru-iast/{CH}/", wait_until="networkidle")
             pg.wait_for_timeout(2500 if layout == "scroll" else 1500)
             flow = Contents(pg, qa.TocMode("default"), touch)
-            verse = pg.evaluate(TO_VERSE)
+            verse = pg.evaluate(TO_VERSE, ["morning-prayers", 2])
             pg.wait_for_timeout(900)
 
             # 1. the window on a new bookmark, default name = the subsection's name
@@ -176,12 +208,55 @@ with sync_playwright() as p:
             check(tag, "2 toast «Закладка поставлена»", toast.count() == 1 and "Закладка поставлена" in toast.inner_text(), toast.count())
             pg.wait_for_timeout(4300)
 
+            # 2b. «примерно на том же месте» (msg 5882): a little above the verse, it still on screen — filled, a tap removes
+            ribbon = pg.locator("[data-reader-action=bookmark]")
+            check(tag, "2b ribbon filled on the bookmarked verse", ribbon.get_attribute("aria-pressed") == "true", ribbon.get_attribute("aria-pressed"))
+            pg.evaluate(TO_VERSE, ["morning-prayers", 1])
+            pg.wait_for_timeout(900)
+            near = pg.evaluate(DIST, block)
+            check(tag, "2b about the same place (≤ ½ screen from the verse): ribbon filled", near <= 0.5 and ribbon.get_attribute("aria-pressed") == "true",
+                  {"dist": round(near, 2), "pressed": ribbon.get_attribute("aria-pressed")})
+            press_ribbon(pg, touch, flow)
+            gone = [x for x in stored(pg) if x["section"] == CH]
+            check(tag, "2b a tap there removes it (no window), toast «Закладка убрана»", pg.locator(DLG).count() == 0 and gone == []
+                  and "Закладка убрана" in (pg.locator("[data-bookmark-toast]").inner_text() if pg.locator("[data-bookmark-toast]").count() else ""), gone)
+            if pg.locator("[data-bookmark-toast] button").count():
+                tap(pg, pg.locator("[data-bookmark-toast] button"), touch)
+            check(tag, "2b «Отменить» brings it back", [x.get("name") for x in stored(pg) if x["section"] == CH] == [NAME], stored(pg))
+            pg.wait_for_timeout(500)
+
+            # 2c. several bookmarks in one subsection (msg 5881): two verses of 1.5, far apart
+            pair = pg.evaluate(FAR_PAIR, LONG_SUB)
+            pg.evaluate(TO_BLOCK, pair[0])
+            pg.wait_for_timeout(900)
+            check(tag, "2c away from it: ribbon not filled", ribbon.get_attribute("aria-pressed") == "false", ribbon.get_attribute("aria-pressed"))
+            press_ribbon(pg, touch, flow)
+            if pg.locator(DLG).count():
+                tap(pg, pg.locator("[data-bookmark-dialog-confirm]"), touch)
+            pg.wait_for_timeout(4300)
+            pg.evaluate(TO_BLOCK, pair[1])
+            pg.wait_for_timeout(900)
+            far = [x for x in stored(pg) if x.get("anchor") == LONG_SUB]
+            dist = pg.evaluate(DIST, far[0]["block"]) if far else None
+            check(tag, "2c second place in the same subsection, > ½ screen away: ribbon not filled",
+                  len(far) == 1 and dist > 0.5 and ribbon.get_attribute("aria-pressed") == "false",
+                  {"far": far, "dist": dist, "pair": pair, "pressed": ribbon.get_attribute("aria-pressed")})
+            press_ribbon(pg, touch, flow)
+            d2 = pg.evaluate(DIALOG)
+            check(tag, "2c the ribbon opens «Новая закладка» (the other one stays)", d2 is not None and d2["mode"] == "add", d2)
+            if d2 is not None:
+                tap(pg, pg.locator("[data-bookmark-dialog-confirm]"), touch)
+            two = [x for x in stored(pg) if x.get("anchor") == LONG_SUB]
+            check(tag, "2c two bookmarks in subsection 1.5, each with its own block",
+                  len(two) == 2 and {x["block"] for x in two} == set(pair), {"two": two, "pair": pair})
+            pg.wait_for_timeout(4300)
+
             # 3. «Закладки»: the renamed row only its name, one line, «…»; the pencil left of the remove icon
             open_bookmarks(pg, touch, flow)
             rows = pg.locator(f"{MENU} [data-bookmark-row]")
             looks = {rows.nth(i).get_attribute("data-bookmark-id"): rows.nth(i).evaluate(ROW) for i in range(rows.count())}
             mine = next((v for v in looks.values() if v["title"] == NAME), None)
-            check(tag, "3 four rows; the new one titled «Мантра при пробуждении»", rows.count() == 4 and mine is not None, list(looks))
+            check(tag, "3 six rows (two in 1.5); the new one titled «Мантра при пробуждении»", rows.count() == 6 and mine is not None, list(looks))
             if mine is None:
                 c.close(); b.close()
                 continue
@@ -195,6 +270,7 @@ with sync_playwright() as p:
                       and v["textClear"] and not v["nested"] for v in looks.values()), list(looks.values()))
             if layout == "page":
                 shot(pg, dev, 3, "боковое меню Закладки")
+                shot(pg, dev, 6, "две закладки в одном разделе")
 
             # 4. the pencil opens the same window with the name
             tap(pg, pg.locator(f"{MENU} [data-bookmark-id=b-long] [data-bookmark-rename]"), touch)
@@ -220,6 +296,27 @@ with sync_playwright() as p:
                 check(tag, "4 unnamed bookmark: the window shows its subsection's name; Esc closes, menu stays",
                       (v0 or "").startswith("4.5. Ачаман") and pg.locator(DLG).count() == 0 and pg.locator(MENU).count() == 1, v0)
 
+            # 4b. rename with the side menu open (msg 5881): the window over the open panel, the list updated at once
+            other = next((x["id"] for x in stored(pg) if x.get("anchor") == LONG_SUB and not x.get("name")), None)
+            if other:
+                tap(pg, pg.locator(f"{MENU} [data-bookmark-id='{other}'] [data-bookmark-rename]"), touch)
+                d = pg.evaluate(DIALOG)
+                check(tag, "4b pencil: window over the open side menu (menu not closed)",
+                      d is not None and d["mode"] == "rename" and (d["value"] or "").startswith("1.5.") and pg.locator(MENU).count() == 1, d)
+                pg.locator("[data-bookmark-dialog-input]").fill("Вторая мантра")
+                pg.wait_for_timeout(200)
+                if layout == "page":
+                    shot(pg, dev, 7, "переименование при открытом боковом меню")
+                tap(pg, pg.locator("[data-bookmark-dialog-confirm]"), touch)
+                t2 = pg.locator(f"{MENU} [data-bookmark-id='{other}'] [data-bookmark-title]")
+                check(tag, "4b after «Подтвердить»: menu still open, the row shows the new name",
+                      pg.locator(MENU).count() == 1 and pg.locator(DLG).count() == 0 and t2.count() == 1 and t2.inner_text() == "Вторая мантра",
+                      t2.inner_text() if t2.count() else None)
+                if layout == "page":
+                    shot(pg, dev, 8, "список после переименования")
+            else:
+                check(tag, "4b second bookmark of 1.1 present", False, stored(pg))
+
             # 5. the exact place: from another chapter, the bookmark opens at the verse, lit
             row = pg.locator(f"{MENU} [data-bookmark-row]").filter(has_text=NAME)
             tap(pg, row.locator("[data-bookmark-title]"), touch, wait=300)
@@ -227,7 +324,7 @@ with sync_playwright() as p:
             pg.wait_for_timeout(500)
             pg.wait_for_timeout(1200)
             at = pg.evaluate(PLACED, block)
-            check(tag, "5 the bookmark opens at the verse itself, just below the top", at is not None and 40 <= at["top"] <= 140
+            check(tag, "5 the bookmark opens at the verse itself, right below the top bar", at is not None and 0 <= at["top"] <= 24
                   and at["text"] == verse["text"]
                   and CH in at["path"], {"at": at, "verse": verse})
             # from another chapter
@@ -248,8 +345,8 @@ with sync_playwright() as p:
                     pg.wait_for_timeout(100)
                 pg.wait_for_timeout(1800)
                 at = pg.evaluate(PLACED, block)
-                check(tag, "5 from another chapter: the verse just below the top, lit for a moment",
-                      lit and at is not None and 40 <= at["top"] <= 140 and at["text"] == verse["text"], at)
+                check(tag, "5 from another chapter: the verse right below the top bar, lit for a moment",
+                      lit and at is not None and 0 <= at["top"] <= 24 and at["text"] == verse["text"], at)
             c.close()
             b.close()
 
