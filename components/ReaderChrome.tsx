@@ -228,6 +228,11 @@ export default function ReaderChrome({
     return () => exitGhost(node, "reader-panel-out", 160);
   }, []);
 
+  const panelBackdropRef = useCallback((node: HTMLDivElement | null) => {
+    if (!node) return;
+    return () => exitGhost(node, "reader-panel-backdrop reader-panel-backdrop-out", 160);
+  }, []);
+
   // A new page: reading mode again (render-time adjustment, no effect) —
   // unless "back" returned to a step of that page with the «Аа» panel open.
   const [lastPath, setLastPath] = useState(`${lang}/${sectionId ?? ""}`);
@@ -863,7 +868,18 @@ export default function ReaderChrome({
         </div>
       </div>
 
-      {/* «Аа» panel: text size, background, language */}
+      {/* «Аа» panel: language, text size, background. The page behind is dimmed
+          black 60 % like the other windows (V27, Vraja Lila msg 5769–5779; V18);
+          a tap on the dimming = a tap on the page (closes the panel). */}
+      {panel && (
+        <div
+          ref={panelBackdropRef}
+          className="reader-panel-backdrop"
+          data-no-reader-tap=""
+          aria-hidden="true"
+          onClick={() => hide()}
+        />
+      )}
       {panel && (
         <div ref={panelNodeRef} className="reader-panel" role="group" aria-label={t(ui, "reader.textSettings")} {...barEvents}>
           <div className="reader-panel-head">
@@ -883,6 +899,16 @@ export default function ReaderChrome({
               </svg>
             </button>
           </div>
+          {/* The language first (V27, Vraja Lila msg 5769–5779: «он должен быть первой функцией»). */}
+          <p className="reader-panel-label">{t(ui, "language.label")}</p>
+          <LanguageSwitcher
+            lang={lang}
+            sectionId={sectionId}
+            available={available}
+            ui={ui}
+            block
+            onNavigate={fromPanelThen}
+          />
           <p className="reader-panel-label">{t(ui, "reader.size")}</p>
           <div className="reader-size-row">
             <button
@@ -974,15 +1000,6 @@ export default function ReaderChrome({
                 </button>
               ))}
           </div>
-          <p className="reader-panel-label">{t(ui, "language.label")}</p>
-          <LanguageSwitcher
-            lang={lang}
-            sectionId={sectionId}
-            available={available}
-            ui={ui}
-            block
-            onNavigate={fromPanelThen}
-          />
         </div>
       )}
 

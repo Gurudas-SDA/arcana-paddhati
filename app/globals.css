@@ -1182,12 +1182,15 @@ html[data-reader-bars] .reader-toast {
 .reader-panel,
 .reader-panel-out {
   position: fixed;
-  z-index: 31;
+  /* above its dimming (31) and the top bar (32) */
+  z-index: 33;
   top: calc(env(safe-area-inset-top, 0px) + 62px);
   right: max(8px, env(safe-area-inset-right, 0px));
   width: min(320px, calc(100vw - 16px));
-  max-height: calc(100vh - 200px);
-  max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 200px);
+  /* Not cut while the screen has room (V27, Vraja Lila msg 5769): down to 8 px
+     above the screen's bottom edge (top 62 px + 8 px). */
+  max-height: calc(100vh - 70px);
+  max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 70px);
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 10px 14px 14px;
@@ -1197,6 +1200,23 @@ html[data-reader-bars] .reader-toast {
   color: var(--rd-fg);
   box-shadow: 0 10px 32px rgba(0, 0, 0, 0.18);
   animation: reader-pop 160ms ease-out;
+}
+/* Behind the open «Аа» panel: the page dimmed black 60 %, no blur, like the other
+   windows (V27, Vraja Lila msg 5769–5779; V18). The top bar with «Аа» stays above it. */
+.reader-panel-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 31;
+  background: rgba(0, 0, 0, 0.6);
+  animation: lang-fade 160ms ease-out;
+}
+.reader-panel-backdrop.reader-panel-backdrop-out {
+  animation: lang-fade 160ms ease-out reverse forwards;
+  pointer-events: none;
+}
+/* also while the dimming fades out after the panel closed */
+.reader-bar-top {
+  z-index: 32;
 }
 .reader-panel-head {
   display: flex;
@@ -1373,7 +1393,8 @@ html[data-reader-theme="night"] ::highlight(search-hit) {
 /* Language menu in the book's style (Vraja Lila msg 5418 variant 1; dimmed page — msg 5423).
    Closed: a field like the other «Аа» buttons. Open: a card by the field over a dimmed page. */
 :root {
-  --lang-dim: rgba(44, 24, 16, 0.38);
+  /* the same black 60 % as behind the other windows (V27, Vraja Lila msg 5779) */
+  --lang-dim: rgba(0, 0, 0, 0.6);
   --lang-sel-bg: #F5E6C8;
   --lang-sel-fg: #2C1810;
   --lang-check: #B8860B;
@@ -1382,7 +1403,6 @@ html[data-reader-theme="sepia"] {
   --lang-sel-bg: #E9D3A6;
 }
 html[data-reader-theme="night"] {
-  --lang-dim: rgba(0, 0, 0, 0.55);
   --lang-sel-bg: #3A3020;
   --lang-sel-fg: #F2E9DA;
   --lang-check: #D4A843;
@@ -1551,6 +1571,7 @@ html[data-reader-bars] .hs-peek {
     transition: none;
   }
   .reader-panel,
+  .reader-panel-backdrop,
   .reader-hint,
   .reader-toast {
     animation: none;
