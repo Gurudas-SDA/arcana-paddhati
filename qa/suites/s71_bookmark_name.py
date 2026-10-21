@@ -27,9 +27,13 @@ Rule text (Vraja Lila msg 5872, verbatim):
 
 Checks: the window in the middle, black 60 % dimming without blur (V18), ✕, default name = the subsection's name,
 Enter confirms, «Отмена» sets nothing; the stored name; the row shows only the name (one line, «…», no small date);
-the pencil left of the remove icon (same stroke 2, 44 px); the pencil opens the same window with the name; old
+the pencil left of the remove icon (44 px); the pencil opens the same window with the name; old
 bookmarks (no name) show as before; the exact block — opened from another chapter it stands just below the top and
 is lit, in «Страницы» and «Лента».
+V34 fix (Vraja Lila msg 5897, passed on by Lipikāra): the pencil's line thinner, like the other thin icons (~1.5 px),
+and the pencil a little closer to the bookmark (remove) icon.
+# tehniskais slieksnis Lipikāra, nav S noteikums: pencil stroke-width 1.5; «closer» = gap between the two drawn icons
+# 8–18 px (before: 26 px); both 44 px tap targets stay and do not overlap.
 # tehniskais slieksnis Lipikāra, nav S noteikums: the opened block 40–140 px below the reading area's top; «…» =
 # text-overflow ellipsis with scrollWidth > clientWidth.
 usage: python s71_bookmark_name.py <base-url> [--shots <dir>]
@@ -124,7 +128,9 @@ ROW = """(row) => { const t = row.querySelector('[data-bookmark-title]'); const 
   return {title: t.textContent, lines: Math.round(tr.height / parseFloat(cs.lineHeight || '20')), ellipsis: cs.textOverflow === 'ellipsis' && cs.whiteSpace === 'nowrap',
           cut: t.scrollWidth > t.clientWidth, second: !!row.querySelector('[data-bookmark-second]'), small,
           pen: !!pen, penLeftOfRemove: !!(pr && rr) && pr.right <= rr.left + 1 && Math.abs((pr.top + pr.height / 2) - (rr.top + rr.height / 2)) < 2,
-          penSize: pr ? [Math.round(pr.width), Math.round(pr.height)] : null, stroke: [sw(pen), sw(rm)], textClear: !!pr && tr.right <= pr.left + 1,
+          penSize: pr ? [Math.round(pr.width), Math.round(pr.height)] : null, stroke: [sw(pen), sw(rm)],
+          gap: (pen && rm) ? Math.round(rm.querySelector('svg').getBoundingClientRect().left - pen.querySelector('svg').getBoundingClientRect().right) : null,
+          textClear: !!pr && tr.right <= pr.left + 1,
           nested: !!(pen && pen.closest('a'))}; }"""
 PLACED = """(i) => { const m = document.querySelector('.app-main'); const bar = document.querySelector('.reader-bar-top').offsetHeight;
   const sec = document.querySelector('[data-continuous-book]') ? document.querySelector('[data-book-section="%s"]') : m;
@@ -265,8 +271,8 @@ with sync_playwright() as p:
             check(tag, "3 long name: one line with «…»", looks["b-long"]["ellipsis"] and looks["b-long"]["cut"] and looks["b-long"]["lines"] == 1, looks["b-long"])
             check(tag, "3 old bookmark (no name): chapter + subsection + date as before",
                   looks["b-svagata"]["second"] and looks["b-svagata"]["small"] == 1 and looks["b-svagata"]["title"].startswith("4."), looks["b-svagata"])
-            check(tag, "3 pencil left of the remove icon, same stroke, 44 px, not in the row link",
-                  all(v["pen"] and v["penLeftOfRemove"] and v["stroke"] == ["2", "2"] and v["penSize"][0] >= 44 and v["penSize"][1] >= 44
+            check(tag, "3 pencil left of the remove icon, thin line 1.5, close to it (icon gap 8–18 px, Vraja 5897), 44 px, not in the row link",
+                  all(v["pen"] and v["penLeftOfRemove"] and v["stroke"] == ["1.5", "2"] and v["gap"] is not None and 8 <= v["gap"] <= 18 and v["penSize"][0] >= 44 and v["penSize"][1] >= 44
                       and v["textClear"] and not v["nested"] for v in looks.values()), list(looks.values()))
             if layout == "page":
                 shot(pg, dev, 3, "боковое меню Закладки")
