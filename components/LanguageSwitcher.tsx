@@ -120,6 +120,14 @@ export default function LanguageSwitcher({
     else router.push(href);
   };
 
+  // The list is open: one dimming only — the «Аа» panel's steps aside (V27b, app/globals.css).
+  useEffect(() => {
+    if (!open) return;
+    const root = document.documentElement;
+    root.setAttribute("data-lang-open", "");
+    return () => root.removeAttribute("data-lang-open");
+  }, [open]);
+
   // Focus the list when it opens; the current language in view.
   useEffect(() => {
     if (!open) return;

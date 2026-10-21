@@ -1214,6 +1214,21 @@ html[data-reader-bars] .reader-toast {
   animation: lang-fade 160ms ease-out reverse forwards;
   pointer-events: none;
 }
+/* The language list over the panel: still ONE dimming of 60 % (V27b, Vraja Lila
+   msg 5876 «затемнение дублируется… всегда должны быть 60%»). The list's own
+   dimming (above the panel) takes over; the panel's steps aside, and neither
+   fades, so the page never gets lighter or darker in between (html attributes
+   from ReaderChrome / LanguageSwitcher — no :has(), which stalls WebKit here). */
+html[data-lang-open] .reader-panel-backdrop {
+  background: transparent;
+  animation: none;
+}
+html[data-aa-open] .lang-backdrop {
+  animation: none;
+}
+html[data-aa-open] .lang-backdrop.lang-backdrop-out {
+  display: none;
+}
 /* also while the dimming fades out after the panel closed */
 .reader-bar-top {
   z-index: 32;

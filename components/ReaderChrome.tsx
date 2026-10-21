@@ -265,6 +265,9 @@ export default function ReaderChrome({
     const root = document.documentElement;
     if (shown) root.setAttribute("data-reader-bars", "");
     else root.removeAttribute("data-reader-bars");
+    // the «Аа» panel is open: the language list then uses its dimming alone (V27b)
+    if (panel) root.setAttribute("data-aa-open", "");
+    else root.removeAttribute("data-aa-open");
   }, [shown, panel, menuOpen]);
 
   const clearTimer = () => window.clearTimeout(hideTimer.current);

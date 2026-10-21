@@ -13,7 +13,10 @@ Checks (each device; phones also turned):
      top and the screen's bottom; when it does not fit, the panel uses the screen down to its bottom edge
      # tehniskais slieksnis Lipikāra, nav S noteikums: bottom margin 8 px (±1 px), «fits» = top + content + 8 ≤ height;
   3. panel open: the page behind is dimmed black 60 %, no blur; a tap on the dimming closes the panel;
-  4. language list open: its dimming is the same black 60 %, no blur — in all three backgrounds.
+  4. language list open: its dimming is the same black 60 %, no blur — in all three backgrounds;
+  5. V27b (Vraja Lila msg 5876 «затемнение дублируется… затемнения всегда должны быть 60%»): the language list over the
+     «Аа» panel adds no second dimming — a page pixel beside both has the same colour as with the «Аа» panel alone
+     # tehniskais slieksnis Lipikāra, nav S noteikums: each RGB channel within ±2.
 usage: python s75_aa_panel_v27.py <base-url>
 """
 import json
@@ -99,6 +102,27 @@ with sync_playwright() as p:
         d = pg.evaluate(f"({DIMMING})('.reader-panel-backdrop')")
         check(dev, "panel open: the page behind dimmed black 60 %, no blur, the whole screen",
               d and d["bg"] == DIM and d["filter"] in ("none", "") and d["l"] <= 0 and d["t"] <= 0 and d["r"] >= d["w"] and d["b"] >= d["h"], d)
+        # 5. V27b: one dimming layer — the page pixel left of the panel / below the list, panel only vs panel + list
+        def px(pt):
+            import io
+            from PIL import Image
+            im = Image.open(io.BytesIO(pg.screenshot())).convert("RGB")
+            sx = im.width / pg.viewport_size["width"]
+            return im.getpixel((int(pt[0] * sx), int(pt[1] * sx)))
+        spot = pg.evaluate("""() => { const p = document.querySelector('.reader-panel').getBoundingClientRect();
+          return p.left > 24 ? [Math.round(p.left / 2), Math.round(innerHeight * 0.55)] : [8, Math.round(innerHeight - 30)]; }""")
+        pg.wait_for_timeout(300)
+        one = px(spot)
+        pg.evaluate("document.querySelector('.reader-panel [data-lang-trigger]').click()")
+        pg.wait_for_timeout(500)
+        # the spot must lie outside the list card
+        out = pg.evaluate(f"""(() => {{ const c = document.querySelector('.lang-card[role=listbox]').getBoundingClientRect();
+          return !({spot[0]} >= c.left && {spot[0]} <= c.right && {spot[1]} >= c.top && {spot[1]} <= c.bottom); }})()""")
+        two = px(spot)
+        pg.keyboard.press("Escape")
+        pg.wait_for_timeout(400)
+        check(dev, "language list over «Аа»: one dimming (page pixel same as with «Аа» alone, ±2)",
+              out and all(abs(a - b) <= 2 for a, b in zip(one, two)), {"spot": spot, "outsideList": out, "aaOnly": one, "aaAndList": two})
         # 4. language list: same 60 % in every background
         for theme in ("white", "sepia", "night"):
             pg.evaluate(f"document.querySelector('[data-reader-theme-btn={theme}]') && document.querySelector('[data-reader-theme-btn={theme}]').click()")
