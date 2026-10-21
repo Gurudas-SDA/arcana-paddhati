@@ -17,6 +17,10 @@ Checks (each device; phones also turned):
   5. V27b (Vraja Lila msg 5876 «затемнение дублируется… затемнения всегда должны быть 60%»): the language list over the
      «Аа» panel adds no second dimming — a page pixel beside both has the same colour as with the «Аа» panel alone
      # tehniskais slieksnis Lipikāra, nav S noteikums: each RGB channel within ±2.
+  6. V27c (Vraja Lila msg 1172: with the «Аа» panel open the top bar (Содержание/Поиск/Аа) is dimmed too, exactly like
+     under the language list — one 60 % dimming over everything, the panel itself above it): a top-bar pixel (its own
+     background, left edge, mid height) is 40 % of its colour before the panel opened
+     # tehniskais slieksnis Lipikāra, nav S noteikums: each RGB channel within ±6 of 0.4 × before.
 usage: python s75_aa_panel_v27.py <base-url>
 """
 import json
@@ -47,6 +51,18 @@ DEVICES += [turned(n, e, o) for n, e, o in DEVICES if n in ("iphone14", "pixel7"
 def check(dev, name, ok, evidence=""):
     results.append(bool(ok))
     print(f"  [{'PASS' if ok else 'FAIL'}] {dev} {name} {json.dumps(evidence, ensure_ascii=False)[:700]}", flush=True)
+
+
+def shot_px(pg, pt):
+    import io
+    from PIL import Image
+    im = Image.open(io.BytesIO(pg.screenshot())).convert("RGB")
+    sx = im.width / pg.viewport_size["width"]
+    return im.getpixel((int(pt[0] * sx), int(pt[1] * sx)))
+
+
+BAR_PT = """() => { const b = document.querySelector('.reader-bar-top').getBoundingClientRect();
+  return [3, Math.round(b.top + b.height / 2)]; }"""
 
 
 def show_bars(pg):
@@ -80,6 +96,8 @@ with sync_playwright() as p:
         pg.goto(f"{BASE}/ru-iast/{PAGE}/", wait_until="networkidle")
         pg.wait_for_timeout(900)
         show_bars(pg)
+        bar_pt = pg.evaluate(BAR_PT)
+        bar_before = shot_px(pg, bar_pt)
         pg.evaluate("document.querySelector('[data-reader-action=aa]').click()")
         pg.wait_for_timeout(500)
         s = pg.evaluate(PANEL)
@@ -88,6 +106,10 @@ with sync_playwright() as p:
             c.close()
             b.close()
             continue
+        # 6. V27c: the top bar is under the same 60 % dimming
+        bar_after = shot_px(pg, bar_pt)
+        check(dev, "«Аа» open: the top bar dimmed too — 40 % of its colour (one 60 % dimming over everything)",
+              all(abs(a - 0.4 * b0) <= 6 for a, b0 in zip(bar_after, bar_before)), {"pt": bar_pt, "before": bar_before, "after": bar_after})
         # 1. language first
         check(dev, "«Язык» is the first function — before «Размер текста»",
               s["langFirst"] and s["langY"] < s["sizeY"], s)

@@ -1199,8 +1199,8 @@ html[data-reader-bars] .reader-toast {
 .reader-panel,
 .reader-panel-out {
   position: fixed;
-  /* above its dimming (31) and the top bar (32) */
-  z-index: 33;
+  /* above its dimming (33), which covers the top bar (32) too (V27c) */
+  z-index: 34;
   top: calc(env(safe-area-inset-top, 0px) + 62px);
   right: max(8px, env(safe-area-inset-right, 0px));
   width: min(320px, calc(100vw - 16px));
@@ -1219,11 +1219,13 @@ html[data-reader-bars] .reader-toast {
   animation: reader-pop 160ms ease-out;
 }
 /* Behind the open «Аа» panel: the page dimmed black 60 %, no blur, like the other
-   windows (V27, Vraja Lila msg 5769–5779; V18). The top bar with «Аа» stays above it. */
+   windows (V27, Vraja Lila msg 5769–5779; V18). The top bar is dimmed with it — one
+   dimming over everything, as under the language list; only the panel stays above
+   (V27c, Vraja Lila msg 1172). */
 .reader-panel-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 31;
+  z-index: 33;
   background: rgba(0, 0, 0, 0.6);
   animation: lang-fade 160ms ease-out;
 }
@@ -1246,7 +1248,7 @@ html[data-aa-open] .lang-backdrop {
 html[data-aa-open] .lang-backdrop.lang-backdrop-out {
   display: none;
 }
-/* also while the dimming fades out after the panel closed */
+/* above the page and the bottom bar; under the «Аа» dimming (33, V27c) */
 .reader-bar-top {
   z-index: 32;
 }
