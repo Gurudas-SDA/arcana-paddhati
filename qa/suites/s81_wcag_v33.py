@@ -16,6 +16,7 @@ Checks (iPhone 14 WebKit, Pixel 7 + desktop Chromium; white, sepia, dark):
     the band «Установить» (white text, button, ✕) on its gradient (phones), ✕ of «Содержание», the focus rings;
   - the icon has the colour of the word next to it: book icon = «Содержание», magnifier = search frame;
   - tap areas: ✕ in the search field and ✕ of the band take a tap 22 px around their centre (44×44);
+  - the search field has ONE frame line, also in focus (Vraja Lila msg 1233/1253: «одна рамка»), ≥ 3:1;
   - keyboard (desktop): Enter on «Содержание» → the focus is on the search field in the open panel; Escape →
     back on «Содержание». A tap on a phone does not focus the field (no keyboard pops up).
   # tehniskais slieksnis Lipikāra, nav S noteikums: 44×44 for ✕ = WCAG 2.5.5 (AAA in 2.1; «Стандарты» do not give a
@@ -92,7 +93,18 @@ window.__wc = (() => {
   const vars = () => { const s = getComputedStyle(document.documentElement);
     return {gold: s.getPropertyValue('--ap-gold').trim(), hover: s.getPropertyValue('--rd-hover').trim(),
             band1: s.getPropertyValue('--ap-band-1').trim(), band2: s.getPropertyValue('--ap-band-2').trim()}; };
-  return {parse, over, ratio, bgOf, pair, textOf, sweep, hitsAround, vars, hex, pageBg};
+  // the search field's frame: ONE line — no outline, no outer shadow ring (an inset shadow merges with the border)
+  const oneFrame = i => { const cs = getComputedStyle(i); const sh = cs.boxShadow || 'none';
+    const outer = sh !== 'none' && sh.split(/,(?![^(]*\))/).some(x => { if (/inset/.test(x)) return false;
+      const col = (x.match(/(rgba?|color|oklab|oklch)\([^)]*\)/) || [''])[0]; const c = col ? parse(col) : [0, 0, 0, 1];
+      if (c && c[3] === 0) return false; const lens = (x.replace(col, '').match(/-?[\d.]+px/g) || []).map(parseFloat);
+      return lens.some(v => v !== 0); });
+    const ol = cs.outlineStyle !== 'none' && parseFloat(cs.outlineWidth) > 0;
+    const f = i.closest('form').parentElement;
+    return {focused: document.activeElement === i, outline: ol ? cs.outlineStyle + ' ' + cs.outlineWidth + ' offset ' + cs.outlineOffset : 'none',
+      shadow: sh, outerRing: outer, border: cs.borderTopStyle + ' ' + cs.borderTopWidth, frameC: pair(cs.borderTopColor, bgOf(f)),
+      one: !ol && !outer && cs.borderTopStyle === 'solid'}; };
+  return {parse, over, ratio, bgOf, pair, textOf, sweep, hitsAround, vars, hex, pageBg, oneFrame};
 })();
 """
 
@@ -211,8 +223,12 @@ with sync_playwright() as p:
             inp = pg.locator(".mobile-menu[data-open] input[type=search]")
             inp.fill("тилак")
             pg.wait_for_timeout(1800)
+            of = pg.evaluate("__wc.oneFrame(document.querySelector('.mobile-menu[data-open] input[type=search]'))")
+            check(dev, f"{tag} search field in focus: ONE frame line, ≥ 3:1", of["focused"] and of["one"] and of["frameC"]["c"] >= 3, of)
             pg.evaluate("document.activeElement && document.activeElement.blur()")
             pg.wait_for_timeout(300)
+            of0 = pg.evaluate("__wc.oneFrame(document.querySelector('.mobile-menu[data-open] input[type=search]'))")
+            check(dev, f"{tag} search field without focus: ONE frame line, ≥ 3:1", of0["one"] and of0["frameC"]["c"] >= 3, of0)
             sr = pg.evaluate("__wc.sweep('.mobile-menu[data-open] aside')")
             check(dev, f"{tag} search results: every text ≥ AA ({len(sr or [])} measured)", sr and not bad(sr), bad(sr)[:8])
             cl = pg.evaluate("""() => { const i = document.querySelector('.mobile-menu[data-open] input[type=search]'); const b = i.parentElement.querySelector('button.search-clear, button[aria-label]');
@@ -242,9 +258,9 @@ with sync_playwright() as p:
                 fin = pg.evaluate("""() => { const a = document.activeElement; return {inMenu: !!a.closest('.mobile-menu[data-open]'),
                     search: a.matches('input.search-input'), tag: a.tagName, cls: (a.className || '').toString().slice(0, 60)}; }""")
                 check(dev, f"{tag} Enter on «Содержание» → focus on the search field in the panel", fin["inMenu"] and fin["search"], fin)
-                ir = pg.evaluate("""() => { const e = document.activeElement; if (!e || !e.closest('form')) return {c: 0, style: 'none', none: 'focus not in the search form'}; const cs = getComputedStyle(e);
-                    const r = __wc.pair(cs.outlineColor, __wc.bgOf(e.closest('form').parentElement)); r.style = cs.outlineStyle; return r; }""")
-                check(dev, f"{tag} focus ring on the search field ≥ 3:1", ir["c"] >= 3 and ir["style"] != "none", ir)
+                ir = pg.evaluate("""() => { const e = document.activeElement; if (!e || !e.matches('input.search-input')) return {one: false, frameC: {c: 0}, none: 'focus not on the search field'};
+                    return __wc.oneFrame(e); }""")
+                check(dev, f"{tag} keyboard focus on the search field: ONE frame line (no ring around it), ≥ 3:1", ir["one"] and ir["frameC"]["c"] >= 3, ir)
                 pg.keyboard.press("Escape")
                 pg.wait_for_timeout(900)
                 back = pg.evaluate("""() => { const a = document.activeElement; return {contents: a.getAttribute && a.getAttribute('data-reader-action') === 'contents', tag: a.tagName}; }""")

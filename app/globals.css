@@ -2231,6 +2231,15 @@ html:not([data-reader-theme="night"]) aside .heading-num {
 .search-input {
   border-color: var(--ap-gold) !important;
 }
+/* ONE frame line (Vraja Lila msg 1233/1253): no outer focus ring with a gap
+   (the global :focus-visible outline + Tailwind ring made a second line);
+   in focus the same line just gets thicker — an inset shadow next to the
+   1 px border, so it reads as one 2 px line (the text does not move). */
+.search-input:focus,
+.search-input:focus-visible {
+  outline: none !important;
+  box-shadow: inset 0 0 0 1px var(--ap-gold) !important;
+}
 .search-input::placeholder {
   color: var(--ap-gold);
   opacity: 1;
