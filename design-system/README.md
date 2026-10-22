@@ -106,3 +106,17 @@ colour change is made once, in `tokens.css`.
   select-all, Enter and IME handling; worse for screen readers).
 - **Checked:** the attributes only (`qa/suites/s95_bookmark_autofill_v43.py`, Playwright WebKit has no AutoFill);
   the real check is on an iPhone (Vraja Lila).
+
+### Panels: opening and closing — V43
+- **Rule** (Vraja Lila 22.10.2026: «при клике панели выдвигаются с хорошей плавностью ease, но при повторном клике
+  задвигаются обратно дёргано и мерцают»; earlier msg 5521): a panel closes exactly as smoothly as it opens —
+  the same duration (`--ds-dur-slide` 220 ms) and the same ease (`--ds-ease`), one movement, no flash.
+- **Bars** (top / bottom): one CSS transition (`transform 220ms ease, opacity 200ms ease`) both ways — measured
+  symmetric (frames one way, never `display:none` half way).
+- **«Содержание»:** opening `ap-menu-in` (forwards); closing its own `ap-menu-out` played **forwards** with the same
+  ease (not the opening in reverse — reversing also reverses the ease: slow start, abrupt end). The panel is removed
+  from the page only on its `animationend` (a timer is only a safety net): closing makes the page busy for
+  150–250 ms (the history step back), and the old timer, counted from the start of closing, cut the slide to
+  25–170 ms — the panel vanished half way. Without a picked row the slide-back starts in the same frame as closing;
+  the panel has its own layer (`will-change: transform`). The bottom bar comes back once with the bars' transition.
+- **Test:** `qa/suites/s94_panels_close_smooth_v43.py` (frames every ~16 ms; with s65, s66, s86).

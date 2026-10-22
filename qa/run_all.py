@@ -184,6 +184,8 @@ SUITES = [
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14"]),
     dict(id="s93", file="suites/s93_one_focus_frame_v43.py", title="V43 Vraja 22.10 «двойные рамки всё ещё там (на поиске тоже)»: fokusā VIENA rāmja līnija visur (border+ring / border+outline nav), lauki (grāmatzīme, meklēšana) — viena zelta 2 px līnija; fokusa krāsa = --ap-gold (design-system --ds-focus)",
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
+    dict(id="s94", file="suites/s94_panels_close_smooth_v43.py", title="V43 Vraja 22.10 «задвигаются обратно дёргано и мерцают»: joslas slēpjas ar to pašu transition kā parādās, viena virziena kustība; «Содержание» aizveras ar savu ap-menu-out (forwards, ease, 220 ms) un pazūd tikai PĒC animācijas beigām; apakšējā josla atgriežas vienreiz",
+         devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
          devices=None, fast=True, server=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",

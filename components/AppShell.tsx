@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { flushSync } from "react-dom";
 import Sidebar, { restoreParts } from "@/components/Sidebar";
@@ -58,6 +58,8 @@ const scrollMode = () => readerLayout() === "scroll";
 const MENU_PICK_MS = 150;
 /** «Содержание» slides back in this long — the top bar's transform time (app/globals.css .reader-bar, msg 5521). */
 const MENU_CLOSE_MS = 220;
+/** V43: the panel is removed when its slide-back has ENDED (animationend); this is only the safety net. */
+const MENU_CLOSE_SAFETY_MS = MENU_CLOSE_MS + 600;
 
 /** A65 (Codex 10.10): a page that has not come by now is given up. The КСВ
  *  phone's slowest real load was 19 s, so the menu waits longer than that. */
@@ -235,19 +237,40 @@ export default function AppShell({
     setMenuClosing(!mobileMenuOpen && !reduce);
     setMenuClosingRun(false);
   }
-  useEffect(() => {
-    if (!menuClosing) return;
+  /* V43 (Vraja Lila 22.10.2026: «при повторном клике задвигаются обратно дёргано и мерцают»). Measured on the
+     live book: closing (✕, the dimming, Esc) makes the page busy for 150–250 ms (the history step back), and the
+     panel was removed by a timer counted from the START of closing — so its 220 ms slide-back ran only 25–170 ms
+     and the panel vanished halfway (iPhone 14: 25 ms). Now: without a picked row the slide-back starts in the
+     same frame as closing (no extra step), and the panel is removed only when its slide-back animation has
+     ended (animationend), whatever the page was doing meanwhile; a timer is only the safety net. */
+  const menuPanelRef = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    if (!menuClosing || menuClosingRun) return;
     const wait = Math.max(0, MENU_PICK_MS - (performance.now() - pickedAt.current));
+    if (wait <= 0) {
+      setMenuClosingRun(true);
+      return;
+    }
     const run = window.setTimeout(() => setMenuClosingRun(true), wait);
-    const end = window.setTimeout(() => {
+    return () => window.clearTimeout(run);
+  }, [menuClosing, menuClosingRun]);
+  useEffect(() => {
+    if (!menuClosing || !menuClosingRun) return;
+    const panel = menuPanelRef.current;
+    const finish = () => {
       setMenuClosing(false);
       setMenuClosingRun(false);
-    }, wait + MENU_CLOSE_MS + 30);
-    return () => {
-      window.clearTimeout(run);
-      window.clearTimeout(end);
     };
-  }, [menuClosing]);
+    const onEnd = (e: AnimationEvent) => {
+      if (e.target === panel && e.animationName === "ap-menu-out") finish();
+    };
+    panel?.addEventListener("animationend", onEnd);
+    const safety = window.setTimeout(finish, MENU_CLOSE_SAFETY_MS);
+    return () => {
+      panel?.removeEventListener("animationend", onEnd);
+      window.clearTimeout(safety);
+    };
+  }, [menuClosing, menuClosingRun]);
   // A menu opened again starts without the last pick's highlight.
   useEffect(() => {
     if (!mobileMenuOpen) return;
@@ -280,6 +303,11 @@ export default function AppShell({
   }, [mobileMenuOpen]);
   /** Time of the last back / forward (its saved place wins over the anchor). */
   const poppedAt = useRef(-1e9);
+  /** V43: closeMenu asked the browser to go back (history.go) at this time; until its popstate arrives
+   *  (normally ≤ a few hundred ms), a reopen must not trust history.state — the old menu entry is still
+   *  there and the coming popstate would close the reopened menu. */
+  const backAskedAt = useRef(-1e9);
+  const reopenAfterBack = useRef(false);
   const [searchIndexes, setSearchIndexes] = useState<Record<string, IndexState>>({});
   const indexRequested = useRef<Set<string>>(new Set());
 
@@ -303,7 +331,12 @@ export default function AppShell({
       }
       menuByKeyboard.current = kb;
     }
-    try {
+    const backPending = performance.now() - backAskedAt.current < 1500;
+    if (backPending) {
+      // Reopened at once after closing (V43, s67): the menu opens now; its history entry is pushed
+      // when the back step has landed (onPop).
+      reopenAfterBack.current = true;
+    } else try {
       const st = window.history.state as Record<string, unknown> | null;
       if (isMenuEntry()) {
         // already a menu entry
@@ -337,7 +370,11 @@ export default function AppShell({
       return;
     }
     const d = menuDepth();
-    if (d > 0) window.history.go(-d);
+    if (d > 0) {
+      backAskedAt.current = performance.now();
+      reopenAfterBack.current = false;
+      window.history.go(-d);
+    }
   }, []);
 
   /**
@@ -579,10 +616,20 @@ export default function AppShell({
       setLeaving(false);
       setNavFailed(false);
       poppedAt.current = performance.now();
+      const reopen = reopenAfterBack.current && performance.now() - backAskedAt.current < 1500;
+      backAskedAt.current = -1e9;
+      reopenAfterBack.current = false;
       if (isMenuEntry(st)) {
         const parts = entryView(st).apParts;
         if (typeof parts === "string") restoreParts(parts);
         reopenMenu(st);
+      } else if (reopen) {
+        // the back step of a close landed after the menu was opened again: keep it open, with its entry
+        try {
+          pushOverlay({ apMenu: true, apDepth: 1 });
+        } catch {
+          // history unavailable: the menu stays open
+        }
       } else setMobileMenuOpen(false);
       // Put the place back after Next.js has rendered the entry's page.
       const target = savedScroll(st);
@@ -850,7 +897,7 @@ export default function AppShell({
             aria-hidden="true"
           />
           {/* Sidebar panel */}
-          <div className="fixed inset-y-0 left-0 z-50 w-80 max-w-[85vw] sidebar-transition">
+          <div ref={menuPanelRef} className="fixed inset-y-0 left-0 z-50 w-80 max-w-[85vw] sidebar-transition">
             <Sidebar
               {...sidebarProps}
               onClose={closeMenu}

@@ -1782,11 +1782,23 @@ html[data-reader-theme="night"] ::selection {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+/* V43 (Vraja Lila 22.10.2026): closing has keyframes of its own, played FORWARDS with the same ease — the
+   mirror of opening in space AND in feel (soft stop). Before it was the opening played in reverse, which also
+   reverses the ease (slow start, abrupt end) — design-system/README.md «Panels: opening and closing». */
+@keyframes ap-menu-out {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+@keyframes ap-menu-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
 .mobile-menu > .sidebar-transition {
-  animation: ap-menu-in 220ms ease both;
+  animation: ap-menu-in var(--ds-dur-slide) var(--ds-ease) both;
+  will-change: transform; /* its own layer: the slide runs smoothly even while the page is busy */
 }
 .mobile-menu > .sidebar-backdrop {
-  animation: ap-menu-fade 220ms ease both;
+  animation: ap-menu-fade var(--ds-dur-slide) var(--ds-ease) both;
   /* V18: black 60 %, no blur, like the windows. V35 (Vraja Lila msg 1226): one layer
      over everything behind the menu — the bottom bar has slid away, so the dimming
      reaches the screen's bottom (before: it ended above the bar, msg 5606). */
@@ -1800,10 +1812,10 @@ html[data-reader-theme="night"] ::selection {
   animation: none;
 }
 .mobile-menu[data-closing-run] > .sidebar-transition {
-  animation: ap-menu-in 220ms ease reverse forwards;
+  animation: ap-menu-out var(--ds-dur-slide) var(--ds-ease) forwards;
 }
 .mobile-menu[data-closing-run] > .sidebar-backdrop {
-  animation: ap-menu-fade 220ms ease reverse forwards;
+  animation: ap-menu-fade-out var(--ds-dur-slide) var(--ds-ease) forwards;
 }
 .mobile-menu [data-menu-picked],
 .mobile-menu [data-menu-picked]:hover {

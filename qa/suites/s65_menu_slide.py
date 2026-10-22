@@ -64,8 +64,11 @@ def between(fr):
 
 
 def slides(fr, direction):
-    """In-between frames, or (slow headless WebKit draws few frames) the running ap-menu-in animation itself."""
-    return bool(between(fr)) or any(f"ap-menu-in:220:{direction}" in f[6] for f in fr)
+    """In-between frames, or (slow headless WebKit draws few frames) the running slide animation itself.
+    V43 (Vraja Lila 22.10.2026): closing is its own animation ap-menu-out played forwards with the same ease
+    (before: ap-menu-in in reverse, which also reversed the ease — slow start, abrupt end)."""
+    name = "ap-menu-in:220:normal" if direction == "normal" else "ap-menu-out:220:normal"
+    return bool(between(fr)) or any(name in f[6] for f in fr)
 
 
 def show_bars(pg):
