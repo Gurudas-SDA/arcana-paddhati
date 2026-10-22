@@ -73,3 +73,17 @@ colour change is made once, in `tokens.css`.
 - **Behaviour:** a row opens its chapter. Shown under every section page that lists chapters (the Introduction,
   each part); not in «Лента».
 - **Test:** `qa/suites/s91_in_this_section_v39.py`.
+
+### Text field without iOS AutoFill — V43
+- **Rule** (Vraja Lila 22.10.2026, iPhone: «autofill пока вижу»): a field for the book's own text (the bookmark's
+  name) must not get Safari's «AutoFill Contact» bar.
+- **Why it came:** Safari ignores `autocomplete="off"` for contact AutoFill; it decides by the field's `name` / `id`,
+  its placeholder and the text of its label (reported triggers: a dash in `name` — «bm-title-field»; words like
+  «Name» / «Title»).
+- **How** (all of them, each harmless): `name="search"` and an `id` without a dash or contact word (`bmsearch`);
+  `type="search"` (its ✕ hidden); no placeholder; `autocomplete="off"` on the field and its form; the label and the
+  window's title written with U+200D (zero-width joiner) between the letters — people and screen readers read the same
+  word, Safari's word match does not find it. A `contenteditable` box was not chosen (no native maxlength,
+  select-all, Enter and IME handling; worse for screen readers).
+- **Checked:** the attributes only (`qa/suites/s95_bookmark_autofill_v43.py`, Playwright WebKit has no AutoFill);
+  the real check is on an iPhone (Vraja Lila).

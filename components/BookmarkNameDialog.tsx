@@ -24,6 +24,12 @@ import { createPortal } from "react-dom";
 import { t, type UiDict } from "@/lib/i18n";
 import { BOOKMARK_NAME_MAX } from "@/lib/bookmarks";
 
+/** V43: a zero-width joiner between the letters — the same text to read, no word for Safari's AutoFill match. */
+const ZWJ = "\u200D";
+function noAutofillText(s: string): string {
+  return Array.from(s).join(ZWJ);
+}
+
 export default function BookmarkNameDialog({
   ui,
   mode,
@@ -144,7 +150,7 @@ export default function BookmarkNameDialog({
           className="text-lg font-bold mb-4 text-[#2C1810] pr-6"
           style={{ fontFamily: "var(--font-book, Georgia, serif)" }}
         >
-          {t(ui, mode === "add" ? "bookmark.dialog.addTitle" : "bookmark.dialog.renameTitle")}
+          {noAutofillText(t(ui, mode === "add" ? "bookmark.dialog.addTitle" : "bookmark.dialog.renameTitle"))}
         </h2>
         <form
           autoComplete="off"
@@ -153,13 +159,13 @@ export default function BookmarkNameDialog({
             confirm();
           }}
         >
-          <label className="block text-sm text-[#5C3D2E] mb-1.5" htmlFor="bm-title-field">
-            {t(ui, "bookmark.dialog.label")}
+          <label className="block text-sm text-[#5C3D2E] mb-1.5" htmlFor="bmsearch">
+            {noAutofillText(t(ui, "bookmark.dialog.label"))}
           </label>
           <input
             ref={inputRef}
-            id="bm-title-field"
-            name="bm-title-field"
+            id="bmsearch"
+            name="search"
             type="search"
             inputMode="text"
             data-1p-ignore=""
