@@ -1817,6 +1817,19 @@ html[data-reader-theme="night"] ::selection {
   color: #8B6508 !important;
   transition: background-color 150ms ease-out, color 150ms ease-out;
 }
+/* V38c (Vraja Lila msg 1321 / 1322): a section heading picked in the contents lights as
+   ONE row — the name and the arrow ▸ together, no seam. */
+.mobile-menu [data-toc-group-row]:has([data-menu-picked]) {
+  background-color: #F5E6C8 !important;
+  transition: background-color 150ms ease-out;
+}
+.mobile-menu [data-toc-group-row] [data-menu-picked],
+.mobile-menu [data-toc-group-row] [data-menu-picked]:hover {
+  background-color: transparent !important;
+}
+.mobile-menu [data-toc-group-row]:has([data-menu-picked]) [data-toc-toggle] {
+  color: #8B6508 !important;
+}
 /* «Аа» panel and the language list: closing = the opening animation backwards
    (lib/exitGhost.ts, msg 5521; before, they vanished in one frame). */
 .reader-panel-out {

@@ -1047,9 +1047,14 @@ export default function Sidebar({
     const on = lit(headId, byDefault);
     const href = sectionHref(groupId);
     return (
+      // V38c (Vraja Lila msg 1321 / 1322, 22.10.2026): the lit section is ONE highlight over
+      // the whole row — name and arrow ▸ share the row's background (no seam between two
+      // sectors; the «одной подложкой» rule, msg 1290). Hover and the 150 ms pick-light
+      // (data-menu-picked, globals.css) also colour the whole row.
       <div
+        data-toc-group-row={groupId}
         className={`flex items-stretch border-l-3 transition-colors ${
-          on ? "border-[#B8860B]" : "border-transparent"
+          on ? "border-[#B8860B] bg-[#FAF3E8]" : "border-transparent hover:bg-[#FDF8F0]"
         }`}
       >
         <Link
@@ -1069,7 +1074,7 @@ export default function Sidebar({
           data-toc-row={headId}
           {...loadingProps(headId)}
           className={`sidebar-link flex flex-1 min-w-0 min-h-[44px] flex-col justify-center pl-5 pr-1 py-2 text-left hover:text-[#B8860B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#B8860B]/40 transition-colors ${
-            on ? "bg-[#FAF3E8] text-[#B8860B]" : "text-[#9C7A4E] hover:bg-[#FDF8F0]"
+            on ? "text-[#B8860B]" : "text-[#9C7A4E]"
           }`}
         >
           <span className="text-[11px] uppercase tracking-[0.12em] font-semibold leading-snug">{label}</span>
@@ -1083,8 +1088,8 @@ export default function Sidebar({
           aria-controls={isOpen ? listId : undefined}
           aria-label={name}
           data-toc-toggle={groupId}
-          className={`sidebar-link flex h-[44px] w-[44px] shrink-0 items-center justify-center hover:text-[#B8860B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#B8860B]/40 transition-colors ${
-            on ? "bg-[#FAF3E8] text-[#B8860B]" : "text-[#9C7A4E] hover:bg-[#FDF8F0]"
+          className={`sidebar-link flex min-h-[44px] w-[44px] shrink-0 items-center justify-center hover:text-[#B8860B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#B8860B]/40 transition-colors ${
+            on ? "text-[#B8860B]" : "text-[#9C7A4E]"
           }`}
         >
           <svg
