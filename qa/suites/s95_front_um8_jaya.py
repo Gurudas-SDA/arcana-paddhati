@@ -2,17 +2,24 @@
 «Ievadā likt Upadeśāmṛta 8 «tan-nāma-rūpa-caritādi-sukīrtanānu-smṛtyoḥ krameṇa rasanā-manasī niyojya / tiṣṭhan vraje
 tad-anurāgi-janānugāmī kālaṁ nayed akhilam ity upadeśa-sāram» un «Настроение Гурудева» sadaļā savākt Gurudeva izteikumus
 TIEŠI par šo pantu.» Satkirti 22.10 msg 6139 (on «вместо ŚB 11.3.48»): «Супер, как всё сделаешь сразу в книгу».
+Satkirti 22.10 msg 6152 (voice): «хочу её поставить сразу же после обложки … белый лист. На этом белом листе будет эта
+шлока с переводом … И потом эта парампара»; msg 6153: «Как назвать содержание? … чтобы содержание мы могли выйти на этот
+стих»; msg 6155: «Еще я хочу … Джай вишнупада парамаханса … в нашем … Гити Гуччха … Шри Нарайна Махараджа там в начале.
+Именно эту хочу. Но там нужно лишнее убрать»; msg 6154: «всё это на ночь можно уже загружать».
 Satkirti 21.10 msg 6038: «Эмблему не трогаешь, только стих».
 Стандарты 77: «У каждого стиха, который мы цитируем в книге (в любой главе), обязательно есть пословный перевод».
 Стандарты 16: «Слова Гурудева приводим только дословно … с указанием источника: лекция, дата, номер, таймкод, ссылка на расшифровку».
 
-  a  «Введение» in every book: the one verse is Upadeśāmṛta 8 (IAST = vedabase.io noi/8 and Versebase; book.ru = academic
-     Cyrillic of the same IAST); ŚB 11.3.48 «labdhvānugraha…» is no longer there
+  a  every book opens (front matter, no part) with «Упадеша-сара» (upadesha-sara), then «Джая-дхвани» (jaya-dhvani), then
+     «Гуру-парампара»; «Упадеша-сара» holds one verse: Upadeśāmṛta 8 (IAST = vedabase.io noi/8 and Versebase; book.ru =
+     academic Cyrillic of the same IAST); «Введение» has no verse and no quotes any more (ŚB 11.3.48 not brought back)
+  e  «Джая-дхвани»: the 36 calls of the source (scripts/chapters/ch00a_front/jaya_dhvani.py) in order, one verse block
+     each, with translation and word-for-word in every book (ru = Cyrillic of the IAST)
   b  en / ru / ru-iast: translation = BBT verbatim (vedabase.io/en resp. /ru, noi/8) + «(Śrī Upadeśāmṛta 8)» /
      «(«Шри Упадешамрита» 8)»; пословный = the 22 vedabase headwords in order with the vedabase glosses;
      the 9 other languages: a translation and a 22-word word-for-word with the same headwords — in that language, or the
      English one until the night release translates it (S msg 6139 «сразу в книгу», AnyModel 503 by day 22.10; Стандарты 75)
-  c  «Настроение Гурудева» at the Introduction: exactly 5 quotes, Gurudev's words on UM 8 (each names the verse words),
+  c  «Настроение Гурудева» at «Упадеша-сара»: exactly 5 quotes, Gurudev's words on UM 8 (each names the verse words),
      lectures № 7717, 812, 554, 137, 447 — none of them a lecture already quoted in «Заключение» (it opens with UM 8);
      each with nr, date, timecode, transcript link; translated into every book language; ru-iast without Cyrillic
      Sanskrit with diacritics
@@ -31,6 +38,8 @@ REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 DATA = os.path.join(REPO, "data")
 sys.path.insert(0, os.path.join(REPO, "scripts", "translate"))
 from iast_to_cyrillic import translit  # noqa: E402
+sys.path.insert(0, os.path.join(REPO, "scripts", "chapters", "ch00a_front"))
+import jaya_dhvani as JD  # noqa: E402
 
 sys.stdout.reconfigure(encoding="utf-8")
 res = []
@@ -73,7 +82,8 @@ BOOKS = {"en": "book.json", "ru-iast": "book.ru-iast.json", "ru": "book.ru.json"
 
 
 def sec_of(book, sid):
-    return next(s for s in book["sections"] if s["id"] == sid)
+    """the section, or an empty stand-in (its checks then FAIL instead of crashing)"""
+    return next((s for s in book["sections"] if s["id"] == sid), {"id": sid, "content": [], "subsections": []})
 
 
 def wbw_pairs(w):
@@ -85,15 +95,31 @@ concl_nrs = set(re.findall(r"№ ?(\d+)", json.dumps(sec_of(json.load(open(os.pa
                                                             "conclusion"), ensure_ascii=False)))
 for lang, fn in BOOKS.items():
     b = json.load(open(os.path.join(DATA, fn), encoding="utf-8"))
-    sec = sec_of(b, "introduction")
+    ids = [x["id"] for x in b["sections"]]
+    chk(f"a {fn}: book opens with upadesha-sara → jaya-dhvani → parampara", ids[:3] == ["upadesha-sara", "jaya-dhvani", "parampara"],
+        ids[:4])
+    chk(f"a {fn}: the two front pages belong to no part", not {"upadesha-sara", "jaya-dhvani"} & {x for p in b.get("parts", []) for x in p["sections"]})
+    intro = sec_of(b, "introduction")
+    chk(f"a {fn}: Введение has no verse and no «Настроение» (UM 8 moved, ŚB 11.3.48 not back)",
+        not [x for x in intro["content"] if x.get("type") in ("verse", "mood")], [x.get("type") for x in intro["content"]])
+    # e
+    jd = sec_of(b, "jaya-dhvani")
+    jv = [x for x in jd["content"] if x.get("type") == "verse"]
+    want = [nfc(translit(l[0]) if lang == "ru" else l[0]) for l in JD.LINES]
+    chk(f"e {fn}: Джая-дхвани = the 36 calls of the source in order", [nfc(x.get("sanskrit")) for x in jv] == want and len(want) == 36,
+        len(jv))
+    chk(f"e {fn}: every call has a translation and a word-for-word", all(x.get("translation", "").strip() and x.get("wbw", "").strip() for x in jv))
+    sec = sec_of(b, "upadesha-sara")
     blob = nfc(json.dumps(sec, ensure_ascii=False))
     verses = [x for x in sec["content"] if x.get("type") == "verse"]
     want_sk = nfc(translit(IAST) if lang == "ru" else IAST)
     # a
-    chk(f"a {fn}: Введение verse = Upadeśāmṛta 8", len(verses) == 1 and nfc(verses[0].get("sanskrit")) == want_sk,
+    chk(f"a {fn}: Упадеша-сара verse = Upadeśāmṛta 8", len(verses) == 1 and nfc(verses[0].get("sanskrit")) == want_sk,
         [nfc(v.get("sanskrit"))[:60] for v in verses])
     old = [w for w in ("labdhvānugraha", "mūrtyābhimatayātmanaḥ", "лабдхва̄нуграха", "11.3.48") if w in blob]
-    chk(f"a {fn}: no ŚB 11.3.48 left in Введение", not old, old)
+    old += [w for w in ("labdhvānugraha", "mūrtyābhimatayātmanaḥ", "лабдхва̄нуграха", "11.3.48")
+            if w in nfc(json.dumps(intro, ensure_ascii=False))]
+    chk(f"a {fn}: no ŚB 11.3.48 in Упадеша-сара or Введение", not old, old)
     if not verses:
         continue
     v = verses[0]
@@ -138,7 +164,8 @@ for lang, fn in BOOKS.items():
             all(nfc(q.get("translation")).strip() for q in qs), [q.get("source", {}).get("nr") for q in qs if not q.get("translation")])
     if lang == "ru-iast":
         hits = CYR_DIA.findall(blob)
-        chk(f"c {fn}: Введение has no Cyrillic Sanskrit with diacritics", not hits, hits[:10])
+        hits += CYR_DIA.findall(nfc(json.dumps(jd, ensure_ascii=False)))
+        chk(f"c {fn}: Упадеша-сара and Джая-дхвани have no Cyrillic Sanskrit with diacritics", not hits, hits[:10])
 
 # d
 snap = json.load(open(os.path.join(REPO, "qa", "snapshots", "emblem_s6038.json"), encoding="utf-8"))["sha256"]

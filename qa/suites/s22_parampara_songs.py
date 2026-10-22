@@ -1,5 +1,6 @@
 """Reader v7.4 (Satkirti 06.10 23:15–23:33, 07.10 12:34–13:07): parampara + ārati songs.
-  a) Contents: Обложка → Гуру-парампара (Шри Панча-таттва first, Satkirti 07.10 13:35) → Мангалачарана → ВВЕДЕНИЕ; the parampara has 8 pages,
+  a) Contents: Обложка → Упадеша-сара → Джая-дхвани (Satkirti 22.10 msg 6152/6155) → Гуру-парампара (Шри Панча-таттва
+     first, Satkirti 07.10 13:35) → Мангалачарана → ВВЕДЕНИЕ; the parampara has 8 pages,
      one guru each, in this order, exact captions; no Gour Govinda Svāmī; no visible heading,
      no number; «Вперёд ›» → Мангалачарана.
   b) every portrait is shown whole: the framed oval picture is only scaled (object-fit: contain; v8.0 code mask:
@@ -72,9 +73,9 @@ def run(p, dev, eng, o):
         goto(U); time.sleep(0.6)
         pg.evaluate("document.querySelector('[data-reader-action=contents]') && document.querySelector('[data-reader-action=contents]').click()")
         time.sleep(0.6)
-        order = pg.evaluate("[...document.querySelectorAll('aside nav [data-toc-cover], aside nav .toc-scroll > ul > li')].map(l=>l.innerText.trim().split('\\n')[0].trim()).filter(Boolean).slice(0,4)")
-        chk(dev, "a contents: Обложка → Гуру-парампара → Мангалачарана → ВВЕДЕНИЕ",
-            order == ["Обложка", "Гуру-парампара", "Мангалачарана", "ВВЕДЕНИЕ"], order)
+        order = pg.evaluate("[...document.querySelectorAll('aside nav [data-toc-cover], aside nav .toc-scroll > ul > li')].map(l=>l.innerText.trim().split('\\n')[0].trim()).filter(Boolean).slice(0,6)")
+        chk(dev, "a contents: Обложка → Упадеша-сара → Джая-дхвани → Гуру-парампара → Мангалачарана → ВВЕДЕНИЕ",
+            order == ["Обложка", "Упадеша-сара", "Джая-дхвани", "Гуру-парампара", "Мангалачарана", "ВВЕДЕНИЕ"], order)
 
         # a) the parampara pages
         goto(U + "parampara/"); time.sleep(0.8)

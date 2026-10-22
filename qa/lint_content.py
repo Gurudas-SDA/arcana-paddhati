@@ -486,15 +486,17 @@ def run(args):
 
     # L21 — Парампара (Satkirti 06.10 23:15–23:33, 07.10 12:34–13:07): 8 гуру по одному на страницу, в этом
     # порядке, подписи как в «Ведических мудрых историях», без Гоур Говинды Свами; тело гуру никогда не обрезается.
-    c = Check("L21", "parampara: Śrī Pañca-tattva first, then 8 gurus in order, exact captions, no Gour Govinda Svāmī; every figure fully inside its oval with a field ≥ 1.5 % of the oval width (rule 105)")
+    FRONT_ORDER = ["upadesha-sara", "jaya-dhvani", "parampara", "mangalacarana", "introduction"]
+    c = Check("L21", "front pages «Упадеша-сара» → «Джая-дхвани» → parampara; parampara: Śrī Pañca-tattva first, then 8 gurus in order, exact captions, no Gour Govinda Svāmī; every figure fully inside its oval with a field ≥ 1.5 % of the oval width (rule 105)")
     exp = {"ru": PARAMPARA_RU, "en": PARAMPARA_EN}
     for fn, lang in (("book.ru-iast.json", "ru"), ("book.ru.json", "ru"), ("book.json", "en")):
         b = loaded[os.path.join(qa.DATA, fn)]
         ids = [s["id"] for s in b["sections"]]
-        if ids[:3] != ["parampara", "mangalacarana", "introduction"]:
-            c.hit(fn, "sections", f"order {ids[:3]} (expected parampara → mangalacarana → introduction)")
+        # Satkirti 22.10 msg 6152/6155: «Упадеша-сара» right after the cover, «Джая-дхвани» before the parampara
+        if ids[:5] != FRONT_ORDER:
+            c.hit(fn, "sections", f"order {ids[:5]} (expected {' → '.join(FRONT_ORDER)})")
             continue
-        sec = b["sections"][0]
+        sec = b["sections"][ids.index("parampara")]
         caps = [x.get("caption") for x in sec["content"] if x.get("type") == "portrait"]
         srcs = [x.get("src") for x in sec["content"] if x.get("type") == "portrait"]
         if sec.get("layout") != "portraits" or caps != exp[lang] or srcs != PP_SRCS:
@@ -508,10 +510,11 @@ def run(args):
             continue
         b = loaded[f]
         ids = [s["id"] for s in b["sections"]]
-        if ids[:3] != ["parampara", "mangalacarana", "introduction"]:
-            c.hit(fn, "sections", f"order {ids[:3]} (expected parampara → mangalacarana → introduction)")
+        # Satkirti 22.10 msg 6152/6155: «Упадеша-сара» right after the cover, «Джая-дхвани» before the parampara
+        if ids[:5] != FRONT_ORDER:
+            c.hit(fn, "sections", f"order {ids[:5]} (expected {' → '.join(FRONT_ORDER)})")
             continue
-        sec = b["sections"][0]
+        sec = b["sections"][ids.index("parampara")]
         caps = [x.get("caption") for x in sec["content"] if x.get("type") == "portrait"]
         srcs = [x.get("src") for x in sec["content"] if x.get("type") == "portrait"]
         if sec.get("layout") != "portraits" or len(caps) != 9 or not all(caps) or srcs != PP_SRCS or sec.get("subsections"):

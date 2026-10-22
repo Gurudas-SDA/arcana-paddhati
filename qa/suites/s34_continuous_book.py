@@ -39,7 +39,8 @@ def run(browser, device, options, theme):
         # Real wheel input crosses the cover, without opening any panel.
         scroll(options["viewport"]["height"] + 100)
         page.wait_for_timeout(1300)
-        assert page.url.rstrip("/").endswith("/parampara")
+        # since 22.10 (Satkirti msg 6152) the first page after the cover is «Упадеша-сара»
+        assert page.url.rstrip("/").endswith("/upadesha-sara")
         assert page.evaluate("history.length") == length
         assert not page.locator(".mobile-menu[data-open]").count()
         assert main.evaluate("e => e.scrollTop") > 500
