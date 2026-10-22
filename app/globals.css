@@ -1763,6 +1763,10 @@ html[data-reader-theme="night"] ::selection {
 .mobile-menu > .sidebar-transition {
   bottom: calc(57px + env(safe-area-inset-bottom, 0px));
 }
+/* V38b (Vraja Lila msg 1320): on the cover a tap brings out only the top bar. */
+.reader-chrome[data-home] .reader-bar-bottom {
+  display: none;
+}
 /* «Содержание» slides out from the left and back (Vraja Lila 20.10.2026, ДА msg
    5520), with the top bar's easing and duration both ways (msg 5521: .reader-bar
    transform 220ms ease); the dimming fades with it. Closing = [data-closing]
