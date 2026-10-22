@@ -2154,3 +2154,16 @@ html[data-resume-fade="in"] .app-main {
     transition: none;
   }
 }
+
+/* V38 (Vraja Lila msg 1315–1317): the bookmark's name field is a search-type field
+   (Safari's contact AutoFill skips it) but looks like the plain text field it was. */
+.bookmark-name-field {
+  -webkit-appearance: none;
+  appearance: none;
+}
+.bookmark-name-field::-webkit-search-cancel-button,
+.bookmark-name-field::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}

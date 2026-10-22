@@ -11,6 +11,13 @@
  * card in the middle, ✕ at the top right like the install window. «Подтвердить»
  * (also Enter) / «Отмена» (also ✕, Esc, a tap outside). No history step (the
  * bookmark only writes to the device, rule 10.2).
+ *
+ * V38 (Vraja Lila msg 1315–1317, 22.10.2026, iPhone 13): «клавиатура + полоса iOS
+ * „AutoFill Contact“ перекрывают кнопки Cancel/Confirm» — the card stands in the
+ * VISIBLE part of the screen (window.visualViewport: above the keyboard and its
+ * bar), so «Отмена» / «Подтвердить» are always seen; the field does not look like
+ * a contact's name to iOS (no «name» in its id/name, autocomplete off, a search-type
+ * field, which Safari's contact AutoFill skips).
  */
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -66,13 +73,37 @@ export default function BookmarkNameDialog({
     return () => window.removeEventListener("keydown", onKey, true);
   }, []);
 
+  // V38: the visible part of the screen (iOS: the keyboard and its AutoFill bar do
+  // not shrink the layout viewport, only window.visualViewport).
+  const [area, setArea] = useState<{ top: number; left: number; width: number; height: number } | null>(null);
+  useEffect(() => {
+    const vv = window.visualViewport;
+    if (!vv) return;
+    let raf = 0;
+    const update = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const full = vv.height >= window.innerHeight - 1 && vv.offsetTop <= 0 && vv.width >= window.innerWidth - 1;
+        setArea(full ? null : { top: vv.offsetTop, left: vv.offsetLeft, width: vv.width, height: vv.height });
+      });
+    };
+    update();
+    vv.addEventListener("resize", update);
+    vv.addEventListener("scroll", update);
+    return () => {
+      cancelAnimationFrame(raf);
+      vv.removeEventListener("resize", update);
+      vv.removeEventListener("scroll", update);
+    };
+  }, []);
+
   const confirm = () => onConfirm(value.trim());
 
   return createPortal(
     <div
       data-no-reader-tap=""
       data-bookmark-dialog={mode}
-      className="bookmark-name-modal fixed inset-0 z-[100] flex items-center justify-center p-4"
+      className="bookmark-name-modal fixed inset-0 z-[100]"
       // A press that starts AND ends outside the card closes it, like the install window.
       onPointerDown={(e) => {
         downOutside.current = !cardRef.current?.contains(e.target as Node);
@@ -84,6 +115,11 @@ export default function BookmarkNameDialog({
       }}
     >
       <div className="bookmark-name-backdrop absolute inset-0" aria-hidden="true" />
+      <div
+        data-bookmark-dialog-area=""
+        className="absolute flex items-center justify-center p-4 overflow-y-auto overscroll-contain"
+        style={area ? { top: area.top, left: area.left, width: area.width, height: area.height } : { inset: 0 }}
+      >
       <div
         ref={cardRef}
         role="dialog"
@@ -111,25 +147,31 @@ export default function BookmarkNameDialog({
           {t(ui, mode === "add" ? "bookmark.dialog.addTitle" : "bookmark.dialog.renameTitle")}
         </h2>
         <form
+          autoComplete="off"
           onSubmit={(e) => {
             e.preventDefault();
             confirm();
           }}
         >
-          <label className="block text-sm text-[#5C3D2E] mb-1.5" htmlFor="bookmark-name-input">
+          <label className="block text-sm text-[#5C3D2E] mb-1.5" htmlFor="bm-title-field">
             {t(ui, "bookmark.dialog.label")}
           </label>
           <input
             ref={inputRef}
-            id="bookmark-name-input"
-            type="text"
+            id="bm-title-field"
+            name="bm-title-field"
+            type="search"
+            inputMode="text"
+            data-1p-ignore=""
+            data-lpignore="true"
+            data-form-type="other"
             value={value}
             maxLength={BOOKMARK_NAME_MAX}
             onChange={(e) => setValue(e.target.value)}
             enterKeyHint="done"
             autoComplete="off"
             data-bookmark-dialog-input=""
-            className="w-full rounded-lg border border-[#D9C7A8] bg-white px-3 py-2.5 text-base text-[#2C1810] outline-none focus:border-[#B8860B] focus:ring-2 focus:ring-[#B8860B]/25"
+            className="bookmark-name-field w-full rounded-lg border border-[#D9C7A8] bg-white px-3 py-2.5 text-base text-[#2C1810] outline-none focus:border-[#B8860B] focus:ring-2 focus:ring-[#B8860B]/25"
           />
           <div className="mt-5 flex justify-end gap-2">
             <button
@@ -149,6 +191,7 @@ export default function BookmarkNameDialog({
             </button>
           </div>
         </form>
+      </div>
       </div>
     </div>,
     document.body,

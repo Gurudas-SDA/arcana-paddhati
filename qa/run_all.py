@@ -166,6 +166,8 @@ SUITES = [
          devices=None, fast=True, server=False),
     dict(id="s82", file="suites/s82_one_block_highlight_v36.py", title="V36 Vraja 5962: atzīmēta saraksta rinda = VIENS bloks (numurs + teksts vienā taisnstūrī ar noapaļotiem stūriem) — 16 priekšmeti (11) асана), tilaka saraksts",
          devices=["iphone14", "desktop"], fast=True),
+    dict(id="s84", file="suites/s84_bookmark_keyboard_v38.py", title="V38 Vraja 1315–1317: grāmatzīmes logs («Новая закладка»/«Переименовать») virs iPhone tastatūras (visualViewport) — «Отмена»/«Подтвердить» redzamas un nospiežamas (iPhone 13/14, SE), lauks iOS neizskatās pēc kontakta (AutoFill)",
+         devices=["iphone14", "iphone-se", "desktop"], fast=True, fast_devices=["iphone14", "iphone-se"]),
     dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
          devices=None, fast=True, server=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",
