@@ -126,7 +126,7 @@ GG2016 = [
 ]
 GG_ERRATA = [("parama-bhāgavat-pravara", "parama-bhāgavata-pravara"), ("Bābāji ", "Bābājī "), ("Śvarūpa", "Svarūpa"),
              ("Modradrumadvīpa", "Modadrumadvīpa"), ("ḓ", "ḍ")]
-GURU_LINE = "Oṁ viṣṇupāda aṣṭottara-śata śrī rūpānugācārya Śrī Prema Prayojana Prabhu"  # msg 6197
+GURU_LINE = "Oṁ viṣṇupāda aṣṭottara-śata śrī rūpānugācārya Śrī Prema Prayojana Prabhu kī jaya!"  # msg 6197
 
 
 def gg(s):
@@ -193,7 +193,7 @@ for lang, fn in BOOKS.items():
                                         r"Mādhavendra|mādhavendra|Rūpa-Sanātana Gauḍīya|giridhārī gauḍīya|Giridhārī Gauḍīya|"
                                         r"Рӯпа-Сана̄тана Га̄уд̣ӣйа|ӣш́вара пурӣ|Ма̄дхавендра|Дева̄нанда", x, re.I)], len(got))
     gl = [x for x in jv if x.get("needs_satkirti")]
-    GURU_S = "Oṁ viṣṇupāda aṣṭottara-śata śrī rūpānugācārya Śrī Prema Prayojana Prabhu"  # Satkirti msg 6197, verbatim
+    GURU_S = "Oṁ viṣṇupāda aṣṭottara-śata śrī rūpānugācārya Śrī Prema Prayojana Prabhu kī jaya!"  # Satkirti msg 6197, verbatim
     chk(f"e {fn}: call 2 = exactly the 2nd line of Maha-abhiseka (msg 6281; was 6197), no needs_satkirti marker, no «…»",
         len(jv) > 1 and nfc(jv[1].get("sanskrit")) == nfc(translit(GURU_S) if lang == "ru" else GURU_S)
         and not gl and "…" not in json.dumps(jd, ensure_ascii=False) and "loudly chant" not in json.dumps(jd, ensure_ascii=False), len(gl))
