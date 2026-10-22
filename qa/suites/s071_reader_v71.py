@@ -33,6 +33,36 @@ def tap(pg, loc):
     click_xy(pg, b['x'] + min(b['width'] / 2, 60), b['y'] + b['height'] / 2)
 
 
+# The «empty page» tap that hides the bars must land on empty page: a fixed point (8, h/2) can be within the touch
+# adjustment of a control — on s23fe (360 px) at «daily-duties-brahma-muhurta» the screen is list rows + the picture,
+# (8, 390) hit the list row «11)» (.hs-cell, role=button, 5 px away), so the bars never hid and every picture-part tap
+# was counted as «opened» (same on live 68e9192 and on V44 — a scenario defect, not the app). Empty page here = the
+# picture's own empty area (img.hs-img is page — ReaderChrome NO_TOGGLE) or the margin; a tap right after a part tap
+# first only clears the highlight, so up to 3 taps.
+# tehniskais slieksnis Lipikāra, nav S noteikums: no control / list cell / picture part within 24 px of the tap point.
+EMPTY_XY = """([xs, ys]) => { const bad = 'a,button,input,label,summary,[role=button],[role=dialog],.hs-text,.hs-cell,.hs-hit,.hs-peek,.hs-inert,.verse-chips,.mantra-chips,.mood-toggle,[data-no-reader-tap],img:not(.hs-img),svg:not(.hs-overlay),.reader-bar,.reader-status,.reader-toast';
+  for (const y of ys) for (const x of xs) { let ok = true;
+    for (const dx of [-24, -12, 0, 12, 24]) for (const dy of [-24, -12, 0, 12, 24]) {
+      const e = document.elementFromPoint(Math.max(1, Math.min(innerWidth - 1, x + dx)), y + dy);
+      if (!e || e.closest(bad)) ok = false; }
+    if (ok) return [x, y]; }
+  return null; }"""
+
+
+def hide_bars(pg, bars_js):
+    """Hide the bars with a tap on empty page; True when they are hidden."""
+    for _ in range(3):
+        if not pg.evaluate(bars_js):
+            return True
+        w, h = pg.viewport_size['width'], pg.viewport_size['height']
+        xy = pg.evaluate(EMPTY_XY, [[8, w // 2, w - 8, w // 4, 3 * w // 4],
+                                    [int(h * f) for f in (0.5, 0.4, 0.6, 0.3, 0.7, 0.75, 0.8, 0.25, 0.2, 0.85)]])
+        if xy is None:
+            return False
+        click_xy(pg, xy[0], xy[1])
+        pg.wait_for_timeout(500)
+    return not pg.evaluate(bars_js)
+
 def reveal(pg):
     if pg.evaluate("document.querySelector('[data-reader-action=contents]').getBoundingClientRect().top") < 0:
         click_xy(pg, 8, pg.viewport_size['height'] // 2)
@@ -206,9 +236,7 @@ def run(p,dev,eng,kw,mode):
     fig.evaluate("e=>e.scrollIntoView({block:'end'})")
     pg.wait_for_timeout(700)
     # V17 (Vraja Lila msg 5645): the bars are out at the chapter's start — reading mode first (a tap on the page)
-    if pg.evaluate(BARS):
-        click_xy(pg, 8, pg.viewport_size['height'] // 2)
-        pg.wait_for_timeout(500)
+    hide_bars(pg, BARS)
     opened = []
     for n in ['1', '5', '9']:
         h = qa.reading_locator(pg, f'.hs-figure .hs-hit[aria-label="{n}"] ellipse').first
@@ -219,13 +247,14 @@ def run(p,dev,eng,kw,mode):
             continue
         fig.evaluate("e=>e.scrollIntoView({block:'end'})")
         pg.wait_for_timeout(500)
+        if not hide_bars(pg, BARS):
+            opened.append(n + ' (bars could not be hidden before the tap)')
+            continue
         bb = h.bounding_box()
         click_xy(pg, bb['x'] + bb['width'] / 2, bb['y'] + bb['height'] / 2)
         pg.wait_for_timeout(1500)
         if pg.evaluate(BARS):
             opened.append(n)
-            click_xy(pg, 8, pg.viewport_size['height'] // 2)
-            pg.wait_for_timeout(500)
     ck(dev, '13 picture part tap (scroll to row) does not open the menu (Tilak)', not opened, opened)
     # 19: empty corner of the emblem picture acts as empty page
     pg.goto(L + 'gaudiya-emblem/', wait_until='networkidle')
