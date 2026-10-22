@@ -189,7 +189,9 @@ def run(p, dev, eng, o):
             r = pg.goto(f"{BASE}/{code}/{sid}/", wait_until="networkidle")
             h1 = pg.evaluate("(document.querySelector('main h1')||{}).textContent||''").strip()
             body = pg.evaluate("(document.querySelector('main')||document.body).innerText.length")
-            chk(dev, f"{code}/{sid}: heading + text not empty", r and r.status == 200 and h1 and body > 300,
+            # tehniskais slieksnis Lipikāra, nav S noteikums: «not empty» = > 200 characters (was 300; since 22.10 the
+            # Introduction holds the short verse ŚB 11.3.48, Satkirti msg 6026/6030 — lt 289 characters)
+            chk(dev, f"{code}/{sid}: heading + text not empty", r and r.status == 200 and h1 and body > 200,
                 f"status {r and r.status} h1 «{h1[:40]}» text {body}")
         # «Аа» panel: the language menu
         vw = pg.viewport_size

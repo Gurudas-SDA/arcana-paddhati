@@ -162,6 +162,8 @@ def run(p, dev, eng, o):
     pg.wait_for_timeout(400)
 
     # ---------- 3: fixed part ----------
+    # (22.10: the list may overflow only a little — iPad: «Заключение» +1 row = 11 px — so «scrolls» = scrollTop > 0;
+    #  tehniskais slieksnis Lipikāra, nav S noteikums; was > 50)
     contents()
     f = pg.evaluate("""() => { const nav = document.querySelector('.mobile-menu[data-open] nav'); const sc = nav.querySelector('.toc-scroll');
         const cov = nav.querySelector('[data-toc-cover]'); const r0 = cov.getBoundingClientRect().top;
@@ -170,7 +172,7 @@ def run(p, dev, eng, o):
         return {fits, inScroll: sc.contains(cov), moved: Math.abs(r1 - r0), scrolled: sc.scrollTop,
                 firstRow: first && first.textContent.trim(), coverTop: r1, scTop: sc.getBoundingClientRect().top}; }""")
     chk(dev, "3 «Обложка» in the fixed part (does not scroll), list scrolls under it from «Гуру-парампара»",
-        not f["inScroll"] and f["moved"] < 1 and (f["scrolled"] > 50 or f["fits"]) and f["firstRow"] == "Гуру-парампара" and f["coverTop"] < f["scTop"], str(f))
+        not f["inScroll"] and f["moved"] < 1 and (f["scrolled"] > 0 or f["fits"]) and f["firstRow"] == "Гуру-парампара" and f["coverTop"] < f["scTop"], str(f))
     pg.evaluate("document.querySelector('.mobile-menu[data-open] .toc-scroll').scrollTop = 0")
 
     # ---------- 4: full-width rows ----------
