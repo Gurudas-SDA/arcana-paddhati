@@ -17,6 +17,8 @@ Checks, per device:
   A  top / bottom bar showing and hiding (tap on the page): every frame with the bar on screen — opaque;
      the bar still moves (transform), so it is a slide, not a pop;
   B  «Содержание» opening and closing: the panel opaque in every frame; the bottom bar coming back after closing opaque.
+     The panel = the sheet that carries the background (<aside> inside the sliding .sidebar-transition wrapper; the
+     wrapper itself has no background — measuring it gave bgAlpha 0 on every build, live 68e9192 too).
 usage: python s96_bars_opaque_while_moving_v44.py <base-url>
 """
 import json
@@ -40,7 +42,7 @@ REC = """(ms) => { window.__f = []; const t0 = performance.now();
       && r.right > 0.5 && r.left < innerWidth - 0.5;
     return [Math.round(r.top), +eff(e).toFixed(3), alpha(c.backgroundColor), on ? 1 : 0, Math.round(r.left)]; };
   const f = () => { window.__f.push([Math.round(performance.now() - t0), g('.reader-bar-top'), g('.reader-bar-bottom'),
-      g('.mobile-menu > .sidebar-transition')]);
+      g('.mobile-menu > .sidebar-transition > aside')]);
     if (performance.now() - t0 < ms) requestAnimationFrame(f); }; requestAnimationFrame(f); }"""
 
 
@@ -61,7 +63,8 @@ def shown(pg):
 
 
 def tap_page(pg, touch):
-    (pg.touchscreen.tap if touch else pg.mouse.click)(200, 430)
+    # the page's empty left margin, mid-height (as s071): (200, 430) hit a verse chip (button) on Pixel 7 — the bars never moved
+    (pg.touchscreen.tap if touch else pg.mouse.click)(8, pg.viewport_size["height"] // 2)
 
 
 def see_through(fr, k):
