@@ -99,7 +99,7 @@ function TranscriptLink({ url, label }: { url: string; label: string }) {
       onPointerCancel={() => {
         down.current = null;
       }}
-      className="-my-2 inline-block py-2 text-[var(--ap-gold)] underline decoration-[#D4A843] underline-offset-2 hover:text-[var(--ap-gold)]"
+      className="-my-2 inline-block py-2 text-[var(--ap-gold)] underline decoration-[var(--ap-gold)] underline-offset-2 hover:text-[var(--ap-gold)]"
     >
       {label}
     </a>
@@ -109,7 +109,7 @@ function TranscriptLink({ url, label }: { url: string; label: string }) {
 /** One alternative quote, separated from the previous one by a dotted rule. */
 function AltQuote({ m, num, labels }: { m: MoodQuote; num: number; labels: MoodLabels }) {
   return (
-    <div className="mood-alt mt-4 border-t-2 border-dotted border-[#D4A843] pt-3">
+    <div className="mood-alt mt-4 border-t-2 border-dotted border-[var(--ap-gold)] pt-3">
       <QuoteBody
         quote={m.quote}
         translation={m.translation || undefined}
@@ -195,7 +195,7 @@ function QuoteBody({
                 href={source.audio_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[var(--ap-gold)] underline decoration-[#D4A843] underline-offset-2 hover:text-[var(--ap-gold)]"
+                className="text-[var(--ap-gold)] underline decoration-[var(--ap-gold)] underline-offset-2 hover:text-[var(--ap-gold)]"
               >
                 {labels.audio}
               </a>

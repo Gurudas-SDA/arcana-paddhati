@@ -1316,7 +1316,7 @@ export default function Sidebar({
                     level with the bookmark icon (Vraja Lila msg 5939). */}
                 <button
                   type="button"
-                  className="absolute right-[44px] top-1/2 -translate-y-1/2 flex h-[44px] w-[44px] items-center justify-end pr-[3px] text-[#8B6508] disabled:cursor-default"
+                  className="absolute right-[44px] top-1/2 -translate-y-1/2 flex h-[44px] w-[44px] items-center justify-end pr-[3px] text-[var(--ap-gold)] disabled:cursor-default"
                   onClick={() => askRename(b)}
                   disabled={isPale}
                   aria-label={t(ui, "bookmark.rename")}

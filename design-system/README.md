@@ -26,9 +26,9 @@ colour change is made once, in `tokens.css`.
 
 | Token | Value | Use |
 |---|---|---|
-| `--ds-accent` | `var(--ap-gold, #B8860B)` | gold: icons, a chip's text, frames |
-| `--ds-accent-deep` | `var(--ap-gold, #8B6508)` | gold text on the cream fill (open state) |
-| `--ds-accent-soft` | `#D4A843` | the soft chip's frame |
+| `--ds-accent` | `var(--ap-gold, #965700)` | gold: icons, a chip's text, frames |
+| `--ds-accent-deep` | `var(--ap-gold, #965700)` | gold text on the cream fill (open state) |
+| `--ds-accent-soft` | `color-mix(in srgb, var(--ap-gold) 60%, transparent)` | the soft chip's frame (V47: the one gold, lighter) |
 | `--ds-fill` / `--ds-fill-soft` | `#F5E6C8` / `#FDF8F0` | open / picked fill; the soft chip at rest |
 | `--ds-line` | `#E8DCC8` | thin frames and lines |
 | `--ds-band` | `var(--rd-row-stripe)` | tables' alternating row |
@@ -40,6 +40,16 @@ colour change is made once, in `tokens.css`.
 | `--ds-dur-fast` / `--ds-dur-slide`, `--ds-ease` | `150ms` / `220ms`, `ease` | colour and arrow; menu and bars |
 | `--ds-focus` / `--ds-focus-w` / `--ds-focus-gap` | `var(--ap-gold)` / `2px` / `2px` | THE focus line: colour, width, outline offset of a frameless control (V43) |
 | `--ds-field-line` | `var(--ap-gold)` | a text field's 1 px frame (WCAG 1.4.11 ≥ 3:1, V33) |
+
+### One gold (V47, Vraja Lila 22.10.2026)
+
+Every gold element of the book — icons, gold text, frames, focus, the «Saving to your phone» bar, the ❀ between
+verses, the chapter ornament, mantra lines, table rules, link underlines, portrait frames, scrollbars, loading
+spinners, the transcripts' links — takes ONE colour: `var(--ap-gold)` (variant B, honey amber: `#965700` on white /
+sepia, `#E3A03C` on night and on the dark toast — `--ap-gold-on-dark`). A lighter gold is the same token mixed
+(`color-mix(in srgb, var(--ap-gold) N%, …)`), never a second hex. The old golds (`#D4A843`, `#B8860B`, `#8B6508`,
+`#E8B04A`) are not used anywhere. Kept apart: the translucent highlight bands (selected row, search hit, bookmark
+glow — rule UI-2.4 «лёгкая полупрозрачная бежевая полоска»). Guarded by `qa/suites/s99_one_gold_v47.py`.
 
 ## Components
 
