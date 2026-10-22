@@ -12,40 +12,44 @@ import { CA_LOADER_CSS, CA_LOADER_SVG, SPLASH_CSS, SPLASH_SCRIPT } from "@/lib/c
 import { SPLASH_LINKS_SCRIPT } from "@/lib/splashImages";
 import "./globals.css";
 
-// 20.10.2026 (Vraja Lila msg 5316 p. 4, «Шрифты — разбор»): the upright Noto
-// Serif in our own cut — only the characters the book and the interface use
-// (scripts/font_subset.py), the same variable font (weights 100–900), so the
-// text looks the same. 3 files, 67 KB preloaded instead of 248 KB (Google's
-// latin-ext alone was 187 KB for ~70 IAST letters). No italic (as before:
-// italic stays the browser's slant). Noto Serif from next/font stays behind
-// them, not preloaded: a character outside our cut is still drawn by it.
+// 20.10.2026 (Vraja Lila msg 5316 p. 4, «Шрифты — разбор»): Noto Serif in our own cut — only the characters
+// the book and the interface use (scripts/font_subset.py), split by script; the upright is the variable font
+// (weights 100–900), so the text looks the same. Noto Serif from next/font stays behind them, not preloaded:
+// a character outside our cut is still drawn by it (online only — V49 keeps its files out of the offline cache).
+// V49 (23.10.2026, Vraja Lila msg 6363/6364 «big да»): a TRUE italic in each family — Noto Serif Italic, the same
+// characters, weights 400–700 (the weights the book's italic uses) — instead of the browser's slant of the upright
+// (the Sanskrit word-by-word, translations, sources were all synthetic). The cut now also holds ӣ ӯ һ and the dot
+// above (U+0307) of the Russian Sanskrit, which pulled a full Google file (24 KB) on Russian pages.
 // All text uses var(--font-book) (app/globals.css).
 const arcanaSerifLatin = localFont({
-  src: "./fonts/arcana-serif-latin.woff2",
-  weight: "100 900",
-  style: "normal",
+  src: [
+    { path: "./fonts/arcana-serif-latin.woff2", weight: "100 900", style: "normal" },
+    { path: "./fonts/arcana-serif-latin-italic.woff2", weight: "400 700", style: "italic" },
+  ],
   display: "swap",
   variable: "--font-arcana-latin",
   adjustFontFallback: false,
-  declarations: [{ prop: "unicode-range", value: "U+20-7E,U+A0-FF,U+153,U+301,U+303-304,U+323,U+2002,U+2009,U+200B,U+2013-2014,U+2018-201A,U+201C-201E,U+2022,U+2026,U+2032-2033,U+2039-203A,U+2044,U+20AC,U+2122,U+2212" }],
+  declarations: [{ prop: "unicode-range", value: "U+20-7E,U+A0-FF,U+153,U+301,U+303-304,U+307,U+310,U+323,U+2002-2003,U+2009,U+200B,U+2011,U+2013-2014,U+2018-201A,U+201C-201E,U+2020,U+2022,U+2026,U+2032-2033,U+2039-203A,U+2044,U+20AC,U+2122,U+2212" }],
 });
 const arcanaSerifExt = localFont({
-  src: "./fonts/arcana-serif-latinext.woff2",
-  weight: "100 900",
-  style: "normal",
+  src: [
+    { path: "./fonts/arcana-serif-latinext.woff2", weight: "100 900", style: "normal" },
+    { path: "./fonts/arcana-serif-latinext-italic.woff2", weight: "400 700", style: "italic" },
+  ],
   display: "swap",
   variable: "--font-arcana-ext",
   adjustFontFallback: false,
-  declarations: [{ prop: "unicode-range", value: "U+20,U+A0,U+100-101,U+104-105,U+10C-10D,U+112-113,U+117,U+119,U+123,U+129-12B,U+12E-12F,U+134-137,U+13B-13C,U+146,U+14D,U+150-151,U+15A-15B,U+15F-161,U+169-16B,U+171,U+173,U+175,U+17D-17E,U+219,U+21B,U+301,U+303-304,U+323,U+1D43,U+1E0C-1E0D,U+1E13,U+1E25,U+1E37,U+1E39,U+1E3B,U+1E41,U+1E43,U+1E45-1E47,U+1E5A-1E5B,U+1E5D,U+1E62-1E63,U+1E6C-1E6D,U+1E8F,U+2020" }],
+  declarations: [{ prop: "unicode-range", value: "U+20,U+A0,U+100-101,U+104-105,U+10C-10D,U+112-113,U+117,U+119,U+123,U+129-12B,U+12E-12F,U+134-137,U+13B-13C,U+146,U+14D,U+150-151,U+153,U+15A-15B,U+15F-161,U+169-16B,U+171,U+173,U+175,U+17D-17E,U+219,U+21B,U+301,U+303-304,U+307,U+310,U+323,U+1D43,U+1E0C-1E0D,U+1E13,U+1E25,U+1E37,U+1E39,U+1E3B,U+1E41,U+1E43,U+1E45-1E47,U+1E5A-1E5B,U+1E5D,U+1E62-1E63,U+1E6C-1E6D,U+1E8F,U+2020" }],
 });
 const arcanaSerifCyr = localFont({
-  src: "./fonts/arcana-serif-cyrillic.woff2",
-  weight: "100 900",
-  style: "normal",
+  src: [
+    { path: "./fonts/arcana-serif-cyrillic.woff2", weight: "100 900", style: "normal" },
+    { path: "./fonts/arcana-serif-cyrillic-italic.woff2", weight: "400 700", style: "italic" },
+  ],
   display: "swap",
   variable: "--font-arcana-cyr",
   adjustFontFallback: false,
-  declarations: [{ prop: "unicode-range", value: "U+20,U+A0,U+301,U+400,U+404,U+406-407,U+410-429,U+42B,U+42D-44F,U+451,U+454,U+456-457,U+490-491,U+2116" }],
+  declarations: [{ prop: "unicode-range", value: "U+20,U+A0,U+301,U+303-304,U+307,U+310,U+323,U+400,U+404,U+406-407,U+410-429,U+42B,U+42D-44F,U+451,U+454,U+456-457,U+490-491,U+4BB,U+4E3,U+4EF,U+4FF,U+2116" }],
 });
 
 const notoSerif = Noto_Serif({
