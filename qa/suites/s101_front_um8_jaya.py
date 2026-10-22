@@ -36,7 +36,7 @@ Satkirti 22.10 msg 6177/6180 (on «Джая-дхвани», after the analysis o
      printing errors corrected (GG_ERRATA, listed to Satkirti in the analysis 22.10); none of the 36 calls of the
      Voronezh songbook that are not in it; call 2 = the guru line, marked "needs_satkirti" (open question —
      qa/known_failures.json until Satkirti writes it); every call with translation + word-for-word.
-No browser, no server: python s95_front_um8_jaya.py"""
+No browser, no server: python s101_front_um8_jaya.py"""
 import glob
 import hashlib
 import json

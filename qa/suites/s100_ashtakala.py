@@ -20,7 +20,7 @@ Satkirti 22.10 msg 6151 (balss, burtiski): «у нас есть раздел з�
   e  the 10th subsection («Круг замыкается») ends with the Upadeśāmṛta 8 verse in full (sanskrit + translation + wbw),
      the same verse as at the start of the chapter
   f  book.ru-iast.json: no Cyrillic with diacritics in the 11th subsection
-No browser, no server: python s93_ashtakala.py"""
+No browser, no server: python s100_ashtakala.py"""
 import json
 import os
 import re
