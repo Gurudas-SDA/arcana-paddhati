@@ -1040,6 +1040,10 @@ body,
   font-size: max(13px, calc(var(--fs) * 0.88));
 }
 
+/* V44 (Vraja Lila 22.10.2026, msg 6163–6168): a bar is a SOLID sheet that only slides — its background is
+   opaque in every frame (no opacity on the bar), hidden = moved fully off screen by transform. Before, the bar
+   faded too (opacity 0 → 1, 200 ms) and the book text showed through «‹ Back / Forward ›» while it moved.
+   design-system/README.md «Panels: opening and closing» (master rule for every sliding panel). */
 .reader-bar {
   position: fixed;
   left: 0;
@@ -1047,9 +1051,8 @@ body,
   z-index: 30;
   background: var(--rd-bar-bg);
   color: var(--rd-fg);
-  opacity: 0;
   pointer-events: none;
-  transition: transform 220ms ease, opacity 200ms ease;
+  transition: transform 220ms ease;
   font-family: var(--font-book, 'Noto Serif', Georgia, serif);
 }
 .reader-bar-top {
@@ -1066,7 +1069,6 @@ body,
 }
 .reader-chrome[data-shown] .reader-bar,
 .reader-bar:has(:focus-visible) {
-  opacity: 1;
   pointer-events: auto;
   transform: none;
 }

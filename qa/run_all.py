@@ -180,6 +180,8 @@ SUITES = [
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s81", file="suites/s81_wcag_v33.py", title="V33 Vraja 5865/5900–5907 (variants B): WCAG 2.1 AA — viens akcenta tonis --ap-gold #965700 / tumšajā #E3A03C, kontrasti (teksts 4.5, ikonas/rāmji/fokuss 3) visos fonos, ikona = vārds, josla «Установить» balts teksts, ✕ zonas 44×44, fokuss «Содержание» ar tastatūru",
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
+    dict(id="s96", file="suites/s96_bars_opaque_while_moving_v44.py", title="V44 Vraja 22.10 «фон панели полупрозрачный при выезде — сквозь Back/Forward просвечивает текст»: augšējā/apakšējā josla un «Содержание» katrā kustības kadrā NECAURSPĪDĪGAS (tikai transform, bez opacity), en «Maṅgalācaraṇa» + ru-iast",
+         devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s95", file="suites/s95_bookmark_autofill_v43.py", title="V43 Vraja 22.10 «autofill пока вижу»: grāmatzīmes lauks iOS neizskatās pēc kontakta — name/id bez domuzīmes un kontakta vārda (name=search), bez placeholder, autocomplete off, etiķete/virsraksts ar U+200D starp burtiem (lasāms teksts nemainīts); TIKAI atribūti — īstā iPhone pārbaude Vrajam",
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14"]),
     dict(id="s93", file="suites/s93_one_focus_frame_v43.py", title="V43 Vraja 22.10 «двойные рамки всё ещё там (на поиске тоже)»: fokusā VIENA rāmja līnija visur (border+ring / border+outline nav), lauki (grāmatzīme, meklēšana) — viena zelta 2 px līnija; fokusa krāsa = --ap-gold (design-system --ds-focus)",

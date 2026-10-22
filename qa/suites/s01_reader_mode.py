@@ -88,7 +88,11 @@ def run(p, dev, engine, opts, lang, mode):
         return pg.locator(".reader-chrome[data-shown]").count() == 1
 
     def bars_visible():
-        return pg.evaluate("""() => [...document.querySelectorAll('.reader-bar')].map(b => +getComputedStyle(b).opacity)""")
+        # V44: a hidden bar is moved off screen (opaque sheet, no opacity) -> visibility = opacity × the part of the
+        # bar on screen (0 hidden, 1 shown), so both the old fade and the slide-only bar are measured the same way.
+        return pg.evaluate("""() => [...document.querySelectorAll('.reader-bar')].map(b => { const r = b.getBoundingClientRect();
+          const on = r.height > 0 ? Math.max(0, Math.min(r.bottom, innerHeight) - Math.max(r.top, 0)) / r.height : 0;
+          return +(+getComputedStyle(b).opacity * on).toFixed(3); })""")
 
     def empty_point():
         return qa.reading_eval(pg, JS_EMPTY_POINT)

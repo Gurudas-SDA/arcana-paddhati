@@ -111,8 +111,13 @@ colour change is made once, in `tokens.css`.
 - **Rule** (Vraja Lila 22.10.2026: «при клике панели выдвигаются с хорошей плавностью ease, но при повторном клике
   задвигаются обратно дёргано и мерцают»; earlier msg 5521): a panel closes exactly as smoothly as it opens —
   the same duration (`--ds-dur-slide` 220 ms) and the same ease (`--ds-ease`), one movement, no flash.
-- **Bars** (top / bottom): one CSS transition (`transform 220ms ease, opacity 200ms ease`) both ways — measured
+- **Bars** (top / bottom): one CSS transition (`transform 220ms ease`) both ways — measured
   symmetric (frames one way, never `display:none` half way).
+- **Solid while moving — V44** (Vraja Lila 22.10.2026, msg 6163–6168: while the bottom bar slid, the next verse showed
+  through «‹ Back / Forward ›»): a sliding panel (top / bottom bar, «Содержание») is an OPAQUE sheet in every frame —
+  it moves only by `transform`; NO `opacity` on the panel or its background (hidden = moved fully off screen). A fade,
+  if ever needed, goes on the panel's content only, never on the sheet. Only the dimming behind «Содержание» fades.
+  Test: `qa/suites/s96_bars_opaque_while_moving_v44.py`.
 - **«Содержание»:** opening `ap-menu-in` (forwards); closing its own `ap-menu-out` played **forwards** with the same
   ease (not the opening in reverse — reversing also reverses the ease: slow start, abrupt end). The panel is removed
   from the page only on its `animationend` (a timer is only a safety net): closing makes the page busy for
