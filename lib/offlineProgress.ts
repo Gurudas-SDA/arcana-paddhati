@@ -49,7 +49,7 @@ export interface OfflineSave {
 let memSave: OfflineSave | null = null;
 let saveSnap: OfflineSave | null | undefined;
 
-export function readOfflineSave(): OfflineSave | null {
+function readOfflineSave(): OfflineSave | null {
   try {
     const v = JSON.parse(localStorage.getItem(OFFLINE_SAVE_KEY) || "null");
     return v && typeof v.s === "string" ? (v as OfflineSave) : memSave;

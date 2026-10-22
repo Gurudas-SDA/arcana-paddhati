@@ -18,8 +18,8 @@ import { BLOCKS } from "./readingMode";
 import { main } from "./navHistory";
 import { readingSection } from "./readingFlow";
 
-export const BOOKMARKS_KEY = "ap.bookmarks";
-export const BOOKMARKS_MAX = 500;
+const BOOKMARKS_KEY = "ap.bookmarks";
+const BOOKMARKS_MAX = 500;
 /** The longest name the window takes. */
 export const BOOKMARK_NAME_MAX = 120;
 /** Fired on window after every write (the button and the list follow it). */
@@ -101,7 +101,7 @@ export function bookmarkAt(items: Bookmark[], section: string, anchor: string | 
  *  быть несколько закладок»): the same block of the same chapter, taken in this
  *  language. A place without a measured block (0) falls back to chapter +
  *  subsection among such bookmarks. Rule 10.1 applies to this place. */
-export function bookmarkAtPlace(items: Bookmark[], section: string, block: number, lang: string, anchor: string | null): Bookmark | undefined {
+function bookmarkAtPlace(items: Bookmark[], section: string, block: number, lang: string, anchor: string | null): Bookmark | undefined {
   if (block > 0) return items.find((b) => b.section === section && b.block === block && liveLang(b.lang) === liveLang(lang));
   return items.find((b) => b.section === section && !(b.block > 0) && (b.anchor ?? null) === (anchor ?? null));
 }
@@ -251,7 +251,7 @@ export function placeBookmark(b: Bookmark) {
 /** «Примерно на том же месте» (Vraja Lila msg 5882/5883: «можем померить
  *  определённой порцией скролла»): a bookmark's block is at most this part of the
  *  reading area's height away from the reading line (just below the top bar). */
-export const NEAR_SCREEN_PART = 0.5;
+const NEAR_SCREEN_PART = 0.5;
 
 /** The bookmark about here: one of this chapter (this language) whose block is
  *  within NEAR_SCREEN_PART of a screen from the reading line; several — the

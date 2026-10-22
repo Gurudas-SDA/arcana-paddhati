@@ -38,9 +38,42 @@ function googleFallbackFont(rel) {
   return !OWN_FONTS.has(createHash("sha1").update(readFileSync(join(outDir, rel))).digest("hex"));
 }
 
+// V50 (Vraja Lila msg 6368 «почисти»): PNG / JPG pictures the pages never load are not stored offline (the files
+// stay in public/ — the PDF / EPUB and the WebP-failure fallback use them; online the network still serves them):
+//  - the original of a picture that has a WebP the page shows (lib/webp-images.json keys; the cover.jpg behind
+//    HomePage's <picture> WebP srcset; a parampara photo's PNG `fallback` next to its `webp`,
+//    lib/parampara-portraits.json) — <picture> takes the WebP; the PNG only on a WebP load error (PortraitImg);
+//  - a media picture no built file names at all (ca-logo.png / ca-logo.svg: PDF / EPUB only; the app draws the
+//    logo as inline SVG, components/CaLogo.tsx).
+// Hotspot masks (media/hotspots/**.png) are loaded by the pages — kept.
+const readLib = (n) => JSON.parse(readFileSync(join(root, "lib", n), "utf8"));
+const RASTER_BACKUPS = new Set(["media/cover/cover.jpg"]);
+for (const k of Object.keys(readLib("webp-images.json"))) if (/\.(png|jpe?g)$/i.test(k)) RASTER_BACKUPS.add("media/" + k);
+for (const v of Object.values(readLib("parampara-portraits.json").portraits ?? {}))
+  if (v && v.webp && v.fallback) RASTER_BACKUPS.add("media/" + v.fallback);
+let unnamedMedia = null; // media pictures whose file name appears in no built page / payload / asset
+function unreferencedMedia(rel) {
+  if (!rel.startsWith("media/") || rel.startsWith("media/hotspots/") || !/\.(png|jpe?g|svg)$/i.test(rel)) return false;
+  if (unnamedMedia === null) {
+    const cands = walk(join(outDir, "media"))
+      .map((p) => relative(outDir, p).split(sep).join("/"))
+      .filter((r) => !r.startsWith("media/hotspots/") && /\.(png|jpe?g|svg)$/i.test(r));
+    const left = new Set(cands.map((r) => r.split("/").pop()));
+    for (const p of walk(outDir)) {
+      if (!left.size) break;
+      if (!/\.(html|txt|js|css|json|webmanifest)$/.test(p) || p.endsWith("precache-manifest.json")) continue;
+      const text = readFileSync(p, "utf8");
+      for (const n of [...left]) if (text.includes(n)) left.delete(n);
+    }
+    unnamedMedia = new Set(cands.filter((r) => left.has(r.split("/").pop())));
+  }
+  return unnamedMedia.has(rel);
+}
+
 // Never requested by the client router, or not part of the book.
 function excluded(rel) {
   if (googleFallbackFont(rel)) return true;
+  if (RASTER_BACKUPS.has(rel) || unreferencedMedia(rel)) return true;
   const name = rel.split("/").pop();
   if (name === "desktop.ini") return true;
   if (name.endsWith(".map")) return true;

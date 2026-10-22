@@ -1,7 +1,7 @@
 // Book types and client-safe helpers. Loading the book (per language) is
 // server-only: see lib/content.ts.
 
-export interface PairedItem {
+interface PairedItem {
   label: string;
   value: string;
   /** Word-by-word of the mantra in this row (a «пословно» chip). */
@@ -65,7 +65,7 @@ export interface ContentItem {
 }
 
 /** Transcript / audio links of one lecture in a "sources" block. */
-export interface SourceLinks {
+interface SourceLinks {
   transcript_url?: string;
   audio_url?: string;
 }
@@ -102,7 +102,7 @@ export interface Section {
  * chapters in order; an empty list = part still in preparation. Front matter
  * belongs to no part and comes before Part I.
  */
-export interface Part {
+interface Part {
   id: string;
   title: string;
   sections: string[];
@@ -255,10 +255,10 @@ export function frontGroup(
 }
 
 /** Id of the Introduction (head of the front-matter group). */
-export const INTRO_ID = "introduction";
+const INTRO_ID = "introduction";
 
 /** Sections before Part I's first chapter, outside any part (no chapter numbers). */
-export function frontMatter(sectionIds: string[], parts: { sections: string[] }[]): string[] {
+function frontMatter(sectionIds: string[], parts: { sections: string[] }[]): string[] {
   const inPart = new Set(parts.flatMap((p) => p.sections));
   const front: string[] = [];
   for (const id of sectionIds) {
@@ -341,10 +341,6 @@ export function parseWbw(wbw: string): WbwPair[] {
       return m ? { word: m[1].trim(), meaning: m[2].trim() } : { word: part, meaning: "" };
     });
 }
-
-/** Inline Sanskrit inside running text is marked ⟦…⟧ in the book data. */
-export const INLINE_SA_OPEN = "⟦";
-export const INLINE_SA_CLOSE = "⟧";
 
 export interface TextRun {
   text: string;

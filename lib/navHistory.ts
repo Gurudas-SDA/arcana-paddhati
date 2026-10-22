@@ -47,7 +47,7 @@
  * is retried for the same entry only, so a retry can never add a step.
  */
 
-export const MAIN_SELECTOR = ".app-main";
+const MAIN_SELECTOR = ".app-main";
 export const QUERY_STORE = "ap.searchQuery";
 const ENTRY_STORE = "ap.entries";
 const SEQ_STORE = "ap.entrySeq";
@@ -56,7 +56,7 @@ const LEGACY_SCROLL_STORE = "ap.scroll";
 const MAX_ENTRIES = 200;
 
 /** Keys of how an entry looked: kept in its record, never in history.state. */
-export const VIEW_KEYS = ["apLit", "apNav", "apResult", "apQuery", "apParts", "apExp"];
+const VIEW_KEYS = ["apLit", "apNav", "apResult", "apQuery", "apParts", "apExp"];
 
 type State = Record<string, unknown> | null;
 type Data = Record<string, unknown>;
@@ -200,7 +200,7 @@ function identity(): { apId: string; apKey: string } {
 }
 
 /** Id of the current entry (assigned if it has none yet). */
-export function entryId(): string {
+function entryId(): string {
   return identity().apId;
 }
 

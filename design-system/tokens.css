@@ -21,7 +21,6 @@
   --ds-text-muted: var(--rd-muted, #5C3D2E);
   /* radii */
   --ds-radius-pill: 9999px;
-  --ds-radius-band: 4px;                         /* table bands, the «В этом разделе» box */
   --ds-radius-block: 6px;                        /* a marked list row (V36) */
   /* spacing */
   --ds-target: 44px;                             /* minimum tap target */

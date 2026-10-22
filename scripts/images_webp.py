@@ -25,7 +25,7 @@ MEDIA = REPO / "public" / "media"
 MASTERS = REPO / "masters" / "media"
 MAP = REPO / "lib" / "webp-images.json"
 Q = 58
-# the pictures the app shows (ca-logo, conch-shankha, frame-red-cartouche: PDF / EPUB only or unused — left as they are)
+# the pictures the app shows (ca-logo: PDF / EPUB only — left as it is)
 PICTURES = ["common/gaudiya-emblem.png", "common/paraphernalia.png", "common/tilak.png"]
 # The app's WebP is encoded from a different master where the app draws the numbers itself (Vraja Lila msg 5429/5432,
 # 20.10.2026: emblem numbers 1-12, 2.1-2.6 = HTML tags over the picture). The PNG with the burned-in numbers stays in

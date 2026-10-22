@@ -70,7 +70,7 @@ function registry(): { set: (n: string, h: unknown) => void; delete: (n: string)
 }
 
 /** Remove the mark (and the scroll ownership). */
-export function clearSearchMark() {
+function clearSearchMark() {
   registry()?.delete(NAME);
   unwrapFallback();
   markedAt = null;
