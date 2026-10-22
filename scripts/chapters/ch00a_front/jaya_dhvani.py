@@ -59,7 +59,7 @@ ERRATA = [("parama-bhāgavat-pravara", "parama-bhāgavata-pravara"), ("Bābāji 
           ("Modradrumadvīpa", "Modadrumadvīpa"), ("ḓ", "ḍ")]
 
 # Satkirti msg 6177/6180 + 6197: call 2 → the name of our guru, verbatim as Satkirti wrote it (no open question left).
-GURU_LINE = "Jaya oṁ viṣṇupāda paramahaṁsa parivrājakācārya aṣṭottara-śata Śrī Śrīmad Śrī Prema Prayojana Prabhu kī jaya!"
+GURU_LINE = "Oṁ viṣṇupāda aṣṭottara-śata śrī rūpānugācārya Śrī Prema Prayojana Prabhu"
 GURU_NO = 2
 # Calls Satkirti still decides on (msg 6177/6180): kept as in the source for now.
 PENDING = ()  # Satkirti msg 6202: 27 and 33 stay; 4, 28, 29 struck (DROP)
@@ -93,12 +93,12 @@ TEXT = {
           "Gāndharvikā (Śrīmatī Rādhikā) and Giridhārī (Kṛṣṇa, the lifter of the hill)"),
          ("Rādhā-Vinoda-bihārījī", "Радха-Винода-Бихариджи (Кришне, наслаждающемуся играми ради Радхи)",
           "Rādhā-Vinoda-bihārījī (Kṛṣṇa, who sports for Rādhā’s delight)"), KJ]),
-    GURU_NO: ("Слава ом вишнупаде парамахамсе париврадж-ачарье аштоттара-шата Шри Шримад Шри Преме Прайоджане Прабху!",
-              "All glories to oṁ viṣṇupāda paramahaṁsa parivrājakācārya aṣṭottara-śata Śrī Śrīmad Śrī Prema Prayojana Prabhu!",
-              [("Jaya", "слава", "all glories"), OVA[0],
-               ("paramahaṁsa", "парамахамсе (возвышенному, как лебедь)", "paramahaṁsa (the swan-like, most elevated)"),
-               ("parivrājakācārya", "ачарье-странствующему санньяси", "the ācārya who is a wandering sannyāsī"),
-               OVA[1], SS, ("Śrī Prema Prayojana Prabhu", "Шри Преме Прайоджане Прабху", "Śrī Prema Prayojana Prabhu"), KJ]),
+    GURU_NO: ("Ом вишнупада аштоттара-шата, шри рупанугачарья (последователь Шрилы Рупы Госвами), Шри Према Прайоджана Прабху",
+              "Oṁ viṣṇupāda aṣṭottara-śata, śrī rūpānugācārya (follower of Śrīla Rūpa Gosvāmī), Śrī Prema Prayojana Prabhu",
+              [OVA[0], OVA[1], ("śrī", "шри", "śrī"),
+               ("rūpānugācārya", "рупанугачарья (следующий по стопам Шрилы Рупы Госвами ачарья)",
+                "rūpānugācārya (the ācārya who follows in the footsteps of Śrīla Rūpa Gosvāmī)"),
+               ("Śrī Prema Prayojana Prabhu", "Шри Према Прайоджана Прабху", "Śrī Prema Prayojana Prabhu")]),
     3: _ac("Bhaktivedānta Nārāyaṇa", "Бхактиведанте Нараяне", "Bhaktivedānta Nārāyaṇa"),
     4: _ac("Bhaktivedānta Vāmana", "Бхактиведанте Вамане", "Bhaktivedānta Vāmana"),
     5: _ac("Bhaktivedānta Svāmī Mahārāja", "Бхактиведанте Свами Махараджу", "Bhaktivedānta Svāmī Mahārāja", tail=None),
