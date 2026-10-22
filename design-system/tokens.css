@@ -36,3 +36,17 @@
   --ds-focus-gap: 2px;                           /* outline offset of a frameless control */
   --ds-field-line: var(--ap-gold, #B8860B);      /* a text field's 1 px frame (WCAG 1.4.11: ≥ 3:1, V33) */
 }
+/* The reading backgrounds repaint the surfaces (the same values as the book's sepia / night rules for
+   .bg-white, .bg-[#FDF8F0], .bg-[#F5E6C8], .border-[#E8DCC8] in app/globals.css), so a master component
+   stays readable there: the night accent #E3A03C on white was 2.2:1 (V33 × V40, s81). */
+html[data-reader-theme="sepia"] {
+  --ds-surface: var(--rd-bg);
+}
+html[data-reader-theme="night"] {
+  --ds-surface: var(--rd-bg);
+  --ds-fill-soft: #211C16;
+  --ds-fill: #3A2F1F;
+  --ds-line: var(--rd-border);
+  --ds-row-lit: #211C16;
+  --ds-row-hover: #211C16;
+}
