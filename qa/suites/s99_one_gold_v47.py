@@ -18,6 +18,15 @@ caption rhombus, the bookmark-row icon, portrait frames, transcripts' links), #E
  #   counted; «the token's colour» = the computed --ap-gold of that theme within 2 per channel; the ❀ «full tone» =
  #   effective opacity ≥ 0.99.
 
+V47b — Vraja Lila msg 6346 (maket 2 «ТОКЕН B, N %», faili/2026.10.22_V47b_maket2_*_para.png): «да, берём этот
+вариант... единственное заметил что некоторые слова и цифры всё ещё в старом цвете». Vraja as the interface owner
+(«Стандарты» 0а, 93) replaces the UI-2.4 «бежевая полоска» (s07): the translucent bands are now rgba(--ap-gold, N %)
+(N per place × theme, table faili/2026.10.22_V47b_maket2_alfas.md), and no text keeps an old beige-gold tone.
+  G the bands (probes): «Содержание» lit row, selected row, row stripe, search mark in the list and in the text,
+    bookmark glow = the token at N % (alpha within 0.011, colour within 3 per channel) — tehniskais slieksnis Lipikāra;
+  C also: no text (element with own text, or ::before/::after) in an old beige-gold text tone (OLD_TEXT), no
+    background / shadow in an old beige-gold band at any alpha (OLD_BAND); D and S likewise in the CSS / sources.
+
 Checks, per device × theme (white, sepia, night):
   A the «Saving to your phone» bar (a probe of the home card's track: filled, part-filled cell) = the token;
   B the ❀ between the prayers of «Maṅgalācaraṇa» = the token, full tone;
@@ -45,9 +54,25 @@ SHOT_PREFIX = os.environ.get("V47_SHOT_PREFIX", "2026.10.22_V47_")
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 OLD = {"#D4A843": (212, 168, 67), "#B8860B": (184, 134, 11), "#8B6508": (139, 101, 8), "#E8B04A": (232, 176, 74),
        "#DAA520": (218, 165, 32)}
+# V47b (Vraja Lila msg 6346 «некоторые слова и цифры всё ещё в старом цвете»): the old beige-gold TEXT tones —
+# section numbers «4.11.» (#9C7A4E white/sepia, #A88C63 night), Sanskrit words in night (#D9BC8C), part labels /
+# «Bookmarks» tab / «Загружается» note (#9C7A4E), and the C9A961-like light gold.
+OLD_TEXT = {"#9C7A4E": (156, 122, 78), "#A88C63": (168, 140, 99), "#D9BC8C": (217, 188, 140),
+            "#C9A961": (201, 169, 97), "#E9D3A6": (233, 211, 166)}
+# V47b: translucent bands in the old beige-gold (any alpha) and the opaque old lit row of «Содержание» (#FAF3E8).
+OLD_BAND = {"rgba(212,168,67)": (212, 168, 67), "rgba(232,176,74)": (232, 176, 74), "rgba(120,88,30)": (120, 88, 30),
+            "#FAF3E8": (250, 243, 232)}
+# V47b maket 2 (faili/2026.10.22_V47b_maket2_alfas.md, Vraja Lila msg 6346 «да, берём этот вариант»): every band =
+# rgba(--ap-gold, N %), N per place × theme (white, sepia, night). Stripe — not in the table:
+# tehniskais slieksnis Lipikāra, nav S noteikums: the same equal-ΔE method as the table → 5 / 5 / 4 %.
+BANDS = {"toc": (10, 10, 5), "row": (26, 25, 27), "stripe": (5, 5, 4), "list": (40, 38, 44), "text": (44, 42, 44),
+         "flash": (31, 30, 39)}
 results = []
+SCAN_ARG = {"old": {k: list(v) for k, v in OLD.items()}, "txt": {k: list(v) for k, v in OLD_TEXT.items()},
+            "band": {k: list(v) for k, v in OLD_BAND.items()}}
 
-SCAN = """(OLD) => {
+SCAN = """(arg) => {
+  const OLD = arg.old, TXT = arg.txt, BAND = arg.band;
   const toRGBA = (s) => {
     const out = [];
     const re = /rgba?\\(([^)]*)\\)|color\\(srgb ([^)]*)\\)/g; let m;
@@ -58,8 +83,11 @@ SCAN = """(OLD) => {
         out.push([p[0] * 255, p[1] * 255, p[2] * 255, p.length > 3 ? p[3] : 1]); }
     }
     return out; };
-  const isOld = (c) => c[3] >= 0.6 && Object.entries(OLD).find(([k, o]) =>
-    Math.abs(c[0] - o[0]) <= 2 && Math.abs(c[1] - o[1]) <= 2 && Math.abs(c[2] - o[2]) <= 2);
+  const near = (c, o) => Math.abs(c[0] - o[0]) <= 2 && Math.abs(c[1] - o[1]) <= 2 && Math.abs(c[2] - o[2]) <= 2;
+  const isOld = (c) => c[3] >= 0.6 && Object.entries(OLD).find(([k, o]) => near(c, o));
+  const isOldText = (c) => c[3] >= 0.3 && Object.entries(TXT).find(([k, o]) => near(c, o));
+  const isOldBand = (c) => c[3] > 0 && (Object.entries(BAND).find(([k, o]) => near(c, o)) ||
+    (c[3] < 0.1 && near(c, [242, 233, 218]) && ['night stripe #F2E9DA']));
   const PROPS = ['color', 'background-color', 'background-image', 'border-top-color', 'border-right-color',
     'border-bottom-color', 'border-left-color', 'outline-color', 'text-decoration-color', 'fill', 'stroke',
     'box-shadow'];
@@ -79,7 +107,11 @@ SCAN = """(OLD) => {
         if (p.startsWith('border-') && parseFloat(cs.getPropertyValue(p.replace('-color', '-width'))) === 0) continue;
         if (p === 'outline-color' && (cs.outlineStyle === 'none' || parseFloat(cs.outlineWidth) === 0)) continue;
         if (p === 'text-decoration-color' && !/underline|overline|line-through/.test(cs.textDecorationLine)) continue;
-        for (const c of toRGBA(v)) { const o = isOld(c); if (o) bad.push([name(e) + (pseudo || ''), p, o[0], v.slice(0, 80)]); }
+        for (const c of toRGBA(v)) {
+          let o = isOld(c);
+          if (!o && p === 'color' && (e.childNodes.length || pseudo)) o = isOldText(c);
+          if (!o && /^(background|box-shadow)/.test(p)) o = isOldBand(c);
+          if (o) bad.push([name(e) + (pseudo || ''), p, o[0], v.slice(0, 80)]); }
       }
     }
   }
@@ -94,7 +126,15 @@ PROBES = """() => {
     <button class="reader-toast-undo">Undo</button>
     <span class="toc-loading-spin"></span>
     <div class="nav-progress" style="position:static"></div>
-    <div class="verse-ornament">❀</div>`;
+    <div class="verse-ornament">❀</div>
+    <ol class="numbered-list"><li class="hs-row" data-active="" id="qa-b-row"><span class="hs-text">3)</span></li><li class="hs-row" id="qa-b-stripe"><span class="hs-text">4)</span></li></ol>
+    <p><mark class="search-mark" id="qa-b-list">candana</mark> <mark class="search-mark search-hit-fb" id="qa-b-text">candana</mark></p>
+    <div class="bg-[var(--ap-band-toc)]" id="qa-b-toc">4.11.</div>
+    <div class="bookmark-flash" id="qa-b-flash" style="animation-play-state:paused">x</div>
+    <h2 class="reader-article"><span class="heading-num" id="qa-t-num">4.11.</span> Gandha <b class="sa-inline" id="qa-t-sa">candana</b></h2>
+    <aside><span class="heading-num" id="qa-t-tocnum">4.7.</span></aside>
+    <p class="text-sm uppercase" id="qa-t-part">Part</p>
+    <span class="toc-loading-note" id="qa-t-note">…</span>`;
   document.body.appendChild(box);
   const tok = getComputedStyle(document.documentElement).getPropertyValue('--ap-gold').trim();
   const t = document.createElement('i'); t.style.color = 'var(--ap-gold)'; box.appendChild(t);
@@ -109,6 +149,35 @@ BAR = """() => { const tr = document.querySelector('#qa-v47-probes .home-save-tr
 ORN = """() => { const eff = (e) => { let o = 1; for (let x = e; x && x.nodeType === 1; x = x.parentElement) o *= +getComputedStyle(x).opacity; return o; };
   return [...document.querySelectorAll('.verse-ornament')].filter(e => !e.closest('#qa-v47-probes')).map(e =>
     ({text: e.textContent.trim(), color: getComputedStyle(e).color, op: +eff(e).toFixed(3)})); }"""
+
+BANDS_JS = """() => { const g = (id, pr) => getComputedStyle(document.getElementById(id))[pr || 'backgroundColor'];
+  return {toc: g('qa-b-toc'), row: g('qa-b-row'), stripe: g('qa-b-stripe'), list: g('qa-b-list'), text: g('qa-b-text'),
+          flash: g('qa-b-flash')}; }"""
+
+
+def rgba(s):
+    """(r, g, b, a) from rgb()/rgba()/color(srgb …)."""
+    m = re.search(r"rgba?\(([^)]*)\)", s or "")
+    if m:
+        p = [float(x) for x in re.split(r"[ ,/]+", m.group(1).strip()) if x]
+        return p[:3] + [p[3] if len(p) > 3 else 1.0]
+    m = re.search(r"color\(srgb ([^)]*)\)", s or "")
+    if m:
+        p = [float(x) for x in re.split(r"[ /]+", m.group(1).strip()) if x]
+        return [x * 255 for x in p[:3]] + [p[3] if len(p) > 3 else 1.0]
+    m = re.search(r"oklab\(([^)]*)\)", s or "")   # an animated value (the bookmark glow keyframe) is interpolated in oklab
+    if m:
+        p = [float(x) for x in re.split(r"[ /]+", m.group(1).strip()) if x]
+        L, a, b = p[:3]
+        l_, m_, s_ = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3, (L - 0.1055613458 * a - 0.0638541728 * b) ** 3, \
+            (L - 0.0894841775 * a - 1.2914855480 * b) ** 3
+        lin = [4.0767416621 * l_ - 3.3077115913 * m_ + 0.2309699292 * s_,
+               -1.2684380046 * l_ + 2.6097574011 * m_ - 0.3413193965 * s_,
+               -0.0041960863 * l_ - 0.7034186147 * m_ + 1.7076147010 * s_]
+        enc = [255 * (1.055 * max(x, 0) ** (1 / 2.4) - 0.055 if x > 0.0031308 else 12.92 * x) for x in lin]
+        return enc + [p[3] if len(p) > 3 else 1.0]
+    return None
+
 
 CSS_TEXT = """() => { let t = ''; for (const s of document.styleSheets) { try { for (const r of s.cssRules) t += r.cssText + '\\n'; } catch (e) {} } return t; }"""
 
@@ -148,6 +217,11 @@ def css_old(text):
             if a >= 0.6:
                 found.append(m.group(0))
     found += re.findall(r"(?<![\w-])(?:dark)?goldenrod(?![\w-])", text, re.I)
+    # V47b: old beige-gold bands at ANY alpha, the old lit row #FAF3E8 and the old beige-gold text tones
+    for (r, g, b) in OLD_BAND.values():
+        found += re.findall(rf"rgba?\(\s*{r}[ ,]+{g}[ ,]+{b}\s*(?:[,/][^)]*)?\)", text)
+    for k in list(OLD_TEXT) + ["#FAF3E8"]:
+        found += re.findall(r"#" + k[1:] + r"(?![0-9a-f])", text, re.I)
     return found
 
 
@@ -213,6 +287,16 @@ def run(browser, dev, opts, theme):
                 ok = same(b["on"], tok["tokenRGB"]) and same(b["part"], tok["tokenRGB"]) and all(same(x, tok["tokenRGB"]) for x in b["real"])
                 check(tag, "A «Saving to your phone» bar: filled and part-filled cells = the token --ap-gold", ok,
                       {"token": tok, "bar": b})
+                ti = ("white", "sepia", "night").index(theme)
+                got_b = pg.evaluate(BANDS_JS)
+                tokc = rgba(tok["tokenRGB"])
+                bad_b = {}
+                for k, v in got_b.items():
+                    cc, want = rgba(v), BANDS[k][ti] / 100
+                    if not (cc and all(abs(cc[i] - tokc[i]) <= 3 for i in range(3)) and abs(cc[3] - want) <= 0.011):
+                        bad_b[k] = [v, f"want --ap-gold {BANDS[k][ti]} %"]
+                check(tag, "G V47b bands = rgba(--ap-gold, N %) per maket 2 (toc, selected row, stripe, search list/text, bookmark glow)",
+                      not bad_b, {"bad": bad_b, "got": got_b})
                 css = pg.evaluate(CSS_TEXT)
                 hits = css_old(css)
                 check(tag, "D the loaded stylesheets hold no opaque old gold", not hits, {"hits": sorted(set(hits))[:12], "n": len(hits)})
@@ -226,7 +310,7 @@ def run(browser, dev, opts, theme):
                     pg.evaluate("() => document.getElementById('qa-v47-probes').style.display = 'none'")
                     shot(pg, f"{theme}_{dev}_zvaigznite")
                     pg.evaluate("() => document.getElementById('qa-v47-probes').style.display = ''")
-            s = pg.evaluate(SCAN, {k: list(v) for k, v in OLD.items()})
+            s = pg.evaluate(SCAN, SCAN_ARG)
             check(tag, f"C «{label}» (+ probes): no element shows an old gold", s["n"] > 20 and not s["bad"],
                   {"elements": s["n"], "old": s["bad"][:10], "nBad": len(s["bad"])})
             if label == "cover":
@@ -236,7 +320,7 @@ def run(browser, dev, opts, theme):
                 shot(pg, f"{theme}_{dev}_progresa-josla")
         if theme == "white":
             pg.goto(f"{BASE}/transcripts/10011-en.html", wait_until="domcontentloaded")
-            s = pg.evaluate(SCAN, {k: list(v) for k, v in OLD.items()})
+            s = pg.evaluate(SCAN, SCAN_ARG)
             check(tag, "E lecture transcript page: no element shows an old gold", s["n"] > 3 and not s["bad"],
                   {"elements": s["n"], "old": s["bad"][:8]})
         check(tag, "no page errors", not errors, errors[:3])

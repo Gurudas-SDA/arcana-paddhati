@@ -213,7 +213,7 @@ body {
   animation: bookmark-flash 2.6s ease-out;
 }
 @keyframes bookmark-flash {
-  0%, 35% { background-color: rgba(232, 176, 74, 0.38); box-shadow: 0 0 0 6px rgba(232, 176, 74, 0.38); }
+  0%, 35% { background-color: var(--ap-band-flash); box-shadow: 0 0 0 6px var(--ap-band-flash); }
   100% { background-color: transparent; box-shadow: 0 0 0 6px transparent; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -360,7 +360,8 @@ body {
    muted; computed in code (lib/book.ts sectionNumbers), not part of the
    title text, so search is unaffected. */
 .heading-num {
-  color: #9C7A4E;
+  /* V47b (Vraja Lila msg 6346 «цифры в старом цвете»): the one gold token, muted toward the text (was #9C7A4E) */
+  color: var(--ap-num);
   font-variant-numeric: tabular-nums;
   margin-right: 0.4em;
 }
@@ -642,9 +643,9 @@ html[data-reader-theme="night"] .home-save-track.is-idle i.part {
   transition: background-color 180ms ease, color 150ms ease;
 }
 .hs-row[data-active] .hs-text {
-  /* The interface's beige-gold, semi-transparent: clearly visible on white
+  /* The one gold token, semi-transparent (V47b maket 2, Vraja Lila msg 6346): clearly visible on white
      and on the sepia page (Satkirti 06.10.2026: «хоть полупрозрачная»). */
-  background-color: rgba(212, 168, 67, 0.32);
+  background-color: var(--rd-row-active);
   color: #2C1810;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -661,7 +662,7 @@ html[data-reader-theme="night"] .home-save-track.is-idle i.part {
   transition: background-color 180ms ease, color 150ms ease;
 }
 .hs-row[data-active] .hs-cell {
-  background-color: rgba(212, 168, 67, 0.32);
+  background-color: var(--rd-row-active);
   color: #2C1810;
 }
 .hs-row[data-active] .hs-cell-first {
@@ -738,7 +739,7 @@ html:root .hs-row:is(li, div)[data-active] :is(.hs-text, .hs-cell) {
 }
 /* Alternating bands on a linked list, so a place and its mantra read as one
    row on a narrow screen. Decoration, not a state: the selection band
-   (rgba(212,168,67,.32)) sits on top of it and stays clearly stronger.
+   (--rd-row-active) sits on top of it and stays clearly stronger.
    Taps are unchanged, the band is not a target (rules §1, §11). */
 /* The same bands on every two-column list (.pl-row; Vraja Lila msg 5398/5399, 20.10.2026). */
 .hs-row:nth-of-type(even),
@@ -904,10 +905,16 @@ html:root .hs-row:is(li, div)[data-active] :is(.hs-text, .hs-cell) {
   --rd-border: #E8DCC8;
   --rd-hover: #F5E6C8;
   --rd-panel-bg: #FFFFFF;
-  --rd-row-active: rgba(212, 168, 67, 0.32);
+  /* V47b (Vraja Lila msg 6346, maket 2): every translucent band = the one gold token at N % (N per place × theme,
+     Vraja_Lila/faili/2026.10.22_V47b_maket2_alfas.md — the same visual intensity as the old beige bands) */
+  --rd-row-active: color-mix(in srgb, var(--ap-gold) 26%, transparent);
   /* alternating band on linked lists (tilak, 16 articles): decoration only,
-     far weaker than the selection band so the two never read alike */
-  --rd-row-stripe: rgba(212, 168, 67, 0.065);
+     far weaker than the selection band so the two never read alike (5 % — same method as the table) */
+  --rd-row-stripe: color-mix(in srgb, var(--ap-gold) 5%, transparent);
+  --ap-band-toc: color-mix(in srgb, var(--ap-gold) 10%, transparent);       /* «Содержание»: the lit row */
+  --ap-band-mark: color-mix(in srgb, var(--ap-gold) 40%, transparent);      /* search: the word in the results */
+  --ap-band-hit: color-mix(in srgb, var(--ap-gold) 44%, transparent);       /* search: the word in the text */
+  --ap-band-flash: color-mix(in srgb, var(--ap-gold) 31%, transparent);     /* a bookmark's place on arrival */
   --reader-pad-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
 }
 html[data-reader-theme="sepia"] {
@@ -919,8 +926,12 @@ html[data-reader-theme="sepia"] {
   --rd-border: #DCCCAC;
   --rd-hover: #E5D8BC;
   --rd-panel-bg: #F6F0E2;
-  --rd-row-active: rgba(212, 168, 67, 0.32);
-  --rd-row-stripe: rgba(120, 88, 30, 0.06);
+  --rd-row-active: color-mix(in srgb, var(--ap-gold) 25%, transparent);
+  --rd-row-stripe: color-mix(in srgb, var(--ap-gold) 5%, transparent);
+  --ap-band-toc: color-mix(in srgb, var(--ap-gold) 10%, transparent);
+  --ap-band-mark: color-mix(in srgb, var(--ap-gold) 38%, transparent);
+  --ap-band-hit: color-mix(in srgb, var(--ap-gold) 42%, transparent);
+  --ap-band-flash: color-mix(in srgb, var(--ap-gold) 30%, transparent);
 }
 html[data-reader-theme="night"] {
   --rd-bg: #16130F;
@@ -934,8 +945,12 @@ html[data-reader-theme="night"] {
   --rd-border: #3A3128;
   --rd-hover: #2E271F;
   --rd-panel-bg: #211C16;
-  --rd-row-active: rgba(212, 168, 67, 0.28);
-  --rd-row-stripe: rgba(242, 233, 218, 0.045);
+  --rd-row-active: color-mix(in srgb, var(--ap-gold) 27%, transparent);
+  --rd-row-stripe: color-mix(in srgb, var(--ap-gold) 4%, transparent);
+  --ap-band-toc: color-mix(in srgb, var(--ap-gold) 5%, transparent);
+  --ap-band-mark: color-mix(in srgb, var(--ap-gold) 44%, transparent);
+  --ap-band-hit: color-mix(in srgb, var(--ap-gold) 44%, transparent);
+  --ap-band-flash: color-mix(in srgb, var(--ap-gold) 39%, transparent);
   color-scheme: dark;
 }
 
@@ -1426,7 +1441,7 @@ html[data-aa-open] .lang-backdrop.lang-backdrop-out {
 /* Search (Reader v7.8, Satkirti 07.10.2026): the found word stands out — in the
    results and, after opening one, in the text (CSS Custom Highlight API). */
 .search-mark {
-  background-color: rgba(212, 168, 67, 0.5);
+  background-color: var(--ap-band-mark);
   color: #1a1a1a;
   border-radius: 3px;
   padding: 0 1px;
@@ -1434,16 +1449,26 @@ html[data-aa-open] .lang-backdrop.lang-backdrop-out {
   -webkit-box-decoration-break: clone;
 }
 ::highlight(search-hit) {
-  background-color: rgba(212, 168, 67, 0.55);
+  background-color: var(--ap-band-hit);
   color: #1a1a1a;
 }
 html[data-reader-theme="night"] .search-mark {
-  background-color: rgba(212, 168, 67, 0.45);
+  background-color: var(--ap-band-mark);
   color: #F2E9DA;
 }
 html[data-reader-theme="night"] ::highlight(search-hit) {
-  background-color: rgba(212, 168, 67, 0.45);
+  background-color: var(--ap-band-hit);
   color: #F2E9DA;
+}
+/* V47b: in sepia the lit row of «Содержание» (token 10 %) is darker than the page, so its gold text is the token
+   15 % toward the text (4.78 : 1, AA; plain token 4.06) — s81 */
+html[data-reader-theme="sepia"] .bg-\[var\(--ap-band-toc\)\].text-\[var\(--ap-gold\)\],
+html[data-reader-theme="sepia"] .bg-\[var\(--ap-band-toc\)\] .text-\[var\(--ap-gold\)\] {
+  color: color-mix(in srgb, var(--ap-gold) 85%, var(--rd-fg));
+}
+/* V47b: the in-text fallback mark (no Highlight API) = the same band as ::highlight(search-hit), not the list's */
+html .search-mark.search-hit-fb {
+  background-color: var(--ap-band-hit);
 }
 .reader-theme-btn[aria-pressed="true"] {
   border-color: var(--rd-accent);
@@ -1466,7 +1491,7 @@ html[data-reader-theme="night"] ::highlight(search-hit) {
   --lang-check: var(--ap-gold);
 }
 html[data-reader-theme="sepia"] {
-  --lang-sel-bg: #E9D3A6;
+  --lang-sel-bg: color-mix(in srgb, var(--ap-gold) 24%, var(--rd-bg)); /* V47b: token (was #E9D3A6, same intensity) */
 }
 html[data-reader-theme="night"] {
   --lang-sel-bg: #3A3020;
@@ -1691,7 +1716,6 @@ html[data-reader-theme="night"] .hs-peek {
   background-color: var(--rd-bg);
 }
 html[data-reader-theme="night"] .bg-\[\#FDF8F0\],
-html[data-reader-theme="night"] .bg-\[\#FAF3E8\],
 html[data-reader-theme="night"] .bg-white\/60 {
   background-color: #211C16;
 }
@@ -1722,14 +1746,12 @@ html[data-reader-theme="night"] .translation {
   color: #CFC4B3;
 }
 html[data-reader-theme="night"] .sa-inline {
-  color: #D9BC8C;
-}
-html[data-reader-theme="night"] .heading-num {
-  color: #A88C63;
+  /* V47b: the token lightened toward the night text (was the old beige-gold #D9BC8C) */
+  color: color-mix(in srgb, var(--ap-gold) 55%, var(--rd-fg));
 }
 html[data-reader-theme="night"] .hs-row[data-active] .hs-cell,
 html[data-reader-theme="night"] .hs-row[data-active] .hs-text {
-  background-color: rgba(212, 168, 67, 0.28);
+  background-color: var(--rd-row-active);
   color: #F2E9DA;
 }
 html[data-reader-theme="night"] .book-image,
@@ -1921,7 +1943,7 @@ html[data-reader-theme="night"] ::selection {
   font-size: 11px;
   font-style: italic;
   font-weight: 400;
-  color: #9c7a4e;
+  color: var(--ap-label);
 }
 /* A65: the page did not come — a quiet note that may wrap (never widens the row). */
 .toc-failed-note {
@@ -2222,8 +2244,9 @@ html[data-resume-fade="in"] .app-main {
    The «Установить» band keeps white text and ✕ (as before) on a darker gold:
    --ap-band-1 -> --ap-band-2 (white 4.91–5.74).
    V47 (Vraja Lila 22.10): mantras, ornaments, link underlines, the download bar, scrollbars, portrait frames —
-   the same token; only translucent highlight bands (selected row, search hit, bookmark glow) keep their beige
-   (rule UI-2.4 «лёгкая полупрозрачная бежевая полоска»). Pictures and body text are unchanged.
+   the same token. V47b (Vraja Lila msg 6346, maket 2): the translucent highlight bands (selected row, stripe,
+   «Содержание» lit row, search hit, bookmark glow) = the token at N % (--rd-row-active, --ap-band-*), section numbers
+   and night Sanskrit words = the token mixed (--ap-num). Pictures and body text are unchanged.
    qa/suites/s79_wcag_v33.py guards every value.
    ===================================================================== */
 :root {
@@ -2245,10 +2268,16 @@ html[data-reader-theme="night"] {
   --ap-gold: var(--ap-gold-on-dark);
   --rd-faint: rgba(187, 174, 154, 0.70);
 }
-/* part labels and small numbers in «Содержание» (brown, not gold): #9C7A4E -> #7A5E38 */
-html:not([data-reader-theme="night"]) .text-\[\#9C7A4E\],
-html:not([data-reader-theme="night"]) aside .heading-num {
-  color: #7A5E38;
+/* V47b (Vraja Lila msg 6346): section numbers («4.11.», in the text and in «Содержание») = the one gold token,
+   muted — toward the text colour on light pages (contrast ≥ 4.5), toward the page in night; part labels, the
+   «Закладки» tab and the «loading» note — the brown label tone (V33), in night the muted text (was #9C7A4E). */
+:root {
+  --ap-num: color-mix(in srgb, var(--ap-gold) 80%, var(--rd-fg));
+  --ap-label: #7A5E38;
+}
+html[data-reader-theme="night"] {
+  --ap-num: color-mix(in srgb, var(--ap-gold) 75%, var(--rd-bg));
+  --ap-label: var(--rd-muted);
 }
 /* search field frame — the same tone as the magnifier and the placeholder */
 .search-input {

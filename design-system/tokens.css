@@ -13,9 +13,9 @@
   --ds-fill-soft: #FDF8F0;                       /* cream: the soft pill's resting fill */
   --ds-line: #E8DCC8;                            /* thin frames and lines */
   --ds-surface: #FFFFFF;
-  --ds-band: var(--rd-row-stripe, rgba(212, 168, 67, 0.065));     /* tables' alternating row */
-  --ds-band-active: var(--rd-row-active, rgba(212, 168, 67, 0.32)); /* a marked row (one block) */
-  --ds-row-lit: #FAF3E8;                         /* the lit row of «Содержание» */
+  --ds-band: var(--rd-row-stripe, color-mix(in srgb, var(--ap-gold, #965700) 5%, transparent));     /* tables' alternating row */
+  --ds-band-active: var(--rd-row-active, color-mix(in srgb, var(--ap-gold, #965700) 26%, transparent)); /* a marked row (one block) */
+  --ds-row-lit: var(--ap-band-toc, color-mix(in srgb, var(--ap-gold, #965700) 10%, transparent)); /* the lit row of «Содержание» (V47b) */
   --ds-row-hover: #FDF8F0;
   --ds-text: var(--rd-fg, #1a1a1a);
   --ds-text-muted: var(--rd-muted, #5C3D2E);

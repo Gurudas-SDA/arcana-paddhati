@@ -33,7 +33,7 @@ colour change is made once, in `tokens.css`.
 | `--ds-line` | `#E8DCC8` | thin frames and lines |
 | `--ds-band` | `var(--rd-row-stripe)` | tables' alternating row |
 | `--ds-band-active` | `var(--rd-row-active)` | a marked row (one block) |
-| `--ds-row-lit` / `--ds-row-hover` | `#FAF3E8` / `#FDF8F0` | lit / hovered row of «Содержание» |
+| `--ds-row-lit` / `--ds-row-hover` | `var(--ap-band-toc)` (token 10 %, night 5 %) / `#FDF8F0` | lit / hovered row of «Содержание» |
 | `--ds-text` / `--ds-text-muted` | `var(--rd-fg)` / `var(--rd-muted)` | text; labels and numbers |
 | `--ds-radius-pill` / `-band` / `-block` | `9999px` / `4px` / `6px` | chip; band; marked row |
 | `--ds-target` | `44px` | minimum tap target |
@@ -48,8 +48,24 @@ verses, the chapter ornament, mantra lines, table rules, link underlines, portra
 spinners, the transcripts' links — takes ONE colour: `var(--ap-gold)` (variant B, honey amber: `#965700` on white /
 sepia, `#E3A03C` on night and on the dark toast — `--ap-gold-on-dark`). A lighter gold is the same token mixed
 (`color-mix(in srgb, var(--ap-gold) N%, …)`), never a second hex. The old golds (`#D4A843`, `#B8860B`, `#8B6508`,
-`#E8B04A`) are not used anywhere. Kept apart: the translucent highlight bands (selected row, search hit, bookmark
-glow — rule UI-2.4 «лёгкая полупрозрачная бежевая полоска»). Guarded by `qa/suites/s99_one_gold_v47.py`.
+`#E8B04A`) are not used anywhere. Guarded by `qa/suites/s99_one_gold_v47.py`.
+
+V47b (Vraja Lila msg 6346, maket 2 «да, берём этот вариант»): the translucent bands are the same token at N %
+(`color-mix(in srgb, var(--ap-gold) N%, transparent)`, N = the old beige band's visual intensity, white / sepia / night):
+
+| Band | Variable | N % |
+|---|---|---|
+| «Содержание» lit row | `--ap-band-toc` | 10 / 10 / 5 |
+| selected row (one block) | `--rd-row-active` | 26 / 25 / 27 |
+| alternating row stripe | `--rd-row-stripe` | 5 / 5 / 4 |
+| search: word in the results | `--ap-band-mark` | 40 / 38 / 44 |
+| search: word in the text | `--ap-band-hit` | 44 / 42 / 44 |
+| bookmark glow | `--ap-band-flash` | 31 / 30 / 39 |
+
+Text: section numbers («4.11.», text and «Содержание») `--ap-num` = the token muted toward the text (light pages) /
+toward the page (night); Sanskrit words in night = the token 55 % with the night text; part labels, the «Закладки» tab,
+the loading note `--ap-label` (#7A5E38 brown / night muted text). The old beige-gold text tones (#9C7A4E, #A88C63,
+#D9BC8C) are not used.
 
 ## Components
 

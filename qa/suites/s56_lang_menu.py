@@ -35,7 +35,8 @@ def check(dev, name, ok, evidence=""):
 
 
 CONTRAST = """() => {
-  const lum = c => { const m = c.match(/[\\d.]+/g).map(Number); const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+  // color(srgb r g b) (computed color-mix, V47b) — channels 0..1
+  const lum = c => { const m = c.match(/[\\d.]+/g).map(Number); if (/^color\(srgb/.test(c)) for (let i = 0; i < 3; i++) m[i] *= 255; const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
     return 0.2126 * f(m[0]) + 0.7152 * f(m[1]) + 0.0722 * f(m[2]); };
   const bg = el => { for (let e = el; e; e = e.parentElement) { const c = getComputedStyle(e).backgroundColor; const a = (c.match(/[\\d.]+/g) || []).map(Number);
     if (a.length >= 3 && (a.length < 4 || a[3] > 0.5)) return c; } return 'rgb(255,255,255)'; };

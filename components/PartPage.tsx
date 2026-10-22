@@ -15,7 +15,7 @@ export default function PartPage({ part, lang }: { part: TocPart; lang: string; 
   return (
     <article className="reader-article">
       <header className="mb-8">
-        <p className="text-sm uppercase tracking-[0.12em] text-[#9C7A4E]" style={HEADING_FONT}>
+        <p className="text-sm uppercase tracking-[0.12em] text-[var(--ap-label)]" style={HEADING_FONT}>
           {t(ui, "part.label", { n: part.numeral })}
         </p>
         <h1
