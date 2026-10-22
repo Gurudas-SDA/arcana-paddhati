@@ -62,9 +62,9 @@ ERRATA = [("parama-bhāgavat-pravara", "parama-bhāgavata-pravara"), ("Bābāji 
 GURU_LINE = "Jaya oṁ viṣṇupāda paramahaṁsa parivrājakācārya aṣṭottara-śata Śrī Śrīmad Śrī Prema Prayojana Prabhu kī jaya!"
 GURU_NO = 2
 # Calls Satkirti still decides on (msg 6177/6180): kept as in the source for now.
-PENDING = (27, 28, 29, 33)
+PENDING = ()  # Satkirti msg 6202: 27 and 33 stay; 4, 28, 29 struck (DROP)
 # Calls struck from the book — e.g. DROP = (27, 28, 29, 33) after Satkirti's «убрать».
-DROP = ()
+DROP = (4, 28, 29)  # Satkirti msg 6202; numbering of the 2016 edition (34 calls)
 
 KJ = ("kī jaya", "слава", "all glories")
 NLP = [("nitya-līlā-praviṣṭa", "вошедшему в вечные игры", "who has entered the eternal pastimes")]

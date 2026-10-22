@@ -135,8 +135,9 @@ def gg(s):
     return s
 
 
-# msg 6180 p.4: Satkirti may strike 27/28/29/33 — the generator's DROP says which are struck (none until her word)
-GG_BOOK = [(n, GURU_LINE if n == 2 else gg(x)) for n, x in enumerate(GG2016, 1) if n not in getattr(JD, "DROP", ())]
+# msg 6202: Satkirti struck calls 4 (Vāmana), 28 (Caitanya Maṭha), 29 (Keśavajī Gauḍīya Maṭha); 27 and 33 stay
+DROPPED = (4, 28, 29)
+GG_BOOK = [(n, GURU_LINE if n == 2 else gg(x)) for n, x in enumerate(GG2016, 1) if n not in DROPPED]
 assert len(GG2016) == 34
 VERSE_WORDS = re.compile(r"tan-nāma|nāma-rūpa|rasanā|tiṣṭhan vraje|anurāgi|upadeśa-sār|essence of all advice|"
                          r"eighth verse|krameṇa|sukīrtan|anukīrtan", re.I)
@@ -177,8 +178,11 @@ for lang, fn in BOOKS.items():
     got = [nfc(x.get("sanskrit")) for x in jv]
     chk(f"e {fn}: Джая-дхвани = the calls of «Gīti-guccha» 2016 in order, verbatim (msg 6180 p.1)",
         got == want, next(((i + 1, g[:70], w[:70]) for i, (g, w) in enumerate(zip(got, want)) if g != w), (len(got), len(want))))
-    chk(f"e {fn}: calls 27/28/29/33 kept until Satkirti decides (msg 6180 p.4)",
-        all(n in [m for m, _ in GG_BOOK] for n in (27, 28, 29, 33)) or getattr(JD, "DROP", ()), getattr(JD, "DROP", None))
+    jtxt = nfc(json.dumps(jd, ensure_ascii=False))
+    chk(f"e {fn}: msg 6202: 31 calls; 4 (Vāmana), 28 (Caitanya Maṭha), 29 (Keśavajī Gauḍīya Maṭha) struck, 27 and 33 stay",
+        len(jv) == 31 and not re.search(r"Bhaktivedānta Vāmana|Ākara maṭha|Keśavajī|Бхактиведанта Вамана|Кешавад?жи", jtxt)
+        and any("Cāri-dhāma" in nfc(x.get("sanskrit")) or "ри-дха" in nfc(x.get("sanskrit")) for x in jv)
+        and any("Samāgata" in nfc(x.get("sanskrit")) or "гата бхакта" in nfc(x.get("sanskrit")) for x in jv), len(jv))
     chk(f"e {fn}: none of the Voronezh calls that «Gīti-guccha» 2016 does not have",
         not [x for x in got if re.search(r"Devānanda|Девананда|devānanda|Vedānta Samiti|vedānta samiti|Ishvara|īśvara purī|Īśvara Purī|"
                                         r"Mādhavendra|mādhavendra|Rūpa-Sanātana Gauḍīya|giridhārī gauḍīya|Giridhārī Gauḍīya|"
