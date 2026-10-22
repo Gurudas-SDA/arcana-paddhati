@@ -75,6 +75,7 @@
   "reader.noForward": "«Вперёд» — после «Назад»",
   "reader.noBack": "Это начало пути",
   "group.contents": "Содержание введения",
+  "group.inThisSection": "В этом разделе",
   "offline.progress": "Сохраняется для чтения без интернета: {n} %",
   "reader.layout": "Чтение",
   "reader.layout.page": "Страницы",

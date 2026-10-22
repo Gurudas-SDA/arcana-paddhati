@@ -1,13 +1,15 @@
-import Link from "next/link";
 import type { TocPart } from "@/lib/book";
-import { getSection, getSectionNumber, getUi } from "@/lib/content";
-import { localeHref, t } from "@/lib/i18n";
+import { getUi } from "@/lib/content";
+import { t } from "@/lib/i18n";
+import SectionChapters from "@/components/SectionChapters";
 
 const HEADING_FONT = { fontFamily: "var(--font-book, Georgia, serif)" };
 
 /** Page of a part of the book (Part I, II, …): its chapters, or a
- *  "in preparation" line while the part has none yet. */
-export default function PartPage({ part, lang }: { part: TocPart; lang: string }) {
+ *  "in preparation" line while the part has none yet. V39 (Vraja Lila msg 1326 /
+ *  6090): the chapters are the «В этом разделе» block (components/SectionChapters.tsx);
+ *  in «Лента» (`inBook`) it is left out — the chapters follow right below there. */
+export default function PartPage({ part, lang, inBook = false }: { part: TocPart; lang: string; inBook?: boolean }) {
   const ui = getUi(lang);
   return (
     <article className="reader-article">
@@ -26,24 +28,7 @@ export default function PartPage({ part, lang }: { part: TocPart; lang: string }
       {part.sections.length === 0 ? (
         <p className="text-[15px] leading-7 italic text-[#5C3D2E]">{t(ui, "part.empty")}</p>
       ) : (
-        <ol role="list" className="space-y-2 text-[15px] leading-7">
-          {part.sections.map((id) => {
-            const s = getSection(lang, id);
-            if (!s) return null;
-            const num = getSectionNumber(id);
-            return (
-              <li key={id}>
-                <Link
-                  href={localeHref(lang, id)}
-                  className="text-[#1a1a1a] hover:text-[#B8860B] transition-colors"
-                >
-                  {num && <span className="heading-num">{`${num}.`}</span>}
-                  {s.title}
-                </Link>
-              </li>
-            );
-          })}
-        </ol>
+        !inBook && <SectionChapters lang={lang} ui={ui} ids={part.sections} numbered />
       )}
     </article>
   );

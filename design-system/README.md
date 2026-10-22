@@ -65,3 +65,11 @@ colour change is made once, in `tokens.css`.
   (V38c, `components/Sidebar.tsx` `[data-toc-group-row]`).
 - **Tests:** `s82_one_block_highlight_v36.py`, `s87_section_row_one_highlight_v38c.py`.
 
+### Box «В этом разделе» (`.section-chapters`, `components/SectionChapters.tsx`) — V39
+- **Look** (Vraja msg 1326, 6096–6099): a box in the tables' alternating band colour (`--ds-band`), their radius
+  (`--ds-radius-band`) and width (the text column), as tall as the list with inner margins (`--ds-box-pad`);
+  heading «В этом разделе» in the contents' label style (`--ds-text-muted`); one row per chapter with › at the right
+  (`--ds-accent`), 44 px; no separator line.
+- **Behaviour:** a row opens its chapter. Shown under every section page that lists chapters (the Introduction,
+  each part); not in «Лента».
+- **Test:** `qa/suites/s91_in_this_section_v39.py`.
