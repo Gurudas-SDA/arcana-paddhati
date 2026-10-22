@@ -68,8 +68,11 @@ with sync_playwright() as p:
         hit = pg.evaluate("""() => { const r = document.querySelector('.reader-bar-bottom').getBoundingClientRect();
           const e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return !!(e && e.closest('.reader-bar-bottom')); }""")
         check(dev, "«Содержание»: dimming black 60 %, no blur", d and d["bg"] == DIM and d["filter"] in ("none", ""), d)
-        check(dev, "«Содержание»: the dimming ends at the bottom bar — the bar is not dimmed", d and abs(d["bottom"] - bar_top) <= 1 and hit,
-              {"dimBottom": d and d["bottom"], "barTop": bar_top, "barOnTop": hit})
+        # V35 (Vraja Lila msg 1226 / 1319, replaces 5606 here): the bottom bar slides away and the dimming is one layer
+        # down to the screen's bottom.
+        vh = pg.viewport_size["height"]
+        check(dev, "«Содержание»: V35 — the dimming reaches the screen's bottom, the bottom bar slid away", d and abs(d["bottom"] - vh) <= 1 and not hit and bar_top >= vh - 1,
+              {"dimBottom": d and d["bottom"], "barTop": bar_top, "barOnTop": hit, "vh": vh})
         pg.evaluate("document.querySelector('.mobile-menu[data-open] > .sidebar-backdrop').click()")
         pg.wait_for_timeout(700)
 

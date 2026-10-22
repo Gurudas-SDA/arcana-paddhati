@@ -6,6 +6,10 @@ Task (Vraja Lila 20.10.2026, after V16 — iPhone video): «нижняя пан�
 Checked on every animation frame, both ways (✕ / backdrop, and a chapter picked): the bottom bar stays where it was,
 fully visible, never under the menu's dimming, and «‹ Назад» / «Вперёд ›» look exactly as before opening.
 # tehniskais slieksnis Lipikāra, nav S noteikums: position ±0.5 px; opacity ≥ 0.99; recorded for 900 ms after the tap.
+V35 (Vraja Lila msg 1226 / 1319, 21–22.10.2026, saskarnes autors): «при выдвижении боковой панели нижняя панель прячется
+вниз — она там не нужна; боковая панель — на ПОЛНУЮ высоту». The bar no longer stays still: it slides down out of the
+way while the menu opens and comes back while it closes. «Не мерцать» stays: one smooth movement each way (monotonic),
+never faded, «‹ Назад» / «Вперёд ›» look the same; on closing never under the fading dimming.
 usage: python s66_bottom_bar_still.py <base-url>
 """
 import json
@@ -68,6 +72,20 @@ def still(fr, ref, buttons=True):
     return bad
 
 
+def slide(fr, ref, down, buttons=True, covered_ok=False, vh=1e9):
+    """V35: frames that break one smooth slide (down on opening / up on closing): a step against the direction,
+    a fade, the dimming over it (closing), a nav button changed. Returns the bad frames."""
+    bad = []
+    for a, f in zip([ref] + fr, fr):
+        back = (f[1] < a[1] - 0.5) if down else (f[1] > a[1] + 0.5)
+        btn = buttons and (f[5] != ref[5] or f[6] != ref[6])
+        # «under the dimming» only counts while the bar is on the screen (its top above the screen's bottom)
+        covered = f[4] and f[1] < vh - 0.5
+        if back or f[3] < 0.99 or (covered and not covered_ok) or btn:
+            bad.append(f)
+    return bad
+
+
 def open_contents(pg):
     show_bars(pg)
     pg.wait_for_timeout(300)
@@ -89,25 +107,29 @@ with sync_playwright() as p:
         pg.go_back(wait_until="networkidle")
         pg.wait_for_timeout(900)
 
-        # 1. opening: the bar does not change at all
+        # 1. opening (V35): the bar slides down out of the screen in one smooth movement (under the one dimming)
         ref, fr = open_contents(pg)
-        bad = still(fr, ref)
-        check(dev, "opening «Содержание»: bottom bar still — same place, fully visible, not dimmed, «Назад»/«Вперёд» unchanged",
-              fr and fr[-1][7] and not bad, {"ref": ref, "bad": bad[:4], "frames": len(fr)})
+        vh = pg.evaluate("innerHeight")
+        bad = slide(fr, ref, down=True, covered_ok=True)
+        check(dev, "opening «Содержание» (V35): bottom bar slides down off the screen — one smooth move, never faded, «Назад»/«Вперёд» unchanged",
+              fr and fr[-1][7] and fr[-1][1] >= vh - 0.5 and not bad, {"ref": ref, "bad": bad[:4], "end": fr[-1] if fr else None, "frames": len(fr)})
 
-        # 2. closing by the dimming (✕ / backdrop): the bar does not change at all
+        # 2. closing by the dimming (✕ / backdrop): the bar comes back up in one smooth move, above the fading dimming
+        start = pg.evaluate(f"({SAMPLE})()")
         fr = record(pg, "document.querySelector('.mobile-menu[data-open] > .sidebar-backdrop').click()")
-        bad = still([f for f in fr if f[7]] + fr[-1:], ref)
-        check(dev, "closing «Содержание» (backdrop): bottom bar still — never under the fading dimming, «Назад»/«Вперёд» unchanged",
-              fr and not fr[-1][7] and not bad, {"ref": ref, "bad": bad[:4], "frames": len(fr), "menuSeen": any(f[7] for f in fr)})
+        bad = slide([f for f in fr if f[7]] + fr[-1:], start, down=False, vh=vh)
+        check(dev, "closing «Содержание» (backdrop, V35): bottom bar comes back up to its place — one smooth move, never under the fading dimming, «Назад»/«Вперёд» unchanged",
+              fr and not fr[-1][7] and not bad and abs(fr[-1][1] - ref[1]) <= 0.5,
+              {"ref": ref, "bad": bad[:4], "end": fr[-1] if fr else None, "frames": len(fr), "menuSeen": any(f[7] for f in fr)})
 
         # 3. a chapter picked: new page, the panel slides back — the bar stays in place and above the dimming
         ref, _ = open_contents(pg)
         fr = record(pg, """(() => { const a = [...document.querySelectorAll('.mobile-menu[data-open] aside nav a')].find(x => x.textContent.includes(%s)); a.click(); })()"""
                     % json.dumps(PICK), 1800)
         menu_fr = [f for f in fr if f[7]]
-        bad = still(menu_fr, ref, buttons=False)
-        check(dev, "chapter picked: while the panel slides back, the bottom bar stays in place, fully visible, never dimmed",
+        start = menu_fr[0] if menu_fr else ref
+        bad = slide(menu_fr, start, down=False, buttons=False, covered_ok=False, vh=vh)
+        check(dev, "chapter picked (V35): while the panel slides back, the bottom bar only comes back up — never faded, never dimmed",
               menu_fr and not fr[-1][7] and not bad, {"ref": ref, "bad": bad[:4], "frames": len(menu_fr)})
         c.close()
         b.close()

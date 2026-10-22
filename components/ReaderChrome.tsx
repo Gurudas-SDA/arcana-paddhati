@@ -879,6 +879,9 @@ export default function ReaderChrome({
       data-panel={panel ? "" : undefined}
       // Also while the drawer slides back: the bottom bar stays above its fading dimming (V16 fix).
       data-menu={menuShown ? "" : undefined}
+      // V35 (Vraja Lila msg 1226 / 1319): while «Содержание» is open the bottom bar slides
+      // down out of the way (the menu has the whole height); it comes back as the menu closes.
+      data-menu-open={menuOpen ? "" : undefined}
       // V38b (Vraja Lila msg 1320): on the cover a tap shows ONLY the top bar — no bottom bar there.
       data-home={isHome ? "" : undefined}
     >

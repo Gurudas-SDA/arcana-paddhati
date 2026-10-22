@@ -170,6 +170,8 @@ SUITES = [
          devices=["iphone14", "iphone-se", "desktop"], fast=True, fast_devices=["iphone14", "iphone-se"]),
     dict(id="s85", file="suites/s85_cover_top_bar_only_v38b.py", title="V38b Vraja 1320: uz vāka pieskāriens izbīda TIKAI augšējo joslu, apakšējo ne (nodaļā abas)",
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
+    dict(id="s86", file="suites/s86_menu_full_height_v35.py", title="V35 Vraja 1226/1319: «Содержание» pilnā augstumā, apakšējā josla plūstoši aizbrauc lejā (vāks, nodaļa, Lente), aptumšojums līdz apakšai, aizverot josla atgriežas",
+         devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
          devices=None, fast=True, server=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",

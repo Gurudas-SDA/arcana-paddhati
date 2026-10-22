@@ -41,7 +41,8 @@ def settled_ok(s):
     if s["menus"] == 0:
         return True
     return (s["menus"] == 1 and s["open"] and not s["closing"] and s["left"] is not None and abs(s["left"]) <= 0.5
-            and s["dim"] is not None and s["dim"] >= 0.99 and s["barZ"] > s["menuZ"])
+            and s["dim"] is not None and s["dim"] >= 0.99)
+    # V35 (Vraja Lila msg 1226 / 1319): the bottom bar no longer stays above the open menu — it slides away (s86).
 
 
 def show_bars(pg):

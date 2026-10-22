@@ -94,12 +94,14 @@ def run(p,dev,eng,kw,mode):
     order = pg.evaluate("[...document.querySelectorAll('aside nav [data-toc-cover], aside nav .toc-scroll > ul > li')].map(l=>l.innerText.trim().split('\\n')[0].trim()).filter(Boolean).slice(0,4)")
     # v7.4 (Satkirti 06.10 / 07.10.2026): the parampara stands between the cover and the Maṅgalācaraṇa
     ck(dev, '3 contents: Обложка → Гуру-парампара → Мангалачарана → ВВЕДЕНИЕ', order[:4] == ['Обложка', 'Гуру-парампара', 'Мангалачарана', 'ВВЕДЕНИЕ'], order)
-    # 1: the bottom bar on screen and on top while the menu is open. V17 (Vraja Lila msg 796): its
-    # buttons are the previous / next chapter — the cover has none (it is not a chapter), so the bar itself.
-    fb = pg.locator('.reader-bar-bottom').bounding_box()
+    # 1: REPLACED by V35 (Vraja Lila msg 1226 / 1319, 21–22.10.2026, saskarnes autors, «Стандарты» 0а): «при выдвижении
+    # боковой панели нижняя панель прячется вниз … боковая панель — на ПОЛНУЮ высоту»; V38b (msg 1320): no bottom bar on
+    # the cover at all. Checked: the menu panel reaches the screen's bottom and the bottom bar is not on screen (s86).
     vh = pg.viewport_size['height']
-    hit = pg.evaluate(f"(()=>{{const e=document.elementFromPoint({fb['x'] + fb['width'] / 2},{fb['y'] + fb['height'] / 2});return !!(e&&e.closest('.reader-bar-bottom'))}})()")
-    ck(dev, '1/2 bottom bar on screen and on top with menu open', fb['y'] + fb['height'] <= vh and hit, fb)
+    st1 = pg.evaluate("""() => { const p = document.querySelector('.mobile-menu[data-open] > .sidebar-transition').getBoundingClientRect();
+      const b = document.querySelector('.reader-bar-bottom'); const cs = getComputedStyle(b); const r = b.getBoundingClientRect();
+      return {panelBottom: Math.round(p.bottom), barOn: cs.display !== 'none' && +cs.opacity > 0.05 && r.height > 0 && r.top < innerHeight - 0.5}; }""")
+    ck(dev, '1/2 V35: menu open — panel full height, no bottom bar', abs(st1['panelBottom'] - vh) <= 1 and not st1['barOn'], st1)
     go_row(pg, 'Мангалачарана', 'mangalacarana')
     pg.wait_for_timeout(1200)
     h1 = qa.reading_eval(pg, "root => root.querySelector('h1').innerText.trim()")

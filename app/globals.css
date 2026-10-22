@@ -1760,8 +1760,16 @@ html[data-reader-theme="night"] ::selection {
   transform: none;
   z-index: 60;
 }
-.mobile-menu > .sidebar-transition {
-  bottom: calc(57px + env(safe-area-inset-bottom, 0px));
+/* V35 (Vraja Lila msg 1226, 21.10.2026; again msg 1319, 22.10): «при выдвижении боковой
+   панели нижняя панель прячется вниз — она там не нужна; боковая панель — на ПОЛНУЮ
+   высоту экрана». While the menu is open ([data-menu-open]) the bottom bar slides down
+   with the menu's easing and duration (220 ms ease, the .reader-bar transition) under
+   the dimming; while the menu slides back ([data-menu] only) the rule above brings it
+   up again at the same time. The menu panel and its dimming reach the screen's bottom. */
+.reader-chrome[data-menu-open] .reader-bar-bottom {
+  transform: translateY(100%);
+  pointer-events: none;
+  z-index: 30;
 }
 /* V38b (Vraja Lila msg 1320): on the cover a tap brings out only the top bar. */
 .reader-chrome[data-home] .reader-bar-bottom {
@@ -1785,11 +1793,10 @@ html[data-reader-theme="night"] ::selection {
 }
 .mobile-menu > .sidebar-backdrop {
   animation: ap-menu-fade 220ms ease both;
-  /* V18: black 60 %, no blur, like the windows; it ends above the bottom bar
-     (57 px = its 44 px buttons + 2 × 6 px + 1 px border), which is never dimmed
-     (Vraja Lila msg 5606). */
+  /* V18: black 60 %, no blur, like the windows. V35 (Vraja Lila msg 1226): one layer
+     over everything behind the menu — the bottom bar has slid away, so the dimming
+     reaches the screen's bottom (before: it ended above the bar, msg 5606). */
   background: rgba(0, 0, 0, 0.6);
-  bottom: calc(57px + env(safe-area-inset-bottom, 0px));
 }
 .mobile-menu[data-closing] {
   pointer-events: none;
