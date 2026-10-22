@@ -130,6 +130,10 @@ colour change is made once, in `tokens.css`.
   bottom bar faded while the bar slid over it, so the text showed through its uncovered part): it stays an opaque
   sheet and is simply covered; it leaves the screen (transform) only after the panel has fully covered it.
   Test: `qa/suites/s96_bars_opaque_while_moving_v44.py` (A, B; C — the status line).
+  Whatever floats ABOVE a sliding bar (V46, Vraja Lila msg 6321 — the one-time hint «Tap empty space to show the menu»
+  stood under the bottom bar, only its top edge showed): it rests wholly above the bar (bar height + 12 px) while the bar
+  is out and moves with the bar (same 220 ms ease, so it never goes under it), as an opaque sheet; it fades in only
+  where it stands. Test: `qa/suites/s98_hint_above_bottom_bar_v46.py`.
 - **«Содержание»:** opening `ap-menu-in` (forwards); closing its own `ap-menu-out` played **forwards** with the same
   ease (not the opening in reverse — reversing also reverses the ease: slow start, abrupt end). The panel is removed
   from the page only on its `animationend` (a timer is only a safety net): closing makes the page busy for

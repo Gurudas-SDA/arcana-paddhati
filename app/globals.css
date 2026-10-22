@@ -1590,7 +1590,15 @@ html[data-reader-theme="night"] {
   }
 }
 
-/* One-time hint */
+/* One-time hint («Коснитесь свободного места — появится меню»).
+   V46 (Vraja Lila msg 6321, 22.10.2026, iPhone, en, «Maṅgalācaraṇa»): it stood at 40 px from the bottom under the
+   opaque bottom bar (z 30, 57 px high) — only its top edge showed. Now, while the bar is out, it lies wholly ABOVE the
+   bar (bar height + 12 px) and moves with the bar (same 220 ms ease, so it never goes under it); bar hidden — 40 px
+   as before (above the faint «… · N %» line). «Solid while moving» (design-system/README.md): an opaque sheet (no
+   see-through background); it only fades in where it stands, never while it moves. Test qa/suites/s98. */
+.reader-chrome {
+  --rd-bottom-bar-h: 57px; /* .reader-bar-bottom: border 1 + padding 6 + 6 + .reader-btn min-height 44 */
+}
 .reader-hint {
   position: fixed;
   z-index: 25;
@@ -1602,13 +1610,21 @@ html[data-reader-theme="night"] {
   margin: 0;
   padding: 8px 14px;
   border-radius: 9999px;
-  background: rgba(44, 24, 16, 0.85);
+  background: #2C1810;
   color: #fff;
   font-size: 13px;
   line-height: 1.35;
   text-align: center;
   pointer-events: none;
-  animation: reader-hint-in 220ms ease-out;
+  transition: bottom 220ms ease;
+  animation: reader-hint-fade 220ms ease-out;
+}
+.reader-chrome[data-shown] .reader-hint {
+  bottom: calc(var(--rd-bottom-bar-h) + 12px + env(safe-area-inset-bottom, 0px));
+}
+@keyframes reader-hint-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes reader-pop {
@@ -1636,6 +1652,9 @@ html[data-reader-bars] .hs-peek {
   .reader-hint,
   .reader-toast {
     animation: none;
+  }
+  .reader-hint {
+    transition: none;
   }
 }
 
