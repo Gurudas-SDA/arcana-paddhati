@@ -1,0 +1,145 @@
+name: QA full
+
+# The FULL QA gates (python qa/run_all.py, every suite on every device) on
+# GitHub-hosted runners instead of the 4-CPU server (20.10.2026: ~3 h there).
+# Split by device profile into parallel jobs; the server keeps only `--fast`.
+#   - started by scripts/qa_run.py full (outside this repo): gh workflow run
+#     qa-full.yml -f sha=<commit> -f tag=<id>, then gh run watch
+#   - and every night on main
+# Read-only: it does NOT deploy (no Pages permissions, own concurrency group),
+# so deploy.yml and pr-check.yml are not touched by it.
+run-name: "QA full ${{ inputs.tag || github.event_name }} ${{ inputs.sha || github.sha }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: "Commit to test (pushed to any branch); empty = the ref the workflow runs on"
+        required: false
+        default: ""
+      tag:
+        description: "Run id used by scripts/qa_run.py to find this run"
+        required: false
+        default: ""
+  schedule:
+    # 01:40 UTC = 04:40 Latvia (EEST) - after the night release, before the morning report
+    - cron: "40 1 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qa-full-${{ inputs.sha || github.sha }}
+  cancel-in-progress: false
+
+env:
+  PLAYWRIGHT_VERSION: "1.54.0"   # = the server's venv (qa/README: playwright + pillow)
+  PYTHONUTF8: "1"
+  PYTHONIOENCODING: "utf-8"
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.sha || github.sha }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: "npm"
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-artifact@v7
+        with:
+          name: out
+          path: |
+            out/
+            public/search-index*.json
+          if-no-files-found: error
+          retention-days: 3
+
+  qa:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # devices = qa/lib/qa.py DEVICES; "data" = the suites without a device (linter, data checks)
+          - leg: data
+            devices: ""
+          - leg: iphone
+            devices: iphone14,iphone-se
+          - leg: ipad
+            devices: ipad-portrait,ipad-landscape,ipad-mini,ipad-pro
+          - leg: mac-safari
+            devices: mac-safari
+          - leg: pixel
+            devices: pixel7,s23fe
+          - leg: desktop
+            devices: desktop
+    name: qa (${{ matrix.leg }})
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.sha || github.sha }}
+      - name: Rollback tag for linter L17
+        run: git fetch --no-tags --depth=1 origin +refs/tags/pirms-interfeisa-2026-10-05:refs/tags/pirms-interfeisa-2026-10-05
+      - uses: actions/download-artifact@v8
+        with:
+          name: out
+          path: .
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: python -m pip install "playwright==${PLAYWRIGHT_VERSION}" pillow
+      - name: Browser cache
+        id: pw-cache
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: pw-${{ runner.os }}-${{ env.PLAYWRIGHT_VERSION }}-chromium-webkit
+      - name: Browsers (download)
+        if: steps.pw-cache.outputs.cache-hit != 'true'
+        run: python -m playwright install --with-deps chromium webkit
+      - name: Browsers (system libraries only, browsers from cache)
+        if: steps.pw-cache.outputs.cache-hit == 'true'
+        run: python -m playwright install-deps chromium webkit
+      - name: QA ${{ matrix.leg }}
+        env:
+          DEVICES: ${{ matrix.devices }}
+        run: |
+          nodev=$(python -c "import sys; sys.path.insert(0, 'qa'); import run_all; print(','.join(s['id'] for s in run_all.SUITES if s['devices'] is None))")
+          if [ -z "$DEVICES" ]; then
+            python qa/run_all.py --suites "$nodev"
+          else
+            python qa/run_all.py --devices "$DEVICES" --suites-skip "$nodev"
+          fi
+      - name: Summary
+        if: always()
+        run: |
+          python - <<'EOF' >> "$GITHUB_STEP_SUMMARY"
+          import json, os
+          p = "qa/.results/last.json"
+          leg = os.environ["LEG"]
+          if not os.path.exists(p):
+              print(f"**{leg}**: no qa/.results/last.json"); raise SystemExit
+          r = json.load(open(p, encoding="utf-8"))
+          print(f"**{leg}**: {r['passed']} pass, {r['failed']} fail, {r['skipped']} skip, {r['known']} known, {len(r['flaky'])} flaky, {r['seconds'] / 60:.1f} min")
+          for j in r["jobs"]:
+              for c in j["checks"]:
+                  if c["status"] == "FAIL":
+                      print(f"- FAIL {c['suite']} {c['dev']} {c['name'][:200]}")
+          EOF
+        env:
+          LEG: ${{ matrix.leg }}
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: qa-results-${{ matrix.leg }}
+          path: qa/.results/
+          if-no-files-found: ignore
+          retention-days: 7
