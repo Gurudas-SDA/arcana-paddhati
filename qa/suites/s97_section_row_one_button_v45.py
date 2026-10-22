@@ -203,6 +203,13 @@ def run(browser, dev, opts, mode, mode_ru):
         shot("обложка, нижняя панель")
         ok = press("forward")
         check(tag, f"D cover «Вперёд ›» opens {PAGES[0]}", ok and page_id() == PAGES[0], pg.url)
+        if mode == "scroll":   # «Лента» mounts the feed after the URL changes; its bar's buttons re-render (~0.7 s on WebKit)
+            pg.wait_for_selector("[data-continuous-book]", state="attached", timeout=30000)
+            qa.wait_for_book_chapter(pg, PAGES[0])
+        try:
+            pg.wait_for_selector("[data-reader-nav]", state="attached", timeout=8000)
+        except Exception:
+            pass
         bars()
         nav = pg.evaluate(NAV)
         check(tag, "D the page after the cover: «‹ Назад» → cover and «Вперёд ›» → the next page",
