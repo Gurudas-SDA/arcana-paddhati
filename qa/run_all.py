@@ -174,6 +174,8 @@ SUITES = [
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s87", file="suites/s87_section_row_one_highlight_v38c.py", title="V38c Vraja 1321/1322: izceltā sadaļa izvēlnē — VIENS vienlaidu fons visai rindai (nosaukums + bultiņa ▸), arī pieskāriena izgaismojumā",
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
+    dict(id="s89", file="suites/s89_pill_master_v40.py", title="V40 Vraja 6091–6094/6103: pārslēdzēja poga = viens master elements (design-system/Pill): fiksēts izmērs atvērta/aizvērta, mainās tikai krāsa/fons, bultiņa griežas vienmērīgi ap centru (panta čipi, «Настроение Гурудева»)",
+         devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
          devices=None, fast=True, server=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",

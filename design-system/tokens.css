@@ -1,0 +1,33 @@
+/* Arcana-paddhati design system — master tokens (V40, Vraja Lila msg 6091–6094 / 6103, 22.10.2026:
+   «начни собирать их в папке design-system … создаём понемногу мастер-токены»).
+   Every master component (design-system/components.css) reads its colours, radii, spacing and
+   timing from here. The reading themes (white / sepia / night) set the --rd-* values
+   (app/globals.css); --ap-gold is the WCAG accent of V33 — until it exists the fallback is used,
+   so V33 changes the accent here without touching the components. See design-system/README.md. */
+:root {
+  /* colours */
+  --ds-accent: var(--ap-gold, #B8860B);          /* gold: icons, the pill's text, frames */
+  --ds-accent-deep: var(--ap-gold, #8B6508);     /* gold text on the cream fill (open state) */
+  --ds-accent-soft: #D4A843;                     /* the soft pill's frame */
+  --ds-fill: #F5E6C8;                            /* cream-dark: an open / picked control's fill */
+  --ds-fill-soft: #FDF8F0;                       /* cream: the soft pill's resting fill */
+  --ds-line: #E8DCC8;                            /* thin frames and lines */
+  --ds-surface: #FFFFFF;
+  --ds-band: var(--rd-row-stripe, rgba(212, 168, 67, 0.065));     /* tables' alternating row */
+  --ds-band-active: var(--rd-row-active, rgba(212, 168, 67, 0.32)); /* a marked row (one block) */
+  --ds-row-lit: #FAF3E8;                         /* the lit row of «Содержание» */
+  --ds-row-hover: #FDF8F0;
+  --ds-text: var(--rd-fg, #1a1a1a);
+  --ds-text-muted: var(--rd-muted, #5C3D2E);
+  /* radii */
+  --ds-radius-pill: 9999px;
+  --ds-radius-band: 4px;                         /* table bands, the «В этом разделе» box */
+  --ds-radius-block: 6px;                        /* a marked list row (V36) */
+  /* spacing */
+  --ds-target: 44px;                             /* minimum tap target */
+  --ds-box-pad: 10px 14px 6px;                   /* inside the «В этом разделе» box */
+  /* motion */
+  --ds-dur-fast: 150ms;                          /* colour changes, the pill's arrow */
+  --ds-dur-slide: 220ms;                         /* menu, bars */
+  --ds-ease: ease;
+}

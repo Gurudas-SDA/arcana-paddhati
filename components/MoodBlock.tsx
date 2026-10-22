@@ -5,6 +5,7 @@ import { transcriptLinkProps } from "@/lib/transcripts";
 import { pushOverlay } from "@/lib/navHistory";
 import { createPortal } from "react-dom";
 import type { MoodQuote, MoodSource } from "@/lib/book";
+import Pill from "@/design-system/Pill";
 
 /** Localised labels of the mood block (data/ui.<lang>.json, keys mood.*). */
 export interface MoodLabels {
@@ -450,35 +451,22 @@ export default function MoodBlock({
 
   return (
     <div className="mood my-4">
-      <button
+      {/* V40: the design system's master Pill (Vraja Lila msg 6091–6094) — fixed size, only colour/fill change. */}
+      <Pill
         ref={buttonRef}
-        type="button"
+        open={open}
+        tone="soft"
+        size="md"
+        chevron="right"
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-controls={open ? dialogId : undefined}
         onClick={openOverlay}
-        className={`mood-toggle inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[12px] leading-4 select-none transition-colors ${
-          open
-            ? "border-[#B8860B] bg-[#F5E6C8] text-[#8B6508] font-semibold"
-            : "border-[#D4A843] bg-[#FDF8F0] text-[#8B6508] hover:border-[#B8860B] hover:bg-[#F5E6C8]"
-        }`}
+        className="mood-toggle"
       >
-        <svg
-          aria-hidden="true"
-          width="10"
-          height="10"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <polyline points="9 6 15 12 9 18" />
-        </svg>
         {labels.button}
         {count > 1 && <span className="font-normal">{` · ${count}`}</span>}
-      </button>
+      </Pill>
       {/* Print only: the chosen quote inline (hidden on screen, see .mood-panel in globals.css). */}
       <div className="mood-panel mt-2 rounded-sm border-l-2 border-[#B8860B] bg-[#FDF8F0] px-4 py-3 sm:px-5">
         <QuoteBody quote={quote} translation={translation} source={source} labels={labels} />

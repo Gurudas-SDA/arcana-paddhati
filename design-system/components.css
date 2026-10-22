@@ -1,0 +1,85 @@
+/* Arcana-paddhati design system — master components (V40). Tokens: design-system/tokens.css.
+   Documentation (look, states, behaviour, where used): design-system/README.md. */
+
+/* ---------- Pill (toggle chip): design-system/Pill.tsx ----------
+   Vraja Lila msg 6091–6094: «надо фиксированный размер и меняется только интенсивность цвета и
+   заливка … иконка стрелочки внутри дёргается неправильно при открытии». The size never changes
+   between states: same font weight, same 1 px frame, same padding; only colour and fill change.
+   The arrow turns smoothly (transform, centred) and never shifts. */
+.ds-pill {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--ds-line);
+  border-radius: var(--ds-radius-pill);
+  background-color: var(--ds-surface);
+  color: var(--ds-accent);
+  font-weight: 400;
+  line-height: 1rem;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--ds-dur-fast) var(--ds-ease), border-color var(--ds-dur-fast) var(--ds-ease),
+    color var(--ds-dur-fast) var(--ds-ease);
+}
+.ds-pill[data-size="sm"] {
+  gap: 4px;
+  padding: 2px 10px;
+  font-size: 11px;
+}
+.ds-pill[data-size="md"] {
+  gap: 6px;
+  padding: 4px 12px;
+  font-size: 12px;
+}
+.ds-pill[data-tone="soft"] {
+  border-color: var(--ds-accent-soft);
+  background-color: var(--ds-fill-soft);
+  color: var(--ds-accent-deep);
+}
+@media (hover: hover) {
+  .ds-pill:hover {
+    border-color: var(--ds-accent);
+  }
+  .ds-pill[data-tone="soft"]:hover {
+    background-color: var(--ds-fill);
+  }
+}
+.ds-pill[data-open] {
+  border-color: var(--ds-accent);
+  background-color: var(--ds-fill);
+  color: var(--ds-accent-deep);
+}
+.ds-pill-chevron {
+  display: block;
+  flex-shrink: 0;
+  transform-origin: 50% 50%;
+  transition: transform var(--ds-dur-fast) var(--ds-ease);
+}
+.ds-pill[data-open] .ds-pill-chevron[data-dir="down"] {
+  transform: rotate(180deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ds-pill,
+  .ds-pill-chevron {
+    transition: none;
+  }
+}
+@media print {
+  .ds-pill {
+    display: none !important;
+  }
+}
+
+/* ---------- One block (a lit / marked row): V36, V36b, V38c ----------
+   Vraja Lila msg 1290 / 5962 / 1321–1322 / 6100–6101: a highlighted row is ONE rectangle with
+   rounded corners over the whole row (number + text, or name + arrow), never separate bands for
+   its parts; a banded (striped) row and a plain row light in the same width as the band. The row
+   element carries the colour; its parts are transparent. */
+.ds-one-block {
+  border-radius: var(--ds-radius-block);
+}
+.ds-one-block > * {
+  background-color: transparent;
+}
+
