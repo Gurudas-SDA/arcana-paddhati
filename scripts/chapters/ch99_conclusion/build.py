@@ -31,7 +31,19 @@ TITLE = {"ru": "Заключение", "en": "Conclusion"}
 SUBTITLE = {"ru": "Внутреннее видение арчаны", "en": "The Inner Vision of Arcana"}
 SUB_IDS = ["conclusion-same-actions", "conclusion-awakening", "conclusion-mangala-arati", "conclusion-morning",
            "conclusion-breakfast", "conclusion-noon", "conclusion-afternoon", "conclusion-evening", "conclusion-night",
-           "conclusion-circle"]
+           "conclusion-circle", "conclusion-ashtakala"]
+# 11th subsection «Аштакалия-лила» (Satkirti 22.10 msg 6141 / 6151): the table of the eight parts of the day and its
+# source lines live in ashtakala_ru.json; chapter_ru.md marks their places with the lines below.
+TABLE_MARK, ASRC_MARK = "[[ASHTAKALA-TABLE]]", "[[ASHTAKALA-SOURCES]]"
+
+
+def ashtakala():
+    return json.load(open(os.path.join(HERE, "ashtakala_ru.json"), encoding="utf-8"))
+
+
+def ashtakala_strings():
+    a = ashtakala()
+    return a["header"] + [x for r in a["rows"] for x in r[1:]] + [a["source_book"], a["source_gurudev"]]
 
 SYSTEM = ("You translate the concluding chapter of a Gauḍīya Vaiṣṇava Deity-worship manual from Russian into English for "
           "the book 'Arcana-paddhati — The Process of Deity Worship'. The chapter is contemplative, literary prose: keep its "
@@ -85,6 +97,8 @@ def parse():
             cur = []
             subs.append((first[3:].strip(), cur)); i += 1; continue
         target = intro if cur is None else cur
+        if first in (TABLE_MARK, ASRC_MARK):
+            target.append(("table",) if first == TABLE_MARK else ("asrc",)); i += 1; continue
         if first.startswith("> — "):
             target.append(("src", qi)); qi += 1; i += 1; continue
         if first.startswith(">"):
@@ -129,6 +143,7 @@ def prose_strings(doc):
             if it[0] == "text":
                 out.append(it[1])
     out += [t for t, _ in doc["subs"]]
+    out += ashtakala_strings()
     return list(dict.fromkeys(out))
 
 
@@ -154,6 +169,16 @@ def section(lang):
                 out.append({"type": "text", "content": txt})
             elif it[0] == "src":
                 out.append(src_block(Q[it[1]], "en" if en else "ru"))
+            elif it[0] == "table":
+                a = ashtakala()
+                tr = (lambda x: en[x]) if en else (lambda x: x)
+                out.append({"type": "table", "header": [tr(h) for h in a["header"]],
+                            "rows": [{"cells": [r[0], tr(r[1]), tr(r[2])]} for r in a["rows"]]})
+            elif it[0] == "asrc":
+                a = ashtakala()
+                tr = (lambda x: en[x]) if en else (lambda x: x)
+                out.append({"type": "sources", "content": tr(a["source_book"]) + "\n" + tr(a["source_gurudev"]),
+                            "links": [{}, dict(a["gurudev_links"])]})
             elif it[0] == "verse":
                 v = verses_en[vi[0]]; vi[0] += 1
                 assert v["sanskrit"] == it[1], ("verses_en.json out of step", v["sanskrit"][:30])
@@ -186,6 +211,10 @@ def to_cyr(sec):
             for k in ("content", "translation"):
                 if b.get(k) and isinstance(b[k], str) and b["type"] != "sources":
                     b[k] = hc.map_inline(b[k], translit)
+            if b["type"] == "table":
+                b["header"] = [hc.map_inline(h, translit) for h in b["header"]]
+                for r in b["rows"]:
+                    r["cells"] = [hc.map_inline(c, translit) for c in r["cells"]]
 
     blocks(s["content"])
     for sub in s["subsections"]:

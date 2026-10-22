@@ -162,6 +162,8 @@ SUITES = [
          devices=None, fast=True, server=False),
     dict(id="s88", file="suites/s88_conclusion.py", title="Satkirti 21.10 msg 6065 + Idea №2 (msg 5692): «Заключение» — pēdējā sadaļa ārpus daļām, bez numura; dienas cikls no pamodināšanas līdz noguldīšanai; katram Gurudeva citātam avots (№, datums, laiks, saite); ru-iast bez kirilicas ar diakritiku",
          devices=None, fast=True, server=False),
+    dict(id="s93", file="suites/s93_ashtakala.py", title="Satkirti 22.10 msg 6141/6151: «Заключение» 11. apakšnodaļa «Аштакалия-лила» — tabula 8 rindas diennakts secībā (laiks no–līdz, IAST nosaukums, kas notiek — viena rinda), laiki 24 h bez spraugām no 3:36; beigās avots tikai Bhajana-rahasya + Gurudevs + Nārāyaṇa Mahārāja (bez noapaļoto laiku rindkopas); 10. apakšnodaļas beigās UM 8 pants vēlreiz pilnībā",
+         devices=None, fast=True, server=False),
     dict(id="s82", file="suites/s82_one_block_highlight_v36.py", title="V36 Vraja 5962: atzīmēta saraksta rinda = VIENS bloks (numurs + teksts vienā taisnstūrī ar noapaļotiem stūriem) — 16 priekšmeti (11) асана), tilaka saraksts",
          devices=["iphone14", "desktop"], fast=True),
     dict(id="s84", file="suites/s84_bookmark_keyboard_v38.py", title="V38 Vraja 1315–1317: grāmatzīmes logs («Новая закладка»/«Переименовать») virs iPhone tastatūras (visualViewport) — «Отмена»/«Подтвердить» redzamas un nospiežamas (iPhone 13/14, SE), lauks iOS neizskatās pēc kontakta (AutoFill)",
