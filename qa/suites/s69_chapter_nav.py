@@ -14,7 +14,7 @@ Checks, per device:
      (data/book.json: chapters and parts, as the contents lists them — not a list in the app's code);
      every step opens the page at its top;  (desktop + pixel7: the whole walk; phones: a part of it)
   C  Pages: «‹ Назад» goes to the previous page in that order, at its top;
-  D  first page: no «‹ Назад» at all (not pale); last page: no «Вперёд ›» at all;
+  D  first page: «‹ Назад» → the cover (V45, Vraja Lila msg 6191); last page: no «Вперёд ›» at all;
   E  Pages: no «Next chapter» block at the end of a chapter; Scroll: none in the whole book;
   F  Pages: reading down to the very end of a chapter brings up the top and the bottom bar once;
      scrolling back up takes them away;
@@ -51,27 +51,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 BOOK = json.load(open(os.path.join(HERE, "..", "..", "data", "book.json"), encoding="utf-8"))
 
 
-def contents_order():
-    """Chapters and parts in the order the contents lists them (lib/book.ts tocLayout, re-done here)."""
-    ids = [s["id"] for s in BOOK["sections"]]
-    parts = BOOK.get("parts", [])
-    part_of = {sid: i for i, p in enumerate(parts) for sid in p["sections"]}
-    out, emitted = [], 0
-    for sid in ids:
-        p = part_of.get(sid)
-        if p is not None:
-            while emitted <= p:
-                out.append(parts[emitted]["id"]); emitted += 1
-        elif emitted > 0:
-            while emitted < len(parts) and not parts[emitted]["sections"]:
-                out.append(parts[emitted]["id"]); emitted += 1
-        out.append(sid)
-    while emitted < len(parts):
-        out.append(parts[emitted]["id"]); emitted += 1
-    return out
+import book_order  # noqa: E402
 
-
-ORDER = contents_order()
+# V45 (Vraja Lila msg 6178 / 1412, 22.10.2026): the pages of «Назад» / «Вперёд» are the chapters in the contents'
+# order — no section pages (parts, a section without text of its own); qa/lib/book_order.py from the book's data.
+ORDER = book_order.pages(LANG)
 results = []
 
 
@@ -209,7 +193,9 @@ def run(browser, device, options, walk):
         # D first / last
         goto(ORDER[0]); bars()
         b = page.evaluate(BAR_JS)
-        check(device, f"D first page ({ORDER[0]}): no «‹ Назад» at all", not b["backInDom"], b)
+        # V45 (Vraja Lila msg 6191): the first page after the cover has «‹ Назад» → the cover
+        check(device, f"D first page ({ORDER[0]}): «‹ Назад» → the cover (V45)", b["backInDom"]
+              and page.locator("[data-reader-nav=back]").get_attribute("data-chapter-target") == "cover", b)
         check(device, f"D first page: «Вперёд ›» present", bool(b["fwd"]), b)
         goto(ORDER[-1]); bars()
         b = page.evaluate(BAR_JS)

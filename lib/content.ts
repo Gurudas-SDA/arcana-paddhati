@@ -133,6 +133,8 @@ export function getToc(lang: string): TocSection[] {
       })),
       ...(group && id === group.head ? { members: group.members } : {}),
       ...(group && group.members.includes(id) ? { group: group.head } : {}),
+      // V45: a section without text of its own is not a page of «Назад» / «Вперёд».
+      ...((s.content ?? []).length === 0 && (s.subsections ?? []).length === 0 ? { noText: true } : {}),
     };
   });
 }

@@ -83,58 +83,6 @@
   background-color: transparent;
 }
 
-/* ---------- Box «В этом разделе»: components/SectionChapters.tsx (V39) ----------
-   Vraja Lila msg 1326 / 6096–6099: a box in the tables' alternating band colour, their shape
-   (radius) and width (the text column), as tall as the list with inner margins, no separator;
-   heading like the contents' group labels; one row per chapter with › at the right (44 px). */
-.section-chapters {
-  margin-top: 2rem;
-  padding: var(--ds-box-pad);
-  background-color: var(--ds-band);
-  border-radius: var(--ds-radius-band);
-  font-family: var(--font-book, 'Noto Serif', Georgia, serif);
-}
-.section-chapters-title {
-  font-size: 11px;
-  line-height: 1.4;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-weight: 600;
-  color: var(--ds-text-muted);
-  margin: 0 0 2px;
-}
-.section-chapters-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.section-chapters-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  min-height: var(--ds-target);
-  padding: 8px 0;
-  font-size: 15px;
-  line-height: 1.5;
-  color: var(--ds-text);
-  text-decoration: none;
-  transition: color var(--ds-dur-fast) var(--ds-ease);
-  -webkit-tap-highlight-color: transparent;
-}
-.section-chapters-row:hover {
-  color: var(--ds-accent);
-}
-.section-chapters-arrow {
-  flex-shrink: 0;
-  color: var(--ds-accent);
-}
-@media print {
-  .section-chapters {
-    background-color: transparent !important;
-  }
-}
-
 /* ---------- Focus — ONE line, one style (V43, Vraja Lila 22.10.2026: «двойные рамки всё ещё там (на поиске
    тоже)»). A control WITHOUT a frame of its own: one outline (--ds-focus-w, --ds-focus, --ds-focus-gap away).
    A control WITH a frame (text field, pill): no outline and no ring beside the frame — the frame itself turns

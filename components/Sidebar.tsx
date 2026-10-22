@@ -1027,73 +1027,44 @@ export default function Sidebar({
 
   /**
    * Heading of a group of the contents — a part («I. Храмовый стандарт») or
-   * the Introduction. V37 (Vraja Lila msg 1306 / 1308, 21.10.2026): the
-   * section's NAME opens the section's own page (its text / its list), the way
-   * a chapter row opens its chapter; arriving there, the group is lit and
-   * expanded (usePartsOpen: the current group is open), so the menu opened
-   * again shows the section and its chapters. The arrow ▸ at the right is a
-   * separate control: it only expands / collapses the chapters (a step of the
-   * menu, no navigation).
+   * the Introduction. V45 (Vraja Lila msg 6178 / 1412, 22.10.2026; replaces V37
+   * «the name opens the section's page»): the whole row is ONE button — a tap
+   * anywhere on it expands / collapses the chapters, a second tap folds them;
+   * it never leads anywhere and the reading place stays (a step of the menu, no
+   * navigation). The arrow ▸ is only the state's icon inside the row (not a
+   * target of its own), as in a chapter with subsections. A section has no page
+   * of its own any more. V38c: the lit row is ONE highlight over the whole row.
    */
   const renderGroupHeading = (
     groupId: string,
     label: React.ReactNode,
-    name: string,
     isOpen: boolean,
     listId: string,
     byDefault: boolean,
   ) => {
     const headId = `grp:${groupId}`;
     const on = lit(headId, byDefault);
-    const href = sectionHref(groupId);
     return (
-      // V38c (Vraja Lila msg 1321 / 1322, 22.10.2026): the lit section is ONE highlight over
-      // the whole row — name and arrow ▸ share the row's background (no seam between two
-      // sectors; the «одной подложкой» rule, msg 1290). Hover and the 150 ms pick-light
-      // (data-menu-picked, globals.css) also colour the whole row.
-      <div
+      <button
+        type="button"
+        onClick={() => onDisclosureTap(groupId, headId)}
+        aria-expanded={isOpen}
+        aria-controls={isOpen ? listId : undefined}
+        aria-current={on ? "location" : undefined}
+        // both names stay on the one row: the group (its heading) and its toggle are the same control
+        data-toc-group={groupId}
+        data-toc-toggle={groupId}
         data-toc-group-row={groupId}
-        className={`flex items-stretch border-l-3 transition-colors ${
-          on ? "border-[var(--ap-gold)] bg-[#FAF3E8]" : "border-transparent hover:bg-[#FDF8F0]"
+        data-toc-lit={on ? "" : undefined}
+        data-toc-row={headId}
+        className={`sidebar-link relative flex w-full min-h-[44px] items-center border-l-3 pl-5 pr-12 py-2 text-left transition-colors hover:text-[var(--ap-gold)] ${
+          on ? "border-[var(--ap-gold)] bg-[#FAF3E8] text-[var(--ap-gold)]" : "border-transparent hover:bg-[#FDF8F0] text-[#9C7A4E]"
         }`}
       >
-        <Link
-          href={href}
-          onClick={(e) => {
-            // The section opens expanded (its chapters ready in the menu).
-            const cur = parseParts(partsSnapshot());
-            if (cur[groupId] === false) {
-              delete cur[groupId];
-              setPartsState(cur);
-            }
-            leaveTo(e, href);
-          }}
-          aria-current={selectedId === groupId ? "page" : undefined}
-          data-toc-group={groupId}
-          data-toc-lit={on ? "" : undefined}
-          data-toc-row={headId}
-          {...loadingProps(headId)}
-          className={`sidebar-link flex flex-1 min-w-0 min-h-[44px] flex-col justify-center pl-5 pr-1 py-2 text-left hover:text-[var(--ap-gold)] transition-colors ${
-            on ? "text-[var(--ap-gold)]" : "text-[#9C7A4E]"
-          }`}
-        >
-          <span className="text-[11px] uppercase tracking-[0.12em] font-semibold leading-snug">{label}</span>
-          {loadingNote(headId)}
-        </Link>
-        {/* The arrow: expand / collapse only (a 44 px target of its own). */}
-        <button
-          type="button"
-          onClick={() => onDisclosureTap(groupId, headId)}
-          aria-expanded={isOpen}
-          aria-controls={isOpen ? listId : undefined}
-          aria-label={name}
-          data-toc-toggle={groupId}
-          className={`sidebar-link flex min-h-[44px] w-[44px] shrink-0 items-center justify-center hover:text-[var(--ap-gold)] transition-colors ${
-            on ? "text-[var(--ap-gold)]" : "text-[#9C7A4E]"
-          }`}
-        >
+        <span className="text-[11px] uppercase tracking-[0.12em] font-semibold leading-snug">{label}</span>
+        {/* The arrow: the state's icon only (V45) — the row is the target. */}
+        <span aria-hidden="true" className="pointer-events-none absolute right-0 top-0 bottom-0 flex w-[44px] items-center justify-center">
           <svg
-            aria-hidden="true"
             width="14"
             height="14"
             viewBox="0 0 24 24"
@@ -1106,8 +1077,8 @@ export default function Sidebar({
           >
             <polyline points="9 6 15 12 9 18" />
           </svg>
-        </button>
-      </div>
+        </span>
+      </button>
     );
   };
 
@@ -1122,7 +1093,7 @@ export default function Sidebar({
     const here = selectedId === head.id || (!isOpen && currentPartId === head.id);
     return (
       <li key={`grp-${head.id}`} className="mt-2 border-t border-[#E8DCC8] pt-2">
-        {renderGroupHeading(head.id, head.title, head.title, isOpen, listId, here)}
+        {renderGroupHeading(head.id, head.title, isOpen, listId, here)}
         {isOpen && (
           <ul id={listId} className="space-y-0.5">
             {members.map(renderSection)}
@@ -1511,10 +1482,9 @@ export default function Sidebar({
                           <span className="mr-1.5">{`${part.numeral}.`}</span>
                           {part.title}
                         </>,
-                        `${part.numeral}. ${part.title}`,
                         isOpen,
                         listId,
-                        // V37: the part's own page is lit on its heading (the one highlight).
+                        // The part holding the reader, while its chapters are folded (the one highlight).
                         isPartSelected || (!isOpen && currentPartId === part.id),
                       )}
                       {isOpen && (
@@ -1522,31 +1492,11 @@ export default function Sidebar({
                           {chapters.length > 0 ? (
                             chapters.map(renderSection)
                           ) : (
-                            // A part in preparation: its one page.
+                            // A part in preparation: one line of text (V45: no page of its own).
                             <li>
-                              <Link
-                                href={sectionHref(part.id)}
-                                onClick={(e) => {
-                                  leaveTo(e, sectionHref(part.id));
-                                }}
-                                data-toc-lit={lit(`part:${part.id}`, false) ? "" : undefined}
-                                data-toc-row={`part:${part.id}`}
-                                {...loadingProps(`part:${part.id}`)}
-                                className={`sidebar-link w-full text-left px-5 py-3 block border-l-3 transition-colors ${
-                                  lit(`part:${part.id}`, false)
-                                    ? "bg-[#FAF3E8] border-[var(--ap-gold)]"
-                                    : "hover:bg-[#FDF8F0] border-transparent"
-                                }`}
-                              >
-                                <span
-                                  className={`text-sm leading-snug italic ${
-                                    lit(`part:${part.id}`, false) ? "text-[var(--ap-gold)]" : "text-[#5C3D2E]"
-                                  }`}
-                                >
-                                  {t(ui, "part.empty")}
-                                </span>
-                                {loadingNote(`part:${part.id}`)}
-                              </Link>
+                              <p className="px-5 py-3 border-l-3 border-transparent text-sm leading-snug italic text-[#5C3D2E]" data-toc-empty-part={part.id}>
+                                {t(ui, "part.empty")}
+                              </p>
                             </li>
                           )}
                         </ul>

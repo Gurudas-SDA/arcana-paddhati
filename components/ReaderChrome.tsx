@@ -38,10 +38,11 @@
  * Bottom bar — chapter navigation (V17, Vraja Lila msg 796 / 5635 / 5639,
  * 20.10.2026; «Стандарты» 0а): «‹ Назад» and «Вперёд ›» at the screen edges go
  * to the previous / next page of the contents (lib/book.ts readingOrder: the
- * chapters and the parts' pages, in the contents' order), in «Страницы» and in
- * «Лента» (there: a jump to the chapter's start, as from the contents). On the
- * first page there is no «‹ Назад», on the last no «Вперёд ›» (absent, not
- * pale). No «where we are / %» line in the bar (the faint status line at the
+ * chapters in the contents' order — V45: no section pages), in «Страницы» and in
+ * «Лента» (there: a jump to the chapter's start, as from the contents). The
+ * cover (V45, Vraja Lila msg 6191): only «Вперёд ›» → the first page after it,
+ * whose «‹ Назад» returns to the cover; on the last page no «Вперёд ›» (absent,
+ * not pale). No «where we are / %» line in the bar (the faint status line at the
  * bottom of the page stays) and no own history notes; the system / browser
  * Back still retraces the steps (lib/navHistory.ts). The bars' texts are not
  * selectable (Reader v7: Chrome on Android would look the word up).
@@ -51,7 +52,7 @@ import { useRouter } from "next/navigation";
 import { takeEarlyTap } from "@/lib/earlyTap";
 import { exitGhost } from "@/lib/exitGhost";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { chapterNeighbours, readingOrder, type TocPart, type TocSection } from "@/lib/book";
+import { chapterNeighbours, readingOrder, tocLayout, type TocPart, type TocSection } from "@/lib/book";
 import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
 import {
   BOOKMARK_TOAST_END_EVENT,
@@ -223,9 +224,16 @@ export default function ReaderChrome({
    *  its dimming (V19, Vraja Lila 20.10.2026). */
   const menuShown = menuOpen || menuClosing;
   const router = useRouter();
-  /** The contents' pages in order, and this page's neighbours (V17). */
-  const order = useMemo(() => readingOrder(sections.map((s) => s.id), parts), [sections, parts]);
-  const { prev: prevPage, next: nextPage } = chapterNeighbours(order, sectionId);
+  /** The contents' pages in order, and this page's neighbours (V17). V45: no
+   *  section pages (parts, a section without own text); the cover's «Вперёд ›» =
+   *  the first page after it, and that page's «‹ Назад» = the cover (null). */
+  const ids = useMemo(() => sections.map((s) => s.id), [sections]);
+  const order = useMemo(
+    () => readingOrder(ids, parts, new Set(sections.filter((s) => s.noText).map((s) => s.id))),
+    [ids, sections, parts],
+  );
+  const layoutIds = useMemo(() => tocLayout(ids, parts).map((item) => item.id), [ids, parts]);
+  const { prev: prevPage, next: nextPage } = chapterNeighbours(order, sectionId, layoutIds);
 
   // Mirrors of the state for the (long-lived) event listeners.
   const shownRef = useRef(false);
@@ -847,7 +855,7 @@ export default function ReaderChrome({
    *  system Back returns). «Страницы»: that chapter's page, at its very top
    *  (the reading area stays mounted across pages, so Next.js' own scroll
    *  would leave it a little below its top). */
-  const goChapter = (id: string) => {
+  const goChapter = (id: string | null) => {
     arm();
     setChapterSwitch(true);
     if (followBookLink(readingHref(lang, id))) return;
@@ -882,7 +890,8 @@ export default function ReaderChrome({
       // V35 (Vraja Lila msg 1226 / 1319): while «Содержание» is open the bottom bar slides
       // down out of the way (the menu has the whole height); it comes back as the menu closes.
       data-menu-open={menuOpen ? "" : undefined}
-      // V38b (Vraja Lila msg 1320): on the cover a tap shows ONLY the top bar — no bottom bar there.
+      // The cover (V45, Vraja Lila msg 6191 — replaces V38b «only the top bar»): a tap brings out
+      // both bars; the bottom one has only «Вперёд ›» (to the page after the cover).
       data-home={isHome ? "" : undefined}
     >
       {/* Top bar: contents · search · Аа */}
@@ -1087,13 +1096,13 @@ export default function ReaderChrome({
       {/* Bottom bar: «‹ Назад» · «Вперёд ›» — the previous / next page of the contents (V17) */}
       <div className="reader-bar reader-bar-bottom" {...barEvents}>
         <div className="reader-bar-inner reader-nav-row">
-          {prevPage && (
+          {prevPage !== undefined && (
             <button
               type="button"
               className="reader-btn reader-history-btn"
               onClick={() => goChapter(prevPage)}
               data-reader-nav="back"
-              data-chapter-target={prevPage}
+              data-chapter-target={prevPage ?? "cover"}
             >
               <span aria-hidden="true" className="reader-history-arrow">‹</span>
               <span>{t(ui, "reader.back")}</span>

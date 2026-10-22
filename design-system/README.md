@@ -31,13 +31,12 @@ colour change is made once, in `tokens.css`.
 | `--ds-accent-soft` | `#D4A843` | the soft chip's frame |
 | `--ds-fill` / `--ds-fill-soft` | `#F5E6C8` / `#FDF8F0` | open / picked fill; the soft chip at rest |
 | `--ds-line` | `#E8DCC8` | thin frames and lines |
-| `--ds-band` | `var(--rd-row-stripe)` | tables' alternating row; the «В этом разделе» box |
+| `--ds-band` | `var(--rd-row-stripe)` | tables' alternating row |
 | `--ds-band-active` | `var(--rd-row-active)` | a marked row (one block) |
 | `--ds-row-lit` / `--ds-row-hover` | `#FAF3E8` / `#FDF8F0` | lit / hovered row of «Содержание» |
 | `--ds-text` / `--ds-text-muted` | `var(--rd-fg)` / `var(--rd-muted)` | text; labels and numbers |
-| `--ds-radius-pill` / `-band` / `-block` | `9999px` / `4px` / `6px` | chip; band and box; marked row |
+| `--ds-radius-pill` / `-band` / `-block` | `9999px` / `4px` / `6px` | chip; band; marked row |
 | `--ds-target` | `44px` | minimum tap target |
-| `--ds-box-pad` | `10px 14px 6px` | inside the box |
 | `--ds-dur-fast` / `--ds-dur-slide`, `--ds-ease` | `150ms` / `220ms`, `ease` | colour and arrow; menu and bars |
 | `--ds-focus` / `--ds-focus-w` / `--ds-focus-gap` | `var(--ap-gold)` / `2px` / `2px` | THE focus line: colour, width, outline offset of a frameless control (V43) |
 | `--ds-field-line` | `var(--ap-gold)` | a text field's 1 px frame (WCAG 1.4.11 ≥ 3:1, V33) |
@@ -64,17 +63,27 @@ colour change is made once, in `tokens.css`.
   its parts are transparent (`.ds-one-block > *`). Lists: radius `--ds-radius-block`; the contents keep square rows
   with the gold left line.
 - **Used:** marked list rows (V36, `app/globals.css` `.hs-row[data-active]`), the lit section row of «Содержание»
-  (V38c, `components/Sidebar.tsx` `[data-toc-group-row]`).
+  (V38c; since V45 one button, `components/Sidebar.tsx` `[data-toc-group-row]`).
 - **Tests:** `s82_one_block_highlight_v36.py`, `s87_section_row_one_highlight_v38c.py`.
 
-### Box «В этом разделе» (`.section-chapters`, `components/SectionChapters.tsx`) — V39
-- **Look** (Vraja msg 1326, 6096–6099): a box in the tables' alternating band colour (`--ds-band`), their radius
-  (`--ds-radius-band`) and width (the text column), as tall as the list with inner margins (`--ds-box-pad`);
-  heading «В этом разделе» in the contents' label style (`--ds-text-muted`); one row per chapter with › at the right
-  (`--ds-accent`), 44 px; no separator line.
-- **Behaviour:** a row opens its chapter. Shown under every section page that lists chapters (the Introduction,
-  each part); not in «Лента».
-- **Test:** `qa/suites/s91_in_this_section_v39.py`.
+### Section row of «Содержание» — ONE button (`components/Sidebar.tsx` `renderGroupHeading`) — V45
+- **Rule** (Vraja Lila msg 6178 / 1412, 22.10.2026; replaces V37 «the name opens the section's page» and V39 «В этом
+  разделе»): the row of a section (Введение, Храмовый стандарт, Домашний стандарт, Стандарт для проповеднических
+  центров, Праздники, обеты и песни арати) is ONE button over the whole row: a tap anywhere expands its chapters, the
+  next one folds them. It never leads anywhere, the reading place stays. The arrow ▸ is only the state's icon inside
+  the row (turns 90° when open; `pointer-events: none`), exactly like a chapter with subsections.
+- **No section pages:** a section has no page of its own — no «В этом разделе» box (removed with its component and
+  styles), «‹ Назад» / «Вперёд ›» step only through text (`lib/book.ts` `readingOrder`: chapters, and a section only
+  while it still has text of its own). A part in preparation shows one line of text in the menu, not a link.
+  In «Лента» the parts' headings stay in place between the chapters (the contents' order).
+- **Highlight:** the lit row is one element, so one background by construction (V38c).
+- **Test:** `qa/suites/s97_section_row_one_button_v45.py`.
+
+### Cover — bottom bar with «Вперёд ›» only — V45
+- **Rule** (Vraja Lila msg 6191, replaces V38b «only the top bar»): a tap on the cover brings out both bars; the
+  bottom one holds only «Вперёд ›» → the first page after the cover; there «‹ Назад» returns to the cover and
+  «Вперёд ›» goes on. (`chapterNeighbours(order, null)`.)
+- **Test:** `qa/suites/s97_section_row_one_button_v45.py` (part D).
 
 ### Focus — ONE line, one style (`:focus-visible`, `.ds-field`) — V43
 - **Rule** (Vraja Lila 22.10.2026: «двойные рамки всё ещё там (на поиске тоже)»): a focused control shows ONE line,

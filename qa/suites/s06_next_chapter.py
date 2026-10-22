@@ -21,26 +21,30 @@ IPAD_UA = IOS_UA.replace("iPhone; CPU iPhone OS", "iPad; CPU OS")
 PIXEL_UA = ("Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36")
 DEVICES = qa.devices(['iphone14', 'iphone-se', 'pixel7', 'ipad-portrait', 'ipad-landscape', 'desktop'])
 LANG = "ru-iast"
-# (chapter, expected next id, expected start of the title line)
-CASES = [
+import book_order  # noqa: E402  (V45: the order from the book's data)
+# (chapter, expected next id, expected start of the title line) — the next id from the data (qa/lib/book_order.py):
+# V45 (Vraja Lila msg 6178 / 1412, 22.10.2026) the parts' own pages are NOT in the order any more, nor a section
+# without text of its own; «Назад» / «Вперёд» go through the text.
+_NEXT = lambda cid: book_order.neighbours(LANG, cid)[1]
+CASES = [(cid, _NEXT(cid), title0) for cid, title0 in [
     # v7 (Satkirti 06.10): Introduction group without numbers, Part I numbered from 1
-    ("introduction", "gaudiya-emblem", "Эмблема Гаудия-матха"),
+    ("introduction", "Эмблема Гаудия-матха"),
     # v7.1 (Satkirti 06.10): Мангалачарана before Введение, outside the group
-    ("mangalacarana", "introduction", "Введение"),
-    # V17: the parts' own pages are in the order too (the contents lists them; mock approved, msg 5639)
-    ("vigraha-tattva", "temple-worship", "Часть I"),
-    ("offering-bhoga", "mantras-honouring-caranamrita", "7. "),
-    ("main-worship-sixteen-items", "home-worship", "Часть II. "),
-    ("guru-puja-vyasa-puja", "major-festivals", "13. "),
+    ("mangalacarana", "Введение"),
+    # V45: from the last chapter before Part I straight to its first chapter (no part page)
+    ("vigraha-tattva", "1. "),
+    ("offering-bhoga", "7. "),
+    ("main-worship-sixteen-items", "11. "),
+    ("guru-puja-vyasa-puja", "13. "),
     # v7.4 (appended last: the loop index decides which history checks run)
     # (Satkirti 07.10): parampara → Мангалачарана; Part IV ends with the ārati songs
-    ("parampara", "mangalacarana", "Мангалачарана"),
-    ("major-festivals", "mangala-arati-songs", "14. "),
+    ("parampara", "Мангалачарана"),
+    ("major-festivals", "14. "),
     # v7.6 (07.10): «Бхаджаны для Картики» right after «Песни гаура-арати» — now the last chapter
-    ("gaura-arati-songs", "kartika-bhajans", "16. "),
+    ("gaura-arati-songs", "16. "),
     # 22.10 (Satkirti msg 6065): «Заключение» after the parts, unnumbered — now the last page of the book
-    ("kartika-bhajans", "conclusion", "Заключение"),
-]
+    ("kartika-bhajans", "Заключение"),
+] if cid in book_order.pages(LANG)]
 LAST = "conclusion"
 res = []
 
@@ -134,16 +138,19 @@ def run(p, dev, eng, o):
     chk(dev, f"{LAST} (last chapter): no «Вперёд»", pg.locator("[data-reader-nav=forward]").count() == 0 and pg.locator(".chapter-next").count() == 0)
     if dev in ("iphone14", "ipad-portrait"):
         to_end(); shot("3-last-chapter-end")
+    # V45: a part has no page any more; its old address (old links) still steps on to the next chapter
     pg.goto(f"{BASE}/{LANG}/home-worship/", wait_until="networkidle"); pg.wait_for_timeout(600)
     bars()
     g = qa.reading_eval(pg, GEO)
-    chk(dev, "empty part page (Часть II) -> Часть III", bool(g) and g["target"] == "preaching-centres", str(g))
+    want = book_order.neighbours(LANG, "home-worship")[1]
+    chk(dev, f"old address of an empty part (Часть II) -> {want}", bool(g) and g["target"] == want, str(g))
 
     # English page: English label
     pg.goto(f"{BASE}/vigraha-tattva/", wait_until="networkidle"); pg.wait_for_timeout(600)
     bars()
     g = qa.reading_eval(pg, GEO)
-    chk(dev, "English page: «Forward ›» -> /temple-worship/ (V17: the part's page is in the order)", bool(g) and g["label"].startswith("Forward") and g["target"] == "temple-worship", str(g))
+    want = book_order.neighbours("en", "vigraha-tattva")[1]
+    chk(dev, f"English page: «Forward ›» -> /{want}/ (V45: no part page in the order)", bool(g) and g["label"].startswith("Forward") and g["target"] == want, str(g))
 
     # themes + «Аа»: «Вперёд ›» is a control of the bar (its size stays), in the theme's accent colour
     pg.goto(f"{BASE}/{LANG}/vigraha-tattva/", wait_until="networkidle"); pg.wait_for_timeout(600)

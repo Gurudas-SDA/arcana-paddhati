@@ -79,9 +79,9 @@ def run(p, dev, eng, o, mode):
     chk(dev, "(a) cover: tap image again -> bars hidden", not shown())
     tap_pt(b["x"] + 10, b["y"] + b["height"] - 10)
     chk(dev, "(a) cover: tap image corner -> bars", shown())
-    # V17 (Vraja Lila msg 796, mock msg 5639): the bar's buttons are the previous / next chapter; the cover is
-    # not a chapter of the contents' order -> none there
-    chk(dev, "(a) cover: no chapter buttons in the bottom bar (V17)", pg.locator("[data-reader-nav=back]").count() == 0 and pg.locator("[data-reader-nav=forward]").count() == 0)
+    # V45 (Vraja Lila msg 6191, replaces V17's «none on the cover»): on the cover only «Вперёд ›» (to the page
+    # after the cover), no «‹ Назад»
+    chk(dev, "(a) cover: only «Вперёд ›» in the bottom bar (V45)", pg.locator("[data-reader-nav=back]").count() == 0 and pg.locator("[data-reader-nav=forward]").count() == 1)
 
     # (e) bars span the full width: buttons at the screen edges, >= 44x44
     pg.goto(P, wait_until="networkidle"); pg.wait_for_timeout(900)

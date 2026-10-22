@@ -1767,10 +1767,8 @@ html[data-reader-theme="night"] ::selection {
   pointer-events: none;
   z-index: 30;
 }
-/* V38b (Vraja Lila msg 1320): on the cover a tap brings out only the top bar. */
-.reader-chrome[data-home] .reader-bar-bottom {
-  display: none;
-}
+/* V45 (Vraja Lila msg 6191, replaces V38b «only the top bar»): on the cover a tap brings out
+   both bars; the bottom one holds only «Вперёд ›» (components/ReaderChrome.tsx). */
 /* «Содержание» slides out from the left and back (Vraja Lila 20.10.2026, ДА msg
    5520), with the top bar's easing and duration both ways (msg 5521: .reader-bar
    transform 220ms ease); the dimming fades with it. Closing = [data-closing]
@@ -1825,19 +1823,8 @@ html[data-reader-theme="night"] ::selection {
   color: var(--ap-gold) !important;
   transition: background-color 150ms ease-out, color 150ms ease-out;
 }
-/* V38c (Vraja Lila msg 1321 / 1322): a section heading picked in the contents lights as
-   ONE row — the name and the arrow ▸ together, no seam. */
-.mobile-menu [data-toc-group-row]:has([data-menu-picked]) {
-  background-color: #F5E6C8 !important;
-  transition: background-color 150ms ease-out;
-}
-.mobile-menu [data-toc-group-row] [data-menu-picked],
-.mobile-menu [data-toc-group-row] [data-menu-picked]:hover {
-  background-color: transparent !important;
-}
-.mobile-menu [data-toc-group-row]:has([data-menu-picked]) [data-toc-toggle] {
-  color: #8B6508 !important;
-}
+/* V45: a section heading of the contents is ONE button (name + arrow ▸ in one element,
+   components/Sidebar.tsx), so its highlight is one background by construction (V38c). */
 /* «Аа» panel and the language list: closing = the opening animation backwards
    (lib/exitGhost.ts, msg 5521; before, they vanished in one frame). */
 .reader-panel-out {
@@ -2200,7 +2187,6 @@ html[data-resume-fade="in"] .app-main {
   display: none;
 }
 
-/* V39 «В этом разделе» box: a master component — design-system/components.css (.section-chapters). */
 /* =====================================================================
    WCAG 2.1 AA (V33, Vraja Lila msg 5865/5900–5907, variant B «делай по-красоте»).
    ONE accent tone for every gold icon, gold text, frame and focus ring:

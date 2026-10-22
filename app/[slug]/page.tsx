@@ -3,7 +3,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import HomePage from "@/components/HomePage";
-import GroupContents from "@/components/GroupContents";
 import PartPage from "@/components/PartPage";
 import SectionContent from "@/components/SectionContent";
 import {
@@ -61,11 +60,6 @@ export default async function SlugPage({ params }: PageProps<"/[slug]">) {
       section={section}
       ui={ui}
       num={getSectionNumber(slug)}
-      after={
-        <>
-          <GroupContents lang={DEFAULT_LANG} id={slug} ui={ui} />
-        </>
-      }
     />
   );
 }

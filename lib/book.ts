@@ -155,18 +155,44 @@ export function tocLayout(sectionIds: string[], parts: { id: string; sections: s
 
 /**
  * The pages «‹ Назад» / «Вперёд ›» of the bottom bar step through (V17, Vraja
- * Lila msg 796, 20.10.2026): every page of the contents in its order — the
- * chapters and the parts' own pages (tocLayout). Data, not a list in the code.
+ * Lila msg 796, 20.10.2026): the pages of the contents in its order (tocLayout).
+ * V45 (Vraja Lila msg 6178 / 1412, 22.10.2026): a SECTION (a part, the
+ * Introduction) no longer has a page of its own — its row in «Содержание» only
+ * opens / closes its chapters — so the parts are not in this order, nor a
+ * section whose own text is empty (`noText`: the Introduction once its verse
+ * has moved to the page after the cover). A section that still has text of its
+ * own stays («Назад» и «Вперёд» проходят через текст раздела). Data, not a list.
  */
-export function readingOrder(sectionIds: string[], parts: { id: string; sections: string[] }[]): string[] {
-  return tocLayout(sectionIds, parts).map((item) => item.id);
+export function readingOrder(
+  sectionIds: string[],
+  parts: { id: string; sections: string[] }[],
+  noText: ReadonlySet<string> = new Set(),
+): string[] {
+  return tocLayout(sectionIds, parts)
+    .filter((item) => item.kind === "section" && !noText.has(item.id))
+    .map((item) => item.id);
 }
 
-/** The pages before and after `id` in readingOrder (undefined: none — first / last page, or not in the order). */
-export function chapterNeighbours(order: string[], id: string | null): { prev?: string; next?: string } {
-  const i = id ? order.indexOf(id) : -1;
-  if (i < 0) return {};
-  return { prev: i > 0 ? order[i - 1] : undefined, next: i < order.length - 1 ? order[i + 1] : undefined };
+/**
+ * The pages before and after `id` in readingOrder (undefined: none — first / last page).
+ * `id` null = the cover: no «‹ Назад», «Вперёд ›» = the first page after the cover
+ * (V45, Vraja Lila msg 6191). An id that is not a page (a part's heading in «Лента»,
+ * an old link to a part's page): its neighbours in the contents' order (`layout`).
+ */
+export function chapterNeighbours(
+  order: string[],
+  id: string | null,
+  layout: string[] = [],
+): { prev?: string | null; next?: string } {
+  if (id === null) return { next: order[0] };
+  const i = order.indexOf(id);
+  if (i >= 0) return { prev: i > 0 ? order[i - 1] : null, next: i < order.length - 1 ? order[i + 1] : undefined };
+  const at = layout.indexOf(id);
+  if (at < 0) return {};
+  const pages = new Set(order);
+  const before = layout.slice(0, at).filter((x) => pages.has(x));
+  const after = layout.slice(at + 1).find((x) => pages.has(x));
+  return { prev: before.length ? before[before.length - 1] : null, next: after };
 }
 
 /** 1 -> "I", 4 -> "IV", … (part numbers). */
@@ -199,6 +225,8 @@ export interface TocSection {
   members?: string[];
   /** A chapter inside the front-matter group: the group head's id. */
   group?: string;
+  /** No text of its own (no blocks, no subsections): not a page of «Назад» / «Вперёд» (V45). */
+  noText?: boolean;
 }
 
 /**

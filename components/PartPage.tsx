@@ -1,15 +1,16 @@
 import type { TocPart } from "@/lib/book";
 import { getUi } from "@/lib/content";
 import { t } from "@/lib/i18n";
-import SectionChapters from "@/components/SectionChapters";
 
 const HEADING_FONT = { fontFamily: "var(--font-book, Georgia, serif)" };
 
-/** Page of a part of the book (Part I, II, …): its chapters, or a
- *  "in preparation" line while the part has none yet. V39 (Vraja Lila msg 1326 /
- *  6090): the chapters are the «В этом разделе» block (components/SectionChapters.tsx);
- *  in «Лента» (`inBook`) it is left out — the chapters follow right below there. */
-export default function PartPage({ part, lang, inBook = false }: { part: TocPart; lang: string; inBook?: boolean }) {
+/** Heading of a part of the book (Part I, II, …) in «Лента», with a "in
+ *  preparation" line while the part has no chapters yet. V45 (Vraja Lila msg
+ *  6178 / 1412, 22.10.2026): a part has no page of its own any more — no
+ *  «В этом разделе» box (V39 removed), not in «Назад» / «Вперёд», its row in
+ *  «Содержание» only expands its chapters. Its old address still opens this
+ *  heading (old links / bookmarks), with «Назад» / «Вперёд» to its neighbours. */
+export default function PartPage({ part, lang }: { part: TocPart; lang: string; inBook?: boolean }) {
   const ui = getUi(lang);
   return (
     <article className="reader-article">
@@ -25,10 +26,8 @@ export default function PartPage({ part, lang, inBook = false }: { part: TocPart
         </h1>
         <div className="mt-3 h-px bg-[#ccc]" />
       </header>
-      {part.sections.length === 0 ? (
+      {part.sections.length === 0 && (
         <p className="text-[15px] leading-7 italic text-[#5C3D2E]">{t(ui, "part.empty")}</p>
-      ) : (
-        !inBook && <SectionChapters lang={lang} ui={ui} ids={part.sections} numbered />
       )}
     </article>
   );

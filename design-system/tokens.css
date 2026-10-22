@@ -25,7 +25,6 @@
   --ds-radius-block: 6px;                        /* a marked list row (V36) */
   /* spacing */
   --ds-target: 44px;                             /* minimum tap target */
-  --ds-box-pad: 10px 14px 6px;                   /* inside the «В этом разделе» box */
   /* motion */
   --ds-dur-fast: 150ms;                          /* colour changes, the pill's arrow */
   --ds-dur-slide: 220ms;                         /* menu, bars */

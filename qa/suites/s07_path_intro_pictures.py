@@ -327,8 +327,9 @@ def run(p, dev, eng, o):
 
     # ---------- D: pages ----------
     goto(f"/{L}/introduction/")
-    links = pg.locator(".group-contents a")
-    chk(dev, "D Introduction page lists its 2 chapters (v7.1)", links.count() == 2, str(links.count()))
+    # V45 (Vraja Lila msg 6178 / 1412): no «В этом разделе» list under a section any more
+    links = pg.locator(".group-contents a, [data-section-chapters]")
+    chk(dev, "D Introduction page: no «В этом разделе» list (V45)", links.count() == 0, str(links.count()))
     # V17: the next chapter is the bottom bar's «Вперёд ›» (its target), not a block at the chapter's end
     nx = pg.locator("[data-reader-nav=forward]")
     chk(dev, "D Introduction «Вперёд ›» -> «Эмблема Гаудия-матха»", nx.count() == 1 and nx.get_attribute("data-chapter-target") == "gaudiya-emblem", nx.get_attribute("data-chapter-target") if nx.count() else "")
