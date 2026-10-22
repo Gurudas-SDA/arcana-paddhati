@@ -39,6 +39,8 @@ colour change is made once, in `tokens.css`.
 | `--ds-target` | `44px` | minimum tap target |
 | `--ds-box-pad` | `10px 14px 6px` | inside the box |
 | `--ds-dur-fast` / `--ds-dur-slide`, `--ds-ease` | `150ms` / `220ms`, `ease` | colour and arrow; menu and bars |
+| `--ds-focus` / `--ds-focus-w` / `--ds-focus-gap` | `var(--ap-gold)` / `2px` / `2px` | THE focus line: colour, width, outline offset of a frameless control (V43) |
+| `--ds-field-line` | `var(--ap-gold)` | a text field's 1 px frame (WCAG 1.4.11 ≥ 3:1, V33) |
 
 ## Components
 
@@ -73,6 +75,23 @@ colour change is made once, in `tokens.css`.
 - **Behaviour:** a row opens its chapter. Shown under every section page that lists chapters (the Introduction,
   each part); not in «Лента».
 - **Test:** `qa/suites/s91_in_this_section_v39.py`.
+
+### Focus — ONE line, one style (`:focus-visible`, `.ds-field`) — V43
+- **Rule** (Vraja Lila 22.10.2026: «двойные рамки всё ещё там (на поиске тоже)»): a focused control shows ONE line,
+  never two — no outline or ring beside a frame of its own, no outline + ring together. One colour (`--ds-focus` =
+  the theme's accent `--ap-gold`), one width (`--ds-focus-w` 2 px), everywhere.
+- **How:**
+  - a control **without** a frame (buttons, links, rows, icons): one outline `--ds-focus-w solid --ds-focus`,
+    `--ds-focus-gap` away (rows of «Содержание» draw it inside, `-2px`); no Tailwind `ring-*` / `outline-*` of its own;
+  - a control **with** a frame — the text field `.ds-field` (search in «Содержание», the bookmark's name) and
+    `Pill`: no outline, no ring; its own 1 px frame turns `--ds-focus` and thickens inward by an inset shadow
+    (1 px border + 1 px inset = one 2 px line; the text does not move, the size does not change);
+  - the focus line appears at once (no colour transition on it).
+- **Before** (live 22.10): the bookmark field — gold border + the global outline 2 px with a 2 px gap; the search
+  field — the same (V33 a496284 not released); verse chips — grey frame + gold outline beside it; rows — rings at
+  40 % / outlines at 55 %.
+- **New fields** use `.ds-field`; never add `focus:ring-*` / `focus:outline-*` to a component.
+- **Test:** `qa/suites/s93_one_focus_frame_v43.py`.
 
 ### Text field without iOS AutoFill — V43
 - **Rule** (Vraja Lila 22.10.2026, iPhone: «autofill пока вижу»): a field for the book's own text (the bookmark's

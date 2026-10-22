@@ -177,7 +177,7 @@ export default function BookmarkNameDialog({
             enterKeyHint="done"
             autoComplete="off"
             data-bookmark-dialog-input=""
-            className="bookmark-name-field w-full rounded-lg border border-[#D9C7A8] bg-white px-3 py-2.5 text-base text-[#2C1810] outline-none focus:border-[#B8860B] focus:ring-2 focus:ring-[#B8860B]/25"
+            className="bookmark-name-field ds-field w-full rounded-lg bg-white px-3 py-2.5 text-base text-[#2C1810]"
           />
           <div className="mt-5 flex justify-end gap-2">
             <button

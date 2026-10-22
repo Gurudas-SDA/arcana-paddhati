@@ -134,3 +134,30 @@
     background-color: transparent !important;
   }
 }
+
+/* ---------- Focus — ONE line, one style (V43, Vraja Lila 22.10.2026: «двойные рамки всё ещё там (на поиске
+   тоже)»). A control WITHOUT a frame of its own: one outline (--ds-focus-w, --ds-focus, --ds-focus-gap away).
+   A control WITH a frame (text field, pill): no outline and no ring beside the frame — the frame itself turns
+   --ds-focus and thickens inward to 2 px (1 px border + 1 px inset shadow), so it stays ONE line. The focus line
+   appears at once (no colour transition on it). No line for a mouse click / tap focus. ---------- */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+:focus-visible {
+  outline: var(--ds-focus-w) solid var(--ds-focus);
+  outline-offset: var(--ds-focus-gap);
+  transition-property: none;
+}
+.ds-field {
+  border: 1px solid var(--ds-field-line);
+  outline: none;
+  box-shadow: none;
+  transition: border-color var(--ds-dur-fast) var(--ds-ease);
+}
+.ds-field:focus,
+.ds-field:focus-visible,
+.ds-pill:focus-visible {
+  outline: none !important;
+  border-color: var(--ds-focus) !important;
+  box-shadow: inset 0 0 0 calc(var(--ds-focus-w) - 1px) var(--ds-focus) !important;
+}

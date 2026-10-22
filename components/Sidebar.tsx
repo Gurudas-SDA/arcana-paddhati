@@ -1073,7 +1073,7 @@ export default function Sidebar({
           data-toc-lit={on ? "" : undefined}
           data-toc-row={headId}
           {...loadingProps(headId)}
-          className={`sidebar-link flex flex-1 min-w-0 min-h-[44px] flex-col justify-center pl-5 pr-1 py-2 text-left hover:text-[var(--ap-gold)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--ap-gold)] transition-colors ${
+          className={`sidebar-link flex flex-1 min-w-0 min-h-[44px] flex-col justify-center pl-5 pr-1 py-2 text-left hover:text-[var(--ap-gold)] transition-colors ${
             on ? "text-[var(--ap-gold)]" : "text-[#9C7A4E]"
           }`}
         >
@@ -1088,7 +1088,7 @@ export default function Sidebar({
           aria-controls={isOpen ? listId : undefined}
           aria-label={name}
           data-toc-toggle={groupId}
-          className={`sidebar-link flex min-h-[44px] w-[44px] shrink-0 items-center justify-center hover:text-[var(--ap-gold)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--ap-gold)]/40 transition-colors ${
+          className={`sidebar-link flex min-h-[44px] w-[44px] shrink-0 items-center justify-center hover:text-[var(--ap-gold)] transition-colors ${
             on ? "text-[var(--ap-gold)]" : "text-[#9C7A4E]"
           }`}
         >
@@ -1229,7 +1229,7 @@ export default function Sidebar({
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             onFocus={onSearchFocus}
-            className="search-input w-full pl-9 pr-3 py-2 text-[16px] rounded-lg border border-[#E8DCC8] bg-[#FDF8F0] text-[#2C1810] placeholder-[var(--ap-gold)] focus:outline-none focus:border-[var(--ap-gold)] focus:ring-1 focus:ring-[var(--ap-gold)] transition-colors"
+            className="search-input ds-field w-full pl-9 pr-3 py-2 text-[16px] rounded-lg bg-[#FDF8F0] text-[#2C1810] placeholder-[var(--ap-gold)]"
           />
           {searchQuery && (
             <button

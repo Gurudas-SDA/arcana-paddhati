@@ -30,4 +30,9 @@
   --ds-dur-fast: 150ms;                          /* colour changes, the pill's arrow */
   --ds-dur-slide: 220ms;                         /* menu, bars */
   --ds-ease: ease;
+  /* focus — ONE style everywhere (V43, Vraja Lila 22.10.2026 «двойные рамки всё ещё там»): one gold line */
+  --ds-focus: var(--ap-gold, #B8860B);           /* the focus line's colour (= the theme's accent) */
+  --ds-focus-w: 2px;                             /* its width */
+  --ds-focus-gap: 2px;                           /* outline offset of a frameless control */
+  --ds-field-line: var(--ap-gold, #B8860B);      /* a text field's 1 px frame (WCAG 1.4.11: ≥ 3:1, V33) */
 }
