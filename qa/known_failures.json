@@ -1,11 +1,4 @@
 {
  "_doc": "Zināmas, jau eskalētas kļūdas: šīs pārbaudes krīt, atskaitē tās ir KNOWN (nevis FAIL) un neaptur run_all. Katram ierakstam: test ('<scenārijs>:<nosaukuma sākums>'), reason, since, by. Dzēst ierakstu TAJĀ PAŠĀ commit, kurā kļūda izlabota (tad tests atkal sargā). Jaunu ierakstu — tikai ar Satkirti vai Gurudas ziņu.",
- "known": [
-  {
-   "test": "s95:OPEN guru line (msg 6180 p.2)",
-   "reason": "Satkirti 22.10 msg 6177/6180: «Джая-дхвани» call 2 = the name of our guru «Jaya oṁ viṣṇupāda paramahaṁsa parivrājakācārya … Śrī Prema Prayojana Prabhu kī jaya!» — the middle part («…») Satkirti will write; until then the line carries needs_satkirti (neatbildetie.txt: «Джая-дхвани»: строка с именем Гурудева). Delete this entry in the commit that writes her text.",
-   "since": "2026-10-22",
-   "by": "Satkirti msg 6177/6180"
-  }
- ]
+ "known": []
 }

@@ -126,7 +126,7 @@ GG2016 = [
 ]
 GG_ERRATA = [("parama-bhāgavat-pravara", "parama-bhāgavata-pravara"), ("Bābāji ", "Bābājī "), ("Śvarūpa", "Svarūpa"),
              ("Modradrumadvīpa", "Modadrumadvīpa"), ("ḓ", "ḍ")]
-GURU_LINE = "Jaya oṁ viṣṇupāda paramahaṁsa parivrājakācārya … Śrī Prema Prayojana Prabhu kī jaya!"
+GURU_LINE = "Jaya oṁ viṣṇupāda paramahaṁsa parivrājakācārya aṣṭottara-śata Śrī Śrīmad Śrī Prema Prayojana Prabhu kī jaya!"  # msg 6197
 
 
 def gg(s):
@@ -184,11 +184,10 @@ for lang, fn in BOOKS.items():
                                         r"Mādhavendra|mādhavendra|Rūpa-Sanātana Gauḍīya|giridhārī gauḍīya|Giridhārī Gauḍīya|"
                                         r"Рӯпа-Сана̄тана Га̄уд̣ӣйа|ӣш́вара пурӣ|Ма̄дхавендра|Дева̄нанда", x, re.I)], len(got))
     gl = [x for x in jv if x.get("needs_satkirti")]
-    chk(f"e {fn}: call 2 = the guru line, marked needs_satkirti (msg 6180 p.2)",
-        len(jv) > 1 and nfc(jv[1].get("sanskrit")) == nfc(translit(GURU_LINE) if lang == "ru" else GURU_LINE)
-        and gl == [jv[1]] and "loudly chant" not in json.dumps(jd, ensure_ascii=False), len(gl))
-    chk(f"OPEN guru line (msg 6180 p.2) {fn}: its middle part is not yet written by Satkirti",
-        not gl and "…" not in nfc(jv[1].get("sanskrit") if len(jv) > 1 else "…"), "needs_satkirti")
+    GURU_S = "Jaya oṁ viṣṇupāda paramahaṁsa parivrājakācārya aṣṭottara-śata Śrī Śrīmad Śrī Prema Prayojana Prabhu kī jaya!"  # Satkirti msg 6197, verbatim
+    chk(f"e {fn}: call 2 = exactly Satkirti's line (msg 6197), no needs_satkirti marker, no «…»",
+        len(jv) > 1 and nfc(jv[1].get("sanskrit")) == nfc(translit(GURU_S) if lang == "ru" else GURU_S)
+        and not gl and "…" not in json.dumps(jd, ensure_ascii=False) and "loudly chant" not in json.dumps(jd, ensure_ascii=False), len(gl))
     chk(f"e {fn}: every call has a translation and a word-for-word", all(x.get("translation", "").strip() and x.get("wbw", "").strip() for x in jv))
     sec = sec_of(b, "upadesha-sara")
     blob = nfc(json.dumps(sec, ensure_ascii=False))
