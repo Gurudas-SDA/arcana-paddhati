@@ -63,6 +63,8 @@ const MANIFEST_KEY = BASE + '__precache-manifest__';
 // Non-default languages live under /arcana-paddhati/<code>/ (lib/languages.json).
 const LANG_CODES = ['ru', 'ru-iast', 'lv', 'de', 'fr', 'es', 'it', 'uk', 'hu', 'pt', 'lt'];
 const NETWORK_TIMEOUT_MS = 3000;
+// Navigation while a newer version installs: the stored page is outdated (КСВ 22.10.2026).
+const UPDATE_NETWORK_TIMEOUT_MS = 20000;
 const CONCURRENCY = 6;
 const RETRIES = 3;
 const TOPUP_INTERVAL_MS = 2 * 60 * 1000;
@@ -445,11 +447,22 @@ async function handleNavigation(event, url) {
   // after a release the reader kept getting the stored old page). The network
   // gets NETWORK_TIMEOUT_MS; the background download yields to it meanwhile
   // (foregroundIdle). Only then the stored copy.
+  //
+  // КСВ 22.10.2026 (Satkirti msg 6133, iPad: «не вижу Заключение»): while a
+  // NEWER version is being installed (or waits), this worker's stored pages are
+  // known to be outdated. Then a slow answer (poor wifi: the first byte after
+  // > 3 s) must not be cut off — before, every reload showed the stored OLD
+  // book (5 reloads in 104 s, qa s92) until the new version had downloaded
+  // its core (minutes). Now the network gets UPDATE_NETWORK_TIMEOUT_MS; the
+  // stored page only when it really does not answer.
   const net = foregroundFetch(event.request);
+  const reg = self.registration;
+  const newerComing = !!(reg && (reg.installing || reg.waiting));
+  const wait = newerComing ? UPDATE_NETWORK_TIMEOUT_MS : NETWORK_TIMEOUT_MS;
   try {
     const res = await Promise.race([
       net,
-      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), NETWORK_TIMEOUT_MS)),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), wait)),
     ]);
     if (res.ok) {
       cachePut(key, res);

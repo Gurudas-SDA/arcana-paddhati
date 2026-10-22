@@ -186,6 +186,8 @@ SUITES = [
          devices=["iphone14", "ipad-portrait", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s40", file="suites/s40_chapter_during_update.py", title="КСВ 15.10 iPad: grāmata saglabāta → jauns izlaidums, lēns tīkls → nodaļa ≤2 s, teksta labojums lejupielādē tikai mainīto",
          devices=["ipad-portrait", "iphone14"], fast=False, server=False),
+    dict(id="s92", file="suites/s92_update_reaches_open_book.py", title="КСВ 22.10 iPad (S msg 6133 «не вижу Заключение»): saglabāta grāmata + jauns izlaidums, lēns tīkls (pirmais baits 4 s) → 2. reload / atvērta no jauna / atgriezta no fona rāda jauno versiju (≤60 s), negaidot visu lejupielādi",
+         devices=["ipad-portrait"], fast=False, server=False),
 ]
 
 

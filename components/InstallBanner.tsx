@@ -117,8 +117,35 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
         if (document.visibilityState === "visible") check();
       });
       let reloaded = false;
+      // КСВ 22.10.2026 (Satkirti msg 6133, iPad: «не вижу Заключение»): a page of
+      // the old version (opened from the device, or the app brought back from the
+      // background) learns of a new version as soon as the browser starts to
+      // install it — and reloads ONCE at once: the old worker then takes the page
+      // from the network (sw.js waits for it while a newer version installs).
+      // Before, the reload came only when the new version had downloaded its
+      // core: ~3 min at 200 KB/s, ~14 min at 40 KB/s (qa s92), longer while the
+      // app sleeps in the background. Not more often than every 10 minutes.
+      const UPD_KEY = "ap.swUpdateReloadAt";
+      const readAt = () => {
+        try { return Number(sessionStorage.getItem(UPD_KEY)) || 0; } catch { return 0; }
+      };
+      // this page came from such a reload: it is the new book already, so the
+      // later controllerchange needs no second reload
+      const freshAfterUpdate = (() => {
+        const at = readAt();
+        return at > 0 && Date.now() - at < 30 * 60 * 1000 && performance.timeOrigin >= at && navigator.onLine;
+      })();
+      reg.then((r) => {
+        r?.addEventListener?.("updatefound", () => {
+          if (!hadController || reloaded || !navigator.onLine) return;
+          if (Date.now() - readAt() < 10 * 60 * 1000) return;
+          try { sessionStorage.setItem(UPD_KEY, String(Date.now())); } catch { return; }
+          reloaded = true;
+          window.location.reload();
+        });
+      }).catch(() => {});
       navigator.serviceWorker.addEventListener("controllerchange", () => {
-        if (!hadController || reloaded) return;
+        if (!hadController || reloaded || freshAfterUpdate) return;
         reloaded = true;
         window.location.reload();
       });
