@@ -1,8 +1,8 @@
 """Reader v7.4 (Satkirti 06.10 23:15–23:33, 07.10 12:34–13:07): parampara + ārati songs.
-  a) Contents: Обложка → Упадеша-сара → Джая-дхвани (Satkirti 22.10 msg 6152/6155) → Гуру-парампара (Шри Панча-таттва
-     first, Satkirti 07.10 13:35) → Мангалачарана → ВВЕДЕНИЕ; the parampara has 8 pages,
-     one guru each, in this order, exact captions; no Gour Govinda Svāmī; no visible heading,
-     no number; «Вперёд ›» → Мангалачарана.
+  a) Contents: Обложка → Упадеша-сара (Satkirti 22.10 msg 6152) → Гуру-парампара (Шри Панча-таттва first, Satkirti
+     07.10 13:35) → Джая-дхвани (msg 6180: after the parampara, before Мангалачарана) → Мангалачарана → ВВЕДЕНИЕ; the
+     parampara has 8 pages, one guru each, in this order, exact captions; no Gour Govinda Svāmī; no visible heading,
+     no number; «Вперёд ›» → Джая-дхвани.
   b) every portrait is shown whole: the framed oval picture is only scaled (object-fit: contain; v8.0 code mask:
      the photo object-fit: cover in an elliptic clip-path — uniform scale, aspect within 1 %;
      rendered aspect = natural aspect), never cropped by its box or by the screen; portrait +
@@ -74,8 +74,8 @@ def run(p, dev, eng, o):
         pg.evaluate("document.querySelector('[data-reader-action=contents]') && document.querySelector('[data-reader-action=contents]').click()")
         time.sleep(0.6)
         order = pg.evaluate("[...document.querySelectorAll('aside nav [data-toc-cover], aside nav .toc-scroll > ul > li')].map(l=>l.innerText.trim().split('\\n')[0].trim()).filter(Boolean).slice(0,6)")
-        chk(dev, "a contents: Обложка → Упадеша-сара → Джая-дхвани → Гуру-парампара → Мангалачарана → ВВЕДЕНИЕ",
-            order == ["Обложка", "Упадеша-сара", "Джая-дхвани", "Гуру-парампара", "Мангалачарана", "ВВЕДЕНИЕ"], order)
+        chk(dev, "a contents: Обложка → Упадеша-сара → Гуру-парампара → Джая-дхвани → Мангалачарана → ВВЕДЕНИЕ",
+            order == ["Обложка", "Упадеша-сара", "Гуру-парампара", "Джая-дхвани", "Мангалачарана", "ВВЕДЕНИЕ"], order)
 
         # a) the parampara pages
         goto(U + "parampara/"); time.sleep(0.8)
@@ -100,7 +100,7 @@ def run(p, dev, eng, o):
         chk(dev, "a no visible heading / number on the portrait pages", vis == [], vis)
         # V17 (Vraja Lila msg 796): the next chapter is the bottom bar's «Вперёд ›» (its target)
         nxt = pg.evaluate("() => document.querySelector('[data-reader-nav=forward]')?.getAttribute('data-chapter-target') || ''")
-        chk(dev, "a «Вперёд ›» after the parampara = Мангалачарана", nxt == "mangalacarana", nxt)
+        chk(dev, "a «Вперёд ›» after the parampara = Джая-дхвани (Satkirti 22.10 msg 6180)", nxt == "jaya-dhvani", nxt)
 
         # b) portraits shown whole
         bad = [(x["cap"][:20], x["fit"], round(x["w"] / x["h"], 4), round(x["nw"] / x["nh"], 4))

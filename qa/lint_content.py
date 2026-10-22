@@ -486,13 +486,13 @@ def run(args):
 
     # L21 — Парампара (Satkirti 06.10 23:15–23:33, 07.10 12:34–13:07): 8 гуру по одному на страницу, в этом
     # порядке, подписи как в «Ведических мудрых историях», без Гоур Говинды Свами; тело гуру никогда не обрезается.
-    FRONT_ORDER = ["upadesha-sara", "jaya-dhvani", "parampara", "mangalacarana", "introduction"]
-    c = Check("L21", "front pages «Упадеша-сара» → «Джая-дхвани» → parampara; parampara: Śrī Pañca-tattva first, then 8 gurus in order, exact captions, no Gour Govinda Svāmī; every figure fully inside its oval with a field ≥ 1.5 % of the oval width (rule 105)")
+    FRONT_ORDER = ["upadesha-sara", "parampara", "jaya-dhvani", "mangalacarana", "introduction"]
+    c = Check("L21", "front pages «Упадеша-сара» → parampara → «Джая-дхвани» → «Мангалачарана»; parampara: Śrī Pañca-tattva first, then 8 gurus in order, exact captions, no Gour Govinda Svāmī; every figure fully inside its oval with a field ≥ 1.5 % of the oval width (rule 105)")
     exp = {"ru": PARAMPARA_RU, "en": PARAMPARA_EN}
     for fn, lang in (("book.ru-iast.json", "ru"), ("book.ru.json", "ru"), ("book.json", "en")):
         b = loaded[os.path.join(qa.DATA, fn)]
         ids = [s["id"] for s in b["sections"]]
-        # Satkirti 22.10 msg 6152/6155: «Упадеша-сара» right after the cover, «Джая-дхвани» before the parampara
+        # Satkirti 22.10 msg 6152: «Упадеша-сара» right after the cover; msg 6180: «Джая-дхвани» after the parampara, before «Мангалачарана»
         if ids[:5] != FRONT_ORDER:
             c.hit(fn, "sections", f"order {ids[:5]} (expected {' → '.join(FRONT_ORDER)})")
             continue
@@ -510,7 +510,7 @@ def run(args):
             continue
         b = loaded[f]
         ids = [s["id"] for s in b["sections"]]
-        # Satkirti 22.10 msg 6152/6155: «Упадеша-сара» right after the cover, «Джая-дхвани» before the parampara
+        # Satkirti 22.10 msg 6152: «Упадеша-сара» right after the cover; msg 6180: «Джая-дхвани» after the parampara, before «Мангалачарана»
         if ids[:5] != FRONT_ORDER:
             c.hit(fn, "sections", f"order {ids[:5]} (expected {' → '.join(FRONT_ORDER)})")
             continue

@@ -24,7 +24,19 @@ Satkirti 21.10 msg 6038: «Эмблему не трогаешь, только с
      each with nr, date, timecode, transcript link; translated into every book language; ru-iast without Cyrillic
      Sanskrit with diacritics
   d  msg 6038: the «gaudiya-emblem» section is unchanged in every book file (sha256 = qa/snapshots/emblem_s6038.json)
-No browser, no server: python s95_intro_um8.py"""
+Satkirti 22.10 msg 6177/6180 (on «Джая-дхвани», after the analysis of the «Gīti-guccha» 2016 text):
+  1) the name everywhere «Джая-дхвани» (a glorification), not «пранама»; the text verbatim after «Śrī Gauḍīya
+     Gīti-guccha» 2016 — nothing invented; 2) instead of «[Now one should loudly chant the name of one's guru.]» the name
+     of our guru «Jaya oṁ viṣṇupāda paramahaṁsa parivrājakācārya … Śrī Prema Prayojana Prabhu kī jaya!» — its middle
+     part Satkirti will still write; 3) the place: AFTER «Гуру-парампара», BEFORE «Мангалачарана»; 4) calls 27/28/29/33 —
+     Satkirti still decides: kept as in the source for now; 5) the Upadeśa-sāra page after the cover stays.
+  a  (since msg 6180) every book opens upadesha-sara → parampara → jaya-dhvani → mangalacarana → introduction
+  e  «Джая-дхвани» / «Jaya-dhvani» (title; no «пранама» / «praṇāma» in it) = the 34 calls of «Gīti-guccha» 2016,
+     pp. xxxix–xl (GG2016 below: copied by hand from the PDF, independent of the generator), in order, with the
+     printing errors corrected (GG_ERRATA, listed to Satkirti in the analysis 22.10); none of the 36 calls of the
+     Voronezh songbook that are not in it; call 2 = the guru line, marked "needs_satkirti" (open question —
+     qa/known_failures.json until Satkirti writes it); every call with translation + word-for-word.
+No browser, no server: python s95_front_um8_jaya.py"""
 import glob
 import hashlib
 import json
@@ -74,6 +86,58 @@ WBW_RU = ["Господа Кришны", "святое имя", "облик", "�
           "и памятование", "постепенно", "язык", "и ум", "вовлекая", "живя", "во Врадже", "к Господу Кришне",
           "привязанным", "личностям", "следуя", "время", "нужно использовать", "всё", "такова", "наставления", "суть"]
 NRS = ["7717", "812", "554", "137", "447"]
+FRONT = ["upadesha-sara", "parampara", "jaya-dhvani", "mangalacarana", "introduction"]
+GG2016 = [
+    "Śrī Śrī Guru-Gaurāṅga-Gāndharvikā-Giridhārī-Rādhā-Vinoda-bihārījī kī jaya!",
+    "[Now one should loudly chant the name of one’s guru.]",
+    "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja kī jaya!",
+    "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Vāmana Gosvāmī Mahārāja kī jaya!",
+    "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Svāmī Mahārāja kī jaya!",
+    "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhakti Prajñāna Keśava Gosvāmī Mahārāja kī jaya!",
+    "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīla Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda kī jaya!",
+    "Nitya-līlā-praviṣṭa parama-bhāgavat-pravara Śrī Śrīla Gaurakiśora dāsa Bābāji Mahārāja kī jaya!",
+    "Nitya-līlā-praviṣṭa Śrī Śrīla Saccidānanda Bhaktivinoda Ṭhākura kī jaya!",
+    "Nitya-līlā-praviṣṭa vaiṣṇava-sārvabhauma Śrī Śrīla Jagannātha dāsa Bābājī Mahārāja kī jaya!",
+    "Śrī gauḓīya-vedāntācārya Śrī Śrīla Baladeva Vidyābhūṣaṇa Prabhu kī jaya!",
+    "Śrīla Viśvanātha Cakravartī Ṭhākura kī jaya!",
+    "Śrīla Narottama, Śrīnivāsa, Śyāmānanda Prabhu-traya kī jaya!",
+    "Śrīla Kṛṣṇadāsa Kavirāja Gosvāmī Prabhu kī jaya!",
+    "Śrī Rūpa, Sanātana, Bhaṭṭa Raghunātha, Śrī Jīva, Gopāla-bhaṭṭa, dāsa Raghunātha ṣaḍ-gosvāmī-prabhu kī jaya!",
+    "Śrī Śvarūpa Dāmodara, Rāya Rāmānandādi Śrī Gaura-pārṣada-vṛnda kī jaya!",
+    "Nāmācārya Śrīla Haridāsa Ṭhākura kī jaya!",
+    "Prema se kaho Śrī Kṛṣṇa Caitanya, Prabhu Nityānanda, Śrī Advaita, Gadādhara, Śrīvāsādi Gaura-bhakta-vṛnda kī jaya!",
+    "Śrī Antardvīpa Māyāpura, Sīmantadvīpa, Godrumadvīpa, Madhyadvīpa, Koladvīpa, Ṛtudvīpa, Jahnudvīpa, Modradrumadvīpa, "
+    "Rudradvīpātmaka Śrī Navadvīpa-dhāma kī jaya!",
+    "Śrī Śrī Rādhā-Kṛṣṇa gopa, gopī, go, Govardhana, dvādaśa vanātmaka Śrī Vraja-maṇḍala kī jaya!",
+    "Śrī Rādhā-kuṇḍa, Śyāma-kuṇḍa, Gaṅgā, Yamunā, Tulasī, Bhakti-devī kī jaya!",
+    "Śrīmatī Vṛndā-devī kī jaya! Śrī Paurṇamāsī Yogamāyā kī jaya! Śrī Gopīśvara Mahādeva kī jaya!",
+    "Śrī Jagannātha, Baladeva, Subhadrā, Sudarśana Cakra jiu kī jaya!",
+    "Śrī Kṣetra-maṇḍala kī jaya!",
+    "Sarva-vighna-vināśakārī Śrī Nṛsiṁhadeva kī jaya!",
+    "Bhakta-pravara Śrī Prahlāda Mahārāja kī jaya!",
+    "Cāri-dhāma kī jaya! Cāri-sampradāya kī jaya! Cāri-ācārya kī jaya!",
+    "Ākara maṭha-rāja Śrī Caitanya Maṭha kī jaya!",
+    "Śrī Śrī Keśavajī Gauḓīya Maṭha o tat-śākhā maṭha samūha kī jaya!",
+    "Grantha-rāja Śrīmad-Bhāgavatam kī jaya!",
+    "Śrī Harināma-saṅkīrtana kī jaya!",
+    "Ananta-koṭi vaiṣṇava-vṛnda kī jaya!",
+    "Samāgata bhakta-vṛnda kī jaya!",
+    "Śrī Nitāi-Gaura-premānande! Hari Hari bol!",
+]
+GG_ERRATA = [("parama-bhāgavat-pravara", "parama-bhāgavata-pravara"), ("Bābāji ", "Bābājī "), ("Śvarūpa", "Svarūpa"),
+             ("Modradrumadvīpa", "Modadrumadvīpa"), ("ḓ", "ḍ")]
+GURU_LINE = "Jaya oṁ viṣṇupāda paramahaṁsa parivrājakācārya … Śrī Prema Prayojana Prabhu kī jaya!"
+
+
+def gg(s):
+    for a, b in GG_ERRATA:
+        s = s.replace(a, b)
+    return s
+
+
+# msg 6180 p.4: Satkirti may strike 27/28/29/33 — the generator's DROP says which are struck (none until her word)
+GG_BOOK = [(n, GURU_LINE if n == 2 else gg(x)) for n, x in enumerate(GG2016, 1) if n not in getattr(JD, "DROP", ())]
+assert len(GG2016) == 34
 VERSE_WORDS = re.compile(r"tan-nāma|nāma-rūpa|rasanā|tiṣṭhan vraje|anurāgi|upadeśa-sār|essence of all advice|"
                          r"eighth verse|krameṇa|sukīrtan|anukīrtan", re.I)
 CYR_DIA = re.compile("[а-яА-ЯёЁ][̣̄̃̇́]")
@@ -96,8 +160,8 @@ concl_nrs = set(re.findall(r"№ ?(\d+)", json.dumps(sec_of(json.load(open(os.pa
 for lang, fn in BOOKS.items():
     b = json.load(open(os.path.join(DATA, fn), encoding="utf-8"))
     ids = [x["id"] for x in b["sections"]]
-    chk(f"a {fn}: book opens with upadesha-sara → jaya-dhvani → parampara", ids[:3] == ["upadesha-sara", "jaya-dhvani", "parampara"],
-        ids[:4])
+    chk(f"a {fn}: book opens upadesha-sara → parampara → jaya-dhvani → mangalacarana → introduction (msg 6180 p.3)",
+        ids[:5] == FRONT, ids[:5])
     chk(f"a {fn}: the two front pages belong to no part", not {"upadesha-sara", "jaya-dhvani"} & {x for p in b.get("parts", []) for x in p["sections"]})
     intro = sec_of(b, "introduction")
     chk(f"a {fn}: Введение has no verse and no «Настроение» (UM 8 moved, ŚB 11.3.48 not back)",
@@ -105,9 +169,26 @@ for lang, fn in BOOKS.items():
     # e
     jd = sec_of(b, "jaya-dhvani")
     jv = [x for x in jd["content"] if x.get("type") == "verse"]
-    want = [nfc(translit(l[0]) if lang == "ru" else l[0]) for l in JD.LINES]
-    chk(f"e {fn}: Джая-дхвани = the 36 calls of the source in order", [nfc(x.get("sanskrit")) for x in jv] == want and len(want) == 36,
-        len(jv))
+    tt = nfc(jd.get("title"))
+    chk(f"e {fn}: title «Джая-дхвани» / «Jaya-dhvani», not «пранама» (msg 6180 p.1)",
+        tt == ("Джая-дхвани" if lang in ("ru", "ru-iast") else "Jaya-dhvani" if lang == "en" else tt)
+        and not re.search(r"пранам|praṇām|pranam", tt + nfc(jd.get("subtitle") or ""), re.I), tt)
+    want = [nfc(translit(x) if lang == "ru" else x) for _, x in GG_BOOK]
+    got = [nfc(x.get("sanskrit")) for x in jv]
+    chk(f"e {fn}: Джая-дхвани = the calls of «Gīti-guccha» 2016 in order, verbatim (msg 6180 p.1)",
+        got == want, next(((i + 1, g[:70], w[:70]) for i, (g, w) in enumerate(zip(got, want)) if g != w), (len(got), len(want))))
+    chk(f"e {fn}: calls 27/28/29/33 kept until Satkirti decides (msg 6180 p.4)",
+        all(n in [m for m, _ in GG_BOOK] for n in (27, 28, 29, 33)) or getattr(JD, "DROP", ()), getattr(JD, "DROP", None))
+    chk(f"e {fn}: none of the Voronezh calls that «Gīti-guccha» 2016 does not have",
+        not [x for x in got if re.search(r"Devānanda|Девананда|devānanda|Vedānta Samiti|vedānta samiti|Ishvara|īśvara purī|Īśvara Purī|"
+                                        r"Mādhavendra|mādhavendra|Rūpa-Sanātana Gauḍīya|giridhārī gauḍīya|Giridhārī Gauḍīya|"
+                                        r"Рӯпа-Сана̄тана Га̄уд̣ӣйа|ӣш́вара пурӣ|Ма̄дхавендра|Дева̄нанда", x, re.I)], len(got))
+    gl = [x for x in jv if x.get("needs_satkirti")]
+    chk(f"e {fn}: call 2 = the guru line, marked needs_satkirti (msg 6180 p.2)",
+        len(jv) > 1 and nfc(jv[1].get("sanskrit")) == nfc(translit(GURU_LINE) if lang == "ru" else GURU_LINE)
+        and gl == [jv[1]] and "loudly chant" not in json.dumps(jd, ensure_ascii=False), len(gl))
+    chk(f"OPEN guru line (msg 6180 p.2) {fn}: its middle part is not yet written by Satkirti",
+        not gl and "…" not in nfc(jv[1].get("sanskrit") if len(jv) > 1 else "…"), "needs_satkirti")
     chk(f"e {fn}: every call has a translation and a word-for-word", all(x.get("translation", "").strip() and x.get("wbw", "").strip() for x in jv))
     sec = sec_of(b, "upadesha-sara")
     blob = nfc(json.dumps(sec, ensure_ascii=False))

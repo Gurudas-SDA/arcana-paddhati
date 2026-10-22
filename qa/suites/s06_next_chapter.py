@@ -33,8 +33,8 @@ CASES = [
     ("main-worship-sixteen-items", "home-worship", "Часть II. "),
     ("guru-puja-vyasa-puja", "major-festivals", "13. "),
     # v7.4 (appended last: the loop index decides which history checks run)
-    # (Satkirti 07.10): parampara → Мангалачарана; Part IV ends with the ārati songs
-    ("parampara", "mangalacarana", "Мангалачарана"),
+    # (Satkirti 07.10): Part IV ends with the ārati songs; 22.10 (msg 6180): parampara → «Джая-дхвани» → Мангалачарана
+    ("parampara", "jaya-dhvani", "Джая-дхвани"),
     ("major-festivals", "mangala-arati-songs", "14. "),
     # v7.6 (07.10): «Бхаджаны для Картики» right after «Песни гаура-арати» — now the last chapter
     ("gaura-arati-songs", "kartika-bhajans", "16. "),

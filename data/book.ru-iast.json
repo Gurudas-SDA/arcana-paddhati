@@ -121,231 +121,6 @@
       "subsections": []
     },
     {
-      "id": "jaya-dhvani",
-      "title": "Джая-дхвани",
-      "subtitle": null,
-      "page": "",
-      "content": [
-        {
-          "type": "verse",
-          "sanskrit": "śrī śrī guru-gaurāṅga gāndharvikā-giridhārī rādhā-vinoda-bihārījī kī jay",
-          "translation": "Слава Шри Шри Гуру и Гауранге, Гандхарвике и Гиридхари, Радха-Винода-Бихари!",
-          "wbw": "śrī śrī — Шри Шри; guru-gaurāṅga — Гуру и Гауранге; gāndharvikā-giridhārī — Гандхарвике (Шримати Радхике) и Гиридхари (Кришне, поднявшему холм); rādhā-vinoda-bihārījī — Радха-Винода-Бихари (Кришне, наслаждающемуся играми с Радхой); kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "nitya-līlā-praviṣṭa oṁ viṣṇupād aṣṭottara-śata rūpānuga-ācārya-varya śrī śrīmad bhaktivedānta nārāyaṇa gosvāmī kī jay",
-          "translation": "Слава вошедшему в вечные игры ом вишнупаде аштоттара-шата рупануга-ачарья-варье Шри Шримад Бхактиведанте Нараяне Госвами!",
-          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; oṁ viṣṇupād — ом вишнупаде (тому, кто у стоп Вишну); aṣṭottara-śata — сто восемь раз (почитаемому); rūpānuga-ācārya-varya — лучшему из ачарьев-последователей Шри Рупы; śrī śrīmad — Шри Шримад; bhaktivedānta nārāyaṇa gosvāmī — Бхактиведанте Нараяне Госвами; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "nitya-līlā-praviṣṭa oṁ viṣṇupād aṣṭottara-śata śrī śrīmad bhaktivedānta vāmana gosvāmī kī jay",
-          "translation": "Слава вошедшему в вечные игры ом вишнупаде аштоттара-шата Шри Шримад Бхактиведанте Вамане Госвами!",
-          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; oṁ viṣṇupād — ом вишнупаде (тому, кто у стоп Вишну); aṣṭottara-śata — сто восемь раз (почитаемому); śrī śrīmad — Шри Шримад; bhaktivedānta vāmana gosvāmī — Бхактиведанте Вамане Госвами; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "nitya-līlā-praviṣṭa oṁ viṣṇupād aṣṭottara-śata śrī śrīmad bhaktivedānta svāmī prabhupāda kī jay",
-          "translation": "Слава вошедшему в вечные игры ом вишнупаде аштоттара-шата Шри Шримад Бхактиведанте Свами Прабхупаде!",
-          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; oṁ viṣṇupād — ом вишнупаде (тому, кто у стоп Вишну); aṣṭottara-śata — сто восемь раз (почитаемому); śrī śrīmad — Шри Шримад; bhaktivedānta svāmī prabhupāda — Бхактиведанте Свами Прабхупаде; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "nitya-līlā-praviṣṭa oṁ viṣṇupād aṣṭottara-śata śrī śrīmad bhakti-prajñāna keśava gosvāmī kī jay",
-          "translation": "Слава вошедшему в вечные игры ом вишнупаде аштоттара-шата Шри Шримад Бхакти Прагьяне Кешаве Госвами!",
-          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; oṁ viṣṇupād — ом вишнупаде (тому, кто у стоп Вишну); aṣṭottara-śata — сто восемь раз (почитаемому); śrī śrīmad — Шри Шримад; bhakti-prajñāna keśava gosvāmī — Бхакти Прагьяне Кешаве Госвами; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "nitya-līlā-praviṣṭa oṁ viṣṇupād aṣṭottara-śata śrī śrīmad bhaktisiddhānta sarasvatī prabhupāda kī jay",
-          "translation": "Слава вошедшему в вечные игры ом вишнупаде аштоттара-шата Шри Шримад Бхактисиддханте Сарасвати Прабхупаде!",
-          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; oṁ viṣṇupād — ом вишнупаде (тому, кто у стоп Вишну); aṣṭottara-śata — сто восемь раз (почитаемому); śrī śrīmad — Шри Шримад; bhaktisiddhānta sarasvatī prabhupāda — Бхактисиддханте Сарасвати Прабхупаде; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "mahā-bhāgavata pravara śrīla gaurakiśora dās bābājī kī jay",
-          "translation": "Слава лучшему из маха-бхагават Шриле Гауракишоре дасу Бабаджи!",
-          "wbw": "mahā-bhāgavata pravara — лучшему из маха-бхагават; śrīla gaurakiśora dās bābājī — Шриле Гауракишоре дасу Бабаджи; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "saptama-gosvāmī sac-cid-ānanda śrīla bhaktivinoda ṭhākur kī jay",
-          "translation": "Слава седьмому Госвами, Сач-чид-ананде Шриле Бхактивиноде Тхакуру!",
-          "wbw": "saptama-gosvāmī — седьмому Госвами; sac-cid-ānanda — Сач-чид-ананде; śrīla bhaktivinoda ṭhākur — Шриле Бхактивиноде Тхакуру; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "vaiṣṇava-sārvabhauma śrīla jagannātha dās bābājī kī jay",
-          "translation": "Слава повелителю вайшнавов Шриле Джаганнатхе дасу Бабаджи!",
-          "wbw": "vaiṣṇava-sārvabhauma — повелителю вайшнавов; śrīla jagannātha dās bābājī — Шриле Джаганнатхе дасу Бабаджи; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrī gauḍīya-vedāntācārya śrīla baladeva vidyābhūṣaṇa kī jay",
-          "translation": "Слава ачарье гаудия-веданты Шриле Баладеве Видьябхушане!",
-          "wbw": "śrī gauḍīya-vedāntācārya — ачарье гаудия-веданты; śrīla baladeva vidyābhūṣaṇa — Шриле Баладеве Видьябхушане; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrīla viśvanātha cakravartī ṭhākur kī jay",
-          "translation": "Слава Шриле Вишванатхе Чакраварти Тхакуру!",
-          "wbw": "śrīla viśvanātha cakravartī ṭhākur — Шриле Вишванатхе Чакраварти Тхакуру; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrīla narottama śrīnivāsa śyāmānanda prabhu-traya kī jay",
-          "translation": "Слава трём прабху — Шриле Нароттаме, Шринивасе и Шьямананде!",
-          "wbw": "śrīla narottama śrīnivāsa śyāmānanda — Шриле Нароттаме, Шринивасе и Шьямананде; prabhu-traya — трём прабху; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrīla kṛṣṇadās kavirāj gosvāmīpād kī jay",
-          "translation": "Слава Шриле Кришнадасу Кавираджу Госвамипаде!",
-          "wbw": "śrīla kṛṣṇadās kavirāj gosvāmīpād — Шриле Кришнадасу Кавираджу Госвамипаде; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrī rūpa sanātana bhaṭṭa raghunātha śrī jīva gopāla bhaṭṭa dāsa raghunātha śaḍ-gosvāmī kī jay",
-          "translation": "Слава шести Госвами — Шри Рупе, Санатане, Бхатте Рагхунатхе, Шри Дживе, Гопалу Бхатте и Дасу Рагхунатхе!",
-          "wbw": "śrī rūpa sanātana — Шри Рупе и Санатане; bhaṭṭa raghunātha — Бхатте Рагхунатхе; śrī jīva — Шри Дживе; gopāla bhaṭṭa — Гопалу Бхатте; dāsa raghunātha — Дасу Рагхунатхе; śaḍ-gosvāmī — шести Госвами; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrī svarūpa dāmodara rāya rāmānandādi śrī gaura-pārṣada-vṛnda kī jay",
-          "translation": "Слава всем спутникам Шри Гауры во главе со Шри Сварупой Дамодарой и Раей Раманандой!",
-          "wbw": "śrī svarūpa dāmodara — Шри Сварупе Дамодаре; rāya rāmānanda-ādi — Рае Рамананде и другим; śrī gaura-pārṣada-vṛnda — всем спутникам Шри Гауры; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "nāma-acārya śrīla haridās ṭhākur kī jay",
-          "translation": "Слава нама-ачарье Шриле Харидасу Тхакуру!",
-          "wbw": "nāma-acārya — учителю святого имени (нама-ачарье); śrīla haridās ṭhākur — Шриле Харидасу Тхакуру; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "prem-se kaho śrī kṛṣṇa-caitanya prabhu nityānanda śrī advaita gadādhara śrīvāsādi śrī gaura-bhakta-vṛnda kī jay",
-          "translation": "С любовью произнесите: слава Шри Кришна-Чайтанье, Прабху Нитьянанде, Шри Адвайте, Гададхаре, Шривасе и всем преданным Шри Гауры!",
-          "wbw": "prem-se kaho — с любовью произнесите; śrī kṛṣṇa-caitanya — Шри Кришна-Чайтанье; prabhu nityānanda — Прабху Нитьянанде; śrī advaita — Шри Адвайте; gadādhara — Гададхаре; śrīvāsa-ādi — Шривасе и другим; śrī gaura-bhakta-vṛnda — всем преданным Шри Гауры; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrīla īśvara purīpād kī jay",
-          "translation": "Слава Шриле Ишваре Пурипаде!",
-          "wbw": "śrīla īśvara purīpād — Шриле Ишваре Пурипаде; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrīla mādhavendra purīpād kī jay",
-          "translation": "Слава Шриле Мадхавендре Пурипаде!",
-          "wbw": "śrīla mādhavendra purīpād — Шриле Мадхавендре Пурипаде; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrī antar-dvīp māyāpur sīmanta-dvīp godrum-dvīp madhya-dvīp kola-dvīp ṛtu-dvīp jahnu-dvīp modadrum-dvīp rudra-dvīpātmaka śrī-navadvīpa-dhāma kī jay",
-          "translation": "Слава Шри Навадвипа-дхаме, состоящей из девяти островов: Антардвипы (Маяпура), Симантадвипы, Годрумадвипы, Мадхьядвипы, Коладвипы, Ритудвипы, Джахнудвипы, Модадрумадвипы и Рудрадвипы!",
-          "wbw": "śrī antar-dvīp māyāpur — Шри Антардвипе (Маяпуру); sīmanta-dvīp — Симантадвипе; godrum-dvīp — Годрумадвипе; madhya-dvīp — Мадхьядвипе; kola-dvīp — Коладвипе; ṛtu-dvīp — Ритудвипе; jahnu-dvīp — Джахнудвипе; modadrum-dvīp — Модадрумадвипе; rudra-dvīpa-ātmaka — и Рудрадвипе — состоящей из них; śrī-navadvīpa-dhāma — Шри Навадвипа-дхаме; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrī śrī rādhā-kṛṣṇa gopa gopī go govardhana dvādaśa vanātmaka śrī-vraja-maṇḍala kī jay",
-          "translation": "Слава Шри Враджа-мандале с её двенадцатью лесами — Шри Шри Радха-Кришне, пастухам, гопи, коровам и Говардхану!",
-          "wbw": "śrī śrī rādhā-kṛṣṇa — Шри Шри Радха-Кришне; gopa — пастухам; gopī — гопи; go — коровам; govardhana — Говардхану; dvādaśa vana-ātmaka — состоящей из двенадцати лесов; śrī-vraja-maṇḍala — Шри Враджа-мандале; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrī śyāma-kuṇḍa rādhā-kuṇḍa yamunā gaṅgā tulasī bhakti-devī kī jay",
-          "translation": "Слава Шри Шьяма-кунде, Радха-кунде, Ямуне, Ганге, Туласи и Бхакти-деви!",
-          "wbw": "śrī śyāma-kuṇḍa — Шри Шьяма-кунде; rādhā-kuṇḍa — Радха-кунде; yamunā — Ямуне; gaṅgā — Ганге; tulasī — Туласи; bhakti-devī — Бхакти-деви; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrī jagannātha baladeva subhadrājī kī jay",
-          "translation": "Слава Шри Джаганнатхе, Баладеве и Субхадре!",
-          "wbw": "śrī jagannātha — Шри Джаганнатхе; baladeva — Баладеве; subhadrājī — Субхадре; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "nṛsiṁha bhagavān kī jay",
-          "translation": "Слава Господу Нрисимхе!",
-          "wbw": "nṛsiṁha bhagavān — Господу Нрисимхе; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "bhakta-pravara śrī prahlāda mahārāj kī jay",
-          "translation": "Слава лучшему из преданных Шри Прахладе Махараджу!",
-          "wbw": "bhakta-pravara — лучшему из преданных; śrī prahlāda mahārāj — Шри Прахладе Махараджу; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "cāro sampradāya kī jay",
-          "translation": "Слава четырём сампрадаям!",
-          "wbw": "cāro — четырём; sampradāya — сампрадаям; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "ākāra maṭha-rāja śrī caitanya maṭh kī jay",
-          "translation": "Слава Шри Чайтанья-матху — изначальному, царю всех матхов!",
-          "wbw": "ākāra — изначальному; maṭha-rāja — царю матхов; śrī caitanya maṭh — Шри Чайтанья-матху; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrī gauḍīya vedānta samiti kī jay",
-          "translation": "Слава Шри Гаудия-веданта-самити!",
-          "wbw": "śrī gauḍīya vedānta samiti — Шри Гаудия-веданта-самити; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrī devānanda gauḍīya maṭh aur anyānya śākhā maṭha samūha kī jay",
-          "translation": "Слава Шри Девананда Гаудия-матху и всем другим его отделениям!",
-          "wbw": "śrī devānanda gauḍīya maṭh — Шри Девананда Гаудия-матху; aur — и; anyānya — всем другим; śākhā maṭha samūha — матхам-отделениям; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrī keśavajī gauḍīya maṭh kī jay",
-          "translation": "Слава Шри Кешаваджи Гаудия-матху!",
-          "wbw": "śrī keśavajī gauḍīya maṭh — Шри Кешаваджи Гаудия-матху; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrī rūpa-sanātana gauḍīya maṭh kī jay",
-          "translation": "Слава Шри Рупа-Санатана Гаудия-матху!",
-          "wbw": "śrī rūpa-sanātana gauḍīya maṭh — Шри Рупа-Санатана Гаудия-матху; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrī giridhārī gauḍīya maṭh kī jay",
-          "translation": "Слава Шри Гиридхари Гаудия-матху!",
-          "wbw": "śrī giridhārī gauḍīya maṭh — Шри Гиридхари Гаудия-матху; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "ananta-koṭi vaiṣṇava-vṛnda kī jay",
-          "translation": "Слава бесчисленным вайшнавам!",
-          "wbw": "ananta-koṭi — бесчисленным; vaiṣṇava-vṛnda — вайшнавам; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "samāgata bhakta-vṛnda kī jay",
-          "translation": "Слава собравшимся преданным!",
-          "wbw": "samāgata — собравшимся; bhakta-vṛnda — преданным; kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrī hari-nāma-saṅkīrtana kī jay",
-          "translation": "Слава Шри хари-нама-санкиртане!",
-          "wbw": "śrī hari-nāma-saṅkīrtana — Шри хари-нама-санкиртане (совместному воспеванию святых имён Господа); kī jay — слава."
-        },
-        {
-          "type": "verse",
-          "sanskrit": "śrī gaura-premānande hari hari bol",
-          "translation": "В блаженстве любви к Шри Гауре воспевайте: Хари! Хари!",
-          "wbw": "śrī gaura-prema-ānande — в блаженстве любви к Шри Гауре; hari hari — Хари! Хари!; bol — воспевайте."
-        }
-      ],
-      "subsections": []
-    },
-    {
       "id": "parampara",
       "title": "Гуру-парампара",
       "subtitle": null,
@@ -396,6 +171,220 @@
           "type": "portrait",
           "src": "parampara/08-prem-prayojan.png",
           "caption": "Шри Према Прайоджана Прабху"
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "id": "jaya-dhvani",
+      "title": "Джая-дхвани",
+      "subtitle": null,
+      "page": "",
+      "content": [
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Śrī Guru-Gaurāṅga-Gāndharvikā-Giridhārī-Rādhā-Vinoda-bihārījī kī jaya!",
+          "translation": "Слава Шри Шри Гуру и Гауранге, Гандхарвика-Гиридхари и Радха-Винода-Бихариджи!",
+          "wbw": "Śrī Śrī — Шри Шри; Guru-Gaurāṅga — Гуру и Гауранге; Gāndharvikā-Giridhārī — Гандхарвике (Шримати Радхике) и Гиридхари (Кришне, поднявшему холм); Rādhā-Vinoda-bihārījī — Радха-Винода-Бихариджи (Кришне, наслаждающемуся играми ради Радхи); kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Jaya oṁ viṣṇupāda paramahaṁsa parivrājakācārya … Śrī Prema Prayojana Prabhu kī jaya!",
+          "translation": "Слава ом вишнупаде парамахамсе париврадж-ачарье … Шри Преме Прайоджане Прабху!",
+          "wbw": "Jaya — слава; oṁ viṣṇupāda — ом вишнупаде (пребывающему у стоп Вишну); paramahaṁsa — парамахамсе (возвышенному, как лебедь); parivrājakācārya — ачарье-странствующему санньяси; Śrī Prema Prayojana Prabhu — Шри Преме Прайоджане Прабху; kī jaya — слава.",
+          "needs_satkirti": "msg 6177/6180"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja kī jaya!",
+          "translation": "Слава вошедшему в вечные игры ом вишнупаде аштоттара-шата Шри Шримад Бхактиведанте Нараяне Госвами Махараджу!",
+          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; oṁ viṣṇupāda — ом вишнупаде (пребывающему у стоп Вишну); aṣṭottara-śata — аштоттара-шата (носящему сто восемь титулов почтения); Śrī Śrīmad — Шри Шримад; Bhaktivedānta Nārāyaṇa — Бхактиведанте Нараяне; Gosvāmī Mahārāja — Госвами Махараджу; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Vāmana Gosvāmī Mahārāja kī jaya!",
+          "translation": "Слава вошедшему в вечные игры ом вишнупаде аштоттара-шата Шри Шримад Бхактиведанте Вамане Госвами Махараджу!",
+          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; oṁ viṣṇupāda — ом вишнупаде (пребывающему у стоп Вишну); aṣṭottara-śata — аштоттара-шата (носящему сто восемь титулов почтения); Śrī Śrīmad — Шри Шримад; Bhaktivedānta Vāmana — Бхактиведанте Вамане; Gosvāmī Mahārāja — Госвами Махараджу; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Svāmī Mahārāja kī jaya!",
+          "translation": "Слава вошедшему в вечные игры ом вишнупаде аштоттара-шата Шри Шримад Бхактиведанте Свами Махараджу!",
+          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; oṁ viṣṇupāda — ом вишнупаде (пребывающему у стоп Вишну); aṣṭottara-śata — аштоттара-шата (носящему сто восемь титулов почтения); Śrī Śrīmad — Шри Шримад; Bhaktivedānta Svāmī Mahārāja — Бхактиведанте Свами Махараджу; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhakti Prajñāna Keśava Gosvāmī Mahārāja kī jaya!",
+          "translation": "Слава вошедшему в вечные игры ом вишнупаде аштоттара-шата Шри Шримад Бхакти Прагьяне Кешаве Госвами Махараджу!",
+          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; oṁ viṣṇupāda — ом вишнупаде (пребывающему у стоп Вишну); aṣṭottara-śata — аштоттара-шата (носящему сто восемь титулов почтения); Śrī Śrīmad — Шри Шримад; Bhakti Prajñāna Keśava — Бхакти Прагьяне Кешаве; Gosvāmī Mahārāja — Госвами Махараджу; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīla Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda kī jaya!",
+          "translation": "Слава вошедшему в вечные игры ом вишнупаде аштоттара-шата Шри Шриле Бхактисиддханте Сарасвати Госвами Прабхупаде!",
+          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; oṁ viṣṇupāda — ом вишнупаде (пребывающему у стоп Вишну); aṣṭottara-śata — аштоттара-шата (носящему сто восемь титулов почтения); Śrī Śrīla — Шри Шриле; Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda — Бхактисиддханте Сарасвати Госвами Прабхупаде; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Nitya-līlā-praviṣṭa parama-bhāgavata-pravara Śrī Śrīla Gaurakiśora dāsa Bābājī Mahārāja kī jaya!",
+          "translation": "Слава вошедшему в вечные игры лучшему из возвышенных преданных Шри Шриле Гауракишоре дасу Бабаджи Махараджу!",
+          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; parama-bhāgavata-pravara — лучшему из возвышенных преданных; Śrī Śrīla — Шри Шриле; Gaurakiśora dāsa Bābājī Mahārāja — Гауракишоре дасу Бабаджи Махараджу; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Nitya-līlā-praviṣṭa Śrī Śrīla Saccidānanda Bhaktivinoda Ṭhākura kī jaya!",
+          "translation": "Слава вошедшему в вечные игры Шри Шриле Саччидананде Бхактивиноде Тхакуру!",
+          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; Śrī Śrīla — Шри Шриле; Saccidānanda Bhaktivinoda Ṭhākura — Саччидананде Бхактивиноде Тхакуру; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Nitya-līlā-praviṣṭa vaiṣṇava-sārvabhauma Śrī Śrīla Jagannātha dāsa Bābājī Mahārāja kī jaya!",
+          "translation": "Слава вошедшему в вечные игры главе вайшнавов Шри Шриле Джаганнатхе дасу Бабаджи Махараджу!",
+          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; vaiṣṇava-sārvabhauma — главе вайшнавов; Śrī Śrīla — Шри Шриле; Jagannātha dāsa Bābājī Mahārāja — Джаганнатхе дасу Бабаджи Махараджу; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī gauḍīya-vedāntācārya Śrī Śrīla Baladeva Vidyābhūṣaṇa Prabhu kī jaya!",
+          "translation": "Слава ачарье гаудия-веданты Шри Шриле Баладеве Видьябхушане Прабху!",
+          "wbw": "Śrī gauḍīya-vedāntācārya — ачарье гаудия-веданты; Śrī Śrīla — Шри Шриле; Baladeva Vidyābhūṣaṇa Prabhu — Баладеве Видьябхушане Прабху; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrīla Viśvanātha Cakravartī Ṭhākura kī jaya!",
+          "translation": "Слава Шриле Вишванатхе Чакраварти Тхакуру!",
+          "wbw": "Śrīla Viśvanātha Cakravartī Ṭhākura — Шриле Вишванатхе Чакраварти Тхакуру; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrīla Narottama, Śrīnivāsa, Śyāmānanda Prabhu-traya kī jaya!",
+          "translation": "Слава трём Прабху — Шриле Нароттаме, Шринивасе и Шьямананде!",
+          "wbw": "Śrīla Narottama, Śrīnivāsa, Śyāmānanda — Шриле Нароттаме, Шринивасе и Шьямананде; Prabhu-traya — трём Прабху; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrīla Kṛṣṇadāsa Kavirāja Gosvāmī Prabhu kī jaya!",
+          "translation": "Слава Шриле Кришнадасу Кавирадже Госвами Прабху!",
+          "wbw": "Śrīla Kṛṣṇadāsa Kavirāja Gosvāmī Prabhu — Шриле Кришнадасу Кавирадже Госвами Прабху; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Rūpa, Sanātana, Bhaṭṭa Raghunātha, Śrī Jīva, Gopāla-bhaṭṭa, dāsa Raghunātha ṣaḍ-gosvāmī-prabhu kī jaya!",
+          "translation": "Слава шести Госвами — Шри Рупе, Санатане, Бхатте Рагхунатхе, Шри Дживе, Гопале Бхатте и Дасу Рагхунатхе!",
+          "wbw": "Śrī Rūpa — Шри Рупе; Sanātana — Санатане; Bhaṭṭa Raghunātha — Бхатте Рагхунатхе; Śrī Jīva — Шри Дживе; Gopāla-bhaṭṭa — Гопале Бхатте; dāsa Raghunātha — Дасу Рагхунатхе; ṣaḍ-gosvāmī-prabhu — шести Госвами; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Svarūpa Dāmodara, Rāya Rāmānandādi Śrī Gaura-pārṣada-vṛnda kī jaya!",
+          "translation": "Слава спутникам Шри Гауры во главе со Шри Сварупой Дамодарой и Раей Раманандой!",
+          "wbw": "Śrī Svarūpa Dāmodara — Шри Сварупе Дамодаре; Rāya Rāmānandādi — Рае Рамананде и другим; Śrī Gaura-pārṣada-vṛnda — спутникам Шри Гауры; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Nāmācārya Śrīla Haridāsa Ṭhākura kī jaya!",
+          "translation": "Слава нама-ачарье Шриле Харидасу Тхакуру!",
+          "wbw": "Nāmācārya — нама-ачарье (учителю святого имени); Śrīla Haridāsa Ṭhākura — Шриле Харидасу Тхакуру; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Prema se kaho Śrī Kṛṣṇa Caitanya, Prabhu Nityānanda, Śrī Advaita, Gadādhara, Śrīvāsādi Gaura-bhakta-vṛnda kī jaya!",
+          "translation": "С любовью скажите: слава Шри Кришне Чайтанье, Прабху Нитьянанде, Шри Адвайте, Гададхаре, Шривасе и всем преданным Гауры!",
+          "wbw": "Prema se kaho — с любовью скажите; Śrī Kṛṣṇa Caitanya — Шри Кришне Чайтанье; Prabhu Nityānanda — Прабху Нитьянанде; Śrī Advaita — Шри Адвайте; Gadādhara — Гададхаре; Śrīvāsādi — Шривасе и другим; Gaura-bhakta-vṛnda — всем преданным Гауры; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Antardvīpa Māyāpura, Sīmantadvīpa, Godrumadvīpa, Madhyadvīpa, Koladvīpa, Ṛtudvīpa, Jahnudvīpa, Modadrumadvīpa, Rudradvīpātmaka Śrī Navadvīpa-dhāma kī jaya!",
+          "translation": "Слава Шри Навадвипа-дхаме из девяти островов — Антардвипы (Маяпура), Симантадвипы, Годрумадвипы, Мадхьядвипы, Коладвипы, Ритудвипы, Джахнудвипы, Модадрумадвипы и Рудрадвипы!",
+          "wbw": "Śrī Antardvīpa Māyāpura — Шри Антардвипе (Маяпуру); Sīmantadvīpa — Симантадвипе; Godrumadvīpa — Годрумадвипе; Madhyadvīpa — Мадхьядвипе; Koladvīpa — Коладвипе; Ṛtudvīpa — Ритудвипе; Jahnudvīpa — Джахнудвипе; Modadrumadvīpa — Модадрумадвипе; Rudradvīpātmaka — и Рудрадвипе — состоящей из них; Śrī Navadvīpa-dhāma — Шри Навадвипа-дхаме; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Śrī Rādhā-Kṛṣṇa gopa, gopī, go, Govardhana, dvādaśa vanātmaka Śrī Vraja-maṇḍala kī jaya!",
+          "translation": "Слава Шри Враджа-мандале с двенадцатью лесами — Шри Шри Радха-Кришне, пастухам, гопи, коровам и Говардхану!",
+          "wbw": "Śrī Śrī Rādhā-Kṛṣṇa — Шри Шри Радха-Кришне; gopa — пастухам; gopī — гопи; go — коровам; Govardhana — Говардхану; dvādaśa vanātmaka — состоящей из двенадцати лесов; Śrī Vraja-maṇḍala — Шри Враджа-мандале; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Rādhā-kuṇḍa, Śyāma-kuṇḍa, Gaṅgā, Yamunā, Tulasī, Bhakti-devī kī jaya!",
+          "translation": "Слава Шри Радха-кунде, Шьяма-кунде, Ганге, Ямуне, Туласи и Бхакти-деви!",
+          "wbw": "Śrī Rādhā-kuṇḍa — Шри Радха-кунде; Śyāma-kuṇḍa — Шьяма-кунде; Gaṅgā — Ганге; Yamunā — Ямуне; Tulasī — Туласи; Bhakti-devī — Бхакти-деви; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrīmatī Vṛndā-devī kī jaya! Śrī Paurṇamāsī Yogamāyā kī jaya! Śrī Gopīśvara Mahādeva kī jaya!",
+          "translation": "Слава Шримати Вринда-деви! Слава Шри Пурнамаси Йогамайе! Слава Шри Гопишваре Махадеве!",
+          "wbw": "Śrīmatī Vṛndā-devī — Шримати Вринда-деви; Śrī Paurṇamāsī Yogamāyā — Шри Пурнамаси Йогамайе; Śrī Gopīśvara Mahādeva — Шри Гопишваре Махадеве; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Jagannātha, Baladeva, Subhadrā, Sudarśana Cakra jiu kī jaya!",
+          "translation": "Слава Шри Джаганнатхе, Баладеве, Субхадре и Сударшана-чакре!",
+          "wbw": "Śrī Jagannātha — Шри Джаганнатхе; Baladeva — Баладеве; Subhadrā — Субхадре; Sudarśana Cakra — Сударшана-чакре; jiu — (почтительное обращение); kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Kṣetra-maṇḍala kī jaya!",
+          "translation": "Слава Шри Кшетра-мандале (Пури)!",
+          "wbw": "Śrī Kṣetra-maṇḍala — Шри Кшетра-мандале (Пури); kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Sarva-vighna-vināśakārī Śrī Nṛsiṁhadeva kī jaya!",
+          "translation": "Слава Шри Нрисимхадеву, уничтожающему все препятствия!",
+          "wbw": "Sarva-vighna-vināśakārī — уничтожающему все препятствия; Śrī Nṛsiṁhadeva — Шри Нрисимхадеву; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Bhakta-pravara Śrī Prahlāda Mahārāja kī jaya!",
+          "translation": "Слава лучшему из преданных Шри Прахладе Махараджу!",
+          "wbw": "Bhakta-pravara — лучшему из преданных; Śrī Prahlāda Mahārāja — Шри Прахладе Махараджу; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Cāri-dhāma kī jaya! Cāri-sampradāya kī jaya! Cāri-ācārya kī jaya!",
+          "translation": "Слава четырём дхамам! Слава четырём сампрадаям! Слава четырём ачарьям!",
+          "wbw": "Cāri-dhāma — четырём дхамам; Cāri-sampradāya — четырём сампрадаям; Cāri-ācārya — четырём ачарьям; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Ākara maṭha-rāja Śrī Caitanya Maṭha kī jaya!",
+          "translation": "Слава Шри Чайтанья-матху, изначальному царю матхов!",
+          "wbw": "Ākara — изначальному; maṭha-rāja — царю матхов; Śrī Caitanya Maṭha — Шри Чайтанья-матху; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Śrī Keśavajī Gauḍīya Maṭha o tat-śākhā maṭha samūha kī jaya!",
+          "translation": "Слава Шри Шри Кешаваджи Гаудия-матху и всем его отделениям!",
+          "wbw": "Śrī Śrī Keśavajī Gauḍīya Maṭha — Шри Шри Кешаваджи Гаудия-матху; o — и; tat-śākhā maṭha samūha — всем его матхам-отделениям; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Grantha-rāja Śrīmad-Bhāgavatam kī jaya!",
+          "translation": "Слава царю книг «Шримад-Бхагаватам»!",
+          "wbw": "Grantha-rāja — царю книг; Śrīmad-Bhāgavatam — «Шримад-Бхагаватам»; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Harināma-saṅkīrtana kī jaya!",
+          "translation": "Слава Шри харинама-санкиртане!",
+          "wbw": "Śrī Harināma-saṅkīrtana — Шри харинама-санкиртане (совместному воспеванию святых имён Господа); kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Ananta-koṭi vaiṣṇava-vṛnda kī jaya!",
+          "translation": "Слава бесчисленным вайшнавам!",
+          "wbw": "Ananta-koṭi — бесчисленным; vaiṣṇava-vṛnda — вайшнавам; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Samāgata bhakta-vṛnda kī jaya!",
+          "translation": "Слава собравшимся преданным!",
+          "wbw": "Samāgata — собравшимся; bhakta-vṛnda — преданным; kī jaya — слава."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Nitāi-Gaura-premānande! Hari Hari bol!",
+          "translation": "В блаженстве любви к Шри Нитай-Гауре — Хари! Хари! бол!",
+          "wbw": "Śrī Nitāi-Gaura-premānande — в блаженстве любви к Шри Нитай-Гауре; Hari Hari — Хари! Хари!; bol — воспевайте."
         }
       ],
       "subsections": []
