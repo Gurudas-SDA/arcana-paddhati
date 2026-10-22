@@ -27,7 +27,7 @@ from i18n_sections import put, write_atomic  # noqa: E402
 import jaya_dhvani as jd  # noqa: E402
 
 IDS = ["upadesha-sara", "jaya-dhvani-front"]
-TITLE = {"upadesha-sara": {"ru": "Упадеша-сара", "en": "Upadeśa-sāra"},
+TITLE = {"upadesha-sara": {"ru": "Эпиграф", "en": "Epigraph"},  # msg 6241 (id unchanged)
          "jaya-dhvani-front": {"ru": "Джая-дхвани", "en": "Jaya-dhvani"}}
 OTHER = ["lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"]
 

@@ -74,8 +74,8 @@ def run(p, dev, eng, o):
         pg.evaluate("document.querySelector('[data-reader-action=contents]') && document.querySelector('[data-reader-action=contents]').click()")
         time.sleep(0.6)
         order = pg.evaluate("[...document.querySelectorAll('aside nav [data-toc-cover], aside nav .toc-scroll > ul > li')].map(l=>l.innerText.trim().split('\\n')[0].trim()).filter(Boolean).slice(0,6)")
-        chk(dev, "a contents: Обложка → Упадеша-сара → Гуру-парампара → Джая-дхвани → Мангалачарана → ВВЕДЕНИЕ",
-            order == ["Обложка", "Упадеша-сара", "Гуру-парампара", "Джая-дхвани", "Мангалачарана", "ВВЕДЕНИЕ"], order)
+        chk(dev, "a contents: Обложка → Эпиграф → Гуру-парампара → Джая-дхвани → Мангалачарана → ВВЕДЕНИЕ",
+            order == ["Обложка", "Эпиграф", "Гуру-парампара", "Джая-дхвани", "Мангалачарана", "ВВЕДЕНИЕ"], order)
 
         # a) the parampara pages
         goto(U + "parampara/"); time.sleep(0.8)

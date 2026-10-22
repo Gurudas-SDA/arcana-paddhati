@@ -164,6 +164,11 @@ for lang, fn in BOOKS.items():
     chk(f"a {fn}: book opens upadesha-sara → parampara → jaya-dhvani-front → mangalacarana → introduction (msg 6180 p.3)",
         ids[:5] == FRONT, ids[:5])
     chk(f"a {fn}: the two front pages belong to no part", not {"upadesha-sara", "jaya-dhvani-front"} & {x for p in b.get("parts", []) for x in p["sections"]})
+    # Satkirti msg 6241: title of the page after the cover (contents + page) = «Эпиграф» / «Epigraph»; id unchanged;
+    # the 9 other languages: English until the night release translates it
+    ut = nfc(sec_of(b, "upadesha-sara").get("title"))
+    chk(f"a {fn}: title of upadesha-sara = «Эпиграф» (ru, ru-iast) / «Epigraph» (en; other languages English until night_sync) (msg 6241)",
+        ut == ("Эпиграф" if lang in ("ru", "ru-iast") else "Epigraph" if lang == "en" else ut) and ut != "Upadeśa-sāra" and ut != "Упадеша-сара", ut)
     intro = sec_of(b, "introduction")
     chk(f"a {fn}: Введение has no verse and no «Настроение» (UM 8 moved, ŚB 11.3.48 not back)",
         not [x for x in intro["content"] if x.get("type") in ("verse", "mood")], [x.get("type") for x in intro["content"]])
