@@ -105,5 +105,11 @@
   "bookmark.added": "Könyvjelző hozzáadva",
   "bookmark.removed": "Könyvjelző eltávolítva",
   "bookmark.undo": "Visszavonás",
+  "bookmark.dialog.addTitle": "Új könyvjelző",
+  "bookmark.dialog.renameTitle": "Könyvjelző átnevezése",
+  "bookmark.dialog.label": "Név",
+  "bookmark.dialog.confirm": "Megerősítés",
+  "bookmark.dialog.cancel": "Mégse",
+  "bookmark.rename": "Könyvjelző átnevezése",
   "book.machineNote": "A fordítás gépi úton készült, és anyanyelvi beszélő még nem ellenőrizte"
 }

@@ -105,5 +105,11 @@
   "bookmark.added": "Lesezeichen hinzugefügt",
   "bookmark.removed": "Lesezeichen entfernt",
   "bookmark.undo": "Rückgängig",
+  "bookmark.dialog.addTitle": "Neues Lesezeichen",
+  "bookmark.dialog.renameTitle": "Lesezeichen umbenennen",
+  "bookmark.dialog.label": "Name",
+  "bookmark.dialog.confirm": "Bestätigen",
+  "bookmark.dialog.cancel": "Abbrechen",
+  "bookmark.rename": "Lesezeichen umbenennen",
   "book.machineNote": "Die Übersetzung wurde maschinell erstellt und noch nicht von einem Muttersprachler überprüft"
 }

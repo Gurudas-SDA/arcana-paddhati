@@ -105,5 +105,11 @@
   "bookmark.added": "Marcador adicionado",
   "bookmark.removed": "Marcador removido",
   "bookmark.undo": "Desfazer",
+  "bookmark.dialog.addTitle": "Novo marcador",
+  "bookmark.dialog.renameTitle": "Renomear o marcador",
+  "bookmark.dialog.label": "Nome",
+  "bookmark.dialog.confirm": "Confirmar",
+  "bookmark.dialog.cancel": "Cancelar",
+  "bookmark.rename": "Renomear o marcador",
   "book.machineNote": "A tradução foi feita por máquina e ainda não foi verificada por um falante nativo"
 }

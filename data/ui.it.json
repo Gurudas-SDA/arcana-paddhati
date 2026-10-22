@@ -105,5 +105,11 @@
   "bookmark.added": "Segnalibro aggiunto",
   "bookmark.removed": "Segnalibro rimosso",
   "bookmark.undo": "Annulla",
+  "bookmark.dialog.addTitle": "Nuovo segnalibro",
+  "bookmark.dialog.renameTitle": "Rinomina il segnalibro",
+  "bookmark.dialog.label": "Nome",
+  "bookmark.dialog.confirm": "Conferma",
+  "bookmark.dialog.cancel": "Annulla",
+  "bookmark.rename": "Rinomina il segnalibro",
   "book.machineNote": "La traduzione è stata effettuata automaticamente e non è stata ancora verificata da un madrelingua"
 }

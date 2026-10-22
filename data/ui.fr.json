@@ -105,5 +105,11 @@
   "bookmark.added": "Signet ajouté",
   "bookmark.removed": "Signet supprimé",
   "bookmark.undo": "Annuler",
+  "bookmark.dialog.addTitle": "Nouveau signet",
+  "bookmark.dialog.renameTitle": "Renommer le signet",
+  "bookmark.dialog.label": "Nom",
+  "bookmark.dialog.confirm": "Confirmer",
+  "bookmark.dialog.cancel": "Annuler",
+  "bookmark.rename": "Renommer le signet",
   "book.machineNote": "La traduction a été effectuée automatiquement et n’a pas encore été vérifiée par un locuteur natif"
 }

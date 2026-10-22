@@ -105,5 +105,11 @@
   "bookmark.added": "Žymelė pridėta",
   "bookmark.removed": "Žymelė pašalinta",
   "bookmark.undo": "Atšaukti",
+  "bookmark.dialog.addTitle": "Nauja žymelė",
+  "bookmark.dialog.renameTitle": "Pervadinti žymelę",
+  "bookmark.dialog.label": "Pavadinimas",
+  "bookmark.dialog.confirm": "Patvirtinti",
+  "bookmark.dialog.cancel": "Atšaukti",
+  "bookmark.rename": "Pervadinti žymelę",
   "book.machineNote": "Vertimas atliktas automatiškai ir dar nepatikrintas gimtakalbio"
 }

@@ -105,5 +105,11 @@
   "bookmark.added": "Grāmatzīme pievienota",
   "bookmark.removed": "Grāmatzīme noņemta",
   "bookmark.undo": "Atsaukt",
+  "bookmark.dialog.addTitle": "Jauna grāmatzīme",
+  "bookmark.dialog.renameTitle": "Pārsaukt grāmatzīmi",
+  "bookmark.dialog.label": "Nosaukums",
+  "bookmark.dialog.confirm": "Apstiprināt",
+  "bookmark.dialog.cancel": "Atcelt",
+  "bookmark.rename": "Pārsaukt grāmatzīmi",
   "book.machineNote": "Tulkojums veikts ar mašīntulkošanas palīdzību un to vēl nav pārbaudījis dzimtās valodas runātājs"
 }

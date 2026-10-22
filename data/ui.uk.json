@@ -105,5 +105,11 @@
   "bookmark.added": "Закладку додано",
   "bookmark.removed": "Закладку видалено",
   "bookmark.undo": "Скасувати",
+  "bookmark.dialog.addTitle": "Нова закладка",
+  "bookmark.dialog.renameTitle": "Перейменувати закладку",
+  "bookmark.dialog.label": "Назва",
+  "bookmark.dialog.confirm": "Підтвердити",
+  "bookmark.dialog.cancel": "Скасувати",
+  "bookmark.rename": "Перейменувати закладку",
   "book.machineNote": "Переклад здійснено за допомогою машинного перекладу і ще не перевірено носієм мови"
 }

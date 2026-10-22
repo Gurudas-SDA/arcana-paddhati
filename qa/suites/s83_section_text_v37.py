@@ -44,7 +44,14 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 BOOK = json.load(open(os.path.join(HERE, "..", "..", "data", f"book.{LANG}.json"), encoding="utf-8"))
 SECTIONS = {s["id"]: s for s in BOOK["sections"]}
 # The section headings of the contents: the Introduction (its chapters = the front matter after it) and every part.
-FRONT = [s["id"] for s in BOOK["sections"] if not any(s["id"] in p["sections"] for p in BOOK["parts"])]
+# = lib/book.ts frontMatter(): the sections BEFORE the first chapter of a part (the back matter after the parts —
+# «Заключение», Satkirti msg 6065 — is a section of its own, not a chapter of the Introduction)
+_IN_PART = {i for p in BOOK["parts"] for i in p["sections"]}
+FRONT = []
+for _s in BOOK["sections"]:
+    if _s["id"] in _IN_PART:
+        break
+    FRONT.append(_s["id"])
 INTRO = "introduction"
 GROUPS = [(INTRO, SECTIONS[INTRO]["title"], FRONT[FRONT.index(INTRO) + 1:])] + [
     (p["id"], p["title"], p["sections"]) for p in BOOK["parts"]]
