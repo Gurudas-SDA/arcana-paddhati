@@ -160,7 +160,7 @@ SUITES = [
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s83", file="suites/s83_section_text_v37.py", title="V37 Vraja 1306/1308: izvēlnē sadaļas («Введение», daļas) NOSAUKUMS atver tās tekstu, sadaļa izcelta un izvērsta; bultiņa ▸ pa labi — tikai izvērst/sakļaut; «Назад»/«Вперёд» caur sadaļas tekstu (Lapas + Lente); rinda «Введение · N %» paliek",
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
-    dict(id="s79", file="suites/s79_intro_sb11348.py", title="Satkirti 21.10 msg 6026/6030/6038: «Введение» — ŚB 11.3.48 ar BBT tulkojumu un пословный (vedabase), «arcye viṣṇau» vairs nav; «Настроение Гурудева» 5 citāti ar avotiem (en/ru/ru-iast); emblēma nemainīta",
+    dict(id="s95", file="suites/s95_intro_um8.py", title="Satkirti 22.10 msg 6137/6139: «Введение» — Upadeśāmṛta 8 (aizstāj ŚB 11.3.48) ar BBT tulkojumu un пословный (vedabase); 9 valodās tulkojums vai EN līdz nakts izlaidumam; «Настроение Гурудева» 5 Gurudeva citāti tieši par UM 8 (№ 7717, 812, 554, 137, 447; ne no «Заключение»), ar avotiem; emblēma nemainīta (msg 6038)",
          devices=None, fast=True, server=False),
     dict(id="s88", file="suites/s88_conclusion.py", title="Satkirti 21.10 msg 6065 + Idea №2 (msg 5692): «Заключение» — pēdējā sadaļa ārpus daļām, bez numura; dienas cikls no pamodināšanas līdz noguldīšanai; katram Gurudeva citātam avots (№, datums, laiks, saite); ru-iast bez kirilicas ar diakritiku",
          devices=None, fast=True, server=False),
