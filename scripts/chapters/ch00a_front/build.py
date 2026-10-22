@@ -5,7 +5,7 @@
       (IAST = vedabase.io noi/8 + Versebase; translation and word-for-word BBT verbatim — vedabase.io/ru for ru + ru-iast,
       /en for en; verse_um8.json) + «Настроение Гурудева» (5 quotes on this verse: scripts/moods/moods.json, target
       upadesha-sara -> apply_moods.py).
-  «Джая-дхвани» (id jaya-dhvani) — right after «Гуру-парампара», before «Мангалачарана» (Satkirti 22.10 msg
+  «Джая-дхвани» (id jaya-dhvani-front) — right after «Гуру-парампара», before «Мангалачарана» (Satkirti 22.10 msg
       6177/6180): the calls of glorification verbatim from «Śrī Gauḍīya Gīti-guccha» (GVP, 7th ed. 2016, pp. xxxix–xl;
       jaya_dhvani.py: source, errata, draft RU/EN translation + word-for-word), one verse block per call; call 2 = the
       name of our guru, marked "needs_satkirti": true until Satkirti writes its middle part.
@@ -13,7 +13,7 @@
   python build.py apply    writes both sections into data/book.json, book.ru.json (Cyrillic transliteration of the
                            Sanskrit), book.ru-iast.json — «Упадеша-сара» first, «Джая-дхвани» right after
                            «parampara» (front matter, unnumbered); then the 9 other languages from i18n.json (night_sync.py upadesha-sara
-                           jaya-dhvani) or English (the app's fallback) until translated.
+                           jaya-dhvani-front) or English (the app's fallback) until translated.
 """
 import copy, json, os, sys
 
@@ -26,9 +26,9 @@ from iast_to_cyrillic import translit  # noqa: E402
 from i18n_sections import put, write_atomic  # noqa: E402
 import jaya_dhvani as jd  # noqa: E402
 
-IDS = ["upadesha-sara", "jaya-dhvani"]
+IDS = ["upadesha-sara", "jaya-dhvani-front"]
 TITLE = {"upadesha-sara": {"ru": "Упадеша-сара", "en": "Upadeśa-sāra"},
-         "jaya-dhvani": {"ru": "Джая-дхвани", "en": "Jaya-dhvani"}}
+         "jaya-dhvani-front": {"ru": "Джая-дхвани", "en": "Jaya-dhvani"}}
 OTHER = ["lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"]
 
 
@@ -52,7 +52,7 @@ def sections(lang):
     t = "ru" if ru else "en"
     return [{"id": "upadesha-sara", "title": TITLE["upadesha-sara"][t], "subtitle": None, "page": "", "content": [um8],
              "subsections": []},
-            {"id": "jaya-dhvani", "title": TITLE["jaya-dhvani"][t], "subtitle": None, "page": "", "content": lines,
+            {"id": "jaya-dhvani-front", "title": TITLE["jaya-dhvani-front"][t], "subtitle": None, "page": "", "content": lines,
              "subsections": []}]
 
 
@@ -61,7 +61,7 @@ def place(sections, secs):
     rest = [s for s in sections if s["id"] not in IDS]
     by = {s["id"]: s for s in secs}
     at = next(i for i, s in enumerate(rest) if s["id"] == "parampara") + 1
-    return [by["upadesha-sara"]] + rest[:at] + [by["jaya-dhvani"]] + rest[at:]
+    return [by["upadesha-sara"]] + rest[:at] + [by["jaya-dhvani-front"]] + rest[at:]
 
 
 def front(book, secs):
@@ -94,7 +94,7 @@ def apply():
         for sid in IDS:
             st[sid] = put(b, lang, sid, HERE, en_secs[sid], en_ids)
             # «Джая-дхвани»: a translation not made from the current English (the old 36-call text) is never kept
-            if st[sid].startswith("none") or (sid == "jaya-dhvani" and st[sid] != "ok"):
+            if st[sid].startswith("none") or (sid == "jaya-dhvani-front" and st[sid] != "ok"):
                 # English until translated (L27: every Sanskrit field exists in every book); no mood block
                 e = copy.deepcopy(en_secs[sid])
                 e["content"] = [x for x in e["content"] if x.get("type") != "mood"]

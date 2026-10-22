@@ -100,7 +100,7 @@ def run(p, dev, eng, o):
         chk(dev, "a no visible heading / number on the portrait pages", vis == [], vis)
         # V17 (Vraja Lila msg 796): the next chapter is the bottom bar's «Вперёд ›» (its target)
         nxt = pg.evaluate("() => document.querySelector('[data-reader-nav=forward]')?.getAttribute('data-chapter-target') || ''")
-        chk(dev, "a «Вперёд ›» after the parampara = Джая-дхвани (Satkirti 22.10 msg 6180)", nxt == "jaya-dhvani", nxt)
+        chk(dev, "a «Вперёд ›» after the parampara = Джая-дхвани (Satkirti 22.10 msg 6180)", nxt == "jaya-dhvani-front", nxt)
 
         # b) portraits shown whole
         bad = [(x["cap"][:20], x["fit"], round(x["w"] / x["h"], 4), round(x["nw"] / x["nh"], 4))

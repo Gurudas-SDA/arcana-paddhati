@@ -10,7 +10,7 @@ Satkirti 21.10 msg 6038: «Эмблему не трогаешь, только с
 Стандарты 77: «У каждого стиха, который мы цитируем в книге (в любой главе), обязательно есть пословный перевод».
 Стандарты 16: «Слова Гурудева приводим только дословно … с указанием источника: лекция, дата, номер, таймкод, ссылка на расшифровку».
 
-  a  every book opens (front matter, no part) with «Упадеша-сара» (upadesha-sara), then «Джая-дхвани» (jaya-dhvani), then
+  a  every book opens (front matter, no part) with «Упадеша-сара» (upadesha-sara), then «Джая-дхвани» (jaya-dhvani-front), then
      «Гуру-парампара»; «Упадеша-сара» holds one verse: Upadeśāmṛta 8 (IAST = vedabase.io noi/8 and Versebase; book.ru =
      academic Cyrillic of the same IAST); «Введение» has no verse and no quotes any more (ŚB 11.3.48 not brought back)
   e  «Джая-дхвани»: the 36 calls of the source (scripts/chapters/ch00a_front/jaya_dhvani.py) in order, one verse block
@@ -30,7 +30,7 @@ Satkirti 22.10 msg 6177/6180 (on «Джая-дхвани», after the analysis o
      of our guru «Jaya oṁ viṣṇupāda paramahaṁsa parivrājakācārya … Śrī Prema Prayojana Prabhu kī jaya!» — its middle
      part Satkirti will still write; 3) the place: AFTER «Гуру-парампара», BEFORE «Мангалачарана»; 4) calls 27/28/29/33 —
      Satkirti still decides: kept as in the source for now; 5) the Upadeśa-sāra page after the cover stays.
-  a  (since msg 6180) every book opens upadesha-sara → parampara → jaya-dhvani → mangalacarana → introduction
+  a  (since msg 6180) every book opens upadesha-sara → parampara → jaya-dhvani-front → mangalacarana → introduction
   e  «Джая-дхвани» / «Jaya-dhvani» (title; no «пранама» / «praṇāma» in it) = the 34 calls of «Gīti-guccha» 2016,
      pp. xxxix–xl (GG2016 below: copied by hand from the PDF, independent of the generator), in order, with the
      printing errors corrected (GG_ERRATA, listed to Satkirti in the analysis 22.10); none of the 36 calls of the
@@ -86,7 +86,7 @@ WBW_RU = ["Господа Кришны", "святое имя", "облик", "�
           "и памятование", "постепенно", "язык", "и ум", "вовлекая", "живя", "во Врадже", "к Господу Кришне",
           "привязанным", "личностям", "следуя", "время", "нужно использовать", "всё", "такова", "наставления", "суть"]
 NRS = ["7717", "812", "554", "137", "447"]
-FRONT = ["upadesha-sara", "parampara", "jaya-dhvani", "mangalacarana", "introduction"]
+FRONT = ["upadesha-sara", "parampara", "jaya-dhvani-front", "mangalacarana", "introduction"]
 GG2016 = [
     "Śrī Śrī Guru-Gaurāṅga-Gāndharvikā-Giridhārī-Rādhā-Vinoda-bihārījī kī jaya!",
     "[Now one should loudly chant the name of one’s guru.]",
@@ -160,14 +160,14 @@ concl_nrs = set(re.findall(r"№ ?(\d+)", json.dumps(sec_of(json.load(open(os.pa
 for lang, fn in BOOKS.items():
     b = json.load(open(os.path.join(DATA, fn), encoding="utf-8"))
     ids = [x["id"] for x in b["sections"]]
-    chk(f"a {fn}: book opens upadesha-sara → parampara → jaya-dhvani → mangalacarana → introduction (msg 6180 p.3)",
+    chk(f"a {fn}: book opens upadesha-sara → parampara → jaya-dhvani-front → mangalacarana → introduction (msg 6180 p.3)",
         ids[:5] == FRONT, ids[:5])
-    chk(f"a {fn}: the two front pages belong to no part", not {"upadesha-sara", "jaya-dhvani"} & {x for p in b.get("parts", []) for x in p["sections"]})
+    chk(f"a {fn}: the two front pages belong to no part", not {"upadesha-sara", "jaya-dhvani-front"} & {x for p in b.get("parts", []) for x in p["sections"]})
     intro = sec_of(b, "introduction")
     chk(f"a {fn}: Введение has no verse and no «Настроение» (UM 8 moved, ŚB 11.3.48 not back)",
         not [x for x in intro["content"] if x.get("type") in ("verse", "mood")], [x.get("type") for x in intro["content"]])
     # e
-    jd = sec_of(b, "jaya-dhvani")
+    jd = sec_of(b, "jaya-dhvani-front")
     jv = [x for x in jd["content"] if x.get("type") == "verse"]
     tt = nfc(jd.get("title"))
     chk(f"e {fn}: title «Джая-дхвани» / «Jaya-dhvani», not «пранама» (msg 6180 p.1)",

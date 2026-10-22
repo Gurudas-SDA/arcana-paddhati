@@ -486,7 +486,7 @@ def run(args):
 
     # L21 — Парампара (Satkirti 06.10 23:15–23:33, 07.10 12:34–13:07): 8 гуру по одному на страницу, в этом
     # порядке, подписи как в «Ведических мудрых историях», без Гоур Говинды Свами; тело гуру никогда не обрезается.
-    FRONT_ORDER = ["upadesha-sara", "parampara", "jaya-dhvani", "mangalacarana", "introduction"]
+    FRONT_ORDER = ["upadesha-sara", "parampara", "jaya-dhvani-front", "mangalacarana", "introduction"]
     c = Check("L21", "front pages «Упадеша-сара» → parampara → «Джая-дхвани» → «Мангалачарана»; parampara: Śrī Pañca-tattva first, then 8 gurus in order, exact captions, no Gour Govinda Svāmī; every figure fully inside its oval with a field ≥ 1.5 % of the oval width (rule 105)")
     exp = {"ru": PARAMPARA_RU, "en": PARAMPARA_EN}
     for fn, lang in (("book.ru-iast.json", "ru"), ("book.ru.json", "ru"), ("book.json", "en")):
@@ -1309,6 +1309,23 @@ def run(args):
                        stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     if r.returncode != 0:
         c.hit("git", "refs/tags", "tags pirms-interfeisa-2026-10-05 nav atrasts")
+    c.report(args.max)
+
+    # L37 — section/subsection ids are unique within a book (22.10: the new front page «jaya-dhvani» clashed with the
+    # «Маха-абхишека» subsection of the same id → renamed jaya-dhvani-front)
+    c = Check("L37", "every section/subsection id is unique within a book")
+    for f in allb:
+        seen = {}
+
+        def _ids(secs, path):
+            for s_ in secs:
+                if isinstance(s_, dict) and s_.get("id"):
+                    seen.setdefault(s_["id"], []).append(path)
+                    _ids(s_.get("subsections") or [], path + "/" + s_["id"])
+        _ids(loaded[f].get("sections", []), "")
+        for k, v in seen.items():
+            if len(v) > 1:
+                c.hit(name(f), k, f"duplicate id «{k}» at {v}")
     c.report(args.max)
 
     # L20 — OneDrive «desktop.ini» zem .git/refs salauž git (fetch/pull: «broken ref refs/…/desktop.ini»;
