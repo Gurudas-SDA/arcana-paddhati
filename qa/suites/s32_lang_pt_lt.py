@@ -190,7 +190,7 @@ def run(p, dev, eng, o):
             h1 = pg.evaluate("(document.querySelector('main h1')||{}).textContent||''").strip()
             body = pg.evaluate("(document.querySelector('main')||document.body).innerText.length")
             # tehniskais slieksnis Lipikāra, nav S noteikums: «not empty» = > 200 characters (was 300; since 22.10 the
-            # Introduction holds the short verse ŚB 11.3.48, Satkirti msg 6026/6030 — lt 289 characters)
+            # Introduction holds one verse (Upadeśāmṛta 8 since Satkirti msg 6137/6139; before ŚB 11.3.48 — lt 289 characters))
             chk(dev, f"{code}/{sid}: heading + text not empty", r and r.status == 200 and h1 and body > 200,
                 f"status {r and r.status} h1 «{h1[:40]}» text {body}")
         # «Аа» panel: the language menu

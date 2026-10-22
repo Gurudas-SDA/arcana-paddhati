@@ -37,8 +37,8 @@ CASES = [(cid, _NEXT(cid), title0) for cid, title0 in [
     ("main-worship-sixteen-items", "11. "),
     ("guru-puja-vyasa-puja", "13. "),
     # v7.4 (appended last: the loop index decides which history checks run)
-    # (Satkirti 07.10): parampara → Мангалачарана; Part IV ends with the ārati songs
-    ("parampara", "Мангалачарана"),
+    # (Satkirti 07.10): Part IV ends with the ārati songs; 22.10 (msg 6180): parampara → «Джая-дхвани» → Мангалачарана
+    ("parampara", "Джая-дхвани"),
     ("major-festivals", "14. "),
     # v7.6 (07.10): «Бхаджаны для Картики» right after «Песни гаура-арати» — now the last chapter
     ("gaura-arati-songs", "16. "),

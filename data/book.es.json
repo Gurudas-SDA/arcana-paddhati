@@ -43,6 +43,21 @@
   ],
   "sections": [
     {
+      "id": "upadesha-sara",
+      "title": "Epigraph",
+      "subtitle": null,
+      "page": "",
+      "content": [
+        {
+          "type": "verse",
+          "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
+          "translation": "The essence of all advice is that one should utilize one’s full time – twenty-four hours a day – in nicely chanting and remembering the Lord’s divine name, transcendental form, qualities and eternal pastimes, thereby gradually engaging one’s tongue and mind. In this way one should reside in Vraja [Goloka Vṛndāvana-dhāma] and serve Kṛṣṇa under the guidance of devotees. One should follow in the footsteps of the Lord’s beloved devotees, who are deeply attached to His devotional service. (Śrī Upadeśāmṛta 8)",
+          "wbw": "tat — of Lord Kṛṣṇa; nāma — the holy name; rūpa — form; carita-ādi — character, pastimes and so on; su-kīrtana — in discussing or chanting nicely; anusmṛtyoḥ — and in remembering; krameṇa — gradually; rasanā — the tongue; manasī — and one’s mind; niyojya — engaging; tiṣṭhan — residing; vraje — in Vraja; tat — to Lord Kṛṣṇa; anurāgi — attached; jana — persons; anugāmī — following; kālam — time; nayet — should utilize; akhilam — full; iti — thus; upadeśa — of advice or instruction; sāram — the essence."
+        }
+      ],
+      "subsections": []
+    },
+    {
       "id": "parampara",
       "title": "Guru-paramparā",
       "subtitle": null,
@@ -93,6 +108,201 @@
           "type": "portrait",
           "src": "parampara/08-prem-prayojan.png",
           "caption": "Śrī Prem Prayojan Prabhu"
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "id": "jaya-dhvani-front",
+      "title": "Jaya-dhvani",
+      "subtitle": null,
+      "page": "",
+      "content": [
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Śrī Guru-Gaurāṅga-Gāndharvikā-Giridhārī-Rādhā-Vinoda-bihārījī kī jaya!",
+          "translation": "All glories to Śrī Śrī Guru and Gaurāṅga, Gāndharvikā-Giridhārī and Rādhā-Vinoda-bihārījī!",
+          "wbw": "Śrī Śrī — Śrī Śrī; Guru-Gaurāṅga — Guru and Gaurāṅga; Gāndharvikā-Giridhārī — Gāndharvikā (Śrīmatī Rādhikā) and Giridhārī (Kṛṣṇa, the lifter of the hill); Rādhā-Vinoda-bihārījī — Rādhā-Vinoda-bihārījī (Kṛṣṇa, who sports for Rādhā’s delight); kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Oṁ viṣṇupāda aṣṭottara-śata śrī rūpānugācārya Śrī Prema Prayojana Prabhu kī jaya!",
+          "translation": "All glories to oṁ viṣṇupāda aṣṭottara-śata, śrī rūpānugācārya (follower of Śrīla Rūpa Gosvāmī), Śrī Prema Prayojana Prabhu!",
+          "wbw": "oṁ viṣṇupāda — oṁ viṣṇupāda (who abides at the feet of Viṣṇu); aṣṭottara-śata — aṣṭottara-śata (bearing one hundred and eight titles of honour); śrī — śrī; rūpānugācārya — rūpānugācārya (the ācārya who follows in the footsteps of Śrīla Rūpa Gosvāmī); Śrī Prema Prayojana Prabhu — Śrī Prema Prayojana Prabhu; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja kī jaya!",
+          "translation": "All glories to nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja!",
+          "wbw": "nitya-līlā-praviṣṭa — who has entered the eternal pastimes; oṁ viṣṇupāda — oṁ viṣṇupāda (who abides at the feet of Viṣṇu); aṣṭottara-śata — aṣṭottara-śata (bearing one hundred and eight titles of honour); Śrī Śrīmad — Śrī Śrīmad; Bhaktivedānta Nārāyaṇa — Bhaktivedānta Nārāyaṇa; Gosvāmī Mahārāja — Gosvāmī Mahārāja; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Svāmī Mahārāja kī jaya!",
+          "translation": "All glories to nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Svāmī Mahārāja!",
+          "wbw": "nitya-līlā-praviṣṭa — who has entered the eternal pastimes; oṁ viṣṇupāda — oṁ viṣṇupāda (who abides at the feet of Viṣṇu); aṣṭottara-śata — aṣṭottara-śata (bearing one hundred and eight titles of honour); Śrī Śrīmad — Śrī Śrīmad; Bhaktivedānta Svāmī Mahārāja — Bhaktivedānta Svāmī Mahārāja; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhakti Prajñāna Keśava Gosvāmī Mahārāja kī jaya!",
+          "translation": "All glories to nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhakti Prajñāna Keśava Gosvāmī Mahārāja!",
+          "wbw": "nitya-līlā-praviṣṭa — who has entered the eternal pastimes; oṁ viṣṇupāda — oṁ viṣṇupāda (who abides at the feet of Viṣṇu); aṣṭottara-śata — aṣṭottara-śata (bearing one hundred and eight titles of honour); Śrī Śrīmad — Śrī Śrīmad; Bhakti Prajñāna Keśava — Bhakti Prajñāna Keśava; Gosvāmī Mahārāja — Gosvāmī Mahārāja; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīla Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda kī jaya!",
+          "translation": "All glories to nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīla Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda!",
+          "wbw": "nitya-līlā-praviṣṭa — who has entered the eternal pastimes; oṁ viṣṇupāda — oṁ viṣṇupāda (who abides at the feet of Viṣṇu); aṣṭottara-śata — aṣṭottara-śata (bearing one hundred and eight titles of honour); Śrī Śrīla — Śrī Śrīla; Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda — Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Nitya-līlā-praviṣṭa parama-bhāgavata-pravara Śrī Śrīla Gaurakiśora dāsa Bābājī Mahārāja kī jaya!",
+          "translation": "All glories to Śrī Śrīla Gaurakiśora dāsa Bābājī Mahārāja, who has entered the eternal pastimes, the best of the most exalted devotees!",
+          "wbw": "nitya-līlā-praviṣṭa — who has entered the eternal pastimes; parama-bhāgavata-pravara — the best of the most exalted devotees; Śrī Śrīla — Śrī Śrīla; Gaurakiśora dāsa Bābājī Mahārāja — Gaurakiśora dāsa Bābājī Mahārāja; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Nitya-līlā-praviṣṭa Śrī Śrīla Saccidānanda Bhaktivinoda Ṭhākura kī jaya!",
+          "translation": "All glories to Śrī Śrīla Saccidānanda Bhaktivinoda Ṭhākura, who has entered the eternal pastimes!",
+          "wbw": "nitya-līlā-praviṣṭa — who has entered the eternal pastimes; Śrī Śrīla — Śrī Śrīla; Saccidānanda Bhaktivinoda Ṭhākura — Saccidānanda Bhaktivinoda Ṭhākura; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Nitya-līlā-praviṣṭa vaiṣṇava-sārvabhauma Śrī Śrīla Jagannātha dāsa Bābājī Mahārāja kī jaya!",
+          "translation": "All glories to Śrī Śrīla Jagannātha dāsa Bābājī Mahārāja, who has entered the eternal pastimes, the emperor of Vaiṣṇavas!",
+          "wbw": "nitya-līlā-praviṣṭa — who has entered the eternal pastimes; vaiṣṇava-sārvabhauma — the emperor of Vaiṣṇavas; Śrī Śrīla — Śrī Śrīla; Jagannātha dāsa Bābājī Mahārāja — Jagannātha dāsa Bābājī Mahārāja; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī gauḍīya-vedāntācārya Śrī Śrīla Baladeva Vidyābhūṣaṇa Prabhu kī jaya!",
+          "translation": "All glories to the ācārya of Gauḍīya Vedānta, Śrī Śrīla Baladeva Vidyābhūṣaṇa Prabhu!",
+          "wbw": "Śrī gauḍīya-vedāntācārya — the ācārya of Gauḍīya Vedānta; Śrī Śrīla — Śrī Śrīla; Baladeva Vidyābhūṣaṇa Prabhu — Baladeva Vidyābhūṣaṇa Prabhu; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrīla Viśvanātha Cakravartī Ṭhākura kī jaya!",
+          "translation": "All glories to Śrīla Viśvanātha Cakravartī Ṭhākura!",
+          "wbw": "Śrīla Viśvanātha Cakravartī Ṭhākura — Śrīla Viśvanātha Cakravartī Ṭhākura; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrīla Narottama, Śrīnivāsa, Śyāmānanda Prabhu-traya kī jaya!",
+          "translation": "All glories to the three Prabhus — Śrīla Narottama, Śrīnivāsa and Śyāmānanda!",
+          "wbw": "Śrīla Narottama, Śrīnivāsa, Śyāmānanda — Śrīla Narottama, Śrīnivāsa and Śyāmānanda; Prabhu-traya — the three Prabhus; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrīla Kṛṣṇadāsa Kavirāja Gosvāmī Prabhu kī jaya!",
+          "translation": "All glories to Śrīla Kṛṣṇadāsa Kavirāja Gosvāmī Prabhu!",
+          "wbw": "Śrīla Kṛṣṇadāsa Kavirāja Gosvāmī Prabhu — Śrīla Kṛṣṇadāsa Kavirāja Gosvāmī Prabhu; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Rūpa, Sanātana, Bhaṭṭa Raghunātha, Śrī Jīva, Gopāla-bhaṭṭa, dāsa Raghunātha ṣaḍ-gosvāmī-prabhu kī jaya!",
+          "translation": "All glories to the six Gosvāmīs — Śrī Rūpa, Sanātana, Bhaṭṭa Raghunātha, Śrī Jīva, Gopāla Bhaṭṭa and Dāsa Raghunātha!",
+          "wbw": "Śrī Rūpa — Śrī Rūpa; Sanātana — Sanātana; Bhaṭṭa Raghunātha — Bhaṭṭa Raghunātha; Śrī Jīva — Śrī Jīva; Gopāla-bhaṭṭa — Gopāla Bhaṭṭa; dāsa Raghunātha — Dāsa Raghunātha; ṣaḍ-gosvāmī-prabhu — the six Gosvāmīs; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Svarūpa Dāmodara, Rāya Rāmānandādi Śrī Gaura-pārṣada-vṛnda kī jaya!",
+          "translation": "All glories to the associates of Śrī Gaura headed by Śrī Svarūpa Dāmodara and Rāya Rāmānanda!",
+          "wbw": "Śrī Svarūpa Dāmodara — Śrī Svarūpa Dāmodara; Rāya Rāmānandādi — Rāya Rāmānanda and others; Śrī Gaura-pārṣada-vṛnda — the associates of Śrī Gaura; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Nāmācārya Śrīla Haridāsa Ṭhākura kī jaya!",
+          "translation": "All glories to the nāmācārya Śrīla Haridāsa Ṭhākura!",
+          "wbw": "Nāmācārya — nāmācārya (the teacher of the holy name); Śrīla Haridāsa Ṭhākura — Śrīla Haridāsa Ṭhākura; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Prema se kaho Śrī Kṛṣṇa Caitanya, Prabhu Nityānanda, Śrī Advaita, Gadādhara, Śrīvāsādi Gaura-bhakta-vṛnda kī jaya!",
+          "translation": "Say with love: all glories to Śrī Kṛṣṇa Caitanya, Prabhu Nityānanda, Śrī Advaita, Gadādhara, Śrīvāsa and all the devotees of Gaura!",
+          "wbw": "Prema se kaho — say with love; Śrī Kṛṣṇa Caitanya — Śrī Kṛṣṇa Caitanya; Prabhu Nityānanda — Prabhu Nityānanda; Śrī Advaita — Śrī Advaita; Gadādhara — Gadādhara; Śrīvāsādi — Śrīvāsa and others; Gaura-bhakta-vṛnda — all the devotees of Gaura; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Antardvīpa Māyāpura, Sīmantadvīpa, Godrumadvīpa, Madhyadvīpa, Koladvīpa, Ṛtudvīpa, Jahnudvīpa, Modadrumadvīpa, Rudradvīpātmaka Śrī Navadvīpa-dhāma kī jaya!",
+          "translation": "All glories to Śrī Navadvīpa-dhāma of nine islands — Antardvīpa (Māyāpura), Sīmantadvīpa, Godrumadvīpa, Madhyadvīpa, Koladvīpa, Ṛtudvīpa, Jahnudvīpa, Modadrumadvīpa and Rudradvīpa!",
+          "wbw": "Śrī Antardvīpa Māyāpura — Śrī Antardvīpa (Māyāpura); Sīmantadvīpa — Sīmantadvīpa; Godrumadvīpa — Godrumadvīpa; Madhyadvīpa — Madhyadvīpa; Koladvīpa — Koladvīpa; Ṛtudvīpa — Ṛtudvīpa; Jahnudvīpa — Jahnudvīpa; Modadrumadvīpa — Modadrumadvīpa; Rudradvīpātmaka — and Rudradvīpa — consisting of them; Śrī Navadvīpa-dhāma — Śrī Navadvīpa-dhāma; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Śrī Rādhā-Kṛṣṇa gopa, gopī, go, Govardhana, dvādaśa vanātmaka Śrī Vraja-maṇḍala kī jaya!",
+          "translation": "All glories to Śrī Vraja-maṇḍala with its twelve forests — to Śrī Śrī Rādhā-Kṛṣṇa, the cowherds, the gopīs, the cows and Govardhana!",
+          "wbw": "Śrī Śrī Rādhā-Kṛṣṇa — Śrī Śrī Rādhā-Kṛṣṇa; gopa — the cowherd men; gopī — the gopīs; go — the cows; Govardhana — Govardhana; dvādaśa vanātmaka — consisting of twelve forests; Śrī Vraja-maṇḍala — Śrī Vraja-maṇḍala; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Rādhā-kuṇḍa, Śyāma-kuṇḍa, Gaṅgā, Yamunā, Tulasī, Bhakti-devī kī jaya!",
+          "translation": "All glories to Śrī Rādhā-kuṇḍa, Śyāma-kuṇḍa, Gaṅgā, Yamunā, Tulasī and Bhakti-devī!",
+          "wbw": "Śrī Rādhā-kuṇḍa — Śrī Rādhā-kuṇḍa; Śyāma-kuṇḍa — Śyāma-kuṇḍa; Gaṅgā — Gaṅgā; Yamunā — Yamunā; Tulasī — Tulasī; Bhakti-devī — Bhakti-devī; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrīmatī Vṛndā-devī kī jaya! Śrī Paurṇamāsī Yogamāyā kī jaya! Śrī Gopīśvara Mahādeva kī jaya!",
+          "translation": "All glories to Śrīmatī Vṛndā-devī! All glories to Śrī Paurṇamāsī Yogamāyā! All glories to Śrī Gopīśvara Mahādeva!",
+          "wbw": "Śrīmatī Vṛndā-devī — Śrīmatī Vṛndā-devī; Śrī Paurṇamāsī Yogamāyā — Śrī Paurṇamāsī Yogamāyā; Śrī Gopīśvara Mahādeva — Śrī Gopīśvara Mahādeva; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Jagannātha, Baladeva, Subhadrā, Sudarśana Cakra jiu kī jaya!",
+          "translation": "All glories to Śrī Jagannātha, Baladeva, Subhadrā and Sudarśana Cakra!",
+          "wbw": "Śrī Jagannātha — Śrī Jagannātha; Baladeva — Baladeva; Subhadrā — Subhadrā; Sudarśana Cakra — Sudarśana Cakra; jiu — (a respectful address); kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Kṣetra-maṇḍala kī jaya!",
+          "translation": "All glories to Śrī Kṣetra-maṇḍala (Purī)!",
+          "wbw": "Śrī Kṣetra-maṇḍala — Śrī Kṣetra-maṇḍala (Purī); kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Sarva-vighna-vināśakārī Śrī Nṛsiṁhadeva kī jaya!",
+          "translation": "All glories to Śrī Nṛsiṁhadeva, the destroyer of all obstacles!",
+          "wbw": "Sarva-vighna-vināśakārī — the destroyer of all obstacles; Śrī Nṛsiṁhadeva — Śrī Nṛsiṁhadeva; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Bhakta-pravara Śrī Prahlāda Mahārāja kī jaya!",
+          "translation": "All glories to the best of devotees, Śrī Prahlāda Mahārāja!",
+          "wbw": "Bhakta-pravara — the best of devotees; Śrī Prahlāda Mahārāja — Śrī Prahlāda Mahārāja; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Cāri-dhāma kī jaya! Cāri-sampradāya kī jaya! Cāri-ācārya kī jaya!",
+          "translation": "All glories to the four dhāmas! All glories to the four sampradāyas! All glories to the four ācāryas!",
+          "wbw": "Cāri-dhāma — the four dhāmas; Cāri-sampradāya — the four sampradāyas; Cāri-ācārya — the four ācāryas; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Grantha-rāja Śrīmad-Bhāgavatam kī jaya!",
+          "translation": "All glories to the king of books, Śrīmad-Bhāgavatam!",
+          "wbw": "Grantha-rāja — the king of books; Śrīmad-Bhāgavatam — Śrīmad-Bhāgavatam; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Harināma-saṅkīrtana kī jaya!",
+          "translation": "All glories to Śrī Harināma-saṅkīrtana!",
+          "wbw": "Śrī Harināma-saṅkīrtana — Śrī Harināma-saṅkīrtana (the congregational chanting of the Lord’s holy names); kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Ananta-koṭi vaiṣṇava-vṛnda kī jaya!",
+          "translation": "All glories to the countless Vaiṣṇavas!",
+          "wbw": "Ananta-koṭi — countless; vaiṣṇava-vṛnda — Vaiṣṇavas; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Samāgata bhakta-vṛnda kī jaya!",
+          "translation": "All glories to the assembled devotees!",
+          "wbw": "Samāgata — assembled; bhakta-vṛnda — devotees; kī jaya — all glories."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "Śrī Nitāi-Gaura-premānande! Hari Hari bol!",
+          "translation": "In the bliss of love for Śrī Nitāi-Gaura — chant Hari! Hari!",
+          "wbw": "Śrī Nitāi-Gaura-premānande — in the bliss of love for Śrī Nitāi-Gaura; Hari Hari — Hari! Hari!; bol — chant."
         }
       ],
       "subsections": []
@@ -349,82 +559,7 @@
       "title": "Introducción",
       "subtitle": null,
       "page": "III",
-      "content": [
-        {
-          "type": "mood",
-          "quote": "Kṛṣṇa has explained in Eleventh Canto of Śrīmad-Bhāgavatam, \"labdhvānugraha ācāryāt\"—one who has received anugraha, mercy from the ācārya—\"tena sandarśitāgamaḥ,\" and the guru has taught him the āgama, the pāñcarātra, the methods of arcana and so on. \"Mahā-puruṣam abhyarcen\"—he should, under the guidance of his guru, engage in arcana to the deity, in accordance to the abhimāna, in accordance with his sambandha-jñāna, what type of relationship he has with the deity. So that person who has received the mercy of guru and has become purified somewhat by serving the deity, his habits are favorable, and his mind is not distracted, he can hear with one-pointed attention. Then when that person hears Śrīmad-Bhāgavatam from the bhāgavata-guru, then at once Kṛṣṇa comes in his heart and He cannot leave. That He cannot leave means he attains prema. Kṛṣṇa may come and come for a second and disappear, like He did with Nārada in the previous—in his previous career. But when prema is there, He can never leave. He can never leave that person. So here that Kṛṣṇa becomes trapped in the heart means by hearing Śrīmad-Bhāgavatam, one attains kṛṣṇa-prema.",
-          "translation": "Kṛṣṇa ha explicado en el Canto Once de Śrīmad-Bhāgavatam, \"labdhvānugraha ācāryāt\"—aquel que ha recibido anugraha, la misericordia del ācārya—\"tena sandarśitāgamaḥ,\" y el guru le ha enseñado el āgama, el pāñcarātra, los métodos de arcana y demás. \"Mahā-puruṣam abhyarcen\"—bajo la guía de su guru, él debería dedicarse al arcana de la Deidad, de acuerdo con su abhimāna, de acuerdo con su sambandha-jñāna, qué tipo de relación tiene con la Deidad. Así, esa persona que ha recibido la misericordia del guru y se ha purificado algo sirviendo a la Deidad, sus hábitos son favorables y su mente no está distraída, puede escuchar con atención unipuntada. Entonces, cuando esa persona escucha el Śrīmad-Bhāgavatam del bhāgavata-guru, al instante Kṛṣṇa viene a su corazón y no puede irse. Que no puede irse significa que alcanza prema. Kṛṣṇa puede venir por un segundo y desaparecer, como lo hizo con Nārada en su carrera anterior, en su vida anterior. Pero cuando hay prema, Él nunca se va. Nunca abandona a esa persona. Así que aquí, que Kṛṣṇa quede atrapado en el corazón significa que, al escuchar el Śrīmad-Bhāgavatam, uno alcanza kṛṣṇa-prema.",
-          "translation_note": "machine",
-          "source": {
-            "title": "Guru-tattva, Sri Bhagavat Parampara, The Story of King Janasruti - 2024-04-18 - Sri Prem Prayojan",
-            "date": "2024-04-18",
-            "nr": "7703",
-            "timecode": "00:58:45",
-            "transcript_url": "https://drive.google.com/file/d/1GNfR85HL17u9PFG91t0D4tfuwvmRN_9G/view",
-            "audio_url": "https://drive.google.com/file/d/1IdvQRzYZL-ZreJLBAGBD6limvLYZTzmY/view"
-          },
-          "more": [
-            {
-              "quote": "Here, labdhvānugraha ācāryāt, 11th canto, Krishna speaking to Uddhava. A person labdhvānugraha, who has attained the mercy, ācāryāt, of the ācārya. That means he received dīkṣā. One who has received dīkṣā-mantra from the ācārya. Labdhvānugraha ācāryāt tena sandarśitāgamaḥ. And he has been shown the āgama-darśana. That means tantra, Vaiṣṇava tantra, the methods of pūjā, arcana. In other words, guru gave mantra and taught him how to do arcana, how to wake up, take shower, put on tilaka, remember Gāyatrī mantras, serve the deity, offer bhoga, do ārati, dressing, decorate all these things. That's the arcana. So, mahā-puruṣam abhyarcen mūrtyābhimatayātmanaḥ. And he will serve the deity in accordance to his abhimāna here, mūrtyābhimatayātmanaḥ. Serve the deity according to his conception. Now, the implication here is that the ācārya taught him to worship a śālā, śālagrāma-śilā. So śālagrāma-śilā actually has no visible form. Śālagrāma-śilā is not actually a form of God. No. Krishna has no incarnate like rasagullā-rūpa. Keśava dhṛta-rasagullā-rūpa. Krishna has no form, incarnation (..) as a round ball. No. Śāstra says that the śālagrāma-śilā is the bhagavad-arcā-adhiṣṭhāna, the place where the Lord form appears. So one could worship a śālagrāma-śilā and someone may think this is Lord Nārāyaṇa. If he worships with that abhimāna due to the mantra which was given by his guru, that form will appear in the śālagrāma-śilā. If he's worshiping as a dāmodara-śilā, worshiping as Rādhāramaṇa like Gopāla Bhaṭṭa Gosvāmī, that form will appear. So mūrtyābhimatayātmanaḥ. But what form he was worshiping and what form will appear depended on how he was initiated and trained in arcana by the guru.",
-              "translation": "Aquí, labdhvānugraha ācāryāt, Canto Once, Kṛṣṇa hablándole a Uddhava. Una persona labdhvānugraha, que ha alcanzado la misericordia, ācāryāt, del ācārya. Eso significa que recibió dīkṣā. Uno que ha recibido el dīkṣā-mantra del ācārya. Labdhvānugraha ācāryāt tena sandarśitāgamaḥ. Y se le ha mostrado el āgama-darśana. Eso significa el tantra, el Vaiṣṇava tantra, los métodos de pūjā, de arcana. En otras palabras, el guru le dio el mantra y le enseñó cómo hacer arcana, cómo despertarse, ducharse, ponerse el tilaka, recordar los mantras Gāyatrī, servir a la Deidad, ofrecer bhoga, hacer ārati, vestir, decorar, todas estas cosas. Eso es el arcana. Así, mahā-puruṣam abhyarcen mūrtyābhimatayātmanaḥ. Y él servirá a la Deidad de acuerdo con su abhimāna aquí, mūrtyābhimatayātmanaḥ. Sirve a la Deidad según su concepción. Ahora bien, la implicación aquí es que el ācārya le enseñó a adorar un śālā, una śālagrāma-śilā. Así que la śālagrāma-śilā en realidad no tiene forma visible. La śālagrāma-śilā no es en realidad una forma de Dios. No. Kṛṣṇa no tiene una encarnación como rasagullā-rūpa. Keśava dhṛta-rasagullā-rūpa. Kṛṣṇa no tiene forma, encarnación (..) como una bola redonda. No. El Śāstra dice que la śālagrāma-śilā es el bhagavad-arcā-adhiṣṭhāna, el lugar donde aparece la forma del Señor. Así que alguien podría adorar una śālagrāma-śilā y alguien puede pensar que es el Señor Nārāyaṇa. Si adora con ese abhimāna debido al mantra que fue dado por su guru, esa forma aparecerá en la śālagrāma-śilā. Si está adorando como una dāmodara-śilā, adorando como Rādhāramaṇa como Gopāla Bhaṭṭa Gosvāmī, esa forma aparecerá. Así que mūrtyābhimatayātmanaḥ. Pero qué forma estaba adorando y qué forma aparecerá dependía de cómo fue iniciado y entrenado en arcana por el guru.",
-              "translation_note": "machine",
-              "source": {
-                "title": "Nama-Tattva - 2021-09-11 - Sri Prem Prayojan",
-                "date": "2021-09-11",
-                "nr": "6089",
-                "timecode": "01:38:12",
-                "transcript_url": "https://drive.google.com/file/d/1RJiQ7O2EYmj8lnJJAkKRvCpUQEZJ4FoG/view",
-                "audio_url": "https://drive.google.com/file/d/1B2YaRn4f7SOp2G_2PpkxmlcBJrFBdvkR/view"
-              }
-            },
-            {
-              "quote": "It is said, \"Labdhvānugraha ācāryāt,\" one should receive the mercy of the ācārya, of guru. And that's specific here it's specifically referring to receiving dīkṣā, initiation. Tena sandarśitāgamaḥ, in accordance with the principles of the tantra, the that means āgama-śāstra. In other words, pāñcarātrika-dīkṣā. And in this methodology, part of the process of dīkṣā is to learn how to serve the Deities in the temple. Or serve the śālagrāma-śilā. So mahā-puruṣam abhyarcet, then one should begin to serve the Supreme Lord mūrtyābhimatayātmanaḥ according to the, (..) one's abhimāna. According to one's conception that has been taught by guru. So the reason why this has been mentioned specifically is because someone may be worshipping a śālagrāma-śilā. So this round stone is actually not a form of the Lord. It is called bhagavad-arcā-adhiṣṭhāna, the place where the form of the Lord will manifest if you perform worship. So then a question comes, if you're worshipping a śālagrāma-śilā, then which form of Bhagavān will manifest? Let's say there's (..) a Gopāla-śilā. (..) Who will manifest? Baby Gopāla, or boyhood Gopāla, or teenage Gopāla? So different persons may worship the same śilā, but they should do mūrtyābhimatayātmanaḥ according to their own sambandha, their own relation. So (..) by the process of dīkṣā, the guru indicates to the disciple and also awakens his viśeṣa-sambandha, the special particular relation (..) that devotee has with Kṛṣṇa in a particular mood. So the question comes, how can we optimize hearing Śrīmad-Bhāgavatam here from a pure devotee? But how can we optimize hearing Śrīmad-Bhāgavatam from a pure devotee? That means to hear those specific parts of Śrīmad-Bhāgavatam which are related to your iṣṭadeva. Related to the form of Kṛṣṇa that you have a special relationship with. So let us say you have someone has a relationship with Lord Nṛsiṅhadeva. Then of course they'll get benefit hearing about Lord Vāmanadeva from a pure devotee, but they'll get more benefit if they hear from a pure devotee about the pastimes of Lord Nṛsiṅhadeva because that's their particular iṣṭadeva, object of (..) (..) (..) the Deity of their heart, the object of their love.",
-              "translation": "Se dice, \"Labdhvānugraha ācāryāt,\" uno debe recibir la misericordia del ācārya, del guru. Y aquí se refiere específicamente a recibir dīkṣā, la iniciación. Tena sandarśitāgamaḥ, de acuerdo con los principios del tantra, es decir, el āgama-śāstra. En otras palabras, pāñcarātrika-dīkṣā. Y en esta metodología, parte del proceso de dīkṣā es aprender cómo servir a las Deidades en el templo. O servir a la śālagrāma-śilā. Así, mahā-puruṣam abhyarcet, entonces uno debe comenzar a servir al Señor Supremo mūrtyābhimatayātmanaḥ de acuerdo con, (..) el propio abhimāna. Según la concepción propia que ha sido enseñada por el guru. Así que la razón por la cual esto se menciona específicamente es porque alguien puede estar adorando una śālagrāma-śilā. Así que esta piedra redonda en realidad no es una forma del Señor. Se llama bhagavad-arcā-adhiṣṭhāna, el lugar donde se manifestará la forma del Señor si realizas la adoración. Entonces surge una pregunta: si estás adorando una śālagrāma-śilā, ¿qué forma de Bhagavān se manifestará? Digamos que hay (..) una Gopāla-śilā. (..) ¿Quién se manifestará? ¿Gopāla bebé, o Gopāla niño, o Gopāla adolescente? Así, diferentes personas pueden adorar la misma śilā, pero deben hacerlo mūrtyābhimatayātmanaḥ de acuerdo con su propio sambandha, su propia relación. Así que (..) mediante el proceso de dīkṣā, el guru indica al discípulo y también despierta su viśeṣa-sambandha, la relación especial y particular (..) que ese devoto tiene con Kṛṣṇa en un estado de ánimo particular. Entonces surge la pregunta, ¿cómo podemos optimizar la escucha del Śrīmad-Bhāgavatam aquí de un devoto puro? Pero, ¿cómo podemos optimizar la escucha del Śrīmad-Bhāgavatam de un devoto puro? Eso significa escuchar esas partes específicas del Śrīmad-Bhāgavatam que están relacionadas con tu iṣṭadeva. Relacionadas con la forma de Kṛṣṇa con la que tienes una relación especial. Así que digamos que alguien tiene una relación con el Señor Nṛsiṅhadeva. Entonces, por supuesto, obtendrán beneficio al escuchar sobre el Señor Vāmanadeva de un devoto puro, pero obtendrán más beneficio si escuchan de un devoto puro sobre los pasatiempos (līlā) del Señor Nṛsiṅhadeva, porque ese es su iṣṭadeva particular, el objeto de (..) (..) (..) la Deidad de su corazón, el objeto de su amor.",
-              "translation_note": "machine",
-              "source": {
-                "title": "Stages of Sravanam (Hearing) As the First Practice of Bhakti - 2024-09-13 - Sri Prem Prayojan",
-                "date": "2024-09-13",
-                "nr": "7982",
-                "timecode": "00:58:51",
-                "transcript_url": "https://drive.google.com/file/d/1mCA_yS-JzmOzdteODMDQF3bFIjIRiNR_/view",
-                "audio_url": "https://drive.google.com/file/d/1vx3zzr9f43-svlik06-hnFRbaELCFBAw/view"
-              }
-            },
-            {
-              "quote": "This verse is very important. It's in the beginning of a Bhakti-sandarbha. It says labdhvānugraha ācāryāt. First, a living entity has to receive the anugraha, (..) the mercy of the ācārya. In the form of tena sandarśitāgamaḥ, learning the ritualistic formulas or the process of arcana, how to worship the deity. And the ācārya teaches him how to perform the process of arcana, worship to mahā-puruṣam, to a form of God. But it says here, mūrtyābhimatayātmanaḥ, and that will be that form according to the abhimāna of the devotee, according to the conception of the devotee. So, Śrīla Jīva Gosvāmī-pāda said that this is especially referring to the worship of Śālagrāma. Why? Because if there's actually a vigraha, a deity of Lord Rāma, then this is Lord Rāma. You (..) should not worship it (..) a Jagannātha or Kṛṣṇa or. But when you have Śālagrāma-śilā, then you can worship that śilā according to the instructions of your guru and think, \"Oh, this is Kṛṣṇa or this is Gopāla.\" This is in whatever your mood is, you can worship mūrtyābhimatayātmanaḥ according to abhimāna. And then, because the śilā is bhagavad-arcā-adhiṣṭhānam, the form of the supreme Lord who corresponds to your abhimāna will manifest in that śilā. And therefore it's called bhagavad-arcā-adhiṣṭhānam. Understand? Yeah. So, the reason I'm saying this is, first, feel in your heart the power of the śilā. The śilā or Govardhana-śilā also, Kṛṣṇa, whether there is a round pebble or a square pebble, Kṛṣṇa has no līlās as pebbles. Śilā is śilā. It is bhagavad-arcā-adhiṣṭhānam. That means if you worship that śilā, then according to your abhimāna, then the Lord will manifest there according to abhimāna. Understand? Very beautiful. So, just think for a moment, ponder the mercy of this (..) of the Lord in the form of the Śālagrāma-śilā, wherein He manifests to you His form, because Śālagrāma-śilā is bhagavad-arcā-adhiṣṭhānam. Just think of that, deliberate on that for a moment. Can you say it again? Bhagavad-arcā-adhiṣṭhānam. The point you're making. Yes. Just contemplate for a moment the immense power of the Śālagrāma-śilā, that according to your abhimāna, Lord will manifest there. Just think of it for a moment.",
-              "translation": "Este verso es muy importante. Está al comienzo de un Bhakti-sandarbha. Dice labdhvānugraha ācāryāt. Primero, una entidad viviente tiene que recibir el anugraha, (..) la misericordia del ācārya. En la forma de tena sandarśitāgamaḥ, aprendiendo las fórmulas rituales o el proceso de arcana, cómo adorar a la Deidad. Y el ācārya le enseña cómo realizar el proceso de arcana, la adoración a mahā-puruṣam, a una forma de Dios. Pero dice aquí, mūrtyābhimatayātmanaḥ, y eso será esa forma según el abhimāna del devoto, según la concepción del devoto. Así, Śrīla Jīva Gosvāmī-pāda dijo que esto se refiere especialmente a la adoración del Śālagrāma. ¿Por qué? Porque si en realidad hay un vigraha, una Deidad del Señor Rāma, entonces este es el Señor Rāma. Tú (..) no deberías adorarlo (..) como Jagannātha o Kṛṣṇa o. Pero cuando tienes una Śālagrāma-śilā, entonces puedes adorar esa śilā según las instrucciones de tu guru y pensar, \"Oh, este es Kṛṣṇa o este es Gopāla.\" Esto es, sea cual sea tu estado de ánimo, puedes adorar mūrtyābhimatayātmanaḥ según el abhimāna. Y entonces, porque la śilā es bhagavad-arcā-adhiṣṭhānam, la forma del Señor Supremo que corresponde a tu abhimāna se manifestará en esa śilā. Y por eso se llama bhagavad-arcā-adhiṣṭhānam. ¿Entiendes? Sí. Así que la razón por la que digo esto es, primero, siente en tu corazón el poder de la śilā. La śilā o Govardhana-śilā también, Kṛṣṇa, ya sea que haya un guijarro redondo o un guijarro cuadrado, Kṛṣṇa no tiene līlās como guijarros. Śilā es śilā. Es bhagavad-arcā-adhiṣṭhānam. Eso significa que si adoras esa śilā, entonces, de acuerdo con tu abhimāna, el Señor se manifestará allí según el abhimāna. ¿Entiendes? Muy hermoso. Así que, simplemente piensa por un momento, reflexiona sobre la misericordia de esto (..) del Señor en la forma de la Śālagrāma-śilā, en la cual Él te manifiesta Su forma, porque la Śālagrāma-śilā es bhagavad-arcā-adhiṣṭhānam. Simplemente piensa en eso, reflexiona sobre eso por un momento. ¿Puedes decirlo de nuevo? Bhagavad-arcā-adhiṣṭhānam. El punto que estás haciendo. Sí. Simplemente contempla por un momento el inmenso poder de la Śālagrāma-śilā, que de acuerdo con tu abhimāna, el Señor se manifestará allí. Simplemente piénsalo un momento.",
-              "translation_note": "machine",
-              "source": {
-                "title": "Sri Prem Prayojan Prabhu in Ananda Dham Ashram in Switzerland, 5. August 2013",
-                "date": "2013-08-05",
-                "nr": "788",
-                "timecode": "00:27:05",
-                "transcript_url": "https://drive.google.com/file/d/1YTYAHWX_OlKXD3vOy9Uzb0_yFbUa6Ntn/view",
-                "audio_url": "https://drive.google.com/file/d/1LsTQSA_phjy5g2zrigfBQj1951qcCl9i/view"
-              }
-            },
-            {
-              "quote": "When the disciple hears a beautiful hari-kathā of Vṛndāvana-līlā from his spiritual master, then he has a vision of the rāgātmika-paripāṭī, that means the way in which the Vrajavāsīs are serving Kṛṣṇa. And that disciple's heart is like a sphaṭika-maṇi, like a crystal. And some rays emanating from the moon of the rāga of that associate that they are realizing in their heart, it shines (..) and touches the crystal of their heart and their heart begins to sparkle. And the heart is ullāsita, it becomes illuminated and full of joy. Then when the devotee engages in hearing and chanting and serving the deity, he does everything (..) as before when he was following vaidhī-bhakti, he does the same things. But when it's inspired by that joy, that inner taste, then it is called rāgānugā-bhakti.",
-              "translation": "Cuando el discípulo escucha un hermoso hari-kathā del Vṛndāvana-līlā de su maestro espiritual, entonces tiene una visión del rāgātmika-paripāṭī, es decir, la manera en que los Vrajavāsīs sirven a Kṛṣṇa. Y el corazón de ese discípulo es como un sphaṭika-maṇi, como un cristal. Y algunos rayos que emanan de la luna del rāga de ese asociado que están realizando en su corazón brillan (..) y tocan el cristal de su corazón y su corazón comienza a destellar. Y el corazón está ullāsita, se vuelve iluminado y lleno de gozo. Entonces, cuando el devoto se dedica a escuchar, cantar y servir a la Deidad, hace todo (..) como antes cuando seguía vaidhī-bhakti, hace las mismas cosas. Pero cuando está inspirado por ese gozo, ese sabor interno, entonces se llama rāgānugā-bhakti.",
-              "translation_note": "machine",
-              "source": {
-                "title": "Raya Ramananda Samvada part 19, SB 10.87.23 - 2025-08-05 - Sri Prem Prayojan",
-                "date": "2025-08-05",
-                "nr": "9058",
-                "timecode": "00:15:51",
-                "transcript_url": "https://drive.google.com/file/d/1gHl4wAMtwp5Q7Vx0AfXUAPZ3529ldjLy/view",
-                "audio_url": "https://drive.google.com/file/d/1tJpxyn-S_ENWVYM2goLGR4Rl_BJVk7of/view"
-              }
-            }
-          ]
-        },
-        {
-          "type": "verse",
-          "sanskrit": "labdhvānugraha ācāryāt\ntena sandarśitāgamaḥ\nmahā-puruṣam abhyarcen\nmūrtyābhimatayātmanaḥ",
-          "translation": "Habiendo obtenido la misericordia de su maestro espiritual, quien le revela al discípulo las injunciones de las escrituras védicas, el devoto debe adorar a la Suprema Personalidad de Dios en la forma personal particular del Señor que le resulte más atractiva. (Śrīmad-Bhāgavatam 11.3.48)",
-          "wbw": "labdhvā — habiendo obtenido; anugrahaḥ — misericordia; ācāryāt — del maestro espiritual; tena — por él; sandarśita — siendo mostrado; āgamaḥ — (el proceso de adoración dado por los vaiṣṇava-tantras); mahā-puruṣam — la Suprema Personalidad de Dios; abhyarcet — el discípulo debe adorar; mūrtyā — en la forma personal particular; abhimatayā — que él prefiere; ātmanaḥ — por sí mismo."
-        }
-      ],
+      "content": [],
       "subsections": []
     },
     {
@@ -4499,16 +4634,6 @@
             {
               "type": "instruction",
               "content": "Ofrezca a las Deidades el plato de ⟦bhoga⟧ y el ārati."
-            }
-          ]
-        },
-        {
-          "id": "jaya-dhvani",
-          "title": "Jaya-dhvani",
-          "content": [
-            {
-              "type": "text",
-              "content": "⟦Śrī Śrī Guru-Gaurāṅga Gāndharvikā-Giridhārī Śrī Śrī Rādhā-Vinoda-bihārījī kī jaya⟧!\n⟦Oṁ viṣṇupāda aṣṭottara-śata śrī rūpanugācārya Śrī Prema Prayojana Prabhu⟧\n⟦Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja kī jaya⟧!\n⟦Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Svāmī Mahārāja kī jaya⟧!\n⟦Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhakti Prajñāna Keśava Gosvāmī Mahārāja kī jaya⟧!\n⟦Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīla Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda kī jaya⟧!\n⟦Nitya-līlā-praviṣṭa parama-bhāgavat-pravara Śrī Śrīla Gaurakiśora dāsa Bābāji Mahārāja kī jaya⟧!\n⟦Nitya-līlā-praviṣṭa Śrī Śrīla Saccidānanda Bhaktivinoda Ṭhākura kī jaya⟧!\n⟦Nitya-līlā-praviṣṭa vaiṣṇava-sārvabhauma Śrī Śrīla Jagannātha dāsa Bābājī Mahārāja kī jaya⟧!\n⟦Śrī gauḍīya-vedāntācārya Śrī Śrīla Baladeva Vidyābhūṣaṇa Prabhu kī jaya⟧!\n⟦Śrīla Viśvanātha Cakravartī Ṭhākura kī jaya⟧!\n⟦Śrīla Narottama, Śrīnivāsa, Śyāmānanda Prabhu-traya kī jaya⟧!\n⟦Śrīla Kṛṣṇadāsa Kavirāja Gosvāmī Prabhu kī jaya⟧!\n⟦Śrī Rūpa, Sanātana, Bhaṭṭa Raghunātha, Śrī Jīva, Gopāla-bhaṭṭa, dāsa Raghunātha ṣaḍ-gosvāmī-prabhu kī jaya⟧!\n⟦Śrī Śvarūpa Dāmodara, Rāya Rāmānandādi Śrī Gaura-pārṣada-vṛnda kī jaya⟧!\n⟦Nāmācārya Śrīla Haridāsa Ṭhākura kī jaya⟧!\n⟦Prema se kaho Śrī Kṛṣṇa Caitanya, Prabhu Nityānanda, Śrī Advaita, Gadādhara, Śrīvāsādi Gaura-bhakta-vṛnda kī jaya⟧!\n⟦Śrī Antardvīpa Māyāpura, Sīmantadvīpa, Godrumadvīpa, Madhyadvīpa, Koladvīpa, Ṛtudvīpa, Jahnudvīpa, Modradrumadvīpa, Rudradvīpātmaka Śrī Navadvīpa-dhāma kī jaya⟧!\n⟦Śrī Śrī Rādhā-Kṛṣṇa gopa, gopī, go, Govardhana, dvādaśa vanātmaka Śrī Vraja-maṇḍala kī jaya⟧!\n⟦Śrī Rādhā-kuṇḍa, Śyāma-kuṇḍa, Gaṅgā, Yamunā, Tulasī, Bhakti-devī kī jaya⟧!\n⟦Śrīmatī Vṛndā-devī kī jaya⟧!\n⟦Śrī Paurṇamāsī Yogamāyā kī jaya⟧!\n⟦Śrī Gopīśvara Mahādeva kī jaya⟧!\n⟦Śrī Jagannātha, Baladeva, Subhadrā, Sudarśana Cakra jiu kī jaya⟧!\n⟦Śrī Kṣetra-maṇḍala kī jaya⟧!\n⟦Sarva-vighna-vināśakārī Śrī Nṛsiṁhadeva kī jaya⟧!\n⟦Bhakta-pravara Śrī Prahlāda Mahārāja kī jaya⟧!\n⟦Cāri-dhāma kī jaya⟧!\n⟦Cāri-sampradāya kī jaya⟧!\n⟦Cāri-ācārya kī jaya⟧!\n⟦Grantha-rāja Śrīmad-Bhāgavatam kī jaya⟧!\n⟦Śrī Harināma-saṅkīrtana kī jaya⟧!\n⟦Ananta-koṭi vaiṣṇava-vṛnda kī jaya⟧!\n⟦Samāgata bhakta-vṛnda kī jaya⟧!\n⟦Śrī Nitāi-Gaura-premānande! Hari Hari bol⟧!"
             }
           ]
         }
