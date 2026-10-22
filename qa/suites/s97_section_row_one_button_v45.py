@@ -80,6 +80,8 @@ NAV = """() => { const t = (d) => { const b = document.querySelector(`[data-read
   return {back: t('back'), forward: t('forward')}; }"""
 ROW = """(gid) => { const row = document.querySelector(`.mobile-menu[data-open] [data-toc-group-row="${gid}"]`);
   if (!row) return null;
+  // the row may lie below the fold of the menu (an open section above it): elementFromPoint only sees the viewport
+  row.scrollIntoView({block: 'nearest'});
   const r = row.getBoundingClientRect();
   const atArrow = document.elementFromPoint(r.right - 22, r.top + r.height / 2);
   const atName = document.elementFromPoint(r.left + 30, r.top + r.height / 2);
@@ -90,7 +92,7 @@ ROW = """(gid) => { const row = document.querySelector(`.mobile-menu[data-open] 
   return {tag: row.tagName, inner: row.querySelectorAll('a[href], button').length, inLink: !!row.closest('a[href]'),
           arrowHitsRow: ctl(atArrow) === row, nameHitsRow: ctl(atName) === row, expanded: row.getAttribute('aria-expanded'),
           lit: row.hasAttribute('data-toc-lit'), namePaint: paint(row.firstElementChild || row), arrowPaint: paint(svg || row),
-          text: row.textContent.trim()}; }"""
+          text: row.textContent.trim(), top: Math.round(r.top), vh: innerHeight}; }"""
 ROWS_ORDER = """() => [...document.querySelectorAll('.mobile-menu[data-open] nav [data-toc-row]')]
   .map(e => e.dataset.tocRow).filter(r => r.startsWith('grp:') || r.startsWith('sec:')).map(r => r.slice(4))"""
 FEED_ORDER = """() => [...document.querySelectorAll('[data-continuous-book] [data-book-section]')].map(e => e.dataset.bookSection).filter(Boolean)"""
