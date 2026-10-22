@@ -728,6 +728,11 @@ html[data-reader-theme="night"] .home-save-track i.part {
   padding-inline: 6px;
   margin-inline: -6px;
 }
+/* …and a sub-item (2.1 …) keeps its indent at the main items' text line (+6px for the -6px above;
+   s05 (5), night 22.10: padding-inline had overridden .nl-sub's padding-left) */
+.numbered-list > li.hs-row.nl-sub {
+  padding-left: calc(var(--nl-main) + 0.5rem + 6px);
+}
 .hs-row:is(li, div)[data-active] {
   background-color: var(--rd-row-active);
   border-radius: 6px;

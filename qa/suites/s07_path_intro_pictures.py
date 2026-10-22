@@ -11,13 +11,13 @@ E picture <-> list: tap on a picture part -> row highlighted (computed bg) + scr
 F cover: no «v.1», CA block (emblem left, text right, centred), cover fully on screen
 G Maṅgalācaraṇa: title only, no subtitle, no explanatory headings; every verse has «пословно»
 H «Праздники, обеты и песни арати» (+ English)
-I every verse of the book (ru-iast, ru) has a «пословно» chip in the UI (271 = 180 + 61 verses of the ārati songs, v7.4, + 30 of the Kārtika bhajans, v7.6)
+I every verse of the book (ru-iast, ru) has a «пословно» chip in the UI (274 = 180 + 61 verses of the ārati songs, v7.4, + 30 of the Kārtika bhajans, v7.6, + 3 of «Заключение», 22.10)
 """
 import os as _os, sys as _sys
 _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "lib"))
 import qa
 from toc import Contents, marks_place
-VERSES = 271  # 180 + 61 verses of the maṅgala-/gaura-ārati songs (Reader v7.4, Satkirti 07.10 13:07) + 30 Kārtika bhajans (v7.6)
+VERSES = 274  # 180 + 61 verses of the maṅgala-/gaura-ārati songs (Reader v7.4, Satkirti 07.10 13:07) + 30 Kārtika bhajans (v7.6) + 3 of «Заключение» (22.10, Satkirti msg 6065)
 import io, json, os, sys, urllib.request
 from urllib.parse import urlparse
 from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout, Error as PWError
@@ -307,7 +307,7 @@ def run(p, dev, eng, o):
     chk(dev, "D Part I starts with chapter «1.»", t1.startswith("1."), t1)
 
     # ---------- B: no next chapter -> no «Вперёд ›» at all, no note (V17, Vraja Lila msg 796) ----------
-    goto(f"/{L}/kartika-bhajans/")
+    goto(f"/{L}/conclusion/")   # the last page of the book since 22.10 (Satkirti msg 6065)
     bars()
     chk(dev, "B last chapter: no «Вперёд ›» at all (no dead tap)", pg.locator("[data-reader-nav=forward]").count() == 0, pg.url)
     chk(dev, "B no own history note («Вперёд — после Назад») anywhere", pg.locator("[data-reader-nav-note]").count() == 0)

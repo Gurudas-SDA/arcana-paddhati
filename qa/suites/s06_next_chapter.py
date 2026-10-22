@@ -38,8 +38,10 @@ CASES = [
     ("major-festivals", "mangala-arati-songs", "14. "),
     # v7.6 (07.10): «Бхаджаны для Картики» right after «Песни гаура-арати» — now the last chapter
     ("gaura-arati-songs", "kartika-bhajans", "16. "),
+    # 22.10 (Satkirti msg 6065): «Заключение» after the parts, unnumbered — now the last page of the book
+    ("kartika-bhajans", "conclusion", "Заключение"),
 ]
-LAST = "kartika-bhajans"
+LAST = "conclusion"
 res = []
 
 
