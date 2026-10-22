@@ -14,7 +14,8 @@ Satkirti 22.10 msg 6151 (balss, burtiski): «у нас есть раздел з�
      aparāhna, sāyaṁ, pradoṣa, rātri; each row = time «H:MM–H:MM», name (IAST in ru-iast / en), what happens — ONE line
      (≤ 160 characters, # tehniskais slieksnis Lipikāra, nav S noteikums)
   c  the times join into 24 hours without gap or overlap, starting at 3:36
-  d  the subsection ends with the source line: Bhajana-rahasya, Bhaktivinoda, Gurudev, Nārāyaṇa Mahārāja — and nothing
+  d  the subsection ends with the source line: Bhajana-rahasya, Bhaktivinoda, Gurudev, Nārāyaṇa Mahārāja — ONLY these
+     (no other ācārya, book or lecture: Viśvanātha, Rūpa, Kṛṣṇadāsa, Līlāmṛta, no. 4170 …) — and nothing
      about the rounded times of the English edition (no «округл» / «rounded» / «Gaudiya Vedanta Publications»)
   e  the 10th subsection («Круг замыкается») ends with the Upadeśāmṛta 8 verse in full (sanskrit + translation + wbw),
      the same verse as at the start of the chapter
@@ -99,6 +100,10 @@ for lang, sub in subs.items():
         last["type"] == "sources" and re.search(r"(?i)бхаджана-рахась|bhajana-rahasya", c)
         and re.search(r"(?i)бхактивинод|bhaktivinod", c) and re.search(r"Гурудев|Gurudev", c)
         and re.search(r"Нараян|Nārāyaṇa", c), c[:300])
+    other = re.findall(r"(?i)вишванатх|viśvanāth|рупа госвам|rūpa gosvām|кришнадас|kṛṣṇadās|лиламрит|līlāmṛt|"
+                       r"смарана-мангал|smaraṇa-maṅgal|бхаванамрит|bhāvanāmṛt|№ ?4170|no\. ?4170", c)
+    chk(f"d {lang}: only the three sources (Bhajana-rahasya, Gurudev, Nārāyaṇa Mahārāja) — no other ācārya / book / "
+        "lecture", not other, other)
     allt = json.dumps(sub, ensure_ascii=False)
     chk(f"d {lang}: no paragraph about the rounded English-edition times", not re.search(
         r"(?i)округл|rounded|Gaudiya Vedanta Publications", allt), re.findall(r"(?i)округл\w*|rounded", allt))
