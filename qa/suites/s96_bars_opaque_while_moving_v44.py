@@ -19,6 +19,12 @@ Checks, per device:
   B  «Содержание» opening and closing: the panel opaque in every frame; the bottom bar coming back after closing opaque.
      The panel = the sheet that carries the background (<aside> inside the sliding .sidebar-transition wrapper; the
      wrapper itself has no background — measuring it gave bgAlpha 0 on every build, live 68e9192 too).
+  C  V44b (Vraja Lila msg 6218, frames 1792677436*.jpg: «с верхней панелью такой проблемы нет, только с нижней…
+     подозреваю что от того, что там есть панель с % чтения»): the faint status line «… · N %» under the bottom bar —
+     in every frame of the bar showing / hiding, the part of the status strip NOT yet covered by the bar is opaque
+     (effective opacity ≥ 0.99, background alpha 1: no book text through it, no half-faded «Maṅgalācaraṇa · 0 %»
+     doubling «‹ Back / Forward ›»); with the bar fully out, no part of the strip above the bar.
+     Before (bd39c8a / live 68e9192): .reader-status faded opacity 1 → 0 (200 ms) while the bar slid over it.
 usage: python s96_bars_opaque_while_moving_v44.py <base-url>
 """
 import json
@@ -42,7 +48,7 @@ REC = """(ms) => { window.__f = []; const t0 = performance.now();
       && r.right > 0.5 && r.left < innerWidth - 0.5;
     return [Math.round(r.top), +eff(e).toFixed(3), alpha(c.backgroundColor), on ? 1 : 0, Math.round(r.left)]; };
   const f = () => { window.__f.push([Math.round(performance.now() - t0), g('.reader-bar-top'), g('.reader-bar-bottom'),
-      g('.mobile-menu > .sidebar-transition > aside')]);
+      g('.mobile-menu > .sidebar-transition > aside'), g('.reader-status')]);
     if (performance.now() - t0 < ms) requestAnimationFrame(f); }; requestAnimationFrame(f); }"""
 
 
@@ -72,6 +78,20 @@ def see_through(fr, k):
     return [[f[0], f[k][1], f[k][2]] for f in fr if f[k] and f[k][3] and (f[k][1] < 0.99 or f[k][2] < 1)]
 
 
+def status_uncovered_see_through(fr):
+    """Frames (t, statusTop, barTop, opacity, bg alpha) in which part of the status strip is on screen above the
+    bottom bar's top edge (not covered by it) and the strip is not opaque."""
+    out = []
+    for f in fr:
+        st, bar = f[4], f[2]
+        if not (st and st[3]):
+            continue
+        bar_top = bar[0] if bar and bar[3] else 10 ** 6
+        if st[0] < bar_top - 0.5 and (st[1] < 0.99 or st[2] < 1):
+            out.append([f[0], st[0], bar_top if bar_top < 10 ** 6 else None, st[1], st[2]])
+    return out
+
+
 def bars_case(pg, dev, touch):
     if shown(pg):
         tap_page(pg, touch)
@@ -86,6 +106,17 @@ def bars_case(pg, dev, touch):
             check(dev, f"A {name} bar {way}: opaque in every frame on screen (book text never shows through), and it slides",
                   not bad and len(ys) > 2 and onscreen > 0,
                   {"seeThrough[t,opacity,bgAlpha]": bad[:8], "positions": len(ys), "framesOnScreen": onscreen})
+    for fr, way in ((fr_in, "showing"), (fr_out, "hiding")):
+        bad = status_uncovered_see_through(fr)
+        seen = sum(1 for f in fr if f[4] and f[4][3])
+        check(dev, f"C status line «… · N %» while the bottom bar is {way}: its uncovered part opaque in every frame "
+                   "(no book text through it, no faded «… · %» doubling the bar)",
+              not bad and seen > 0, {"seeThrough[t,statusTop,barTop,opacity,bgAlpha]": bad[:8], "framesWithStatus": seen})
+    last = fr_in[-1]
+    st, bar = last[4], last[2]
+    peek = bool(st and st[3] and bar and bar[3] and st[0] < bar[0] - 0.5)
+    check(dev, "C bottom bar fully out: no part of the status strip above it (the «… · %» line not doubled)",
+          not peek, {"statusTop": st and st[0], "barTop": bar and bar[0]})
 
 
 def menu_case(pg, dev, touch):

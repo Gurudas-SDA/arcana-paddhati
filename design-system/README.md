@@ -126,7 +126,10 @@ colour change is made once, in `tokens.css`.
   through «‹ Back / Forward ›»): a sliding panel (top / bottom bar, «Содержание») is an OPAQUE sheet in every frame —
   it moves only by `transform`; NO `opacity` on the panel or its background (hidden = moved fully off screen). A fade,
   if ever needed, goes on the panel's content only, never on the sheet. Only the dimming behind «Содержание» fades.
-  Test: `qa/suites/s96_bars_opaque_while_moving_v44.py`.
+  The same for whatever lies UNDER a sliding panel (V44b, Vraja Lila msg 6218 — the faint «… · N %» line under the
+  bottom bar faded while the bar slid over it, so the text showed through its uncovered part): it stays an opaque
+  sheet and is simply covered; it leaves the screen (transform) only after the panel has fully covered it.
+  Test: `qa/suites/s96_bars_opaque_while_moving_v44.py` (A, B; C — the status line).
 - **«Содержание»:** opening `ap-menu-in` (forwards); closing its own `ap-menu-out` played **forwards** with the same
   ease (not the opening in reverse — reversing also reverses the ease: slow start, abrupt end). The panel is removed
   from the page only on its `animationend` (a timer is only a safety net): closing makes the page busy for

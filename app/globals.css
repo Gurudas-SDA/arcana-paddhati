@@ -1209,10 +1209,17 @@ html[data-reader-bars] .reader-toast {
   background: var(--rd-bg);
   pointer-events: none;
   font-variant-numeric: tabular-nums;
-  transition: opacity 200ms ease;
+  /* V44b (Vraja Lila 22.10.2026, msg 6218): the strip is a SOLID sheet under the bottom bar (z 20 < 30) — it never
+     fades (no opacity): before, it faded (opacity 1 → 0, 200 ms) while the bar slid over it, so in the part not yet
+     covered the book text showed through and «Maṅgalācaraṇa · 0 %» doubled with «‹ Back / Forward ›». Now the bar
+     simply slides over it; once the bar has fully covered it (220 ms) the strip steps off screen (transform, so it
+     can never peek above a short bar) and is back at once, still under the bar, when the bar starts to slide away.
+     design-system/README.md «Solid while moving». */
+  transition: transform 0s linear 0s;
 }
 .reader-chrome[data-shown] .reader-status {
-  opacity: 0;
+  transform: translateY(100%);
+  transition: transform 0s linear 220ms;
 }
 
 /* «Аа» panel (.reader-panel-out = its closing copy, lib/exitGhost.ts) */
