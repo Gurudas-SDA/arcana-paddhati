@@ -89,6 +89,36 @@ def snippet(s, m, pad=40):
     return s[max(0, m.start() - pad):m.end() + pad].replace("\n", " ")
 
 
+# «Tulkojums gaida» (Gurudas 23.10 msg 868: «Tulkojumu trūkums netraucē turpināt darbu pie pašas grāmatas»):
+# qa/tulkojumi_gaida.json lists the (language, section) pairs night_sync.py could not translate yet; the book shows them
+# in English (or keeps the previous translation + new subsections in English). ONLY L27/L31 and ONLY for these pairs
+# accept that English fallback (reported as [TULK GAIDA], not FAIL); every other check and every other pair stays strict.
+# L38 checks that the list holds no pair that is already translated.
+# tehniskais slieksnis Lipikāra, nav S noteikums; Gurudas msg 868
+TULK_CHECKS = ("L27", "L31")
+TULK_FILE = os.path.join(qa.REPO, "qa", "tulkojumi_gaida.json")
+TULK = json.load(open(TULK_FILE, encoding="utf-8")) if os.path.exists(TULK_FILE) else {"pending": []}
+TULK_PAIRS = {(p["lang"], p["section"]) for p in TULK.get("pending", [])}
+SEC_IDS = {}   # book file name -> [top-level section ids] (filled in run(); L31 paths use the section index)
+
+
+def tulk_pending(check, fname, where):
+    """(lang, section) when this hit lies in a listed «tulkojums gaida» section of a translated book, else None."""
+    if check not in TULK_CHECKS or not TULK_PAIRS:
+        return None
+    m = re.fullmatch(r"book\.([a-z]{2})\.json", os.path.basename(fname))
+    if not m:
+        return None
+    parts = [x for x in where.split(" ")[0].split("/") if x]
+    if len(parts) < 2 or parts[0] != "sections":
+        return None
+    sid = parts[1]
+    if sid.isdigit():
+        ids = SEC_IDS.get(os.path.basename(fname)) or []
+        sid = ids[int(sid)] if int(sid) < len(ids) else sid
+    return (m.group(1), sid) if (m.group(1), sid) in TULK_PAIRS else None
+
+
 def exception_for(check, fname, where, frag):
     for e in CFG.get("exceptions", []):
         if e["check"] == check and e["file"] == fname and e["match"] in f"{where} :: {frag}":
@@ -119,8 +149,13 @@ L21_MARGIN = 0.015
 class Check:
     def __init__(self, cid, title):
         self.cid, self.title, self.hits, self.warns, self.info = cid, title, [], [], ""
+        self.tulk = {}
 
     def hit(self, fname, where, frag):
+        tp = tulk_pending(self.cid, fname, where)
+        if tp:
+            self.tulk[tp] = self.tulk.get(tp, 0) + 1
+            return
         e = exception_for(self.cid, fname, where, frag)
         (self.warns if e else self.hits).append((fname, where, frag, e))
 
@@ -134,6 +169,10 @@ class Check:
             print(f"        … +{len(self.hits) - maxn}")
         for f, w, fr, e in self.warns[:maxn]:
             print(f"  [WARN] data {self.cid} izņēmums ({e['reason'][:90]}) :: {f} :: {w} :: {fr}")
+        if self.tulk:
+            print(f"  [TULK GAIDA] data {self.cid} {sum(self.tulk.values())} hits accepted — English until translated "
+                  f"(qa/tulkojumi_gaida.json, Gurudas msg 868): "
+                  + ", ".join(f"{l}/{s} ({n})" for (l, s), n in sorted(self.tulk.items())))
         if not ok:
             FAILS.append(self.cid)
 
@@ -144,6 +183,46 @@ def run(args):
     parts = "|".join(CFG["pair_second_parts"])
     loaded = {f: json.load(open(f, encoding="utf-8")) for f in allb}
     name = os.path.basename
+    for f in allb:
+        SEC_IDS[name(f)] = [s.get("id") for s in loaded[f].get("sections") or [] if isinstance(s, dict)]
+
+    # L38 — «tulkojums gaida» list is current (Gurudas 23.10 msg 868): only the 9 translated languages, a known
+    # section, and no pair whose translation is already there (else L27/L31 would excuse a translated section).
+    # tehniskais slieksnis Lipikāra, nav S noteikums; Gurudas msg 868
+    c = Check("L38", "qa/tulkojumi_gaida.json: only lv/de/fr/es/it/uk/hu/pt/lt, only still untranslated sections / quotes")
+    sys.path.insert(0, os.path.join(qa.REPO, "scripts", "translate"))
+    try:
+        from i18n_sections import en_hash as _en_hash
+    except ImportError:
+        _en_hash = None
+    en_b = loaded.get(os.path.join(qa.DATA, "book.json"), {})
+    en_s = {s["id"]: s for s in en_b.get("sections") or []}
+    mp_ = os.path.join(qa.REPO, "scripts", "moods", "moods.json")
+    moods_ = json.load(open(mp_, encoding="utf-8")) if os.path.exists(mp_) else []
+    for p in TULK.get("pending", []):
+        lg, sid, kind = p.get("lang"), p.get("section"), p.get("kind")
+        tag = f"{lg}/{sid}/{kind}"
+        if lg not in ("lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt") or sid not in en_s:
+            c.hit("qa/tulkojumi_gaida.json", tag, "not a translated language / no such section in book.json")
+            continue
+        if kind == "section":
+            gp_ = os.path.join(qa.REPO, p.get("gen", ""), "i18n.json")
+            rec = (json.load(open(gp_, encoding="utf-8")) if os.path.isfile(gp_) else {}).get(sid, {}).get(lg)
+            if rec and _en_hash and rec.get("en_hash") == _en_hash(en_s[sid]):
+                c.hit("qa/tulkojumi_gaida.json", tag, "already translated (i18n.json up to date) — remove it: "
+                      "python scripts/translate/tulk_gaida.py compute …")
+        elif kind == "moods":
+            tg = {sid} | {x["id"] for x in en_s[sid].get("subsections") or []}
+            ms = [m for m in moods_ if m.get("target") in tg]
+            if ms and all(lg in (m.get("translations") or {}) and all(lg in (a.get("translation") or {})
+                                                                   for a in m.get("more") or []) for m in ms):
+                c.hit("qa/tulkojumi_gaida.json", tag, "quotes already translated — remove it")
+        else:
+            c.hit("qa/tulkojumi_gaida.json", tag, "unknown kind")
+    c.info = (f"{len(TULK.get('pending', []))} pairs wait for translation: "
+              + ", ".join(f"{p['lang']}/{p['section']}{' (quotes)' if p.get('kind') == 'moods' else ''}"
+                          for p in TULK.get("pending", []))) if TULK.get("pending") else "nothing waits for translation"
+    c.report(args.max)
 
     # L1 — Склоняется только последняя часть: Радха-Кришны, не «Радхе-Кришне»
     c = Check("L1", "Dievību pāris: locās tikai otrā daļa (nav «Радхе-/Радху-/Радхи-/Радхой-» pirms pāra otrās daļas)")

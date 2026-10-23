@@ -162,6 +162,8 @@ SUITES = [
          devices=None, fast=True, server=False),
     dict(id="s88", file="suites/s88_conclusion.py", title="Satkirti 21.10 msg 6065 + Idea №2 (msg 5692): «Заключение» — pēdējā sadaļa ārpus daļām, bez numura; dienas cikls no pamodināšanas līdz noguldīšanai; katram Gurudeva citātam avots (№, datums, laiks, saite); ru-iast bez kirilicas ar diakritiku",
          devices=None, fast=True, server=False),
+    dict(id="s104", file="suites/s104_tulk_gaida.py", title="Gurudas 23.10 msg 868: tulkojuma trūkums neaptur izlaidumu — qa/tulkojumi_gaida.json pāri EN līdz tulkojumam; L27/L31 pieņem EN TIKAI šiem pāriem, citur stingri (mākslīgas kļūdas krīt); L38 saraksts aktuāls (tehniskais slieksnis Lipikāra, nav S noteikums)",
+         devices=None, fast=True, server=False),
     dict(id="s100", file="suites/s100_ashtakala.py", title="Satkirti 22.10 msg 6141/6151: «Заключение» 11. apakšnodaļa «Аштакалия-лила» — tabula 8 rindas diennakts secībā (laiks no–līdz, IAST nosaukums, kas notiek — viena rinda), laiki 24 h bez spraugām no 3:36; beigās avots tikai Bhajana-rahasya + Gurudevs + Nārāyaṇa Mahārāja (bez noapaļoto laiku rindkopas); 10. apakšnodaļas beigās UM 8 pants vēlreiz pilnībā",
          devices=None, fast=True, server=False),
     dict(id="s82", file="suites/s82_one_block_highlight_v36.py", title="V36 Vraja 5962: atzīmēta saraksta rinda = VIENS bloks (numurs + teksts vienā taisnstūrī ar noapaļotiem stūriem) — 16 priekšmeti (11) асана), tilaka saraksts",

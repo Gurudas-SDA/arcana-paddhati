@@ -1,0 +1,204 @@
+{
+ "updated": "2026-10-23 10:44",
+ "note": "Gurudas msg 868: tulkojums gaida — EN līdz tulkojumam; lint L27/L31 pieņem EN tikai šiem pāriem",
+ "pending": [
+  {
+   "lang": "lv",
+   "section": "conclusion",
+   "kind": "section",
+   "gen": "scripts/chapters/ch99_conclusion"
+  },
+  {
+   "lang": "lv",
+   "section": "upadesha-sara",
+   "kind": "section",
+   "gen": "scripts/chapters/ch00a_front"
+  },
+  {
+   "lang": "lv",
+   "section": "jaya-dhvani-front",
+   "kind": "section",
+   "gen": "scripts/chapters/ch00a_front"
+  },
+  {
+   "lang": "lv",
+   "section": "upadesha-sara",
+   "kind": "moods",
+   "gen": "scripts/moods"
+  },
+  {
+   "lang": "de",
+   "section": "conclusion",
+   "kind": "section",
+   "gen": "scripts/chapters/ch99_conclusion"
+  },
+  {
+   "lang": "de",
+   "section": "upadesha-sara",
+   "kind": "section",
+   "gen": "scripts/chapters/ch00a_front"
+  },
+  {
+   "lang": "de",
+   "section": "jaya-dhvani-front",
+   "kind": "section",
+   "gen": "scripts/chapters/ch00a_front"
+  },
+  {
+   "lang": "fr",
+   "section": "conclusion",
+   "kind": "section",
+   "gen": "scripts/chapters/ch99_conclusion"
+  },
+  {
+   "lang": "fr",
+   "section": "upadesha-sara",
+   "kind": "section",
+   "gen": "scripts/chapters/ch00a_front"
+  },
+  {
+   "lang": "fr",
+   "section": "jaya-dhvani-front",
+   "kind": "section",
+   "gen": "scripts/chapters/ch00a_front"
+  },
+  {
+   "lang": "fr",
+   "section": "upadesha-sara",
+   "kind": "moods",
+   "gen": "scripts/moods"
+  },
+  {
+   "lang": "es",
+   "section": "conclusion",
+   "kind": "section",
+   "gen": "scripts/chapters/ch99_conclusion"
+  },
+  {
+   "lang": "es",
+   "section": "upadesha-sara",
+   "kind": "section",
+   "gen": "scripts/chapters/ch00a_front"
+  },
+  {
+   "lang": "es",
+   "section": "jaya-dhvani-front",
+   "kind": "section",
+   "gen": "scripts/chapters/ch00a_front"
+  },
+  {
+   "lang": "es",
+   "section": "upadesha-sara",
+   "kind": "moods",
+   "gen": "scripts/moods"
+  },
+  {
+   "lang": "it",
+   "section": "conclusion",
+   "kind": "section",
+   "gen": "scripts/chapters/ch99_conclusion"
+  },
+  {
+   "lang": "it",
+   "section": "upadesha-sara",
+   "kind": "section",
+   "gen": "scripts/chapters/ch00a_front"
+  },
+  {
+   "lang": "it",
+   "section": "jaya-dhvani-front",
+   "kind": "section",
+   "gen": "scripts/chapters/ch00a_front"
+  },
+  {
+   "lang": "it",
+   "section": "upadesha-sara",
+   "kind": "moods",
+   "gen": "scripts/moods"
+  },
+  {
+   "lang": "uk",
+   "section": "conclusion",
+   "kind": "section",
+   "gen": "scripts/chapters/ch99_conclusion"
+  },
+  {
+   "lang": "uk",
+   "section": "upadesha-sara",
+   "kind": "section",
+   "gen": "scripts/chapters/ch00a_front"
+  },
+  {
+   "lang": "uk",
+   "section": "jaya-dhvani-front",
+   "kind": "section",
+   "gen": "scripts/chapters/ch00a_front"
+  },
+  {
+   "lang": "uk",
+   "section": "upadesha-sara",
+   "kind": "moods",
+   "gen": "scripts/moods"
+  },
+  {
+   "lang": "hu",
+   "section": "conclusion",
+   "kind": "section",
+   "gen": "scripts/chapters/ch99_conclusion"
+  },
+  {
+   "lang": "hu",
+   "section": "upadesha-sara",
+   "kind": "section",
+   "gen": "scripts/chapters/ch00a_front"
+  },
+  {
+   "lang": "hu",
+   "section": "jaya-dhvani-front",
+   "kind": "section",
+   "gen": "scripts/chapters/ch00a_front"
+  },
+  {
+   "lang": "pt",
+   "section": "conclusion",
+   "kind": "section",
+   "gen": "scripts/chapters/ch99_conclusion"
+  },
+  {
+   "lang": "pt",
+   "section": "upadesha-sara",
+   "kind": "section",
+   "gen": "scripts/chapters/ch00a_front"
+  },
+  {
+   "lang": "pt",
+   "section": "jaya-dhvani-front",
+   "kind": "section",
+   "gen": "scripts/chapters/ch00a_front"
+  },
+  {
+   "lang": "pt",
+   "section": "upadesha-sara",
+   "kind": "moods",
+   "gen": "scripts/moods"
+  },
+  {
+   "lang": "lt",
+   "section": "conclusion",
+   "kind": "section",
+   "gen": "scripts/chapters/ch99_conclusion"
+  },
+  {
+   "lang": "lt",
+   "section": "upadesha-sara",
+   "kind": "section",
+   "gen": "scripts/chapters/ch00a_front"
+  },
+  {
+   "lang": "lt",
+   "section": "jaya-dhvani-front",
+   "kind": "section",
+   "gen": "scripts/chapters/ch00a_front"
+  }
+ ]
+}
