@@ -49,8 +49,19 @@ def run_lint(root):
     return p.returncode, by, p.stdout
 
 
-def copy_tree():
+def unretire(tmp):
+    lj = json.load(open(os.path.join(REPO, "lib", "languages.json"), encoding="utf-8"))
+    os.makedirs(os.path.join(tmp, "lib"), exist_ok=True)
+    json.dump([{k: v for k, v in l.items() if k != "replacedBy"} for l in lj],
+              open(os.path.join(tmp, "lib", "languages.json"), "w", encoding="utf-8"), ensure_ascii=False)
+
+
+def copy_tree(all_active=False):
+    """all_active=True: the copy's lib/languages.json has no "replacedBy" (= the 9 translated languages given back, so the
+    lint checks them again - S 23.10 Padomnieks 934-941 retired them; the data files stay) # tehniskais slieksnis Lipikara"""
     tmp = tempfile.mkdtemp(prefix="s104_")
+    if all_active:
+        unretire(tmp)
     shutil.copytree(DATA, os.path.join(tmp, "data"), ignore=shutil.ignore_patterns("desktop.ini"))
     for rel in ["scripts/parampara/check.json", "scripts/translate/i18n_sections.py", "scripts/moods/moods.json",
                 "scripts/translate/glossary.uk.json"] + \
@@ -109,6 +120,7 @@ try:
                 b["sanskrit"] = b["sanskrit"].replace("ā", "a", 1)
                 return
         raise AssertionError("no sanskrit with ā in de mangalacarana")
+    unretire(tmp)   # c: the 9 languages given back (retired ones are not linted)
     edit_book(tmp, "de", l27_bad)
     code, by, _ = run_lint(tmp)
     chk("c list + de «mangalacarana» sanskrit ā→a (not listed) → L27 FAIL", code != 0 and by.get("L27", {}).get("ok") is False
@@ -116,7 +128,7 @@ try:
 finally:
     rm(tmp)
 
-tmp = copy_tree()
+tmp = copy_tree(True)
 try:
     def l31_bad(d):
         for b in sec(d, "mangalacarana")["content"]:
@@ -135,7 +147,7 @@ try:
 finally:
     rm(tmp)
 
-tmp = copy_tree()
+tmp = copy_tree(True)
 try:
     lp = os.path.join(tmp, "qa", "tulkojumi_gaida.json")
     d = json.load(open(lp, encoding="utf-8")) if os.path.exists(lp) else {"pending": []}

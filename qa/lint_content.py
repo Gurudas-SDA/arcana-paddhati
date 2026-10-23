@@ -203,7 +203,12 @@ def run(args):
     # L38 — «tulkojums gaida» list is current (Gurudas 23.10 msg 868): only the 9 translated languages, a known
     # section, and no pair whose translation is already there (else L27/L31 would excuse a translated section).
     # tehniskais slieksnis Lipikāra, nav S noteikums; Gurudas msg 868
-    c = Check("L38", "qa/tulkojumi_gaida.json: only lv/de/fr/es/it/uk/hu/pt/lt, only still untranslated sections / quotes")
+    c = Check("L38", "qa/tulkojumi_gaida.json: only ACTIVE languages (not retired in lib/languages.json), only still untranslated sections / quotes")
+    def _retired_langs():
+        try:
+            return {l["code"] for l in json.load(open(os.path.join(qa.REPO, "lib", "languages.json"), encoding="utf-8")) if l.get("replacedBy")}
+        except OSError:
+            return set()
     sys.path.insert(0, os.path.join(qa.REPO, "scripts", "translate"))
     try:
         from i18n_sections import en_hash as _en_hash
@@ -216,6 +221,9 @@ def run(args):
     for p in TULK.get("pending", []):
         lg, sid, kind = p.get("lang"), p.get("section"), p.get("kind")
         tag = f"{lg}/{sid}/{kind}"
+        if lg in _retired_langs():
+            c.hit("qa/tulkojumi_gaida.json", tag, "retired language (lib/languages.json replacedBy) — nothing waits for it, remove it")
+            continue
         if lg not in ("lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt") or sid not in en_s:
             c.hit("qa/tulkojumi_gaida.json", tag, "not a translated language / no such section in book.json")
             continue
@@ -1112,20 +1120,21 @@ def run(args):
                 yield from uk_strings(v, f"{path}/{i}")
 
     uk_src = []
-    for fn in ("book.uk.json", "ui.uk.json"):
+    UK_ACTIVE = "uk" not in qa.RETIRED_LANGS   # S 23.10 Padomnieks 934-941: uk retired -> its text is not checked (data kept)
+    for fn in (("book.uk.json", "ui.uk.json") if UK_ACTIVE else ()):
         fp = os.path.join(qa.DATA, fn)
         if os.path.exists(fp):
             uk_src.append((fn, json.load(open(fp, encoding="utf-8"))))
     gp = os.path.join(qa.REPO, "scripts", "translate", "glossary.uk.json")
-    if os.path.exists(gp):
+    if UK_ACTIVE and os.path.exists(gp):
         uk_src.append(("scripts/translate/glossary.uk.json", json.load(open(gp, encoding="utf-8"))))
-    for f in glob.glob(os.path.join(qa.REPO, "scripts", "**", "i18n.json"), recursive=True):
+    for f in (glob.glob(os.path.join(qa.REPO, "scripts", "**", "i18n.json"), recursive=True) if UK_ACTIVE else []):
         j = json.load(open(f, encoding="utf-8"))   # {section id: {lang: {...}}} (or {lang: …})
         for part in ([j] + [v for v in j.values() if isinstance(v, dict)]) if isinstance(j, dict) else []:
             if "uk" in part:
                 uk_src.append((os.path.relpath(f, qa.REPO).replace("\\", "/"), part["uk"]))
     mp = os.path.join(qa.REPO, "scripts", "moods", "moods.json")
-    if os.path.exists(mp):
+    if UK_ACTIVE and os.path.exists(mp):
         uk_src.append(("scripts/moods/moods.json", [((m.get("translations") or {}).get("uk") or "") for m in json.load(open(mp, encoding="utf-8"))]))
     n_uk = 0
     for rel, data in uk_src:
@@ -1159,7 +1168,7 @@ def run(args):
         ("«Шрі Ґурудева» with capitals", re.compile("[шШ]рі ґурудев|шрі Ґурудев")),
     ]
     uk31 = list(uk_src)
-    if os.path.exists(mp):
+    if UK_ACTIVE and os.path.exists(mp):
         for m in json.load(open(mp, encoding="utf-8")):
             for a in m.get("more") or []:
                 t = (a.get("translation") or {}).get("uk")

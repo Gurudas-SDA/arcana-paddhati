@@ -29,10 +29,13 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 DATA = os.path.join(REPO, "data")
 LIST = os.path.join(REPO, "qa", "tulkojumi_gaida.json")
-LANGS = ["lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"]
 MOODS = os.path.join(REPO, "scripts", "moods", "moods.json")
 sys.path.insert(0, HERE)
 from i18n_sections import en_hash, place, write_atomic  # noqa: E402
+from aktivas_valodas import IZNEMTAS  # noqa: E402
+# only the ACTIVE languages wait for a translation (S 23.10 Padomnieks 934-941: en + ru-iast; lib/languages.json "replacedBy"
+# marks a retired one) # tehniskais slieksnis Lipikara, nav S noteikums
+LANGS = [l for l in ["lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"] if l not in IZNEMTAS]
 
 # the same map as night_sync.GENERATOR (night_sync is not imported: it reads the API keys at import)
 GEN = {
