@@ -8089,6 +8089,93 @@
               "content": "Bárcsak egy napon mindenki, aki kezében tartja ezt a könyvet, és minden reggel az oltárhoz járul, a csengője csilingelése közepette meghallaná a kuñja ajtajában egy halk hang szavát: „Még van idő.”"
             }
           ]
+        },
+        {
+          "id": "conclusion-ashtakala",
+          "title": "Aṣṭa-kālīya-līlā",
+          "content": [
+            {
+              "type": "text",
+              "content": "The entire day—from awakening in the kuñja to nighttime rest—is seen by rasika-vaiṣṇavas as ⟦aṣṭa-kālīya-līlā⟧: the eternal pastimes of Śrī Śrī Rādhā-Kṛṣṇa in Vraja, unfolding around the clock and divided into eight periods. Here it is once again—by the hour, one line for each period."
+            },
+            {
+              "type": "table",
+              "header": [
+                "Time",
+                "Time of day",
+                "What happens"
+              ],
+              "rows": [
+                {
+                  "cells": [
+                    "3:36–6:00",
+                    "⟦niśānta-līlā⟧ — end of night",
+                    "Vṛndā-devī and the birds awaken Rādhā and Kṛṣṇa in the kuñja; They secretly return to their homes—Rādhā to Yāvaṭa, Kṛṣṇa to Nanda’s house."
+                  ]
+                },
+                {
+                  "cells": [
+                    "6:00–8:24",
+                    "⟦prātaḥ-līlā⟧ — morning",
+                    "Mother Yaśodā awakens Kṛṣṇa; He milks the cows, bathes, and takes breakfast. Rādhā is summoned to Nanda’s house to cook for Him."
+                  ]
+                },
+                {
+                  "cells": [
+                    "8:24–10:48",
+                    "⟦pūrvāhna-līlā⟧ — before noon",
+                    "Kṛṣṇa goes to the forest with the cows and His friends; Rādhā returns to Yāvaṭa, and Jaṭilā sends Her to worship the sun-god."
+                  ]
+                },
+                {
+                  "cells": [
+                    "10:48–15:36",
+                    "⟦madhyāhna-līlā⟧ — noon",
+                    "Rādhā and Kṛṣṇa meet at Rādhā-kuṇḍa: swings, games in the forest and in the water, and the stolen flute; the sakhīs serve Them."
+                  ]
+                },
+                {
+                  "cells": [
+                    "15:36–18:00",
+                    "⟦aparāhna-līlā⟧ — afternoon",
+                    "Kṛṣṇa returns to Vraja with the cows, and Rādhā sees Him on the road from Her home; the elder gopīs bathe and dress Him."
+                  ]
+                },
+                {
+                  "cells": [
+                    "18:00–20:24",
+                    "⟦sāyaṁ-līlā⟧ — twilight",
+                    "Kṛṣṇa milks the cows and takes His evening meal; Rādhā sends Him sweets through the sakhīs and delights in the remnants of His meal."
+                  ]
+                },
+                {
+                  "cells": [
+                    "20:24–22:48",
+                    "⟦pradoṣa-līlā⟧ — evening",
+                    "Kṛṣṇa watches performances in the cowherds’ assembly, and Yaśodā puts Him to bed; at Vṛndā’s signal Rādhā and the sakhīs go to a kuñja by the Yamunā."
+                  ]
+                },
+                {
+                  "cells": [
+                    "22:48–3:36",
+                    "⟦rātri-līlā⟧ — night",
+                    "Meeting in the kuñja: rāsa-līlā, songs, and dances; the sakhīs serve Them, and They fall asleep on a bed of flowers."
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "sources",
+              "content": "Source: Śrīla Bhaktivinoda Ṭhākura, “Śrī Bhajana-rahasya,” chapters 1–8, with the commentary of Śrīla Nārāyaṇa Gosvāmī Mahārāja (Russian edition, Moscow: Śrī Bhaktivedanta Gauḍīya Maṭha, 2005).\nGurudev—Śrī Prem Prayojan Prabhu—gives these same times in “Śrī Bhajana-rahasya Chapter 1,” 2024-04-26, no. 7726, 01:03:07",
+              "links": [
+                {},
+                {
+                  "transcript_url": "https://drive.google.com/file/d/1MA9ZFz0eDSYKY8CKRISxSqFLMxEcegXa/view",
+                  "audio_url": "https://drive.google.com/file/d/1xSJl6uTkgtJCmUnvOF8SHNLCJCB9pJdA/view"
+                }
+              ]
+            }
+          ]
         }
       ]
     }
