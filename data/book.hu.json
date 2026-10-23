@@ -7395,14 +7395,7 @@
       "title": "Befejezés",
       "subtitle": "Az arcana belső látásmódja",
       "page": "",
-      "content": [
-        {
-          "type": "verse",
-          "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
-          "translation": "Az ember töltse minden idejét azzal, hogy nyelvét és elméjét szeretetteljesen Śrī Kṛṣṇa neveinek, formájának, tulajdonságainak és kedvteléseinek — fokozatosan, azok sorrendjében — történő éneklésével és emlékezésével foglalja le, miközben Vrajában azok követőjeként él, akik spontán szeretettel viseltetnek iránta. Ez minden tanítás lényege. (Śrī Upadeśāmṛta 8)",
-          "wbw": "tat — Ő (Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — a nevek, forma, kedvtelések és így tovább; sukīrtana-anusmṛtyoḥ — szeretetteljes éneklésben és emlékezésben; krameṇa — fokozatosan, sorrendben; rasanā — a nyelvet; manasī — és az elmét; niyojya — lefoglalva; tiṣṭhan — élve; vraje — Vrajában; tat — iránta; anurāgi-jana — a spontán szeretettel telteknek; anugāmī — követőjeként; kālam — az időt; nayet — tölteni kell; akhilam — teljesen; iti — így; upadeśa — a tanításoknak; sāram — a lényegét."
-        }
-      ],
+      "content": [],
       "subsections": [
         {
           "id": "conclusion-same-actions",
@@ -8087,6 +8080,12 @@
             {
               "type": "text",
               "content": "Bárcsak egy napon mindenki, aki kezében tartja ezt a könyvet, és minden reggel az oltárhoz járul, a csengője csilingelése közepette meghallaná a kuñja ajtajában egy halk hang szavát: „Még van idő.”"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
+              "translation": "Az ember töltse minden idejét azzal, hogy nyelvét és elméjét szeretetteljesen Śrī Kṛṣṇa neveinek, formájának, tulajdonságainak és kedvteléseinek — fokozatosan, azok sorrendjében — történő éneklésével és emlékezésével foglalja le, miközben Vrajában azok követőjeként él, akik spontán szeretettel viseltetnek iránta. Ez minden tanítás lényege. (Śrī Upadeśāmṛta 8)",
+              "wbw": "tat — Ő (Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — a nevek, forma, kedvtelések és így tovább; sukīrtana-anusmṛtyoḥ — szeretetteljes éneklésben és emlékezésben; krameṇa — fokozatosan, sorrendben; rasanā — a nyelvet; manasī — és az elmét; niyojya — lefoglalva; tiṣṭhan — élve; vraje — Vrajában; tat — iránta; anurāgi-jana — a spontán szeretettel telteknek; anugāmī — követőjeként; kālam — az időt; nayet — tölteni kell; akhilam — teljesen; iti — így; upadeśa — a tanításoknak; sāram — a lényegét."
             }
           ]
         },

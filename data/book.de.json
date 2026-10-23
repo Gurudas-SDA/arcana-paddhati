@@ -7395,14 +7395,7 @@
       "title": "Schluss",
       "subtitle": "Die innere Vision der arcana",
       "page": "",
-      "content": [
-        {
-          "type": "verse",
-          "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
-          "translation": "Indem man Zunge und Geist darin beschäftigt, liebevoll die Namen, die Gestalt, die Eigenschaften und die Spiele (līlā) von Śrī Kṛṣṇa zu chanten und sich an sie zu erinnern – allmählich und in ihrer Reihenfolge –, und in Vraja als Nachfolger derer lebt, die von spontaner Liebe zu Ihm erfüllt sind, sollte man seine gesamte Zeit verbringen. Dies ist die Essenz aller Unterweisung. (Śrī Upadeśāmṛta 8)",
-          "wbw": "tat — Sein (von Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — der Namen, der Gestalt, der Spiele (līlā) und so weiter; sukīrtana-anusmṛtyoḥ — im liebevollen Chanten und Erinnern; krameṇa — allmählich, der Reihenfolge nach; rasanā — die Zunge; manasī — und der Geist; niyojya — beschäftigend; tiṣṭhan — lebend; vraje — in Vraja; tat — für Ihn; anurāgi-jana — derer, die von spontaner Liebe erfüllt sind; anugāmī — folgend; kālam — die Zeit; nayet — man sollte verbringen; akhilam — die gesamte; iti — so; upadeśa — der Unterweisung; sāram — die Essenz."
-        }
-      ],
+      "content": [],
       "subsections": [
         {
           "id": "conclusion-same-actions",
@@ -8087,6 +8080,12 @@
             {
               "type": "text",
               "content": "Möge jeder, der dieses Buch in den Händen hält und jeden Morgen zum Altar tritt, eines Tages, mitten im Läuten seiner Glocke, eine leise Stimme an der Tür des kuñja hören: „Es ist noch Zeit.“"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
+              "translation": "Indem man Zunge und Geist darin beschäftigt, liebevoll die Namen, die Gestalt, die Eigenschaften und die Spiele (līlā) von Śrī Kṛṣṇa zu chanten und sich an sie zu erinnern – allmählich und in ihrer Reihenfolge –, und in Vraja als Nachfolger derer lebt, die von spontaner Liebe zu Ihm erfüllt sind, sollte man seine gesamte Zeit verbringen. Dies ist die Essenz aller Unterweisung. (Śrī Upadeśāmṛta 8)",
+              "wbw": "tat — Sein (von Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — der Namen, der Gestalt, der Spiele (līlā) und so weiter; sukīrtana-anusmṛtyoḥ — im liebevollen Chanten und Erinnern; krameṇa — allmählich, der Reihenfolge nach; rasanā — die Zunge; manasī — und der Geist; niyojya — beschäftigend; tiṣṭhan — lebend; vraje — in Vraja; tat — für Ihn; anurāgi-jana — derer, die von spontaner Liebe erfüllt sind; anugāmī — folgend; kālam — die Zeit; nayet — man sollte verbringen; akhilam — die gesamte; iti — so; upadeśa — der Unterweisung; sāram — die Essenz."
             }
           ]
         },

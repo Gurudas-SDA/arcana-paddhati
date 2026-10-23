@@ -7327,14 +7327,7 @@
       "title": "Conclusione",
       "subtitle": "La visione interiore dell’arcana",
       "page": "",
-      "content": [
-        {
-          "type": "verse",
-          "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
-          "translation": "Impegnando la lingua e la mente nel cantare e ricordare amorevolmente i nomi, la forma, le qualità e i passatempi di Śrī Kṛṣṇa — gradualmente, nella loro successione — e vivendo a Vraja come seguace di coloro che sono colmi di amore spontaneo per Lui, si dovrebbe trascorrere tutto il proprio tempo. Questa è l’essenza di ogni istruzione. (Śrī Upadeśāmṛta 8)",
-          "wbw": "tat — Suo (di Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — dei nomi, della forma, dei passatempi e così via; sukīrtana-anusmṛtyoḥ — nel canto e nel ricordo amorevoli; krameṇa — gradualmente, in successione; rasanā — la lingua; manasī — e la mente; niyojya — impegnando; tiṣṭhan — vivendo; vraje — a Vraja; tat — per Lui; anurāgi-jana — di coloro che sono colmi di amore spontaneo; anugāmī — seguendo; kālam — il tempo; nayet — si dovrebbe trascorrere; akhilam — tutto; iti — così; upadeśa — delle istruzioni; sāram — l’essenza."
-        }
-      ],
+      "content": [],
       "subsections": [
         {
           "id": "conclusion-same-actions",
@@ -8019,6 +8012,12 @@
             {
               "type": "text",
               "content": "Possa chiunque tenga questo libro tra le mani e si avvicini ogni mattina all’altare un giorno sentire, tra il suono della propria campana, una voce sommessa alla porta del kuñja: “C’è ancora tempo.”"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
+              "translation": "Impegnando la lingua e la mente nel cantare e ricordare amorevolmente i nomi, la forma, le qualità e i passatempi di Śrī Kṛṣṇa — gradualmente, nella loro successione — e vivendo a Vraja come seguace di coloro che sono colmi di amore spontaneo per Lui, si dovrebbe trascorrere tutto il proprio tempo. Questa è l’essenza di ogni istruzione. (Śrī Upadeśāmṛta 8)",
+              "wbw": "tat — Suo (di Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — dei nomi, della forma, dei passatempi e così via; sukīrtana-anusmṛtyoḥ — nel canto e nel ricordo amorevoli; krameṇa — gradualmente, in successione; rasanā — la lingua; manasī — e la mente; niyojya — impegnando; tiṣṭhan — vivendo; vraje — a Vraja; tat — per Lui; anurāgi-jana — di coloro che sono colmi di amore spontaneo; anugāmī — seguendo; kālam — il tempo; nayet — si dovrebbe trascorrere; akhilam — tutto; iti — così; upadeśa — delle istruzioni; sāram — l’essenza."
             }
           ]
         },

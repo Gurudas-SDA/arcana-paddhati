@@ -7395,14 +7395,7 @@
       "title": "Pabaiga",
       "subtitle": "Vidinis arcana regėjimas",
       "page": "",
-      "content": [
-        {
-          "type": "verse",
-          "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
-          "translation": "Įtraukus liežuvį ir protą į meilingą Śrī Kṛṣṇos vardų, pavidalo, savybių ir žaidimų (līlā) kartojimą bei prisiminimą — palaipsniui, nustatyta tvarka — ir gyvenant Vrajoje, sekant tais, kurie kupini spontaniškos meilės Jam, reikėtų skirti visą savo laiką. Tai visų nurodymų esmė. (Śrī Upadeśāmṛta 8)",
-          "wbw": "tat — Jo (Śrī Kṛṣṇos); nāma-rūpa-carita-ādi — vardų, pavidalo, žaidimų (līlā) ir t. t.; sukīrtana-anusmṛtyoḥ — meilingame kartojime ir prisiminime; krameṇa — palaipsniui, nustatyta tvarka; rasanā — liežuvį; manasī — ir protą; niyojya — įtraukus; tiṣṭhan — gyvenant; vraje — Vrajoje; tat — Jam; anurāgi-jana — tų, kurie kupini spontaniškos meilės; anugāmī — sekant; kālam — laiką; nayet — reikėtų skirti; akhilam — visą; iti — taip; upadeśa — nurodymų; sāram — esmė."
-        }
-      ],
+      "content": [],
       "subsections": [
         {
           "id": "conclusion-same-actions",
@@ -8087,6 +8080,12 @@
             {
               "type": "text",
               "content": "Teišgirsta kiekvienas, kas laiko šią knygą savo rankose ir kiekvieną rytą artėja prie altoriaus, savo varpelio skambesyje, tylų balsą prie kuñja durų: „Dar yra laiko.“"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
+              "translation": "Įtraukus liežuvį ir protą į meilingą Śrī Kṛṣṇos vardų, pavidalo, savybių ir žaidimų (līlā) kartojimą bei prisiminimą — palaipsniui, nustatyta tvarka — ir gyvenant Vrajoje, sekant tais, kurie kupini spontaniškos meilės Jam, reikėtų skirti visą savo laiką. Tai visų nurodymų esmė. (Śrī Upadeśāmṛta 8)",
+              "wbw": "tat — Jo (Śrī Kṛṣṇos); nāma-rūpa-carita-ādi — vardų, pavidalo, žaidimų (līlā) ir t. t.; sukīrtana-anusmṛtyoḥ — meilingame kartojime ir prisiminime; krameṇa — palaipsniui, nustatyta tvarka; rasanā — liežuvį; manasī — ir protą; niyojya — įtraukus; tiṣṭhan — gyvenant; vraje — Vrajoje; tat — Jam; anurāgi-jana — tų, kurie kupini spontaniškos meilės; anugāmī — sekant; kālam — laiką; nayet — reikėtų skirti; akhilam — visą; iti — taip; upadeśa — nurodymų; sāram — esmė."
             }
           ]
         },

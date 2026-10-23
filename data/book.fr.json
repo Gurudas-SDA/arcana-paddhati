@@ -7327,14 +7327,7 @@
       "title": "Conclusion",
       "subtitle": "La vision intérieure de l’arcana",
       "page": "",
-      "content": [
-        {
-          "type": "verse",
-          "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
-          "translation": "Engager la langue et le mental dans le chant et la mémoire aimante des noms, de la forme, des qualités et des divertissements de Śrī Kṛṣṇa — progressivement, dans leur ordre —, en vivant à Vraja comme un disciple de ceux qui sont remplis d’amour spontané pour Lui, l’on devrait passer tout son temps. Ceci est l’essence de toute instruction. (Śrī Upadeśāmṛta 8)",
-          "wbw": "tat — Son (de Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — des noms, de la forme, des divertissements et ainsi de suite; sukīrtana-anusmṛtyoḥ — dans le chant et la mémoire aimante; krameṇa — progressivement, dans leur ordre; rasanā — la langue; manasī — et le mental; niyojya — en engageant; tiṣṭhan — en vivant; vraje — à Vraja; tat — pour Lui; anurāgi-jana — de ceux qui sont remplis d’amour spontané; anugāmī — en suivant; kālam — le temps; nayet — l’on devrait passer; akhilam — tout; iti — ainsi; upadeśa — des instructions; sāram — l’essence."
-        }
-      ],
+      "content": [],
       "subsections": [
         {
           "id": "conclusion-same-actions",
@@ -8019,6 +8012,12 @@
             {
               "type": "text",
               "content": "Puisse un jour toute personne qui tient ce livre entre ses mains et s’approche chaque matin de l’autel entendre, au milieu du tintement de sa cloche, une voix douce à la porte du kuñja : « Il est encore temps. »"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
+              "translation": "Engager la langue et le mental dans le chant et la mémoire aimante des noms, de la forme, des qualités et des divertissements de Śrī Kṛṣṇa — progressivement, dans leur ordre —, en vivant à Vraja comme un disciple de ceux qui sont remplis d’amour spontané pour Lui, l’on devrait passer tout son temps. Ceci est l’essence de toute instruction. (Śrī Upadeśāmṛta 8)",
+              "wbw": "tat — Son (de Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — des noms, de la forme, des divertissements et ainsi de suite; sukīrtana-anusmṛtyoḥ — dans le chant et la mémoire aimante; krameṇa — progressivement, dans leur ordre; rasanā — la langue; manasī — et le mental; niyojya — en engageant; tiṣṭhan — en vivant; vraje — à Vraja; tat — pour Lui; anurāgi-jana — de ceux qui sont remplis d’amour spontané; anugāmī — en suivant; kālam — le temps; nayet — l’on devrait passer; akhilam — tout; iti — ainsi; upadeśa — des instructions; sāram — l’essence."
             }
           ]
         },

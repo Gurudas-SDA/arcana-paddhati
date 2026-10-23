@@ -9,14 +9,7 @@
     "title": "Noslēgums",
     "subtitle": "Arčanas iekšējā vīzija",
     "page": "",
-    "content": [
-     {
-      "type": "verse",
-      "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
-      "translation": "Iesaistot mēli un prātu mīlestības pilnā Šrī Krišnas vārdu, veidola, īpašību un spēļu (līlas) daudzināšanā un atcerē — pakāpeniski, to secībā — un dzīvojot Vradžā kā to sekotājam, kuri ir pilni spontānas mīlestības uz Viņu, ikvienam jāvelta viss savs laiks. Tā ir visu norādījumu būtība. (Šrī Upadešāmrita 8)",
-      "wbw": "tat — Viņa (Šrī Krišnas); nāma-rūpa-carita-ādi — vārdu, veidola, spēļu un tā tālāk; sukīrtana-anusmṛtyoḥ — mīlestības pilnā daudzināšanā un atcerē; krameṇa — pakāpeniski, secībā; rasanā — mēli; manasī — un prātu; niyojya — iesaistot; tiṣṭhan — dzīvojot; vraje — Vradžā; tat — Viņam; anurāgi-jana — to, kuri ir spontānas mīlestības pilni; anugāmī — sekojot; kālam — laiku; nayet — jāvelta; akhilam — visu; iti — tā; upadeśa — norādījumu; sāram — būtību."
-     }
-    ],
+    "content": [],
     "subsections": [
      {
       "id": "conclusion-same-actions",
@@ -701,6 +694,12 @@
        {
         "type": "text",
         "content": "Kaut ikviens, kurš tur šo grāmatu rokās un ik rītu tuvojas altārim, kādu dienu, skanot viņa zvaniņam, sadzirdētu klusu balsi pie kuņdžas durvīm: “Vēl ir laiks.”"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
+        "translation": "Iesaistot mēli un prātu mīlestības pilnā Šrī Krišnas vārdu, veidola, īpašību un spēļu (līlas) daudzināšanā un atcerē — pakāpeniski, to secībā — un dzīvojot Vradžā kā to sekotājam, kuri ir pilni spontānas mīlestības uz Viņu, ikvienam jāvelta viss savs laiks. Tā ir visu norādījumu būtība. (Šrī Upadešāmrita 8)",
+        "wbw": "tat — Viņa (Šrī Krišnas); nāma-rūpa-carita-ādi — vārdu, veidola, spēļu un tā tālāk; sukīrtana-anusmṛtyoḥ — mīlestības pilnā daudzināšanā un atcerē; krameṇa — pakāpeniski, secībā; rasanā — mēli; manasī — un prātu; niyojya — iesaistot; tiṣṭhan — dzīvojot; vraje — Vradžā; tat — Viņam; anurāgi-jana — to, kuri ir spontānas mīlestības pilni; anugāmī — sekojot; kālam — laiku; nayet — jāvelta; akhilam — visu; iti — tā; upadeśa — norādījumu; sāram — būtību."
        }
       ]
      }
@@ -716,14 +715,7 @@
     "title": "Schluss",
     "subtitle": "Die innere Vision der arcana",
     "page": "",
-    "content": [
-     {
-      "type": "verse",
-      "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
-      "translation": "Indem man Zunge und Geist darin beschäftigt, liebevoll die Namen, die Gestalt, die Eigenschaften und die Spiele (līlā) von Śrī Kṛṣṇa zu chanten und sich an sie zu erinnern – allmählich und in ihrer Reihenfolge –, und in Vraja als Nachfolger derer lebt, die von spontaner Liebe zu Ihm erfüllt sind, sollte man seine gesamte Zeit verbringen. Dies ist die Essenz aller Unterweisung. (Śrī Upadeśāmṛta 8)",
-      "wbw": "tat — Sein (von Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — der Namen, der Gestalt, der Spiele (līlā) und so weiter; sukīrtana-anusmṛtyoḥ — im liebevollen Chanten und Erinnern; krameṇa — allmählich, der Reihenfolge nach; rasanā — die Zunge; manasī — und der Geist; niyojya — beschäftigend; tiṣṭhan — lebend; vraje — in Vraja; tat — für Ihn; anurāgi-jana — derer, die von spontaner Liebe erfüllt sind; anugāmī — folgend; kālam — die Zeit; nayet — man sollte verbringen; akhilam — die gesamte; iti — so; upadeśa — der Unterweisung; sāram — die Essenz."
-     }
-    ],
+    "content": [],
     "subsections": [
      {
       "id": "conclusion-same-actions",
@@ -1408,6 +1400,12 @@
        {
         "type": "text",
         "content": "Möge jeder, der dieses Buch in den Händen hält und jeden Morgen zum Altar tritt, eines Tages, mitten im Läuten seiner Glocke, eine leise Stimme an der Tür des kuñja hören: „Es ist noch Zeit.“"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
+        "translation": "Indem man Zunge und Geist darin beschäftigt, liebevoll die Namen, die Gestalt, die Eigenschaften und die Spiele (līlā) von Śrī Kṛṣṇa zu chanten und sich an sie zu erinnern – allmählich und in ihrer Reihenfolge –, und in Vraja als Nachfolger derer lebt, die von spontaner Liebe zu Ihm erfüllt sind, sollte man seine gesamte Zeit verbringen. Dies ist die Essenz aller Unterweisung. (Śrī Upadeśāmṛta 8)",
+        "wbw": "tat — Sein (von Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — der Namen, der Gestalt, der Spiele (līlā) und so weiter; sukīrtana-anusmṛtyoḥ — im liebevollen Chanten und Erinnern; krameṇa — allmählich, der Reihenfolge nach; rasanā — die Zunge; manasī — und der Geist; niyojya — beschäftigend; tiṣṭhan — lebend; vraje — in Vraja; tat — für Ihn; anurāgi-jana — derer, die von spontaner Liebe erfüllt sind; anugāmī — folgend; kālam — die Zeit; nayet — man sollte verbringen; akhilam — die gesamte; iti — so; upadeśa — der Unterweisung; sāram — die Essenz."
        }
       ]
      }
@@ -1423,14 +1421,7 @@
     "title": "Conclusion",
     "subtitle": "La vision intérieure de l’arcana",
     "page": "",
-    "content": [
-     {
-      "type": "verse",
-      "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
-      "translation": "Engager la langue et le mental dans le chant et la mémoire aimante des noms, de la forme, des qualités et des divertissements de Śrī Kṛṣṇa — progressivement, dans leur ordre —, en vivant à Vraja comme un disciple de ceux qui sont remplis d’amour spontané pour Lui, l’on devrait passer tout son temps. Ceci est l’essence de toute instruction. (Śrī Upadeśāmṛta 8)",
-      "wbw": "tat — Son (de Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — des noms, de la forme, des divertissements et ainsi de suite; sukīrtana-anusmṛtyoḥ — dans le chant et la mémoire aimante; krameṇa — progressivement, dans leur ordre; rasanā — la langue; manasī — et le mental; niyojya — en engageant; tiṣṭhan — en vivant; vraje — à Vraja; tat — pour Lui; anurāgi-jana — de ceux qui sont remplis d’amour spontané; anugāmī — en suivant; kālam — le temps; nayet — l’on devrait passer; akhilam — tout; iti — ainsi; upadeśa — des instructions; sāram — l’essence."
-     }
-    ],
+    "content": [],
     "subsections": [
      {
       "id": "conclusion-same-actions",
@@ -2115,6 +2106,12 @@
        {
         "type": "text",
         "content": "Puisse un jour toute personne qui tient ce livre entre ses mains et s’approche chaque matin de l’autel entendre, au milieu du tintement de sa cloche, une voix douce à la porte du kuñja : « Il est encore temps. »"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
+        "translation": "Engager la langue et le mental dans le chant et la mémoire aimante des noms, de la forme, des qualités et des divertissements de Śrī Kṛṣṇa — progressivement, dans leur ordre —, en vivant à Vraja comme un disciple de ceux qui sont remplis d’amour spontané pour Lui, l’on devrait passer tout son temps. Ceci est l’essence de toute instruction. (Śrī Upadeśāmṛta 8)",
+        "wbw": "tat — Son (de Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — des noms, de la forme, des divertissements et ainsi de suite; sukīrtana-anusmṛtyoḥ — dans le chant et la mémoire aimante; krameṇa — progressivement, dans leur ordre; rasanā — la langue; manasī — et le mental; niyojya — en engageant; tiṣṭhan — en vivant; vraje — à Vraja; tat — pour Lui; anurāgi-jana — de ceux qui sont remplis d’amour spontané; anugāmī — en suivant; kālam — le temps; nayet — l’on devrait passer; akhilam — tout; iti — ainsi; upadeśa — des instructions; sāram — l’essence."
        }
       ]
      }
@@ -2130,14 +2127,7 @@
     "title": "Conclusión",
     "subtitle": "La visión interna del arcana",
     "page": "",
-    "content": [
-     {
-      "type": "verse",
-      "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
-      "translation": "Ocupando la lengua y la mente en cantar y recordar amorosamente los nombres, la forma, las cualidades y los pasatiempos de Śrī Kṛṣṇa — gradualmente, en su secuencia — y viviendo en Vraja como seguidor de aquellos que están llenos de amor espontáneo por Él, se debe pasar todo el tiempo. Esta es la esencia de toda instrucción. (Śrī Upadeśāmṛta 8)",
-      "wbw": "tat — Su (de Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — de los nombres, la forma, los pasatiempos y demás; sukīrtana-anusmṛtyoḥ — en el canto y el recuerdo amorosos; krameṇa — gradualmente, en secuencia; rasanā — la lengua; manasī — y la mente; niyojya — ocupando; tiṣṭhan — viviendo; vraje — en Vraja; tat — para Él; anurāgi-jana — de aquellos llenos de amor espontáneo; anugāmī — siguiendo; kālam — tiempo; nayet — uno debe pasar; akhilam — todo; iti — así; upadeśa — de instrucciones; sāram — la esencia."
-     }
-    ],
+    "content": [],
     "subsections": [
      {
       "id": "conclusion-same-actions",
@@ -2822,6 +2812,12 @@
        {
         "type": "text",
         "content": "Que todos los que sostengan este libro entre sus manos y se acerquen cada mañana al altar puedan oír algún día, entre el tañido de su campana, una voz queda en la puerta del kuñja: «Aún hay tiempo»."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
+        "translation": "Ocupando la lengua y la mente en cantar y recordar amorosamente los nombres, la forma, las cualidades y los pasatiempos de Śrī Kṛṣṇa — gradualmente, en su secuencia — y viviendo en Vraja como seguidor de aquellos que están llenos de amor espontáneo por Él, se debe pasar todo el tiempo. Esta es la esencia de toda instrucción. (Śrī Upadeśāmṛta 8)",
+        "wbw": "tat — Su (de Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — de los nombres, la forma, los pasatiempos y demás; sukīrtana-anusmṛtyoḥ — en el canto y el recuerdo amorosos; krameṇa — gradualmente, en secuencia; rasanā — la lengua; manasī — y la mente; niyojya — ocupando; tiṣṭhan — viviendo; vraje — en Vraja; tat — para Él; anurāgi-jana — de aquellos llenos de amor espontáneo; anugāmī — siguiendo; kālam — tiempo; nayet — uno debe pasar; akhilam — todo; iti — así; upadeśa — de instrucciones; sāram — la esencia."
        }
       ]
      }
@@ -2837,14 +2833,7 @@
     "title": "Conclusione",
     "subtitle": "La visione interiore dell’arcana",
     "page": "",
-    "content": [
-     {
-      "type": "verse",
-      "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
-      "translation": "Impegnando la lingua e la mente nel cantare e ricordare amorevolmente i nomi, la forma, le qualità e i passatempi di Śrī Kṛṣṇa — gradualmente, nella loro successione — e vivendo a Vraja come seguace di coloro che sono colmi di amore spontaneo per Lui, si dovrebbe trascorrere tutto il proprio tempo. Questa è l’essenza di ogni istruzione. (Śrī Upadeśāmṛta 8)",
-      "wbw": "tat — Suo (di Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — dei nomi, della forma, dei passatempi e così via; sukīrtana-anusmṛtyoḥ — nel canto e nel ricordo amorevoli; krameṇa — gradualmente, in successione; rasanā — la lingua; manasī — e la mente; niyojya — impegnando; tiṣṭhan — vivendo; vraje — a Vraja; tat — per Lui; anurāgi-jana — di coloro che sono colmi di amore spontaneo; anugāmī — seguendo; kālam — il tempo; nayet — si dovrebbe trascorrere; akhilam — tutto; iti — così; upadeśa — delle istruzioni; sāram — l’essenza."
-     }
-    ],
+    "content": [],
     "subsections": [
      {
       "id": "conclusion-same-actions",
@@ -3529,6 +3518,12 @@
        {
         "type": "text",
         "content": "Possa chiunque tenga questo libro tra le mani e si avvicini ogni mattina all’altare un giorno sentire, tra il suono della propria campana, una voce sommessa alla porta del kuñja: “C’è ancora tempo.”"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
+        "translation": "Impegnando la lingua e la mente nel cantare e ricordare amorevolmente i nomi, la forma, le qualità e i passatempi di Śrī Kṛṣṇa — gradualmente, nella loro successione — e vivendo a Vraja come seguace di coloro che sono colmi di amore spontaneo per Lui, si dovrebbe trascorrere tutto il proprio tempo. Questa è l’essenza di ogni istruzione. (Śrī Upadeśāmṛta 8)",
+        "wbw": "tat — Suo (di Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — dei nomi, della forma, dei passatempi e così via; sukīrtana-anusmṛtyoḥ — nel canto e nel ricordo amorevoli; krameṇa — gradualmente, in successione; rasanā — la lingua; manasī — e la mente; niyojya — impegnando; tiṣṭhan — vivendo; vraje — a Vraja; tat — per Lui; anurāgi-jana — di coloro che sono colmi di amore spontaneo; anugāmī — seguendo; kālam — il tempo; nayet — si dovrebbe trascorrere; akhilam — tutto; iti — così; upadeśa — delle istruzioni; sāram — l’essenza."
        }
       ]
      }
@@ -3544,14 +3539,7 @@
     "title": "Висновок",
     "subtitle": "Внутрішнє бачення арчани",
     "page": "",
-    "content": [
-     {
-      "type": "verse",
-      "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
-      "translation": "Залучаючи язик і розум до любовного оспівування та пам’ятання імен, образу, якостей та ігор Шрі Крішни — поступово, у їхній послідовності, — і живучи у Враджі як послідовник тих, хто сповнений спонтанної любові до Нього, слід присвячувати цьому весь свій час. У цьому полягає сутність усіх настанов. (Шрі Упадешамріта 8)",
-      "wbw": "tat — Його (Шрі Крішни); nāma-rūpa-carita-ādi — імен, образу, ігор тощо; sukīrtana-anusmṛtyoḥ — у любовному оспівуванні та пам’ятанні; krameṇa — поступово, у послідовності; rasanā — язик; manasī — і розум; niyojya — залучаючи; tiṣṭhan — живучи; vraje — у Враджі; tat — Йому; anurāgi-jana — тих, хто сповнений спонтанної любові; anugāmī — послідовник; kālam — час; nayet — слід присвячувати; akhilam — весь; iti — таким чином; upadeśa — настанов; sāram — сутність."
-     }
-    ],
+    "content": [],
     "subsections": [
      {
       "id": "conclusion-same-actions",
@@ -4236,6 +4224,12 @@
        {
         "type": "text",
         "content": "Нехай кожен, хто тримає цю книгу в руках і щоранку підходить до вівтаря, одного дня серед передзвону свого дзвіночка почує біля дверей кунджі тихий голос: «Ще є час»."
+       },
+       {
+        "type": "verse",
+        "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
+        "translation": "Залучаючи язик і розум до любовного оспівування та пам’ятання імен, образу, якостей та ігор Шрі Крішни — поступово, у їхній послідовності, — і живучи у Враджі як послідовник тих, хто сповнений спонтанної любові до Нього, слід присвячувати цьому весь свій час. У цьому полягає сутність усіх настанов. (Шрі Упадешамріта 8)",
+        "wbw": "tat — Його (Шрі Крішни); nāma-rūpa-carita-ādi — імен, образу, ігор тощо; sukīrtana-anusmṛtyoḥ — у любовному оспівуванні та пам’ятанні; krameṇa — поступово, у послідовності; rasanā — язик; manasī — і розум; niyojya — залучаючи; tiṣṭhan — живучи; vraje — у Враджі; tat — Йому; anurāgi-jana — тих, хто сповнений спонтанної любові; anugāmī — послідовник; kālam — час; nayet — слід присвячувати; akhilam — весь; iti — таким чином; upadeśa — настанов; sāram — сутність."
        }
       ]
      }
@@ -4251,14 +4245,7 @@
     "title": "Befejezés",
     "subtitle": "Az arcana belső látásmódja",
     "page": "",
-    "content": [
-     {
-      "type": "verse",
-      "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
-      "translation": "Az ember töltse minden idejét azzal, hogy nyelvét és elméjét szeretetteljesen Śrī Kṛṣṇa neveinek, formájának, tulajdonságainak és kedvteléseinek — fokozatosan, azok sorrendjében — történő éneklésével és emlékezésével foglalja le, miközben Vrajában azok követőjeként él, akik spontán szeretettel viseltetnek iránta. Ez minden tanítás lényege. (Śrī Upadeśāmṛta 8)",
-      "wbw": "tat — Ő (Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — a nevek, forma, kedvtelések és így tovább; sukīrtana-anusmṛtyoḥ — szeretetteljes éneklésben és emlékezésben; krameṇa — fokozatosan, sorrendben; rasanā — a nyelvet; manasī — és az elmét; niyojya — lefoglalva; tiṣṭhan — élve; vraje — Vrajában; tat — iránta; anurāgi-jana — a spontán szeretettel telteknek; anugāmī — követőjeként; kālam — az időt; nayet — tölteni kell; akhilam — teljesen; iti — így; upadeśa — a tanításoknak; sāram — a lényegét."
-     }
-    ],
+    "content": [],
     "subsections": [
      {
       "id": "conclusion-same-actions",
@@ -4943,6 +4930,12 @@
        {
         "type": "text",
         "content": "Bárcsak egy napon mindenki, aki kezében tartja ezt a könyvet, és minden reggel az oltárhoz járul, a csengője csilingelése közepette meghallaná a kuñja ajtajában egy halk hang szavát: „Még van idő.”"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
+        "translation": "Az ember töltse minden idejét azzal, hogy nyelvét és elméjét szeretetteljesen Śrī Kṛṣṇa neveinek, formájának, tulajdonságainak és kedvteléseinek — fokozatosan, azok sorrendjében — történő éneklésével és emlékezésével foglalja le, miközben Vrajában azok követőjeként él, akik spontán szeretettel viseltetnek iránta. Ez minden tanítás lényege. (Śrī Upadeśāmṛta 8)",
+        "wbw": "tat — Ő (Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — a nevek, forma, kedvtelések és így tovább; sukīrtana-anusmṛtyoḥ — szeretetteljes éneklésben és emlékezésben; krameṇa — fokozatosan, sorrendben; rasanā — a nyelvet; manasī — és az elmét; niyojya — lefoglalva; tiṣṭhan — élve; vraje — Vrajában; tat — iránta; anurāgi-jana — a spontán szeretettel telteknek; anugāmī — követőjeként; kālam — az időt; nayet — tölteni kell; akhilam — teljesen; iti — így; upadeśa — a tanításoknak; sāram — a lényegét."
        }
       ]
      }
@@ -4958,14 +4951,7 @@
     "title": "Conclusão",
     "subtitle": "A Visão Interna da Arcana",
     "page": "",
-    "content": [
-     {
-      "type": "verse",
-      "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
-      "translation": "Engajando a língua e a mente no canto amoroso e na lembrança dos nomes, forma, qualidades e passatempos de Śrī Kṛṣṇa — gradualmente, em sua sequência —, vivendo em Vraja como seguidor daqueles que estão cheios de amor espontâneo por Ele, deve-se passar todo o próprio tempo. Esta é a essência de todas as instruções. (Śrī Upadeśāmṛta 8)",
-      "wbw": "tat — dEle (de Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — dos nomes, forma, passatempos e assim por diante; sukīrtana-anusmṛtyoḥ — no canto amoroso e na lembrança; krameṇa — gradualmente, em sequência; rasanā — a língua; manasī — e a mente; niyojya — ocupando; tiṣṭhan — vivendo; vraje — em Vraja; tat — por Ele; anurāgi-jana — daqueles cheios de amor espontâneo; anugāmī — seguindo; kālam — tempo; nayet — deve-se passar; akhilam — todo; iti — assim; upadeśa — das instruções; sāram — a essência."
-     }
-    ],
+    "content": [],
     "subsections": [
      {
       "id": "conclusion-same-actions",
@@ -5650,6 +5636,12 @@
        {
         "type": "text",
         "content": "Que todos aqueles que seguram este livro nas mãos e se aproximam do altar todas as manhãs possam um dia ouvir, em meio ao toque de seu sino, uma voz suave à porta do kuñja: “Ainda há tempo.”"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
+        "translation": "Engajando a língua e a mente no canto amoroso e na lembrança dos nomes, forma, qualidades e passatempos de Śrī Kṛṣṇa — gradualmente, em sua sequência —, vivendo em Vraja como seguidor daqueles que estão cheios de amor espontâneo por Ele, deve-se passar todo o próprio tempo. Esta é a essência de todas as instruções. (Śrī Upadeśāmṛta 8)",
+        "wbw": "tat — dEle (de Śrī Kṛṣṇa); nāma-rūpa-carita-ādi — dos nomes, forma, passatempos e assim por diante; sukīrtana-anusmṛtyoḥ — no canto amoroso e na lembrança; krameṇa — gradualmente, em sequência; rasanā — a língua; manasī — e a mente; niyojya — ocupando; tiṣṭhan — vivendo; vraje — em Vraja; tat — por Ele; anurāgi-jana — daqueles cheios de amor espontâneo; anugāmī — seguindo; kālam — tempo; nayet — deve-se passar; akhilam — todo; iti — assim; upadeśa — das instruções; sāram — a essência."
        }
       ]
      }
@@ -5665,14 +5657,7 @@
     "title": "Pabaiga",
     "subtitle": "Vidinis arcana regėjimas",
     "page": "",
-    "content": [
-     {
-      "type": "verse",
-      "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
-      "translation": "Įtraukus liežuvį ir protą į meilingą Śrī Kṛṣṇos vardų, pavidalo, savybių ir žaidimų (līlā) kartojimą bei prisiminimą — palaipsniui, nustatyta tvarka — ir gyvenant Vrajoje, sekant tais, kurie kupini spontaniškos meilės Jam, reikėtų skirti visą savo laiką. Tai visų nurodymų esmė. (Śrī Upadeśāmṛta 8)",
-      "wbw": "tat — Jo (Śrī Kṛṣṇos); nāma-rūpa-carita-ādi — vardų, pavidalo, žaidimų (līlā) ir t. t.; sukīrtana-anusmṛtyoḥ — meilingame kartojime ir prisiminime; krameṇa — palaipsniui, nustatyta tvarka; rasanā — liežuvį; manasī — ir protą; niyojya — įtraukus; tiṣṭhan — gyvenant; vraje — Vrajoje; tat — Jam; anurāgi-jana — tų, kurie kupini spontaniškos meilės; anugāmī — sekant; kālam — laiką; nayet — reikėtų skirti; akhilam — visą; iti — taip; upadeśa — nurodymų; sāram — esmė."
-     }
-    ],
+    "content": [],
     "subsections": [
      {
       "id": "conclusion-same-actions",
@@ -6357,6 +6342,12 @@
        {
         "type": "text",
         "content": "Teišgirsta kiekvienas, kas laiko šią knygą savo rankose ir kiekvieną rytą artėja prie altoriaus, savo varpelio skambesyje, tylų balsą prie kuñja durų: „Dar yra laiko.“"
+       },
+       {
+        "type": "verse",
+        "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
+        "translation": "Įtraukus liežuvį ir protą į meilingą Śrī Kṛṣṇos vardų, pavidalo, savybių ir žaidimų (līlā) kartojimą bei prisiminimą — palaipsniui, nustatyta tvarka — ir gyvenant Vrajoje, sekant tais, kurie kupini spontaniškos meilės Jam, reikėtų skirti visą savo laiką. Tai visų nurodymų esmė. (Śrī Upadeśāmṛta 8)",
+        "wbw": "tat — Jo (Śrī Kṛṣṇos); nāma-rūpa-carita-ādi — vardų, pavidalo, žaidimų (līlā) ir t. t.; sukīrtana-anusmṛtyoḥ — meilingame kartojime ir prisiminime; krameṇa — palaipsniui, nustatyta tvarka; rasanā — liežuvį; manasī — ir protą; niyojya — įtraukus; tiṣṭhan — gyvenant; vraje — Vrajoje; tat — Jam; anurāgi-jana — tų, kurie kupini spontaniškos meilės; anugāmī — sekant; kālam — laiką; nayet — reikėtų skirti; akhilam — visą; iti — taip; upadeśa — nurodymų; sāram — esmė."
        }
       ]
      }

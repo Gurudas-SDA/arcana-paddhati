@@ -6,6 +6,9 @@ Satkirti 22.10 msg 6151 (balss, burtiski): «у нас есть раздел з�
 ещё было третий последний абзац насчёт того, что в русском издании, там округлено. И этот абзац вообще не нужен. Нам нужно
 то чётко, что источник идёт от … Рахаяся, также Гурудев и Шрила Нарайяна Махарадж, всё, достаточно. … И после этого эту
 шлоку надо снова целиком её показать, снова целиком.»
+Satkirti 22.10 msg 6169, burtiski: «В конце 10 главы после слов „время ещё есть“ шлока».
+Satkirti 23.10 msg 6504 (balss, burtiski): «Мы же вчера договаривались, что стих tan-nāma-rūpa ставится в конце 10-й
+подглавы „Заключения“, после последней фразы „Время ещё есть“. Почему ты поставил его в начале „Заключения“, а не в конце?»
 Стандарты 33: «Санскрит везде пишем в IAST с диакритикой».
 
   a  «conclusion» has 11 subsections; the 11th (last) is «conclusion-ashtakala» «Аштакалия-лила» / «Aṣṭa-kālīya-līlā»;
@@ -17,8 +20,11 @@ Satkirti 22.10 msg 6151 (balss, burtiski): «у нас есть раздел з�
   d  the subsection ends with the source line: Bhajana-rahasya, Bhaktivinoda, Gurudev, Nārāyaṇa Mahārāja — ONLY these
      (no other ācārya, book or lecture: Viśvanātha, Rūpa, Kṛṣṇadāsa, Līlāmṛta, no. 4170 …) — and nothing
      about the rounded times of the English edition (no «округл» / «rounded» / «Gaudiya Vedanta Publications»)
-  e  the 10th subsection («Круг замыкается») ends with the Upadeśāmṛta 8 verse in full (sanskrit + translation + wbw),
-     the same verse as at the start of the chapter
+  e  the 10th subsection («Круг замыкается») ends with the Upadeśāmṛta 8 verse in full (sanskrit + translation + wbw)
+     right after the paragraph ending «Время ещё есть» (msg 6169 / 6504)
+  g  (msg 6504) the start of «Заключение» (conclusion.content, before the subsections) holds NO tan-nāma-rūpa verse —
+     the verse stands only at the end of subsection 10; checked in all 12 books (en, ru, ru-iast + 9 translations).
+     The front «Эпиграф» (upadesha-sara) is a different section and is not touched by this check
   f  book.ru-iast.json: no Cyrillic with diacritics in the 11th subsection
 No browser, no server: python s100_ashtakala.py"""
 import json
@@ -48,7 +54,26 @@ def mins(t):
     return int(h) * 60 + int(m)
 
 
+TIME_LEFT = {"en": "There is still time", "ru": "Время ещё есть", "ru-iast": "Время ещё есть"}
+OTHER = ["lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"]
+
+
+def is_um8(b):
+    """the Upadeśāmṛta 8 verse block (IAST or the Cyrillic edition)"""
+    sk = b.get("sanskrit", "") if b.get("type") == "verse" else ""
+    return "tan-nāma-rūpa" in sk or "тан-на̄ма-рӯпа" in sk
+
+
 books = {k: json.load(open(os.path.join(DATA, v), encoding="utf-8")) for k, v in BOOKS.items()}
+# g — msg 6504: no verse at the start of «Заключение», the verse at the end of subsection 10 — every book
+for lang, fn in list(BOOKS.items()) + [(l, f"book.{l}.json") for l in OTHER]:
+    b = books.get(lang) or json.load(open(os.path.join(DATA, fn), encoding="utf-8"))
+    con = next((s for s in b["sections"] if s["id"] == "conclusion"), {"content": [], "subsections": []})
+    circ = next((x for x in con.get("subsections", []) if x["id"] == "conclusion-circle"), {"content": []})
+    chk(f"g {lang}: no tan-nāma-rūpa verse at the start of «Заключение» (msg 6504)",
+        not any(is_um8(x) for x in con.get("content", [])), [x.get("type") for x in con.get("content", [])])
+    chk(f"g {lang}: subsection 10 «conclusion-circle» ends with the tan-nāma-rūpa verse (msg 6169)",
+        bool(circ["content"]) and is_um8(circ["content"][-1]), circ["content"][-1].get("type") if circ["content"] else None)
 subs = {}
 for lang, b in books.items():
     ids = [s["id"] for s in b["sections"]]
@@ -60,13 +85,12 @@ for lang, b in books.items():
         and ss[-1]["id"] == SUB and ss[-1]["title"] == TITLE[lang], [(x["id"], x["title"]) for x in ss[-2:]])
     subs[lang] = ss[-1] if ss and ss[-1]["id"] == SUB else None
     if len(ss) >= 10:
-        c10, c0 = ss[9]["content"], con["content"]
-        first = next((x for x in c0 if x["type"] == "verse"), {})
+        c10 = ss[9]["content"]
         last = c10[-1] if c10 else {}
-        chk(f"e {lang}: subsection 10 ends with the Upadeśāmṛta 8 verse in full (= the chapter's first verse)",
-            last.get("type") == "verse" and last.get("sanskrit") == first.get("sanskrit") and last.get("translation")
-            == first.get("translation") and last.get("wbw") == first.get("wbw") and "kālaṁ nayed" in json.dumps(
-                books["ru-iast"], ensure_ascii=False), (ss[9]["title"], last.get("type")))
+        prev = c10[-2] if len(c10) > 1 else {}
+        chk(f"e {lang}: subsection 10 ends with the Upadeśāmṛta 8 verse in full, right after «Время ещё есть» (msg 6169/6504)",
+            ss[9]["id"] == "conclusion-circle" and is_um8(last) and last.get("translation") and last.get("wbw")
+            and prev.get("type") == "text" and TIME_LEFT[lang] in prev.get("content", ""), (ss[9]["title"], last.get("type")))
 if not all(subs.values()):
     print(f"RESULT: {sum(res)}/{len(res)} pass")
     sys.exit(1)

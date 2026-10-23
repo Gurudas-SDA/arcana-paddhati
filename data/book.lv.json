@@ -7327,14 +7327,7 @@
       "title": "Noslēgums",
       "subtitle": "Arčanas iekšējā vīzija",
       "page": "",
-      "content": [
-        {
-          "type": "verse",
-          "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
-          "translation": "Iesaistot mēli un prātu mīlestības pilnā Šrī Krišnas vārdu, veidola, īpašību un spēļu (līlas) daudzināšanā un atcerē — pakāpeniski, to secībā — un dzīvojot Vradžā kā to sekotājam, kuri ir pilni spontānas mīlestības uz Viņu, ikvienam jāvelta viss savs laiks. Tā ir visu norādījumu būtība. (Šrī Upadešāmrita 8)",
-          "wbw": "tat — Viņa (Šrī Krišnas); nāma-rūpa-carita-ādi — vārdu, veidola, spēļu un tā tālāk; sukīrtana-anusmṛtyoḥ — mīlestības pilnā daudzināšanā un atcerē; krameṇa — pakāpeniski, secībā; rasanā — mēli; manasī — un prātu; niyojya — iesaistot; tiṣṭhan — dzīvojot; vraje — Vradžā; tat — Viņam; anurāgi-jana — to, kuri ir spontānas mīlestības pilni; anugāmī — sekojot; kālam — laiku; nayet — jāvelta; akhilam — visu; iti — tā; upadeśa — norādījumu; sāram — būtību."
-        }
-      ],
+      "content": [],
       "subsections": [
         {
           "id": "conclusion-same-actions",
@@ -8019,6 +8012,12 @@
             {
               "type": "text",
               "content": "Kaut ikviens, kurš tur šo grāmatu rokās un ik rītu tuvojas altārim, kādu dienu, skanot viņa zvaniņam, sadzirdētu klusu balsi pie kuņdžas durvīm: “Vēl ir laiks.”"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "tan-nāma-rūpa-caritādi-sukīrtanānu-\nsmṛtyoḥ krameṇa rasanā-manasī niyojya\ntiṣṭhan vraje tad-anurāgi-janānugāmī\nkālaṁ nayed akhilam ity upadeśa-sāram",
+              "translation": "Iesaistot mēli un prātu mīlestības pilnā Šrī Krišnas vārdu, veidola, īpašību un spēļu (līlas) daudzināšanā un atcerē — pakāpeniski, to secībā — un dzīvojot Vradžā kā to sekotājam, kuri ir pilni spontānas mīlestības uz Viņu, ikvienam jāvelta viss savs laiks. Tā ir visu norādījumu būtība. (Šrī Upadešāmrita 8)",
+              "wbw": "tat — Viņa (Šrī Krišnas); nāma-rūpa-carita-ādi — vārdu, veidola, spēļu un tā tālāk; sukīrtana-anusmṛtyoḥ — mīlestības pilnā daudzināšanā un atcerē; krameṇa — pakāpeniski, secībā; rasanā — mēli; manasī — un prātu; niyojya — iesaistot; tiṣṭhan — dzīvojot; vraje — Vradžā; tat — Viņam; anurāgi-jana — to, kuri ir spontānas mīlestības pilni; anugāmī — sekojot; kālam — laiku; nayet — jāvelta; akhilam — visu; iti — tā; upadeśa — norādījumu; sāram — būtību."
             }
           ]
         },
