@@ -2307,9 +2307,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
               "translation": "O Lord Gaurāṅga, please come to Your resting place along with Your associates. O Lord, rest comfortably for a moment, enjoying Your pastimes.",
-              "wbw": "āgaccha — please come; viśrama-sthānaṁ — to the resting place; sva-gaṇaiḥ — with Your associates; saha — together with; gaurāṅga — O Lord Gaurāṅga; kṣaṇaṁ — for a moment; viśramya — resting; sukhena — comfortably; līlayā — enjoying Your pastimes; vihara — enjoy Yourself; prabhu — O Lord; klīṁ — bīja-mantra; gaurāya — for Gaurāṅga; svāhā — offering exclamation “svāhā”."
+              "wbw": "āgaccha — please come; viśrāma-sthānaṁ — to the resting place; sva-gaṇaiḥ — with Your associates; saha — together with; gaurāṅga — O Lord Gaurāṅga; kṣaṇaṁ — for a moment; viśramya — resting; sukhena — comfortably; līlayā — enjoying Your pastimes; vihara — enjoy Yourself; prabhu — O Lord; klīṁ — bīja-mantra; gaurāya — for Gaurāṅga; svāhā — offering exclamation “svāhā”."
             },
             {
               "type": "subtitle",
@@ -2575,9 +2575,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
               "translation": "O Lord Gaurāṅga, please come to Your resting place along with Your associates. O Lord, rest comfortably for a moment, enjoying Your pastimes.",
-              "wbw": "āgaccha — please come; viśrama-sthānaṁ — to the resting place; sva-gaṇaiḥ — with Your associates; saha — together with; gaurāṅga — O Lord Gaurāṅga; kṣaṇaṁ — for a moment; viśramya — resting; sukhena — comfortably; līlayā — enjoying Your pastimes; vihara — enjoy; prabhu — O Lord; klīṁ — bīja-mantra; gaurāya — to Gaura; svāhā — offering exclamation “svāhā”."
+              "wbw": "āgaccha — please come; viśrāma-sthānaṁ — to the resting place; sva-gaṇaiḥ — with Your associates; saha — together with; gaurāṅga — O Lord Gaurāṅga; kṣaṇaṁ — for a moment; viśramya — resting; sukhena — comfortably; līlayā — enjoying Your pastimes; vihara — enjoy; prabhu — O Lord; klīṁ — bīja-mantra; gaurāya — to Gaura; svāhā — offering exclamation “svāhā”."
             },
             {
               "type": "subtitle",
@@ -3352,7 +3352,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "etāni puṣpāni klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "etāni puṣpāṇi klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -4928,7 +4928,7 @@
                 },
                 {
                   "label": "Lord ⟦Nityananda⟧",
-                  "value": "⟦oṁ nityanandāya namaḥ⟧"
+                  "value": "⟦oṁ nityānandāya namaḥ⟧"
                 },
                 {
                   "label": "⟦Śrī Śrī Rādhā-Kṛṣṇa⟧",
@@ -4972,7 +4972,7 @@
                   "value": "Feet 4, Waist 2, Head 3, Body 7"
                 },
                 {
-                  "label": "Flowers (⟦etāni puṣpāni⟧)",
+                  "label": "Flowers (⟦etāni puṣpāṇi⟧)",
                   "value": "Feet 4, Body 7"
                 },
                 {
@@ -4980,7 +4980,7 @@
                   "value": "According to available time"
                 },
                 {
-                  "label": "Peacock Fan (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Peacock Fan (⟦eṣā vyajana-sevā⟧)",
                   "value": "According to available time"
                 }
               ]

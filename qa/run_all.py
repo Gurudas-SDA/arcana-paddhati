@@ -202,6 +202,8 @@ SUITES = [
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
          devices=None, fast=True, server=False),
+    dict(id="s108", file="suites/s108_a110_spelling_four_words.py", title="A110 Satkirti msg 6501/6502: rakstība viśrāma, vyajana, puṣpāṇi, nityānandāya visās valodās (Method of Worship 2); vecās formas nav, jaunās ir; viśramya nemainīts",
+         devices=None, fast=True, server=False),
     dict(id="s21", file="suites/s21_offline_deploy.py", title="OFFLINE pēc jauna deploy: vecais kešs strādā līdz jaunais pilns",
          devices=["pixel7", "desktop"], fast=False, server=False),
     dict(id="s45", file="suites/s45_scroll_option.py", title="A89: «Аа» «Страницы / Лента» — noklusējums lapas, režīms saglabājas pēc pārlādes, pārslēdzot vieta nezūd",

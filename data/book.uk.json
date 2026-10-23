@@ -2283,9 +2283,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
               "translation": "О Господи Ґауранґо, будь ласка, прийди до місця Свого відпочинку разом зі Своїми супутниками. О Господи, відпочинь зручно якусь мить, насолоджуючись Своїми іграми.",
-              "wbw": "āgaccha — будь ласка, прийди; viśrama-sthānaṁ — до місця відпочинку; sva-gaṇaiḥ — разом зі Своїми супутниками; saha — разом із; gaurāṅga — О Господи Ґауранґо; kṣaṇaṁ — якусь мить; viśramya — відпочивши; sukhena — зручно; līlayā — насолоджуючись Своїми іграми; vihara — насолоджуйся; prabhu — О Господи; klīṁ — біджа-мантра; gaurāya — Ґауранзі; svāhā — вигук підношення «сваха»."
+              "wbw": "āgaccha — будь ласка, прийди; viśrāma-sthānaṁ — до місця відпочинку; sva-gaṇaiḥ — разом зі Своїми супутниками; saha — разом із; gaurāṅga — О Господи Ґауранґо; kṣaṇaṁ — якусь мить; viśramya — відпочивши; sukhena — зручно; līlayā — насолоджуючись Своїми іграми; vihara — насолоджуйся; prabhu — О Господи; klīṁ — біджа-мантра; gaurāya — Ґауранзі; svāhā — вигук підношення «сваха»."
             },
             {
               "type": "subtitle",
@@ -2559,9 +2559,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
               "translation": "О Господи Ґауранґо, будь ласка, прийди до місця Свого відпочинку разом зі Своїми супутниками. О Господи, відпочинь зручно якусь мить, насолоджуючись Своїми іграми.",
-              "wbw": "āgaccha — будь ласка, прийди; viśrama-sthānaṁ — до місця Свого відпочинку; sva-gaṇaiḥ — зі Своїми супутниками; saha — разом із; gaurāṅga — о Господи Ґауранґо; kṣaṇaṁ — на мить; viśramya — відпочивши; sukhena — зручно; līlayā — насолоджуючись Своїми іграми; vihara — будь ласка, насолоджуйся; prabhu — о Господи; klīṁ — біджа-мантра; gaurāya — Ґаурі; svāhā — вигук підношення «сваха»."
+              "wbw": "āgaccha — будь ласка, прийди; viśrāma-sthānaṁ — до місця Свого відпочинку; sva-gaṇaiḥ — зі Своїми супутниками; saha — разом із; gaurāṅga — о Господи Ґауранґо; kṣaṇaṁ — на мить; viśramya — відпочивши; sukhena — зручно; līlayā — насолоджуючись Своїми іграми; vihara — будь ласка, насолоджуйся; prabhu — о Господи; klīṁ — біджа-мантра; gaurāya — Ґаурі; svāhā — вигук підношення «сваха»."
             },
             {
               "type": "subtitle",
@@ -3344,7 +3344,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "etāni puṣpāni klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "etāni puṣpāṇi klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -4956,7 +4956,7 @@
                 },
                 {
                   "label": "Господь ⟦Нітьянанда⟧",
-                  "value": "⟦oṁ nityanandāya namaḥ⟧"
+                  "value": "⟦oṁ nityānandāya namaḥ⟧"
                 },
                 {
                   "label": "⟦Шрі Шрі Радга-Крішна⟧",
@@ -5000,7 +5000,7 @@
                   "value": "Стопи — 4, талія — 2, голова — 3, усе тіло — 7"
                 },
                 {
-                  "label": "Квіти (⟦etāni puṣpāni⟧)",
+                  "label": "Квіти (⟦etāni puṣpāṇi⟧)",
                   "value": "Стопи — 4, усе тіло — 7"
                 },
                 {
@@ -5008,7 +5008,7 @@
                   "value": "Відповідно до наявного часу"
                 },
                 {
-                  "label": "Віяло з павичевого пір’я (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Віяло з павичевого пір’я (⟦eṣā vyajana-sevā⟧)",
                   "value": "Відповідно до наявного часу"
                 }
               ]

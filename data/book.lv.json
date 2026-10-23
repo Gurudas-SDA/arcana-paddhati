@@ -2283,9 +2283,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
               "translation": "Ak, Kungs Gaurānga, lūdzu, nāc uz Savu atdusas vietu kopā ar Saviem pavadoņiem. Ak, Kungs, atpūties brīdi un baudi Savas spēles.",
-              "wbw": "āgaccha — lūdzu, nāc; viśrama-sthānaṁ — uz atdusas vietu; sva-gaṇaiḥ — kopā ar Saviem pavadoņiem; saha — kopā ar; gaurāṅga — Ak, Kungs Gaurāṅga; kṣaṇaṁ — brīdi; viśramya — atpūties; sukhena — ērti; līlayā — baudot Savas spēles; vihara — baudi; prabhu — Ak, Kungs; klīṁ — bīja-mantra; gaurāya — Gaurāṅgam; svāhā — ziedojuma izsauciens “svāhā”."
+              "wbw": "āgaccha — lūdzu, nāc; viśrāma-sthānaṁ — uz atdusas vietu; sva-gaṇaiḥ — kopā ar Saviem pavadoņiem; saha — kopā ar; gaurāṅga — Ak, Kungs Gaurāṅga; kṣaṇaṁ — brīdi; viśramya — atpūties; sukhena — ērti; līlayā — baudot Savas spēles; vihara — baudi; prabhu — Ak, Kungs; klīṁ — bīja-mantra; gaurāya — Gaurāṅgam; svāhā — ziedojuma izsauciens “svāhā”."
             },
             {
               "type": "subtitle",
@@ -2559,9 +2559,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
               "translation": "Ak, Kungs Gaurānga, lūdzu, nāc uz Savu atdusas vietu kopā ar Saviem pavadoņiem. Ak, Kungs, atpūties brīdi un baudi Savas spēles.",
-              "wbw": "āgaccha — lūdzu, nāc; viśrama-sthānaṁ — uz atdusas vietu; sva-gaṇaiḥ — ar Saviem pavadoņiem; saha — kopā ar; gaurāṅga — Ak, Kungs Gaurānga; kṣaṇaṁ — brīdi; viśramya — atpūties; sukhena — ērti; līlayā — baudot Savas spēles; vihara — baudi; prabhu — Ak, Kungs; klīṁ — bīja-mantra; gaurāya — Gaurangam; svāhā — ziedojuma izsauciens “svāhā”."
+              "wbw": "āgaccha — lūdzu, nāc; viśrāma-sthānaṁ — uz atdusas vietu; sva-gaṇaiḥ — ar Saviem pavadoņiem; saha — kopā ar; gaurāṅga — Ak, Kungs Gaurānga; kṣaṇaṁ — brīdi; viśramya — atpūties; sukhena — ērti; līlayā — baudot Savas spēles; vihara — baudi; prabhu — Ak, Kungs; klīṁ — bīja-mantra; gaurāya — Gaurangam; svāhā — ziedojuma izsauciens “svāhā”."
             },
             {
               "type": "subtitle",
@@ -3344,7 +3344,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "etāni puṣpāni klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "etāni puṣpāṇi klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -4956,7 +4956,7 @@
                 },
                 {
                   "label": "Kungs ⟦Nitjānanda⟧",
-                  "value": "⟦oṁ nityanandāya namaḥ⟧"
+                  "value": "⟦oṁ nityānandāya namaḥ⟧"
                 },
                 {
                   "label": "⟦Šrī Šrī Rādhā-Krišna⟧",
@@ -5000,7 +5000,7 @@
                   "value": "4 apļi pie pēdām, 2 pie vidukļa, 3 pie galvas, 7 ap ķermeni"
                 },
                 {
-                  "label": "Ziedi (⟦etāni puṣpāni⟧)",
+                  "label": "Ziedi (⟦etāni puṣpāṇi⟧)",
                   "value": "4 apļi pie pēdām, 7 ap ķermeni"
                 },
                 {
@@ -5008,7 +5008,7 @@
                   "value": "Atbilstoši pieejamajam laikam"
                 },
                 {
-                  "label": "Pāva spalvu vēdeklis (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Pāva spalvu vēdeklis (⟦eṣā vyajana-sevā⟧)",
                   "value": "Atbilstoši pieejamajam laikam"
                 }
               ]

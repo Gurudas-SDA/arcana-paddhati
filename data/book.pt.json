@@ -2283,9 +2283,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
               "translation": "Ó Senhor Gaurāṅga, por favor, venha ao Seu local de descanso junto com Seus associados. Ó Senhor, descanse confortavelmente por um momento, desfrutando de Seus passatempos.",
-              "wbw": "āgaccha — por favor, vem; viśrama-sthānaṁ — ao local de descanso; sva-gaṇaiḥ — com Teus associados; saha — junto com; gaurāṅga — ó Senhor Gaurāṅga; kṣaṇaṁ — por um momento; viśramya — descansando; sukhena — confortavelmente; līlayā — desfrutando de Teus passatempos; vihara — desfruta; prabhu — ó Senhor; klīṁ — bīja-mantra; gaurāya — para Gaurāṅga; svāhā — exclamação de oferenda “svāhā”."
+              "wbw": "āgaccha — por favor, vem; viśrāma-sthānaṁ — ao local de descanso; sva-gaṇaiḥ — com Teus associados; saha — junto com; gaurāṅga — ó Senhor Gaurāṅga; kṣaṇaṁ — por um momento; viśramya — descansando; sukhena — confortavelmente; līlayā — desfrutando de Teus passatempos; vihara — desfruta; prabhu — ó Senhor; klīṁ — bīja-mantra; gaurāya — para Gaurāṅga; svāhā — exclamação de oferenda “svāhā”."
             },
             {
               "type": "subtitle",
@@ -2559,9 +2559,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
               "translation": "Ó Senhor Gaurāṅga, por favor, venha para Seu local de descanso junto com Seus associados. Ó Senhor, descanse confortavelmente por um momento, desfrutando de Seus passatempos.",
-              "wbw": "āgaccha — por favor, venha; viśrama-sthānaṁ — para o local de descanso; sva-gaṇaiḥ — com Seus associados; saha — junto com; gaurāṅga — Ó Senhor Gaurāṅga; kṣaṇaṁ — por um momento; viśramya — descansando; sukhena — confortavelmente; līlayā — desfrutando de Seus passatempos; vihara — desfrute; prabhu — Ó Senhor; klīṁ — bīja-mantra; gaurāya — para Gaura; svāhā — exclamação de oferenda “svāhā”."
+              "wbw": "āgaccha — por favor, venha; viśrāma-sthānaṁ — para o local de descanso; sva-gaṇaiḥ — com Seus associados; saha — junto com; gaurāṅga — Ó Senhor Gaurāṅga; kṣaṇaṁ — por um momento; viśramya — descansando; sukhena — confortavelmente; līlayā — desfrutando de Seus passatempos; vihara — desfrute; prabhu — Ó Senhor; klīṁ — bīja-mantra; gaurāya — para Gaura; svāhā — exclamação de oferenda “svāhā”."
             },
             {
               "type": "subtitle",
@@ -3344,7 +3344,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "etāni puṣpāni klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "etāni puṣpāṇi klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -4956,7 +4956,7 @@
                 },
                 {
                   "label": "Senhor ⟦Nityananda⟧",
-                  "value": "⟦oṁ nityanandāya namaḥ⟧"
+                  "value": "⟦oṁ nityānandāya namaḥ⟧"
                 },
                 {
                   "label": "⟦Śrī Śrī Rādhā-Kṛṣṇa⟧",
@@ -5000,7 +5000,7 @@
                   "value": "Pés 4, Cintura 2, Cabeça 3, Corpo 7"
                 },
                 {
-                  "label": "Flores (⟦etāni puṣpāni⟧)",
+                  "label": "Flores (⟦etāni puṣpāṇi⟧)",
                   "value": "Pés 4, Corpo 7"
                 },
                 {
@@ -5008,7 +5008,7 @@
                   "value": "De acordo com o tempo disponível"
                 },
                 {
-                  "label": "Abano de Penas de Pavão (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Abano de Penas de Pavão (⟦eṣā vyajana-sevā⟧)",
                   "value": "De acordo com o tempo disponível"
                 }
               ]

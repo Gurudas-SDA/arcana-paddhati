@@ -2283,9 +2283,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
               "translation": "O Signore Gaurāṅga, Ti prego, vieni al Tuo luogo di riposo insieme ai Tuoi associati. O Signore, riposa comodamente per un momento, godendo dei Tuoi passatempi.",
-              "wbw": "āgaccha — Ti prego, vieni; viśrama-sthānaṁ — al Tuo luogo di riposo; sva-gaṇaiḥ — insieme ai Tuoi associati; saha — insieme a; gaurāṅga — o Signore Gaurāṅga; kṣaṇaṁ — per un momento; viśramya — riposando; sukhena — comodamente; līlayā — godendo dei Tuoi passatempi; vihara — godi dei Tuoi passatempi; prabhu — o Signore; klīṁ — bīja-mantra; gaurāya — per Gaurāṅga; svāhā — esclamazione dell’offerta «svāhā»."
+              "wbw": "āgaccha — Ti prego, vieni; viśrāma-sthānaṁ — al Tuo luogo di riposo; sva-gaṇaiḥ — insieme ai Tuoi associati; saha — insieme a; gaurāṅga — o Signore Gaurāṅga; kṣaṇaṁ — per un momento; viśramya — riposando; sukhena — comodamente; līlayā — godendo dei Tuoi passatempi; vihara — godi dei Tuoi passatempi; prabhu — o Signore; klīṁ — bīja-mantra; gaurāya — per Gaurāṅga; svāhā — esclamazione dell’offerta «svāhā»."
             },
             {
               "type": "subtitle",
@@ -2559,9 +2559,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
               "translation": "O Signore Gaurāṅga, Ti prego, vieni al Tuo luogo di riposo insieme ai Tuoi associati. O Signore, riposa comodamente per un momento, godendo dei Tuoi passatempi.",
-              "wbw": "āgaccha — Ti prego, vieni; viśrama-sthānaṁ — al Tuo luogo di riposo; sva-gaṇaiḥ — insieme ai Tuoi associati; saha — insieme a; gaurāṅga — O Signore Gaurāṅga; kṣaṇaṁ — per un momento; viśramya — riposando; sukhena — comodamente; līlayā — godendo dei Tuoi passatempi; vihara — godi; prabhu — O Signore; klīṁ — bīja-mantra; gaurāya — a Gaura; svāhā — esclamazione di offerta «svāhā»."
+              "wbw": "āgaccha — Ti prego, vieni; viśrāma-sthānaṁ — al Tuo luogo di riposo; sva-gaṇaiḥ — insieme ai Tuoi associati; saha — insieme a; gaurāṅga — O Signore Gaurāṅga; kṣaṇaṁ — per un momento; viśramya — riposando; sukhena — comodamente; līlayā — godendo dei Tuoi passatempi; vihara — godi; prabhu — O Signore; klīṁ — bīja-mantra; gaurāya — a Gaura; svāhā — esclamazione di offerta «svāhā»."
             },
             {
               "type": "subtitle",
@@ -3344,7 +3344,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "etāni puṣpāni klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "etāni puṣpāṇi klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -4956,7 +4956,7 @@
                 },
                 {
                   "label": "Signore ⟦Nityananda⟧",
-                  "value": "⟦oṁ nityanandāya namaḥ⟧"
+                  "value": "⟦oṁ nityānandāya namaḥ⟧"
                 },
                 {
                   "label": "⟦Śrī Śrī Rādhā-Kṛṣṇa⟧",
@@ -5000,7 +5000,7 @@
                   "value": "Piedi 4, vita 2, testa 3, corpo 7"
                 },
                 {
-                  "label": "Fiori (⟦etāni puṣpāni⟧)",
+                  "label": "Fiori (⟦etāni puṣpāṇi⟧)",
                   "value": "Piedi 4, corpo 7"
                 },
                 {
@@ -5008,7 +5008,7 @@
                   "value": "Secondo il tempo disponibile"
                 },
                 {
-                  "label": "Ventaglio di piume di pavone (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Ventaglio di piume di pavone (⟦eṣā vyajana-sevā⟧)",
                   "value": "Secondo il tempo disponibile"
                 }
               ]

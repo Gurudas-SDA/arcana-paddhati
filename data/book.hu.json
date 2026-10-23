@@ -2351,9 +2351,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
               "translation": "Ó, Úr Gaurāṅga, kérlek, térj pihenőhelyedre társaiddal együtt! Ó, Uram, pihenj kényelmesen egy pillanatra, kedvteléseidet élvezve.",
-              "wbw": "āgaccha — kérlek, jöjj; viśrama-sthānaṁ — a pihenőhelyre; sva-gaṇaiḥ — társaiddal; saha — együtt; gaurāṅga — ó, Úr Gaurāṅga; kṣaṇaṁ — egy pillanatra; viśramya — megpihenve; sukhena — kényelmesen; līlayā — kedvteléseidet élvezve; vihara — leld örömödet; prabhu — ó, Uram; klīṁ — bīja-mantra; gaurāya — Gaurāṅgának; svāhā — a felajánlást jelző „svāhā” felkiáltás."
+              "wbw": "āgaccha — kérlek, jöjj; viśrāma-sthānaṁ — a pihenőhelyre; sva-gaṇaiḥ — társaiddal; saha — együtt; gaurāṅga — ó, Úr Gaurāṅga; kṣaṇaṁ — egy pillanatra; viśramya — megpihenve; sukhena — kényelmesen; līlayā — kedvteléseidet élvezve; vihara — leld örömödet; prabhu — ó, Uram; klīṁ — bīja-mantra; gaurāya — Gaurāṅgának; svāhā — a felajánlást jelző „svāhā” felkiáltás."
             },
             {
               "type": "subtitle",
@@ -2627,9 +2627,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
               "translation": "Ó, Úr Gaurāṅga, kérlek, térj pihenőhelyedre társaiddal együtt! Ó, Uram, pihenj kényelmesen egy pillanatra, kedvteléseidet élvezve.",
-              "wbw": "āgaccha — kérlek, jöjj; viśrama-sthānaṁ — a pihenőhelyre; sva-gaṇaiḥ — társaiddal; saha — együtt; gaurāṅga — ó, Úr Gaurāṅga; kṣaṇaṁ — egy pillanatra; viśramya — megpihenve; sukhena — kényelmesen; līlayā — kedvteléseidet élvezve; vihara — élvezd; prabhu — ó, Uram; klīṁ — bīja-mantra; gaurāya — Gaurának; svāhā — a „svāhā” felajánlási felkiáltás."
+              "wbw": "āgaccha — kérlek, jöjj; viśrāma-sthānaṁ — a pihenőhelyre; sva-gaṇaiḥ — társaiddal; saha — együtt; gaurāṅga — ó, Úr Gaurāṅga; kṣaṇaṁ — egy pillanatra; viśramya — megpihenve; sukhena — kényelmesen; līlayā — kedvteléseidet élvezve; vihara — élvezd; prabhu — ó, Uram; klīṁ — bīja-mantra; gaurāya — Gaurának; svāhā — a „svāhā” felajánlási felkiáltás."
             },
             {
               "type": "subtitle",
@@ -3412,7 +3412,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "etāni puṣpāni klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "etāni puṣpāṇi klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -5024,7 +5024,7 @@
                 },
                 {
                   "label": "⟦Nityananda⟧ Úr",
-                  "value": "⟦oṁ nityanandāya namaḥ⟧"
+                  "value": "⟦oṁ nityānandāya namaḥ⟧"
                 },
                 {
                   "label": "⟦Śrī Śrī Rādhā-Kṛṣṇa⟧",
@@ -5068,7 +5068,7 @@
                   "value": "Lábak 4 kör, derék 2 kör, fej 3 kör, test 7 kör"
                 },
                 {
-                  "label": "Virágok (⟦etāni puṣpāni⟧)",
+                  "label": "Virágok (⟦etāni puṣpāṇi⟧)",
                   "value": "Lábak 4 kör, test 7 kör"
                 },
                 {
@@ -5076,7 +5076,7 @@
                   "value": "A rendelkezésre álló idő függvényében"
                 },
                 {
-                  "label": "Pávatoll-legyező (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Pávatoll-legyező (⟦eṣā vyajana-sevā⟧)",
                   "value": "A rendelkezésre álló idő függvényében"
                 }
               ]

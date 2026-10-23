@@ -2283,9 +2283,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
               "translation": "Ô Seigneur Gaurāṅga, viens, je T’en prie, jusqu’à Ton lieu de repos avec Tes compagnons. Ô Seigneur, repose-Toi confortablement pendant un moment en savourant Tes divertissements.",
-              "wbw": "āgaccha — viens, je T’en prie; viśrama-sthānaṁ — jusqu’à Ton lieu de repos; sva-gaṇaiḥ — avec Tes compagnons; saha — avec; gaurāṅga — Ô Seigneur Gaurāṅga; kṣaṇaṁ — pendant un moment; viśramya — en Te reposant; sukhena — confortablement; līlayā — en savourant Tes divertissements; vihara — savoure Tes divertissements; prabhu — Ô Seigneur; klīṁ — bīja-mantra; gaurāya — pour Gaurāṅga; svāhā — exclamation d’offrande « svāhā »."
+              "wbw": "āgaccha — viens, je T’en prie; viśrāma-sthānaṁ — jusqu’à Ton lieu de repos; sva-gaṇaiḥ — avec Tes compagnons; saha — avec; gaurāṅga — Ô Seigneur Gaurāṅga; kṣaṇaṁ — pendant un moment; viśramya — en Te reposant; sukhena — confortablement; līlayā — en savourant Tes divertissements; vihara — savoure Tes divertissements; prabhu — Ô Seigneur; klīṁ — bīja-mantra; gaurāya — pour Gaurāṅga; svāhā — exclamation d’offrande « svāhā »."
             },
             {
               "type": "subtitle",
@@ -2559,9 +2559,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
               "translation": "Ô Seigneur Gaurāṅga, viens, je T’en prie, jusqu’à Ton lieu de repos avec Tes compagnons. Ô Seigneur, repose-Toi confortablement pendant un moment en savourant Tes divertissements.",
-              "wbw": "āgaccha — viens, je T’en prie; viśrama-sthānaṁ — jusqu’à Ton lieu de repos; sva-gaṇaiḥ — avec Tes compagnons; saha — avec; gaurāṅga — Ô Seigneur Gaurāṅga; kṣaṇaṁ — pendant un moment; viśramya — en Te reposant; sukhena — confortablement; līlayā — en savourant Tes divertissements; vihara — savoure; prabhu — Ô Seigneur; klīṁ — bīja-mantra; gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »."
+              "wbw": "āgaccha — viens, je T’en prie; viśrāma-sthānaṁ — jusqu’à Ton lieu de repos; sva-gaṇaiḥ — avec Tes compagnons; saha — avec; gaurāṅga — Ô Seigneur Gaurāṅga; kṣaṇaṁ — pendant un moment; viśramya — en Te reposant; sukhena — confortablement; līlayā — en savourant Tes divertissements; vihara — savoure; prabhu — Ô Seigneur; klīṁ — bīja-mantra; gaurāya — à Gaura; svāhā — exclamation d’offrande « svāhā »."
             },
             {
               "type": "subtitle",
@@ -3344,7 +3344,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "etāni puṣpāni klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "etāni puṣpāṇi klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -4956,7 +4956,7 @@
                 },
                 {
                   "label": "Seigneur ⟦Nityananda⟧",
-                  "value": "⟦oṁ nityanandāya namaḥ⟧"
+                  "value": "⟦oṁ nityānandāya namaḥ⟧"
                 },
                 {
                   "label": "⟦Śrī Śrī Rādhā-Kṛṣṇa⟧",
@@ -5000,7 +5000,7 @@
                   "value": "Pieds 4, Taille 2, Tête 3, Corps 7"
                 },
                 {
-                  "label": "Fleurs (⟦etāni puṣpāni⟧)",
+                  "label": "Fleurs (⟦etāni puṣpāṇi⟧)",
                   "value": "Pieds 4, Corps 7"
                 },
                 {
@@ -5008,7 +5008,7 @@
                   "value": "Selon le temps disponible"
                 },
                 {
-                  "label": "Éventail en plumes de paon (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Éventail en plumes de paon (⟦eṣā vyajana-sevā⟧)",
                   "value": "Selon le temps disponible"
                 }
               ]

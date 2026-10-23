@@ -2351,9 +2351,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
               "translation": "O Viešpatie Gaurāṅga, prašau, ateik į Savo poilsio vietą kartu su Savo palydovais. O Viešpatie, patogiai pailsėk akimirką, mėgaudamasis Savo žaidimais.",
-              "wbw": "āgaccha — prašau, ateik; viśrama-sthānaṁ — į poilsio vietą; sva-gaṇaiḥ — su Savo palydovais; saha — kartu su; gaurāṅga — o Viešpatie Gaurāṅga; kṣaṇaṁ — akimirką; viśramya — pailsėjęs; sukhena — patogiai; līlayā — mėgaudamasis Savo žaidimais; vihara — mėgaukis; prabhu — o Viešpatie; klīṁ — bīja-mantra; gaurāya — Gaurāṅgai; svāhā — aukojimo šūksnis „svāhā“."
+              "wbw": "āgaccha — prašau, ateik; viśrāma-sthānaṁ — į poilsio vietą; sva-gaṇaiḥ — su Savo palydovais; saha — kartu su; gaurāṅga — o Viešpatie Gaurāṅga; kṣaṇaṁ — akimirką; viśramya — pailsėjęs; sukhena — patogiai; līlayā — mėgaudamasis Savo žaidimais; vihara — mėgaukis; prabhu — o Viešpatie; klīṁ — bīja-mantra; gaurāya — Gaurāṅgai; svāhā — aukojimo šūksnis „svāhā“."
             },
             {
               "type": "subtitle",
@@ -2627,9 +2627,9 @@
             },
             {
               "type": "verse",
-              "sanskrit": "āgaccha viśrama-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
+              "sanskrit": "āgaccha viśrāma-sthānaṁ\nsva-gaṇaiḥ saha gaurāṅga\nkṣaṇaṁ viśramya sukhena\nlīlayā vihara prabhu\nklīṁ gaurāya svāhā",
               "translation": "O Viešpatie Gaurāṅga, prašau ateik į savo poilsio vietą kartu su savo palydovais. O Viešpatie, patogiai pailsėk akimirką, mėgaudamasis savo žaidimais.",
-              "wbw": "āgaccha — prašau ateik; viśrama-sthānaṁ — į poilsio vietą; sva-gaṇaiḥ — su savo palydovais; saha — kartu su; gaurāṅga — O Viešpatie Gaurāṅga; kṣaṇaṁ — akimirką; viśramya — ilsėdamasis; sukhena — patogiai; līlayā — mėgaudamasis savo žaidimais; vihara — mėgaukis; prabhu — O Viešpatie; klīṁ — bīja-mantra; gaurāya — Gaurai; svāhā — aukojimo šūksnis „svāhā“."
+              "wbw": "āgaccha — prašau ateik; viśrāma-sthānaṁ — į poilsio vietą; sva-gaṇaiḥ — su savo palydovais; saha — kartu su; gaurāṅga — O Viešpatie Gaurāṅga; kṣaṇaṁ — akimirką; viśramya — ilsėdamasis; sukhena — patogiai; līlayā — mėgaudamasis savo žaidimais; vihara — mėgaukis; prabhu — O Viešpatie; klīṁ — bīja-mantra; gaurāya — Gaurai; svāhā — aukojimo šūksnis „svāhā“."
             },
             {
               "type": "subtitle",
@@ -3412,7 +3412,7 @@
           "content": [
             {
               "type": "verse",
-              "sanskrit": "etāni puṣpāni klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
+              "sanskrit": "etāni puṣpāṇi klīṁ gaurāya svāhā śrīṁ klīṁ rādhā-kṛṣṇābhyām namaḥ",
               "translation": ""
             },
             {
@@ -5024,7 +5024,7 @@
                 },
                 {
                   "label": "Viešpats ⟦Nityānanda⟧",
-                  "value": "⟦oṁ nityanandāya namaḥ⟧"
+                  "value": "⟦oṁ nityānandāya namaḥ⟧"
                 },
                 {
                   "label": "⟦Śrī Śrī Rādhā-Kṛṣṇa⟧",
@@ -5068,7 +5068,7 @@
                   "value": "Pėdos 4, liemuo 2, galva 3, kūnas 7"
                 },
                 {
-                  "label": "Gėlės (⟦etāni puṣpāni⟧)",
+                  "label": "Gėlės (⟦etāni puṣpāṇi⟧)",
                   "value": "Pėdos 4, kūnas 7"
                 },
                 {
@@ -5076,7 +5076,7 @@
                   "value": "Pagal turimą laiką"
                 },
                 {
-                  "label": "Povo vėduoklė (⟦eṣā vyajñana-sevā⟧)",
+                  "label": "Povo vėduoklė (⟦eṣā vyajana-sevā⟧)",
                   "value": "Pagal turimą laiką"
                 }
               ]
