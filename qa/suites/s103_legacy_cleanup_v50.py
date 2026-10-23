@@ -37,7 +37,7 @@ ORIGIN = BASE.split("/arcana-paddhati")[0]
 PREFIX = BASE[len(ORIGIN):]
 REPO = qa.REPO
 DEVICES = qa.devices(["desktop", "iphone14"])
-TARGET = 392_000_000  # tehniskais slieksnis Lipikāra
+TARGET = 430_000_000  # tehniskais slieksnis Lipikāra, nav S noteikums; V50 391,7 MB, ar A105/A106 (+~195 lapu URL) 417,1 MB
 REMOVED = ["media/common/conch-shankha.png", "media/common/frame-red-cartouche.png"]
 # page → the WebP it must draw (cover, emblem, paraphernalia hotspots, tilak hotspots, parampara photos)
 PAGES = {"/ru-iast/": "cover", "/ru-iast/gaudiya-emblem/": "gaudiya-emblem-", "/ru-iast/main-worship-sixteen-items/": "paraphernalia-",
