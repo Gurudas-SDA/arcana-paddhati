@@ -2,7 +2,13 @@
 # Arcana-paddhati QA vārti (qa/README.md) — palaižas pirms katra `git push`.
 #   1) out/ vecāks par avotu → npm run build
 #   2) python qa/lint_content.py      (satura likumi)
-#   3) python qa/run_all.py --fast    (regresija: pixel7 + iphone14, ≤5 min)
+#   3) python qa/run_all.py --changed-from <bāze>   (qa/lib/changed.py izvēlas pēc diff pret bāzi:
+#        TIKAI grāmatas teksts (data/book*.json, scripts/chapters|moods|translate…, transkripti, testi) →
+#        NODAĻAS: s200 mainītajām sadaļām × iPhone 14 / iPad / dators + mainītie testi + datu likumu testi;
+#        jebkas cits (interfeiss, būve, testu sistēma, grāmatas struktūra) → tieši kā līdz šim: --fast
+#        (pixel7 + iphone14). Padomnieks 2026.10.23_1609, S msg 946 + Gurudas msg 952.)
+#      bāze = tālvadības zara pašreizējais commit (push uz main → origin main), citādi origin/main.
+#   Ilgums → scripts/state/qa_durations.log (prepush-nodalas / prepush-fast), ja tas fails ir (serveris).
 # Jebkura kļūda → push BLOĶĒTS.
 # Apiet: `git push --no-verify` — AIZLIEGTS bez Satkirti vai Gurudas tiešas ziņas (qa/README.md).
 # Ieslēgt: npm run qa:install-hooks   (git config core.hooksPath qa/hooks)
@@ -16,6 +22,7 @@ command -v python >/dev/null 2>&1 || PY=python3
 HEAD_SHA=$(git rev-parse HEAD)
 ZERO=0000000000000000000000000000000000000000
 NEED=0
+BASE=
 while read -r LREF LSHA RREF RSHA; do
   [ -z "$LREF" ] && continue
   [ "$LSHA" = "$ZERO" ] && continue            # ref deletion
@@ -26,7 +33,9 @@ while read -r LREF LSHA RREF RSHA; do
     exit 1
   fi
   NEED=1
+  if [ -z "$BASE" ] && [ "$RSHA" != "$ZERO" ] && git cat-file -e "$RSHA^{commit}" 2>/dev/null; then BASE=$RSHA; fi
 done
+[ -n "$BASE" ] || { git rev-parse -q --verify origin/main >/dev/null && BASE=origin/main; }
 [ "$NEED" = 1 ] || exit 0
 
 # the gate tests the working tree: it must equal HEAD in everything that is built
@@ -39,6 +48,7 @@ if [ -n "$DIRTY" ]; then
 fi
 
 T0=$(date +%s)
+START=$(date +%Y-%m-%dT%H:%M:%S)
 echo "== QA vārti: $(git log -1 --format='%h %s') =="
 if $PY qa/lib/qa.py stale >/dev/null 2>&1; then
   echo "-- out/ vecāks par avotu → npm run build (log: qa/.results/build.log)"
@@ -53,10 +63,24 @@ if ! $PY qa/lint_content.py; then
   echo "QA BLOĶĒTS: satura linteris atrada Satkirti likuma pārkāpumu (augstāk FAIL rindas)."
   exit 1
 fi
-echo "-- regresija (ātrā)"
-if ! $PY qa/run_all.py --fast --suites-skip lint; then
+DLOG=${QA_DURATIONS_LOG:-/home/satkirti/03_Satkirti/scripts/state/qa_durations.log}
+dlog() {  # start,end,mode,result,commit — the same row as scripts/qa_run.py (scripts/qa_eta.py reads it)
+  [ -f "$DLOG" ] || return 0
+  M=$($PY -c "import json;print(json.load(open('qa/.results/last.json',encoding='utf-8')).get('mode','fast'))" 2>/dev/null || echo fast)
+  echo "$START,$(date +%Y-%m-%dT%H:%M:%S),prepush-$M,$1,$(git rev-parse --short HEAD)" >> "$DLOG"
+}
+if [ -n "$BASE" ]; then
+  echo "-- regresija (režīms pēc diff pret ${BASE%"${BASE#????????????}"})"
+  RUN="--changed-from $BASE"
+else
+  echo "-- regresija (ātrā; bāze nav zināma)"
+  RUN="--fast"
+fi
+if ! $PY qa/run_all.py $RUN --suites-skip lint; then
+  dlog fail
   echo "QA BLOĶĒTS: regresijas tests krita (augstāk FAIL; logi qa/.results/). Push NEnotika."
   exit 1
 fi
+dlog pass
 echo "== QA vārti: viss izgāja ($(( $(date +%s) - T0 )) s) — push turpinās =="
 exit 0

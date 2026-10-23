@@ -4,6 +4,9 @@
   python qa/run_all.py --fast     ātrais (pre-push): galvenās ierīces, galvenie scenāriji (≤5 min)
   python qa/run_all.py --suites s07,s071 --devices pixel7,ipad-portrait
   python qa/run_all.py --list
+  python qa/run_all.py --changed-from origin/main   pre-push / qa_run.py nodalas: only book TEXT changed →
+                                  lint + s200 (changed sections × iPhone 14, iPad, desktop) + changed/added suites +
+                                  data-only rule suites; anything else → exactly --fast (qa/lib/changed.py)
 
 Palaiž lokālu statisku serveri no out/ (brīvs ports, NE 8899) zem /arcana-paddhati,
 katru scenāriju (qa/suites/*.py) kā atsevišķu procesu (paralēli, pa ierīcēm),
@@ -219,6 +222,27 @@ SUITES = [
 ]
 
 
+# Day release of book TEXT (Padomnieks 2026.10.23_1609, S msg 946 + Gurudas msg 952) — chosen only by
+# --changed-from (or --suites s200 + QA_SECTIONS); never part of the full / fast lists.
+NODALAS_SUITE = dict(id="s200", file="suites/s200_changed_sections.py",
+                     title="S dienas izlaidums: mainītās sadaļas atveras, virsraksti/apakšnodaļas/teksts = dati, nekas neiziet ārā, attēli, bez kļūdām (iPhone 14, iPad, dators)",
+                     devices=["iphone14", "ipad-portrait", "desktop"], fast=False,
+                     fast_devices=["iphone14", "ipad-portrait", "desktop"])
+
+
+def changed_plan(base):
+    """(suite ids or None, why) for --changed-from: None = the unchanged --fast gate."""
+    import changed  # qa/lib/changed.py
+    r = changed.classify(qa.REPO, base)
+    if r["mode"] != "nodalas":
+        return None, r
+    ids = ["lint"] + (["s200"] if r["sections"] else []) + r["suites"]
+    # the Satkirti rule checks on the data (no browser) — cheap, so every day release keeps them
+    ids += [s["id"] for s in SUITES if s["devices"] is None and not s.get("server", True) and s["fast"] and s["id"] != "lint"]
+    seen = set()
+    return [x for x in ids if not (x in seen or seen.add(x))], r
+
+
 def load_rules():
     p = os.path.join(HERE, "likumi.json")
     return json.load(open(p, encoding="utf-8"))["rules"] if os.path.exists(p) else []
@@ -327,11 +351,29 @@ def main():
     ap.add_argument("--devices", help="komatiem: pixel7,iphone14,ipad-portrait …")
     ap.add_argument("--jobs", type=int, default=max(2, min(6, (os.cpu_count() or 4) - 2)))
     ap.add_argument("--list", action="store_true")
+    ap.add_argument("--changed-from", metavar="REF", help="nodaļu režīms, ja pret REF mainīts tikai grāmatas teksts; citādi = --fast")
     a = ap.parse_args()
     if a.list:
-        for s in SUITES:
+        for s in SUITES + [NODALAS_SUITE]:
             print(f"{s['id']:6s} {'fast ' if s['fast'] else '     '} {s['title']}  [{', '.join(s['devices'] or ['—'])}]")
         return 0
+    label = None
+    if a.changed_from:
+        try:
+            ids, plan = changed_plan(a.changed_from)
+        except Exception as e:  # cannot tell what changed → the safe side
+            ids, plan = None, dict(reason=f"diff pret {a.changed_from} nav nolasāms ({str(e)[:120]})", sections=[])
+        a.fast = True
+        if ids is None:
+            print(f"QA režīms: pilnie vārti (--fast) — {plan['reason']}", flush=True)
+        else:
+            label = "nodalas"
+            a.suites = ",".join(ids)
+            if a.suites_skip:  # pre-push runs lint itself first
+                ids = [x for x in ids if x not in a.suites_skip.split(",")]
+            os.environ["QA_SECTIONS"] = ",".join(plan["sections"])
+            NODALAS_SUITE["timeout_fast"] = 120 + 20 * len(plan["sections"])
+            print(f"QA režīms: NODAĻAS — {plan['reason']}; sadaļas: {', '.join(plan['sections']) or '—'}; testi: {', '.join(ids)}", flush=True)
     os.makedirs(RESULTS, exist_ok=True)
     for f in os.listdir(RESULTS):
         # only the suite logs of the previous run (not build.log / push.log of the hook)
@@ -346,7 +388,7 @@ def main():
     suites = SUITES
     if a.suites:
         want = a.suites.split(",")
-        suites = [s for s in SUITES if s["id"] in want]
+        suites = [s for s in SUITES + [NODALAS_SUITE] if s["id"] in want]
     elif a.fast:
         suites = [s for s in SUITES if s["fast"]]
     if a.suites_skip:
@@ -362,7 +404,7 @@ def main():
     weight = {"s23": 9, "s24": 9, "s071": 10, "s10": 10, "s11": 10, "s21": 10, "s07": 9, "s01": 8, "s20wk": 7, "s06": 6, "s03": 5, "s04": 5, "s05": 4}
     jobs.sort(key=lambda j: -weight.get(j[0]["id"], 2))
     srv = qa_server.Server().start()
-    mode = "fast" if a.fast else "full"
+    mode = label or ("fast" if a.fast else "full")
     print(f"QA {mode}: {len(jobs)} darbi, {a.jobs} paralēli, serveris {srv.base} (out/)", flush=True)
     t0 = time.time()
     results = []

@@ -37,7 +37,16 @@ darbu: `python qa/run_all.py --fast --jobs 3`.
 1. Push drīkst sūtīt tikai izņemto HEAD, un darba kokam jābūt tīram (citādi testētu ne to, kas tiek sūtīts).
 2. Ja `out/` vecāks par avotu → `npm run build`.
 3. `python qa/lint_content.py` — datu likumi (L1–L23).
-4. `python qa/run_all.py --fast` — pārlūka regresija.
+4. `python qa/run_all.py --changed-from <bāze>` — pārlūka regresija; režīmu izvēlas `qa/lib/changed.py` pēc diff pret
+   bāzi (push uz main → tālvadības main, citādi `origin/main`; izvēle: `python qa/lib/changed.py`):
+   - **NODAĻAS** — mainīts TIKAI grāmatas teksts (`data/book*.json` pa sadaļām, `scripts/chapters|moods|parampara|translate|formats/`,
+     transkripti, testi `qa/suites`, `qa/run_all.py` tikai SUITES sarakstā) un katra izmaiņa = esoša sadaļa:
+     `s200` mainītajām sadaļām × iPhone 14 / iPad / dators + mainītie/jaunie testi + datu likumu testi (bez pārlūka).
+   - **pilnie vārti (`--fast`, kā līdz šim)** — jebkas cits: interfeiss (V), būve, testu sistēma, `data/ui*.json`,
+     grāmatas struktūra (sadaļa pievienota/izņemta/pārvietota, daļas, vāks). Šaubās — šie.
+   (Padomnieks 2026.10.23_1609, S msg 946 + Gurudas msg 952: dienā S tekstam pilnās regresijas nav; naktī pilnā
+   GitHub Actions — `scripts/qa_run.py full --ja-mainijies`, tikai ja `origin/main` mainījies.)
+
 
 Jebkura kļūda → **push bloķēts** ar skaidru ziņu, kurš tests un kurš Satkirti likums krita.
 
