@@ -20,7 +20,7 @@ import {
 } from "./book";
 import {
   DEFAULT_LANG,
-  LANGUAGES,
+  OFFERED_LANGUAGES,
   t,
   type LocaleData,
   type UiDict,
@@ -51,9 +51,9 @@ function hasBook(lang: string): boolean {
   return readJson<Book>(bookFile(lang)) !== null;
 }
 
-/** Codes of all languages whose book data exists. */
+/** Codes of the book's languages (retired ones left out, lib/languages.json replacedBy) whose book data exists. */
 export function availableLanguages(): string[] {
-  return LANGUAGES.filter((l) => hasBook(l.code)).map((l) => l.code);
+  return OFFERED_LANGUAGES.filter((l) => hasBook(l.code)).map((l) => l.code);
 }
 
 /** The book in `lang`, or the English book if that translation is missing. */
@@ -203,12 +203,12 @@ export function sectionNote(lang: string, id: string): string | undefined {
 }
 
 /**
- * TOC + UI strings for every language that has any data of its own.
- * Languages without data are left out; the client falls back to English.
+ * TOC + UI strings for every language of the book that has any data of its own.
+ * Languages without data, and retired languages, are left out; the client falls back to English.
  */
 export function getLocales(): Record<string, LocaleData> {
   const out: Record<string, LocaleData> = {};
-  for (const { code } of LANGUAGES) {
+  for (const { code } of OFFERED_LANGUAGES) {
     if (code !== DEFAULT_LANG && !hasBook(code) && !readJson(`ui.${code}.json`)) {
       continue;
     }

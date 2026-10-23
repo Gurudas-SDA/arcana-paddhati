@@ -22,8 +22,10 @@ function htmlFiles(dir) {
   return files;
 }
 
-for (const { code, htmlLang } of languages) {
+for (const { code, htmlLang, replacedBy } of languages) {
   if (code === "en") continue;
+  // retired: not built; its redirect pages (retired-lang-redirects.mjs) set their own lang
+  if (replacedBy) continue;
   const dir = join(outDir, code);
   if (!existsSync(dir)) continue;
   if (!existsSync(join(root, "data", `book.${code}.json`))) {

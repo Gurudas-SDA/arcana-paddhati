@@ -85,8 +85,10 @@ SUITES = [
     dict(id="s30", file="suites/s30_a65_toc_loading.py", title="A65 КСВ 07.10: «Содержание» 2. pieskāriens — uzreiz ielādes josla + «загружается…», atkārtots pieskāriens nesabojā, vecā lapa nemirgo",
          devices=["pixel7", "iphone14", "ipad-portrait", "desktop", "mac-safari"], fast=True,
          fast_devices=["pixel7", "iphone14", "desktop"]),
+    # s32: pt + lt removed from the book (S 23.10 Padomnieks 934–941) — not run while they are retired.
     dict(id="s32", file="suites/s32_lang_pt_lt.py", title="A73: valodas pt + lt — /pt/ un /lt/ atveras, «Аа» valodu izvēlnē, pilns tulkojums, IAST = EN, nav angļu teikumu, UI atslēgas, offline",
-         devices=["pixel7", "iphone14", "desktop"], fast=True, fast_devices=["pixel7", "desktop"]),
+         devices=["pixel7", "iphone14", "desktop"], fast=True, fast_devices=["pixel7", "desktop"],
+         skip="S 23.10 Padomnieks 934–941: valoda izņemta (pt, lt)"),
     dict(id="s33", file="suites/s33_toc_one_tap.py", title="TOC: chapter top, action-only Back, cover/search; one-tap default",
          devices=["s23fe", "iphone14", "pixel7", "desktop", "mac-safari"], fast=False),
     # s34 off: continuous reading is not used (Satkirti 14.10.2026 msg 3480); re-enable with CONTINUOUS_BOOK.
@@ -212,6 +214,8 @@ SUITES = [
          devices=["ipad-portrait", "iphone14"], fast=False, server=False),
     dict(id="s92", file="suites/s92_update_reaches_open_book.py", title="КСВ 22.10 iPad (S msg 6133 «не вижу Заключение»): saglabāta grāmata + jauns izlaidums, lēns tīkls (pirmais baits 4 s) → 2. reload / atvērta no jauna / atgriezta no fona rāda jauno versiju (≤60 s), negaidot visu lejupielādi",
          devices=["ipad-portrait"], fast=False, server=False),
+    dict(id="s109", file="suites/s109_two_languages.py", title="S 23.10 Padomnieks 934–941 «Оставляю два языка: английский и русский… оставить версию с IAST»: valodu izvēlnē tikai English + Русский (ru-iast); /ru/… → /ru-iast/…, /de/ /lv/ /uk/… → angliski (hash saglabāts), saglabātā izņemtā valoda → en/ru-iast; izņemtās valodas nav būvētas (nav meklēšanas indeksa, nav offline), dati saglabāti",
+         devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
 ]
 
 
@@ -347,6 +351,11 @@ def main():
         suites = [s for s in SUITES if s["fast"]]
     if a.suites_skip:
         suites = [s for s in suites if s["id"] not in a.suites_skip.split(",")]
+    # A suite with "skip" (a reason) is not run — e.g. it checks only languages removed from the book
+    # (S 23.10 Padomnieks 934–941); kept in the list, so it comes back by deleting "skip".
+    for s in [s for s in suites if s.get("skip")]:
+        print(f"  SKIP {s['id']}: {s['skip']}", flush=True)
+    suites = [s for s in suites if not s.get("skip")]
     devf = a.devices.split(",") if a.devices else None
     jobs = jobs_for(suites, a.fast, devf, split=True)
     # longest first (better packing)

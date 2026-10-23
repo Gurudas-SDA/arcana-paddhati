@@ -62,8 +62,22 @@ FAILS = []
 RESULTS = []
 
 
+def retired_file(fn):
+    """data/book.<lang>.json / ui.<lang>.json of a language removed from the book (lib/languages.json "replacedBy";
+    S 23.10 Padomnieks 934–941: valoda izņemta) — kept in git, not checked (not built, not translated any more)."""
+    m_ = re.match(r"(?:book|ui)\.([a-z-]+)\.json$", os.path.basename(fn))
+    return bool(m_ and m_.group(1) in qa.RETIRED_LANGS)
+
+
+class _Loaded(dict):
+    """Loaded book files; a check that names a file directly (e.g. the retired book.ru.json) still gets it."""
+    def __missing__(self, f):
+        self[f] = json.load(open(f, encoding="utf-8"))
+        return self[f]
+
+
 def books(pattern="book*.json"):
-    return sorted(glob.glob(os.path.join(qa.DATA, pattern)))
+    return sorted(f for f in glob.glob(os.path.join(qa.DATA, pattern)) if not retired_file(f))
 
 
 def walk(o, ctx, path):
@@ -178,10 +192,10 @@ class Check:
 
 
 def run(args):
-    ru = [os.path.join(qa.DATA, b) for b in CFG["ru_books"]]
+    ru = [os.path.join(qa.DATA, b) for b in CFG["ru_books"] if not retired_file(b)]
     allb = books()
     parts = "|".join(CFG["pair_second_parts"])
-    loaded = {f: json.load(open(f, encoding="utf-8")) for f in allb}
+    loaded = _Loaded({f: json.load(open(f, encoding="utf-8")) for f in allb})
     name = os.path.basename
     for f in allb:
         SEC_IDS[name(f)] = [s.get("id") for s in loaded[f].get("sections") or [] if isinstance(s, dict)]
@@ -885,8 +899,8 @@ def run(args):
     # ch3 first unnumbered row: pādya / arghya / ācamana pātra (each word stem must be there)
     TAIL = {"ru": ["падья", "аргхья", "ачамана"], "uk": ["падья", "арґгья", "ачамана"],
             "lv": ["padja", "arghja", "acamana"], "_": ["padya", "argya|arghya", "acamana"]}
-    LANGF = {"book.ru-iast.json": "ru", "book.ru.json": "ru", "book.json": "en"}
-    for f in sorted(glob.glob(os.path.join(qa.DATA, "book.*.json"))):
+    LANGF = {k: v for k, v in {"book.ru-iast.json": "ru", "book.ru.json": "ru", "book.json": "en"}.items() if not retired_file(k)}
+    for f in books("book.*.json"):
         m_ = re.match(r"book\.([a-z]+)\.json$", os.path.basename(f))
         if m_ and m_.group(1) in FIG:
             LANGF[os.path.basename(f)] = m_.group(1)
@@ -894,7 +908,7 @@ def run(args):
     NUMS = [str(i) for i in range(1, 19)]
     if sorted(hs, key=int) != NUMS:
         c.hit("hotspots.json", "common/paraphernalia.png", f"figure numbers {sorted(hs, key=int)} != 1–18")
-    for f in sorted(glob.glob(os.path.join(qa.DATA, "book*.json"))):
+    for f in books():
         if os.path.basename(f) not in LANGF:
             c.hit(os.path.basename(f), "L26", "language has no figure keywords in L26 (add them)")
     nl = 0
@@ -1223,7 +1237,7 @@ def run(args):
     # non-English book shows the English words (MoodBlock renders `lang="en" class="mood-quote` only without one).
     c = Check("L33", "«Стандарты» 30: non-EN books show Gurudev's words in translation (data: translation present; build: no English mood-quote)")
     for fn in sorted(os.listdir(qa.DATA)):
-        if not (fn.startswith("book.") and fn.endswith(".json")) or fn == "book.json":
+        if not (fn.startswith("book.") and fn.endswith(".json")) or fn == "book.json" or retired_file(fn):
             continue
         bk = loaded.get(os.path.join(qa.DATA, fn)) or json.load(open(os.path.join(qa.DATA, fn), encoding="utf-8"))
         for ctx_id, m in moods(bk):
@@ -1234,7 +1248,7 @@ def run(args):
     if not args.no_html and os.path.isdir(qa.OUT):
         en_quote = re.compile(r'lang="en"[^>]*class="mood-quote')
         for lang_dir in sorted(os.listdir(qa.OUT)):
-            if not os.path.isfile(os.path.join(qa.DATA, f"book.{lang_dir}.json")):
+            if not os.path.isfile(os.path.join(qa.DATA, f"book.{lang_dir}.json")) or lang_dir in qa.RETIRED_LANGS:
                 continue
             for dp, _, fns in os.walk(os.path.join(qa.OUT, lang_dir)):
                 for fn in fns:
@@ -1291,7 +1305,9 @@ def run(args):
     # of the book (top of the Introduction — the cover stays only the cover, rule 25), the line «Перевод выполнен
     # машинно и ещё не проверен носителем языка» in their language; RU / ru-iast / EN do not; no mark «машинный
     # перевод» at the Gurudev quotes in any language (data key mood.machine is no longer shown).
-    MACHINE_LANGS = ("lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt")
+    MACHINE_LANGS = tuple(l for l in ("lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt") if l not in qa.RETIRED_LANGS)
+    # S 23.10 Padomnieks 934–941: all 9 machine-translated languages removed from the book — their part of L35 is
+    # not checked (MACHINE_LANGS empty); the "not in RU/EN" and "no mark at quotes" parts still are.
     c = Check("L35", "«Стандарты» 76: machine-translation line at the start of the 9 machine-translated books, not in RU/EN; no mark at quotes")
     uis = {}
     for fn in sorted(os.listdir(qa.DATA)):
@@ -1318,7 +1334,7 @@ def run(args):
         marks = {lg: (u.get("mood.machine") or "").strip() for lg, u in uis.items() if lg != "en"}
         lab = re.compile(r'class="mood-label[^"]*"[^>]*>(.{0,400}?)</p>', re.S)
         for lang_dir in sorted(os.listdir(qa.OUT)):
-            mk = marks.get(lang_dir)
+            mk = marks.get(lang_dir) if lang_dir not in qa.RETIRED_LANGS else None
             if not mk:
                 continue
             for dp, _, fns in os.walk(os.path.join(qa.OUT, lang_dir)):

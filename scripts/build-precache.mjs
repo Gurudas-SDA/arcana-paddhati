@@ -69,9 +69,17 @@ function unreferencedMedia(rel) {
   }
   return unnamedMedia.has(rel);
 }
+// Retired languages (lib/languages.json "replacedBy", S 23.10.2026 Padomnieks 934–941): only redirect pages
+// under out/<code>/ (scripts/retired-lang-redirects.mjs) — not part of the offline book.
+const RETIRED = new Set(
+  JSON.parse(readFileSync(join(root, "lib", "languages.json"), "utf8"))
+    .filter((l) => l.replacedBy)
+    .map((l) => l.code)
+);
 
 // Never requested by the client router, or not part of the book.
 function excluded(rel) {
+  if (RETIRED.has(rel.split("/")[0]) && rel.includes("/")) return true;
   if (googleFallbackFont(rel)) return true;
   if (RASTER_BACKUPS.has(rel) || unreferencedMedia(rel)) return true;
   const name = rel.split("/").pop();

@@ -25,7 +25,8 @@ man = json.load(urllib.request.urlopen(BASE + '/precache-manifest.json'))
 ORIGIN = BASE.split('/arcana-paddhati')[0]
 pages = [u for u, g in zip(man['urls'], man['groups']) if g == 'ru-iast' and u.endswith('/')]
 trans = [u for u, g in zip(man['urls'], man['groups']) if g == 'transcripts' and u.endswith('.html')]
-other = [u for u, g in zip(man['urls'], man['groups']) if g == 'de' and u.endswith('/')]
+# the other language of the book (S 23.10 Padomnieks 934–941: en + ru-iast only; was 'de')
+other = [u for u, g in zip(man['urls'], man['groups']) if g == 'en' and u.endswith('/')]
 res = []
 
 

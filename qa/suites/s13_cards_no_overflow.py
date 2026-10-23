@@ -29,6 +29,7 @@ def pages():
     """(lang dir, section id, has a table block) for the books under test."""
     out = []
     langs = ["ru-iast", "ru"] if qa.fast() else ["ru-iast", "ru", "", "lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"]
+    langs = [l for l in langs if (l or "en") in qa.ACTIVE_LANGS]   # S 23.10 Padomnieks 934–941: only the book's languages
     for lang in langs:
         fn = os.path.join(qa.DATA, f"book.{lang}.json" if lang else "book.json")
         b = json.load(open(fn, encoding="utf-8"))

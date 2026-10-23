@@ -39,7 +39,7 @@ PAGES = [
     ("/ru-iast/mangalacarana/", ".wbw-word", ("iast_pants", ".verse-wbw")),
     ("/mangalacarana/", ".wbw-word", ("en_pants", ".verse-wbw")),
     ("/ru-iast/conclusion/", ".source-note", ("avots", ".source-note")),
-    ("/ru/arcana-procedure/", ".wbw-word", ("ru_sanskrits", ".verse-wbw")),
+    # ("/ru/arcana-procedure/", …) — Cyrillic Russian removed from the book (S 23.10 Padomnieks 934–941)
 ]
 SHOTS = os.environ.get("V49_SHOTS")
 SHOT_PREFIX = os.environ.get("V49_SHOT_PREFIX", "V49_")

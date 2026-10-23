@@ -14,6 +14,24 @@ OUT = os.path.join(REPO, "out")
 DATA = os.path.join(REPO, "data")
 PREFIX = "/arcana-paddhati"
 
+# The book's languages — from ONE place, lib/languages.json (a language with "replacedBy" is retired: not built,
+# its old URLs redirect). S 23.10.2026 (Padomnieks 934–941): «Оставляю два языка: английский и русский…
+# оставить версию с IAST» — ACTIVE_LANGS = ["en", "ru-iast"]. Suites that check only retired languages SKIP with
+# RETIRED_REASON; suites that iterate over languages use ACTIVE_LANGS. The data files stay (not deleted).
+import json as _json  # noqa: E402
+_LANGS_FILE = os.path.join(REPO, "lib", "languages.json")
+if not os.path.isfile(_LANGS_FILE):   # QA_REPO = a temporary data-only copy (s28, s46 …): this checkout's list
+    _LANGS_FILE = os.path.join(os.path.dirname(QA_DIR), "lib", "languages.json")
+_LANGUAGES = _json.load(open(_LANGS_FILE, encoding="utf-8"))
+ACTIVE_LANGS = [l["code"] for l in _LANGUAGES if not l.get("replacedBy")]
+RETIRED_LANGS = {l["code"]: l["replacedBy"] for l in _LANGUAGES if l.get("replacedBy")}
+RETIRED_REASON = "S 23.10 Padomnieks 934–941: valoda izņemta"
+
+
+def lang_prefix(code):
+    """URL prefix of a language ("" for English, "/ru-iast" …)."""
+    return "" if code == "en" else "/" + code
+
 IOS_UA = ("Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 "
           "(KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1")
 IPAD_UA = IOS_UA.replace("iPhone; CPU iPhone OS", "iPad; CPU OS")

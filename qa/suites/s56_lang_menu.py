@@ -1,7 +1,7 @@
 """Language menu in the book's style (Vraja Lila msg 5418, 20.10.2026: «1 — сделай его», variant 1).
 
 Task text (verbatim, mockup «Меню языка в стиле книги — вариант 1»): closed field «🌐 Русский ⌄» like the other
-«Аа» panel buttons; a tap opens a card above the field with all 11 languages (rows ≥ 44 px, thin dividers),
+«Аа» panel buttons; a tap opens a card above the field with all the book's languages (S 23.10: en + ru-iast) (rows ≥ 44 px, thin dividers),
 the current one on a cream base with a gold ✓; it closes on a tap outside the list or on choosing a language.
 Language switching itself (URL, liveLang, history) does not change.
 Vraja msg 5423 (verbatim): «можно так же затемнить всё на фоне, под выборкой языка, как на варианте 2».
@@ -91,7 +91,9 @@ with sync_playwright() as p:
                   overflow: getComputedStyle(l).overflowY,
                   expanded: document.querySelector('[data-lang-trigger]').getAttribute('aria-expanded'),
                   focusIn: l.contains(document.activeElement) || document.activeElement === l}; }""")
-        check(dev, "open: listbox with 11 languages, rows ≥ 44 px", lb and lb["n"] == 11 and lb["minH"] >= 44, lb)
+        # S 23.10 Padomnieks 934–941: the book's languages only (lib/languages.json without "replacedBy": en + ru-iast)
+        check(dev, f"open: listbox with the book's {len(qa.ACTIVE_LANGS)} languages, rows ≥ 44 px",
+              lb and lb["n"] == len(qa.ACTIVE_LANGS) and lb["minH"] >= 44, lb)
         check(dev, "open: current = ru-iast, aria-selected, gold ✓", lb and lb["cur"] == "ru-iast" and lb["check"], lb)
         check(dev, "open: aria-expanded=true, keyboard focus in the list", lb and lb["expanded"] == "true" and lb["focusIn"], lb)
         check(dev, "open: card inside the screen (scrolls if it does not fit)",
@@ -101,7 +103,7 @@ with sync_playwright() as p:
           return {cover: r.width >= innerWidth - 1 && r.height >= innerHeight - 1, alpha: a.length === 4 ? a[3] : (a.length ? 1 : 0)}; }""")
         check(dev, "open: the page behind is dimmed (Vraja msg 5423, like variant 2)", dim and dim["cover"] and 0.2 <= dim["alpha"] <= 0.7, dim)
         if dev == "phone-landscape":
-            check(dev, "small landscape: the list scrolls", lb and lb["scrollable"], lb)
+            check(dev, "small landscape: the list scrolls (when it does not fit)", lb and (lb["scrollable"] or lb["bottom"] <= lb["vh"] + 0.5), lb)
         # Esc closes the list (not the panel), focus back on the field
         pg.keyboard.press("Escape"); pg.wait_for_timeout(300)
         e = pg.evaluate("""() => ({list: !!document.querySelector('[role=listbox]'), panel: !!document.querySelector('.reader-panel'),

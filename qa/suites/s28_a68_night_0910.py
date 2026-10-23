@@ -83,7 +83,7 @@ def run_main(fake):
     orig_run, orig_argv, orig_log = NS.run_lang, sys.argv, NS.log
     NS.run_lang = lambda lang, sids, key_i, force: (lang, fake(lang))
     NS.log = lambda msg: None   # the real night_sync.log stays clean
-    sys.argv = ["night_sync.py", "parampara", "--langs", "lv,de"]
+    sys.argv = ["night_sync.py", "parampara", "--langs", "lv,de", "--include-retired"]   # mechanism test (lv/de retired 23.10)
     code = 0
     try:
         with contextlib.redirect_stdout(io.StringIO()):

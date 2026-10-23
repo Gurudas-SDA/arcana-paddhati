@@ -6,7 +6,7 @@ the other two from the same data files (data/book[.<lang>].json, ui.<lang>.json,
 public/media/cover/cover.jpg, public/media/*; 19.10.2026 media layout).
 
     python scripts/formats/build_formats.py                  # ru-iast (= Russian, IAST) + en, all formats
-    python scripts/formats/build_formats.py --lang ru,en,lv  # any language with data
+    python scripts/formats/build_formats.py --lang ru-iast,en  # the book's languages (retired ones are skipped)
     python scripts/formats/build_formats.py --formats print  # only the PDF
 
 Output (default): ../Арчана-паддхати — книга/ next to the repo, with
@@ -1220,7 +1220,7 @@ def write_app_folder(out: Path):
     d.mkdir(parents=True, exist_ok=True)
     (d / "Ссылка на приложение.url").write_text(f"[InternetShortcut]\r\nURL={APP_URL}\r\n", encoding="utf-8")
     (d / "Прочти меня.txt").write_text(
-        "Приложение «Арчана-паддхати» (вся книга на 10 языках, с поиском) открывается по ссылке "
+        "Приложение «Арчана-паддхати» (вся книга на английском и русском языках, с поиском) открывается по ссылке "
         f"{APP_URL} — его можно установить на телефон или компьютер (кнопка «Установить» / «Добавить на главный экран»).\r\n",
         encoding="utf-8-sig")
 
@@ -1235,6 +1235,13 @@ def main():
     ap.add_argument("--work", default="", help="keep intermediate files here (default: temp dir)")
     args = ap.parse_args()
     langs = [l.strip() for l in args.lang.split(",") if l.strip()]
+    # S 23.10.2026 (Padomnieks 934–941): the book is only en + ru-iast; a retired language (lib/languages.json
+    # "replacedBy") gets no PDF / EPUB — its data stays in git, giving it back = removing "replacedBy".
+    retired = {l["code"]: l["replacedBy"] for l in json.loads((REPO / "lib/languages.json").read_text(encoding="utf-8"))
+               if l.get("replacedBy")}
+    for l in [l for l in langs if l in retired]:
+        print(f"[{l}] skipped: language removed from the book (S 23.10 Padomnieks 934–941) -> {retired[l]}")
+    langs = [l for l in langs if l not in retired]
     formats = {f.strip() for f in args.formats.split(",") if f.strip()}
     out = Path(args.out)
     fonts = find_fonts()

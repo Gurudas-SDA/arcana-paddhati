@@ -1,5 +1,5 @@
-// Builds public/search-index.<lang>.json for every language in lib/languages.json
-// whose book exists (data/book.json for English, data/book.<lang>.json otherwise).
+// Builds public/search-index.<lang>.json for every language of the book in lib/languages.json
+// (retired ones — "replacedBy", S 23.10.2026 Padomnieks 934–941 — get none) whose book exists (data/book.json for English, data/book.<lang>.json otherwise).
 // One entry per section (its own body) and per subsection, with plain text.
 // A language without a book has no index; the app then searches the English one.
 // Runs automatically before `npm run build` / `npm run dev` (prebuild/predev).
@@ -76,7 +76,11 @@ for (const { code } of languages) {
   rmSync(join(root, "public", `search-index.${code}.json`), { force: true });
 }
 
-for (const { code } of languages) {
+for (const { code, replacedBy } of languages) {
+  if (replacedBy) {
+    console.log(`search index: ${code} — retired (-> ${replacedBy}), no index`);
+    continue;
+  }
   const file = join(root, "data", code === "en" ? "book.json" : `book.${code}.json`);
   if (!existsSync(file)) {
     console.log(`search index: ${code} — no ${file.slice(root.length + 1)}, skipped (English fallback)`);

@@ -2,13 +2,13 @@
   { "code": "en", "name": "English", "htmlLang": "en" },
   { "code": "ru", "name": "Русский (кириллица)", "htmlLang": "ru", "replacedBy": "ru-iast" },
   { "code": "ru-iast", "name": "Русский", "htmlLang": "ru" },
-  { "code": "lv", "name": "Latviešu", "htmlLang": "lv" },
-  { "code": "de", "name": "Deutsch", "htmlLang": "de" },
-  { "code": "fr", "name": "Français", "htmlLang": "fr" },
-  { "code": "es", "name": "Español", "htmlLang": "es" },
-  { "code": "it", "name": "Italiano", "htmlLang": "it" },
-  { "code": "uk", "name": "Українська", "htmlLang": "uk" },
-  { "code": "hu", "name": "Magyar", "htmlLang": "hu" },
-  { "code": "pt", "name": "Português", "htmlLang": "pt" },
-  { "code": "lt", "name": "Lietuvių", "htmlLang": "lt" }
+  { "code": "lv", "name": "Latviešu", "htmlLang": "lv", "replacedBy": "en" },
+  { "code": "de", "name": "Deutsch", "htmlLang": "de", "replacedBy": "en" },
+  { "code": "fr", "name": "Français", "htmlLang": "fr", "replacedBy": "en" },
+  { "code": "es", "name": "Español", "htmlLang": "es", "replacedBy": "en" },
+  { "code": "it", "name": "Italiano", "htmlLang": "it", "replacedBy": "en" },
+  { "code": "uk", "name": "Українська", "htmlLang": "uk", "replacedBy": "en" },
+  { "code": "hu", "name": "Magyar", "htmlLang": "hu", "replacedBy": "en" },
+  { "code": "pt", "name": "Português", "htmlLang": "pt", "replacedBy": "en" },
+  { "code": "lt", "name": "Lietuvių", "htmlLang": "lt", "replacedBy": "en" }
 ]

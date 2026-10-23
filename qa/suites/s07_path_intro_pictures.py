@@ -471,7 +471,7 @@ def run(p, dev, eng, o):
         _w(bk)
         short_tr = sum(1 for v in vv if qa.is_short_mantra(v.get("sanskrit")) and v.get("translation"))
         short_no = sum(1 for v in vv if qa.is_short_mantra(v.get("sanskrit")) and not v.get("translation"))
-        for lang in ("ru-iast", "ru"):
+        for lang in [l for l in ("ru-iast", "ru") if l in qa.ACTIVE_LANGS]:   # S 23.10 Padomnieks 934–941: ru removed
             tv = tw = 0; missing = []
             for sid in secs:
                 # Each chapter probe owns its page. Repeatedly navigating the

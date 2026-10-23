@@ -26,6 +26,7 @@ BASE = sys.argv[1].rstrip("/")
 CH = "arcana-procedure"
 DEVICES = qa.devices(["iphone14", "pixel7", "desktop"])
 LANGS = ["ru-iast", "ru", "", "lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"]
+LANGS = [l for l in LANGS if (l or "en") in qa.ACTIVE_LANGS]   # S 23.10 Padomnieks 934–941: only the book's languages
 results = []
 
 

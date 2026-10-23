@@ -34,7 +34,7 @@ def bundled(url):
 def pages():
     """(lang, section id) of pages whose FIRST mood block's main quote has a bundled transcript."""
     out = []
-    for lang in ["ru-iast", "ru"]:
+    for lang in [l for l in ["ru-iast", "ru"] if l in qa.ACTIVE_LANGS]:   # S 23.10 Padomnieks 934–941: ru removed
         b = json.load(open(os.path.join(qa.DATA, f"book.{lang}.json"), encoding="utf-8"))
         for s in b["sections"]:
             first = None

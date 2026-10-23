@@ -16,6 +16,8 @@ import sys
 
 REPO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
 LANGS = ["ru-iast", "ru", "en", "de", "es", "fr", "hu", "it", "lt", "lv", "pt", "uk"]
+_RETIRED = {l["code"] for l in json.load(open(os.path.join(REPO, "lib", "languages.json"), encoding="utf-8")) if l.get("replacedBy")}
+LANGS = [l for l in LANGS if l not in _RETIRED]   # S 23.10 Padomnieks 934–941: only the book's languages
 # «night» words (stems) in each language — the old label
 NIGHT = re.compile(r"night|ноч|nacht|noche|nuit|éjszak|ejszak|nott|nakt|noite|notur|nočn|ніч|нічн", re.I)
 V21_KEYS = ["search.noResults", "search.noSections", "part.empty", "reader.bg.night", "reader.layout.page",

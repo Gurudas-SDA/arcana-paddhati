@@ -37,7 +37,12 @@ REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 DATA = os.path.join(REPO, "data")
 URL = "https://anymodel.org/v1/chat/completions"
 MODELS = ["cx/gpt-6.1-sol", "cx/gpt-6-sol", "ag/gemini-3.8-flash-high"]  # 3. rezerve — Gurudas msg 862 (23.10 10:13), tikai kamēr cx/ nestrādā
-LANGS = ["lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"]
+LANGS = ["lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"]   # every language this script can translate (kept)
+# S 23.10.2026 (Padomnieks 934–941): the book is en + ru-iast only — the languages to translate by default are
+# LANGS without the retired ones (lib/languages.json "replacedBy", scripts/translate/aktivas_valodas.py); today none.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from aktivas_valodas import IEMESLS, IZNEMTAS, aktivas  # noqa: E402
+ACTIVE_LANGS = [l for l in LANGS if l not in IZNEMTAS]
 LNAME = {"lv": "Latvian", "de": "German", "fr": "French", "es": "Spanish", "it": "Italian", "uk": "Ukrainian",
          "hu": "Hungarian", "pt": "Portuguese", "lt": "Lithuanian"}
 # A73 (Gurudas 10.10): one AnyModel key per language when several languages run in parallel
@@ -602,13 +607,21 @@ def targets_of(sids):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("sections", nargs="+")
-    ap.add_argument("--langs", default=",".join(LANGS))
+    ap.add_argument("--langs", default=",".join(ACTIVE_LANGS))
+    ap.add_argument("--include-retired", action="store_true",
+                    help="also translate languages removed from the book (tests; giving a language back)")
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--moods", action="store_true", help="translate the Gurudev quotes of these sections (moods.json)")
     a = ap.parse_args()
-    langs = a.langs.split(",")
+    langs = [l for l in a.langs.split(",") if l]
+    if not a.include_retired:
+        langs = aktivas(langs, log)
     for sid in a.sections:
         assert sid in GENERATOR, "no generator registered for " + sid
+    if not langs:
+        log("nothing to translate: no active translation language (%s)" % IEMESLS)
+        print(json.dumps({}, ensure_ascii=False))
+        return
     with cf.ThreadPoolExecutor(len(langs)) as ex:
         if a.moods:
             tg = targets_of(a.sections)

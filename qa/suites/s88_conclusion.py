@@ -25,10 +25,14 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 DATA = os.path.join(REPO, "data")
+sys.path.insert(0, os.path.join(REPO, "qa", "lib"))
+import qa  # noqa: E402  (ACTIVE_LANGS)
 sys.stdout.reconfigure(encoding="utf-8")
 res = []
 CYR_DIA = re.compile("[а-яА-ЯёЁ][̣̄̃̇́]")
 BOOKS = {"en": "book.json", "ru": "book.ru.json", "ru-iast": "book.ru-iast.json"}
+BOOKS = {k: v for k, v in BOOKS.items() if k in qa.ACTIVE_LANGS}   # S 23.10 Padomnieks 934–941: ru removed
+RU = "ru" if "ru" in BOOKS else "ru-iast"
 CYCLE = ["пробужд", "мангала-арати", "утро", "завтрак", "полдень", "после полудня", "вечер", "ночь"]
 
 
@@ -54,14 +58,14 @@ if not all(secs.values()):
     print(f"RESULT: {sum(res)}/{len(res)} pass")
     sys.exit(1)
 
-chk("a ru title «Заключение»", secs["ru"]["title"] == "Заключение" and secs["ru-iast"]["title"] == "Заключение",
-    secs["ru"]["title"])
+chk("a ru title «Заключение»", secs[RU]["title"] == "Заключение" and secs["ru-iast"]["title"] == "Заключение",
+    secs[RU]["title"])
 chk("a en title «Conclusion»", secs["en"]["title"] == "Conclusion", secs["en"]["title"])
 for lang, b in books.items():
     chk(f"a {lang}: last section of the book", b["sections"][-1]["id"] == "conclusion", b["sections"][-1]["id"])
     chk(f"a {lang}: outside every part", all("conclusion" not in p["sections"] for p in b.get("parts", [])))
 
-titles = [s["title"].lower() for s in secs["ru"]["subsections"]]
+titles = [s["title"].lower() for s in secs[RU]["subsections"]]
 pos, at = [], 0
 for key in CYCLE:
     j = next((i for i in range(at, len(titles)) if key in titles[i]), None)
@@ -72,7 +76,7 @@ chk("b ru: the day cycle in order (" + " → ".join(CYCLE) + ")", None not in po
 chk("b ru: waking first, rest at night", None not in pos and "пробужд" in titles[pos[0]] and "отдых" in titles[pos[-1]],
     titles)
 chk("b en/ru-iast: same subsections", [s["id"] for s in secs["en"]["subsections"]] ==
-    [s["id"] for s in secs["ru"]["subsections"]] == [s["id"] for s in secs["ru-iast"]["subsections"]])
+    [s["id"] for s in secs[RU]["subsections"]] == [s["id"] for s in secs["ru-iast"]["subsections"]])
 
 counts = {}
 for lang, sec in secs.items():
@@ -89,12 +93,12 @@ for lang, sec in secs.items():
             bad.append(bl[i]["content"][:60])
     counts[lang] = len(q)
     chk(f"c {lang}: every quotation has its source line (no., date, timecode, transcript link)", not bad, bad)
-chk("c ≥ 20 quotations, the same in en/ru/ru-iast", counts["ru"] >= 20 and len(set(counts.values())) == 1, counts)
+chk("c ≥ 20 quotations, the same in en/ru/ru-iast", counts[RU] >= 20 and len(set(counts.values())) == 1, counts)
 
 raw_iast = json.dumps(secs["ru-iast"], ensure_ascii=False)
 chk("d ru-iast: no Cyrillic with diacritics", not CYR_DIA.search(raw_iast), CYR_DIA.findall(raw_iast)[:5])
-prose = [secs["ru"]["title"], secs["ru"]["subtitle"] or ""] + [s["title"] for s in secs["ru"]["subsections"]]
-for b in blocks(secs["ru"]):
+prose = [secs[RU]["title"], secs[RU]["subtitle"] or ""] + [s["title"] for s in secs[RU]["subsections"]]
+for b in blocks(secs[RU]):
     if b["type"] in ("text", "sources"):
         prose.append(re.sub(r"⟦[^⟦⟧]*⟧", "", b.get("content", "")))
     if b["type"] == "verse":

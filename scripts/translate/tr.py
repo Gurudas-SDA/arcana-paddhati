@@ -23,6 +23,11 @@ SRC = os.path.join(PROJ, "data", "book.json")
 URL = "https://anymodel.org/v1/chat/completions"
 MODEL = "cx/gpt-5.6-sol"
 LANGS = ["ru", "lv", "de", "fr", "es", "it", "uk", "hu"]
+# S 23.10.2026 (Padomnieks 934–941): languages removed from the book (lib/languages.json "replacedBy") are not
+# translated by default ("glossary" / "all" / "assemble" without a language); naming one explicitly still works.
+sys.path.insert(0, HERE)
+from aktivas_valodas import IZNEMTAS  # noqa: E402
+DEFAULT_LANGS = [l for l in LANGS if l not in IZNEMTAS]
 LNAME = {"ru": "Russian", "lv": "Latvian", "de": "German", "fr": "French",
          "es": "Spanish", "it": "Italian", "uk": "Ukrainian", "hu": "Hungarian"}
 # Languages translated from the marked source (book.json with ⟦…⟧ spans and wbw, since a9fd723):
@@ -495,7 +500,7 @@ def locked_report(name, final):
 def assemble():
     rep = []
     allb = {}
-    for lang in LANGS:
+    for lang in DEFAULT_LANGS:
         allb.update(build(lang))
     src_s = dict(iter_sanskrit(strip_locked(book)))
     U = units()
@@ -719,12 +724,12 @@ if __name__ == "__main__":
         PURPOSE = "arcana-" + sys.argv[2]
     try:
         if cmd == "glossary":
-            for l in (sys.argv[2:] or LANGS):
+            for l in (sys.argv[2:] or DEFAULT_LANGS):
                 build_glossary(l)
         elif cmd == "run":
             run_lang(sys.argv[2], sys.argv[3:] or None)
         elif cmd == "all":
-            for l in LANGS:
+            for l in DEFAULT_LANGS:
                 run_lang(l)
         elif cmd == "assemble":
             if len(sys.argv) > 2:
