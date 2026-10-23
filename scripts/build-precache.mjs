@@ -25,8 +25,22 @@ const VERSION_PLACEHOLDER = "__PRECACHE_VERSION__";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const outDir = join(root, "out");
 
+// V49 (Vraja Lila msg 6363/6364): font files offline = only our own cut (app/fonts, copied byte for byte by
+// next/font/local). The full Google Noto Serif files (next/font/google, 8 files, ~447 KB) are a fallback for a
+// character outside the cut — not stored offline; online the SW still caches one the moment a page uses it.
+const OWN_FONTS = new Set(
+  readdirSync(join(root, "app", "fonts"))
+    .filter((n) => n.endsWith(".woff2"))
+    .map((n) => createHash("sha1").update(readFileSync(join(root, "app", "fonts", n))).digest("hex"))
+);
+function googleFallbackFont(rel) {
+  if (!rel.startsWith("_next/static/media/") || !rel.endsWith(".woff2")) return false;
+  return !OWN_FONTS.has(createHash("sha1").update(readFileSync(join(outDir, rel))).digest("hex"));
+}
+
 // Never requested by the client router, or not part of the book.
 function excluded(rel) {
+  if (googleFallbackFont(rel)) return true;
   const name = rel.split("/").pop();
   if (name === "desktop.ini") return true;
   if (name.endsWith(".map")) return true;

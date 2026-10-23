@@ -4,7 +4,10 @@ Rule text (verbatim): «Шрифты: прямое начертание свое
 Checks per page (cover, Parampara, a long chapter; RU-IAST and EN):
   - the text is drawn by our cut (loaded FontFaces of the --font-arcana-* families), the full Google Noto Serif
     files are not downloaded for these pages (they stay as a fallback for characters outside the cut);
-  - preloaded font bytes ≤ 80 KB (was 248 KB) — # tehniskais slieksnis Lipikāra, nav S noteikums (~67 KB measured).
+  - preloaded font bytes ≤ 130 KB (was 248 KB) — # tehniskais slieksnis Lipikāra, nav S noteikums (~67 KB measured
+    20.10; V49 23.10: + the true italic of the same cut, Vraja Lila msg 6363/6364 «big да» — 6 files, 123 016 B).
+V49 (Vraja Lila msg 6363/6364, interface owner, «Стандарты» 0а) replaces «italic — нет»: the cut has a true italic
+(Noto Serif Italic, the same characters, weights 400–700) — checked in s102.
 usage: python s53_fonts_own_cut.py <base-url>
 """
 import json
@@ -18,7 +21,7 @@ from playwright.sync_api import sync_playwright  # noqa: E402
 BASE = sys.argv[1].rstrip("/")
 PAGES = ["/ru-iast/", "/ru-iast/parampara/", "/ru-iast/caturmasya-purusottama-masa/", "/arcana-procedure/"]
 DEVICES = qa.devices(["pixel7", "iphone14", "desktop"])
-PRELOAD_MAX = 80 * 1024  # tehniskais slieksnis Lipikāra, nav S noteikums
+PRELOAD_MAX = 130 * 1024  # tehniskais slieksnis Lipikāra, nav S noteikums
 results = []
 
 

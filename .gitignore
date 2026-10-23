@@ -63,3 +63,6 @@ scripts/chapters/__pycache__/
 
 # night sync log
 scripts/translate/night_sync.log
+
+# Noto Serif sources of scripts/font_subset.py (downloaded, not in git)
+/scripts/.font-src/
