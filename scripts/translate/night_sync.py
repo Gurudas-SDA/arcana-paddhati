@@ -4,7 +4,7 @@
 Rule (Gurudas): by day only RU + EN are edited; at night the other languages are brought up to date.
 
 For each section id given, the ENGLISH section (data/book.json) is translated into each language with
-AnyModel cx/gpt-6.1-sol (fallback cx/gpt-6-sol, logged; both failing -> that language is skipped and reported).
+AnyModel cx/gpt-6.1-sol (fallback cx/gpt-6-sol, logged; both failing -> that language is skipped and reported). Third fallback ag/gemini-3.8-flash-high (Gurudas 23.10, msg 862); the model of each section is logged (DONE … model=) and stored in i18n.json.
 Translated: section/subsection titles, table cells with words, text/instruction/subtitle/list content, verse translations, word-by-word
 meanings (the Sanskrit words of a gloss stay byte-identical), portrait captions, image alt, table headers/badges,
 paired-list labels/values. Never touched: verse `sanskrit` (IAST), ids, src, numbers, mood blocks (moods.json).
@@ -36,7 +36,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 DATA = os.path.join(REPO, "data")
 URL = "https://anymodel.org/v1/chat/completions"
-MODELS = ["cx/gpt-6.1-sol", "cx/gpt-6-sol"]
+MODELS = ["cx/gpt-6.1-sol", "cx/gpt-6-sol", "ag/gemini-3.8-flash-high"]  # 3. rezerve — Gurudas msg 862 (23.10 10:13), tikai kamēr cx/ nestrādā
 LANGS = ["lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"]
 LNAME = {"lv": "Latvian", "de": "German", "fr": "French", "es": "Spanish", "it": "Italian", "uk": "Ukrainian",
          "hu": "Hungarian", "pt": "Portuguese", "lt": "Lithuanian"}
