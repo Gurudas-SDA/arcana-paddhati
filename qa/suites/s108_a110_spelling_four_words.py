@@ -20,7 +20,7 @@ res = []
 
 def chk(name, ok, ev=""):
     res.append(bool(ok))
-    print(("PASS" if ok else "FAIL"), name, ev, flush=True)
+    print(f"  [{'PASS' if ok else 'FAIL'}] data {name} {ev if not ok else ''}".rstrip(), flush=True)
 
 
 files = sorted(glob.glob(os.path.join(DATA, "book*.json")))
