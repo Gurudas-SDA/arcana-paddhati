@@ -121,9 +121,12 @@ def run(p,dev,eng,kw,mode):
     pg.wait_for_timeout(800)
     # 3: contents order
     open_contents(pg)
-    order = pg.evaluate("[...document.querySelectorAll('aside nav [data-toc-cover], aside nav .toc-scroll > ul > li')].map(l=>l.innerText.trim().split('\\n')[0].trim()).filter(Boolean).slice(0,4)")
-    # v7.4 (Satkirti 06.10 / 07.10.2026): the parampara stands between the cover and the Maṅgalācaraṇa
-    ck(dev, '3 contents: Обложка → Гуру-парампара → Мангалачарана → ВВЕДЕНИЕ', order[:4] == ['Обложка', 'Гуру-парампара', 'Мангалачарана', 'ВВЕДЕНИЕ'], order)
+    order = pg.evaluate("[...document.querySelectorAll('aside nav [data-toc-cover], aside nav .toc-scroll > ul > li')].map(l=>l.innerText.trim().split('\\n')[0].trim()).filter(Boolean).slice(0,6)")
+    # v7.4 (Satkirti 06.10 / 07.10.2026): the parampara stands between the cover and the Maṅgalācaraṇa.
+    # A105 (23.10): «Эпиграф» right after the cover (S msg 6152 «сразу же после обложки», title msg 6241) and
+    # «Джая-дхвани» AFTER «Гуру-парампара», BEFORE «Мангалачарана» (S msg 6180 p.3) — the same order s101 checks in the data
+    ck(dev, '3 contents: Обложка → Эпиграф → Гуру-парампара → Джая-дхвани → Мангалачарана → ВВЕДЕНИЕ',
+       order[:6] == ['Обложка', 'Эпиграф', 'Гуру-парампара', 'Джая-дхвани', 'Мангалачарана', 'ВВЕДЕНИЕ'], order)
     # 1: REPLACED by V35 (Vraja Lila msg 1226 / 1319, 21–22.10.2026, saskarnes autors, «Стандарты» 0а): «при выдвижении
     # боковой панели нижняя панель прячется вниз … боковая панель — на ПОЛНУЮ высоту»; V38b (msg 1320): no bottom bar on
     # the cover at all. Checked: the menu panel reaches the screen's bottom and the bottom bar is not on screen (s86).
@@ -145,7 +148,12 @@ def run(p,dev,eng,kw,mode):
     ck(dev, '6d «Молитва Шри Радхе-Говинде» gone', 'Радхе-Говинде' not in qa.reading_eval(pg, "root => root.innerText"))
     # V17: the next chapter is the bottom bar's «Вперёд ›» (no block at the chapter's end)
     nxt = pg.evaluate("() => document.querySelector('[data-reader-nav=forward]')?.getAttribute('data-chapter-target') || ''")
-    ck(dev, '3 «Вперёд ›» after Мангалачарана = Введение', nxt == 'introduction', nxt)
+    # A105 (S msg 6152/6239): «Введение» has no own text any more; since V45 (Vraja Lila msg 6178 / 1412) such a section
+    # has no page of its own, so the step goes to its first chapter «Эмблема Гаудия-матха»
+    import json as _json
+    _intro = next(s for s in _json.load(open(os.path.join(qa.DATA, 'book.ru-iast.json'), encoding='utf-8'))['sections'] if s['id'] == 'introduction')
+    _want = 'introduction' if (_intro.get('content') or []) else 'gaudiya-emblem'
+    ck(dev, f'3 «Вперёд ›» after Мангалачарана = Введение (its first chapter when it has no own text) = {_want}', nxt == _want, nxt)
     # 8: verse panels closed by default; no carry-over
     # Centering the first chip can move the reading line into Parampara on a
     # tall viewport. Keep the action and its assertion in the chapter opened

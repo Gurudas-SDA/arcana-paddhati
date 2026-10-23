@@ -66,6 +66,23 @@ def texts(o, path=()):
             yield from texts(v, path + ((v.get("id") if isinstance(v, dict) and isinstance(v.get("id"), str) else i),))
 
 
+# «Tulkojums gaida» (Gurudas 23.10 msg 868, CLAUDE.md [TULKOJUMI-NEKAVE]: RU/EN go into the book without the
+# translations; a language whose translation failed keeps the previous version of a changed section, a new section is
+# English until translated — a known state, not FAIL). ONLY the A105/A106 sections and ONLY the (language, section)
+# pairs listed in qa/tulkojumi_gaida.json are exempt from the translation checks below (Sanskrit = EN, no English prose,
+# English ≤ 0.5 %, Gurudev's quotes translated); everything else stays strict. lint L38 keeps the list current.
+A105_A106 = {"upadesha-sara", "jaya-dhvani-front", "conclusion"}
+_TG = os.path.join(qa.REPO, "qa", "tulkojumi_gaida.json")
+_TGL = json.load(open(_TG, encoding="utf-8")).get("pending", []) if os.path.exists(_TG) else []
+TULK = {(p["lang"], p["section"], "moods" if p.get("kind") == "moods" else "section") for p in _TGL if p.get("section") in A105_A106}
+
+
+def waiting(code, path, kind="section"):
+    """True when this book path lies in an A105/A106 section whose translation into `code` is still waiting."""
+    parts = path.split("/")
+    return len(parts) > 1 and parts[0] == "sections" and (code, parts[1], kind) in TULK
+
+
 EN_STOP = set("the and of to is are with for which should be this that from by on his her their your you it as at "
               "when then while into after before must all one each".split())
 
@@ -105,33 +122,40 @@ def data_checks():
             and all(p["title"] != q["title"] for p, q in zip(b["parts"], en["parts"])), str(b.get("parts"))[:200])
         sk = dict(sk_fields(b))
         bad = [k for k in en_sk if sk.get(k) != en_sk[k]] + [k for k in sk if k not in en_sk]
-        chk(dev, f"{code}: every Sanskrit (IAST) field byte-identical to EN ({len(en_sk)})", not bad, str(bad[:5]))
+        tw = [k for k in bad if waiting(code, k)]
+        bad = [k for k in bad if not waiting(code, k)]
+        chk(dev, f"{code}: every Sanskrit (IAST) field byte-identical to EN ({len(en_sk)}; tulkojums gaida: {len(tw)})", not bad, str(bad[:5]))
         bad_ri = [k for k in ri_sk if k in sk and sk[k] != ri_sk[k]]
         chk(dev, f"{code}: Sanskrit fields = RU-IAST ({len(ri_sk)})", not bad_ri, str(bad_ri[:5]))
         en_t = dict(texts(en))
         tr_t = dict(texts(b))
         empty = [k for k, v in tr_t.items() if not v.strip() and en_t.get(k, "").strip()]
         chk(dev, f"{code}: no empty text where English has text", not empty, str(empty[:5]))
-        same_long = [k for k, v in tr_t.items() if v == en_t.get(k) and english_ratio(v)[0] >= 0.2]
+        same_long = [k for k, v in tr_t.items() if v == en_t.get(k) and english_ratio(v)[0] >= 0.2 and not waiting(code, k)]
         chk(dev, f"{code}: no English prose copied untranslated", not same_long, str(same_long[:5]))
-        eng = [(k, round(r, 2)) for k, v in tr_t.items() for r, n in [english_ratio(v)] if r >= 0.25 and n >= 8]
-        n = len(tr_t)
+        eng = [(k, round(r, 2)) for k, v in tr_t.items() for r, n in [english_ratio(v)] if r >= 0.25 and n >= 8 and not waiting(code, k)]
+        n = len([k for k in tr_t if not waiting(code, k)])
         chk(dev, f"{code}: English sentences left ≤ 0.5 % of {n} text fields (found {len(eng)})", len(eng) <= n * 0.005,
             str(eng[:6]))
-        moods = []
-
-        def mw(o):
+        def mw(o, sid=None, acc=None):
             if isinstance(o, dict):
                 if o.get("type") == "mood":
-                    moods.append(o)
+                    acc.append((sid, o))
                 for v in o.values():
-                    mw(v)
+                    mw(v, sid, acc)
             elif isinstance(o, list):
                 for v in o:
-                    mw(v)
-        mw(b)
-        mw_en = sum(1 for _ in re.finditer(r'"type": "mood"', json.dumps(en, ensure_ascii=False)))
-        chk(dev, f"{code}: Gurudev's quotes ({mw_en}) present with a translation",
+                    mw(v, sid, acc)
+            return acc
+        def by_sec(book):
+            acc = []
+            for s in book["sections"]:
+                mw(s, s["id"], acc)
+            return acc
+        moods = [m for sid, m in by_sec(b) if (code, sid, "moods") not in TULK and (code, sid, "section") not in TULK]
+        mw_all = by_sec(en)
+        mw_en = len([1 for sid, _ in mw_all if (code, sid, "moods") not in TULK and (code, sid, "section") not in TULK])
+        chk(dev, f"{code}: Gurudev's quotes ({mw_en} of {len(mw_all)}; the rest tulkojums gaida) present with a translation",
             len(moods) == mw_en and all(m.get("translation", "").strip() and m["translation"] != m["quote"] for m in moods),
             f"{len(moods)} blocks")
         # Keys a language file may have and ui.en.json has not: «Стандарты» 76 — the machine-translation line at the
@@ -191,7 +215,11 @@ def run(p, dev, eng, o):
             body = pg.evaluate("(document.querySelector('main')||document.body).innerText.length")
             # tehniskais slieksnis Lipikāra, nav S noteikums: «not empty» = > 200 characters (was 300; since 22.10 the
             # Introduction holds one verse (Upadeśāmṛta 8 since Satkirti msg 6137/6139; before ŚB 11.3.48 — lt 289 characters))
-            chk(dev, f"{code}/{sid}: heading + text not empty", r and r.status == 200 and h1 and body > 200,
+            # A105 (S msg 6152 UM 8 «не во Введении», msg 6239 ŚB 11.3.48 «убираем совсем»): «Введение» has no own text in
+            # any book (EN, RU too — s101 a); then only the heading is required, as in the English book
+            own = bool(next((s for s in EN_BOOK["sections"] if s["id"] == sid), {}).get("content"))
+            chk(dev, f"{code}/{sid}: heading + text not empty{'' if own else ' (no own text in the EN book: heading only)'}",
+                r and r.status == 200 and h1 and (body > 200 or not own),
                 f"status {r and r.status} h1 «{h1[:40]}» text {body}")
         # «Аа» panel: the language menu
         vw = pg.viewport_size
@@ -224,6 +252,9 @@ def run(p, dev, eng, o):
     chk(dev, "no page errors", not errs, str(errs[:3]))
     c.close()
     b.close()
+
+
+EN_BOOK = load("book.json")
 
 
 def main():

@@ -11,13 +11,17 @@ E picture <-> list: tap on a picture part -> row highlighted (computed bg) + scr
 F cover: no «v.1», CA block (emblem left, text right, centred), cover fully on screen
 G Maṅgalācaraṇa: title only, no subtitle, no explanatory headings; every verse has «пословно»
 H «Праздники, обеты и песни арати» (+ English)
-I every verse of the book (ru-iast, ru) has a «пословно» chip in the UI (274 = 180 + 61 verses of the ārati songs, v7.4, + 30 of the Kārtika bhajans, v7.6, + 3 of «Заключение», 22.10)
+I every verse of the book (ru-iast, ru) has a «пословно» chip in the UI (274 = 180 + 61 verses of the ārati songs, v7.4, + 30 of the Kārtika bhajans, v7.6, + 3 of «Заключение», 22.10;
+  306 since A105/A106, 23.10: + «Эпиграф» UM 8 (S msg 6152/6241) − the same verse no longer in «Введение» (S msg 6152;
+  ŚB 11.3.48 removed, S msg 6239) + 31 calls of «Джая-дхвани» (S msg 6155/6180/6281) + UM 8 again at the end of
+  «Заключение» (S msg 6151); all of them with «пословно» — s101 checks their content)
 """
 import os as _os, sys as _sys
 _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "lib"))
 import qa
 from toc import Contents, marks_place
-VERSES = 274  # 180 + 61 verses of the maṅgala-/gaura-ārati songs (Reader v7.4, Satkirti 07.10 13:07) + 30 Kārtika bhajans (v7.6) + 3 of «Заключение» (22.10, Satkirti msg 6065)
+VERSES = 306  # 23.10 A105/A106: 274 − 1 (UM 8 out of «Введение») + 1 «Эпиграф» + 31 «Джая-дхвани» + 1 UM 8 in «Заключение»
+# (S msg 6151/6152/6155/6239/6281; see the docstring, I). Was 274: 180 + 61 verses of the maṅgala-/gaura-ārati songs (Reader v7.4, Satkirti 07.10 13:07) + 30 Kārtika bhajans (v7.6) + 3 of «Заключение» (22.10, Satkirti msg 6065)
 import io, json, os, sys, urllib.request
 from urllib.parse import urlparse
 from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout, Error as PWError
@@ -359,7 +363,12 @@ def run(p, dev, eng, o):
     chk(dev, "D Introduction «Вперёд ›» -> «Эмблема Гаудия-матха»", nx.count() == 1 and nx.get_attribute("data-chapter-target") == "gaudiya-emblem", nx.get_attribute("data-chapter-target") if nx.count() else "")
     goto(f"/{L}/mangalacarana/")
     nx = pg.locator("[data-reader-nav=forward]").get_attribute("data-chapter-target")
-    chk(dev, "D Мангалачарана «Вперёд ›» -> «Введение» (v7.1)", nx == "introduction", nx)
+    # v7.1: «Вперёд ›» after the Maṅgalācaraṇa = «Введение». Since A105 (S msg 6152 «не во Введении», msg 6239 ŚB 11.3.48
+    # «убираем совсем») «Введение» has no own text, and since V45 a section without own text has no page of its own
+    # (Vraja Lila msg 6178 / 1412): the step then goes to its first chapter, «Эмблема Гаудия-матха».
+    _intro = next(s for s in json.load(open(os.path.join(qa.DATA, f"book.{L}.json"), encoding="utf-8"))["sections"] if s["id"] == "introduction")
+    _want = "introduction" if (_intro.get("content") or []) else "gaudiya-emblem"
+    chk(dev, f"D Мангалачарана «Вперёд ›» -> «Введение» (v7.1; its first chapter when it has no own text) = {_want}", nx == _want, nx)
     goto(f"/{L}/vigraha-tattva/")
     h1 = qa.reading_locator(pg, "article h1")
     chk(dev, "D Виграха-таттва page: no chapter number in the title", h1.locator(".heading-num").count() == 0, h1.inner_text())

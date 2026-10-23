@@ -171,8 +171,10 @@ def run(p, dev, eng, o):
         const first = sc.querySelector('[data-toc-row]');
         return {fits, inScroll: sc.contains(cov), moved: Math.abs(r1 - r0), scrolled: sc.scrollTop,
                 firstRow: first && first.textContent.trim(), coverTop: r1, scTop: sc.getBoundingClientRect().top}; }""")
-    chk(dev, "3 «Обложка» in the fixed part (does not scroll), list scrolls under it from «Гуру-парампара»",
-        not f["inScroll"] and f["moved"] < 1 and (f["scrolled"] > 0 or f["fits"]) and f["firstRow"] == "Гуру-парампара" and f["coverTop"] < f["scTop"], str(f))
+    # A105 (23.10): the first row of the list is «Эпиграф» — the page right after the cover (S msg 6152, title msg 6241);
+    # before A105 it was «Гуру-парампара». The rule itself (UI-11.3) is unchanged.
+    chk(dev, "3 «Обложка» in the fixed part (does not scroll), list scrolls under it from «Эпиграф»",
+        not f["inScroll"] and f["moved"] < 1 and (f["scrolled"] > 0 or f["fits"]) and f["firstRow"] == "Эпиграф" and f["coverTop"] < f["scTop"], str(f))
     pg.evaluate("document.querySelector('.mobile-menu[data-open] .toc-scroll').scrollTop = 0")
 
     # ---------- 4: full-width rows ----------
