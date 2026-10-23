@@ -9,7 +9,7 @@
 // uses the per-object pixel mask ("mask") when present, the ellipse otherwise.
 import data from "@/data/hotspots.json";
 
-export interface Hotspot {
+interface Hotspot {
   x: number;
   y: number;
   rx: number;

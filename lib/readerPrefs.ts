@@ -65,7 +65,7 @@ function layoutSnapshot(): ReaderLayout {
 }
 
 /** Put the stored preferences on <html>. */
-export function applyReaderPrefs() {
+function applyReaderPrefs() {
   const root = document.documentElement;
   const theme = themeSnapshot();
   if (theme === "white") root.removeAttribute("data-reader-theme");

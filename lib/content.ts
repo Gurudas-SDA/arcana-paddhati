@@ -21,7 +21,6 @@ import {
 import {
   DEFAULT_LANG,
   LANGUAGES,
-  getLanguage,
   t,
   type LocaleData,
   type UiDict,
@@ -48,7 +47,7 @@ function bookFile(lang: string) {
 const englishBook = () => readJson<Book>(bookFile(DEFAULT_LANG))!;
 
 /** True if data/book.<lang>.json exists (always true for English). */
-export function hasBook(lang: string): boolean {
+function hasBook(lang: string): boolean {
   return readJson<Book>(bookFile(lang)) !== null;
 }
 
@@ -58,7 +57,7 @@ export function availableLanguages(): string[] {
 }
 
 /** The book in `lang`, or the English book if that translation is missing. */
-export function getBook(lang: string): Book {
+function getBook(lang: string): Book {
   return readJson<Book>(bookFile(lang)) ?? englishBook();
 }
 
@@ -69,7 +68,7 @@ export function getSectionIds(): string[] {
 
 /** True if section `id` is shown in English on a `lang` page because that
  *  translation does not have it yet (the page then says so in `lang`). */
-export function isFallbackSection(lang: string, id: string): boolean {
+function isFallbackSection(lang: string, id: string): boolean {
   if (lang === DEFAULT_LANG) return false;
   const own = readJson<Book>(bookFile(lang));
   return !own || !own.sections.some((s) => s.id === id);
@@ -140,7 +139,7 @@ export function getToc(lang: string): TocSection[] {
 }
 
 /** The Introduction group of the contents (lib/book.ts frontGroup()). */
-export function getFrontGroup(): { head: string; members: string[] } | null {
+function getFrontGroup(): { head: string; members: string[] } | null {
   return frontGroup(getSectionIds(), englishBook().parts ?? []);
 }
 
@@ -149,7 +148,7 @@ export function getFrontGroup(): { head: string; members: string[] } | null {
  * sections) has word-by-word meanings. Decides whether the sidebar offers
  * the "Show all word-by-word" switch.
  */
-export function hasWordByWord(lang: string): boolean {
+function hasWordByWord(lang: string): boolean {
   return getSectionIds().some((id) => {
     const s = getSection(lang, id)!;
     return [s.content, ...(s.subsections ?? []).map((sub) => sub.content)].some(
@@ -182,7 +181,7 @@ export function uiWithFallback(lang: string, keys: string[]): { strings: Record<
 }
 
 /** First section of the book after the cover and the front pages: the Introduction. */
-export const MACHINE_NOTE_SECTION = "introduction";
+const MACHINE_NOTE_SECTION = "introduction";
 
 /**
  * The line under a section's heading (or undefined):
@@ -201,11 +200,6 @@ export function sectionNote(lang: string, id: string): string | undefined {
     if (own?.["book.machineNote"]) return own["book.machineNote"];
   }
   return undefined;
-}
-
-/** <html lang> for pages of `lang`: English when the text falls back to English. */
-export function htmlLangFor(lang: string): string {
-  return hasBook(lang) ? (getLanguage(lang)?.htmlLang ?? lang) : DEFAULT_LANG;
 }
 
 /**

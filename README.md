@@ -14,7 +14,7 @@ Built with Next.js (App Router) as a fully static export and hosted on GitHub Pa
   - `parampara/NN-<slug>.webp` (+ `.png` fallback) — guru-paramparā portraits 00-pancha-tattva … 08-prem-prayojan;
     `parampara/photo/` — photos masked by code (scripts/parampara/replace_photo.py);
   - `hotspots/<picture>/NN.png` — per-object masks of the interactive pictures (scripts/build_hotspot_masks.py);
-  - `common/` — single pictures: gaudiya-emblem, tilak, paraphernalia, ca-logo (+ conch-shankha, frame-red-cartouche: not used in the app);
+  - `common/` — single pictures: gaudiya-emblem, tilak, paraphernalia, ca-logo (conch-shankha, frame-red-cartouche — never used — removed in V50, kept in Arcana-paddhati/archive/2026.10.23_V50 …);
   - `cover/` — cover.jpg + cover.webp / cover-440.webp (the home page shows the WebP).
 - `masters/` — originals (never served), same layout, e.g. `masters/parampara/`.
 - Icons, favicon and manifest.json stay in `public/`.

@@ -2144,11 +2144,7 @@ html[data-hs-peek] .app-main {
   overflow-wrap: normal;
 }
 
-/* Continuous reading starts with a full cover, then follows book order.
-   Following chapters provide the room formerly reserved at each page end. */
-.continuous-book .book-cover {
-  min-height: calc(100dvh - var(--reader-pad-bottom));
-}
+/* Continuous reading: following chapters provide the room formerly reserved at each page end. */
 .continuous-book .book-section:not(:last-child) .chapter-end-space {
   display: none;
 }

@@ -12,7 +12,7 @@ const PAGES = pages as Record<string, string>;
 const ID_RE = /\/d\/([\w-]+)|[?&]id=([\w-]+)/;
 
 /** The in-app page of a transcript link, or null if it is not bundled. */
-export function transcriptPage(url: string | undefined): string | null {
+function transcriptPage(url: string | undefined): string | null {
   if (!url) return null;
   const m = ID_RE.exec(url);
   const id = m ? (m[1] ?? m[2]) : null;
