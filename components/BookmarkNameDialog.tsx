@@ -191,7 +191,7 @@ export default function BookmarkNameDialog({
             <button
               type="submit"
               data-bookmark-dialog-confirm=""
-              className="min-h-[44px] rounded-lg px-5 text-sm font-semibold text-white bg-gradient-to-br from-[#D4A843] to-[#B8860B] shadow-sm"
+              className="min-h-[44px] rounded-lg px-5 text-sm font-semibold text-white bg-gradient-to-br from-[var(--ap-band-1)] to-[var(--ap-band-2)] shadow-sm"
             >
               {t(ui, "bookmark.dialog.confirm")}
             </button>

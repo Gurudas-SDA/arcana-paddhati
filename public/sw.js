@@ -420,7 +420,7 @@ function offlinePage(url) {
   return new Response(
     `<!doctype html><html lang="${ru ? 'ru' : 'en'}" translate="no"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">` +
       `<title>Арчана-паддхати</title><body style="font-family:Georgia,serif;background:#FDF8F0;color:#2C1810;padding:24px;line-height:1.6">` +
-      `<p>${text}</p><p><a href="${BASE}" style="color:#8B6508">‹ ${ru ? 'К книге' : 'To the book'}</a></p></body></html>`,
+      `<p>${text}</p><p><a href="${BASE}" style="color:#965700">‹ ${ru ? 'К книге' : 'To the book'}</a></p></body></html>`,
     { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
   );
 }

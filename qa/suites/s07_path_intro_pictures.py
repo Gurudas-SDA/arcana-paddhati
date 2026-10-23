@@ -32,7 +32,31 @@ S23_UA = ("Mozilla/5.0 (Linux; Android 14; SM-S711B) AppleWebKit/537.36 (KHTML, 
 MAC_UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15")
 DEVICES = qa.devices(['pixel7', 's23fe', 'iphone14', 'ipad-portrait', 'ipad-landscape', 'desktop', 'mac-safari'])
 L = "ru-iast"
-LIT_BG = "rgb(250, 243, 232)"
+# Vraja Lila msg 6346 (22.10.2026, V47b maket 2 «да, берём этот вариант»): Vraja as the interface owner («Стандарты»
+# 0а, 93) replaces UI-2.4 «лёгкая полупрозрачная бежевая полоска»: the bands are the one gold token --ap-gold
+# (#965700, white theme) at N % — «Содержание» lit row 10 %, a marked list row 26 % (faili/2026.10.22_V47b_maket2_alfas.md).
+# Was: lit row rgb(250, 243, 232), row band rgba(212, 168, 67, 0.32).
+GOLD = (150, 87, 0)
+LIT_PCT, ROW_PCT = 10, 26
+
+
+def band_ok(v, pct):
+    """v = the token at pct % (rgb()/rgba()/color(srgb …)); tehniskais slieksnis Lipikāra, nav S noteikums:
+    colour within 3 per channel, alpha within 0.011."""
+    import re as _re
+    v = v or ""
+    m = _re.search(r"rgba?\(([^)]*)\)", v)
+    if m:
+        p = [float(x) for x in _re.split(r"[ ,/]+", m.group(1).strip()) if x]; p = p[:3] + [p[3] if len(p) > 3 else 1.0]
+    else:
+        m = _re.search(r"color\(srgb ([^)]*)\)", v)
+        if not m:
+            return False
+        p = [float(x) for x in _re.split(r"[ /]+", m.group(1).strip()) if x]
+        p = [x * 255 for x in p[:3]] + [p[3] if len(p) > 3 else 1.0]
+    return all(abs(p[i] - GOLD[i]) <= 3 for i in range(3)) and abs(p[3] - pct / 100) <= 0.011
+
+
 res = []
 
 
@@ -164,7 +188,7 @@ def run(p, dev, eng, o):
     chk(dev, "A open «Содержание»", contents())
     states.append(flow.state())
     g = lit()
-    chk(dev, "A fresh contents: one row lit = current chapter, in view, beige band", g.get("n") == 1 and g.get("chapter") == "daily-duties-brahma-muhurta" and g["inView"] and g["bg"] == LIT_BG, str(g))
+    chk(dev, "A fresh contents: one row lit = current chapter, in view, gold band 10 % (Vraja msg 6346)", g.get("n") == 1 and g.get("chapter") == "daily-duties-brahma-muhurta" and g["inView"] and band_ok(g["bg"], LIT_PCT), str(g))
     chk(dev, "C no «Начало главы» row (open chapter list)", pg.locator(".mobile-menu[data-open] [data-toc-chapter-start]").count() == 0 and "Начало главы" not in pg.locator(".mobile-menu[data-open] nav").inner_text(), "")
     first = pg.locator(".mobile-menu[data-open] #toc-ch-daily-duties-brahma-muhurta li").first.inner_text().strip()
     chk(dev, "C chapter list starts with subsection «1.1.»", first.startswith("1.1."), first)
@@ -184,7 +208,7 @@ def run(p, dev, eng, o):
         names == ["Эмблема Гаудия-матха", "Виграха-таттва"], str(names))
     chk(dev, "A expanding «Введение» keeps one reading-place mark, in view, with its colours",
         marks_place(flow.state()) and flow.state()['lit'] == before['lit'] and g["inView"]
-        and g["bg"] == LIT_BG and g["color"] == "rgb(150, 87, 0)", str(g))
+        and band_ok(g["bg"], LIT_PCT) and g["color"] == "rgb(150, 87, 0)", str(g))
     act(intro_arrow); states.append(flow.state())
     chk(dev, "D second tap on «Введение» collapses it",
         intro_arrow.get_attribute("aria-expanded") == "false" and pg.locator(".mobile-menu[data-open] #toc-grp-introduction").count() == 0)
@@ -232,7 +256,7 @@ def run(p, dev, eng, o):
     g = lit()
     chk(dev, "A Back -> preceding Contents action, reading place marked and in view",
         same_place(flow.state(), states[-2]) and g.get("menu") and g.get("n") == 1
-        and g["inView"] and g["bg"] == LIT_BG, str(g))
+        and g["inView"] and band_ok(g["bg"], LIT_PCT), str(g))
     shot("back-1-reading-place")
     back_steps = [
         "A Back step 2 -> chapter collapsed, same URL and open lists",
@@ -287,7 +311,7 @@ def run(p, dev, eng, o):
     g = lit()
     chk(dev, "A tap «Храмовый стандарт» keeps the reading-place mark (only it)",
         flow.state()['lit'] == before['lit'] and marks_place(flow.state())
-        and g.get("n") == 1 and g["bg"] == LIT_BG, str(g))
+        and g.get("n") == 1 and band_ok(g["bg"], LIT_PCT), str(g))
     fv = pg.locator(".mobile-menu[data-open] [data-toc-group=festivals-vows]")
     chk(dev, "H part title «Праздники, обеты и песни арати»", "ПРАЗДНИКИ, ОБЕТЫ И ПЕСНИ АРАТИ" in fv.inner_text().upper(), fv.inner_text())
     before = flow.state()
@@ -384,7 +408,7 @@ def run(p, dev, eng, o):
             except PWTimeout:
                 pass
             r = pg.evaluate(ROW_JS)
-            ok = bool(r) and r["top"] >= 0 and r["bottom"] <= r["lim"] + 1 and r["bg"].startswith("rgba(212, 168, 67") and r["faded"] and r["lit"]
+            ok = bool(r) and r["top"] >= 0 and r["bottom"] <= r["lim"] + 1 and band_ok(r["bg"], ROW_PCT) and r["faded"] and r["lit"]
             chk(dev, f"E {label}: tap picture part {n} -> part + row highlighted, list scrolled to the row", ok, str(r))
             if n == spots[0] and SHOTS and dev in ("pixel7", "s23fe", "iphone14", "ipad-portrait"):
                 shot(f"emblem-row-{label}")
@@ -400,7 +424,7 @@ def run(p, dev, eng, o):
           return {row: !!row, bg, faded: !!document.querySelector('[data-reader-current] .hs-img-faded'),
             lit: document.querySelectorAll('[data-reader-current] .hs-lit').length};
         }""")
-        chk(dev, f"E {label}: tap a list row -> row band + picture part highlighted", r["row"] and r["faded"] and r["lit"] >= 1 and r["bg"].startswith("rgba(212, 168, 67"), str(r))
+        chk(dev, f"E {label}: tap a list row -> row band + picture part highlighted", r["row"] and r["faded"] and r["lit"] >= 1 and band_ok(r["bg"], ROW_PCT), str(r))
 
     spot_test(f"/{L}/gaudiya-emblem/", ["3", "2.1", "10", "11", "12"], "emblem")
     spot_test(f"/{L}/daily-duties-brahma-muhurta/", ["5"], "tilak")

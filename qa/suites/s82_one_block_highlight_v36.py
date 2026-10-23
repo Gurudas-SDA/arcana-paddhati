@@ -42,8 +42,10 @@ FIND = """([text]) => { const rows = [...document.querySelectorAll('.app-main [d
 MEASURE = """([text]) => { const rows = [...document.querySelectorAll('.app-main [data-hs-row]')]
     .filter(r => r.tagName !== 'SPAN' && (text ? r.textContent.includes(text) : r.querySelector('.hs-cell-first')));
   const r = text ? rows[0] : rows[1];
-  const alpha = (c) => { const m = c.match(/rgba?\\(([^)]+)\\)/); if (!m) return 0; const p = m[1].split(',').map(Number);
-    return p.length > 3 ? p[3] : 1; };
+  // V47b (Vraja Lila msg 6346): the band is color-mix(--ap-gold N%, transparent) — its computed value is
+  // color(srgb r g b / a), not rgba(); read the alpha of both forms (measurement, the threshold is unchanged)
+  const alpha = (c) => { const m = c.match(/rgba?\\(([^)]+)\\)/) || c.match(/color\\(srgb ([^)]+)\\)/); if (!m) return 0;
+    const p = m[1].split(/[ ,\\/]+/).filter(Boolean).map(Number); return p.length > 3 ? p[3] : 1; };
   const painted = [r, ...r.querySelectorAll('*')].filter(e => e.getClientRects().length && alpha(getComputedStyle(e).backgroundColor) >= 0.2);
   // the row's content: every text node's boxes
   const w = document.createTreeWalker(r, NodeFilter.SHOW_TEXT); const boxes = [];
@@ -52,7 +54,8 @@ MEASURE = """([text]) => { const rows = [...document.querySelectorAll('.app-main
   const box = (b) => [Math.round(b.left), Math.round(b.top), Math.round(b.right), Math.round(b.bottom)];
   const band = painted.length === 1 ? painted[0].getBoundingClientRect() : null;
   const inside = !!band && boxes.every(b => b.left >= band.left - 1 && b.right <= band.right + 1 && b.top >= band.top - 1 && b.bottom <= band.bottom + 1);
-  return {active: r.hasAttribute('data-active'), painted: painted.map(e => e.tagName.toLowerCase() + '.' + (e.className || '').toString().split(' ')[0]),
+  return {active: r.hasAttribute('data-active'), bg: getComputedStyle(painted.length === 1 ? painted[0] : r).backgroundColor,
+          painted: painted.map(e => e.tagName.toLowerCase() + '.' + (e.className || '').toString().split(' ')[0]),
           radius: painted.length === 1 ? parseFloat(getComputedStyle(painted[0]).borderTopLeftRadius) : null,
           band: band && box(band), text: boxes.length && [Math.round(Math.min(...boxes.map(b => b.left))), Math.round(Math.max(...boxes.map(b => b.right)))], inside}; }"""
 

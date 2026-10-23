@@ -26,20 +26,46 @@ colour change is made once, in `tokens.css`.
 
 | Token | Value | Use |
 |---|---|---|
-| `--ds-accent` | `var(--ap-gold, #B8860B)` | gold: icons, a chip's text, frames |
-| `--ds-accent-deep` | `var(--ap-gold, #8B6508)` | gold text on the cream fill (open state) |
-| `--ds-accent-soft` | `#D4A843` | the soft chip's frame |
+| `--ds-accent` | `var(--ap-gold, #965700)` | gold: icons, a chip's text, frames |
+| `--ds-accent-deep` | `var(--ap-gold, #965700)` | gold text on the cream fill (open state) |
+| `--ds-accent-soft` | `color-mix(in srgb, var(--ap-gold) 60%, transparent)` | the soft chip's frame (V47: the one gold, lighter) |
 | `--ds-fill` / `--ds-fill-soft` | `#F5E6C8` / `#FDF8F0` | open / picked fill; the soft chip at rest |
 | `--ds-line` | `#E8DCC8` | thin frames and lines |
 | `--ds-band` | `var(--rd-row-stripe)` | tables' alternating row |
 | `--ds-band-active` | `var(--rd-row-active)` | a marked row (one block) |
-| `--ds-row-lit` / `--ds-row-hover` | `#FAF3E8` / `#FDF8F0` | lit / hovered row of «Содержание» |
+| `--ds-row-lit` / `--ds-row-hover` | `var(--ap-band-toc)` (token 10 %, night 5 %) / `#FDF8F0` | lit / hovered row of «Содержание» |
 | `--ds-text` / `--ds-text-muted` | `var(--rd-fg)` / `var(--rd-muted)` | text; labels and numbers |
 | `--ds-radius-pill` / `-band` / `-block` | `9999px` / `4px` / `6px` | chip; band; marked row |
 | `--ds-target` | `44px` | minimum tap target |
 | `--ds-dur-fast` / `--ds-dur-slide`, `--ds-ease` | `150ms` / `220ms`, `ease` | colour and arrow; menu and bars |
 | `--ds-focus` / `--ds-focus-w` / `--ds-focus-gap` | `var(--ap-gold)` / `2px` / `2px` | THE focus line: colour, width, outline offset of a frameless control (V43) |
 | `--ds-field-line` | `var(--ap-gold)` | a text field's 1 px frame (WCAG 1.4.11 ≥ 3:1, V33) |
+
+### One gold (V47, Vraja Lila 22.10.2026)
+
+Every gold element of the book — icons, gold text, frames, focus, the «Saving to your phone» bar, the ❀ between
+verses, the chapter ornament, mantra lines, table rules, link underlines, portrait frames, scrollbars, loading
+spinners, the transcripts' links — takes ONE colour: `var(--ap-gold)` (variant B, honey amber: `#965700` on white /
+sepia, `#E3A03C` on night and on the dark toast — `--ap-gold-on-dark`). A lighter gold is the same token mixed
+(`color-mix(in srgb, var(--ap-gold) N%, …)`), never a second hex. The old golds (`#D4A843`, `#B8860B`, `#8B6508`,
+`#E8B04A`) are not used anywhere. Guarded by `qa/suites/s99_one_gold_v47.py`.
+
+V47b (Vraja Lila msg 6346, maket 2 «да, берём этот вариант»): the translucent bands are the same token at N %
+(`color-mix(in srgb, var(--ap-gold) N%, transparent)`, N = the old beige band's visual intensity, white / sepia / night):
+
+| Band | Variable | N % |
+|---|---|---|
+| «Содержание» lit row | `--ap-band-toc` | 10 / 10 / 5 |
+| selected row (one block) | `--rd-row-active` | 26 / 25 / 27 |
+| alternating row stripe | `--rd-row-stripe` | 5 / 5 / 4 |
+| search: word in the results | `--ap-band-mark` | 40 / 38 / 44 |
+| search: word in the text | `--ap-band-hit` | 44 / 42 / 44 |
+| bookmark glow | `--ap-band-flash` | 31 / 30 / 39 |
+
+Text: section numbers («4.11.», text and «Содержание») `--ap-num` = the token muted toward the text (light pages) /
+toward the page (night); Sanskrit words in night = the token 55 % with the night text; part labels, the «Закладки» tab,
+the loading note `--ap-label` (#7A5E38 brown / night muted text). The old beige-gold text tones (#9C7A4E, #A88C63,
+#D9BC8C) are not used.
 
 ## Components
 
@@ -130,6 +156,10 @@ colour change is made once, in `tokens.css`.
   bottom bar faded while the bar slid over it, so the text showed through its uncovered part): it stays an opaque
   sheet and is simply covered; it leaves the screen (transform) only after the panel has fully covered it.
   Test: `qa/suites/s96_bars_opaque_while_moving_v44.py` (A, B; C — the status line).
+  Whatever floats ABOVE a sliding bar (V46, Vraja Lila msg 6321 — the one-time hint «Tap empty space to show the menu»
+  stood under the bottom bar, only its top edge showed): it rests wholly above the bar (bar height + 12 px) while the bar
+  is out and moves with the bar (same 220 ms ease, so it never goes under it), as an opaque sheet; it fades in only
+  where it stands. Test: `qa/suites/s98_hint_above_bottom_bar_v46.py`.
 - **«Содержание»:** opening `ap-menu-in` (forwards); closing its own `ap-menu-out` played **forwards** with the same
   ease (not the opening in reverse — reversing also reverses the ease: slow start, abrupt end). The panel is removed
   from the page only on its `animationend` (a timer is only a safety net): closing makes the page busy for

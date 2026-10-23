@@ -8,9 +8,9 @@
   --color-cream-dark: #F5E6C8;
   --color-brown: #2C1810;
   --color-brown-light: #5C3D2E;
-  --color-gold: #B8860B;
+  --color-gold: var(--ap-gold);  /* V47: one gold — the variant B token */
   --color-gold-light: #F5E6C8;
-  --color-gold-muted: #D4A843;
+  --color-gold-muted: var(--ap-gold);
 }
 
 @theme inline {
@@ -50,18 +50,18 @@ body {
 }
 
 .sidebar-scroll::-webkit-scrollbar-thumb {
-  background-color: #D4A843;
+  background-color: var(--ap-gold);
   border-radius: 3px;
 }
 
 .sidebar-scroll::-webkit-scrollbar-thumb:hover {
-  background-color: #B8860B;
+  background-color: var(--ap-gold);
 }
 
 /* Firefox scrollbar */
 .sidebar-scroll {
   scrollbar-width: thin;
-  scrollbar-color: #D4A843 transparent;
+  scrollbar-color: var(--ap-gold) transparent;
 }
 
 /* Sanskrit text styling — bold serif (like printed book) */
@@ -213,7 +213,7 @@ body {
   animation: bookmark-flash 2.6s ease-out;
 }
 @keyframes bookmark-flash {
-  0%, 35% { background-color: rgba(232, 176, 74, 0.38); box-shadow: 0 0 0 6px rgba(232, 176, 74, 0.38); }
+  0%, 35% { background-color: var(--ap-band-flash); box-shadow: 0 0 0 6px var(--ap-band-flash); }
   100% { background-color: transparent; box-shadow: 0 0 0 6px transparent; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -360,7 +360,8 @@ body {
    muted; computed in code (lib/book.ts sectionNumbers), not part of the
    title text, so search is unaffected. */
 .heading-num {
-  color: #9C7A4E;
+  /* V47b (Vraja Lila msg 6346 «цифры в старом цвете»): the one gold token, muted toward the text (was #9C7A4E) */
+  color: var(--ap-num);
   font-variant-numeric: tabular-nums;
   margin-right: 0.4em;
 }
@@ -546,14 +547,15 @@ html[data-home-save] .home-save-slot {
   border-radius: 1px;
 }
 .home-save-track i.on {
-  background: #D4A843;
+  background: var(--ap-gold);  /* V47 (Vraja Lila): the variant B gold, not the old light gold */
 }
 .home-save-track i.part {
-  background: linear-gradient(90deg, #D4A843 var(--part, 50%), #F5E6C8 var(--part, 50%));
+  background: linear-gradient(90deg, var(--ap-gold) var(--part, 50%), #F5E6C8 var(--part, 50%));
 }
 .home-save-track.is-idle i.on,
 .home-save-track.is-idle i.part {
-  background: #E6D3A8;
+  /* paused: the same gold, faded */
+  background: color-mix(in srgb, var(--ap-gold) 35%, #F5E6C8);
 }
 .home-save-done {
   display: flex;
@@ -588,10 +590,14 @@ html[data-reader-theme="night"] .home-save-track i {
   background: #2E271E;
 }
 html[data-reader-theme="night"] .home-save-track i.on {
-  background: #B8860B;
+  background: var(--ap-gold);
 }
 html[data-reader-theme="night"] .home-save-track i.part {
-  background: linear-gradient(90deg, #B8860B var(--part, 50%), #2E271E var(--part, 50%));
+  background: linear-gradient(90deg, var(--ap-gold) var(--part, 50%), #2E271E var(--part, 50%));
+}
+html[data-reader-theme="night"] .home-save-track.is-idle i.on,
+html[data-reader-theme="night"] .home-save-track.is-idle i.part {
+  background: color-mix(in srgb, var(--ap-gold) 40%, #2E271E);
 }
 
 /* Numbered lists: a sub-item (2.1 …) starts at the main items' text line. */
@@ -637,9 +643,9 @@ html[data-reader-theme="night"] .home-save-track i.part {
   transition: background-color 180ms ease, color 150ms ease;
 }
 .hs-row[data-active] .hs-text {
-  /* The interface's beige-gold, semi-transparent: clearly visible on white
+  /* The one gold token, semi-transparent (V47b maket 2, Vraja Lila msg 6346): clearly visible on white
      and on the sepia page (Satkirti 06.10.2026: «хоть полупрозрачная»). */
-  background-color: rgba(212, 168, 67, 0.32);
+  background-color: var(--rd-row-active);
   color: #2C1810;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -656,7 +662,7 @@ html[data-reader-theme="night"] .home-save-track i.part {
   transition: background-color 180ms ease, color 150ms ease;
 }
 .hs-row[data-active] .hs-cell {
-  background-color: rgba(212, 168, 67, 0.32);
+  background-color: var(--rd-row-active);
   color: #2C1810;
 }
 .hs-row[data-active] .hs-cell-first {
@@ -733,7 +739,7 @@ html:root .hs-row:is(li, div)[data-active] :is(.hs-text, .hs-cell) {
 }
 /* Alternating bands on a linked list, so a place and its mantra read as one
    row on a narrow screen. Decoration, not a state: the selection band
-   (rgba(212,168,67,.32)) sits on top of it and stays clearly stronger.
+   (--rd-row-active) sits on top of it and stays clearly stronger.
    Taps are unchanged, the band is not a target (rules §1, §11). */
 /* The same bands on every two-column list (.pl-row; Vraja Lila msg 5398/5399, 20.10.2026). */
 .hs-row:nth-of-type(even),
@@ -893,29 +899,39 @@ html:root .hs-row:is(li, div)[data-active] :is(.hs-text, .hs-cell) {
   --rd-muted: #5C3D2E;
   --rd-faint: rgba(92, 61, 46, 0.55);
   --rd-accent: var(--ap-gold);
-  --rd-mantra-fg: color-mix(in srgb, #B8860B 60%, var(--rd-fg));
-  --rd-mantra-rule: #B8860B;
+  --rd-mantra-fg: color-mix(in srgb, var(--ap-gold) 60%, var(--rd-fg));
+  --rd-mantra-rule: var(--ap-gold);
   --rd-bar-bg: #FFFFFF;
   --rd-border: #E8DCC8;
   --rd-hover: #F5E6C8;
   --rd-panel-bg: #FFFFFF;
-  --rd-row-active: rgba(212, 168, 67, 0.32);
+  /* V47b (Vraja Lila msg 6346, maket 2): every translucent band = the one gold token at N % (N per place × theme,
+     Vraja_Lila/faili/2026.10.22_V47b_maket2_alfas.md — the same visual intensity as the old beige bands) */
+  --rd-row-active: color-mix(in srgb, var(--ap-gold) 26%, transparent);
   /* alternating band on linked lists (tilak, 16 articles): decoration only,
-     far weaker than the selection band so the two never read alike */
-  --rd-row-stripe: rgba(212, 168, 67, 0.065);
+     far weaker than the selection band so the two never read alike (5 % — same method as the table) */
+  --rd-row-stripe: color-mix(in srgb, var(--ap-gold) 5%, transparent);
+  --ap-band-toc: color-mix(in srgb, var(--ap-gold) 10%, transparent);       /* «Содержание»: the lit row */
+  --ap-band-mark: color-mix(in srgb, var(--ap-gold) 40%, transparent);      /* search: the word in the results */
+  --ap-band-hit: color-mix(in srgb, var(--ap-gold) 44%, transparent);       /* search: the word in the text */
+  --ap-band-flash: color-mix(in srgb, var(--ap-gold) 31%, transparent);     /* a bookmark's place on arrival */
   --reader-pad-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
 }
 html[data-reader-theme="sepia"] {
   --rd-bg: #EFE6D2;
   --rd-fg: #2a2016;
-  --rd-mantra-fg: color-mix(in srgb, #B8860B 50%, var(--rd-fg));
-  --rd-mantra-rule: #B8860B;
+  --rd-mantra-fg: color-mix(in srgb, var(--ap-gold) 50%, var(--rd-fg));
+  --rd-mantra-rule: var(--ap-gold);
   --rd-bar-bg: #EFE6D2;
   --rd-border: #DCCCAC;
   --rd-hover: #E5D8BC;
   --rd-panel-bg: #F6F0E2;
-  --rd-row-active: rgba(212, 168, 67, 0.32);
-  --rd-row-stripe: rgba(120, 88, 30, 0.06);
+  --rd-row-active: color-mix(in srgb, var(--ap-gold) 25%, transparent);
+  --rd-row-stripe: color-mix(in srgb, var(--ap-gold) 5%, transparent);
+  --ap-band-toc: color-mix(in srgb, var(--ap-gold) 10%, transparent);
+  --ap-band-mark: color-mix(in srgb, var(--ap-gold) 38%, transparent);
+  --ap-band-hit: color-mix(in srgb, var(--ap-gold) 42%, transparent);
+  --ap-band-flash: color-mix(in srgb, var(--ap-gold) 30%, transparent);
 }
 html[data-reader-theme="night"] {
   --rd-bg: #16130F;
@@ -924,13 +940,17 @@ html[data-reader-theme="night"] {
   --rd-faint: rgba(187, 174, 154, 0.5);
   --rd-accent: var(--ap-gold);
   --rd-mantra-fg: var(--color-gold-muted);
-  --rd-mantra-rule: #D4A843;
+  --rd-mantra-rule: var(--ap-gold);
   --rd-bar-bg: #1C1813;
   --rd-border: #3A3128;
   --rd-hover: #2E271F;
   --rd-panel-bg: #211C16;
-  --rd-row-active: rgba(212, 168, 67, 0.28);
-  --rd-row-stripe: rgba(242, 233, 218, 0.045);
+  --rd-row-active: color-mix(in srgb, var(--ap-gold) 27%, transparent);
+  --rd-row-stripe: color-mix(in srgb, var(--ap-gold) 4%, transparent);
+  --ap-band-toc: color-mix(in srgb, var(--ap-gold) 5%, transparent);
+  --ap-band-mark: color-mix(in srgb, var(--ap-gold) 44%, transparent);
+  --ap-band-hit: color-mix(in srgb, var(--ap-gold) 44%, transparent);
+  --ap-band-flash: color-mix(in srgb, var(--ap-gold) 39%, transparent);
   color-scheme: dark;
 }
 
@@ -1188,7 +1208,7 @@ html[data-reader-bars] .reader-toast {
   min-height: 40px;
   padding: 4px 12px 4px 4px;
   border-radius: 9999px;
-  color: #E8B04A;
+  color: var(--ap-gold-on-dark);  /* V47: the variant B gold for a dark background */
   font-weight: 700;
   -webkit-tap-highlight-color: transparent;
 }
@@ -1421,7 +1441,7 @@ html[data-aa-open] .lang-backdrop.lang-backdrop-out {
 /* Search (Reader v7.8, Satkirti 07.10.2026): the found word stands out — in the
    results and, after opening one, in the text (CSS Custom Highlight API). */
 .search-mark {
-  background-color: rgba(212, 168, 67, 0.5);
+  background-color: var(--ap-band-mark);
   color: #1a1a1a;
   border-radius: 3px;
   padding: 0 1px;
@@ -1429,16 +1449,26 @@ html[data-aa-open] .lang-backdrop.lang-backdrop-out {
   -webkit-box-decoration-break: clone;
 }
 ::highlight(search-hit) {
-  background-color: rgba(212, 168, 67, 0.55);
+  background-color: var(--ap-band-hit);
   color: #1a1a1a;
 }
 html[data-reader-theme="night"] .search-mark {
-  background-color: rgba(212, 168, 67, 0.45);
+  background-color: var(--ap-band-mark);
   color: #F2E9DA;
 }
 html[data-reader-theme="night"] ::highlight(search-hit) {
-  background-color: rgba(212, 168, 67, 0.45);
+  background-color: var(--ap-band-hit);
   color: #F2E9DA;
+}
+/* V47b: in sepia the lit row of «Содержание» (token 10 %) is darker than the page, so its gold text is the token
+   15 % toward the text (4.78 : 1, AA; plain token 4.06) — s81 */
+html[data-reader-theme="sepia"] .bg-\[var\(--ap-band-toc\)\].text-\[var\(--ap-gold\)\],
+html[data-reader-theme="sepia"] .bg-\[var\(--ap-band-toc\)\] .text-\[var\(--ap-gold\)\] {
+  color: color-mix(in srgb, var(--ap-gold) 85%, var(--rd-fg));
+}
+/* V47b: the in-text fallback mark (no Highlight API) = the same band as ::highlight(search-hit), not the list's */
+html .search-mark.search-hit-fb {
+  background-color: var(--ap-band-hit);
 }
 .reader-theme-btn[aria-pressed="true"] {
   border-color: var(--rd-accent);
@@ -1461,7 +1491,7 @@ html[data-reader-theme="night"] ::highlight(search-hit) {
   --lang-check: var(--ap-gold);
 }
 html[data-reader-theme="sepia"] {
-  --lang-sel-bg: #E9D3A6;
+  --lang-sel-bg: color-mix(in srgb, var(--ap-gold) 24%, var(--rd-bg)); /* V47b: token (was #E9D3A6, same intensity) */
 }
 html[data-reader-theme="night"] {
   --lang-sel-bg: #3A3020;
@@ -1590,7 +1620,15 @@ html[data-reader-theme="night"] {
   }
 }
 
-/* One-time hint */
+/* One-time hint («Коснитесь свободного места — появится меню»).
+   V46 (Vraja Lila msg 6321, 22.10.2026, iPhone, en, «Maṅgalācaraṇa»): it stood at 40 px from the bottom under the
+   opaque bottom bar (z 30, 57 px high) — only its top edge showed. Now, while the bar is out, it lies wholly ABOVE the
+   bar (bar height + 12 px) and moves with the bar (same 220 ms ease, so it never goes under it); bar hidden — 40 px
+   as before (above the faint «… · N %» line). «Solid while moving» (design-system/README.md): an opaque sheet (no
+   see-through background); it only fades in where it stands, never while it moves. Test qa/suites/s98. */
+.reader-chrome {
+  --rd-bottom-bar-h: 57px; /* .reader-bar-bottom: border 1 + padding 6 + 6 + .reader-btn min-height 44 */
+}
 .reader-hint {
   position: fixed;
   z-index: 25;
@@ -1602,13 +1640,21 @@ html[data-reader-theme="night"] {
   margin: 0;
   padding: 8px 14px;
   border-radius: 9999px;
-  background: rgba(44, 24, 16, 0.85);
+  background: #2C1810;
   color: #fff;
   font-size: 13px;
   line-height: 1.35;
   text-align: center;
   pointer-events: none;
-  animation: reader-hint-in 220ms ease-out;
+  transition: bottom 220ms ease;
+  animation: reader-hint-fade 220ms ease-out;
+}
+.reader-chrome[data-shown] .reader-hint {
+  bottom: calc(var(--rd-bottom-bar-h) + 12px + env(safe-area-inset-bottom, 0px));
+}
+@keyframes reader-hint-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes reader-pop {
@@ -1636,6 +1682,9 @@ html[data-reader-bars] .hs-peek {
   .reader-hint,
   .reader-toast {
     animation: none;
+  }
+  .reader-hint {
+    transition: none;
   }
 }
 
@@ -1667,7 +1716,6 @@ html[data-reader-theme="night"] .hs-peek {
   background-color: var(--rd-bg);
 }
 html[data-reader-theme="night"] .bg-\[\#FDF8F0\],
-html[data-reader-theme="night"] .bg-\[\#FAF3E8\],
 html[data-reader-theme="night"] .bg-white\/60 {
   background-color: #211C16;
 }
@@ -1694,23 +1742,16 @@ html[data-reader-theme="night"] .text-\[\#5C3D2E\]\/80,
 html[data-reader-theme="night"] .text-\[\#555\] {
   color: var(--rd-muted);
 }
-html[data-reader-theme="night"] .text-\[\#8B6508\],
-html[data-reader-theme="night"] .text-\[\#B8860B\],
-html[data-reader-theme="night"] .text-\[\#B8860B\]\/80 {
-  color: #D4A843;
-}
 html[data-reader-theme="night"] .translation {
   color: #CFC4B3;
 }
 html[data-reader-theme="night"] .sa-inline {
-  color: #D9BC8C;
-}
-html[data-reader-theme="night"] .heading-num {
-  color: #A88C63;
+  /* V47b: the token lightened toward the night text (was the old beige-gold #D9BC8C) */
+  color: color-mix(in srgb, var(--ap-gold) 55%, var(--rd-fg));
 }
 html[data-reader-theme="night"] .hs-row[data-active] .hs-cell,
 html[data-reader-theme="night"] .hs-row[data-active] .hs-text {
-  background-color: rgba(212, 168, 67, 0.28);
+  background-color: var(--rd-row-active);
   color: #F2E9DA;
 }
 html[data-reader-theme="night"] .book-image,
@@ -1875,7 +1916,7 @@ html[data-reader-theme="night"] ::selection {
   height: 3px;
   z-index: 70;
   overflow: hidden;
-  background: rgba(184, 134, 11, 0.18);
+  background: color-mix(in srgb, var(--ap-gold) 18%, transparent);
   pointer-events: none;
 }
 .nav-progress::before {
@@ -1902,7 +1943,7 @@ html[data-reader-theme="night"] ::selection {
   font-size: 11px;
   font-style: italic;
   font-weight: 400;
-  color: #9c7a4e;
+  color: var(--ap-label);
 }
 /* A65: the page did not come — a quiet note that may wrap (never widens the row). */
 .toc-failed-note {
@@ -1916,7 +1957,7 @@ html[data-reader-theme="night"] ::selection {
 .toc-loading-spin {
   width: 10px;
   height: 10px;
-  border: 1.5px solid rgba(184, 134, 11, 0.3);
+  border: 1.5px solid color-mix(in srgb, var(--ap-gold) 30%, transparent);
   border-top-color: var(--ap-gold);
   border-radius: 50%;
   animation: toc-loading-spin 0.8s linear infinite;
@@ -1954,8 +1995,9 @@ html[data-reader-theme="night"] ::selection {
   text-align: center;
   font-size: 1.1em;
   line-height: 1;
-  color: #B8860B; /* ornaments: content decor, tone unchanged */
-  opacity: 0.7;
+  /* V47 (Vraja Lila 22.10): the same variant B gold as every other gold element, full tone
+     (before: the old gold at 0.7 opacity) */
+  color: var(--ap-gold);
   -webkit-user-select: none;
   user-select: none;
 }
@@ -2201,11 +2243,16 @@ html[data-resume-fade="in"] .app-main {
    white, 4.62 on sepia, 4.65 on #F5E6C8), dark background #E3A03C (7.5–8.3).
    The «Установить» band keeps white text and ✕ (as before) on a darker gold:
    --ap-band-1 -> --ap-band-2 (white 4.91–5.74).
-   Mantras, ornaments, link underlines, pictures and body text are unchanged.
+   V47 (Vraja Lila 22.10): mantras, ornaments, link underlines, the download bar, scrollbars, portrait frames —
+   the same token. V47b (Vraja Lila msg 6346, maket 2): the translucent highlight bands (selected row, stripe,
+   «Содержание» lit row, search hit, bookmark glow) = the token at N % (--rd-row-active, --ap-band-*), section numbers
+   and night Sanskrit words = the token mixed (--ap-num). Pictures and body text are unchanged.
    qa/suites/s79_wcag_v33.py guards every value.
    ===================================================================== */
 :root {
   --ap-gold: #965700;
+  /* the same gold on a dark background (night theme, the dark toast) */
+  --ap-gold-on-dark: #E3A03C;
   --ap-band-1: #A56000;
   --ap-band-2: #965700;
   /* status line (chapter · %): the same brown, less transparent */
@@ -2218,16 +2265,19 @@ html[data-reader-theme="sepia"] {
   --rd-hover: #FAF5EA;
 }
 html[data-reader-theme="night"] {
-  --ap-gold: #E3A03C;
+  --ap-gold: var(--ap-gold-on-dark);
   --rd-faint: rgba(187, 174, 154, 0.70);
 }
-html[data-reader-theme="night"] .verse-ornament {
-  color: #D4A843;
+/* V47b (Vraja Lila msg 6346): section numbers («4.11.», in the text and in «Содержание») = the one gold token,
+   muted — toward the text colour on light pages (contrast ≥ 4.5), toward the page in night; part labels, the
+   «Закладки» tab and the «loading» note — the brown label tone (V33), in night the muted text (was #9C7A4E). */
+:root {
+  --ap-num: color-mix(in srgb, var(--ap-gold) 80%, var(--rd-fg));
+  --ap-label: #7A5E38;
 }
-/* part labels and small numbers in «Содержание» (brown, not gold): #9C7A4E -> #7A5E38 */
-html:not([data-reader-theme="night"]) .text-\[\#9C7A4E\],
-html:not([data-reader-theme="night"]) aside .heading-num {
-  color: #7A5E38;
+html[data-reader-theme="night"] {
+  --ap-num: color-mix(in srgb, var(--ap-gold) 75%, var(--rd-bg));
+  --ap-label: var(--rd-muted);
 }
 /* search field frame — the same tone as the magnifier and the placeholder */
 .search-input {

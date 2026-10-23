@@ -74,7 +74,7 @@ export default function MaskedPortrait({ mask, base, alt, eager = false }: { mas
       </span>
       <svg className="portrait-frame-lines" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
         {f.lines.map((l, i) => (
-          <path key={i} d={offsetPath(f, l.offset)} fill="none" stroke={l.color} strokeWidth={l.stroke} strokeLinejoin="round" />
+          <path key={i} d={offsetPath(f, l.offset)} fill="none" style={{ stroke: "var(--ap-gold)" }} strokeOpacity={i === 0 ? 1 : 0.6} strokeWidth={l.stroke} strokeLinejoin="round" />
         ))}
       </svg>
     </span>

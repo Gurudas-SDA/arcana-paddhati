@@ -924,7 +924,7 @@ export default function Sidebar({
     const rowLit = lit(rowId, isSelected && (!isOpen || atStart));
     const rowClass = `sidebar-link w-full min-h-[44px] text-left px-5 py-3 flex items-start justify-between gap-2 transition-colors ${
       rowLit
-        ? "bg-[#FAF3E8] border-l-3 border-[var(--ap-gold)]"
+        ? "bg-[var(--ap-band-toc)] border-l-3 border-[var(--ap-gold)]"
         : "hover:bg-[#FDF8F0] border-l-3 border-transparent"
     }`;
     const label = (
@@ -942,7 +942,7 @@ export default function Sidebar({
       // the highlight band start at the panel's left edge, like the chapters and parts.
       `sidebar-link relative flex items-center min-h-[44px] w-full text-left pl-[39px] pr-4 py-2 text-xs border-l-3 transition-colors ${
         active
-          ? "bg-[#FAF3E8] border-[var(--ap-gold)] text-[var(--ap-gold)] font-semibold"
+          ? "bg-[var(--ap-band-toc)] border-[var(--ap-gold)] text-[var(--ap-gold)] font-semibold"
           : "border-transparent text-[#5C3D2E] hover:text-[var(--ap-gold)] hover:bg-[#FDF8F0]"
       }`;
     return (
@@ -1058,7 +1058,7 @@ export default function Sidebar({
         data-toc-lit={on ? "" : undefined}
         data-toc-row={headId}
         className={`sidebar-link relative flex w-full min-h-[44px] items-center border-l-3 pl-5 pr-12 py-2 text-left transition-colors hover:text-[var(--ap-gold)] ${
-          on ? "border-[var(--ap-gold)] bg-[#FAF3E8] text-[var(--ap-gold)]" : "border-transparent hover:bg-[#FDF8F0] text-[#9C7A4E]"
+          on ? "border-[var(--ap-gold)] bg-[var(--ap-band-toc)] text-[var(--ap-gold)]" : "border-transparent hover:bg-[#FDF8F0] text-[var(--ap-label)]"
         }`}
       >
         <span className="text-[11px] uppercase tracking-[0.12em] font-semibold leading-snug">{label}</span>
@@ -1287,7 +1287,7 @@ export default function Sidebar({
                   data-bookmark-lit={isLit ? "" : undefined}
                   data-bookmark-faded={isPale ? "" : undefined}
                   className={`relative border-b border-[#E8DCC8] border-l-3 transition-colors ${
-                    isLit ? "bg-[#FAF3E8] border-l-[var(--ap-gold)]" : "border-l-transparent hover:bg-[#FDF8F0]"
+                    isLit ? "bg-[var(--ap-band-toc)] border-l-[var(--ap-gold)]" : "border-l-transparent hover:bg-[#FDF8F0]"
                   }`}
                 >
                 <Link
@@ -1316,7 +1316,7 @@ export default function Sidebar({
                     level with the bookmark icon (Vraja Lila msg 5939). */}
                 <button
                   type="button"
-                  className="absolute right-[44px] top-1/2 -translate-y-1/2 flex h-[44px] w-[44px] items-center justify-end pr-[3px] text-[#8B6508] disabled:cursor-default"
+                  className="absolute right-[44px] top-1/2 -translate-y-1/2 flex h-[44px] w-[44px] items-center justify-end pr-[3px] text-[var(--ap-gold)] disabled:cursor-default"
                   onClick={() => askRename(b)}
                   disabled={isPale}
                   aria-label={t(ui, "bookmark.rename")}
@@ -1377,7 +1377,7 @@ export default function Sidebar({
             {...loadingProps("cover")}
             className={`sidebar-link w-full text-left px-5 py-3 flex items-center gap-2 transition-colors ${
               lit("cover", selectedId === null)
-                ? "bg-[#FAF3E8] border-l-3 border-[var(--ap-gold)]"
+                ? "bg-[var(--ap-band-toc)] border-l-3 border-[var(--ap-gold)]"
                 : "hover:bg-[#FDF8F0] border-l-3 border-transparent"
             }`}
           >
@@ -1428,7 +1428,7 @@ export default function Sidebar({
                     }}
                     data-toc-lit={lit(entry.anchor ? `sub:${entry.section}#${entry.anchor}` : `sec:${entry.section}`, false) ? "" : undefined}
                     className={lit(entry.anchor ? `sub:${entry.section}#${entry.anchor}` : `sec:${entry.section}`, false)
-                      ? "block w-full text-left px-5 py-3 border-l-3 border-[var(--ap-gold)] bg-[#FAF3E8] transition-colors"
+                      ? "block w-full text-left px-5 py-3 border-l-3 border-[var(--ap-gold)] bg-[var(--ap-band-toc)] transition-colors"
                       : "block w-full text-left px-5 py-3 border-l-3 border-transparent hover:bg-[#FDF8F0] transition-colors"}
                   >
                     <span className="block text-sm leading-snug text-[#2C1810]">

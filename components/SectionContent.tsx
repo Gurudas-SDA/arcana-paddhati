@@ -177,7 +177,7 @@ function DataTable({ header, rows }: { header: string[]; rows: TableRow[] }) {
                 <th
                   key={i}
                   scope="col"
-                  className="border-b-2 border-[#D4A843] px-2 py-2 text-left align-bottom text-[12px] font-semibold text-[#5C3D2E]"
+                  className="border-b-2 border-[var(--ap-gold)] px-2 py-2 text-left align-bottom text-[12px] font-semibold text-[#5C3D2E]"
                 >
                   <Inline text={h} />
                 </th>
@@ -207,7 +207,7 @@ function DataTable({ header, rows }: { header: string[]; rows: TableRow[] }) {
         {rows.map((r, ri) => (
           <li
             key={ri}
-            className={`rounded-sm border px-3 py-2 ${r.highlight ? "border-[#D4A843] bg-[#FBF0D9]" : "border-[#E8DCC8]"}`}
+            className={`rounded-sm border px-3 py-2 ${r.highlight ? "border-[var(--ap-gold)] bg-[#FBF0D9]" : "border-[#E8DCC8]"}`}
           >
             <p className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-[16px] font-semibold text-[#1a1a1a]">
               <span className="tabular-nums">
@@ -518,7 +518,7 @@ function ContentBlock({
           <a
             {...(transcript ? transcriptLinkProps(href) : { href, target: "_blank", rel: "noopener noreferrer" })}
             data-transcript-link={transcript ? "" : undefined}
-            className="not-italic text-[var(--ap-gold)] underline decoration-[#D4A843] underline-offset-2 hover:text-[var(--ap-gold)]"
+            className="not-italic text-[var(--ap-gold)] underline decoration-[var(--ap-gold)] underline-offset-2 hover:text-[var(--ap-gold)]"
           >
             {label}
           </a>
@@ -663,15 +663,15 @@ function SubsectionBlock({
 }
 
 /** Small ornament under a parampara caption (as on the approved page sample, variant A):
- *  thin gold lines, a dark-gold rhombus, two dots. */
+ *  thin gold lines, a gold rhombus, two dots — all the one gold token (V47, Vraja Lila: no old gold). */
 function CaptionOrnament() {
   return (
     <svg className="portrait-ornament" viewBox="0 0 160 14" width="160" height="14" aria-hidden="true">
-      <line x1="0" y1="7" x2="64" y2="7" stroke="#D4A843" strokeWidth="1" />
-      <line x1="96" y1="7" x2="160" y2="7" stroke="#D4A843" strokeWidth="1" />
-      <circle cx="69" cy="7" r="2" fill="#D4A843" />
-      <circle cx="91" cy="7" r="2" fill="#D4A843" />
-      <path d="M80 1.5 L85.5 7 L80 12.5 L74.5 7 Z" fill="#8B6508" />
+      <line x1="0" y1="7" x2="64" y2="7" style={{ stroke: "var(--ap-gold)" }} strokeOpacity="0.6" strokeWidth="1" />
+      <line x1="96" y1="7" x2="160" y2="7" style={{ stroke: "var(--ap-gold)" }} strokeOpacity="0.6" strokeWidth="1" />
+      <circle cx="69" cy="7" r="2" style={{ fill: "var(--ap-gold)" }} fillOpacity="0.6" />
+      <circle cx="91" cy="7" r="2" style={{ fill: "var(--ap-gold)" }} fillOpacity="0.6" />
+      <path d="M80 1.5 L85.5 7 L80 12.5 L74.5 7 Z" style={{ fill: "var(--ap-gold)" }} />
     </svg>
   );
 }
