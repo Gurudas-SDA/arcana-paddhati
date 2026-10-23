@@ -12,7 +12,7 @@ F cover: no «v.1», CA block (emblem left, text right, centred), cover fully on
 G Maṅgalācaraṇa: title only, no subtitle, no explanatory headings; every verse has «пословно»
 H «Праздники, обеты и песни арати» (+ English)
 I every verse of the book (ru-iast, ru) has a «пословно» chip in the UI (274 = 180 + 61 verses of the ārati songs, v7.4, + 30 of the Kārtika bhajans, v7.6, + 3 of «Заключение», 22.10;
-  306 since A105/A106, 23.10: + «Эпиграф» UM 8 (S msg 6152/6241) − the same verse no longer in «Введение» (S msg 6152;
+  305 since A105/A106, 23.10 (was 306 until UM 8 was removed from the start of «Заключение», S msg 6169/6504): + «Эпиграф» UM 8 (S msg 6152/6241) − the same verse no longer in «Введение» (S msg 6152;
   ŚB 11.3.48 removed, S msg 6239) + 31 calls of «Джая-дхвани» (S msg 6155/6180/6281) + UM 8 again at the end of
   «Заключение» (S msg 6151); all of them with «пословно» — s101 checks their content)
 """
@@ -20,7 +20,7 @@ import os as _os, sys as _sys
 _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "lib"))
 import qa
 from toc import Contents, marks_place
-VERSES = 306  # 23.10 A105/A106: 274 − 1 (UM 8 out of «Введение») + 1 «Эпиграф» + 31 «Джая-дхвани» + 1 UM 8 in «Заключение»
+VERSES = 305  # 23.10 A105/A106: 274 − 1 (UM 8 out of «Введение») + 1 «Эпиграф» + 31 «Джая-дхвани» + 1 UM 8 in «Заключение» (only at its end, 95842f6) − 1 (tan-nāma, S msg 6169/6504) = 305
 # (S msg 6151/6152/6155/6239/6281; see the docstring, I). Was 274: 180 + 61 verses of the maṅgala-/gaura-ārati songs (Reader v7.4, Satkirti 07.10 13:07) + 30 Kārtika bhajans (v7.6) + 3 of «Заключение» (22.10, Satkirti msg 6065)
 import io, json, os, sys, urllib.request
 from urllib.parse import urlparse
