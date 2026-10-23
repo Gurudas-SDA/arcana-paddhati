@@ -508,6 +508,7 @@ export default function ReaderChrome({
     m.addEventListener("pointermove", onPointerMove, { passive: true });
     document.addEventListener("keydown", onKeyScroll);
     let last = m.scrollTop;
+    let prevScrollAt = -1e9;
     let down = 0;
     let raf = 0;
     // The room after a chapter's end (.chapter-end-space) is not reading:
@@ -532,13 +533,23 @@ export default function ReaderChrome({
     // them away; scrolling up from the end takes them away too; they come back
     // only on a tap, at the chapter's end, or back at the chapter's start.
     const onScroll = () => {
-      lastScrollAt.current = performance.now();
+      const now = performance.now();
+      lastScrollAt.current = now;
       if (!raf) raf = requestAnimationFrame(measure);
-      const top = m.scrollTop;
+      // V55 (Vraja Lila msg 1728/1730): the iPhone's rubber band at the very top /
+      // bottom reports scrollTop past the edge (below 0, beyond the end) and springs
+      // back — that is the edge itself, not reading: clamped, the spring back is no
+      // «scroll down» that took away the bars just brought out at the start.
+      const top = Math.min(Math.max(0, m.scrollTop), Math.max(0, m.scrollHeight - m.clientHeight));
       const d = top - last;
       last = top;
-      // Momentum after a swipe keeps counting for a while (no touchmove then).
-      if (performance.now() < quietUntil.current || overlayOpen() || performance.now() - userAt > 1500) {
+      // Momentum after a swipe keeps counting (no touchmove then): V55 — as long as
+      // the scroll goes on without a break, it is still the reader's swipe, however
+      // long it glides (a long fling reached the edge after the 1.5 s and the bars
+      // stayed in — «через раз»).
+      if (now - userAt <= 1500 && now - prevScrollAt < 250) userAt = now;
+      prevScrollAt = now;
+      if (now < quietUntil.current || overlayOpen() || now - userAt > 1500) {
         down = 0;
         return;
       }
