@@ -221,6 +221,8 @@ SUITES = [
          devices=["ipad-portrait"], fast=False, server=False),
     dict(id="s109", file="suites/s109_two_languages.py", title="S 23.10 Padomnieks 934–941 «Оставляю два языка: английский и русский… оставить версию с IAST»: valodu izvēlnē tikai English + Русский (ru-iast); /ru/… → /ru-iast/…, /de/ /lv/ /uk/… → angliski (hash saglabāts), saglabātā izņemtā valoda → en/ru-iast; izņemtās valodas nav būvētas (nav meklēšanas indeksa, nav offline), dati saglabāti",
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
+    dict(id="s110", file="suites/s110_splash_logo_smaller_v53.py", title="V53 Vraja Lila msg 6433: заставка — красное лого на мобильной на 15 % меньше (200 → 170 px), по центру, neapgriezts, animācija nesalauzta; planšete/dators nemainīti (200 px)",
+         devices=["iphone14", "pixel7", "ipad-portrait", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
 ]
 
 

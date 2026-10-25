@@ -114,6 +114,9 @@ export const SPLASH_CSS = `#ap-splash{position:fixed;inset:0;z-index:2147483000;
 #ap-splash[hidden]{display:none}
 #ap-splash.ap-splash-out{animation:ap-splash-bg 450ms ease-out forwards}
 #ap-splash .ap-splash-sign{display:block;will-change:transform,opacity}
+/* V53 (Vraja Lila msg 6433): on a phone the sign is 15 % smaller (200 px x 0.85 = 170 px); same proportions
+   and centre; tablet and computer (from 640 px, the app's phone breakpoint) keep Vraja Lila's own 200 px. */
+@media (max-width: 639px){#ap-splash .ca-loader{--ca-size:170px}}
 #ap-splash.ap-splash-out .ap-splash-sign{animation:ap-splash-sign 450ms ease-out forwards}
 @keyframes ap-splash-bg{to{opacity:0;visibility:hidden}}
 @keyframes ap-splash-safety{to{opacity:0;visibility:hidden}}
