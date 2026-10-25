@@ -42,9 +42,8 @@ html[data-reader-theme="sepia"] {
 }
 html[data-reader-theme="night"] {
   --ds-surface: var(--rd-bg);
-  --ds-fill-soft: #211C16;
+  --ds-fill-soft: var(--rd-panel-bg);
   --ds-fill: #3A2F1F;
   --ds-line: var(--rd-border);
-  --ds-row-lit: #211C16;
-  --ds-row-hover: #211C16;
+  --ds-row-hover: var(--rd-panel-bg);
 }

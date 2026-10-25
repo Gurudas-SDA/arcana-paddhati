@@ -223,6 +223,8 @@ SUITES = [
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s110", file="suites/s110_splash_logo_smaller_v53.py", title="V53 Vraja Lila msg 6433: заставка — красное лого на мобильной на 15 % меньше (200 → 170 px), по центру, neapgriezts, animācija nesalauzta; planšete/dators nemainīti (200 px)",
          devices=["iphone14", "pixel7", "ipad-portrait", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
+    dict(id="s111", file="suites/s111_night_tokens_v54.py", title="V54 Враджа Лила msg 1714 (DS V1.1 §7): ночью --ds-row-lit = --ap-band-toc; карточка «Saving to your phone» — только токены",
+         devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
 ]
 
 

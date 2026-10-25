@@ -574,8 +574,8 @@ html[data-home-save] .home-save-slot {
   padding: 2px 4px;
 }
 html[data-reader-theme="night"] .home-save {
-  background: #1B1712;
-  border-color: #3A3228;
+  background: var(--rd-panel-bg);  /* V54: surface-panel */
+  border-color: var(--rd-border);  /* V54: line-hairline */
   color: #EFE6D2;
 }
 html[data-reader-theme="night"] .home-save-done .home-save-title {
@@ -587,17 +587,17 @@ html[data-reader-theme="night"] .home-save-hide {
   color: #A89479;
 }
 html[data-reader-theme="night"] .home-save-track i {
-  background: #2E271E;
+  background: var(--rd-hover);
 }
 html[data-reader-theme="night"] .home-save-track i.on {
   background: var(--ap-gold);
 }
 html[data-reader-theme="night"] .home-save-track i.part {
-  background: linear-gradient(90deg, var(--ap-gold) var(--part, 50%), #2E271E var(--part, 50%));
+  background: linear-gradient(90deg, var(--ap-gold) var(--part, 50%), var(--rd-hover) var(--part, 50%));
 }
 html[data-reader-theme="night"] .home-save-track.is-idle i.on,
 html[data-reader-theme="night"] .home-save-track.is-idle i.part {
-  background: color-mix(in srgb, var(--ap-gold) 40%, #2E271E);
+  background: color-mix(in srgb, var(--ap-gold) 40%, var(--rd-hover));
 }
 
 /* Numbered lists: a sub-item (2.1 …) starts at the main items' text line. */
@@ -1717,7 +1717,7 @@ html[data-reader-theme="night"] .hs-peek {
 }
 html[data-reader-theme="night"] .bg-\[\#FDF8F0\],
 html[data-reader-theme="night"] .bg-white\/60 {
-  background-color: #211C16;
+  background-color: var(--rd-panel-bg);
 }
 html[data-reader-theme="night"] .bg-\[\#F5E6C8\],
 html[data-reader-theme="night"] .bg-\[\#FBF0D9\] {
