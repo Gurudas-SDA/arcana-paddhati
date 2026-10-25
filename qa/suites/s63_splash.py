@@ -5,6 +5,7 @@ ready (hydrated + drawn) the sign leaves in 450 ms ease-out (opacity 1→0, scal
 removed — no artificial delay; iOS startup pictures for the main iPhone/iPad sizes and orientations (white + the
 sign at the same place and size = the first frame); manifest background_color #ffffff; reduced motion — the sign
 stays still, only fades; never holds the page: if the script is late or missing, the layer goes after 4 s.
+V53 (Враджа Лила 23.10 msg 6433): на телефоне знак 170 px (200 × 0,85); планшет и компьютер — 200 px.
 # tehniskais slieksnis Lipikāra, nav S noteikums: sign 200 ± 1 px, centre ± 1 px; leaving starts ≤ 1500 ms
 #   after DOMContentLoaded locally; layer gone ≤ 800 ms after leaving starts; startup picture: sign box
 #   200 × dpr ± 4 px, centred ± 3 px.
@@ -83,7 +84,8 @@ with sync_playwright() as p:
         if first:
             l, t, w, h = first[4]
             vw, vh = first[8], first[9]
-            check(dev, "sign 200 px, in the middle (±1 px)", abs(w - 200) <= 1 and abs(h - 200) <= 1 and abs(l + w / 2 - vw / 2) <= 1 and abs(t + h / 2 - vh / 2) <= 1,
+            want_px = 170 if vw < 640 else 200  # V53: phone (viewport < 640 px, as in lib/caSplash.ts) 170 px
+            check(dev, f"sign {want_px} px, in the middle (±1 px)", abs(w - want_px) <= 1 and abs(h - want_px) <= 1 and abs(l + w / 2 - vw / 2) <= 1 and abs(t + h / 2 - vh / 2) <= 1,
                   {"rect": first[4], "vw": vw, "vh": vh})
             check(dev, "never takes a tap (pointer-events none)", first[7] == "none", first[7])
         out = next((e for e in ev if e[1] == "ap-splash-out"), None)
@@ -134,13 +136,13 @@ with sync_playwright() as p:
             continue
         W, H = (int(w) * int(d), int(h) * int(d)) if o == "portrait" else (int(h) * int(d), int(w) * int(d))
         bb = im.point(lambda v: 255 if v < 200 else 0).convert("L").getbbox()
-        size = 200 * int(d)
+        size = (170 if (int(w) if o == "portrait" else int(h)) < 640 else 200) * int(d)  # V53: phone 170, tablet 200
         ok = im.size == (W, H) and im.getpixel((2, 2)) == (255, 255, 255) and bb and abs((bb[2] - bb[0]) - size) <= 4 and \
             abs((bb[0] + bb[2]) / 2 - W / 2) <= 3 and abs((bb[1] + bb[3]) / 2 - H / 2) <= 3
         if not ok:
             bad.append([href.rsplit("/", 1)[-1], im.size, (W, H), bb])
     check("ios", f"startup pictures for the main iPhone/iPad sizes, both orientations ({len(links)})", len(links) >= 40 and want <= have, sorted(want - have))
-    check("ios", "every startup picture: white, sign 200 CSS px in the middle, exact screen size", links and not bad, bad[:5])
+    check("ios", "every startup picture: white, sign 170 CSS px (phone, < 640 px wide) or 200 (tablet) in the middle, exact screen size", links and not bad, bad[:5])
 
 print(f"{sum(results)}/{len(results)} PASS")
 sys.exit(0 if all(results) else 1)
