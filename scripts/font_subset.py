@@ -44,11 +44,12 @@ def rng(*parts):
 
 
 # Google Fonts API unicode-range of each subset (css2?family=Noto+Serif, 23.10.2026)
+# + U+1EBD ẽ (A121 27.10: IAST of hindi nasalised «mẽ» in the Jhulana bhajans; Google puts it in its «vietnamese» subset, which we do not cut)
 GOOGLE = {
     "latin": rng("0000-00FF", "0131", "0152-0153", "02BB-02BC", "02C6", "02DA", "02DC", "0304", "0308", "0329",
                  "2000-206F", "20AC", "2122", "2191", "2193", "2212", "2215", "FEFF", "FFFD"),
     "latinext": rng("0100-02BA", "02BD-02C5", "02C7-02CC", "02CE-02D7", "02DD-02FF", "0304", "0308", "0329",
-                    "1D00-1DBF", "1E00-1E9F", "1EF2-1EFF", "2020", "20A0-20AB", "20AD-20C4", "2113", "2C60-2C7F",
+                    "1D00-1DBF", "1E00-1E9F", "1EBD", "1EF2-1EFF", "2020", "20A0-20AB", "20AD-20C4", "2113", "2C60-2C7F",
                     "A720-A7FF", "0020", "00A0"),
     "cyrillic": rng("0301", "0400-052F", "2116", "0020", "00A0"),
 }

@@ -20,7 +20,9 @@ import os as _os, sys as _sys
 _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "lib"))
 import qa
 from toc import Contents, marks_place
-VERSES = 305  # 23.10 A105/A106: 274 − 1 (UM 8 out of «Введение») + 1 «Эпиграф» + 31 «Джая-дхвани» + 1 UM 8 in «Заключение» (only at its end, 95842f6) − 1 (tan-nāma, S msg 6169/6504) = 305
+VERSES = 300  # A121 26.10: ru-iast verses WITH «пословно» = 274 (305 − 31 «Джая-дхвани», S msg 6828) + 26 (Джхулана-ятра 10, Раджа-бхога 7, Ямунаштака 9);
+VERSES_RU = 274  # legacy book.ru.json (Cyrillic Russian not in the book, S 23.10 Padomnieks 934–941): no A121 bhajans
+NO_WBW_SECTIONS = {"jaya-dhvani-front"}  # S msg 6828 (26.10.2026): «В «Джая-дхвани» убери переводы. Это молитва, в которой перечисляют святых» — 31 calls without translation and without пословно; every other verse still needs пословно
 # (S msg 6151/6152/6155/6239/6281; see the docstring, I). Was 274: 180 + 61 verses of the maṅgala-/gaura-ārati songs (Reader v7.4, Satkirti 07.10 13:07) + 30 Kārtika bhajans (v7.6) + 3 of «Заключение» (22.10, Satkirti msg 6065)
 import io, json, os, sys, urllib.request
 from urllib.parse import urlparse
@@ -536,17 +538,19 @@ def cover_pixels():
 
 def data_wbw():
     root = qa.DATA
-    for f in ("book.ru-iast.json", "book.ru.json"):
+    for f, want in (("book.ru-iast.json", VERSES), ("book.ru.json", VERSES_RU)):
         b = json.load(open(os.path.join(root, f), encoding="utf-8"))
         vs = []
-        def walk(o):
+        exempt = []
+        def walk(o, ex=False):
             if isinstance(o, dict):
-                if o.get("type") == "verse": vs.append(o)
-                for v in o.values(): walk(v)
+                ex = ex or o.get("id") in NO_WBW_SECTIONS
+                if o.get("type") == "verse": (exempt if ex else vs).append(o)
+                for v in o.values(): walk(v, ex)
             elif isinstance(o, list):
-                for v in o: walk(v)
+                for v in o: walk(v, ex)
         walk(b)
-        chk("data", f"I {f}: {sum(1 for v in vs if v.get('wbw'))}/{len(vs)} verses with wbw", len(vs) == VERSES and all(v.get("wbw") for v in vs))
+        chk("data", f"I {f}: {sum(1 for v in vs if v.get('wbw'))}/{len(vs)} verses with wbw ({want} expected; {len(exempt)} in {sorted(NO_WBW_SECTIONS)} exempt, S msg 6828)", len(vs) == want and all(v.get("wbw") for v in vs) and len(exempt) == 31 and not any(v.get("wbw") for v in exempt))
         s = json.dumps(b, ensure_ascii=False)
         chk("data", f"I {f}: no Bengali letters, no «Камадева » (gen.)", not any("\u0980" <= ch <= "\u09ff" for ch in s) and "Камадева " not in s and "Камадева (" not in s)
 
