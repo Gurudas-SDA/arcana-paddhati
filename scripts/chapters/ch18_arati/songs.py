@@ -133,7 +133,7 @@ SONGS = {
     # ---------------------------------------------------------------- Jhūlana-yātrā
     "song-jhula-jhule": {
         "title": ("Джхула джхуле Радха-Дамодара", "Jhūlā jhūle Rādhā-Dāmodara"),
-        "author": ("Традиционный враджский киртан", "A traditional Vrajavāsī kīrtana"),
+        "author": ("Традиционный киртан Враджи", "A traditional kīrtana of Vraja"),
         "verses": [
             V("jhūlā jhūle rādhā-dāmodara vṛndāvana mẽ\nkaisī chāī hariyālī ālī kuñjana mẽ",
               "jhūlā — на качелях; jhūle — качаются; rādhā-dāmodara — Радха и Дамодара; vṛndāvana mẽ — во Вриндаване; kaisī — как (пышно); chāī — раскинулась; hariyālī — зелень; ālī — о подруга; kuñjana mẽ — в кунджах",
@@ -163,7 +163,7 @@ SONGS = {
         ]},
     "song-radhe-jhulana-padharo": {
         "title": ("Радхе джхулана падхаро", "Rādhe jhūlana padhāro"),
-        "author": ("Традиционный враджский киртан", "A traditional Vrajavāsī kīrtana"),
+        "author": ("Традиционный киртан Враджи", "A traditional kīrtana of Vraja"),
         "verses": [
             V("rādhe jhūlana padhāro jhuka āye badarā\njhuka āye badarā, ghira āye badarā",
               "rādhe — о Радха; jhūlana — на качели; padhāro — приди; jhuka āye — низко нависли; badarā — тучи; ghira āye — сгустились",
