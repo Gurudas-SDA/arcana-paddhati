@@ -30,14 +30,23 @@
     },
     {
       "id": "festivals-vows",
-      "title": "Festivals, Vows and Ārati Songs",
+      "title": "Festivals and Vows",
       "sections": [
         "caturmasya-purusottama-masa",
         "guru-puja-vyasa-puja",
-        "major-festivals",
+        "major-festivals"
+      ]
+    },
+    {
+      "id": "arati",
+      "title": "Ārati",
+      "sections": [
         "mangala-arati-songs",
+        "raja-bhoga-arati",
         "gaura-arati-songs",
-        "kartika-bhajans"
+        "kartika-bhajans",
+        "yamunastaka",
+        "jhulana-yatra-bhajans"
       ]
     }
   ],
@@ -183,189 +192,127 @@
       "content": [
         {
           "type": "verse",
-          "sanskrit": "Śrī Śrī Guru-Gaurāṅga-Gāndharvikā-Giridhārī-Rādhā-Vinoda-bihārījī kī jaya!",
-          "translation": "All glories to Śrī Śrī Guru and Gaurāṅga, Gāndharvikā-Giridhārī and Rādhā-Vinoda-bihārījī!",
-          "wbw": "Śrī Śrī — Śrī Śrī; Guru-Gaurāṅga — Guru and Gaurāṅga; Gāndharvikā-Giridhārī — Gāndharvikā (Śrīmatī Rādhikā) and Giridhārī (Kṛṣṇa, the lifter of the hill); Rādhā-Vinoda-bihārījī — Rādhā-Vinoda-bihārījī (Kṛṣṇa, who sports for Rādhā’s delight); kī jaya — all glories."
+          "sanskrit": "Śrī Śrī Guru-Gaurāṅga-Gāndharvikā-Giridhārī-Rādhā-Vinoda-bihārījī kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Oṁ viṣṇupāda aṣṭottara-śata śrī rūpānugācārya Śrī Prema Prayojana Prabhu kī jaya!",
-          "translation": "All glories to oṁ viṣṇupāda aṣṭottara-śata, śrī rūpānugācārya (follower of Śrīla Rūpa Gosvāmī), Śrī Prema Prayojana Prabhu!",
-          "wbw": "oṁ viṣṇupāda — oṁ viṣṇupāda (who abides at the feet of Viṣṇu); aṣṭottara-śata — aṣṭottara-śata (bearing one hundred and eight titles of honour); śrī — śrī; rūpānugācārya — rūpānugācārya (the ācārya who follows in the footsteps of Śrīla Rūpa Gosvāmī); Śrī Prema Prayojana Prabhu — Śrī Prema Prayojana Prabhu; kī jaya — all glories."
+          "sanskrit": "Oṁ viṣṇupāda aṣṭottara-śata śrī rūpānugācārya Śrī Prema Prayojana Prabhu kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja kī jaya!",
-          "translation": "All glories to nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja!",
-          "wbw": "nitya-līlā-praviṣṭa — who has entered the eternal pastimes; oṁ viṣṇupāda — oṁ viṣṇupāda (who abides at the feet of Viṣṇu); aṣṭottara-śata — aṣṭottara-śata (bearing one hundred and eight titles of honour); Śrī Śrīmad — Śrī Śrīmad; Bhaktivedānta Nārāyaṇa — Bhaktivedānta Nārāyaṇa; Gosvāmī Mahārāja — Gosvāmī Mahārāja; kī jaya — all glories."
+          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Svāmī Mahārāja kī jaya!",
-          "translation": "All glories to nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Svāmī Mahārāja!",
-          "wbw": "nitya-līlā-praviṣṭa — who has entered the eternal pastimes; oṁ viṣṇupāda — oṁ viṣṇupāda (who abides at the feet of Viṣṇu); aṣṭottara-śata — aṣṭottara-śata (bearing one hundred and eight titles of honour); Śrī Śrīmad — Śrī Śrīmad; Bhaktivedānta Svāmī Mahārāja — Bhaktivedānta Svāmī Mahārāja; kī jaya — all glories."
+          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Svāmī Mahārāja kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhakti Prajñāna Keśava Gosvāmī Mahārāja kī jaya!",
-          "translation": "All glories to nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhakti Prajñāna Keśava Gosvāmī Mahārāja!",
-          "wbw": "nitya-līlā-praviṣṭa — who has entered the eternal pastimes; oṁ viṣṇupāda — oṁ viṣṇupāda (who abides at the feet of Viṣṇu); aṣṭottara-śata — aṣṭottara-śata (bearing one hundred and eight titles of honour); Śrī Śrīmad — Śrī Śrīmad; Bhakti Prajñāna Keśava — Bhakti Prajñāna Keśava; Gosvāmī Mahārāja — Gosvāmī Mahārāja; kī jaya — all glories."
+          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhakti Prajñāna Keśava Gosvāmī Mahārāja kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīla Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda kī jaya!",
-          "translation": "All glories to nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīla Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda!",
-          "wbw": "nitya-līlā-praviṣṭa — who has entered the eternal pastimes; oṁ viṣṇupāda — oṁ viṣṇupāda (who abides at the feet of Viṣṇu); aṣṭottara-śata — aṣṭottara-śata (bearing one hundred and eight titles of honour); Śrī Śrīla — Śrī Śrīla; Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda — Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda; kī jaya — all glories."
+          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīla Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Nitya-līlā-praviṣṭa parama-bhāgavata-pravara Śrī Śrīla Gaurakiśora dāsa Bābājī Mahārāja kī jaya!",
-          "translation": "All glories to Śrī Śrīla Gaurakiśora dāsa Bābājī Mahārāja, who has entered the eternal pastimes, the best of the most exalted devotees!",
-          "wbw": "nitya-līlā-praviṣṭa — who has entered the eternal pastimes; parama-bhāgavata-pravara — the best of the most exalted devotees; Śrī Śrīla — Śrī Śrīla; Gaurakiśora dāsa Bābājī Mahārāja — Gaurakiśora dāsa Bābājī Mahārāja; kī jaya — all glories."
+          "sanskrit": "Nitya-līlā-praviṣṭa parama-bhāgavata-pravara Śrī Śrīla Gaurakiśora dāsa Bābājī Mahārāja kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Nitya-līlā-praviṣṭa Śrī Śrīla Saccidānanda Bhaktivinoda Ṭhākura kī jaya!",
-          "translation": "All glories to Śrī Śrīla Saccidānanda Bhaktivinoda Ṭhākura, who has entered the eternal pastimes!",
-          "wbw": "nitya-līlā-praviṣṭa — who has entered the eternal pastimes; Śrī Śrīla — Śrī Śrīla; Saccidānanda Bhaktivinoda Ṭhākura — Saccidānanda Bhaktivinoda Ṭhākura; kī jaya — all glories."
+          "sanskrit": "Nitya-līlā-praviṣṭa Śrī Śrīla Saccidānanda Bhaktivinoda Ṭhākura kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Nitya-līlā-praviṣṭa vaiṣṇava-sārvabhauma Śrī Śrīla Jagannātha dāsa Bābājī Mahārāja kī jaya!",
-          "translation": "All glories to Śrī Śrīla Jagannātha dāsa Bābājī Mahārāja, who has entered the eternal pastimes, the emperor of Vaiṣṇavas!",
-          "wbw": "nitya-līlā-praviṣṭa — who has entered the eternal pastimes; vaiṣṇava-sārvabhauma — the emperor of Vaiṣṇavas; Śrī Śrīla — Śrī Śrīla; Jagannātha dāsa Bābājī Mahārāja — Jagannātha dāsa Bābājī Mahārāja; kī jaya — all glories."
+          "sanskrit": "Nitya-līlā-praviṣṭa vaiṣṇava-sārvabhauma Śrī Śrīla Jagannātha dāsa Bābājī Mahārāja kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī gauḍīya-vedāntācārya Śrī Śrīla Baladeva Vidyābhūṣaṇa Prabhu kī jaya!",
-          "translation": "All glories to the ācārya of Gauḍīya Vedānta, Śrī Śrīla Baladeva Vidyābhūṣaṇa Prabhu!",
-          "wbw": "Śrī gauḍīya-vedāntācārya — the ācārya of Gauḍīya Vedānta; Śrī Śrīla — Śrī Śrīla; Baladeva Vidyābhūṣaṇa Prabhu — Baladeva Vidyābhūṣaṇa Prabhu; kī jaya — all glories."
+          "sanskrit": "Śrī gauḍīya-vedāntācārya Śrī Śrīla Baladeva Vidyābhūṣaṇa Prabhu kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrīla Viśvanātha Cakravartī Ṭhākura kī jaya!",
-          "translation": "All glories to Śrīla Viśvanātha Cakravartī Ṭhākura!",
-          "wbw": "Śrīla Viśvanātha Cakravartī Ṭhākura — Śrīla Viśvanātha Cakravartī Ṭhākura; kī jaya — all glories."
+          "sanskrit": "Śrīla Viśvanātha Cakravartī Ṭhākura kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrīla Narottama, Śrīnivāsa, Śyāmānanda Prabhu-traya kī jaya!",
-          "translation": "All glories to the three Prabhus — Śrīla Narottama, Śrīnivāsa and Śyāmānanda!",
-          "wbw": "Śrīla Narottama, Śrīnivāsa, Śyāmānanda — Śrīla Narottama, Śrīnivāsa and Śyāmānanda; Prabhu-traya — the three Prabhus; kī jaya — all glories."
+          "sanskrit": "Śrīla Narottama, Śrīnivāsa, Śyāmānanda Prabhu-traya kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrīla Kṛṣṇadāsa Kavirāja Gosvāmī Prabhu kī jaya!",
-          "translation": "All glories to Śrīla Kṛṣṇadāsa Kavirāja Gosvāmī Prabhu!",
-          "wbw": "Śrīla Kṛṣṇadāsa Kavirāja Gosvāmī Prabhu — Śrīla Kṛṣṇadāsa Kavirāja Gosvāmī Prabhu; kī jaya — all glories."
+          "sanskrit": "Śrīla Kṛṣṇadāsa Kavirāja Gosvāmī Prabhu kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī Rūpa, Sanātana, Bhaṭṭa Raghunātha, Śrī Jīva, Gopāla-bhaṭṭa, dāsa Raghunātha ṣaḍ-gosvāmī-prabhu kī jaya!",
-          "translation": "All glories to the six Gosvāmīs — Śrī Rūpa, Sanātana, Bhaṭṭa Raghunātha, Śrī Jīva, Gopāla Bhaṭṭa and Dāsa Raghunātha!",
-          "wbw": "Śrī Rūpa — Śrī Rūpa; Sanātana — Sanātana; Bhaṭṭa Raghunātha — Bhaṭṭa Raghunātha; Śrī Jīva — Śrī Jīva; Gopāla-bhaṭṭa — Gopāla Bhaṭṭa; dāsa Raghunātha — Dāsa Raghunātha; ṣaḍ-gosvāmī-prabhu — the six Gosvāmīs; kī jaya — all glories."
+          "sanskrit": "Śrī Rūpa, Sanātana, Bhaṭṭa Raghunātha, Śrī Jīva, Gopāla-bhaṭṭa, dāsa Raghunātha ṣaḍ-gosvāmī-prabhu kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī Svarūpa Dāmodara, Rāya Rāmānandādi Śrī Gaura-pārṣada-vṛnda kī jaya!",
-          "translation": "All glories to the associates of Śrī Gaura headed by Śrī Svarūpa Dāmodara and Rāya Rāmānanda!",
-          "wbw": "Śrī Svarūpa Dāmodara — Śrī Svarūpa Dāmodara; Rāya Rāmānandādi — Rāya Rāmānanda and others; Śrī Gaura-pārṣada-vṛnda — the associates of Śrī Gaura; kī jaya — all glories."
+          "sanskrit": "Śrī Svarūpa Dāmodara, Rāya Rāmānandādi Śrī Gaura-pārṣada-vṛnda kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Nāmācārya Śrīla Haridāsa Ṭhākura kī jaya!",
-          "translation": "All glories to the nāmācārya Śrīla Haridāsa Ṭhākura!",
-          "wbw": "Nāmācārya — nāmācārya (the teacher of the holy name); Śrīla Haridāsa Ṭhākura — Śrīla Haridāsa Ṭhākura; kī jaya — all glories."
+          "sanskrit": "Nāmācārya Śrīla Haridāsa Ṭhākura kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Prema se kaho Śrī Kṛṣṇa Caitanya, Prabhu Nityānanda, Śrī Advaita, Gadādhara, Śrīvāsādi Gaura-bhakta-vṛnda kī jaya!",
-          "translation": "Say with love: all glories to Śrī Kṛṣṇa Caitanya, Prabhu Nityānanda, Śrī Advaita, Gadādhara, Śrīvāsa and all the devotees of Gaura!",
-          "wbw": "Prema se kaho — say with love; Śrī Kṛṣṇa Caitanya — Śrī Kṛṣṇa Caitanya; Prabhu Nityānanda — Prabhu Nityānanda; Śrī Advaita — Śrī Advaita; Gadādhara — Gadādhara; Śrīvāsādi — Śrīvāsa and others; Gaura-bhakta-vṛnda — all the devotees of Gaura; kī jaya — all glories."
+          "sanskrit": "Prema se kaho Śrī Kṛṣṇa Caitanya, Prabhu Nityānanda, Śrī Advaita, Gadādhara, Śrīvāsādi Gaura-bhakta-vṛnda kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī Antardvīpa Māyāpura, Sīmantadvīpa, Godrumadvīpa, Madhyadvīpa, Koladvīpa, Ṛtudvīpa, Jahnudvīpa, Modadrumadvīpa, Rudradvīpātmaka Śrī Navadvīpa-dhāma kī jaya!",
-          "translation": "All glories to Śrī Navadvīpa-dhāma of nine islands — Antardvīpa (Māyāpura), Sīmantadvīpa, Godrumadvīpa, Madhyadvīpa, Koladvīpa, Ṛtudvīpa, Jahnudvīpa, Modadrumadvīpa and Rudradvīpa!",
-          "wbw": "Śrī Antardvīpa Māyāpura — Śrī Antardvīpa (Māyāpura); Sīmantadvīpa — Sīmantadvīpa; Godrumadvīpa — Godrumadvīpa; Madhyadvīpa — Madhyadvīpa; Koladvīpa — Koladvīpa; Ṛtudvīpa — Ṛtudvīpa; Jahnudvīpa — Jahnudvīpa; Modadrumadvīpa — Modadrumadvīpa; Rudradvīpātmaka — and Rudradvīpa — consisting of them; Śrī Navadvīpa-dhāma — Śrī Navadvīpa-dhāma; kī jaya — all glories."
+          "sanskrit": "Śrī Antardvīpa Māyāpura, Sīmantadvīpa, Godrumadvīpa, Madhyadvīpa, Koladvīpa, Ṛtudvīpa, Jahnudvīpa, Modadrumadvīpa, Rudradvīpātmaka Śrī Navadvīpa-dhāma kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī Śrī Rādhā-Kṛṣṇa gopa, gopī, go, Govardhana, dvādaśa vanātmaka Śrī Vraja-maṇḍala kī jaya!",
-          "translation": "All glories to Śrī Vraja-maṇḍala with its twelve forests — to Śrī Śrī Rādhā-Kṛṣṇa, the cowherds, the gopīs, the cows and Govardhana!",
-          "wbw": "Śrī Śrī Rādhā-Kṛṣṇa — Śrī Śrī Rādhā-Kṛṣṇa; gopa — the cowherd men; gopī — the gopīs; go — the cows; Govardhana — Govardhana; dvādaśa vanātmaka — consisting of twelve forests; Śrī Vraja-maṇḍala — Śrī Vraja-maṇḍala; kī jaya — all glories."
+          "sanskrit": "Śrī Śrī Rādhā-Kṛṣṇa gopa, gopī, go, Govardhana, dvādaśa vanātmaka Śrī Vraja-maṇḍala kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī Rādhā-kuṇḍa, Śyāma-kuṇḍa, Gaṅgā, Yamunā, Tulasī, Bhakti-devī kī jaya!",
-          "translation": "All glories to Śrī Rādhā-kuṇḍa, Śyāma-kuṇḍa, Gaṅgā, Yamunā, Tulasī and Bhakti-devī!",
-          "wbw": "Śrī Rādhā-kuṇḍa — Śrī Rādhā-kuṇḍa; Śyāma-kuṇḍa — Śyāma-kuṇḍa; Gaṅgā — Gaṅgā; Yamunā — Yamunā; Tulasī — Tulasī; Bhakti-devī — Bhakti-devī; kī jaya — all glories."
+          "sanskrit": "Śrī Rādhā-kuṇḍa, Śyāma-kuṇḍa, Gaṅgā, Yamunā, Tulasī, Bhakti-devī kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrīmatī Vṛndā-devī kī jaya! Śrī Paurṇamāsī Yogamāyā kī jaya! Śrī Gopīśvara Mahādeva kī jaya!",
-          "translation": "All glories to Śrīmatī Vṛndā-devī! All glories to Śrī Paurṇamāsī Yogamāyā! All glories to Śrī Gopīśvara Mahādeva!",
-          "wbw": "Śrīmatī Vṛndā-devī — Śrīmatī Vṛndā-devī; Śrī Paurṇamāsī Yogamāyā — Śrī Paurṇamāsī Yogamāyā; Śrī Gopīśvara Mahādeva — Śrī Gopīśvara Mahādeva; kī jaya — all glories."
+          "sanskrit": "Śrīmatī Vṛndā-devī kī jaya! Śrī Paurṇamāsī Yogamāyā kī jaya! Śrī Gopīśvara Mahādeva kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī Jagannātha, Baladeva, Subhadrā, Sudarśana Cakra jiu kī jaya!",
-          "translation": "All glories to Śrī Jagannātha, Baladeva, Subhadrā and Sudarśana Cakra!",
-          "wbw": "Śrī Jagannātha — Śrī Jagannātha; Baladeva — Baladeva; Subhadrā — Subhadrā; Sudarśana Cakra — Sudarśana Cakra; jiu — (a respectful address); kī jaya — all glories."
+          "sanskrit": "Śrī Jagannātha, Baladeva, Subhadrā, Sudarśana Cakra jiu kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī Kṣetra-maṇḍala kī jaya!",
-          "translation": "All glories to Śrī Kṣetra-maṇḍala (Purī)!",
-          "wbw": "Śrī Kṣetra-maṇḍala — Śrī Kṣetra-maṇḍala (Purī); kī jaya — all glories."
+          "sanskrit": "Śrī Kṣetra-maṇḍala kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Sarva-vighna-vināśakārī Śrī Nṛsiṁhadeva kī jaya!",
-          "translation": "All glories to Śrī Nṛsiṁhadeva, the destroyer of all obstacles!",
-          "wbw": "Sarva-vighna-vināśakārī — the destroyer of all obstacles; Śrī Nṛsiṁhadeva — Śrī Nṛsiṁhadeva; kī jaya — all glories."
+          "sanskrit": "Sarva-vighna-vināśakārī Śrī Nṛsiṁhadeva kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Bhakta-pravara Śrī Prahlāda Mahārāja kī jaya!",
-          "translation": "All glories to the best of devotees, Śrī Prahlāda Mahārāja!",
-          "wbw": "Bhakta-pravara — the best of devotees; Śrī Prahlāda Mahārāja — Śrī Prahlāda Mahārāja; kī jaya — all glories."
+          "sanskrit": "Bhakta-pravara Śrī Prahlāda Mahārāja kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Cāri-dhāma kī jaya! Cāri-sampradāya kī jaya! Cāri-ācārya kī jaya!",
-          "translation": "All glories to the four dhāmas! All glories to the four sampradāyas! All glories to the four ācāryas!",
-          "wbw": "Cāri-dhāma — the four dhāmas; Cāri-sampradāya — the four sampradāyas; Cāri-ācārya — the four ācāryas; kī jaya — all glories."
+          "sanskrit": "Cāri-dhāma kī jaya! Cāri-sampradāya kī jaya! Cāri-ācārya kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Grantha-rāja Śrīmad-Bhāgavatam kī jaya!",
-          "translation": "All glories to the king of books, Śrīmad-Bhāgavatam!",
-          "wbw": "Grantha-rāja — the king of books; Śrīmad-Bhāgavatam — Śrīmad-Bhāgavatam; kī jaya — all glories."
+          "sanskrit": "Grantha-rāja Śrīmad-Bhāgavatam kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī Harināma-saṅkīrtana kī jaya!",
-          "translation": "All glories to Śrī Harināma-saṅkīrtana!",
-          "wbw": "Śrī Harināma-saṅkīrtana — Śrī Harināma-saṅkīrtana (the congregational chanting of the Lord’s holy names); kī jaya — all glories."
+          "sanskrit": "Śrī Harināma-saṅkīrtana kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Ananta-koṭi vaiṣṇava-vṛnda kī jaya!",
-          "translation": "All glories to the countless Vaiṣṇavas!",
-          "wbw": "Ananta-koṭi — countless; vaiṣṇava-vṛnda — Vaiṣṇavas; kī jaya — all glories."
+          "sanskrit": "Ananta-koṭi vaiṣṇava-vṛnda kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Samāgata bhakta-vṛnda kī jaya!",
-          "translation": "All glories to the assembled devotees!",
-          "wbw": "Samāgata — assembled; bhakta-vṛnda — devotees; kī jaya — all glories."
+          "sanskrit": "Samāgata bhakta-vṛnda kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī Nitāi-Gaura-premānande! Hari Hari bol!",
-          "translation": "In the bliss of love for Śrī Nitāi-Gaura — chant Hari! Hari!",
-          "wbw": "Śrī Nitāi-Gaura-premānande — in the bliss of love for Śrī Nitāi-Gaura; Hari Hari — Hari! Hari!; bol — chant."
+          "sanskrit": "Śrī Nitāi-Gaura-premānande! Hari Hari bol!"
         }
       ],
       "subsections": []
@@ -6704,7 +6651,7 @@
     },
     {
       "id": "mangala-arati-songs",
-      "title": "Maṅgala-ārati Songs",
+      "title": "Maṅgala-ārati",
       "subtitle": null,
       "page": "",
       "content": [],
@@ -6753,7 +6700,8 @@
               "type": "verse",
               "sanskrit": "śrīmad-guror aṣṭakam etad uccair\nbrāhme muhūrte paṭhati prayatnāt\nyas tena vṛndāvana-nātha-sākṣāt-\nsevaiva labhyā januṣo ’nta eva"
             }
-          ]
+          ],
+          "numbered": true
         },
         {
           "id": "song-prabhupada-padma-stavakah",
@@ -6807,7 +6755,8 @@
               "type": "verse",
               "sanskrit": "vṛṣabhānu-sutā-dayitānucaraṁ\ncaraṇāśrita-reṇu-dharas tam aham\nmahad-adbhuta-pāvana-śakti-padaṁ\npraṇamāmi sadā prabhupāda-padam"
             }
-          ]
+          ],
+          "numbered": true
         },
         {
           "id": "song-mangala-arati",
@@ -6853,7 +6802,8 @@
               "type": "verse",
               "sanskrit": "maṅgala ārati kare bhakatera gaṇa\nabhāgā keśava kare nāma-saṅkīrtana\n(śrī keśava dāsa kare nāma-saṅkīrtana)"
             }
-          ]
+          ],
+          "numbered": true
         },
         {
           "id": "song-vibhavari-sesa",
@@ -6895,7 +6845,8 @@
               "type": "verse",
               "sanskrit": "yāmuna-jīvana, keli-parāyaṇa, mānasa-candra-cakora\nnāma-sudhā-rasa, gāo kṛṣṇa-yaśa, rākho vacana mana mora"
             }
-          ]
+          ],
+          "numbered": true
         },
         {
           "id": "song-vraja-dhama-mahimamrta",
@@ -6949,13 +6900,96 @@
               "type": "verse",
               "sanskrit": "śrī jāhnavā-pāda-padma koriyā smaraṇa\ndīna kṛṣṇadāsa kahe nāma-saṅkīrtana"
             }
+          ],
+          "numbered": true
+        }
+      ]
+    },
+    {
+      "id": "raja-bhoga-arati",
+      "title": "Rāja-bhoga-ārati",
+      "subtitle": null,
+      "page": "",
+      "content": [],
+      "subsections": [
+        {
+          "id": "song-yasomati-nandana",
+          "title": "Yaśomatī-nandana",
+          "content": [
+            {
+              "type": "text",
+              "content": "⟦Śrīla Bhaktivinoda Ṭhākura⟧"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "yaśomatī-nandana, vraja-vara-nāgara,\ngokula-rañjana kāna\ngopī-parāṇa-dhana, madana-manohara,\nkālīya-damana-vidhāna",
+              "wbw": "yaśomatī-nandana — the son of Yaśodā; vraja-vara-nāgara — the best of lovers in Vraja; gokula-rañjana — the delight of Gokula; kāna — Kāna (an affectionate name of Kṛṣṇa); gopī-parāṇa-dhana — the wealth of the lives of the gopīs; madana-manohara — who steals the mind even of Cupid (Madana); kālīya-damana-vidhāna — who chastised the serpent Kāliya",
+              "translation": "Lord Kṛṣṇa is the beloved son of Mother Yaśodā, the greatest lover in the land of Vraja, the delight of Gokula, He is intimately addressed as Kāna, and is the wealth of the lives of the gopīs. He steals the mind of even Cupid and punishes the Kāliya serpent."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "amala harināma amiya-vilāsā\nvipina-purandara, navīna-nāgara-vara,\nvaṁśī-vadana, suvāsā",
+              "wbw": "amala — pure; harināma — the holy name of Hari; amiya-vilāsā — full of nectarean pastimes; vipina-purandara — the lord of the forests (of Vraja); navīna-nāgara-vara — the best of youthful lovers; vaṁśī-vadana — with the flute at His lips; suvāsā — beautifully dressed",
+              "translation": "These pure holy names of Lord Hari are full of sweet nectarean pastimes. He is the monarch of the forests of Vṛndāvana, and the foremost of young paramours. He is always playing on a flute, and He is an excellent dresser."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "vraja-jana-pālana, asura-kula-nāśana,\nnanda-godhana-rākhowālā\ngovinda, mādhava, navanīta-taskara,\nsundara nanda-gopālā",
+              "wbw": "vraja-jana-pālana — the protector of the people of Vraja; asura-kula-nāśana — the destroyer of the demon dynasties; nanda-godhana-rākhowālā — the keeper of Nanda’s cows; govinda — Govinda (who gives pleasure to the cows); mādhava — Mādhava (the husband of the goddess of fortune); navanīta-taskara — the butter thief; sundara — beautiful; nanda-gopālā — the cowherd boy of Nanda",
+              "translation": "Kṛṣṇa is the protector of the inhabitants of Vraja, the destroyer of various demonic dynasties, the keeper and tender of Nanda Mahārāja’s cows, the giver of pleasure to the cows, the husband of the goddess of fortune, the butter thief, and the beautiful cowherd boy of Nanda Mahārāja."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "yāmuna-taṭa-cara, gopī-vasana-hara,\nrāsa-rasika kṛpāmaya\nśrī rādhā-vallabha, vṛndāvana-naṭavara,\nbhakativinoda āśraya",
+              "wbw": "yāmuna-taṭa-cara — who wanders on the bank of the Yamunā; gopī-vasana-hara — who steals the garments of the gopīs; rāsa-rasika — who relishes the rāsa dance; kṛpāmaya — full of mercy; śrī rādhā-vallabha — the beloved of Śrī Rādhā; vṛndāvana-naṭavara — the best dancer of Vṛndāvana; bhakativinoda — of Bhaktivinoda; āśraya — the shelter",
+              "translation": "Kṛṣṇa wanders along the banks of the river Yamunā, He steals the garments of the young damsels of Vraja, and delights in the mellows of the rāsa dance. He is very merciful, the beloved of Śrīmatī Rādhārāṇī, the great dancer of Vṛndāvana, and the refuge of Bhaktivinoda."
+            }
+          ],
+          "numbered": true
+        },
+        {
+          "id": "song-jaya-yasoda-nandana",
+          "title": "Jaya Yaśodā-nandana",
+          "content": [
+            {
+              "type": "text",
+              "content": "⟦Śrīla Bhaktivinoda Ṭhākura⟧"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jaya yaśodā-nandana kṛṣṇa gopāla govinda\njaya madana-mohana hare ananta mukunda",
+              "wbw": "jaya — all glories; yaśodā-nandana — to the son of Yaśodā; kṛṣṇa — to Kṛṣṇa; gopāla — the cowherd boy; govinda — Govinda (who gives pleasure to the cows); jaya — all glories; madana-mohana — to Madana-mohana (the enchanter of Cupid); hare — Hari (who takes away all inauspiciousness); ananta — the unlimited; mukunda — Mukunda (the giver of liberation)",
+              "translation": "All glories to Kṛṣṇa, the son of Mother Yaśodā, the cowherd boy and giver of pleasure to the cows! All glories to the conqueror of Cupid, Lord Hari, who takes away all inauspiciousness, who is unlimited, and the awarder of liberation!"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jaya acyuta mādhava rām bṛndābana-candra\njaya muralī-vadana śyāma gopī-janānanda",
+              "wbw": "jaya — all glories; acyuta — to the infallible Lord; mādhava — Mādhava (the husband of the goddess of fortune); rām — Rāma (the supreme enjoyer); bṛndābana-candra — the moon of Vṛndāvana; jaya — all glories; muralī-vadana — to Him who holds the flute to His mouth; śyāma — Śyāma (whose colour is that of a dark rain cloud); gopī-janānanda — the bliss of the gopīs",
+              "translation": "All glories to the infallible Lord, husband of the goddess of fortune, the supreme enjoyer, and the moon of Vṛndāvana! All glories to Kṛṣṇa, who always holds a flute to His mouth, who is the color of a dark blue rain cloud, and is the bliss of the gopīs!"
+            }
+          ]
+        },
+        {
+          "id": "song-jaya-radha-madhava",
+          "title": "Jaya Rādhā-Mādhava",
+          "content": [
+            {
+              "type": "text",
+              "content": "⟦Śrīla Bhaktivinoda Ṭhākura⟧"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jaya rādhā-mādhava kuñja-bihārī\ngopī-jana-vallabha giri-vara-dhārī\nyaśodā-nandana, braja-jana-rañjana,\nyāmuna-tīra-vana-cārī",
+              "wbw": "jaya — all glories; rādhā-mādhava — to Rādhā-Mādhava (Mādhava, the beloved of Rādhā); kuñja-bihārī — who enjoys pastimes in the groves; gopī-jana-vallabha — the beloved of the gopīs; giri-vara-dhārī — the holder of the best of hills (Govardhana); yaśodā-nandana — the son of Yaśodā; braja-jana-rañjana — the delight of the people of Vraja; yāmuna-tīra-vana-cārī — who wanders in the forests on the bank of the Yamunā",
+              "translation": "Kṛṣṇa is the lover of Rādhā. He displays many amorous pastimes in the groves of Vṛndāvana, He is the lover of the cowherd maidens of Vraja, and the holder of the great hill named Govardhana. He is the beloved son of Mother Yaśodā, the delighter of the inhabitants of Vraja, and He wanders in the forests along the banks of the River Yamunā!"
+            }
           ]
         }
       ]
     },
     {
       "id": "gaura-arati-songs",
-      "title": "Gaura-ārati Songs",
+      "title": "Gaura-ārati",
       "subtitle": null,
       "page": "",
       "content": [],
@@ -6996,7 +7030,8 @@
               "type": "verse",
               "sanskrit": "śiva-śuka-nārada preme gada-gada\nbhakativinoda dekhe gorāra sampada"
             }
-          ]
+          ],
+          "numbered": true
         },
         {
           "id": "song-yugala-arati",
@@ -7030,13 +7065,14 @@
               "type": "verse",
               "sanskrit": "śrī rādhā-mādhava-pada-sarasija-āśe\nbhakativinoda sakhī-pade sukhe bhāse"
             }
-          ]
+          ],
+          "numbered": true
         }
       ]
     },
     {
       "id": "kartika-bhajans",
-      "title": "Bhajans for Kārtika",
+      "title": "Kārtika",
       "subtitle": null,
       "page": "",
       "content": [
@@ -7167,7 +7203,8 @@
               "wbw": "śrī — Śrī; nanda — of Nanda; nandanāṣṭakaṁ — eight verses glorifying the son; paṭhed — recites; yaḥ — whoever; śraddhayānvitaḥ — endowed with faith; tared — will cross; bhavābdhiṁ — the ocean of material existence; dustaraṁ — insurmountable; labhet — will attain; tad — His; aṅghri — feet; yugmakam — pair",
               "translation": "Whoever with faith recites these eight verses glorifying the son of Nanda will easily conquer the insurmountable ocean of material existence and attain shelter at His two lotus feet."
             }
-          ]
+          ],
+          "numbered": true
         },
         {
           "id": "song-radha-krpa-kataksa-stava-raja",
@@ -7255,7 +7292,173 @@
               "wbw": "itīmam — this, expressed thus; adbhutaṁ-stavaṁ — wonderful prayer; niśamya — upon hearing; bhānu-nandinī — the daughter of Vṛṣabhānu; karotu — may She make; santataṁ — perpetually; janaṁ — a person; kṛpā-kaṭākṣa-bhājanam — the recipient of [Her] merciful sidelong glance; bhavet — will occur; tadaiva — at that very moment; sañcita — accumulated; tri-rūpa — of three types; karma-nāśanaṁ — the destruction of karma; bhavet — will occur; tadā — then; vrajendra-sūnu — of the son of the king of Vraja; maṇḍala-praveśanam — entrance into the circle",
               "translation": "O daughter of Vṛṣabhānu, upon hearing this wonderful prayer, please make me qualified to perpetually receive Your merciful sidelong glance. By Your mercy my three types of karma (accumulated consequences, fructifying consequences, and consequences of current actions) will be destroyed, and at that moment I will enter the circle of the son of the king of Vraja and His dearmost sakhīs."
             }
-          ]
+          ],
+          "numbered": true
+        }
+      ]
+    },
+    {
+      "id": "yamunastaka",
+      "title": "Yamunāṣṭaka",
+      "subtitle": null,
+      "page": "",
+      "content": [],
+      "subsections": [
+        {
+          "id": "song-yamunastakam",
+          "title": "Śrī Yamunāṣṭakam",
+          "content": [
+            {
+              "type": "text",
+              "content": "⟦Śrīla Rūpa Gosvāmī⟧"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "bhrātur antakasya pattane ’bhipatti-hāriṇī\nprekṣayāti-pāpino ’pi pāpa-sindhu-tāriṇī\nnīra-mādhurībhir apy aśeṣa-citta-bandhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+              "wbw": "bhrātur — of her brother; antakasya — Yamarāja (the lord of death); pattane — in the city; ’bhipatti-hāriṇī — who prevents one from going; prekṣayā — by the sight (of her); ati-pāpinaḥ — the greatly wicked; api — even; pāpa-sindhu — from the ocean of sins; tāriṇī — who delivers; nīra-mādhurībhiḥ — by the sweetness of her waters; api — also; aśeṣa-citta — all hearts; bandhinī — who captivates; māṁ — me; punātu — may she purify; sarvadā — always; aravinda-bandhu-nandinī — the daughter of the friend of the lotus (Sūrya, the sun-god)",
+              "translation": "Śrī Yamunā-devī prevents one from having to go to the city of her brother, Yamarāja (the lord of death). Simply seeing her delivers even the greatly wicked from an ocean of sins. Her sweet waters captivate everyone’s heart. May Yamunā-devī, daughter of the sun-god, Sūrya-deva [who, in this song, is called Aravinda-bandhu, friend of the lotus], always purify me."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "hāri-vāri-dhārayābhimaṇḍitoru-khāṇḍavā\npuṇḍarīka-maṇḍalodyad-aṇḍajāli-tāṇḍavā\nsnāna-kāma-pāmarogra-pāpa-sampad-andhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+              "wbw": "hāri — charming; vāri-dhārayā — by the current of her waters; abhimaṇḍita — adorning; uru-khāṇḍavā — the vast Khāṇḍava forest; puṇḍarīka-maṇḍala — on the clusters of white lotuses; udyat — rising; aṇḍaja-āli — flocks of birds; tāṇḍavā — (where) dance; snāna-kāma — who desires to bathe; pāmara — of a sinner; ugra-pāpa — of heinous sins; sampat — the wealth; andhinī — who destroys; māṁ — me; punātu — may she purify; sarvadā — always; aravinda-bandhu-nandinī — the daughter of the friend of the lotus (Sūrya, the sun-god)",
+              "translation": "She adorns Indra’s immense Khāṇḍava Forest with her enchanting current, and upon her blooming white lotuses, birds such as wagtails always dance. (What to speak of bathing,) simply desiring to bathe in her waters frees a sinner from his many heinous sins. May Yamunā-devī, daughter of Sūrya-deva, always purify me."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "śīkarābhimṛṣṭa-jantu-durvipāka-mardinī\nnanda-nandanāntaraṅga-bhakti-pūra-vardhinī\ntīra-saṅgamābhilāṣi-maṅgalānubandhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+              "wbw": "śīkara — by a drop (of her water); abhimṛṣṭa — touched; jantu — of living beings; durvipāka — the grievous results (of sins); mardinī — who crushes; nanda-nandana — for the son of Nanda; antaraṅga-bhakti — of intimate devotion; pūra — the current; vardhinī — who increases; tīra-saṅgama — to reside on (her) banks; abhilāṣi — to those who desire; maṅgala — auspiciousness; anubandhinī — who bestows; māṁ — me; punātu — may she purify; sarvadā — always; aravinda-bandhu-nandinī — the daughter of the friend of the lotus (Sūrya, the sun-god)",
+              "translation": "Touching but a single drop of her water nullifies a person’s most heinous of crimes. She increases the current of rāgānuga-bhakti for Śrī Nanda-nandana and brings auspiciousness to anyone who simply desires to reside on her banks. May Yamunā-devī, daughter of Sūrya-deva, always purify me."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "dvīpa-cakravāla-juṣṭa-sapta-sindhu-bhedinī\nśrī-mukunda-nirmitoru-divya-keli-vedinī\nkānti-kandalībhir indranīla-vṛnda-nindinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+              "wbw": "dvīpa-cakravāla — by the circle of continents; juṣṭa — worshipped; sapta-sindhu — the seven oceans; bhedinī — who passes through (without merging); śrī-mukunda — by Śrī Mukunda; nirmita — performed; uru — great; divya-keli — divine pastimes; vedinī — who knows; kānti-kandalībhiḥ — by the luster (of her waters); indranīla-vṛnda — a host of sapphires; nindinī — who censures; māṁ — me; punātu — may she purify; sarvadā — always; aravinda-bandhu-nandinī — the daughter of the friend of the lotus (Sūrya, the sun-god)",
+              "translation": "She encircles the seven oceans, which are worshipped by the continents of the Earth. (In other words, she never merges into the seven oceans, as do ordinary rivers.) She is thoroughly acquainted with the divine play of Śrī Mukunda (and thus she makes those pastimes arise in the hearts of those who take shelter of her). The luster of her waters censures a host of blue sapphires. May Yamunā-devī, daughter of Sūrya-deva, always purify me."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "māthureṇa maṇḍalena cāruṇābhimaṇḍitā\nprema-naddha-vaiṣṇavādhva-vardhanāya paṇḍitā\nūrmi-dor-vilāsa-padmanābha-pāda-vandinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+              "wbw": "māthureṇa maṇḍalena — by the land of Mathurā; cāruṇā — enchanting; abhimaṇḍitā — adorned; prema-naddha — saturated with love; vaiṣṇava-adhva — the path of the Vaiṣṇavas; vardhanāya — in nourishing; paṇḍitā — expert; ūrmi-doḥ — with the arms of her waves; vilāsa — playfully; padmanābha-pāda — the feet of Padmanābha (Kṛṣṇa); vandinī — who worships; māṁ — me; punātu — may she purify; sarvadā — always; aravinda-bandhu-nandinī — the daughter of the friend of the lotus (Sūrya, the sun-god)",
+              "translation": "She is ornamented by the enchanting land of Mathurā-maṇḍala, and she expertly nourishes the Vaiṣṇava path that is saturated with love, the sampradāya of rāgānuga-bhakti. (In other words, she manifests rāgānugā-bhakti in the heart of Vaiṣṇavas who bathe in her waters.) With the playful arms of her waves, she worships Padmanābha Śrī Kṛṣṇa’s lotus feet. May Yamunā-devī, daughter of Sūrya-deva, always purify me."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "ramya-tīra-rambhamāṇa-go-kadamba-bhūṣitā\ndivya-gandha-bhāk-kadamba-puṣpa-rāji-rūṣitā\nnanda-sūnu-bhakta-saṅgha-saṅgamābhinandinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+              "wbw": "ramya-tīra — (on) her charming banks; rambhamāṇa — mooing; go-kadamba — by herds of cows; bhūṣitā — adorned; divya-gandha-bhāk — bearing celestial fragrance; kadamba-puṣpa-rāji — by rows of kadamba flowers; rūṣitā — perfumed; nanda-sūnu — of the son of Nanda; bhakta-saṅgha — of the assembly of devotees; saṅgama — by the gathering; abhinandinī — who rejoices; māṁ — me; punātu — may she purify; sarvadā — always; aravinda-bandhu-nandinī — the daughter of the friend of the lotus (Sūrya, the sun-god)",
+              "translation": "Her charming banks are adorned by herds of loudly mooing cows and are perfumed by celestial fragrances emanating from the flowers of rows of kadamba trees. She is overjoyed by the gathering of Śrī Nanda-lāla’s bhaktas [on those banks]. May Yamunā-devī, daughter of Sūrya-deva, always purify me."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "phulla-pakṣa-mallikākṣa-haṁsa-lakṣa-kūjitā\nbhakti-viddha-deva-siddha-kinnarāli-pūjitā\ntīra-gandhavāha-gandha-janma-bandha-randhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+              "wbw": "phulla-pakṣa — with wings spread wide; mallikākṣa-haṁsa — of mallikākṣa swans; lakṣa — by hundreds of thousands; kūjitā — filled with the sounds; bhakti-viddha — pierced by devotion; deva-siddha-kinnara — by devas, siddhas and kinnaras; āli — by hosts; pūjitā — worshipped; tīra-gandhavāha — of the breeze from (her) banks; gandha — by the fragrance; janma-bandha — the bondage of birth; randhinī — who destroys; māṁ — me; punātu — may she purify; sarvadā — always; aravinda-bandhu-nandinī — the daughter of the friend of the lotus (Sūrya, the sun-god)",
+              "translation": "She is filled with the sounds of hundreds of thousands of sweetly warbling mallikākṣa swans, whose wings are spread wide. She is worshiped by the devas, siddhas, kinnaras, and human beings whose hearts are dedicated to the service of Śrī Hari. The slightest touch of breezes from her banks eradicates the bondage of rebirth. May Yamunā-devī, daughter of Sūrya-deva, always purify me."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "cid-vilāsa-vāri-pūra-bhūr-bhuvaḥ-svar-āpinī\nkīrtitāpi durmadoru-pāpa-marma-tāpinī\nballavendra-nandanāṅgarāga-bhaṅga-gandhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+              "wbw": "cid-vilāsa — with transcendental knowledge; vāri-pūra — by the current of her waters; bhūr-bhuvaḥ-svaḥ — (the worlds) Bhūḥ, Bhuvaḥ and Svaḥ; āpinī — who fills; kīrtitā — glorified; api — even; durmada — wild; uru-pāpa — of great sins; marma — the roots; tāpinī — who burns; ballavendra-nandana — of the son of the king of cowherds (Kṛṣṇa); aṅgarāga — by the unguents of the body; bhaṅga — (washed off) by the waves; gandhinī — fragrant; māṁ — me; punātu — may she purify; sarvadā — always; aravinda-bandhu-nandinī — the daughter of the friend of the lotus (Sūrya, the sun-god)",
+              "translation": "Her currents fill the three worlds—Bhuḥ, Bhuvaḥ, and Svaḥ—with transcendental knowledge (cid-vilāsa). Just uttering her glories burns the greatest deeply rooted sins to ashes. She is supremely fragrant, due to unguents [such as sandal paste and kuṅkuma] coming from the body of Ballavendra-nandana Kṛṣṇa. May Yamunā-devī, daughter of Sūrya-deva, always purify me."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "tuṣṭa-buddhir aṣṭakena nirmalormi-ceṣṭitāṁ\ntvām anena bhānu-putri sarva-deva-veṣṭitām\nyaḥ stavīti vardhayasva sarva-pāpa-mocane\nbhakti-pūram asya devi puṇḍarīka-locane",
+              "wbw": "tuṣṭa-buddhir — with satisfied intelligence; aṣṭakena anena — with this aṣṭaka; nirmala-ūrmi — by pure waves; ceṣṭitām — acting; tvām — you; bhānu-putri — O daughter of the sun; sarva-deva — by all the demigods; veṣṭitām — surrounded; yaḥ — one who; stavīti — praises; vardhayasva — please increase; sarva-pāpa-mocane — for Him who liberates from all sins; bhakti-pūram — the current of devotion; asya — of that person; devi — O goddess; puṇḍarīka-locane — for the lotus-eyed (Kṛṣṇa)",
+              "translation": "O Sūryaputri! O Devī! O Yamunā, whose powerful waves are purifying and who is surrounded by all the demigods! For those persons of satisfied intelligence who recite this prayer, please increase their current of bhakti for the lotus-eyed Śrī Kṛṣṇa, who liberates people from all their sins. This is my supplication at your feet."
+            }
+          ],
+          "numbered": true
+        }
+      ]
+    },
+    {
+      "id": "jhulana-yatra-bhajans",
+      "title": "Jhūlana-yātrā",
+      "subtitle": null,
+      "page": "",
+      "content": [],
+      "subsections": [
+        {
+          "id": "song-jhula-jhule",
+          "title": "Jhūlā jhūle Rādhā-Dāmodara",
+          "content": [
+            {
+              "type": "text",
+              "content": "A traditional Vrajavāsī kīrtana"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jhūlā jhūle rādhā-dāmodara vṛndāvana mẽ\nkaisī chāī hariyālī ālī kuñjana mẽ",
+              "wbw": "jhūlā — on the swing; jhūle — swing; rādhā-dāmodara — Rādhā and Dāmodara; vṛndāvana mẽ — in Vṛndāvana; kaisī — how (lush); chāī — has spread; hariyālī — the greenery; ālī — O friend; kuñjana mẽ — in the bowers",
+              "translation": "Rādhā and Dāmodara are swinging back and forth on a swing in Vṛndāvana. O friend, how lush is the greenery in the forest bowers."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "ita nanda ko dulāro, uta bhānu kī dulārī\njorī lāge ati pyārī basi nainana mẽ",
+              "wbw": "ita — on one side; nanda ko — of Nanda; dulāro — the dear son; uta — on the other side; bhānu kī — of Vṛṣabhānu; dulārī — the dear daughter; jorī — the pair; lāge — appears; ati — very; pyārī — charming; basi — dwells; nainana mẽ — in the eyes",
+              "translation": "On one side is the dear son of Nanda, on the other side is the dear daughter of Vṛṣabhānu Mahārāja. They appear so charming together. I keep Them within my sight."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jamunā ke kūla, pahira suraṅga dukūla\ntaise khila rahe phūla in kadamana mẽ",
+              "wbw": "jamunā ke — of the Yamunā; kūla — on the bank; pahira — wearing; suraṅga — colourful; dukūla — garments; taise — so too; khila rahe — are blossoming; phūla — the flowers; in — on these; kadamana mẽ — kadamba trees",
+              "translation": "On the bank of the Yamunā, They wear beautiful, colorful garments. Oh, how the flowers are blossoming on these kadamba trees!"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "gaura śyāma raṅga, ghana dāminī ke saṅga\nbhai akhiyā̃ apaṅga chavi bharī mana mẽ",
+              "wbw": "gaura — golden; śyāma — dark; raṅga — complexions; ghana — a dark cloud; dāminī ke saṅga — with lightning; bhai — have become; akhiyā̃ — the eyes; apaṅga — unblinking; chavi — this sight; bharī — has filled; mana mẽ — the mind",
+              "translation": "Their [respective] golden and dark complexions resemble lightning on a dark cloud. This sight fills my mind, and my eyes do not close."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "rādhe mukha aura, naina śyāma ke cakora\nbraja-gopin prema ḍora lagī caraṇana mẽ",
+              "wbw": "rādhe mukha — Rādhā’s face; aura — towards; naina — the eyes; śyāma ke — of Śyāma; cakora — (like) cakora birds; braja-gopin — of the gopīs of Vraja; prema — of prema; ḍora — the rope; lagī — is bound; caraṇana mẽ — to the feet",
+              "translation": "Rādhā’s face is like the moon and Kṛṣṇa’s eyes, which are like those of a cakora bird, look toward Her. The vraja-gopīs’ prema is a rope binding Rādhā and Kṛṣṇa’s lotus feet."
+            }
+          ],
+          "numbered": true
+        },
+        {
+          "id": "song-radhe-jhulana-padharo",
+          "title": "Rādhe jhūlana padhāro",
+          "content": [
+            {
+              "type": "text",
+              "content": "A traditional Vrajavāsī kīrtana"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "rādhe jhūlana padhāro jhuka āye badarā\njhuka āye badarā, ghira āye badarā",
+              "wbw": "rādhe — O Rādhā; jhūlana — to the swing; padhāro — please come; jhuka āye — have hung low; badarā — the clouds; ghira āye — have gathered",
+              "translation": "“O Rādhā, go and sit on the swing. Low rain clouds have come and filled the sky."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "aiso māna nahī̃ kīje, haṭha choḍo rī alī\ntum to parama sayānī vṛṣabhānu kī lalī",
+              "wbw": "aiso — such; māna — sulkiness (māna); nahī̃ kīje — do not keep; haṭha — stubbornness; choḍo — give up; rī alī — O friend; tum to — You are indeed; parama — highly; sayānī — intelligent; vṛṣabhānu kī — of Vṛṣabhānu; lalī — the daughter",
+              "translation": "“Give up Your sulky mood, O friend. Don’t be stubborn like this. You are the dear, highly intelligent daughter of King Vṛṣabhānu."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "sājo solah śriṅgāra ḍāro nainana kajarā\npaharo pañca-raṅga sāḍī oḍho śyāma cadarā",
+              "wbw": "sājo — decorate Yourself; solah — with sixteen; śriṅgāra — ornaments; ḍāro — apply; nainana — to the eyes; kajarā — kajjal; paharo — put on; pañca-raṅga — five-coloured; sāḍī — sārī; oḍho — cover Yourself; śyāma — dark; cadarā — a veil",
+              "translation": "“Decorate Yourself with sixteen kinds of ornaments and line your eyes with kajjal. Don your five-colored sārī and cover yourself with a thin, dark veil."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "tero rasika pritama, maga johata khaḍo\nrādhe jahā̃ paga dhāro śyāma nainā dharo",
+              "wbw": "tero — Your; rasika — playful; pritama — beloved; maga — the path; johata — watching; khaḍo — stands; rādhe — O Rādhā; jahā̃ — wherever; paga — feet; dhāro — You place; śyāma — Śyāma; nainā — eyes; dharo — fixes",
+              "translation": "“Your playful beloved is waiting for You on the path. O Rādhā, wherever You place Your feet, Śyāma’s eyes follow.”"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "ḍārī reśama ḍorī jāpai jhūle rādhā gorī\njākī baiyā̃ gorī gorī pahare hāthana gajarā",
+              "wbw": "ḍārī — are hung; reśama — silken; ḍorī — ropes; jāpai — upon which; jhūle — swings; rādhā — Rādhā; gorī — fair; jākī — whose; baiyā̃ — arms; gorī gorī — golden; pahare — wear; hāthana — on the hands; gajarā — floral bracelets",
+              "translation": "Silken ropes are hung, upon which fair Rādhā is swinging. Her golden arms are decorated with floral bracelets."
+            }
+          ],
+          "numbered": true
         }
       ]
     },

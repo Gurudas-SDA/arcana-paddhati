@@ -691,17 +691,18 @@ def run(args):
     c.report(args.max)
 
     # L22 — Песни мангала-арати и гаура-арати в книге (Satkirti 07.10 13:07): IAST + пословный перевод + перевод.
-    c = Check("L22", "ārati songs: maṅgala-ārati (5) and gaura-ārati (2) in Part IV with IAST, word-by-word and translation")
+    c = Check("L22", "ārati songs: maṅgala-ārati (5) and gaura-ārati (2) in the part «Арати» (A121) with IAST, word-by-word and translation")
     # Night 08.10: also every other language book (lv, de, …: translated headings/authors, IAST verses as in EN).
     for fn in [name(f) for f in allb]:
         b = loaded[os.path.join(qa.DATA, fn)]
         secs = {s["id"]: s for s in b["sections"]}
-        part = next((p for p in b["parts"] if p["id"] == "festivals-vows"), {"sections": []})
+        # A121 (Satkirti 26.10 msg 6811–6818): the ārati chapters moved to the part «Арати» (id "arati")
+        part = next((p for p in b["parts"] if p["id"] == "arati"), {"sections": []})
         for sid, n, first in (("mangala-arati-songs", 5, "saṁsāra-dāvānala-līḍha-loka-"),
                               ("gaura-arati-songs", 2, "jaya jaya gorācāṅdera āratiko śobhā")):
             s = secs.get(sid)
             if not s or sid not in part["sections"] or len(s["subsections"]) != n:
-                c.hit(fn, sid, f"missing / not in Part IV / {len(s['subsections']) if s else 0} songs (expected {n})")
+                c.hit(fn, sid, f"missing / not in part «Арати» / {len(s['subsections']) if s else 0} songs (expected {n})")
                 continue
             verses = [x for sub in s["subsections"] for x in sub["content"] if x.get("type") == "verse"]
             if fn == "book.ru.json":
@@ -812,7 +813,7 @@ def run(args):
     # L25 — «Бхаджаны для Картики» (Reader v7.6, 07.10.2026): new chapter right after «Песни гаура-арати» in
     # Part IV; 3 songs with 8 / 9 / 13 verses (Rādhā-kṛpā-kaṭākṣa: GVP's 13), IAST with diacritics, every verse
     # with word-by-word + translation, no source lines (L24 covers the song format of this chapter as well).
-    c = Check("L25", "Kārtika bhajans: after gaura-ārati in Part IV, 3 songs (8/9/13 verses), IAST diacritics, no sources")
+    c = Check("L25", "Kārtika bhajans: after gaura-ārati in the part «Арати» (A121), 3 songs (8/9/13 verses), IAST diacritics, no sources")
     want = [("song-damodarastakam", 8, "namāmīśvaraṁ sac-cid-ānanda-rūpaṁ"),
             ("song-nanda-nandanastakam", 9, "sucāru-vaktra-maṇḍalaṁ sukarṇa-ratna-kuṇḍalam"),
             ("song-radha-krpa-kataksa-stava-raja", 13, "munīndra-vṛnda-vandite tri-loka-śoka-hāriṇī")]
@@ -821,10 +822,11 @@ def run(args):
     for f in allb:
         fn = os.path.basename(f)
         b = loaded[f]
-        part = next((p for p in b["parts"] if p["id"] == "festivals-vows"), {"sections": []})["sections"]
+        # A121: «Картика» is in the part «Арати», right after «Гаура-арати»
+        part = next((p for p in b["parts"] if p["id"] == "arati"), {"sections": []})["sections"]
         if "kartika-bhajans" not in part or "gaura-arati-songs" not in part \
                 or part.index("kartika-bhajans") != part.index("gaura-arati-songs") + 1:
-            c.hit(fn, "parts/festivals-vows", f"kartika-bhajans not right after gaura-arati-songs: {part}")
+            c.hit(fn, "parts/arati", f"kartika-bhajans not right after gaura-arati-songs: {part}")
         # Night 08.10: the other languages have the chapter too (translated by scripts/translate/night_sync.py)
         ids = [s["id"] for s in b["sections"]]
         if "kartika-bhajans" not in ids or ids.index("kartika-bhajans") != ids.index("gaura-arati-songs") + 1:

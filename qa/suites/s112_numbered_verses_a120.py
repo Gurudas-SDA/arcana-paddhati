@@ -12,6 +12,10 @@ above each verse. Today only «Шри Дамодараштака» (kartika-bhaj
      (# tehniskais slieksnis Lipikāra, nav S noteikums: 0…24 px) and does not overlap it;
   d) nothing else changes: the other subsections of the chapter (song-nanda-nandanastakam, song-radha-…) have no `.verse-num`,
      and a chapter with verses elsewhere (gaura-arati-songs) has none either.
+A121 (Satkirti msg 6826, 26.10.2026: «Все пронумеруй по центру. Короткие бхаджаны, одна-две шлоки не нумеруй»):
+  a) and d) changed — in the book's languages (en, ru-iast) EVERY song subsection («song-…») with ≥3 verses is flagged,
+     songs with 1–2 verses are not; in the app every subsection shows either a number for each verse or none
+     (gaura-arati-songs: now numbered, 7 + 6). The retired languages' files are not rebuilt (S 23.10).
 usage: python s112_numbered_verses_a120.py <base-url>
 """
 import glob
@@ -37,14 +41,19 @@ def check(device, name, ok, info=""):
 
 # ---------------- a) data ----------------
 files = sorted(glob.glob(os.path.join(DATA, "book*.json")))
+ACTIVE = {"book.json", "book.ru-iast.json"}
 for f in files:
     n = os.path.basename(f)
+    if n not in ACTIVE:
+        continue
     book = json.load(open(f, encoding="utf-8"))
     flagged = {(s["id"], sub["id"]) for s in book["sections"] for sub in s.get("subsections", []) if sub.get("numbered")}
+    FLAGGED = {(s["id"], sub["id"]) for s in book["sections"] for sub in s.get("subsections", [])
+               if str(sub.get("id", "")).startswith("song-") and sum(1 for b in sub.get("content", []) if b.get("type") == "verse") >= 3}
     has = any(s["id"] == SID and any(sub["id"] == SUB for sub in s.get("subsections", [])) for s in book["sections"])
     if has:
         check("data", f"{n}: {SUB} numbered", (SID, SUB) in flagged, sorted(flagged))
-    check("data", f"{n}: no other subsection numbered", flagged <= FLAGGED, sorted(flagged - FLAGGED))
+    check("data", f"{n}: numbered = exactly the songs with ≥3 verses (msg 6826)", flagged == FLAGGED, sorted(flagged ^ FLAGGED))
 
 if BASE is None:
     print(f"{sum(results)}/{len(results)} passed")
@@ -71,7 +80,7 @@ MEASURE_JS = """(sub) => {
             gap: sr ? sr.top - r.bottom : -1, visible: r.height > 0 && t.width > 0};
   })};
 }"""
-OTHER_JS = """(sel) => [...document.querySelectorAll(sel)].map(s => [s.id, s.querySelectorAll('.verse-num').length])"""
+OTHER_JS = """(sel) => [...document.querySelectorAll(sel)].map(s => [s.id, s.querySelectorAll('.verse-num').length, s.querySelectorAll('.verse-text').length])"""
 
 with sync_playwright() as p:
     for device, engine, options in qa.devices(["iphone14", "pixel7", "desktop"]):
@@ -96,11 +105,12 @@ with sync_playwright() as p:
             check(tag, "small gap to the IAST (0…24 px), no overlap", nums and all(0 <= x["gap"] <= 24 for x in nums),
                   [round(x["gap"], 1) for x in nums])
             others = page.evaluate(OTHER_JS, f"#{SID} section[data-subsection], section[data-subsection]")
-            check(tag, "other subsections unnumbered", all(c == 0 for i, c in others if i != SUB), others)
+            check(tag, "other subsections: a number for every verse or none (msg 6826)", all(c in (0, v) for i, c, v in others if i != SUB), others)
         page.goto(f"{BASE}/gaura-arati-songs/", wait_until="load")
-        page.wait_for_selector(".sanskrit", state="attached", timeout=15000)
-        cnt = page.evaluate("() => [document.querySelectorAll('.sanskrit').length, document.querySelectorAll('.verse-num').length]")
-        check(f"{device} en/", "gaura-arati-songs (not flagged, has verses): no numbers", cnt[0] > 0 and cnt[1] == 0, cnt)
+        page.wait_for_selector("#song-gaura-arati .verse-text", state="attached", timeout=15000)
+        cnt = page.evaluate("() => ['song-gaura-arati', 'song-yugala-arati'].map(id => document.getElementById(id)).filter(Boolean)"
+                            ".reduce((a, s) => [a[0] + s.querySelectorAll('.verse-text').length, a[1] + s.querySelectorAll('.verse-num').length], [0, 0])")
+        check(f"{device} en/", "gaura-arati-songs (A121 msg 6826: 7 + 6 verses → numbered): a number for every verse", cnt[0] > 0 and cnt[1] == cnt[0], cnt)
         context.close()
         browser.close()
 

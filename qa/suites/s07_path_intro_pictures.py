@@ -10,7 +10,7 @@ E picture <-> list: tap on a picture part -> row highlighted (computed bg) + scr
   tap on a row -> picture part highlighted; emblem, Tilak, Parafernalia
 F cover: no «v.1», CA block (emblem left, text right, centred), cover fully on screen
 G Maṅgalācaraṇa: title only, no subtitle, no explanatory headings; every verse has «пословно»
-H «Праздники, обеты и песни арати» (+ English)
+H «Праздники и обеты» (A121, 26.10; was «Праздники, обеты и песни арати») (+ English)
 I every verse of the book (ru-iast, ru) has a «пословно» chip in the UI (274 = 180 + 61 verses of the ārati songs, v7.4, + 30 of the Kārtika bhajans, v7.6, + 3 of «Заключение», 22.10;
   305 since A105/A106, 23.10 (was 306 until UM 8 was removed from the start of «Заключение», S msg 6169/6504): + «Эпиграф» UM 8 (S msg 6152/6241) − the same verse no longer in «Введение» (S msg 6152;
   ŚB 11.3.48 removed, S msg 6239) + 31 calls of «Джая-дхвани» (S msg 6155/6180/6281) + UM 8 again at the end of
@@ -317,11 +317,11 @@ def run(p, dev, eng, o):
         flow.state()['lit'] == before['lit'] and marks_place(flow.state())
         and g.get("n") == 1 and band_ok(g["bg"], LIT_PCT), str(g))
     fv = pg.locator(".mobile-menu[data-open] [data-toc-group=festivals-vows]")
-    chk(dev, "H part title «Праздники, обеты и песни арати»", "ПРАЗДНИКИ, ОБЕТЫ И ПЕСНИ АРАТИ" in fv.inner_text().upper(), fv.inner_text())
+    chk(dev, "H part title «Праздники и обеты» (A121: «песни арати» → part «Арати»)", "ПРАЗДНИКИ И ОБЕТЫ" in fv.inner_text().upper(), fv.inner_text())
     before = flow.state()
     act(pg.locator(".mobile-menu[data-open] [data-toc-toggle=festivals-vows]"))
     g = lit()
-    chk(dev, "A tap «Праздники, обеты и песни арати» keeps the reading-place mark and reveals the group",
+    chk(dev, "A tap «Праздники и обеты» keeps the reading-place mark and reveals the group",
         flow.state()['lit'] == before['lit'] and marks_place(flow.state()) and g.get("n") == 1 and in_view(fv), str(g))
     shot("part-heading-reading-place")
     pre = pg.locator(".mobile-menu[data-open] [data-toc-group=preaching-centres]")
@@ -451,7 +451,7 @@ def run(p, dev, eng, o):
     goto("/vigraha-tattva/")
     contents()
     en = pg.locator(".mobile-menu[data-open] [data-toc-group=festivals-vows]").inner_text().strip().upper()
-    chk(dev, "H English part title «Festivals, Vows and Ārati Songs»", "FESTIVALS, VOWS AND ĀRATI SONGS" in en, en)
+    chk(dev, "H English part title «Festivals and Vows» (A121)", "FESTIVALS AND VOWS" in en, en)
     chk(dev, "D English: «Introduction» group heading", pg.locator(".mobile-menu[data-open] [data-toc-group=introduction]").inner_text().strip().upper() == "INTRODUCTION")
 
     # ---------- I: every verse has «пословно» (one profile per engine family is enough for data; all pages) ----------

@@ -29,6 +29,11 @@ stays ours; 3 glosses corrected where the published translation shows they contr
 3.3 tomāra/tava «Вашем»; 3.4 karo «даруйте»). Song 3 had the 2004 Moscow translation before v7.7 — replaced.
 
     python scripts/chapters/ch16_arati_songs/build.py     (idempotent)
+
+A121 (Satkirti 26.10.2026 msg 6811–6828): after rebuilding with this script ALWAYS run
+    python scripts/chapters/ch18_arati/build.py
+— it moves the ārati chapters into the part «Арати», sets their titles, the "numbered" flags (msg 6826) and removes the
+translations of «Джая-дхвани» (msg 6828).
 """
 import copy
 import json

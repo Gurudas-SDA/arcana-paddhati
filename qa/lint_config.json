@@ -298,6 +298,54 @@
       "file": "book.ru.json",
       "match": "Затем Радха-Кришна уснули",
       "reason": "«Заключение»: дословная цитата Гурудева (текстовый блок «…» с подписью-источником) — «Стандарты» 7: имена Божеств как в источнике"
+    },
+    {
+      "check": "L6",
+      "file": "book.ru-iast.json",
+      "match": "jaya-dhvani-front/#",
+      "reason": "«Джая-дхвани» — Satkirti msg 6828 (26.10.2026): «В «Джая-дхвани» убери переводы. Это молитва, в которой перечисляют святых» — izņēmums no «Стандарты» 79 (nav ne перевода, ne пословно).",
+      "since": "2026-10-26",
+      "by": "Satkirti msg 6828 (A121)"
+    },
+    {
+      "check": "L6",
+      "file": "book.ru.json",
+      "match": "jaya-dhvani-front/#",
+      "reason": "«Джая-дхвани» — Satkirti msg 6828 (26.10.2026): «В «Джая-дхвани» убери переводы. Это молитва, в которой перечисляют святых» — izņēmums no «Стандарты» 79 (nav ne перевода, ne пословно).",
+      "since": "2026-10-26",
+      "by": "Satkirti msg 6828 (A121)"
+    },
+    {
+      "check": "L2",
+      "file": "book.ru-iast.json",
+      "match": "song-jaya-radha-madhava/title",
+      "reason": "Dziesmas nosaukums = tās pirmie vārdi (citāts no bhadžana, «Стандарты» 7: cituojot avotu — vārdi kā avotā); «Шри Шри» nosaukumā nepievieno. A121, S msg 6811–6818.",
+      "since": "2026-10-26",
+      "by": "Lipikāra (A121)"
+    },
+    {
+      "check": "L2",
+      "file": "book.ru-iast.json",
+      "match": "song-jhula-jhule/title",
+      "reason": "Dziesmas nosaukums = tās pirmie vārdi (citāts no bhadžana, «Стандарты» 7: cituojot avotu — vārdi kā avotā); «Шри Шри» nosaukumā nepievieno. A121, S msg 6811–6818.",
+      "since": "2026-10-26",
+      "by": "Lipikāra (A121)"
+    },
+    {
+      "check": "L18",
+      "file": "book.json",
+      "match": "song-radhe-jhulana-padharo/",
+      "reason": "«solah» — vraja-bhāṣā/hindi vārds (sešpadsmit), avotā (Versebase, Gīti-guccha) tieši tā; nav ASCII aizvietojums sanskritam. A121.",
+      "since": "2026-10-26",
+      "by": "Lipikāra (A121)"
+    },
+    {
+      "check": "L18",
+      "file": "book.ru-iast.json",
+      "match": "song-radhe-jhulana-padharo/",
+      "reason": "«solah» — vraja-bhāṣā/hindi vārds (sešpadsmit), avotā (Versebase, Gīti-guccha) tieši tā; nav ASCII aizvietojums sanskritam. A121.",
+      "since": "2026-10-26",
+      "by": "Lipikāra (A121)"
     }
   ]
 }

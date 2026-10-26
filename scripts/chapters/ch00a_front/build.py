@@ -14,6 +14,11 @@
                            Sanskrit), book.ru-iast.json — «Упадеша-сара» first, «Джая-дхвани» right after
                            «parampara» (front matter, unnumbered); then the 9 other languages from i18n.json (night_sync.py upadesha-sara
                            jaya-dhvani-front) or English (the app's fallback) until translated.
+
+A121 (Satkirti 26.10.2026 msg 6811–6828): after rebuilding with this script ALWAYS run
+    python scripts/chapters/ch18_arati/build.py
+— it moves the ārati chapters into the part «Арати», sets their titles, the "numbered" flags (msg 6826) and removes the
+translations of «Джая-дхвани» (msg 6828).
 """
 import copy, json, os, sys
 

@@ -292,8 +292,9 @@ def run(p, dev, eng, o):
         const li = row.closest('li'); const n = sc.getBoundingClientRect(), g = li.getBoundingClientRect(), r = row.getBoundingClientRect();
         return {allIn: g.bottom <= n.bottom + 1, rowTop: Math.round(r.top - n.top), atEnd: sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 2,
                 kids: li.querySelectorAll('ul [data-toc-row]').length}; }"""
-    for name, sel in (("part IV", ".mobile-menu[data-open] [data-toc-toggle=festivals-vows]"),
-                      ("chapter 16", ".mobile-menu[data-open] button[data-toc-chapter=kartika-bhajans]")):
+    # A121 (26.10): the last part of the list is «Арати» (the ārati chapters moved out of «Праздники и обеты»)
+    for name, sel in (("part V «Арати»", ".mobile-menu[data-open] [data-toc-toggle=arati]"),
+                      ("chapter «Картика»", ".mobile-menu[data-open] button[data-toc-chapter=kartika-bhajans]")):
         loc = pg.locator(sel)
         if not loc.count():
             chk(dev, f"5 {name}: row present", False, (sel, pg.url, pg.locator(".mobile-menu[data-open]").count(),

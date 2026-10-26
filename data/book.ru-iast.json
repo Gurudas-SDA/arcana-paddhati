@@ -30,14 +30,23 @@
     },
     {
       "id": "festivals-vows",
-      "title": "Праздники, обеты и песни арати",
+      "title": "Праздники и обеты",
       "sections": [
         "caturmasya-purusottama-masa",
         "guru-puja-vyasa-puja",
-        "major-festivals",
+        "major-festivals"
+      ]
+    },
+    {
+      "id": "arati",
+      "title": "Арати",
+      "sections": [
         "mangala-arati-songs",
+        "raja-bhoga-arati",
         "gaura-arati-songs",
-        "kartika-bhajans"
+        "kartika-bhajans",
+        "yamunastaka",
+        "jhulana-yatra-bhajans"
       ]
     }
   ],
@@ -183,189 +192,127 @@
       "content": [
         {
           "type": "verse",
-          "sanskrit": "Śrī Śrī Guru-Gaurāṅga-Gāndharvikā-Giridhārī-Rādhā-Vinoda-bihārījī kī jaya!",
-          "translation": "Слава Шри Шри Гуру и Гауранге, Гандхарвика-Гиридхари и Радха-Винода-Бихариджи!",
-          "wbw": "Śrī Śrī — Шри Шри; Guru-Gaurāṅga — Гуру и Гауранге; Gāndharvikā-Giridhārī — Гандхарвике (Шримати Радхике) и Гиридхари (Кришне, поднявшему холм); Rādhā-Vinoda-bihārījī — Радха-Винода-Бихариджи (Кришне, наслаждающемуся играми ради Радхи); kī jaya — слава."
+          "sanskrit": "Śrī Śrī Guru-Gaurāṅga-Gāndharvikā-Giridhārī-Rādhā-Vinoda-bihārījī kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Oṁ viṣṇupāda aṣṭottara-śata śrī rūpānugācārya Śrī Prema Prayojana Prabhu kī jaya!",
-          "translation": "Слава ом вишнупаде аштоттара-шата, шри рупанугачарье (последователю Шрилы Рупы Госвами), Шри Према Прайоджана Прабху!",
-          "wbw": "oṁ viṣṇupāda — ом вишнупаде (пребывающему у стоп Вишну); aṣṭottara-śata — аштоттара-шата (носящему сто восемь титулов почтения); śrī — шри; rūpānugācārya — рупанугачарья (следующий по стопам Шрилы Рупы Госвами ачарья); Śrī Prema Prayojana Prabhu — Шри Према Прайоджана Прабху; kī jaya — слава."
+          "sanskrit": "Oṁ viṣṇupāda aṣṭottara-śata śrī rūpānugācārya Śrī Prema Prayojana Prabhu kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja kī jaya!",
-          "translation": "Слава вошедшему в вечные игры ом вишнупаде аштоттара-шата Шри Шримад Бхактиведанте Нараяне Госвами Махараджу!",
-          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; oṁ viṣṇupāda — ом вишнупаде (пребывающему у стоп Вишну); aṣṭottara-śata — аштоттара-шата (носящему сто восемь титулов почтения); Śrī Śrīmad — Шри Шримад; Bhaktivedānta Nārāyaṇa — Бхактиведанте Нараяне; Gosvāmī Mahārāja — Госвами Махараджу; kī jaya — слава."
+          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Nārāyaṇa Gosvāmī Mahārāja kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Svāmī Mahārāja kī jaya!",
-          "translation": "Слава вошедшему в вечные игры ом вишнупаде аштоттара-шата Шри Шримад Бхактиведанте Свами Махараджу!",
-          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; oṁ viṣṇupāda — ом вишнупаде (пребывающему у стоп Вишну); aṣṭottara-śata — аштоттара-шата (носящему сто восемь титулов почтения); Śrī Śrīmad — Шри Шримад; Bhaktivedānta Svāmī Mahārāja — Бхактиведанте Свами Махараджу; kī jaya — слава."
+          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhaktivedānta Svāmī Mahārāja kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhakti Prajñāna Keśava Gosvāmī Mahārāja kī jaya!",
-          "translation": "Слава вошедшему в вечные игры ом вишнупаде аштоттара-шата Шри Шримад Бхакти Прагьяне Кешаве Госвами Махараджу!",
-          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; oṁ viṣṇupāda — ом вишнупаде (пребывающему у стоп Вишну); aṣṭottara-śata — аштоттара-шата (носящему сто восемь титулов почтения); Śrī Śrīmad — Шри Шримад; Bhakti Prajñāna Keśava — Бхакти Прагьяне Кешаве; Gosvāmī Mahārāja — Госвами Махараджу; kī jaya — слава."
+          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīmad Bhakti Prajñāna Keśava Gosvāmī Mahārāja kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīla Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda kī jaya!",
-          "translation": "Слава вошедшему в вечные игры ом вишнупаде аштоттара-шата Шри Шриле Бхактисиддханте Сарасвати Госвами Прабхупаде!",
-          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; oṁ viṣṇupāda — ом вишнупаде (пребывающему у стоп Вишну); aṣṭottara-śata — аштоттара-шата (носящему сто восемь титулов почтения); Śrī Śrīla — Шри Шриле; Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda — Бхактисиддханте Сарасвати Госвами Прабхупаде; kī jaya — слава."
+          "sanskrit": "Nitya-līlā-praviṣṭa oṁ viṣṇupāda aṣṭottara-śata Śrī Śrīla Bhaktisiddhānta Sarasvatī Gosvāmī Prabhupāda kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Nitya-līlā-praviṣṭa parama-bhāgavata-pravara Śrī Śrīla Gaurakiśora dāsa Bābājī Mahārāja kī jaya!",
-          "translation": "Слава вошедшему в вечные игры лучшему из возвышенных преданных Шри Шриле Гауракишоре дасу Бабаджи Махараджу!",
-          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; parama-bhāgavata-pravara — лучшему из возвышенных преданных; Śrī Śrīla — Шри Шриле; Gaurakiśora dāsa Bābājī Mahārāja — Гауракишоре дасу Бабаджи Махараджу; kī jaya — слава."
+          "sanskrit": "Nitya-līlā-praviṣṭa parama-bhāgavata-pravara Śrī Śrīla Gaurakiśora dāsa Bābājī Mahārāja kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Nitya-līlā-praviṣṭa Śrī Śrīla Saccidānanda Bhaktivinoda Ṭhākura kī jaya!",
-          "translation": "Слава вошедшему в вечные игры Шри Шриле Саччидананде Бхактивиноде Тхакуру!",
-          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; Śrī Śrīla — Шри Шриле; Saccidānanda Bhaktivinoda Ṭhākura — Саччидананде Бхактивиноде Тхакуру; kī jaya — слава."
+          "sanskrit": "Nitya-līlā-praviṣṭa Śrī Śrīla Saccidānanda Bhaktivinoda Ṭhākura kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Nitya-līlā-praviṣṭa vaiṣṇava-sārvabhauma Śrī Śrīla Jagannātha dāsa Bābājī Mahārāja kī jaya!",
-          "translation": "Слава вошедшему в вечные игры главе вайшнавов Шри Шриле Джаганнатхе дасу Бабаджи Махараджу!",
-          "wbw": "nitya-līlā-praviṣṭa — вошедшему в вечные игры; vaiṣṇava-sārvabhauma — главе вайшнавов; Śrī Śrīla — Шри Шриле; Jagannātha dāsa Bābājī Mahārāja — Джаганнатхе дасу Бабаджи Махараджу; kī jaya — слава."
+          "sanskrit": "Nitya-līlā-praviṣṭa vaiṣṇava-sārvabhauma Śrī Śrīla Jagannātha dāsa Bābājī Mahārāja kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī gauḍīya-vedāntācārya Śrī Śrīla Baladeva Vidyābhūṣaṇa Prabhu kī jaya!",
-          "translation": "Слава ачарье гаудия-веданты Шри Шриле Баладеве Видьябхушане Прабху!",
-          "wbw": "Śrī gauḍīya-vedāntācārya — ачарье гаудия-веданты; Śrī Śrīla — Шри Шриле; Baladeva Vidyābhūṣaṇa Prabhu — Баладеве Видьябхушане Прабху; kī jaya — слава."
+          "sanskrit": "Śrī gauḍīya-vedāntācārya Śrī Śrīla Baladeva Vidyābhūṣaṇa Prabhu kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrīla Viśvanātha Cakravartī Ṭhākura kī jaya!",
-          "translation": "Слава Шриле Вишванатхе Чакраварти Тхакуру!",
-          "wbw": "Śrīla Viśvanātha Cakravartī Ṭhākura — Шриле Вишванатхе Чакраварти Тхакуру; kī jaya — слава."
+          "sanskrit": "Śrīla Viśvanātha Cakravartī Ṭhākura kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrīla Narottama, Śrīnivāsa, Śyāmānanda Prabhu-traya kī jaya!",
-          "translation": "Слава трём Прабху — Шриле Нароттаме, Шринивасе и Шьямананде!",
-          "wbw": "Śrīla Narottama, Śrīnivāsa, Śyāmānanda — Шриле Нароттаме, Шринивасе и Шьямананде; Prabhu-traya — трём Прабху; kī jaya — слава."
+          "sanskrit": "Śrīla Narottama, Śrīnivāsa, Śyāmānanda Prabhu-traya kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrīla Kṛṣṇadāsa Kavirāja Gosvāmī Prabhu kī jaya!",
-          "translation": "Слава Шриле Кришнадасу Кавирадже Госвами Прабху!",
-          "wbw": "Śrīla Kṛṣṇadāsa Kavirāja Gosvāmī Prabhu — Шриле Кришнадасу Кавирадже Госвами Прабху; kī jaya — слава."
+          "sanskrit": "Śrīla Kṛṣṇadāsa Kavirāja Gosvāmī Prabhu kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī Rūpa, Sanātana, Bhaṭṭa Raghunātha, Śrī Jīva, Gopāla-bhaṭṭa, dāsa Raghunātha ṣaḍ-gosvāmī-prabhu kī jaya!",
-          "translation": "Слава шести Госвами — Шри Рупе, Санатане, Бхатте Рагхунатхе, Шри Дживе, Гопале Бхатте и Дасу Рагхунатхе!",
-          "wbw": "Śrī Rūpa — Шри Рупе; Sanātana — Санатане; Bhaṭṭa Raghunātha — Бхатте Рагхунатхе; Śrī Jīva — Шри Дживе; Gopāla-bhaṭṭa — Гопале Бхатте; dāsa Raghunātha — Дасу Рагхунатхе; ṣaḍ-gosvāmī-prabhu — шести Госвами; kī jaya — слава."
+          "sanskrit": "Śrī Rūpa, Sanātana, Bhaṭṭa Raghunātha, Śrī Jīva, Gopāla-bhaṭṭa, dāsa Raghunātha ṣaḍ-gosvāmī-prabhu kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī Svarūpa Dāmodara, Rāya Rāmānandādi Śrī Gaura-pārṣada-vṛnda kī jaya!",
-          "translation": "Слава спутникам Шри Гауры во главе со Шри Сварупой Дамодарой и Раей Раманандой!",
-          "wbw": "Śrī Svarūpa Dāmodara — Шри Сварупе Дамодаре; Rāya Rāmānandādi — Рае Рамананде и другим; Śrī Gaura-pārṣada-vṛnda — спутникам Шри Гауры; kī jaya — слава."
+          "sanskrit": "Śrī Svarūpa Dāmodara, Rāya Rāmānandādi Śrī Gaura-pārṣada-vṛnda kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Nāmācārya Śrīla Haridāsa Ṭhākura kī jaya!",
-          "translation": "Слава нама-ачарье Шриле Харидасу Тхакуру!",
-          "wbw": "Nāmācārya — нама-ачарье (учителю святого имени); Śrīla Haridāsa Ṭhākura — Шриле Харидасу Тхакуру; kī jaya — слава."
+          "sanskrit": "Nāmācārya Śrīla Haridāsa Ṭhākura kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Prema se kaho Śrī Kṛṣṇa Caitanya, Prabhu Nityānanda, Śrī Advaita, Gadādhara, Śrīvāsādi Gaura-bhakta-vṛnda kī jaya!",
-          "translation": "С любовью скажите: слава Шри Кришне Чайтанье, Прабху Нитьянанде, Шри Адвайте, Гададхаре, Шривасе и всем преданным Гауры!",
-          "wbw": "Prema se kaho — с любовью скажите; Śrī Kṛṣṇa Caitanya — Шри Кришне Чайтанье; Prabhu Nityānanda — Прабху Нитьянанде; Śrī Advaita — Шри Адвайте; Gadādhara — Гададхаре; Śrīvāsādi — Шривасе и другим; Gaura-bhakta-vṛnda — всем преданным Гауры; kī jaya — слава."
+          "sanskrit": "Prema se kaho Śrī Kṛṣṇa Caitanya, Prabhu Nityānanda, Śrī Advaita, Gadādhara, Śrīvāsādi Gaura-bhakta-vṛnda kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī Antardvīpa Māyāpura, Sīmantadvīpa, Godrumadvīpa, Madhyadvīpa, Koladvīpa, Ṛtudvīpa, Jahnudvīpa, Modadrumadvīpa, Rudradvīpātmaka Śrī Navadvīpa-dhāma kī jaya!",
-          "translation": "Слава Шри Навадвипа-дхаме из девяти островов — Антардвипы (Маяпура), Симантадвипы, Годрумадвипы, Мадхьядвипы, Коладвипы, Ритудвипы, Джахнудвипы, Модадрумадвипы и Рудрадвипы!",
-          "wbw": "Śrī Antardvīpa Māyāpura — Шри Антардвипе (Маяпуру); Sīmantadvīpa — Симантадвипе; Godrumadvīpa — Годрумадвипе; Madhyadvīpa — Мадхьядвипе; Koladvīpa — Коладвипе; Ṛtudvīpa — Ритудвипе; Jahnudvīpa — Джахнудвипе; Modadrumadvīpa — Модадрумадвипе; Rudradvīpātmaka — и Рудрадвипе — состоящей из них; Śrī Navadvīpa-dhāma — Шри Навадвипа-дхаме; kī jaya — слава."
+          "sanskrit": "Śrī Antardvīpa Māyāpura, Sīmantadvīpa, Godrumadvīpa, Madhyadvīpa, Koladvīpa, Ṛtudvīpa, Jahnudvīpa, Modadrumadvīpa, Rudradvīpātmaka Śrī Navadvīpa-dhāma kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī Śrī Rādhā-Kṛṣṇa gopa, gopī, go, Govardhana, dvādaśa vanātmaka Śrī Vraja-maṇḍala kī jaya!",
-          "translation": "Слава Шри Враджа-мандале с двенадцатью лесами — Шри Шри Радха-Кришне, пастухам, гопи, коровам и Говардхану!",
-          "wbw": "Śrī Śrī Rādhā-Kṛṣṇa — Шри Шри Радха-Кришне; gopa — пастухам; gopī — гопи; go — коровам; Govardhana — Говардхану; dvādaśa vanātmaka — состоящей из двенадцати лесов; Śrī Vraja-maṇḍala — Шри Враджа-мандале; kī jaya — слава."
+          "sanskrit": "Śrī Śrī Rādhā-Kṛṣṇa gopa, gopī, go, Govardhana, dvādaśa vanātmaka Śrī Vraja-maṇḍala kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī Rādhā-kuṇḍa, Śyāma-kuṇḍa, Gaṅgā, Yamunā, Tulasī, Bhakti-devī kī jaya!",
-          "translation": "Слава Шри Радха-кунде, Шьяма-кунде, Ганге, Ямуне, Туласи и Бхакти-деви!",
-          "wbw": "Śrī Rādhā-kuṇḍa — Шри Радха-кунде; Śyāma-kuṇḍa — Шьяма-кунде; Gaṅgā — Ганге; Yamunā — Ямуне; Tulasī — Туласи; Bhakti-devī — Бхакти-деви; kī jaya — слава."
+          "sanskrit": "Śrī Rādhā-kuṇḍa, Śyāma-kuṇḍa, Gaṅgā, Yamunā, Tulasī, Bhakti-devī kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrīmatī Vṛndā-devī kī jaya! Śrī Paurṇamāsī Yogamāyā kī jaya! Śrī Gopīśvara Mahādeva kī jaya!",
-          "translation": "Слава Шримати Вринда-деви! Слава Шри Пурнамаси Йогамайе! Слава Шри Гопишваре Махадеве!",
-          "wbw": "Śrīmatī Vṛndā-devī — Шримати Вринда-деви; Śrī Paurṇamāsī Yogamāyā — Шри Пурнамаси Йогамайе; Śrī Gopīśvara Mahādeva — Шри Гопишваре Махадеве; kī jaya — слава."
+          "sanskrit": "Śrīmatī Vṛndā-devī kī jaya! Śrī Paurṇamāsī Yogamāyā kī jaya! Śrī Gopīśvara Mahādeva kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī Jagannātha, Baladeva, Subhadrā, Sudarśana Cakra jiu kī jaya!",
-          "translation": "Слава Шри Джаганнатхе, Баладеве, Субхадре и Сударшана-чакре!",
-          "wbw": "Śrī Jagannātha — Шри Джаганнатхе; Baladeva — Баладеве; Subhadrā — Субхадре; Sudarśana Cakra — Сударшана-чакре; jiu — (почтительное обращение); kī jaya — слава."
+          "sanskrit": "Śrī Jagannātha, Baladeva, Subhadrā, Sudarśana Cakra jiu kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī Kṣetra-maṇḍala kī jaya!",
-          "translation": "Слава Шри Кшетра-мандале (Пури)!",
-          "wbw": "Śrī Kṣetra-maṇḍala — Шри Кшетра-мандале (Пури); kī jaya — слава."
+          "sanskrit": "Śrī Kṣetra-maṇḍala kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Sarva-vighna-vināśakārī Śrī Nṛsiṁhadeva kī jaya!",
-          "translation": "Слава Шри Нрисимхадеву, уничтожающему все препятствия!",
-          "wbw": "Sarva-vighna-vināśakārī — уничтожающему все препятствия; Śrī Nṛsiṁhadeva — Шри Нрисимхадеву; kī jaya — слава."
+          "sanskrit": "Sarva-vighna-vināśakārī Śrī Nṛsiṁhadeva kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Bhakta-pravara Śrī Prahlāda Mahārāja kī jaya!",
-          "translation": "Слава лучшему из преданных Шри Прахладе Махараджу!",
-          "wbw": "Bhakta-pravara — лучшему из преданных; Śrī Prahlāda Mahārāja — Шри Прахладе Махараджу; kī jaya — слава."
+          "sanskrit": "Bhakta-pravara Śrī Prahlāda Mahārāja kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Cāri-dhāma kī jaya! Cāri-sampradāya kī jaya! Cāri-ācārya kī jaya!",
-          "translation": "Слава четырём дхамам! Слава четырём сампрадаям! Слава четырём ачарьям!",
-          "wbw": "Cāri-dhāma — четырём дхамам; Cāri-sampradāya — четырём сампрадаям; Cāri-ācārya — четырём ачарьям; kī jaya — слава."
+          "sanskrit": "Cāri-dhāma kī jaya! Cāri-sampradāya kī jaya! Cāri-ācārya kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Grantha-rāja Śrīmad-Bhāgavatam kī jaya!",
-          "translation": "Слава царю книг «Шримад-Бхагаватам»!",
-          "wbw": "Grantha-rāja — царю книг; Śrīmad-Bhāgavatam — «Шримад-Бхагаватам»; kī jaya — слава."
+          "sanskrit": "Grantha-rāja Śrīmad-Bhāgavatam kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī Harināma-saṅkīrtana kī jaya!",
-          "translation": "Слава Шри харинама-санкиртане!",
-          "wbw": "Śrī Harināma-saṅkīrtana — Шри харинама-санкиртане (совместному воспеванию святых имён Господа); kī jaya — слава."
+          "sanskrit": "Śrī Harināma-saṅkīrtana kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Ananta-koṭi vaiṣṇava-vṛnda kī jaya!",
-          "translation": "Слава бесчисленным вайшнавам!",
-          "wbw": "Ananta-koṭi — бесчисленным; vaiṣṇava-vṛnda — вайшнавам; kī jaya — слава."
+          "sanskrit": "Ananta-koṭi vaiṣṇava-vṛnda kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Samāgata bhakta-vṛnda kī jaya!",
-          "translation": "Слава собравшимся преданным!",
-          "wbw": "Samāgata — собравшимся; bhakta-vṛnda — преданным; kī jaya — слава."
+          "sanskrit": "Samāgata bhakta-vṛnda kī jaya!"
         },
         {
           "type": "verse",
-          "sanskrit": "Śrī Nitāi-Gaura-premānande! Hari Hari bol!",
-          "translation": "В блаженстве любви к Шри Нитай-Гауре — Хари! Хари! бол!",
-          "wbw": "Śrī Nitāi-Gaura-premānande — в блаженстве любви к Шри Нитай-Гауре; Hari Hari — Хари! Хари!; bol — воспевайте."
+          "sanskrit": "Śrī Nitāi-Gaura-premānande! Hari Hari bol!"
         }
       ],
       "subsections": []
@@ -6832,7 +6779,7 @@
     },
     {
       "id": "mangala-arati-songs",
-      "title": "Песни мангала-арати",
+      "title": "Мангала-арати",
       "subtitle": null,
       "page": "",
       "content": [],
@@ -6899,7 +6846,8 @@
               "wbw": "śrīmad-guror — шри гурудевы; aṣṭakam — восьмистишие; etad — это; uccair — громко; brāhme muhūrte — во время брахма-мухурты; paṭhati — читает; prayatnāt — внимательно и с усердием; yaḥ — тот, кто; tena — им; vṛndāvana-nātha — Повелителя Вриндавана; sākṣāt — непосредственно; sevā — служение; eva — именно; labhyā — обретаемое; januṣaḥ — жизни; ante — в конце; eva — именно",
               "translation": "Тот, кто каждый день в предрассветные часы (брахма-мухурту) очень внимательно и с глубокой верой повторяет эту аштаку, посвященную Шри Гурудеву, до конца жизни непременно обретет вечное служение Шри Кришне, душе Вриндавана."
             }
-          ]
+          ],
+          "numbered": true
         },
         {
           "id": "song-prabhupada-padma-stavakah",
@@ -6975,7 +6923,8 @@
               "wbw": "vṛṣabhānu-sutā-dayitānucaraṁ — самому любимому слуге дочери царя Вришабхану; caraṇāśrita-reṇu-dharas — принявший прибежище его стоп и носящий их пыль; tam — его; aham — я; mahad-adbhuta-pāvana-śakti-padaṁ — стопам, обладающим великой и удивительной очищающей силой; praṇamāmi — я склоняюсь в поклоне; sadā — всегда; prabhupāda-padam — стопам Шрилы Прабхупады",
               "translation": "Ты всецело посвятил себя служению Вришабхану-нандини Шримати Радхике, и потому я стремлюсь стать пылинкой на твоих лотосных стопах. Ты обладаешь непостижимым могуществом освободить весь мир. Вновь и вновь я выражаю почтение лотосным стопам Шрилы Бхактисиддханты Сарасвати Прабхупады."
             }
-          ]
+          ],
+          "numbered": true
         },
         {
           "id": "song-mangala-arati",
@@ -7039,7 +6988,8 @@
               "wbw": "maṅgala — благоприятное; ārati — арати; kare — совершают; bhakatera — преданных; gaṇa — собрание; abhāgā — несчастный; keśava — Кешава; kare — поёт; nāma-saṅkīrtana — нама-санкиртану; (śrī — шри; keśava — Кешава; dāsa — дас; kare — поёт; nāma-saṅkīrtana — нама-санкиртану)",
               "translation": "Совершая мангала-арати в обществе преданных, недостойный Кешава дас поёт нама-санкиртану. (Ученики Шри Кешавы Госвами молятся, желая присоединиться к нему в нама-санкиртане.)"
             }
-          ]
+          ],
+          "numbered": true
         },
         {
           "id": "song-vibhavari-sesa",
@@ -7097,7 +7047,8 @@
               "wbw": "yāmuna-jīvana — жизнь и душа Ямуны; keli-parāyaṇa — поглощённый любовными играми; mānasa-candra-cakora — птица чакора, питающаяся лучами луны ума Шри Радхи; nāma-sudhā-rasa — нектарная раса святых имён; gāo — пой; kṛṣṇa-yaśa — славу Кришны; rākho — всегда внимай; vacana — словам; mana — о ум; mora — моим",
               "translation": "Ямуна — сама жизнь Кришны, который на её берегах наслаждается танцем раса. (Или: Кришна — жизнь Ямуны, в водах которой он устраивает шуточные сражения.) Он всегда поглощен своими любовными играми. Словно птица чакора, которая поддерживает свою жизнь благодаря лунному свету, он всегда жаждет видеть луноликую Шримати Радхику. О ум, помни об этом и прославляй Шри Кришну, повторяя его полные нектара святые имена!"
             }
-          ]
+          ],
+          "numbered": true
         },
         {
           "id": "song-vraja-dhama-mahimamrta",
@@ -7173,13 +7124,96 @@
               "wbw": "śrī — Шри; jāhnavā-pāda-padma — лотосные стопы Джахнави-деви; koriyā — совершая; smaraṇa — памятование; dīna — падший; kṛṣṇadāsa — Кришнадас; kahe — совершает (поёт); nāma-saṅkīrtana — нама-санкиртан",
               "translation": "Памятуя лотосные стопы Шри Джахнави-деви, супруги Господа Нитьянанды, этот падший и недостойный слуга Кришны поёт святые имена."
             }
+          ],
+          "numbered": true
+        }
+      ]
+    },
+    {
+      "id": "raja-bhoga-arati",
+      "title": "Раджа-бхога-арати",
+      "subtitle": null,
+      "page": "",
+      "content": [],
+      "subsections": [
+        {
+          "id": "song-yasomati-nandana",
+          "title": "Яшомати-нандана",
+          "content": [
+            {
+              "type": "text",
+              "content": "Шрила Бхактивинода Тхакур"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "yaśomatī-nandana, vraja-vara-nāgara,\ngokula-rañjana kāna\ngopī-parāṇa-dhana, madana-manohara,\nkālīya-damana-vidhāna",
+              "wbw": "yaśomatī-nandana — сын Яшоды; vraja-vara-nāgara — лучший из возлюбленных Враджа; gokula-rañjana — услада Гокулы; kāna — Кана (ласковое имя Кришны); gopī-parāṇa-dhana — сокровище жизни гопи; madana-manohara — пленяющий ум даже Купидона (Мадану); kālīya-damana-vidhāna — покоритель змея Калии",
+              "translation": "Кришна — любимый сын Яшоды и возлюбленный девушек Враджа-бхуми. Его ласково называют Кана. Он — услада жителей Гокулы и свет жизни гопи. Он — неисправимый вор, крадущий сердца всех живых существ, и он — покоритель змея Калии."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "amala harināma amiya-vilāsā\nvipina-purandara, navīna-nāgara-vara,\nvaṁśī-vadana, suvāsā",
+              "wbw": "amala — чистое; harināma — святое имя Хари; amiya-vilāsā — исполненное нектарных игр; vipina-purandara — владыка лесов (Враджа); navīna-nāgara-vara — лучший из юных возлюбленных; vaṁśī-vadana — с флейтой у уст; suvāsā — прекрасно одетый",
+              "translation": "Чистые святые имена Кришны исполнены сладчайшего нектара его лил. Он — царь лесов Враджа и вечно юный влюбленный. Он одевается в великолепные наряды и всегда носит с собой флейту."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "vraja-jana-pālana, asura-kula-nāśana,\nnanda-godhana-rākhowālā\ngovinda, mādhava, navanīta-taskara,\nsundara nanda-gopālā",
+              "wbw": "vraja-jana-pālana — защитник жителей Враджа; asura-kula-nāśana — истребитель родов демонов; nanda-godhana-rākhowālā — пастух коров Нанды; govinda — Говинда (дарующий радость коровам); mādhava — Мадхава (супруг богини удачи); navanīta-taskara — воришка масла; sundara — прекрасный; nanda-gopālā — пастушок, сын Нанды",
+              "translation": "Он защищает жителей Враджа, убивает демонов и пасет коров махараджи Нанды. Он — Говинда, дарующий наслаждение Земле, коровам, гопам, гопи и чувствам. Он — Мадхава, господин изначальной богини удачи Шримати Радхики, и воришка масла у жителей Враджа. Он — очаровательный пастушок, сын махараджи Нанды."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "yāmuna-taṭa-cara, gopī-vasana-hara,\nrāsa-rasika kṛpāmaya\nśrī rādhā-vallabha, vṛndāvana-naṭavara,\nbhakativinoda āśraya",
+              "wbw": "yāmuna-taṭa-cara — гуляющий по берегу Ямуны; gopī-vasana-hara — похищающий одежды гопи; rāsa-rasika — наслаждающийся танцем раса; kṛpāmaya — исполненный милости; śrī rādhā-vallabha — возлюбленный Шри Радхи; vṛndāvana-naṭavara — лучший танцор Вриндавана; bhakativinoda — Бхактивиноды; āśraya — прибежище",
+              "translation": "Гуляя по берегу Ямуны, он крадет одежды у юных гопи. Он наслаждается танцем раса. Он — средоточие милости, возлюбленный Шримати Радхики и самый искусный танцор во всём Вриндаване. Он — единственное прибежище Бхактивиноды."
+            }
+          ],
+          "numbered": true
+        },
+        {
+          "id": "song-jaya-yasoda-nandana",
+          "title": "Джая Яшода-нандана",
+          "content": [
+            {
+              "type": "text",
+              "content": "Шрила Бхактивинода Тхакур"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jaya yaśodā-nandana kṛṣṇa gopāla govinda\njaya madana-mohana hare ananta mukunda",
+              "wbw": "jaya — слава; yaśodā-nandana — сыну Яшоды; kṛṣṇa — Кришне; gopāla — пастушку; govinda — Говинде (дарующему радость коровам); jaya — слава; madana-mohana — Мадана-мохану (очаровывающему Купидона); hare — Хари (устраняющему всё неблагоприятное); ananta — Безграничному; mukunda — Мукунде (дарующему освобождение)",
+              "translation": "Слава Кришне, сыну матушки Яшоды, пастушку, дарующему радость коровам! Слава Хари, покорителю Купидона, устраняющему всё неблагоприятное, Безграничному, дарующему освобождение!"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jaya acyuta mādhava rām bṛndābana-candra\njaya muralī-vadana śyāma gopī-janānanda",
+              "wbw": "jaya — слава; acyuta — Непогрешимому; mādhava — Мадхаве (супругу богини удачи); rām — Раме (высшему наслаждающемуся); bṛndābana-candra — луне Вриндавана; jaya — слава; muralī-vadana — держащему флейту у уст; śyāma — Шьяме (цветом подобному тёмной дождевой туче); gopī-janānanda — блаженству гопи",
+              "translation": "Слава Непогрешимому Господу, супругу богини удачи, высшему наслаждающемуся, луне Вриндавана! Слава Кришне, который всегда держит у уст флейту, цветом подобному тёмной дождевой туче, блаженству гопи!"
+            }
+          ]
+        },
+        {
+          "id": "song-jaya-radha-madhava",
+          "title": "Джая Радха-Мадхава",
+          "content": [
+            {
+              "type": "text",
+              "content": "Шрила Бхактивинода Тхакур"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jaya rādhā-mādhava kuñja-bihārī\ngopī-jana-vallabha giri-vara-dhārī\nyaśodā-nandana, braja-jana-rañjana,\nyāmuna-tīra-vana-cārī",
+              "wbw": "jaya — слава; rādhā-mādhava — Радха-Мадхаве (Мадхаве, возлюбленному Радхи); kuñja-bihārī — наслаждающемуся играми в кунджах; gopī-jana-vallabha — возлюбленному гопи; giri-vara-dhārī — поднявшему лучший из холмов (Говардхан); yaśodā-nandana — сыну Яшоды; braja-jana-rañjana — радующему жителей Враджа; yāmuna-tīra-vana-cārī — гуляющему по лесам на берегу Ямуны",
+              "translation": "Слава Шри Шри Радха-Мадхаве! Слава возлюбленному гопи! Он поднял холм Говардхан. Он — любимый сын Яшоды и радость жителей Враджа. Он гуляет по лесу вдоль берегов Ямуны и в уединенных кунджах наслаждается обществом прекрасных гопи."
+            }
           ]
         }
       ]
     },
     {
       "id": "gaura-arati-songs",
-      "title": "Песни гаура-арати",
+      "title": "Гаура-арати",
       "subtitle": null,
       "page": "",
       "content": [],
@@ -7234,7 +7268,8 @@
               "wbw": "śiva — Господь Шива; śuka — Шукадева Госвами; nārada — Нарада Муни; preme — от премы; gada-gada — с перехваченным горлом; bhakativinoda — Бхактивинода Тхакур; dekhe — видит; gorāra — Шри Гауранги; sampada — славу",
               "translation": "Шива, Шукадева Госвами и Нарада-муни поют киртану, и их голоса дрожат от переполняющей их премы. Так Бхактивинода Тхакур созерцает величие Шри Гауранги."
             }
-          ]
+          ],
+          "numbered": true
         },
         {
           "id": "song-yugala-arati",
@@ -7280,13 +7315,14 @@
               "wbw": "śrī — Шри; rādhā-mādhava-pada-sarasija-āśe — надеясь обрести лотосные стопы Радха-Мадхавы; bhakativinoda — Бхактивинода; sakhī-pade — у лотосных стоп сакхи; sukhe — в счастье; bhāse — плывёт",
               "translation": "Бхактивинода счастлив находиться у стоп сакхи, надеясь однажды достичь лотосных стоп Шри Шри Радха-Мадхавы."
             }
-          ]
+          ],
+          "numbered": true
         }
       ]
     },
     {
       "id": "kartika-bhajans",
-      "title": "Бхаджаны для Картики",
+      "title": "Картика",
       "subtitle": null,
       "page": "",
       "content": [
@@ -7417,7 +7453,8 @@
               "wbw": "śrī — Шри; nanda — Нанды; nandanāṣṭakaṁ — восемь стихов, прославляющих сына; paṭhed — читает; yaḥ — тот, кто; śraddhayānvitaḥ — исполненный веры; tared — пересечёт; bhavābdhiṁ — океан материального бытия; dustaraṁ — непреодолимый; labhet — обретёт; tad — Его; aṅghri — стоп; yugmakam — пару",
               "translation": "Тот, кто с глубокой верой регулярно повторяет эту «Шри Нанда-нандана-аштаку», быстро пересечет кажущийся бескрайним океан материального бытия и обретет вечное прибежище под сенью лотосных стоп Шри Кришны."
             }
-          ]
+          ],
+          "numbered": true
         },
         {
           "id": "song-radha-krpa-kataksa-stava-raja",
@@ -7505,7 +7542,173 @@
               "wbw": "itīmam — эту, изложенную так; adbhutaṁ-stavaṁ — чудесную молитву; niśamya — услышав; bhānu-nandinī — дочь Вришабхану; karotu — пусть сделает; santataṁ — постоянно; janaṁ — человека; kṛpā-kaṭākṣa-bhājanam — достойным [Её] милостивого бокового взгляда; bhavet — произойдёт; tadaiva — в тот самый момент; sañcita — накопленной; tri-rūpa — трёх видов; karma-nāśanaṁ — уничтожение кармы; bhavet — произойдёт; tadā — тогда; vrajendra-sūnu — сына царя Враджи; maṇḍala-praveśanam — вступление в круг",
               "translation": "О Вришабхану-нандини! Внемли этой чудесной молитве и одари меня своим милостивым взглядом. Тогда по твоей милости я избавлюсь от всех видов кармы и, обретя свой облик манджари, войду в круг твоих сакхи, чтобы участвовать в вечных лилах Шри Враджендры-суну."
             }
-          ]
+          ],
+          "numbered": true
+        }
+      ]
+    },
+    {
+      "id": "yamunastaka",
+      "title": "Ямунаштака",
+      "subtitle": null,
+      "page": "",
+      "content": [],
+      "subsections": [
+        {
+          "id": "song-yamunastakam",
+          "title": "Шри Ямунаштака",
+          "content": [
+            {
+              "type": "text",
+              "content": "Шрила Рупа Госвами"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "bhrātur antakasya pattane ’bhipatti-hāriṇī\nprekṣayāti-pāpino ’pi pāpa-sindhu-tāriṇī\nnīra-mādhurībhir apy aśeṣa-citta-bandhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+              "wbw": "bhrātur — брата; antakasya — Ямараджи (повелителя смерти); pattane — в обители; ’bhipatti-hāriṇī — избавляющая от попадания; prekṣayā — одним своим видом; ati-pāpinaḥ — величайших грешников; api — даже; pāpa-sindhu — из океана грехов; tāriṇī — спасающая; nīra-mādhurībhiḥ — сладостью вод; api — также; aśeṣa-citta — все сердца; bandhinī — пленяющая; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
+              "translation": "Пусть Ямуна-деви, дочь Сурьи, бога Солнца, очистит меня. Любого, кто касается её вод, она спасает от наказания в обители её брата Ямараджи. Увидев её, даже самые отъявленные грешники освобождаются от грехов. Её прекрасные воды пленяют сердце каждого."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "hāri-vāri-dhārayābhimaṇḍitoru-khāṇḍavā\npuṇḍarīka-maṇḍalodyad-aṇḍajāli-tāṇḍavā\nsnāna-kāma-pāmarogra-pāpa-sampad-andhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+              "wbw": "hāri — пленительным; vāri-dhārayā — потоком вод; abhimaṇḍita — украсившая; uru-khāṇḍavā — обширный лес Кхандава; puṇḍarīka-maṇḍala — на множестве белых лотосов; udyat — вспархивающих; aṇḍaja-āli — стай птиц; tāṇḍavā — (место) пляски; snāna-kāma — желающего омыться; pāmara — грешника; ugra-pāpa — тяжких грехов; sampat — богатство; andhinī — уничтожающая; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
+              "translation": "Своим потоком, радующим сердце, она украшает обширный лес Кхандава, владение Индры. На белых лотосах, цветущих по её берегам, непрестанно танцуют трясогузки и другие птицы. Одного только желания омыться в её кристально чистых водах достаточно, чтобы избавиться от самых страшных грехов. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "śīkarābhimṛṣṭa-jantu-durvipāka-mardinī\nnanda-nandanāntaraṅga-bhakti-pūra-vardhinī\ntīra-saṅgamābhilāṣi-maṅgalānubandhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+              "wbw": "śīkara — каплей (её воды); abhimṛṣṭa — окроплённых; jantu — живых существ; durvipāka — тяжкие последствия (грехов); mardinī — сокрушающая; nanda-nandana — к сыну Нанды; antaraṅga-bhakti — сокровенной преданности; pūra — поток; vardhinī — усиливающая; tīra-saṅgama — жить на (её) берегах; abhilāṣi — желающим; maṅgala — благо; anubandhinī — дарующая; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
+              "translation": "Достаточно окропить себя лишь каплей её воды, чтобы искупить вину за самое тяжкое преступление. Она усиливает в сердце рагануга-бхакт поток любви к Шри Нанда-нандане и дарует благословения каждому, кто хочет жить на её берегах. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "dvīpa-cakravāla-juṣṭa-sapta-sindhu-bhedinī\nśrī-mukunda-nirmitoru-divya-keli-vedinī\nkānti-kandalībhir indranīla-vṛnda-nindinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+              "wbw": "dvīpa-cakravāla — кругом островов (материков); juṣṭa — почитаемые; sapta-sindhu — семь океанов; bhedinī — пересекающая (не смешиваясь с ними); śrī-mukunda — Шри Мукундой; nirmita — совершаемые; uru — великие; divya-keli — божественные игры; vedinī — знающая; kānti-kandalībhiḥ — сиянием (своих вод); indranīla-vṛnda — множество сапфиров; nindinī — посрамляющая; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
+              "translation": "Ямуна-деви столь могущественна, что в отличие от всех остальных рек никогда не смешивается с океанскими водами, несмотря на то что она пересекает семь гигантских островов и впадает в семь океанов, окружающих эти острова. Она постоянно созерцает удивительные сокровенные лилы Шри Кришны и помогает этим лилам проявиться в сердцах тех, кто находит у нее прибежище. Её темные искрящиеся воды прекраснее драгоценных сапфиров. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "māthureṇa maṇḍalena cāruṇābhimaṇḍitā\nprema-naddha-vaiṣṇavādhva-vardhanāya paṇḍitā\nūrmi-dor-vilāsa-padmanābha-pāda-vandinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+              "wbw": "māthureṇa maṇḍalena — Матхура-мандалой; cāruṇā — прекрасной; abhimaṇḍitā — украшенная; prema-naddha — проникнутого премой; vaiṣṇava-adhva — пути вайшнавов; vardhanāya — в развитии; paṇḍitā — искусная; ūrmi-doḥ — руками-волнами; vilāsa — играя; padmanābha-pāda — стопам Падманабхи (Кришны); vandinī — поклоняющаяся; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
+              "translation": "Украшенная прекрасной Матхура-мандалой, Ямуна-деви пробуждает рагануга-бхакти в сердцах искренних вайшнавов, которые омываются в её водах. Своими нежными волнами, словно руками, она совершает поклонение лотосным стопам Шри Кришны. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "ramya-tīra-rambhamāṇa-go-kadamba-bhūṣitā\ndivya-gandha-bhāk-kadamba-puṣpa-rāji-rūṣitā\nnanda-sūnu-bhakta-saṅgha-saṅgamābhinandinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+              "wbw": "ramya-tīra — (на) прекрасных берегах; rambhamāṇa — мычащими; go-kadamba — стадами коров; bhūṣitā — украшенная; divya-gandha-bhāk — источающих божественный аромат; kadamba-puṣpa-rāji — рядами цветущих кадамб; rūṣitā — благоухающая; nanda-sūnu — сына Нанды; bhakta-saṅgha — собрания преданных; saṅgama — встречей; abhinandinī — радующаяся; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
+              "translation": "Живописные берега Ямуны-деви украшены цветущими кадамбовыми деревьями, источающими райское благоухание, и стадами радостно мычащих коров. Видя у своих вод преданных сына махаражи Нанды, она чувствует безмерное счастье. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "phulla-pakṣa-mallikākṣa-haṁsa-lakṣa-kūjitā\nbhakti-viddha-deva-siddha-kinnarāli-pūjitā\ntīra-gandhavāha-gandha-janma-bandha-randhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+              "wbw": "phulla-pakṣa — с раскрытыми крыльями; mallikākṣa-haṁsa — лебедей маллика-кша; lakṣa — сотнями тысяч; kūjitā — оглашаемая; bhakti-viddha — пронзёнными преданностью; deva-siddha-kinnara — полубогами, сиддхами и киннарами; āli — сонмами; pūjitā — почитаемая; tīra-gandhavāha — ветерка с (её) берегов; gandha — ароматом; janma-bandha — узы рождений; randhinī — разрывающая; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
+              "translation": "Над её водами раздаются голоса сотен тысяч лебедей, чьи круглые глаза напоминают распустившиеся цветы маллика. Ей выражают почтение полубоги, сиддхи, киннары и люди, полностью посвятившие себя служению Шри Хари. Любой, кого коснется её приятный ветерок, непременно освободится из круговорота рождений и смертей. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "cid-vilāsa-vāri-pūra-bhūr-bhuvaḥ-svar-āpinī\nkīrtitāpi durmadoru-pāpa-marma-tāpinī\nballavendra-nandanāṅgarāga-bhaṅga-gandhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+              "wbw": "cid-vilāsa — духовным знанием; vāri-pūra — потоком вод; bhūr-bhuvaḥ-svaḥ — (миры) Бхух, Бхувах и Свах; āpinī — наполняющая; kīrtitā — воспетая; api — даже; durmada — неистовых; uru-pāpa — великих грехов; marma — корни; tāpinī — сжигающая; ballavendra-nandana — сына царя пастухов (Кришны); aṅgarāga — благовонными умащениями с тела; bhaṅga — (смытыми) волнами; gandhinī — благоухающая; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
+              "translation": "Неся свои воды через три мира (Бхух, Бхувах и Свах), она дарует их обитателям духовное знание. Тот, кто воспевает её в молитвах, сжигает дотла последствия самых тяжких грехов. Её воды благоухают сандалом с тела Шри Кришны. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "tuṣṭa-buddhir aṣṭakena nirmalormi-ceṣṭitāṁ\ntvām anena bhānu-putri sarva-deva-veṣṭitām\nyaḥ stavīti vardhayasva sarva-pāpa-mocane\nbhakti-pūram asya devi puṇḍarīka-locane",
+              "wbw": "tuṣṭa-buddhir — с умиротворённым умом; aṣṭakena anena — этой аштакой; nirmala-ūrmi — чистыми волнами; ceṣṭitām — действующую; tvām — тебя; bhānu-putri — о дочь Солнца; sarva-deva — всеми полубогами; veṣṭitām — окружённую; yaḥ — тот, кто; stavīti — прославляет; vardhayasva — умножь; sarva-pāpa-mocane — к освобождающему от всех грехов; bhakti-pūram — поток преданности; asya — его; devi — о богиня; puṇḍarīka-locane — к лотосоокому (Кришне)",
+              "translation": "О Сурья-путри! О Деви! О Ямуна! Твои воды могут очистить каждого. Тебе поклоняются все полубоги. Пусть же в сердце того, кто в спокойном состоянии ума повторяет эту молитву, расцветет любовь к лотосоокому Шри Кришне!"
+            }
+          ],
+          "numbered": true
+        }
+      ]
+    },
+    {
+      "id": "jhulana-yatra-bhajans",
+      "title": "Джхулана-ятра",
+      "subtitle": null,
+      "page": "",
+      "content": [],
+      "subsections": [
+        {
+          "id": "song-jhula-jhule",
+          "title": "Джхула джхуле Радха-Дамодара",
+          "content": [
+            {
+              "type": "text",
+              "content": "Традиционный враджский киртан"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jhūlā jhūle rādhā-dāmodara vṛndāvana mẽ\nkaisī chāī hariyālī ālī kuñjana mẽ",
+              "wbw": "jhūlā — на качелях; jhūle — качаются; rādhā-dāmodara — Радха и Дамодара; vṛndāvana mẽ — во Вриндаване; kaisī — как (пышно); chāī — раскинулась; hariyālī — зелень; ālī — о подруга; kuñjana mẽ — в кунджах",
+              "translation": "Радха и Дамодара качаются на качелях во Вриндаване. О подруга, посмотри, как расцвела кунджа!"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "ita nanda ko dulāro, uta bhānu kī dulārī\njorī lāge ati pyārī basi nainana mẽ",
+              "wbw": "ita — с одной стороны; nanda ko — Нанды; dulāro — любимый сын; uta — с другой стороны; bhānu kī — Вришабхану; dulārī — любимая дочь; jorī — пара; lāge — кажется; ati — очень; pyārī — прекрасной; basi — пребывает; nainana mẽ — в глазах",
+              "translation": "С одной стороны любимый сын Нанды, а с другой — дорогая дочь махараджи Вришабхану. Оба они так прекрасны! Пусть мой взор всегда будет устремлен на них!"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "jamunā ke kūla, pahira suraṅga dukūla\ntaise khila rahe phūla in kadamana mẽ",
+              "wbw": "jamunā ke — Ямуны; kūla — на берегу; pahira — надев; suraṅga — яркие; dukūla — одежды; taise — так же; khila rahe — распустились; phūla — цветы; in — на этих; kadamana mẽ — деревьях кадамба",
+              "translation": "Они гуляют по берегу Ямуны, одетые в чудесные яркие одежды. О подруга, посмотри, как благоухают цветы кадамба!"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "gaura śyāma raṅga, ghana dāminī ke saṅga\nbhai akhiyā̃ apaṅga chavi bharī mana mẽ",
+              "wbw": "gaura — золотистый; śyāma — тёмный; raṅga — цвет (тел); ghana — грозовая туча; dāminī ke saṅga — вместе с молнией; bhai — стали; akhiyā̃ — глаза; apaṅga — немигающими; chavi — этот образ; bharī — наполнил; mana mẽ — ум",
+              "translation": "Золотистая Радхика рядом со смуглоликим Кришной напоминает молнию на фоне темного грозового облака. О глаза, не закрывайтесь ни на миг, пусть эта картина навечно останется в моём уме!"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "rādhe mukha aura, naina śyāma ke cakora\nbraja-gopin prema ḍora lagī caraṇana mẽ",
+              "wbw": "rādhe mukha — лица Радхи; aura — к; naina — глаза; śyāma ke — Шьямы; cakora — (подобные) птицам чакора; braja-gopin — враджа-гопи; prema — премы; ḍora — верёвка; lagī — привязана; caraṇana mẽ — к стопам",
+              "translation": "Лицо Радхики словно луна, а глаза Кришны, как две птицы чакоры (очарованные луной), устремлены на нее. Враджа-гопи веревкой премы связывают вместе лотосные стопы Радхи и Кришны."
+            }
+          ],
+          "numbered": true
+        },
+        {
+          "id": "song-radhe-jhulana-padharo",
+          "title": "Радхе джхулана падхаро",
+          "content": [
+            {
+              "type": "text",
+              "content": "Традиционный враджский киртан"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "rādhe jhūlana padhāro jhuka āye badarā\njhuka āye badarā, ghira āye badarā",
+              "wbw": "rādhe — о Радха; jhūlana — на качели; padhāro — приди; jhuka āye — низко нависли; badarā — тучи; ghira āye — сгустились",
+              "translation": "Подруги говорят Радхе: «Пойдем покачаемся! Посмотри, набежали дождевые облака. Скоро хлынет дождь. Если ты сейчас же не пойдешь, ты всё пропустишь и потом будешь жалеть об этом. Всё небо в облаках!»"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "aiso māna nahī̃ kīje, haṭha choḍo rī alī\ntum to parama sayānī vṛṣabhānu kī lalī",
+              "wbw": "aiso — такую; māna — обиду (ману); nahī̃ kīje — не держи; haṭha — упрямство; choḍo — оставь; rī alī — о подруга; tum to — ты ведь; parama — весьма; sayānī — разумная; vṛṣabhānu kī — Вришабхану; lalī — дочь",
+              "translation": "«Перестань сердиться, о сакхи. Не упрямься, ведь ты так разумна, ты же дочь махараджи Вришабхану»."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "sājo solah śriṅgāra ḍāro nainana kajarā\npaharo pañca-raṅga sāḍī oḍho śyāma cadarā",
+              "wbw": "sājo — укрась себя; solah — шестнадцатью; śriṅgāra — украшениями; ḍāro — нанеси; nainana — на глаза; kajarā — каджал; paharo — надень; pañca-raṅga — пятицветное; sāḍī — сари; oḍho — накинь; śyāma — тёмную; cadarā — накидку",
+              "translation": "«Укрась себя шестнадцатью видами украшений, подведи глаза кадджалом. Надень пятицветное сари и тонкую темную накидку»."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "tero rasika pritama, maga johata khaḍo\nrādhe jahā̃ paga dhāro śyāma nainā dharo",
+              "wbw": "tero — твой; rasika — исполненный вкуса (расы); pritama — возлюбленный; maga — дорогу; johata — высматривая; khaḍo — стоит; rādhe — о Радха; jahā̃ — куда; paga — стопы; dhāro — ставишь; śyāma — Шьям; nainā — глаза; dharo — устремляет",
+              "translation": "«Твой возлюбленный ждет тебя на тропинке. Сложив молитвенно руки, Шьям готов упасть к твоим ногам»."
+            },
+            {
+              "type": "verse",
+              "sanskrit": "ḍārī reśama ḍorī jāpai jhūle rādhā gorī\njākī baiyā̃ gorī gorī pahare hāthana gajarā",
+              "wbw": "ḍārī — привязаны; reśama — шёлковые; ḍorī — верёвки; jāpai — на которых; jhūle — качается; rādhā — Радха; gorī — золотистая; jākī — чьи; baiyā̃ — руки; gorī gorī — золотистые; pahare — носят; hāthana — на руках; gajarā — браслеты",
+              "translation": "Шелковые веревки уже завязаны там, где златокожая Радха будет качаться на качелях. На её золотистых руках сверкают изумрудные браслеты."
+            }
+          ],
+          "numbered": true
         }
       ]
     },

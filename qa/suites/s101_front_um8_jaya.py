@@ -35,7 +35,7 @@ Satkirti 22.10 msg 6177/6180 (on «Джая-дхвани», after the analysis o
      pp. xxxix–xl (GG2016 below: copied by hand from the PDF, independent of the generator), in order, with the
      printing errors corrected (GG_ERRATA, listed to Satkirti in the analysis 22.10); none of the 36 calls of the
      Voronezh songbook that are not in it; call 2 = the guru line, marked "needs_satkirti" (open question —
-     qa/known_failures.json until Satkirti writes it); every call with translation + word-for-word.
+     qa/known_failures.json until Satkirti writes it); since msg 6828 (26.10) NO call has translation or word-for-word.
 No browser, no server: python s101_front_um8_jaya.py"""
 import glob
 import hashlib
@@ -197,7 +197,10 @@ for lang, fn in BOOKS.items():
     chk(f"e {fn}: call 2 = exactly the 2nd line of Maha-abhiseka (msg 6281; was 6197), no needs_satkirti marker, no «…»",
         len(jv) > 1 and nfc(jv[1].get("sanskrit")) == nfc(translit(GURU_S) if lang == "ru" else GURU_S)
         and not gl and "…" not in json.dumps(jd, ensure_ascii=False) and "loudly chant" not in json.dumps(jd, ensure_ascii=False), len(gl))
-    chk(f"e {fn}: every call has a translation and a word-for-word", all(x.get("translation", "").strip() and x.get("wbw", "").strip() for x in jv))
+    # Satkirti msg 6828 (26.10, A121): «В «Джая-дхвани» убери переводы. Это молитва, в которой перечисляют святых»
+    # (the book's languages + the ru mirror; the retired languages' files are not rebuilt — S 23.10, en + ru-iast only)
+    if lang in ("en", "ru-iast", "ru"):
+        chk(f"e {fn}: no call has a translation or a word-for-word (msg 6828)", jv and not [x for x in jv if x.get("translation") or x.get("wbw")])
     sec = sec_of(b, "upadesha-sara")
     blob = nfc(json.dumps(sec, ensure_ascii=False))
     verses = [x for x in sec["content"] if x.get("type") == "verse"]
