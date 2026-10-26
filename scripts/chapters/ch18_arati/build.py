@@ -55,7 +55,9 @@ def strip_jaya(book):
         if s["id"] == "jaya-dhvani-front":
             for b in s["content"]:
                 if b.get("type") == "verse":
-                    b.pop("translation", None)
+                    # "" (not absent): the app shows a verse without translation as a centred verse without
+                    # buttons; an absent translation would make it an indented inline mantra (SectionContent.tsx).
+                    b["translation"] = ""
                     b.pop("wbw", None)
 
 

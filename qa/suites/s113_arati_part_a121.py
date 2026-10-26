@@ -116,7 +116,6 @@ if BASE is None:
 # ---------------- e) app ----------------
 from playwright.sync_api import sync_playwright  # noqa: E402
 
-TOC_JS = """() => [...document.querySelectorAll('a[href]')].map(a => a.getAttribute('href'))"""
 with sync_playwright() as p:
     for device, engine, options in qa.devices(["iphone14", "desktop"]):
         browser = getattr(p, engine).launch()
@@ -131,13 +130,27 @@ with sync_playwright() as p:
                   return s ? [s.querySelectorAll('.verse-text').length, [...s.querySelectorAll('.verse-num')].map(e => e.textContent.trim()).join(',')] : null; })""")
             check(tag, "e Раджа-бхога-арати: Yaśomatī 4 numbered 1–4, short bhajans without numbers",
                   n == [[4, "1,2,3,4"], [2, ""], [1, ""]], n)
-            hrefs = page.evaluate(TOC_JS)
-            order = []
-            for h in hrefs:
-                m = re.search(r"/(" + "|".join(CHAP) + r")/?(?:#|$)", h or "")
-                if m and m.group(1) not in order:
-                    order.append(m.group(1))
-            check(tag, "e navigation knows the 6 chapters in order", order == CHAP, order)
+            for _ in range(3):   # open «Содержание» (bars first)
+                if page.locator(".mobile-menu[data-open]").count():
+                    break
+                if page.locator(".reader-chrome[data-shown]").count() == 0:
+                    vp = page.viewport_size
+                    (page.touchscreen.tap if options.get("has_touch") else page.mouse.click)(vp["width"] - 6, vp["height"] / 2)
+                    page.wait_for_timeout(600)
+                try:
+                    btn = page.locator("[data-reader-action=contents]").first
+                    btn.tap() if options.get("has_touch") else btn.click()
+                    page.wait_for_timeout(900)
+                except Exception:
+                    pass
+            ids = page.evaluate("""() => [...document.querySelectorAll('.mobile-menu[data-open] [data-toc-group=arati] [data-toc-chapter], .mobile-menu[data-open] #toc-part-arati [data-toc-chapter], .mobile-menu[data-open] #toc-grp-arati [data-toc-chapter]')]
+                .map(e => e.getAttribute('data-toc-chapter'))""")
+            if not ids:
+                ids = page.evaluate("() => [...document.querySelectorAll('.mobile-menu[data-open] [data-toc-chapter]')].map(e => e.getAttribute('data-toc-chapter'))")
+            order = [x for i, x in enumerate(ids) if x in CHAP and x not in ids[:i]]
+            part_row = page.locator(".mobile-menu[data-open] [data-toc-toggle=arati]").count()
+            check(tag, "e «Содержание»: part «Арати» row + its 6 chapters in order", part_row == 1 and order == CHAP, (part_row, order))
+            page.keyboard.press("Escape")
             page.goto(f"{BASE}/{lang}jaya-dhvani-front/", wait_until="load")
             page.wait_for_selector(".verse-text", state="attached", timeout=15000)
             btn = page.evaluate("""() => [document.querySelectorAll('.verse-text').length,

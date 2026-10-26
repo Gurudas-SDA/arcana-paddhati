@@ -107,9 +107,9 @@ with sync_playwright() as p:
             others = page.evaluate(OTHER_JS, f"#{SID} section[data-subsection], section[data-subsection]")
             check(tag, "other subsections: a number for every verse or none (msg 6826)", all(c in (0, v) for i, c, v in others if i != SUB), others)
         page.goto(f"{BASE}/gaura-arati-songs/", wait_until="load")
-        page.wait_for_selector("#song-gaura-arati .verse-text", state="attached", timeout=15000)
+        page.wait_for_selector("#song-gaura-arati .sanskrit", state="attached", timeout=15000)
         cnt = page.evaluate("() => ['song-gaura-arati', 'song-yugala-arati'].map(id => document.getElementById(id)).filter(Boolean)"
-                            ".reduce((a, s) => [a[0] + s.querySelectorAll('.verse-text').length, a[1] + s.querySelectorAll('.verse-num').length], [0, 0])")
+                            ".reduce((a, s) => [a[0] + s.querySelectorAll('.sanskrit').length, a[1] + s.querySelectorAll('.verse-num').length], [0, 0])")
         check(f"{device} en/", "gaura-arati-songs (A121 msg 6826: 7 + 6 verses → numbered): a number for every verse", cnt[0] > 0 and cnt[1] == cnt[0], cnt)
         context.close()
         browser.close()
