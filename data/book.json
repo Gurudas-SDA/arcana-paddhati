@@ -7049,6 +7049,7 @@
         {
           "id": "song-damodarastakam",
           "title": "Śrī Dāmodarāṣṭakam",
+          "numbered": true,
           "content": [
             {
               "type": "text",

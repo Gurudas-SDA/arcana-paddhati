@@ -62,7 +62,30 @@ def write_atomic(path, text, newline=""):
         raise
 
 
+# Layout flags of a subsection (not text): never translated, copied from the English section into every language
+# (A120, S msg 6787/6793/6803: `"numbered": true` = the verses of the subsection get numbers 1, 2, … above them).
+# They are left out of en_hash, so switching a flag on does not make the translations STALE.
+LAYOUT_KEYS = ("numbered",)
+
+
+def _strip_layout(sec):
+    subs = [{k: v for k, v in sub.items() if k not in LAYOUT_KEYS} for sub in sec.get("subsections", [])]
+    return dict(sec, subsections=subs) if "subsections" in sec else sec
+
+
+def copy_layout(sec, en_section):
+    """A copy of `sec` (a translated section) with the layout flags of the English subsections (by id)."""
+    en = {sub["id"]: sub for sub in en_section.get("subsections", [])}
+    out = _strip_layout(sec)
+    for sub in out.get("subsections", []):
+        for k in LAYOUT_KEYS:
+            if k in en.get(sub["id"], {}):
+                sub[k] = en[sub["id"]][k]
+    return out
+
+
 def en_hash(sec):
+    sec = _strip_layout(sec)
     return hashlib.sha256(json.dumps(sec, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()[:16]
 
 
@@ -88,7 +111,7 @@ def put(book, lang, sid, gen_dir, en_section, en_ids):
                   "scripts/translate/night_sync.py %s --langs %s" % (lang, sid, p, sid, lang))
             return "missing (existing section kept)"
         return "none (English fallback)"
-    place(book, rec["section"], en_ids)
+    place(book, copy_layout(rec["section"], en_section), en_ids)
     if rec["en_hash"] != en_hash(en_section):
         print("STALE %s/%s: the English section changed after the translation (%s) — run "
               "scripts/translate/night_sync.py %s --langs %s" % (lang, sid, rec["date"], sid, lang))

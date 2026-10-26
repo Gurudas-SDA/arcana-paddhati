@@ -225,6 +225,8 @@ SUITES = [
          devices=["iphone14", "pixel7", "ipad-portrait", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s111", file="suites/s111_night_tokens_v54.py", title="V54 Враджа Лила msg 1714 (DS V1.1 §7): ночью --ds-row-lit = --ap-band-toc; карточка «Saving to your phone» — только токены",
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
+    dict(id="s112", file="suites/s112_numbered_verses_a120.py", title="A120 S msg 6787/6793/6803 «По середине строки над стихом жирную»: apakšnodaļā ar \"numbered\": true (Шри Дамодараштака) virs katra panta numurs 1…8 — centrā, trekns, ≈1,15×; citas apakšnodaļas bez numuriem; dati visās valodās",
+         devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
 ]
 
 

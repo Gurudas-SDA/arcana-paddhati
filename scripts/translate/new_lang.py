@@ -31,7 +31,7 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import night_sync as ns  # noqa: E402
-from i18n_sections import en_hash, write_atomic  # noqa: E402
+from i18n_sections import copy_layout, en_hash, write_atomic  # noqa: E402
 
 CACHE = os.path.join(HERE, "cache")
 CH13 = os.path.join(ns.REPO, "scripts", "chapters", "ch13_caturmasya", "i18n_cache.json")
@@ -140,7 +140,7 @@ def assemble(lang):
         rec = json.load(open(cpath(lang, s["id"]), encoding="utf-8"))
         if rec["en_hash"] != en_hash(s):
             raise RuntimeError("%s/%s: STALE translation (English changed) - re-run" % (lang, s["id"]))
-        sec = rec["section"]
+        sec = copy_layout(rec["section"], s)  # A120: layout flags («numbered») from English
         sec["title"] = TITLE_FIX.get(lang, {}).get(sec["title"], sec["title"])
         secs.append(sec)
     parts = copy.deepcopy(ns.EN["parts"])

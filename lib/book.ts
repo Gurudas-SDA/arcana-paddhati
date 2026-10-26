@@ -82,6 +82,10 @@ export interface Subsection {
   id: string;
   title: string;
   content: ContentItem[];
+  /** Number the subsection's verses 1, 2, … — the number centred and bold above each verse
+   *  (A120, Satkirti msg 6787/6793/6803 «По середине строки над стихом жирную»). Switched on per
+   *  subsection in data/book*.json (the chapter generator's source); a layout flag, not translated. */
+  numbered?: boolean;
 }
 
 export interface Section {

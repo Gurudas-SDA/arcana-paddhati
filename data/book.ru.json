@@ -7299,6 +7299,7 @@
         {
           "id": "song-damodarastakam",
           "title": "Шри Дамодараштака",
+          "numbered": true,
           "content": [
             {
               "type": "text",

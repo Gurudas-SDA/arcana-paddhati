@@ -477,13 +477,22 @@ class Edition:
 
     # ------------------------------------------------------------ blocks
 
-    def blocks_html(self, items, epub=False) -> str:
-        return "\n".join(self.block_html(it, epub) for it in items)
+    def blocks_html(self, items, epub=False, numbered=False) -> str:
+        # A120 (Satkirti msg 6787/6793/6803 «По середине строки над стихом жирную»): a subsection with
+        # `"numbered": true` gets the running number 1, 2, … of its verses above each verse (as in the app).
+        nums, n = [], 0
+        for it in items:
+            if numbered and it.get("type") == "verse" and it.get("sanskrit"):
+                n += 1
+                nums.append(n)
+            else:
+                nums.append(None)
+        return "\n".join(self.block_html(it, epub, num) for it, num in zip(items, nums))
 
-    def block_html(self, it, epub) -> str:
+    def block_html(self, it, epub, num=None) -> str:
         t = it.get("type")
         if t == "verse":
-            return self.verse_html(it)
+            return self.verse_html(it, num)
         if t == "subtitle":
             return f'<h3>{inline(it.get("content", ""))}</h3>'
         if t == "instruction":
@@ -541,13 +550,14 @@ class Edition:
         content = it.get("content", "")
         return f"<p>{lines_br(content)}</p>"
 
-    def verse_html(self, it) -> str:
+    def verse_html(self, it, num=None) -> str:
         vid, _ = self.verse_ids[id(it)]
         sk = it.get("sanskrit", "")
         stanzas = "".join(f"<p>{lines_br(st, lambda l: esc(strip_inline(l)))}</p>" for st in sk.split("\n\n"))
         tr, wbw = it.get("translation"), verse_wbw(it)
         cls = "verse" if (tr or wbw or "\n" in sk) else "verse mantra"
-        out = [f'<div class="{cls}" id="{vid}"><div class="sk" lang="{sa_lang(sk)}">{stanzas}</div>']
+        vn = f'<p class="vn">{num}</p>' if num is not None else ""
+        out = [f'<div class="{cls}" id="{vid}">{vn}<div class="sk" lang="{sa_lang(sk)}">{stanzas}</div>']
         if wbw:
             out.append(f'<p class="wbw">{wbw_html(wbw)}</p>')
         if tr:
@@ -629,7 +639,7 @@ class Edition:
         out.append(self.blocks_html(sec.get("content", []), epub))
         for sj, sub in enumerate(sec.get("subsections", [])):
             out.append(f'<section class="subsec" id="s{si}-{sj}"><h2>{self.label_html(si, sj)}</h2>')
-            out.append(self.blocks_html(sub.get("content", []), epub))
+            out.append(self.blocks_html(sub.get("content", []), epub, bool(sub.get("numbered"))))
             out.append("</section>")
         out.append("</section>")
         return "\n".join(out)
@@ -649,6 +659,7 @@ h1, h2, h3 { font-weight: 700; color: #2C1810; }
 b.sa { font-weight: 700; font-style: normal; }
 .verse .sk, .pv-l { font-weight: 700; }
 .verse .sk p { margin: 0 0 0.4em 0; }
+.verse .vn { text-align: center; font-weight: 700; font-size: 1.15em; margin: 0 0 0.25em 0; }
 .wbw .w { font-weight: 700; font-style: italic; }
 .tr { font-style: italic; }
 .mood { border-left: 2.5pt solid #B8860B; background: #FBF4E6; }
@@ -749,6 +760,7 @@ h3 { font-size: 10.5pt; margin: 4mm 0 1.5mm 0; text-align: left; break-after: av
 .verse { margin: 2.5mm 0 3mm 0; text-align: left; }
 .verse .sk { break-inside: avoid; break-after: avoid; }
 .verse .sk { font-size: 10pt; line-height: 1.5; padding-left: 5mm; }
+.verse .vn { font-size: 11.5pt; line-height: 1.3; break-after: avoid; }
 .verse.mantra { margin: 1.5mm 0; }
 .verse.mantra .sk { padding-left: 8mm; }
 .wbw { font-size: 8.8pt; line-height: 1.42; padding-left: 4mm; border-left: 0.6pt solid #D4B26A; margin: 1.5mm 0 1.5mm 1mm; text-align: left; }

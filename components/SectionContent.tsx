@@ -259,9 +259,12 @@ function ContentBlock({
   separated = false,
   hsImage,
   hsText,
+  verseNum,
 }: {
   item: ContentItem;
   index: number;
+  /** Running number of this verse in a numbered subsection (Subsection.numbered), shown above it. */
+  verseNum?: number;
   labels: VerseLabels;
   /** Title of the (sub)section the block belongs to (header of the mood overlay). */
   title: string;
@@ -306,7 +309,7 @@ function ContentBlock({
         }
         return out;
       };
-      const sanskrit = item.sanskrit && (
+      const sanskritText = item.sanskrit && (
         <div lang={sanskritLang(item.sanskrit)} className={`sanskrit text-base leading-relaxed text-[#1a1a1a] ${isInlineMantra ? 'mantra-block ml-8' : 'verse-text'} mb-2`}>
           {item.sanskrit.split('\n\n').map((stanza, si, sarr) => (
             <p key={si} className={si < sarr.length - 1 ? "mb-3" : ""}>
@@ -314,6 +317,16 @@ function ContentBlock({
             </p>
           ))}
         </div>
+      );
+      // A120 (Satkirti msg 6787/6793/6803): «По середине строки над стихом жирную» — the verse number
+      // centred and bold right above the Sanskrit of a numbered subsection.
+      const sanskrit = sanskritText && verseNum !== undefined ? (
+        <>
+          <div className="verse-num">{verseNum}</div>
+          {sanskritText}
+        </>
+      ) : (
+        sanskritText
       );
       // Verse with a translation and/or word-by-word: collapsible panels.
       if (sanskrit && (item.translation || wbw)) {
@@ -592,7 +605,18 @@ function ContentBlock({
   }
 }
 
-function ContentBlocks({ items, labels, title }: { items: ContentItem[]; labels: VerseLabels; title: string }) {
+function ContentBlocks({
+  items,
+  labels,
+  title,
+  numbered = false,
+}: {
+  items: ContentItem[];
+  labels: VerseLabels;
+  title: string;
+  /** Number the verses 1, 2, … (Subsection.numbered, A120). */
+  numbered?: boolean;
+}) {
   // A leading "mood" block (Gurudev's quote) does not count as content for
   // the layout rules below: the next block is still the "first" one.
   const lead = items.findIndex((item) => item.type !== "mood");
@@ -616,6 +640,9 @@ function ContentBlocks({ items, labels, title }: { items: ContentItem[]; labels:
     return textPictures.reduce((a, b) => (Math.abs(b.idx - idx) < Math.abs(a.idx - idx) ? b : a)).src;
   };
   const pairedListAt = (i: number) => items[i]?.type === "paired-list" && items[i]?.layout !== "vertical";
+  // Running verse numbers of a numbered subsection: 1, 2, … over its verse blocks only.
+  let verses = 0;
+  const verseNums = items.map((item) => (numbered && item.type === "verse" && item.sanskrit ? ++verses : undefined));
   const blocks = items.map((item, idx) => (
     <ContentBlock
       key={idx}
@@ -629,6 +656,7 @@ function ContentBlocks({ items, labels, title }: { items: ContentItem[]; labels:
       separated={idx > offset && item.type === "subtitle" && (long || pairedListAt(idx + 1))}
       hsImage={linkedImage(item, idx)}
       hsText={linkedText(item, idx)}
+      verseNum={verseNums[idx]}
     />
   ));
   return pictures.length ? <HotspotProvider>{blocks}</HotspotProvider> : <>{blocks}</>;
@@ -657,7 +685,12 @@ function SubsectionBlock({
         {num && <span className="heading-num">{`${num}.`}</span>}
         {subsection.title}
       </h2>
-      <ContentBlocks items={subsection.content} labels={labels} title={subsection.title} />
+      <ContentBlocks
+        items={subsection.content}
+        labels={labels}
+        title={subsection.title}
+        numbered={!!subsection.numbered}
+      />
     </section>
   );
 }
