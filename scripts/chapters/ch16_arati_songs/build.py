@@ -9,8 +9,10 @@ Source: pesni_arati.json = the draft «Песни арати» 07.10.2026 (…/�
 model in this script: IAST, word-by-word and translation are taken from the draft as they are.
   * RU (book.ru-iast.json): IAST + пословный перевод + перевод + source line.
   * RU Cyrillic mirror (book.ru.json): the same, Sanskrit transliterated (scripts/translate/iast_to_cyrillic.py).
-  * EN (book.json): IAST only + title/author in IAST — the draft has no English translation
-    (the GVP English text is not in the draft) — open question for Satkirti/Gurudas.
+  * EN (book.json): IAST + title/author in IAST; since A123 (27.10.2026) also the English translation (verbatim,
+    «Śrī Gauḍīya Gīti-guccha», GVP 2016) + word-by-word from en_songs.json (source per song there; en_apply.py).
+    NOTE: data/book.json was later edited by A120/A121 (numbering, part «Арати»), so do not run this full
+    build without re-checking — en_apply.py changes only the English translation/wbw.
   * Other languages (lv, de, fr, es, it, uk, hu, pt, lt; since the night release 08.10.2026): the English chapters translated
     by scripts/translate/night_sync.py, stored in i18n.json here (chapter/song titles and author lines in each
     language's conventions; the verses IAST as in English). Not translated yet -> English fallback.
@@ -94,9 +96,18 @@ def song_ru(song):
             for v in song["verses"]]
 
 
+# A123 (Satkirti msg 6848/6849, 27.10.2026): English translation + word-by-word from en_songs.json (sources there);
+# en_apply.py writes them into data/book.json without a full rebuild. Kept here so a rebuild does not lose them.
+EN_SONGS = json.load(open(os.path.join(CH, "en_songs.json"), encoding="utf-8"))["songs"]
+EN_IDS = {n: sid for c in CHAPTERS for n, sid in c[4].items()}
+
+
 def song_en(song):
+    en = EN_SONGS[EN_IDS[song["song_no"]]]["verses"]
+    assert len(en) == len(song["verses"]), song["song_no"]
     return [{"type": "text", "content": f"⟦{song['author_iast']}⟧"}] + \
-           [{"type": "verse", "sanskrit": v["sanskrit"]} for v in song["verses"]]
+           [{"type": "verse", "sanskrit": v["sanskrit"], "wbw": e["wbw"], "translation": e["translation"]}
+            for v, e in zip(song["verses"], en)]
 
 
 def wbw_cyr(wbw):

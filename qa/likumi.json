@@ -106,7 +106,7 @@
     {"id": "UI-9.8", "doc": "UI", "section": "§9", "text": "В непрерывной книге активна не более одной ссылки «След. глава ›»: в конце читаемой главы, над нижней панелью, с названием следующей главы. Последняя глава ссылки не имеет.",
      "tests": ["s06:introduction: no next-chapter block", "s06:offering-bhoga: the next chapter's title is not on the bar", "s06:offering-bhoga: at the chapter end the bars are out", "s06:kartika-bhajans (last chapter): no"]},
     {"id": "UI-9.9", "doc": "UI", "section": "§9", "text": "У каждого стиха в книге есть пословный перевод (кнопка «пословно»).",
-     "tests": ["s07:I ru-iast: every verse in the UI has «пословно»", "s07:I book.ru-iast.json", "s07:G every verse has «пословно»", "s071:18 Tilak (12) + ācamana mantras have «пословно»", "lint:L6"]},
+     "tests": ["s07:I ru-iast: every verse in the UI has «пословно»", "s07:I book.ru-iast.json", "s07:G every verse has «пословно»", "s071:18 Tilak (12) + ācamana mantras have «пословно»", "lint:L6", "s114:"]},
     {"id": "UI-9.10", "doc": "UI", "section": "§9", "text": "Текст и карточки таблиц не выходят за правый край экрана — ни на одном телефоне (Android 360 px, S23 FE, Pixel 7, iPhone) и ни при каком размере «Аа»; длинное значение переносится под свою подпись.",
      "tests": ["s13:§5 текст и карточки не выходят за правый край"]},
     {"id": "UI-9.11", "doc": "UI", "section": "§9", "text": "Ссылка «транскрипт» в окне «Настроение Гурудева» открывает транскрипт внутри приложения с одного касания — на всех телефонах, и офлайн.",

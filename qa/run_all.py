@@ -229,6 +229,8 @@ SUITES = [
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s113", file="suites/s113_arati_part_a121.py", title="A121 S msg 6811/6812/6817/6818/6824 + 6826 + 6828: раздел «Арати» (Мангала-арати, Раджа-бхога-арати, Гаура-арати, Картика, Ямунаштака, Джхулана-ятра); dziesmas ≥3 panti numurētas, 1–2 ne; «Джая-дхвани» bez перевода/пословно",
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14"]),
+    dict(id="s114", file="suites/s114_en_songs_a123.py", title="A123 S msg 6848/6849 + «Стандарты» 79: EN — katrai «song-…» apakšnodaļai visi panti ar translation + wbw (7 ārati dziesmas, 61 pants); IAST = ru-iast; lietotnē katram pantam «word-by-word» + «translation»",
+         devices=["iphone14"], fast=True, fast_devices=["iphone14"]),
 ]
 
 
