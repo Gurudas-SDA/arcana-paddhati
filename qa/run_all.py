@@ -235,6 +235,8 @@ SUITES = [
          devices=["iphone14"], fast=True, fast_devices=["iphone14"]),
     dict(id="s116", file="suites/s116_lang_field_descender_v59.py", title="V59 Враджа Лила msg 1789 + 6650/6651: valodas laukā «Аа» panelī «English» nav apgriezts «g» (fonta kaste ietilpst apgriešanas kastē; line-height ≥ 1,3); iPhone + Pixel",
          devices=["iphone14", "pixel7"], fast=True, fast_devices=["iphone14", "pixel7"]),
+    dict(id="s115", file="suites/s115_das_declension_a124.py", title="A124 S msg 6859 «бери за основу что-то самое авторитетное»: «дас» locījumi RU (Джаганнатхе дасу, Рагхунатхи даса, nav «дасы»), «Гауракишор…» bez defises (Песенник 2015, БР 2005); autora rinda «Кришнадас» paliek",
+         devices=None, fast=True, server=False),
 ]
 
 
