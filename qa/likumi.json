@@ -132,7 +132,7 @@
     {"id": "STD-1.7", "doc": "STD", "section": "§1", "text": "Арчана (индивидуальное поклонение, пробуждение, приглашение-āvāhana): сначала Гурудев, затем Гауранга, затем Радха-Кришна. В каждом тексте ясно указывать, какой это порядок.",
      "tests": [], "nav_testa": "secība ir brīvā tekstā — pārbauda cilvēks"},
     {"id": "STD-1.8", "doc": "STD", "section": "§1", "text": "Правописание имён и терминов берём из книг ачарьев, статей Гурудева, purebhakti.com, vedabase.io, Versebase — не из расшифровок лекций; спорное согласуем с Саткирти.",
-     "tests": ["lint:L5"], "daleji": "automātiski tikai bīju rakstība; pārējā rakstība — avotu pārbaude ar cilvēku"},
+     "tests": ["lint:L5", "s115:"], "daleji": "automātiski tikai bīju rakstība; pārējā rakstība — avotu pārbaude ar cilvēku"},
 
     {"id": "STD-2.1", "doc": "STD", "section": "§2", "text": "Слова Гурудева — только дословно, без пересказа и «коротких выдержек»; с источником: лекция, дата, №, таймкод, ссылка на расшифровку.",
      "tests": ["lint:L12"], "daleji": "avota pilnīgums pārbaudīts; «дословно» — tikai cilvēks (salīdzinājums ar transkriptu)"},
@@ -164,7 +164,7 @@
     {"id": "STD-3.3", "doc": "STD", "section": "§3", "text": "Структура книги: «Arcana paddhati — The Process of Deity Worship» (без «Temple Manual»); части I Храмовый / II Домашний / III для проповеднических центров; нумерация I → 1 → 2.1; первая страница — только обложка.",
      "tests": ["lint:L15", "s07:D Part I starts with chapter «1.»", "s071:3 contents: Обложка", "s06:main-worship-sixteen-items: «Вперёд ›» -> home-worship", "s06:empty part page (Часть II) -> Часть III", "s01:cover: no bars"]},
     {"id": "STD-3.4", "doc": "STD", "section": "§3", "text": "Санскрит, русский и английский — по правилам грамматики; ошибки в присланном тексте исправляем (и коротко говорим, что исправили).",
-     "tests": [], "nav_testa": "gramatika — cilvēks (L1/L11 aptver tikai konkrētus locījumus)"},
+     "tests": ["s115:"], "nav_testa": "gramatika — cilvēks (L1/L11, s115 aptver tikai konkrētus locījumus)"},
     {"id": "STD-3.7", "doc": "STD", "section": "§3", "text": "Санскрит везде — IAST с диакритикой (kṣīra-snānīyam, а не ksira-snaniyam); написание молитв и мантр сверяем с изданным источником («Арчана-дипика», Sat-kriyā-sāra-dīpikā и др.).",
      "tests": ["lint:L18", "lint:L8"], "daleji": "L18 — heuristika (ASCII aizvietojumi ks/sh/ng/jn/ñ/aa/-anīya/ṣṇ/visarga-h u.c.); vārdu, kam diakritika vienkārši izlaista bez tipiska marķiera (piem. «sodhana»), ķer tikai cilvēks"},
     {"id": "STD-3.9", "doc": "STD", "section": "§3", "text": "Санскритское jñ в русском тексте пишем «гья»: Прагьяна, гьяна, гьяни, вигьяна, агьяна, адвая-гьяна; имя ачарьи — «Шрила Бхакти Прагьяна Кешава Госвами Махарадж». В санскрите с диакритикой (стихи, пословный перевод, термины) — как раньше: «джн̃» кириллицей, «jñ» латиницей (IAST).",
