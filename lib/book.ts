@@ -352,17 +352,23 @@ export interface TextRun {
   sanskrit: boolean;
 }
 
+/** V57 (Vraja Lila msg 1732): a double hyphen «--» between words is SHOWN as the typographic dash «—»
+ *  (en/ru typography); the source texts keep «--». «a--b», URLs and ids (word characters on BOTH sides) stay; «--es» / «guru--,» (one side open) become «—». */
+export function typoDash(text: string): string {
+  return text.replace(/(?<![-\w])--(?!-)|(?<!-)--(?![-\w])/g, "\u2014");
+}
+
 /** Split running text into plain and ⟦Sanskrit⟧ runs. */
 export function parseInline(text: string): TextRun[] {
   const runs: TextRun[] = [];
   const re = /⟦([^⟦⟧]*)⟧/g;
   let last = 0;
   for (let m = re.exec(text); m; m = re.exec(text)) {
-    if (m.index > last) runs.push({ text: text.slice(last, m.index), sanskrit: false });
+    if (m.index > last) runs.push({ text: typoDash(text.slice(last, m.index)), sanskrit: false });
     runs.push({ text: m[1], sanskrit: true });
     last = m.index + m[0].length;
   }
-  if (last < text.length) runs.push({ text: text.slice(last), sanskrit: false });
+  if (last < text.length) runs.push({ text: typoDash(text.slice(last)), sanskrit: false });
   return runs;
 }
 

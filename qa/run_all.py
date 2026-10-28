@@ -231,6 +231,8 @@ SUITES = [
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14"]),
     dict(id="s114", file="suites/s114_en_songs_a123.py", title="A123 S msg 6848/6849 + «Стандарты» 79: EN — katrai «song-…» apakšnodaļai visi panti ar translation + wbw (7 ārati dziesmas, 61 pants); IAST = ru-iast; lietotnē katram pantam «word-by-word» + «translation»",
          devices=["iphone14"], fast=True, fast_devices=["iphone14"]),
+    dict(id="s115", file="suites/s115_dash_render_v57.py", title="V57 Враджа Лила msg 1732/6487: «--» tekstā tiek RĀDĪTS kā «—» (visās valodās, renderējot); avota dati nemainīti; ⟦…⟧, URL un «a--b» neskarti; en + ru-iast nodaļās lietotnē",
+         devices=["iphone14"], fast=True, fast_devices=["iphone14"]),
 ]
 
 
