@@ -1544,6 +1544,9 @@ html[data-reader-theme="night"] {
 .lang-field-value {
   flex: 1;
   min-width: 0;
+  /* V59 (Vraja Lila msg 1789): overflow:hidden (ellipsis) + line-height 1.2 cut the tail of «g» in «English»;
+     the line box (1.4 × 15 = 21 px) now holds the whole font box (ascent + descent ≈ 20 px). Test qa/suites/s116. */
+  line-height: 1.4;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
