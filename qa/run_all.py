@@ -233,6 +233,8 @@ SUITES = [
          devices=["iphone14"], fast=True, fast_devices=["iphone14"]),
     dict(id="s117", file="suites/s117_dash_render_v57.py", title="V57 Враджа Лила msg 1732/6487: «--» tekstā tiek RĀDĪTS kā «—» (visās valodās, renderējot); avota dati nemainīti; ⟦…⟧, URL un «a--b» neskarti; en + ru-iast nodaļās lietotnē",
          devices=["iphone14"], fast=True, fast_devices=["iphone14"]),
+    dict(id="s116", file="suites/s116_lang_field_descender_v59.py", title="V59 Враджа Лила msg 1789 + 6650/6651: valodas laukā «Аа» panelī «English» nav apgriezts «g» (fonta kaste ietilpst apgriešanas kastē; line-height ≥ 1,3); iPhone + Pixel",
+         devices=["iphone14", "pixel7"], fast=True, fast_devices=["iphone14", "pixel7"]),
 ]
 
 
