@@ -4,7 +4,7 @@
 Criteria (register V60): the same chapter (URL) and the same reading place (the same text block at the reading line)
 after the turn and after turning back; «Листать» and «Прокручивать».
 # tehniskais slieksnis Lipikāra, nav S noteikums: same block text; settle 1500 ms; place measured at 20 % of the viewport height.
-usage: python s100_rotation_keeps_place_v60.py <base-url>
+usage: python s120_rotation_keeps_place_v60.py <base-url>
 """
 import json
 import os
