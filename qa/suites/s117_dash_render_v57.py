@@ -7,7 +7,7 @@ Checks
   b) rendering (node, lib/book.ts parseInline) of EVERY text of EVERY book*.json that has « -- »: the shown text has no «--»
      and has «—»; a Sanskrit ⟦…⟧ run and a URL / «a--b» without spaces stay unchanged;
   c) app (with <base-url>), iPhone 14: en /arcana-procedure/ and ru-iast /main-worship-sixteen-items/ show no « -- » and show « — ».
-usage: python s115_dash_render_v57.py [<base-url>]
+usage: python s117_dash_render_v57.py [<base-url>]
 """
 import glob
 import json
@@ -86,7 +86,8 @@ with sync_playwright() as p:
         for lang, chap in (("en", "arcana-procedure"), ("ru-iast", "main-worship-sixteen-items")):
             page.goto(f"{BASE}{qa.lang_prefix(lang)}/{chap}/", wait_until="load")
             page.wait_for_selector("main p", state="attached", timeout=20000)
-            txt = page.evaluate("document.body.textContent")
+            # visible text only: <script> (RSC payload carries raw data + CSS custom properties «--ca-size») and <style> are not shown
+            txt = page.evaluate("(() => { const c = document.body.cloneNode(true); c.querySelectorAll('script,style,noscript').forEach(e => e.remove()); return c.textContent; })()")
             check(f"{device} {lang}/{chap}", "c no « -- » shown, « — » shown", not DASH.search(txt) and " — " in txt)
         context.close()
         browser.close()
