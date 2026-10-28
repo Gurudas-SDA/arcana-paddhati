@@ -36,6 +36,7 @@ import {
 import { BASE_PATH, stripBasePath } from "@/lib/basePath";
 import { captureReadingPlace, saveReadingPlace } from "@/lib/readingPlace";
 import { beginReadingArrival, bookTarget, readingAnchor, readingSection } from "@/lib/readingFlow";
+import { keepPlaceOnResize } from "@/lib/resizeAnchor";
 import { readerLayout, useReaderLayout } from "@/lib/readerPrefs";
 import { BOOK_EVENT, BOOK_SEGMENT, bookHref, capturePlace, keepPlace, placeBeingRestored, restorePlace } from "@/lib/readingMode";
 
@@ -110,6 +111,8 @@ export default function AppShell({
       cancelAnimationFrame(b);
     };
   }, []);
+  // V60: turning the phone keeps the chapter and the place (lib/resizeAnchor.ts).
+  useEffect(() => keepPlaceOnResize(), []);
   useEffect(() => {
     const check =() => setBookShown(!!document.querySelector("[data-continuous-book]"));
     // After the unmount's DOM removal too.

@@ -6,6 +6,7 @@ import { stripBasePath } from "@/lib/basePath";
 import { parsePath } from "@/lib/i18n";
 import { isMenuEntry, main, patchState, recordScroll, replaceEntry, savedScroll } from "@/lib/navHistory";
 import { bookOffset, bookTarget, finishReadingArrival, followBookLink, readingHref, readingState } from "@/lib/readingFlow";
+import { resizeSettling } from "@/lib/resizeAnchor";
 import { BOOK_EVENT } from "@/lib/readingMode";
 
 /** Scrolling replaces the URL at most once per SYNC_GAP_MS (Phase 3): a
@@ -77,7 +78,7 @@ export default function ContinuousBook({ lang, children }: { lang: string; child
     const sections = [...book.querySelectorAll<HTMLElement>("[data-book-section]")];
     /** The chapter at the reading line, when it is not the URL's (else null). */
     const changed = (): string | null | undefined => {
-      if (isMenuEntry() || performance.now() < quietUntil.current) return undefined;
+      if (isMenuEntry() || performance.now() < quietUntil.current || resizeSettling()) return undefined;
       const line = scroller.getBoundingClientRect().top + scroller.clientHeight * 0.2;
       const current = sections.find((section) => {
         const box = section.getBoundingClientRect();
