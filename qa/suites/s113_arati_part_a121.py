@@ -145,10 +145,8 @@ with sync_playwright() as p:
                     page.wait_for_timeout(900)
                 except Exception:
                     pass
-            ids = page.evaluate("""() => [...document.querySelectorAll('.mobile-menu[data-open] [data-toc-group=arati] [data-toc-chapter], .mobile-menu[data-open] #toc-part-arati [data-toc-chapter], .mobile-menu[data-open] #toc-grp-arati [data-toc-chapter]')]
-                .map(e => e.getAttribute('data-toc-chapter'))""")
-            if not ids:
-                ids = page.evaluate("() => [...document.querySelectorAll('.mobile-menu[data-open] [data-toc-chapter]')].map(e => e.getAttribute('data-toc-chapter'))")
+            ids = page.evaluate("""() => [...document.querySelectorAll('.mobile-menu[data-open] [data-toc-chapter], .mobile-menu[data-open] a[data-toc-row]')]
+                .map(e => e.getAttribute('data-toc-chapter') || (e.getAttribute('href') || '').replace(/\\/+$/, '').split('/').pop())""")
             order = [x for i, x in enumerate(ids) if x in CHAP and x not in ids[:i]]
             part_row = page.locator(".mobile-menu[data-open] [data-toc-toggle=arati]").count()
             check(tag, "e «Содержание»: part «Арати» row + its 6 chapters in order", part_row == 1 and order == CHAP, (part_row, order))

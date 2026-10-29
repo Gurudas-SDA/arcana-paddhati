@@ -89,7 +89,8 @@ with sync_playwright() as p:
                     page.wait_for_timeout(900)
                 except Exception:
                     pass
-            ids = page.evaluate("() => [...document.querySelectorAll('.mobile-menu[data-open] [data-toc-chapter]')].map(e => e.getAttribute('data-toc-chapter'))")
+            ids = page.evaluate("""() => [...document.querySelectorAll('.mobile-menu[data-open] [data-toc-chapter], .mobile-menu[data-open] a[data-toc-row]')]
+                .map(e => e.getAttribute('data-toc-chapter') || (e.getAttribute('href') || '').replace(/\\/+$/, '').split('/').pop())""")
             order = [x for i, x in enumerate(ids) if x in CHAP and x not in ids[:i]]
             check(tag, "c «Содержание»: Джхулана-ятра before Ямунаштака", order == CHAP, order)
         context.close()
