@@ -41,11 +41,11 @@ CASES = [(cid, _NEXT(cid), title0) for cid, title0 in [
     ("parampara", "Джая-дхвани"),
     ("major-festivals", "14. "),
     # A121 (Satkirti 26.10 msg 6811–6818): part «Арати» = Мангала-арати 14, Раджа-бхога-арати 15, Гаура-арати 16,
-    # Картика 17, Ямунаштака 18, Джхулана-ятра 19 (last chapter)
+    # Картика 17, Джхулана-ятра 18, Ямунаштака 19 (last chapter; A127 msg 6961)
     ("gaura-arati-songs", "17. "),
     ("kartika-bhajans", "18. "),
     # 22.10 (Satkirti msg 6065): «Заключение» after the parts, unnumbered — now the last page of the book
-    ("jhulana-yatra-bhajans", "Заключение"),
+    ("yamunastaka", "Заключение"),
 ] if cid in book_order.pages(LANG)]
 LAST = "conclusion"
 res = []
