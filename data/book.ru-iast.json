@@ -45,8 +45,8 @@
         "raja-bhoga-arati",
         "gaura-arati-songs",
         "kartika-bhajans",
-        "yamunastaka",
-        "jhulana-yatra-bhajans"
+        "jhulana-yatra-bhajans",
+        "yamunastaka"
       ]
     }
   ],
@@ -7579,80 +7579,6 @@
       ]
     },
     {
-      "id": "yamunastaka",
-      "title": "Ямунаштака",
-      "subtitle": null,
-      "page": "",
-      "content": [],
-      "subsections": [
-        {
-          "id": "song-yamunastakam",
-          "title": "Шри Ямунаштака",
-          "content": [
-            {
-              "type": "text",
-              "content": "Шрила Рупа Госвами"
-            },
-            {
-              "type": "verse",
-              "sanskrit": "bhrātur antakasya pattane ’bhipatti-hāriṇī\nprekṣayāti-pāpino ’pi pāpa-sindhu-tāriṇī\nnīra-mādhurībhir apy aśeṣa-citta-bandhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
-              "wbw": "bhrātur — брата; antakasya — Ямараджи (повелителя смерти); pattane — в обители; ’bhipatti-hāriṇī — избавляющая от попадания; prekṣayā — одним своим видом; ati-pāpinaḥ — величайших грешников; api — даже; pāpa-sindhu — из океана грехов; tāriṇī — спасающая; nīra-mādhurībhiḥ — сладостью вод; api — также; aśeṣa-citta — все сердца; bandhinī — пленяющая; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
-              "translation": "Пусть Ямуна-деви, дочь Сурьи, бога Солнца, очистит меня. Любого, кто касается её вод, она спасает от наказания в обители её брата Ямараджи. Увидев её, даже самые отъявленные грешники освобождаются от грехов. Её прекрасные воды пленяют сердце каждого."
-            },
-            {
-              "type": "verse",
-              "sanskrit": "hāri-vāri-dhārayābhimaṇḍitoru-khāṇḍavā\npuṇḍarīka-maṇḍalodyad-aṇḍajāli-tāṇḍavā\nsnāna-kāma-pāmarogra-pāpa-sampad-andhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
-              "wbw": "hāri — пленительным; vāri-dhārayā — потоком вод; abhimaṇḍita — украсившая; uru-khāṇḍavā — обширный лес Кхандава; puṇḍarīka-maṇḍala — на множестве белых лотосов; udyat — вспархивающих; aṇḍaja-āli — стай птиц; tāṇḍavā — (место) пляски; snāna-kāma — желающего омыться; pāmara — грешника; ugra-pāpa — тяжких грехов; sampat — богатство; andhinī — уничтожающая; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
-              "translation": "Своим потоком, радующим сердце, она украшает обширный лес Кхандава, владение Индры. На белых лотосах, цветущих по её берегам, непрестанно танцуют трясогузки и другие птицы. Одного только желания омыться в её кристально чистых водах достаточно, чтобы избавиться от самых страшных грехов. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
-            },
-            {
-              "type": "verse",
-              "sanskrit": "śīkarābhimṛṣṭa-jantu-durvipāka-mardinī\nnanda-nandanāntaraṅga-bhakti-pūra-vardhinī\ntīra-saṅgamābhilāṣi-maṅgalānubandhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
-              "wbw": "śīkara — каплей (её воды); abhimṛṣṭa — окроплённых; jantu — живых существ; durvipāka — тяжкие последствия (грехов); mardinī — сокрушающая; nanda-nandana — к сыну Нанды; antaraṅga-bhakti — сокровенной преданности; pūra — поток; vardhinī — усиливающая; tīra-saṅgama — жить на (её) берегах; abhilāṣi — желающим; maṅgala — благо; anubandhinī — дарующая; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
-              "translation": "Достаточно окропить себя лишь каплей её воды, чтобы искупить вину за самое тяжкое преступление. Она усиливает в сердце рагануга-бхакт поток любви к Шри Нанда-нандане и дарует благословения каждому, кто хочет жить на её берегах. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
-            },
-            {
-              "type": "verse",
-              "sanskrit": "dvīpa-cakravāla-juṣṭa-sapta-sindhu-bhedinī\nśrī-mukunda-nirmitoru-divya-keli-vedinī\nkānti-kandalībhir indranīla-vṛnda-nindinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
-              "wbw": "dvīpa-cakravāla — кругом островов (материков); juṣṭa — почитаемые; sapta-sindhu — семь океанов; bhedinī — пересекающая (не смешиваясь с ними); śrī-mukunda — Шри Мукундой; nirmita — совершаемые; uru — великие; divya-keli — божественные игры; vedinī — знающая; kānti-kandalībhiḥ — сиянием (своих вод); indranīla-vṛnda — множество сапфиров; nindinī — посрамляющая; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
-              "translation": "Ямуна-деви столь могущественна, что в отличие от всех остальных рек никогда не смешивается с океанскими водами, несмотря на то что она пересекает семь гигантских островов и впадает в семь океанов, окружающих эти острова. Она постоянно созерцает удивительные сокровенные лилы Шри Кришны и помогает этим лилам проявиться в сердцах тех, кто находит у нее прибежище. Её темные искрящиеся воды прекраснее драгоценных сапфиров. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
-            },
-            {
-              "type": "verse",
-              "sanskrit": "māthureṇa maṇḍalena cāruṇābhimaṇḍitā\nprema-naddha-vaiṣṇavādhva-vardhanāya paṇḍitā\nūrmi-dor-vilāsa-padmanābha-pāda-vandinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
-              "wbw": "māthureṇa maṇḍalena — Матхура-мандалой; cāruṇā — прекрасной; abhimaṇḍitā — украшенная; prema-naddha — проникнутого премой; vaiṣṇava-adhva — пути вайшнавов; vardhanāya — в развитии; paṇḍitā — искусная; ūrmi-doḥ — руками-волнами; vilāsa — играя; padmanābha-pāda — стопам Падманабхи (Кришны); vandinī — поклоняющаяся; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
-              "translation": "Украшенная прекрасной Матхура-мандалой, Ямуна-деви пробуждает рагануга-бхакти в сердцах искренних вайшнавов, которые омываются в её водах. Своими нежными волнами, словно руками, она совершает поклонение лотосным стопам Шри Кришны. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
-            },
-            {
-              "type": "verse",
-              "sanskrit": "ramya-tīra-rambhamāṇa-go-kadamba-bhūṣitā\ndivya-gandha-bhāk-kadamba-puṣpa-rāji-rūṣitā\nnanda-sūnu-bhakta-saṅgha-saṅgamābhinandinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
-              "wbw": "ramya-tīra — (на) прекрасных берегах; rambhamāṇa — мычащими; go-kadamba — стадами коров; bhūṣitā — украшенная; divya-gandha-bhāk — источающих божественный аромат; kadamba-puṣpa-rāji — рядами цветущих кадамб; rūṣitā — благоухающая; nanda-sūnu — сына Нанды; bhakta-saṅgha — собрания преданных; saṅgama — встречей; abhinandinī — радующаяся; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
-              "translation": "Живописные берега Ямуны-деви украшены цветущими кадамбовыми деревьями, источающими райское благоухание, и стадами радостно мычащих коров. Видя у своих вод преданных сына махаражи Нанды, она чувствует безмерное счастье. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
-            },
-            {
-              "type": "verse",
-              "sanskrit": "phulla-pakṣa-mallikākṣa-haṁsa-lakṣa-kūjitā\nbhakti-viddha-deva-siddha-kinnarāli-pūjitā\ntīra-gandhavāha-gandha-janma-bandha-randhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
-              "wbw": "phulla-pakṣa — с раскрытыми крыльями; mallikākṣa-haṁsa — лебедей маллика-кша; lakṣa — сотнями тысяч; kūjitā — оглашаемая; bhakti-viddha — пронзёнными преданностью; deva-siddha-kinnara — полубогами, сиддхами и киннарами; āli — сонмами; pūjitā — почитаемая; tīra-gandhavāha — ветерка с (её) берегов; gandha — ароматом; janma-bandha — узы рождений; randhinī — разрывающая; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
-              "translation": "Над её водами раздаются голоса сотен тысяч лебедей, чьи круглые глаза напоминают распустившиеся цветы маллика. Ей выражают почтение полубоги, сиддхи, киннары и люди, полностью посвятившие себя служению Шри Хари. Любой, кого коснется её приятный ветерок, непременно освободится из круговорота рождений и смертей. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
-            },
-            {
-              "type": "verse",
-              "sanskrit": "cid-vilāsa-vāri-pūra-bhūr-bhuvaḥ-svar-āpinī\nkīrtitāpi durmadoru-pāpa-marma-tāpinī\nballavendra-nandanāṅgarāga-bhaṅga-gandhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
-              "wbw": "cid-vilāsa — духовным знанием; vāri-pūra — потоком вод; bhūr-bhuvaḥ-svaḥ — (миры) Бхух, Бхувах и Свах; āpinī — наполняющая; kīrtitā — воспетая; api — даже; durmada — неистовых; uru-pāpa — великих грехов; marma — корни; tāpinī — сжигающая; ballavendra-nandana — сына царя пастухов (Кришны); aṅgarāga — благовонными умащениями с тела; bhaṅga — (смытыми) волнами; gandhinī — благоухающая; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
-              "translation": "Неся свои воды через три мира (Бхух, Бхувах и Свах), она дарует их обитателям духовное знание. Тот, кто воспевает её в молитвах, сжигает дотла последствия самых тяжких грехов. Её воды благоухают сандалом с тела Шри Кришны. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
-            },
-            {
-              "type": "verse",
-              "sanskrit": "tuṣṭa-buddhir aṣṭakena nirmalormi-ceṣṭitāṁ\ntvām anena bhānu-putri sarva-deva-veṣṭitām\nyaḥ stavīti vardhayasva sarva-pāpa-mocane\nbhakti-pūram asya devi puṇḍarīka-locane",
-              "wbw": "tuṣṭa-buddhir — с умиротворённым умом; aṣṭakena anena — этой аштакой; nirmala-ūrmi — чистыми волнами; ceṣṭitām — действующую; tvām — тебя; bhānu-putri — о дочь Солнца; sarva-deva — всеми полубогами; veṣṭitām — окружённую; yaḥ — тот, кто; stavīti — прославляет; vardhayasva — умножь; sarva-pāpa-mocane — к освобождающему от всех грехов; bhakti-pūram — поток преданности; asya — его; devi — о богиня; puṇḍarīka-locane — к лотосоокому (Кришне)",
-              "translation": "О Сурья-путри! О Деви! О Ямуна! Твои воды могут очистить каждого. Тебе поклоняются все полубоги. Пусть же в сердце того, кто в спокойном состоянии ума повторяет эту молитву, расцветет любовь к лотосоокому Шри Кришне!"
-            }
-          ],
-          "numbered": true
-        }
-      ]
-    },
-    {
       "id": "jhulana-yatra-bhajans",
       "title": "Джхулана-ятра",
       "subtitle": null,
@@ -7742,6 +7668,74 @@
           "numbered": true
         }
       ]
+    },
+    {
+      "id": "yamunastaka",
+      "title": "Ямунаштака",
+      "subtitle": null,
+      "page": "",
+      "content": [
+        {
+          "type": "text",
+          "content": "Шрила Рупа Госвами"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "bhrātur antakasya pattane ’bhipatti-hāriṇī\nprekṣayāti-pāpino ’pi pāpa-sindhu-tāriṇī\nnīra-mādhurībhir apy aśeṣa-citta-bandhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+          "wbw": "bhrātur — брата; antakasya — Ямараджи (повелителя смерти); pattane — в обители; ’bhipatti-hāriṇī — избавляющая от попадания; prekṣayā — одним своим видом; ati-pāpinaḥ — величайших грешников; api — даже; pāpa-sindhu — из океана грехов; tāriṇī — спасающая; nīra-mādhurībhiḥ — сладостью вод; api — также; aśeṣa-citta — все сердца; bandhinī — пленяющая; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
+          "translation": "Пусть Ямуна-деви, дочь Сурьи, бога Солнца, очистит меня. Любого, кто касается её вод, она спасает от наказания в обители её брата Ямараджи. Увидев её, даже самые отъявленные грешники освобождаются от грехов. Её прекрасные воды пленяют сердце каждого."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "hāri-vāri-dhārayābhimaṇḍitoru-khāṇḍavā\npuṇḍarīka-maṇḍalodyad-aṇḍajāli-tāṇḍavā\nsnāna-kāma-pāmarogra-pāpa-sampad-andhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+          "wbw": "hāri — пленительным; vāri-dhārayā — потоком вод; abhimaṇḍita — украсившая; uru-khāṇḍavā — обширный лес Кхандава; puṇḍarīka-maṇḍala — на множестве белых лотосов; udyat — вспархивающих; aṇḍaja-āli — стай птиц; tāṇḍavā — (место) пляски; snāna-kāma — желающего омыться; pāmara — грешника; ugra-pāpa — тяжких грехов; sampat — богатство; andhinī — уничтожающая; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
+          "translation": "Своим потоком, радующим сердце, она украшает обширный лес Кхандава, владение Индры. На белых лотосах, цветущих по её берегам, непрестанно танцуют трясогузки и другие птицы. Одного только желания омыться в её кристально чистых водах достаточно, чтобы избавиться от самых страшных грехов. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "śīkarābhimṛṣṭa-jantu-durvipāka-mardinī\nnanda-nandanāntaraṅga-bhakti-pūra-vardhinī\ntīra-saṅgamābhilāṣi-maṅgalānubandhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+          "wbw": "śīkara — каплей (её воды); abhimṛṣṭa — окроплённых; jantu — живых существ; durvipāka — тяжкие последствия (грехов); mardinī — сокрушающая; nanda-nandana — к сыну Нанды; antaraṅga-bhakti — сокровенной преданности; pūra — поток; vardhinī — усиливающая; tīra-saṅgama — жить на (её) берегах; abhilāṣi — желающим; maṅgala — благо; anubandhinī — дарующая; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
+          "translation": "Достаточно окропить себя лишь каплей её воды, чтобы искупить вину за самое тяжкое преступление. Она усиливает в сердце рагануга-бхакт поток любви к Шри Нанда-нандане и дарует благословения каждому, кто хочет жить на её берегах. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "dvīpa-cakravāla-juṣṭa-sapta-sindhu-bhedinī\nśrī-mukunda-nirmitoru-divya-keli-vedinī\nkānti-kandalībhir indranīla-vṛnda-nindinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+          "wbw": "dvīpa-cakravāla — кругом островов (материков); juṣṭa — почитаемые; sapta-sindhu — семь океанов; bhedinī — пересекающая (не смешиваясь с ними); śrī-mukunda — Шри Мукундой; nirmita — совершаемые; uru — великие; divya-keli — божественные игры; vedinī — знающая; kānti-kandalībhiḥ — сиянием (своих вод); indranīla-vṛnda — множество сапфиров; nindinī — посрамляющая; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
+          "translation": "Ямуна-деви столь могущественна, что в отличие от всех остальных рек никогда не смешивается с океанскими водами, несмотря на то что она пересекает семь гигантских островов и впадает в семь океанов, окружающих эти острова. Она постоянно созерцает удивительные сокровенные лилы Шри Кришны и помогает этим лилам проявиться в сердцах тех, кто находит у нее прибежище. Её темные искрящиеся воды прекраснее драгоценных сапфиров. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "māthureṇa maṇḍalena cāruṇābhimaṇḍitā\nprema-naddha-vaiṣṇavādhva-vardhanāya paṇḍitā\nūrmi-dor-vilāsa-padmanābha-pāda-vandinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+          "wbw": "māthureṇa maṇḍalena — Матхура-мандалой; cāruṇā — прекрасной; abhimaṇḍitā — украшенная; prema-naddha — проникнутого премой; vaiṣṇava-adhva — пути вайшнавов; vardhanāya — в развитии; paṇḍitā — искусная; ūrmi-doḥ — руками-волнами; vilāsa — играя; padmanābha-pāda — стопам Падманабхи (Кришны); vandinī — поклоняющаяся; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
+          "translation": "Украшенная прекрасной Матхура-мандалой, Ямуна-деви пробуждает рагануга-бхакти в сердцах искренних вайшнавов, которые омываются в её водах. Своими нежными волнами, словно руками, она совершает поклонение лотосным стопам Шри Кришны. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "ramya-tīra-rambhamāṇa-go-kadamba-bhūṣitā\ndivya-gandha-bhāk-kadamba-puṣpa-rāji-rūṣitā\nnanda-sūnu-bhakta-saṅgha-saṅgamābhinandinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+          "wbw": "ramya-tīra — (на) прекрасных берегах; rambhamāṇa — мычащими; go-kadamba — стадами коров; bhūṣitā — украшенная; divya-gandha-bhāk — источающих божественный аромат; kadamba-puṣpa-rāji — рядами цветущих кадамб; rūṣitā — благоухающая; nanda-sūnu — сына Нанды; bhakta-saṅgha — собрания преданных; saṅgama — встречей; abhinandinī — радующаяся; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
+          "translation": "Живописные берега Ямуны-деви украшены цветущими кадамбовыми деревьями, источающими райское благоухание, и стадами радостно мычащих коров. Видя у своих вод преданных сына махаражи Нанды, она чувствует безмерное счастье. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "phulla-pakṣa-mallikākṣa-haṁsa-lakṣa-kūjitā\nbhakti-viddha-deva-siddha-kinnarāli-pūjitā\ntīra-gandhavāha-gandha-janma-bandha-randhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+          "wbw": "phulla-pakṣa — с раскрытыми крыльями; mallikākṣa-haṁsa — лебедей маллика-кша; lakṣa — сотнями тысяч; kūjitā — оглашаемая; bhakti-viddha — пронзёнными преданностью; deva-siddha-kinnara — полубогами, сиддхами и киннарами; āli — сонмами; pūjitā — почитаемая; tīra-gandhavāha — ветерка с (её) берегов; gandha — ароматом; janma-bandha — узы рождений; randhinī — разрывающая; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
+          "translation": "Над её водами раздаются голоса сотен тысяч лебедей, чьи круглые глаза напоминают распустившиеся цветы маллика. Ей выражают почтение полубоги, сиддхи, киннары и люди, полностью посвятившие себя служению Шри Хари. Любой, кого коснется её приятный ветерок, непременно освободится из круговорота рождений и смертей. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "cid-vilāsa-vāri-pūra-bhūr-bhuvaḥ-svar-āpinī\nkīrtitāpi durmadoru-pāpa-marma-tāpinī\nballavendra-nandanāṅgarāga-bhaṅga-gandhinī\nmāṁ punātu sarvadāravinda-bandhu-nandinī",
+          "wbw": "cid-vilāsa — духовным знанием; vāri-pūra — потоком вод; bhūr-bhuvaḥ-svaḥ — (миры) Бхух, Бхувах и Свах; āpinī — наполняющая; kīrtitā — воспетая; api — даже; durmada — неистовых; uru-pāpa — великих грехов; marma — корни; tāpinī — сжигающая; ballavendra-nandana — сына царя пастухов (Кришны); aṅgarāga — благовонными умащениями с тела; bhaṅga — (смытыми) волнами; gandhinī — благоухающая; māṁ — меня; punātu — пусть очистит; sarvadā — всегда; aravinda-bandhu-nandinī — дочь друга лотоса (Сурьи, бога Солнца)",
+          "translation": "Неся свои воды через три мира (Бхух, Бхувах и Свах), она дарует их обитателям духовное знание. Тот, кто воспевает её в молитвах, сжигает дотла последствия самых тяжких грехов. Её воды благоухают сандалом с тела Шри Кришны. Пусть же Ямуна-деви, дочь Сурьи, очистит меня!"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "tuṣṭa-buddhir aṣṭakena nirmalormi-ceṣṭitāṁ\ntvām anena bhānu-putri sarva-deva-veṣṭitām\nyaḥ stavīti vardhayasva sarva-pāpa-mocane\nbhakti-pūram asya devi puṇḍarīka-locane",
+          "wbw": "tuṣṭa-buddhir — с умиротворённым умом; aṣṭakena anena — этой аштакой; nirmala-ūrmi — чистыми волнами; ceṣṭitām — действующую; tvām — тебя; bhānu-putri — о дочь Солнца; sarva-deva — всеми полубогами; veṣṭitām — окружённую; yaḥ — тот, кто; stavīti — прославляет; vardhayasva — умножь; sarva-pāpa-mocane — к освобождающему от всех грехов; bhakti-pūram — поток преданности; asya — его; devi — о богиня; puṇḍarīka-locane — к лотосоокому (Кришне)",
+          "translation": "О Сурья-путри! О Деви! О Ямуна! Твои воды могут очистить каждого. Тебе поклоняются все полубоги. Пусть же в сердце того, кто в спокойном состоянии ума повторяет эту молитву, расцветет любовь к лотосоокому Шри Кришне!"
+        }
+      ],
+      "subsections": [],
+      "numbered": true
     },
     {
       "id": "conclusion",

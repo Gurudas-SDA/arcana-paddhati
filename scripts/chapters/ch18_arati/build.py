@@ -6,8 +6,9 @@
       2 «Раджа-бхога-арати»   (raja-bhoga-arati — NEW: Yaśomatī-nandana, Jaya Yaśodā-nandana, Jaya Rādhā-Mādhava)
       3 «Гаура-арати»         (gaura-arati-songs — was «Песни гаура-арати»)
       4 «Картика»             (kartika-bhajans — was «Бхаджаны для Картики»; «Шри Дамодараштака» stays there)
-      5 «Ямунаштака»          (yamunastaka — NEW: Śrī Yamunāṣṭakam of Śrīla Rūpa Gosvāmī)
-      6 «Джхулана-ятра»       (jhulana-yatra-bhajans — NEW: Jhūlā jhūle Rādhā-Dāmodara, Rādhe jhūlana padhāro)
+      5 «Джхулана-ятра»       (jhulana-yatra-bhajans — NEW: Jhūlā jhūle Rādhā-Dāmodara, Rādhe jhūlana padhāro)
+      6 «Ямунаштака»          (yamunastaka — NEW: Śrī Yamunāṣṭakam of Śrīla Rūpa Gosvāmī; A127 msg 6961: after Jhulana, and
+                               WITHOUT a subsection — the chapter itself is the bhajan, "numbered" on the chapter)
     The old chapter ids are kept (links, bookmarks, reading places keep working). The part «Праздники, обеты и песни
     арати» keeps the festivals and is called «Праздники и обеты» / «Festivals and Vows».
   * msg 6826 «Все пронумеруй по центру. Короткие бхаджаны, одна-две шлоки не нумеруй»: every song subsection
@@ -30,7 +31,7 @@ CH = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(CH, "..", "..", ".."))
 DATA = os.path.join(REPO, "data")
 sys.path.insert(0, CH)
-from songs import CHAPTERS, FESTIVALS, PART, SONGS  # noqa: E402
+from songs import CHAPTERS, FESTIVALS, FLAT, PART, SONGS  # noqa: E402
 
 FILES = {"en": "book.json", "ru-iast": "book.ru-iast.json"}
 NEW_IDS = [c[0] for c in CHAPTERS if c[3]]
@@ -66,7 +67,11 @@ def apply(book, lang):
     secs = {s["id"]: s for s in book["sections"]}
     # new chapters (rebuilt every run)
     for cid, ru_t, en_t, songs in CHAPTERS:
-        if songs:
+        if songs and cid in FLAT:   # A127: the chapter is the bhajan itself — no subsection, numbered chapter
+            secs[cid] = {"id": cid, "title": en_t if en else ru_t, "subtitle": None, "page": "",
+                         "content": song(songs[0], lang)["content"], "subsections": [],
+                         "numbered": numbered({"content": song(songs[0], lang)["content"]})}
+        elif songs:
             secs[cid] = {"id": cid, "title": en_t if en else ru_t, "subtitle": None, "page": "", "content": [],
                          "subsections": [song(x, lang) for x in songs]}
         else:

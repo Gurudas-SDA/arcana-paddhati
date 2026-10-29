@@ -788,7 +788,7 @@ export default function SectionContent({ section, ui, num = null, note, after }:
       {/* Main content */}
       {section.content.length > 0 && (
         <div>
-          <ContentBlocks items={section.content} labels={labels} title={section.title} />
+          <ContentBlocks items={section.content} labels={labels} title={section.title} numbered={!!section.numbered} />
         </div>
       )}
 

@@ -97,6 +97,8 @@ export interface Section {
    *  (Satkirti 06.10/07.10.2026: portrait + caption only, no headings, no page numbers). */
   layout?: string;
   content: ContentItem[];
+  /** Number the chapter's own verses 1, 2, … (A127: a chapter that is one bhajan, no subsection) — see Subsection.numbered. */
+  numbered?: boolean;
   subsections: Subsection[];
 }
 

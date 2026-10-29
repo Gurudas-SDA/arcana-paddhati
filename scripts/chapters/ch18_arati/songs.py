@@ -201,7 +201,9 @@ CHAPTERS = [
      ["song-yasomati-nandana", "song-jaya-yasoda-nandana", "song-jaya-radha-madhava"]),
     ("gaura-arati-songs", "Гаура-арати", "Gaura-ārati", None),
     ("kartika-bhajans", "Картика", "Kārtika", None),               # S: «Пиши картика. Без дамодара»
-    ("yamunastaka", "Ямунаштака", "Yamunāṣṭaka", ["song-yamunastakam"]),   # S: «Ямунаштаку вынеси отдельно»
     ("jhulana-yatra-bhajans", "Джхулана-ятра", "Jhūlana-yātrā", ["song-jhula-jhule", "song-radhe-jhulana-padharo"]),
+    ("yamunastaka", "Ямунаштака", "Yamunāṣṭaka", ["song-yamunastakam"]),   # A127 msg 6961: after «Джхулана-ятра», the chapter IS the bhajan (FLAT). S: «Ямунаштаку вынеси отдельно»
 ]
+# A127 (msg 6961): chapters that ARE one bhajan — no subsection, the song content and numbering sit in the chapter.
+FLAT = {"yamunastaka"}
 FESTIVALS = ("festivals-vows", "Праздники и обеты", "Festivals and Vows")   # «песни арати» moved out

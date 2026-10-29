@@ -32,10 +32,11 @@ import qa  # noqa: E402
 
 BASE = sys.argv[1].rstrip("/") if len(sys.argv) > 1 else None
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "data")
-CHAP = ["mangala-arati-songs", "raja-bhoga-arati", "gaura-arati-songs", "kartika-bhajans", "yamunastaka",
-        "jhulana-yatra-bhajans"]
-TITLES = {"ru-iast": ["Мангала-арати", "Раджа-бхога-арати", "Гаура-арати", "Картика", "Ямунаштака", "Джхулана-ятра"],
-          "en": ["Maṅgala-ārati", "Rāja-bhoga-ārati", "Gaura-ārati", "Kārtika", "Yamunāṣṭaka", "Jhūlana-yātrā"]}
+# A127 (msg 6961): «Джхулана-ятра» before «Ямунаштака»; «Ямунаштака» has no subsection (s121)
+CHAP = ["mangala-arati-songs", "raja-bhoga-arati", "gaura-arati-songs", "kartika-bhajans",
+        "jhulana-yatra-bhajans", "yamunastaka"]
+TITLES = {"ru-iast": ["Мангала-арати", "Раджа-бхога-арати", "Гаура-арати", "Картика", "Джхулана-ятра", "Ямунаштака"],
+          "en": ["Maṅgala-ārati", "Rāja-bhoga-ārati", "Gaura-ārati", "Kārtika", "Jhūlana-yātrā", "Yamunāṣṭaka"]}
 RAJA = ["song-yasomati-nandana", "song-jaya-yasoda-nandana", "song-jaya-radha-madhava"]
 FIRST = {"song-yasomati-nandana": "yaśomatī-nandana", "song-jaya-yasoda-nandana": "jaya yaśodā-nandana",
          "song-jaya-radha-madhava": "jaya rādhā-mādhava", "song-yamunastakam": "bhrātur antakasya",
@@ -81,11 +82,12 @@ for lang, fn in (("ru-iast", "book.ru-iast.json"), ("en", "book.json")):
     check(fn, "b «Картика» keeps Dāmodarāṣṭakam, no Yamunāṣṭaka inside",
           "song-damodarastakam" in [x["id"] for x in kart["subsections"]] and "song-yamunastakam" not in [x["id"] for x in kart["subsections"]])
     yam = secs.get("yamunastaka", {"subsections": []})
-    check(fn, "b «Ямунаштака» separate chapter = only Śrī Yamunāṣṭakam", [x["id"] for x in yam["subsections"]] == ["song-yamunastakam"])
+    check(fn, "b «Ямунаштака» separate chapter = only Śrī Yamunāṣṭakam (A127: the chapter itself, no subsection)",
+          not yam.get("subsections") and len([x for x in yam.get("content") or [] if x.get("type") == "verse"]) == 9)
     jh = secs.get("jhulana-yatra-bhajans", {"subsections": []})
     check(fn, "b «Джхулана-ятра» = Jhūlā jhūle + Rādhe jhūlana",
           [x["id"] for x in jh["subsections"]] == ["song-jhula-jhule", "song-radhe-jhulana-padharo"])
-    for sub in raja["subsections"] + yam["subsections"] + jh["subsections"]:
+    for sub in raja["subsections"] + [{"id": "song-yamunastakam", "content": yam.get("content")}] + jh["subsections"]:
         vs = verses(sub)
         sid = sub["id"]
         check(fn, f"b {sid}: {NVERSES.get(sid)} verses, starts «{FIRST.get(sid)}»", len(vs) == NVERSES.get(sid)
