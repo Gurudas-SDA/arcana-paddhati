@@ -622,7 +622,7 @@ html[data-reader-theme="night"] .home-save-track.is-idle i.part {
   /* The band's padding; the negative margin keeps the layout unchanged. */
   padding: 2px 4px;
   margin: 0 -4px;
-  border-radius: 4px;
+  border-radius: 6px;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
   background-color: rgba(245, 230, 200, 0);
@@ -666,13 +666,13 @@ html[data-reader-theme="night"] .home-save-track.is-idle i.part {
   color: #2C1810;
 }
 .hs-row[data-active] .hs-cell-first {
-  border-radius: 4px 0 0 4px;
+  border-radius: 6px 0 0 6px;
 }
 /* the mantra's band continues the place cell's band (no darker overlap) */
 .hs-cell + span > .hs-text {
   margin-left: 0;
   padding-left: 0;
-  border-radius: 0 4px 4px 0;
+  border-radius: 0 6px 6px 0;
 }
 /* On phones, keep the shared number column and give the place and mantra
    the remaining width on separate lines. The existing targets stay intact;
@@ -695,7 +695,7 @@ html[data-reader-theme="night"] .home-save-track.is-idle i.part {
   }
   .hs-row[data-active]:has(> .hs-cell-first) {
     background-color: var(--rd-row-active);
-    border-radius: 4px;
+    border-radius: 6px;
   }
   /* Paint once behind both lines, without darker overlapping cell bands. */
   .reader-article .hs-row[data-active]:has(> .hs-cell-first) .hs-cell,
@@ -745,7 +745,7 @@ html:root .hs-row:is(li, div)[data-active] :is(.hs-text, .hs-cell) {
 .hs-row:nth-of-type(even),
 .pl-row:nth-of-type(even) {
   background-color: var(--rd-row-stripe);
-  border-radius: 4px;
+  border-radius: 6px;
 }
 @media print {
   .hs-row:nth-of-type(even),
