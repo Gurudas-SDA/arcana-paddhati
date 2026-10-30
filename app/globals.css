@@ -2314,9 +2314,12 @@ html[data-reader-theme="night"] {
   align-items: center;
   justify-content: center;
 }
-/* ✕ of «Содержание» on the dark background: hover is the dark «pressed» tone, not cream */
-html[data-reader-theme="night"] .sidebar-close:hover {
-  background-color: #3A2F1F;
+/* V61 step 1 (Vraja Lila 30.10.2026 15:22 «вопрос 3 - принимаю»): at night ONE hover tone for the row of «Содержание»,
+   the ✕ of the menu and the «Аа» button = --surface-hover (= --rd-hover, #2E271F); the row's cream hover of the
+   markup (hover:bg-[#FDF8F0]) and the ✕ number #3A2F1F are repainted by it (light and sepia are not touched) */
+html[data-reader-theme="night"] .sidebar-close:hover,
+html[data-reader-theme="night"] .hover\:bg-\[\#FDF8F0\]:hover {
+  background-color: var(--surface-hover);
 }
 /* ✕ of the «Установить» band: 22 px icon, 44×44 area */
 .banner-close {
