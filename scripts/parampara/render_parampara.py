@@ -441,9 +441,9 @@ def frame_geometry(win_w=WIN_W, aspect=ASPECT):
     return {"win_w": win_w, "win_h": wh, "pad": round(pad, 4),
             "width": round(win_w + 2 * pad, 4), "height": round(wh + 2 * pad, 4),
             "lines": [{"offset": round(14 * k, 4), "stroke": round(max(SS, round(4.5 * k * SS)) / SS, 4),
-                       "color": "#%02X%02X%02X" % GOLD_D[:3]},
+                       "color": "var(--ap-gold)"},
                       {"offset": round(24 * k, 4), "stroke": round(max(SS, round(2.2 * k * SS)) / SS, 4),
-                       "color": "#%02X%02X%02X" % GOLD[:3]}]}
+                       "color": "var(--ap-gold)"}]}  # V56: the one gold token (the app strokes var(--ap-gold); GOLD/GOLD_D stay for baked pictures)
 
 
 def check_aspect(w, h):

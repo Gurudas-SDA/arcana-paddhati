@@ -191,6 +191,8 @@ SUITES = [
          devices=None, fast=True, server=False),
     dict(id="s120", file="suites/s120_rotation_keeps_place_v60.py", title="V60 Vraja 6949 (28.10, Android): ekrāna pagrieziens (portrets->ainava->portrets) lasot bhadžanu patur to pašu nodaļu (URL) un to pašu lasīšanas vietu — «Страницы» + «Лента»",
          devices=["pixel7", "iphone14"], fast=True, fast_devices=["pixel7", "iphone14"]),
+    dict(id="s123", file="suites/s123_portrait_gold_v56.py", title="V56 Враджа Лила 30.10 «8) в единое золото»: Parampara portretu rāmju līniju krāsa datos (manifests, check.json, ģenerators) = var(--ap-gold), nav #8B6508/#D4A843; lietotnē rāmis zīmēts ar tēmas zeltu (#965700 / nakts #E3A03C)",
+         devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14"]),
     dict(id="s122", file="suites/s122_band_radius_v56.py", title="V56 Враджа Лила 30.10 13:09 «пример 1 — 6px»: visu izceltās rindas joslu stūru radiuss = 6 px (saraksts, tilaka saraksts, teksta josla, zebra), citi radiusi nemainīti",
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14"]),
     dict(id="s121", file="suites/s121_yamunastaka_chapter_a127.py", title="A127 S msg 6961: «Арати» — «Джхулана-ятра» pirms «Ямунаштака» (Содержание 25/26); «Ямунаштака» bez apakšnodaļas: nodaļa pati ir bhadžans (9 panti, numurēti 1–9, \"numbered\" nodaļas līmenī); nav «song-yamunastakam»",

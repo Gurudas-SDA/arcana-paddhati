@@ -17,12 +17,12 @@
      {
       "offset": 7.0588,
       "stroke": 2.3333,
-      "color": "#8B6508"
+      "color": "var(--ap-gold)"
      },
      {
       "offset": 12.1008,
       "stroke": 1.0,
-      "color": "#D4A843"
+      "color": "var(--ap-gold)"
      }
     ]
    }
@@ -43,12 +43,12 @@
      {
       "offset": 7.0588,
       "stroke": 2.3333,
-      "color": "#8B6508"
+      "color": "var(--ap-gold)"
      },
      {
       "offset": 12.1008,
       "stroke": 1.0,
-      "color": "#D4A843"
+      "color": "var(--ap-gold)"
      }
     ]
    }
@@ -69,12 +69,12 @@
      {
       "offset": 7.0588,
       "stroke": 2.3333,
-      "color": "#8B6508"
+      "color": "var(--ap-gold)"
      },
      {
       "offset": 12.1008,
       "stroke": 1.0,
-      "color": "#D4A843"
+      "color": "var(--ap-gold)"
      }
     ]
    }
@@ -95,12 +95,12 @@
      {
       "offset": 7.0588,
       "stroke": 2.3333,
-      "color": "#8B6508"
+      "color": "var(--ap-gold)"
      },
      {
       "offset": 12.1008,
       "stroke": 1.0,
-      "color": "#D4A843"
+      "color": "var(--ap-gold)"
      }
     ]
    }
@@ -121,12 +121,12 @@
      {
       "offset": 7.0588,
       "stroke": 2.3333,
-      "color": "#8B6508"
+      "color": "var(--ap-gold)"
      },
      {
       "offset": 12.1008,
       "stroke": 1.0,
-      "color": "#D4A843"
+      "color": "var(--ap-gold)"
      }
     ]
    }
@@ -147,12 +147,12 @@
      {
       "offset": 7.0588,
       "stroke": 2.3333,
-      "color": "#8B6508"
+      "color": "var(--ap-gold)"
      },
      {
       "offset": 12.1008,
       "stroke": 1.0,
-      "color": "#D4A843"
+      "color": "var(--ap-gold)"
      }
     ]
    }
@@ -173,12 +173,12 @@
      {
       "offset": 7.0588,
       "stroke": 2.3333,
-      "color": "#8B6508"
+      "color": "var(--ap-gold)"
      },
      {
       "offset": 12.1008,
       "stroke": 1.0,
-      "color": "#D4A843"
+      "color": "var(--ap-gold)"
      }
     ]
    }
@@ -199,12 +199,12 @@
      {
       "offset": 7.0588,
       "stroke": 2.3333,
-      "color": "#8B6508"
+      "color": "var(--ap-gold)"
      },
      {
       "offset": 12.1008,
       "stroke": 1.0,
-      "color": "#D4A843"
+      "color": "var(--ap-gold)"
      }
     ]
    }
@@ -225,12 +225,12 @@
      {
       "offset": 7.0588,
       "stroke": 2.3333,
-      "color": "#8B6508"
+      "color": "var(--ap-gold)"
      },
      {
       "offset": 12.1008,
       "stroke": 1.0,
-      "color": "#D4A843"
+      "color": "var(--ap-gold)"
      }
     ]
    }
