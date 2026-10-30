@@ -1,5 +1,10 @@
 # Design system — Arcana-paddhati
 
+> **The working document is `DESIGN-SYSTEM.md`** (V56, 30.10.2026: Vraja Lila's DS V1.2 merged with the live book — live values, role-name aliases,
+> decisions, open items). This README stays as the **log of behaviours and decisions** (V40–V47) for the master components.
+> Corrections of 30.10.2026: the token `--ds-radius-band` no longer exists (removed in V50); `--ds-row-lit` has no night override any more (V54);
+> bands have radius 6 px (V56); `design-system/` has no test `s91` (the «В этом разделе» box was removed in V45).
+
 > «Мы не строим дизайн для красоты, мы строим масштабируемую, самоподдерживающуюся, гибкую
 > дизайн-систему-инфраструктуру» — Vraja Lila, msg 6106 (22.10.2026).
 
@@ -35,7 +40,7 @@ colour change is made once, in `tokens.css`.
 | `--ds-band-active` | `var(--rd-row-active)` | a marked row (one block) |
 | `--ds-row-lit` / `--ds-row-hover` | `var(--ap-band-toc)` (token 10 %, night 5 %) / `#FDF8F0` | lit / hovered row of «Содержание» |
 | `--ds-text` / `--ds-text-muted` | `var(--rd-fg)` / `var(--rd-muted)` | text; labels and numbers |
-| `--ds-radius-pill` / `-band` / `-block` | `9999px` / `4px` / `6px` | chip; band; marked row |
+| `--ds-radius-pill` / `-block` | `9999px` / `6px` | chip; marked row and every highlight band (V56: 6 px) |
 | `--ds-target` | `44px` | minimum tap target |
 | `--ds-dur-fast` / `--ds-dur-slide`, `--ds-ease` | `150ms` / `220ms`, `ease` | colour and arrow; menu and bars |
 | `--ds-focus` / `--ds-focus-w` / `--ds-focus-gap` | `var(--ap-gold)` / `2px` / `2px` | THE focus line: colour, width, outline offset of a frameless control (V43) |
