@@ -47,3 +47,48 @@ html[data-reader-theme="night"] {
   --ds-line: var(--rd-border);
   --ds-row-hover: var(--rd-panel-bg);
 }
+
+/* V56 (Vraja Lila 30.10.2026, «постепенно», decision 7): the DS names of the role-named token scheme (DS V1.2) as ALIASES of the
+   live names — the same value in every theme, so nothing changes visually. New code is written with these names; the old
+   names (--ap-*, --rd-*, --ds-*, --lang-*) are swept out step by step, each step with its own test (qa/suites/s124_token_aliases_v56.py;
+   the pairs are in qa/lib/ds_aliases.json). A name appears here only when the live book has a token with the same value:
+   DS tokens with a different live value (radius-container 34 …) are NOT aliased — the DS document describes the live values. */
+:root {
+  --accent: var(--ap-gold);
+  --accent-on-dark: var(--ap-gold-on-dark);
+  --accent-60: var(--ds-accent-soft);
+  --accent-num: var(--ap-num);
+  --accent-label: var(--ap-label);
+  --accent-band-from: var(--ap-band-1);
+  --accent-band-to: var(--ap-band-2);
+  --mantra-fg: var(--rd-mantra-fg);
+  --mantra-rule: var(--rd-mantra-rule);
+  --surface-page: var(--rd-bg);
+  --surface-panel: var(--rd-panel-bg);
+  --surface-bar: var(--rd-bar-bg);
+  --surface-hover: var(--rd-hover);
+  --surface-raised: var(--ds-fill-soft);
+  --surface-sunken: var(--ds-fill);
+  --surface-lang-pick: var(--lang-sel-bg);
+  --text-primary: var(--rd-fg);
+  --text-muted: var(--rd-muted);
+  --text-faint: var(--rd-faint);
+  --text-lang-pick: var(--lang-sel-fg);
+  --line-hairline: var(--rd-border);
+  --line-control: var(--ds-line);
+  --line-field: var(--ds-field-line);
+  --line-focus: var(--ds-focus);
+  --highlight-stripe: var(--rd-row-stripe);
+  --highlight-current: var(--ap-band-toc);
+  --highlight-selected: var(--rd-row-active);
+  --highlight-bookmark: var(--ap-band-flash);
+  --highlight-hit-list: var(--ap-band-mark);
+  --highlight-hit-text: var(--ap-band-hit);
+  --mark-scrim: var(--lang-dim);
+  --focus-w: var(--ds-focus-w);
+  --focus-gap: var(--ds-focus-gap);
+  --radius-pill: var(--ds-radius-pill);
+  --target: var(--ds-target);
+  --dur-fast: var(--ds-dur-fast);
+  --dur-slide: var(--ds-dur-slide);
+}
