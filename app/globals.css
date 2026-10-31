@@ -2435,4 +2435,11 @@ html[data-reader-theme="night"] .hover\:bg-\[\#FDF8F0\]:hover {
 .hs-peek .window-close:hover {
   background: var(--color-gold-light);
 }
+/* night: the gold ✕ (#E3A03C) needs a dark disc (on the white one 1.9) */
+html[data-reader-theme="night"] .hs-peek .window-close {
+  background: rgba(22, 19, 15, 0.85);
+}
+html[data-reader-theme="night"] .hs-peek .window-close:hover {
+  background: #2C2418;
+}
 /*@/v61s4*/
