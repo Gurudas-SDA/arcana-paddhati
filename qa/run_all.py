@@ -195,7 +195,7 @@ SUITES = [
          devices=None, fast=True, server=False),
     dict(id="s125", file="suites/s125_night_hover_one_shade_v61.py", title="V61 Враджа Лила 30.10 15:22 «вопрос 3 - принимаю»: naktī VIENS hover tonis rgb(46,39,31) (--surface-hover) rindai «Содержание», izvēlnes krustiņam un pogai «Аа» (teksts >= 4.5:1); gaišā un sēpijas tēma nemainīta",
          devices=["desktop"], fast=True, fast_devices=["desktop"]),
-    dict(id="s124", file="suites/s124_token_aliases_v56.py", title="V56 Враджа Лила 30.10 (решение 7 «постепенно»): DS lomu nosaukumi (--accent, --surface-page, --text-primary, --line-hairline, --highlight-* …) = aliasi dzīvajiem tokeniem tokens.css; 37 pāri, viena vērtība baltajā/sēpijas/nakts tēmā (vizuālās izmaiņas 0)",
+    dict(id="s124", file="suites/s124_token_aliases_v56.py", title="V56 Враджа Лила 30.10 (решение 7 «постепенно»): DS lomu nosaukumi (--accent, --surface-page, --text-primary, --line-hairline, --highlight-* …) = aliasi dzīvajiem tokeniem tokens.css; 36 pāri (--line-hairline kopš V61 Q8 ir avots, s126 E), viena vērtība baltajā/sēpijas/nakts tēmā (vizuālās izmaiņas 0)",
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14"]),
     dict(id="s123", file="suites/s123_portrait_gold_v56.py", title="V56 Враджа Лила 30.10 «8) в единое золото»: Parampara portretu rāmju līniju krāsa datos (manifests, check.json, ģenerators) = var(--ap-gold), nav #8B6508/#D4A843; lietotnē rāmis zīmēts ar tēmas zeltu (#965700 / nakts #E3A03C)",
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14"]),

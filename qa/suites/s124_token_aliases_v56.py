@@ -8,7 +8,8 @@ Checks
   A) source: tokens.css declares every pair of qa/lib/ds_aliases.json as «--new: var(--old);»;
   B) app (with <base-url>), iPhone 14 + desktop, three themes: for every pair the computed custom property --new on <html>
      is identical to --old (same string, so the same colour / length / time).
-# tehniskais slieksnis Lipikāra, nav S noteikums: 37 pairs = the live tokens whose value equals the DS role (list in ds_aliases.json).
+# V61 Q8 (31.10, msg 2018): --line-hairline is no longer an alias of --rd-border — it is the source (tokens.css) and --rd-border reads it; checked in s126 part E, pair removed (36 left).
+# tehniskais slieksnis Lipikāra, nav S noteikums: 36 pairs = the live tokens whose value equals the DS role (list in ds_aliases.json).
 usage: python s124_token_aliases_v56.py [<base-url>]
 """
 import json
