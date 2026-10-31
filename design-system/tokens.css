@@ -117,3 +117,16 @@ html[data-reader-theme="night"] {
   --dur-fast: var(--ds-dur-fast);
   --dur-slide: var(--ds-dur-slide);
 }
+
+/* V61 step 4 (Vraja Lila 30.10.2026, question 1 «согласен», question 2 variant «А»): THE MASTER WINDOW. Every popup card / window
+   (mood, bookmark name, install, floating picture copy) has ONE radius and ONE shadow; its ✕ (components/WindowClose.tsx) is ONE round
+   button: 44×44 tap area, centre 30 / 30 from the card's corner (= 8 px from the edges), a 18 px cross, one colour. The «Аа» panel and
+   the language list keep their own look (question 1). */
+:root {
+  --radius-window: 12px;
+  --shadow-window: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --window-close-size: var(--target);
+  --window-close-centre: 30px;
+  --window-close-icon: 18px;
+  --window-close-fg: var(--color-brown-light);
+}

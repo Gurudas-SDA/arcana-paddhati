@@ -8,6 +8,7 @@ import React, {
   useSyncExternalStore,
 } from "react";
 import { t, tNodes, type UiDict } from "@/lib/i18n";
+import WindowClose from "@/components/WindowClose";
 import { BASE_PATH } from "@/lib/basePath";
 
 type Platform = "ios" | "android" | "unknown";
@@ -266,31 +267,13 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
             ref={modalRef}
             role="dialog"
             aria-modal="true"
-            className="relative bg-white rounded-xl shadow-2xl w-full max-w-[360px] p-5"
+            className="window-card window-card-small bg-white w-full max-w-[360px]"
           >
             {/* Close button */}
-            <button
-              onClick={() => setShowModal(false)}
-              className="absolute top-3 right-3 p-1 rounded-full hover:bg-[#F5E6C8] transition-colors text-[#5C3D2E]"
-              aria-label={t(ui, "install.close")}
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
+            <WindowClose onClick={() => setShowModal(false)} label={t(ui, "install.close")} />
 
             <h2
-              className="text-lg font-bold mb-4 text-[#2C1810] pr-6"
+              className="window-title text-lg font-bold mb-4 text-[#2C1810]"
               style={{ fontFamily: "var(--font-book, Georgia, serif)" }}
             >
               {t(ui, "install.modalTitle")}

@@ -2346,3 +2346,91 @@ html[data-reader-theme="night"] .hover\:bg-\[\#FDF8F0\]:hover {
   position: absolute;
   inset: -11px;
 }
+
+/*@v61s4*/
+/* V61 step 4 — the master window (Vraja Lila 30.10.2026; tokens: design-system/tokens.css). One radius and one shadow for the popup
+   cards, one ✕ (components/WindowClose.tsx) for all of them. The «Аа» panel (.reader-panel) and the language list are NOT touched. */
+.window-card {
+  position: relative;
+  border-radius: var(--radius-window);
+  box-shadow: var(--shadow-window);
+}
+.window-card.window-card-small {
+  padding: var(--pad-window);
+}
+.window-close {
+  position: absolute;
+  top: calc(var(--window-close-centre) - var(--window-close-size) / 2);
+  right: calc(var(--window-close-centre) - var(--window-close-size) / 2);
+  z-index: 1;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--window-close-size);
+  height: var(--window-close-size);
+  margin: 0;
+  padding: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--window-close-fg);
+  transition: background-color var(--dur-fast);
+}
+.window-close:hover {
+  background: var(--color-gold-light);
+}
+.window-close svg {
+  display: block;
+  flex: none;
+  width: var(--window-close-icon);
+  height: var(--window-close-icon);
+}
+/* the title of a small window keeps clear of the ✕ (its left edge is 52 px from the card's right edge) */
+.window-title {
+  padding-right: calc(var(--window-close-centre) * 2 - var(--pad-window));
+}
+/* «Настроение»: the same card, the ✕ out of the header's flow */
+.mood-dialog {
+  border-radius: var(--radius-window);
+  box-shadow: var(--shadow-window);
+}
+.mood-dialog .mood-dialog-head {
+  padding-inline: var(--pad-window) calc(var(--window-close-centre) * 2 + var(--space-8));
+  border-top-left-radius: var(--radius-window);
+  border-top-right-radius: var(--radius-window);
+}
+.mood-dialog .mood-dialog-head .window-close {
+  margin: 0;
+}
+.mood-dialog .mood-scroll {
+  padding-inline: var(--pad-window);
+}
+@media (min-width: 640px) {
+  .mood-dialog .mood-dialog-head {
+    padding-left: var(--pad-window-wide);
+  }
+  .mood-dialog .mood-scroll {
+    padding-inline: var(--pad-window-wide);
+  }
+}
+/* the floating picture copy: the master card; its ✕ is the master ✕ (inside the corner, over the picture: a light disc for the contrast) */
+.hs-peek {
+  border-radius: var(--radius-window);
+  box-shadow: var(--shadow-window);
+}
+.hs-peek .window-close {
+  top: calc(var(--window-close-centre) - var(--window-close-size) / 2);
+  right: calc(var(--window-close-centre) - var(--window-close-size) / 2);
+  width: var(--window-close-size);
+  height: var(--window-close-size);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--window-close-fg);
+  font-size: inherit;
+  line-height: normal;
+  box-shadow: none;
+}
+.hs-peek .window-close:hover {
+  background: var(--color-gold-light);
+}
+/*@/v61s4*/

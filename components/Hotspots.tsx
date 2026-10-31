@@ -11,6 +11,7 @@
 // tap on any empty part of the page clears the highlight.
 // Data: lib/hotspots.ts (data/hotspots.json). Print shows the plain image.
 
+import WindowClose from "@/components/WindowClose";
 import React, {
   createContext,
   useCallback,
@@ -493,7 +494,6 @@ export function HotspotFigure({
   alt,
   data,
   maxWidth = 420,
-  closeLabel = "✕",
   closeAria,
 }: {
   src: string;
@@ -635,14 +635,7 @@ export function HotspotFigure({
             role="dialog"
             aria-label={alt}
           >
-            <button
-              type="button"
-              className="hs-peek-close"
-              aria-label={closeAria || "Close"}
-              onClick={() => setDismissed(activeSeq)}
-            >
-              {closeLabel}
-            </button>
+            <WindowClose className="hs-peek-close" label={closeAria || "Close"} onClick={() => setDismissed(activeSeq)} />
             {/* Only the numbers/objects and the close button act; the
                 background does nothing. */}
             <div className="relative">

@@ -19,6 +19,7 @@
  * a contact's name to iOS (no «name» in its id/name, autocomplete off, a search-type
  * field, which Safari's contact AutoFill skips).
  */
+import WindowClose from "@/components/WindowClose";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { t, type UiDict } from "@/lib/i18n";
@@ -131,23 +132,12 @@ export default function BookmarkNameDialog({
         role="dialog"
         aria-modal="true"
         aria-labelledby="bookmark-name-title"
-        className="relative bg-white rounded-xl shadow-2xl w-full max-w-[360px] p-5"
+        className="window-card window-card-small bg-white w-full max-w-[360px]"
       >
-        <button
-          type="button"
-          onClick={onCancel}
-          className="absolute top-3 right-3 p-1 rounded-full hover:bg-[#F5E6C8] transition-colors text-[#5C3D2E]"
-          aria-label={t(ui, "reader.close")}
-          data-bookmark-dialog-close=""
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
+        <WindowClose onClick={onCancel} label={t(ui, "reader.close")} data-bookmark-dialog-close="" />
         <h2
           id="bookmark-name-title"
-          className="text-lg font-bold mb-4 text-[#2C1810] pr-6"
+          className="window-title text-lg font-bold mb-4 text-[#2C1810]"
           style={{ fontFamily: "var(--font-book, Georgia, serif)" }}
         >
           {noAutofillText(t(ui, mode === "add" ? "bookmark.dialog.addTitle" : "bookmark.dialog.renameTitle"))}

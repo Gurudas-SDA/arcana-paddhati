@@ -38,7 +38,7 @@ def strip(t):
 def now(path):
     # Vraja Lila 31.10 14:07 «сделай и выпусти наконец» (the cover's place by its proportion, s58): the rules between the
     # /*@cover-place*/ markers are a later addition, not part of the step-2 token substitution
-    return strip(re.sub(r"/\*@cover-place\*/.*?/\*@/cover-place\*/", "", open(os.path.join(ROOT, path), encoding="utf-8").read(), flags=re.S))
+    return strip(re.sub(r"/\*@v61s4\*/.*?/\*@/v61s4\*/", "", re.sub(r"/\*@cover-place\*/.*?/\*@/cover-place\*/", "", open(os.path.join(ROOT, path), encoding="utf-8").read(), flags=re.S), flags=re.S))
 
 
 def before(path):
