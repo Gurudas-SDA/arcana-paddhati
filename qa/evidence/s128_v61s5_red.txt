@@ -1,0 +1,13 @@
+  [FAIL] src A --pad-article-wide declared once = var(--space-48) []
+  [FAIL] src A no 4.5vw left in globals.css ""
+  [FAIL] src A phone: .reader-article side padding var(--space-16) ""
+  [FAIL] src A >= 640: side padding var(--space-24) "\n    padding-top: calc(var(--reader-bar-top-h) + 2.25rem);\n  "
+  [FAIL] src A >= 1024: side padding var(--pad-article-wide) null
+  [FAIL] src B home cards: padding / margin / gap only on the scale [".home-resume: padding: 7px 34px 7px var(--space-12)", ".home-resume: padding: 7px 34px 7px var(--space-12)", ".home-resume: padding: 7px 34px 7px var(--space-12)", ".home-save: padding: 11px var(--space-12)", ".home-save-top: gap: 10px", ".home-save-done: gap: 9px", ".home-save-hide: padding: 2px var(--space-4)"]
+  [FAIL] src B Sidebar.tsx: spacing classes only on the scale (dense space-y-0.5 and ['pl-9', 'pr-[3px]', 'pr-[96px]'] excepted) ["mr-1.5", "mt-0.5", "pl-5", "pl-[39px]", "px-5", "py-1.5", "py-2.5"]
+  [PASS] src B HomePage.tsx: spacing classes only on the scale (dense space-y-0.5 and ['pl-9', 'pr-[3px]', 'pr-[96px]'] excepted) 
+  [FAIL] src C night «Продолжить»: background = var(--rd-panel-bg), border-color = var(--rd-border) ""
+  [FAIL] src C night «Продолжить» and «Сохранение» text colour equal ["", ""]
+  [FAIL] src D .reader-article text classes #1a1a1a / #2C1810 read var(--text-primary) null
+
+1/11 passed
