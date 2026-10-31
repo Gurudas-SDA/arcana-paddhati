@@ -6,8 +6,6 @@
    so V33 changes the accent here without touching the components. See design-system/README.md. */
 :root {
   /* colours */
-  --ds-accent: var(--ap-gold, #965700);          /* gold: icons, the pill's text, frames */
-  --ds-accent-deep: var(--ap-gold, #965700);     /* gold text on the cream fill (open state) */
   --ds-accent-soft: color-mix(in srgb, var(--ap-gold, #965700) 60%, transparent); /* the soft pill's frame (V47: the one gold, lighter) */
   --ds-fill: #F5E6C8;                            /* cream-dark: an open / picked control's fill */
   --ds-fill-soft: #FDF8F0;                       /* cream: the soft pill's resting fill */
@@ -16,9 +14,6 @@
   --ds-band: var(--rd-row-stripe, color-mix(in srgb, var(--ap-gold, #965700) 5%, transparent));     /* tables' alternating row */
   --ds-band-active: var(--rd-row-active, color-mix(in srgb, var(--ap-gold, #965700) 26%, transparent)); /* a marked row (one block) */
   --ds-row-lit: var(--ap-band-toc, color-mix(in srgb, var(--ap-gold, #965700) 10%, transparent)); /* the lit row of «Содержание» (V47b) */
-  --ds-row-hover: #FDF8F0;
-  --ds-text: var(--rd-fg, #1a1a1a);
-  --ds-text-muted: var(--rd-muted, #5C3D2E);
   /* radii */
   --ds-radius-pill: 9999px;
   --ds-radius-block: 6px;                        /* a marked list row (V36) */
@@ -45,7 +40,35 @@ html[data-reader-theme="night"] {
   --ds-fill-soft: var(--rd-panel-bg);
   --ds-fill: #3A2F1F;
   --ds-line: var(--rd-border);
-  --ds-row-hover: var(--rd-panel-bg);
+}
+
+/* V61 step 2 (Vraja Lila 31.10.2026 «продолжай… всё по плану»; scale and roles: Vraja_Lila/faili/2026.10.30_V61 Шкала отступов.md):
+   THE ONE PLACE where the spacing scale and its roles are set. Step 2 only names the scale: every existing padding / margin / gap
+   that was already 4, 8, 12, 16, 24 or 32 px now reads --space-N (same px, visible change 0). The role tokens below are defined
+   for the next steps (they move the windows and pages onto the scale — visible changes); until then they are NOT used by a rule.
+   The 2 px gap of the contents rows stays an exception (decision 5 of the scale document: keep 2 for dense lists). */
+:root {
+  --space-4: 4px;    /* gap between list rows, switches, dots */
+  --space-8: 8px;    /* between neighbouring buttons; label -> field */
+  --space-12: 12px;  /* between groups inside a window; between paragraphs */
+  --space-16: 16px;  /* window padding; heading -> content; screen margin (phone); between blocks */
+  --space-24: 24px;  /* large window and screen margin (desktop) */
+  --space-32: 32px;  /* between sections of a page */
+  --space-48: 48px;  /* bottom of a page only */
+  --space-dense: 2px; /* exception: the gap between the rows of dense lists («Содержание») */
+  --gap-row: var(--space-4);
+  --gap-buttons: var(--space-8);
+  --gap-label-field: var(--space-8);
+  --gap-group: var(--space-12);
+  --gap-paragraph: var(--space-12);
+  --pad-window: var(--space-16);
+  --gap-heading: var(--space-16);
+  --pad-screen: var(--space-16);
+  --pad-screen-wide: var(--space-24);
+  --pad-window-wide: var(--space-24);
+  --gap-block: var(--space-16);
+  --gap-section: var(--space-32);
+  --pad-page-bottom: var(--space-48);
 }
 
 /* V56 (Vraja Lila 30.10.2026, «постепенно», decision 7): the DS names of the role-named token scheme (DS V1.2) as ALIASES of the

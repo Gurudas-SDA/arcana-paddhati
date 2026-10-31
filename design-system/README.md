@@ -31,15 +31,12 @@ colour change is made once, in `tokens.css`.
 
 | Token | Value | Use |
 |---|---|---|
-| `--ds-accent` | `var(--ap-gold, #965700)` | gold: icons, a chip's text, frames |
-| `--ds-accent-deep` | `var(--ap-gold, #965700)` | gold text on the cream fill (open state) |
 | `--ds-accent-soft` | `color-mix(in srgb, var(--ap-gold) 60%, transparent)` | the soft chip's frame (V47: the one gold, lighter) |
 | `--ds-fill` / `--ds-fill-soft` | `#F5E6C8` / `#FDF8F0` | open / picked fill; the soft chip at rest |
 | `--ds-line` | `#E8DCC8` | thin frames and lines |
 | `--ds-band` | `var(--rd-row-stripe)` | tables' alternating row |
 | `--ds-band-active` | `var(--rd-row-active)` | a marked row (one block) |
-| `--ds-row-lit` / `--ds-row-hover` | `var(--ap-band-toc)` (token 10 %, night 5 %) / `#FDF8F0` | lit / hovered row of «Содержание» |
-| `--ds-text` / `--ds-text-muted` | `var(--rd-fg)` / `var(--rd-muted)` | text; labels and numbers |
+| `--ds-row-lit` | `var(--ap-band-toc)` (token 10 %, night 5 %) | lit / hovered row of «Содержание» |
 | `--ds-radius-pill` / `-block` | `9999px` / `6px` | chip; marked row and every highlight band (V56: 6 px) |
 | `--ds-target` | `44px` | minimum tap target |
 | `--ds-dur-fast` / `--ds-dur-slide`, `--ds-ease` | `150ms` / `220ms`, `ease` | colour and arrow; menu and bars |
@@ -172,3 +169,5 @@ the loading note `--ap-label` (#7A5E38 brown / night muted text). The old beige-
   25–170 ms — the panel vanished half way. Without a picked row the slide-back starts in the same frame as closing;
   the panel has its own layer (`will-change: transform`). The bottom bar comes back once with the bars' transition.
 - **Test:** `qa/suites/s94_panels_close_smooth_v43.py` (frames every ~16 ms; with s65, s66, s86).
+
+> V61 step 2 (31.10.2026): the gold has ONE name, `--accent` (`--rd-accent`, `--ds-accent`, `--ds-accent-deep` removed). Spacing scale `--space-4/8/12/16/24/32/48` (+ `--space-dense` 2 px) and the role tokens (`--pad-window`, `--gap-group` …) are set ONCE in `tokens.css`; step 2 only names the existing 4/8/12/16/24/32 px values (visible change 0) — the roles move windows and pages onto the scale in the next steps. `--ds-band`, `--ds-band-active`, `--ds-row-lit` are connected (selected row / zebra / lit «Содержание» row); `--ds-row-hover`, `--ds-text`, `--ds-text-muted` removed (dead). Test: `qa/suites/s126_spacing_tokens_v61.py`.

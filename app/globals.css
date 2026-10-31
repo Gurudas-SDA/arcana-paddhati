@@ -201,7 +201,7 @@ body {
 .mood-backdrop,
 .install-backdrop,
 .bookmark-name-backdrop {
-  background: rgba(0, 0, 0, 0.6);
+  background: var(--mark-scrim);
 }
 /* The bookmark's name window (V34) appears like the other windows. */
 .bookmark-name-modal {
@@ -461,7 +461,7 @@ html[data-home-save] .home-save-slot {
   border: 1px solid #E5D8BC;
   background: #FFFFFF;
   border-radius: 9px;
-  padding: 7px 34px 7px 12px;
+  padding: 7px 34px 7px var(--space-12);
   color: #2C1810;
   text-decoration: none;
 }
@@ -509,7 +509,7 @@ html[data-home-save] .home-save-slot {
   border: 1px solid #E5D8BC;
   background: #FFFFFF;
   border-radius: 9px;
-  padding: 11px 12px;
+  padding: 11px var(--space-12);
   color: #2C1810;
 }
 .home-save-top {
@@ -517,7 +517,7 @@ html[data-home-save] .home-save-slot {
   align-items: baseline;
   justify-content: space-between;
   gap: 10px;
-  margin: 0 0 8px;
+  margin: 0 0 var(--space-8);
 }
 .home-save-title {
   font-size: 13.5px;
@@ -533,7 +533,7 @@ html[data-home-save] .home-save-slot {
 .home-save-note {
   font-size: 12px;
   color: #6B5440;
-  margin: 8px 0 0;
+  margin: var(--space-8) 0 0;
   line-height: 1.5;
 }
 .home-save-track {
@@ -571,7 +571,7 @@ html[data-home-save] .home-save-slot {
   font-size: 12px;
   color: #6B5440;
   flex: none;
-  padding: 2px 4px;
+  padding: 2px var(--space-4);
 }
 html[data-reader-theme="night"] .home-save {
   background: var(--rd-panel-bg);  /* V54: surface-panel */
@@ -620,7 +620,7 @@ html[data-reader-theme="night"] .home-save-track.is-idle i.part {
   display: inline;
   cursor: pointer;
   /* The band's padding; the negative margin keeps the layout unchanged. */
-  padding: 2px 4px;
+  padding: 2px var(--space-4);
   margin: 0 -4px;
   border-radius: 6px;
   -webkit-box-decoration-break: clone;
@@ -640,12 +640,12 @@ html[data-reader-theme="night"] .home-save-track.is-idle i.part {
   }
 }
 .hs-row .hs-text {
-  transition: background-color 180ms ease, color 150ms ease;
+  transition: background-color 180ms ease, color var(--dur-fast) ease;
 }
 .hs-row[data-active] .hs-text {
   /* The one gold token, semi-transparent (V47b maket 2, Vraja Lila msg 6346): clearly visible on white
      and on the sepia page (Satkirti 06.10.2026: «хоть полупрозрачная»). */
-  background-color: var(--rd-row-active);
+  background-color: var(--ds-band-active);
   color: #2C1810;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -659,10 +659,10 @@ html[data-reader-theme="night"] .home-save-track.is-idle i.part {
 .hs-cell {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  transition: background-color 180ms ease, color 150ms ease;
+  transition: background-color 180ms ease, color var(--dur-fast) ease;
 }
 .hs-row[data-active] .hs-cell {
-  background-color: var(--rd-row-active);
+  background-color: var(--ds-band-active);
   color: #2C1810;
 }
 .hs-row[data-active] .hs-cell-first {
@@ -694,7 +694,7 @@ html[data-reader-theme="night"] .home-save-track.is-idle i.part {
     grid-row: 2;
   }
   .hs-row[data-active]:has(> .hs-cell-first) {
-    background-color: var(--rd-row-active);
+    background-color: var(--ds-band-active);
     border-radius: 6px;
   }
   /* Paint once behind both lines, without darker overlapping cell bands. */
@@ -731,7 +731,7 @@ html[data-reader-theme="night"] .home-save-track.is-idle i.part {
   padding-left: calc(var(--nl-main) + 0.5rem + 6px);
 }
 .hs-row:is(li, div)[data-active] {
-  background-color: var(--rd-row-active);
+  background-color: var(--ds-band-active);
   border-radius: 6px;
 }
 html:root .hs-row:is(li, div)[data-active] :is(.hs-text, .hs-cell) {
@@ -744,7 +744,7 @@ html:root .hs-row:is(li, div)[data-active] :is(.hs-text, .hs-cell) {
 /* The same bands on every two-column list (.pl-row; Vraja Lila msg 5398/5399, 20.10.2026). */
 .hs-row:nth-of-type(even),
 .pl-row:nth-of-type(even) {
-  background-color: var(--rd-row-stripe);
+  background-color: var(--ds-band);
   border-radius: 6px;
 }
 @media print {
@@ -813,7 +813,7 @@ html:root .hs-row:is(li, div)[data-active] :is(.hs-text, .hs-cell) {
   border: 1px solid #E8DCC8;
   border-radius: 10px;
   box-shadow: 0 8px 28px rgba(44, 24, 16, 0.22);
-  animation: hs-peek-in 220ms ease-out both;
+  animation: hs-peek-in var(--dur-slide) ease-out both;
 }
 @media (max-width: 639px) {
   .hs-peek {
@@ -898,7 +898,6 @@ html:root .hs-row:is(li, div)[data-active] :is(.hs-text, .hs-cell) {
   --rd-fg: #1a1a1a;
   --rd-muted: #5C3D2E;
   --rd-faint: rgba(92, 61, 46, 0.55);
-  --rd-accent: var(--ap-gold);
   --rd-mantra-fg: color-mix(in srgb, var(--ap-gold) 60%, var(--rd-fg));
   --rd-mantra-rule: var(--ap-gold);
   --rd-bar-bg: #FFFFFF;
@@ -938,7 +937,6 @@ html[data-reader-theme="night"] {
   --rd-fg: #E4DCCF;
   --rd-muted: #BBAE9A;
   --rd-faint: rgba(187, 174, 154, 0.5);
-  --rd-accent: var(--ap-gold);
   --rd-mantra-fg: var(--color-gold-muted);
   --rd-mantra-rule: var(--ap-gold);
   --rd-bar-bg: #1C1813;
@@ -1084,7 +1082,7 @@ body,
   background: var(--rd-bar-bg);
   color: var(--rd-fg);
   pointer-events: none;
-  transition: transform 220ms ease;
+  transition: transform var(--dur-slide) ease;
   font-family: var(--font-book, 'Noto Serif', Georgia, serif);
 }
 .reader-bar-top {
@@ -1110,15 +1108,15 @@ body,
 .reader-bar-inner {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--space-4);
   padding: 6px max(12px, env(safe-area-inset-right, 0px)) 6px max(12px, env(safe-area-inset-left, 0px));
 }
 .reader-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  min-height: 44px;
-  min-width: 44px;
+  min-height: var(--target);
+  min-width: var(--target);
   justify-content: center;
   padding: 6px 10px;
   border-radius: 10px;
@@ -1126,10 +1124,10 @@ body,
   font-size: 15px;
   line-height: 1.2;
   -webkit-tap-highlight-color: transparent;
-  transition: background-color 150ms ease;
+  transition: background-color var(--dur-fast) ease;
 }
 .reader-btn svg {
-  color: var(--rd-accent);
+  color: var(--accent);
   flex-shrink: 0;
 }
 @media (hover: hover) {
@@ -1143,7 +1141,7 @@ body,
 .reader-aa {
   gap: 1px;
   align-items: baseline;
-  padding: 6px 12px;
+  padding: 6px var(--space-12);
 }
 .reader-aa-small {
   font-size: 14px;
@@ -1156,7 +1154,7 @@ body,
    first page only «Вперёд ›» (still at the right), on the last only «‹ Назад». */
 .reader-nav-row {
   justify-content: space-between;
-  gap: 8px;
+  gap: var(--space-8);
 }
 .reader-nav-row [data-reader-nav="forward"] {
   margin-left: auto;
@@ -1165,8 +1163,8 @@ body,
   flex: 0 0 auto;
   min-width: 88px;
   font-size: 15px;
-  color: var(--rd-accent);
-  gap: 4px;
+  color: var(--accent);
+  gap: var(--space-4);
 }
 .reader-history-arrow {
   font-size: 24px;
@@ -1201,7 +1199,7 @@ body,
   width: max-content;
   max-width: calc(100vw - 32px);
   margin: 0;
-  padding: 4px 6px 4px 18px;
+  padding: var(--space-4) 6px var(--space-4) 18px;
   border-radius: 9999px;
   background: #2C1810;
   color: #fff;
@@ -1211,14 +1209,14 @@ body,
   box-shadow: 0 6px 18px rgba(44, 24, 16, 0.28);
   -webkit-user-select: none;
   user-select: none;
-  animation: reader-hint-in 220ms ease-out;
+  animation: reader-hint-in var(--dur-slide) ease-out;
 }
 html[data-reader-bars] .reader-toast {
   bottom: calc(68px + env(safe-area-inset-bottom, 0px));
 }
 .reader-toast-undo {
   min-height: 40px;
-  padding: 4px 12px 4px 4px;
+  padding: var(--space-4) var(--space-12) var(--space-4) var(--space-4);
   border-radius: 9999px;
   color: var(--ap-gold-on-dark);  /* V47: the variant B gold for a dark background */
   font-weight: 700;
@@ -1251,7 +1249,7 @@ html[data-reader-bars] .reader-toast {
 }
 .reader-chrome[data-shown] .reader-status {
   transform: translateY(100%);
-  transition: transform 0s linear 220ms;
+  transition: transform 0s linear var(--dur-slide);
 }
 
 /* «Аа» panel (.reader-panel-out = its closing copy, lib/exitGhost.ts) */
@@ -1285,7 +1283,7 @@ html[data-reader-bars] .reader-toast {
   position: fixed;
   inset: 0;
   z-index: 33;
-  background: rgba(0, 0, 0, 0.6);
+  background: var(--mark-scrim);
   animation: lang-fade 160ms ease-out;
 }
 .reader-panel-backdrop.reader-panel-backdrop-out {
@@ -1316,7 +1314,7 @@ html[data-aa-open] .lang-backdrop.lang-backdrop-out {
   /* ✕ on the level of the top line, at the right (V18, maket) */
   align-items: flex-start;
   justify-content: space-between;
-  gap: 8px;
+  gap: var(--space-8);
 }
 .reader-panel-title {
   margin: 0;
@@ -1345,7 +1343,7 @@ html[data-aa-open] .lang-backdrop.lang-backdrop-out {
 .reader-size-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-8);
 }
 .reader-size-btn {
   flex: 1;
@@ -1376,7 +1374,7 @@ html[data-aa-open] .lang-backdrop.lang-backdrop-out {
 }
 .reader-size-dots {
   display: inline-flex;
-  gap: 4px;
+  gap: var(--space-4);
 }
 .reader-size-dots > span {
   width: 6px;
@@ -1385,19 +1383,19 @@ html[data-aa-open] .lang-backdrop.lang-backdrop-out {
   background: var(--rd-border);
 }
 .reader-size-dots > span[data-on] {
-  background: var(--rd-accent);
+  background: var(--accent);
 }
 .reader-theme-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  gap: var(--space-8);
 }
 .reader-theme-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  padding: 8px 4px;
+  gap: var(--space-4);
+  padding: var(--space-8) var(--space-4);
   border: 1px solid var(--rd-border);
   border-radius: 10px;
   font-size: 12px;
@@ -1405,7 +1403,7 @@ html[data-aa-open] .lang-backdrop.lang-backdrop-out {
 }
 /* «Аа» panel: «Показать весь пословный перевод» / «Показать все переводы» (Reader v7.8). */
 .reader-switches {
-  margin-top: 12px;
+  margin-top: var(--space-12);
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -1413,11 +1411,11 @@ html[data-aa-open] .lang-backdrop.lang-backdrop-out {
 .reader-switch {
   display: flex;
   width: 100%;
-  min-height: 44px;
+  min-height: var(--target);
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 4px 0;
+  gap: var(--space-12);
+  padding: var(--space-4) 0;
   text-align: left;
   font-size: 14px;
   line-height: 1.3;
@@ -1431,10 +1429,10 @@ html[data-aa-open] .lang-backdrop.lang-backdrop-out {
   height: 24px;
   border-radius: 9999px;
   background: var(--rd-border);
-  transition: background-color 150ms ease;
+  transition: background-color var(--dur-fast) ease;
 }
 .reader-switch-track[data-on] {
-  background: var(--rd-accent);
+  background: var(--accent);
 }
 .reader-switch-knob {
   position: absolute;
@@ -1445,7 +1443,7 @@ html[data-aa-open] .lang-backdrop.lang-backdrop-out {
   border-radius: 9999px;
   background: #fff;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-  transition: transform 150ms ease;
+  transition: transform var(--dur-fast) ease;
 }
 .reader-switch-track[data-on] .reader-switch-knob {
   transform: translateX(16px);
@@ -1483,8 +1481,8 @@ html .search-mark.search-hit-fb {
   background-color: var(--ap-band-hit);
 }
 .reader-theme-btn[aria-pressed="true"] {
-  border-color: var(--rd-accent);
-  box-shadow: inset 0 0 0 1px var(--rd-accent);
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
 }
 .reader-swatch {
   width: 26px;
@@ -1517,10 +1515,10 @@ html[data-reader-theme="night"] {
 }
 .lang-field {
   display: flex;
-  min-height: 44px;
+  min-height: var(--target);
   align-items: center;
   gap: 10px;
-  padding: 0 12px;
+  padding: 0 var(--space-12);
   border: 1px solid var(--rd-border);
   border-radius: 10px;
   background: transparent;
@@ -1533,13 +1531,13 @@ html[data-reader-theme="night"] {
 }
 .lang-field[aria-expanded="true"],
 .lang-field:focus-visible {
-  border-color: var(--rd-accent);
+  border-color: var(--accent);
   outline: none;
-  box-shadow: inset 0 0 0 1px var(--rd-accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
 }
 .lang-field-globe {
   flex-shrink: 0;
-  color: var(--rd-accent);
+  color: var(--accent);
 }
 .lang-field-value {
   flex: 1;
@@ -1587,7 +1585,7 @@ html[data-reader-theme="night"] {
   min-height: 48px;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--space-12);
   padding: 0 14px;
   border-radius: 10px;
   font-size: 16px;
@@ -1617,7 +1615,7 @@ html[data-reader-theme="night"] {
   font-weight: 600;
 }
 .lang-card:focus-visible .lang-option[data-active] {
-  box-shadow: inset 0 0 0 2px var(--rd-accent);
+  box-shadow: inset 0 0 0 2px var(--accent);
 }
 .lang-option-check {
   color: var(--lang-check);
@@ -1653,7 +1651,7 @@ html[data-reader-theme="night"] {
   width: max-content;
   max-width: calc(100vw - 32px);
   margin: 0;
-  padding: 8px 14px;
+  padding: var(--space-8) 14px;
   border-radius: 9999px;
   background: #2C1810;
   color: #fff;
@@ -1661,8 +1659,8 @@ html[data-reader-theme="night"] {
   line-height: 1.35;
   text-align: center;
   pointer-events: none;
-  transition: bottom 220ms ease;
-  animation: reader-hint-fade 220ms ease-out;
+  transition: bottom var(--dur-slide) ease;
+  animation: reader-hint-fade var(--dur-slide) ease-out;
 }
 .reader-chrome[data-shown] .reader-hint {
   bottom: calc(var(--rd-bottom-bar-h) + 12px + env(safe-area-inset-bottom, 0px));
@@ -1766,7 +1764,7 @@ html[data-reader-theme="night"] .sa-inline {
 }
 html[data-reader-theme="night"] .hs-row[data-active] .hs-cell,
 html[data-reader-theme="night"] .hs-row[data-active] .hs-text {
-  background-color: var(--rd-row-active);
+  background-color: var(--ds-band-active);
   color: #F2E9DA;
 }
 html[data-reader-theme="night"] .book-image,
@@ -1865,7 +1863,7 @@ html[data-reader-theme="night"] ::selection {
   /* V18: black 60 %, no blur, like the windows. V35 (Vraja Lila msg 1226): one layer
      over everything behind the menu — the bottom bar has slid away, so the dimming
      reaches the screen's bottom (before: it ended above the bar, msg 5606). */
-  background: rgba(0, 0, 0, 0.6);
+  background: var(--mark-scrim);
 }
 .mobile-menu[data-closing] {
   pointer-events: none;
@@ -1884,7 +1882,7 @@ html[data-reader-theme="night"] ::selection {
 .mobile-menu [data-menu-picked]:hover {
   background-color: #F5E6C8 !important;
   color: var(--ap-gold) !important;
-  transition: background-color 150ms ease-out, color 150ms ease-out;
+  transition: background-color var(--dur-fast) ease-out, color var(--dur-fast) ease-out;
 }
 /* V45: a section heading of the contents is ONE button (name + arrow ▸ in one element,
    components/Sidebar.tsx), so its highlight is one background by construction (V38c). */
@@ -1919,7 +1917,7 @@ html[data-reader-theme="night"] ::selection {
 }
 .mobile-menu[data-leaving] aside nav {
   opacity: 0.75;
-  transition: opacity 150ms ease;
+  transition: opacity var(--dur-fast) ease;
 }
 /* A65 (КСВ 07.10.2026): the tapped page is loading — a thin gold bar at the
    very top (below the notch) and «загружается…» on the tapped row, at once. */
@@ -2042,7 +2040,7 @@ html[data-reader-bars] .hs-peek {
     right: 8px;
     transform: none;
     width: min(180px, 46vw);
-    padding: 4px;
+    padding: var(--space-4);
     animation-name: hs-peek-in;
   }
 }
@@ -2308,8 +2306,8 @@ html[data-reader-theme="night"] {
    rights on the interface, «Стандарты» 0а). ✕ in the search field 44×44: */
 .search-clear {
   right: -3px;
-  width: 44px;
-  height: 44px;
+  width: var(--target);
+  height: var(--target);
   display: flex;
   align-items: center;
   justify-content: center;
