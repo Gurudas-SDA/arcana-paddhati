@@ -110,5 +110,46 @@ with sync_playwright() as p:
             c.close()
         b.close()
 
+# Vraja Lila 31.10 14:07 «сделай и выпусти наконец» (answer to the question «оставить под обложку место по её
+# пропорции (874 × 1240), чтобы ничего не прыгало; внешне обложка не изменится»): the cover's place is reserved before
+# its picture arrives. Deterministic: the cover request is held 1.5 s; the first frame must already have the final
+# cover height and the card must not move when the picture arrives.
+# tehniskais slieksnis Lipikāra, nav S noteikums: 1 px tolerance on heights/positions.
+FRAMES2 = """(() => { window.__fr2 = []; let n = 0; const tick = () => {
+  const i = document.querySelector('img.home-cover'), a = document.querySelector('a.home-resume');
+  if (i && a) { const ri = i.getBoundingClientRect(), ra = a.getBoundingClientRect();
+    window.__fr2.push([Math.round(ri.height), Math.round(ra.top), Math.round(i.complete && i.naturalWidth > 0 ? 1 : 0)]); }
+  if (++n < 300) requestAnimationFrame(tick); };
+  requestAnimationFrame(tick); })();"""
+
+with sync_playwright() as p:
+    for dev, eng, opts in [("iphone14",) + qa.DEVICES["iphone14"], ("desktop",) + qa.DEVICES["desktop"]]:
+        # runs once per suite run, inside the iphone14 process (desktop is not in this suite's device list)
+        if qa.wanted() is not None and "iphone14" not in qa.wanted():
+            continue
+        b = getattr(p, eng).launch()
+        place = dict(v=1, block=0, offset=0, lang="ru-iast", time=int(time.time() * 1000), section="arcana-procedure", anchor="11-gandha")
+        c = b.new_context(service_workers="block", locale="ru-RU", **dict(opts))
+        c.add_init_script("localStorage.setItem('ap.readerHintSeen','1');localStorage.setItem('ap.offlineSave', %s);" % json.dumps(json.dumps({"s": "seen"})) +
+                          "localStorage.setItem('installDismissed','true');localStorage.setItem('ap.readingPlace', %s);" % json.dumps(json.dumps(place)) + FRAMES2)
+
+        def hold(route):
+            time.sleep(1.5)
+            route.continue_()
+        c.route("**/cover*", hold)
+        pg = c.new_page()
+        pg.goto(f"{BASE}/ru-iast/", wait_until="networkidle")
+        pg.wait_for_timeout(900)
+        fr = pg.evaluate("window.__fr2 || []")
+        first, last = (fr[0], fr[-1]) if fr else (None, None)
+        loaded_at = next((k for k, f in enumerate(fr) if f[2]), None)
+        check(dev, "cover held 1.5 s: first frame is before the picture arrived", first and loaded_at not in (None, 0), {"loadedAtFrame": loaded_at, "frames": len(fr)})
+        check(dev, "cover held 1.5 s: first frame already has the final cover height and card place (no jump when the picture arrives)",
+              first and abs(first[0] - last[0]) <= 1 and first[0] > 100 and abs(first[1] - last[1]) <= 1 and
+              not [f for f in fr if abs(f[0] - last[0]) > 1 or abs(f[1] - last[1]) > 1],
+              {"first": first, "last": last})
+        c.close()
+        b.close()
+
 print(f"{sum(results)}/{len(results)} PASS")
 sys.exit(0 if all(results) else 1)

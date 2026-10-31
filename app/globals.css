@@ -386,9 +386,23 @@ body {
    the cover stays a light page in «Ночь» too (dimmed by the same brightness filter as the cover). */
 .home-cover-box {
   position: relative;
-  width: fit-content;
+  /* V61 (Vraja Lila 31.10 14:07 «сделай и выпусти наконец»): the place under the cover is reserved by its
+     proportion (874 x 1240) before the picture arrives — the box has the cover's drawn width (the same
+     expression as the cards' slots below), the picture fills it, so nothing jumps when it loads. */
+  width: min(100%, 874px, calc((100vh - 2rem - var(--reader-pad-bottom) - var(--install-banner-h, 0px)) * 874 / 1240));
+  width: min(100%, 874px, calc((100dvh - 2rem - var(--reader-pad-bottom) - env(safe-area-inset-top, 0px) - var(--install-banner-h, 0px)) * 874 / 1240));
   max-width: 100%;
   line-height: 0;
+}
+html[data-home-save] .home-cover-box,
+html[data-home-resume] .home-cover-box {
+  width: min(100%, 874px, calc((100vh - 2rem - var(--reader-pad-bottom) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px)) * 874 / 1240));
+  width: min(100%, 874px, calc((100dvh - 2rem - var(--reader-pad-bottom) - env(safe-area-inset-top, 0px) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px)) * 874 / 1240));
+}
+.home-cover-box .home-cover {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 874 / 1240;
 }
 .home-cover-logo {
   position: absolute;
