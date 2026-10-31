@@ -2073,13 +2073,13 @@ html[data-reader-bars] .hs-peek {
    the window's bottom gap, the ✕ above it and the safe areas; with the bars
    shown, less both bars as well. */
 .hs-peek {
-  --hs-peek-reserve: calc(100px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px));
+  --hs-peek-reserve: calc(48px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px));
   right: 16px;
   max-width: calc((100vh - var(--hs-peek-reserve)) * var(--hs-ar, 1));
   max-width: calc((100dvh - var(--hs-peek-reserve)) * var(--hs-ar, 1));
 }
 html[data-reader-bars] .hs-peek {
-  --hs-peek-reserve: calc(262px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px));
+  --hs-peek-reserve: calc(210px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px));
 }
 @media (max-width: 639px) {
   .hs-peek {
@@ -2437,4 +2437,7 @@ html[data-reader-theme="night"] .hover\:bg-\[\#FDF8F0\]:hover {
 .hs-peek .window-close:hover {
   background: var(--color-gold-light);
 }
+/* variant Б (Vraja msg 7172): room for the ✕ above the floating picture */
+.hs-peek { --hs-peek-reserve: calc(100px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px)); }
+html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px)); }
 /*@/v61s4*/
