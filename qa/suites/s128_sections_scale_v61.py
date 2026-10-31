@@ -8,6 +8,8 @@ Rule text (Vraja Lila, V61 plan, step 5, decisions of 30–31.10.2026):
  question 5 «принять»: ONE main dark text: h2 / h3 in the light theme a little more neutral, the text in sepia a little warmer = the one token.
 Acceptance: (1) the chapter text starts 48 px from the article edge at any width >= 1024; (2) similar sections' margins no longer «jump»: only scale values;
  (3) day / sepia / night: nothing else changes.
+  Check D fix (31.10): the colour test reads the page maha-abhiseka (it has h2 AND h3; vigraha-tattva has no h3 -> null) and the chapter BODY text
+  p.text-[15px] (class text-[#1a1a1a]; the first bare <p> is a secondary text, not body). Body in the live book is #1a1a1a already, so no colour changes.
 
 Checks
   A) source: .reader-article side padding: phone var(--space-16), 640-1023 var(--space-24) (technical choice: the old 4.5vw was 29-46 px there),
@@ -121,7 +123,7 @@ def static():
 
 M_PAD = "() => { const a = document.querySelector('.reader-article'); const s = getComputedStyle(a); return [parseFloat(s.paddingLeft), parseFloat(s.paddingRight), innerWidth]; }"
 M_COLOR = """() => { const a = document.querySelector('.reader-article'); const col = e => e && getComputedStyle(e).color;
-  return {h2: col(a.querySelector('h2')), h3: col(a.querySelector('h3')), p: col(a.querySelector('p.text-\\\\[15px\\\\], li.text-\\\\[15px\\\\], p')), fg: getComputedStyle(document.documentElement).getPropertyValue('--rd-fg').trim()}; }"""
+  return {h2: col(a.querySelector('h2')), h3: col(a.querySelector('h3')), p: col(a.querySelector('p.text-\\\\[15px\\\\]')), fg: getComputedStyle(document.documentElement).getPropertyValue('--rd-fg').trim()}; }"""
 M_CARDS = """() => { const mk = c => { const e = document.createElement('div'); e.className = c; e.textContent = 'x'; document.body.appendChild(e); return e; };
   const r = mk('home-resume'), s = mk('home-save'); const g = e => { const c = getComputedStyle(e); return [c.backgroundColor, c.borderTopColor, c.color, c.paddingLeft]; };
   const out = [g(r), g(s)]; r.remove(); s.remove(); return out; }"""
@@ -147,7 +149,7 @@ def app():
             c.add_init_script("localStorage.setItem('ap.readerHintSeen','1');localStorage.setItem('installDismissed','true');"
                               + (f"localStorage.setItem('ap.readerTheme','{tv}');" if tv else ""))
             pg = c.new_page()
-            pg.goto(f"{BASE}/ru-iast/vigraha-tattva/", wait_until="networkidle")
+            pg.goto(f"{BASE}/ru-iast/maha-abhiseka/", wait_until="networkidle")
             pg.wait_for_timeout(900)
             col = pg.evaluate(M_COLOR)
             if theme == "day":
