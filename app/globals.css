@@ -2396,6 +2396,8 @@ html[data-reader-theme="night"] .hover\:bg-\[\#FDF8F0\]:hover {
 }
 .mood-dialog .mood-dialog-head {
   padding-inline: var(--pad-window) calc(var(--window-close-centre) * 2 + var(--space-8));
+  /* the top line's centre is at the ✕ centre (30 px from the card's top): 20 px + half of the line (V18 «✕ on the top line» + V61 question 2 «А») */
+  padding-top: calc(var(--window-close-centre) - 10px);
   border-top-left-radius: var(--radius-window);
   border-top-right-radius: var(--radius-window);
 }
