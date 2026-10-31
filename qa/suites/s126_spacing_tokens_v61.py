@@ -36,11 +36,16 @@ def strip(t):
 
 
 def now(path):
-    return strip(open(os.path.join(ROOT, path), encoding="utf-8").read())
+    # Vraja Lila 31.10 14:07 «сделай и выпусти наконец» (the cover's place by its proportion, s58): the rules between the
+    # /*@cover-place*/ markers are a later addition, not part of the step-2 token substitution
+    return strip(re.sub(r"/\*@cover-place\*/.*?/\*@/cover-place\*/", "", open(os.path.join(ROOT, path), encoding="utf-8").read(), flags=re.S))
 
 
 def before(path):
-    return strip(subprocess.check_output(["git", "-C", ROOT, "show", f"{BASE_REF}:{path}"]).decode("utf-8"))
+    t = subprocess.check_output(["git", "-C", ROOT, "show", f"{BASE_REF}:{path}"]).decode("utf-8")
+    # the same later addition: .home-cover-box had `width: fit-content` before the cover's place was reserved by width (s58)
+    t = t.replace(".home-cover-box {\n  position: relative;\n  width: fit-content;", ".home-cover-box {\n  position: relative;")
+    return strip(t)
 
 
 # new token -> the literal / old reference it stands for

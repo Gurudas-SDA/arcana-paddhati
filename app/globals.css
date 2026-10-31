@@ -389,11 +389,14 @@ body {
   /* V61 (Vraja Lila 31.10 14:07 «сделай и выпусти наконец»): the place under the cover is reserved by its
      proportion (874 x 1240) before the picture arrives — the box has the cover's drawn width (the same
      expression as the cards' slots below), the picture fills it, so nothing jumps when it loads. */
+  /*@cover-place*/
   width: min(100%, 874px, calc((100vh - 2rem - var(--reader-pad-bottom) - var(--install-banner-h, 0px)) * 874 / 1240));
   width: min(100%, 874px, calc((100dvh - 2rem - var(--reader-pad-bottom) - env(safe-area-inset-top, 0px) - var(--install-banner-h, 0px)) * 874 / 1240));
+  /*@/cover-place*/
   max-width: 100%;
   line-height: 0;
 }
+/*@cover-place*/
 html[data-home-save] .home-cover-box,
 html[data-home-resume] .home-cover-box {
   width: min(100%, 874px, calc((100vh - 2rem - var(--reader-pad-bottom) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px)) * 874 / 1240));
@@ -404,6 +407,7 @@ html[data-home-resume] .home-cover-box {
   height: auto;
   aspect-ratio: 874 / 1240;
 }
+/*@/cover-place*/
 .home-cover-logo {
   position: absolute;
   left: 33.72%;
