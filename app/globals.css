@@ -479,7 +479,7 @@ html[data-home-save] .home-save-slot {
   border: 1px solid #E5D8BC;
   background: #FFFFFF;
   border-radius: 9px;
-  padding: 7px 34px 7px var(--space-12);
+  padding: var(--space-8) var(--space-32) var(--space-8) var(--space-16);
   color: #2C1810;
   text-decoration: none;
 }
@@ -498,15 +498,15 @@ html[data-home-save] .home-save-slot {
 .home-resume-arrow {
   position: absolute;
   right: 12px;
-  bottom: 6px;
+  bottom: var(--space-8);
   font-size: 20px;
   line-height: 1;
   font-weight: 600;
   color: var(--ap-gold);
 }
 html[data-reader-theme="night"] .home-resume {
-  background: #1B1712;
-  border-color: #3A3228;
+  background: var(--rd-panel-bg);  /* V61 q4: night «Продолжить» = «Сохранение» (one look) */
+  border-color: var(--rd-border);
   color: #EFE6D2;
 }
 html[data-reader-theme="night"] .home-resume-title,
@@ -527,14 +527,14 @@ html[data-home-save] .home-save-slot {
   border: 1px solid #E5D8BC;
   background: #FFFFFF;
   border-radius: 9px;
-  padding: 11px var(--space-12);
+  padding: var(--space-12) var(--space-16);
   color: #2C1810;
 }
 .home-save-top {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 10px;
+  gap: var(--space-8);
   margin: 0 0 var(--space-8);
 }
 .home-save-title {
@@ -578,7 +578,7 @@ html[data-home-save] .home-save-slot {
 .home-save-done {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: var(--space-8);
   color: var(--ap-gold);
 }
 .home-save-done .home-save-title {
@@ -589,7 +589,7 @@ html[data-home-save] .home-save-slot {
   font-size: 12px;
   color: #6B5440;
   flex: none;
-  padding: 2px var(--space-4);
+  padding: var(--space-4);
 }
 html[data-reader-theme="night"] .home-save {
   background: var(--rd-panel-bg);  /* V54: surface-panel */
@@ -999,14 +999,22 @@ body,
   width: 100%;
   max-width: 50em;
   margin-inline: auto;
-  padding: 1.25rem 13px 2rem;
+  padding: 1.25rem var(--space-16) 2rem;
 }
 @media (min-width: 640px) {
   .reader-article {
     --rd-base: clamp(20px, calc(13px + 0.85vw), 23px);
-    padding: 2.25rem 4.5vw 3rem;
+    padding: 2.25rem var(--space-24) 3rem;
   }
 }
+/*@v61s5*/
+/* V61 step 5 (Vraja Lila msg 7167 «3 - 48»): a computer — the side margin of the chapter text is FIXED 48 px (was 4.5vw: 65 px at 1440, 46 at 1024) */
+@media (min-width: 1024px) {
+  .reader-article {
+    padding-inline: var(--pad-article-wide);
+  }
+}
+/*@/v61s5*/
 /* V17 (Vraja Lila msg 5784/5787): a chapter starts with the bars out, so its
    title begins below the top bar (its height: 44 px button + 2 × 6 px + 1 px
    border = 57 px; the notch is already the reading area's own padding) with
@@ -1768,6 +1776,13 @@ html[data-reader-theme="night"] .text-\[\#2C1810\],
 html[data-reader-theme="night"] .verse-wbw .wbw-word {
   color: var(--rd-fg);
 }
+/*@v61s5*/
+/* V61 q5 (Vraja Lila, «принять»): ONE main dark text. In the book column the two near-blacks (#1a1a1a h1/h2/text, #2C1810 h3) read the one token
+   --text-primary (= --rd-fg): light theme h2 / h3 equally neutral (#1a1a1a), sepia text a little warmer (#2a2016), night as before. */
+.reader-article :is(.text-\[\#1a1a1a\], .text-\[\#2C1810\]) {
+  color: var(--text-primary);
+}
+/*@/v61s5*/
 html[data-reader-theme="night"] .text-\[\#5C3D2E\],
 html[data-reader-theme="night"] .text-\[\#5C3D2E\]\/80,
 html[data-reader-theme="night"] .text-\[\#555\] {

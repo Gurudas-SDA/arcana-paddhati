@@ -72,6 +72,7 @@ html[data-reader-theme="night"] {
   --gap-block: var(--space-16);
   --gap-section: var(--space-32);
   --pad-page-bottom: var(--space-48);
+  --pad-article-wide: var(--space-48); /* V61 step 5 (Vraja Lila msg 7167 «3 - 48»): the chapter text's side margin on a computer (>= 1024 px) */
 }
 
 /* V56 (Vraja Lila 30.10.2026, «постепенно», decision 7): the DS names of the role-named token scheme (DS V1.2) as ALIASES of the

@@ -54,7 +54,7 @@ TW_NOT_MARGINS = {"pr-[96px]", "pr-[3px]", "pl-9"}  # reserved room for buttons 
 def rules(css, sel_re):
     out = []
     for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", css):
-        if re.search(sel_re, m.group(1)):
+        if re.search(sel_re, m.group(1).strip()):
             out.append((m.group(1).strip(), m.group(2)))
     return out
 
@@ -78,8 +78,9 @@ def static():
     check("src", "A no 4.5vw left in globals.css", "4.5vw" not in css)
     ph = re.search(r"\.reader-article\s*\{[^}]*?padding\s*:\s*[^;]*?var\(--space-16\)[^;]*;", css)
     check("src", "A phone: .reader-article side padding var(--space-16)", bool(ph), "")
-    mq = re.findall(r"@media \(min-width: (\d+)px\)\s*\{\s*\.reader-article\s*\{([^}]*)\}", css)
-    got = {k: v for k, v in mq}
+    got = {}
+    for k, v in re.findall(r"@media \(min-width: (\d+)px\)\s*\{\s*\.reader-article\s*\{([^}]*)\}", css):
+        got[k] = got.get(k, "") + v
     check("src", "A >= 640: side padding var(--space-24)", "640" in got and "var(--space-24)" in got["640"], got.get("640"))
     check("src", "A >= 1024: side padding var(--pad-article-wide)", "1024" in got and "var(--pad-article-wide)" in got["1024"], got.get("1024"))
     # B

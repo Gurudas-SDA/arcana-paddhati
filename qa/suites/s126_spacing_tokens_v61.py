@@ -38,7 +38,7 @@ def strip(t):
 def now(path):
     # Vraja Lila 31.10 14:07 «сделай и выпусти наконец» (the cover's place by its proportion, s58): the rules between the
     # /*@cover-place*/ markers are a later addition, not part of the step-2 token substitution
-    return strip(re.sub(r"/\*@v61s4\*/.*?/\*@/v61s4\*/", "", re.sub(r"/\*@cover-place\*/.*?/\*@/cover-place\*/", "", open(os.path.join(ROOT, path), encoding="utf-8").read(), flags=re.S), flags=re.S))
+    return strip(re.sub(r"/\*@v61s5\*/.*?/\*@/v61s5\*/", "", re.sub(r"/\*@v61s4\*/.*?/\*@/v61s4\*/", "", re.sub(r"/\*@cover-place\*/.*?/\*@/cover-place\*/", "", open(os.path.join(ROOT, path), encoding="utf-8").read(), flags=re.S), flags=re.S), flags=re.S))
 
 
 def before(path):
@@ -81,6 +81,22 @@ def decls(css, table):
     return out
 
 
+# V61 step 5 (Vraja Lila msg 7167 «3 - 48», q4 «принять»; sections on the scale): the declarations that were deliberately moved (new, step-1 value);
+# the two added rules (padding-inline from 1024 px; the one main dark text) sit between /*@v61s5*/ markers. Checked in s128.
+STEP5_CHANGES = {
+    (("padding", "1.25rem 16px 2rem"), ("padding", "1.25rem 13px 2rem")),
+    (("padding", "2.25rem 24px 3rem"), ("padding", "2.25rem 4.5vw 3rem")),
+    (("padding", "8px 32px 8px 16px"), ("padding", "7px 34px 7px 12px")),
+    (("bottom", "8px"), ("bottom", "6px")),
+    (("background", "var(--rd-panel-bg)"), ("background", "#1B1712")),
+    (("border-color", "var(--rd-border)"), ("border-color", "#3A3228")),
+    (("padding", "12px 16px"), ("padding", "11px 12px")),
+    (("gap", "8px"), ("gap", "10px")),
+    (("gap", "8px"), ("gap", "9px")),
+    (("padding", "4px"), ("padding", "2px 4px")),
+}
+
+
 def gone(name, text):
     return not re.search(re.escape(name) + r"(?![\w-])", text)
 
@@ -103,7 +119,7 @@ def static():
     # B equal to before
     for f in FILES:
         new, old = decls(now(f), EXPAND_NEW), decls(before(f), EXPAND_OLD)
-        bad = [(i, a, b) for i, (a, b) in enumerate(zip(new, old)) if a != b]
+        bad = [(i, a, b) for i, (a, b) in enumerate(zip(new, old)) if a != b and (a, b) not in STEP5_CHANGES]
         check("src", f"B {f}: {len(new)} declarations equal the step-1 values after expanding the tokens",
               len(new) == len(old) and not bad, (len(new), len(old), bad[:3]))
     css = now("app/globals.css") + now("design-system/components.css")

@@ -922,7 +922,7 @@ export default function Sidebar({
     // while its list is closed), else the subsection being read. No
     // «Начало главы» row (Satkirti, 06.10.2026).
     const rowLit = lit(rowId, isSelected && (!isOpen || atStart));
-    const rowClass = `sidebar-link w-full min-h-[44px] text-left px-5 py-3 flex items-start justify-between gap-2 transition-colors ${
+    const rowClass = `sidebar-link w-full min-h-[44px] text-left px-4 py-3 flex items-start justify-between gap-2 transition-colors ${
       rowLit
         ? "bg-[var(--ds-row-lit)] border-l-3 border-[var(--ap-gold)]"
         : "hover:bg-[#FDF8F0] border-l-3 border-transparent"
@@ -940,7 +940,7 @@ export default function Sidebar({
     const subClass = (active: boolean) =>
       // Full panel width (Reader v7.8.2): the indent is padding inside the row, so the tap target and
       // the highlight band start at the panel's left edge, like the chapters and parts.
-      `sidebar-link relative flex items-center min-h-[44px] w-full text-left pl-[39px] pr-4 py-2 text-xs border-l-3 transition-colors ${
+      `sidebar-link relative flex items-center min-h-[44px] w-full text-left pl-8 pr-4 py-2 text-xs border-l-3 transition-colors ${
         active
           ? "bg-[var(--ds-row-lit)] border-[var(--ap-gold)] text-[var(--ap-gold)] font-semibold"
           : "border-transparent text-[#5C3D2E] hover:text-[var(--ap-gold)] hover:bg-[#FDF8F0]"
@@ -1057,7 +1057,7 @@ export default function Sidebar({
         data-toc-group-row={groupId}
         data-toc-lit={on ? "" : undefined}
         data-toc-row={headId}
-        className={`sidebar-link relative flex w-full min-h-[44px] items-center border-l-3 pl-5 pr-12 py-2 text-left transition-colors hover:text-[var(--ap-gold)] ${
+        className={`sidebar-link relative flex w-full min-h-[44px] items-center border-l-3 pl-4 pr-12 py-2 text-left transition-colors hover:text-[var(--ap-gold)] ${
           on ? "border-[var(--ap-gold)] bg-[var(--ds-row-lit)] text-[var(--ap-gold)]" : "border-transparent hover:bg-[#FDF8F0] text-[var(--ap-label)]"
         }`}
       >
@@ -1106,7 +1106,7 @@ export default function Sidebar({
   return (
     <aside className="flex flex-col h-full bg-white border-r border-[color:var(--line-hairline)]">
       {/* Header */}
-      <div className="px-5 py-4 border-b border-[color:var(--line-hairline)]">
+      <div className="px-4 py-4 border-b border-[color:var(--line-hairline)]">
       <div className="flex items-center justify-between gap-3">
         <Link
           href={localeHref(lang)}
@@ -1237,7 +1237,7 @@ export default function Sidebar({
               aria-selected={tab === k}
               data-sidebar-tab={k}
               onClick={() => chooseTab(k)}
-              className={`flex-1 px-3 py-2.5 text-sm transition-colors border-b-2 ${
+              className={`flex-1 px-3 py-3 text-sm transition-colors border-b-2 ${
                 tab === k ? "border-[var(--ap-gold)] text-[#2C1810] font-semibold" : "border-transparent text-[#5C3D2E]"
               }`}
             >
@@ -1249,7 +1249,7 @@ export default function Sidebar({
 
       {/* The «show all» switches are in the «Аа» panel (Reader v7.8). */}
       {offlineSave && (offlineSave.s === "loading" || offlineSave.s === "partial") && offlineSave.t > 0 && (
-        <p className="px-5 py-1.5 border-b border-[color:var(--line-hairline)] text-[11px] text-[#5C3D2E] flex items-center gap-2" data-offline-progress="">
+        <p className="px-4 py-2 border-b border-[color:var(--line-hairline)] text-[11px] text-[#5C3D2E] flex items-center gap-2" data-offline-progress="">
           <span>{t(ui, offlineSave.s === "partial" ? "offline.save.partial" : "offline.save.loading")}</span>
           <span className="ml-auto tabular-nums text-[#6B5440]">
             {t(ui, "offline.save.countShort", { done: String(offlineSave.d), total: String(offlineSave.t) })}
@@ -1262,7 +1262,7 @@ export default function Sidebar({
       {showBookmarks && (
         <div ref={bookmarksRef} className="flex-1 min-h-0 overflow-y-auto" role="tabpanel" data-bookmarks-list="">
           {bookmarkRows.length === 0 ? (
-            <p className="px-5 py-4 text-sm text-[#5C3D2E]" data-bookmarks-empty="">
+            <p className="px-4 py-4 text-sm text-[#5C3D2E]" data-bookmarks-empty="">
               {t(ui, "bookmarks.empty")}
             </p>
           ) : (
@@ -1297,7 +1297,7 @@ export default function Sidebar({
                     if (exact) placeBookmark(b);
                   }}
                   aria-current={isLit ? "location" : undefined}
-                  className={`sidebar-link block w-full text-left pl-5 pr-[96px] py-3 transition-opacity ${isPale ? "opacity-45" : ""}`}
+                  className={`sidebar-link block w-full text-left pl-4 pr-[96px] py-3 transition-opacity ${isPale ? "opacity-45" : ""}`}
                 >
                   {/* One line each, «…» at the end (V34, Vraja Lila msg 5869: «не должно рябить в глазах»). */}
                   <span className={`block truncate text-sm ${titleClass || "text-[#2C1810]"}`} data-bookmark-title="" data-bookmark-named={line.named ? "" : undefined}>{line.head}</span>
@@ -1375,7 +1375,7 @@ export default function Sidebar({
             data-toc-lit={lit("cover", selectedId === null) ? "" : undefined}
             data-toc-row="cover"
             {...loadingProps("cover")}
-            className={`sidebar-link w-full text-left px-5 py-3 flex items-center gap-2 transition-colors ${
+            className={`sidebar-link w-full text-left px-4 py-3 flex items-center gap-2 transition-colors ${
               lit("cover", selectedId === null)
                 ? "bg-[var(--ds-row-lit)] border-l-3 border-[var(--ap-gold)]"
                 : "hover:bg-[#FDF8F0] border-l-3 border-transparent"
@@ -1412,7 +1412,7 @@ export default function Sidebar({
       <div ref={navRef as React.RefObject<HTMLDivElement>} className="toc-scroll flex-1 min-h-0 overflow-y-auto sidebar-scroll py-2">
         {results ? (
           results.length === 0 ? (
-            <p className="px-5 py-4 text-sm text-[#5C3D2E] italic">
+            <p className="px-4 py-4 text-sm text-[#5C3D2E] italic">
               {t(ui, "search.noResults")}
             </p>
           ) : (
@@ -1428,14 +1428,14 @@ export default function Sidebar({
                     }}
                     data-toc-lit={lit(entry.anchor ? `sub:${entry.section}#${entry.anchor}` : `sec:${entry.section}`, false) ? "" : undefined}
                     className={lit(entry.anchor ? `sub:${entry.section}#${entry.anchor}` : `sec:${entry.section}`, false)
-                      ? "block w-full text-left px-5 py-3 border-l-3 border-[var(--ap-gold)] bg-[var(--ds-row-lit)] transition-colors"
-                      : "block w-full text-left px-5 py-3 border-l-3 border-transparent hover:bg-[#FDF8F0] transition-colors"}
+                      ? "block w-full text-left px-4 py-3 border-l-3 border-[var(--ap-gold)] bg-[var(--ds-row-lit)] transition-colors"
+                      : "block w-full text-left px-4 py-3 border-l-3 border-transparent hover:bg-[#FDF8F0] transition-colors"}
                   >
                     <span className="block text-sm leading-snug text-[#2C1810]">
                       <Marked text={entry.title} nq={normalizedQuery} />
                     </span>
                     {entry.anchor && (
-                      <span className="block text-xs text-[var(--ap-gold)] mt-0.5">
+                      <span className="block text-xs text-[var(--ap-gold)] mt-1">
                         {entry.sectionTitle}
                       </span>
                     )}
@@ -1451,7 +1451,7 @@ export default function Sidebar({
             </ul>
           )
         ) : filteredSections.length === 0 ? (
-          <p className="px-5 py-4 text-sm text-[#5C3D2E] italic">
+          <p className="px-4 py-4 text-sm text-[#5C3D2E] italic">
             {t(ui, "search.noSections")}
           </p>
         ) : (
@@ -1479,7 +1479,7 @@ export default function Sidebar({
                       {renderGroupHeading(
                         part.id,
                         <>
-                          <span className="mr-1.5">{`${part.numeral}.`}</span>
+                          <span className="mr-2">{`${part.numeral}.`}</span>
                           {part.title}
                         </>,
                         isOpen,
@@ -1494,7 +1494,7 @@ export default function Sidebar({
                           ) : (
                             // A part in preparation: one line of text (V45: no page of its own).
                             <li>
-                              <p className="px-5 py-3 border-l-3 border-transparent text-sm leading-snug italic text-[#5C3D2E]" data-toc-empty-part={part.id}>
+                              <p className="px-4 py-3 border-l-3 border-transparent text-sm leading-snug italic text-[#5C3D2E]" data-toc-empty-part={part.id}>
                                 {t(ui, "part.empty")}
                               </p>
                             </li>
