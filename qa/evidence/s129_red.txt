@@ -1,0 +1,25 @@
+QA full: 2 darbi, 2 paralēli, serveris http://127.0.0.1:40795/arcana-paddhati (out/)
+  FAIL s129   desktop                        10 pass   8 fail      10s
+  FAIL s129   iphone14                       10 pass   8 fail      18s
+  atkārtoju 2 kritušos darbus vienu reizi …
+  FAIL s129   desktop                      (atkārtoti)   8 fail
+  FAIL s129   iphone14                     (atkārtoti)   8 fail
+
+QA full: 20 pass, 16 fail, 0 skip, 0.5 min
+  FAIL s129 desktop/day ✕ 44x44, outside the card (above it; below it when the card is at the top), right edge on the card's right edge (variant Б, msg 7172) {"xImg": 1936, "others": [], "imgTopMinusXBottom": -46, "xW": 44, "xH": 44, "cx": 31, 
+  FAIL s129 desktop/day ✕ box ∩ picture box = 0 px {"xImg": 1936, "others": [], "imgTopMinusXBottom": -46, "xW": 44, "xH": 44, "cx": 31, "cr": 31, "ratio": 1, "nat": 1, "xBg": "rgba(255, 255, 255, 0.85)", "xBorder": "0px", "xShadow": "none", "x
+  FAIL s129 desktop/day ✕ box ∩ card box = 0 px {"xImg": 1936, "others": [], "imgTopMinusXBottom": -46, "xW": 44, "xH": 44, "cx": 31, "cr": 31, "ratio": 1, "nat": 1, "xBg": "rgba(255, 255, 255, 0.85)", "xBorder": "0px", "xShadow": "none", "xr":
+  FAIL s129 desktop/day the ✕ has the light disc (opaque card background) and a 1 px hairline {"xImg": 1936, "others": [], "imgTopMinusXBottom": -46, "xW": 44, "xH": 44, "cx": 31, "cr": 31, "ratio": 1, "nat": 1, "xBg": "rgba(255, 255, 255, 0.85
+  FAIL s129 desktop/night ✕ 44x44, outside the card (above it; below it when the card is at the top), right edge on the card's right edge (variant Б, msg 7172) {"xImg": 1936, "others": [], "imgTopMinusXBottom": -46, "xW": 44, "xH": 44, "cx": 31, 
+  FAIL s129 desktop/night ✕ box ∩ picture box = 0 px {"xImg": 1936, "others": [], "imgTopMinusXBottom": -46, "xW": 44, "xH": 44, "cx": 31, "cr": 31, "ratio": 1, "nat": 1, "xBg": "rgba(22, 19, 15, 0.85)", "xBorder": "0px", "xShadow": "none", "xr":
+  FAIL s129 desktop/night ✕ box ∩ card box = 0 px {"xImg": 1936, "others": [], "imgTopMinusXBottom": -46, "xW": 44, "xH": 44, "cx": 31, "cr": 31, "ratio": 1, "nat": 1, "xBg": "rgba(22, 19, 15, 0.85)", "xBorder": "0px", "xShadow": "none", "xr": {"
+  FAIL s129 desktop/night the ✕ has the light disc (opaque card background) and a 1 px hairline {"xImg": 1936, "others": [], "imgTopMinusXBottom": -46, "xW": 44, "xH": 44, "cx": 31, "cr": 31, "ratio": 1, "nat": 1, "xBg": "rgba(22, 19, 15, 0.85)",
+  FAIL s129 iphone14/day ✕ 44x44, outside the card (above it; below it when the card is at the top), right edge on the card's right edge (variant Б, msg 7172) {"xImg": 1936, "others": [], "imgTopMinusXBottom": -48, "xW": 44, "xH": 44, "cx": 31, 
+  FAIL s129 iphone14/day ✕ box ∩ picture box = 0 px {"xImg": 1936, "others": [], "imgTopMinusXBottom": -48, "xW": 44, "xH": 44, "cx": 31, "cr": 31, "ratio": 1, "nat": 1, "xBg": "rgba(255, 255, 255, 0.85)", "xBorder": "0px", "xShadow": "none", "x
+  FAIL s129 iphone14/day ✕ box ∩ card box = 0 px {"xImg": 1936, "others": [], "imgTopMinusXBottom": -48, "xW": 44, "xH": 44, "cx": 31, "cr": 31, "ratio": 1, "nat": 1, "xBg": "rgba(255, 255, 255, 0.85)", "xBorder": "0px", "xShadow": "none", "xr":
+  FAIL s129 iphone14/day the ✕ has the light disc (opaque card background) and a 1 px hairline {"xImg": 1936, "others": [], "imgTopMinusXBottom": -48, "xW": 44, "xH": 44, "cx": 31, "cr": 31, "ratio": 1, "nat": 1, "xBg": "rgba(255, 255, 255, 0.85
+  FAIL s129 iphone14/night ✕ 44x44, outside the card (above it; below it when the card is at the top), right edge on the card's right edge (variant Б, msg 7172) {"xImg": 1936, "others": [], "imgTopMinusXBottom": -48, "xW": 44, "xH": 44, "cx": 31, 
+  FAIL s129 iphone14/night ✕ box ∩ picture box = 0 px {"xImg": 1936, "others": [], "imgTopMinusXBottom": -48, "xW": 44, "xH": 44, "cx": 31, "cr": 31, "ratio": 1, "nat": 1, "xBg": "rgba(22, 19, 15, 0.85)", "xBorder": "0px", "xShadow": "none", "xr":
+  FAIL s129 iphone14/night ✕ box ∩ card box = 0 px {"xImg": 1936, "others": [], "imgTopMinusXBottom": -48, "xW": 44, "xH": 44, "cx": 31, "cr": 31, "ratio": 1, "nat": 1, "xBg": "rgba(22, 19, 15, 0.85)", "xBorder": "0px", "xShadow": "none", "xr": {"
+  FAIL s129 iphone14/night the ✕ has the light disc (opaque card background) and a 1 px hairline {"xImg": 1936, "others": [], "imgTopMinusXBottom": -48, "xW": 44, "xH": 44, "cx": 31, "cr": 31, "ratio": 1, "nat": 1, "xBg": "rgba(22, 19, 15, 0.85)",
+red rc=1

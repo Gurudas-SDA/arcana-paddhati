@@ -88,7 +88,7 @@ MEASURE = """([cardSel, closeSel, padSel]) => {
 SIZES = {}
 
 
-def verify(dev, tag, m, pad=None):
+def verify(dev, tag, m, pad=None, centre=(30, 30)):
     if "err" in m:
         check(dev, f"{tag}: window opens", False, m)
         return
@@ -96,7 +96,8 @@ def verify(dev, tag, m, pad=None):
     check(dev, f"{tag}: ✕ icon 18×18 (1:1, not squeezed), flex-shrink 0",
           m["iw"] is not None and abs(m["iw"] - 18) <= TOL and abs(m["ih"] - 18) <= TOL and m["shrink"] == "0", m)
     check(dev, f"{tag}: ✕ round", m["radiusX"] in ("50%", "9999px", "22px"), m["radiusX"])
-    check(dev, f"{tag}: ✕ centre 30 / 30 from the card's top-right corner", abs(m["top"] - 30) <= TOL and abs(m["right"] - 30) <= TOL, m)
+    check(dev, f"{tag}: ✕ centre {centre[0]} / {centre[1]} from the card's top-right corner (None = outside the card, checked by s129)",
+          (centre[0] is None or abs(m["top"] - centre[0]) <= TOL) and abs(m["right"] - centre[1]) <= TOL, m)
     if pad is not None:
         check(dev, f"{tag}: inner padding {pad} px (the scale)", m["padL"] == f"{pad}px", m["padL"])
     SIZES.setdefault("radius", set()).add(m["cardRadius"])
@@ -142,7 +143,7 @@ def app():
               await new Promise(r => setTimeout(r, 500)); return !!document.querySelector('.hs-peek'); }""")
             if r is True:
                 m = pg.evaluate(MEASURE, [".hs-peek", ".hs-peek .window-close", None])
-                verify(dev, "floating picture copy", m, None)
+                verify(dev, "floating picture copy", m, None, centre=(None, 22))
             else:
                 check(dev, "floating picture copy opens (or the picture itself is on the screen)", r is not True and r != "no row", r)
             c.close()

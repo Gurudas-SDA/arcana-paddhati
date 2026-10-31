@@ -2073,13 +2073,13 @@ html[data-reader-bars] .hs-peek {
    the window's bottom gap, the ✕ above it and the safe areas; with the bars
    shown, less both bars as well. */
 .hs-peek {
-  --hs-peek-reserve: calc(48px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px));
+  --hs-peek-reserve: calc(100px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px));
   right: 16px;
   max-width: calc((100vh - var(--hs-peek-reserve)) * var(--hs-ar, 1));
   max-width: calc((100dvh - var(--hs-peek-reserve)) * var(--hs-ar, 1));
 }
 html[data-reader-bars] .hs-peek {
-  --hs-peek-reserve: calc(210px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px));
+  --hs-peek-reserve: calc(262px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px));
 }
 @media (max-width: 639px) {
   .hs-peek {
@@ -2415,31 +2415,26 @@ html[data-reader-theme="night"] .hover\:bg-\[\#FDF8F0\]:hover {
     padding-inline: var(--pad-window-wide);
   }
 }
-/* the floating picture copy: the master card; its ✕ is the master ✕ (inside the corner, over the picture: a light disc for the contrast) */
+/* the floating picture copy: the master card; its ✕ is the master ✕ OUTSIDE the card, above its top-right corner (variant «Б», Vraja Lila msg 7172, 31.10.2026):
+   a light disc (the card's own background) with a hairline and the window shadow; not one pixel of the picture is covered (msg 7168).
+   A card at the top of the screen (data-top) has the ✕ BELOW it instead (it would leave the screen above). */
 .hs-peek {
+  overflow: visible;
   border-radius: var(--radius-window);
   box-shadow: var(--shadow-window);
 }
 .hs-peek .window-close {
-  top: calc(var(--window-close-centre) - var(--window-close-size) / 2);
-  right: calc(var(--window-close-centre) - var(--window-close-size) / 2);
-  width: var(--window-close-size);
-  height: var(--window-close-size);
-  border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.85);
-  color: var(--window-close-fg);
-  font-size: inherit;
-  line-height: normal;
-  box-shadow: none;
+  top: -56px;
+  right: 0;
+  border: 1px solid var(--line-hairline);
+  background: var(--rd-bg);
+  box-shadow: var(--shadow-window);
+}
+.hs-peek[data-top] .window-close {
+  top: auto;
+  bottom: -56px;
 }
 .hs-peek .window-close:hover {
   background: var(--color-gold-light);
-}
-/* night: the gold ✕ (#E3A03C) needs a dark disc (on the white one 1.9) */
-html[data-reader-theme="night"] .hs-peek .window-close {
-  background: rgba(22, 19, 15, 0.85);
-}
-html[data-reader-theme="night"] .hs-peek .window-close:hover {
-  background: #2C2418;
 }
 /*@/v61s4*/
