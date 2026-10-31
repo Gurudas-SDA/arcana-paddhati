@@ -139,6 +139,29 @@ def page_url(lang):
     return f"{BASE}/gaudiya-emblem/" if lang == "en" else f"{BASE}/{lang}/gaudiya-emblem/"
 
 
+def stable_target(pg, n):
+    """Number `n`'s box once the page is at rest: the previous tap's smooth scroll of the list row (up to
+    ~1.1 s) has ended, the floating copy (.hs-peek) is gone and the box is identical in two samples 150 ms
+    apart with the figure (not the copy / bar) under its centre. Without this a tap fell on a still-moving
+    page and hit nothing or the neighbouring row (31.10: iphone14 failed 2 of 3 runs on main)."""
+    for _ in range(25):
+        pg.evaluate(PROBE)
+        pg.wait_for_timeout(300)
+        a = pg.evaluate(PROBE)
+        pg.wait_for_timeout(150)
+        b = pg.evaluate(PROBE)
+        ta = next((t for t in (a or {}).get("tags", []) if t["n"] == n), None)
+        tb = next((t for t in (b or {}).get("tags", []) if t["n"] == n), None)
+        if not ta or not tb or any(abs(u - v) > 0.5 for u, v in zip(ta["box"], tb["box"])):
+            continue
+        x, y, w, h = tb["box"]
+        ok = pg.evaluate("""([x, y]) => !document.querySelector('.hs-peek')
+            && !!document.elementFromPoint(x, y)?.closest('.hs-figure')""", [x + w / 2, y + h / 2])
+        if ok:
+            return tb
+    return None
+
+
 def open_emblem(pg, lang):
     pg.goto(page_url(lang), wait_until="networkidle")
     pg.wait_for_timeout(600)
@@ -242,12 +265,9 @@ with sync_playwright() as p:
                 # taps on the numbers select their row (as before; 8 now by the mridanga)
                 missed = {}
                 for n in TAP_NUMS:
-                    pg.evaluate(PROBE)
-                    pg.wait_for_timeout(350)  # PROBE scrolls the picture into view — measure after it settles
-                    info = pg.evaluate(PROBE)
-                    t = next((t for t in info["tags"] if t["n"] == n), None)
+                    t = stable_target(pg, n)
                     if not t:
-                        missed[n] = "no number"
+                        missed[n] = "no stable number"
                         continue
                     x, y, w, h = t["box"]
                     (pg.touchscreen.tap if opts.get("has_touch") else pg.mouse.click)(x + w / 2, y + h / 2)
