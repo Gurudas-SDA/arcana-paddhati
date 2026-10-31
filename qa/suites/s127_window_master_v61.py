@@ -10,6 +10,7 @@ Acceptance: (a) in every window the ✕ has the same size and place and is not s
 
 Checks
   A) source: tokens --radius-window, --shadow-window, --window-close-size (= --target 44), --window-close-centre (30px), --window-close-icon (18px),
+  Window radius = 16px (Vraja Lila msg 7167, 31.10.2026: «2 - 16»).
      --window-close-fg are declared ONCE in design-system/tokens.css; ONE component components/WindowClose.tsx is used by the four windows
      (mood, bookmark name, install, floating picture copy); no window keeps its own ✕ markup (no «absolute top-3 right-3», no «h-12 w-12» ✕ in
      MoodBlock, no text ✕ in the .hs-peek); the window rules read the tokens;
@@ -50,7 +51,7 @@ def strip(t):
 def static():
     tok = strip(rd("design-system", "tokens.css"))
     css = strip(rd("app", "globals.css"))
-    for name, val in [("--radius-window", None), ("--shadow-window", None), ("--window-close-size", "var(--target)"),
+    for name, val in [("--radius-window", "16px"), ("--shadow-window", None), ("--window-close-size", "var(--target)"),
                       ("--window-close-centre", "30px"), ("--window-close-icon", "18px"), ("--window-close-fg", None)]:
         d = re.findall(rf"(?m)^\s*{re.escape(name)}\s*:\s*([^;]+);", tok)
         check("src", f"A {name} declared once in tokens.css" + (f" = {val}" if val else ""),
