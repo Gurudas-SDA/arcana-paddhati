@@ -1,0 +1,11 @@
+QA full: 3 darbi, 2 paralēli, serveris http://127.0.0.1:49431/arcana-paddhati (out/)
+  FAIL s68    pixel7                          5 pass   1 fail       6s
+  FAIL s68    iphone14                        5 pass   1 fail       7s
+  OK   s68    desktop                         6 pass   0 fail       6s
+  atkārtoju 2 kritušos darbus vienu reizi …
+  FAIL s68    pixel7                       (atkārtoti)   1 fail
+  FAIL s68    iphone14                     (atkārtoti)   1 fail
+
+QA full: 16 pass, 2 fail, 0 skip, 0.3 min
+  FAIL s68 pixel7 «Настроение»: ✕ on the top line (±6 px) and its centre 30/30 from the card's corner (V61 question 2 «А») {"lineMid": 226.6, "xMid": 236.9, "rightGap": 9, "cornerTop": 31, "cornerRight": 31, "headPadTop": "10px", "closeMa
+  FAIL s68 iphone14 «Настроение»: ✕ on the top line (±6 px) and its centre 30/30 from the card's corner (V61 question 2 «А») {"lineMid": 210.4, "xMid": 220.9, "rightGap": 9, "cornerTop": 31, "cornerRight": 31, "headPadTop": "10px", "closeMa

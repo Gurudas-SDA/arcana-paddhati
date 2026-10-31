@@ -3,9 +3,10 @@
 Task (maket approved: msg 5603 «идеально», 5610 «подтверждаю с ходу»; 5606, 5608):
 1) the page behind «Настроение Гурудева», the install window and «Содержание» is dimmed the same — black 60 %,
    no blur; while «Содержание» is open the bottom bar (‹ Назад · chapter % · Вперёд ›) is not dimmed (5606);
-2) the window's ✕ sits on the level of the top line («НАСТРОЕНИЕ ГУРУДЕВА · 2»): phone — at the right edge, the
-   header's top padding as before (10 px); desktop (≥ 1024 px) — header top padding 20 px, ✕ 6 px in from the
-   edge (maket: margin-right 6 px); the «Аа» panel's ✕ on its top line at the right.
+2) the window's ✕ sits on the level of the top line («НАСТРОЕНИЕ ГУРУДЕВА · 2») (centre ±6 px) AND, since V61
+   (Vraja Lila question 2 «А», 30.10.2026), the ✕ centre is 30/30 px from the card's corner (round 44×44 master ✕);
+   the header's top padding is set so the top line's centre is at that same height (phone and desktop);
+   the «Аа» panel's ✕ on its top line at the right.
 # tehniskais slieksnis Lipikāra, nav S noteikums: «on the level» = the ✕ glyph's centre within 6 px of the top
 #   line's centre; dimming edge = bar top ±1 px; colour read as computed rgba.
 usage: python s68_dim_close_x.py <base-url>
@@ -37,7 +38,8 @@ XPOS = """([box, line, x]) => { const b = document.querySelector(box), l = docum
   if (!b || !l || !s) return null; const rb = b.getBoundingClientRect(), rl = l.getBoundingClientRect(), rs = s.getBoundingClientRect();
   const h = s.closest('header, .reader-panel-head'); const hc = h && getComputedStyle(h);
   return {lineMid: +((rl.top + rl.bottom) / 2).toFixed(1), xMid: +((rs.top + rs.bottom) / 2).toFixed(1),
-    rightGap: +(rb.right - s.closest('button').getBoundingClientRect().right).toFixed(1), headPadTop: hc && hc.paddingTop,
+    rightGap: +(rb.right - s.closest('button').getBoundingClientRect().right).toFixed(1),
+    cornerTop: +(((rs.top + rs.bottom) / 2) - rb.top).toFixed(1), cornerRight: +(rb.right - ((rs.left + rs.right) / 2)).toFixed(1), headPadTop: hc && hc.paddingTop,
     closeMarginRight: getComputedStyle(s.closest('button')).marginRight, w: innerWidth}; }"""
 
 
@@ -84,12 +86,8 @@ with sync_playwright() as p:
         check(dev, "«Настроение»: dimming black 60 %, no blur", d and d["bg"] == DIM and d["filter"] in ("none", ""), d)
         x = pg.evaluate(f"({XPOS})(['.mood-dialog', '.mood-dialog-head .mood-label', '.mood-close svg'])")
         level = x and abs(x["xMid"] - x["lineMid"]) <= 6
-        if desk:
-            ok = level and x["headPadTop"] == "20px" and x["closeMarginRight"] == "6px"
-            check(dev, "«Настроение» (desktop): ✕ on the top line, 6 px in from the edge, header top padding 20 px", ok, x)
-        else:
-            ok = level and x["headPadTop"] == "10px" and x["closeMarginRight"] == "-8px"
-            check(dev, "«Настроение» (phone): ✕ on the top line at the right edge, header top padding still 10 px", ok, x)
+        corner = x and abs(x["cornerTop"] - 30) <= 2 and abs(x["cornerRight"] - 30) <= 2
+        check(dev, "«Настроение»: ✕ on the top line (±6 px) and its centre 30/30 from the card's corner (V61 question 2 «А»)", level and corner, x)
         pg.keyboard.press("Escape")
         pg.wait_for_timeout(500)
 
