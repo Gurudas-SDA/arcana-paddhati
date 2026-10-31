@@ -110,6 +110,19 @@ def static():
           css.count("var(--ds-band-active)") >= 5 and css.count("var(--ds-band)") >= 1)
     for n in ["--ds-row-hover", "--ds-text", "--ds-text-muted"]:
         check("src", f"C q9 dead token {n} removed", gone(n, allcss))
+    # D) a CSS rule that targets a Tailwind class like .bg-[var(--x)] must still find that class in the components — a renamed
+    #    class leaves the rule dead and changes the look (31.10 pixel check: sepia lit «Содержание» row text after --ap-band-toc
+    #    -> --ds-row-lit in Sidebar.tsx; app/globals.css V47b sepia selector kept the old name)
+    src = ""
+    for d in ["components", "app"]:
+        for dp, _, fs in os.walk(os.path.join(ROOT, d)):
+            for f in fs:
+                if f.endswith((".tsx", ".ts")):
+                    src += open(os.path.join(dp, f), encoding="utf-8").read()
+    for path in FILES:
+        for pre, var in sorted(set(re.findall(r"\.([a-z-]+)-\\\[var\\\((--[a-z0-9-]+)\\\)\\\]", now(path)))):
+            cls = f"{pre}-[var({var})]"
+            check(path, f"D class selector .{cls} still used in components", cls in src)
 
 
 static()

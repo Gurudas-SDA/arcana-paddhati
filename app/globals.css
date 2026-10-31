@@ -1472,8 +1472,8 @@ html[data-reader-theme="night"] ::highlight(search-hit) {
 }
 /* V47b: in sepia the lit row of «Содержание» (token 10 %) is darker than the page, so its gold text is the token
    15 % toward the text (4.78 : 1, AA; plain token 4.06) — s81 */
-html[data-reader-theme="sepia"] .bg-\[var\(--ap-band-toc\)\].text-\[var\(--ap-gold\)\],
-html[data-reader-theme="sepia"] .bg-\[var\(--ap-band-toc\)\] .text-\[var\(--ap-gold\)\] {
+html[data-reader-theme="sepia"] .bg-\[var\(--ds-row-lit\)\].text-\[var\(--ap-gold\)\],
+html[data-reader-theme="sepia"] .bg-\[var\(--ds-row-lit\)\] .text-\[var\(--ap-gold\)\] {
   color: color-mix(in srgb, var(--ap-gold) 85%, var(--rd-fg));
 }
 /* V47b: the in-text fallback mark (no Highlight API) = the same band as ::highlight(search-hit), not the list's */
