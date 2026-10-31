@@ -901,7 +901,7 @@ html:root .hs-row:is(li, div)[data-active] :is(.hs-text, .hs-cell) {
   --rd-mantra-fg: color-mix(in srgb, var(--ap-gold) 60%, var(--rd-fg));
   --rd-mantra-rule: var(--ap-gold);
   --rd-bar-bg: #FFFFFF;
-  --rd-border: #E8DCC8;
+  --rd-border: var(--line-hairline);
   --rd-hover: #F5E6C8;
   --rd-panel-bg: #FFFFFF;
   /* V47b (Vraja Lila msg 6346, maket 2): every translucent band = the one gold token at N % (N per place × theme,
@@ -922,7 +922,7 @@ html[data-reader-theme="sepia"] {
   --rd-mantra-fg: color-mix(in srgb, var(--ap-gold) 50%, var(--rd-fg));
   --rd-mantra-rule: var(--ap-gold);
   --rd-bar-bg: #EFE6D2;
-  --rd-border: #DCCCAC;
+  --rd-border: var(--line-hairline);
   --rd-hover: #E5D8BC;
   --rd-panel-bg: #F6F0E2;
   --rd-row-active: color-mix(in srgb, var(--ap-gold) 25%, transparent);
@@ -940,7 +940,7 @@ html[data-reader-theme="night"] {
   --rd-mantra-fg: var(--color-gold-muted);
   --rd-mantra-rule: var(--ap-gold);
   --rd-bar-bg: #1C1813;
-  --rd-border: #3A3128;
+  --rd-border: var(--line-hairline);
   --rd-hover: #2E271F;
   --rd-panel-bg: #211C16;
   --rd-row-active: color-mix(in srgb, var(--ap-gold) 27%, transparent);

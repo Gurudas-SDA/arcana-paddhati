@@ -180,7 +180,7 @@ function QuoteBody({
         </div>
       )}
       {source && (
-        <p className="mood-source mt-4 border-t border-[#E8DCC8] pt-2 text-[12px] leading-5 text-[#5C3D2E]">
+        <p className="mood-source mt-4 border-t border-[color:var(--line-hairline)] pt-2 text-[12px] leading-5 text-[#5C3D2E]">
           <span lang={source.lang || "en"}>{sourceLine}</span>
           {source.transcript_url && (
             <>
@@ -400,9 +400,9 @@ export default function MoodBlock({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="mood-dialog relative flex flex-col bg-[#FDF8F0] shadow-xl rounded-md border border-[#E8DCC8]"
+        className="mood-dialog relative flex flex-col bg-[#FDF8F0] shadow-xl rounded-md border border-[color:var(--line-hairline)]"
       >
-        <header className="mood-dialog-head flex shrink-0 items-center gap-3 border-b border-[#E8DCC8] bg-[#FDF8F0] px-4 py-2.5 rounded-t-md sm:px-6">
+        <header className="mood-dialog-head flex shrink-0 items-center gap-3 border-b border-[color:var(--line-hairline)] bg-[#FDF8F0] px-4 py-2.5 rounded-t-md sm:px-6">
           <div className="min-w-0 flex-1">
             <p className="mood-label text-[11px] font-semibold uppercase tracking-wider text-[var(--ap-gold)]">
               {labels.button}

@@ -9,7 +9,8 @@
   --ds-accent-soft: color-mix(in srgb, var(--ap-gold, #965700) 60%, transparent); /* the soft pill's frame (V47: the one gold, lighter) */
   --ds-fill: #F5E6C8;                            /* cream-dark: an open / picked control's fill */
   --ds-fill-soft: #FDF8F0;                       /* cream: the soft pill's resting fill */
-  --ds-line: #E8DCC8;                            /* thin frames and lines */
+  --line-hairline: #E8DCC8;                      /* Q8 (Vraja Lila 31.10.2026, msg 2018, variant «а»): THE ONE token of the thin lines; the day value, sepia and night set theirs below */
+  --ds-line: var(--line-hairline);               /* thin frames and lines */
   --ds-surface: #FFFFFF;
   --ds-band: var(--rd-row-stripe, color-mix(in srgb, var(--ap-gold, #965700) 5%, transparent));     /* tables' alternating row */
   --ds-band-active: var(--rd-row-active, color-mix(in srgb, var(--ap-gold, #965700) 26%, transparent)); /* a marked row (one block) */
@@ -33,9 +34,11 @@
    .bg-white, .bg-[#FDF8F0], .bg-[#F5E6C8], .border-[#E8DCC8] in app/globals.css), so a master component
    stays readable there: the night accent #E3A03C on white was 2.2:1 (V33 × V40, s81). */
 html[data-reader-theme="sepia"] {
+  --line-hairline: #DCCCAC;                      /* Q8: the sepia shade (the sidebar lines become a little darker) */
   --ds-surface: var(--rd-bg);
 }
 html[data-reader-theme="night"] {
+  --line-hairline: #3A3128;                      /* Q8: the night colour the night rules gave before */
   --ds-surface: var(--rd-bg);
   --ds-fill-soft: var(--rd-panel-bg);
   --ds-fill: #3A2F1F;
@@ -97,7 +100,6 @@ html[data-reader-theme="night"] {
   --text-muted: var(--rd-muted);
   --text-faint: var(--rd-faint);
   --text-lang-pick: var(--lang-sel-fg);
-  --line-hairline: var(--rd-border);
   --line-control: var(--ds-line);
   --line-field: var(--ds-field-line);
   --line-focus: var(--ds-focus);

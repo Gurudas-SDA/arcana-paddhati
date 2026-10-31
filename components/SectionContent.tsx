@@ -56,7 +56,7 @@ const H1_CLASS = "text-2xl sm:text-3xl font-semibold leading-tight text-[#1a1a1a
 const H2_CLASS = "text-xl sm:text-[22px] font-semibold leading-snug text-[#1a1a1a]";
 const H3_CLASS = "text-[17px] font-semibold leading-snug text-[#2C1810]";
 /** Thin beige rule (same colour as the sidebar border). */
-const RULE_CLASS = "border-t border-[#E8DCC8]";
+const RULE_CLASS = "border-t border-[color:var(--line-hairline)]";
 /** Content lists with at least this many blocks get a rule before each
  *  in-text subtitle (h3) group except the first element. */
 const LONG_CONTENT_BLOCKS = 8;
@@ -186,7 +186,7 @@ function DataTable({ header, rows }: { header: string[]; rows: TableRow[] }) {
           </thead>
           <tbody>
             {rows.map((r, ri) => (
-              <tr key={ri} className={`border-b border-[#E8DCC8] ${r.highlight ? "bg-[#FBF0D9]" : ""}`}>
+              <tr key={ri} className={`border-b border-[color:var(--line-hairline)] ${r.highlight ? "bg-[#FBF0D9]" : ""}`}>
                 {r.cells.map((c, ci) =>
                   ci === 0 ? (
                     <th key={ci} scope="row" className="px-2 py-1.5 text-left font-semibold tabular-nums">
@@ -207,7 +207,7 @@ function DataTable({ header, rows }: { header: string[]; rows: TableRow[] }) {
         {rows.map((r, ri) => (
           <li
             key={ri}
-            className={`rounded-sm border px-3 py-2 ${r.highlight ? "border-[var(--ap-gold)] bg-[#FBF0D9]" : "border-[#E8DCC8]"}`}
+            className={`rounded-sm border px-3 py-2 ${r.highlight ? "border-[var(--ap-gold)] bg-[#FBF0D9]" : "border-[color:var(--line-hairline)]"}`}
           >
             <p className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-[16px] font-semibold text-[#1a1a1a]">
               <span className="tabular-nums">

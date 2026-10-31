@@ -1009,7 +1009,7 @@ export default function Sidebar({
                     className={subClass(subLit)}
                   >
                     {/* the guide line of the list (was the list's own left border, 24px in) */}
-                    <span aria-hidden="true" className="pointer-events-none absolute left-[21px] top-0 bottom-0 border-l border-[#E8DCC8]" />
+                    <span aria-hidden="true" className="pointer-events-none absolute left-[21px] top-0 bottom-0 border-l border-[color:var(--line-hairline)]" />
                     <span>
                       {sub.num && <span className="heading-num">{`${sub.num}.`}</span>}
                       {sub.title}
@@ -1092,7 +1092,7 @@ export default function Sidebar({
     // Default highlight: the Introduction's own page, or (group closed) a page inside it.
     const here = selectedId === head.id || (!isOpen && currentPartId === head.id);
     return (
-      <li key={`grp-${head.id}`} className="mt-2 border-t border-[#E8DCC8] pt-2">
+      <li key={`grp-${head.id}`} className="mt-2 border-t border-[color:var(--line-hairline)] pt-2">
         {renderGroupHeading(head.id, head.title, isOpen, listId, here)}
         {isOpen && (
           <ul id={listId} className="space-y-0.5">
@@ -1104,9 +1104,9 @@ export default function Sidebar({
   };
 
   return (
-    <aside className="flex flex-col h-full bg-white border-r border-[#E8DCC8]">
+    <aside className="flex flex-col h-full bg-white border-r border-[color:var(--line-hairline)]">
       {/* Header */}
-      <div className="px-5 py-4 border-b border-[#E8DCC8]">
+      <div className="px-5 py-4 border-b border-[color:var(--line-hairline)]">
       <div className="flex items-center justify-between gap-3">
         <Link
           href={localeHref(lang)}
@@ -1163,7 +1163,7 @@ export default function Sidebar({
       {/* Search. Enter / the keyboard's "Search"/"Go" key submits the form:
           the input is blurred so the on-screen keyboard closes and the live
           results stay in view (UI rule 6). */}
-      <div className="px-4 py-3 border-b border-[#E8DCC8]">
+      <div className="px-4 py-3 border-b border-[color:var(--line-hairline)]">
         <form
           role="search"
           action="#"
@@ -1228,7 +1228,7 @@ export default function Sidebar({
       </div>
 
       {!normalizedQuery && (
-        <div className="sidebar-tabs shrink-0 flex border-b border-[#E8DCC8]" role="tablist" data-sidebar-tabs="">
+        <div className="sidebar-tabs shrink-0 flex border-b border-[color:var(--line-hairline)]" role="tablist" data-sidebar-tabs="">
           {(["contents", "bookmarks"] as const).map((k) => (
             <button
               key={k}
@@ -1249,7 +1249,7 @@ export default function Sidebar({
 
       {/* The «show all» switches are in the «Аа» panel (Reader v7.8). */}
       {offlineSave && (offlineSave.s === "loading" || offlineSave.s === "partial") && offlineSave.t > 0 && (
-        <p className="px-5 py-1.5 border-b border-[#E8DCC8] text-[11px] text-[#5C3D2E] flex items-center gap-2" data-offline-progress="">
+        <p className="px-5 py-1.5 border-b border-[color:var(--line-hairline)] text-[11px] text-[#5C3D2E] flex items-center gap-2" data-offline-progress="">
           <span>{t(ui, offlineSave.s === "partial" ? "offline.save.partial" : "offline.save.loading")}</span>
           <span className="ml-auto tabular-nums text-[#6B5440]">
             {t(ui, "offline.save.countShort", { done: String(offlineSave.d), total: String(offlineSave.t) })}
@@ -1286,7 +1286,7 @@ export default function Sidebar({
                   data-bookmark-id={b.id}
                   data-bookmark-lit={isLit ? "" : undefined}
                   data-bookmark-faded={isPale ? "" : undefined}
-                  className={`relative border-b border-[#E8DCC8] border-l-3 transition-colors ${
+                  className={`relative border-b border-[color:var(--line-hairline)] border-l-3 transition-colors ${
                     isLit ? "bg-[var(--ds-row-lit)] border-l-[var(--ap-gold)]" : "border-l-transparent hover:bg-[#FDF8F0]"
                   }`}
                 >
@@ -1360,7 +1360,7 @@ export default function Sidebar({
       )}
       <nav className="flex-1 min-h-0 flex flex-col" hidden={showBookmarks || undefined}>
       {!normalizedQuery && (
-        <div className="toc-fixed shrink-0 pt-2 pb-1 border-b border-[#E8DCC8]">
+        <div className="toc-fixed shrink-0 pt-2 pb-1 border-b border-[color:var(--line-hairline)]">
           <Link
             href={localeHref(lang)}
             onClick={(e) => {
@@ -1475,7 +1475,7 @@ export default function Sidebar({
                     .map((id) => sectionById.get(id))
                     .filter((s): s is TocSection => s !== undefined);
                   return (
-                    <li key={`part-${part.id}`} className="mt-2 border-t border-[#E8DCC8] pt-2">
+                    <li key={`part-${part.id}`} className="mt-2 border-t border-[color:var(--line-hairline)] pt-2">
                       {renderGroupHeading(
                         part.id,
                         <>

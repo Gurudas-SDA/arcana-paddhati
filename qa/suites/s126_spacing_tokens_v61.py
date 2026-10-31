@@ -8,6 +8,11 @@ Visible change = 0. Checks (static, no server):
   C) q7 the gold has one name (--accent): --rd-accent, --ds-accent, --ds-accent-deep are gone; q8 scrim / 44 px / 150 ms / 220 ms read
      tokens; q9 the six dead tokens: --ds-band, --ds-band-active, --ds-row-lit are connected, --ds-row-hover, --ds-text, --ds-text-muted removed.
 # tehniskais slieksnis Lipikāra, nav S noteikums: minimum counts of substituted places (spacing >= 25, 44 px >= 5, durations >= 12).
+  E) Q8 «тонкие линии» (Враджа Лила 31.10.2026 08:42, V grupa msg 2018, variant «а»: «один токен, в сепии свой оттенок #DCCCAC — линии
+     боковой панели в сепии станут чуть темнее»): the thin lines read ONE token --line-hairline (tokens.css: day #E8DCC8, sepia #DCCCAC,
+     night #3A3128 = the same visible colour as the night rules gave before); no #E8DCC8 thin line is left in tsx / css.
+     B is adapted: the three --rd-border declarations (day / sepia / night) now read var(--line-hairline) and are compared with the step-1
+     values through the token (HL); every other declaration is still compared one to one.
 usage: python s126_spacing_tokens_v61.py
 """
 import os
@@ -43,7 +48,7 @@ EXPAND_NEW = {
     "--space-4": "4px", "--space-8": "8px", "--space-12": "12px", "--space-16": "16px", "--space-24": "24px", "--space-32": "32px",
     "--target": "44px", "--dur-fast": "150ms", "--dur-slide": "220ms", "--mark-scrim": "rgba(0, 0, 0, 0.6)",
     "--accent": "var(--ap-gold)", "--ds-row-lit": "var(--ap-band-toc)", "--ds-band-active": "var(--rd-row-active)",
-    "--ds-band": "var(--rd-row-stripe)", "--radius-pill": "9999px",
+    "--ds-band": "var(--rd-row-stripe)", "--radius-pill": "9999px", "--line-hairline": "HL",
 }
 EXPAND_OLD = {"--rd-accent": "var(--ap-gold)", "--ds-accent-deep": "var(--ap-gold)", "--ds-accent": "var(--ap-gold)",
               "--ds-radius-pill": "9999px"}
@@ -56,12 +61,18 @@ def expand(v, table):
     return re.sub(r"\s+", " ", v.strip())
 
 
+HL_OLD = {"#E8DCC8", "#DCCCAC", "#3A3128"}  # Q8: --rd-border at step 1 (day / sepia / night) = now the token --line-hairline
+
+
 def decls(css, table):
     out = []
     for m in re.finditer(r"([\w-]+)\s*:\s*([^;{}]+);", css):
         if m.group(1) in REMOVED_DECL:
             continue
-        out.append((m.group(1), expand(m.group(2), table)))
+        v = expand(m.group(2), table)
+        if m.group(1) == "--rd-border" and v in HL_OLD:
+            v = "HL"
+        out.append((m.group(1), v))
     return out
 
 
@@ -123,6 +134,42 @@ def static():
         for pre, var in sorted(set(re.findall(r"\.([a-z-]+)-\\\[var\\\((--[a-z0-9-]+)\\\)\\\]", now(path)))):
             cls = f"{pre}-[var({var})]"
             check(path, f"D class selector .{cls} still used in components", cls in src)
+
+    # E) Q8 thin lines: one token
+    t = strip(open(os.path.join(ROOT, "design-system/tokens.css"), encoding="utf-8").read())
+    g = now("app/globals.css")
+    for theme, val in [(None, "#E8DCC8"), ("sepia", "#DCCCAC"), ("night", "#3A3128")]:
+        if theme is None:
+            blk = re.search(r":root\s*\{[^}]*?--line-hairline\s*:\s*([^;]+);", t)
+        else:
+            blk = re.search(r'html\[data-reader-theme="' + theme + r'"\]\s*\{[^}]*?--line-hairline\s*:\s*([^;]+);', t)
+        check("src", f"E q8 --line-hairline {theme or 'day'} = {val} in tokens.css", blk and blk.group(1).strip().upper() == val, blk and blk.group(1))
+    check("src", "E q8 --line-hairline declared 3 times only (day, sepia, night)", len(re.findall(r"(?m)^\s*--line-hairline\s*:", allcss)) == 3)
+    rb = re.findall(r"(?m)^\s*--rd-border\s*:\s*([^;]+);", g)
+    check("src", "E q8 --rd-border (day, sepia, night) all read var(--line-hairline)", rb == ["var(--line-hairline)"] * 3, rb)
+    check("src", "E q8 --ds-line (control lines) reads var(--line-hairline) at :root",
+          re.search(r":root\s*\{[^}]*?--ds-line\s*:\s*var\(--line-hairline\)", t) is not None)
+    # no #E8DCC8 thin line left; allowed = the two dead night override selectors (kept so B stays equal)
+    left = []
+    night_sel = re.compile(r'^\s*html\[data-reader-theme="night"\] \.(bg|border)-\\\[\\#E8DCC8\\\]')
+    for d in ["components", "app", "design-system"]:
+        for dp, _, fs in os.walk(os.path.join(ROOT, d)):
+            for f in fs:
+                if f.endswith((".tsx", ".ts", ".css")):
+                    txt = open(os.path.join(dp, f), encoding="utf-8").read()
+                    if f.endswith(".css"):
+                        txt = strip(txt)
+                    for ln, line in enumerate(txt.splitlines(), 1):
+                        if re.search(r"E8DCC8", line, re.I) and not night_sel.match(line) and not (f == "tokens.css" and "--line-hairline" in line) \
+                                and not (f == "globals.css" and line.strip() == "border: 1px solid #E8DCC8;"):
+                            left.append(f"{f}:{ln}")
+    check("src", "E q8 no #E8DCC8 thin line left in tsx / css (allowed: the day value of the token, 2 dead night selectors, the .hs-peek frame)", not left, left[:8])
+    n_tok = sum(open(os.path.join(ROOT, c), encoding="utf-8").read().count("border-[color:var(--line-hairline)]")
+                for c in ["components/Sidebar.tsx", "components/SectionContent.tsx", "components/MoodBlock.tsx"])
+    check("src", f"E q8 the 10 + 3 + 3 thin lines of Sidebar / SectionContent / MoodBlock read the token (now {n_tok}, want 16)", n_tok == 16, n_tok)
+    # the .hs-peek (floating picture) frame is NOT a sidebar line and has no night rule: it stays #E8DCC8 in all three themes, otherwise night would
+    # change from #E8DCC8 to #3A3128 (night must stay 0 px, Vraja's choice «а» concerns the sidebar lines)
+    check("src", "E q8 .hs-peek frame stays #E8DCC8 (night 0 px)", re.search(r"\.hs-peek\s*\{[^}]*?border:\s*1px solid #E8DCC8;", g) is not None)
 
 
 static()
