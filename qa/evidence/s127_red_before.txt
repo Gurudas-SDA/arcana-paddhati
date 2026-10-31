@@ -1,0 +1,16 @@
+  [FAIL] src A --radius-window declared once in tokens.css []
+  [FAIL] src A --shadow-window declared once in tokens.css []
+  [FAIL] src A --window-close-size declared once in tokens.css = var(--target) []
+  [FAIL] src A --window-close-centre declared once in tokens.css = 30px []
+  [FAIL] src A --window-close-icon declared once in tokens.css = 18px []
+  [FAIL] src A --window-close-fg declared once in tokens.css []
+  [FAIL] src A the component components/WindowClose.tsx exists ""
+  [FAIL] src A MoodBlock.tsx uses <WindowClose ""
+  [FAIL] src A BookmarkNameDialog.tsx uses <WindowClose ""
+  [FAIL] src A InstallBanner.tsx uses <WindowClose ""
+  [FAIL] src A Hotspots.tsx uses <WindowClose ""
+  [FAIL] src A no window keeps its own ✕ markup (absolute top-3 right-3 / h-12 w-12 / text ✕ in the peek) ""
+  [FAIL] src A .window-close rule: size from the token, flex-shrink 0, round, colour from the token ""
+  [FAIL] src A .window-card rule reads --radius-window and --shadow-window null
+
+0/14 passed
