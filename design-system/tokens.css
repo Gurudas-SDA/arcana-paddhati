@@ -129,5 +129,6 @@ html[data-reader-theme="night"] {
   --window-close-size: var(--target);
   --window-close-centre: 30px;
   --window-close-icon: 18px;
+  --window-close-stroke: 1.5; /* line of the close cross, Vraja Lila msg 1983 (variant A, line 1.5 px) */
   --window-close-fg: var(--ap-gold); /* one gold token: #965700 on light/sepia, #E3A03C in night (was the brown #5C3D2E: night 1.74) */
 }

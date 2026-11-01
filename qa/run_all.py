@@ -197,6 +197,8 @@ SUITES = [
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s127", file="suites/s127_window_master_v61.py", title="V61 Враджа Лила 30.10 (plāna 4. solis, jautājums 1 «согласен», jautājums 2 variants «А»): visi logi = viens meistarelements: viens rādiuss un viena ēna, krustiņš 44×44 apaļš, centrs 30/30, krusts 18 px 1:1 nesaspiests, viena krāsa; iekšējās malas pēc skalas (16; liels logs dators 24); «Аа» un valodu saraksts nemainīti",
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
+    dict(id="s132", file="suites/s132_window_close_v63.py", title="V63 Vraja Lila (msg 1983, 1948; gl.13 review 01.11): ✕ line 1.5 (token --window-close-stroke) in all 4 windows; hover and press = --surface-hover in light/sepia/night; night contrast >= 3:1",
+         devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s130", file="suites/s130_token_guard_v61.py", title="V61 Vraja Lila solis 6 (msg 1920, 30.10; msg 7164, 31.10): token_guard - jaunas cietas vērtības ārpus tokeniem = tikai BRĪDINĀJUMS (qa/token_guard.py + bāze), neloķē; --strict vēlāk",
          devices=None, fast=True, server=False),
     dict(id="s126", file="suites/s126_spacing_tokens_v61.py", title="V61 Враджа Лила 31.10 02:52 (plāna 2. solis; atbildes 7, 8, 9 ✔): atstarpju skala 4·8·12·16·24·32 (+48) un lomas = tokeni vienā vietā (tokens.css); 33 esošās vērtības lasa tokenus ar to pašu px; zelts viens vārds --accent; scrim/44 px/150-220 ms tokeni; 3 miruši tokeni pieslēgti, 3 dzēsti; redzamas izmaiņas 0",

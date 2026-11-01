@@ -2391,12 +2391,14 @@ html[data-reader-theme="night"] .hover\:bg-\[\#FDF8F0\]:hover {
   color: var(--window-close-fg);
   transition: background-color var(--dur-fast);
 }
-.window-close:hover {
-  background: var(--color-gold-light);
+.window-close:hover,
+.window-close:active {
+  background: var(--surface-hover);
 }
 .window-close svg {
   display: block;
   flex: none;
+  stroke-width: var(--window-close-stroke);
   width: var(--window-close-icon);
   height: var(--window-close-icon);
 }
@@ -2449,8 +2451,9 @@ html[data-reader-theme="night"] .hover\:bg-\[\#FDF8F0\]:hover {
   top: auto;
   bottom: -56px;
 }
-.hs-peek .window-close:hover {
-  background: var(--color-gold-light);
+.hs-peek .window-close:hover,
+.hs-peek .window-close:active {
+  background: var(--surface-hover);
 }
 /* variant Б (Vraja msg 7172): room for the ✕ above the floating picture */
 .hs-peek { --hs-peek-reserve: calc(100px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px)); }
