@@ -107,5 +107,23 @@ for fn, conv in (("book.ru-iast.json", lambda s: s), ("book.ru.json", conv_ru)):
     # «parayācyuta» — вопрос Саткирти (не исправлено): исключение из общей проверки
     badg = [b for b in badg if "ayācyuta" not in b and "айачйута" not in b]
     chk(f"{fn}: в 19 стихах нет ключа с «-» на конце", not badg, f"{len(badg)}: {badg[:5]}")
+
+# S msg 7242 «Запиши» («Стандарты» «Пословный перевод делаем по образцу BBT…; длинное составное слово делим на части, у каждой своё значение»):
+# salikums no 3+ daļām — pa daļām. # tehniskais slieksnis Lipikāra, nav S noteikums: 3+ daļas dala, 2 daļas paliek vesels (S msg 7242 koordinatora precizējums).
+COMPOUNDS = ["vivṛddha-prema-smitena", "kālindī-jala-kallola-saṅgi-māruta-sevitam", "nānā-puṣpa-latā-baddha-vṛkṣa-ṣaṇḍaiś",
+             "sthira-cara-vṛjina-ghnaḥ", "devakī-janma-vādo", "parayācyuta"]
+for fn, cv in (("book.ru-iast.json", lambda x: x), ("book.ru.json", translit)):
+    d = json.load(open(os.path.join(DATA, fn), encoding="utf-8"))
+    keys = [e.partition(" — ")[0] for v in verses(d) for e in v["wbw"].rstrip(".").split("; ")]
+    left = [c for c in COMPOUNDS if cv(c) in keys]
+    chk(f"{fn}: составные слова 3+ частей разделены (нет целым ключом)", not left, str(left))
+    chk(f"{fn}: «pāraya — переправь; acyuta» есть", cv("pāraya") in keys and cv("acyuta") in keys)
+# stih 3:40/2 — «pārayācyuta» (Hari-bhakti-vilāsa 3.132; Стандарты 14) во всех 12 книгах
+import glob
+for fp in sorted(glob.glob(os.path.join(DATA, "book*.json"))):
+    t = open(fp, encoding="utf-8").read()
+    bad, good = ("парайа̄чйута", "па̄райа̄чйута") if fp.endswith("book.ru.json") else ("parayācyuta", "pārayācyuta")
+    n_bad = t.count(bad + "\"") + t.count(bad + "\\")  # panta teksts (rinda beidzas)
+    chk(f"{os.path.basename(fp)}: panta tekstā «pārayācyuta», nav «parayācyuta»", good in t and "māṁ " + bad not in t and "ма̄м̇ " + bad not in t, "")
 print(f"s134: {sum(res)}/{len(res)} passed", flush=True)
 sys.exit(0 if res and all(res) else 1)
