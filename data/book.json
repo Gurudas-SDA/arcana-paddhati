@@ -7295,6 +7295,22 @@
           ]
         },
         {
+          "id": "song-damodara-dhyana",
+          "title": "Meditation on Śrī Dāmodara (Dāmodara-dhyāna)",
+          "content": [
+            {
+              "type": "text",
+              "content": "Śrīla Rūpa Gosvāmī, Stava-mālā (as told by Gurudeva, CA lecture 5652, 22.11.2020)"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "aṅga-śyāmalima-chaṭābhir abhito mandī-kṛtendīvaraṁ\njāḍyaṁ jāguḍa-rociṣāṁ vidadhataṁ paṭṭāmbarasya śriyā\nvṛndāraṇya-vilāsinaṁ hṛdi lasad-dāmābhir āmodaraṁ\nrādhā-skandha-niveśitojjvala-bhujaṁ dhyāyema dāmodaram",
+              "wbw": "aṅga-śyāmalima-chaṭābhir — by the luster of the dark color of His body; abhito — everywhere; mandī-kṛtendīvaraṁ — eclipsing the blue lotuses; jāḍyaṁ — dullness; jāguḍa-rociṣāṁ — of the glow of kuṅkuma; vidadhataṁ — bringing; paṭṭāmbarasya śriyā — by the splendor of His silk garment; vṛndāraṇya-vilāsinaṁ — enjoying pastimes in Vṛndāvana forest; hṛdi — on the chest; lasad-dāmābhir — with shining garlands; āmodaraṁ — fragrant; rādhā-skandha-niveśitojjvala-bhujaṁ — whose splendid arm rests on Rādhā's shoulder; dhyāyema — let us meditate; dāmodaram — on Dāmodara",
+              "translation": "Let us meditate on Śrī Dāmodara. The luster of His dark body eclipses the blue lotuses everywhere, the splendor of His silk garment dims the glow of kuṅkuma. He enjoys pastimes in Vṛndāvana forest, His chest is fragrant with shining garlands, and His splendid arm rests on Rādhā's shoulder."
+            }
+          ]
+        },
+        {
           "id": "song-nanda-nandanastakam",
           "title": "Śrī Nanda-nandanāṣṭakam",
           "content": [

@@ -46,7 +46,7 @@ from i18n_sections import put  # noqa: E402
 PART_ID = "festivals-vows"
 AFTER = "gaura-arati-songs"
 SID = "kartika-bhajans"
-SONGS = {"song-damodarastakam": 8, "song-nanda-nandanastakam": 9, "song-radha-krpa-kataksa-stava-raja": 13}
+SONGS = {"song-damodarastakam": 8, "song-damodara-dhyana": 1, "song-nanda-nandanastakam": 9, "song-radha-krpa-kataksa-stava-raja": 13}
 OTHER = ["lv", "de", "fr", "es", "it", "uk", "hu", "pt", "lt"]
 FILES = {"en": "book.json", "ru": "book.ru.json", "ru-iast": "book.ru-iast.json"}
 

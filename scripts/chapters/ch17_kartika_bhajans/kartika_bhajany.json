@@ -72,6 +72,22 @@
         ]
       },
       {
+        "id": "song-damodara-dhyana",
+        "title": "Медитация на Шри Дамодару (дамодара-дхьяна)",
+        "content": [
+          {
+            "type": "text",
+            "content": "Шрила Рупа Госвами, «Става-мала» (по словам Гурудева, лекция CA 5652, 22.11.2020)"
+          },
+          {
+            "type": "verse",
+            "sanskrit": "aṅga-śyāmalima-chaṭābhir abhito mandī-kṛtendīvaraṁ\njāḍyaṁ jāguḍa-rociṣāṁ vidadhataṁ paṭṭāmbarasya śriyā\nvṛndāraṇya-vilāsinaṁ hṛdi lasad-dāmābhir āmodaraṁ\nrādhā-skandha-niveśitojjvala-bhujaṁ dhyāyema dāmodaram",
+            "wbw": "aṅga-śyāmalima-chaṭābhir — сиянием тёмного цвета Его тела; abhito — повсюду; mandī-kṛtendīvaraṁ — затмевающего голубые лотосы; jāḍyaṁ — тусклость; jāguḍa-rociṣāṁ — сияния кункумы; vidadhataṁ — наводящего; paṭṭāmbarasya śriyā — блеском шёлкового одеяния; vṛndāraṇya-vilāsinaṁ — наслаждающегося играми в лесу Вриндавана; hṛdi — на груди; lasad-dāmābhir — сверкающими гирляндами; āmodaraṁ — благоухающего; rādhā-skandha-niveśitojjvala-bhujaṁ — Чья сияющая рука покоится на плече Радхи; dhyāyema — будем медитировать; dāmodaram — на Дамодару",
+            "translation": "Будем медитировать на Шри Дамодару. Сияние Его тёмного тела повсюду затмевает голубые лотосы, блеск Его шёлкового одеяния затмевает сияние кункумы. Он наслаждается играми в лесу Вриндавана, Его грудь благоухает сверкающими гирляндами, а Его сияющая рука покоится на плече Радхи."
+          }
+        ]
+      },
+      {
         "id": "song-nanda-nandanastakam",
         "title": "Шри Нанда-нанданаштака",
         "content": [
@@ -293,6 +309,22 @@
             "sanskrit": "namas te ’stu dāmne sphurad-dīpti-dhāmne\ntvadīyodarāyātha viśvasya dhāmne\nnamo rādhikāyai tvadīya priyāyai\nnamo ’nanta-līlāya devāya tubhyam",
             "wbw": "namas — respectful obeisance; te — Your; ’stu — let it be so; dāmne — to the celebrated rope binding Your belly; sphurad — splendrous; dīpti — spiritual effulgence; dhāmne — an abode; tvadīyodarāyātha — unto Your belly, furthermore; viśvasya — of the entire universe [of moving and non-moving entities]; dhāmne — to the support; namo — I bow down; rādhikāyai — unto Śrīmatī Rādhikā; tvadīya — Your; priyāyai — unto the most beloved; namo — respectful obeisance; ’nanta-līlāya — to Your unlimited pastimes; devāya — to the divine Lord; tubhyam — to You",
             "translation": "O Dāmodara, I offer praṇāma to the rope binding Your belly, for it is an abode of brilliant effulgence. I offer praṇāma to Your belly, which is the mainstay of the entire universe. I offer praṇāma again and again to Śrīmatī Rādhikā, Your most beloved. And I offer praṇāma to You, my Divine Lord, who perform unlimited transcendental pastimes."
+          }
+        ]
+      },
+      {
+        "id": "song-damodara-dhyana",
+        "title": "Meditation on Śrī Dāmodara (Dāmodara-dhyāna)",
+        "content": [
+          {
+            "type": "text",
+            "content": "Śrīla Rūpa Gosvāmī, Stava-mālā (as told by Gurudeva, CA lecture 5652, 22.11.2020)"
+          },
+          {
+            "type": "verse",
+            "sanskrit": "aṅga-śyāmalima-chaṭābhir abhito mandī-kṛtendīvaraṁ\njāḍyaṁ jāguḍa-rociṣāṁ vidadhataṁ paṭṭāmbarasya śriyā\nvṛndāraṇya-vilāsinaṁ hṛdi lasad-dāmābhir āmodaraṁ\nrādhā-skandha-niveśitojjvala-bhujaṁ dhyāyema dāmodaram",
+            "wbw": "aṅga-śyāmalima-chaṭābhir — by the luster of the dark color of His body; abhito — everywhere; mandī-kṛtendīvaraṁ — eclipsing the blue lotuses; jāḍyaṁ — dullness; jāguḍa-rociṣāṁ — of the glow of kuṅkuma; vidadhataṁ — bringing; paṭṭāmbarasya śriyā — by the splendor of His silk garment; vṛndāraṇya-vilāsinaṁ — enjoying pastimes in Vṛndāvana forest; hṛdi — on the chest; lasad-dāmābhir — with shining garlands; āmodaraṁ — fragrant; rādhā-skandha-niveśitojjvala-bhujaṁ — whose splendid arm rests on Rādhā's shoulder; dhyāyema — let us meditate; dāmodaram — on Dāmodara",
+            "translation": "Let us meditate on Śrī Dāmodara. The luster of His dark body eclipses the blue lotuses everywhere, the splendor of His silk garment dims the glow of kuṅkuma. He enjoys pastimes in Vṛndāvana forest, His chest is fragrant with shining garlands, and His splendid arm rests on Rādhā's shoulder."
           }
         ]
       },

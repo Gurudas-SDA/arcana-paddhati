@@ -7423,6 +7423,22 @@
           ]
         },
         {
+          "id": "song-damodara-dhyana",
+          "title": "Медитация на Шри Дамодару (дамодара-дхьяна)",
+          "content": [
+            {
+              "type": "text",
+              "content": "Шрила Рупа Госвами, «Става-мала» (по словам Гурудева, лекция CA 5652, 22.11.2020)"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "aṅga-śyāmalima-chaṭābhir abhito mandī-kṛtendīvaraṁ\njāḍyaṁ jāguḍa-rociṣāṁ vidadhataṁ paṭṭāmbarasya śriyā\nvṛndāraṇya-vilāsinaṁ hṛdi lasad-dāmābhir āmodaraṁ\nrādhā-skandha-niveśitojjvala-bhujaṁ dhyāyema dāmodaram",
+              "wbw": "aṅga-śyāmalima-chaṭābhir — сиянием тёмного цвета Его тела; abhito — повсюду; mandī-kṛtendīvaraṁ — затмевающего голубые лотосы; jāḍyaṁ — тусклость; jāguḍa-rociṣāṁ — сияния кункумы; vidadhataṁ — наводящего; paṭṭāmbarasya śriyā — блеском шёлкового одеяния; vṛndāraṇya-vilāsinaṁ — наслаждающегося играми в лесу Вриндавана; hṛdi — на груди; lasad-dāmābhir — сверкающими гирляндами; āmodaraṁ — благоухающего; rādhā-skandha-niveśitojjvala-bhujaṁ — Чья сияющая рука покоится на плече Радхи; dhyāyema — будем медитировать; dāmodaram — на Дамодару",
+              "translation": "Будем медитировать на Шри Дамодару. Сияние Его тёмного тела повсюду затмевает голубые лотосы, блеск Его шёлкового одеяния затмевает сияние кункумы. Он наслаждается играми в лесу Вриндавана, Его грудь благоухает сверкающими гирляндами, а Его сияющая рука покоится на плече Радхи."
+            }
+          ]
+        },
+        {
           "id": "song-nanda-nandanastakam",
           "title": "Шри Нанда-нанданаштака",
           "content": [
