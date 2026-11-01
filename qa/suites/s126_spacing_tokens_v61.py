@@ -84,7 +84,7 @@ def decls(css, table):
 # V61 step 5 (Vraja Lila msg 7167 «3 - 48», q4 «принять»; sections on the scale): the declarations that were deliberately moved (new, step-1 value);
 # the two added rules (padding-inline from 1024 px; the one main dark text) sit between /*@v61s5*/ markers. Checked in s128.
 STEP5_CHANGES = {
-    (("padding", "1.25rem 16px 2rem"), ("padding", "1.25rem 13px 2rem")),
+    (("padding", "1.25rem 12px 2rem"), ("padding", "1.25rem 13px 2rem")),
     (("padding", "2.25rem 24px 3rem"), ("padding", "2.25rem 4.5vw 3rem")),
     (("padding", "8px 32px 8px 16px"), ("padding", "7px 34px 7px 12px")),
     (("bottom", "8px"), ("bottom", "6px")),
