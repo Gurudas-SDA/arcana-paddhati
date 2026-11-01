@@ -4,7 +4,9 @@ Agrāk (s6; msg 1920, 30.10; msg 7164, 31.10): «Автоматическая п
 позже — останавливает». Tagad PĒC NOKLUSĒJUMA BLOĶĒ (exit 1, ja ir jaunas cietas vērtības ārpus bāzes un izņēmumiem); `--warn` = vecais
 tikai-brīdinājums (exit 0). Katrai jaunajai vērtībai paziņojumā tiek IETEIKTS tuvākais esošais tokens (krāsai — tuvākais krāsas tokens no
 design-system/tokens.css pēc RGB attāluma; px izmēram — tuvākais no --space-* / --radius-* skalas, piem. «13px → var(--space-12)»);
-labošana ir cilvēka/Mantrī darbs, `--fix` nav.
+`--fix` (V61 s8, Vraja Lila msg 7250 «автоматически на ближайший токен», 7251 «до и после») pats aizstāj JAUNU cietu vērtību ar tuvākā tokena var(--…)
+(tā pati īpašību grupa: krāsa → krāsas tokens, atstarpe → --space-*, rādiuss → rādiusa tokens); bāze un izņēmumi netiek aiztikti; ja grupā tokena nav /
+vērtība nav nosakāma (hsl, alfa, width/top/font-size, 0, negatīva, krāsa .tsx teksta literālī) — atstāj un bloķē kā līdz šim. `--report FILE` raksta Markdown «до / после».
 Izņēmumi: qa/token_guard_exceptions.json — saraksts [{"value","file","reason","who"}] (who = msg Nr.); vērtība, kas ir izņēmumos, nav kļūda.
 Ieraksts bez reason vai who (vai value/file) ir nederīgs → token_guard kļūda (exit 1; arī ar --warn).
 
@@ -16,7 +18,7 @@ qa/token_guard_baseline.json (esošās vērtības; šodien brīdinājumu nav). �
     krāsu, ja vērtībā nav var(--…).
 Neķer: 0, auto, %, vh/vw, calc bez px/krāsas, vērtības no var(--…), komentārus; design-system/tokens.css, qa/, node_modules, out, .next netiek skenēti.
 Bāze: (fails, vērtība) pāri — rindu numuri nav svarīgi, tāpēc rindu nobīde neradīs brīdinājumu.
-Lietošana: python qa/token_guard.py [--warn] [--root DIR] [--update-baseline] [--exceptions FILE]
+Lietošana: python qa/token_guard.py [--warn] [--fix [--report FILE]] [--root DIR] [--update-baseline] [--exceptions FILE]
 """
 import argparse
 import json
@@ -95,8 +97,12 @@ def _rgb(h):
 def load_scales(root):
     css = _tokens_css(root)
     colors, spaces, radii = [], [], []
+    seen_names = set()
     for name, val in re.findall(r"(--[\w-]+)\s*:\s*([^;]+);", css):
         val = val.strip()
+        if name in seen_names:  # tikai pirmā definīcija (:root, dienas vērtība); tēmu pārdefinējumi (sēpija/nakts) neskaitās
+            continue
+        seen_names.add(name)
         if re.fullmatch(r"#[0-9a-fA-F]{6}|#[0-9a-fA-F]{3}", val):
             colors.append((name, _rgb(val)))
         m = re.fullmatch(r"(\d+(?:\.\d+)?)px", val)
@@ -144,6 +150,149 @@ def suggest(v, scales):
         name = min(scale, key=lambda x: (abs(x[1] - px), x[1]))[0]
         parts.append(f"{t} → var({name})")
     return "; ".join(parts)
+
+
+# ---------- --fix: automātiska aizstāšana ar tuvāko tokenu ----------
+COLOR_PROPS = {"color", "background", "background-color", "border-color", "outline"}
+SPACE_PROPS = {"padding", "margin", "gap", "row-gap", "column-gap"} | {f"{a}-{b}" for a in ("padding", "margin")
+               for b in ("top", "right", "bottom", "left", "inline", "block")}
+RADIUS_PROPS = {"border-radius"}
+ANY = re.compile(FUNC.pattern + "|" + HEX.pattern + "|" + UNIT.pattern, re.I)
+TW_SPACE = re.compile(r"^((?:[\w!-]+:)*)(?:p|px|py|pt|pr|pb|pl|ps|pe|m|mx|my|mt|mr|mb|ml|ms|me|gap|gap-x|gap-y|space-x|space-y)-\[([^\]]+)\]$")
+TW_RADIUS = re.compile(r"^((?:[\w!-]+:)*)rounded(?:-(?:t|b|l|r|s|e|tl|tr|bl|br|ss|se|es|ee))?-\[([^\]]+)\]$")
+TW_COLOR = re.compile(r"^((?:[\w!-]+:)*)(?:text|bg|border|border-[xytblrse]|fill|stroke|outline|ring|from|to|via|divide|accent|caret|decoration|placeholder)-\[([^\]]+)\]$")
+NOT_COLOUR_CTX = re.compile(r"(href|id|htmlFor|hash|location|url)\s*[=:(]?\s*[\"'(]?\s*$", re.I)
+
+
+def token_values(root):
+    out = {}
+    for n, v in re.findall(r"(--[\w-]+)\s*:\s*([^;]+);", _tokens_css(root)):
+        out.setdefault(n, v.strip())
+    return out
+
+
+def fix_string(s, kind, scales, tv):
+    """s — vērtības teksts; kind = 'color' | 'space' | 'radius' | None -> (jaunais teksts, [(vecais, tokens, tokena vērtība, starpība)]) vai None."""
+    colors, spaces, radii = scales
+    changes = []
+    bad = []
+
+    def sub(m):
+        t = m.group(0)
+        if t[0] == "#" or t.lower().startswith(("rgb", "hsl")):
+            if kind != "color" or not colors:
+                bad.append(t)
+                return t
+            if t[0] == "#":
+                if len(t) not in (4, 7):
+                    bad.append(t)
+                    return t
+                c = _rgb(t)
+            else:
+                nums = re.findall(r"\d+(?:\.\d+)?", t)
+                if not t.lower().startswith("rgb") or len(nums) < 3 or (len(nums) == 4 and float(nums[3]) != 1) or len(nums) > 4 \
+                        or any(float(x) > 255 for x in nums[:3]):
+                    bad.append(t)
+                    return t
+                c = tuple(int(float(x)) for x in nums[:3])
+            name = _nearest_colour(c, colors)
+            tc = dict(colors)[name]
+            big = max(abs(a - b) for a, b in zip(c, tc)) >= 16  # tehniskais slieksnis Lipikāra, nav S/V noteikums
+            changes.append((t, name, tv.get(name, ""), "ΔRGB %d" % round(sum((a - b) ** 2 for a, b in zip(c, tc)) ** 0.5), big))
+            return f"var({name})"
+        scale = {"space": spaces, "radius": radii}.get(kind)
+        px = None if t.startswith("-") else _num_px(t)
+        if not scale or not px:
+            bad.append(t)
+            return t
+        name, npx = min(scale, key=lambda x: (abs(x[1] - px), x[1]))
+        d = npx - px
+        big = abs(d) >= 4 or abs(d) / px >= 0.2  # tehniskais slieksnis Lipikāra, nav S/V noteikums
+        changes.append((t, name, tv.get(name, ""), ("%+g" % d).replace("-", "−") + "px", big))
+        return f"var({name})"
+
+    out = ANY.sub(sub, s)
+    if bad or not changes:
+        return None
+    return out, changes
+
+
+def tw_kind(cls):
+    for rx, kind in ((TW_SPACE, "space"), (TW_RADIUS, "radius"), (TW_COLOR, "color")):
+        m = rx.match(cls)
+        if m:
+            return kind, m
+    return None, None
+
+
+def selector_for(rel, text, n):
+    """CSS — selektors tuvākajā rindā ar «{» (uz augšu); .tsx — komponenta fails (+ rinda)."""
+    if not rel.endswith(".css"):
+        return f"{os.path.basename(rel)} (komponents, rinda {n})"
+    lines = text.split("\n")
+    for i in range(n - 1, -1, -1):
+        if "{" in lines[i]:
+            sel = lines[i].split("{")[0].strip()
+            if sel:
+                return sel
+            if i > 0 and lines[i - 1].strip():
+                return lines[i - 1].strip().rstrip(",")
+    return ""
+
+
+def fix_file(rel, text, items, scales, tv):
+    """items = [(rel, n, v)] -> (jaunais teksts, [(n, īpašība, vecais, tokens, vērtība, starpība)], [neizlabotie items])"""
+    lines = text.split("\n")
+    orig = text
+    done, left = [], []
+    is_css = rel.endswith(".css")
+    for _, n, v in items:
+        O = lines[n - 1]
+        ok = False
+        mp = re.match(r"^([a-z-]+):(.*)$", v, re.S)
+        if mp and mp.group(1) in (COLOR_PROPS | SPACE_PROPS | RADIUS_PROPS | {"border", "outline"} | set(re.findall(r"[a-z-]+", PROPS))):
+            prop, val = mp.group(1), mp.group(2)
+            kind = "color" if prop in COLOR_PROPS else "space" if prop in SPACE_PROPS else "radius" if prop in RADIUS_PROPS else None
+            for m in DECL.finditer(O):
+                if m.group(1) == prop and m.group(2).strip().strip("\"'`,") == val:
+                    r = fix_string(m.group(2), kind, scales, tv)
+                    if r:
+                        lines[n - 1] = O[:m.start(2)] + r[0] + O[m.end(2):]
+                        done += [(n, prop, *c, selector_for(rel, orig, n)) for c in r[1]]
+                        ok = True
+                    break
+        elif re.search(r"-\[", v):
+            kind, m = tw_kind(v)
+            if kind:
+                inner = m.group(2)
+                r = fix_string(inner, kind, scales, tv)
+                if r and v in O:
+                    new_in = f"color:{r[0]}" if kind == "color" else r[0]
+                    new = v.replace("[" + inner + "]", "[" + new_in + "]", 1)
+                    lines[n - 1] = O.replace(v, new, 1)
+                    done += [(n, v.split("-[")[0] + "-[…]", *c, selector_for(rel, orig, n)) for c in r[1]]
+                    ok = True
+        elif is_css and v in O and not NOT_COLOUR_CTX.search(O[:O.find(v)]):
+            r = fix_string(v, "color", scales, tv)
+            if r:
+                lines[n - 1] = O.replace(v, r[0], 1)
+                done += [(n, "color", *c, selector_for(rel, orig, n)) for c in r[1]]
+                ok = True
+        if not ok:
+            left.append((rel, n, v))
+    return "\n".join(lines), done, left
+
+
+def write_report(path, changes):
+    import datetime
+    with open(path, "w", encoding="utf-8") as fh:
+        fh.write(f"# token_guard — замены до и после ({datetime.date.today():%Y.%m.%d})\n\n"
+                 "Новые «жёсткие» значения автоматически заменены ближайшим токеном (Враджа Лила, msg 7250/7251).\n\n"
+                 "Метка «заметно»: отступ/размер/радиус — разница ≥ 4px или ≥ 20 %; цвет — любой канал ≥ 16 из 255; остальное — «мелко».\n\n"
+                 "| Файл:строка | Свойство | до | после | разница | заметность | селектор |\n|---|---|---|---|---|---|---|\n")
+        for rel, n, prop, old, tok, val, d, big, sel in changes:
+            fh.write(f"| {rel}:{n} | {prop} | {old} | var({tok}) = {val} | {d} | {'заметно' if big else 'мелко'} | "
+                     f"{sel.replace('|', '/') if big else ''} |\n")
 
 
 def load_exceptions(path):
@@ -198,6 +347,8 @@ def main(argv=None):
     ap.add_argument("--baseline", default=BASELINE)
     ap.add_argument("--exceptions", default=EXCEPTIONS)
     ap.add_argument("--update-baseline", action="store_true")
+    ap.add_argument("--fix", action="store_true", help="aizstāt jaunās vērtības ar tuvāko tokenu")
+    ap.add_argument("--report", default="", help="--fix: Markdown «до / после» fails")
     a = ap.parse_args(argv)
     found = collect(a.root)
     if a.update_baseline:
@@ -217,6 +368,28 @@ def main(argv=None):
         print(f"KĻŪDA token_guard: {os.path.basename(a.exceptions)}: {e}")
     new = [(r, n, v) for r, n, v in found if v not in base.get(r, set()) and not is_excepted(exc, r, v)]
     scales = load_scales(a.root)
+    if a.fix and new:
+        tv = token_values(a.root)
+        allch, left = [], []
+        for rel in sorted({r for r, _, _ in new}):
+            fp = os.path.join(a.root, rel)
+            with open(fp, encoding="utf-8") as fh:
+                text = fh.read()
+            t2, done, lf = fix_file(rel, text, [x for x in new if x[0] == rel], scales, tv)
+            if done:
+                with open(fp, "w", encoding="utf-8") as fh:
+                    fh.write(t2)
+            allch += [(rel, *d) for d in done]
+            left += lf
+        for rel, n, prop, old, tok, val, d, big, sel in allch:
+            print(f"token_guard --fix: {rel}:{n} {old} → var({tok}) (vērtība {val}; {prop}; {d}; {'заметно' if big else 'мелко'})")
+        nz = sum(1 for c in allch if c[7])
+        print(f"token_guard --fix: aizstātas {len(allch)} vērtības, atstātas {len(left)}")
+        if nz:
+            print(f"TOKEN_FIX ZAMETNO: {nz}")
+        if a.report and allch:
+            write_report(a.report, allch)
+        new = left
     label = "BRĪDINĀJUMS" if a.warn else "KĻŪDA"
     for r, n, v in new:
         s = suggest(v, scales)
