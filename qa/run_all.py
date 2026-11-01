@@ -237,6 +237,8 @@ SUITES = [
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s46", file="suites/s46_l21_field.py", title="L21 lauks ap figūru (noteikums 105): ≥ 1,5 % ovāla platuma — 1,0 % un ārpus krīt, 1,6 % iet (temp kopijas)",
          devices=None, fast=True, server=False),
+    dict(id="s134", file="suites/s134_a132_poslovno_bbt.py", title="A132 Satkirti msg 7224/7201/7194: pasāža vārdu tulkojumi 18 pantos BBT formā — 36 vecie ieraksti (pārnesti, garie, saplūdušie) vairs nav, nav atslēgas ar «-» beigās; RU + RU-IAST",
+         devices=None, fast=True, server=False),
     dict(id="s108", file="suites/s108_a110_spelling_four_words.py", title="A110 Satkirti msg 6501/6502: rakstība viśrāma, vyajana, puṣpāṇi, nityānandāya visās valodās (Method of Worship 2); vecās formas nav, jaunās ir; viśramya nemainīts",
          devices=None, fast=True, server=False),
     dict(id="s107", file="suites/s107_edge_bars_stay_v55.py", title="V55 Vraja 1728/1730 «ВАЖНО»: nodaļas SĀKUMĀ un BEIGĀS (ritinot līdz malai) abas joslas izbrauc un PALIEK — 10× sākums un beigas, «Страницы» un «Лента», pirksts + inerce (garš metiens >1,5 s) + iPhone rubber-band",
