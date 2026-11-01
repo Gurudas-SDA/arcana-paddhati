@@ -221,7 +221,7 @@ export default function AppShell({
     // (the book of the language just left may still be on screen for a moment: it is not this one)
     if (scrollMode() && !document.querySelector(`[data-continuous-book][data-book-lang="${lang}"]`)) return;
     return restorePlace() ?? undefined;
-  }, [pathname, bookShown, layout, lang]);
+  }, [pathname, bookShown, lang]);
 
   const [searchQuery, setSearchQuery] = useState("");
   const searchQueryRef = useRef("");
