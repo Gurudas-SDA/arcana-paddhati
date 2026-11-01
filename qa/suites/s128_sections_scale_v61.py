@@ -1,7 +1,7 @@
 """V61 step 5 «Разделы» (Враджа Лила, plan step 5; her decisions: msg 7167 31.10.2026 «3 - 48», question 4 «принять», question 5 «принять»).
 
 Rule text (Vraja Lila, V61 plan, step 5, decisions of 30–31.10.2026):
- «3 - 48» (msg 7167): the side margin of the chapter text on a computer is FIXED 48 px (not 4.5 % of the width); phone 16 (scale);
+ «3 - 48» (msg 7167): the side margin of the chapter text on a computer is FIXED 48 px (not 4.5 % of the width); phone 12 (scale; 16 broke UI-7.2 s02 column >= 92 %);
  the home page and «Содержание» margins follow the scale 4·8·12·16·24·32 (+48 only the page bottom and the chapter's side margin);
  the 2 px between the «Содержание» rows is the one exception (--space-dense);
  question 4 «принять»: at night the card «Продолжить» looks the same as «Сохранение» (one look);
@@ -12,7 +12,7 @@ Acceptance: (1) the chapter text starts 48 px from the article edge at any width
   p.text-[15px] (class text-[#1a1a1a]; the first bare <p> is a secondary text, not body). Body in the live book is #1a1a1a already, so no colour changes.
 
 Checks
-  A) source: .reader-article side padding: phone var(--space-16), 640-1023 var(--space-24) (technical choice: the old 4.5vw was 29-46 px there),
+  A) source: .reader-article side padding: phone var(--space-12), 640-1023 var(--space-24) (technical choice: the old 4.5vw was 29-46 px there),
      >= 1024 var(--space-48) (token --pad-article-wide declared once in tokens.css); no 4.5vw left;
   B) source: the home cards (.home-resume*, .home-save*) and the «Содержание» panel (Sidebar.tsx) and the home page (HomePage.tsx) use only scale values
      in padding / margin / gap (var(--space-N), Tailwind 1/2/3/4/6/8/12, 0 and the dense 2 px = space-y-0.5 between the rows); the icon / button
@@ -20,7 +20,7 @@ Checks
   C) source + app: at night the card «Продолжить» has the SAME background / border colour / text colour / padding as «Сохранение»;
   D) source + app: one main dark text: the light-theme h2 and h3 and the text read var(--text-primary) (= --rd-fg): day h2 = h3 = rgb(26,26,26),
      sepia h2 = h3 = body text = rgb(42,32,22), night unchanged (--rd-fg);
-  E) app: the chapter article side padding = 48 at 1440 and 1024 wide; 24 at 800; 16 on the phone.
+  E) app: the chapter article side padding = 48 at 1440 and 1024 wide; 24 at 800; 12 on the phone.
 # tehniskais slieksnis Lipikāra, nav S noteikums: ±1 px measuring tolerance; 640-1023 = 24 (the plan left it to the scale: 16 or 24).
 usage: python s128_sections_scale_v61.py [<base-url>]
 """
@@ -78,8 +78,8 @@ def static():
     d = re.findall(r"(?m)^\s*--pad-article-wide\s*:\s*([^;]+);", tok)
     check("src", "A --pad-article-wide declared once = var(--space-48)", d == ["var(--space-48)"], d)
     check("src", "A no 4.5vw left in globals.css", "4.5vw" not in css)
-    ph = re.search(r"\.reader-article\s*\{[^}]*?padding\s*:\s*[^;]*?var\(--space-16\)[^;]*;", css)
-    check("src", "A phone: .reader-article side padding var(--space-16)", bool(ph), "")
+    ph = re.search(r"\.reader-article\s*\{[^}]*?padding\s*:\s*[^;]*?var\(--space-12\)[^;]*;", css)
+    check("src", "A phone: .reader-article side padding var(--space-12)", bool(ph), "")
     got = {}
     for k, v in re.findall(r"@media \(min-width: (\d+)px\)\s*\{\s*\.reader-article\s*\{([^}]*)\}", css):
         got[k] = got.get(k, "") + v
@@ -134,7 +134,7 @@ def app():
     with sync_playwright() as p:
         b = p.chromium.launch()
         for tag, kw, want in [("1440", {"viewport": {"width": 1440, "height": 900}}, 48), ("1024", {"viewport": {"width": 1024, "height": 768}}, 48),
-                              ("800", {"viewport": {"width": 800, "height": 900}}, 24), ("iPhone 14", p.devices["iPhone 14"], 16)]:
+                              ("800", {"viewport": {"width": 800, "height": 900}}, 24), ("iPhone 14", p.devices["iPhone 14"], 12)]:
             c = b.new_context(service_workers="block", locale="ru-RU", **kw)
             c.add_init_script("localStorage.setItem('ap.readerHintSeen','1');localStorage.setItem('installDismissed','true');")
             pg = c.new_page()

@@ -999,7 +999,7 @@ body,
   width: 100%;
   max-width: 50em;
   margin-inline: auto;
-  padding: 1.25rem var(--space-16) 2rem;
+  padding: 1.25rem var(--space-12) 2rem; /* V61 step 5: phone 12 on the scale — 16 broke UI-7.2 «минимальные поля» (s02: column >= 92 % of the viewport) */
 }
 @media (min-width: 640px) {
   .reader-article {
