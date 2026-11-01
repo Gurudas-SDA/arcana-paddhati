@@ -199,6 +199,8 @@ SUITES = [
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s132", file="suites/s132_window_close_v63.py", title="V63 Vraja Lila (msg 1983, 1948; gl.13 review 01.11): ✕ line 1.5 (token --window-close-stroke) in all 4 windows; hover and press = --surface-hover in light/sepia/night; night contrast >= 3:1",
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
+    dict(id="s131", file="suites/s131_search_radius_focus_v62.py", title="V62 Vraja Lila 01.11 msg 7208 «строка поиска при нажатии не должна менять радиус углов» (7210: рамка толще — окей): search/bookmark name field - stūru rādiuss fokusā/pieskārienā = bez fokusa, biezāks rāmis paliek; iPhone + desktop, 3 tēmas",
+         devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s130", file="suites/s130_token_guard_v61.py", title="V61 Vraja Lila solis 6 (msg 1920, 30.10; msg 7164, 31.10): token_guard - jaunas cietas vērtības ārpus tokeniem = tikai BRĪDINĀJUMS (qa/token_guard.py + bāze), neloķē; --strict vēlāk",
          devices=None, fast=True, server=False),
     dict(id="s126", file="suites/s126_spacing_tokens_v61.py", title="V61 Враджа Лила 31.10 02:52 (plāna 2. solis; atbildes 7, 8, 9 ✔): atstarpju skala 4·8·12·16·24·32 (+48) un lomas = tokeni vienā vietā (tokens.css); 33 esošās vērtības lasa tokenus ar to pašu px; zelts viens vārds --accent; scrim/44 px/150-220 ms tokeni; 3 miruši tokeni pieslēgti, 3 dzēsti; redzamas izmaiņas 0",

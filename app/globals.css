@@ -146,7 +146,9 @@ body {
 
 /* Keyboard focus: ONE gold line, only for keyboard navigation (not mouse clicks) —
    design-system/components.css «Focus» (V43, one focus style). */
-:focus-visible {
+/* V62 (Vraja Lila msg 7208): text fields (.ds-field) keep their own corner radius in focus; :where() keeps
+   the specificity of the old rule. */
+:focus-visible:where(:not(.ds-field)) {
   border-radius: 2px;
 }
 
