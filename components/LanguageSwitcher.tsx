@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { exitGhost } from "@/lib/exitGhost";
 import { useRouter } from "next/navigation";
+import { capturePlace, keepPlace } from "@/lib/readingMode";
 import {
   LANG_STORAGE_KEY,
   OFFERED_LANGUAGES,
@@ -19,8 +20,8 @@ import {
  * the current one on a cream base with a gold ✓. A tap on the dimmed page,
  * Esc or a choice closes it; the focus returns to the field.
  *
- * Switching itself is unchanged: it keeps the current section (and subsection
- * anchor); the choice is remembered in localStorage, but the URL always
+ * Switching keeps the current section and the place in it (the text block at the
+ * top of the screen, lib/readingMode.ts keepPlace; V65); the choice is remembered in localStorage, but the URL always
  * decides which language is shown.
  */
 type Place = { left: number; width: number; top: number; maxHeight: number };
@@ -115,6 +116,8 @@ export default function LanguageSwitcher({
     } catch {
       // storage unavailable — the URL still carries the language
     }
+    // V65 (Vraja Lila msg 7218): the same chapter, the same place in it — only the language changes.
+    keepPlace(sectionId ? capturePlace() : null);
     const href = localeHref(next, sectionId) + (sectionId ? window.location.hash : "");
     if (onNavigate) onNavigate(() => router.push(href));
     else router.push(href);

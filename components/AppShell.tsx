@@ -215,7 +215,13 @@ export default function AppShell({
     return () => window.clearTimeout(fallback);
   }, [layout, router]);
   // A kept place is put back once its chapter is shown in the other export.
-  useEffect(() => restorePlace() ?? undefined, [pathname, bookShown]);
+  // «Прокручивать»: the chapter page of another language is only the way to the book (the effect above
+  // replaces it) — the place waits for the book itself (V65, language switch keeps the place).
+  useEffect(() => {
+    // (the book of the language just left may still be on screen for a moment: it is not this one)
+    if (scrollMode() && !document.querySelector(`[data-continuous-book][data-book-lang="${lang}"]`)) return;
+    return restorePlace() ?? undefined;
+  }, [pathname, bookShown, layout, lang]);
 
   const [searchQuery, setSearchQuery] = useState("");
   const searchQueryRef = useRef("");

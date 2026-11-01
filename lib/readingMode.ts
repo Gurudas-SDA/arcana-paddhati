@@ -30,6 +30,11 @@ export interface Place {
   sectionId: string;
   index: number;
   delta: number;
+  /** The subsection (`section[id]`) the block is in and its index inside it. The languages
+   *  of a chapter share the subsections, but a translation may add or drop a block
+   *  before them, so a place put back in another language counts from its subsection (V65). */
+  sub?: string;
+  subIndex?: number;
 }
 
 let pending: Place | null = null;
@@ -45,9 +50,27 @@ export function capturePlace(): Place | null {
   for (let i = 0; i < blocks.length; i++) {
     const r = blocks[i].getBoundingClientRect();
     if (!r.height || r.bottom <= top + 4) continue;
-    return { sectionId, index: i, delta: r.top - top };
+    const place: Place = { sectionId, index: i, delta: r.top - top };
+    const sec = blocks[i].closest<HTMLElement>("section[id]");
+    if (sec && root.contains(sec)) {
+      place.sub = sec.id;
+      place.subIndex = [...sec.querySelectorAll<HTMLElement>(BLOCKS)].indexOf(blocks[i]);
+    }
+    return place;
   }
   return null;
+}
+
+/** The block of `place` in the chapter shown now: counted from its subsection when
+ *  that is there (another language of the same chapter), else from the chapter's start. */
+function placeBlock(root: HTMLElement | null, place: Place): HTMLElement | undefined {
+  if (!root) return undefined;
+  if (place.sub !== undefined && place.subIndex !== undefined && place.subIndex >= 0) {
+    const sec = root.querySelector<HTMLElement>(`section[id="${CSS.escape(place.sub)}"]`);
+    const inSub = sec?.querySelectorAll<HTMLElement>(BLOCKS)[place.subIndex];
+    if (inSub) return inSub;
+  }
+  return root.querySelectorAll<HTMLElement>(BLOCKS)[place.index];
 }
 
 /** Keep `place` for the next export of its chapter (also across a reload). */
@@ -103,7 +126,7 @@ export function restorePlace(): (() => void) | null {
     if (stopped) return;
     const scroller = main();
     const root = readingSection();
-    const block = root?.querySelectorAll<HTMLElement>(BLOCKS)[place.index];
+    const block = placeBlock(root, place);
     if (!scroller || !block) return;
     const now = block.getBoundingClientRect().top - scroller.getBoundingClientRect().top;
     scroller.scrollTop += now - place.delta;

@@ -197,6 +197,8 @@ SUITES = [
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s127", file="suites/s127_window_master_v61.py", title="V61 Враджа Лила 30.10 (plāna 4. solis, jautājums 1 «согласен», jautājums 2 variants «А»): visi logi = viens meistarelements: viens rādiuss un viena ēna, krustiņš 44×44 apaļš, centrs 30/30, krusts 18 px 1:1 nesaspiests, viena krāsa; iekšējās malas pēc skalas (16; liels logs dators 24); «Аа» un valodu saraksts nemainīti",
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
+    dict(id="s133", file="suites/s133_lang_switch_keeps_place_v65.py", title="V65 Vraja Lila msg 7218 (01.11): valodas maiņa («Аа» izvēlne) patur to pašu nodaļu, apakšnodaļu un vietu tajā (en <-> ru-iast, «Листать» + «Прокручивать», tālrunis + dators)",
+         devices=["pixel7", "iphone14", "desktop"], fast=True, fast_devices=["pixel7"]),
     dict(id="s132", file="suites/s132_window_close_v63.py", title="V63 Vraja Lila (msg 1983, 1948; gl.13 review 01.11): ✕ line 1.5 (token --window-close-stroke) in all 4 windows; hover and press = --surface-hover in light/sepia/night; night contrast >= 3:1",
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s131", file="suites/s131_search_radius_focus_v62.py", title="V62 Vraja Lila 01.11 msg 7208 «строка поиска при нажатии не должна менять радиус углов» (7210: рамка толще — окей): search/bookmark name field - stūru rādiuss fokusā/pieskārienā = bez fokusa, biezāks rāmis paliek; iPhone + desktop, 3 tēmas",
