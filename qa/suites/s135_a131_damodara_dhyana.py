@@ -58,6 +58,15 @@ for fn in ["book.json", "book.ru.json", "book.ru-iast.json"]:
             check(f"{fn}: «{w}»", w in s, s)
         check(f"{fn}: last line ends «dhyāyema dāmodaram»", lines[-1].rstrip(" |").endswith("dhyāyema dāmodaram"), lines[-1])
     check(f"{fn}: translation + word-by-word", bool(v.get("translation")) and bool(v.get("wbw")) and " — " in v["wbw"])
+    # «Стандарты» 79 (S msg 7242 «Запиши»): word-by-word = BBT: «слово — простое значение»; compounds of 3+ parts are split part by
+    # part, sandhi-fused words are separated (mandī-kṛta + indīvaram; niveśita + ujjvala). # tehniskais slieksnis Lipikāra, nav S noteikums: 3+ parts
+    terms = [t.split(" — ")[0] for t in v["wbw"].split("; ")]
+    if fn != "book.ru.json":
+        check(f"{fn}: wbw has no compound of 3+ parts", all(t.count("-") < 2 for t in terms), [t for t in terms if t.count("-") >= 2])
+        fused = ["kṛtendīvaraṁ", "niveśitojjvala", "vṛndāraṇya-", "dāmābhir ", "paṭṭāmbarasya", "chaṭābhir ", "abhito "]
+        check(f"{fn}: wbw has no sandhi-fused words", not any(f in v["wbw"] + " " for f in fused), v["wbw"][:200])
+        check(f"{fn}: wbw has aṅga / śyāmalima / chaṭābhiḥ as separate words", all(w in terms for w in ["aṅga", "śyāmalima", "chaṭābhiḥ"]), terms[:5])
+        check(f"{fn}: wbw one simple meaning each, no brackets / «или» / «or»", not any(x in v["wbw"] for x in ["(", "[", " или ", " or "]))
     texts = " ".join(b.get("content", "") for b in sub["content"] if b["type"] == "text")
     if fn == "book.ru-iast.json":
         check(f"{fn}: author line", "Шрила Рупа Госвами, «Става-мала» (по словам Гурудева, лекция CA 5652, 22.11.2020)" in texts, texts)
