@@ -201,7 +201,7 @@ SUITES = [
          devices=["pixel7", "iphone14", "ipad-portrait", "desktop", "mac-safari"], fast=True, fast_devices=["pixel7"]),
     dict(id="s136", file="suites/s136_token_autofix_v61s8.py", title="V61 Vraja Lila solis 8 (msg 7207, 7250 «автоматически на ближайший токен», 7251 «до и после»; bot msg 2132): token_guard --fix aizstāj jaunu cietu vērtību ar tuvāko tokenu (krāsa/atstarpe/rādiuss), bāze un izņēmumi neaiztikti, bez tokena grupā — bloķē; atskaite «до / после» ar заметно/мелко + selektors; TOKEN_FIX ZAMETNO",
          devices=None, fast=True, server=False),
-    dict(id="s135", file="suites/s135_a131_damodara_dhyana.py", title="A131 Satkirti msg 7226/7187 (01.11): apakšnodaļa «Медитация на Шри Дамодару (дамодара-дхьяна)» «Картика» tieši pēc «Шри Дамодараштака»: šloka 4 rindas IAST (śyāmalima, jāḍyaṁ, jāguḍa, niveśitojjvala), tulkojums, «пословно», avota rinda; datu pārbaude",
+    dict(id="s137", file="suites/s137_gurudeva_mangalacarana_a137.py", title="A137 Satkirti msg 7293 (02.11): chapter «Мангалачарана Гурудева» after «Ямунаштака» (8 verses in order, «пословно», 7th «Дополнительный стих на Картику»); «Картика» without «Дамодара-дхьяна»; datu pārbaude",
          devices=["desktop"], fast=True, fast_devices=["desktop"]),
     dict(id="s133", file="suites/s133_lang_switch_keeps_place_v65.py", title="V65 Vraja Lila msg 7218 (01.11): valodas maiņa («Аа» izvēlne) patur to pašu nodaļu, apakšnodaļu un vietu tajā (en <-> ru-iast, «Листать» + «Прокручивать», tālrunis + dators)",
          devices=["pixel7", "iphone14", "desktop"], fast=True, fast_devices=["pixel7"]),

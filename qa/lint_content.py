@@ -835,15 +835,7 @@ def run(args):
         nk += 1
         s = b["sections"][ids.index("kartika-bhajans")]
         subs = s.get("subsections") or []
-        # A131 (Satkirti msg 7226): «Медитация на Шри Дамодару» (1 verse) right after «Шри Дамодараштака»; other languages
-        # get it with the night translation («tulkojums gaida» = a known state, the subsection is then simply absent)
-        if len(subs) > 1 and subs[1]["id"] == "song-damodara-dhyana":
-            dh = subs.pop(1)
-            dv = [x for x in dh["content"] if x.get("type") == "verse"]
-            if len(dv) != 1 or not (dv[0].get("wbw") and dv[0].get("translation")):
-                c.hit(fn, "song-damodara-dhyana", "must be 1 verse with word-by-word + translation")
-        elif fn in ("book.json", "book.ru.json", "book.ru-iast.json"):
-            c.hit(fn, "kartika-bhajans", "song-damodara-dhyana missing right after song-damodarastakam (A131)")
+        # A137 (Satkirti msg 7293, 02.11): the former A131 subsection «Медитация на Шри Дамодару» moved to the chapter «Мангалачарана Гурудева»
         if [x["id"] for x in subs] != [w[0] for w in want]:
             c.hit(fn, "kartika-bhajans", f"songs {[x['id'] for x in subs]} != {[w[0] for w in want]}")
             continue

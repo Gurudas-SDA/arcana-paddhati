@@ -46,7 +46,8 @@
         "gaura-arati-songs",
         "kartika-bhajans",
         "jhulana-yatra-bhajans",
-        "yamunastaka"
+        "yamunastaka",
+        "gurudeva-mangalacarana"
       ]
     }
   ],
@@ -7423,22 +7424,6 @@
           ]
         },
         {
-          "id": "song-damodara-dhyana",
-          "title": "Медитация на Шри Дамодару (дамодара-дхьяна)",
-          "content": [
-            {
-              "type": "text",
-              "content": "Шрила Рупа Госвами, «Става-мала» (по словам Гурудева, лекция CA 5652, 22.11.2020)"
-            },
-            {
-              "type": "verse",
-              "sanskrit": "aṅga-śyāmalima-chaṭābhir abhito mandī-kṛtendīvaraṁ\njāḍyaṁ jāguḍa-rociṣāṁ vidadhataṁ paṭṭāmbarasya śriyā\nvṛndāraṇya-vilāsinaṁ hṛdi lasad-dāmābhir āmodaraṁ\nrādhā-skandha-niveśitojjvala-bhujaṁ dhyāyema dāmodaram",
-              "wbw": "aṅga — тела; śyāmalima — тёмного цвета; chaṭābhiḥ — сиянием; abhitaḥ — повсюду; mandī-kṛta — затмевающего; indīvaraṁ — голубые лотосы; jāḍyaṁ — тусклость; jāguḍa — кункумы; rociṣāṁ — сияния; vidadhataṁ — наводящего; paṭṭa — шёлкового; ambarasya — одеяния; śriyā — блеском; vṛndā-araṇya — леса Вриндавана; vilāsinaṁ — наслаждающегося играми; hṛdi — на груди; lasat — сверкающими; dāmābhiḥ — гирляндами; āmodaraṁ — благоухающего; rādhā — Радхи; skandha — на плече; niveśita — покоится; ujjvala — сияющая; bhujaṁ — рука; dhyāyema — будем медитировать; dāmodaram — на Дамодару",
-              "translation": "Будем медитировать на Шри Дамодару. Сияние Его тёмного тела повсюду затмевает голубые лотосы, блеск Его шёлкового одеяния затмевает сияние кункумы. Он наслаждается играми в лесу Вриндавана, Его грудь благоухает сверкающими гирляндами, а Его сияющая рука покоится на плече Радхи."
-            }
-          ]
-        },
-        {
           "id": "song-nanda-nandanastakam",
           "title": "Шри Нанда-нанданаштака",
           "content": [
@@ -7748,6 +7733,72 @@
           "sanskrit": "tuṣṭa-buddhir aṣṭakena nirmalormi-ceṣṭitāṁ\ntvām anena bhānu-putri sarva-deva-veṣṭitām\nyaḥ stavīti vardhayasva sarva-pāpa-mocane\nbhakti-pūram asya devi puṇḍarīka-locane",
           "wbw": "tuṣṭa-buddhir — с умиротворённым умом; aṣṭakena anena — этой аштакой; nirmala-ūrmi — чистыми волнами; ceṣṭitām — действующую; tvām — тебя; bhānu-putri — о дочь Солнца; sarva-deva — всеми полубогами; veṣṭitām — окружённую; yaḥ — тот, кто; stavīti — прославляет; vardhayasva — умножь; sarva-pāpa-mocane — к освобождающему от всех грехов; bhakti-pūram — поток преданности; asya — его; devi — о богиня; puṇḍarīka-locane — к лотосоокому (Кришне)",
           "translation": "О Сурья-путри! О Деви! О Ямуна! Твои воды могут очистить каждого. Тебе поклоняются все полубоги. Пусть же в сердце того, кто в спокойном состоянии ума повторяет эту молитву, расцветет любовь к лотосоокому Шри Кришне!"
+        }
+      ],
+      "subsections": [],
+      "numbered": true
+    },
+    {
+      "id": "gurudeva-mangalacarana",
+      "title": "Мангалачарана Гурудева",
+      "subtitle": null,
+      "page": "",
+      "content": [
+        {
+          "type": "text",
+          "content": "Мангалачарана, которую Гурудев читает перед лекцией."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "nāma-śreṣṭhaṁ manum api śacī-putram atra svarūpaṁ\nrūpaṁ tasyāgrajam uru-purīṁ māthurīṁ goṣṭhavāṭīm\nrādhā-kuṇḍaṁ giri-varam aho rādhikā-mādhavāśāṁ\nprāpto yasya prathita-kṛpayā śrī-guruṁ taṁ nato 'smi",
+          "wbw": "nāma-śreṣṭhaṁ — высшее святое имя; manum — божественную мантру; api — также; śacī-putram — сына Шачиматы; atra — здесь; svarūpaṁ — Шрилу Сварупу Дамодару; rūpaṁ — Рупу Госвами; tasyāgrajam — его старшего брата, Санатану Госвами; uru-purīṁ — великий город; māthurīṁ — Матхуру; goṣṭhavāṭīm — исполненную блаженства обитель Вриндавана; rādhā-kuṇḍaṁ — божественную Радха-кунду; giri-varam — холм Говардхан; aho — о; rādhikā-mādhavāśāṁ — сердечное стремление с любовью служить Шри Радхике и Мадхаве; prāpto — обрел; yasya — по чьей; prathita-kṛpayā — прославленной беспричинной милости; śrī-guruṁ — Шри Гуру (духовному учителю); taṁ — тому; nato 'smi — я склоняюсь.",
+          "translation": "Я склоняюсь к прекрасным лотосным стопам своего духовного учителя, по чьей беспричинной милости обрел высшее святое имя, божественную мантру; служение сыну Шачиматы; общение со Шрилой Сварупой Дамодарой, Рупой Госвами и его старшим братом Санатаной Госвами; высшую обитель Матхуры; исполненную блаженства обитель Вриндавана; божественную Радха-кунду и холм Говардхан; а также сердечное стремление с любовью служить Шри Радхике и Мадхаве во Вриндаване."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "gurave gaura-candrāya rādhikāyai tad-ālaye\nkṛṣṇāya kṛṣṇa-bhaktāya tad-bhaktāya namo namaḥ",
+          "wbw": "gurave — Гуру; gaura-candrāya — Гаурачандре; rādhikāyai — Радхике; tad-ālaye — Её обители и спутникам; kṛṣṇāya — Кришне; kṛṣṇa-bhaktāya — преданным Кришны; tad-bhaktāya — преданным Его преданных; namaḥ — поклон; namaḥ — поклон",
+          "translation": "Я почтительно кланяюсь Шри Гуру, Гаурачандре, Шримати Радхике и её спутницам и служанкам, Господу Кришне, его преданным, а также преданным его преданных."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "ānanda-līlāmaya-vigrahāya\nhemābha-divyac-chavi-sundarāya\ntasmai mahā-prema-rasa-pradāya\ncaitanya-candrāya namo namas te",
+          "wbw": "ānanda — блаженных; līlā — игр; maya — состоящему из; vigrahāya — образу; hema-ābha — золотистому; divya — божественно; chavi — сияющему; sundarāya — прекрасному; tasmai — Ему; mahā — великой; prema — любви; rasa — нектара; pradāya — Дарующему; caitanya-candrāya — Чайтанья-чандре; namaḥ — поклон; namaḥ — поклон; te — Тебе",
+          "translation": "Я почтительно кланяюсь Шри Чайтанья-чандре, олицетворению блаженных трансцендентных игр, чей золотистый образ божественно прекрасен. Он одаривает бесконечным нектаром премы."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "bhaktyā vihīnā aparādha-lakṣaiḥ\nkṣiptāś ca kāmādi-taraṅga-madhye\nkṛpā-mayi tvāṁ śaraṇaṁ prapannā\nvṛnde namaste caraṇāravindam",
+          "wbw": "bhaktyā — преданности; vihīnā — лишённый; aparādha — оскорблений; lakṣaiḥ — бесчисленными; kṣiptāḥ — брошенный; ca — и; kāma — вожделения; ādi — и прочих; taraṅga — волн; madhye — посреди; kṛpā-mayi — о милостивая; tvāṁ — к тебе; śaraṇaṁ — за прибежищем; prapannā — прибегаю; vṛnde — о Вринда; namaḥ — поклон; te — твоим; caraṇa — стопам; aravindam — лотосным",
+          "translation": "О милостивая Вринда-деви! Лишенный преданности и совершивший бесчисленные оскорбления, я упал в океан материального бытия и тону в бурных волнах вожделения, гнева, жадности и других пороков. О Вринда, я ищу у тебя прибежище и в глубоком почтении склоняюсь к твоим лотосным стопам."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "govinda dāmodara mādhaveti\ngovinda dāmodara mādhaveti\ngovinda dāmodara mādhaveti\ngovinda dāmodara mādhaveti\nhe kṛṣṇa he yādava he sakheti\ngovinda dāmodara mādhaveti",
+          "wbw": "govinda — о Говинда; dāmodara — о Дамодара; mādhava — о Мадхава; iti — так; he — о; kṛṣṇa — Кришна; he — о; yādava — Ядава; he — о; sakhe — друг; iti — так",
+          "translation": ""
+        },
+        {
+          "type": "verse",
+          "sanskrit": "śyāmasundara śikhaṇḍa-śekhara\nsmera-hāsa muralī-manohara\nrādhikā-rasika māṁ kṛpā-nidhe\nsva-priyā-caraṇa-kiṅkarīṁ kuru",
+          "wbw": "śyāmasundara — о Шьямасундара; śikhaṇḍa-śekhara — увенчанный павлиньим пером; smera — нежная; hāsa — улыбка; muralī — флейты; manohara — пленяющий; rādhikā — с Радхикой; rasika — искушённый в расе; māṁ — меня; kṛpā-nidhe — о океан милости; sva — Своей; priyā — возлюбленной; caraṇa — стоп; kiṅkarīṁ — служанку; kuru — сделай",
+          "translation": "О Шьямасундара! О Шикханда-шекхара! Твоё лицо всегда озаряет сладкая улыбка, а твоя игра на флейте завораживает слух. Ты очень искусен в том, как наслаждаться расой вместе со Шримати Радхикой. О океан милости, молю тебя: «Сделай меня служанкой (кинкари) у стоп твоей возлюбленной»."
+        },
+        {
+          "type": "text",
+          "content": "Дополнительный стих на Картику"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "aṅga-śyāmalima-chaṭābhir abhito mandī-kṛtendīvaraṁ\njāḍyaṁ jāguḍa-rociṣāṁ vidadhataṁ paṭṭāmbarasya śriyā\nvṛndāraṇya-vilāsinaṁ hṛdi lasad-dāmābhir āmodaraṁ\nrādhā-skandha-niveśitojjvala-bhujaṁ dhyāyema dāmodaram",
+          "wbw": "aṅga — тела; śyāmalima — тёмного цвета; chaṭābhiḥ — сиянием; abhitaḥ — повсюду; mandī-kṛta — затмевающего; indīvaraṁ — голубые лотосы; jāḍyaṁ — тусклость; jāguḍa — кункумы; rociṣāṁ — сияния; vidadhataṁ — наводящего; paṭṭa — шёлкового; ambarasya — одеяния; śriyā — блеском; vṛndā-araṇya — леса Вриндавана; vilāsinaṁ — наслаждающегося играми; hṛdi — на груди; lasat — сверкающими; dāmābhiḥ — гирляндами; āmodaraṁ — благоухающего; rādhā — Радхи; skandha — на плече; niveśita — покоится; ujjvala — сияющая; bhujaṁ — рука; dhyāyema — будем медитировать; dāmodaram — на Дамодару",
+          "translation": "Будем медитировать на Шри Дамодару. Сияние Его тёмного тела повсюду затмевает голубые лотосы, блеск Его шёлкового одеяния затмевает сияние кункумы. Он наслаждается играми в лесу Вриндавана, Его грудь благоухает сверкающими гирляндами, а Его сияющая рука покоится на плече Радхи."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "tavaivāsmi tavaivāsmi\nna jīvāmi tvayā vinā\niti vijñāya devi tvaṁ\nnaya māṁ caraṇāntikam",
+          "wbw": "tava — твой; eva — только; asmi — я; tava — твой; eva — только; asmi — я; na — не; jīvāmi — живу; tvayā — тобой; vinā — без; iti — так; vijñāya — зная; devi — о богиня; tvaṁ — ты; naya — приведи; māṁ — меня; caraṇa-antikam — к стопам",
+          "translation": "Я — твой! Я — твой! Я не могу жить без тебя! О Радха, услышь меня и даруй прибежище у своих стоп!"
         }
       ],
       "subsections": [],

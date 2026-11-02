@@ -45,7 +45,7 @@ CASES = [(cid, _NEXT(cid), title0) for cid, title0 in [
     ("gaura-arati-songs", "17. "),
     ("kartika-bhajans", "18. "),
     # 22.10 (Satkirti msg 6065): «Заключение» after the parts, unnumbered — now the last page of the book
-    ("yamunastaka", "Заключение"),
+    ("gurudeva-mangalacarana", "Заключение"),   # A137 02.11 (msg 7293): «Мангалачарана Гурудева» is now the last chapter (after Ямунаштака)
 ] if cid in book_order.pages(LANG)]
 LAST = "conclusion"
 res = []

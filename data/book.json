@@ -46,7 +46,8 @@
         "gaura-arati-songs",
         "kartika-bhajans",
         "jhulana-yatra-bhajans",
-        "yamunastaka"
+        "yamunastaka",
+        "gurudeva-mangalacarana"
       ]
     }
   ],
@@ -7295,22 +7296,6 @@
           ]
         },
         {
-          "id": "song-damodara-dhyana",
-          "title": "Meditation on Śrī Dāmodara (Dāmodara-dhyāna)",
-          "content": [
-            {
-              "type": "text",
-              "content": "Śrīla Rūpa Gosvāmī, Stava-mālā (as told by Gurudeva, CA lecture 5652, 22.11.2020)"
-            },
-            {
-              "type": "verse",
-              "sanskrit": "aṅga-śyāmalima-chaṭābhir abhito mandī-kṛtendīvaraṁ\njāḍyaṁ jāguḍa-rociṣāṁ vidadhataṁ paṭṭāmbarasya śriyā\nvṛndāraṇya-vilāsinaṁ hṛdi lasad-dāmābhir āmodaraṁ\nrādhā-skandha-niveśitojjvala-bhujaṁ dhyāyema dāmodaram",
-              "wbw": "aṅga — of the body; śyāmalima — dark color; chaṭābhiḥ — by the luster; abhitaḥ — everywhere; mandī-kṛta — eclipsing; indīvaraṁ — blue lotuses; jāḍyaṁ — dullness; jāguḍa — of kuṅkuma; rociṣāṁ — of the glow; vidadhataṁ — bringing; paṭṭa — silk; ambarasya — of the garment; śriyā — by the splendor; vṛndā-araṇya — in the forest of Vṛndāvana; vilāsinaṁ — enjoying pastimes; hṛdi — on the chest; lasat — shining; dāmābhiḥ — with garlands; āmodaraṁ — fragrant; rādhā — of Rādhā; skandha — on the shoulder; niveśita — resting; ujjvala — splendid; bhujaṁ — arm; dhyāyema — let us meditate; dāmodaram — on Dāmodara",
-              "translation": "Let us meditate on Śrī Dāmodara. The luster of His dark body eclipses the blue lotuses everywhere, the splendor of His silk garment dims the glow of kuṅkuma. He enjoys pastimes in Vṛndāvana forest, His chest is fragrant with shining garlands, and His splendid arm rests on Rādhā's shoulder."
-            }
-          ]
-        },
-        {
           "id": "song-nanda-nandanastakam",
           "title": "Śrī Nanda-nandanāṣṭakam",
           "content": [
@@ -7620,6 +7605,72 @@
           "sanskrit": "tuṣṭa-buddhir aṣṭakena nirmalormi-ceṣṭitāṁ\ntvām anena bhānu-putri sarva-deva-veṣṭitām\nyaḥ stavīti vardhayasva sarva-pāpa-mocane\nbhakti-pūram asya devi puṇḍarīka-locane",
           "wbw": "tuṣṭa-buddhir — with satisfied intelligence; aṣṭakena anena — with this aṣṭaka; nirmala-ūrmi — by pure waves; ceṣṭitām — acting; tvām — you; bhānu-putri — O daughter of the sun; sarva-deva — by all the demigods; veṣṭitām — surrounded; yaḥ — one who; stavīti — praises; vardhayasva — please increase; sarva-pāpa-mocane — for Him who liberates from all sins; bhakti-pūram — the current of devotion; asya — of that person; devi — O goddess; puṇḍarīka-locane — for the lotus-eyed (Kṛṣṇa)",
           "translation": "O Sūryaputri! O Devī! O Yamunā, whose powerful waves are purifying and who is surrounded by all the demigods! For those persons of satisfied intelligence who recite this prayer, please increase their current of bhakti for the lotus-eyed Śrī Kṛṣṇa, who liberates people from all their sins. This is my supplication at your feet."
+        }
+      ],
+      "subsections": [],
+      "numbered": true
+    },
+    {
+      "id": "gurudeva-mangalacarana",
+      "title": "Gurudeva’s Maṅgalācaraṇa",
+      "subtitle": null,
+      "page": "",
+      "content": [
+        {
+          "type": "text",
+          "content": "The maṅgalācaraṇa that Gurudeva recites before the lecture."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "nāma-śreṣṭhaṁ manum api śacī-putram atra svarūpaṁ\nrūpaṁ tasyāgrajam uru-purīṁ māthurīṁ goṣṭhavāṭīm\nrādhā-kuṇḍaṁ giri-varam aho rādhikā-mādhavāśāṁ\nprāpto yasya prathita-kṛpayā śrī-guruṁ taṁ nato 'smi",
+          "wbw": "nāma-śreṣṭhaṁ — the supreme holy name; manum — the divine mantra; api — also; śacī-putram — the son of Sacīmātā; atra — here; svarūpaṁ — Śrīla Svarūpa Dāmodara; rūpaṁ — Rūpa Gosvāmī; tasyāgrajam — his older brother, Sanātana Gosvāmī; uru-purīṁ — the great city; māthurīṁ — Mathurā; goṣṭhavāṭīm — the blissful abode of Vṛndāvana; rādhā-kuṇḍaṁ — divine Rādhā-kuṇḍa; giri-varam — Govardhana Hill; aho — oh; rādhikā-mādhavāśāṁ — the desire for loving service to Śrī Rādhikā and Mādhava; prāpto — I have obtained; yasya — by whose; prathita-kṛpayā — renowned causeless mercy; śrī-guruṁ — the beautiful lotus feet of my spiritual master; taṁ — to him; nato — bowing down; 'smi — I am.",
+          "translation": "I bow down to the beautiful lotus feet of my spiritual master, by whose causeless mercy I have obtained the supreme holy name, the divine mantra; the service of the son of Sacīmātā; the association of Śrīla Svarūpa Dāmodara, Rūpa Gosvāmī, and his older brother, Sanātana Gosvāmī; the supreme abode of Mathurā; the blissful abode of Vṛndāvana; the divine Rādhā-kuṇḍa and Govardhana Hill; and the desire within my heart for the loving service of Śrī Rādhikā and Mādhava in Vṛndāvana."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "gurave gaura-candrāya rādhikāyai tad-ālaye\nkṛṣṇāya kṛṣṇa-bhaktāya tad-bhaktāya namo namaḥ",
+          "wbw": "gurave — unto Śrī Guru; gaura-candrāya — unto Gauracandra; rādhikāyai — unto Śrīmatī Rādhikā; tad-ālaye — unto Her abode and associates; kṛṣṇāya — unto Kṛṣṇa; kṛṣṇa-bhaktāya — unto Kṛṣṇa’s devotees; tad-bhaktāya — unto the devotees of His devotees; namaḥ — obeisances; namaḥ — obeisances",
+          "translation": "I offer my obeisances time and again unto Śrī Guru, Śrī Gauracandra, Śrīmatī Rādhikā, Her associates and Her dhāma, Śrī Vṛndāvana, and unto Śrī Kṛṣṇa, His devotees and the devotees of His devotees."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "ānanda-līlāmaya-vigrahāya\nhemābha-divyac-chavi-sundarāya\ntasmai mahā-prema-rasa-pradāya\ncaitanya-candrāya namo namas te",
+          "wbw": "ānanda — blissful; līlā — pastimes; maya — made of; vigrahāya — to the form; hema-ābha — golden; divya — divinely; chavi — radiant; sundarāya — beautiful; tasmai — unto Him; mahā — great; prema — of love; rasa — the nectar; pradāya — who bestows; caitanya-candrāya — unto Caitanya-candra; namaḥ — obeisances; namaḥ — obeisances; te — to You",
+          "translation": "I offer praṇāma to Śrī Caitanya-candra, whose form is the embodiment of blissful, transcendental pastimes, whose golden complexion is divinely beautiful, and who bestows the unlimited nectar of the mellows of prema."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "bhaktyā vihīnā aparādha-lakṣaiḥ\nkṣiptāś ca kāmādi-taraṅga-madhye\nkṛpā-mayi tvāṁ śaraṇaṁ prapannā\nvṛnde namaste caraṇāravindam",
+          "wbw": "bhaktyā — of devotion; vihīnā — bereft; aparādha — of offenses; lakṣaiḥ — by hundreds of thousands; kṣiptāḥ — thrown; ca — and; kāma — of lust; ādi — and so on; taraṅga — of waves; madhye — in the midst; kṛpā-mayi — O merciful one; tvāṁ — in you; śaraṇaṁ — shelter; prapannā — I take; vṛnde — O Vṛndā; namaḥ — obeisances; te — to your; caraṇa — feet; aravindam — lotus",
+          "translation": "Devoid of bhakti and guilty of unlimited offenses, we are flung into the waves of lust [anger, greed and so on]. O merciful one, we take shelter of you! O Vṛndā, we offer praṇāma to your lotus feet."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "govinda dāmodara mādhaveti\ngovinda dāmodara mādhaveti\ngovinda dāmodara mādhaveti\ngovinda dāmodara mādhaveti\nhe kṛṣṇa he yādava he sakheti\ngovinda dāmodara mādhaveti",
+          "wbw": "govinda — O Govinda; dāmodara — O Dāmodara; mādhava — O Mādhava; iti — thus; he — O; kṛṣṇa — Kṛṣṇa; he — O; yādava — Yādava; he — O; sakhe — my friend; iti — thus",
+          "translation": ""
+        },
+        {
+          "type": "verse",
+          "sanskrit": "śyāmasundara śikhaṇḍa-śekhara\nsmera-hāsa muralī-manohara\nrādhikā-rasika māṁ kṛpā-nidhe\nsva-priyā-caraṇa-kiṅkarīṁ kuru",
+          "wbw": "śyāmasundara — O Śyāmasundara; śikhaṇḍa-śekhara — adorned with peacock feathers; smera — laughing; hāsa — smile; muralī — of the flute; manohara — enchanting; rādhikā — with Rādhikā; rasika — expert in relishing rasa; māṁ — me; kṛpā-nidhe — O ocean of mercy; sva — Your; priyā — beloved’s; caraṇa — at the feet; kiṅkarīṁ — a maidservant; kuru — make",
+          "translation": "O Śyāmasundara! O You whose head is adorned with peacock feathers, whose face is graced with a laughing smile, whose muralī flute enchants the mind, and who are most expert in relishing rasa with Śrīmatī Rādhikā. O ocean of mercy, please make me a kiṅkarī (maidservant) at the feet at Your beloved."
+        },
+        {
+          "type": "text",
+          "content": "Additional verse for Kārtika"
+        },
+        {
+          "type": "verse",
+          "sanskrit": "aṅga-śyāmalima-chaṭābhir abhito mandī-kṛtendīvaraṁ\njāḍyaṁ jāguḍa-rociṣāṁ vidadhataṁ paṭṭāmbarasya śriyā\nvṛndāraṇya-vilāsinaṁ hṛdi lasad-dāmābhir āmodaraṁ\nrādhā-skandha-niveśitojjvala-bhujaṁ dhyāyema dāmodaram",
+          "wbw": "aṅga — of the body; śyāmalima — dark color; chaṭābhiḥ — by the luster; abhitaḥ — everywhere; mandī-kṛta — eclipsing; indīvaraṁ — blue lotuses; jāḍyaṁ — dullness; jāguḍa — of kuṅkuma; rociṣāṁ — of the glow; vidadhataṁ — bringing; paṭṭa — silk; ambarasya — of the garment; śriyā — by the splendor; vṛndā-araṇya — in the forest of Vṛndāvana; vilāsinaṁ — enjoying pastimes; hṛdi — on the chest; lasat — shining; dāmābhiḥ — with garlands; āmodaraṁ — fragrant; rādhā — of Rādhā; skandha — on the shoulder; niveśita — resting; ujjvala — splendid; bhujaṁ — arm; dhyāyema — let us meditate; dāmodaram — on Dāmodara",
+          "translation": "Let us meditate on Śrī Dāmodara. The luster of His dark body eclipses the blue lotuses everywhere, the splendor of His silk garment dims the glow of kuṅkuma. He enjoys pastimes in Vṛndāvana forest, His chest is fragrant with shining garlands, and His splendid arm rests on Rādhā's shoulder."
+        },
+        {
+          "type": "verse",
+          "sanskrit": "tavaivāsmi tavaivāsmi\nna jīvāmi tvayā vinā\niti vijñāya devi tvaṁ\nnaya māṁ caraṇāntikam",
+          "wbw": "tava — Yours; eva — only; asmi — I am; tava — Yours; eva — only; asmi — I am; na — not; jīvāmi — I live; tvayā — with You; vinā — without; iti — thus; vijñāya — knowing; devi — O goddess; tvaṁ — you; naya — lead; māṁ — me; caraṇa-antikam — to the feet",
+          "translation": ""
         }
       ],
       "subsections": [],

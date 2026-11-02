@@ -41,7 +41,10 @@ def song(sid, lang):
     s = SONGS[sid]
     en = lang == "en"
     content = [{"type": "text", "content": s["author"][1 if en else 0]}]
-    for v in s["verses"]:
+    for i, v in enumerate(s["verses"]):
+        nb = (s.get("note_before") or {}).get(i)   # A137: a note line before a verse («Дополнительный стих на Картику»)
+        if nb:
+            content.append({"type": "text", "content": nb[1 if en else 0]})
         content.append({"type": "verse", "sanskrit": v["sanskrit"],
                         "wbw": v["wbw_en" if en else "wbw_ru"], "translation": v["tr_en" if en else "tr_ru"]})
     return {"id": sid, "title": s["title"][1 if en else 0], "content": content}

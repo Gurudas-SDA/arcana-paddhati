@@ -204,6 +204,16 @@ CHAPTERS = [
     ("jhulana-yatra-bhajans", "Джхулана-ятра", "Jhūlana-yātrā", ["song-jhula-jhule", "song-radhe-jhulana-padharo"]),
     ("yamunastaka", "Ямунаштака", "Yamunāṣṭaka", ["song-yamunastakam"]),   # A127 msg 6961: after «Джхулана-ятра», the chapter IS the bhajan (FLAT). S: «Ямунаштаку вынеси отдельно»
 ]
+# A137 (Satkirti msg 7293, 02.11.2026): chapter «Мангалачарана Гурудева» right after «Ямунаштака» (8 verses, CA lecture 849,
+# 20.06.2014). Data: gurudeva_mangalacarana.json (verse 1 = guru-stuti of «Арчана Шри Гуру»; verse 7 = the former
+# «Медитация на Шри Дамодару» of «Картика», moved here with the note «Дополнительный стих на Картику»; verses 2–4, 6, 8 =
+# Песенник гаудия-вайшнава pp. 14, 19, 287, 373, 27 + GGG/Arcana-dīpikā/Versebase for EN; verse 5 no RU/EN translation source).
+import json as _json
+import os as _os
+GM = _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "gurudeva_mangalacarana.json"), encoding="utf-8"))
+SONGS["song-gurudeva-mangalacarana"] = {"title": tuple(GM["title"]), "author": tuple(GM["intro"]), "verses": GM["verses"],
+                                        "note_before": {6: tuple(GM["note7"])}}
+CHAPTERS.append(("gurudeva-mangalacarana", GM["title"][0], GM["title"][1], ["song-gurudeva-mangalacarana"]))
 # A127 (msg 6961): chapters that ARE one bhajan — no subsection, the song content and numbering sit in the chapter.
-FLAT = {"yamunastaka"}
+FLAT = {"yamunastaka", "gurudeva-mangalacarana"}
 FESTIVALS = ("festivals-vows", "Праздники и обеты", "Festivals and Vows")   # «песни арати» moved out

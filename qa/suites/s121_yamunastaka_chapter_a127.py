@@ -24,7 +24,7 @@ import qa  # noqa: E402
 BASE = sys.argv[1].rstrip("/") if len(sys.argv) > 1 else None
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "data")
 CHAP = ["mangala-arati-songs", "raja-bhoga-arati", "gaura-arati-songs", "kartika-bhajans", "jhulana-yatra-bhajans",
-        "yamunastaka"]
+        "yamunastaka", "gurudeva-mangalacarana"]   # A137 02.11 (msg 7293): + the new last chapter
 CYR = re.compile(r"[А-Яа-яЁё]")
 results = []
 
@@ -42,7 +42,7 @@ for fn in ("book.ru-iast.json", "book.json"):
     part = next((p for p in b["parts"] if p["id"] == "arati"), {"sections": []})
     check(fn, "a part «Арати»: Джхулана-ятра before Ямунаштака", part["sections"] == CHAP, part["sections"])
     at = ids.index(CHAP[0]) if CHAP[0] in ids else -1
-    check(fn, "a sections in book order: same 6", ids[at:at + 6] == CHAP, ids[at:at + 6])
+    check(fn, "a sections in book order: same 7", ids[at:at + 7] == CHAP, ids[at:at + 7])
     check(fn, "a chapter number Джхулана-ятра = Ямунаштака − 1",
           "jhulana-yatra-bhajans" in ids and ids.index("yamunastaka") - ids.index("jhulana-yatra-bhajans") == 1)
     y = secs.get("yamunastaka", {})

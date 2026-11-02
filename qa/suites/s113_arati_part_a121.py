@@ -34,9 +34,9 @@ BASE = sys.argv[1].rstrip("/") if len(sys.argv) > 1 else None
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "data")
 # A127 (msg 6961): «Джхулана-ятра» before «Ямунаштака»; «Ямунаштака» has no subsection (s121)
 CHAP = ["mangala-arati-songs", "raja-bhoga-arati", "gaura-arati-songs", "kartika-bhajans",
-        "jhulana-yatra-bhajans", "yamunastaka"]
-TITLES = {"ru-iast": ["Мангала-арати", "Раджа-бхога-арати", "Гаура-арати", "Картика", "Джхулана-ятра", "Ямунаштака"],
-          "en": ["Maṅgala-ārati", "Rāja-bhoga-ārati", "Gaura-ārati", "Kārtika", "Jhūlana-yātrā", "Yamunāṣṭaka"]}
+        "jhulana-yatra-bhajans", "yamunastaka", "gurudeva-mangalacarana"]   # A137 02.11 (msg 7293): + «Мангалачарана Гурудева» last
+TITLES = {"ru-iast": ["Мангала-арати", "Раджа-бхога-арати", "Гаура-арати", "Картика", "Джхулана-ятра", "Ямунаштака", "Мангалачарана Гурудева"],
+          "en": ["Maṅgala-ārati", "Rāja-bhoga-ārati", "Gaura-ārati", "Kārtika", "Jhūlana-yātrā", "Yamunāṣṭaka", "Gurudeva’s Maṅgalācaraṇa"]}
 RAJA = ["song-yasomati-nandana", "song-jaya-yasoda-nandana", "song-jaya-radha-madhava"]
 FIRST = {"song-yasomati-nandana": "yaśomatī-nandana", "song-jaya-yasoda-nandana": "jaya yaśodā-nandana",
          "song-jaya-radha-madhava": "jaya rādhā-mādhava", "song-yamunastakam": "bhrātur antakasya",
@@ -66,7 +66,7 @@ for lang, fn in (("ru-iast", "book.ru-iast.json"), ("en", "book.json")):
     part = next((p for p in b["parts"] if p["id"] == "arati"), None)
     fest = next((p for p in b["parts"] if p["id"] == "festivals-vows"), {"sections": [], "title": ""})
     check(fn, "a part «Арати» right after festivals-vows", part and pids.index("arati") == pids.index("festivals-vows") + 1, pids)
-    check(fn, "a part chapters 1–6 in order", part and part["sections"] == CHAP, part and part["sections"])
+    check(fn, "a part chapters 1–7 in order", part and part["sections"] == CHAP, part and part["sections"])
     check(fn, "a part title", part and part["title"] == ("Арати" if lang == "ru-iast" else "Ārati"), part and part["title"])
     check(fn, "a chapter titles", [secs.get(c, {}).get("title") for c in CHAP] == TITLES[lang],
           [secs.get(c, {}).get("title") for c in CHAP])
@@ -74,7 +74,7 @@ for lang, fn in (("ru-iast", "book.ru-iast.json"), ("en", "book.json")):
           not set(CHAP) & set(fest["sections"]) and not re.search(r"арати|ārati", fest["title"], re.I), (fest["sections"], fest["title"]))
     ids = [s["id"] for s in b["sections"]]
     check(fn, "a chapters together in book order", all(c in ids for c in CHAP)
-          and ids[ids.index(CHAP[0]):ids.index(CHAP[0]) + 6] == CHAP, [i for i in ids if i in CHAP])
+          and ids[ids.index(CHAP[0]):ids.index(CHAP[0]) + 7] == CHAP, [i for i in ids if i in CHAP])
     raja = secs.get("raja-bhoga-arati", {"subsections": []})
     check(fn, "b Раджа-бхога-арати = 3 bhajans in order", [x["id"] for x in raja["subsections"]] == RAJA,
           [x["id"] for x in raja["subsections"]])
@@ -149,7 +149,7 @@ with sync_playwright() as p:
                 .map(e => e.getAttribute('data-toc-chapter') || (e.getAttribute('href') || '').replace(/\\/+$/, '').split('/').pop())""")
             order = [x for i, x in enumerate(ids) if x in CHAP and x not in ids[:i]]
             part_row = page.locator(".mobile-menu[data-open] [data-toc-toggle=arati]").count()
-            check(tag, "e «Содержание»: part «Арати» row + its 6 chapters in order", part_row == 1 and order == CHAP, (part_row, order))
+            check(tag, "e «Содержание»: part «Арати» row + its 7 chapters in order", part_row == 1 and order == CHAP, (part_row, order))
             page.keyboard.press("Escape")
             page.goto(f"{BASE}/{lang}jaya-dhvani-front/", wait_until="load")
             page.wait_for_selector(".verse-text", state="attached", timeout=15000)
