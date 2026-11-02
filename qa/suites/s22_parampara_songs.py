@@ -130,8 +130,8 @@ def run(p, dev, eng, o):
         # c) songs
         for sid, n, first, title in (("mangala-arati-songs", 5, "saṁsāra-dāvānala-līḍha-loka-", "Шри Гурваштака"),
                                      ("gaura-arati-songs", 2, "jaya jaya gorācāṅdera āratiko śobhā", "Шри Гаура-арати"),
-                                     # v7.6 (07.10): Kārtika bhajans — 3 songs, 8 + 9 + 13 = 30 verses
-                                     ("kartika-bhajans", 3, "namāmīśvaraṁ sac-cid-ānanda-rūpaṁ", "Шри Дамодараштака")):
+                                     # v7.6 (07.10): Kārtika bhajans — 3 songs, 8 + 9 + 13 = 30 verses; A131 02.11 (15667d6): + dāmodara-dhyāna (1 verse), Satkirti msg 7224/7226 → 4 subsections, 31 verses
+                                     ("kartika-bhajans", 4, "namāmīśvaraṁ sac-cid-ānanda-rūpaṁ", "Шри Дамодараштака")):
             goto(U + sid + "/"); time.sleep(0.6)
             info = qa.reading_eval(pg, """root => ({subs: [...root.querySelectorAll('section[data-subsection] h2')].map(h => h.innerText),
                 sk: [...root.querySelectorAll('.sanskrit')].map(e => e.innerText),

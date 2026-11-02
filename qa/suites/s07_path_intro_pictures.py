@@ -20,8 +20,8 @@ import os as _os, sys as _sys
 _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "lib"))
 import qa
 from toc import Contents, marks_place
-VERSES = 300  # A121 26.10: ru-iast verses WITH «пословно» = 274 (305 − 31 «Джая-дхвани», S msg 6828) + 26 (Джхулана-ятра 10, Раджа-бхога 7, Ямунаштака 9);
-VERSES_RU = 274  # legacy book.ru.json (Cyrillic Russian not in the book, S 23.10 Padomnieks 934–941): no A121 bhajans
+VERSES = 301  # A131 02.11 (15667d6): + dāmodara-dhyāna (1 verse with wbw), Satkirti msg 7224/7226. Was 300; A121 26.10: ru-iast verses WITH «пословно» = 274 (305 − 31 «Джая-дхвани», S msg 6828) + 26 (Джхулана-ятра 10, Раджа-бхога 7, Ямунаштака 9);
+VERSES_RU = 275  # A131 02.11 (15667d6): + dāmodara-dhyāna, Satkirti msg 7224/7226. Was 274; legacy book.ru.json (Cyrillic Russian not in the book, S 23.10 Padomnieks 934–941): no A121 bhajans
 NO_WBW_SECTIONS = {"jaya-dhvani-front"}  # S msg 6828 (26.10.2026): «В «Джая-дхвани» убери переводы. Это молитва, в которой перечисляют святых» — 31 calls without translation and without пословно; every other verse still needs пословно
 # (S msg 6151/6152/6155/6239/6281; see the docstring, I). Was 274: 180 + 61 verses of the maṅgala-/gaura-ārati songs (Reader v7.4, Satkirti 07.10 13:07) + 30 Kārtika bhajans (v7.6) + 3 of «Заключение» (22.10, Satkirti msg 6065)
 import io, json, os, sys, urllib.request
