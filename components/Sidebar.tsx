@@ -12,6 +12,8 @@ import {
   readBookmarks,
   removeBookmark,
   renameBookmark,
+  reorderBookmarks,
+  sortBookmarks,
   type Bookmark,
 } from "@/lib/bookmarks";
 import BookmarkNameDialog from "@/components/BookmarkNameDialog";
@@ -566,7 +568,7 @@ export default function Sidebar({
   }, [tab]);
   const bookmarkRows = useMemo(() => {
     const pale = Object.values(paleRows).filter((p) => !bookmarks.some((b) => b.id === p.id));
-    return [...bookmarks, ...pale].sort((a, b) => b.time - a.time);
+    return sortBookmarks([...bookmarks, ...pale]);
   }, [bookmarks, paleRows]);
   const removeBookmarkRow = (b: Bookmark) => {
     setPaleRows((cur) => ({ ...cur, [b.id]: b }));
@@ -622,6 +624,168 @@ export default function Sidebar({
     if (r.top >= n.top && r.bottom <= n.bottom) return;
     box.scrollTop += r.top - n.top - (n.height - r.height) / 2;
   }, [showBookmarks, bookmarks, litBookmarkId]);
+
+  // Moving a bookmark by hand (V66, Vraja Lila msg 7316: «при удерживании нажатия… перемещать их вверх вниз»):
+  // a long press on a row (or on its handle) lifts it; it follows the finger / the mouse, the others
+  // step aside and a place shows where it will stand; letting go keeps the new order (lib/bookmarks.ts).
+  // A plain tap still opens the bookmark and a plain swipe still scrolls the list.
+  // tehniskais slieksnis Lipikāra, nav S noteikums: the hold time, the move that cancels it, the edge of the autoscroll
+  const HOLD_MS = 450;
+  const HOLD_MOVE_PX = 8;
+  const EDGE_PX = 48;
+  const [drag, setDrag] = useState<{ id: string; from: number; to: number; dy: number } | null>(null);
+  const dragRef = useRef<{
+    id: string; ids: string[]; from: number; to: number; tops: number[]; hs: number[]; gap: number;
+    startY: number; startScroll: number; lastY: number;
+  } | null>(null);
+  const holdOff = useRef<(() => void) | null>(null);
+  const suppressClick = useRef(false);
+  const refocusHandle = useRef<string | null>(null);
+  const dragId = drag?.id;
+  const updateDrag = () => {
+    const d = dragRef.current;
+    const list = bookmarksRef.current;
+    if (!d || !list) return;
+    const dy = d.lastY - d.startY + (list.scrollTop - d.startScroll);
+    const mid = d.tops[d.from] + d.hs[d.from] / 2 + dy;
+    let to = 0;
+    d.ids.forEach((_, i) => {
+      if (i !== d.from && d.tops[i] + d.hs[i] / 2 < mid) to++;
+    });
+    d.to = to;
+    setDrag({ id: d.id, from: d.from, to, dy });
+  };
+  const beginDrag = (id: string, y: number) => {
+    const list = bookmarksRef.current;
+    if (!list) return;
+    const els = [...list.querySelectorAll<HTMLElement>("[data-bookmark-row]")];
+    const ids = els.map((el) => el.dataset.bookmarkId as string);
+    const from = ids.indexOf(id);
+    if (from < 0) return;
+    const tops = els.map((el) => el.offsetTop);
+    const hs = els.map((el) => el.offsetHeight);
+    dragRef.current = {
+      id, ids, from, to: from, tops, hs, gap: els.length > 1 ? tops[1] - tops[0] - hs[0] : 0,
+      startY: y, startScroll: list.scrollTop, lastY: y,
+    };
+    suppressClick.current = true;
+    try {
+      navigator.vibrate?.(10);
+    } catch {
+      // no vibration
+    }
+    setDrag({ id, from, to: from, dy: 0 });
+  };
+  /** A long press (touch, pen, or the mouse held on the row); the handle lifts at once with the mouse. */
+  const armHold = (e: React.PointerEvent, b: Bookmark, onHandle: boolean) => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    if ((e.target as Element).closest("[data-bookmark-rename],[data-bookmark-remove]")) return;
+    holdOff.current?.();
+    if (onHandle && e.pointerType === "mouse") {
+      e.preventDefault();
+      beginDrag(b.id, e.clientY);
+      return;
+    }
+    const x = e.clientX;
+    const y0 = e.clientY;
+    let y = y0;
+    const off = () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", off);
+      window.removeEventListener("pointercancel", off);
+      if (holdOff.current === off) holdOff.current = null;
+    };
+    const move = (ev: PointerEvent) => {
+      y = ev.clientY;
+      if (Math.hypot(ev.clientX - x, ev.clientY - y0) > HOLD_MOVE_PX) off();
+    };
+    const timer = window.setTimeout(() => {
+      off();
+      beginDrag(b.id, y);
+    }, HOLD_MS);
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", off);
+    window.addEventListener("pointercancel", off);
+    holdOff.current = off;
+  };
+  useEffect(() => {
+    if (!dragId) return;
+    let raf = 0;
+    const onMove = (ev: PointerEvent) => {
+      if (dragRef.current) {
+        dragRef.current.lastY = ev.clientY;
+        updateDrag();
+      }
+    };
+    const finish = (apply: boolean) => {
+      const d = dragRef.current;
+      dragRef.current = null;
+      setDrag(null);
+      window.setTimeout(() => {
+        suppressClick.current = false;
+      }, 350);
+      if (apply && d && d.to !== d.from) {
+        const ids = d.ids.filter((_, i) => i !== d.from);
+        ids.splice(d.to, 0, d.id);
+        reorderBookmarks(ids);
+      }
+    };
+    const onUp = () => finish(true);
+    const onCancel = () => finish(false);
+    // Once lifted the finger must not scroll the page: the browser has not started a scroll yet (no move before the hold).
+    const stopScroll = (ev: TouchEvent) => ev.preventDefault();
+    const onKey = (ev: KeyboardEvent) => {
+      if (ev.key === "Escape") finish(false);
+    };
+    const tick = () => {
+      const d = dragRef.current;
+      const list = bookmarksRef.current;
+      if (d && list) {
+        const r = list.getBoundingClientRect();
+        const speed = d.lastY < r.top + EDGE_PX ? -8 : d.lastY > r.bottom - EDGE_PX ? 8 : 0;
+        if (speed) {
+          list.scrollTop += speed;
+          updateDrag();
+        }
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointercancel", onCancel);
+    window.addEventListener("keydown", onKey);
+    document.addEventListener("touchmove", stopScroll, { passive: false });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onCancel);
+      window.removeEventListener("keydown", onKey);
+      document.removeEventListener("touchmove", stopScroll);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dragId]);
+  /** The same move from the keyboard: the handle is a button, ↑ / ↓ move the bookmark one place. */
+  const moveByKey = (e: React.KeyboardEvent, b: Bookmark) => {
+    if (e.key !== "ArrowUp" && e.key !== "ArrowDown") return;
+    e.preventDefault();
+    const ids = bookmarkRows.map((x) => x.id);
+    const i = ids.indexOf(b.id);
+    const j = i + (e.key === "ArrowUp" ? -1 : 1);
+    if (i < 0 || j < 0 || j >= ids.length) return;
+    ids.splice(i, 1);
+    ids.splice(j, 0, b.id);
+    refocusHandle.current = b.id;
+    reorderBookmarks(ids);
+  };
+  useLayoutEffect(() => {
+    const id = refocusHandle.current;
+    if (!id) return;
+    refocusHandle.current = null;
+    bookmarksRef.current?.querySelector<HTMLElement>(`[data-bookmark-id="${CSS.escape(id)}"] [data-bookmark-handle]`)?.focus();
+  }, [bookmarkRows]);
 
   const sectionHref = (sectionId: string, anchor?: string) =>
     localeHref(lang, sectionId, anchor);
@@ -1260,7 +1424,33 @@ export default function Sidebar({
       {/* Contents (Reader v7.8, Satkirti 07.10.2026): a fixed part — the title,
           the search and «Обложка» — and the list that scrolls under it. */}
       {showBookmarks && (
-        <div ref={bookmarksRef} className="flex-1 min-h-0 overflow-y-auto" role="tabpanel" data-bookmarks-list="">
+        <div
+          ref={bookmarksRef}
+          className={`relative flex-1 min-h-0 ${drag ? "overflow-hidden" : "overflow-y-auto"} ${bookmarkRows.length ? "flex flex-col gap-[var(--space-4)] px-[var(--space-12)] py-[var(--space-8)]" : ""}`}
+          role="tabpanel"
+          data-bookmarks-list=""
+          data-bookmark-dragging={drag ? "" : undefined}
+        >
+          {drag && dragRef.current && (() => {
+            // The place where the lifted bookmark will stand: the slots are laid one after another in the new order.
+            const d = dragRef.current;
+            const order = d.ids.filter((_, i) => i !== d.from);
+            order.splice(drag.to, 0, d.id);
+            let top = d.tops[0];
+            for (const id of order) {
+              const i = d.ids.indexOf(id);
+              if (id === d.id) break;
+              top += d.hs[i] + d.gap;
+            }
+            return (
+              <div
+                aria-hidden="true"
+                data-bookmark-gap=""
+                className="absolute left-[var(--space-12)] right-[var(--space-12)] box-border rounded-[var(--ds-radius-card)] border border-dashed border-[color:var(--ds-accent-soft)] bg-[var(--ds-band)]"
+                style={{ top, height: d.hs[d.from] }}
+              />
+            );
+          })()}
           {bookmarkRows.length === 0 ? (
             <p className="px-4 py-4 text-sm text-[#5C3D2E]" data-bookmarks-empty="">
               {t(ui, "bookmarks.empty")}
@@ -1279,6 +1469,27 @@ export default function Sidebar({
               // gold left bar, gold semibold title (one sign, rule 9.2). Every
               // row keeps a 3px left bar (transparent) so the text never moves.
               const titleClass = isLit ? "font-semibold text-[var(--ap-gold)]" : "";
+              // While one is moved: the lifted row follows the pointer, the rows between its old and new place step aside.
+              const di = drag ? bookmarkRows.findIndex((x) => x.id === drag.id) : -1;
+              const ri = bookmarkRows.findIndex((x) => x.id === b.id);
+              const isLifted = !!drag && drag.id === b.id;
+              let shift = 0;
+              if (drag && dragRef.current && !isLifted) {
+                const dd = dragRef.current;
+                const order = dd.ids.filter((_, i) => i !== di);
+                order.splice(drag.to, 0, dd.id);
+                let top = dd.tops[0];
+                for (const id of order) {
+                  if (id === b.id) break;
+                  top += dd.hs[dd.ids.indexOf(id)] + dd.gap;
+                }
+                shift = top - dd.tops[ri];
+              }
+              const rowStyle: React.CSSProperties | undefined = drag
+                ? isLifted
+                  ? { transform: `translateY(${drag.dy}px) scale(1.02)`, zIndex: 10 }
+                  : { transform: `translateY(${shift}px)`, transition: "transform var(--ds-dur-fast)" }
+                : undefined;
               return (
                 <div
                   key={b.id}
@@ -1286,18 +1497,55 @@ export default function Sidebar({
                   data-bookmark-id={b.id}
                   data-bookmark-lit={isLit ? "" : undefined}
                   data-bookmark-faded={isPale ? "" : undefined}
-                  className={`relative border-b border-[color:var(--line-hairline)] border-l-3 transition-colors ${
-                    isLit ? "bg-[var(--ds-row-lit)] border-l-[var(--ap-gold)]" : "border-l-transparent hover:bg-[#FDF8F0]"
+                  data-bookmark-lifted={isLifted ? "" : undefined}
+                  style={rowStyle}
+                  onPointerDown={(e) => !isPale && armHold(e, b, false)}
+                  onContextMenu={(e) => {
+                    if (drag || holdOff.current) e.preventDefault();
+                  }}
+                  className={`bookmark-card relative select-none [-webkit-touch-callout:none] border box-border rounded-[var(--ds-radius-card)] ${
+                    isLifted
+                      ? "border-[var(--ap-gold)] bg-[var(--ds-fill-soft)] shadow-[var(--shadow-window)]"
+                      : `border-[color:var(--line-hairline)] ${isLit ? "bg-[var(--ds-row-lit)] border-l-3 border-l-[var(--ap-gold)]" : "bg-[var(--ds-fill-soft)]"}`
                   }`}
                 >
+                {/* The handle (V66, Vraja Lila msg 7316: «иконка с точками перед названием»): six dots, a 44px target;
+                    the mouse drags by it at once, the finger after a long press; ↑ / ↓ move it from the keyboard. */}
+                <button
+                  type="button"
+                  className="absolute left-0 top-0 bottom-0 flex w-[var(--ds-target)] items-center justify-center text-[var(--rd-muted)] disabled:cursor-default cursor-grab"
+                  onPointerDown={(e) => {
+                    if (isPale) return;
+                    e.stopPropagation();
+                    armHold(e, b, true);
+                  }}
+                  onKeyDown={(e) => moveByKey(e, b)}
+                  disabled={isPale}
+                  aria-label={t(ui, "bookmark.reorder")}
+                  title={t(ui, "bookmark.reorder")}
+                  data-bookmark-handle=""
+                  style={{ touchAction: "pan-y" }}
+                >
+                  <svg aria-hidden="true" width="14" height="18" viewBox="0 0 14 18" fill="currentColor" className={isPale ? "opacity-45" : undefined}>
+                    <circle cx="3.5" cy="3" r="1.6" /><circle cx="10.5" cy="3" r="1.6" />
+                    <circle cx="3.5" cy="9" r="1.6" /><circle cx="10.5" cy="9" r="1.6" />
+                    <circle cx="3.5" cy="15" r="1.6" /><circle cx="10.5" cy="15" r="1.6" />
+                  </svg>
+                </button>
                 <Link
                   href={href}
+                  draggable={false}
                   onClick={(e) => {
+                    if (suppressClick.current) {
+                      e.preventDefault();
+                      return;
+                    }
                     leaveTo(e, href);
                     if (exact) placeBookmark(b);
                   }}
                   aria-current={isLit ? "location" : undefined}
-                  className={`sidebar-link block w-full text-left pl-4 pr-[96px] py-3 transition-opacity ${isPale ? "opacity-45" : ""}`}
+                  style={isLit && !isLifted ? { paddingLeft: "calc(var(--ds-target) - 2px)" } : undefined}
+                  className={`sidebar-link block w-full text-left pl-[var(--ds-target)] pr-[96px] py-3 transition-opacity ${isPale ? "opacity-45" : ""}`}
                 >
                   {/* One line each, «…» at the end (V34, Vraja Lila msg 5869: «не должно рябить в глазах»). */}
                   <span className={`block truncate text-sm ${titleClass || "text-[#2C1810]"}`} data-bookmark-title="" data-bookmark-named={line.named ? "" : undefined}>{line.head}</span>

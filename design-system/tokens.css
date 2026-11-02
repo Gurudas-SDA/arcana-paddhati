@@ -18,6 +18,7 @@
   /* radii */
   --ds-radius-pill: 9999px;
   --ds-radius-block: 6px;                        /* a marked list row (V36) */
+  --ds-radius-card: 10px;                        /* a bookmark card (V66 Vraja Lila msg 7316 «а3») */
   /* spacing */
   --ds-target: 44px;                             /* minimum tap target */
   /* motion */

@@ -1,0 +1,53 @@
+  [FAIL] pixel7 handle: six dots, before the name, >= 44 px [null, null]
+  [FAIL] pixel7 cards: no checkmarks, no hairline dividers, gap between {"junk": {"checks": 0, "dividers": 0}, "gaps": [0, 0, 0, 0]}
+  [FAIL] pixel7 card radius = 10 px (token --ds-radius-card) {"radius": "0px", "token": ""}
+  [PASS] pixel7 a plain tap opens the bookmark "http://127.0.0.1:8791/arcana-paddhati/ru-iast/maha-abhiseka/"
+  [FAIL] pixel7 long press lifts: frame in --ap-gold null
+  [FAIL] pixel7 a place for the drop is shown while dragging ""
+  [FAIL] pixel7 dragging changes the order (4th card to the top) ["b0", "b1", "b2", "b3", "b4"]
+  [FAIL] pixel7 the order stays after a reload {"order": ["b0", "b1", "b2", "b3", "b4"], "stored": [["b0", null], ["b1", null], ["b2", null], ["b3", null], ["b4", null]]}
+  [FAIL] pixel7 dragging down changes the order (top card to the 3rd place) ["b0", "b1", "b2", "b3", "b4"]
+  [FAIL] pixel7 run "error: Locator.focus: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"[data-bookmark-row] [data-bookmark-handle]\").nth(2)\n"
+  [FAIL] iphone14 handle: six dots, before the name, >= 44 px [null, null]
+  [FAIL] iphone14 cards: no checkmarks, no hairline dividers, gap between {"junk": {"checks": 0, "dividers": 0}, "gaps": [0, 0, 0, 0]}
+  [FAIL] iphone14 card radius = 10 px (token --ds-radius-card) {"radius": "0px", "token": ""}
+  [PASS] iphone14 a plain tap opens the bookmark "http://127.0.0.1:8791/arcana-paddhati/ru-iast/maha-abhiseka/"
+  [FAIL] iphone14 long press lifts: frame in --ap-gold null
+  [FAIL] iphone14 a place for the drop is shown while dragging ""
+  [FAIL] iphone14 dragging changes the order (4th card to the top) ["b0", "b1", "b2", "b3", "b4"]
+  [FAIL] iphone14 the order stays after a reload {"order": ["b0", "b1", "b2", "b3", "b4"], "stored": [["b0", null], ["b1", null], ["b2", null], ["b3", null], ["b4", null]]}
+  [FAIL] iphone14 dragging down changes the order (top card to the 3rd place) ["b0", "b1", "b2", "b3", "b4"]
+  [FAIL] iphone14 run "error: Locator.focus: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"[data-bookmark-row] [data-bookmark-handle]\").nth(2)\n"
+  [FAIL] ipad-portrait handle: six dots, before the name, >= 44 px [null, null]
+  [FAIL] ipad-portrait cards: no checkmarks, no hairline dividers, gap between {"junk": {"checks": 0, "dividers": 0}, "gaps": [0, 0, 0, 0]}
+  [FAIL] ipad-portrait card radius = 10 px (token --ds-radius-card) {"radius": "0px", "token": ""}
+  [PASS] ipad-portrait a plain tap opens the bookmark "http://127.0.0.1:8791/arcana-paddhati/ru-iast/maha-abhiseka/"
+  [FAIL] ipad-portrait long press lifts: frame in --ap-gold null
+  [FAIL] ipad-portrait a place for the drop is shown while dragging ""
+  [FAIL] ipad-portrait dragging changes the order (4th card to the top) ["b0", "b1", "b2", "b3", "b4"]
+  [FAIL] ipad-portrait the order stays after a reload {"order": ["b0", "b1", "b2", "b3", "b4"], "stored": [["b0", null], ["b1", null], ["b2", null], ["b3", null], ["b4", null]]}
+  [FAIL] ipad-portrait dragging down changes the order (top card to the 3rd place) ["b0", "b1", "b2", "b3", "b4"]
+  [FAIL] ipad-portrait run "error: Locator.focus: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"[data-bookmark-row] [data-bookmark-handle]\").nth(2)\n"
+  [FAIL] desktop handle: six dots, before the name, >= 44 px [null, null]
+  [FAIL] desktop cards: no checkmarks, no hairline dividers, gap between {"junk": {"checks": 0, "dividers": 0}, "gaps": [0, 0, 0, 0]}
+  [FAIL] desktop card radius = 10 px (token --ds-radius-card) {"radius": "0px", "token": ""}
+  [PASS] desktop a plain tap opens the bookmark "http://127.0.0.1:8791/arcana-paddhati/ru-iast/maha-abhiseka/"
+  [PASS] desktop a move before the hold does not lift (scroll stays free) null
+  [FAIL] desktop long press lifts: frame in --ap-gold null
+  [FAIL] desktop a place for the drop is shown while dragging ""
+  [FAIL] desktop dragging changes the order (4th card to the top) ["b0", "b1", "b2", "b3", "b4"]
+  [FAIL] desktop the order stays after a reload {"order": ["b0", "b1", "b2", "b3", "b4"], "stored": [["b0", null], ["b1", null], ["b2", null], ["b3", null], ["b4", null]]}
+  [FAIL] desktop dragging down changes the order (top card to the 3rd place) ["b0", "b1", "b2", "b3", "b4"]
+  [FAIL] desktop run "error: Locator.focus: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"[data-bookmark-row] [data-bookmark-handle]\").nth(2)\n"
+  [FAIL] mac-safari handle: six dots, before the name, >= 44 px [null, null]
+  [FAIL] mac-safari cards: no checkmarks, no hairline dividers, gap between {"junk": {"checks": 0, "dividers": 0}, "gaps": [0, 0, 0, 0]}
+  [FAIL] mac-safari card radius = 10 px (token --ds-radius-card) {"radius": "0px", "token": ""}
+  [PASS] mac-safari a plain tap opens the bookmark "http://127.0.0.1:8791/arcana-paddhati/ru-iast/maha-abhiseka/"
+  [PASS] mac-safari a move before the hold does not lift (scroll stays free) null
+  [FAIL] mac-safari long press lifts: frame in --ap-gold null
+  [FAIL] mac-safari a place for the drop is shown while dragging ""
+  [FAIL] mac-safari dragging changes the order (4th card to the top) ["b0", "b1", "b2", "b3", "b4"]
+  [FAIL] mac-safari the order stays after a reload {"order": ["b0", "b1", "b2", "b3", "b4"], "stored": [["b0", null], ["b1", null], ["b2", null], ["b3", null], ["b4", null]]}
+  [FAIL] mac-safari dragging down changes the order (top card to the 3rd place) ["b0", "b1", "b2", "b3", "b4"]
+  [FAIL] mac-safari run "error: Locator.focus: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"[data-bookmark-row] [data-bookmark-handle]\").nth(2)\n"
+7/52 PASS

@@ -40,6 +40,19 @@ export interface Bookmark {
   time: number;
   /** The reader's own name (V34); absent = the chapter's / subsection's name. */
   name?: string;
+  /** The reader's own order (V66, Vraja Lila msg 7316): the place in the list once it was moved by hand;
+   *  absent on old bookmarks and on a new one (those stay newest first, above the moved ones). */
+  pos?: number;
+}
+
+/** The list order: bookmarks not placed by hand first (newest first), then the placed ones by `pos`. */
+export function sortBookmarks<T extends Bookmark>(items: T[]): T[] {
+  const placed = (b: Bookmark) => typeof b.pos === "number";
+  return [...items].sort((a, b) => {
+    if (placed(a) !== placed(b)) return placed(a) ? 1 : -1;
+    if (placed(a) && placed(b) && a.pos !== b.pos) return (a.pos as number) - (b.pos as number);
+    return b.time - a.time;
+  });
 }
 
 type NamedPart = { title: string; num: string | null };
@@ -75,11 +88,11 @@ export function readBookmarks(): Bookmark[] {
   } catch {
     // storage unavailable
   }
-  return items.map((b) => ({ ...b, lang: liveLang(b.lang) })).sort((a, b) => b.time - a.time);
+  return sortBookmarks(items.map((b) => ({ ...b, lang: liveLang(b.lang) })));
 }
 
 export function writeBookmarks(items: Bookmark[]) {
-  mem = [...items].sort((a, b) => b.time - a.time).slice(0, BOOKMARKS_MAX);
+  mem = sortBookmarks(items).slice(0, BOOKMARKS_MAX);
   try {
     localStorage.setItem(BOOKMARKS_KEY, JSON.stringify({ v: 1, items: mem }));
   } catch {
@@ -116,6 +129,16 @@ export function removeBookmark(id: string) {
   } catch {
     // no window (server)
   }
+}
+
+/** The list in the reader's own order (V66, Vraja Lila msg 7316: «перетянуть и сделать важные для себя
+ *  наверху списка»): `ids` top to bottom; every bookmark gets its place, so the order stays after a reload. */
+export function reorderBookmarks(ids: string[]) {
+  const items = readBookmarks();
+  const rank = new Map(ids.map((id, i) => [id, i]));
+  const ordered = items.filter((b) => rank.has(b.id)).sort((a, b) => (rank.get(a.id) as number) - (rank.get(b.id) as number));
+  const rest = items.filter((b) => !rank.has(b.id));
+  writeBookmarks([...ordered, ...rest].map((b, i) => ({ ...b, pos: i })));
 }
 
 /** Rename one bookmark (the pencil in «Закладки», V34); `name` undefined = back

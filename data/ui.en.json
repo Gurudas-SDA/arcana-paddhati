@@ -111,5 +111,6 @@
   "bookmark.dialog.label": "Name",
   "bookmark.dialog.confirm": "Confirm",
   "bookmark.dialog.cancel": "Cancel",
-  "bookmark.rename": "Rename the bookmark"
+  "bookmark.rename": "Rename the bookmark",
+  "bookmark.reorder": "Move the bookmark"
 }

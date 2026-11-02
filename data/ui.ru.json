@@ -111,5 +111,6 @@
   "bookmark.dialog.label": "Название",
   "bookmark.dialog.confirm": "Подтвердить",
   "bookmark.dialog.cancel": "Отмена",
-  "bookmark.rename": "Переименовать закладку"
+  "bookmark.rename": "Переименовать закладку",
+  "bookmark.reorder": "Переместить закладку"
 }

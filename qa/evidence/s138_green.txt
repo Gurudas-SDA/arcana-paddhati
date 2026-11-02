@@ -1,0 +1,57 @@
+  [PASS] pixel7 handle: six dots, before the name, >= 44 px [{"l": 13, "r": 57, "w": 44, "h": 44, "dots": 6}, {"l": 13, "r": 57, "w": 44, "h": 44, "dots": 6}]
+  [PASS] pixel7 cards: no checkmarks, no hairline dividers, gap between {"junk": {"checks": 0, "dividers": 0}, "gaps": [4, 4, 4, 4]}
+  [PASS] pixel7 card radius = 10 px (token --ds-radius-card) {"radius": "10px", "token": "10px"}
+  [PASS] pixel7 a plain tap opens the bookmark "http://127.0.0.1:8792/arcana-paddhati/ru-iast/maha-abhiseka/"
+  [PASS] pixel7 long press lifts: frame in --ap-gold {"id": "b3", "border": "rgb(150, 87, 0)", "gold": "rgb(150, 87, 0)", "width": "1px"}
+  [PASS] pixel7 a place for the drop is shown while dragging ""
+  [PASS] pixel7 dragging changes the order (4th card to the top) ["b3", "b0", "b1", "b2", "b4"]
+  [PASS] pixel7 the order stays after a reload {"order": ["b3", "b0", "b1", "b2", "b4"], "stored": [["b3", 0], ["b0", 1], ["b1", 2], ["b2", 3], ["b4", 4]]}
+  [PASS] pixel7 dragging down changes the order (top card to the 3rd place) ["b0", "b1", "b3", "b2", "b4"]
+  [PASS] pixel7 keyboard: arrow up moves the bookmark, the handle keeps the focus {"order": ["b0", "b3", "b1", "b2", "b4"], "focus": "b3"}
+  [PASS] iphone14 handle: six dots, before the name, >= 44 px [{"l": 13, "r": 57, "w": 44, "h": 44, "dots": 6}, {"l": 13, "r": 57, "w": 44, "h": 44, "dots": 6}]
+  [PASS] iphone14 cards: no checkmarks, no hairline dividers, gap between {"junk": {"checks": 0, "dividers": 0}, "gaps": [4, 4, 4, 4]}
+  [PASS] iphone14 card radius = 10 px (token --ds-radius-card) {"radius": "10px", "token": "10px"}
+  [PASS] iphone14 a plain tap opens the bookmark "http://127.0.0.1:8792/arcana-paddhati/ru-iast/maha-abhiseka/"
+  [PASS] iphone14 long press lifts: frame in --ap-gold {"id": "b3", "border": "rgb(150, 87, 0)", "gold": "rgb(150, 87, 0)", "width": "1px"}
+  [PASS] iphone14 a place for the drop is shown while dragging ""
+  [PASS] iphone14 dragging changes the order (4th card to the top) ["b3", "b0", "b1", "b2", "b4"]
+  [PASS] iphone14 the order stays after a reload {"order": ["b3", "b0", "b1", "b2", "b4"], "stored": [["b3", 0], ["b0", 1], ["b1", 2], ["b2", 3], ["b4", 4]]}
+  [PASS] iphone14 dragging down changes the order (top card to the 3rd place) ["b0", "b1", "b3", "b2", "b4"]
+  [PASS] iphone14 keyboard: arrow up moves the bookmark, the handle keeps the focus {"order": ["b0", "b3", "b1", "b2", "b4"], "focus": "b3"}
+  [PASS] ipad-portrait handle: six dots, before the name, >= 44 px [{"l": 13, "r": 57, "w": 44, "h": 44, "dots": 6}, {"l": 13, "r": 57, "w": 44, "h": 44, "dots": 6}]
+  [PASS] ipad-portrait cards: no checkmarks, no hairline dividers, gap between {"junk": {"checks": 0, "dividers": 0}, "gaps": [4, 4, 4, 4]}
+  [PASS] ipad-portrait card radius = 10 px (token --ds-radius-card) {"radius": "10px", "token": "10px"}
+  [PASS] ipad-portrait a plain tap opens the bookmark "http://127.0.0.1:8792/arcana-paddhati/ru-iast/maha-abhiseka/"
+  [PASS] ipad-portrait long press lifts: frame in --ap-gold {"id": "b3", "border": "rgb(150, 87, 0)", "gold": "rgb(150, 87, 0)", "width": "1px"}
+  [PASS] ipad-portrait a place for the drop is shown while dragging ""
+  [PASS] ipad-portrait dragging changes the order (4th card to the top) ["b3", "b0", "b1", "b2", "b4"]
+  [PASS] ipad-portrait the order stays after a reload {"order": ["b3", "b0", "b1", "b2", "b4"], "stored": [["b3", 0], ["b0", 1], ["b1", 2], ["b2", 3], ["b4", 4]]}
+  [PASS] ipad-portrait dragging down changes the order (top card to the 3rd place) ["b0", "b1", "b3", "b2", "b4"]
+  [PASS] ipad-portrait keyboard: arrow up moves the bookmark, the handle keeps the focus {"order": ["b0", "b3", "b1", "b2", "b4"], "focus": "b3"}
+  [PASS] desktop handle: six dots, before the name, >= 44 px [{"l": 13, "r": 57, "w": 44, "h": 44, "dots": 6}, {"l": 13, "r": 57, "w": 44, "h": 44, "dots": 6}]
+  [PASS] desktop cards: no checkmarks, no hairline dividers, gap between {"junk": {"checks": 0, "dividers": 0}, "gaps": [4, 4, 4, 4]}
+  [PASS] desktop card radius = 10 px (token --ds-radius-card) {"radius": "10px", "token": "10px"}
+  [PASS] desktop a plain tap opens the bookmark "http://127.0.0.1:8792/arcana-paddhati/ru-iast/maha-abhiseka/"
+  [PASS] desktop a move before the hold does not lift (scroll stays free) null
+  [PASS] desktop long press lifts: frame in --ap-gold {"id": "b3", "border": "rgb(150, 87, 0)", "gold": "rgb(150, 87, 0)", "width": "1px"}
+  [PASS] desktop a place for the drop is shown while dragging ""
+  [PASS] desktop dragging changes the order (4th card to the top) ["b3", "b0", "b1", "b2", "b4"]
+  [PASS] desktop the order stays after a reload {"order": ["b3", "b0", "b1", "b2", "b4"], "stored": [["b3", 0], ["b0", 1], ["b1", 2], ["b2", 3], ["b4", 4]]}
+  [PASS] desktop dragging down changes the order (top card to the 3rd place) ["b0", "b1", "b3", "b2", "b4"]
+  [PASS] desktop keyboard: arrow up moves the bookmark, the handle keeps the focus {"order": ["b0", "b3", "b1", "b2", "b4"], "focus": "b3"}
+  [PASS] desktop mouse: dragging by the handle ["b0", "b1", "b2", "b4", "b3"]
+  [PASS] desktop night: lifted frame in --ap-gold, radius 10 px {"id": "b2", "border": "rgb(227, 160, 60)", "gold": "rgb(227, 160, 60)", "width": "1px"}
+  [PASS] desktop sepia: lifted frame in --ap-gold, radius 10 px {"id": "b2", "border": "rgb(150, 87, 0)", "gold": "rgb(150, 87, 0)", "width": "1px"}
+  [PASS] mac-safari handle: six dots, before the name, >= 44 px [{"l": 13, "r": 57, "w": 44, "h": 44, "dots": 6}, {"l": 13, "r": 57, "w": 44, "h": 44, "dots": 6}]
+  [PASS] mac-safari cards: no checkmarks, no hairline dividers, gap between {"junk": {"checks": 0, "dividers": 0}, "gaps": [4, 4, 4, 4]}
+  [PASS] mac-safari card radius = 10 px (token --ds-radius-card) {"radius": "10px", "token": "10px"}
+  [PASS] mac-safari a plain tap opens the bookmark "http://127.0.0.1:8792/arcana-paddhati/ru-iast/maha-abhiseka/"
+  [PASS] mac-safari a move before the hold does not lift (scroll stays free) null
+  [PASS] mac-safari long press lifts: frame in --ap-gold {"id": "b3", "border": "rgb(150, 87, 0)", "gold": "rgb(150, 87, 0)", "width": "1px"}
+  [PASS] mac-safari a place for the drop is shown while dragging ""
+  [PASS] mac-safari dragging changes the order (4th card to the top) ["b3", "b0", "b1", "b2", "b4"]
+  [PASS] mac-safari the order stays after a reload {"order": ["b3", "b0", "b1", "b2", "b4"], "stored": [["b3", 0], ["b0", 1], ["b1", 2], ["b2", 3], ["b4", 4]]}
+  [PASS] mac-safari dragging down changes the order (top card to the 3rd place) ["b0", "b1", "b3", "b2", "b4"]
+  [PASS] mac-safari keyboard: arrow up moves the bookmark, the handle keeps the focus {"order": ["b0", "b3", "b1", "b2", "b4"], "focus": "b3"}
+  [PASS] mac-safari mouse: dragging by the handle ["b0", "b1", "b2", "b4", "b3"]
+56/56 PASS
