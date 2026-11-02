@@ -86,6 +86,8 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: ${{ inputs.sha || github.sha }}
+          # full history: s126 reads the pre-V61 CSS with `git show 19e7f5f:<file>` (a shallow clone has no such commit)
+          fetch-depth: 0
       - name: Rollback tag for linter L17
         run: git fetch --no-tags --depth=1 origin +refs/tags/pirms-interfeisa-2026-10-05:refs/tags/pirms-interfeisa-2026-10-05
       - uses: actions/download-artifact@v8
@@ -95,7 +97,8 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - run: python -m pip install "playwright==${PLAYWRIGHT_VERSION}" pillow
+      # numpy + scipy: s61; fonttools: s102; pymupdf: s27 (scripts/formats/build_formats.py imports fitz) — all present on the server, were missing on the runner
+      - run: python -m pip install "playwright==${PLAYWRIGHT_VERSION}" pillow numpy scipy fonttools pymupdf
       - name: Browser cache
         id: pw-cache
         uses: actions/cache@v6

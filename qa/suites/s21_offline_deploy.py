@@ -166,7 +166,11 @@ def run(p, dev, o):
     chk(dev, "2 offline: unknown page -> book / notice, never browser error", pg.locator("body").inner_text().strip() != "" , pg.url)
 
     # 3. deploy B; user online briefly (new SW begins installing), then offline
-    set_root(B, delay=0.05)          # slow server: the new precache cannot finish
+    # slow server: the new precache cannot finish while the offline checks run. 0.05 s per request was a race: the SW's own
+    # fetches are not stopped by ctx.set_offline, so on a fast machine (GitHub Actions runner 01.11 [desktop, android]; server
+    # 02.11 [desktop]) all 706 files arrived within the few seconds of step 3, the new cache became complete and dropped the
+    # old one («old complete cache still present» FAIL). 0.3 s: ~6 parallel requests -> ~40 s, longer than step 3 (step 4 resets delay to 0)
+    set_root(B, delay=0.3)
     ctx.set_offline(False)
     pg.goto(f"{BASE}/ru-iast/", wait_until="load")
     pg.evaluate("navigator.serviceWorker.getRegistration().then(r => r && r.update()).catch(() => {})")
