@@ -205,6 +205,8 @@ SUITES = [
          devices=None, fast=True, server=False),
     dict(id="s137", file="suites/s137_gurudeva_mangalacarana_a137.py", title="A137 Satkirti msg 7293 (02.11): chapter «Мангалачарана Гурудева» after «Ямунаштака» (8 verses in order, «пословно», 7th «Дополнительный стих на Картику»); «Картика» without «Дамодара-дхьяна»; datu pārbaude",
          devices=["desktop"], fast=True, fast_devices=["desktop"]),
+    dict(id="s140", file="suites/s140_lang_hover_v68.py", title="V68 Vraja Lila msg 7392/7393 (03.11): valodu izvēlnē hover uz neizvēlētās valodas = tikai bold, fons nemainās; izvēlētajai fons + ✓; tālruņos nekas nemainās (desktop + mac-safari + pixel7 + iphone14)",
+         devices=["desktop", "mac-safari", "pixel7", "iphone14"], fast=True, fast_devices=["desktop"]),
     dict(id="s133", file="suites/s133_lang_switch_keeps_place_v65.py", title="V65 Vraja Lila msg 7218 (01.11): valodas maiņa («Аа» izvēlne) patur to pašu nodaļu, apakšnodaļu un vietu tajā (en <-> ru-iast, «Листать» + «Прокручивать», tālrunis + dators)",
          devices=["pixel7", "iphone14", "desktop"], fast=True, fast_devices=["pixel7"]),
     dict(id="s132", file="suites/s132_window_close_v63.py", title="V63 Vraja Lila (msg 1983, 1948; gl.13 review 01.11): ✕ line 1.5 (token --window-close-stroke) in all 4 windows; hover and press = --surface-hover in light/sepia/night; night contrast >= 3:1",
