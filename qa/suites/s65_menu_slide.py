@@ -127,10 +127,15 @@ with sync_playwright() as p:
             open_contents(pg)
             row = pg.locator(".mobile-menu[data-open] aside nav a").filter(has_text=PICK).first
             pg.evaluate(f"({REC})(1800)")
+            # CI runners are slow: with reduced motion the panel can be picked and removed between two animation frames,
+            # so the per-frame sampling misses the lit row; a MutationObserver reads the row's colour the moment it is marked
+            pg.evaluate("""() => { window.__lit = []; const rd = (k) => { if (k && k.matches && k.matches('[data-menu-picked]')) window.__lit.push(getComputedStyle(k).backgroundColor); };
+              new MutationObserver(ms => { for (const m of ms) { if (m.type === 'attributes') rd(m.target); else m.addedNodes.forEach(n => { rd(n); n.querySelectorAll && n.querySelectorAll('[data-menu-picked]').forEach(rd); }); } })
+                .observe(document.body, {subtree: true, attributes: true, attributeFilter: ['data-menu-picked'], childList: true}); }""")
             pg.evaluate("""(t) => { window.__pick = null; const a = [...document.querySelectorAll('.mobile-menu[data-open] aside nav a')].find(x => x.textContent.includes(t));
               a.click(); setTimeout(() => { window.__pick = getComputedStyle(a).backgroundColor; }, %d); }""" % (10 if reduce else 160), PICK)
             fr = frames(pg, 1800)
-            lit = sorted({f[7] for f in fr if f[7]})
+            lit = sorted({f[7] for f in fr if f[7]} | set(pg.evaluate("window.__lit || []")))
             check(dev, f"{tag}picked row lit #F5E6C8", "rgb(245, 230, 200)" in lit, lit)
             first_new = next((f for f in fr if f[5] != PAGE), None)
             moved_before = [f for f in fr if f[5] == PAGE and f[1] is not None and f[1] < -0.01]

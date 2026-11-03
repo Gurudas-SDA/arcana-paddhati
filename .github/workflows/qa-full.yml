@@ -97,8 +97,8 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      # numpy + scipy: s61; fonttools: s102; pymupdf: s27 (scripts/formats/build_formats.py imports fitz) — all present on the server, were missing on the runner
-      - run: python -m pip install "playwright==${PLAYWRIGHT_VERSION}" pillow numpy scipy fonttools pymupdf
+      # numpy + scipy: s61; fonttools + brotli: s102 (fontTools reads woff2 only with brotli); pymupdf: s27 (scripts/formats/build_formats.py imports fitz) — all present on the server, were missing on the runner
+      - run: python -m pip install "playwright==${PLAYWRIGHT_VERSION}" pillow numpy scipy fonttools brotli pymupdf
       - name: Browser cache
         id: pw-cache
         uses: actions/cache@v6
