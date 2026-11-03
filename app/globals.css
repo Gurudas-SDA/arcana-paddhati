@@ -502,6 +502,17 @@ html:root .home-save-slot {
     width: min(100%, 26rem);
   }
 }
+/* Small screens (iPhone SE, 667 px and the like): two cards under the cover leave no room for the bars' share (the cover would be
+   narrower than the cards' 12 rem minimum, s64) - there the layout is the one before V67 (no extra for the bars). */
+@media (max-height: 700px) {
+  :root {
+    --home-bars-extra: 0px;
+  }
+  .home-page {
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-16);
+  }
+}
 /* the save card fills its reserved place (8.5 rem less the slot's top padding): no empty strip under it that would push
    the cover + card block up (a fixed reserve, so the cover does not jump when the card appears) */
 .home-save {

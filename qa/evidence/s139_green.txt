@@ -1,36 +1,23 @@
-QA full: 29 darbi, 2 paralēli, serveris http://127.0.0.1:46853/arcana-paddhati (out/)
-  OK   s26    iphone14                       34 pass   0 fail     213s
-  OK   s26    pixel7                         38 pass   0 fail     216s
-  OK   s26    ipad-portrait                  19 pass   0 fail     133s
-  OK   s26    ipad-landscape                 19 pass   0 fail     133s
-  OK   s26    mac-safari                     34 pass   0 fail     204s
-  OK   s38    ipad-portrait                   1 pass   0 fail       2s
+QA full: 20 darbi, 2 paralēli, serveris http://127.0.0.1:60581/arcana-paddhati (out/)
   OK   s38    iphone14                        1 pass   0 fail       2s
-  OK   s38    pixel7                          1 pass   0 fail       4s
-  OK   s26    desktop                        40 pass   0 fail     215s
-  OK   s52    pixel7                         14 pass   0 fail      19s
+  OK   s38    ipad-portrait                   1 pass   0 fail       2s
+  OK   s38    pixel7                          1 pass   0 fail       3s
   OK   s52    iphone14                       14 pass   0 fail      20s
-  OK   s58    iphone14                       26 pass   0 fail      15s
+  OK   s52    pixel7                         14 pass   0 fail      18s
+  OK   s55    iphone14                       10 pass   0 fail      10s
   OK   s52    desktop                        14 pass   0 fail      18s
-  OK   s58    ipad-portrait                  20 pass   0 fail       8s
-  OK   s58    pixel7                         20 pass   0 fail       7s
   OK   s55    pixel7                         10 pass   0 fail      10s
-  OK   s55    iphone14                       10 pass   0 fail      11s
-  FAIL s64    iphone-se                       4 pass   2 fail       7s
   OK   s55    desktop                        10 pass   0 fail      10s
-  OK   s64    iphone14                        6 pass   0 fail       8s
-  OK   s64    ipad-portrait                   6 pass   0 fail       7s
-  OK   s64    ipad-landscape                  6 pass   0 fail       6s
+  OK   s64    iphone-se                       6 pass   0 fail       6s
+  OK   s64    iphone14                        6 pass   0 fail       7s
+  OK   s64    ipad-portrait                   6 pass   0 fail       8s
   OK   s64    desktop                         6 pass   0 fail       6s
-  OK   s139   pixel7                          7 pass   0 fail      10s
+  OK   s64    ipad-landscape                  6 pass   0 fail       8s
+  OK   s139   pixel7                          7 pass   0 fail      11s
   OK   s139   iphone14                        7 pass   0 fail      12s
-  OK   s139   ipad-portrait                   7 pass   0 fail      10s
-  OK   s139   desktop                         7 pass   0 fail       9s
+  OK   s139   ipad-portrait                   7 pass   0 fail      12s
+  OK   s139   desktop                         7 pass   0 fail      12s
   OK   s126   -                              48 pass   0 fail       0s
-  OK   s139   mac-safari                      7 pass   0 fail      10s
-  atkārtoju 1 kritušos darbus vienu reizi …
-  FAIL s64    iphone-se                    (atkārtoti)   2 fail
+  OK   s139   mac-safari                      7 pass   0 fail      11s
 
-QA full: 436 pass, 2 fail, 0 skip, 11.2 min
-  FAIL s64 iphone-se both cards: «Продолжить» edges = cover edges (±1 px) {"cover": {"l": 111.7, "r": 263.3, "w": 151.5}, "resume": {"l": 91.5, "r": 283.5, "w": 192}, "save": {"l": 91.5, "r": 283.5, "w": 192}, "reserved": 170, "slotH": 170}
-  FAIL s64 iphone-se both cards: «Сохраняется» edges = cover edges (±1 px) {"cover": {"l": 111.7, "r": 263.3, "w": 151.5}, "resume": {"l": 91.5, "r": 283.5, "w": 192}, "save": {"l": 91.5, "r": 283.5, "w": 192}, "reserved": 170, "slotH": 170}
+QA full: 188 pass, 0 fail, 0 skip, 1.6 min
