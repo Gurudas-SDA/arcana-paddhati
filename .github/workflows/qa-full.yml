@@ -17,6 +17,10 @@ on:
         description: "Commit to test (pushed to any branch); empty = the ref the workflow runs on"
         required: false
         default: ""
+      suites:
+        description: "Diagnostics: comma-separated suite ids only (empty = all suites); the legs print their qa/.results logs"
+        required: false
+        default: ""
       tag:
         description: "Run id used by scripts/qa_run.py to find this run"
         required: false
@@ -114,7 +118,13 @@ jobs:
       - name: QA ${{ matrix.leg }}
         env:
           DEVICES: ${{ matrix.devices }}
+          SUITES: ${{ inputs.suites }}
         run: |
+          if [ -n "$SUITES" ]; then
+            if [ -n "$DEVICES" ]; then python qa/run_all.py --devices "$DEVICES" --suites "$SUITES" || true; fi
+            for f in qa/.results/*.log; do echo "::group::$f"; cat "$f"; echo "::endgroup::"; done
+            exit 0
+          fi
           nodev=$(python -c "import sys; sys.path.insert(0, 'qa'); import run_all; print(','.join(s['id'] for s in run_all.SUITES if s['devices'] is None))")
           if [ -z "$DEVICES" ]; then
             python qa/run_all.py --suites "$nodev"
@@ -145,4 +155,5 @@ jobs:
           name: qa-results-${{ matrix.leg }}
           path: qa/.results/
           if-no-files-found: ignore
+          include-hidden-files: true
           retention-days: 7
