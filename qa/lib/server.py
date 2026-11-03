@@ -51,6 +51,16 @@ class _Handler(http.server.SimpleHTTPRequestHandler):
         if srv.delay and "/sw.js" not in self.path:
             time.sleep(srv.delay)
         name = self.path.split("?", 1)[0]
+        if srv.fail and not name.endswith(("/sw.js", "/precache-manifest.json")):
+            # the network is gone for everything but the SW script + manifest (ctx.set_offline
+            # does not stop the service worker's own fetches): deterministic 'offline'
+            # drop the connection (a fetch REJECTS like a real offline; a 503 is a "valid" response for the SW)
+            self.close_connection = True
+            try:
+                self.connection.shutdown(socket.SHUT_RDWR)
+            except OSError:
+                pass
+            return
         if srv.version_suffix and name.endswith(("/sw.js", "/precache-manifest.json")):
             return self._patched(name)
         return super().do_GET()
@@ -65,7 +75,18 @@ class _Handler(http.server.SimpleHTTPRequestHandler):
             self.send_error(404)
             return
         v = srv.base_version()
-        body = body.replace(v, v + srv.version_suffix).encode("utf-8")
+        body = body.replace(v, v + srv.version_suffix)
+        if name.endswith(".json"):
+            # A real deploy changes file contents: new hashes, so the new SW cannot copy
+            # files from the old cache (instant) and must fetch them (slowed by srv.delay).
+            # Without this the new cache completed within seconds by copying, dropping
+            # the old one while step 3 of s21 was still running (CI 01.11, 03.11 FAIL).
+            import json as _json
+            m = _json.loads(body)
+            if isinstance(m.get("hashes"), list):
+                m["hashes"] = [(srv.version_suffix + h) if h else h for h in m["hashes"]]
+            body = _json.dumps(m)
+        body = body.encode("utf-8")
         self.send_response(200)
         self.send_header("Content-Type", "application/javascript" if name.endswith(".js") else "application/json")
         self.send_header("Content-Length", str(len(body)))
@@ -91,6 +112,7 @@ class Server:
         self.root = root or qa.OUT
         self.port = port or free_port()
         self.delay = 0.0
+        self.fail = False
         self.version_suffix = ""
         self._httpd = None
         self._thread = None

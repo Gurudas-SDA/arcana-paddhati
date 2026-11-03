@@ -32,9 +32,10 @@ def chk(d, n, ok, info=""):
     res.append((d, n, bool(ok), info)); print(f"  [{'PASS' if ok else 'FAIL'}] {d} {n} {'' if ok else info}", flush=True)
 
 
-def set_root(p, delay=0):
+def set_root(p, delay=0, fail=False):
     SRV.version_suffix = "" if p == "A" else "b"
     SRV.delay = delay
+    SRV.fail = fail
 
 
 def manifest(site):
@@ -169,7 +170,12 @@ def run(p, dev, o):
     # slow server: the new precache cannot finish while the offline checks run. 0.05 s per request was a race: the SW's own
     # fetches are not stopped by ctx.set_offline, so on a fast machine (GitHub Actions runner 01.11 [desktop, android]; server
     # 02.11 [desktop]) all 706 files arrived within the few seconds of step 3, the new cache became complete and dropped the
-    # old one («old complete cache still present» FAIL). 0.3 s: ~6 parallel requests -> ~40 s, longer than step 3 (step 4 resets delay to 0)
+    # old one («old complete cache still present» FAIL). Root cause (03.11): the deploy-B manifest had the SAME file hashes, so the
+    # new SW copied everything from the old cache instantly (delay irrelevant) -> qa/lib/server.py now changes the hashes in
+    # switch mode (a real deploy), so files are fetched through the slowed server. 0.3 s: ~6 parallel requests -> ~40 s, longer
+    # than step 3 (step 4 resets delay to 0). 1.0 s was too slow: the SW's network-first page fetches during the update stall.
+    # fail=True: the SW's own fetches (not stopped by ctx.set_offline) get 503 while the user is "offline" again
+    # (the new cache can never complete in step 3; timing-independent). Step 4 resets it.
     set_root(B, delay=0.3)
     ctx.set_offline(False)
     pg.goto(f"{BASE}/ru-iast/", wait_until="load")
@@ -177,14 +183,24 @@ def run(p, dev, o):
     pg.wait_for_timeout(4000)
     st = pg.evaluate(CACHE_STATE)
     print("     step3", pg.evaluate(REG), st, flush=True)
+    SRV.fail = True
     ctx.set_offline(True)
-    newst = st.get("arcana-paddhati-" + mB["version"], {})
+    newst =st.get("arcana-paddhati-" + mB["version"], {})
     chk(dev, "3 new deploy: new SW started, its cache incomplete when going offline", not newst.get("complete") and st.get("arcana-paddhati-" + mA["version"], {}).get("complete"), str(st))
     random.seed(7)
     bad = []
     for sid in random.sample(sections, 10):
         for prefix in ("/ru-iast", ""):
-            pg.goto(f"{BASE}{prefix}/{sid}/", wait_until="load"); pg.wait_for_timeout(150)
+            try:
+                pg.goto(f"{BASE}{prefix}/{sid}/", wait_until="load")
+            except Exception:
+                # an earlier page's client-side redirect (EN songs page -> RU) can abort this navigation: let it settle, retry once
+                pg.wait_for_timeout(800)
+                pg.goto(f"{BASE}{prefix}/{sid}/", wait_until="load")
+            for _ in range(10):  # page may still be hydrating / redirecting (songs pages); real failures stay failed after 3 s
+                if page_ok(pg):
+                    break
+                pg.wait_for_timeout(300)
             if not page_ok(pg):
                 bad.append(prefix + "/" + sid)
     chk(dev, "3 offline right after a deploy: 20 pages (RU+EN) open from the old cache", not bad, str(bad))
