@@ -6,6 +6,7 @@ import { flushSync } from "react-dom";
 import Sidebar, { restoreParts } from "@/components/Sidebar";
 import InstallBanner from "@/components/InstallBanner";
 import ReaderChrome from "@/components/ReaderChrome";
+import HighlightsLayer from "@/components/Highlights";
 import type { SearchEntry } from "@/lib/book";
 import { SEARCH_SCROLL_ATTR } from "@/lib/searchMark";
 import { BOOKMARK_PLACE_ATTR } from "@/lib/bookmarks";
@@ -937,6 +938,8 @@ export default function AppShell({
         {/* Content */}
         {children}
       </main>
+      {/* V71: highlights and notes in the text (components/Highlights.tsx). */}
+      <HighlightsLayer ui={ui} lang={lang} />
     </div>
   );
 }

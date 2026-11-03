@@ -134,3 +134,49 @@ html[data-reader-theme="night"] {
   --window-close-stroke: 1.5; /* line of the close cross, Vraja Lila msg 1983 (variant A, line 1.5 px) */
   --window-close-fg: var(--ap-gold); /* one gold token: #965700 on light/sepia, #E3A03C in night (was the brown #5C3D2E: night 1.74) */
 }
+
+/* V71 (Vraja Lila 04.11 msg 2360/2362): the four highlight colours. Tones checked for contrast (WCAG 2.2: the dot / stripe >= 3:1 on the page and the
+   panel, text on the fill >= 4.5:1) and for colour-blind vision (dE2000 >= 10): Vraja_Lila/faili/V70_проверка_цветов/kontrasts_palette.json.
+   Night green has alpha 0.32 (at 0.40 the text gave 4.34). The fill is the tone at its alpha; --hl-N-tone is the dot, the stripe, the sign. */
+:root {
+  --hl-1-tone: #9F6F06;
+  --hl-1-alpha: 0.3;
+  --hl-1-fill: color-mix(in srgb, var(--hl-1-tone) calc(var(--hl-1-alpha) * 100%), transparent);
+  --hl-2-tone: #45A28A;
+  --hl-2-alpha: 0.3;
+  --hl-2-fill: color-mix(in srgb, var(--hl-2-tone) calc(var(--hl-2-alpha) * 100%), transparent);
+  --hl-3-tone: #0D7DEC;
+  --hl-3-alpha: 0.3;
+  --hl-3-fill: color-mix(in srgb, var(--hl-3-tone) calc(var(--hl-3-alpha) * 100%), transparent);
+  --hl-4-tone: #7C2339;
+  --hl-4-alpha: 0.3;
+  --hl-4-fill: color-mix(in srgb, var(--hl-4-tone) calc(var(--hl-4-alpha) * 100%), transparent);
+}
+html[data-reader-theme="sepia"] {
+  --hl-1-tone: #9D6C08;
+  --hl-1-alpha: 0.32;
+  --hl-1-fill: color-mix(in srgb, var(--hl-1-tone) calc(var(--hl-1-alpha) * 100%), transparent);
+  --hl-2-tone: #319476;
+  --hl-2-alpha: 0.32;
+  --hl-2-fill: color-mix(in srgb, var(--hl-2-tone) calc(var(--hl-2-alpha) * 100%), transparent);
+  --hl-3-tone: #1A4BBA;
+  --hl-3-alpha: 0.32;
+  --hl-3-fill: color-mix(in srgb, var(--hl-3-tone) calc(var(--hl-3-alpha) * 100%), transparent);
+  --hl-4-tone: #7C2348;
+  --hl-4-alpha: 0.32;
+  --hl-4-fill: color-mix(in srgb, var(--hl-4-tone) calc(var(--hl-4-alpha) * 100%), transparent);
+}
+html[data-reader-theme="night"] {
+  --hl-1-tone: #EDB135;
+  --hl-1-alpha: 0.4;
+  --hl-1-fill: color-mix(in srgb, var(--hl-1-tone) calc(var(--hl-1-alpha) * 100%), transparent);
+  --hl-2-tone: #A7ECD4;
+  --hl-2-alpha: 0.32;
+  --hl-2-fill: color-mix(in srgb, var(--hl-2-tone) calc(var(--hl-2-alpha) * 100%), transparent);
+  --hl-3-tone: #66B1F6;
+  --hl-3-alpha: 0.4;
+  --hl-3-fill: color-mix(in srgb, var(--hl-3-tone) calc(var(--hl-3-alpha) * 100%), transparent);
+  --hl-4-tone: #D4466F;
+  --hl-4-alpha: 0.4;
+  --hl-4-fill: color-mix(in srgb, var(--hl-4-tone) calc(var(--hl-4-alpha) * 100%), transparent);
+}

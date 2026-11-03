@@ -17,6 +17,22 @@ import {
   type Bookmark,
 } from "@/lib/bookmarks";
 import BookmarkNameDialog from "@/components/BookmarkNameDialog";
+import {
+  HL_EDIT_EVENT,
+  HL_EVENT,
+  HL_IMPORT_EVENT,
+  asText,
+  buildFile,
+  fileName,
+  readHighlights,
+  removeHighlight,
+  reorderHighlights,
+  setPendingReveal,
+  sortHighlights,
+  toast as hlToast,
+  COLORS as HL_COLORS,
+  type Highlight,
+} from "@/lib/highlights";
 import React, {
   useEffect,
   useLayoutEffect,
@@ -535,15 +551,18 @@ export default function Sidebar({
   // Vraja Lila msg 5318 (state 5): the same wording and the same count in parts as on the cover, shorter.
   const offlineSave = useOfflineSave();
 
-  const normalizedQuery = normalizeText(searchQuery.trim());
+  // V71: in «Заметки» the search field filters the notes (their quote and text), not the sections.
+  const normalizedQuery0 = normalizeText(searchQuery.trim());
 
   // Tabs «Содержание · Закладки» (Vraja Lila msg 5316 p. 7, plan «Закладки» B3):
   // the tab is part of the entry's view (setView), so «Назад» comes back to it.
-  const [tab, setTab] = useState<"contents" | "bookmarks">("contents");
+  const [tab, setTab] = useState<"contents" | "bookmarks" | "notes">("contents");
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
+  const normalizedQuery = tab === "notes" ? "" : normalizedQuery0;
   useEffect(() => {
     try {
-      if (entryView().apTab === "bookmarks") setTab("bookmarks");
+      const at = entryView().apTab;
+      if (at === "bookmarks" || at === "notes") setTab(at);
     } catch {
       // history unavailable
     }
@@ -574,10 +593,10 @@ export default function Sidebar({
     setPaleRows((cur) => ({ ...cur, [b.id]: b }));
     removeBookmark(b.id);
   };
-  const chooseTab = (next: "contents" | "bookmarks") => {
+  const chooseTab = (next: "contents" | "bookmarks" | "notes") => {
     setTab(next);
     try {
-      if (next === "bookmarks") setView({ apTab: "bookmarks" });
+      if (next !== "contents") setView({ apTab: next });
       else setView({}, ["apTab"]);
     } catch {
       // history unavailable
@@ -607,6 +626,91 @@ export default function Sidebar({
     if (r) renameBookmark(r.id, ownName(name, r.def));
   };
   const showBookmarks = tab === "bookmarks" && !normalizedQuery;
+  // --- «Заметки» (V71): the highlights of this device, filters, the file
+  const showNotes = tab === "notes";
+  const notesRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [notes, setNotes] = useState<Highlight[]>([]);
+  const [noteFilter, setNoteFilter] = useState<{ noted: boolean; color: number | null }>({ noted: false, color: null });
+  const [fileMenu, setFileMenu] = useState(false);
+  useEffect(() => {
+    if (!showNotes) return;
+    const read = () => setNotes(readHighlights());
+    read();
+    window.addEventListener(HL_EVENT, read);
+    return () => window.removeEventListener(HL_EVENT, read);
+  }, [showNotes]);
+  const sectionRank = useMemo(() => new Map(sections.map((x, i) => [x.id, i])), [sections]);
+  const allNotes = useMemo(() => sortHighlights(notes, (id) => sectionRank.get(id) ?? 9999), [notes, sectionRank]);
+  const nq = normalizeText(searchQuery.trim());
+  const noteRows = useMemo(
+    () =>
+      allNotes.filter(
+        (h) =>
+          (!noteFilter.noted || !!h.note) &&
+          (noteFilter.color === null || h.color === noteFilter.color) &&
+          (!nq || normalizeText(`${h.quote} ${h.note ?? ""}`).includes(nq)),
+      ),
+    [allNotes, noteFilter, nq],
+  );
+  const notePlace = (h: Highlight) => {
+    const sec = sections.find((x) => x.id === h.section);
+    if (!sec) return h.section;
+    const sub = h.sub ? sec.subsections.find((x) => x.id === h.sub) : undefined;
+    const head = sec.num ? `${sec.num}. ${sec.title}` : sec.title;
+    const where = sub ? (sub.num ? `${sub.num}. ${sub.title}` : sub.title) : "";
+    const extra = h.mood !== undefined ? t(ui, "notes.place.mood", { n: String(h.mood + 1) }) : h.kind === "poslovno" ? t(ui, "notes.place.poslovno") : "";
+    return [head, where, extra].filter(Boolean).join(" · ");
+  };
+  const saveNotesFile = async () => {
+    setFileMenu(false);
+    const all = readHighlights();
+    const name = fileName();
+    const blob = new Blob([buildFile(all)], { type: "application/json" });
+    try {
+      const file = new File([blob], name, { type: "application/json" });
+      const nav = navigator as Navigator & { canShare?: (d: { files: File[] }) => boolean };
+      if (nav.canShare?.({ files: [file] }) && nav.share) {
+        await nav.share({ files: [file], title: name });
+        hlToast(t(ui, "notes.saved", { n: String(all.length) }), undefined, 3000);
+        return;
+      }
+    } catch (e) {
+      if ((e as Error)?.name === "AbortError") return;
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 4000);
+    hlToast(t(ui, "notes.saved", { n: String(all.length) }), undefined, 3000);
+  };
+  const copyNotesText = async () => {
+    setFileMenu(false);
+    const text = asText(sortHighlights(readHighlights(), (id) => sectionRank.get(id) ?? 9999), notePlace);
+    try {
+      await navigator.clipboard.writeText(text);
+      hlToast(t(ui, "hl.copied"), undefined, 2000);
+    } catch {
+      // no clipboard
+    }
+  };
+  const onNotesFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0];
+    e.target.value = "";
+    if (!f) return;
+    let text = "";
+    try {
+      text = await f.text();
+    } catch {
+      // unreadable file: told as a broken one
+    }
+    window.dispatchEvent(new CustomEvent(HL_IMPORT_EVENT, { detail: { text } }));
+  };
+  const lostLabel = t(ui, "notes.lost");
   // The bookmark on the place being read (Vraja Lila msg 5436): the same place
   // the ribbon button shows as set (chapter + subsection from the scroll spy;
   // no subsection — the chapter). Several there — the newest (the list is
@@ -642,9 +746,11 @@ export default function Sidebar({
   const suppressClick = useRef(false);
   const refocusHandle = useRef<string | null>(null);
   const dragId = drag?.id;
+  // V71 (Vraja Lila msg 7426): the notes cards move the same way as the bookmarks — this very mechanism, on the list that is shown.
+  const listEl = () => (tab === "notes" ? notesRef.current : bookmarksRef.current);
   const updateDrag = () => {
     const d = dragRef.current;
-    const list = bookmarksRef.current;
+    const list = listEl();
     if (!d || !list) return;
     const dy = d.lastY - d.startY + (list.scrollTop - d.startScroll);
     const mid = d.tops[d.from] + d.hs[d.from] / 2 + dy;
@@ -656,10 +762,10 @@ export default function Sidebar({
     setDrag({ id: d.id, from: d.from, to, dy });
   };
   const beginDrag = (id: string, y: number) => {
-    const list = bookmarksRef.current;
+    const list = listEl();
     if (!list) return;
-    const els = [...list.querySelectorAll<HTMLElement>("[data-bookmark-row]")];
-    const ids = els.map((el) => el.dataset.bookmarkId as string);
+    const els = [...list.querySelectorAll<HTMLElement>("[data-bookmark-row],[data-note-row]")];
+    const ids = els.map((el) => (el.dataset.bookmarkId ?? el.dataset.noteId) as string);
     const from = ids.indexOf(id);
     if (from < 0) return;
     const tops = els.map((el) => el.offsetTop);
@@ -677,9 +783,9 @@ export default function Sidebar({
     setDrag({ id, from, to: from, dy: 0 });
   };
   /** A long press (touch, pen, or the mouse held on the row); the handle lifts at once with the mouse. */
-  const armHold = (e: React.PointerEvent, b: Bookmark, onHandle: boolean) => {
+  const armHold = (e: React.PointerEvent, b: { id: string }, onHandle: boolean) => {
     if (e.pointerType === "mouse" && e.button !== 0) return;
-    if ((e.target as Element).closest("[data-bookmark-rename],[data-bookmark-remove]")) return;
+    if ((e.target as Element).closest("[data-bookmark-rename],[data-bookmark-remove],[data-note-edit],[data-note-delete]")) return;
     holdOff.current?.();
     if (onHandle && e.pointerType === "mouse") {
       e.preventDefault();
@@ -728,7 +834,8 @@ export default function Sidebar({
       if (apply && d && d.to !== d.from) {
         const ids = d.ids.filter((_, i) => i !== d.from);
         ids.splice(d.to, 0, d.id);
-        reorderBookmarks(ids);
+        if (tab === "notes") reorderHighlights(ids, allNotes.map((h) => h.id));
+        else reorderBookmarks(ids);
       }
     };
     const onUp = () => finish(true);
@@ -740,7 +847,7 @@ export default function Sidebar({
     };
     const tick = () => {
       const d = dragRef.current;
-      const list = bookmarksRef.current;
+      const list = listEl();
       if (d && list) {
         const r = list.getBoundingClientRect();
         const speed = d.lastY < r.top + EDGE_PX ? -8 : d.lastY > r.bottom - EDGE_PX ? 8 : 0;
@@ -768,24 +875,25 @@ export default function Sidebar({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dragId]);
   /** The same move from the keyboard: the handle is a button, ↑ / ↓ move the bookmark one place. */
-  const moveByKey = (e: React.KeyboardEvent, b: Bookmark) => {
+  const moveByKey = (e: React.KeyboardEvent, b: { id: string }) => {
     if (e.key !== "ArrowUp" && e.key !== "ArrowDown") return;
     e.preventDefault();
-    const ids = bookmarkRows.map((x) => x.id);
+    const ids = (tab === "notes" ? noteRows : bookmarkRows).map((x) => x.id);
     const i = ids.indexOf(b.id);
     const j = i + (e.key === "ArrowUp" ? -1 : 1);
     if (i < 0 || j < 0 || j >= ids.length) return;
     ids.splice(i, 1);
     ids.splice(j, 0, b.id);
     refocusHandle.current = b.id;
-    reorderBookmarks(ids);
+    if (tab === "notes") reorderHighlights(ids, allNotes.map((h) => h.id));
+    else reorderBookmarks(ids);
   };
   useLayoutEffect(() => {
     const id = refocusHandle.current;
     if (!id) return;
     refocusHandle.current = null;
-    bookmarksRef.current?.querySelector<HTMLElement>(`[data-bookmark-id="${CSS.escape(id)}"] [data-bookmark-handle]`)?.focus();
-  }, [bookmarkRows]);
+    listEl()?.querySelector<HTMLElement>(`[data-bookmark-id="${CSS.escape(id)}"] [data-bookmark-handle],[data-note-id="${CSS.escape(id)}"] [data-bookmark-handle]`)?.focus();
+  }, [bookmarkRows, noteRows]);
 
   const sectionHref = (sectionId: string, anchor?: string) =>
     localeHref(lang, sectionId, anchor);
@@ -1359,8 +1467,8 @@ export default function Sidebar({
             autoComplete="off"
             autoCorrect="off"
             spellCheck={false}
-            aria-label={t(ui, "search.placeholder")}
-            placeholder={t(ui, "search.placeholder")}
+            aria-label={t(ui, showNotes ? "notes.search" : "search.placeholder")}
+            placeholder={t(ui, showNotes ? "notes.search" : "search.placeholder")}
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             onFocus={onSearchFocus}
@@ -1393,7 +1501,7 @@ export default function Sidebar({
 
       {!normalizedQuery && (
         <div className="sidebar-tabs shrink-0 flex border-b border-[color:var(--line-hairline)]" role="tablist" data-sidebar-tabs="">
-          {(["contents", "bookmarks"] as const).map((k) => (
+          {(["contents", "bookmarks", "notes"] as const).map((k) => (
             <button
               key={k}
               type="button"
@@ -1401,11 +1509,11 @@ export default function Sidebar({
               aria-selected={tab === k}
               data-sidebar-tab={k}
               onClick={() => chooseTab(k)}
-              className={`flex-1 px-3 py-3 text-sm transition-colors border-b-2 ${
+              className={`flex-1 min-w-0 px-1 py-3 text-sm whitespace-nowrap transition-colors border-b-2 ${
                 tab === k ? "border-[var(--ap-gold)] text-[#2C1810] font-semibold" : "border-transparent text-[#5C3D2E]"
               }`}
             >
-              {t(ui, k === "contents" ? "sidebar.contents" : "sidebar.bookmarks")}
+              {t(ui, `sidebar.${k}`)}
             </button>
           ))}
         </div>
@@ -1596,6 +1704,219 @@ export default function Sidebar({
           )}
         </div>
       )}
+      {showNotes && (
+        <div className="flex-1 min-h-0 flex flex-col" data-notes-panel="">
+          {/* Filters (V71, Vraja Lila 04.11 «правки 5»): row 1 «Все N» + «С заметкой N» (fixed width, room for 3 digits) + the file button
+              at the right; row 2 the 4 colours. */}
+          <div className="notes-filters shrink-0" data-notes-filters="">
+            <div className="notes-filter-row">
+              <button
+                type="button"
+                className="notes-chip notes-chip-all"
+                data-notes-filter="all"
+                aria-pressed={!noteFilter.noted && noteFilter.color === null}
+                onClick={() => setNoteFilter({ noted: false, color: null })}
+              >
+                <span>{t(ui, "notes.all")}</span>
+                <span className="notes-count">{allNotes.length >= 1000 ? "999+" : allNotes.length}</span>
+              </button>
+              <button
+                type="button"
+                className="notes-chip notes-chip-noted"
+                data-notes-filter="noted"
+                aria-pressed={noteFilter.noted}
+                onClick={() => setNoteFilter((f) => ({ ...f, noted: !f.noted }))}
+              >
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 5h16v11H9l-5 4z" /><path d="M8 9h8M8 12h5" />
+                </svg>
+                <span>{t(ui, "notes.noted")}</span>
+                <span className="notes-count">{(() => { const n = allNotes.filter((h) => !!h.note).length; return n >= 1000 ? "999+" : n; })()}</span>
+              </button>
+              <div className="notes-file">
+                <button
+                  type="button"
+                  className="notes-file-btn"
+                  data-notes-file=""
+                  aria-haspopup="menu"
+                  aria-expanded={fileMenu}
+                  aria-label={t(ui, "notes.file")}
+                  title={t(ui, "notes.file")}
+                  onClick={() => setFileMenu((v) => !v)}
+                >
+                  <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5" /><path d="M12 17v-6M9.5 13.5 12 11l2.5 2.5" />
+                  </svg>
+                </button>
+                {fileMenu && (
+                  <div className="notes-file-menu" role="menu" data-notes-file-menu="">
+                    <button type="button" role="menuitem" data-notes-save="" onClick={() => void saveNotesFile()}>{t(ui, "notes.save")}</button>
+                    <button type="button" role="menuitem" data-notes-load="" onClick={() => { setFileMenu(false); fileInputRef.current?.click(); }}>{t(ui, "notes.load")}</button>
+                    <button type="button" role="menuitem" data-notes-copytext="" onClick={() => void copyNotesText()}>{t(ui, "notes.copyText")}</button>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="notes-filter-row notes-color-row">
+              {Array.from({ length: HL_COLORS }, (_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  className="hl-color"
+                  data-notes-color={i}
+                  aria-pressed={noteFilter.color === i}
+                  data-current={noteFilter.color === i ? "" : undefined}
+                  aria-label={t(ui, `hl.color.${["yellow", "green", "blue", "pink"][i]}`)}
+                  title={t(ui, `hl.color.${["yellow", "green", "blue", "pink"][i]}`)}
+                  onClick={() => setNoteFilter((f) => ({ ...f, color: f.color === i ? null : i }))}
+                >
+                  <span className="hl-dot" style={{ background: `var(--hl-${i + 1}-tone)` }} />
+                </button>
+              ))}
+            </div>
+          </div>
+          <input ref={fileInputRef} type="file" accept=".json,application/json" hidden data-notes-import="" onChange={(e) => void onNotesFile(e)} />
+          <div
+            ref={notesRef}
+            className={`relative flex-1 min-h-0 ${drag ? "overflow-hidden" : "overflow-y-auto"} ${noteRows.length ? "flex flex-col gap-[var(--space-4)] px-[var(--space-12)] py-[var(--space-8)]" : ""}`}
+            data-notes-list=""
+            data-bookmark-dragging={drag ? "" : undefined}
+          >
+            {drag && dragRef.current && (() => {
+              const d = dragRef.current;
+              const order = d.ids.filter((_, i) => i !== d.from);
+              order.splice(drag.to, 0, d.id);
+              let top = d.tops[0];
+              for (const id of order) {
+                const i = d.ids.indexOf(id);
+                if (id === d.id) break;
+                top += d.hs[i] + d.gap;
+              }
+              return (
+                <div
+                  aria-hidden="true"
+                  data-bookmark-gap=""
+                  className="absolute left-[var(--space-12)] right-[var(--space-12)] box-border rounded-[var(--ds-radius-card)] border border-dashed border-[color:var(--ds-accent-soft)] bg-[var(--ds-band)]"
+                  style={{ top, height: d.hs[d.from] }}
+                />
+              );
+            })()}
+            {noteRows.length === 0 ? (
+              <p className="px-4 py-4 text-sm text-[#5C3D2E]" data-notes-empty="">{t(ui, "notes.empty")}</p>
+            ) : (
+              noteRows.map((h) => {
+                const href = sectionHref(h.section, h.sub);
+                const otherLang = h.lang !== lang;
+                const di = drag ? noteRows.findIndex((x) => x.id === drag.id) : -1;
+                const ri = noteRows.findIndex((x) => x.id === h.id);
+                const isLifted = !!drag && drag.id === h.id;
+                let shift = 0;
+                if (drag && dragRef.current && !isLifted) {
+                  const dd = dragRef.current;
+                  const order = dd.ids.filter((_, i) => i !== di);
+                  order.splice(drag.to, 0, dd.id);
+                  let top = dd.tops[0];
+                  for (const id of order) {
+                    if (id === h.id) break;
+                    top += dd.hs[dd.ids.indexOf(id)] + dd.gap;
+                  }
+                  shift = top - dd.tops[ri];
+                }
+                const rowStyle: React.CSSProperties | undefined = drag
+                  ? isLifted
+                    ? { transform: `translateY(${drag.dy}px) scale(1.02)`, zIndex: 10 }
+                    : { transform: `translateY(${shift}px)`, transition: "transform var(--ds-dur-fast)" }
+                  : undefined;
+                return (
+                  <div
+                    key={h.id}
+                    data-note-row=""
+                    data-note-id={h.id}
+                    data-note-color={h.color}
+                    data-note-lost={h.lost ? "" : undefined}
+                    data-bookmark-lifted={isLifted ? "" : undefined}
+                    style={{ ...rowStyle, ["--note-tone" as string]: `var(--hl-${h.color + 1}-tone)` }}
+                    onPointerDown={(e) => armHold(e, h, false)}
+                    onContextMenu={(e) => {
+                      if (drag || holdOff.current) e.preventDefault();
+                    }}
+                    className={`bookmark-card note-card relative select-none [-webkit-touch-callout:none] border box-border rounded-[var(--ds-radius-card)] ${
+                      isLifted ? "border-[var(--ap-gold)] bg-[var(--ds-fill-soft)] shadow-[var(--shadow-window)]" : "border-[color:var(--line-hairline)] bg-[var(--ds-fill-soft)]"
+                    }`}
+                  >
+                    {/* The same handle as the bookmarks' (V66, Vraja Lila msg 7426). */}
+                    <button
+                      type="button"
+                      className="absolute left-0 top-0 bottom-0 flex w-[var(--ds-target)] items-center justify-center text-[var(--rd-muted)] cursor-grab"
+                      onPointerDown={(e) => {
+                        e.stopPropagation();
+                        armHold(e, h, true);
+                      }}
+                      onKeyDown={(e) => moveByKey(e, h)}
+                      aria-label={t(ui, "bookmark.reorder")}
+                      title={t(ui, "bookmark.reorder")}
+                      data-bookmark-handle=""
+                      style={{ touchAction: "pan-y" }}
+                    >
+                      <svg aria-hidden="true" width="14" height="18" viewBox="0 0 14 18" fill="currentColor">
+                        <circle cx="3.5" cy="3" r="1.6" /><circle cx="10.5" cy="3" r="1.6" />
+                        <circle cx="3.5" cy="9" r="1.6" /><circle cx="10.5" cy="9" r="1.6" />
+                        <circle cx="3.5" cy="15" r="1.6" /><circle cx="10.5" cy="15" r="1.6" />
+                      </svg>
+                    </button>
+                    <Link
+                      href={href}
+                      draggable={false}
+                      data-note-open=""
+                      onClick={(e) => {
+                        if (suppressClick.current) {
+                          e.preventDefault();
+                          return;
+                        }
+                        if (!otherLang) setPendingReveal(h.id);
+                        leaveTo(e, href);
+                      }}
+                      className="sidebar-link block w-full text-left pl-[var(--ds-target)] pr-[96px] py-3"
+                    >
+                      <span className="note-quote block text-sm text-[#2C1810]" data-note-quote="">{h.quote}</span>
+                      {h.note && <span className="note-text block text-sm text-[#5C3D2E]" data-note-text="">{h.note}</span>}
+                      <span className="block text-[11px] text-[#6B5440]" data-note-place="">
+                        {notePlace(h)}
+                        {h.lost ? ` · ${lostLabel}` : ""}
+                        {otherLang ? ` · ${t(ui, "notes.langNote", { lang: h.lang })}` : ""}
+                      </span>
+                    </Link>
+                    <button
+                      type="button"
+                      className="absolute right-[44px] top-1/2 -translate-y-1/2 flex h-[44px] w-[44px] items-center justify-end pr-[3px] text-[var(--ap-gold)]"
+                      onClick={() => window.dispatchEvent(new CustomEvent(HL_EDIT_EVENT, { detail: { id: h.id } }))}
+                      aria-label={t(ui, "hl.edit")}
+                      title={t(ui, "hl.edit")}
+                      data-note-edit=""
+                    >
+                      <svg aria-hidden="true" width="18" height="18" viewBox="0 -0.56 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z" /><path d="M14 6l3 3" />
+                      </svg>
+                    </button>
+                    <button
+                      type="button"
+                      className="absolute right-0 top-1/2 -translate-y-1/2 flex h-[44px] w-[44px] items-center justify-center text-[var(--ap-gold)]"
+                      onClick={() => removeHighlight(h.id, { removed: t(ui, "hl.removed"), undo: t(ui, "bookmark.undo") })}
+                      aria-label={t(ui, "hl.delete")}
+                      title={t(ui, "hl.delete")}
+                      data-note-delete=""
+                    >
+                      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3" />
+                      </svg>
+                    </button>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </div>
+      )}
       {renaming && (
         <BookmarkNameDialog
           ui={ui}
@@ -1605,7 +1926,7 @@ export default function Sidebar({
           onCancel={() => setRenaming(null)}
         />
       )}
-      <nav className="flex-1 min-h-0 flex flex-col" hidden={showBookmarks || undefined}>
+      <nav className="flex-1 min-h-0 flex flex-col" hidden={showBookmarks || showNotes || undefined}>
       {!normalizedQuery && (
         <div className="toc-fixed shrink-0 pt-2 pb-1 border-b border-[color:var(--line-hairline)]">
           <Link

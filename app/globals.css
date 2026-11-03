@@ -2540,3 +2540,156 @@ html[data-reader-theme="night"] .hover\:bg-\[\#FDF8F0\]:hover {
 .hs-peek { --hs-peek-reserve: calc(100px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px)); }
 html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px)); }
 /*@/v61s4*/
+
+/* ===== V71 (Vraja Lila 04.11 msg 2360/2362): highlights and notes ===== */
+::highlight(hl-0) { background-color: var(--hl-1-fill); color: inherit; }
+::highlight(hl-1) { background-color: var(--hl-2-fill); color: inherit; }
+::highlight(hl-2) { background-color: var(--hl-3-fill); color: inherit; }
+::highlight(hl-3) { background-color: var(--hl-4-fill); color: inherit; }
+::highlight(hl-flash) { background-color: var(--ap-band-flash); color: inherit; }
+/* the selection menu / the card of a highlight: light in day and sepia, dark at night (the colour dots are checked on this very ground) */
+.hl-menu {
+  position: fixed;
+  z-index: 95;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-8);
+  max-width: calc(100vw - var(--space-16));
+  background: var(--rd-panel-bg);
+  color: var(--rd-fg);
+  border: 1px solid var(--line-hairline);
+  border-radius: var(--ds-radius-card);
+  box-shadow: var(--shadow-window);
+  -webkit-user-select: none;
+  user-select: none;
+}
+.hl-menu .hl-colors { display: flex; justify-content: center; gap: 0; }
+.hl-color {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--ds-target) + var(--space-4));
+  height: var(--ds-target);
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: var(--ds-radius-card);
+  -webkit-tap-highlight-color: transparent;
+}
+.hl-dot {
+  display: block;
+  width: calc(var(--space-16) + var(--space-12));
+  height: calc(var(--space-16) + var(--space-12));
+  border-radius: var(--ds-radius-pill);
+  box-sizing: border-box;
+  border: 1px solid var(--line-hairline);
+}
+.hl-color[data-current] .hl-dot, .hl-color[aria-pressed="true"] .hl-dot { outline: var(--ds-focus-w) solid var(--rd-fg); outline-offset: var(--ds-focus-w); }
+.hl-actions { display: flex; gap: var(--space-4); }
+.hl-action {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  min-height: var(--ds-target);
+  padding: 0 var(--space-12);
+  background: var(--ds-fill-soft);
+  color: var(--rd-fg);
+  border: 1px solid var(--line-hairline);
+  border-radius: var(--ds-radius-card);
+  font-size: 15px;
+  white-space: nowrap;
+}
+.hl-icon {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--ds-target);
+  min-height: var(--ds-target);
+  background: var(--ds-fill-soft);
+  color: var(--ap-gold);
+  border: 1px solid var(--line-hairline);
+  border-radius: var(--ds-radius-card);
+}
+.hl-card { width: calc(var(--space-48) * 6 + var(--space-16)); }
+.hl-card-note { margin: 0; padding: var(--space-4) var(--space-8); font-size: 15px; line-height: 1.4; max-height: calc(var(--space-48) * 2); overflow-y: auto; overflow-wrap: anywhere; }
+.hl-quote { margin: 0 0 var(--space-12); padding-left: var(--space-12); border-left: var(--space-4) solid var(--line-hairline); font-size: 14px; line-height: 1.4; color: #5C3D2E; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.hl-field { resize: vertical; min-height: calc(var(--space-48) * 2); font-family: inherit; }
+@media (min-width: 700px) and (pointer: fine) {
+  .hl-menu:not(.hl-card) { flex-direction: row; align-items: center; gap: var(--space-8); }
+  .hl-menu:not(.hl-card) .hl-actions { flex: none; }
+}
+/* the note's sign at the end of a highlight (drawn on top of the page: the text itself is not changed) */
+.hl-marker {
+  position: fixed;
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-24);
+  height: var(--space-24);
+  padding: 0;
+  background: var(--rd-panel-bg);
+  color: var(--ap-gold);
+  border: 1px solid var(--line-hairline);
+  border-radius: var(--ds-radius-pill);
+}
+.hl-marker::after { content: ""; position: absolute; inset: calc(var(--space-12) * -1); }
+/* a dot on the «Пословно» button while its closed panel holds a highlight */
+[data-hl-dot] { position: relative; }
+[data-hl-dot]::after { content: ""; position: absolute; top: var(--space-4); right: var(--space-4); width: var(--space-8); height: var(--space-8); border-radius: var(--ds-radius-pill); background: var(--ap-gold); }
+/* «Заметки» in the side panel */
+.notes-filters { padding: var(--space-8) var(--space-16) 0 var(--space-12); }
+.notes-filter-row { display: flex; align-items: center; gap: var(--space-8); margin-bottom: var(--space-8); }
+.notes-color-row { gap: 0; }
+.notes-chip {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-4);
+  min-height: var(--ds-target);
+  padding: 0 var(--space-8);
+  background: var(--ds-fill-soft);
+  color: var(--rd-fg);
+  border: 1px solid var(--line-hairline);
+  border-radius: var(--ds-radius-pill);
+  font-size: 14px;
+  white-space: nowrap;
+  flex: none;
+}
+.notes-chip-all { width: calc(var(--space-48) + var(--space-32)); }
+.notes-chip-noted { width: calc(var(--space-48) * 3 + var(--space-12)); }
+.notes-chip[aria-pressed="true"] { background: var(--ds-fill); border-color: var(--ap-gold); }
+.notes-count { display: inline-block; min-width: 3ch; text-align: left; font-variant-numeric: tabular-nums; }
+.notes-file { position: relative; margin-left: auto; flex: none; }
+.notes-file-btn { display: inline-flex; align-items: center; justify-content: center; width: var(--ds-target); height: var(--ds-target); background: transparent; color: var(--ap-gold); border: 0; border-radius: var(--ds-radius-card); }
+.notes-file-menu { position: absolute; right: 0; top: 100%; z-index: 5; display: flex; flex-direction: column; min-width: calc(var(--space-48) * 4); background: var(--rd-panel-bg); border: 1px solid var(--line-hairline); border-radius: var(--ds-radius-card); box-shadow: var(--shadow-window); overflow: hidden; }
+.notes-file-menu button { min-height: calc(var(--ds-target) + var(--space-4)); padding: 0 var(--space-16); text-align: left; font-size: 15px; color: var(--rd-fg); background: transparent; border: 0; white-space: nowrap; }
+/* Card height / shortening (Vraja Lila msg 7427 is choosing: ONE variable per kind of line) */
+.note-card { --note-card-lines: 2; --note-tone: var(--ap-gold); border-left-color: transparent; }
+.note-card::before {
+  content:'';
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:var(--space-16);
+  background:var(--note-tone);
+  pointer-events:none;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='16'%3E%3Cpath d='M6.41 2.30A8.5 8.5 0 0 0 1.5 10V16' fill='none' stroke='black' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 0 0/14px 16px no-repeat,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='16'%3E%3Cpath d='M6.41 13.70A8.5 8.5 0 0 1 1.5 6V0' fill='none' stroke='black' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 0 100%/14px 16px no-repeat,linear-gradient(var(--note-tone),var(--note-tone)) 0 16px/3px calc(100% - 32px) no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='16'%3E%3Cpath d='M6.41 2.30A8.5 8.5 0 0 0 1.5 10V16' fill='none' stroke='black' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 0 0/14px 16px no-repeat,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='16'%3E%3Cpath d='M6.41 13.70A8.5 8.5 0 0 1 1.5 6V0' fill='none' stroke='black' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 0 100%/14px 16px no-repeat,linear-gradient(var(--note-tone),var(--note-tone)) 0 16px/3px calc(100% - 32px) no-repeat
+}
+
+.note-quote, .note-text { display: -webkit-box; -webkit-line-clamp: var(--note-card-lines); -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.note-card[data-note-lost] .note-quote { opacity: .6; }
+/* the editor / file windows of the highlights (classes instead of arbitrary values: the token guard) */
+.hl-btn { min-height: var(--ds-target); }
+.hl-t { color: #2C1810; }
+.hl-t-soft { color: #5C3D2E; }
+.hl-t15 { font-size: 15px; }
+.hl-modal-card { max-width: calc(var(--space-48) * 7 + var(--space-24)); }
