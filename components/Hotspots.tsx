@@ -573,7 +573,9 @@ export function HotspotFigure({
       const cs = getComputedStyle(pk);
       const bottomGap = parseFloat(cs.getPropertyValue("--hs-peek-bottom")) || 40;
       const lowTop = vh - bottomGap - h - 8;
-      const highBottom = 20 + h + 8 + (parseFloat(cs.getPropertyValue("--hs-peek-topgap")) || 0);
+      // V69: a card at the top stands below its ✕ (room 56 px + 8) and, with the bars shown, below the top bar (57 px)
+      const barsOn = document.documentElement.hasAttribute("data-reader-bars");
+      const highBottom = 8 + 56 + (barsOn ? 57 : 0) + h + 8 + (parseFloat(cs.getPropertyValue("--hs-peek-topgap")) || 0);
       const hitsLow = rows.some((r) => {
         const b = r.getBoundingClientRect();
         return b.bottom > lowTop && b.top < vh;

@@ -2187,8 +2187,8 @@ html[data-reader-bars] .hs-peek {
   }
 }
 html[data-reader-bars] .hs-peek[data-top] {
-  /* its ✕ (10 px above) clear of the top bar (57 px) — V28 */
-  top: calc(env(safe-area-inset-top, 0px) + 72px);
+  /* V69: the ✕ (room above the card) clear of the top bar (57 px + the safe area, which the bar includes) — V28, V69 */
+  top: calc(env(safe-area-inset-top, 0px) + 57px + var(--window-close-room) + var(--space-8));
 }
 html[data-hs-peek] .app-main {
   padding-bottom: calc(var(--reader-pad-bottom) + var(--hs-peek-h, 0px) + 16px);

@@ -94,6 +94,9 @@ STEP5_CHANGES = {
     (("gap", "8px"), ("gap", "10px")),
     (("gap", "8px"), ("gap", "9px")),
     (("padding", "4px"), ("padding", "2px 4px")),
+    # V69 (Vraja Lila msg 7394): the card at the top leaves room for its ✕ above itself (clear of the top bar when it is shown)
+    (("top", "calc(env(safe-area-inset-top, 0px) + var(--window-close-room) + 8px)"), ("top", "calc(env(safe-area-inset-top, 0px) + 20px)")),
+    (("top", "calc(env(safe-area-inset-top, 0px) + 57px + var(--window-close-room) + 8px)"), ("top", "calc(env(safe-area-inset-top, 0px) + 72px)")),
 }
 
 
