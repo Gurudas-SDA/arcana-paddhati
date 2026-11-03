@@ -1,0 +1,50 @@
+  [PASS] book.de.json: the two verses absent 
+  [PASS] book.es.json: the two verses absent 
+  [PASS] book.fr.json: the two verses absent 
+  [PASS] book.hu.json: the two verses absent 
+  [PASS] book.it.json: the two verses absent 
+  [PASS] book.json: the two verses absent 
+  [PASS] book.lt.json: the two verses absent 
+  [PASS] book.lv.json: the two verses absent 
+  [PASS] book.pt.json: the two verses absent 
+  [PASS] book.ru-iast.json: the two verses absent 
+  [PASS] book.ru.json: the two verses absent 
+  [PASS] book.uk.json: the two verses absent 
+  [PASS] hotspots.json: the two verses absent 
+  [PASS] ui.de.json: the two verses absent 
+  [PASS] ui.en.json: the two verses absent 
+  [PASS] ui.es.json: the two verses absent 
+  [PASS] ui.fr.json: the two verses absent 
+  [PASS] ui.hu.json: the two verses absent 
+  [PASS] ui.it.json: the two verses absent 
+  [PASS] ui.lt.json: the two verses absent 
+  [PASS] ui.lv.json: the two verses absent 
+  [PASS] ui.pt.json: the two verses absent 
+  [PASS] ui.ru-iast.json: the two verses absent 
+  [PASS] ui.ru.json: the two verses absent 
+  [PASS] ui.uk.json: the two verses absent 
+  [PASS] book.de.json: verses 9-10 kept 
+  [PASS] book.de.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament 
+  [PASS] book.es.json: verses 9-10 kept 
+  [PASS] book.es.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament 
+  [PASS] book.fr.json: verses 9-10 kept 
+  [PASS] book.fr.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament 
+  [PASS] book.hu.json: verses 9-10 kept 
+  [PASS] book.hu.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament 
+  [PASS] book.it.json: verses 9-10 kept 
+  [PASS] book.it.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament 
+  [PASS] book.json: verses 9-10 kept 
+  [PASS] book.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament 
+  [PASS] book.lt.json: verses 9-10 kept 
+  [PASS] book.lt.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament 
+  [PASS] book.lv.json: verses 9-10 kept 
+  [PASS] book.lv.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament 
+  [PASS] book.pt.json: verses 9-10 kept 
+  [PASS] book.pt.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament 
+  [PASS] book.ru-iast.json: verses 9-10 kept 
+  [PASS] book.ru-iast.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament 
+  [PASS] book.ru.json: verses 9-10 kept 
+  [PASS] book.ru.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament 
+  [PASS] book.uk.json: verses 9-10 kept 
+  [PASS] book.uk.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament 
+49/49 PASS

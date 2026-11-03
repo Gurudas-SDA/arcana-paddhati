@@ -1,0 +1,50 @@
+  [FAIL] book.de.json: the two verses absent ['gaurāśraya-vigrahāya', 'prabhupādāntaraṅgāya', 'kṛṣṇa-kāmaika-cāriṇe', 'māyāvāda-tamo-ghnāya']
+  [FAIL] book.es.json: the two verses absent ['gaurāśraya-vigrahāya', 'prabhupādāntaraṅgāya', 'kṛṣṇa-kāmaika-cāriṇe', 'māyāvāda-tamo-ghnāya']
+  [FAIL] book.fr.json: the two verses absent ['gaurāśraya-vigrahāya', 'prabhupādāntaraṅgāya', 'kṛṣṇa-kāmaika-cāriṇe', 'māyāvāda-tamo-ghnāya']
+  [FAIL] book.hu.json: the two verses absent ['gaurāśraya-vigrahāya', 'prabhupādāntaraṅgāya', 'kṛṣṇa-kāmaika-cāriṇe', 'māyāvāda-tamo-ghnāya']
+  [FAIL] book.it.json: the two verses absent ['gaurāśraya-vigrahāya', 'prabhupādāntaraṅgāya', 'kṛṣṇa-kāmaika-cāriṇe', 'māyāvāda-tamo-ghnāya']
+  [FAIL] book.json: the two verses absent ['gaurāśraya-vigrahāya', 'prabhupādāntaraṅgāya', 'kṛṣṇa-kāmaika-cāriṇe', 'māyāvāda-tamo-ghnāya']
+  [FAIL] book.lt.json: the two verses absent ['gaurāśraya-vigrahāya', 'prabhupādāntaraṅgāya', 'kṛṣṇa-kāmaika-cāriṇe', 'māyāvāda-tamo-ghnāya']
+  [FAIL] book.lv.json: the two verses absent ['gaurāśraya-vigrahāya', 'prabhupādāntaraṅgāya', 'kṛṣṇa-kāmaika-cāriṇe', 'māyāvāda-tamo-ghnāya']
+  [FAIL] book.pt.json: the two verses absent ['gaurāśraya-vigrahāya', 'prabhupādāntaraṅgāya', 'kṛṣṇa-kāmaika-cāriṇe', 'māyāvāda-tamo-ghnāya']
+  [FAIL] book.ru-iast.json: the two verses absent ['gaurāśraya-vigrahāya', 'prabhupādāntaraṅgāya', 'kṛṣṇa-kāmaika-cāriṇe', 'māyāvāda-tamo-ghnāya']
+  [FAIL] book.ru.json: the two verses absent ['гаура̄ш́райа-виграха̄йа', 'прабхупа̄да̄нтаран̇га̄йа']
+  [FAIL] book.uk.json: the two verses absent ['gaurāśraya-vigrahāya', 'prabhupādāntaraṅgāya', 'kṛṣṇa-kāmaika-cāriṇe', 'māyāvāda-tamo-ghnāya']
+  [PASS] hotspots.json: the two verses absent 
+  [PASS] ui.de.json: the two verses absent 
+  [PASS] ui.en.json: the two verses absent 
+  [PASS] ui.es.json: the two verses absent 
+  [PASS] ui.fr.json: the two verses absent 
+  [PASS] ui.hu.json: the two verses absent 
+  [PASS] ui.it.json: the two verses absent 
+  [PASS] ui.lt.json: the two verses absent 
+  [PASS] ui.lv.json: the two verses absent 
+  [PASS] ui.pt.json: the two verses absent 
+  [PASS] ui.ru-iast.json: the two verses absent 
+  [PASS] ui.ru.json: the two verses absent 
+  [PASS] ui.uk.json: the two verses absent 
+  [PASS] book.de.json: verses 9-10 kept 
+  [FAIL] book.de.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament ['ornament', 'verse', 'verse', 'verse', 'verse', 'ornament']
+  [PASS] book.es.json: verses 9-10 kept 
+  [FAIL] book.es.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament ['ornament', 'verse', 'verse', 'verse', 'verse', 'ornament']
+  [PASS] book.fr.json: verses 9-10 kept 
+  [FAIL] book.fr.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament ['ornament', 'verse', 'verse', 'verse', 'verse', 'ornament']
+  [PASS] book.hu.json: verses 9-10 kept 
+  [FAIL] book.hu.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament ['ornament', 'verse', 'verse', 'verse', 'verse', 'ornament']
+  [PASS] book.it.json: verses 9-10 kept 
+  [FAIL] book.it.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament ['ornament', 'verse', 'verse', 'verse', 'verse', 'ornament']
+  [PASS] book.json: verses 9-10 kept 
+  [FAIL] book.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament ['ornament', 'verse', 'verse', 'verse', 'verse', 'ornament']
+  [PASS] book.lt.json: verses 9-10 kept 
+  [FAIL] book.lt.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament ['ornament', 'verse', 'verse', 'verse', 'verse', 'ornament']
+  [PASS] book.lv.json: verses 9-10 kept 
+  [FAIL] book.lv.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament ['ornament', 'verse', 'verse', 'verse', 'verse', 'ornament']
+  [PASS] book.pt.json: verses 9-10 kept 
+  [FAIL] book.pt.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament ['ornament', 'verse', 'verse', 'verse', 'verse', 'ornament']
+  [PASS] book.ru-iast.json: verses 9-10 kept 
+  [FAIL] book.ru-iast.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament ['ornament', 'verse', 'verse', 'verse', 'verse', 'ornament']
+  [PASS] book.ru.json: verses 9-10 kept 
+  [FAIL] book.ru.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament ['ornament', 'verse', 'verse', 'verse', 'verse', 'ornament']
+  [PASS] book.uk.json: verses 9-10 kept 
+  [FAIL] book.uk.json: mangalacarana verses 9-10 sit consecutively before the Prabhupada ornament ['ornament', 'verse', 'verse', 'verse', 'verse', 'ornament']
+25/49 PASS

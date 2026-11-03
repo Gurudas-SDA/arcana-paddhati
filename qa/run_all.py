@@ -197,6 +197,8 @@ SUITES = [
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s127", file="suites/s127_window_master_v61.py", title="V61 Враджа Лила 30.10 (plāna 4. solis, jautājums 1 «согласен», jautājums 2 variants «А»): visi logi = viens meistarelements: viens rādiuss un viena ēna, krustiņš 44×44 apaļš, centrs 30/30, krusts 18 px 1:1 nesaspiests, viena krāsa; iekšējās malas pēc skalas (16; liels logs dators 24); «Аа» un valodu saraksts nemainīti",
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
+    dict(id="s142", file="suites/s142_mangalacarana_two_slokas_removed.py", title="A140 Satkirti msg 7403 03.11 (A133 «Убрать»): «Мангалачарана» — pranāmā Bhaktiprajñāna Keśava divas lieka šlokas (gaurāśraya-vigrahāya…, prabhupādāntaraṅgāya…) izņemtas visās valodās; šlokas 9–10 paliek",
+         devices=None, fast=True, server=False),
     dict(id="s141", file="suites/s141_image_modal_close_v69.py", title="V69 Vraja Lila msg 7394: attēla skaidrojuma logā krustiņš VIENMĒR virs attēla (labajā pusē), nekad zem; logs un krustiņš pilnībā ekrānā, neko nepārklāj, nospiežams; iPhone SE/14, Pixel, iPad (2), dators, Mac Safari",
          devices=["iphone-se", "iphone14", "pixel7", "ipad-portrait", "ipad-landscape", "desktop", "mac-safari"], fast=True, fast_devices=["pixel7"]),
     dict(id="s139", file="suites/s139_cover_centered_v67.py", title="V67 Vraja Lila msg 7365: vāks (+ karte zem tā: saglabāšana / grāmata saglabāta / «Продолжить») vertikāli centrā starp augšējo un apakšējo joslu, vāka augša nekad zem augšējās joslas; iPhone, Pixel, iPad, dators, Mac Safari",
