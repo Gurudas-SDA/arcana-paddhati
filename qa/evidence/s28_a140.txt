@@ -1,0 +1,4 @@
+s28 BEFORE (73e9722, old test):
+  [PASS] data b night_sync exits != 0 when a section ended in FAIL, 0 when all ok/cached 
+  [FAIL] data d EN sanskrit has the source spelling at all four places ['sections/mangalacarana/content/16/sanskrit']
+AFTER (73e9722, fixed test): s28: 11/11 passed; origin/main e5f9a15 with fixed test: see commit

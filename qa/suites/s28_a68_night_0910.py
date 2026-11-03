@@ -146,8 +146,8 @@ WRONG = {"māyāvada": "māyāvāda", "locananaṁ": "locanaṁ", "jāgṛvaṁ"
 left = [(rel(f), w) for f, t in TEXT.items() for w in WRONG if w in t]
 chk("d no «māyāvada / aravinda-locananaṁ / jāgṛvaṁ saḥ / tapta-kāṣcana» in books, caches, i18n.json", not left, left)
 en = dict(sk_fields(books["book.json"]))
-want = {"sections/mangalacarana/content/16/sanskrit": "māyāvāda-tamo-ghnāya",
-        "sections/daily-duties-brahma-muhurta/subsections/morning-prayers/content/2/sanskrit": "aravinda-locanaṁ\n",
+# A140 (S msg 7403, 03.11): pants «prabhupādāntaraṅgāya… māyāvāda-tamo-ghnāya…» izņemts pēc S lēmuma — punkts noņemts
+want = {"sections/daily-duties-brahma-muhurta/subsections/morning-prayers/content/2/sanskrit": "aravinda-locanaṁ\n",
         "sections/daily-duties-brahma-muhurta/subsections/sadhararana-acamana/content/17/sanskrit": "jāgṛvāṁsaḥ samindhate",
         "sections/arcana-procedure/subsections/16-pranama/content/6/sanskrit": "tapta-kāñcana-gaurāṅgi"}
 miss = [k for k, w in want.items() if w not in en.get(k, "")]
@@ -186,16 +186,18 @@ try:
     shutil.copytree(DATA, os.path.join(tmp, "data"), ignore=shutil.ignore_patterns("desktop.ini"))
     os.makedirs(os.path.join(tmp, "scripts", "parampara"))
     shutil.copy(os.path.join(REPO, "scripts", "parampara", "check.json"), os.path.join(tmp, "scripts", "parampara"))
-    key = "sections/mangalacarana/content/16/sanskrit"
+    # A140 (S msg 7403, 03.11): pants «prabhupādāntaraṅgāya… māyāvāda-tamo-ghnāya…» izņemts pēc S lēmuma — negatīvajam
+    # gadījumam ņemts cits pants, kas grāmatā paliek (tā pati loģika: viens burts ā → a RU-IAST kopijā)
+    key = "sections/mangalacarana/content/14/sanskrit"
     f = os.path.join(tmp, "data", "book.ru-iast.json")
     d = json.load(open(f, encoding="utf-8"))
-    v = d["sections"][[s_["id"] for s_ in d["sections"]].index("mangalacarana")]["content"][16]
-    assert "māyāvāda" in v["sanskrit"], v["sanskrit"][:80]
-    v["sanskrit"] = v["sanskrit"].replace("māyāvāda", "māyāvada", 1)   # one letter: ā → a
+    v = d["sections"][[s_["id"] for s_ in d["sections"]].index("mangalacarana")]["content"][14]
+    assert "atimartya-caritrāya" in v["sanskrit"], v["sanskrit"][:80]
+    v["sanskrit"] = v["sanskrit"].replace("caritrāya", "caritraya", 1)   # one letter: ā → a
     json.dump(d, open(f, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     ncode, nr, nerr = run_lint(tmp, os.path.join(tmp, "lint_neg.json"))
     n27 = next((c for c in nr or [] if c["id"] == "L27"), {})
-    chk("e negative: one RU-IAST sanskrit difference (māyāvāda → māyāvada, temp copy) → L27 FAIL, lint exit ≠ 0",
+    chk("e negative: one RU-IAST sanskrit difference (caritrāya → caritraya, temp copy) → L27 FAIL, lint exit ≠ 0",
         nr is not None and n27.get("ok") is False and n27.get("hits", 0) >= 1 and ncode != 0,
         f"exit {ncode}, L27 {n27} {nerr} ({key})")
 finally:
