@@ -1711,12 +1711,14 @@ html[data-reader-theme="night"] {
 }
 /* V68 (Vraja Lila msg 7392/7393): on a computer the pointer over an unchosen language only makes its name bold;
    the base stays as the unchosen rows (no fill) — the fill + ✓ belong to the chosen language alone. */
+/*@cover-place*/
 @media (hover: hover) and (pointer: fine) {
   .lang-option[data-active]:not([aria-selected="true"]) {
     background: transparent;
     font-weight: 600; /* the same weight as the chosen row below */
   }
 }
+/*@/cover-place*/
 .lang-option[aria-selected="true"] {
   background: var(--lang-sel-bg);
   color: var(--lang-sel-fg);
