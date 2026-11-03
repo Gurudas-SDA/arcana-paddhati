@@ -468,6 +468,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
       if (!r) return;
       e.stopPropagation();
       e.preventDefault();
+      suppressClickUntil.current = performance.now() + 400;
       setMenu(null);
       setCard({ id: r.h.id, x: e.clientX, y: e.clientY, inMood: r.root.closest(".mood-overlay") as HTMLElement | null });
     };
@@ -477,18 +478,13 @@ export default function HighlightsLayer({ ui, lang }: Props) {
         e.preventDefault();
       }
     };
-    const markSuppress = () => {
-      suppressClickUntil.current = performance.now() + 60;
-    };
     document.addEventListener("pointerdown", onDown, true);
     document.addEventListener("pointerup", onUp, true);
-    document.addEventListener("pointerup", markSuppress, false);
     document.addEventListener("click", swallowClick, true);
     return () => {
       document.removeEventListener("pointerdown", onDown, true);
       document.removeEventListener("pointerup", onUp, true);
-      document.removeEventListener("pointerup", markSuppress, false);
-      document.removeEventListener("click", swallowClick, true);
+        document.removeEventListener("click", swallowClick, true);
     };
   }, []);
   const suppressClickUntil = useRef(0);

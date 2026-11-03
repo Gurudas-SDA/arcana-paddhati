@@ -130,7 +130,7 @@ ROW = """(row) => { const t = row.querySelector('[data-bookmark-title]'); const 
   const pr = pen && pen.getBoundingClientRect(); const rr = rm && rm.getBoundingClientRect(); const tr = t.getBoundingClientRect();
   const small = [...row.querySelectorAll('a span')].filter((s) => s.getClientRects().length && parseFloat(getComputedStyle(s).fontSize) < 13).length;
   const sw = (el) => el && el.querySelector('svg') && el.querySelector('svg').getAttribute('stroke-width');
-  return {title: t.textContent, lines: Math.round(tr.height / parseFloat(cs.lineHeight || '20')), ellipsis: cs.textOverflow === 'ellipsis' && cs.whiteSpace === 'nowrap',
+  return {title: t.textContent, lines: Math.round(tr.height / parseFloat(cs.lineHeight || '20')), ellipsis: cs.textOverflow === 'ellipsis' && cs.whiteSpace === 'nowrap', clamp: cs.webkitLineClamp,
           cut: t.scrollWidth > t.clientWidth, second: !!row.querySelector('[data-bookmark-second]'), small,
           pen: !!pen, penLeftOfRemove: !!(pr && rr) && pr.right <= rr.left + 1 && Math.abs((pr.top + pr.height / 2) - (rr.top + rr.height / 2)) < 2,
           penSize: pr ? [Math.round(pr.width), Math.round(pr.height)] : null, stroke: [sw(pen), sw(rm)],
@@ -278,7 +278,8 @@ with sync_playwright() as p:
                 continue
             check(tag, "3 renamed: only the name — no chapter line, no small date", not mine["second"] and mine["small"] == 0
                   and not looks["b-long"]["second"] and looks["b-long"]["small"] == 0, [mine, looks["b-long"]])
-            check(tag, "3 long name: one line with «…»", looks["b-long"]["ellipsis"] and looks["b-long"]["cut"] and looks["b-long"]["lines"] == 1, looks["b-long"])
+            # V71: Vraja Lila msg 7428 «вариант 1» (card height «2 + 2») replaces the V34 one-line name: a long name takes at most 2 lines, then «…»
+            check(tag, "3 long name: at most 2 lines with «…» (V71 variant 1)", looks["b-long"]["clamp"] == "2" and looks["b-long"]["lines"] == 2, looks["b-long"])
             check(tag, "3 old bookmark (no name): chapter + subsection + date as before",
                   looks["b-svagata"]["second"] and looks["b-svagata"]["small"] == 1 and looks["b-svagata"]["title"].startswith("4."), looks["b-svagata"])
             check(tag, "3 pencil left of the remove icon, thin line 1.5, close to it (icon gap 8–18 px, Vraja 5897), vertically centred on it (±0.25 px, Vraja 5939), 44 px, not in the row link",

@@ -12,6 +12,7 @@ Criteria (register V71):
  (4) a tap on a row opens the place (the highlight is on the screen); the bin removes it with the toast «Отменить», which brings it back;
  (5) «Сохранить в файл» gives a .json with ONLY notes (no bookmarks) named «Арчана-паддхати — заметки YYYY-MM-DD.json»;
      «Загрузить из файла» shows a preview, adds only the new ones, a broken file changes nothing and says so; bookmarks never touched;
+ (7) cards of bookmarks and notes: the name / quote at most 2 lines, the note at most 2 lines, the date DD.MM.YYYY (Vraja Lila msg 7428);
  (6) all three themes: the colours are the checked tones (faili/V70_проверка_цветов/kontrasts_palette.json), night green alpha 0.32.
 # tehniskais slieksnis Lipikāra, nav S noteikums: settle 300-900 ms; «fits the panel» = tab right edge <= panel right edge + 1 px
 usage: python s143_highlights_notes_v71.py <base-url>
@@ -29,7 +30,7 @@ from playwright.sync_api import sync_playwright  # noqa: E402
 BASE = sys.argv[1].rstrip("/")
 DEVICES = qa.devices(["iphone14", "pixel7", "ipad-portrait", "desktop"])
 results = []
-PAGE = "introduction"
+PAGE = "daily-duties-brahma-muhurta"
 PALETTE = {"day": ["#9F6F06", "#45A28A", "#0D7DEC", "#7C2339"], "sepia": ["#9D6C08", "#319476", "#1A4BBA", "#7C2348"],
            "night": ["#EDB135", "#A7ECD4", "#66B1F6", "#D4466F"]}
 
@@ -41,11 +42,14 @@ def check(dev, name, ok, evidence=""):
 
 # select words [a, b) of the n-th long visible paragraph of the chapter; returns the selected text
 SELECT = """([n, a, b]) => {
-  const ps = [...document.querySelectorAll('.app-main article p')].filter(p => p.textContent.trim().length > 140 && p.getClientRects().length && !p.closest('button,table,[hidden]'));
-  const p = ps[n]; if (!p) return null;
-  p.scrollIntoView({block: 'center'});
-  const w = document.createTreeWalker(p, NodeFilter.SHOW_TEXT); const nodes = []; for (let x = w.nextNode(); x; x = w.nextNode()) nodes.push(x);
-  const node = nodes.find(x => x.data.trim().length > 60); if (!node) return null;
+  const nodes = [];
+  for (const p of document.querySelectorAll('.app-main article p')) {
+    if (!p.getClientRects().length || p.closest('button,table,[hidden],.mood-panel')) continue;
+    const w = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
+    for (let x = w.nextNode(); x; x = w.nextNode()) if ((x.data.match(/\\S+/g) || []).length >= 9 && x.parentElement.getClientRects().length) nodes.push(x);
+  }
+  const node = nodes[n]; if (!node) return null;
+  node.parentElement.scrollIntoView({block: 'center'});
   const d = node.data; const ws = [...d.matchAll(/\\S+/g)];
   const s = ws[a].index, e = ws[b - 1].index + ws[b - 1][0].length;
   const r = document.createRange(); r.setStart(node, s); r.setEnd(node, e);
@@ -226,6 +230,26 @@ def run_theme(p, dev, eng, opts, theme):
     pg.wait_for_selector("[data-hl-import-error]", state="visible", timeout=4000)
     check(tag, "a broken file: message, nothing changed", len(items(pg)) == 2)
     check(tag, "bookmarks untouched", pg.evaluate("() => localStorage.getItem('ap.bookmarks')") == bm_before)
+
+    # (7) card height «2 + 2» and the date DD.MM.YYYY (Vraja Lila msg 7428, variant 1) — for notes AND bookmarks
+    pg.evaluate("""() => { const o = JSON.parse(localStorage.getItem('ap.highlights')); const c = {...o.items[0], id: 'hlong', note: 'Очень длинная заметка '.repeat(40), quote: 'Очень длинная цитата '.repeat(30), start: 0, end: 630};
+      o.items.push(c); localStorage.setItem('ap.highlights', JSON.stringify(o));
+      const bm = JSON.parse(localStorage.getItem('ap.bookmarks')); bm.items.push({id: 'bklong', section: 'introduction', anchor: null, block: 0, lang: 'ru-iast', time: 1730000000000, name: 'Очень длинное название закладки '.repeat(12)});
+      bm.items[0].time = 1761998400000; localStorage.setItem('ap.bookmarks', JSON.stringify(bm)); }""")
+    pg.reload(wait_until="networkidle")
+    pg.wait_for_timeout(1000)
+    open_panel(pg, "notes")
+    LINES = """(sel) => [...document.querySelectorAll(sel)].map(e => { const cs = getComputedStyle(e); return {lines: Math.round(e.getBoundingClientRect().height / parseFloat(cs.lineHeight)), clamp: cs.webkitLineClamp, text: e.textContent.slice(0, 20)}; })"""
+    nl = pg.evaluate(LINES, "[data-note-row] [data-note-quote], [data-note-row] [data-note-text]")
+    check(tag, "notes: quote and note at most 2 lines each (long ones are cut with «…»)", nl and all(x["lines"] <= 2 and x["clamp"] == "2" for x in nl) and any(x["lines"] == 2 for x in nl), nl)
+    nd = pg.evaluate("() => [...document.querySelectorAll('[data-note-date]')].map(e => e.textContent)")
+    check(tag, "notes: the date at the bottom is DD.MM.YYYY", nd and all(re.fullmatch(r"\d{2}\.\d{2}\.\d{4}", x) for x in nd), nd)
+    pg.evaluate("() => document.querySelector('[data-sidebar-tab=bookmarks]').click()")
+    pg.wait_for_timeout(400)
+    bl = pg.evaluate(LINES, "[data-bookmark-row] [data-bookmark-title]")
+    check(tag, "bookmarks: the name at most 2 lines (a long one is cut with «…»)", bl and all(x["lines"] <= 2 and x["clamp"] == "2" for x in bl) and any(x["lines"] == 2 for x in bl), bl)
+    bd = pg.evaluate("() => [...document.querySelectorAll('[data-bookmark-date]')].map(e => e.textContent)")
+    check(tag, "bookmarks: the date at the bottom is DD.MM.YYYY (01.11.2025)", bd and all(re.fullmatch(r"\d{2}\.\d{2}\.\d{4}", x) for x in bd) and "01.11.2025" in bd, bd)
     b.close()
 
 

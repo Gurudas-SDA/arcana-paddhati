@@ -2671,7 +2671,7 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
 .notes-file-menu { position: absolute; right: 0; top: 100%; z-index: 5; display: flex; flex-direction: column; min-width: calc(var(--space-48) * 4); background: var(--rd-panel-bg); border: 1px solid var(--line-hairline); border-radius: var(--ds-radius-card); box-shadow: var(--shadow-window); overflow: hidden; }
 .notes-file-menu button { min-height: calc(var(--ds-target) + var(--space-4)); padding: 0 var(--space-16); text-align: left; font-size: 15px; color: var(--rd-fg); background: transparent; border: 0; white-space: nowrap; }
 /* Card height / shortening (Vraja Lila msg 7427 is choosing: ONE variable per kind of line) */
-.note-card { --note-card-lines: 2; --note-tone: var(--ap-gold); border-left-color: transparent; }
+.note-card { --note-card-lines: var(--card-clamp); --note-tone: var(--ap-gold); border-left-color: transparent; }
 .note-card::before {
   content:'';
   position:absolute;
@@ -2693,3 +2693,7 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
 .hl-t-soft { color: #5C3D2E; }
 .hl-t15 { font-size: 15px; }
 .hl-modal-card { max-width: calc(var(--space-48) * 7 + var(--space-24)); }
+/* Card height (Vraja Lila msg 7428 «вариант 1»): the name / the quote at most 2 lines, the note at most 2 lines, then «…»; short cards stay short.
+   ONE variable for bookmarks and notes: change --card-clamp to change both. */
+:root { --card-clamp: 2; }
+.card-clamp { display: -webkit-box; -webkit-line-clamp: var(--card-clamp); -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }

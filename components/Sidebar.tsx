@@ -24,6 +24,7 @@ import {
   asText,
   buildFile,
   fileName,
+  cardDate,
   readHighlights,
   removeHighlight,
   reorderHighlights,
@@ -1655,11 +1656,11 @@ export default function Sidebar({
                   className={`sidebar-link block w-full text-left pl-[var(--ds-target)] pr-[96px] py-3 transition-opacity ${isPale ? "opacity-45" : ""}`}
                 >
                   {/* One line each, «…» at the end (V34, Vraja Lila msg 5869: «не должно рябить в глазах»). */}
-                  <span className={`block truncate text-sm ${titleClass || "text-[#2C1810]"}`} data-bookmark-title="" data-bookmark-named={line.named ? "" : undefined}>{line.head}</span>
+                  <span className={`card-clamp block text-sm ${titleClass || "text-[#2C1810]"}`} data-bookmark-title="" data-bookmark-named={line.named ? "" : undefined}>{line.head}</span>
                   {line.second && <span className={`block truncate text-sm ${titleClass || "text-[#5C3D2E]"}`} data-bookmark-second="">{line.second}</span>}
                   {!line.named && (
                     <span className="block text-[11px] text-[#6B5440]" data-bookmark-date="">
-                      {new Date(b.time).toLocaleDateString(lang === "en" ? "en" : lang.split("-")[0])}
+                      {cardDate(b.time)}
                     </span>
                   )}
                 </Link>
@@ -1880,6 +1881,7 @@ export default function Sidebar({
                     >
                       <span className="note-quote block text-sm text-[#2C1810]" data-note-quote="">{h.quote}</span>
                       {h.note && <span className="note-text block text-sm text-[#5C3D2E]" data-note-text="">{h.note}</span>}
+                      <span className="block text-[11px] text-[#6B5440]" data-note-date="">{cardDate(h.created)}</span>
                       <span className="block text-[11px] text-[#6B5440]" data-note-place="">
                         {notePlace(h)}
                         {h.lost ? ` · ${lostLabel}` : ""}

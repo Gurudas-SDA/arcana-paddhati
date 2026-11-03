@@ -409,3 +409,10 @@ export function takePendingReveal(): string | null {
 export function clearPendingReveal() {
   pendingReveal = null;
 }
+
+/** The date at the bottom of a card (bookmarks and notes), in every language: DD.MM.YYYY (Vraja Lila msg 7428: 01.11.2026). */
+export function cardDate(ms: number): string {
+  const d = new Date(ms);
+  const p = (n: number) => String(n).padStart(2, "0");
+  return `${p(d.getDate())}.${p(d.getMonth() + 1)}.${d.getFullYear()}`;
+}
