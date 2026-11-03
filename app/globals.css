@@ -2163,7 +2163,8 @@ html[data-reader-bars] .hs-peek {
 }
 .hs-peek[data-top] {
   bottom: auto !important;
-  top: calc(env(safe-area-inset-top, 0px) + 20px);
+  /* V69 (Vraja Lila msg 7394, 03.11.2026): the ✕ is ALWAYS above the picture; a card at the top leaves room for it above itself */
+  top: calc(env(safe-area-inset-top, 0px) + var(--window-close-room) + var(--space-8));
 }
 /* V28 (Vraja Lila msg 5782): the window and its ✕ (10 px outside the corner) are
    always whole on the screen — 16 px from the side, and never taller than the
@@ -2518,22 +2519,18 @@ html[data-reader-theme="night"] .hover\:bg-\[\#FDF8F0\]:hover {
 }
 /* the floating picture copy: the master card; its ✕ is the master ✕ OUTSIDE the card, above its top-right corner (variant «Б», Vraja Lila msg 7172, 31.10.2026):
    a light disc (the card's own background) with a hairline and the window shadow; not one pixel of the picture is covered (msg 7168).
-   A card at the top of the screen (data-top) has the ✕ BELOW it instead (it would leave the screen above). */
+   V69 (msg 7394): the ✕ is above the card in every position, also when the card is at the top of the screen. */
 .hs-peek {
   overflow: visible;
   border-radius: var(--radius-window);
   box-shadow: var(--shadow-window);
 }
 .hs-peek .window-close {
-  top: -56px;
+  top: calc(-1 * var(--window-close-room));
   right: 0;
   border: 1px solid var(--line-hairline);
   background: var(--rd-bg);
   box-shadow: var(--shadow-window);
-}
-.hs-peek[data-top] .window-close {
-  top: auto;
-  bottom: -56px;
 }
 .hs-peek .window-close:hover,
 .hs-peek .window-close:active {
