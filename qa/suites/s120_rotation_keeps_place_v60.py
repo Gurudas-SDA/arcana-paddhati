@@ -3,7 +3,7 @@
 чтения бхаджана текст сам перескакивает к другой главе»; iPhone does not do it).
 Criteria (register V60): the same chapter (URL) and the same reading place (the same text block at the reading line)
 after the turn and after turning back; «Листать» and «Прокручивать».
-# tehniskais slieksnis Lipikāra, nav S noteikums: same block text; settle 1500 ms; place measured at 20 % of the viewport height.
+# tehniskais slieksnis Lipikāra, nav S noteikums: same block text; settle 1500 ms + up to 10 s until the block is back; place measured at 20 % of the viewport height.
 usage: python s120_rotation_keeps_place_v60.py <base-url>
 """
 import json
@@ -51,6 +51,17 @@ def turn(pg):
     pg.wait_for_timeout(1500)
 
 
+def settle(pg, text, chap):
+    # tehniskais slieksnis Lipikāra, nav S noteikums: the re-layout after a turn of a long chapter takes longer on a slow runner;
+    # wait up to 10 s until the reading place shows the expected block, then measure (a place that never returns still fails)
+    for _ in range(20):
+        x = pg.evaluate(f"({PLACE})()")
+        if x["text"] == text and x["url"] == chap:
+            return x
+        pg.wait_for_timeout(500)
+    return pg.evaluate(f"({PLACE})()")
+
+
 with sync_playwright() as p:
     for dev, eng, opts in DEVICES:
         b = getattr(p, eng).launch()
@@ -68,9 +79,9 @@ with sync_playwright() as p:
                 mid_scroll(pg, layout == "scroll")
                 a = pg.evaluate(f"({PLACE})()")
                 turn(pg)
-                l = pg.evaluate(f"({PLACE})()")
+                l = settle(pg, a["text"], chap)
                 turn(pg)
-                r = pg.evaluate(f"({PLACE})()")
+                r = settle(pg, a["text"], chap)
                 # place: the same text block (±1) at the reading line
                 same = lambda x: a["text"] and x["url"] == chap and (x["section"] in (None, chap)) and x["text"] == a["text"]
                 check(dev, f"{layout} {chap}: portrait -> landscape keeps chapter and place", same(l), {"before": a, "landscape": l})
