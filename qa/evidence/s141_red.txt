@@ -1,0 +1,59 @@
+QA full: 7 darbi, 2 paralēli, serveris http://127.0.0.1:55509/arcana-paddhati (out/)
+  FAIL s141   iphone-se                      83 pass  16 fail      76s
+  FAIL s141   iphone14                       83 pass  16 fail      78s
+  FAIL s141   pixel7                         89 pass  10 fail      74s
+  FAIL s141   ipad-portrait                  57 pass  10 fail      75s
+  FAIL s141   desktop                        73 pass  14 fail      76s
+  FAIL s141   ipad-landscape                 77 pass  16 fail      78s
+  FAIL s141   mac-safari                     73 pass  14 fail      77s
+  atkārtoju 7 kritušos darbus vienu reizi …
+  FAIL s141   iphone-se                    (atkārtoti)  16 fail
+  FAIL s141   iphone14                     (atkārtoti)  16 fail
+  FAIL s141   pixel7                       (atkārtoti)  10 fail
+  FAIL s141   ipad-portrait                (atkārtoti)  10 fail
+  FAIL s141   desktop                      (atkārtoti)  14 fail
+  FAIL s141   ipad-landscape               (atkārtoti)  16 fail
+  FAIL s141   mac-safari                   (atkārtoti)  14 fail
+
+QA full: 535 pass, 96 fail, 0 skip, 10.2 min
+  FAIL s141 iphone-se worship-sixteen-articles row 10, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 375, "h": 667, "high": true, "peek": [186.5, 20, 359, 192.5], "x": [314
+  FAIL s141 iphone-se worship-sixteen-articles row 18, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 375, "h": 667, "high": true, "peek": [186.5, 20, 359, 192.5], "x": [314
+  FAIL s141 iphone-se worship-sixteen-articles row 10, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 375, "h": 667, "high": true, "peek": [186.5, 72, 359, 244.5], "x": [314,
+  FAIL s141 iphone-se worship-sixteen-articles row 18, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 375, "h": 667, "high": true, "peek": [186.5, 72, 359, 244.5], "x": [314,
+  FAIL s141 iphone-se gaudiya-emblem row 1, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 375, "h": 667, "high": true, "peek": [186.5, 20, 359, 192.5], "x": [314, 203.5, 35
+  FAIL s141 iphone-se gaudiya-emblem row 4, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 375, "h": 667, "high": true, "peek": [186.5, 20, 359, 192.5], "x": [314, 203.5, 35
+  FAIL s141 iphone-se gaudiya-emblem row 12, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 375, "h": 667, "high": true, "peek": [186.5, 20, 359, 192.5], "x": [314, 203.5, 3
+  FAIL s141 iphone-se gaudiya-emblem row 1, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 375, "h": 667, "high": true, "peek": [186.5, 72, 359, 244.5], "x": [314, 255.5, 358
+  FAIL s141 iphone-se gaudiya-emblem row 4, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 375, "h": 667, "high": true, "peek": [186.5, 72, 359, 244.5], "x": [314, 255.5, 358
+  FAIL s141 iphone-se gaudiya-emblem row 12, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 375, "h": 667, "high": true, "peek": [186.5, 72, 359, 244.5], "x": [314, 255.5, 35
+  FAIL s141 iphone-se daily-duties-brahma-muhurta row 13, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 375, "h": 667, "high": true, "peek": [186.5, 20, 359, 150.9], "x": [
+  FAIL s141 iphone-se daily-duties-brahma-muhurta row 6, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 375, "h": 667, "high": true, "peek": [186.5, 20, 359, 150.9], "x": [3
+  FAIL s141 iphone-se daily-duties-brahma-muhurta row 12, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 375, "h": 667, "high": true, "peek": [186.5, 20, 359, 150.9], "x": [
+  FAIL s141 iphone-se daily-duties-brahma-muhurta row 13, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 375, "h": 667, "high": true, "peek": [186.5, 72, 359, 202.9], "x": [3
+  FAIL s141 iphone-se daily-duties-brahma-muhurta row 6, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 375, "h": 667, "high": true, "peek": [186.5, 72, 359, 202.9], "x": [31
+  FAIL s141 iphone-se daily-duties-brahma-muhurta row 12, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 375, "h": 667, "high": true, "peek": [186.5, 72, 359, 202.9], "x": [3
+  FAIL s141 iphone14 worship-sixteen-articles row 10, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 390, "h": 844, "high": true, "peek": [194.6, 20, 374, 199.4], "x": [329
+  FAIL s141 iphone14 worship-sixteen-articles row 18, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 390, "h": 844, "high": true, "peek": [194.6, 20, 374, 199.4], "x": [329
+  FAIL s141 iphone14 worship-sixteen-articles row 10, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 390, "h": 844, "high": true, "peek": [194.6, 72, 374, 251.4], "x": [329,
+  FAIL s141 iphone14 worship-sixteen-articles row 18, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 390, "h": 844, "high": true, "peek": [194.6, 72, 374, 251.4], "x": [329,
+  FAIL s141 iphone14 gaudiya-emblem row 1, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 390, "h": 844, "high": true, "peek": [194.6, 20, 374, 199.4], "x": [329, 210.4, 37
+  FAIL s141 iphone14 gaudiya-emblem row 4, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 390, "h": 844, "high": true, "peek": [194.6, 20, 374, 199.4], "x": [329, 210.4, 37
+  FAIL s141 iphone14 gaudiya-emblem row 12, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 390, "h": 844, "high": true, "peek": [194.6, 20, 374, 199.4], "x": [329, 210.4, 3
+  FAIL s141 iphone14 gaudiya-emblem row 1, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 390, "h": 844, "high": true, "peek": [194.6, 72, 374, 251.4], "x": [329, 262.4, 373
+  FAIL s141 iphone14 gaudiya-emblem row 4, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 390, "h": 844, "high": true, "peek": [194.6, 72, 374, 251.4], "x": [329, 262.4, 373
+  FAIL s141 iphone14 gaudiya-emblem row 12, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 390, "h": 844, "high": true, "peek": [194.6, 72, 374, 251.4], "x": [329, 262.4, 37
+  FAIL s141 iphone14 daily-duties-brahma-muhurta row 13, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 390, "h": 844, "high": true, "peek": [194.6, 20, 374, 156.1], "x": [
+  FAIL s141 iphone14 daily-duties-brahma-muhurta row 6, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 390, "h": 844, "high": true, "peek": [194.6, 20, 374, 156.1], "x": [3
+  FAIL s141 iphone14 daily-duties-brahma-muhurta row 12, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 390, "h": 844, "high": true, "peek": [194.6, 20, 374, 156.1], "x": [
+  FAIL s141 iphone14 daily-duties-brahma-muhurta row 13, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 390, "h": 844, "high": true, "peek": [194.6, 72, 374, 208.1], "x": [3
+  FAIL s141 iphone14 daily-duties-brahma-muhurta row 6, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 390, "h": 844, "high": true, "peek": [194.6, 72, 374, 208.1], "x": [32
+  FAIL s141 iphone14 daily-duties-brahma-muhurta row 12, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 390, "h": 844, "high": true, "peek": [194.6, 72, 374, 208.1], "x": [3
+  FAIL s141 pixel7 worship-sixteen-articles row 10, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 412, "h": 915, "high": true, "peek": [216, 20, 396, 200], "x": [351, 21
+  FAIL s141 pixel7 worship-sixteen-articles row 18, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 412, "h": 915, "high": true, "peek": [216, 20, 396, 200], "x": [351, 21
+  FAIL s141 pixel7 worship-sixteen-articles row 10, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 412, "h": 915, "high": true, "peek": [216, 72, 396, 252], "x": [351, 263
+  FAIL s141 pixel7 worship-sixteen-articles row 18, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 412, "h": 915, "high": true, "peek": [216, 72, 396, 252], "x": [351, 263
+  FAIL s141 pixel7 gaudiya-emblem row 1, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 412, "h": 915, "high": true, "peek": [216, 20, 396, 200], "x": [351, 211, 395, 255
+  FAIL s141 pixel7 gaudiya-emblem row 4, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 412, "h": 915, "high": true, "peek": [216, 20, 396, 200], "x": [351, 211, 395, 255
+  FAIL s141 pixel7 gaudiya-emblem row 12, bars hidden, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 412, "h": 915, "high": true, "peek": [216, 20, 396, 200], "x": [351, 211, 395, 25
+  FAIL s141 pixel7 gaudiya-emblem row 1, bars shown, row low: ✕ above the picture (✕ bottom <= picture top) and on its right side (window at the top) {"w": 412, "h": 915, "high": true, "peek": [216, 72, 396, 252], "x": [351, 263, 395, 307]
+  … +56 (qa/.results/last.json)
