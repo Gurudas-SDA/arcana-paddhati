@@ -1,4 +1,5 @@
-"""«Закладки»: the bookmark of the place being read is highlighted like the current row in «Содержание»
+"""V67: Vraja Lila msg 7374 «только у закладок» — у закладки скруглённая полоска Б2-а, у «Содержания» прямая (правило 9.2 изменено Враджа Лилой)
+«Закладки»: the bookmark of the place being read is highlighted like the current row in «Содержание»
 (Vraja Lila msg 5436, 20.10.2026).
 
 Rule text (Vraja Lila msg 5436, verbatim):
@@ -93,10 +94,19 @@ with sync_playwright() as p:
         check(dev, "several on the same place — the newest one is highlighted", lit.first.get_attribute("data-bookmark-id") == "here-new",
               lit.first.get_attribute("data-bookmark-id"))
         bm_look = lit.first.evaluate(LOOK)
-        check(dev, "9.2 one sign: same background, left bar, text colour and weight as «Содержание»",
-              toc_look is not None and bm_look == toc_look, {"toc": toc_look, "bookmark": bm_look})
+        keep = lambda d: {k: d[k] for k in ("bg", "color", "weight")}
+        check(dev, "9.2 one sign: same background, text colour and weight as «Содержание»",
+              toc_look is not None and keep(bm_look) == keep(toc_look), {"toc": toc_look, "bookmark": bm_look})
+        BAR = """(el) => { const b = getComputedStyle(el, '::before'); const p = document.createElement('i'); p.style.color = 'var(--ap-gold)';
+          document.body.appendChild(p); const gold = getComputedStyle(p).color; p.remove();
+          return {content: b.content, mask: (b.maskImage || b.webkitMaskImage || 'none') !== 'none', bg: b.backgroundColor, gold: gold,
+                  borderLeft: getComputedStyle(el).borderLeftWidth}; }"""
+        bar = lit.first.evaluate(BAR)
+        check(dev, "V67 the bookmark's mark = a rounded bar Б2-а (::before with a mask, --ap-gold), its border-left is not 3 px",
+              bar["content"] not in ("none", "normal") and bar["mask"] and bar["bg"] == bar["gold"] and bar["borderLeft"] != "3px", bar)
         plain = rows.nth(0).evaluate(LOOK)
-        check(dev, "other bookmarks are not highlighted", plain["bg"] != bm_look["bg"] and plain["bar"] != bm_look["bar"], plain)
+        plain_bar = rows.nth(0).evaluate(BAR)
+        check(dev, "other bookmarks are not highlighted", plain["bg"] != bm_look["bg"] and not plain_bar["mask"], plain)
         x_lit = lit.first.locator("[data-bookmark-title]").evaluate("e => Math.round(e.getBoundingClientRect().left)")
         x_plain = rows.nth(0).locator("[data-bookmark-title]").evaluate("e => Math.round(e.getBoundingClientRect().left)")
         check(dev, "text of the highlighted row does not move sideways", x_lit == x_plain, {"lit": x_lit, "plain": x_plain})

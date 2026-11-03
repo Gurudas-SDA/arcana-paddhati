@@ -1506,7 +1506,7 @@ export default function Sidebar({
                   className={`bookmark-card relative select-none [-webkit-touch-callout:none] border box-border rounded-[var(--ds-radius-card)] ${
                     isLifted
                       ? "border-[var(--ap-gold)] bg-[var(--ds-fill-soft)] shadow-[var(--shadow-window)]"
-                      : `border-[color:var(--line-hairline)] ${isLit ? "bg-[var(--ds-row-lit)] border-l-3 border-l-[var(--ap-gold)]" : "bg-[var(--ds-fill-soft)]"}`
+                      : `border-[color:var(--line-hairline)] ${isLit ? "bg-[var(--ds-row-lit)]" : "bg-[var(--ds-fill-soft)]"}`
                   }`}
                 >
                 {/* The handle (V66, Vraja Lila msg 7316: «иконка с точками перед названием»): six dots, a 44px target;
@@ -1544,7 +1544,6 @@ export default function Sidebar({
                     if (exact) placeBookmark(b);
                   }}
                   aria-current={isLit ? "location" : undefined}
-                  style={isLit && !isLifted ? { paddingLeft: "calc(var(--ds-target) - 2px)" } : undefined}
                   className={`sidebar-link block w-full text-left pl-[var(--ds-target)] pr-[96px] py-3 transition-opacity ${isPale ? "opacity-45" : ""}`}
                 >
                   {/* One line each, «…» at the end (V34, Vraja Lila msg 5869: «не должно рябить в глазах»). */}

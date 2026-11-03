@@ -1,0 +1,38 @@
+QA full: 5 darbi, 2 paralēli, serveris http://127.0.0.1:53807/arcana-paddhati (out/)
+  FAIL s139   pixel7                          3 pass   3 fail       6s
+  FAIL s139   iphone14                        3 pass   3 fail       7s
+  FAIL s139   ipad-portrait                   0 pass   6 fail       7s
+  FAIL s139   desktop                         0 pass   6 fail       6s
+  FAIL s139   mac-safari                      0 pass   6 fail       6s
+  atkārtoju 5 kritušos darbus vienu reizi …
+  FAIL s139   pixel7                       (atkārtoti)   3 fail
+  FAIL s139   iphone14                     (atkārtoti)   3 fail
+  FAIL s139   ipad-portrait                (atkārtoti)   6 fail
+  FAIL s139   desktop                      (atkārtoti)   6 fail
+  FAIL s139   mac-safari                   (atkārtoti)   6 fail
+
+QA full: 6 pass, 24 fail, 0 skip, 0.7 min
+  FAIL s139 pixel7 save card: saving: the gap above the cover = the gap below the card (±2 px) {"coverTop": 95.9375, "cardBottom": 752.3125, "topBarBottom": 57, "bottomBarTop": 858, "gapAbove": 38.9375, "gapBelow": 105.6875}
+  FAIL s139 pixel7 save card: the whole book is saved: the gap above the cover = the gap below the card (±2 px) {"coverTop": 95.9375, "cardBottom": 725.0625, "topBarBottom": 57, "bottomBarTop": 858, "gapAbove": 38.9375, "gapBelow": 132.937
+  FAIL s139 pixel7 Continue reading card: the gap above the cover = the gap below the card (±2 px) {"coverTop": 112.34375, "cardBottom": 754.640625, "topBarBottom": 57, "bottomBarTop": 858, "gapAbove": 55.34375, "gapBelow": 103.359375}
+  FAIL s139 iphone14 save card: saving: the gap above the cover = the gap below the card (±2 px) {"coverTop": 76.046875, "cardBottom": 700.953125, "topBarBottom": 57, "bottomBarTop": 787, "gapAbove": 19.046875, "gapBelow": 86.046875}
+  FAIL s139 iphone14 save card: the whole book is saved: the gap above the cover = the gap below the card (±2 px) {"coverTop": 76.046875, "cardBottom": 673.953125, "topBarBottom": 57, "bottomBarTop": 787, "gapAbove": 19.046875, "gapBelow": 1
+  FAIL s139 iphone14 Continue reading card: the gap above the cover = the gap below the card (±2 px) {"coverTop": 94.046875, "cardBottom": 701.953125, "topBarBottom": 57, "bottomBarTop": 787, "gapAbove": 37.046875, "gapBelow": 85.046875}
+  FAIL s139 ipad-portrait save card: saving: the gap above the cover = the gap below the card (±2 px) {"coverTop": 16.015625, "cardBottom": 1078.984375, "topBarBottom": 57, "bottomBarTop": 1123, "gapAbove": -40.984375, "gapBelow": 44.015625}
+  FAIL s139 ipad-portrait save card: saving: the cover's top is not above the top bar's lower edge {"coverTop": 16.015625, "cardBottom": 1078.984375, "topBarBottom": 57, "bottomBarTop": 1123, "gapAbove": -40.984375, "gapBelow": 44.015625}
+  FAIL s139 ipad-portrait save card: the whole book is saved: the gap above the cover = the gap below the card (±2 px) {"coverTop": 16.015625, "cardBottom": 1069.984375, "topBarBottom": 57, "bottomBarTop": 1123, "gapAbove": -40.984375, "gapBelow"
+  FAIL s139 ipad-portrait save card: the whole book is saved: the cover's top is not above the top bar's lower edge {"coverTop": 16.015625, "cardBottom": 1069.984375, "topBarBottom": 57, "bottomBarTop": 1123, "gapAbove": -40.984375, "gapBelow": 5
+  FAIL s139 ipad-portrait Continue reading card: the gap above the cover = the gap below the card (±2 px) {"coverTop": 16, "cardBottom": 1115.984375, "topBarBottom": 57, "bottomBarTop": 1123, "gapAbove": -41, "gapBelow": 7.015625}
+  FAIL s139 ipad-portrait Continue reading card: the cover's top is not above the top bar's lower edge {"coverTop": 16, "cardBottom": 1115.984375, "topBarBottom": 57, "bottomBarTop": 1123, "gapAbove": -41, "gapBelow": 7.015625}
+  FAIL s139 desktop save card: saving: the gap above the cover = the gap below the card (±2 px) {"coverTop": 24, "cardBottom": 825.234375, "topBarBottom": 57, "bottomBarTop": 843, "gapAbove": -33, "gapBelow": 17.765625}
+  FAIL s139 desktop save card: saving: the cover's top is not above the top bar's lower edge {"coverTop": 24, "cardBottom": 825.234375, "topBarBottom": 57, "bottomBarTop": 843, "gapAbove": -33, "gapBelow": 17.765625}
+  FAIL s139 desktop save card: the whole book is saved: the gap above the cover = the gap below the card (±2 px) {"coverTop": 24, "cardBottom": 797.984375, "topBarBottom": 57, "bottomBarTop": 843, "gapAbove": -33, "gapBelow": 45.015625}
+  FAIL s139 desktop save card: the whole book is saved: the cover's top is not above the top bar's lower edge {"coverTop": 24, "cardBottom": 797.984375, "topBarBottom": 57, "bottomBarTop": 843, "gapAbove": -33, "gapBelow": 45.015625}
+  FAIL s139 desktop Continue reading card: the gap above the cover = the gap below the card (±2 px) {"coverTop": 24, "cardBottom": 843.265625, "topBarBottom": 57, "bottomBarTop": 843, "gapAbove": -33, "gapBelow": -0.265625}
+  FAIL s139 desktop Continue reading card: the cover's top is not above the top bar's lower edge {"coverTop": 24, "cardBottom": 843.265625, "topBarBottom": 57, "bottomBarTop": 843, "gapAbove": -33, "gapBelow": -0.265625}
+  FAIL s139 mac-safari save card: saving: the gap above the cover = the gap below the card (±2 px) {"coverTop": 24, "cardBottom": 824.984375, "topBarBottom": 57, "bottomBarTop": 843, "gapAbove": -33, "gapBelow": 18.015625}
+  FAIL s139 mac-safari save card: saving: the cover's top is not above the top bar's lower edge {"coverTop": 24, "cardBottom": 824.984375, "topBarBottom": 57, "bottomBarTop": 843, "gapAbove": -33, "gapBelow": 18.015625}
+  FAIL s139 mac-safari save card: the whole book is saved: the gap above the cover = the gap below the card (±2 px) {"coverTop": 24, "cardBottom": 797.984375, "topBarBottom": 57, "bottomBarTop": 843, "gapAbove": -33, "gapBelow": 45.015625}
+  FAIL s139 mac-safari save card: the whole book is saved: the cover's top is not above the top bar's lower edge {"coverTop": 24, "cardBottom": 797.984375, "topBarBottom": 57, "bottomBarTop": 843, "gapAbove": -33, "gapBelow": 45.015625}
+  FAIL s139 mac-safari Continue reading card: the gap above the cover = the gap below the card (±2 px) {"coverTop": 24, "cardBottom": 843.96875, "topBarBottom": 57, "bottomBarTop": 843, "gapAbove": -33, "gapBelow": -0.96875}
+  FAIL s139 mac-safari Continue reading card: the cover's top is not above the top bar's lower edge {"coverTop": 24, "cardBottom": 843.96875, "topBarBottom": 57, "bottomBarTop": 843, "gapAbove": -33, "gapBelow": -0.96875}

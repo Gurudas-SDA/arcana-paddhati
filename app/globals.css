@@ -392,8 +392,8 @@ body {
      proportion (874 x 1240) before the picture arrives — the box has the cover's drawn width (the same
      expression as the cards' slots below), the picture fills it, so nothing jumps when it loads. */
   /*@cover-place*/
-  width: min(100%, 874px, calc((100vh - 2rem - var(--reader-pad-bottom) - var(--install-banner-h, 0px)) * 874 / 1240));
-  width: min(100%, 874px, calc((100dvh - 2rem - var(--reader-pad-bottom) - env(safe-area-inset-top, 0px) - var(--install-banner-h, 0px)) * 874 / 1240));
+  width: min(100%, 874px, calc((100vh - 2rem - var(--home-bars-extra) - var(--reader-pad-bottom) - var(--install-banner-h, 0px)) * 874 / 1240));
+  width: min(100%, 874px, calc((100dvh - 2rem - var(--home-bars-extra) - var(--reader-pad-bottom) - env(safe-area-inset-top, 0px) - var(--install-banner-h, 0px)) * 874 / 1240));
   /*@/cover-place*/
   max-width: 100%;
   line-height: 0;
@@ -401,8 +401,8 @@ body {
 /*@cover-place*/
 html[data-home-save] .home-cover-box,
 html[data-home-resume] .home-cover-box {
-  width: min(100%, 874px, calc((100vh - 2rem - var(--reader-pad-bottom) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px)) * 874 / 1240));
-  width: min(100%, 874px, calc((100dvh - 2rem - var(--reader-pad-bottom) - env(safe-area-inset-top, 0px) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px)) * 874 / 1240));
+  width: min(100%, 874px, calc((100vh - 2rem - var(--home-bars-extra) - var(--reader-pad-bottom) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px)) * 874 / 1240));
+  width: min(100%, 874px, calc((100dvh - 2rem - var(--home-bars-extra) - var(--reader-pad-bottom) - env(safe-area-inset-top, 0px) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px)) * 874 / 1240));
 }
 .home-cover-box .home-cover {
   width: 100%;
@@ -471,6 +471,64 @@ html[data-home-save] .home-save-slot {
     width: min(100%, 26rem);
   }
 }
+/*@cover-place*/
+/* V67 (Vraja Lila msg 7365, 03.11.2026: «обложка должна быть хорошо вертикально отцентрована между верхним и нижним
+   меню при скачивании книги тоже»): the cover and the card under it (save / «Продолжить») stand as ONE block exactly
+   in the middle between the top bar and the bottom bar, the cover never under the top bar. The bars are fixed sheets
+   (57 px + the notch / the home indicator); the reading area pads only the notch and 48 px at the bottom, so the home
+   page adds the rest on both sides (top 57 px, bottom 57 - 48 px) and the cover's height takes it off. The save card's
+   reserved place is its measured height (components/OfflineSaveCard.tsx), not a fixed 8.5 rem: no empty strip under
+   the card that would push the block up. */
+:root {
+  --home-bars-extra: calc(var(--reader-bar-top-h) + var(--reader-bar-top-h) - 48px);
+}
+.home-page {
+  padding-top: calc(var(--space-16) + var(--reader-bar-top-h));
+  padding-bottom: calc(var(--space-16) + var(--reader-bar-top-h) - 48px);
+}
+html:root .home-cover {
+  max-height: calc(100vh - 2rem - var(--home-bars-extra) - var(--reader-pad-bottom) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px));
+  max-height: calc(100dvh - 2rem - var(--home-bars-extra) - var(--reader-pad-bottom) - env(safe-area-inset-top, 0px) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px));
+}
+html:root .home-resume-slot,
+html:root .home-save-slot {
+  width: min(100%, 874px, calc((100vh - 2rem - var(--home-bars-extra) - var(--reader-pad-bottom) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px)) * 874 / 1240));
+  width: min(100%, 874px, calc((100dvh - 2rem - var(--home-bars-extra) - var(--reader-pad-bottom) - env(safe-area-inset-top, 0px) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px)) * 874 / 1240));
+  min-width: min(100%, 12rem);
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  html:root .home-resume-slot,
+  html:root .home-save-slot {
+    width: min(100%, 26rem);
+  }
+}
+/* the save card fills its reserved place (8.5 rem less the slot's top padding): no empty strip under it that would push
+   the cover + card block up (a fixed reserve, so the cover does not jump when the card appears) */
+.home-save {
+  box-sizing: border-box;
+  min-height: calc(var(--home-save-h) - 0.75rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/*@/cover-place*/
+/*@cover-place*/
+/* V67 (Vraja Lila msg 7373 «Б2-а», 7374 «только у закладок»): the lit bookmark's mark = a rounded bar (two arcs with round ends
+   + a straight middle, 3 px, --ap-gold) drawn by ::before with a mask; the card's own left border stays the thin line.
+   «Содержание» keeps the straight 3 px bar (rule 9.2 changed by Vraja Lila: the bookmark has its own mark). */
+.bookmark-card[data-bookmark-lit]::before {
+  content:'';
+  position:absolute;
+  left:-1px;
+  top:-1px;
+  bottom:-1px;
+  width:14px;
+  background:var(--ap-gold);
+  pointer-events:none;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='16'%3E%3Cpath d='M6.41 2.30A8.5 8.5 0 0 0 1.5 10V16' fill='none' stroke='black' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 0 0/14px 16px no-repeat,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='16'%3E%3Cpath d='M6.41 13.70A8.5 8.5 0 0 1 1.5 6V0' fill='none' stroke='black' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 0 100%/14px 16px no-repeat,linear-gradient(#000,#000) 0 16px/3px calc(100% - 32px) no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='16'%3E%3Cpath d='M6.41 2.30A8.5 8.5 0 0 0 1.5 10V16' fill='none' stroke='black' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 0 0/14px 16px no-repeat,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='16'%3E%3Cpath d='M6.41 13.70A8.5 8.5 0 0 1 1.5 6V0' fill='none' stroke='black' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 0 100%/14px 16px no-repeat,linear-gradient(#000,#000) 0 16px/3px calc(100% - 32px) no-repeat
+}
+/*@/cover-place*/
 .home-resume {
   position: relative;
   display: flex;
