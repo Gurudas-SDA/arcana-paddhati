@@ -1881,12 +1881,12 @@ export default function Sidebar({
                     >
                       <span className="note-quote block text-sm text-[#2C1810]" data-note-quote="">{h.quote}</span>
                       {h.note && <span className="note-text block text-sm text-[#5C3D2E]" data-note-text="">{h.note}</span>}
-                      <span className="block text-[11px] text-[#6B5440]" data-note-date="">{cardDate(h.created)}</span>
                       <span className="block text-[11px] text-[#6B5440]" data-note-place="">
                         {notePlace(h)}
                         {h.lost ? ` · ${lostLabel}` : ""}
                         {otherLang ? ` · ${t(ui, "notes.langNote", { lang: h.lang })}` : ""}
                       </span>
+                      <span className="block text-[11px] text-[#6B5440]" data-note-date="">{cardDate(h.created)}</span>
                     </Link>
                     <button
                       type="button"
