@@ -155,5 +155,12 @@
   "hl.editor.title": "Заметка",
   "hl.editor.label": "Ваша заметка",
   "hl.editor.save": "Сохранить",
-  "hl.ok": "Понятно"
+  "hl.ok": "Понятно",
+  "bookmarks.file": "Файл: скачать или загрузить закладки",
+  "bookmarks.save": "Скачать закладки",
+  "bookmarks.load": "Загрузить закладки",
+  "bookmarks.saved": "Сохранено закладок: {n}",
+  "bookmarks.loaded": "Закладки загружены: {n}",
+  "bookmarks.notFound": "не найдено: {n}",
+  "bookmarks.import.bad": "Это не файл закладок «Арчана-паддхати» (или он повреждён)."
 }

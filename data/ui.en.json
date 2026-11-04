@@ -155,5 +155,12 @@
   "hl.editor.title": "Note",
   "hl.editor.label": "Your note",
   "hl.editor.save": "Save",
-  "hl.ok": "OK"
+  "hl.ok": "OK",
+  "bookmarks.file": "File: download or load bookmarks",
+  "bookmarks.save": "Download bookmarks",
+  "bookmarks.load": "Load bookmarks",
+  "bookmarks.saved": "Bookmarks saved: {n}",
+  "bookmarks.loaded": "Bookmarks loaded: {n}",
+  "bookmarks.notFound": "not found: {n}",
+  "bookmarks.import.bad": "This is not an «Arcana-paddhati» bookmarks file (or it is damaged)."
 }

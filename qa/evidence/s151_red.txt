@@ -1,0 +1,9 @@
+QA full: 1 darbi, 2 paralēli, serveris http://127.0.0.1:51295/arcana-paddhati (out/)
+  FAIL s151   pixel7                          0 pass   3 fail      36s
+  atkārtoju 1 kritušos darbus vienu reizi …
+  FAIL s151   pixel7                       (atkārtoti)   3 fail
+
+QA full: 0 pass, 3 fail, 0 skip, 1.2 min
+  FAIL s151 pixel7 tab «Закладки» has the file icon, same size and right edge as in «Заметки» [{"right": 308, "w": 44, "h": 44, "top": 8}, null]
+  FAIL s151 pixel7 the icon is in the first row under the tabs, like the notes' one [{"right": 308, "w": 44, "h": 44, "top": 8}, null]
+  FAIL s151 pixel7 scenario ran to the end "TimeoutError('Locator.click: Timeout 30000ms exceeded.\\nCall log:\\n  - waiting for locator(\"[data-bookmarks-file]\")\\n')"

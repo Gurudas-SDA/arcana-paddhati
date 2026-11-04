@@ -213,10 +213,20 @@ def run(p,dev,eng,kw,mode):
     pg.wait_for_timeout(600)
     open_contents(pg)
     try:
-        if not pg.evaluate("[...document.querySelectorAll('aside nav [aria-expanded=true]')].some(e=>/Эмблема/.test(e.innerText))"):
-            if flow.group('introduction').get_attribute('aria-expanded') != 'true':  # V37: the arrow carries the state
-                flow.activate(flow.group('introduction'))
-            flow.activate(flow.chapter('gaudiya-emblem'))
+        # tehniskais slieksnis Lipikāra, nav S noteikums: set-up of this path retries up to 3 times (load-flaky on iPhone, V73 push)
+        for _try in range(3):
+            try:
+                if not pg.evaluate("[...document.querySelectorAll('aside nav [aria-expanded=true]')].some(e=>/Эмблема/.test(e.innerText))"):
+                    if flow.group('introduction').get_attribute('aria-expanded', timeout=10000) != 'true':  # V37: the arrow carries the state
+                        flow.activate(flow.group('introduction'))
+                    flow.activate(flow.chapter('gaudiya-emblem'))
+                break
+            except Exception:
+                if _try == 2:
+                    raise
+                pg.goto(L + 'vigraha-tattva/', wait_until='networkidle')
+                pg.wait_for_timeout(1500)
+                open_contents(pg)
         r2 = row(pg, 'Святое имя')
         tap(pg, r2)
         pg.wait_for_timeout(200)

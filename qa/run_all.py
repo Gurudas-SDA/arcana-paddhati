@@ -206,6 +206,8 @@ SUITES = [
          devices=None, fast=True, server=False),
     dict(id="s152", file="suites/s152_note_modal.py", title="V76 Vraja Lila 04.11 msg 7553: loga Zametka overlay + lapas ritinasanas bloketana, garam citatam citata nav, saglabatas piezimes popovers ta pasa platuma kaa logs, centrets, 3 pogas pa visu platumu",
          devices=["iphone14", "pixel7"], fast=True, fast_devices=["pixel7"]),
+    dict(id="s151", file="suites/s151_bookmarks_file.py", title="V73 Vraja Lila msg 2415 + 7546: gramatzimju fails (Skachat / Zagruzit zakladki): eksports ar nosaukumu/citatu, imports aizstaj visas, nezinama vieta izlaista + ne najdeno: N, atrade pec nosaukuma, poga vieta ka piezimem",
+         devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["pixel7"]),
     dict(id="s147", file="suites/s147_v72_note_keyboard_panel_close.py", title="V72 Vraja Lila 04.11 msg 2406-2407 + 2409: loga Zametka virs tastaturas (visualViewport), sanu panelis aizveras pec gramatzimes/piezimes uzspiesanas",
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["pixel7"]),
     dict(id="s143", file="suites/s143_highlights_notes_v71.py", title="V71 Vraja Lila 04.11 msg 2360/2362 (utverzhdayu; v fayl tolko zametki): teksta iezimesana (4 kraasas, izvelne, Zametka, Kopet), cilne Zametki (3 cilnes, filtri, meklesana, pavilksana), eksports/imports tikai piezimes; 3 temas",
