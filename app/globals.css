@@ -2616,7 +2616,7 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
   border: 1px solid var(--line-hairline);
   border-radius: var(--ds-radius-card);
 }
-.hl-card { text-align: center; }
+.hl-card { text-align: center; left: 0; right: 0; margin-inline: auto; width: min(calc(100vw - var(--space-16) * 2), calc(var(--space-48) * 7 + var(--space-24))); } /* V76: the same width as the note window (.hl-modal-card + p-4) */
 .hl-card .hl-colors { justify-content: center; }
 .hl-card .hl-actions-icons { width: 100%; }
 .hl-card-note { margin: 0; padding: var(--space-4) var(--space-8); font-size: 15px; line-height: 1.4; max-height: calc(var(--space-48) * 2); overflow-y: auto; overflow-wrap: anywhere; }

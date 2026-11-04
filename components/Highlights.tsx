@@ -751,7 +751,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
               role="dialog"
               aria-label={t(ui, "hl.note")}
               className="hl-menu hl-card"
-              style={{ left: 0, right: 0, marginInline: "auto", width: "min(calc(100vw - 32px), 360px)", top: Math.max(8, Math.min(card.y + 12, window.innerHeight - 240)) }}
+              style={{ top: Math.max(8, Math.min(card.y + 12, window.innerHeight - 240)) }}
             >
               {colorButtons({ kind: "card", current: cardItem.color, onPick: (i) => updateHighlight(cardItem.id, { color: i }) })}
               <p className="hl-card-note" data-hl-card-note="">{cardItem.note || t(ui, "hl.card.noNote")}</p>
