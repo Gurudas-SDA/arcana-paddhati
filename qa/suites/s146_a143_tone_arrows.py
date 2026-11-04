@@ -106,6 +106,10 @@ with sync_playwright() as p:
                 el = page.locator(f"#{sid}")
                 el.scroll_into_view_if_needed()
                 el.screenshot(path=os.path.join(SHOTS, f"{sid}-{device}.png"))
+            # point 3: verse 5 of «Враджа-дхама-махимамрита» (the verse block with its number)
+            v5 = page.locator("#song-vraja-dhama-mahimamrta .verse-text").nth(4)
+            v5.scroll_into_view_if_needed()
+            v5.locator("xpath=..").screenshot(path=os.path.join(SHOTS, f"song-vraja-dhama-v5-{device}.png"))
         context.close()
         browser.close()
 
