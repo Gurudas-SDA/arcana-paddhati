@@ -818,7 +818,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
                 className="hl-field ds-field w-full rounded-lg bg-white px-3 py-2.5 text-base hl-t"
                 data-hl-ui=""
               />
-              <span className="hl-counter hl-t" data-hl-counter="" aria-hidden="true">{editor.note.length}/{HL_NOTE_MAX}</span>
+              <span className="hl-counter" data-hl-counter="" aria-hidden="true">{editor.note.length}/{HL_NOTE_MAX}</span>
             </div>
             <div className="mt-5 flex justify-end gap-2 flex-wrap">
               {editor.id && (
