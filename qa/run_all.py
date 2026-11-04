@@ -197,6 +197,8 @@ SUITES = [
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s127", file="suites/s127_window_master_v61.py", title="V61 Враджа Лила 30.10 (plāna 4. solis, jautājums 1 «согласен», jautājums 2 variants «А»): visi logi = viens meistarelements: viens rādiuss un viena ēna, krustiņš 44×44 apaļš, centrs 30/30, krusts 18 px 1:1 nesaspiests, viena krāsa; iekšējās malas pēc skalas (16; liels logs dators 24); «Аа» un valodu saraksts nemainīti",
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
+    dict(id="s146", file="suites/s146_a143_tone_arrows.py", title="A143 Satkirti msg 7447–7450 04.11: bultas pie pantiem, kas dziedami citā tonī (Maṅgala-ārati 2,4,6,8 ↑; 5,7,9 →; Vibhāvarī-śeṣa 3,5,7 ↑) + «jaya jaya paurṇamāsī, ābhīra-nāgarī» visās valodās",
+         devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s142", file="suites/s142_mangalacarana_two_slokas_removed.py", title="A140 Satkirti msg 7403 03.11 (A133 «Убрать»): «Мангалачарана» — pranāmā Bhaktiprajñāna Keśava divas lieka šlokas (gaurāśraya-vigrahāya…, prabhupādāntaraṅgāya…) izņemtas visās valodās; šlokas 9–10 paliek",
          devices=None, fast=True, server=False),
     dict(id="s143", file="suites/s143_highlights_notes_v71.py", title="V71 Vraja Lila 04.11 msg 2360/2362 (utverzhdayu; v fayl tolko zametki): teksta iezimesana (4 kraasas, izvelne, Zametka, Kopet), cilne Zametki (3 cilnes, filtri, meklesana, pavilksana), eksports/imports tikai piezimes; 3 temas",

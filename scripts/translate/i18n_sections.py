@@ -68,8 +68,17 @@ def write_atomic(path, text, newline=""):
 LAYOUT_KEYS = ("numbered",)
 
 
+# Verse-level layout flag (A143, S msg 7447–7450): "tone" = the verse is sung to another tune (↑ / →). Same rules.
+VERSE_LAYOUT_KEYS = ("tone",)
+
+
+def _strip_verse_layout(content):
+    return [{k: v for k, v in b.items() if k not in VERSE_LAYOUT_KEYS} if isinstance(b, dict) else b for b in content]
+
+
 def _strip_layout(sec):
-    subs = [{k: v for k, v in sub.items() if k not in LAYOUT_KEYS} for sub in sec.get("subsections", [])]
+    subs = [{k: (_strip_verse_layout(v) if k == "content" and isinstance(v, list) else v)
+             for k, v in sub.items() if k not in LAYOUT_KEYS} for sub in sec.get("subsections", [])]
     return dict(sec, subsections=subs) if "subsections" in sec else sec
 
 

@@ -17,6 +17,8 @@
   "search.noSections": "Nekas nav atrasts. Mainiet meklējumu vai notīriet meklēšanu.",
   "verse.translationHint": "tulkojums",
   "verse.wbwHint": "pa vārdiem",
+  "verse.toneUp": "tonis augstāk",
+  "verse.toneShift": "cits tonis",
   "language.label": "Valoda",
   "language.fallbackSuffix": "(EN)",
   "home.coverAlt": "Arčana Padhati grāmatas vāks",

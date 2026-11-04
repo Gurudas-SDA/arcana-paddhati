@@ -32,6 +32,9 @@ type HsLink = string | undefined;
 interface VerseLabels {
   translation: string;
   wbw: string;
+  /** verse.toneUp / verse.toneShift — spoken names of the ↑ / → mark next to a verse number (A143). */
+  toneUp: string;
+  toneShift: string;
   mood: MoodLabels;
   /** reader.close — spoken name of the ✕ of a picture's floating copy. */
   close: string;
@@ -260,11 +263,14 @@ function ContentBlock({
   hsImage,
   hsText,
   verseNum,
+  toneNote = false,
 }: {
   item: ContentItem;
   index: number;
   /** Running number of this verse in a numbered subsection (Subsection.numbered), shown above it. */
   verseNum?: number;
+  /** A143: this is the first verse of its song with this tone mark — the mark is shown with its words (a legend once). */
+  toneNote?: boolean;
   labels: VerseLabels;
   /** Title of the (sub)section the block belongs to (header of the mood overlay). */
   title: string;
@@ -322,7 +328,18 @@ function ContentBlock({
       // centred and bold right above the Sanskrit of a numbered subsection.
       const sanskrit = sanskritText && verseNum !== undefined ? (
         <>
-          <div className="verse-num">{verseNum}</div>
+          <div className="verse-num">
+            {/* A143 (S msg 7447–7450): ↑ «на тон выше» / → «другой тон» beside the number; the number stays centred. */}
+            <span className="verse-num-n">
+              {verseNum}
+              {item.tone && (
+                <span className="verse-tone" data-tone={item.tone} role="img" aria-label={item.tone === "up" ? labels.toneUp : labels.toneShift} title={item.tone === "up" ? labels.toneUp : labels.toneShift}>
+                  {item.tone === "up" ? "↑" : "→"}
+                  {toneNote && <span className="verse-tone-note"> {item.tone === "up" ? labels.toneUp : labels.toneShift}</span>}
+                </span>
+              )}
+            </span>
+          </div>
           {sanskritText}
         </>
       ) : (
@@ -643,6 +660,13 @@ function ContentBlocks({
   // Running verse numbers of a numbered subsection: 1, 2, … over its verse blocks only.
   let verses = 0;
   const verseNums = items.map((item) => (numbered && item.type === "verse" && item.sanskrit ? ++verses : undefined));
+  // A143: the first verse of each tone kind in this song carries the words of the mark (a one-time legend).
+  const seenTone = new Set<string>();
+  const toneNotes = items.map((item) => {
+    if (!numbered || item.type !== "verse" || !item.tone || seenTone.has(item.tone)) return false;
+    seenTone.add(item.tone);
+    return true;
+  });
   const blocks = items.map((item, idx) => (
     <ContentBlock
       key={idx}
@@ -657,6 +681,7 @@ function ContentBlocks({
       hsImage={linkedImage(item, idx)}
       hsText={linkedText(item, idx)}
       verseNum={verseNums[idx]}
+      toneNote={toneNotes[idx]}
     />
   ));
   return pictures.length ? <HotspotProvider>{blocks}</HotspotProvider> : <>{blocks}</>;
@@ -753,6 +778,8 @@ export default function SectionContent({ section, ui, num = null, note, after }:
   const labels: VerseLabels = {
     translation: t(ui, "verse.translationHint"),
     wbw: t(ui, "verse.wbwHint"),
+    toneUp: t(ui, "verse.toneUp"),
+    toneShift: t(ui, "verse.toneShift"),
     mood: {
       button: t(ui, "mood.button"),
       words: t(ui, "mood.words"),

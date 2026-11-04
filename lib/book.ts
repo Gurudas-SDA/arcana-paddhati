@@ -40,6 +40,9 @@ export interface ContentItem {
   translation?: string;
   /** Word-by-word meanings of a verse: "word — meaning; word — meaning; …". */
   wbw?: string;
+  /** "verse" block (A143, S msg 7447–7450): the verse is sung to another tune — "up" = ↑ a tone higher,
+   *  "shift" = → a different tone. Layout flag (shown next to the verse number), never translated. */
+  tone?: "up" | "shift";
   src?: string;
   alt?: string;
   items?: PairedItem[];

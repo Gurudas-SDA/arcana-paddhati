@@ -17,6 +17,8 @@
   "search.noSections": "Nothing found. Change the search or clear it.",
   "verse.translationHint": "translation",
   "verse.wbwHint": "word-by-word",
+  "verse.toneUp": "a tone higher",
+  "verse.toneShift": "a different tone",
   "language.label": "Language",
   "language.fallbackSuffix": "(EN)",
   "home.coverAlt": "Arcana-paddhati book cover",
