@@ -567,8 +567,8 @@ class Edition:
         tone = it.get("tone")
         if num is not None and tone:   # A143 (S msg 7447–7450): ↑ a tone higher / → a different tone, beside the number
             word = self.ui.get("verse.toneUp" if tone == "up" else "verse.toneShift", "")
-            vn = (f'<p class="vn">{num}<span class="vt" title="{esc(word)}">{"↑" if tone == "up" else "→"}'
-                  f'{(" <i>" + esc(word) + "</i>") if tone_note else ""}</span></p>')
+            vn = (f'<p class="vn">{num}<span class="vt"{(' title="' + esc(word) + '"') if tone == "up" else ""}>{"↑" if tone == "up" else "→"}'
+                  f'{(" <i>" + esc(word) + "</i>") if (tone_note and tone == "up") else ""}</span></p>')
         out = [f'<div class="{cls}" id="{vid}">{vn}<div class="sk" lang="{sa_lang(sk)}">{stanzas}</div>']
         if wbw:
             out.append(f'<p class="wbw">{wbw_html(wbw)}</p>')

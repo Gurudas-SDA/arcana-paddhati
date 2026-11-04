@@ -99,7 +99,10 @@ with sync_playwright() as p:
             check(tag, "c метки на нужных номерах", marks == exp, marks)
             check(tag, "c у каждой метки подпись для чтения с экрана (aria-label)", all(g["aria"] for g in got if g["tone"]), got)
             kinds = [g["tone"] for g in got if g["note"]]
-            check(tag, "c слова метки только у первой метки каждого вида", sorted(kinds) == sorted(set(exp.values())), kinds)
+            check(tag, "c слова метки только у первой метки «вверх» (стрелка «другой тон» — без слов)", kinds == (["up"] if "up" in exp.values() else []), kinds)
+            # S msg 7465 (04.11.2026), burtiski: «Все хорошо, только убери правописание "другой тон"»
+            vis = page.evaluate("(id) => document.getElementById(id).innerText.includes('другой тон')", sid)
+            check(tag, "c S 7465: «убери правописание \"другой тон\"» — надписи «другой тон» на странице нет", not vis, vis)
             check(tag, "c номер остаётся по центру (сдвиг ≤ 2 px)", all(g["off"] <= 2 for g in got), [g["off"] for g in got])
         if SHOTS:
             for sid, name in (("song-mangala-arati", "Мангала-арати"), ("song-vibhavari-sesa", "Вибхавари-шеша")):
