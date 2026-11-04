@@ -30,7 +30,7 @@ SELECT = """([n, a, b]) => {
   for (const p of document.querySelectorAll('.app-main article p')) {
     if (!p.getClientRects().length || p.closest('button,table,[hidden],.mood-panel')) continue;
     const w = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
-    for (let x = w.nextNode(); x; x = w.nextNode()) if ((x.data.match(/\\S+/g) || []).length >= 25 && x.parentElement.getClientRects().length) nodes.push(x);
+    for (let x = w.nextNode(); x; x = w.nextNode()) if ((x.data.match(/\\S+/g) || []).length >= 20 && x.parentElement.getClientRects().length) nodes.push(x);
   }
   const node = nodes[n]; if (!node) return null;
   node.parentElement.scrollIntoView({block: 'center'});
@@ -79,7 +79,7 @@ def run(p, dev, eng, opts):
     pg.wait_for_timeout(500)
     # long quote
     pg.evaluate("() => scrollTo(0, 0)")
-    long_ = make_note(pg, 0, 40, "")
+    long_ = make_note(pg, 0, 20, "")
     check(dev, "long quote (>110 chars): no quote block", len(long_) > 110 and pg.locator("[data-hl-editor-quote]").count() == 0, [len(long_), pg.locator("[data-hl-editor-quote]").count()])
     check(dev, "long quote: colours and the note field are there", pg.locator("[data-hl-editor] [data-hl-color-kind='editor']").count() == 4 and pg.locator("[data-hl-editor] textarea").is_visible())
     pg.locator("[data-hl-editor] [data-hl-save]").click()
