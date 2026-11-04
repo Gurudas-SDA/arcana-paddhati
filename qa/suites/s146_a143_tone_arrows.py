@@ -99,10 +99,11 @@ with sync_playwright() as p:
             check(tag, "c метки на нужных номерах", marks == exp, marks)
             check(tag, "c у каждой метки подпись для чтения с экрана (aria-label)", all(g["aria"] for g in got if g["tone"]), got)
             kinds = [g["tone"] for g in got if g["note"]]
-            check(tag, "c слова метки только у первой метки «вверх» (стрелка «другой тон» — без слов)", kinds == (["up"] if "up" in exp.values() else []), kinds)
             # S msg 7465 (04.11.2026), burtiski: «Все хорошо, только убери правописание "другой тон"»
-            vis = page.evaluate("(id) => document.getElementById(id).innerText.includes('другой тон')", sid)
-            check(tag, "c S 7465: «убери правописание \"другой тон\"» — надписи «другой тон» на странице нет", not vis, vis)
+            # S msg 7467 (04.11.2026), burtiski: «И на тон выше тоже убери, везде оставь стрелочки»
+            vis = page.evaluate("(id) => { const x = document.getElementById(id).innerText; return [x.includes('другой тон'), x.includes('на тон выше')]; }", sid)
+            check(tag, "c S 7465+7467: надписей «другой тон» и «на тон выше» нет, остались только стрелки", vis == [False, False] and not kinds, [vis, kinds])
+            check(tag, "c S 7467: у стрелок нет всплывающей подписи (title)", page.evaluate("(id) => document.getElementById(id).querySelectorAll('.verse-tone[title]').length", sid) == 0)
             check(tag, "c номер остаётся по центру (сдвиг ≤ 2 px)", all(g["off"] <= 2 for g in got), [g["off"] for g in got])
         if SHOTS:
             for sid, name in (("song-mangala-arati", "Мангала-арати"), ("song-vibhavari-sesa", "Вибхавари-шеша")):

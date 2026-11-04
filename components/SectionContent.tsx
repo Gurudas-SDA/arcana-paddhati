@@ -333,9 +333,8 @@ function ContentBlock({
             <span className="verse-num-n">
               {verseNum}
               {item.tone && (
-                <span className="verse-tone" data-tone={item.tone} role="img" aria-label={item.tone === "up" ? labels.toneUp : labels.toneShift} title={item.tone === "up" ? labels.toneUp : undefined}>
+                <span className="verse-tone" data-tone={item.tone} role="img" aria-label={item.tone === "up" ? labels.toneUp : labels.toneShift} >
                   {item.tone === "up" ? "↑" : "→"}
-                  {toneNote && item.tone === "up" && <span className="verse-tone-note"> {item.tone === "up" ? labels.toneUp : labels.toneShift}</span>}
                 </span>
               )}
             </span>
