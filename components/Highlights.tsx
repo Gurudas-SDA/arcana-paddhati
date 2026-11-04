@@ -168,6 +168,8 @@ interface Props {
 
 export default function HighlightsLayer({ ui, lang }: Props) {
   const [items, setItems] = useState<Highlight[]>([]);
+  /** V72 (Vraja Lila msg 2406–2407): the visible part of the screen while the soft keyboard is up (visualViewport); null = whole screen. */
+  const [vv, setVv] = useState<{ top: number; height: number } | null>(null);
   const [menu, setMenu] = useState<{ sel: SelInfo; x: number; y: number } | null>(null);
   const [editor, setEditor] = useState<{ id?: string; sel?: SelInfo; color: number; note: string; quote: string; inMood: HTMLElement | null } | null>(null);
   const [card, setCard] = useState<{ id: string; x: number; y: number; inMood: HTMLElement | null } | null>(null);
@@ -648,12 +650,29 @@ export default function HighlightsLayer({ ui, lang }: Props) {
     window.setTimeout(dropBackup, 10500);
   };
 
+  const editorOpen = !!editor;
+  useEffect(() => {
+    if (!editorOpen) { setVv(null); return; }
+    const v = window.visualViewport;
+    if (!v) return;
+    const read = () => {
+      const keyboard = window.innerHeight - v.height - v.offsetTop > 80;
+      setVv(keyboard ? { top: v.offsetTop, height: v.height } : null);
+    };
+    read();
+    v.addEventListener("resize", read);
+    v.addEventListener("scroll", read);
+    return () => { v.removeEventListener("resize", read); v.removeEventListener("scroll", read); };
+  }, [editorOpen]);
+
   const modal = (inner: React.ReactNode, onClose: () => void, mood: HTMLElement | null, kind: string) =>
     portalTo(
-      <div data-no-reader-tap="" data-hl-ui="" data-hl-modal={kind} className="bookmark-name-modal fixed inset-0 z-[100]" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+      <div data-no-reader-tap="" data-hl-ui="" data-hl-modal={kind} className="bookmark-name-modal fixed inset-0 z-[100]"
+        style={kind === "editor" && vv ? { top: vv.top, bottom: "auto", height: vv.height } : undefined} onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
         <div className="bookmark-name-backdrop absolute inset-0" aria-hidden="true" onClick={onClose} />
-        <div className="absolute inset-0 flex items-center justify-center p-4 overflow-y-auto overscroll-contain pointer-events-none">
-          <div role="dialog" aria-modal="true" className="window-card window-card-small bg-white w-full hl-modal-card pointer-events-auto" data-hl-ui="">
+        <div className={`absolute inset-0 flex justify-center overflow-y-auto overscroll-contain pointer-events-none ${kind === "editor" && vv ? "items-start p-2" : "items-center p-4"}`}>
+          <div role="dialog" aria-modal="true" className="window-card window-card-small bg-white w-full hl-modal-card pointer-events-auto my-auto" data-hl-ui=""
+            style={kind === "editor" && vv ? { maxHeight: "none" } : undefined}>
             <WindowClose onClick={onClose} label={t(ui, "reader.close")} />
             {inner}
           </div>

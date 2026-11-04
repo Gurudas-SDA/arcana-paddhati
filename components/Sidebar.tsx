@@ -979,6 +979,25 @@ export default function Sidebar({
       return;
     }
     const strip = (p: string) => p.replace(/\/+$/, "");
+    // V72 (Vraja Lila msg 2409): a bookmark / note of the page already shown that carries a subsection (#hash) is NOT another page: the
+    // pathname does not change, so a «navigating» menu would never close. Scroll to the place and close the menu, like the rest.
+    const hashAt = href.indexOf("#");
+    if (hashAt > 0 && strip(href.slice(0, hashAt)) === strip(pathname)) {
+      let anchor = "";
+      try { anchor = decodeURIComponent(href.slice(hashAt + 1)); } catch { anchor = ""; }
+      if (anchor) {
+        e.preventDefault();
+        const target = document.getElementById(anchor);
+        const main = mainEl();
+        const moves = hashId() !== anchor || (target && main ? Math.abs(target.getBoundingClientRect().top - main.getBoundingClientRect().top) > 8 : false);
+        if (moves) pushPlace(`#${anchor}`);
+        window.dispatchEvent(new HashChangeEvent("hashchange"));
+        target?.scrollIntoView({ block: "start" });
+        if (onLeave) onLeave();
+        else onClose();
+        return;
+      }
+    }
     if (strip(href) !== strip(pathname)) {
       // The Link navigates (a new entry on top of the menu's).
       if (onLeave) onLeave(true, e.currentTarget as HTMLElement);
