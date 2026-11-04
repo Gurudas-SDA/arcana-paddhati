@@ -168,6 +168,7 @@ interface Props {
 
 // tehniskais slieksnis Lipikāra, nav S noteikums: a quote longer than ~2 lines is not shown in the note window (V76, Vraja Lila msg 7553 p.2)
 const HL_QUOTE_SHOW_MAX = 110;
+}
 
 export default function HighlightsLayer({ ui, lang }: Props) {
   const [items, setItems] = useState<Highlight[]>([]);
@@ -754,7 +755,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
               style={{ top: Math.max(8, Math.min(card.y + 12, window.innerHeight - 240)) }}
             >
               {colorButtons({ kind: "card", current: cardItem.color, onPick: (i) => updateHighlight(cardItem.id, { color: i }) })}
-              <p className="hl-card-note" data-hl-card-note="">{cardItem.note || t(ui, "hl.card.noNote")}</p>
+              <p className="hl-card-note hl-card-note-y" data-hl-card-note="">{cardItem.note || t(ui, "hl.card.noNote")}</p>
               <div className="hl-actions hl-actions-icons">
                 <button type="button" className="hl-icon" data-hl-card-edit="" aria-label={t(ui, "hl.edit")} title={t(ui, "hl.edit")}
                   onClick={() => { setEditor({ id: cardItem.id, color: cardItem.color, note: cardItem.note ?? "", quote: cardItem.quote, inMood: card.inMood }); setCard(null); }}>
@@ -802,16 +803,19 @@ export default function HighlightsLayer({ ui, lang }: Props) {
             {editor.quote.length <= HL_QUOTE_SHOW_MAX && <p className="hl-quote" data-hl-editor-quote="">{editor.quote}</p>}
             {colorButtons({ kind: "editor", current: editor.color, onPick: (i) => setEditor({ ...editor, color: i }) })}
             <label className="block text-sm hl-t-soft mb-1.5 mt-3" htmlFor="hl-note-field">{t(ui, "hl.editor.label")}</label>
-            <textarea
-              id="hl-note-field"
-              autoFocus
-              value={editor.note}
-              maxLength={HL_NOTE_MAX}
-              rows={4}
-              onChange={(e) => setEditor({ ...editor, note: e.target.value })}
-              className="hl-field ds-field w-full rounded-lg bg-white px-3 py-2.5 text-base hl-t"
-              data-hl-ui=""
-            />
+            <div className="hl-field-wrap">
+              <textarea
+                id="hl-note-field"
+                autoFocus
+                value={editor.note}
+                maxLength={HL_NOTE_MAX}
+                rows={4}
+                onChange={(e) => setEditor({ ...editor, note: e.target.value })}
+                className="hl-field ds-field w-full rounded-lg bg-white px-3 py-2.5 text-base hl-t"
+                data-hl-ui=""
+              />
+              <span className="hl-counter" data-hl-counter="" aria-hidden="true">{editor.note.length}/{HL_NOTE_MAX}</span>
+            </div>
             <div className="mt-5 flex justify-end gap-2 flex-wrap">
               {editor.id && (
                 <button type="button" data-hl-editor-delete="" className="hl-btn rounded-lg px-4 text-sm font-medium hl-t-soft"

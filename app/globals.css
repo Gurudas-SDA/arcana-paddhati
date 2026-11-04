@@ -2640,8 +2640,12 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
 .hl-card { text-align: center; left: 0; right: 0; margin-inline: auto; width: min(calc(100vw - var(--space-16) * 2), calc(var(--space-48) * 7 + var(--space-24))); } /* V76: the same width as the note window (.hl-modal-card + p-4) */
 .hl-card .hl-colors { justify-content: center; }
 .hl-card .hl-actions-icons { width: 100%; }
-.hl-card-note { margin: 0; padding: var(--space-4) var(--space-8); font-size: 15px; line-height: 1.4; max-height: calc(var(--space-48) * 2); overflow-y: auto; overflow-wrap: anywhere; }
+.hl-card-note { margin: 0; padding: var(--space-4) var(--space-8); font-size: 15px; line-height: 1.4; max-height: calc(var(--space-24) * 5 + var(--space-8)); overflow-y: auto; overflow-wrap: anywhere; }
 .hl-quote { margin: 0 0 var(--space-12); padding-left: var(--space-12); border-left: var(--space-4) solid var(--line-hairline); font-size: 14px; line-height: 1.4; color: #5C3D2E; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.hl-field-wrap { position: relative; }
+.hl-field-wrap .hl-field { display: block; padding-bottom: var(--space-24); }
+.hl-counter { position: absolute; right: var(--space-12); bottom: var(--space-8); padding-left: var(--space-4); font-size: 12px; line-height: 1; pointer-events: none; background: white; color: color-mix(in srgb, currentColor 45%, white); } /* V77 (Vraja 7560): always the same pale colour; opaque so the scrolled text never shows through (that looked darker at 1700) */
+.hl-card-note-y { max-height: none; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; } /* V77 (Vraja msg 7564: variant y): 3 lines + «…», the full text opens with ✎ */
 .hl-field { resize: vertical; min-height: calc(var(--space-48) * 2); font-family: inherit; }
 @media (min-width: 700px) and (pointer: fine) {
   .hl-menu:not(.hl-card) { flex-direction: row; align-items: center; gap: var(--space-8); }
