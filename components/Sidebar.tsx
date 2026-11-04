@@ -1552,6 +1552,25 @@ export default function Sidebar({
       {/* Contents (Reader v7.8, Satkirti 07.10.2026): a fixed part — the title,
           the search and «Обложка» — and the list that scrolls under it. */}
       {showBookmarks && (
+        <div className="notes-filters shrink-0" data-bookmarks-filters="">
+          <div className="notes-filter-row">
+            <div className="notes-file">
+              <button type="button" className="notes-file-btn" data-bookmarks-file="" aria-haspopup="menu" aria-expanded={fileMenu} aria-label="Файл: скачать или загрузить закладки" title="Файл: скачать или загрузить закладки" onClick={() => setFileMenu((v) => !v)}>
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5" /><path d="M12 17v-6M9.5 13.5 12 11l2.5 2.5" />
+                </svg>
+              </button>
+              {fileMenu && (
+                <div className="notes-file-menu" role="menu" data-bookmarks-file-menu="">
+                  <button type="button" role="menuitem" data-bookmarks-save="">Скачать закладки</button>
+                  <button type="button" role="menuitem" data-bookmarks-load="">Загрузить закладки</button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+      {showBookmarks && (
         <div
           ref={bookmarksRef}
           className={`relative flex-1 min-h-0 ${drag ? "overflow-hidden" : "overflow-y-auto"} ${bookmarkRows.length ? "flex flex-col gap-[var(--space-4)] px-[var(--space-12)] py-[var(--space-8)]" : ""}`}
