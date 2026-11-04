@@ -1,0 +1,18 @@
+QA full: 2 darbi, 2 paralēli, serveris http://127.0.0.1:58241/arcana-paddhati (out/)
+  FAIL s152   iphone14                        4 pass   5 fail      10s
+  FAIL s152   pixel7                          5 pass   5 fail      10s
+  atkārtoju 2 kritušos darbus vienu reizi …
+  FAIL s152   pixel7                       (atkārtoti)   5 fail
+  FAIL s152   iphone14                     (atkārtoti)   5 fail
+
+QA full: 9 pass, 10 fail, 0 skip, 0.3 min
+  FAIL s152 iphone14 wheel / touch on the overlay is stopped and the page is locked (overflow hidden) {"wheel": false, "touchmove": false, "lock": false}
+  FAIL s152 iphone14 long quote (>110 chars): no quote block [137, 1]
+  FAIL s152 iphone14 popover width = note window width (+-2 px) [{"l": 66.53125, "r": 370.53125, "t": 383, "b": 526, "w": 304}, {"l": 16, "r": 374, "t": 235.5, "b": 608.5, "w": 358}]
+  FAIL s152 iphone14 popover is centred horizontally [{"l": 66.53125, "r": 370.53125, "t": 383, "b": 526, "w": 304}, [390, 844]]
+  FAIL s152 iphone14 page under the popover is locked (wheel on its overlay stopped) [{"wheel": false, "touchmove": false, "lock": false}, false]
+  FAIL s152 pixel7 wheel / touch on the overlay is stopped and the page is locked (overflow hidden) {"wheel": false, "touchmove": false, "lock": false}
+  FAIL s152 pixel7 long quote (>110 chars): no quote block [137, 1]
+  FAIL s152 pixel7 popover width = note window width (+-2 px) [{"l": 71, "r": 375, "t": 417.484375, "b": 560.484375, "w": 304}, {"l": 26, "r": 386, "t": 270.703125, "b": 644.296875, "w": 360}]
+  FAIL s152 pixel7 popover is centred horizontally [{"l": 71, "r": 375, "t": 417.484375, "b": 560.484375, "w": 304}, [412, 915]]
+  FAIL s152 pixel7 page under the popover is locked (wheel on its overlay stopped) [{"wheel": false, "touchmove": false, "lock": false}, false]

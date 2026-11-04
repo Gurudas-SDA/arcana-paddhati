@@ -1,0 +1,11 @@
+QA full: 8 darbi, 2 paralēli, serveris http://127.0.0.1:50015/arcana-paddhati (out/)
+  OK   s65    iphone14                       14 pass   0 fail      17s
+  OK   s65    pixel7                         14 pass   0 fail      20s
+  OK   s152   iphone14                        9 pass   0 fail      11s
+  OK   s65    desktop                        14 pass   0 fail      17s
+  OK   s152   pixel7                         10 pass   0 fail       8s
+  OK   s147   pixel7                         15 pass   0 fail      65s
+  OK   s147   iphone14                       15 pass   0 fail      70s
+  OK   s147   desktop                        12 pass   0 fail      57s
+
+QA full: 103 pass, 0 fail, 0 skip, 2.7 min
