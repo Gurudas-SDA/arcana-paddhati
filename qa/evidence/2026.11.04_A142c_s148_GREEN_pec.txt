@@ -1,0 +1,9 @@
+  [PASS] book.json D1 katram pantam/mantrai ir wbw (379)
+  [PASS] book.json D2 poga: kods SectionContent + dati (348)
+  [PASS] book.json D3 formāts «word — meaning» (3669)
+  [PASS] book.json D4 bez iekavām (3669)
+  [PASS] book.json D5 bez «or» (3669)
+  [PASS] book.json D6 nav 3+ daļu salikteņu (3669)
+  [PASS] book.json D7 sandhi/slēptie salikteņi dalīti (3669)
+  [PASS] book.json D8 BBT pantiem wbw = BBT EN burtiski, noteikums 79 (15 vietas)
+s148: 8/8 passed

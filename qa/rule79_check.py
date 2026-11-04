@@ -11,7 +11,7 @@ Daļas:
  D5 bez «или» nozīmē (izņēmums: pats vārds vā/athavā/tu = «или», «или же»; BBT atsauce — sk. BBT_KEEP)
  D6 garš saliktenis dalīts: atslēga ar 3+ daļām (2+ defises) vai slēptu 3+ daļu salikteņi (HIDDEN) nav; īsie (2 daļas) palieku veseli
  D7 sandhi dalīts: SPLITS tabulas atslēgas nav; + heiristisks kandidātu skenētājs (vārdnīca) tikai informācijai
- D8 BBT: ja pantam ir BBT pārvārdojums (vedabase.io, RU) — grāmatā tas pats (rezultāts no scripts/rule79_bbt_lookup.py kešs)
+ D8 BBT: ja pantam ir BBT pārvārdojums (vedabase.io, RU; EN — A142c) — grāmatā tas pats (rezultāts no scripts/rule79_bbt_lookup.py kešs)
 # tehniskais slieksnis Lipikāra, nav S noteikums: «garš» = 3+ daļas (2+ defises vai slēptas 3+ daļas); 2 daļu īpašvārdi/termini paliek veseli.
 
 CLI:  python qa/rule79_check.py [data_dir] [--fix] [--json out.json]   (--fix labo D3(daļēji)/D4/D5/D6/D7 ar SPLITS tabulu, raksta datus)
@@ -28,10 +28,12 @@ from iast_to_cyrillic import translit  # noqa: E402
 
 DATA_DEFAULT = os.path.join(HERE, "..", "data")
 BOOKS = ("book.ru-iast.json", "book.ru.json")
+EN_BOOK = "book.json"  # A142c (S msg 7484): angļu versija — tie paši D1–D8, nozīmes angliski
+BOOKS_ALL = BOOKS + (EN_BOOK,)
 EXEMPT_SECTIONS = {"jaya-dhvani-front"}  # S msg 6828 (26.10.2026)
 LOCKED_SECTIONS = {"gaudiya-emblem"}  # S msg 6038 (21.10): «Эмблему не трогаешь, только стих» — D3–D7 netiek ne pārbaudītas, ne labotas (s101 d)
 IGNORE_KEYS = ["priya-narma-sakhī"]  # klases termins, A142
-CLASS_WORDS_OR = {"или", "или же", "либо"}  # paša vārda nozīme (vā, athavā, tu) — nav alternatīva
+CLASS_WORDS_OR = {"или", "или же", "либо", "or", "or else"}  # EN: vā/athavā/tu = «or», «or else»  # paša vārda nozīme (vā, athavā, tu) — nav alternatīva
 
 # ---- D6/D7: slēptie salikteņi un sandhi (IAST atslēga -> {nozīme | '*' -> jaunais ieraksts "k — v; k — v"}) ----
 SPLITS = {
@@ -97,6 +99,7 @@ KEEP_WHOLE = {
 # BBT: pants, kam RU BBT nozīme satur «или»/iekavas — ņemts burtiski no BBT (noteikums 79: «если есть BBT — берём его»)
 BBT_KEEP_OR = {"su-kīrtana"}  # NOI 8: «в тщательное обсуждение или воспевание»
 
+OR_RE = {False: r"\bили\b", True: r"\bor\b"}
 SHORT_END = ("namaḥ", "svāhā", "phaṭ", "намах̣", "сва̄ха̄", "пхат̣")
 
 
@@ -159,6 +162,8 @@ CYR2IAST = {"девакӣ-джанма-ва̄дах̣": "devakī-janma-vādaḥ"
 
 def bbt_expected(info, name):
     """(atslēgas, nozīmes) kā tām jābūt book failā."""
+    if name == EN_BOOK:  # A142c: EN BBT «Synonyms» burtiski (qa/rule79_bbt_verses.json «en»)
+        return [k for k, _ in info["en"]], [v for _, v in info["en"]]
     if name == "book.ru-iast.json":
         vals = []
         for _, b in info["ru"]:
@@ -207,7 +212,7 @@ def check_book(d, cv, name, bbt_cache=None):
         txt = obj.get("sanskrit") if kind == "verse" else (obj.get("label") or "")
         R["D1"]["checked"] += 1
         has = bool((obj.get("wbw") or "").strip())
-        if not has and sid not in EXEMPT_SECTIONS:
+        if not has and sid not in EXEMPT_SECTIONS and not (sid in LOCKED_SECTIONS and name == EN_BOOK):  # EN emblēmas wbw nav: S 6038 «Эмблему не трогаешь» (s101 d) — jautājums S
             R["D1"]["bad"].append(f"{path} :: {(txt or '')[:60]}")
         if has:
             R["D2"]["checked"] += 1
@@ -228,7 +233,7 @@ def check_book(d, cv, name, bbt_cache=None):
             R["D3"]["bad"].append("daudzvārdu atslēga: " + loc)
         if re.search(r"[()\[\]]", k + v):
             R["D4"]["bad"].append(loc)
-        if re.search(r"\bили\b", v, flags=re.I) and v.strip().lower().rstrip(".") not in CLASS_WORDS_OR and k not in {cv(x) for x in BBT_KEEP_OR}:
+        if re.search(OR_RE[name == EN_BOOK], v, flags=re.I) and v.strip().lower().rstrip(".") not in CLASS_WORDS_OR and k not in {cv(x) for x in BBT_KEEP_OR}:
             R["D5"]["bad"].append(loc)
         if k not in ign and k not in keep_whole and k.count("-") >= 2:
             R["D6"]["bad"].append(loc)
@@ -242,9 +247,12 @@ def check_book(d, cv, name, bbt_cache=None):
             continue
         R["D8"]["checked"] += 1
         want = info[u]
+        if name == EN_BOOK and not want.get("en"):
+            R["D8"]["bad"].append(f"{path} :: nav BBT EN datu ({u})")
+            continue
         keys, vals = bbt_expected(want, name)
         exp = "; ".join(f"{k} — {v}" for k, v in zip(keys, vals))
-        if obj["wbw"].strip().rstrip(".") != exp.rstrip("."):
+        if (obj.get("wbw") or "").strip().rstrip(".") != exp.rstrip("."):
             R["D8"]["bad"].append(f"{path} :: nav BBT ({u})")
     return R
 
@@ -387,10 +395,10 @@ def main():
         if a.startswith("--bbt-cache="):
             cache = a.split("=", 1)[1]
     summary = {}
-    for name in BOOKS:
+    for name in BOOKS_ALL:
         d = load(data_dir, name)
-        cv = (lambda x: x) if name == "book.ru-iast.json" else translit
-        if fix:
+        cv = (lambda x: x) if name in ("book.ru-iast.json", EN_BOOK) else translit
+        if fix and name != EN_BOOK:  # EN labo scripts/rule79_en_fix.py (nozīmes angliski)
             st = fix_book(d, cv)
             write_book(d, os.path.join(data_dir, name))
             print(f"FIX {name}: {st}")

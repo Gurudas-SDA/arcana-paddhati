@@ -1,7 +1,7 @@
 """A110 Саткирти msg 6501/6502: viśrama→viśrāma, vyajñana→vyajana, puṣpāni→puṣpāṇi, nityanandāya→nityānandāya во всех языках; источник Method of Worship 2 (Маяпур)
 (OCR p051/p153 viśrāma, p160 vyajana, p144 puṣpāṇi, p156 nityānandāya). Data-only test over data/book*.json (all fields: sanskrit, wbw, label, value ...).
 Per file: the old forms are absent (viśramya is another word and is NOT touched; puṣpātya not touched), the new forms occur exactly as often as the old ones did.
-# tehniskais slieksnis Lipikāra, nav S noteikums: the expected counts per file are old-form counts before the fix plus forms already correct (viśrāma 4+4 / 1 / 2 / 1; ru-iast puṣpāṇi 3, nityānandāya 2).
+# tehniskais slieksnis Lipikāra, nav S noteikums: the expected counts per file are old-form counts before the fix plus forms already correct (viśrāma 4+4 / 1 / 2 / 1; ru-iast puṣpāṇi 3, nityānandāya 2; A142c: book.json (EN) tagad tāpat — wbw pievienots).
 usage: python s108_a110_spelling_four_words.py
 """
 import glob
@@ -31,7 +31,7 @@ for f in files:
     n = os.path.basename(f)
     for w, rx in OLD.items():
         chk(f"{n}: no «{w}»", not rx.search(t), f"{len(rx.findall(t))} left")
-    exp = EXP_IAST if n == "book.ru-iast.json" else EXP
+    exp = EXP_IAST if n in ("book.ru-iast.json", "book.json") else EXP  # A142c: EN wbw tagad satur puṣpāṇi/nityānandāya (kā ru-iast)
     for w, rx in NEW.items():
         c = len(rx.findall(t))
         chk(f"{n}: «{w}» ×{exp[w]}", c == exp[w], f"found {c}")

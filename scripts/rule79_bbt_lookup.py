@@ -4,6 +4,7 @@ Meklē vedabase.io (EN meklēšana pēc pirmās rindas IAST -> ASCII), salīdzin
 tad ņem RU lapas «Пословный перевод» un salīdzina nozīmju secību ar data/book.ru-iast.json.
 Atsākams: kešs JSON (arg 1), katrs palaids = līdz ~250 s. Izvade: kešs + gala pārskats (--report).
 usage: python rule79_bbt_lookup.py <cache.json> [--report]   (DATA = ../data)
+       python rule79_bbt_lookup.py <cache_en.json> --lang en   (A142c: EN BBT «Synonyms» pantiem no qa/rule79_bbt_verses.json -> kešs {url: [[key, meaning], ...]})
 """
 import difflib
 import html
@@ -86,7 +87,44 @@ def ru_wbw(h):
     return pairs
 
 
+def en_synonyms(h):
+    """EN vedabase lapas «Synonyms» -> [(vārds, nozīme)]; «; » iekavās/kvadrātiekavās pieder iepriekšējai nozīmei."""
+    x = text_of(h)
+    m = re.search(r"\|Synonyms\|(.*?)\|(?:Translation|Перевод)\|", x, flags=re.S)
+    if not m:
+        return None
+    s = m.group(1).replace("|", "")
+    pairs = []
+    for e in s.rstrip(".").split("; "):
+        k, sep, v = e.partition(" — ")
+        if not sep and pairs:
+            pairs[-1] = (pairs[-1][0], pairs[-1][1] + "; " + k.strip())
+        else:
+            pairs.append((k.strip(), v.strip()))
+    return pairs
+
+
+def main_en():
+    """A142c: EN BBT wbw (vedabase.io/en) tiem pantiem, kas jau ir qa/rule79_bbt_verses.json."""
+    vp = os.path.join(HERE, "..", "qa", "rule79_bbt_verses.json")
+    urls = list(json.load(open(vp, encoding="utf-8")).keys())
+    cache = json.load(open(CACHE, encoding="utf-8")) if os.path.exists(CACHE) else {}
+    for u in urls:
+        if u in cache:
+            continue
+        h = get("https://vedabase.io" + u)
+        if not h:
+            print("tīkla kļūda:", u, flush=True)
+            continue
+        cache[u] = en_synonyms(h)
+        json.dump(cache, open(CACHE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        time.sleep(0.3)
+    print("EN BBT pantu:", len(cache), "no", len(urls))
+
+
 def main():
+    if "--lang" in sys.argv and sys.argv[sys.argv.index("--lang") + 1] == "en":
+        return main_en()
     cache = json.load(open(CACHE, encoding="utf-8")) if os.path.exists(CACHE) else {}
     vs = verses()
     uniq = {}
