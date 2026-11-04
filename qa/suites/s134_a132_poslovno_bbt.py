@@ -115,7 +115,9 @@ COMPOUNDS = ["vivṛddha-prema-smitena", "kālindī-jala-kallola-saṅgi-māruta
 for fn, cv in (("book.ru-iast.json", lambda x: x), ("book.ru.json", translit)):
     d = json.load(open(os.path.join(DATA, fn), encoding="utf-8"))
     keys = [e.partition(" — ")[0] for v in verses(d) for e in v["wbw"].rstrip(".").split("; ")]
-    left = [c for c in COMPOUNDS if cv(c) in keys]
+    sys.path.insert(0, os.path.join(HERE, ".."))
+    import rule79_check as R79  # noqa: E402
+    left = [c for c in COMPOUNDS if cv(c) in keys and cv(c) not in R79.bbt_keys()]  # BBT pantu atslēgas paliek kā BBT (A142b, noteikums 79)
     chk(f"{fn}: составные слова 3+ частей разделены (нет целым ключом)", not left, str(left))
     chk(f"{fn}: «pāraya — переправь; acyuta» есть", cv("pāraya") in keys and cv("acyuta") in keys)
 # stih 3:40/2 — «pārayācyuta» (Hari-bhakti-vilāsa 3.132; Стандарты 14) во всех 12 книгах

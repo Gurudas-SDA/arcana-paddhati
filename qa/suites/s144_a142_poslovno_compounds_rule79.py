@@ -16,6 +16,8 @@ sys.path.insert(0, os.path.join(HERE, "..", "..", "scripts", "translate"))
 from iast_to_cyrillic import translit  # noqa: E402
 
 DATA = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, "..", "..", "data")
+sys.path.insert(0, os.path.join(HERE, ".."))
+import rule79_check as R79  # noqa: E402
 IGNORE = ["priya-narma-sakhī"]
 OLD_KEYS = ["vraja-jana-bhaya-hārī", "mohana-vaṁśī-bihārī", "nikuñja-rāsa-vilāsī", "kṛpā-kaṭākṣa-bhājanam",
             "aravinda-bandhu-nandinī", "gopī-jana-vastra-hārī", "sac-cid-ānanda-vigrahaḥ", "śrī-guru-pāda-padma-nikaṭe",
@@ -48,7 +50,7 @@ for fn, cv in (("book.ru-iast.json", lambda x: x), ("book.ru.json", translit)):
         keys += [e.partition(" — ")[0] for e in o["wbw"].rstrip(".").split("; ")]
     total += len(keys)
     ign = {cv(i) for i in IGNORE}
-    bad = sorted({k for k in keys if k.count("-") >= 2 and k not in ign})
+    bad = sorted({k for k in keys if k.count("-") >= 2 and k not in ign and k not in R79.bbt_keys()})  # BBT pantu atslēgas: noteikums 79 «берём его» (A142b)
     chk(f"{fn}: нет ключей из 3+ частей (0 из {len(keys)})", not bad, f"{len(bad)}: {bad[:5]}")
     old = [k for k in OLD_KEYS if cv(k) in keys]
     chk(f"{fn}: старые составные ключи не встречаются целиком", not old, str(old))

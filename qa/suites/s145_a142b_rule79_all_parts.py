@@ -33,5 +33,6 @@ for fn in R.BOOKS:
     chk(f"{fn} D5 bez «или» ({r['D5']['checked']})", not r["D5"]["bad"], str(r["D5"]["bad"][:3]))
     chk(f"{fn} D6 nav 3+ daļu salikteņu ({r['D6']['checked']})", not r["D6"]["bad"], str(r["D6"]["bad"][:3]))
     chk(f"{fn} D7 sandhi/slēptie salikteņi dalīti ({r['D7']['checked']})", not r["D7"]["bad"], str(r["D7"]["bad"][:3]))
+    chk(f"{fn} D8 BBT pantiem wbw = BBT RU burtiski, noteikums 79 ({r['D8']['checked']} vietas; D3–D7 šos pantus izslēdz: BBT, noteikums 79)", r["D8"]["checked"] > 0 and not r["D8"]["bad"], str(r["D8"]["bad"][:3]))
 print(f"s145: {sum(res)}/{len(res)} passed", flush=True)
 sys.exit(0 if res and all(res) else 1)

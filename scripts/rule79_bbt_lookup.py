@@ -79,7 +79,10 @@ def ru_wbw(h):
     pairs = []
     for e in s.rstrip(".").split("; "):
         k, _, v = e.partition(" — ")
-        pairs.append((k.strip(), v.strip()))
+        if not v and pairs:  # «; » iekavās — fragments pieder iepriekšējai nozīmei
+            pairs[-1] = (pairs[-1][0], pairs[-1][1] + "; " + k.strip())
+        else:
+            pairs.append((k.strip(), v.strip()))
     return pairs
 
 

@@ -147,9 +147,42 @@ def iter_wbw_holders(d):
                             yield s["id"], f"{where}/#{i}.{j}", it, "mantra"
 
 
+def bbt_verses():
+    """qa/rule79_bbt_verses.json: BBT pantu vietas (path -> url) un BBT RU pārvārdojums; šiem pantiem D3–D7 netiek piemērotas (noteikums 79: «берём его»)."""
+    p = os.path.join(HERE, "rule79_bbt_verses.json")
+    return json.load(open(p, encoding="utf-8")) if os.path.exists(p) else {}
+
+
+# BBT RU vērtībās kirilica ar diakritiku → IAST ru-iast failā («Санскрит везде пишем в IAST с диакритикой»)
+CYR2IAST = {"девакӣ-джанма-ва̄дах̣": "devakī-janma-vādaḥ"}
+
+
+def bbt_expected(info, name):
+    """(atslēgas, nozīmes) kā tām jābūt book failā."""
+    if name == "book.ru-iast.json":
+        vals = []
+        for _, b in info["ru"]:
+            for a, z in CYR2IAST.items():
+                b = b.replace(a, z)
+            vals.append(b)
+        return info["en_keys"], vals
+    return [translit(k) for k in info["en_keys"]], [b for _, b in info["ru"]]
+
+
+def bbt_keys():
+    ks = set()
+    for v in bbt_verses().values():
+        ks.update(v["en_keys"])
+        ks.update(translit(k) for k in v["en_keys"])
+    return ks
+
+
+BBT_PATHS = {pp: u for u, v in bbt_verses().items() for pp in v["paths"]}
+
+
 def iter_entries(d):
     for sid, path, obj, kind in iter_wbw_holders(d):
-        if sid in LOCKED_SECTIONS:
+        if sid in LOCKED_SECTIONS or path in BBT_PATHS:
             continue
         if (obj.get("wbw") or "").strip():
             for idx, (k, sep, v) in enumerate(split_entries(obj["wbw"])):
@@ -201,6 +234,18 @@ def check_book(d, cv, name, bbt_cache=None):
             R["D6"]["bad"].append(loc)
         if k in splits:
             R["D7"]["bad"].append(loc)
+    # D8: BBT pantiem wbw = BBT RU burtiski (ru-iast: atslēgas no BBT EN, nozīmes BBT RU; ru: BBT RU kirilica)
+    info = bbt_verses()
+    for sid, path, obj, kind in iter_wbw_holders(d):
+        u = BBT_PATHS.get(path)
+        if not u or kind != "verse":
+            continue
+        R["D8"]["checked"] += 1
+        want = info[u]
+        keys, vals = bbt_expected(want, name)
+        exp = "; ".join(f"{k} — {v}" for k, v in zip(keys, vals))
+        if obj["wbw"].strip().rstrip(".") != exp.rstrip("."):
+            R["D8"]["bad"].append(f"{path} :: nav BBT ({u})")
     return R
 
 
@@ -238,7 +283,7 @@ def fix_book(d, cv):
         f"{cv(p.partition(' — ')[0])} — {p.partition(' — ')[2]}" for p in vv.split("; "))) for kk, vv in v.items()} for k, v in SPLITS.items()}
     st = {"splits": 0, "brackets": 0, "ili": 0, "key_parens": 0, "empty_after_strip": []}
     for sid, path, obj, kind in iter_wbw_holders(d):
-        if sid in LOCKED_SECTIONS or not (obj.get("wbw") or "").strip():
+        if sid in LOCKED_SECTIONS or path in BBT_PATHS or not (obj.get("wbw") or "").strip():
             continue
         ents = split_entries(obj["wbw"])
         had_dot = obj["wbw"].strip().endswith(".")
@@ -353,7 +398,7 @@ def main():
         R = check_book(d, cv, name)
         summary[name] = {p: {"checked": v["checked"], "bad": len(v["bad"]), "examples": v["bad"][:5]} for p, v in R.items()}
         print(f"== {name}")
-        for p in ("D1", "D2", "D3", "D4", "D5", "D6", "D7"):
+        for p in ("D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8"):
             v = R[p]
             print(f"  {p}: pārbaudīts {v['checked']}, pārkāpumi {len(v['bad'])}")
             for x in v["bad"][:4]:
