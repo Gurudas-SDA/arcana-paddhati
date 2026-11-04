@@ -169,6 +169,10 @@ interface Props {
 // tehniskais slieksnis Lipikāra, nav S noteikums: a quote longer than ~2 lines is not shown in the note window (V76, Vraja Lila msg 7553 p.2)
 const HL_QUOTE_SHOW_MAX = 110;
 
+function cardVariantParam(): "x" | "y" {
+  try { return new URLSearchParams(window.location.search).get("v77p") === "y" ? "y" : "x"; } catch { return "x"; } // V77: screenshots only
+}
+
 export default function HighlightsLayer({ ui, lang }: Props) {
   const [items, setItems] = useState<Highlight[]>([]);
   /** V72 (Vraja Lila msg 2406–2407): the visible part of the screen while the soft keyboard is up (visualViewport); null = whole screen. */
@@ -568,6 +572,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
   const labels = { removed: t(ui, "hl.removed"), undo: t(ui, "bookmark.undo") };
   const portalTo = (node: React.ReactNode, mood: HTMLElement | null) => createPortal(node, mood ?? document.body);
   const colorName = (i: number) => t(ui, COLOR_NAME_KEY(i));
+  const cardVariant = cardVariantParam();
   const cardItem = card ? items.find((h) => h.id === card.id) : undefined;
 
   const colorButtons = ({ current, onPick, kind }: { current?: number; onPick: (i: number) => void; kind: string }) => (
@@ -754,7 +759,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
               style={{ top: Math.max(8, Math.min(card.y + 12, window.innerHeight - 240)) }}
             >
               {colorButtons({ kind: "card", current: cardItem.color, onPick: (i) => updateHighlight(cardItem.id, { color: i }) })}
-              <p className="hl-card-note" data-hl-card-note="">{cardItem.note || t(ui, "hl.card.noNote")}</p>
+              <p className={"hl-card-note" + (cardVariant === "y" ? " hl-card-note-y" : "")} data-hl-card-note="">{cardItem.note || t(ui, "hl.card.noNote")}</p>
               <div className="hl-actions hl-actions-icons">
                 <button type="button" className="hl-icon" data-hl-card-edit="" aria-label={t(ui, "hl.edit")} title={t(ui, "hl.edit")}
                   onClick={() => { setEditor({ id: cardItem.id, color: cardItem.color, note: cardItem.note ?? "", quote: cardItem.quote, inMood: card.inMood }); setCard(null); }}>
@@ -802,37 +807,19 @@ export default function HighlightsLayer({ ui, lang }: Props) {
             {editor.quote.length <= HL_QUOTE_SHOW_MAX && <p className="hl-quote" data-hl-editor-quote="">{editor.quote}</p>}
             {colorButtons({ kind: "editor", current: editor.color, onPick: (i) => setEditor({ ...editor, color: i }) })}
             <label className="block text-sm hl-t-soft mb-1.5 mt-3" htmlFor="hl-note-field">{t(ui, "hl.editor.label")}</label>
-            {(() => {
-              // V77: screenshot-only counter variants (?v77=a|b|c); default = no counter
-              let v = "";
-              try { v = new URLSearchParams(window.location.search).get("v77") || ""; } catch { v = ""; }
-              const n = editor.note.length;
-              const near = n >= HL_NOTE_MAX * 0.8;
-              const cnt = (
-                <span data-hl-counter="" aria-live="polite"
-                  style={{ fontSize: 12, lineHeight: 1, color: n >= HL_NOTE_MAX ? "#A8321E" : near ? "#9A4A1E" : "#8A6A58" }}>
-                  {n}/{HL_NOTE_MAX}
-                </span>
-              );
-              return (
-                <div style={{ position: "relative" }}>
-                <textarea
-                  id="hl-note-field"
-                  autoFocus
-                  value={editor.note}
-                  maxLength={HL_NOTE_MAX}
-                  rows={4}
-                  onChange={(e) => setEditor({ ...editor, note: e.target.value })}
-                  className="hl-field ds-field w-full rounded-lg bg-white px-3 py-2.5 text-base hl-t"
-                  data-hl-ui=""
-                />
-
-                  {v === "c" && <div style={{ position: "absolute", right: 10, bottom: 8, pointerEvents: "none", opacity: 0.8 }}>{cnt}</div>}
-                  {v === "a" && <div className="flex justify-end mt-1">{cnt}</div>}
-                  {v === "b" && near && <div className="flex justify-end mt-1">{cnt}</div>}
-                </div>
-              );
-            })()}
+            <div className="hl-field-wrap">
+              <textarea
+                id="hl-note-field"
+                autoFocus
+                value={editor.note}
+                maxLength={HL_NOTE_MAX}
+                rows={4}
+                onChange={(e) => setEditor({ ...editor, note: e.target.value })}
+                className="hl-field ds-field w-full rounded-lg bg-white px-3 py-2.5 text-base hl-t"
+                data-hl-ui=""
+              />
+              <span className="hl-counter hl-t" data-hl-counter="" aria-hidden="true">{editor.note.length}/{HL_NOTE_MAX}</span>
+            </div>
             <div className="mt-5 flex justify-end gap-2 flex-wrap">
               {editor.id && (
                 <button type="button" data-hl-editor-delete="" className="hl-btn rounded-lg px-4 text-sm font-medium hl-t-soft"
