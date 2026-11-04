@@ -166,6 +166,9 @@ interface Props {
   lang: string;
 }
 
+// tehniskais slieksnis Lipikāra, nav S noteikums: a quote longer than ~2 lines is not shown in the note window (V76, Vraja Lila msg 7553 p.2)
+const HL_QUOTE_SHOW_MAX = 110;
+
 export default function HighlightsLayer({ ui, lang }: Props) {
   const [items, setItems] = useState<Highlight[]>([]);
   /** V72 (Vraja Lila msg 2406–2407): the visible part of the screen while the soft keyboard is up (visualViewport); null = whole screen. */
@@ -665,12 +668,24 @@ export default function HighlightsLayer({ ui, lang }: Props) {
     return () => { v.removeEventListener("resize", read); v.removeEventListener("scroll", read); };
   }, [editorOpen]);
 
+  // V76 (Vraja Lila msg 7553 p.1): the page under an open window does not scroll
+  const lockOpen = !!editor || !!card || !!imp || impError;
+  useEffect(() => {
+    if (!lockOpen) return;
+    const h = document.documentElement, b = document.body;
+    const prev = [h.style.overflow, b.style.overflow];
+    h.style.overflow = "hidden"; b.style.overflow = "hidden";
+    return () => { h.style.overflow = prev[0]; b.style.overflow = prev[1]; };
+  }, [lockOpen]);
+
   const modal = (inner: React.ReactNode, onClose: () => void, mood: HTMLElement | null, kind: string) =>
     portalTo(
       <div data-no-reader-tap="" data-hl-ui="" data-hl-modal={kind} className="bookmark-name-modal fixed inset-0 z-[100]"
-        style={kind === "editor" && vv ? { top: vv.top, bottom: "auto", height: vv.height } : undefined} onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+        onTouchMove={(e) => { if (e.target === e.currentTarget || (e.target as HTMLElement).closest(".bookmark-name-backdrop")) e.preventDefault(); }}
+        onWheel={(e) => { if (e.target === e.currentTarget || (e.target as HTMLElement).closest(".bookmark-name-backdrop")) e.preventDefault(); }} onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
         <div className="bookmark-name-backdrop absolute inset-0" aria-hidden="true" onClick={onClose} />
-        <div className={`absolute inset-0 flex justify-center overflow-y-auto overscroll-contain pointer-events-none ${kind === "editor" && vv ? "items-start p-2" : "items-center p-4"}`}>
+        <div className={`absolute inset-0 flex justify-center overflow-y-auto overscroll-contain pointer-events-none ${kind === "editor" && vv ? "items-start p-2" : "items-center p-4"}`}
+          style={kind === "editor" && vv ? { top: vv.top, bottom: "auto", height: vv.height } : undefined}>
           <div role="dialog" aria-modal="true" className="window-card window-card-small bg-white w-full hl-modal-card pointer-events-auto my-auto" data-hl-ui=""
             style={kind === "editor" && vv ? { maxHeight: "none" } : undefined}>
             <WindowClose onClick={onClose} label={t(ui, "reader.close")} />
@@ -722,7 +737,8 @@ export default function HighlightsLayer({ ui, lang }: Props) {
       {card && cardItem &&
         portalTo(
           <>
-            <div data-hl-ui="" className="fixed inset-0 z-[90]" onClick={() => setCard(null)} />
+            <div data-hl-ui="" className="fixed inset-0 z-[90]" onClick={() => setCard(null)}
+              onTouchMove={(e) => e.preventDefault()} onWheel={(e) => e.preventDefault()} />
             <div
               data-hl-ui=""
               data-hl-card=""
@@ -730,7 +746,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
               role="dialog"
               aria-label={t(ui, "hl.note")}
               className="hl-menu hl-card"
-              style={{ left: Math.max(8, Math.min(card.x - 150, window.innerWidth - 308)), top: Math.max(8, Math.min(card.y + 12, window.innerHeight - 240)) }}
+              style={{ left: 0, right: 0, marginInline: "auto", width: "min(calc(100vw - 32px), 360px)", top: Math.max(8, Math.min(card.y + 12, window.innerHeight - 240)) }}
             >
               {colorButtons({ kind: "card", current: cardItem.color, onPick: (i) => updateHighlight(cardItem.id, { color: i }) })}
               <p className="hl-card-note" data-hl-card-note="">{cardItem.note || t(ui, "hl.card.noNote")}</p>
@@ -778,7 +794,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
             }}
           >
             <h2 className="window-title text-lg font-bold mb-3 hl-t" style={{ fontFamily: "var(--font-book, Georgia, serif)" }}>{t(ui, "hl.editor.title")}</h2>
-            <p className="hl-quote" data-hl-editor-quote="">{editor.quote}</p>
+            {editor.quote.length <= HL_QUOTE_SHOW_MAX && <p className="hl-quote" data-hl-editor-quote="">{editor.quote}</p>}
             {colorButtons({ kind: "editor", current: editor.color, onPick: (i) => setEditor({ ...editor, color: i }) })}
             <label className="block text-sm hl-t-soft mb-1.5 mt-3" htmlFor="hl-note-field">{t(ui, "hl.editor.label")}</label>
             <textarea

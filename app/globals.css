@@ -2616,7 +2616,9 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
   border: 1px solid var(--line-hairline);
   border-radius: var(--ds-radius-card);
 }
-.hl-card { width: calc(var(--space-48) * 6 + var(--space-16)); }
+.hl-card { text-align: center; }
+.hl-card .hl-colors { justify-content: center; }
+.hl-card .hl-actions-icons { width: 100%; }
 .hl-card-note { margin: 0; padding: var(--space-4) var(--space-8); font-size: 15px; line-height: 1.4; max-height: calc(var(--space-48) * 2); overflow-y: auto; overflow-wrap: anywhere; }
 .hl-quote { margin: 0 0 var(--space-12); padding-left: var(--space-12); border-left: var(--space-4) solid var(--line-hairline); font-size: 14px; line-height: 1.4; color: #5C3D2E; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .hl-field { resize: vertical; min-height: calc(var(--space-48) * 2); font-family: inherit; }

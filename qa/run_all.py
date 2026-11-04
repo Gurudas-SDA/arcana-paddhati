@@ -202,6 +202,8 @@ SUITES = [
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s142", file="suites/s142_mangalacarana_two_slokas_removed.py", title="A140 Satkirti msg 7403 03.11 (A133 «Убрать»): «Мангалачарана» — pranāmā Bhaktiprajñāna Keśava divas lieka šlokas (gaurāśraya-vigrahāya…, prabhupādāntaraṅgāya…) izņemtas visās valodās; šlokas 9–10 paliek",
          devices=None, fast=True, server=False),
+    dict(id="s152", file="suites/s152_note_modal.py", title="V76 Vraja Lila 04.11 msg 7553: loga Zametka overlay + lapas ritinasanas bloketana, garam citatam citata nav, saglabatas piezimes popovers ta pasa platuma kaa logs, centrets, 3 pogas pa visu platumu",
+         devices=["iphone14", "pixel7"], fast=True, fast_devices=["pixel7"]),
     dict(id="s147", file="suites/s147_v72_note_keyboard_panel_close.py", title="V72 Vraja Lila 04.11 msg 2406-2407 + 2409: loga Zametka virs tastaturas (visualViewport), sanu panelis aizveras pec gramatzimes/piezimes uzspiesanas",
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["pixel7"]),
     dict(id="s143", file="suites/s143_highlights_notes_v71.py", title="V71 Vraja Lila 04.11 msg 2360/2362 (utverzhdayu; v fayl tolko zametki): teksta iezimesana (4 kraasas, izvelne, Zametka, Kopet), cilne Zametki (3 cilnes, filtri, meklesana, pavilksana), eksports/imports tikai piezimes; 3 temas",
