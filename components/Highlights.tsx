@@ -202,15 +202,24 @@ export default function HighlightsLayer({ ui, lang }: Props) {
     const reg = registry();
     hasApi.current = !!reg;
     const list = itemsRef.current;
+    // No highlights at all: nothing to find or draw (the reader pays nothing for the feature until he uses it).
+    if (!list.length) {
+      if (resolved.current.length && reg) for (let i = 0; i < COLORS; i++) reg.delete(`hl-${i}`);
+      if (resolved.current.length) document.querySelectorAll("[data-hl-dot]").forEach((b) => b.removeAttribute("data-hl-dot"));
+      resolved.current = [];
+      setMarkers((prev) => (prev.length ? [] : prev));
+      return;
+    }
     const res: Resolved[] = [];
     const lostNow = new Map<string, boolean>();
     const byColor: Range[][] = Array.from({ length: COLORS }, () => []);
     const indexes = new Map<Element, TextIndex>();
     for (const c of chapterRoots()) {
+      const mine = list.filter((h) => h.section === c.section && h.lang === lang && (h.mood ?? undefined) === c.mood);
+      if (!mine.length) continue;
       const idx = indexes.get(c.root) ?? textIndex(c.root);
       indexes.set(c.root, idx);
-      for (const h of list) {
-        if (h.section !== c.section || h.lang !== lang || (h.mood ?? undefined) !== c.mood) continue;
+      for (const h of mine) {
         const at = locate(idx.text, h);
         lostNow.set(h.id, !at);
         if (!at) continue;

@@ -143,8 +143,8 @@ def run(p,dev,eng,kw,mode):
     orn = qa.reading_eval(pg, "root => root.querySelectorAll('.verse-ornament').length")
     verses = qa.reading_eval(pg, "root => root.querySelectorAll('.verse-chips').length")
     wbw = qa.reading_eval(pg, "root => [...root.querySelectorAll('.verse-chips')].filter(c=>/пословно/i.test(c.innerText)).length")
-    ck(dev, '3 Мангалачарана: title only, no headings, ornaments, 30 verses all with пословно',
-       h1 == 'Мангалачарана' and h2 == 0 and not sub and orn == 20 and verses == 30 and wbw == 30, (h1, h2, sub, orn, verses, wbw))
+    ck(dev, '3 Мангалачарана: title only, no headings, ornaments, 28 verses all with пословно',  # A140 04.11 (Satkirti msg 7403): 2 praṇāma verses removed, was 30
+       h1 == 'Мангалачарана' and h2 == 0 and not sub and orn == 20 and verses == 28 and wbw == 28, (h1, h2, sub, orn, verses, wbw))
     ck(dev, '6d «Молитва Шри Радхе-Говинде» gone', 'Радхе-Говинде' not in qa.reading_eval(pg, "root => root.innerText"))
     # V17: the next chapter is the bottom bar's «Вперёд ›» (no block at the chapter's end)
     nxt = pg.evaluate("() => document.querySelector('[data-reader-nav=forward]')?.getAttribute('data-chapter-target') || ''")
