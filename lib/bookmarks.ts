@@ -43,6 +43,8 @@ export interface Bookmark {
   /** The reader's own order (V66, Vraja Lila msg 7316): the place in the list once it was moved by hand;
    *  absent on old bookmarks and on a new one (those stay newest first, above the moved ones). */
   pos?: number;
+  /** The start of the text at the place (V73, Vraja Lila msg 7546 p.3): kept for the file, so a place can be found by it. */
+  quote?: string;
 }
 
 /** The list order: bookmarks not placed by hand first (newest first), then the placed ones by `pos`. */
@@ -168,6 +170,8 @@ export function toggleBookmark(section: string, anchor: string | null, block: nu
   const id = `${now.toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
   const item: Bookmark = { id, section, anchor, block, lang: liveLang(lang), time: now };
   if (name) item.name = name;
+  const q = placeQuote(block);
+  if (q) item.quote = q;
   writeBookmarks([item, ...before]);
   return { added: true, before };
 }
@@ -304,4 +308,115 @@ export function bookmarkOnScreen(items: Bookmark[], section: string, lang: strin
     if (best) return best;
   }
   return mine.find((b) => !(b.block > 0) && (b.anchor ?? null) === (anchor ?? null));
+}
+
+
+// ---- the bookmarks file (V73, Vraja Lila msg 2415 + 7546) -----------------------------
+// Same way as the notes file (lib/highlights.ts): a .json of its own kind, so a notes file is not taken for it and back.
+//   {app, kind: "bookmarks", v: 1, saved, items: [{id, section, anchor, block, lang, time, name?, pos?, quote?, title, subTitle?}]}
+// `title` / `subTitle` = the chapter's / subsection's name as the reader saw it (p.3: the place is found by the name if the id is gone).
+export const BOOKMARKS_FILE_KIND = "bookmarks";
+
+export function placeQuote(block: number): string | undefined {
+  if (!(block > 0)) return undefined;
+  try {
+    const el = readingSection()?.querySelectorAll<HTMLElement>(BLOCKS)[block];
+    const q = (el?.textContent ?? "").replace(/\s+/g, " ").trim().slice(0, 160);
+    return q || undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+export interface FileSection {
+  id: string;
+  num: string | null;
+  title: string;
+  subsections: { id: string; num: string | null; title: string }[];
+}
+
+export interface FileBookmark extends Bookmark {
+  title?: string;
+  subTitle?: string;
+}
+
+export function bookmarksFileName(d = new Date()): string {
+  const p = (n: number) => String(n).padStart(2, "0");
+  return `Арчана-паддхати — закладки ${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}.json`;
+}
+
+export function buildBookmarksFile(items: Bookmark[], sections: FileSection[]): string {
+  const out: FileBookmark[] = sortBookmarks(items).map((b) => {
+    const sec = sections.find((x) => x.id === b.section);
+    const sub = b.anchor ? sec?.subsections.find((x) => x.id === b.anchor) : undefined;
+    const f: FileBookmark = { ...b };
+    if (sec) f.title = sec.num ? `${sec.num}. ${sec.title}` : sec.title;
+    if (sub) f.subTitle = sub.num ? `${sub.num}. ${sub.title}` : sub.title;
+    return f;
+  });
+  return JSON.stringify({ app: "arcana-paddhati", kind: BOOKMARKS_FILE_KIND, v: 1, saved: new Date().toISOString(), items: out }, null, 1);
+}
+
+const norm = (s: string | undefined) => (s ?? "").toLowerCase().replace(/ё/g, "е").replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+const bare = (s: string | undefined) => norm((s ?? "").replace(/^\s*[\d.]+\s*\.?\s+/, ""));
+
+/** What the file does to the list: every bookmark found in the book (by id; else by name) replaces the list; the rest is counted. */
+export function resolveBookmarksFile(text: string, sections: FileSection[]): { ok: boolean; items: Bookmark[]; missing: number; total: number } {
+  let d: { kind?: string; v?: number; items?: unknown } | null = null;
+  try {
+    d = JSON.parse(text);
+  } catch {
+    d = null;
+  }
+  if (!d || d.kind !== BOOKMARKS_FILE_KIND || typeof d.v !== "number" || d.v > 1 || !Array.isArray(d.items)) return { ok: false, items: [], missing: 0, total: 0 };
+  const items: Bookmark[] = [];
+  let missing = 0;
+  const seen = new Set<string>();
+  for (const x of d.items as FileBookmark[]) {
+    if (!x || typeof x.section !== "string" || typeof x.id !== "string") {
+      missing++;
+      continue;
+    }
+    let section = x.section;
+    let anchor: string | null = typeof x.anchor === "string" ? x.anchor : null;
+    let sec = sections.find((s) => s.id === section);
+    let found = !!sec && (!anchor || sec.subsections.some((s) => s.id === anchor));
+    if (!found) {
+      // p.3: the id is gone — by the name (the subsection's; else the chapter's), the number may have moved
+      const wantSub = bare(x.subTitle);
+      const wantSec = bare(x.title);
+      sec = undefined;
+      anchor = null;
+      if (wantSec || wantSub) {
+        const cands = sections.filter((s) => !wantSec || bare(s.num ? `${s.num}. ${s.title}` : s.title) === wantSec);
+        if (wantSub) {
+          for (const s of cands.length ? cands : sections) {
+            const sub = s.subsections.find((u) => bare(u.num ? `${u.num}. ${u.title}` : u.title) === wantSub);
+            if (sub) {
+              sec = s;
+              anchor = sub.id;
+              break;
+            }
+          }
+        } else if (cands.length === 1) sec = cands[0];
+      }
+      found = !!sec;
+      if (sec) section = sec.id;
+    }
+    if (!found) {
+      missing++;
+      continue;
+    }
+    const id = seen.has(x.id) ? `${x.id}-${items.length}` : x.id;
+    seen.add(id);
+    const b: Bookmark = {
+      id, section, anchor, block: Number.isFinite(x.block) ? x.block : 0, lang: typeof x.lang === "string" ? x.lang : "ru",
+      time: Number.isFinite(x.time) ? x.time : Date.now(),
+    };
+    if (typeof x.name === "string" && x.name.trim()) b.name = x.name.trim().slice(0, BOOKMARK_NAME_MAX);
+    if (typeof x.quote === "string" && x.quote) b.quote = x.quote.slice(0, 160);
+    if (Number.isFinite(x.pos)) b.pos = x.pos;
+    items.push(b);
+  }
+  return { ok: true, items, missing, total: (d.items as unknown[]).length };
 }

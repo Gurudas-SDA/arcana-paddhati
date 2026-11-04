@@ -5,6 +5,10 @@ import {
   BOOKMARK_TOAST_END_EVENT,
   BOOKMARKS_EVENT,
   bookmarkAt,
+  bookmarksFileName,
+  buildBookmarksFile,
+  resolveBookmarksFile,
+  writeBookmarks,
   defaultBookmarkName,
   hasExactPlace,
   ownName,
@@ -710,6 +714,55 @@ export default function Sidebar({
       // unreadable file: told as a broken one
     }
     window.dispatchEvent(new CustomEvent(HL_IMPORT_EVENT, { detail: { text } }));
+  };
+  // V73 (Vraja Lila msg 2415 + 7546): the bookmarks file — the notes file's way, a file of its own kind.
+  const bmFileRef = useRef<HTMLInputElement>(null);
+  const saveBookmarksFile = async () => {
+    setFileMenu(false);
+    const all = readBookmarks();
+    const name = bookmarksFileName();
+    const blob = new Blob([buildBookmarksFile(all, sections)], { type: "application/json" });
+    try {
+      const file = new File([blob], name, { type: "application/json" });
+      const nav = navigator as Navigator & { canShare?: (d: { files: File[] }) => boolean };
+      if (nav.canShare?.({ files: [file] }) && nav.share) {
+        await nav.share({ files: [file], title: name });
+        hlToast(t(ui, "bookmarks.saved", { n: String(all.length) }), undefined, 3000);
+        return;
+      }
+    } catch (e) {
+      if ((e as Error)?.name === "AbortError") return;
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 4000);
+    hlToast(t(ui, "bookmarks.saved", { n: String(all.length) }), undefined, 3000);
+  };
+  const onBookmarksFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0];
+    e.target.value = "";
+    if (!f) return;
+    let text = "";
+    try {
+      text = await f.text();
+    } catch {
+      // unreadable file: told as a broken one
+    }
+    const r = resolveBookmarksFile(text, sections);
+    if (!r.ok) {
+      hlToast(t(ui, "bookmarks.import.bad"), undefined, 4000);
+      return;
+    }
+    // Vraja Lila: «заменять все». A file none of whose places is found does not wipe the list.
+    if (r.items.length || r.total === 0) writeBookmarks(r.items);
+    setBookmarks(readBookmarks());
+    const msg = t(ui, "bookmarks.loaded", { n: String(r.items.length) });
+    hlToast(r.missing ? `${msg} · ${t(ui, "bookmarks.notFound", { n: String(r.missing) })}` : msg, undefined, 5000);
   };
   const lostLabel = t(ui, "notes.lost");
   // The bookmark on the place being read (Vraja Lila msg 5436): the same place
@@ -1555,19 +1608,20 @@ export default function Sidebar({
         <div className="notes-filters shrink-0" data-bookmarks-filters="">
           <div className="notes-filter-row">
             <div className="notes-file">
-              <button type="button" className="notes-file-btn" data-bookmarks-file="" aria-haspopup="menu" aria-expanded={fileMenu} aria-label="Файл: скачать или загрузить закладки" title="Файл: скачать или загрузить закладки" onClick={() => setFileMenu((v) => !v)}>
+              <button type="button" className="notes-file-btn" data-bookmarks-file="" aria-haspopup="menu" aria-expanded={fileMenu} aria-label={t(ui, "bookmarks.file")} title={t(ui, "bookmarks.file")} onClick={() => setFileMenu((v) => !v)}>
                 <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5" /><path d="M12 17v-6M9.5 13.5 12 11l2.5 2.5" />
                 </svg>
               </button>
               {fileMenu && (
                 <div className="notes-file-menu" role="menu" data-bookmarks-file-menu="">
-                  <button type="button" role="menuitem" data-bookmarks-save="">Скачать закладки</button>
-                  <button type="button" role="menuitem" data-bookmarks-load="">Загрузить закладки</button>
+                  <button type="button" role="menuitem" data-bookmarks-save="" onClick={() => void saveBookmarksFile()}>{t(ui, "bookmarks.save")}</button>
+                  <button type="button" role="menuitem" data-bookmarks-load="" onClick={() => { setFileMenu(false); bmFileRef.current?.click(); }}>{t(ui, "bookmarks.load")}</button>
                 </div>
               )}
             </div>
           </div>
+          <input ref={bmFileRef} type="file" accept=".json,application/json" hidden data-bookmarks-import="" onChange={(e) => void onBookmarksFile(e)} />
         </div>
       )}
       {showBookmarks && (
