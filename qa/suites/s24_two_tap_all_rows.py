@@ -69,6 +69,9 @@ def run(p, dev, eng, o, mode):
         n_sub = sum(r.startswith("sub:") for r in rows)
         chk(dev, f"setup: all lists open ({len(rows)} leaf rows, {n_sub} subsections)", len(rows)>=100 and n_sub>=100)
         todo = rows if dev in FULL_ON or os.environ.get("QA_ALL_ROWS")=="1" else sample(rows)
+        # QA_SHARD=i/n: this process checks every n-th row (together the shards = every row); history only in shard 0
+        shard_i, shard_n = map(int, os.environ.get("QA_SHARD", "0/1").split("/"))
+        todo = todo[shard_i::shard_n]
         bad1, bad2, bad3 = [], [], []
         for r in todo:
             loc = flow.row(r); href = here(loc.get_attribute("href")); before = flow.state()
@@ -91,7 +94,7 @@ def run(p, dev, eng, o, mode):
                 if flow.state()['menu'] or here(pg.url)!=href: bad2.append((r,'row did not reopen on one tap'))
                 flow.nav('back',native=True)
         what = f"{len(todo)} of {len(rows)} leaf rows"
-        chk(dev, f"1st tap on a leaf row: {'opens immediately' if mode.one else 'only highlights, URL unchanged'} ({what})",len(todo)>=30 and not bad1,str(bad1[:3]))
+        chk(dev, f"1st tap on a leaf row: {'opens immediately' if mode.one else 'only highlights, URL unchanged'} ({what})",len(todo)>=min(30,len(rows)//shard_n) and not bad1,str(bad1[:3]))
         chk(dev, f"Leaf row opens and reopens on one tap after Back ({what})",not bad2,str(bad2[:3]))
         chk(dev, f"Назад from the opened row: contents, reading place marked, URL and open lists before ({what})",not bad3,str(bad3[:3]))
         chk(dev,"no page errors",not errs,str(errs[:3]))
@@ -101,7 +104,8 @@ def run(p, dev, eng, o, mode):
         for name in ['setup: all lists open','1st tap on a leaf row','Leaf row opens and reopens on one tap after Back','Назад from the opened row: contents, reading place marked, URL and open lists before','no page errors']:
             chk(dev,name,False,'Blocked by the all-lists failure: '+str(error)[:220])
     finally:
-        try:history_roundtrip(b,o,mode,lambda n,ok,i='':chk(dev,n,ok,i),BASE)
+        try:
+            if int(os.environ.get("QA_SHARD", "0/1").split("/")[0]) == 0: history_roundtrip(b,o,mode,lambda n,ok,i='':chk(dev,n,ok,i),BASE)
         finally:c.close();b.close()
 
 

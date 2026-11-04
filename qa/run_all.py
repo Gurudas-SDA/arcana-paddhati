@@ -72,7 +72,10 @@ SUITES = [
          fast_devices=["pixel7", "iphone14", "ipad-portrait", "desktop"]),
     dict(id="s24", file="suites/s24_two_tap_all_rows.py", title="v7.6.1: divi pieskārieni KATRAI lapas rindai (nodaļa bez apakšnodaļām, apakšnodaļa) + «Назад» (dators visas, telefons/iPad ≥30)",
          devices=["desktop", "pixel7", "iphone14", "ipad-portrait", "ipad-landscape", "mac-safari"], fast=True,
-         fast_devices=["desktop", "pixel7", "iphone14", "ipad-portrait"]),
+         fast_devices=["desktop", "pixel7", "iphone14", "ipad-portrait"],
+         # darbs aug kopā ar grāmatu (129+ rindas dators) un pārsniedza 280 s; katra rinda joprojām tiek pārbaudīta,
+         # tikai vairākos paralēlos darbos (QA_SHARD=i/n)   # tehniskais slieksnis Lipikāra, nav S noteikums
+         shards={"desktop": 3}),
     dict(id="s25", file="suites/s25_contents_reload_history.py", title="v7.6.1: «Содержание» pēc pārlādes, pārlāde vēstures vidū, dziļā saite, ātri dubultpieskārieni",
          devices=["pixel7", "iphone14", "ipad-portrait", "ipad-landscape", "desktop", "mac-safari"], fast=True,
          fast_devices=["pixel7", "iphone14", "ipad-portrait", "desktop"]),
@@ -338,7 +341,10 @@ def jobs_for(suites, mode_fast, dev_filter, split):
             # One Contents mode (Satkirti 13.10.2026): the two-tap mode was
             # removed from the app, so nothing is run against it any more.
             for toc_mode in (("default",) if s["id"] in TOC_MODE_SUITES else (None,)):
-                jobs.append(({**s, "toc_mode": toc_mode}, g, i == 0))
+                n_sh = 1 if os.environ.get("QA_NO_SHARDS") else (s.get("shards", {}).get(g[0], 1) if g and len(g) == 1 else 1)
+                for k in range(n_sh):
+                    sh = {"shard": f"{k}/{n_sh}"} if n_sh > 1 else {}
+                    jobs.append(({**s, "toc_mode": toc_mode, **sh}, g, i == 0 and k == 0))
     return jobs
 
 
@@ -368,6 +374,8 @@ def run_job(job, base, mode_fast, timeout):
     if mode_fast:
         env["QA_FAST"] = "1"
         env.update(s.get("env_fast", {}))
+    if s.get("shard"):
+        env["QA_SHARD"] = s["shard"]
     if not first:
         env["QA_DATA_CHECKS"] = "0"  # data-only checks (s07) once per run
     cmd = [sys.executable, "-u", os.path.join(HERE, s["file"])]
@@ -377,6 +385,8 @@ def run_job(job, base, mode_fast, timeout):
     tag = s["id"] + ("-" + "+".join(devs) if devs else "")
     if s.get("toc_mode"):
         tag += "-" + s["toc_mode"]
+    if s.get("shard"):
+        tag += "-sh" + s["shard"].split("/")[0]
     log = os.path.join(RESULTS, tag + ".log")
     t0 = time.time()
     p = subprocess.Popen(cmd, env=env, cwd=qa.REPO, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -406,7 +416,7 @@ def run_job(job, base, mode_fast, timeout):
         checks.append(dict(suite=s["id"], dev=tag, status="FAIL", name=f"suite produced no checks (rc={rc}), see {os.path.relpath(log, qa.REPO)}"))
     elif rc != 0 and not any(c["status"] == "FAIL" for c in checks):
         checks.append(dict(suite=s["id"], dev=tag, status="FAIL", name=f"suite crashed (rc={rc}), see {os.path.relpath(log, qa.REPO)}"))
-    return dict(suite=s["id"], devices=devs, toc_mode=s.get("toc_mode"), rc=rc, secs=round(time.time() - t0, 1), log=os.path.relpath(log, qa.REPO), checks=checks)
+    return dict(suite=s["id"], devices=devs, toc_mode=s.get("toc_mode"), shard=s.get("shard"), rc=rc, secs=round(time.time() - t0, 1), log=os.path.relpath(log, qa.REPO), checks=checks)
 
 
 def main():
@@ -490,9 +500,9 @@ def main():
         retry = [r for r in results if r["suite"] != "lint" and any(c["status"] == "FAIL" for c in r["checks"])]
         if retry:
             print(f"  atkārtoju {len(retry)} kritušos darbus vienu reizi …", flush=True)
-            by_key = {(j[0]["id"], tuple(j[1] or []), j[0].get("toc_mode")): j for j in jobs}
+            by_key = {(j[0]["id"], tuple(j[1] or []), j[0].get("toc_mode"), j[0].get("shard")): j for j in jobs}
             with cf.ThreadPoolExecutor(max_workers=min(a.jobs, len(retry))) as ex:
-                futs = {ex.submit(run_job, by_key[(r["suite"], tuple(r["devices"] or []), r.get("toc_mode"))], srv.base, a.fast,
+                futs = {ex.submit(run_job, by_key[(r["suite"], tuple(r["devices"] or []), r.get("toc_mode"), r.get("shard"))], srv.base, a.fast,
                                   timeout * 2 if a.fast else timeout): r for r in retry}
                 for f in cf.as_completed(futs):
                     old, new = futs[f], f.result()
