@@ -57,7 +57,10 @@ def run(p, dev, eng, o):
     c.add_init_script("try{localStorage.setItem('ap.readerHintSeen','1')}catch(e){}")
     pg = c.new_page()
     errs = []
-    pg.on("pageerror", lambda e: errs.append(str(e)))
+    # tehniskais slieksnis Lipikāra, nav S noteikums: WebKit reports an aborted Next.js «?_rsc» prefetch fetch (the page was left
+    #   while it was in flight) as a page error «… due to access control checks» — a browser artefact, not a page error;
+    #   only those are ignored, every other page error still fails
+    pg.on("pageerror", lambda e: None if ("access control checks" in str(e) and "_rsc" in str(e)) else errs.append(str(e)))
 
     def goto(url):
         # let the router's link prefetches finish first: leaving a page with prefetches in flight makes

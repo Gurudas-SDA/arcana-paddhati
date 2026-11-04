@@ -71,6 +71,7 @@ def run(p, dev, eng, o, mode):
         todo = rows if dev in FULL_ON or os.environ.get("QA_ALL_ROWS")=="1" else sample(rows)
         # QA_SHARD=i/n: this process checks every n-th row (together the shards = every row); history only in shard 0
         shard_i, shard_n = map(int, os.environ.get("QA_SHARD", "0/1").split("/"))
+        n_all = len(todo)  # rows over all shards: the "at least 30 rows" check counts the whole set, not one shard
         todo = todo[shard_i::shard_n]
         bad1, bad2, bad3 = [], [], []
         for r in todo:
@@ -94,7 +95,7 @@ def run(p, dev, eng, o, mode):
                 if flow.state()['menu'] or here(pg.url)!=href: bad2.append((r,'row did not reopen on one tap'))
                 flow.nav('back',native=True)
         what = f"{len(todo)} of {len(rows)} leaf rows"
-        chk(dev, f"1st tap on a leaf row: {'opens immediately' if mode.one else 'only highlights, URL unchanged'} ({what})",len(todo)>=min(30,len(rows)//shard_n) and not bad1,str(bad1[:3]))
+        chk(dev, f"1st tap on a leaf row: {'opens immediately' if mode.one else 'only highlights, URL unchanged'} ({what})",n_all>=min(30,len(rows)) and not bad1,str(bad1[:3]))
         chk(dev, f"Leaf row opens and reopens on one tap after Back ({what})",not bad2,str(bad2[:3]))
         chk(dev, f"Назад from the opened row: contents, reading place marked, URL and open lists before ({what})",not bad3,str(bad3[:3]))
         chk(dev,"no page errors",not errs,str(errs[:3]))

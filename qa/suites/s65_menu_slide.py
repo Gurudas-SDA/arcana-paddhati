@@ -151,17 +151,24 @@ with sync_playwright() as p:
 
             # 4. «Аа» panel closes the same way back (fade + lift, like it opened)
             if not reduce:
-                show_bars(pg)
-                pg.evaluate("document.querySelector('[data-reader-action=aa]').click()")
-                pg.wait_for_timeout(450)
-                pg.evaluate(f"({REC})(500)")
-                pg.evaluate("document.querySelector('.reader-panel-close').click()")
-                fr = frames(pg, 500)
-                ghost = [f[4] for f in fr if f[4] is not None]
-                closed = pg.evaluate("document.querySelectorAll('.reader-panel').length")
-                check(dev, "«Аа» panel: closes smoothly (fading frames), closed for the page at once",
-                      (len([o for o in ghost if 0.05 < o < 0.95]) >= 2 or any("reader-pop" in f[8] for f in fr)) and closed == 0 and fr[-1][4] is None,
-                      {"ghost": ghost[:8], "anim": sorted({f[8] for f in fr}), "panels": closed})
+                # tehniskais slieksnis Lipikāra, nav S noteikums: up to 3 measurements (a loaded CPU can paint no frame of the
+                # 200 ms fade); counted if any one shows the fade (>= 2 in-between frames or the running reader-pop animation)
+                for attempt in range(3):
+                    show_bars(pg)
+                    pg.evaluate("document.querySelector('[data-reader-action=aa]').click()")
+                    pg.wait_for_timeout(450)
+                    pg.evaluate(f"({REC})(500)")
+                    pg.evaluate("document.querySelector('.reader-panel-close').click()")
+                    fr = frames(pg, 500)
+                    ghost = [f[4] for f in fr if f[4] is not None]
+                    closed = pg.evaluate("document.querySelectorAll('.reader-panel').length")
+                    ok = ((len([o for o in ghost if 0.05 < o < 0.95]) >= 2 or any("reader-pop" in f[8] for f in fr))
+                          and closed == 0 and fr[-1][4] is None)
+                    if ok:
+                        break
+                    pg.wait_for_timeout(500)
+                check(dev, "«Аа» panel: closes smoothly (fading frames), closed for the page at once", ok,
+                      {"ghost": ghost[:8], "anim": sorted({f[8] for f in fr}), "panels": closed, "attempt": attempt + 1})
             c.close()
         b.close()
 

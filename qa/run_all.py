@@ -75,7 +75,7 @@ SUITES = [
          fast_devices=["desktop", "pixel7", "iphone14", "ipad-portrait"],
          # darbs aug kopā ar grāmatu (129+ rindas dators) un pārsniedza 280 s; katra rinda joprojām tiek pārbaudīta,
          # tikai vairākos paralēlos darbos (QA_SHARD=i/n)   # tehniskais slieksnis Lipikāra, nav S noteikums
-         shards={"desktop": 3}),
+         shards={"desktop": 3, "iphone14": 2, "ipad-portrait": 2, "ipad-landscape": 2}),
     dict(id="s25", file="suites/s25_contents_reload_history.py", title="v7.6.1: «Содержание» pēc pārlādes, pārlāde vēstures vidū, dziļā saite, ātri dubultpieskārieni",
          devices=["pixel7", "iphone14", "ipad-portrait", "ipad-landscape", "desktop", "mac-safari"], fast=True,
          fast_devices=["pixel7", "iphone14", "ipad-portrait", "desktop"]),
