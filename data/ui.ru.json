@@ -17,6 +17,8 @@
   "search.noSections": "Ничего не найдено. Измените запрос или очистите поиск.",
   "verse.translationHint": "перевод",
   "verse.wbwHint": "пословно",
+  "verse.toneUp": "на тон выше",
+  "verse.toneShift": "другой тон",
   "language.label": "Язык",
   "language.fallbackSuffix": "(EN)",
   "home.coverAlt": "Обложка книги Арчана-паддхати",

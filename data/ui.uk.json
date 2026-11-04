@@ -17,6 +17,8 @@
   "search.noSections": "Нічого не знайдено. Змініть запит або очистіть пошук.",
   "verse.translationHint": "переклад",
   "verse.wbwHint": "дослівно",
+  "verse.toneUp": "на тон вище",
+  "verse.toneShift": "інший тон",
   "language.label": "Мова",
   "language.fallbackSuffix": "(EN)",
   "home.coverAlt": "Обкладинка книги Арчана-паддгаті",

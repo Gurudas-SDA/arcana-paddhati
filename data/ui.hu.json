@@ -17,6 +17,8 @@
   "search.noSections": "Nincs találat. Módosítsa a keresést, vagy törölje.",
   "verse.translationHint": "fordítás",
   "verse.wbwHint": "szavanként",
+  "verse.toneUp": "egy hanggal feljebb",
+  "verse.toneShift": "más hang",
   "language.label": "Nyelv",
   "language.fallbackSuffix": "(EN)",
   "home.coverAlt": "Az Arcana Paddhati könyvborítója",

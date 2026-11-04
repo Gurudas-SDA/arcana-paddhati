@@ -6940,7 +6940,8 @@
               "type": "verse",
               "sanskrit": "maṅgala niśānta-līlā maṅgala udaye\nmaṅgala ārati jāge bhakata-hṛdaye",
               "wbw": "maṅgala — all glories; niśānta-līlā — to the niśānta-līlā; maṅgala — all-auspiciousness; udaye — awakens; maṅgala — all glories; ārati — to the ārati ceremony; jāge — awakens; bhakata-hṛdaye — within the hearts of the devotees",
-              "translation": "All glories to Their niśānta-līlā, which awakens all-auspiciousness. All glories to Their ārati ceremony, which awakens within the hearts of the devotees."
+              "translation": "All glories to Their niśānta-līlā, which awakens all-auspiciousness. All glories to Their ārati ceremony, which awakens within the hearts of the devotees.",
+              "tone": "up"
             },
             {
               "type": "verse",
@@ -6952,37 +6953,43 @@
               "type": "verse",
               "sanskrit": "śubha dṛṣṭi karo ebe (prabhu) jagatera prati\njāguka hṛdaye mora sumaṅgalā rati",
               "wbw": "śubha — beneficent; dṛṣṭi — glance; karo — bestow; ebe — just now; prabhu — O Lord; jagatera — the world; prati — upon; jāguka — may awaken; hṛdaye — in the heart; mora — my; sumaṅgalā — most auspicious; rati — rati",
-              "translation": "[O Lord!] Bestow Your beneficent glance upon the world, just now. May that most auspicious rati awaken in my heart."
+              "translation": "[O Lord!] Bestow Your beneficent glance upon the world, just now. May that most auspicious rati awaken in my heart.",
+              "tone": "up"
             },
             {
               "type": "verse",
               "sanskrit": "mayūra-śukādi sāri kato pikarāja\nmaṅgala jāgara-hetu koriche virāja",
               "wbw": "mayūra — peacocks; śukādi — male parrots and others; sāri — female parrots; kato — many; pikarāja — cuckoos; maṅgala — auspicious; jāgara-hetu — to herald the awakening; koriche — are; virāja — present",
-              "translation": "Many peacocks, male and female parrots, cuckoos, and other birds are present to herald Your auspicious awakening."
+              "translation": "Many peacocks, male and female parrots, cuckoos, and other birds are present to herald Your auspicious awakening.",
+              "tone": "shift"
             },
             {
               "type": "verse",
               "sanskrit": "sumadhura dhvani kare jato śākhī-gaṇa\nmaṅgala śravaṇe bāje madhura kūjana",
               "wbw": "sumadhura — the sweetest; dhvani — sounds; kare — make; jato — all; śākhī-gaṇa — the birds on the branches; maṅgala — auspiciously; śravaṇe — to the hearing; bāje — resounds; madhura — sweet; kūjana — chirping",
-              "translation": "The birds on the branches make the sweetest sounds. Their sweet chirping resounds auspiciously."
+              "translation": "The birds on the branches make the sweetest sounds. Their sweet chirping resounds auspiciously.",
+              "tone": "up"
             },
             {
               "type": "verse",
               "sanskrit": "kusumita sarovare kamala-hillola\nmaṅgala saurabha bahe pavana-kallola",
               "wbw": "kusumita — filled with flowers; sarovare — in a pond; kamala — lotuses; hillola — sway to and fro; maṅgala — auspicious; saurabha — fragrance; bahe — carry; pavana — breezes; kallola — gently billowing",
-              "translation": "In a pond filled with many varieties of flowers, lotuses sway to and fro. Gently billowing breezes carry their auspicious fragrance in all directions."
+              "translation": "In a pond filled with many varieties of flowers, lotuses sway to and fro. Gently billowing breezes carry their auspicious fragrance in all directions.",
+              "tone": "shift"
             },
             {
               "type": "verse",
               "sanskrit": "jhājhara kāsara ghaṇṭā śaṅkha karatāla\nmaṅgala mṛdaṅga bāje parama rasāla",
               "wbw": "jhājhara — large cymbals; kāsara — gongs; ghaṇṭā — bells; śaṅkha — conches; karatāla — karatālas; maṅgala — auspicious; mṛdaṅga — mṛdaṅgas; bāje — resonate; parama — most; rasāla — sweetly",
-              "translation": "Large cymbals, gongs, bells, conches, karatālas, and auspicious mṛdaṅgas resonate most sweetly."
+              "translation": "Large cymbals, gongs, bells, conches, karatālas, and auspicious mṛdaṅgas resonate most sweetly.",
+              "tone": "up"
             },
             {
               "type": "verse",
               "sanskrit": "maṅgala ārati kare bhakatera gaṇa\nabhāgā keśava kare nāma-saṅkīrtana\n(śrī keśava dāsa kare nāma-saṅkīrtana)",
               "wbw": "maṅgala — maṅgala; ārati — ārati; kare — perform; bhakatera — of the devotees; gaṇa — the assembly; abhāgā — unfortunate; keśava — Keśava; kare — sings; nāma-saṅkīrtana — nāma-saṅkīrtana; śrī — Śrī; keśava — of Keśava; dāsa — the servant; kare — sings; nāma-saṅkīrtana — nāma-saṅkīrtana",
-              "translation": "While the devotees perform maṅgala-ārati, this unfortunate Keśava (the servant of Śrī Keśava) sings nāma-saṅkīrtana."
+              "translation": "While the devotees perform maṅgala-ārati, this unfortunate Keśava (the servant of Śrī Keśava) sings nāma-saṅkīrtana.",
+              "tone": "shift"
             }
           ],
           "numbered": true
@@ -7011,7 +7018,8 @@
               "type": "verse",
               "sanskrit": "yaśodā-dulāla, govinda-gopāla, vṛndāvana-purandara\ngopī-priya-jana, rādhikā-ramaṇa, bhuvana-sundara-vara",
               "wbw": "yaśodā-dulāla — the darling of mother Yaśodā; govinda — the giver of pleasure to the cows; gopāla — the protector of the cows; vṛndāvana-purandara — the monarch of the Vṛndāvana forest; gopī — of the gopīs; priya — dear; jana — person; rādhikā-ramaṇa — the lover of Rādhikā; bhuvana — in the world; sundara — in beauty; vara — surpassing",
-              "translation": "He is the darling son of Yaśodā and the protector and maintainer of the cows, their pastures, the gopas, and the gopīs. He is the king of Vṛndāvana, the dearmost beloved of the gopīs, and the consort of Śrīmatī Rādhikā. In the entire world, His beauty is unsurpassed."
+              "translation": "He is the darling son of Yaśodā and the protector and maintainer of the cows, their pastures, the gopas, and the gopīs. He is the king of Vṛndāvana, the dearmost beloved of the gopīs, and the consort of Śrīmatī Rādhikā. In the entire world, His beauty is unsurpassed.",
+              "tone": "up"
             },
             {
               "type": "verse",
@@ -7023,7 +7031,8 @@
               "type": "verse",
               "sanskrit": "yogīndra-vandana, śrī nanda-nandana, vraja-jana-bhaya-hārī\nnavīna nīrada, rūpa manohara, mohana-vaṁśī-bihārī",
               "wbw": "yogīndra-vandana — worshiped by the best of yogīs; śrī nanda-nandana — the delightful son of Nanda; vraja — of Vraja; jana — inhabitants; bhaya — fear; hārī — remover; navīna nīrada — who is the color of a fresh rain cloud; rūpa manohara — whose form is enchanting; mohana — charming; vaṁśī — flute; bihārī — sporting",
-              "translation": "He is the object of great yogīs’ worship, the beautiful son of Nanda, and the remover of fear from the residents of Vraja. His form, which is like a fresh rain cloud, enchants the mind, and He captivates all with His artistry in flute-playing."
+              "translation": "He is the object of great yogīs’ worship, the beautiful son of Nanda, and the remover of fear from the residents of Vraja. His form, which is like a fresh rain cloud, enchants the mind, and He captivates all with His artistry in flute-playing.",
+              "tone": "up"
             },
             {
               "type": "verse",
@@ -7035,7 +7044,8 @@
               "type": "verse",
               "sanskrit": "ānanda-vardhana, prema-niketana, phula-śara-yojaka kāma\ngopāṅganā-gaṇa-citta-vinodana, samasta-guṇa-gaṇa-dhāma",
               "wbw": "ānanda-vardhana — who increases the ecstasy of His devotees; prema-niketana — the reservoir of all love; phula-śara — flowered arrows; yojaka — who uses; kāma — the transcendental Cupid; gopāṅganā — cowherd girls; gaṇa — group; citta — hearts; vinodana — pleasure; samasta — all; guṇa — qualities; gaṇa — collection; dhāma — abode",
-              "translation": "He is the enhancer of bliss and the abode of prema. He is the transcendental Cupid who aims His flower arrows [at the gopīs, by which He increases transcendental desires in them]. He gives pleasure to the hearts of the gopīs, and He is the abode of all good qualities."
+              "translation": "He is the enhancer of bliss and the abode of prema. He is the transcendental Cupid who aims His flower arrows [at the gopīs, by which He increases transcendental desires in them]. He gives pleasure to the hearts of the gopīs, and He is the abode of all good qualities.",
+              "tone": "up"
             },
             {
               "type": "verse",
@@ -7080,8 +7090,8 @@
             },
             {
               "type": "verse",
-              "sanskrit": "jaya vṛṣabhānu, jaya kīrtidā-sundarī\njaya paurṇamāsī, jaya ābhīra-nāgarī",
-              "wbw": "jaya vṛṣabhānu — glories to Rādhā’s father; jaya kīrtidā-sundarī — glories to Rādhā’s beautiful mother; jaya paurṇamāsī — glories to the elderly Paurṇamāsī, the personality of Yogamāyā; jaya ābhīra-nāgarī — glories to the cowherd women of Vraja",
+              "sanskrit": "jaya vṛṣabhānu, jaya kīrtidā-sundarī\njaya jaya paurṇamāsī, ābhīra-nāgarī",
+              "wbw": "jaya vṛṣabhānu — glories to Rādhā’s father; jaya kīrtidā-sundarī — glories to Rādhā’s beautiful mother; jaya jaya paurṇamāsī — glories, all glories to the elderly Paurṇamāsī, the personality of Yogamāyā; ābhīra-nāgarī — glories to the cowherd women of Vraja",
               "translation": "All glories to Śrī Vṛṣabhānu and the beautiful Kīrtidā [Rādhārāṇī’s father and mother]. All glories, all glories to Paurṇamāsī [the guru of the cowherd community; the mother of Sāndīpani Muni; the grandmother of Madhumaṅgala and Nāndī-mukhī; and the disciple of Devarṣi Nārada]. All glories to the damsels of Vraja."
             },
             {

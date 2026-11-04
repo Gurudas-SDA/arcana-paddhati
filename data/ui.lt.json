@@ -17,6 +17,8 @@
   "search.noSections": "Nieko nerasta. Pakeiskite paiešką arba ją išvalykite.",
   "verse.translationHint": "vertimas",
   "verse.wbwHint": "pažodžiui",
+  "verse.toneUp": "tonu aukščiau",
+  "verse.toneShift": "kitas tonas",
   "language.label": "Kalba",
   "language.fallbackSuffix": "(EN)",
   "home.coverAlt": "Arcana-paddhati knygos viršelis",

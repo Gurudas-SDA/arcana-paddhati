@@ -17,6 +17,8 @@
   "search.noSections": "Nichts gefunden. Suche ändern oder löschen.",
   "verse.translationHint": "Übersetzung",
   "verse.wbwHint": "Wort für Wort",
+  "verse.toneUp": "einen Ton höher",
+  "verse.toneShift": "anderer Ton",
   "language.label": "Sprache",
   "language.fallbackSuffix": "(EN)",
   "home.coverAlt": "Buchcover von Arcana Paddhati",

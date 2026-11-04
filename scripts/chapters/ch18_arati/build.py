@@ -102,6 +102,32 @@ def apply(book, lang):
                 else:
                     sub.pop("numbered", None)
     strip_jaya(book)
+    apply_tones(book)
+
+
+# A143 (Satkirti msg 7447–7450, 04.11.2026): verses sung to another tune get a small arrow next to the verse number:
+# "up" = ↑ «на тон выше», "shift" = → «другой тон». Layout flag on the verse (not text, never translated); keys are
+# the 1-based running verse numbers of the song (the numbers the book prints).
+TONES = {
+    "song-mangala-arati": {2: "up", 4: "up", 6: "up", 8: "up", 5: "shift", 7: "shift", 9: "shift"},
+    "song-vibhavari-sesa": {3: "up", 5: "up", 7: "up"},
+}
+
+
+def apply_tones(book):
+    for s in book["sections"]:
+        for sub in s.get("subsections") or []:
+            tones = TONES.get(sub.get("id"))
+            if not tones:
+                continue
+            n = 0
+            for b in sub["content"]:
+                if b.get("type") == "verse" and b.get("sanskrit"):
+                    n += 1
+                    b.pop("tone", None)
+                    if n in tones:
+                        b["tone"] = tones[n]
+            assert n >= max(tones), (sub["id"], n)
 
 
 def write_json(path, obj, raw):
