@@ -1,9 +1,9 @@
-QA full: 1 darbi, 2 paralēli, serveris http://127.0.0.1:52813/arcana-paddhati (out/)
-  FAIL s147   pixel7                          8 pass   7 fail      57s
+QA full: 1 darbi, 2 paralēli, serveris http://127.0.0.1:50171/arcana-paddhati (out/)
+  FAIL s147   pixel7                          8 pass   7 fail      61s
   atkārtoju 1 kritušos darbus vienu reizi …
   FAIL s147   pixel7                       (atkārtoti)   7 fail
 
-QA full: 8 pass, 7 fail, 0 skip, 1.9 min
+QA full: 8 pass, 7 fail, 0 skip, 2.1 min
   FAIL s147 pixel7/page keyboard open: title, quote, colours, field, «Удалить / Отмена / Сохранить» and ✕ are all above the keyboard [["card", "del", "cancel", "save"], {"vvh": 615, "iw": 412, "card": {"t": 261, "b": 654, "l": 26, "r": 386}, "c
   FAIL s147 pixel7/page bookmark with a subsection (#hash), same page: the panel closed by itself "bookmark with a subsection (#hash), same page"
   FAIL s147 pixel7/page note with a subsection (#hash), same page: the panel closed by itself "note with a subsection (#hash), same page"

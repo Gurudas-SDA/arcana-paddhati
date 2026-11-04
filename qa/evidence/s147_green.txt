@@ -1,17 +1,17 @@
-QA full: 14 darbi, 2 paralēli, serveris http://127.0.0.1:35183/arcana-paddhati (out/)
-  OK   s35    pixel7                         34 pass   0 fail     149s
-  OK   s35    iphone14                       34 pass   0 fail     155s
-  OK   s35    desktop                        34 pass   0 fail     148s
-  OK   s35    ipad-portrait                  34 pass   0 fail     156s
+QA full: 14 darbi, 2 paralēli, serveris http://127.0.0.1:43019/arcana-paddhati (out/)
+  OK   s35    pixel7                         34 pass   0 fail     162s
+  OK   s35    iphone14                       34 pass   0 fail     173s
+  OK   s35    desktop                        34 pass   0 fail     157s
   OK   s65    iphone14                       14 pass   0 fail      16s
-  OK   s65    pixel7                         14 pass   0 fail      16s
-  OK   s65    desktop                        14 pass   0 fail      18s
-  OK   s147   iphone14                       15 pass   0 fail      70s
-  OK   s147   pixel7                         15 pass   0 fail      62s
-  OK   s147   desktop                        12 pass   0 fail      61s
-  OK   s143   pixel7                         37 pass   0 fail      30s
-  OK   s143   iphone14                      112 pass   0 fail     102s
-  OK   s143   ipad-portrait                  37 pass   0 fail      37s
-  OK   s143   desktop                       112 pass   0 fail      84s
+  OK   s65    pixel7                         14 pass   0 fail      19s
+  OK   s35    ipad-portrait                  34 pass   0 fail     208s
+  OK   s65    desktop                        14 pass   0 fail      16s
+  OK   s147   iphone14                       15 pass   0 fail      64s
+  OK   s147   pixel7                         15 pass   0 fail      58s
+  OK   s147   desktop                        12 pass   0 fail      56s
+  OK   s143   pixel7                         37 pass   0 fail      26s
+  OK   s143   iphone14                      112 pass   0 fail      90s
+  OK   s143   ipad-portrait                  37 pass   0 fail      29s
+  OK   s143   desktop                       112 pass   0 fail      78s
 
-QA full: 518 pass, 0 fail, 0 skip, 9.7 min
+QA full: 518 pass, 0 fail, 0 skip, 10.1 min
