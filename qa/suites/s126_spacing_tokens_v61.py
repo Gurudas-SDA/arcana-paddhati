@@ -38,7 +38,8 @@ def strip(t):
 def now(path):
     # Vraja Lila 31.10 14:07 «сделай и выпусти наконец» (the cover's place by its proportion, s58): the rules between the
     # /*@cover-place*/ markers are a later addition, not part of the step-2 token substitution
-    return strip(re.sub(r"/\*@v61s5\*/.*?/\*@/v61s5\*/", "", re.sub(r"/\*@v61s4\*/.*?/\*@/v61s4\*/", "", re.sub(r"/\*@cover-place\*/.*?/\*@/cover-place\*/", "", open(os.path.join(ROOT, path), encoding="utf-8").read(), flags=re.S), flags=re.S), flags=re.S))
+    # V71 (Vraja Lila msg 2360/2362): the highlights / notes CSS and tokens sit between /*@v71*/ markers (a later addition, like v61s5)
+    return strip(re.sub(r"/\*@v71\*/.*?/\*@/v71\*/", "", re.sub(r"/\*@v61s5\*/.*?/\*@/v61s5\*/", "", re.sub(r"/\*@v61s4\*/.*?/\*@/v61s4\*/", "", re.sub(r"/\*@cover-place\*/.*?/\*@/cover-place\*/", "", open(os.path.join(ROOT, path), encoding="utf-8").read(), flags=re.S), flags=re.S), flags=re.S), flags=re.S))
 
 
 def before(path):
@@ -190,7 +191,7 @@ def static():
     check("src", "E q8 no #E8DCC8 thin line left in tsx / css (allowed: the day value of the token, 2 dead night selectors, the .hs-peek frame)", not left, left[:8])
     n_tok = sum(open(os.path.join(ROOT, c), encoding="utf-8").read().count("border-[color:var(--line-hairline)]")
                 for c in ["components/Sidebar.tsx", "components/SectionContent.tsx", "components/MoodBlock.tsx"])
-    check("src", f"E q8 the 10 + 3 + 3 thin lines of Sidebar / SectionContent / MoodBlock read the token (now {n_tok}, want 16)", n_tok == 16, n_tok)
+    check("src", f"E q8 the 10 + 3 + 3 (+ 1 V71 notes card) thin lines of Sidebar / SectionContent / MoodBlock read the token (now {n_tok}, want 17: +1 the notes card of V71)", n_tok == 17, n_tok)
     # the .hs-peek (floating picture) frame is NOT a sidebar line and has no night rule: it stays #E8DCC8 in all three themes, otherwise night would
     # change from #E8DCC8 to #3A3128 (night must stay 0 px, Vraja's choice «а» concerns the sidebar lines)
     check("src", "E q8 .hs-peek frame stays #E8DCC8 (night 0 px)", re.search(r"\.hs-peek\s*\{[^}]*?border:\s*1px solid #E8DCC8;", g) is not None)

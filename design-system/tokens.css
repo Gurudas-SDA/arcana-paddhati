@@ -135,6 +135,7 @@ html[data-reader-theme="night"] {
   --window-close-fg: var(--ap-gold); /* one gold token: #965700 on light/sepia, #E3A03C in night (was the brown #5C3D2E: night 1.74) */
 }
 
+/*@v71*/
 /* V71 (Vraja Lila 04.11 msg 2360/2362): the four highlight colours. Tones checked for contrast (WCAG 2.2: the dot / stripe >= 3:1 on the page and the
    panel, text on the fill >= 4.5:1) and for colour-blind vision (dE2000 >= 10): Vraja_Lila/faili/V70_проверка_цветов/kontrasts_palette.json.
    Night green has alpha 0.32 (at 0.40 the text gave 4.34). The fill is the tone at its alpha; --hl-N-tone is the dot, the stripe, the sign. */
@@ -180,3 +181,4 @@ html[data-reader-theme="night"] {
   --hl-4-alpha: 0.4;
   --hl-4-fill: color-mix(in srgb, var(--hl-4-tone) calc(var(--hl-4-alpha) * 100%), transparent);
 }
+/*@/v71*/

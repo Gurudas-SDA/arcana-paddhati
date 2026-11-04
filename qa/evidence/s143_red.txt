@@ -1,0 +1,7 @@
+QA full: 1 darbi, 2 paralēli, serveris http://127.0.0.1:41051/arcana-paddhati (out/)
+  FAIL s143   pixel7                          1 pass   1 fail       8s
+  atkārtoju 1 kritušos darbus vienu reizi …
+  FAIL s143   pixel7                       (atkārtoti)   1 fail
+
+QA full: 1 pass, 1 fail, 0 skip, 0.3 min
+  FAIL s143 pixel7/day the menu shows on a selection "no [data-hl-menu]"

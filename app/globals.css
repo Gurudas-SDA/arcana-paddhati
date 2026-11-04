@@ -2541,6 +2541,7 @@ html[data-reader-theme="night"] .hover\:bg-\[\#FDF8F0\]:hover {
 html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px)); }
 /*@/v61s4*/
 
+/*@v71*/
 /* ===== V71 (Vraja Lila 04.11 msg 2360/2362): highlights and notes ===== */
 ::highlight(hl-0) { background-color: var(--hl-1-fill); color: inherit; }
 ::highlight(hl-1) { background-color: var(--hl-2-fill); color: inherit; }
@@ -2697,3 +2698,4 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
    ONE variable for bookmarks and notes: change --card-clamp to change both. */
 :root { --card-clamp: 2; }
 .card-clamp { display: -webkit-box; -webkit-line-clamp: var(--card-clamp); -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+/*@/v71*/
