@@ -168,7 +168,6 @@ interface Props {
 
 // tehniskais slieksnis Lipikāra, nav S noteikums: a quote longer than ~2 lines is not shown in the note window (V76, Vraja Lila msg 7553 p.2)
 const HL_QUOTE_SHOW_MAX = 110;
-}
 
 export default function HighlightsLayer({ ui, lang }: Props) {
   const [items, setItems] = useState<Highlight[]>([]);
