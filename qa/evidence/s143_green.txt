@@ -1,0 +1,38 @@
+  SKIP s32: S 23.10 Padomnieks 934–941: valoda izņemta (pt, lt)
+QA full: 34 darbi, 2 paralēli, serveris http://127.0.0.1:34515/arcana-paddhati (out/)
+  OK   s55    pixel7                         10 pass   0 fail      12s
+  OK   s55    iphone14                       10 pass   0 fail      13s
+  OK   s55    desktop                        10 pass   0 fail      10s
+  OK   s60    iphone14                       13 pass   0 fail      14s
+  OK   s60    pixel7                         13 pass   0 fail      12s
+  OK   s60    desktop                        13 pass   0 fail      12s
+  OK   s71    iphone14                       53 pass   0 fail      80s
+  OK   s71    pixel7                         53 pass   0 fail      79s
+  OK   s120   pixel7                          8 pass   0 fail      29s
+  OK   s120   iphone14                        8 pass   0 fail      30s
+  OK   s129   iphone14                       18 pass   0 fail      10s
+  OK   s71    desktop                        53 pass   0 fail      78s
+  OK   s129   desktop                        18 pass   0 fail       9s
+  OK   s127   iphone14                       36 pass   0 fail      11s
+  OK   s127   desktop                        31 pass   0 fail       9s
+  OK   s143   pixel7                         37 pass   0 fail      25s
+  OK   s143   ipad-portrait                  37 pass   0 fail      37s
+  OK   s143   iphone14                      112 pass   0 fail      92s
+  OK   s143   desktop                       112 pass   0 fail      77s
+  OK   s141   iphone14                       99 pass   0 fail      82s
+  OK   s141   pixel7                         99 pass   0 fail      79s
+  OK   s141   ipad-portrait                  67 pass   0 fail      77s
+  OK   s138   pixel7                         10 pass   0 fail      16s
+  OK   s138   iphone14                       10 pass   0 fail      18s
+  OK   s141   desktop                        87 pass   0 fail      77s
+  OK   s138   ipad-portrait                  10 pass   0 fail      17s
+  OK   s140   desktop                         4 pass   0 fail       5s
+  OK   s140   pixel7                          2 pass   0 fail       4s
+  OK   s140   iphone14                        2 pass   0 fail       5s
+  OK   s138   desktop                        14 pass   0 fail      33s
+  OK   s132   iphone14                       15 pass   0 fail      26s
+  OK   s130   -                              13 pass   0 fail       1s
+  OK   s126   -                              48 pass   0 fail       0s
+  OK   s132   desktop                        40 pass   0 fail      35s
+
+QA full: 1165 pass, 0 fail, 0 skip, 9.5 min
