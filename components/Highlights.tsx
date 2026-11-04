@@ -675,14 +675,20 @@ export default function HighlightsLayer({ ui, lang }: Props) {
     const h = document.documentElement, b = document.body;
     const prev = [h.style.overflow, b.style.overflow];
     h.style.overflow = "hidden"; b.style.overflow = "hidden";
-    return () => { h.style.overflow = prev[0]; b.style.overflow = prev[1]; };
+    // React's own onWheel/onTouchMove are passive: native non-passive listeners, so preventDefault really stops the page behind (iOS too)
+    const stop = (e: Event) => { if (!(e.target as HTMLElement | null)?.closest?.("[role=dialog], textarea")) e.preventDefault(); };
+    document.addEventListener("wheel", stop, { passive: false });
+    document.addEventListener("touchmove", stop, { passive: false });
+    return () => {
+      h.style.overflow = prev[0]; b.style.overflow = prev[1];
+      document.removeEventListener("wheel", stop);
+      document.removeEventListener("touchmove", stop);
+    };
   }, [lockOpen]);
 
   const modal = (inner: React.ReactNode, onClose: () => void, mood: HTMLElement | null, kind: string) =>
     portalTo(
-      <div data-no-reader-tap="" data-hl-ui="" data-hl-modal={kind} className="bookmark-name-modal fixed inset-0 z-[100]"
-        onTouchMove={(e) => { if (e.target === e.currentTarget || (e.target as HTMLElement).closest(".bookmark-name-backdrop")) e.preventDefault(); }}
-        onWheel={(e) => { if (e.target === e.currentTarget || (e.target as HTMLElement).closest(".bookmark-name-backdrop")) e.preventDefault(); }} onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+      <div data-no-reader-tap="" data-hl-ui="" data-hl-modal={kind} className="bookmark-name-modal fixed inset-0 z-[100]" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
         <div className="bookmark-name-backdrop absolute inset-0" aria-hidden="true" onClick={onClose} />
         <div className={`absolute inset-0 flex justify-center overflow-y-auto overscroll-contain pointer-events-none ${kind === "editor" && vv ? "items-start p-2" : "items-center p-4"}`}
           style={kind === "editor" && vv ? { top: vv.top, bottom: "auto", height: vv.height } : undefined}>
@@ -737,8 +743,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
       {card && cardItem &&
         portalTo(
           <>
-            <div data-hl-ui="" className="fixed inset-0 z-[90]" onClick={() => setCard(null)}
-              onTouchMove={(e) => e.preventDefault()} onWheel={(e) => e.preventDefault()} />
+            <div data-hl-ui="" className="fixed inset-0 z-[90]" onClick={() => setCard(null)} />
             <div
               data-hl-ui=""
               data-hl-card=""

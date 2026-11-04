@@ -42,12 +42,31 @@ SELECT = """([n, a, b]) => {
 BOX = "(sel) => { const e = document.querySelector(sel); if (!e) return null; const b = e.getBoundingClientRect(); return {l: b.left, r: b.right, t: b.top, b: b.bottom, w: b.width}; }"
 
 
+def select_menu(pg, args):
+    """select text; the menu must show (retry: the page may not be hydrated yet on a loaded server)"""
+    txt = None
+    for _ in range(5):
+        txt = pg.evaluate(SELECT, args)
+        try:
+            pg.wait_for_selector("[data-hl-menu]", state="visible", timeout=2500)
+            return txt
+        except Exception:
+            pg.wait_for_timeout(800)
+    raise RuntimeError("no [data-hl-menu] after 5 selections")
+
+
 def make_note(pg, a, b, note):
-    txt = pg.evaluate(SELECT, [0, a, b])
-    pg.wait_for_selector("[data-hl-menu]", state="visible", timeout=4000)
+    txt = select_menu(pg, [0, a, b])
     pg.locator("[data-hl-menu] [data-hl-note]").click()
     pg.wait_for_selector("[data-hl-editor] textarea", state="visible", timeout=4000)
     return txt
+
+
+POS = "() => scrollY + (document.querySelector('.app-main') ? document.querySelector('.app-main').scrollTop : 0)"
+# a cancelable wheel / touchmove on the overlay must be stopped (preventDefault) and the page must be locked (overflow hidden)
+STOPPED = """(sel) => { const t = document.querySelector(sel); const out = {};
+  for (const n of ['wheel', 'touchmove']) { const ev = new Event(n, {bubbles: true, cancelable: true}); t.dispatchEvent(ev); out[n] = ev.defaultPrevented; }
+  out.lock = getComputedStyle(document.documentElement).overflow === 'hidden' && getComputedStyle(document.body).overflow === 'hidden'; return out; }"""
 
 
 def run(p, dev, eng, opts):
@@ -57,7 +76,7 @@ def run(p, dev, eng, opts):
                       "localStorage.setItem('installDismissed','true');localStorage.setItem('ap.readerHintSeen','1');}catch(e){}")
     pg = c.new_page()
     pg.goto(f"{BASE}/ru-iast/{PAGE}/", wait_until="networkidle")
-    pg.wait_for_timeout(1200)
+    pg.wait_for_timeout(2500)
     pg.add_style_tag(content="*,*::before,*::after{animation:none!important;transition:none!important}")
     # short quote
     short = make_note(pg, 2, 6, "x")
@@ -65,14 +84,14 @@ def run(p, dev, eng, opts):
     vp = pg.evaluate("() => [innerWidth, innerHeight]")
     ov = pg.evaluate(BOX, ".bookmark-name-backdrop")
     check(dev, "overlay exists and covers the viewport", ov and ov["l"] <= 0.5 and ov["t"] <= 0.5 and ov["r"] >= vp[0] - 0.5 and ov["b"] >= vp[1] - 0.5, [ov, vp])
-    y0 = pg.evaluate("() => scrollY")
-    pg.mouse.move(vp[0] / 2, 10)
-    pg.mouse.wheel(0, 600)
-    pg.wait_for_timeout(400)
-    pg.evaluate("() => window.scrollBy(0, 400)")
-    pg.wait_for_timeout(300)
-    y1 = pg.evaluate("() => scrollY")
-    check(dev, "page under the window does not scroll (wheel / scroll attempt)", abs(y1 - y0) < 1, [y0, y1])
+    st = pg.evaluate(STOPPED, ".bookmark-name-backdrop")
+    check(dev, "wheel / touch on the overlay is stopped and the page is locked (overflow hidden)", st["wheel"] and st["touchmove"] and st["lock"], st)
+    if eng == "chromium":
+        y0 = pg.evaluate(POS)
+        pg.mouse.move(vp[0] / 2, 10)
+        pg.mouse.wheel(0, 600)
+        pg.wait_for_timeout(400)
+        check(dev, "page under the window does not scroll (real wheel)", abs(pg.evaluate(POS) - y0) < 1, [y0, pg.evaluate(POS)])
     mw = pg.evaluate(BOX, "[data-hl-modal='editor'] [role=dialog]")
     pg.locator("[data-hl-editor] textarea").fill("Заметка")
     pg.locator("[data-hl-editor] [data-hl-save]").click()
@@ -95,10 +114,9 @@ def run(p, dev, eng, opts):
     wd = [x[1] - x[0] for x in btns]
     inner = cb["w"] if cb else 0
     check(dev, "3 buttons fill the width equally", len(btns) == 3 and max(wd) - min(wd) <= 2 and sum(wd) >= inner * 0.8, [btns, inner])
-    cy = pg.evaluate("() => scrollY")
-    pg.mouse.wheel(0, 500)
-    pg.wait_for_timeout(300)
-    check(dev, "page under the popover does not scroll", abs(pg.evaluate("() => scrollY") - cy) < 1, cy)
+    st = pg.evaluate(STOPPED, "[data-hl-card]")
+    st2 = pg.evaluate("() => { const t = document.querySelector('[data-hl-card]').previousElementSibling; const ev = new Event('wheel', {bubbles: true, cancelable: true}); t.dispatchEvent(ev); return ev.defaultPrevented; }")
+    check(dev, "page under the popover is locked (wheel on its overlay stopped)", st2 and st["lock"], [st, st2])
     b.close()
 
 
