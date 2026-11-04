@@ -168,9 +168,6 @@ interface Props {
 
 // tehniskais slieksnis Lipikāra, nav S noteikums: a quote longer than ~2 lines is not shown in the note window (V76, Vraja Lila msg 7553 p.2)
 const HL_QUOTE_SHOW_MAX = 110;
-
-function cardVariantParam(): "x" | "y" {
-  try { return new URLSearchParams(window.location.search).get("v77p") === "y" ? "y" : "x"; } catch { return "x"; } // V77: screenshots only
 }
 
 export default function HighlightsLayer({ ui, lang }: Props) {
@@ -572,7 +569,6 @@ export default function HighlightsLayer({ ui, lang }: Props) {
   const labels = { removed: t(ui, "hl.removed"), undo: t(ui, "bookmark.undo") };
   const portalTo = (node: React.ReactNode, mood: HTMLElement | null) => createPortal(node, mood ?? document.body);
   const colorName = (i: number) => t(ui, COLOR_NAME_KEY(i));
-  const cardVariant = cardVariantParam();
   const cardItem = card ? items.find((h) => h.id === card.id) : undefined;
 
   const colorButtons = ({ current, onPick, kind }: { current?: number; onPick: (i: number) => void; kind: string }) => (
@@ -759,7 +755,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
               style={{ top: Math.max(8, Math.min(card.y + 12, window.innerHeight - 240)) }}
             >
               {colorButtons({ kind: "card", current: cardItem.color, onPick: (i) => updateHighlight(cardItem.id, { color: i }) })}
-              <p className={"hl-card-note" + (cardVariant === "y" ? " hl-card-note-y" : "")} data-hl-card-note="">{cardItem.note || t(ui, "hl.card.noNote")}</p>
+              <p className="hl-card-note hl-card-note-y" data-hl-card-note="">{cardItem.note || t(ui, "hl.card.noNote")}</p>
               <div className="hl-actions hl-actions-icons">
                 <button type="button" className="hl-icon" data-hl-card-edit="" aria-label={t(ui, "hl.edit")} title={t(ui, "hl.edit")}
                   onClick={() => { setEditor({ id: cardItem.id, color: cardItem.color, note: cardItem.note ?? "", quote: cardItem.quote, inMood: card.inMood }); setCard(null); }}>

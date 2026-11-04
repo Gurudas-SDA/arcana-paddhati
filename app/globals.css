@@ -2624,7 +2624,7 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
 .hl-field-wrap { position: relative; }
 .hl-field-wrap .hl-field { display: block; padding-bottom: var(--space-24); }
 .hl-counter { position: absolute; right: var(--space-12); bottom: var(--space-8); padding-left: var(--space-4); font-size: 12px; line-height: 1; pointer-events: none; background: white; color: color-mix(in srgb, currentColor 45%, white); } /* V77 (Vraja 7560): always the same pale colour; opaque so the scrolled text never shows through (that looked darker at 1700) */
-.hl-card-note-y { max-height: none; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; } /* V77 variant y: 3 lines + «…», the full text opens with ✎ */
+.hl-card-note-y { max-height: none; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; } /* V77 (Vraja msg 7564: variant y): 3 lines + «…», the full text opens with ✎ */
 .hl-field { resize: vertical; min-height: calc(var(--space-48) * 2); font-family: inherit; }
 @media (min-width: 700px) and (pointer: fine) {
   .hl-menu:not(.hl-card) { flex-direction: row; align-items: center; gap: var(--space-8); }
