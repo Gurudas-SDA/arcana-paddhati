@@ -802,16 +802,37 @@ export default function HighlightsLayer({ ui, lang }: Props) {
             {editor.quote.length <= HL_QUOTE_SHOW_MAX && <p className="hl-quote" data-hl-editor-quote="">{editor.quote}</p>}
             {colorButtons({ kind: "editor", current: editor.color, onPick: (i) => setEditor({ ...editor, color: i }) })}
             <label className="block text-sm hl-t-soft mb-1.5 mt-3" htmlFor="hl-note-field">{t(ui, "hl.editor.label")}</label>
-            <textarea
-              id="hl-note-field"
-              autoFocus
-              value={editor.note}
-              maxLength={HL_NOTE_MAX}
-              rows={4}
-              onChange={(e) => setEditor({ ...editor, note: e.target.value })}
-              className="hl-field ds-field w-full rounded-lg bg-white px-3 py-2.5 text-base hl-t"
-              data-hl-ui=""
-            />
+            {(() => {
+              // V77: screenshot-only counter variants (?v77=a|b|c); default = no counter
+              let v = "";
+              try { v = new URLSearchParams(window.location.search).get("v77") || ""; } catch { v = ""; }
+              const n = editor.note.length;
+              const near = n >= HL_NOTE_MAX * 0.8;
+              const cnt = (
+                <span data-hl-counter="" aria-live="polite"
+                  style={{ fontSize: 12, lineHeight: 1, color: n >= HL_NOTE_MAX ? "#A8321E" : near ? "#9A4A1E" : "#8A6A58" }}>
+                  {n}/{HL_NOTE_MAX}
+                </span>
+              );
+              return (
+                <div style={{ position: "relative" }}>
+                <textarea
+                  id="hl-note-field"
+                  autoFocus
+                  value={editor.note}
+                  maxLength={HL_NOTE_MAX}
+                  rows={4}
+                  onChange={(e) => setEditor({ ...editor, note: e.target.value })}
+                  className="hl-field ds-field w-full rounded-lg bg-white px-3 py-2.5 text-base hl-t"
+                  data-hl-ui=""
+                />
+
+                  {v === "c" && <div style={{ position: "absolute", right: 10, bottom: 8, pointerEvents: "none", opacity: 0.8 }}>{cnt}</div>}
+                  {v === "a" && <div className="flex justify-end mt-1">{cnt}</div>}
+                  {v === "b" && near && <div className="flex justify-end mt-1">{cnt}</div>}
+                </div>
+              );
+            })()}
             <div className="mt-5 flex justify-end gap-2 flex-wrap">
               {editor.id && (
                 <button type="button" data-hl-editor-delete="" className="hl-btn rounded-lg px-4 text-sm font-medium hl-t-soft"
