@@ -5012,5 +5012,73 @@
         }
       }
     ]
+  },
+  {
+    "target": "tulasi-leaves-flowers",
+    "candidate": "CA:5823",
+    "quote": "…we worship Gaurāṅga Mahāprabhu as [Śrī Kṛṣṇa], who is absorbed in the mood and covered by the golden complexion of Śrīmatī Rādhikā. Though you can put tulasī on the feet of Mahāprabhu, because He is Supreme Lord Śrī Kṛṣṇa, but we see that (..) He has come to relish the mood of His own devotee, especially Śrīmatī Rādhikā, so we'll put the tulasī leaf in His hand, right hand.",
+    "translations": {
+      "ru": "…мы поклоняемся Гауранге Махапрабху как [Шри Кришне], погружённому в настроение и покрытому золотистым сиянием Шримати Радхики. Хотя можно возложить тулси к стопам Махапрабху, поскольку Он — Верховный Господь Шри Кришна, но мы видим, что (..) Он пришёл вкусить настроение Своего собственного преданного, особенно Шримати Радхики, поэтому мы вложим лист тулси в Его правую руку.",
+      "ru-iast": "…мы поклоняемся Гауранге Махапрабху как [Шри Кришне], погружённому в настроение и покрытому золотистым сиянием Шримати Радхики. Хотя можно возложить тулси к стопам Махапрабху, поскольку Он — Верховный Господь Шри Кришна, но мы видим, что (..) Он пришёл вкусить настроение Своего собственного преданного, особенно Шримати Радхики, поэтому мы вложим лист тулси в Его правую руку."
+    },
+    "machine": [],
+    "source": {
+      "title": "2021.03.28 Sri Gaura Purnima",
+      "date": "2021-03-28",
+      "nr": "5823",
+      "timecode": "01:06:05",
+      "transcript_url": "https://drive.google.com/file/d/1w-v-nJjQCiumII3jUIDmUi0CHG7_CHHN/view",
+      "audio_url": "https://drive.google.com/file/d/1tP1_0ZFhaSi8TOaXH4cqUvOaUGGK5VsG/view"
+    },
+    "more": [
+      {
+        "candidate": "CA:4730:2",
+        "label": "2",
+        "quote": "…you can put tulasī on the feet of Caitanya Mahāprabhu. But in rāgānugā-bhakti, we'll put the tulasī in His right hand, because we serve Him according to His own mood.",
+        "translation": {
+          "ru": "…можно положить туласи к стопам Чайтаньи Махапрабху. Но в рагануга-бхакти мы положим туласи в Его правую руку, потому что служим Ему в соответствии с Его собственным настроением.",
+          "ru-iast": "…можно положить туласи к стопам Чайтаньи Махапрабху. Но в рагануга-бхакти мы положим туласи в Его правую руку, потому что служим Ему в соответствии с Его собственным настроением."
+        },
+        "source": {
+          "title": "2019.11.21 Q&A Jiva, Maya, Ragas, Tapa, Hearing",
+          "date": "2019-11-21",
+          "nr": "4730",
+          "transcript_url": "https://drive.google.com/file/d/136m6c0cLoBKCEMQl6hiuZGZme95rqkmo/view",
+          "note": "the exact timecode of the passage is not given in the CA export",
+          "i18n": {
+            "ru": {
+              "note": "точный тайм-код места в выгрузке CA не указан"
+            },
+            "ru-iast": {
+              "note": "точный тайм-код места в выгрузке CA не указан"
+            }
+          }
+        }
+      },
+      {
+        "candidate": "CA:4730:3",
+        "label": "3",
+        "quote": "…you cannot even offer tulasī directly to Guru. You can give Gurudeva Kṛṣṇa's mahā-prasāda tulasī, or if (..) the tulasī is not mahā-prasāda, you can put it in Gurudeva's right hand for him to offer to Kṛṣṇa as a service like that.",
+        "translation": {
+          "ru": "…нельзя даже непосредственно предлагать туласи Гуру. Можно дать Гурудеве туласи с маха-прасадом Кришны, а если (..) туласи не является маха-прасадом, можно положить её в правую руку Гурудева, чтобы он предложил её Кришне как служение.",
+          "ru-iast": "…нельзя даже непосредственно предлагать туласи Гуру. Можно дать Гурудеве туласи с маха-прасадом Кришны, а если (..) туласи не является маха-прасадом, можно положить её в правую руку Гурудева, чтобы он предложил её Кришне как служение."
+        },
+        "source": {
+          "title": "2019.11.21 Q&A Jiva, Maya, Ragas, Tapa, Hearing",
+          "date": "2019-11-21",
+          "nr": "4730",
+          "transcript_url": "https://drive.google.com/file/d/136m6c0cLoBKCEMQl6hiuZGZme95rqkmo/view",
+          "note": "the exact timecode of the passage is not given in the CA export",
+          "i18n": {
+            "ru": {
+              "note": "точный тайм-код места в выгрузке CA не указан"
+            },
+            "ru-iast": {
+              "note": "точный тайм-код места в выгрузке CA не указан"
+            }
+          }
+        }
+      }
+    ]
   }
 ]
