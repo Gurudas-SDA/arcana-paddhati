@@ -2654,13 +2654,13 @@
             },
             {
               "type": "verse",
-              "sanskrit": "oṁ vṛndāyai tulasī-devyai priyāyai keśavasya ca\nkṛṣṇa-bhakti-prade devi satyavatyai namo namaḥ",
-              "wbw": "oṁ — священный слог ом; vṛndāyai — Вринде-деви; tulasī-devyai — Шримати Туласи-деви; priyāyai — которая особенно дорога; keśavasya — Шри Кешаве; ca — и; kṛṣṇa — Кришне; bhakti — бхакти; prade — дарующей; devi — о Деви; satyavatyai — Сатьявати; namo — пранама; namaḥ — вновь и вновь",
+              "sanskrit": "vṛndāyai tulasī-devyai priyāyai keśavasya ca\nkṛṣṇa-bhakti-prade devi satyavatyai namo namaḥ",
+              "wbw": "vṛndāyai — Вринде-деви; tulasī-devyai — Шримати Туласи-деви; priyāyai — которая особенно дорога; keśavasya — Шри Кешаве; ca — и; kṛṣṇa — Кришне; bhakti — бхакти; prade — дарующей; devi — о Деви; satyavatyai — Сатьявати; namo — пранама; namaḥ — вновь и вновь",
               "translation": "Снова и снова я предлагаю пранамы Туласи-деви, которая также известна как Вринда и Сатьявати. Она очень дорога Шри Кешаве (Кришне) и дарует кришна-бхакти."
             },
             {
               "type": "list",
-              "content": "Бхаджан и парикрама. Начните бхаджан «Джая Радхе, джая Кришна, джая Вриндавана» («Шри Враджа-дхама-махимамрита»; текст — в разделе «Арати», «Песни мангала-арати»).",
+              "content": "Бхаджан и парикрама. Начните бхаджан «Джая Радхе, джая Кришна, джая Вриндавана» («Шри Враджа-дхама-махимамрита»; текст — в разделе «Арати», глава «Мангала-арати»).",
               "numbers": [
                 "1.2"
               ]
@@ -2671,7 +2671,7 @@
             },
             {
               "type": "list",
-              "content": "Арати — одновременно с парикрамой. Поднесите три предмета: благовония, лампаду (фитилёк) и цветок. Подносите только по часовой стрелке.",
+              "content": "Арати — одновременно с парикрамой. Предлагают три предмета: благовония, лампаду (фитилёк) и цветок — по часовой стрелке.",
               "numbers": [
                 "1.3"
               ]
@@ -2706,7 +2706,7 @@
             },
             {
               "type": "instruction",
-              "content": "пранаму Туласи — ⟦oṁ vṛndāyai tulasī-devyai…⟧, как в пункте 1.1;"
+              "content": "пранаму Туласи — ⟦vṛndāyai tulasī-devyai…⟧, как в пункте 1.1;"
             },
             {
               "type": "instruction",
@@ -2728,6 +2728,7 @@
             {
               "type": "verse",
               "sanskrit": "govinda-vallabhāṁ devīṁ\nbhakta-caitanya-kāriṇīm\nsnāpayāmi jagad-dhātrīṁ\nkṛṣṇa-bhakti-pradāyinīm",
+              "wbw": "govinda — Говинде; vallabhāṁ — дорогую; devīṁ — богиню; bhakta — преданных; caitanya — жизнь; kāriṇīm — дарующую; snāpayāmi — омываю; jagat — вселенной; dhātrīṁ — мать; kṛṣṇa — Кришне; bhakti — бхакти; pradāyinīm — дарующую.",
               "translation": "Я омываю Туласи-деви, которая очень дорога Говинде. Она — сама жизнь всех преданных. Она — мать Вселенной и быстро дарует кришна-бхакти."
             },
             {
@@ -2769,7 +2770,9 @@
                 "title": "2021.03.28 Sri Gaura Purnima",
                 "date": "2021-03-28",
                 "nr": "5823",
-                "timecode": "01:06:05"
+                "timecode": "01:06:05",
+                "transcript_url": "https://drive.google.com/file/d/1w-v-nJjQCiumII3jUIDmUi0CHG7_CHHN/view",
+                "audio_url": "https://drive.google.com/file/d/1tP1_0ZFhaSi8TOaXH4cqUvOaUGGK5VsG/view"
               },
               "more": [
                 {
@@ -2828,6 +2831,7 @@
             {
               "type": "verse",
               "sanskrit": "tulasy amṛta-janmāsi\nsadā tvaṁ keśava-priyā\nkeśavārthe cinomi tvāṁ\nvaradā bhava śobhane",
+              "wbw": "tulasy — о Туласи; amṛta — нектара; janma — рождённая; asi — ты есть; sadā — всегда; tvaṁ — ты; keśava — Кешаве; priyā — дорогая; keśava — Кешавы; arthe — ради; cinomi — собираю; tvāṁ — тебя; varadā — дарующая блага; bhava — будь; śobhane — о прекрасная.",
               "translation": "О Туласи, ты проявилась из нектара и всегда очень дорога Шри Кешаве. Сейчас я собираю твои листья для служения Кешаве. О дарующая блага, будь довольна мной."
             },
             {
@@ -2847,14 +2851,12 @@
             {
               "type": "verse",
               "sanskrit": "cayanodbhava duḥkhaṁ ca\nyad hṛdi tava varttate\ntat kṣamasva jagan-mātaḥ\nvṛndā-devi namo 'stu te",
+              "wbw": "cayana — сбора; udbhava — возникшую; duḥkhaṁ — боль; ca — и; yad — которая; hṛdi — в сердце; tava — твоём; varttate — пребывает; tat — её; kṣamasva — прости; jagat — вселенной; mātaḥ — о мать; vṛndā-devi — о Вринда-деви; namo — поклон; 'stu — да будет; te — тебе.",
               "translation": "О мать вселенной, прости меня, если я причинил тебе боль, собирая твои листья. О Вринда-деви, я приношу тебе свои смиренные поклоны."
             },
             {
-              "type": "list",
-              "content": "Куда класть. Туласи не кладут на стопы Шримати Радхарани, Шри Гуру и Шри Гауранги. Её кладут в правую руку.",
-              "numbers": [
-                "2.6"
-              ]
+              "type": "text",
+              "content": "Примечание: Туласи не кладут на стопы Шримати Радхарани, Шри Гуру и Шри Гауранги. Её кладут в правую руку."
             },
             {
               "type": "text",

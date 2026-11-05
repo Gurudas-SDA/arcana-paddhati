@@ -2630,8 +2630,127 @@
           "title": "Tulasī-ārati",
           "content": [
             {
+              "type": "instruction",
+              "content": "Tulasī-ārati is performed after maṅgala-ārati."
+            },
+            {
+              "type": "instruction",
+              "content": "Worship of Tulasī, as of the Deities, may be performed only in clean clothes."
+            },
+            {
+              "type": "subtitle",
+              "content": "Order of the procedure:"
+            },
+            {
+              "type": "list",
+              "content": "Praṇāma. Recite the prayer to Vṛndā-devī and offer obeisances:",
+              "numbers": [
+                "1.1"
+              ]
+            },
+            {
+              "type": "verse",
+              "sanskrit": "vṛndāyai tulasī-devyai priyāyai keśavasya ca\nkṛṣṇa-bhakti-prade devi satyavatyai namo namaḥ",
+              "wbw": "vṛndāyai — to Vṛndā-devī; tulasī-devyai — to Śrīmatī Tulasī-devī; priyāyai — who is most dear; keśavasya — to Śrī Keśava; ca — and; kṛṣṇa — for Kṛṣṇa; bhakti — devotion; prade — O bestower; devi — O Devī; satyavatyai — to Satyavatī; namo — praṇāma; namaḥ — obeisances again and again.",
+              "translation": "I offer praṇāma again and again to Śrīmatī Tulasī-devī, who is most dear to Śrī Keśava and who is also renowned as Vṛndā-devī and Satyavatī. O Devī, you bestow kṛṣṇa-bhakti."
+            },
+            {
+              "type": "list",
+              "content": "Bhajana and parikramā. Begin the bhajana “Jaya Rādhe, jaya Kṛṣṇa, jaya Vṛndāvana” (“Śrī Vraja-dhāma-mahimāmṛta”; the text is in the section “Ārati”, chapter “Maṅgala-ārati”).",
+              "numbers": [
+                "1.2"
+              ]
+            },
+            {
+              "type": "instruction",
+              "content": "Sing and circumambulate Tulasī at least four times."
+            },
+            {
+              "type": "list",
+              "content": "Ārati — simultaneously with the parikramā. Three items are offered: incense, a lamp (wick) and a flower — clockwise.",
+              "numbers": [
+                "1.3"
+              ]
+            },
+            {
+              "type": "subtitle",
+              "content": "Items of ārati and the order of offering them:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "Incense",
+                  "value": "7 circles around the whole tree, then to Guru and all the devotees"
+                },
+                {
+                  "label": "Lamp (wick)",
+                  "value": "to the roots (feet) — 4 circles, trunk — 2, top — 3, whole tree — 7; then to Guru and all the devotees"
+                },
+                {
+                  "label": "Flower",
+                  "value": "3 circles around the whole tree, then to Guru and all the devotees"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "content": "Two prayers again, obeisances. When the bhajana is finished, recite both prayers at the same time and offer obeisances:",
+              "numbers": [
+                "1.4"
+              ]
+            },
+            {
+              "type": "instruction",
+              "content": "praṇāma to Tulasī — ⟦vṛndāyai tulasī-devyai…⟧, as in item 1.1;"
+            },
+            {
+              "type": "instruction",
+              "content": "prayer to the Vaiṣṇavas:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "vāñchā-kalpa-tarubhyaś ca kṛpā-sindhubhya eva ca\npatitānāṁ pāvanebhyo vaiṣṇavebhyo namo namaḥ",
+              "wbw": "vāñchā — of desires; kalpa — wish-fulfilling; tarubhyaś — to the trees; ca — and; kṛpā-sindhubhya — to the oceans of compassion; eva — indeed; ca — and; patitānāṁ — of the fallen conditioned souls; pāvanebhyo — to the purifiers; vaiṣṇavebhyo — to the Vaiṣṇavas; namo — obeisances; namaḥ — obeisances.",
+              "translation": "I offer praṇāma to the Vaiṣṇavas, who, just like desire trees, can fulfil the desires of everyone and who are full of compassion for the conditioned souls."
+            },
+            {
+              "type": "list",
+              "content": "Watering. Gurudeva or another devotee waters Tulasī. While watering, recite:",
+              "numbers": [
+                "1.5"
+              ]
+            },
+            {
+              "type": "verse",
+              "sanskrit": "govinda-vallabhāṁ devīṁ\nbhakta-caitanya-kāriṇīm\nsnāpayāmi jagad-dhātrīṁ\nkṛṣṇa-bhakti-pradāyinīm",
+              "wbw": "govinda — to Govinda; vallabhāṁ — dear; devīṁ — goddess; bhakta — of the devotees; caitanya — life; kāriṇīm — bestowing; snāpayāmi — I bathe; jagat — of the universe; dhātrīṁ — mother; kṛṣṇa — of Kṛṣṇa; bhakti — devotion; pradāyinīm — bestowing.",
+              "translation": "O Goddess, I am bathing you, who are very dear to Govinda. You give life to the devotees, you are the mother of the entire world and you bestow kṛṣṇa-bhakti."
+            },
+            {
+              "type": "instruction",
+              "content": "Then offer obeisances."
+            },
+            {
+              "type": "list",
+              "content": "Closing prayer. Gurudeva or another devotee recites:",
+              "numbers": [
+                "1.6"
+              ]
+            },
+            {
+              "type": "verse",
+              "sanskrit": "bhaktyā vihīnā aparādha-lakṣaiḥ\nkṣiptāś ca kāmādi-taraṅga-madhye\nkṛpā-mayi tvāṁ śaraṇaṁ prapannā\nvṛnde namaste caraṇāravindam",
+              "wbw": "bhaktyā — of devotion; vihīnā — bereft; aparādha — of offenses; lakṣaiḥ — by hundreds of thousands; kṣiptāḥ — thrown; ca — and; kāma — of lust; ādi — and so on; taraṅga — of waves; madhye — in the midst; kṛpā-mayi — O merciful one; tvāṁ — in you; śaraṇaṁ — shelter; prapannā — I take; vṛnde — O Vṛndā; namaḥ — obeisances; te — to your; caraṇa — feet; aravindam — lotus",
+              "translation": "Devoid of bhakti and guilty of unlimited offenses, we are flung into the waves of lust [anger, greed and so on]. O merciful one, we take shelter of you! O Vṛndā, we offer praṇāma to your lotus feet."
+            },
+            {
               "type": "text",
-              "content": "(translation pending — Russian draft A112b)"
+              "content": "The text, word-for-word and general translation are as in the chapter “Gurudeva’s Maṅgalācaraṇa” of this book."
+            },
+            {
+              "type": "instruction",
+              "content": "This completes Tulasī-ārati."
             }
           ]
         },
@@ -2640,8 +2759,102 @@
           "title": "Gathering Tulasī Leaves and Flowers",
           "content": [
             {
+              "type": "mood",
+              "quote": "…we worship Gaurāṅga Mahāprabhu as [Śrī Kṛṣṇa], who is absorbed in the mood and covered by the golden complexion of Śrīmatī Rādhikā. Though you can put tulasī on the feet of Mahāprabhu, because He is Supreme Lord Śrī Kṛṣṇa, but we see that (..) He has come to relish the mood of His own devotee, especially Śrīmatī Rādhikā, so we'll put the tulasī leaf in His hand, right hand.",
+              "translation": "",
+              "source": {
+                "title": "2021.03.28 Sri Gaura Purnima",
+                "date": "2021-03-28",
+                "nr": "5823",
+                "timecode": "01:06:05",
+                "transcript_url": "https://drive.google.com/file/d/1w-v-nJjQCiumII3jUIDmUi0CHG7_CHHN/view",
+                "audio_url": "https://drive.google.com/file/d/1tP1_0ZFhaSi8TOaXH4cqUvOaUGGK5VsG/view"
+              },
+              "more": [
+                {
+                  "quote": "…you can put tulasī on the feet of Caitanya Mahāprabhu. But in rāgānugā-bhakti, we'll put the tulasī in His right hand, because we serve Him according to His own mood.",
+                  "translation": "",
+                  "source": {
+                    "title": "2019.11.21 Q&A Jiva, Maya, Ragas, Tapa, Hearing",
+                    "date": "2019-11-21",
+                    "nr": "4730",
+                    "transcript_url": "https://drive.google.com/file/d/136m6c0cLoBKCEMQl6hiuZGZme95rqkmo/view",
+                    "note": "the exact timecode of the passage is not given in the CA export"
+                  }
+                },
+                {
+                  "quote": "…you cannot even offer tulasī directly to Guru. You can give Gurudeva Kṛṣṇa's mahā-prasāda tulasī, or if (..) the tulasī is not mahā-prasāda, you can put it in Gurudeva's right hand for him to offer to Kṛṣṇa as a service like that.",
+                  "translation": "",
+                  "source": {
+                    "title": "2019.11.21 Q&A Jiva, Maya, Ragas, Tapa, Hearing",
+                    "date": "2019-11-21",
+                    "nr": "4730",
+                    "transcript_url": "https://drive.google.com/file/d/136m6c0cLoBKCEMQl6hiuZGZme95rqkmo/view",
+                    "note": "the exact timecode of the passage is not given in the CA export"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "content": "When and how. Leaves are gathered after bathing and in clean clothes.",
+              "numbers": [
+                "2.1"
+              ]
+            },
+            {
+              "type": "list",
+              "content": "If one has not bathed. Perform ⟦mānasa-snāna⟧ (bathing in the mind) and go to gather Tulasī in this mood:",
+              "numbers": [
+                "2.2"
+              ]
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ apavitraḥ pavitro vā\nsarvāvasthāṁ gato 'pi vā\nyaḥ smaret puṇḍarīkākṣaṁ\nsa bāhyābhyantara-śuciḥ",
+              "wbw": "oṁ — sacred syllable oṁ; apavitraḥ — contaminated; pavitro — pure; vā — or; sarvāvasthāṁ — in any condition; gato — having entered; 'pi — even; vā — or; yaḥ — whoever; smaret — remembers; puṇḍarīkākṣaṁ — Puṇḍarīkākṣa, the lotus-eyed Lord; sa — he; bāhya — externally; abhyantara — internally; śuciḥ — pure.",
+              "translation": "Whether one is contaminated, pure or in any condition or stage of life, if one remembers the lotus-eyed Lord, Puṇḍarīkākṣa, Śrī Kṛṣṇa, one becomes pure both externally and internally. [Garuḍa Purāṇa]"
+            },
+            {
+              "type": "list",
+              "content": "Before picking. Recite the ⟦cayana-mantra⟧ (the mantra for gathering leaves):",
+              "numbers": [
+                "2.3"
+              ]
+            },
+            {
+              "type": "verse",
+              "sanskrit": "tulasy amṛta-janmāsi\nsadā tvaṁ keśava-priyā\nkeśavārthe cinomi tvāṁ\nvaradā bhava śobhane",
+              "wbw": "tulasy — O Tulasī; amṛta — from nectar; janma — born; asi — you are; sadā — always; tvaṁ — you; keśava — to Keśava; priyā — dear; keśava — of Keśava; arthe — for the sake; cinomi — I gather; tvāṁ — you; varadā — bestower of benedictions; bhava — be; śobhane — O beautiful one.",
+              "translation": "O Tulasī, you manifested from nectar and you are very dear to Śrī Keśava. Now I am collecting your leaves for the service of Keśava. O bestower of benedictions, be pleased with me."
+            },
+            {
+              "type": "list",
+              "content": "When not to. Do not gather leaves on ⟦dvādaśī⟧ or after sunset.",
+              "numbers": [
+                "2.4"
+              ]
+            },
+            {
+              "type": "list",
+              "content": "After gathering. Recite the mantra begging forgiveness (⟦aparādha-kṣamā-prārthanā⟧):",
+              "numbers": [
+                "2.5"
+              ]
+            },
+            {
+              "type": "verse",
+              "sanskrit": "cayanodbhava duḥkhaṁ ca\nyad hṛdi tava varttate\ntat kṣamasva jagan-mātaḥ\nvṛndā-devi namo 'stu te",
+              "wbw": "cayana — of gathering; udbhava — arisen; duḥkhaṁ — pain; ca — and; yad — which; hṛdi — in the heart; tava — your; varttate — remains; tat — that; kṣamasva — forgive; jagat — of the universe; mātaḥ — O mother; vṛndā-devi — O Vṛndā-devī; namo — obeisances; 'stu — let there be; te — to you.",
+              "translation": "O mother of the universe, please forgive me if I have caused you any pain by picking your leaves. O Vṛndā-devī, I offer my humble obeisances unto you."
+            },
+            {
               "type": "text",
-              "content": "(translation pending — Russian draft A112b)"
+              "content": "Note: Tulasī is not placed on the feet of Śrīmatī Rādhārāṇī, Śrī Guru and Śrī Gaurāṅga. She is placed in the right hand."
+            },
+            {
+              "type": "text",
+              "content": "The lecture texts are the English transcripts of Chaitanya Academy (CA); excerpts are marked (..). No direct statement of Gurudeva about the right hand specifically for Rādhārāṇī was found in the CA database; the Arcana-Dīpikā (Russian 2024, p. 75) says that Tulasī leaves must not be offered at the feet of Śrī Guru and Śrīmatī Rādhikā, but may be offered to their right hand (the phrase is in square brackets in the edition)."
             }
           ]
         }
