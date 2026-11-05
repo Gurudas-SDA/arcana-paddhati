@@ -152,7 +152,7 @@ def run(p, dev, eng, o):
     bars()
     g = qa.reading_eval(pg, GEO)
     want = book_order.neighbours("en", "vigraha-tattva")[1]
-    chk(dev, f"English page: «Forward ›» -> /{want}/ (V45: no part page in the order)", bool(g) and g["label"].startswith("Forward") and g["target"] == want, str(g))
+    chk(dev, f"English page: «Next chapter ›» -> /{want}/ (V45: no part page in the order)", bool(g) and g["label"].startswith("Next chapter") and g["target"] == want, str(g))
 
     # themes + «Аа»: «Вперёд ›» is a control of the bar (its size stays), in the theme's accent colour
     pg.goto(f"{BASE}/{LANG}/vigraha-tattva/", wait_until="networkidle"); pg.wait_for_timeout(600)

@@ -74,6 +74,8 @@
   "reader.cover": "Cover",
   "reader.back": "Back",
   "reader.forward": "Forward",
+  "reader.prevChapter": "Prev chapter",
+  "reader.nextChapter": "Next chapter",
   "reader.noForward": "Forward works after Back",
   "reader.noBack": "This is the start of the path",
   "group.contents": "Introduction contents",

@@ -1104,7 +1104,7 @@ export default function ReaderChrome({
         </div>
       )}
 
-      {/* Bottom bar: «‹ Назад» · «Вперёд ›» — the previous / next page of the contents (V17) */}
+      {/* Bottom bar: «‹ Пред. глава» · «След. глава ›» (V80; was Назад / Вперёд) — the previous / next page of the contents (V17) */}
       <div className="reader-bar reader-bar-bottom" {...barEvents}>
         <div className="reader-bar-inner reader-nav-row">
           {prevPage !== undefined && (
@@ -1116,7 +1116,7 @@ export default function ReaderChrome({
               data-chapter-target={prevPage ?? "cover"}
             >
               <span aria-hidden="true" className="reader-history-arrow">‹</span>
-              <span>{t(ui, "reader.back")}</span>
+              <span>{t(ui, "reader.prevChapter")}</span>
             </button>
           )}
           {nextPage && (
@@ -1127,7 +1127,7 @@ export default function ReaderChrome({
               data-reader-nav="forward"
               data-chapter-target={nextPage}
             >
-              <span>{t(ui, "reader.forward")}</span>
+              <span>{t(ui, "reader.nextChapter")}</span>
               <span aria-hidden="true" className="reader-history-arrow">›</span>
             </button>
           )}

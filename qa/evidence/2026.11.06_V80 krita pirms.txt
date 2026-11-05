@@ -1,0 +1,14 @@
+  [FAIL] static ui.ru-iast: reader.prevChapter = «Пред. глава» None
+  [FAIL] static ui.ru-iast: reader.nextChapter = «След. глава» None
+  [FAIL] static ui.ru: reader.prevChapter = «Пред. глава» None
+  [FAIL] static ui.ru: reader.nextChapter = «След. глава» None
+  [FAIL] static ui.en: reader.prevChapter = «Prev chapter» None
+  [FAIL] static ui.en: reader.nextChapter = «Next chapter» None
+  [PASS] static ui.en: reader.back / reader.forward kept (other «Back» places) 
+iphone14
+  [FAIL] iphone14 EXCEPTION Locator.bounding_box: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator(".app-main [data-reader-current], .app-main:not(:has([data-continuous-book]))").locator("article p, article h1").first
+
+desktop
+  [FAIL] desktop EXCEPTION Page.goto: net::ERR_UNSAFE_PORT at http://127.0.0.1:9/ru-iast/vigraha-tattva/

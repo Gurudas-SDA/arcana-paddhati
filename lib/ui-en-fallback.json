@@ -55,6 +55,8 @@
     "notes.save",
     "notes.saved",
     "notes.search",
+    "reader.nextChapter",
+    "reader.prevChapter",
     "sidebar.notes"
   ]
 }
