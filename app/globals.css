@@ -1165,6 +1165,7 @@ body,
   margin-bottom: 0.3em;
   font-variant-numeric: lining-nums;
 }
+/*@a143*/
 /* A143 (Satkirti msg 7447–7450): the mark of a verse sung to another tune — ↑ (a tone higher) / → (a different
    tone) right of the verse number; absolutely placed, so the number itself stays centred. The words of the mark
    (muted, small) show only at the first verse of each kind in a song. */
@@ -1176,7 +1177,7 @@ body,
   position: absolute;
   left: 100%;
   top: 0;
-  margin-left: 0.4em;
+  margin-left: var(--space-8);
   white-space: nowrap;
   font-weight: 700;
 }
@@ -1186,6 +1187,7 @@ body,
   font-style: italic;
   opacity: 0.75;
 }
+/*@/a143*/
 /* Word-by-word: smaller */
 .reader-article .verse-wbw[class] {
   font-size: max(13px, calc(var(--fs) * 0.88));
