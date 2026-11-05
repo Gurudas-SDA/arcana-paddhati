@@ -2727,7 +2727,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "oṁ govinda-vallabhāṁ devīṁ\nbhakta-caitanya-kāriṇīm\nsnāpayāmi jagad-dhātrīṁ\nkṛṣṇa-bhakti-pradāyinīm",
+              "sanskrit": "govinda-vallabhāṁ devīṁ\nbhakta-caitanya-kāriṇīm\nsnāpayāmi jagad-dhātrīṁ\nkṛṣṇa-bhakti-pradāyinīm",
               "translation": "Я омываю Туласи-деви, которая очень дорога Говинде. Она — сама жизнь всех преданных. Она — мать Вселенной и быстро дарует кришна-бхакти."
             },
             {
@@ -2743,12 +2743,13 @@
             },
             {
               "type": "verse",
-              "sanskrit": "bhaktyā vihīnā aparādha-lakṣaiḥ\nkṣiptāś ca kāmādi-taraṅga-madhye\nkṛpā-mayi tvāṁ śaraṇaṁ prapannā\nvṛnde namas te caraṇāravindam",
-              "translation": "Лишённые бхакти, брошенные бесчисленными проступками в волны вожделения и прочих желаний, мы пришли к Тебе, милостивая, за прибежищем. О Вринда-деви, поклоны Твоим лотосным стопам."
+              "sanskrit": "bhaktyā vihīnā aparādha-lakṣaiḥ\nkṣiptāś ca kāmādi-taraṅga-madhye\nkṛpā-mayi tvāṁ śaraṇaṁ prapannā\nvṛnde namaste caraṇāravindam",
+              "wbw": "bhaktyā — преданности; vihīnā — лишённый; aparādha — оскорблений; lakṣaiḥ — бесчисленными; kṣiptāḥ — брошенный; ca — и; kāma — вожделения; ādi — и прочих; taraṅga — волн; madhye — посреди; kṛpā-mayi — о милостивая; tvāṁ — к тебе; śaraṇaṁ — за прибежищем; prapannā — прибегаю; vṛnde — о Вринда; namaḥ — поклон; te — твоим; caraṇa — стопам; aravindam — лотосным",
+              "translation": "О милостивая Вринда-деви! Лишенный преданности и совершивший бесчисленные оскорбления, я упал в океан материального бытия и тону в бурных волнах вожделения, гнева, жадности и других пороков. О Вринда, я ищу у тебя прибежище и в глубоком почтении склоняюсь к твоим лотосным стопам."
             },
             {
               "type": "text",
-              "content": "Перевод составлен по санскриту; в «Арчана-дипике» этой молитвы нет."
+              "content": "Текст, пословный и общий перевод — как в главе «Мангалачарана Гурудева» этой книги."
             },
             {
               "type": "instruction",
@@ -2826,7 +2827,7 @@
             },
             {
               "type": "verse",
-              "sanskrit": "oṁ tulasy amṛta-janmāsi\nsadā tvaṁ keśava-priyā\nkeśavārthe cinomi tvāṁ\nvaradā bhava śobhane",
+              "sanskrit": "tulasy amṛta-janmāsi\nsadā tvaṁ keśava-priyā\nkeśavārthe cinomi tvāṁ\nvaradā bhava śobhane",
               "translation": "О Туласи, ты проявилась из нектара и всегда очень дорога Шри Кешаве. Сейчас я собираю твои листья для служения Кешаве. О дарующая блага, будь довольна мной."
             },
             {
