@@ -88,7 +88,7 @@ def run(p, dev, eng, opts):
     pg.locator("[data-bookmarks-file]").click()
     pg.wait_for_timeout(200)
     items = pg.evaluate("() => [...document.querySelectorAll('[data-bookmarks-file-menu] [role=menuitem]')].map(e => e.textContent.trim())")
-    check(dev, "menu: «Скачать закладки» / «Загрузить закладки»", items == ["Скачать закладки", "Загрузить закладки"], items)
+    check(dev, "menu: «Скачать закладки» / «Загрузить из файла» (V78, Vraja msg 7621–7623)", items == ["Скачать закладки", "Загрузить из файла"], items)
 
     # (a) export
     with pg.expect_download(timeout=8000) as dl:

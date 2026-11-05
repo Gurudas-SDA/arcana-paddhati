@@ -204,6 +204,8 @@ SUITES = [
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s142", file="suites/s142_mangalacarana_two_slokas_removed.py", title="A140 Satkirti msg 7403 03.11 (A133 «Убрать»): «Мангалачарана» — pranāmā Bhaktiprajñāna Keśava divas lieka šlokas (gaurāśraya-vigrahāya…, prabhupādāntaraṅgāya…) izņemtas visās valodās; šlokas 9–10 paliek",
          devices=None, fast=True, server=False),
+    dict(id="s153", file="suites/s153_file_menu_labels_v78.py", title="V78 Vraja Lila msg 7621-7623: piezimju izvelne bez «Copy as text»; EN Download bookmarks/notes + Load from a file abas sadalas; RU Skachat zakladki/zametki + Zagruzit iz fayla",
+         devices=None, fast=True, server=False),
     dict(id="s152", file="suites/s152_note_modal.py", title="V76 Vraja Lila 04.11 msg 7553: loga Zametka overlay + lapas ritinasanas bloketana, garam citatam citata nav, saglabatas piezimes popovers ta pasa platuma kaa logs, centrets, 3 pogas pa visu platumu",
          devices=["iphone14", "pixel7"], fast=True, fast_devices=["pixel7"]),
     dict(id="s151", file="suites/s151_bookmarks_file.py", title="V73 Vraja Lila msg 2415 + 7546: gramatzimju fails (Skachat / Zagruzit zakladki): eksports ar nosaukumu/citatu, imports aizstaj visas, nezinama vieta izlaista + ne najdeno: N, atrade pec nosaukuma, poga vieta ka piezimem",

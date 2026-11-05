@@ -378,11 +378,6 @@ export function dropBackup() {
   }
 }
 
-/** The notes as plain text to paste into Telegram or a document (never loaded back). */
-export function asText(items: Highlight[], place: (h: Highlight) => string): string {
-  return items.map((h) => `«${h.quote}»${h.note ? `\n— ${h.note}` : ""}\n(${place(h)})`).join("\n\n");
-}
-
 // ---------------------------------------------------------------------------------------------- the place to show next
 
 let pendingReveal: { id: string; until: number } | null = null;

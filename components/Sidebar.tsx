@@ -25,7 +25,6 @@ import {
   HL_EDIT_EVENT,
   HL_EVENT,
   HL_IMPORT_EVENT,
-  asText,
   buildFile,
   fileName,
   cardDate,
@@ -692,16 +691,6 @@ export default function Sidebar({
     a.remove();
     window.setTimeout(() => URL.revokeObjectURL(url), 4000);
     hlToast(t(ui, "notes.saved", { n: String(all.length) }), undefined, 3000);
-  };
-  const copyNotesText = async () => {
-    setFileMenu(false);
-    const text = asText(sortHighlights(readHighlights(), (id) => sectionRank.get(id) ?? 9999), notePlace);
-    try {
-      await navigator.clipboard.writeText(text);
-      hlToast(t(ui, "hl.copied"), undefined, 2000);
-    } catch {
-      // no clipboard
-    }
   };
   const onNotesFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -1845,7 +1834,6 @@ export default function Sidebar({
                   <div className="notes-file-menu" role="menu" data-notes-file-menu="">
                     <button type="button" role="menuitem" data-notes-save="" onClick={() => void saveNotesFile()}>{t(ui, "notes.save")}</button>
                     <button type="button" role="menuitem" data-notes-load="" onClick={() => { setFileMenu(false); fileInputRef.current?.click(); }}>{t(ui, "notes.load")}</button>
-                    <button type="button" role="menuitem" data-notes-copytext="" onClick={() => void copyNotesText()}>{t(ui, "notes.copyText")}</button>
                   </div>
                 )}
               </div>
