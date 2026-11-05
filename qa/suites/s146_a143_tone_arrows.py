@@ -8,6 +8,9 @@
   c) приложение (с <base-url>): на странице «Мангала-арати» у «Мангала-арати» ровно 7 меток (↑ ×4, → ×3) на номерах 2,4,6,8 / 5,7,9,
      у «Вибхавари-шеша» ровно 3 метки ↑ на 3,5,7; у каждой есть aria-label; подпись видна только у первой метки каждого вида;
      номер остаётся по центру (метка не сдвигает его).
+A146 (Саткирти msg 7617, 05.11.2026), burtiski: «Шри радха крипа катакша. 2,4,6,8,10,12, стрелочки вверх».
+  Проверка: у song-radha-krpa-kataksa-stava-raja куплеты 2,4,6,8,10,12 tone=up (en, ru-iast), остальные без tone; в приложении —
+  ровно 6 стрелок ↑ на этих номерах, без видимых надписей.
 usage: python s146_a143_tone_arrows.py [<base-url>]
 """
 import glob
@@ -23,7 +26,8 @@ DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "dat
 results = []
 UP, SHIFT = "up", "shift"
 EXPECT = {"song-mangala-arati": {2: UP, 4: UP, 6: UP, 8: UP, 5: SHIFT, 7: SHIFT, 9: SHIFT},
-          "song-vibhavari-sesa": {3: UP, 5: UP, 7: UP}}
+          "song-vibhavari-sesa": {3: UP, 5: UP, 7: UP},
+          "song-radha-krpa-kataksa-stava-raja": {2: UP, 4: UP, 6: UP, 8: UP, 10: UP, 12: UP}}
 
 
 def check(where, name, ok, info=""):
@@ -92,7 +96,11 @@ with sync_playwright() as p:
         page.goto(f"{BASE}/ru-iast/mangala-arati-songs/", wait_until="load")
         page.wait_for_selector("#song-mangala-arati .verse-num", state="attached", timeout=20000)
         for sid, exp, label in (("song-mangala-arati", EXPECT["song-mangala-arati"], "Мангала-арати"),
-                                ("song-vibhavari-sesa", EXPECT["song-vibhavari-sesa"], "Вибхавари-шеша")):
+                                ("song-vibhavari-sesa", EXPECT["song-vibhavari-sesa"], "Вибхавари-шеша"),
+                                ("song-radha-krpa-kataksa-stava-raja", EXPECT["song-radha-krpa-kataksa-stava-raja"], "Радха-крипа-катакша")):
+            if sid == "song-radha-krpa-kataksa-stava-raja":  # A146: другой раздел («Картика»)
+                page.goto(f"{BASE}/ru-iast/kartika-bhajans/", wait_until="load")
+                page.wait_for_selector(f"#{sid} .verse-num", state="attached", timeout=20000)
             got = page.evaluate(JS, sid) or []
             tag = f"{device} {label}"
             marks = {g["num"]: g["tone"] for g in got if g["tone"]}
@@ -106,6 +114,8 @@ with sync_playwright() as p:
             check(tag, "c S 7467: у стрелок нет всплывающей подписи (title)", page.evaluate("(id) => document.getElementById(id).querySelectorAll('.verse-tone[title]').length", sid) == 0)
             check(tag, "c номер остаётся по центру (сдвиг ≤ 2 px)", all(g["off"] <= 2 for g in got), [g["off"] for g in got])
         if SHOTS:
+            page.goto(f"{BASE}/ru-iast/mangala-arati-songs/", wait_until="load")
+            page.wait_for_selector("#song-mangala-arati .verse-num", state="attached", timeout=20000)
             for sid, name in (("song-mangala-arati", "Мангала-арати"), ("song-vibhavari-sesa", "Вибхавари-шеша")):
                 el = page.locator(f"#{sid}")
                 el.scroll_into_view_if_needed()
