@@ -8,6 +8,7 @@
       "sections": [
         "daily-duties-brahma-muhurta",
         "daily-deity-schedule",
+        "daily-tulasi-worship",
         "worship-sixteen-articles",
         "arcana-procedure",
         "arcana-sri-guru",
@@ -2612,6 +2613,35 @@
             {
               "type": "instruction",
               "content": "Chant ⟦mantras⟧ for forgiveness (Prayers Begging Forgiveness for Offences)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "daily-tulasi-worship",
+      "title": "Daily Tulasī Worship",
+      "subtitle": null,
+      "page": "",
+      "content": [],
+      "subsections": [
+        {
+          "id": "tulasi-arati",
+          "title": "Tulasī-ārati",
+          "content": [
+            {
+              "type": "text",
+              "content": "(translation pending — Russian draft A112b)"
+            }
+          ]
+        },
+        {
+          "id": "tulasi-leaves-flowers",
+          "title": "Gathering Tulasī Leaves and Flowers",
+          "content": [
+            {
+              "type": "text",
+              "content": "(translation pending — Russian draft A112b)"
             }
           ]
         }

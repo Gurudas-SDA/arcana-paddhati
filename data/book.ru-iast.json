@@ -8,6 +8,7 @@
       "sections": [
         "daily-duties-brahma-muhurta",
         "daily-deity-schedule",
+        "daily-tulasi-worship",
         "worship-sixteen-articles",
         "arcana-procedure",
         "arcana-sri-guru",
@@ -2616,6 +2617,247 @@
             {
               "type": "instruction",
               "content": "Произнесите ⟦мантры⟧ о прощении (молитвы с просьбой простить оскорбления)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "daily-tulasi-worship",
+      "title": "Ежедневное поклонение Туласи",
+      "subtitle": null,
+      "page": "",
+      "content": [],
+      "subsections": [
+        {
+          "id": "tulasi-arati",
+          "title": "Туласи-арати",
+          "content": [
+            {
+              "type": "instruction",
+              "content": "Туласи-арати проводят после мангала-арати."
+            },
+            {
+              "type": "instruction",
+              "content": "Поклоняться Туласи, как и Божествам, можно только в чистой одежде."
+            },
+            {
+              "type": "subtitle",
+              "content": "Порядок проведения:"
+            },
+            {
+              "type": "list",
+              "content": "Пранама. Прочитайте молитву Вринде-деви и сделайте поклоны:",
+              "numbers": [
+                "1.1"
+              ]
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ vṛndāyai tulasī-devyai priyāyai keśavasya ca\nkṛṣṇa-bhakti-prade devi satyavatyai namo namaḥ",
+              "wbw": "oṁ — священный слог ом; vṛndāyai — Вринде-деви; tulasī-devyai — Шримати Туласи-деви; priyāyai — которая особенно дорога; keśavasya — Шри Кешаве; ca — и; kṛṣṇa — Кришне; bhakti — бхакти; prade — дарующей; devi — о Деви; satyavatyai — Сатьявати; namo — пранама; namaḥ — вновь и вновь",
+              "translation": "Снова и снова я предлагаю пранамы Туласи-деви, которая также известна как Вринда и Сатьявати. Она очень дорога Шри Кешаве (Кришне) и дарует кришна-бхакти."
+            },
+            {
+              "type": "list",
+              "content": "Бхаджан и парикрама. Начните бхаджан «Джая Радхе, джая Кришна, джая Вриндавана» («Шри Враджа-дхама-махимамрита»; текст — в разделе «Арати», «Песни мангала-арати»).",
+              "numbers": [
+                "1.2"
+              ]
+            },
+            {
+              "type": "instruction",
+              "content": "Пойте и обходите вокруг Туласи не менее четырёх раз."
+            },
+            {
+              "type": "list",
+              "content": "Арати — одновременно с парикрамой. Поднесите три предмета: благовония, лампаду (фитилёк) и цветок. Подносите только по часовой стрелке.",
+              "numbers": [
+                "1.3"
+              ]
+            },
+            {
+              "type": "subtitle",
+              "content": "Предметы арати и порядок их предложения:"
+            },
+            {
+              "type": "paired-list",
+              "items": [
+                {
+                  "label": "Благовония",
+                  "value": "7 кругов вокруг всего дерева, затем Гуру и всем преданным"
+                },
+                {
+                  "label": "Лампада (фитилёк)",
+                  "value": "корням (стопам) — 4 круга, стволу — 2, верхушке — 3, всему дереву — 7; затем Гуру и всем преданным"
+                },
+                {
+                  "label": "Цветок",
+                  "value": "3 круга вокруг всего дерева, затем Гуру и всем преданным"
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "content": "Снова две молитвы, поклоны. Когда бхаджан допет, одновременно прочитайте обе молитвы и поклонитесь:",
+              "numbers": [
+                "1.4"
+              ]
+            },
+            {
+              "type": "instruction",
+              "content": "пранаму Туласи — ⟦oṁ vṛndāyai tulasī-devyai…⟧, как в пункте 1.1;"
+            },
+            {
+              "type": "instruction",
+              "content": "молитву вайшнавам:"
+            },
+            {
+              "type": "verse",
+              "sanskrit": "vāñchā-kalpa-tarubhyaś ca kṛpā-sindhubhya eva ca\npatitānāṁ pāvanebhyo vaiṣṇavebhyo namo namaḥ",
+              "wbw": "vāñchā — желания; kalpa — исполняющим; tarubhyaś — деревьям; ca — и; kṛpā-sindhubhya — океанам сострадания; eva — поистине; ca — и; patitānāṁ — к обусловленным душам; pāvanebhyo — очистителям; vaiṣṇavebhyo — вайшнавам; namo — пранама; namaḥ — поклоны.",
+              "translation": "Я совершаю пранаму вайшнавам, которые, подобно деревьям желаний, способны исполнить желания каждого и исполнены сострадания к обусловленным душам."
+            },
+            {
+              "type": "list",
+              "content": "Полив. Гурудев или другой преданный поливает Туласи. Во время полива прочитайте:",
+              "numbers": [
+                "1.5"
+              ]
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ govinda-vallabhāṁ devīṁ\nbhakta-caitanya-kāriṇīm\nsnāpayāmi jagad-dhātrīṁ\nkṛṣṇa-bhakti-pradāyinīm",
+              "translation": "Я омываю Туласи-деви, которая очень дорога Говинде. Она — сама жизнь всех преданных. Она — мать Вселенной и быстро дарует кришна-бхакти."
+            },
+            {
+              "type": "instruction",
+              "content": "Затем сделайте поклон."
+            },
+            {
+              "type": "list",
+              "content": "Заключительная молитва. Гурудев или другой преданный читает:",
+              "numbers": [
+                "1.6"
+              ]
+            },
+            {
+              "type": "verse",
+              "sanskrit": "bhaktyā vihīnā aparādha-lakṣaiḥ\nkṣiptāś ca kāmādi-taraṅga-madhye\nkṛpā-mayi tvāṁ śaraṇaṁ prapannā\nvṛnde namas te caraṇāravindam",
+              "translation": "Лишённые бхакти, брошенные бесчисленными проступками в волны вожделения и прочих желаний, мы пришли к Тебе, милостивая, за прибежищем. О Вринда-деви, поклоны Твоим лотосным стопам."
+            },
+            {
+              "type": "text",
+              "content": "Перевод составлен по санскриту; в «Арчана-дипике» этой молитвы нет."
+            },
+            {
+              "type": "instruction",
+              "content": "На этом арати Туласи завершается."
+            }
+          ]
+        },
+        {
+          "id": "tulasi-leaves-flowers",
+          "title": "Сбор листьев и цветов Туласи",
+          "content": [
+            {
+              "type": "mood",
+              "quote": "…we worship Gaurāṅga Mahāprabhu as [Śrī Kṛṣṇa], who is absorbed in the mood and covered by the golden complexion of Śrīmatī Rādhikā. Though you can put tulasī on the feet of Mahāprabhu, because He is Supreme Lord Śrī Kṛṣṇa, but we see that (..) He has come to relish the mood of His own devotee, especially Śrīmatī Rādhikā, so we'll put the tulasī leaf in His hand, right hand.",
+              "translation": "…мы поклоняемся Гауранге Махапрабху как [Шри Кришне], погружённому в настроение и покрытому золотистым сиянием Шримати Радхики. Хотя можно возложить тулси к стопам Махапрабху, поскольку Он — Верховный Господь Шри Кришна, но мы видим, что (..) Он пришёл вкусить настроение Своего собственного преданного, особенно Шримати Радхики, поэтому мы вложим лист тулси в Его правую руку.",
+              "source": {
+                "title": "2021.03.28 Sri Gaura Purnima",
+                "date": "2021-03-28",
+                "nr": "5823",
+                "timecode": "01:06:05"
+              },
+              "more": [
+                {
+                  "quote": "…you can put tulasī on the feet of Caitanya Mahāprabhu. But in rāgānugā-bhakti, we'll put the tulasī in His right hand, because we serve Him according to His own mood.",
+                  "translation": "…можно положить туласи к стопам Чайтаньи Махапрабху. Но в рагануга-бхакти мы положим туласи в Его правую руку, потому что служим Ему в соответствии с Его собственным настроением.",
+                  "source": {
+                    "title": "2019.11.21 Q&A Jiva, Maya, Ragas, Tapa, Hearing",
+                    "date": "2019-11-21",
+                    "nr": "4730",
+                    "transcript_url": "https://drive.google.com/file/d/136m6c0cLoBKCEMQl6hiuZGZme95rqkmo/view",
+                    "note": "точный тайм-код места в выгрузке CA не указан",
+                    "lang": "ru"
+                  }
+                },
+                {
+                  "quote": "…you cannot even offer tulasī directly to Guru. You can give Gurudeva Kṛṣṇa's mahā-prasāda tulasī, or if (..) the tulasī is not mahā-prasāda, you can put it in Gurudeva's right hand for him to offer to Kṛṣṇa as a service like that.",
+                  "translation": "…нельзя даже непосредственно предлагать туласи Гуру. Можно дать Гурудеве туласи с маха-прасадом Кришны, а если (..) туласи не является маха-прасадом, можно положить её в правую руку Гурудева, чтобы он предложил её Кришне как служение.",
+                  "source": {
+                    "title": "2019.11.21 Q&A Jiva, Maya, Ragas, Tapa, Hearing",
+                    "date": "2019-11-21",
+                    "nr": "4730",
+                    "transcript_url": "https://drive.google.com/file/d/136m6c0cLoBKCEMQl6hiuZGZme95rqkmo/view",
+                    "note": "точный тайм-код места в выгрузке CA не указан",
+                    "lang": "ru"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "content": "Когда и в каком виде. Листья собирают после омовения и в чистой одежде.",
+              "numbers": [
+                "2.1"
+              ]
+            },
+            {
+              "type": "list",
+              "content": "Если омовения не было. Совершите ⟦манаса-снану⟧ (омовение в уме) и идите собирать Туласи с этим настроением:",
+              "numbers": [
+                "2.2"
+              ]
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ apavitraḥ pavitro vā\nsarvāvasthāṁ gato 'pi vā\nyaḥ smaret puṇḍarīkākṣaṁ\nsa bāhyābhyantara-śuciḥ",
+              "wbw": "oṁ — священный слог ом; apavitraḥ — оскверненный; pavitro — чистый; vā — или; sarvāvasthāṁ — в любом состоянии; gato — находящийся; 'pi — даже; vā — или; yaḥ — тот, кто; smaret — помнит; puṇḍarīkākṣaṁ — Пундарикакша, лотосоокий Господь; sa — он; bāhya — внешне; abhyantara — внутренне; śuciḥ — чистый.",
+              "translation": "Неважно, чист человек или нечист, в каком бы состоянии он ни находился, — если он помнит Пундарикакшу (лотосоокого Господа, Шри Кришну), он чист и внешне, и внутренне. (Гаруда-пурана; «Арчана-дипика»)"
+            },
+            {
+              "type": "list",
+              "content": "Перед срыванием. Прочитайте ⟦чаяна-мантру⟧ (мантру для сбора листьев):",
+              "numbers": [
+                "2.3"
+              ]
+            },
+            {
+              "type": "verse",
+              "sanskrit": "oṁ tulasy amṛta-janmāsi\nsadā tvaṁ keśava-priyā\nkeśavārthe cinomi tvāṁ\nvaradā bhava śobhane",
+              "translation": "О Туласи, ты проявилась из нектара и всегда очень дорога Шри Кешаве. Сейчас я собираю твои листья для служения Кешаве. О дарующая блага, будь довольна мной."
+            },
+            {
+              "type": "list",
+              "content": "Когда нельзя. Не собирайте листья в ⟦двадаши⟧ и после захода солнца.",
+              "numbers": [
+                "2.4"
+              ]
+            },
+            {
+              "type": "list",
+              "content": "После сбора. Прочитайте мантру с просьбой о прощении (⟦апарадха-кшама-прартхана⟧):",
+              "numbers": [
+                "2.5"
+              ]
+            },
+            {
+              "type": "verse",
+              "sanskrit": "cayanodbhava duḥkhaṁ ca\nyad hṛdi tava varttate\ntat kṣamasva jagan-mātaḥ\nvṛndā-devi namo 'stu te",
+              "translation": "О мать вселенной, прости меня, если я причинил тебе боль, собирая твои листья. О Вринда-деви, я приношу тебе свои смиренные поклоны."
+            },
+            {
+              "type": "list",
+              "content": "Куда класть. Туласи не кладут на стопы Шримати Радхарани, Шри Гуру и Шри Гауранги. Её кладут в правую руку.",
+              "numbers": [
+                "2.6"
+              ]
+            },
+            {
+              "type": "text",
+              "content": "Тексты лекций — русская расшифровка Chaitanya Academy (CA), отрывки с отметкой (..). Прямого высказывания Гурудева о правой руке именно для Радхарани в базе CA не найдено; в «Арчана-дипике» (рус. 2024, стр. 75) сказано: листья Туласи нельзя предлагать стопам Шри Гуру и Шримати Радхики, можно поднести к их правой руке (фраза — в квадратных скобках издания)."
             }
           ]
         }
