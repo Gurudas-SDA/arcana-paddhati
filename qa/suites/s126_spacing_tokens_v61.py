@@ -41,13 +41,16 @@ def now(path):
     # V71 (Vraja Lila msg 2360/2362): the highlights / notes CSS and tokens sit between /*@v71*/ markers (a later addition, like v61s5)
     # A143 (Satkirti msg 7447–7450): the verse tone-mark rules sit between /*@a143*/ markers (a later addition, like v71)
     # V81 (Vraja Lila msg 7729): the cover button / chapter-end cards CSS sits between /*@v81*/ markers (a later addition, like a143)
-    return strip(re.sub(r"/\*@v81\*/.*?/\*@/v81\*/", "", re.sub(r"/\*@a143\*/.*?/\*@/a143\*/", "", re.sub(r"/\*@v71\*/.*?/\*@/v71\*/", "", re.sub(r"/\*@v61s5\*/.*?/\*@/v61s5\*/", "", re.sub(r"/\*@v61s4\*/.*?/\*@/v61s4\*/", "", re.sub(r"/\*@cover-place\*/.*?/\*@/cover-place\*/", "", open(os.path.join(ROOT, path), encoding="utf-8").read(), flags=re.S), flags=re.S), flags=re.S), flags=re.S), flags=re.S), flags=re.S))
+    # V82 (Vraja Lila msg 7768): the menu-above-the-bar rule sits between /*@v82*/ markers (a later addition, like v81)
+    return strip(re.sub(r"/\*@v82\*/.*?/\*@/v82\*/", "", re.sub(r"/\*@v81\*/.*?/\*@/v81\*/", "", re.sub(r"/\*@a143\*/.*?/\*@/a143\*/", "", re.sub(r"/\*@v71\*/.*?/\*@/v71\*/", "", re.sub(r"/\*@v61s5\*/.*?/\*@/v61s5\*/", "", re.sub(r"/\*@v61s4\*/.*?/\*@/v61s4\*/", "", re.sub(r"/\*@cover-place\*/.*?/\*@/cover-place\*/", "", open(os.path.join(ROOT, path), encoding="utf-8").read(), flags=re.S), flags=re.S), flags=re.S), flags=re.S), flags=re.S), flags=re.S), flags=re.S))
 
 
 def before(path):
     t = subprocess.check_output(["git", "-C", ROOT, "show", f"{BASE_REF}:{path}"]).decode("utf-8")
     # the same later addition: .home-cover-box had `width: fit-content` before the cover's place was reserved by width (s58)
     t = t.replace(".home-cover-box {\n  position: relative;\n  width: fit-content;", ".home-cover-box {\n  position: relative;")
+    # V82 (Vraja Lila msg 7768, variant A, cancels the V35 part): the rule that hid the bottom bar while the contents are open is gone
+    t = t.replace(".reader-chrome[data-menu-open] .reader-bar-bottom {\n  transform: translateY(100%);\n  pointer-events: none;\n  z-index: 30;\n}\n", "")
     return strip(t)
 
 

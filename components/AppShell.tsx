@@ -23,6 +23,7 @@ import {
   savedScroll,
   setView,
 } from "@/lib/navHistory";
+import { noteMenuGap } from "@/lib/pathSteps";
 import {
   DEFAULT_LANG,
   LANG_STORAGE_KEY,
@@ -426,6 +427,8 @@ export default function AppShell({
     window.clearTimeout(failTimer.current);
     setNavFailed(false);
     if (navigating) {
+      // V82: the menu's entries stay under the chosen place; «Вернуться» jumps over them (lib/pathSteps.ts).
+      noteMenuGap(menuDepth());
       setLeaving(true);
       tapsLocked.current = true;
       const place = href ? placeOf(href) : null;
@@ -876,6 +879,7 @@ export default function AppShell({
         menuClosing={menuClosing}
         onOpenContents={openMenu}
         onOpenSearch={openSearch}
+        onCloseMenu={closeMenu}
       />
 
       {/* Contents / search panel (all screen sizes) */}

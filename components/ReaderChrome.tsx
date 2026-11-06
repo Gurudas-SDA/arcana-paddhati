@@ -54,7 +54,7 @@ import { exitGhost } from "@/lib/exitGhost";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ChapterEndCards from "@/components/ChapterEndCards";
 import { COVER_OPEN_EVENT } from "@/components/CoverButton";
-import { usePathSteps } from "@/lib/pathSteps";
+import { pathStepDistance, usePathSteps } from "@/lib/pathSteps";
 import { chapterNeighbours, readingOrder, tocLayout, type TocPart, type TocSection } from "@/lib/book";
 import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
 import {
@@ -73,7 +73,7 @@ import {
 import BookmarkNameDialog from "@/components/BookmarkNameDialog";
 import { captureReadingPlace } from "@/lib/readingPlace";
 import { stripBasePath } from "@/lib/basePath";
-import { main as mainEl, pushOverlay, recordScroll } from "@/lib/navHistory";
+import { isMenuEntry, main as mainEl, pushOverlay, recordScroll } from "@/lib/navHistory";
 import { followBookLink, readingHref, readingSection } from "@/lib/readingFlow";
 import { useReadingSubsection } from "@/lib/readingPosition";
 import { searchMarkOn } from "@/lib/searchMark";
@@ -197,6 +197,7 @@ export default function ReaderChrome({
   menuClosing = false,
   onOpenContents,
   onOpenSearch,
+  onCloseMenu,
 }: {
   ui: UiDict;
   lang: string;
@@ -213,6 +214,8 @@ export default function ReaderChrome({
   onOpenContents: () => void;
   /** Also from the open «Аа» panel: the menu then replaces its history entry. */
   onOpenSearch: () => void;
+  /** V82: close the contents / search drawer (components/AppShell.tsx closeMenu). */
+  onCloseMenu?: () => void;
 }) {
   const [shown, setShown] = useState(false);
   const [panel, setPanel] = useState(false);
@@ -226,6 +229,35 @@ export default function ReaderChrome({
   /** The drawer is on screen (open, or sliding back): the bottom bar stays above
    *  its dimming (V19, Vraja Lila 20.10.2026). */
   const menuShown = menuOpen || menuClosing;
+  /** V82 (Vraja Lila 06.11.2026): «‹ Вернуться» / «Вперёд ›» also work with «Содержание» open. The drawer is a history
+   *  entry on top of the place, so a bare history.back() would only pop it: the drawer is closed first (its own entries
+   *  are popped), then the path step is made. */
+  const stepPath = (dir: "back" | "forward") => {
+    stepSticky.current = true;
+    clearTimer();
+    setChapterSwitch(true);
+    // One step of the path may span several history entries (the contents' entries under a chosen place, V82).
+    const go = () => window.history.go(dir === "back" ? -pathStepDistance("back") : pathStepDistance("forward"));
+    if (!menuOpen || !onCloseMenu) {
+      go();
+      return;
+    }
+    const wasEntry = isMenuEntry();
+    const sync = wasEntry && window.history.state?.apDepth === 0; // closed in place, no popstate
+    onCloseMenu();
+    if (!wasEntry || sync) {
+      window.setTimeout(go, 0);
+      return;
+    }
+    let done = false;
+    const once = () => {
+      if (done) return;
+      done = true;
+      window.setTimeout(go, 0);
+    };
+    window.addEventListener("popstate", once, { once: true });
+    window.setTimeout(once, 700);
+  };
   const router = useRouter();
   /** The contents' pages in order, and this page's neighbours (V17). V45: no
    *  section pages (parts, a section without own text); the cover's «Вперёд ›» =
@@ -251,6 +283,10 @@ export default function ReaderChrome({
   const hover = useRef(false);
   const quietUntil = useRef(0);
   const hideTimer = useRef<number | undefined>(undefined);
+  /** V82 (Vraja Lila msg 7769): after «‹ Вернуться» / «Вперёд ›» the bars (top and bottom: one state, `shown`) stay — also on
+   *  the page that opens — until the reader scrolls or taps them away; no auto-hide countdown meanwhile. A scroll made by
+   *  the app (restoring the place of the entry) is not the reader's (the same gate as for hiding by scroll). */
+  const stepSticky = useRef(false);
   const lastScrollAt = useRef(0);
   const barsRef = useRef<HTMLDivElement>(null);
   /** «Аа» panel: closes the way it opened, backwards (lib/exitGhost.ts, Vraja Lila msg 5521). */
@@ -306,6 +342,7 @@ export default function ReaderChrome({
   /** (Re)start the auto-hide countdown when nothing holds the bars open. */
   const arm = useCallback(() => {
     clearTimer();
+    if (stepSticky.current) return;
     if (!shownRef.current || panelRef.current || menuRef.current || atEnd.current || hover.current) return;
     // At the chapter's start or end the bars stay (V17, Vraja Lila msg 5645).
     if (!isHomeRef.current) {
@@ -337,6 +374,7 @@ export default function ReaderChrome({
 
   const hide = useCallback(() => {
     clearTimer();
+    stepSticky.current = false;
     if (panelRef.current) closePanel();
     shownRef.current = false;
     setShown(false);
@@ -560,6 +598,11 @@ export default function ReaderChrome({
       if (now < quietUntil.current || overlayOpen() || now - userAt > 1500) {
         down = 0;
         return;
+      }
+      // The reader's own scroll ends the «stay after a step» hold of the bars (V82).
+      if (stepSticky.current && Math.abs(d) > 0) {
+        stepSticky.current = false;
+        arm();
       }
       if (isHomeRef.current) return;
       const edge = chapterEdges();
@@ -875,6 +918,7 @@ export default function ReaderChrome({
    *  (the reading area stays mounted across pages, so Next.js' own scroll
    *  would leave it a little below its top). */
   const goChapter = (id: string | null) => {
+    stepSticky.current = false;
     arm();
     setChapterSwitch(true);
     if (followBookLink(readingHref(lang, id))) return;
@@ -1155,7 +1199,7 @@ export default function ReaderChrome({
             disabled={!steps.back}
             onClick={() => {
               arm();
-              window.history.back();
+              stepPath("back");
             }}
             data-reader-step="back"
           >
@@ -1168,7 +1212,7 @@ export default function ReaderChrome({
             disabled={!steps.forward}
             onClick={() => {
               arm();
-              window.history.forward();
+              stepPath("forward");
             }}
             data-reader-step="forward"
           >

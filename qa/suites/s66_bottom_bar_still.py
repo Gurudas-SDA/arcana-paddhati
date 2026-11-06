@@ -10,6 +10,8 @@ V35 (Vraja Lila msg 1226 / 1319, 21–22.10.2026, saskarnes autors): «при в
 вниз — она там не нужна; боковая панель — на ПОЛНУЮ высоту». The bar no longer stays still: it slides down out of the
 way while the menu opens and comes back while it closes. «Не мерцать» stays: one smooth movement each way (monotonic),
 never faded, «‹ Назад» / «Вперёд ›» look the same; on closing never under the fading dimming.
+Vraja msg 7768 (V82, variant A), cancels the V35 part: the bar stays on screen with the menu open, as before V35 —
+the original V16/V20 checks (`still`) are back: the bar does not move, fade or get dimmed while the menu opens / closes.
 usage: python s66_bottom_bar_still.py <base-url>
 """
 import json
@@ -107,29 +109,26 @@ with sync_playwright() as p:
         pg.go_back(wait_until="networkidle")
         pg.wait_for_timeout(900)
 
-        # 1. opening (V35): the bar slides down out of the screen in one smooth movement (under the one dimming)
+        # 1. opening: the bar stays where it is (Vraja msg 7768 cancels V35 «slides down»)
         ref, fr = open_contents(pg)
         vh = pg.evaluate("innerHeight")
-        bad = slide(fr, ref, down=True, covered_ok=True)
-        check(dev, "opening «Содержание» (V35): bottom bar slides down off the screen — one smooth move, never faded, «Назад»/«Вперёд» unchanged",
-              fr and fr[-1][7] and fr[-1][1] >= vh - 0.5 and not bad, {"ref": ref, "bad": bad[:4], "end": fr[-1] if fr else None, "frames": len(fr)})
+        bad = still(fr, ref)
+        check(dev, "opening «Содержание»: bottom bar stays in place, never faded or dimmed, «Назад»/«Вперёд» unchanged",
+              fr and fr[-1][7] and not bad, {"ref": ref, "bad": bad[:4], "frames": len(fr)})
 
-        # 2. closing by the dimming (✕ / backdrop): the bar comes back up in one smooth move, above the fading dimming
-        start = pg.evaluate(f"({SAMPLE})()")
+        # 2. closing by the dimming (✕ / backdrop): the bar stays, above the fading dimming
         fr = record(pg, "document.querySelector('.mobile-menu[data-open] > .sidebar-backdrop').click()")
-        bad = slide([f for f in fr if f[7]] + fr[-1:], start, down=False, vh=vh)
-        check(dev, "closing «Содержание» (backdrop, V35): bottom bar comes back up to its place — one smooth move, never under the fading dimming, «Назад»/«Вперёд» unchanged",
-              fr and not fr[-1][7] and not bad and abs(fr[-1][1] - ref[1]) <= 0.5,
-              {"ref": ref, "bad": bad[:4], "end": fr[-1] if fr else None, "frames": len(fr), "menuSeen": any(f[7] for f in fr)})
+        bad = still(fr, ref)
+        check(dev, "closing «Содержание» (backdrop): bottom bar stays in place, never faded or under the fading dimming",
+              fr and not fr[-1][7] and not bad, {"ref": ref, "bad": bad[:4], "frames": len(fr), "menuSeen": any(f[7] for f in fr)})
 
         # 3. a chapter picked: new page, the panel slides back — the bar stays in place and above the dimming
         ref, _ = open_contents(pg)
         fr = record(pg, """(() => { const a = [...document.querySelectorAll('.mobile-menu[data-open] aside nav a')].find(x => x.textContent.includes(%s)); a.click(); })()"""
                     % json.dumps(PICK), 1800)
         menu_fr = [f for f in fr if f[7]]
-        start = menu_fr[0] if menu_fr else ref
-        bad = slide(menu_fr, start, down=False, buttons=False, covered_ok=False, vh=vh)
-        check(dev, "chapter picked (V35): while the panel slides back, the bottom bar only comes back up — never faded, never dimmed",
+        bad = still(menu_fr, ref, buttons=False)
+        check(dev, "chapter picked: while the panel slides back, the bottom bar stays in place — never faded, never dimmed",
               menu_fr and not fr[-1][7] and not bad, {"ref": ref, "bad": bad[:4], "frames": len(menu_fr)})
         c.close()
         b.close()

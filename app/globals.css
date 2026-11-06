@@ -1772,7 +1772,7 @@ html[data-reader-theme="night"] {
    bar (bar height + 12 px) and moves with the bar (same 220 ms ease, so it never goes under it); bar hidden — 40 px
    as before (above the faint «… · N %» line). «Solid while moving» (design-system/README.md): an opaque sheet (no
    see-through background); it only fades in where it stands, never while it moves. Test qa/suites/s98. */
-.reader-chrome {
+:root {
   --rd-bottom-bar-h: 57px; /* .reader-bar-bottom: border 1 + padding 6 + 6 + .reader-btn min-height 44 */
 }
 .reader-hint {
@@ -1957,17 +1957,7 @@ html[data-reader-theme="night"] ::selection {
   transform: none;
   z-index: 60;
 }
-/* V35 (Vraja Lila msg 1226, 21.10.2026; again msg 1319, 22.10): «при выдвижении боковой
-   панели нижняя панель прячется вниз — она там не нужна; боковая панель — на ПОЛНУЮ
-   высоту экрана». While the menu is open ([data-menu-open]) the bottom bar slides down
-   with the menu's easing and duration (220 ms ease, the .reader-bar transition) under
-   the dimming; while the menu slides back ([data-menu] only) the rule above brings it
-   up again at the same time. The menu panel and its dimming reach the screen's bottom. */
-.reader-chrome[data-menu-open] .reader-bar-bottom {
-  transform: translateY(100%);
-  pointer-events: none;
-  z-index: 30;
-}
+/* V35 «the bottom bar hides while the contents are open» is cancelled by V82 (Vraja Lila msg 7768, variant A, end of file). */
 /* V45 (Vraja Lila msg 6191, replaces V38b «only the top bar»): on the cover a tap brings out
    both bars; the bottom one holds only «Вперёд ›» (components/ReaderChrome.tsx). */
 /* «Содержание» slides out from the left and back (Vraja Lila 20.10.2026, ДА msg
@@ -2867,3 +2857,15 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
   }
 }
 /*@/v81*/
+
+/*@v82*/
+/* V82 (Vraja Lila msg 7768, variant A; cancels the V35 part «the bottom bar hides while the contents are open»):
+   «Содержание» / search end ABOVE the bottom bar «‹ Вернуться / Вперёд ›»; the bar keeps its full width and stays
+   visible and active ([data-menu] rule above); the dimming ends above it too, so the bar is never dimmed. The last
+   row of the contents scrolls to the end above the bar. «Вернуться» closes the menu first, then steps back
+   (components/ReaderChrome.tsx stepPath). */
+.mobile-menu > .sidebar-transition,
+.mobile-menu > .sidebar-backdrop {
+  bottom: calc(var(--rd-bottom-bar-h) + env(safe-area-inset-bottom, 0px));
+}
+/*@/v82*/

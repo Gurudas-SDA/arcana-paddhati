@@ -1,4 +1,9 @@
-"""V35 — «Содержание» opens over the whole height; the bottom bar slides away (Vraja Lila msg 1226, 21.10.2026 15:11;
+"""V82 (Vraja Lila msg 7768, variant A, 06.11.2026; saskarnes autors) — Vraja msg 7768, atceļ V35 daļu: the bottom bar no
+longer hides while «Содержание» is open; the side menu and the dimming end ABOVE the full-width bottom bar
+(«Вернуться / Вперёд»), which stays visible, undimmed and tappable. Checks A–C below now say that; D (the bar slides
+down) is cancelled, E (the bar is back after closing) stays. Original V35 text follows.
+
+V35 — «Содержание» opens over the whole height; the bottom bar slides away (Vraja Lila msg 1226, 21.10.2026 15:11;
 again msg 1319, 22.10.2026 ~00:08 on the cover; saskarnes autors, «Стандарты» 0а).
 
 Rule text (as passed on — nodots-izpildei 21.10 15:11, verbatim):
@@ -60,8 +65,10 @@ def check(dev, name, ok, evidence=""):
 
 
 def full_height(s):
-    return (s["panel"] is not None and s["panel"]["top"] <= 1 and abs(s["panel"]["bottom"] - s["vh"]) <= 1,
-            s["dim"] is not None and abs(s["dim"]["bottom"] - s["vh"]) <= 1)
+    """V82: the panel and the dimming start at the screen's top and END AT THE BOTTOM BAR's top (not at the screen's bottom)."""
+    top = s["bar"]["top"] if s["bar"] else None
+    return (s["panel"] is not None and top is not None and s["panel"]["top"] <= 1 and abs(s["panel"]["bottom"] - top) <= 1,
+            s["dim"] is not None and top is not None and abs(s["dim"]["bottom"] - top) <= 1)
 
 
 def run(browser, dev, opts):
@@ -84,26 +91,19 @@ def run(browser, dev, opts):
             flow.bars()
             pg.wait_for_timeout(400)
             if where == "chapter":
-                frames = pg.evaluate(SAMPLE)
-                anim = pg.evaluate("window.__barAnim || []")
-                tops = [f[1] for f in frames]
-                start, end = tops[0], tops[-1]
-                mids = {round(v) for v in tops if start + 1 < v < end - 1}
-                mono = all(b >= a - 0.5 for a, b in zip(tops, tops[1:]))
-                # the same 220 ms ease as the menu's slide (globals.css .reader-bar transition)
-                eased = any(a.get("dur") and 180 <= a["dur"] <= 260 for a in anim)
-                check(dev, f"D {where}: the bottom bar slides down smoothly as the menu opens (monotonic, ≥ 3 steps, or its 220 ms transition running)",
-                      end >= state()["vh"] - 1 and mono and (len(mids) >= 3 or eased),
-                      {"start": start, "end": end, "steps": len(mids), "transition": anim, "frames": frames[:24]})
-                pg.wait_for_timeout(300)
+                flow.contents()
+                pg.wait_for_timeout(700)
             else:
                 flow.contents()
                 pg.wait_for_timeout(700)
             s = state()
             fh, dim = full_height(s)
-            check(dev, f"A {where}: «Содержание» open — the panel spans the whole height", s["menu"] and fh, {"vh": s["vh"], "panel": s["panel"]})
-            check(dev, f"B {where}: the dimming reaches the screen's bottom (one layer)", s["menu"] and dim, {"vh": s["vh"], "dim": s["dim"]})
-            check(dev, f"C {where}: no bottom bar while the menu is open", s["menu"] and not (s["bar"] or {}).get("on"), s["bar"])
+            check(dev, f"A {where}: «Содержание» open — the panel spans from the top to the bottom bar", s["menu"] and fh, {"vh": s["vh"], "panel": s["panel"]})
+            check(dev, f"B {where}: the dimming ends at the bottom bar", s["menu"] and dim, {"vh": s["vh"], "dim": s["dim"]})
+            hit = pg.evaluate("""() => { const b = document.querySelector('.reader-bar-bottom'); const r = b.getBoundingClientRect();
+              const e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return !!(e && e.closest('.reader-bar-bottom')); }""")
+            check(dev, f"C {where}: the bottom bar is on screen, full width, not dimmed and on top of the menu while it is open",
+                  s["menu"] and (s["bar"] or {}).get("on") and hit and (s["bar"] or {}).get("opacity", 0) >= 0.99, {"bar": s["bar"], "hit": hit})
             if where == "chapter":
                 pg.evaluate("document.querySelector('.mobile-menu[data-open] > .sidebar-backdrop').click()")
                 pg.wait_for_timeout(900)

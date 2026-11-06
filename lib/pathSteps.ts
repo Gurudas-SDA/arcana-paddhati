@@ -13,7 +13,10 @@ import { currentEntry } from "@/lib/navHistory";
  */
 const STORE = "ap.pathSteps";
 const MAX = 300;
-type Path = { ids: string[]; at: number };
+/** `gaps[id]`: how many overlay (menu) entries lie in the history right BEFORE the place `id` (V82, Vraja Lila msg 7769):
+ *  a place chosen in the open contents has the menu's entries under it (rule 6: the phone's «back» reopens the menu), but
+ *  «‹ Вернуться» / «Вперёд ›» step along the PLACES, so they jump over those entries (history.go(±(1 + gap))). */
+type Path = { ids: string[]; at: number; gaps?: Record<string, number> };
 
 function read(): Path {
   try {
@@ -30,6 +33,20 @@ function path(): Path {
   return (memory ??= read());
 }
 
+/** The menu is left for a place: `depth` menu entries stay under the place that is about to be pushed. */
+let pendingGap: { depth: number; at: number } | null = null;
+export function noteMenuGap(depth: number) {
+  pendingGap = depth > 0 ? { depth, at: performance.now() } : null;
+}
+
+/** How many history entries one step of the path spans (1 + the menu entries between the two places). */
+export function pathStepDistance(dir: "back" | "forward"): number {
+  const p = path();
+  const target = dir === "back" ? p.at : p.at + 1;
+  const id = p.ids[target];
+  return 1 + (id ? (p.gaps?.[id] ?? 0) : 0);
+}
+
 /** Note the current entry; returns the state of the two buttons. */
 export function notePathStep(): { back: boolean; forward: boolean } {
   const p = path();
@@ -41,6 +58,14 @@ export function notePathStep(): { back: boolean; forward: boolean } {
     } else {
       p.ids = [...p.ids.slice(0, p.at + 1), id].slice(-MAX);
       p.at = p.ids.length - 1;
+      if (pendingGap && performance.now() - pendingGap.at < 30000) {
+        p.gaps = { ...(p.gaps ?? {}), [id]: pendingGap.depth };
+      }
+      pendingGap = null;
+      if (p.gaps) {
+        const keep = new Set(p.ids);
+        for (const k of Object.keys(p.gaps)) if (!keep.has(k)) delete p.gaps[k];
+      }
     }
     try {
       sessionStorage.setItem(STORE, JSON.stringify(p));
