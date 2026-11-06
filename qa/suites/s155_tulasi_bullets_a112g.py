@@ -5,6 +5,7 @@
   a) нет блоков list с numbers (номера 1.1)…2.5) заменены пунктами «•» = тип instruction, как в «Распорядок служения во второй половине дня»);
   b) нет ссылки «как в пункте 1.1» / «as in item 1.1»;
   c) убраны вычеркнутые слова: «Снова две молитвы, поклоны.», строка «Текст, пословный и общий перевод — как в главе «Мангалачарана Гурудева»…», метки «Когда и в каком виде.» и «Когда нельзя.» (текст после них остаётся), абзац «Тексты лекций — русская расшифровка CA…» (EN аналогично);
+  e) Туласи Сундари (бот msg 211, группа 7699, burtiski): «В настроение гуру оставь только 1 и 3 цитаты» — в «Настроение Гурудева» подглавы «Сбор листьев…» (tulasi-leaves-flowers) остаются 1-я (CA:5823) и 3-я (CA:4730:3, «cannot even offer tulasī directly to Guru»), 2-й (CA:4730:2, «feet of Caitanya Mahāprabhu. But in rāgānugā-bhakti») нет; счётчик = 2 (1 + len(more)); moods.json совпадает (apply_moods не вернёт);
   d) примечание про руки ОСТАЁТСЯ; мантр по-прежнему 7.
 usage: python s155_tulasi_bullets_a112g.py
 """
@@ -44,5 +45,18 @@ for fn in GONE:
     for k in KEEP[fn]:
         check(fn, f"d осталось «{k}»", k in allt)
     check(fn, "d мантр 7", len([x for x in bl if x["type"] == "verse"]) == 7)
+MD = os.path.join(DATA, "..", "scripts", "moods", "moods.json")
+mj = next(x for x in json.load(open(MD, encoding="utf-8")) if x["target"] == "tulasi-leaves-flowers")
+check("moods.json", "e main CA:5823 + more = [CA:4730:3]", mj["candidate"] == "CA:5823" and [m["candidate"] for m in mj["more"]] == ["CA:4730:3"], [m["candidate"] for m in mj["more"]])
+for fn in GONE:
+    b = json.load(open(os.path.join(DATA, fn), encoding="utf-8"))
+    sub = next(sb for s_ in b["sections"] if s_["id"] == "daily-tulasi-worship" for sb in s_["subsections"] if sb["id"] == "tulasi-leaves-flowers")
+    mood = [x for x in sub["content"] if x["type"] == "mood"]
+    check(fn, "e один блок «Настроение», счётчик 2 (1 + more)", len(mood) == 1 and 1 + len(mood[0].get("more", [])) == 2, [len(m.get("more", [])) for m in mood])
+    if mood:
+        allq = [mood[0]["quote"]] + [m["quote"] for m in mood[0].get("more", [])]
+        check(fn, "e 1-я цитата (Gaurāṅga … right hand) на месте", "we worship Gaurāṅga Mahāprabhu" in allq[0])
+        check(fn, "e 3-я («cannot even offer tulasī directly to Guru») на втором месте", len(allq) == 2 and "cannot even offer tulasī directly to Guru" in allq[1], allq[-1][:60])
+        check(fn, "e 2-й цитаты («feet of Caitanya Mahāprabhu. But in rāgānugā-bhakti») нет", not any("But in rāgānugā-bhakti" in q for q in allq))
 print(f"{sum(res)}/{len(res)} PASS")
 sys.exit(0 if all(res) else 1)

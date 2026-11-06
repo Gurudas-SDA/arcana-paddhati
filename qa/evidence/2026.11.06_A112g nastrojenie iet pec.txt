@@ -1,0 +1,36 @@
+  [PASS] book.ru-iast.json a нет list/numbers
+  [PASS] book.ru-iast.json b/c убрано «Снова две молитвы, поклоны»
+  [PASS] book.ru-iast.json b/c убрано «Текст, пословный и общий перевод»
+  [PASS] book.ru-iast.json b/c убрано «Когда и в каком виде»
+  [PASS] book.ru-iast.json b/c убрано «Когда нельзя»
+  [PASS] book.ru-iast.json b/c убрано «Тексты лекций»
+  [PASS] book.ru-iast.json b/c убрано «в пункте 1.1»
+  [PASS] book.ru-iast.json d осталось «Примечание: Туласи не кладут на стопы»
+  [PASS] book.ru-iast.json d осталось «Листья собирают после омовения»
+  [PASS] book.ru-iast.json d осталось «Не собирайте листья в»
+  [PASS] book.ru-iast.json d осталось «Когда бхаджан допет»
+  [PASS] book.ru-iast.json d осталось «пранаму Туласи — »
+  [PASS] book.ru-iast.json d мантр 7
+  [PASS] book.json a нет list/numbers
+  [PASS] book.json b/c убрано «Two prayers again, obeisances»
+  [PASS] book.json b/c убрано «The text, word-for-word and general translation»
+  [PASS] book.json b/c убрано «When and how»
+  [PASS] book.json b/c убрано «When not to»
+  [PASS] book.json b/c убрано «The lecture texts»
+  [PASS] book.json b/c убрано «item 1.1»
+  [PASS] book.json d осталось «Note: Tulasī is not placed on the feet»
+  [PASS] book.json d осталось «Leaves are gathered after bathing»
+  [PASS] book.json d осталось «Do not gather leaves on»
+  [PASS] book.json d осталось «When the bhajana is finished»
+  [PASS] book.json d осталось «praṇāma to Tulasī — »
+  [PASS] book.json d мантр 7
+  [PASS] moods.json e main CA:5823 + more = [CA:4730:3]
+  [PASS] book.ru-iast.json e один блок «Настроение», счётчик 2 (1 + more)
+  [PASS] book.ru-iast.json e 1-я цитата (Gaurāṅga … right hand) на месте
+  [PASS] book.ru-iast.json e 3-я («cannot even offer tulasī directly to Guru») на втором месте
+  [PASS] book.ru-iast.json e 2-й цитаты («feet of Caitanya Mahāprabhu. But in rāgānugā-bhakti») нет
+  [PASS] book.json e один блок «Настроение», счётчик 2 (1 + more)
+  [PASS] book.json e 1-я цитата (Gaurāṅga … right hand) на месте
+  [PASS] book.json e 3-я («cannot even offer tulasī directly to Guru») на втором месте
+  [PASS] book.json e 2-й цитаты («feet of Caitanya Mahāprabhu. But in rāgānugā-bhakti») нет
+35/35 PASS

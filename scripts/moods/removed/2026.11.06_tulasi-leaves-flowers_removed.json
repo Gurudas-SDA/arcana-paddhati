@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-06",
+  "why": "Туласи Сундари (бот msg 211, группа 7699): «В настроение гуру оставь только 1 и 3 цитаты» — раздел tulasi-leaves-flowers, 2-я цитата убрана. Восстановить: вставить entry обратно в scripts/moods/moods.json (target tulasi-leaves-flowers, more[0]) и запустить apply_moods.py.",
+  "removed": [
+    {
+      "target": "tulasi-leaves-flowers",
+      "position_in_more": 0,
+      "entry": {
+        "candidate": "CA:4730:2",
+        "label": "2",
+        "quote": "…you can put tulasī on the feet of Caitanya Mahāprabhu. But in rāgānugā-bhakti, we'll put the tulasī in His right hand, because we serve Him according to His own mood.",
+        "translation": {
+          "ru": "…можно положить туласи к стопам Чайтаньи Махапрабху. Но в рагануга-бхакти мы положим туласи в Его правую руку, потому что служим Ему в соответствии с Его собственным настроением.",
+          "ru-iast": "…можно положить туласи к стопам Чайтаньи Махапрабху. Но в рагануга-бхакти мы положим туласи в Его правую руку, потому что служим Ему в соответствии с Его собственным настроением."
+        },
+        "source": {
+          "title": "2019.11.21 Q&A Jiva, Maya, Ragas, Tapa, Hearing",
+          "date": "2019-11-21",
+          "nr": "4730",
+          "transcript_url": "https://drive.google.com/file/d/136m6c0cLoBKCEMQl6hiuZGZme95rqkmo/view",
+          "note": "the exact timecode of the passage is not given in the CA export",
+          "i18n": {
+            "ru": {
+              "note": "точный тайм-код места в выгрузке CA не указан"
+            },
+            "ru-iast": {
+              "note": "точный тайм-код места в выгрузке CA не указан"
+            }
+          }
+        }
+      }
+    }
+  ]
+}
