@@ -1,0 +1,44 @@
+  [FAIL] book.ru-iast.json a нет list/numbers [['1.1'], ['1.2'], ['1.3'], ['1.4'], ['1.5'], ['1.6'], ['2.1'], ['2.2'], ['2.3'], ['2.4'], ['2.5']]
+  [FAIL] book.ru-iast.json b/c убрано «Снова две молитвы, поклоны»
+  [FAIL] book.ru-iast.json b/c убрано «Текст, пословный и общий перевод»
+  [FAIL] book.ru-iast.json b/c убрано «Когда и в каком виде»
+  [FAIL] book.ru-iast.json b/c убрано «Когда нельзя»
+  [FAIL] book.ru-iast.json b/c убрано «Тексты лекций»
+  [FAIL] book.ru-iast.json b/c убрано «в пункте 1.1»
+  [PASS] book.ru-iast.json d осталось «Примечание: Туласи не кладут на стопы»
+  [PASS] book.ru-iast.json d осталось «Листья собирают после омовения»
+  [PASS] book.ru-iast.json d осталось «Не собирайте листья в»
+  [PASS] book.ru-iast.json d осталось «Когда бхаджан допет»
+  [PASS] book.ru-iast.json d осталось «пранаму Туласи — »
+  [PASS] book.ru-iast.json d мантр 7
+  [FAIL] book.json a нет list/numbers [['1.1'], ['1.2'], ['1.3'], ['1.4'], ['1.5'], ['1.6'], ['2.1'], ['2.2'], ['2.3'], ['2.4'], ['2.5']]
+  [FAIL] book.json b/c убрано «Two prayers again, obeisances»
+  [FAIL] book.json b/c убрано «The text, word-for-word and general translation»
+  [FAIL] book.json b/c убрано «When and how»
+  [FAIL] book.json b/c убрано «When not to»
+  [FAIL] book.json b/c убрано «The lecture texts»
+  [FAIL] book.json b/c убрано «item 1.1»
+  [PASS] book.json d осталось «Note: Tulasī is not placed on the feet»
+  [PASS] book.json d осталось «Leaves are gathered after bathing»
+  [PASS] book.json d осталось «Do not gather leaves on»
+  [PASS] book.json d осталось «When the bhajana is finished»
+  [PASS] book.json d осталось «praṇāma to Tulasī — »
+  [PASS] book.json d мантр 7
+  [FAIL] moods.json e main CA:5823 + more = [CA:4730:3] ['CA:4730:2', 'CA:4730:3']
+  [FAIL] book.ru-iast.json e один блок «Настроение», счётчик 2 (1 + more) [2]
+  [PASS] book.ru-iast.json e 1-я цитата (Gaurāṅga … right hand) на месте
+  [FAIL] book.ru-iast.json e 3-я («cannot even offer tulasī directly to Guru») на втором месте …you cannot even offer tulasī directly to Guru. You can give
+  [FAIL] book.ru-iast.json e 2-й цитаты («feet of Caitanya Mahāprabhu. But in rāgānugā-bhakti») нет
+  [FAIL] book.json e один блок «Настроение», счётчик 2 (1 + more) [2]
+  [PASS] book.json e 1-я цитата (Gaurāṅga … right hand) на месте
+  [FAIL] book.json e 3-я («cannot even offer tulasī directly to Guru») на втором месте …you cannot even offer tulasī directly to Guru. You can give
+  [FAIL] book.json e 2-й цитаты («feet of Caitanya Mahāprabhu. But in rāgānugā-bhakti») нет
+  [FAIL] book.ru-iast.json f tulasi-arati: типы блоков как в существующих форматах, нет list {'instruction': 7, 'subtitle': 2, 'list': 6, 'verse': 4, 'paired-list': 1, 'text': 1}
+  [FAIL] book.ru-iast.json f tulasi-arati: свободный text только «Примечание/Note» ['Текст, пословный и общий ']
+  [FAIL] book.ru-iast.json f tulasi-leaves-flowers: типы блоков как в существующих форматах, нет list {'mood': 1, 'list': 5, 'verse': 3, 'text': 2}
+  [FAIL] book.ru-iast.json f tulasi-leaves-flowers: свободный text только «Примечание/Note» ['Примечание: Туласи не кла', 'Тексты лекций — русская р']
+  [FAIL] book.json f tulasi-arati: типы блоков как в существующих форматах, нет list {'instruction': 7, 'subtitle': 2, 'list': 6, 'verse': 4, 'paired-list': 1, 'text': 1}
+  [FAIL] book.json f tulasi-arati: свободный text только «Примечание/Note» ['The text, word-for-word a']
+  [FAIL] book.json f tulasi-leaves-flowers: типы блоков как в существующих форматах, нет list {'mood': 1, 'list': 5, 'verse': 3, 'text': 2}
+  [FAIL] book.json f tulasi-leaves-flowers: свободный text только «Примечание/Note» ['Note: Tulasī is not place', 'The lecture texts are the']
+14/43 PASS

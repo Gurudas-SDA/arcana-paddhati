@@ -6,6 +6,7 @@
   b) нет ссылки «как в пункте 1.1» / «as in item 1.1»;
   c) убраны вычеркнутые слова: «Снова две молитвы, поклоны.», строка «Текст, пословный и общий перевод — как в главе «Мангалачарана Гурудева»…», метки «Когда и в каком виде.» и «Когда нельзя.» (текст после них остаётся), абзац «Тексты лекций — русская расшифровка CA…» (EN аналогично);
   e) Туласи Сундари (бот msg 211, группа 7699, burtiski): «В настроение гуру оставь только 1 и 3 цитаты» — в «Настроение Гурудева» подглавы «Сбор листьев…» (tulasi-leaves-flowers) остаются 1-я (CA:5823) и 3-я (CA:4730:3, «cannot even offer tulasī directly to Guru»), 2-й (CA:4730:2, «feet of Caitanya Mahāprabhu. But in rāgānugā-bhakti») нет; счётчик = 2 (1 + len(more)); moods.json совпадает (apply_moods не вернёт);
+  f) Туласи Сундари (группа 7701, burtiski): «эта глава визуально должна выглядеть как предыдущее разделы. Я про пункты, разделения, точки перед началом и тд» — оформление только существующими типами, как «Распорядок…»/«Пробуждение Господа»: пункты = instruction («•»), подзаголовки = subtitle (разделитель сверху), таблица = paired-list, мантры = verse; свободный text — только «Примечание…» (как «(Физически поместите…)» в waking-the-lord); нет list/numbers; набор типов: 20 + 9 блоков в 3.1 (instruction 13, subtitle 2, paired-list 1, verse 4), в 3.2 (mood 1, instruction 5, verse 3, text 1);
   d) примечание про руки ОСТАЁТСЯ; мантр по-прежнему 7.
 usage: python s155_tulasi_bullets_a112g.py
 """
@@ -58,5 +59,15 @@ for fn in GONE:
         check(fn, "e 1-я цитата (Gaurāṅga … right hand) на месте", "we worship Gaurāṅga Mahāprabhu" in allq[0])
         check(fn, "e 3-я («cannot even offer tulasī directly to Guru») на втором месте", len(allq) == 2 and "cannot even offer tulasī directly to Guru" in allq[1], allq[-1][:60])
         check(fn, "e 2-й цитаты («feet of Caitanya Mahāprabhu. But in rāgānugā-bhakti») нет", not any("But in rāgānugā-bhakti" in q for q in allq))
+import collections
+EXPECT = {"tulasi-arati": {"instruction": 13, "subtitle": 2, "paired-list": 1, "verse": 4},
+          "tulasi-leaves-flowers": {"mood": 1, "instruction": 5, "verse": 3, "text": 1}}
+for fn in GONE:
+    b = json.load(open(os.path.join(DATA, fn), encoding="utf-8"))
+    for sb in next(s_ for s_ in b["sections"] if s_["id"] == "daily-tulasi-worship")["subsections"]:
+        got = dict(collections.Counter(x["type"] for x in sb["content"]))
+        check(fn, f"f {sb['id']}: типы блоков как в существующих форматах, нет list", got == EXPECT[sb["id"]], got)
+        free = [x["content"][:25] for x in sb["content"] if x["type"] == "text"]
+        check(fn, f"f {sb['id']}: свободный text только «Примечание/Note»", all(t.startswith(("Примечание", "Note")) for t in free), free)
 print(f"{sum(res)}/{len(res)} PASS")
 sys.exit(0 if all(res) else 1)
