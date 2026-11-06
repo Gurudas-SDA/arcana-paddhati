@@ -2642,11 +2642,8 @@
               "content": "Order of the procedure:"
             },
             {
-              "type": "list",
-              "content": "Praṇāma. Recite the prayer to Vṛndā-devī and offer obeisances:",
-              "numbers": [
-                "1.1"
-              ]
+              "type": "instruction",
+              "content": "Praṇāma. Recite the prayer to Vṛndā-devī and offer obeisances:"
             },
             {
               "type": "verse",
@@ -2655,22 +2652,16 @@
               "translation": "I offer praṇāma again and again to Śrīmatī Tulasī-devī, who is most dear to Śrī Keśava and who is also renowned as Vṛndā-devī and Satyavatī. O Devī, you bestow kṛṣṇa-bhakti."
             },
             {
-              "type": "list",
-              "content": "Bhajana and parikramā. Begin the bhajana “Jaya Rādhe, jaya Kṛṣṇa, jaya Vṛndāvana” (“Śrī Vraja-dhāma-mahimāmṛta”; the text is in the section “Ārati”, chapter “Maṅgala-ārati”).",
-              "numbers": [
-                "1.2"
-              ]
+              "type": "instruction",
+              "content": "Bhajana and parikramā. Begin the bhajana “Jaya Rādhe, jaya Kṛṣṇa, jaya Vṛndāvana” (“Śrī Vraja-dhāma-mahimāmṛta”; the text is in the section “Ārati”, chapter “Maṅgala-ārati”)."
             },
             {
               "type": "instruction",
               "content": "Sing and circumambulate Tulasī at least four times."
             },
             {
-              "type": "list",
-              "content": "Ārati — simultaneously with the parikramā. Three items are offered: incense, a lamp (wick) and a flower — clockwise.",
-              "numbers": [
-                "1.3"
-              ]
+              "type": "instruction",
+              "content": "Ārati — simultaneously with the parikramā. Three items are offered: incense, a lamp (wick) and a flower — clockwise."
             },
             {
               "type": "subtitle",
@@ -2694,15 +2685,12 @@
               ]
             },
             {
-              "type": "list",
-              "content": "Two prayers again, obeisances. When the bhajana is finished, recite both prayers at the same time and offer obeisances:",
-              "numbers": [
-                "1.4"
-              ]
+              "type": "instruction",
+              "content": "When the bhajana is finished, recite both prayers at the same time and offer obeisances:"
             },
             {
               "type": "instruction",
-              "content": "praṇāma to Tulasī — ⟦vṛndāyai tulasī-devyai…⟧, as in item 1.1;"
+              "content": "praṇāma to Tulasī — ⟦vṛndāyai tulasī-devyai…⟧;"
             },
             {
               "type": "instruction",
@@ -2715,11 +2703,8 @@
               "translation": "I offer praṇāma to the Vaiṣṇavas, who, just like desire trees, can fulfil the desires of everyone and who are full of compassion for the conditioned souls."
             },
             {
-              "type": "list",
-              "content": "Watering. Gurudeva or another devotee waters Tulasī. While watering, recite:",
-              "numbers": [
-                "1.5"
-              ]
+              "type": "instruction",
+              "content": "Watering. Gurudeva or another devotee waters Tulasī. While watering, recite:"
             },
             {
               "type": "verse",
@@ -2732,21 +2717,14 @@
               "content": "Then offer obeisances."
             },
             {
-              "type": "list",
-              "content": "Closing prayer. Gurudeva or another devotee recites:",
-              "numbers": [
-                "1.6"
-              ]
+              "type": "instruction",
+              "content": "Closing prayer. Gurudeva or another devotee recites:"
             },
             {
               "type": "verse",
               "sanskrit": "bhaktyā vihīnā aparādha-lakṣaiḥ\nkṣiptāś ca kāmādi-taraṅga-madhye\nkṛpā-mayi tvāṁ śaraṇaṁ prapannā\nvṛnde namaste caraṇāravindam",
               "wbw": "bhaktyā — of devotion; vihīnā — bereft; aparādha — of offenses; lakṣaiḥ — by hundreds of thousands; kṣiptāḥ — thrown; ca — and; kāma — of lust; ādi — and so on; taraṅga — of waves; madhye — in the midst; kṛpā-mayi — O merciful one; tvāṁ — in you; śaraṇaṁ — shelter; prapannā — I take; vṛnde — O Vṛndā; namaḥ — obeisances; te — to your; caraṇa — feet; aravindam — lotus",
               "translation": "Devoid of bhakti and guilty of unlimited offenses, we are flung into the waves of lust [anger, greed and so on]. O merciful one, we take shelter of you! O Vṛndā, we offer praṇāma to your lotus feet."
-            },
-            {
-              "type": "text",
-              "content": "The text, word-for-word and general translation are as in the chapter “Gurudeva’s Maṅgalācaraṇa” of this book."
             },
             {
               "type": "instruction",
@@ -2796,18 +2774,12 @@
               ]
             },
             {
-              "type": "list",
-              "content": "When and how. Leaves are gathered after bathing and in clean clothes.",
-              "numbers": [
-                "2.1"
-              ]
+              "type": "instruction",
+              "content": "Leaves are gathered after bathing and in clean clothes."
             },
             {
-              "type": "list",
-              "content": "If one has not bathed. Perform ⟦mānasa-snāna⟧ (bathing in the mind) and go to gather Tulasī in this mood:",
-              "numbers": [
-                "2.2"
-              ]
+              "type": "instruction",
+              "content": "If one has not bathed. Perform ⟦mānasa-snāna⟧ (bathing in the mind) and go to gather Tulasī in this mood:"
             },
             {
               "type": "verse",
@@ -2816,11 +2788,8 @@
               "translation": "Whether one is contaminated, pure or in any condition or stage of life, if one remembers the lotus-eyed Lord, Puṇḍarīkākṣa, Śrī Kṛṣṇa, one becomes pure both externally and internally. [Garuḍa Purāṇa]"
             },
             {
-              "type": "list",
-              "content": "Before picking. Recite the ⟦cayana-mantra⟧ (the mantra for gathering leaves):",
-              "numbers": [
-                "2.3"
-              ]
+              "type": "instruction",
+              "content": "Before picking. Recite the ⟦cayana-mantra⟧ (the mantra for gathering leaves):"
             },
             {
               "type": "verse",
@@ -2829,18 +2798,12 @@
               "translation": "O Tulasī, you manifested from nectar and you are very dear to Śrī Keśava. Now I am collecting your leaves for the service of Keśava. O bestower of benedictions, be pleased with me."
             },
             {
-              "type": "list",
-              "content": "When not to. Do not gather leaves on ⟦dvādaśī⟧ or after sunset.",
-              "numbers": [
-                "2.4"
-              ]
+              "type": "instruction",
+              "content": "Do not gather leaves on ⟦dvādaśī⟧ or after sunset."
             },
             {
-              "type": "list",
-              "content": "After gathering. Recite the mantra begging forgiveness (⟦aparādha-kṣamā-prārthanā⟧):",
-              "numbers": [
-                "2.5"
-              ]
+              "type": "instruction",
+              "content": "After gathering. Recite the mantra begging forgiveness (⟦aparādha-kṣamā-prārthanā⟧):"
             },
             {
               "type": "verse",
@@ -2851,10 +2814,6 @@
             {
               "type": "text",
               "content": "Note: Tulasī is not placed on the feet of Śrīmatī Rādhārāṇī, Śrī Guru and Śrī Gaurāṅga. She is placed in the right hand."
-            },
-            {
-              "type": "text",
-              "content": "The lecture texts are the English transcripts of Chaitanya Academy (CA); excerpts are marked (..). No direct statement of Gurudeva about the right hand specifically for Rādhārāṇī was found in the CA database; the Arcana-Dīpikā (Russian 2024, p. 75) says that Tulasī leaves must not be offered at the feet of Śrī Guru and Śrīmatī Rādhikā, but may be offered to their right hand (the phrase is in square brackets in the edition)."
             }
           ]
         }

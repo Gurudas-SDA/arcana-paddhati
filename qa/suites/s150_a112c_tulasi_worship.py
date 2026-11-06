@@ -40,7 +40,7 @@ for fn, s in S.items():
     check(fn, "b мантр: ровно 7 и у каждой есть wbw и translation", len(verses) == 7 and all((v.get("wbw") or "").strip() and (v.get("translation") or "").strip() for v in verses),
           [v["sanskrit"][:25] for v in verses if not (v.get("wbw") or "").strip()])
 
-txt = " ".join(x.get("content", "") for x in blocks(S["book.ru-iast.json"]) if x["type"] == "list")
+txt = " ".join(x.get("content", "") for x in blocks(S["book.ru-iast.json"]) if x["type"] in ("list", "instruction"))  # A112g: пункты теперь instruction
 check("ru-iast", "a 1.3 «Предлагают три предмета … по часовой стрелке», без «Поднесите/Подносите»",
       "Предлагают три предмета" in txt and "по часовой стрелке" in txt and not re.search(r"Поднесите|Подносите", txt), txt[:300])
 en = S["book.json"]
@@ -53,8 +53,9 @@ check("en", "c санскрит = ru-iast", ve == vr, (len(ve), len(vr)))
 check("en", "c типы блоков = ru-iast", [x["type"] for x in blocks(en)] == [x["type"] for x in blocks(S["book.ru-iast.json"])])
 bad = [v for v in vr if re.search(r"[а-яА-ЯёЁ][̣̄̃̇́]", v)]
 check("ru-iast", "d санскрит без кириллицы с диакритикой", not bad, bad)
-nums = [n for x in blocks(S["book.ru-iast.json"]) if x["type"] == "list" for n in x["numbers"]]
-check("ru-iast", "e нет пункта 2.6, есть 2.1–2.5", "2.6" not in nums and all(f"2.{i}" in nums for i in range(1, 6)), nums)
+# A112g (msg 7688/7689): номера 1.1)…2.5) убраны, пункты = «•» (instruction); проверка e теперь: «Куда класть…» не пункт и нет «2.6»
+nums = [n for x in blocks(S["book.ru-iast.json"]) for n in (x.get("numbers") or [])]
+check("ru-iast", "e нет пункта 2.6 (номеров в разделе больше нет — A112g)", "2.6" not in nums and not nums, nums)
 check("ru-iast", "e «Примечание: Туласи не кладут на стопы…»", any(x["type"] == "text" and x["content"].startswith("Примечание: Туласи не кладут на стопы") for x in blocks(S["book.ru-iast.json"])))
 check("en", "e «Note: Tulasī is not placed on the feet…»", any(x["type"] == "text" and x["content"].startswith("Note: Tulasī is not placed on the feet") for x in blocks(en)))
 for fn, s in S.items():

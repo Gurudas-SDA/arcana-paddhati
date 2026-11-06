@@ -1,0 +1,27 @@
+  [FAIL] book.ru-iast.json a нет list/numbers [['1.1'], ['1.2'], ['1.3'], ['1.4'], ['1.5'], ['1.6'], ['2.1'], ['2.2'], ['2.3'], ['2.4'], ['2.5']]
+  [FAIL] book.ru-iast.json b/c убрано «Снова две молитвы, поклоны»
+  [FAIL] book.ru-iast.json b/c убрано «Текст, пословный и общий перевод»
+  [FAIL] book.ru-iast.json b/c убрано «Когда и в каком виде»
+  [FAIL] book.ru-iast.json b/c убрано «Когда нельзя»
+  [FAIL] book.ru-iast.json b/c убрано «Тексты лекций»
+  [FAIL] book.ru-iast.json b/c убрано «в пункте 1.1»
+  [PASS] book.ru-iast.json d осталось «Примечание: Туласи не кладут на стопы»
+  [PASS] book.ru-iast.json d осталось «Листья собирают после омовения»
+  [PASS] book.ru-iast.json d осталось «Не собирайте листья в»
+  [PASS] book.ru-iast.json d осталось «Когда бхаджан допет»
+  [PASS] book.ru-iast.json d осталось «пранаму Туласи — »
+  [PASS] book.ru-iast.json d мантр 7
+  [FAIL] book.json a нет list/numbers [['1.1'], ['1.2'], ['1.3'], ['1.4'], ['1.5'], ['1.6'], ['2.1'], ['2.2'], ['2.3'], ['2.4'], ['2.5']]
+  [FAIL] book.json b/c убрано «Two prayers again, obeisances»
+  [FAIL] book.json b/c убрано «The text, word-for-word and general translation»
+  [FAIL] book.json b/c убрано «When and how»
+  [FAIL] book.json b/c убрано «When not to»
+  [FAIL] book.json b/c убрано «The lecture texts»
+  [FAIL] book.json b/c убрано «item 1.1»
+  [PASS] book.json d осталось «Note: Tulasī is not placed on the feet»
+  [PASS] book.json d осталось «Leaves are gathered after bathing»
+  [PASS] book.json d осталось «Do not gather leaves on»
+  [PASS] book.json d осталось «When the bhajana is finished»
+  [PASS] book.json d осталось «praṇāma to Tulasī — »
+  [PASS] book.json d мантр 7
+12/26 PASS
