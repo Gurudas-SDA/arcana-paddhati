@@ -1,0 +1,18 @@
+V82b — s96 / s156 / s071 stabilitate (07.11 00:00-01:05, serveris, iphone14, burners + paralēli procesi)
+Pamats: push-v82 (376236e) 23:55 rc=1: s96 iphone14 en/ru-iast "A top/bottom bar hiding" {positions 2, framesOnScreen 2} arī atkārtojumā; s156 iphone14-landscape 1 un 3; s071 ChunkLoadError.
+
+s96 (A: joslas; B: izvēlne) — pirms: neizmainīts tests, 6 gājieni zem slodzes (2 burners + 2 paralēli QA)
+  main 47fb995 (neizmainīts s96):  6/6 gājieni KRITA pirmajā piegājienā (2,1,7,2,2,4 FAIL) -> NAV V82 regresija
+  V82 376236e  (neizmainīts s96):  gājieni 1-2: 20/20, 18/20 (A hiding, positions 1-2); gājieni 3-6 jau ar daļēji labotu failu
+  Cēlonis: rAF paraugs noķer 1-2 kadrus 220 ms slīdēšanai, kad CPU noslogots -> "positions > 2" nepilda; necaurspīdīgums (seeThrough=[]) vienmēr bija kārtībā.
+  Labojums (commit e3cf4a8): papildus kadriem - pārlūka paša ieraksts (transitionrun/end transform uz joslas, deklarēts 100-450 ms, beidzies, opacity pārejas nav; izvēlnei animationstart/end ap-menu-in/out). Necaurspīdības pārbaude un sliekšņi nemainīti.
+  Pēc: main 47fb995 6/6 zaļi (20/20), V82 376236e 6/6 zaļi (20/20) (galīgais fails, gājieni 1-6 s96_*_final).
+
+s156 iphone14-landscape / ipad-landscape 1 un 3
+  Reproducēts (4 paralēli procesi + 4 burners): ipad-landscape 1 un 3: bar.back.disabled=true, forward.disabled=true, menu=true, hist=5; "Вернуться" nenotiek (url paliek brahma-muhurta).
+  Cēlonis (TESTS, ne kods): visit() dara 3x goto(networkidle); zem slodzes networkidle nāk PIRMS hidratācijas, lapa neiekļūst ceļā (sessionStorage ap.pathSteps), nākamais goto to izmet -> ceļš [B] vienā solī -> Вернуться disabled. Lietotāja dzīvē lapā ir laiks hidratēties.
+  Labojums (commit f939e77): go() gaida, līdz ap.pathSteps ir atzīmējusi lapu (un at = pēdējais), tad nākamais goto; tā pati adrese (reload) - gaida tikai ceļu. Pārbaudes un sliekšņi nemainīti.
+  Pēc: 3 paralēli procesi, 1. gājieni 3/3 zaļi (7 ierīces katrs, ar iphone14-landscape, ipad-landscape); 2. gājieni apturēti 01:00 (nakts izlaidums) - kopā 3 gājieni, nevis 6.
+
+s071 iphone14 ChunkLoadError
+  Zem tās pašas slodzes (2 paralēli procesi, QA_DEVICES=iphone14): V82 376236e 3/3 gājieni 44/44; main 47fb995 3/3 gājieni 44/44. Nereproducējas; V82 to neizraisa pēc šiem datiem (kods, kas mainīts V82: pathSteps/ReaderChrome/globals.css; ChunkLoadError = čanka ielāde pārtraukta navigācijas laikā, vienreizējs QA 84 min slodzē). Kodu nemainīju.
