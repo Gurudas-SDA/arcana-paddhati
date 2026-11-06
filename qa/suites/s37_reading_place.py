@@ -1,4 +1,5 @@
-"""Contents reading-place regressions from the PR2 fixes specification.
+"""Numbering only (A112c, 06.11.2026): the chapter «Ежедневное поклонение Туласи» (Tulasi Sundari msg 183; draft 6 numbers it 3.1/3.2) became chapter 3, so «Порядок арчаны» moved 4 -> 5 (origin/main fda4818: 4, nakts/0611: 5). Only the displayed number changed; behaviour checks unchanged. Before: FAIL on nakts/0611 (s37 6, s71 8), OK on fda4818; after: see job.
+Contents reading-place regressions from the PR2 fixes specification.
 
 Real phone touches, native scroll events and measured geometry. No app overrides.
 """
@@ -91,7 +92,7 @@ def opened_chapters(browser, device, options):
 
 
 def mark_follows_reading(browser, device, options):
-    for arrival, target, number in [("11-gandha", "14-dipa", "4.14"), ("2-svagata", "6-madhuparka", "4.6")]:
+    for arrival, target, number in [("11-gandha", "14-dipa", "5.14"), ("2-svagata", "6-madhuparka", "5.6")]:
         context, page, flow = fresh(browser, options, arrival)
         try:
             read_to(page, target)
@@ -183,8 +184,8 @@ def reload_keeps_place(browser, device, options):
         footer = page.locator(".reader-status > span:not(.reader-location-group)").inner_text().split(" · ", 1)[0]
         state = flow.state()
         displacement = max(abs(restored - before), abs(after_open - before))
-        check(device, "s37_reload_keeps_place: reading 4.6",
-              before_footer == "Глава 4.6" and displacement <= 8 and footer == "Глава 4.6"
+        check(device, "s37_reload_keeps_place: reading 5.6",
+              before_footer == "Глава 5.6" and displacement <= 8 and footer == "Глава 5.6"
               and state["lit"] == [f"sub:{CHAPTER}#6-madhuparka"],
               {"before": before, "restored": restored, "afterContentsOpened": after_open,
                "maxDisplacement": displacement, "beforeFooter": before_footer, "footer": footer,

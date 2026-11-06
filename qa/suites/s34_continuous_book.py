@@ -1,4 +1,5 @@
-"""Continuous cover-to-book reading, deep links, reloads and native history."""
+"""Numbering only (A112c, 06.11.2026): the chapter «Ежедневное поклонение Туласи» (Tulasi Sundari msg 183; draft 6 numbers it 3.1/3.2) became chapter 3, so «Порядок арчаны» moved 4 -> 5 (origin/main fda4818: 4, nakts/0611: 5). Only the displayed number changed; behaviour checks unchanged. Before: FAIL on nakts/0611 (s37 6, s71 8), OK on fda4818; after: see job.
+Continuous cover-to-book reading, deep links, reloads and native history."""
 import os
 import sys
 import traceback
@@ -97,7 +98,7 @@ def run(browser, device, options, theme):
         def aligned():
             return page.locator(f"[id='{ANCHOR}']").evaluate("e => Math.abs(e.getBoundingClientRect().top - document.querySelector('.app-main').getBoundingClientRect().top - (parseFloat(getComputedStyle(e).scrollMarginTop)||0)) < 4")
         assert aligned(), "deep-link heading alignment"
-        assert "Храмовый стандарт: Глава 4.2" in page.locator(".reader-status").inner_text()
+        assert "Храмовый стандарт: Глава 5.2" in page.locator(".reader-status").inner_text()
         length = page.evaluate("history.length")
         page.reload(wait_until="networkidle")
         page.wait_for_selector("[data-continuous-book]")

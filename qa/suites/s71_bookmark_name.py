@@ -1,4 +1,5 @@
-"""«Закладки»: the bookmark's name and its exact place (V34, Satkirti msg 5866, Vraja Lila msg 5869 / 5872, 21.10.2026).
+"""Numbering only (A112c, 06.11.2026): the chapter «Ежедневное поклонение Туласи» (Tulasi Sundari msg 183; draft 6 numbers it 3.1/3.2) became chapter 3, so «Порядок арчаны» moved 4 -> 5 (origin/main fda4818: 4, nakts/0611: 5). Only the displayed number changed; behaviour checks unchanged. Before: FAIL on nakts/0611 (s37 6, s71 8), OK on fda4818; after: see job.
+«Закладки»: the bookmark's name and its exact place (V34, Satkirti msg 5866, Vraja Lila msg 5869 / 5872, 21.10.2026).
 
 Rule text (Vraja Lila msg 5869, verbatim):
  «при добавлении закладки по центру экрана появляется модальное окно, на котором по умолчанию как название стоит
@@ -281,7 +282,7 @@ with sync_playwright() as p:
             # V71: Vraja Lila msg 7428 «вариант 1» (card height «2 + 2») replaces the V34 one-line name: a long name takes at most 2 lines, then «…»
             check(tag, "3 long name: at most 2 lines with «…» (V71 variant 1)", looks["b-long"]["clamp"] == "2" and looks["b-long"]["lines"] == 2, looks["b-long"])
             check(tag, "3 old bookmark (no name): chapter + subsection + date as before",
-                  looks["b-svagata"]["second"] and looks["b-svagata"]["small"] == 1 and looks["b-svagata"]["title"].startswith("4."), looks["b-svagata"])
+                  looks["b-svagata"]["second"] and looks["b-svagata"]["small"] == 1 and looks["b-svagata"]["title"].startswith("5."), looks["b-svagata"])
             check(tag, "3 pencil left of the remove icon, thin line 1.5, close to it (icon gap 8–18 px, Vraja 5897), vertically centred on it (±0.25 px, Vraja 5939), 44 px, not in the row link",
                   all(v["pen"] and v["penLeftOfRemove"] and v["stroke"] == ["1.5", "2"] and v["gap"] is not None and 8 <= v["gap"] <= 18 and v["inkDy"] is not None and abs(v["inkDy"]) <= 0.25 and v["penSize"][0] >= 44 and v["penSize"][1] >= 44
                       and v["textClear"] and not v["nested"] for v in looks.values()), list(looks.values()))
@@ -311,7 +312,7 @@ with sync_playwright() as p:
                     pg.keyboard.press("Escape")
                     pg.wait_for_timeout(300)
                 check(tag, "4 unnamed bookmark: the window shows its subsection's name; Esc closes, menu stays",
-                      (v0 or "").startswith("4.5. Ачаман") and pg.locator(DLG).count() == 0 and pg.locator(MENU).count() == 1, v0)
+                      (v0 or "").startswith("5.5. Ачаман") and pg.locator(DLG).count() == 0 and pg.locator(MENU).count() == 1, v0)
 
             # 4b. rename with the side menu open (msg 5881): the window over the open panel, the list updated at once
             other = next((x["id"] for x in stored(pg) if x.get("anchor") == LONG_SUB and not x.get("name")), None)
