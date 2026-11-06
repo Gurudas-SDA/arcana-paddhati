@@ -1,0 +1,26 @@
+VERIFY s154,s05,s06 2026-11-06T04:04:55+02:00
+  FAIL s06 iphone14 guru-puja-vyasa-puja: «Вперёд ›» -> major-festivals {'t': 794, 'b': 838, 'l': 260.953125, 'r': 378, 'w': 117.046875, 'h': 44, 'vw': 390, 'vh': 844, 'label': 'След. глава›', 'target': 'major-festivals', 'barTex
+  FAIL s06 iphone14 parampara: «Вперёд ›» -> jaya-dhvani-front {'t': 794, 'b': 838, 'l': 260.953125, 'r': 378, 'w': 117.046875, 'h': 44, 'vw': 390, 'vh': 844, 'label': 'След. глава›', 'target': 'jaya-dhvani-front', 'barText': '�
+  FAIL s06 iphone14 major-festivals: «Вперёд ›» -> mangala-arati-songs {'t': 794, 'b': 838, 'l': 260.953125, 'r': 378, 'w': 117.046875, 'h': 44, 'vw': 390, 'vh': 844, 'label': 'След. глава›', 'target': 'mangala-arati-songs', 'bar
+  FAIL s06 iphone14 gaura-arati-songs: «Вперёд ›» -> kartika-bhajans {'t': 794, 'b': 838, 'l': 260.953125, 'r': 378, 'w': 117.046875, 'h': 44, 'vw': 390, 'vh': 844, 'label': 'След. глава›', 'target': 'kartika-bhajans', 'barText':
+  FAIL s06 iphone14 kartika-bhajans: «Вперёд ›» -> jhulana-yatra-bhajans {'t': 794, 'b': 838, 'l': 260.953125, 'r': 378, 'w': 117.046875, 'h': 44, 'vw': 390, 'vh': 844, 'label': 'След. глава›', 'target': 'jhulana-yatra-bhajans', 
+  FAIL s06 iphone14 gurudeva-mangalacarana: «Вперёд ›» -> conclusion {'t': 794, 'b': 838, 'l': 260.953125, 'r': 378, 'w': 117.046875, 'h': 44, 'vw': 390, 'vh': 844, 'label': 'След. глава›', 'target': 'conclusion', 'barText': '‹
+  FAIL s06 desktop mangalacarana: «Вперёд ›» -> gaudiya-emblem {'t': 850, 'b': 894, 'l': 1305, 'r': 1428, 'w': 123, 'h': 44, 'vw': 1440, 'vh': 900, 'label': 'След. глава›', 'target': 'gaudiya-emblem', 'barText': '‹Пред. г�
+  FAIL s06 desktop vigraha-tattva: «Вперёд ›» -> daily-duties-brahma-muhurta {'t': 850, 'b': 894, 'l': 1305, 'r': 1428, 'w': 123, 'h': 44, 'vw': 1440, 'vh': 900, 'label': 'След. глава›', 'target': 'daily-duties-brahma-muhurta', '
+  FAIL s06 desktop offering-bhoga: «Вперёд ›» -> mantras-honouring-caranamrita {'t': 850, 'b': 894, 'l': 1305, 'r': 1428, 'w': 123, 'h': 44, 'vw': 1440, 'vh': 900, 'label': 'След. глава›', 'target': 'mantras-honouring-caranamrita
+  FAIL s06 desktop main-worship-sixteen-items: «Вперёд ›» -> caturmasya-purusottama-masa {'t': 850, 'b': 894, 'l': 1305, 'r': 1428, 'w': 123, 'h': 44, 'vw': 1440, 'vh': 900, 'label': 'След. глава›', 'target': 'caturmasya-purusott
+  FAIL s06 desktop guru-puja-vyasa-puja: «Вперёд ›» -> major-festivals {'t': 850, 'b': 894, 'l': 1305, 'r': 1428, 'w': 123, 'h': 44, 'vw': 1440, 'vh': 900, 'label': 'След. глава›', 'target': 'major-festivals', 'barText': '‹Пр
+  FAIL s06 desktop parampara: «Вперёд ›» -> jaya-dhvani-front {'t': 850, 'b': 894, 'l': 1305, 'r': 1428, 'w': 123, 'h': 44, 'vw': 1440, 'vh': 900, 'label': 'След. глава›', 'target': 'jaya-dhvani-front', 'barText': '‹Пред. �
+  FAIL s06 desktop major-festivals: «Вперёд ›» -> mangala-arati-songs {'t': 850, 'b': 894, 'l': 1305, 'r': 1428, 'w': 123, 'h': 44, 'vw': 1440, 'vh': 900, 'label': 'След. глава›', 'target': 'mangala-arati-songs', 'barText': '‹�
+  FAIL s06 desktop gaura-arati-songs: «Вперёд ›» -> kartika-bhajans {'t': 850, 'b': 894, 'l': 1305, 'r': 1428, 'w': 123, 'h': 44, 'vw': 1440, 'vh': 900, 'label': 'След. глава›', 'target': 'kartika-bhajans', 'barText': '‹Пре�
+  FAIL s06 desktop kartika-bhajans: «Вперёд ›» -> jhulana-yatra-bhajans {'t': 850, 'b': 894, 'l': 1305, 'r': 1428, 'w': 123, 'h': 44, 'vw': 1440, 'vh': 900, 'label': 'След. глава›', 'target': 'jhulana-yatra-bhajans', 'barText': '
+  FAIL s06 desktop gurudeva-mangalacarana: «Вперёд ›» -> conclusion {'t': 850, 'b': 894, 'l': 1305, 'r': 1428, 'w': 123, 'h': 44, 'vw': 1440, 'vh': 900, 'label': 'След. глава›', 'target': 'conclusion', 'barText': '‹Пред. г
+  FAIL s154 iphone14 ru-iast vigraha-tattva: «‹ Пред. глава» {'t': '‹Пред. глава', 'l': 12, 'r': 132, 'top': 795.3893432617188, 'bottom': 839.3893432617188, 'w': 120, 'h': 44, 'target': 'gaudiya-emblem'}
+  FAIL s154 iphone14 ru-iast vigraha-tattva: «След. глава ›» {'t': 'След. глава›', 'l': 260.953125, 'r': 378, 'top': 795.3893432617188, 'bottom': 839.3893432617188, 'w': 117.046875, 'h': 44, 'target': 'daily-duties-brahma-muhu
+  FAIL s154 iphone14 EXCEPTION Locator.bounding_box: Timeout 30000ms exceeded.
+  FAIL s154 desktop ru-iast vigraha-tattva: «‹ Пред. глава» {'t': '‹Пред. глава', 'l': 12, 'r': 137, 'top': 850, 'bottom': 894, 'w': 125, 'h': 44, 'target': 'gaudiya-emblem'}
+  FAIL s154 desktop ru-iast vigraha-tattva: «След. глава ›» {'t': 'След. глава›', 'l': 1305, 'r': 1428, 'top': 850, 'bottom': 894, 'w': 123, 'h': 44, 'target': 'daily-duties-brahma-muhurta'}
+  FAIL s154 desktop EXCEPTION Locator.bounding_box: Timeout 30000ms exceeded.
+
+Pārkāptie Satkirti likumi:
+  UI-8.3 Приложение подстраивается под все размеры: iPad Pro / обычный / Mini, большие iPhone, Android-телефоны (Samsun  (30 fail)

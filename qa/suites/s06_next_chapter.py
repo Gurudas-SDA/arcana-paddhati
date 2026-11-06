@@ -104,7 +104,7 @@ def run(p, dev, eng, o):
         if not g:
             chk(dev, f"{cid}: «Вперёд ›» present", False, "no [data-reader-nav=forward]"); continue
         chk(dev, f"{cid}: no next-chapter block at the chapter's end (V17)", g["block"] == 0, str(g))
-        chk(dev, f"{cid}: «Вперёд ›» -> {nid}", g["label"].replace(" ", "").replace(" ", "") == "Вперёд›" and g["target"] == nid, str(g))
+        chk(dev, f"{cid}: «Вперёд ›» -> {nid}", g["label"].replace(" ", "").replace(" ", "") == "След.глава›" and g["target"] == nid, str(g))
         chk(dev, f"{cid}: the next chapter's title is not on the bar ({title0}…)", title0 not in g["barText"], str(g))
         chk(dev, f"{cid}: translate=no (the browser offers no translation)", g["tr"] == "no", str(g))
         chk(dev, f"{cid}: tap target >= 44px high, inside the screen", g["h"] >= 44 and g["w"] >= 44 and g["l"] >= 0 and g["r"] <= g["vw"] + 0.5, str(g))
