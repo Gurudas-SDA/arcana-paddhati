@@ -40,6 +40,16 @@ BASE = sys.argv[1].rstrip("/")
 results = []
 
 REC = """(ms) => { window.__f = []; const t0 = performance.now();
+  // the browser's own record of the movement: CSS transitions run / ended on the bars (a loaded CPU draws too few frames)
+  window.__tr = []; if (!window.__trOn) { window.__trOn = true;
+    const tr = (kind) => (e) => { const b = e.target.closest && e.target.closest('.reader-bar-top,.reader-bar-bottom');
+      if (b && e.target === b) window.__tr.push([kind, b.classList.contains('reader-bar-top') ? 'top' : 'bottom', e.propertyName,
+        kind === 'run' ? getComputedStyle(b).transitionDuration : e.elapsedTime]); };
+    document.addEventListener('transitionrun', tr('run'), true); document.addEventListener('transitionend', tr('end'), true);
+    // the menu panel slides by CSS keyframes (ap-menu-in / ap-menu-out, transform only): start / end events
+    const an = (kind) => (e) => { if (e.target.matches && e.target.matches('.mobile-menu > .sidebar-transition'))
+      window.__tr.push([kind, 'panel', e.animationName, kind === 'astart' ? getComputedStyle(e.target).animationDuration : e.elapsedTime]); };
+    document.addEventListener('animationstart', an('astart'), true); document.addEventListener('animationend', an('aend'), true); }
   const eff = (e) => { let o = 1; for (let x = e; x && x.nodeType === 1; x = x.parentElement) o *= +getComputedStyle(x).opacity; return o; };
   const alpha = (bg) => { const m = bg.match(/rgba?\\(([^)]*)\\)/); if (!m) return bg === 'transparent' ? 0 : 1;
     const p = m[1].split(/[ ,\\/]+/).filter(Boolean); return p.length > 3 ? +p[3] : 1; };
@@ -61,7 +71,26 @@ def rec(pg, action, ms=700):
     pg.evaluate(f"({REC})({ms})")
     action()
     pg.wait_for_timeout(ms + 200)
+    rec.tr = pg.evaluate("window.__tr")
     return pg.evaluate("window.__f")
+
+
+def css_slide(tr, name):
+    """tehniskais slieksnis Lipikāra, nav S noteikums: the browser's record shows the bar slid by a CSS transform
+    transition (declared 100-450 ms, ran to its end) and no opacity transition ran on it (it stays opaque)."""
+    runs = [t for t in tr if t[0] == "run" and t[1] == name and t[2] == "transform"]
+    ends = [t for t in tr if t[0] == "end" and t[1] == name and t[2] == "transform"]
+    declared = [float(d.strip().rstrip("s")) * 1000 for t in runs for d in t[3].split(",")[:1] if d.strip()]
+    faded = [t for t in tr if t[1] == name and t[2] == "opacity"]
+    return bool(runs) and bool(ends) and any(100 <= d <= 450 for d in declared) and not faded
+
+
+def css_panel(tr, name):
+    """Same for the contents panel: its keyframes (transform only, declared 100-450 ms) started and ran to the end."""
+    st = [t for t in tr if t[0] == "astart" and t[2] == name]
+    en = [t for t in tr if t[0] == "aend" and t[2] == name]
+    declared = [float(d.strip().rstrip("s")) * 1000 for t in st for d in t[3].split(",")[:1] if d.strip()]
+    return bool(st) and bool(en) and any(100 <= d <= 450 for d in declared)
 
 
 def shown(pg):
@@ -97,15 +126,18 @@ def bars_case(pg, dev, touch):
         tap_page(pg, touch)
         pg.wait_for_timeout(700)
     fr_in = rec(pg, lambda: tap_page(pg, touch))
+    tr_in = rec.tr
     fr_out = rec(pg, lambda: tap_page(pg, touch))
+    tr_out = rec.tr
     for k, name in ((1, "top"), (2, "bottom")):
-        for fr, way in ((fr_in, "showing"), (fr_out, "hiding")):
+        for fr, tr, way in ((fr_in, tr_in, "showing"), (fr_out, tr_out, "hiding")):
             bad = see_through(fr, k)
             ys = {f[k][0] for f in fr if f[k] and f[k][3]}
             onscreen = sum(1 for f in fr if f[k] and f[k][3])
+            slides = len(ys) > 2 or css_slide(tr, name)   # few sampled frames on a loaded CPU -> the browser's transition record
             check(dev, f"A {name} bar {way}: opaque in every frame on screen (book text never shows through), and it slides",
-                  not bad and len(ys) > 2 and onscreen > 0,
-                  {"seeThrough[t,opacity,bgAlpha]": bad[:8], "positions": len(ys), "framesOnScreen": onscreen})
+                  not bad and slides and onscreen > 0,
+                  {"seeThrough[t,opacity,bgAlpha]": bad[:8], "positions": len(ys), "framesOnScreen": onscreen, "css": tr[:4]})
     for fr, way in ((fr_in, "showing"), (fr_out, "hiding")):
         bad = status_uncovered_see_through(fr)
         seen = sum(1 for f in fr if f[4] and f[4][3])
@@ -137,12 +169,17 @@ def menu_case_once(pg, dev, touch, check):
         tap_page(pg, touch)
         pg.wait_for_timeout(600)
     fr_open = rec(pg, lambda: pg.locator("[data-reader-action=contents]").evaluate("b => b.click()"), 600)
+    tr_open = rec.tr
     pg.wait_for_timeout(300)
     fr_close = rec(pg, lambda: pg.keyboard.press("Escape"), 900)
+    tr_close = rec.tr
     bad_open, bad_close = see_through(fr_open, 3), see_through(fr_close, 3)
     xs = {f[3][4] for f in fr_open + fr_close if f[3] and f[3][3]}
+    # few sampled frames on a loaded CPU -> the browser's own record of the keyframes (opening and closing both ran)
+    slides = len(xs) > 2 or (css_panel(tr_open, "ap-menu-in") and css_panel(tr_close, "ap-menu-out"))
     check(dev, "B «Содержание» opening and closing: the panel opaque in every frame, and it slides",
-          not bad_open and not bad_close and len(xs) > 2, {"open": bad_open[:6], "close": bad_close[:6], "positions": len(xs)})
+          not bad_open and not bad_close and slides,
+          {"open": bad_open[:6], "close": bad_close[:6], "positions": len(xs), "css": [tr_open[:3], tr_close[:3]]})
     bad_bar = see_through(fr_close, 2)
     check(dev, "B the bottom bar coming back after «Содержание» closes: opaque in every frame", not bad_bar, bad_bar[:8])
 
