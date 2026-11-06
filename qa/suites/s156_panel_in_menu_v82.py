@@ -78,11 +78,28 @@ def path_of(s):
     return s["url"].rstrip("/").split("/")[-1]
 
 
+PATH_IDS = "(() => { try { const p = JSON.parse(sessionStorage.getItem('ap.pathSteps') || 'null'); return p ? p.ids.join() + '@' + p.at + '/' + p.ids.length : ''; } catch (e) { return ''; } })()"
+
+
+def go(pg, url):
+    """Open a page and wait until the app has noted this page as a step of the path (lib/pathSteps.ts keeps the list in
+    sessionStorage once the page is hydrated). tehniskais slieksnis Lipikāra, nav S noteikums: on a loaded CPU
+    «networkidle» comes before the hydration, and the next goto then left the page out of the path - «Вернуться» had no step."""
+    before = pg.evaluate(PATH_IDS) if pg.url.startswith("http") else ""
+    same = pg.url == url   # the same address replaces the entry (keeps its id): the list does not change, it only has to be there
+    pg.goto(url, wait_until="networkidle")
+    if same:
+        pg.wait_for_function(f"!!{PATH_IDS}", timeout=20000)
+        return
+    pg.wait_for_function(f"(() => {{ const now = {PATH_IDS}; if (!now) return false; const [a, b] = now.split('@'); const [at, n] = b.split('/'); "
+                         f"return now !== {json.dumps(before)} && +at === n - 1; }})()", timeout=20000)
+
+
 def visit(pg):
     """cover -> A -> B, so «Вернуться» has a step (the page A)."""
-    pg.goto(f"{BASE}/{LANG}/", wait_until="networkidle")
-    pg.goto(f"{BASE}/{LANG}/{A}/", wait_until="networkidle")
-    pg.goto(f"{BASE}/{LANG}/{B}/", wait_until="networkidle")
+    go(pg, f"{BASE}/{LANG}/")
+    go(pg, f"{BASE}/{LANG}/{A}/")
+    go(pg, f"{BASE}/{LANG}/{B}/")
     pg.wait_for_timeout(900)
 
 
@@ -114,7 +131,7 @@ def run(browser, dev, opts):
         check(dev, "3 «Вернуться» with the menu open closes the menu and goes one step back (the menu stays closed)",
               not after["menu"] and path_of(after) == A and path_of(before) == B, {"before": before["url"], "after": after["url"], "menu": after["menu"]})
         # 4 related bug: a chapter chosen in the menu -> menu closes, «Вернуться» active, leads to the previous page
-        pg.goto(f"{BASE}/{LANG}/{B}/", wait_until="networkidle")
+        go(pg, f"{BASE}/{LANG}/{B}/")
         pg.wait_for_timeout(900)
         open_menu(pg)
         pg.evaluate("""(t) => { const a = [...document.querySelectorAll('.mobile-menu[data-open] aside nav a')].find(x => x.textContent.includes(t)); a.click(); }""", PICK)
@@ -132,7 +149,7 @@ def run(browser, dev, opts):
         check(dev, "4b «Вернуться» after the choice leads to the previous page and does not open the menu",
               not s2["menu"] and s2["url"] != picked_url and path_of(s2) == B, {"picked": picked_url, "now": s2["url"], "menu": s2["menu"]})
         # 5 (msg 7769): bars stay after steps; go away on the reader's scroll / tap
-        pg.goto(f"{BASE}/{LANG}/{B}/", wait_until="networkidle")
+        go(pg, f"{BASE}/{LANG}/{B}/")
         pg.wait_for_timeout(900)
         for t in PICKS:
             open_menu(pg)
