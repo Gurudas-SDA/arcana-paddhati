@@ -1,0 +1,6 @@
+=== job v81-s10 start 2026-11-06T13:13:53+02:00
+QA full: 1 darbi, 2 paralēli, serveris http://127.0.0.1:37203/arcana-paddhati (out/)
+  OK   s10    pixel7                         57 pass   0 fail     420s
+
+QA full: 57 pass, 0 fail, 0 skip, 7.0 min
+=== job v81-s10 end 2026-11-06T13:20:53+02:00 rc=0

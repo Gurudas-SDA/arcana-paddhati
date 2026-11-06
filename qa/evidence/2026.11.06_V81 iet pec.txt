@@ -1,0 +1,9 @@
+V81 (Vraja Lila msg 7729 + 7735) — krita pirms / iet pec
+krita pirms: 2026.11.06_V81 krita pirms.txt (s155 uz origin/main buvejuma: cover button nav, EXCEPTION pie pieskariena)
+iet pec (no QA zurnala qa/.results, pec labojuma; skaitli no suitu izvades):
+  s155 iphone14 31/31, desktop 30/30   (jauns: vaks = ihsta poga + fade, kartites, viena poga, panelis Vernutsja/Vperyod pec vestures soliem, EN Back/Forward)
+  s154 iphone14 25/25  (panelis: Vernutsja/Vperyod; Pred./Sled. glava vairs nav panelī)
+  s69 iphone14 32/32, pixel7 32/32; s06 iphone14 102/102; s03 iphone14 54/54; s01 iphone14 61/61; s05 iphone14 32/32 pixel7 32/32
+  s07 iphone14 67/67, pixel7 75/75; s20 3/3; s22 iphone14 17/17 pixel7 17/17; s26 iphone14 34/34 pixel7 38/38; s97 iphone14 94/94
+  s10 pixel7 57/57 (pilnais rezims, 420 s)
+Pielagoti tikai testi, kas gaidija vecos paneļa tekstus / vaka pieskārienu / nodalu pogas panelī (cietie skaitli nemainiti, tikai selektori un teksti).
