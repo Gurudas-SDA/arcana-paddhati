@@ -3,6 +3,7 @@ import { getUi, uiWithFallback } from "@/lib/content";
 import OfflineSaveCard, { type OfflineSaveLabels } from "@/components/OfflineSaveCard";
 import ResumeCard from "@/components/ResumeCard";
 import CaLogo from "@/components/CaLogo";
+import CoverButton from "@/components/CoverButton";
 import { t } from "@/lib/i18n";
 import { BASE_PATH } from "@/lib/basePath";
 import { webpFor } from "@/lib/webpImages";
@@ -70,6 +71,7 @@ export default function HomePage({ lang }: { lang: string }) {
       {/* V8 (Vraja Lila msg 742): the cover WebP has no raster logo; the Chaitanya Academy logo is drawn over it as
           a vector in the same place (components/CaLogo.tsx). The box is exactly the cover's size. */}
       <div className="home-cover-box">
+      <CoverButton>
       <picture>
         <source type="image/webp" srcSet={SRCSET} sizes={SIZES} />
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -85,6 +87,7 @@ export default function HomePage({ lang }: { lang: string }) {
           style={{ color: "transparent", maxWidth: "min(100%, 874px)" /* srcset w-descriptors set the natural size from `sizes`; never above the original 874 px */ }}
         />
       </picture>
+      </CoverButton>
       <CaLogo className="home-cover-logo" label="Chaitanya Academy" />
       </div>
       {/* «Продолжить» (Vraja Lila msg 5316 p. 6): drawn before first paint (components/ResumeCard.tsx). */}

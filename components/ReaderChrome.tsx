@@ -52,6 +52,9 @@ import { useRouter } from "next/navigation";
 import { takeEarlyTap } from "@/lib/earlyTap";
 import { exitGhost } from "@/lib/exitGhost";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import ChapterEndCards from "@/components/ChapterEndCards";
+import { COVER_OPEN_EVENT } from "@/components/CoverButton";
+import { usePathSteps } from "@/lib/pathSteps";
 import { chapterNeighbours, readingOrder, tocLayout, type TocPart, type TocSection } from "@/lib/book";
 import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
 import {
@@ -234,6 +237,11 @@ export default function ReaderChrome({
   );
   const layoutIds = useMemo(() => tocLayout(ids, parts).map((item) => item.id), [ids, parts]);
   const { prev: prevPage, next: nextPage } = chapterNeighbours(order, sectionId, layoutIds);
+  /** The steps of the reader's path for the bottom bar (V81). */
+  const steps = usePathSteps(`${lang}/${sectionId ?? ""}`);
+  /** The cover was tapped: the page darkens, the first page opens, the page comes back (V81). */
+  const [fade, setFade] = useState<"off" | "in" | "out">("off");
+  const fadeBusy = useRef(false);
 
   // Mirrors of the state for the (long-lived) event listeners.
   const shownRef = useRef(false);
@@ -890,6 +898,38 @@ export default function ReaderChrome({
     requestAnimationFrame(wait);
   };
 
+  const goChapterRef = useRef(goChapter);
+  useEffect(() => {
+    goChapterRef.current = goChapter;
+  });
+  useEffect(() => {
+    const open = () => {
+      if (!nextPage || fadeBusy.current) return;
+      fadeBusy.current = true;
+      setFade("in");
+      window.setTimeout(() => goChapterRef.current(nextPage), 320);
+      // never leave the page darkened
+      window.setTimeout(() => {
+        fadeBusy.current = false;
+        setFade("off");
+      }, 3000);
+    };
+    window.addEventListener(COVER_OPEN_EVENT, open);
+    return () => window.removeEventListener(COVER_OPEN_EVENT, open);
+  }, [nextPage]);
+  useEffect(() => {
+    if (isHome || !fadeBusy.current) return;
+    const a = window.setTimeout(() => setFade("out"), 450);
+    const b = window.setTimeout(() => {
+      fadeBusy.current = false;
+      setFade("off");
+    }, 900);
+    return () => {
+      window.clearTimeout(a);
+      window.clearTimeout(b);
+    };
+  }, [isHome]);
+
   return (
     <div
       ref={barsRef}
@@ -1104,35 +1144,51 @@ export default function ReaderChrome({
         </div>
       )}
 
-      {/* Bottom bar: «‹ Пред. глава» · «След. глава ›» (V80; was Назад / Вперёд) — the previous / next page of the contents (V17) */}
+      {/* Bottom bar: «‹ Вернуться» · «Вперёд ›» (V81, Vraja Lila msg 7706 / 7735) — steps along the reader's path (the browser
+          history); with no such step the button is inactive and pale (--rd-faint). The chapters are stepped by the cards at the
+          chapter's end (components/ChapterEndCards.tsx). */}
       <div className="reader-bar reader-bar-bottom" {...barEvents}>
         <div className="reader-bar-inner reader-nav-row">
-          {prevPage !== undefined && (
-            <button
-              type="button"
-              className="reader-btn reader-history-btn"
-              onClick={() => goChapter(prevPage)}
-              data-reader-nav="back"
-              data-chapter-target={prevPage ?? "cover"}
-            >
-              <span aria-hidden="true" className="reader-history-arrow">‹</span>
-              <span>{t(ui, "reader.prevChapter")}</span>
-            </button>
-          )}
-          {nextPage && (
-            <button
-              type="button"
-              className="reader-btn reader-history-btn"
-              onClick={() => goChapter(nextPage)}
-              data-reader-nav="forward"
-              data-chapter-target={nextPage}
-            >
-              <span>{t(ui, "reader.nextChapter")}</span>
-              <span aria-hidden="true" className="reader-history-arrow">›</span>
-            </button>
-          )}
+          <button
+            type="button"
+            className="reader-btn reader-history-btn"
+            disabled={!steps.back}
+            onClick={() => {
+              arm();
+              window.history.back();
+            }}
+            data-reader-nav="back"
+          >
+            <span aria-hidden="true" className="reader-history-arrow">‹</span>
+            <span>{t(ui, "reader.historyBack")}</span>
+          </button>
+          <button
+            type="button"
+            className="reader-btn reader-history-btn"
+            disabled={!steps.forward}
+            onClick={() => {
+              arm();
+              window.history.forward();
+            }}
+            data-reader-nav="forward"
+          >
+            <span>{t(ui, "reader.historyForward")}</span>
+            <span aria-hidden="true" className="reader-history-arrow">›</span>
+          </button>
         </div>
       </div>
+
+      <ChapterEndCards
+        ui={ui}
+        sections={sections}
+        sectionId={sectionId}
+        prevPage={prevPage}
+        nextPage={nextPage}
+        goChapter={goChapter}
+        suspended={panel || menuShown}
+      />
+      {/* The cover → the first page: a fade out and back (V81) */}
+      <div className="cover-fade no-print" data-on={fade === "in" ? "" : undefined} aria-hidden="true" />
 
       {/* Faint status line while reading */}
       {!isHome && (

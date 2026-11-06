@@ -206,6 +206,8 @@ SUITES = [
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s142", file="suites/s142_mangalacarana_two_slokas_removed.py", title="A140 Satkirti msg 7403 03.11 (A133 «Убрать»): «Мангалачарана» — pranāmā Bhaktiprajñāna Keśava divas lieka šlokas (gaurāśraya-vigrahāya…, prabhupādāntaraṅgāya…) izņemtas visās valodās; šlokas 9–10 paliek",
          devices=None, fast=True, server=False),
+    dict(id="s155", file="suites/s155_cover_tap_chapter_end_cards_v81.py", title="V81 Vraja Lila msg 7729: apvalka pieskariens atver Epigrafu ar fade (ihsta poga), nodalu beigu kartites Pred. / Sled. glava (16/13 px, 323 px datora, fiksetas virs paneļa, paradas beigas), viena poga nestiepta",
+         devices=["iphone14", "pixel7", "desktop", "ipad-portrait"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s154", file="suites/s154_prev_next_chapter_labels_v80.py", title="V80 Vraja Lila msg 7676: apaksejais panelis «Pred. glava» / «Sled. glava» (EN Prev chapter / Next chapter); bultas un uzvedba nemainas",
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14"]),
     dict(id="s153", file="suites/s153_file_menu_labels_v78.py", title="V78 Vraja Lila msg 7621-7623: piezimju izvelne bez «Copy as text»; EN Download bookmarks/notes + Load from a file abas sadalas; RU Skachat zakladki/zametki + Zagruzit iz fayla",

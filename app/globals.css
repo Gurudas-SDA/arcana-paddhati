@@ -2728,3 +2728,142 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
 :root { --card-clamp: 2; }
 .card-clamp { display: -webkit-box; -webkit-line-clamp: var(--card-clamp); -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
 /*@/v71*/
+
+/*@v81*/
+/* V81 (Vraja Lila msg 7706 / 7729 / 7735, mockup 6).
+   (1) The cover is one real button (components/CoverButton.tsx); a tap darkens the page (.cover-fade, the page's own
+       background) and the first page comes back out of it.
+   (2) Bottom bar «‹ Вернуться» / «Вперёд ›»: a step along the path that does not exist = inactive and pale (--rd-faint).
+   (3) The cards «‹ Пред. глава» / «След. глава ›» at a chapter's end (components/ChapterEndCards.tsx): fixed above the bottom
+       bar (57 px + the safe area + 8 px), hidden until the reader is at the end of the text; the spacer after the text
+       (.chapter-end-cards-space, height from --chapter-end-cards-space) keeps the last line above them. Label 16 px, title
+       13 px, weight 400; on a phone the title up to 2 lines, on a desktop (>= 900 px) 1 line and 323 px wide cards at the
+       text column's edges; ONE card keeps the width it has in a pair and stays at its own edge. */
+.home-cover-btn {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  line-height: 0;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  -webkit-tap-highlight-color: transparent;
+}
+.cover-fade {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  opacity: 0;
+  pointer-events: none;
+  background: var(--rd-bg);
+  transition: opacity 0.32s ease;
+}
+.cover-fade[data-on] {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cover-fade {
+    transition: none;
+  }
+}
+.reader-history-btn:disabled {
+  color: var(--rd-faint);
+  cursor: default;
+  background: none;
+}
+.chapter-end-cards-space {
+  height: var(--chapter-end-cards-space, 0px);
+}
+.continuous-book .chapter-end-cards-space {
+  display: none;
+}
+.chapter-end-cards {
+  position: fixed;
+  z-index: 25;
+  box-sizing: border-box;
+  bottom: calc(57px + env(safe-area-inset-bottom, 0px) + 8px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0.22s;
+  font-family: var(--font-book, "Noto Serif", Georgia, serif);
+}
+.chapter-end-cards[data-show] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s;
+}
+.chapter-end-cards[data-show] .chapter-end-card {
+  pointer-events: auto;
+}
+.chapter-end-cards-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.chapter-end-card {
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 14px;
+  border: 1px solid var(--rd-border);
+  border-radius: 12px;
+  background: var(--rd-bg);
+  font: inherit;
+  font-weight: 400;
+  text-align: left;
+  color: var(--accent);
+  -webkit-tap-highlight-color: transparent;
+}
+.chapter-end-card[data-dir="prev"] {
+  grid-column: 1;
+}
+.chapter-end-card[data-dir="next"] {
+  grid-column: 2;
+  text-align: right;
+  border-color: var(--accent);
+}
+.chapter-end-card-label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 16px;
+  font-weight: 400;
+  opacity: 0.85;
+}
+.chapter-end-card-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--rd-fg);
+  overflow-wrap: anywhere;
+}
+@media (min-width: 900px) {
+  .chapter-end-cards-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 48px;
+  }
+  .chapter-end-card {
+    flex: 0 0 323px;
+    width: 323px;
+  }
+  .chapter-end-card[data-dir="next"] {
+    margin-left: auto;
+  }
+  .chapter-end-card-title {
+    display: block;
+    -webkit-line-clamp: unset;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+/*@/v81*/

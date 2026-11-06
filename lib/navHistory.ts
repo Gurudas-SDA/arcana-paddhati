@@ -514,3 +514,10 @@ export function menuDepth(s: State = state()): number {
 export function isMenuEntry(s: State = state()): boolean {
   return s?.apMenu === true;
 }
+
+/** Id of the current history entry (assigned if it has none yet) and whether it is an overlay on a place
+ *  (the contents / search menu, the «Аа» panel, the «Настроение» window) — lib/pathSteps.ts (V81). */
+export function currentEntry(): { id: string; overlay: boolean } {
+  const s = state();
+  return { id: entryId(), overlay: !!(s && (s.apMenu || s.apAa || s.moodOverlay)) };
+}

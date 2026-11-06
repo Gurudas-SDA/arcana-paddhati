@@ -1,0 +1,15 @@
+=== job v81-red3 start 2026-11-06T11:22:01+02:00
+BRĪDINĀJUMS: out/ ir vecāks par avotu (app/globals.css) — testē VECO būvējumu. Palaid: npm run build
+QA full: 2 darbi, 2 paralēli, serveris http://127.0.0.1:42893/arcana-paddhati (out/)
+  FAIL s155   desktop                         3 pass   2 fail      35s
+  FAIL s155   iphone14                        3 pass   2 fail      35s
+  atkārtoju 2 kritušos darbus vienu reizi …
+  FAIL s155   desktop                      (atkārtoti)   2 fail
+  FAIL s155   iphone14                     (atkārtoti)   2 fail
+
+QA full: 6 pass, 4 fail, 0 skip, 1.2 min
+  FAIL s155 desktop cover: the cover is a REAL <button> (contains the picture)
+  FAIL s155 desktop EXCEPTION Locator.click: Timeout 30000ms exceeded.
+  FAIL s155 iphone14 cover: the cover is a REAL <button> (contains the picture)
+  FAIL s155 iphone14 EXCEPTION Locator.tap: Timeout 30000ms exceeded.
+=== job v81-red3 end 2026-11-06T11:23:12+02:00 rc=0

@@ -1,0 +1,32 @@
+=== job v81-g1 start 2026-11-06T11:23:26+02:00
+│ ├ /jaya-dhvani-front
+│ └ [+32 more paths]
+├ ● /[slug]/[section]
+│ ├ /ru-iast/upadesha-sara
+│ ├ /ru-iast/parampara
+│ ├ /ru-iast/jaya-dhvani-front
+│ └ [+31 more paths]
+├ ● /[slug]/book
+│ └ /ru-iast/book
+└ ○ /book
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+
+
+> arcana-paddhati@0.1.0 postbuild
+> node scripts/patch-html-lang.mjs && node scripts/retired-lang-redirects.mjs && node scripts/apply-base-path.mjs && node scripts/fix-segment-paths.mjs && node scripts/stable-build-id.mjs && node scripts/build-precache.mjs
+
+html lang: ru-iast — 36 page(s) set to lang="ru"
+retired languages: ru->ru-iast, lv->en, de->en, fr->en, es->en, it->en, uk->en, hu->en, pt->en, lt->en — 360 redirect page(s)
+base path: /arcana-paddhati (production) — static files unchanged
+fix-segment-paths: flattened 0 segment files (already flat)
+stable-build-id: 37Sx0QhVShRnBoZXzUAre -> 500gnoq0UFPZ-ASm0kv8V in 620 files
+precache: version 395146851da9e5ae — 734 URLs (70 pages, 466 RSC payloads, 26 static assets, 172 other), 47.5 MB
+QA full: 2 darbi, 2 paralēli, serveris http://127.0.0.1:51217/arcana-paddhati (out/)
+  OK   s155   iphone14                       31 pass   0 fail      28s
+  OK   s155   desktop                        30 pass   0 fail      29s
+
+QA full: 61 pass, 0 fail, 0 skip, 0.5 min
+=== job v81-g1 end 2026-11-06T11:24:20+02:00 rc=0

@@ -76,6 +76,8 @@
   "reader.forward": "Вперёд",
   "reader.prevChapter": "Пред. глава",
   "reader.nextChapter": "След. глава",
+  "reader.historyBack": "Вернуться",
+  "reader.historyForward": "Вперёд",
   "reader.noForward": "«Вперёд» — после «Назад»",
   "reader.noBack": "Это начало пути",
   "group.contents": "Содержание введения",
