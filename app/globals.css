@@ -1279,7 +1279,7 @@ body,
   justify-content: space-between;
   gap: var(--space-8);
 }
-.reader-nav-row [data-reader-nav="forward"] {
+.reader-nav-row [data-reader-step="forward"] {
   margin-left: auto;
 }
 .reader-history-btn {

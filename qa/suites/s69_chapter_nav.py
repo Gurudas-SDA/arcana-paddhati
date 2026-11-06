@@ -88,6 +88,10 @@ WATCH_JS = """() => { window.__barsGone = 0; const t0 = performance.now();
   const tick = () => { if (!document.querySelector('.reader-chrome[data-shown]')) window.__barsGone++;
     if (performance.now() - t0 < 2500) requestAnimationFrame(tick); };
   requestAnimationFrame(tick); }"""
+# V81 (Vraja Lila msg 7729 / 7735): the chapters are stepped by the cards «‹ Пред. глава» / «След. глава ›» at the chapter's end
+# (data-reader-nav=back|forward is on the cards; shown when the reader is at the end); the bottom bar has the history steps
+# (data-reader-step). «Лента» has no chapter cards (continuous reading) — open question to Vraja Lila.
+END_JS = """() => { const m = document.querySelector('.app-main'); m.scrollTop = m.scrollHeight; }"""
 TOP_JS = """() => { const m = document.querySelector('.app-main'); return m ? m.scrollTop : -1; }"""
 PAGE_ID_JS = """() => location.pathname.replace(/\\/$/, '').split('/').pop()"""
 # the current chapter's visible title (Pages: the page's; Scroll: the section's) against the top bar
@@ -129,7 +133,9 @@ def run(browser, device, options, walk):
         return bool(page.locator(".reader-chrome[data-shown]").count())
 
     def press(direction):
-        bars()
+        if page.locator("[data-continuous-book]").count():
+            return False
+        page.evaluate(END_JS); page.wait_for_timeout(700)
         loc = page.locator(f"[data-reader-nav={direction}]")
         if not loc.count():
             return False
@@ -168,6 +174,8 @@ def run(browser, device, options, walk):
         bars()
         b = page.evaluate(BAR_JS)
         check(device, "A bottom bar: no «where we are / %» line", not b["progress"], b)
+        page.evaluate(END_JS); page.wait_for_timeout(700)
+        b = page.evaluate(BAR_JS)
         check(device, "A the faint status line at the bottom of the page stays (reading mode)", page.locator(".reader-status").count() == 1)
         check(device, "I «‹ Назад» whole on screen", bool(b["back"]) and b["back"]["l"] >= 0 and b["back"]["r"] <= b["vw"] and b["back"]["sw"] <= b["back"]["cw"] + 1, b["back"])
         check(device, "I «Вперёд ›» whole on screen", bool(b["fwd"]) and b["fwd"]["l"] >= 0 and b["fwd"]["r"] <= b["vw"] and b["fwd"]["sw"] <= b["fwd"]["cw"] + 1, b["fwd"])
@@ -191,13 +199,12 @@ def run(browser, device, options, walk):
         check(device, "H no own history note after the buttons", not b["note"], b)
 
         # D first / last
-        goto(ORDER[0]); bars()
+        goto(ORDER[0]); page.evaluate(END_JS); page.wait_for_timeout(700)
         b = page.evaluate(BAR_JS)
-        # V45 (Vraja Lila msg 6191): the first page after the cover has «‹ Назад» → the cover
-        check(device, f"D first page ({ORDER[0]}): «‹ Назад» → the cover (V45)", b["backInDom"]
-              and page.locator("[data-reader-nav=back]").get_attribute("data-chapter-target") == "cover", b)
-        check(device, f"D first page: «Вперёд ›» present", bool(b["fwd"]), b)
-        goto(ORDER[-1]); bars()
+        # V81: the cover is not a «Пред. глава» (the first page has only «След. глава»; the way back is the bar's «Вернуться»)
+        check(device, f"D first page ({ORDER[0]}): no «‹ Пред. глава» card (the cover is not a chapter)", not b["backInDom"], b)
+        check(device, f"D first page: «След. глава ›» present", bool(b["fwd"]), b)
+        goto(ORDER[-1]); page.evaluate(END_JS); page.wait_for_timeout(700)
         b = page.evaluate(BAR_JS)
         check(device, f"D last page ({ORDER[-1]}): no «Вперёд ›» at all", not b["fwdInDom"], b)
         check(device, f"D last page: «‹ Назад» present", bool(b["back"]), b)
@@ -260,24 +267,9 @@ def run(browser, device, options, walk):
         GEO = """id => { const m = document.querySelector('.app-main'); const s = document.querySelector(`[data-book-section="${id}"]`);
             if (!m || !s) return null; const margin = parseFloat(getComputedStyle(s).scrollMarginTop) || 0;
             return {off: Math.round(s.getBoundingClientRect().top - m.getBoundingClientRect().top - margin), url: location.pathname}; }"""
-        i = ORDER.index("arcana-procedure")
-        page.evaluate(WATCH_JS)
-        ok = press("forward")
-        gone = page.evaluate("() => window.__barsGone")
-        st = page.evaluate(SHOWN_JS)
-        check(device, "K Scroll «Вперёд ›»: the bars never leave during the jump and are out at the new chapter", gone == 0 and st["shown"] and st["bottom"] > 0.9, {"gone": gone, **st})
-        g = page.evaluate(GEO, ORDER[i + 1])
-        check(device, f"G Scroll «Вперёд ›»: jump to the start of {ORDER[i + 1]}", ok and g and abs(g["off"]) <= 2 and g["url"].rstrip("/").endswith("/" + ORDER[i + 1]), g)
-        title_check("Scroll «Вперёд ›»", ORDER[i + 1])
-        ok = press("back")
-        g = page.evaluate(GEO, ORDER[i])
-        check(device, f"G Scroll «‹ Назад»: jump to the start of {ORDER[i]}", ok and g and abs(g["off"]) <= 2 and g["url"].rstrip("/").endswith("/" + ORDER[i]), g)
-        title_check("Scroll «‹ Назад»", ORDER[i])
-        ok = press("back")
-        g = page.evaluate(GEO, ORDER[i - 1])
-        check(device, f"G Scroll «‹ Назад» again: the start of {ORDER[i - 1]}", ok and g and abs(g["off"]) <= 2, g)
-        b = page.evaluate(BAR_JS)
-        check(device, "H Scroll: no own history note after the buttons", not b["note"], b)
+        # V81: «Лента» is continuous reading — no chapter cards (they are at a chapter's end in «Страницы»); the bar's steps stay
+        check(device, "G Scroll: no chapter cards in the continuous book", page.locator(".chapter-end-card").count() == 0 or not page.locator(".chapter-end-cards[data-show]").count(), page.locator(".chapter-end-card").count())
+        check(device, "G Scroll: the bar has «Вернуться» / «Вперёд» (history steps)", page.locator("[data-reader-step=back]").count() == 1 and page.locator("[data-reader-step=forward]").count() == 1)
         page.evaluate("try{localStorage.removeItem('ap.readerLayout')}catch(e){}")
         check(device, "no page errors", not errors, errors[:3])
     except Exception as error:

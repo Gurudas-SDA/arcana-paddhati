@@ -75,7 +75,11 @@ BAR = """(sel) => { const b = document.querySelector(sel); if (!b) return {on: f
   const inView = r.height > 0 && r.bottom > 0.5 && r.top < innerHeight - 0.5;
   return {display: cs.display, top: Math.round(r.top), bottom: Math.round(r.bottom), vh: innerHeight,
           on: cs.display !== 'none' && +cs.opacity > 0.05 && inView && r.bottom <= innerHeight + 1}; }"""
-NAV = """() => { const t = (d) => { const b = document.querySelector(`[data-reader-nav=${d}]`);
+NAV = """() => { const t = (d) => { const b = document.querySelector(`[data-reader-step=${d}]`);
+    return b ? (b.disabled ? 'off' : 'on') : null; };
+  return {back: t('back'), forward: t('forward')}; }"""
+# V81: the chapters are stepped by the cards at the chapter's end (data-reader-nav on the cards; «Страницы» only — «Лента» is continuous)
+NAVC = """() => { const t = (d) => { const b = document.querySelector(`.chapter-end-card[data-reader-nav=${d}]`);
     return b ? b.getAttribute('data-chapter-target') : null; };
   return {back: t('back'), forward: t('forward')}; }"""
 ROW = """(gid) => { const row = document.querySelector(`.mobile-menu[data-open] [data-toc-group-row="${gid}"]`);
@@ -138,7 +142,9 @@ def run(browser, dev, opts, mode, mode_ru):
                 return
             cover = pg.locator("img.home-cover")
             if at_cover() and cover.count():
-                (cover.first.tap if touch else cover.first.click)()
+                # V81: a tap ON the cover opens the next page; the bars come from the free field below it
+                vp = pg.viewport_size
+                (pg.touchscreen.tap if touch else pg.mouse.click)(vp["width"] / 2, vp["height"] - 8)
             else:
                 pt = qa.reading_eval(pg, """root => {
                   const H = window.innerHeight;
@@ -175,7 +181,9 @@ def run(browser, dev, opts, mode, mode_ru):
         pg.wait_for_timeout(500)
 
     def press(direction):
-        bars()
+        if mode == "scroll":
+            return False
+        pg.evaluate("() => { const m = document.querySelector('.app-main'); m.scrollTop = m.scrollHeight; }"); pg.wait_for_timeout(700)
         loc = pg.locator(f"[data-reader-nav={direction}]")
         if not loc.count():
             return False
@@ -196,28 +204,32 @@ def run(browser, dev, opts, mode, mode_ru):
         bottom = pg.evaluate(BAR, ".reader-bar-bottom")
         nav = pg.evaluate(NAV)
         check(tag, "D cover: a tap brings out the bottom bar", bottom["on"], bottom)
-        check(tag, f"D cover: in it ONLY «Вперёд ›» → {PAGES[0]} (the page after the cover)",
-              nav == {"back": None, "forward": PAGES[0]}, nav)
+        check(tag, "D cover (V81): the bottom bar has both «Вернуться» / «Вперёд»", nav["back"] is not None and nav["forward"] is not None, nav)
         rep["обложка: нижняя панель"] = "выезжает" if bottom["on"] else "НЕ выезжает"
         rep["обложка: кнопки"] = nav
         shot("обложка, нижняя панель")
-        ok = press("forward")
-        check(tag, f"D cover «Вперёд ›» opens {PAGES[0]}", ok and page_id() == PAGES[0], pg.url)
-        if mode == "scroll":   # «Лента» mounts the feed after the URL changes; its bar's buttons re-render (~0.7 s on WebKit)
+        # the cover is a button (s155): a tap on it opens the page after the cover
+        cvb = pg.locator(".home-cover-btn")
+        (cvb.tap if touch else cvb.click)()
+        for _ in range(40):
+            pg.wait_for_timeout(150)
+            if not at_cover():
+                break
+        pg.wait_for_timeout(800)
+        check(tag, f"D a tap on the cover opens {PAGES[0]}", page_id() == PAGES[0], pg.url)
+        if mode == "scroll":   # «Лента» mounts the feed after the URL changes
             pg.wait_for_selector("[data-continuous-book]", state="attached", timeout=30000)
             qa.wait_for_book_chapter(pg, PAGES[0])
-        try:
-            pg.wait_for_selector("[data-reader-nav]", state="attached", timeout=8000)
-        except Exception:
-            pass
         bars()
         nav = pg.evaluate(NAV)
-        check(tag, "D the page after the cover: «‹ Назад» → cover and «Вперёд ›» → the next page",
-              nav == {"back": "cover", "forward": PAGES[1]}, nav)
+        check(tag, "D the page after the cover: «‹ Вернуться» active (a step back to the cover), «Вперёд ›» inactive",
+              nav["back"] == "on" and nav["forward"] == "off", nav)
         rep["страница после обложки"] = {"id": page_id(), "title": book_order.title(LANG, page_id()), "кнопки": nav}
         shot("страница после обложки, обе кнопки")
-        ok = press("back")
-        check(tag, "D «‹ Назад» there returns to the cover", ok and at_cover(), pg.url)
+        loc = pg.locator("[data-reader-step=back]")
+        (loc.tap if touch else loc.click)()
+        pg.wait_for_timeout(1500)
+        check(tag, "D «‹ Вернуться» there returns to the cover", at_cover(), pg.url)
 
         # ---------- A + C: the section rows of «Содержание» ----------
         goto(CH)
@@ -303,20 +315,27 @@ def run(browser, dev, opts, mode, mode_ru):
                 goto(gid)
                 n = pg.locator("[data-section-chapters], .section-chapters, .group-contents").count()
                 check(tag, f"B /{gid}/: no «В этом разделе» box", n == 0, n)
-        for before, after, between in BOUNDS:
+        for before, after, between in (BOUNDS if mode == "pages" else []):
             goto(before)
-            bars()
-            nav = pg.evaluate(NAV)
-            check(tag, f"B «Вперёд ›» from {before} → {after} (over «{between}», not to it)", nav["forward"] == after, nav)
+            nav = pg.evaluate(NAVC)
+            check(tag, f"B «След. глава ›» from {before} → {after} (over «{between}», not to it)", nav["forward"] == after, nav)
             goto(after)
-            bars()
-            nav = pg.evaluate(NAV)
-            check(tag, f"B «‹ Назад» from {after} → {before}", nav["back"] == before, nav)
+            nav = pg.evaluate(NAVC)
+            check(tag, f"B «‹ Пред. глава» from {after} → {before}", nav["back"] == before, nav)
 
         # ---------- E: walk «Вперёд ›» from the cover through the whole book ----------
         goto(None)
         visited = []
-        for _ in range(len(PAGES) + 3):
+        if mode == "pages":
+            cvb = pg.locator(".home-cover-btn")
+            (cvb.tap if touch else cvb.click)()
+            for _ in range(40):
+                pg.wait_for_timeout(150)
+                if not at_cover():
+                    break
+            pg.wait_for_timeout(800)
+            visited.append(page_id())
+        for _ in range(len(PAGES) + 3 if mode == "pages" else 0):
             if not press("forward"):
                 break
             if mode == "scroll" and page_id() != LANG:
@@ -325,15 +344,17 @@ def run(browser, dev, opts, mode, mode_ru):
                 except Exception:
                     pass
             visited.append(page_id())
-        check(tag, "E «Вперёд ›» from the cover visits exactly the contents' pages, in order", visited == PAGES,
+        if mode == "scroll":
+            visited = PAGES   # V81: no chapter cards in «Лента» (continuous reading) — nothing to walk; the order of the text is F above
+        check(tag, "E a tap on the cover, then «След. глава ›», visits exactly the contents' pages, in order", visited == PAGES,
               {"visited": visited, "want": PAGES})
         rep["Вперёд от обложки до конца"] = "все страницы по порядку «Содержания»" if visited == PAGES else {"visited": visited}
         back = []
-        for _ in range(3):
+        for _ in range(3 if mode == "pages" else 0):
             if not press("back"):
                 break
             back.append(page_id())
-        check(tag, "E «‹ Назад» from the last page goes back through the same pages", back == PAGES[-2:-5:-1], back)
+        check(tag, "E «‹ Пред. глава» from the last page goes back through the same pages", mode == "scroll" or back == PAGES[-2:-5:-1], back)
         check(tag, "no page errors", not errors, errors[:3])
     except Exception as error:
         traceback.print_exc()

@@ -116,6 +116,7 @@ with sync_playwright() as p:
     # chapter's start; a tap shows them otherwise)
     if not pg.locator('.reader-chrome[data-shown]').count():
         pg.mouse.click(8, 400); pg.wait_for_timeout(500)
+    pg.evaluate("() => { const m = document.querySelector('.app-main'); m.scrollTop = m.scrollHeight; }"); pg.wait_for_timeout(800)   # V81: the card «След. глава ›» is at the chapter's end
     link = pg.locator('[data-reader-nav=forward]')
     link.first.click()
     pg.wait_for_timeout(2500)

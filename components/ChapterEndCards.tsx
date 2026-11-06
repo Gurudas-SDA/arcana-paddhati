@@ -106,13 +106,13 @@ export default function ChapterEndCards({
     >
       <div className="chapter-end-cards-row">
         {prevId !== null && (
-          <button type="button" className="chapter-end-card" data-dir="prev" data-chapter-target={prevId} onClick={() => goChapter(prevId)}>
+          <button type="button" className="chapter-end-card" data-dir="prev" data-reader-nav="back" data-chapter-target={prevId} onClick={() => goChapter(prevId)}>
             <span className="chapter-end-card-label">{`‹ ${t(ui, "reader.prevChapter")}`}</span>
             <span className="chapter-end-card-title">{title(prevId)}</span>
           </button>
         )}
         {nextId !== null && (
-          <button type="button" className="chapter-end-card" data-dir="next" data-chapter-target={nextId} onClick={() => goChapter(nextId)}>
+          <button type="button" className="chapter-end-card" data-dir="next" data-reader-nav="forward" data-chapter-target={nextId} onClick={() => goChapter(nextId)}>
             <span className="chapter-end-card-label">{`${t(ui, "reader.nextChapter")} ›`}</span>
             <span className="chapter-end-card-title">{title(nextId)}</span>
           </button>

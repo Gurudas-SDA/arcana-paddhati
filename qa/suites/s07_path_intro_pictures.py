@@ -289,8 +289,9 @@ def run(p, dev, eng, o):
 
     # ---------- B: Forward steps forward (system / browser Forward — V17) ----------
     bars()
-    fw = pg.locator("[data-reader-nav=forward]")
-    chk(dev, "B «Вперёд ›» is a live button (not disabled), to the next page of the contents",
+    # V81: the next page of the contents is the card «След. глава ›» at the chapter's end (the bar's «Вперёд ›» is the history step)
+    fw = pg.locator(".chapter-end-card[data-dir=next]")
+    chk(dev, "B «След. глава ›» card is a live button (not disabled), to the next page of the contents",
         fw.count() == 1 and fw.get_attribute("disabled") is None and fw.get_attribute("aria-disabled") is None
         and fw.get_attribute("data-chapter-target") == "daily-deity-schedule", str(fw.get_attribute("data-chapter-target") if fw.count() else None))
     pg.go_forward(); pg.wait_for_timeout(1000)
@@ -339,7 +340,7 @@ def run(p, dev, eng, o):
     # ---------- B: no next chapter -> no «Вперёд ›» at all, no note (V17, Vraja Lila msg 796) ----------
     goto(f"/{L}/conclusion/")   # the last page of the book since 22.10 (Satkirti msg 6065)
     bars()
-    chk(dev, "B last chapter: no «Вперёд ›» at all (no dead tap)", pg.locator("[data-reader-nav=forward]").count() == 0, pg.url)
+    chk(dev, "B last chapter: no «След. глава ›» card at all (no dead tap)", pg.locator(".chapter-end-card[data-dir=next]").count() == 0, pg.url)
     chk(dev, "B no own history note («Вперёд — после Назад») anywhere", pg.locator("[data-reader-nav-note]").count() == 0)
     goto(f"/{L}/offering-bhoga/")
     u0 = pg.url
@@ -347,13 +348,17 @@ def run(p, dev, eng, o):
     sel = pg.evaluate("(() => { const b = document.querySelector('.reader-bar-bottom'); const s = getComputedStyle(b); return s.userSelect || s.webkitUserSelect; })()")
     chk(dev, "B bars' text is not selectable (no look-up bar on Android)", sel == "none", str(sel))
     # next chapter -> previous -> next with the buttons (V17: chapters)
+    # V81: the chapters are the cards «След. глава ›» / «‹ Пред. глава» at the chapter's end
+    pg.evaluate("() => { const m = document.querySelector('.app-main'); m.scrollTop = m.scrollHeight; }"); pg.wait_for_timeout(700)
     bar_act("[data-reader-nav=forward]", 1100)
     u1 = pg.url
     chk(dev, "D «Вперёд ›» after offering-bhoga -> 7. Мантры почитания чаранамриты", u1.rstrip("/").endswith("/mantras-honouring-caranamrita"), u1)
+    pg.evaluate("() => { const m = document.querySelector('.app-main'); m.scrollTop = m.scrollHeight; }"); pg.wait_for_timeout(700)
     bar_act("[data-reader-nav=back]", 1000)
-    chk(dev, "B ‹ Назад -> previous chapter", pg.url == u0, pg.url)
+    chk(dev, "B ‹ Пред. глава -> previous chapter", pg.url == u0, pg.url)
+    pg.evaluate("() => { const m = document.querySelector('.app-main'); m.scrollTop = m.scrollHeight; }"); pg.wait_for_timeout(700)
     bar_act("[data-reader-nav=forward]", 1000)
-    chk(dev, "B «Вперёд ›» -> next chapter again (Android case)", pg.url == u1, pg.url)
+    chk(dev, "B «След. глава ›» -> next chapter again (Android case)", pg.url == u1, pg.url)
 
     # ---------- D: pages ----------
     goto(f"/{L}/introduction/")

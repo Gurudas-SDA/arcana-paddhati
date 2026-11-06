@@ -1,6 +1,9 @@
 """V80 — Vraja Lila msg 7676 (interface owner; her words are the decision). Her words, literally:
 «что можешь сделать уже сейчас это переименовать назад и вперёд в нижней панели на Пред.глава / След.глава.
 это сделай прямо в книге сейчас».
+V81 (Vraja Lila msg 7735): the chapter buttons «Пред. глава» / «След. глава» moved from the bottom bar to the cards at the chapter's end
+(s155); the bar now holds «‹ Вернуться» / «Вперёд ›» (EN «‹ Back» / «Forward ›») — checked below; the keys reader.prevChapter / nextChapter
+(the cards' labels) keep their V80 texts.
 Criteria (register V80): the bottom bar's two buttons read «‹ Пред. глава» / «След. глава ›» (RU, ru-iast; with a
 space after the dot) and «‹ Prev chapter» / «Next chapter ›» (EN); arrows, data-reader-nav, targets unchanged; first
 page has no «Пред. глава», last page no «След. глава»; the old «Назад» / «Вперёд» (Back / Forward) are gone from the
@@ -34,11 +37,15 @@ for lang, (pv, nx) in WANT.items():
     d = load(f"data/ui.{lang}.json")
     chk("static", f"ui.{lang}: reader.prevChapter = «{pv}»", d.get("reader.prevChapter") == pv, d.get("reader.prevChapter"))
     chk("static", f"ui.{lang}: reader.nextChapter = «{nx}»", d.get("reader.nextChapter") == nx, d.get("reader.nextChapter"))
+hb = {"ru-iast": ("Вернуться", "Вперёд"), "ru": ("Вернуться", "Вперёд"), "en": ("Back", "Forward")}
+for lang, (bk, fw) in hb.items():
+    d = load(f"data/ui.{lang}.json")
+    chk("static", f"ui.{lang}: reader.historyBack = «{bk}», reader.historyForward = «{fw}» (V81)", d.get("reader.historyBack") == bk and d.get("reader.historyForward") == fw, str((d.get("reader.historyBack"), d.get("reader.historyForward"))))
 chk("static", "ui.en: reader.back / reader.forward kept (other «Back» places)", load("data/ui.en.json").get("reader.back") == "Back")
 
 GEO = """() => { const q = s => { const a = document.querySelector(s); if (!a) return null; const r = a.getBoundingClientRect();
   return {t: a.textContent.replace(/\\s+/g,' ').trim(), gap: (() => { const sp = a.querySelectorAll('span'); if (sp.length < 2) return null; const x = sp[0].getBoundingClientRect(), y = sp[1].getBoundingClientRect(); return Math.round(Math.max(y.left - x.right, x.left - y.right) * 10) / 10; })(), l: r.left, r: r.right, top: r.top, bottom: r.bottom, w: r.width, h: r.height, target: a.getAttribute('data-chapter-target')}; };
-  return {vw: innerWidth, vh: innerHeight, b: q('[data-reader-nav=back]'), f: q('[data-reader-nav=forward]'),
+  return {vw: innerWidth, vh: innerHeight, b: q('[data-reader-step=back]'), f: q('[data-reader-step=forward]'),
     shown: !!document.querySelector('.reader-chrome[data-shown]'), bar: document.querySelector('.reader-bar-bottom').textContent.replace(/\\s+/g,' ').trim()}; }"""
 
 
@@ -53,7 +60,7 @@ def run(p, dev, eng, o):
     def bars():
         if pg.locator(".reader-chrome[data-shown]").count() == 0:
             vw, vh = pg.viewport_size["width"], pg.viewport_size["height"]
-            for fx, fy in ((0.5, 0.5), (0.3, 0.4), (0.7, 0.55)):
+            for fx, fy in ((0.5, 0.5), (0.3, 0.4), (0.7, 0.55)) if not pg.url.rstrip('/').endswith(('/ru-iast', '/arcana-paddhati')) else ((0.5, 0.985),):
                 (pg.touchscreen.tap if touch else pg.mouse.click)(vw * fx, vh * fy); pg.wait_for_timeout(500)
                 if pg.locator(".reader-chrome[data-shown]").count():
                     break
@@ -63,24 +70,24 @@ def run(p, dev, eng, o):
         pg.evaluate("try{localStorage.setItem('ap.readerHintSeen','1')}catch(e){}")
         bars(); return pg.evaluate(GEO)
 
-    for lang, mid, first, last in [("ru-iast", "vigraha-tattva", None, None), ("en", "vigraha-tattva", None, None)]:
+    HB = {"ru-iast": ("Вернуться", "Вперёд"), "en": ("Back", "Forward")}
+    for lang, mid in [("ru-iast", "vigraha-tattva"), ("en", "vigraha-tattva")]:
+        bk, fw = HB[lang]
         pv, nx = WANT[lang]
         pages = book_order.pages(lang)
         last = pages[-1]
         url = f"{BASE}/{lang}/{mid}/" if lang != "en" else f"{BASE}/{mid}/"
         g = geo(url)
-        chk(dev, f"{lang} {mid}: «‹ {pv}»", bool(g["b"]) and nrm(g["b"]["t"]) == nrm(f"‹ {pv}"), str(g["b"]))
-        chk(dev, f"{lang} {mid}: «{nx} ›»", bool(g["f"]) and nrm(g["f"]["t"]) == nrm(f"{nx} ›"), str(g["f"]))
+        chk(dev, f"{lang} {mid}: bar «‹ {bk}»", bool(g["b"]) and nrm(g["b"]["t"]) == nrm(f"‹ {bk}"), str(g["b"]))
+        chk(dev, f"{lang} {mid}: bar «{fw} ›»", bool(g["f"]) and nrm(g["f"]["t"]) == nrm(f"{fw} ›"), str(g["f"]))
         chk(dev, f"{lang} {mid}: on screen a gap between each arrow and its text (computed)", all(x and x["gap"] is not None and x["gap"] > 0 for x in (g["b"], g["f"])), str(g))
-        chk(dev, f"{lang} {mid}: no old Назад/Вперёд/Back/Forward in the bar", not any(w in g["bar"] for w in ("Назад", "Вперёд", "Back", "Forward")), g["bar"])
+        chk(dev, f"{lang} {mid}: no chapter buttons «{pv}» / «{nx}» in the bar (they are the cards at the chapter's end, s155)", not any(w in g["bar"] for w in (pv, nx)), g["bar"])
         chk(dev, f"{lang} {mid}: both buttons inside the screen, >= 44 px, not overlapping",
             all(x and x["l"] >= 0 and x["r"] <= g["vw"] and x["h"] >= 44 - 0.5 for x in (g["b"], g["f"])) and g["b"]["r"] <= g["f"]["l"], str(g))
         g = geo(f"{BASE}/{lang}/" if lang != "en" else f"{BASE}/")
-        chk(dev, f"{lang} cover: no «{pv}»", g["b"] is None, str(g["b"]))
-        chk(dev, f"{lang} cover: «{nx} ›» present", bool(g["f"]) and nrm(g["f"]["t"]) == nrm(f"{nx} ›"), str(g["f"]))
+        chk(dev, f"{lang} cover: both bar buttons present (always both)", bool(g["b"]) and bool(g["f"]), str((g["b"], g["f"])))
         g = geo(url.replace(f"/{mid}/", f"/{last}/"))
-        chk(dev, f"{lang} last page {last}: no «{nx}»", g["f"] is None, str(g["f"]))
-        chk(dev, f"{lang} last page {last}: «‹ {pv}» present", bool(g["b"]) and nrm(g["b"]["t"]) == nrm(f"‹ {pv}"), str(g["b"]))
+        chk(dev, f"{lang} last page {last}: both bar buttons present (always both)", bool(g["b"]) and bool(g["f"]), str((g["b"], g["f"])))
     chk(dev, "no page errors", not errs, str(errs[:2]))
     br.close()
 

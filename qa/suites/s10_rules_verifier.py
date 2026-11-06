@@ -119,11 +119,12 @@ def run_one(DEV):
             rec("§9 обложка", "скриншот обложки", None, shot(pg, f"{DEV}_cover"))
             cov = el_center("img.home-cover")
             rec("§9 обложка", "размер обложки (px, доля экрана по высоте)", None, f"{cov['w']:.0f}x{cov['h']:.0f}, h/VH={cov['h']/VH:.2f}, w/VW={cov['w']/VW:.2f}")
-            tap(cov["x"], cov["y"])
+            # V81 (Vraja Lila msg 7729): a tap ON the picture opens the next page (s155); the menu comes from the free field around it
+            tap(VW - 4, VH - 8)
             b1 = bars()
-            tap(cov["x"], cov["y"] + 30)
+            tap(VW - 4, VH / 2)
             b2 = bars()
-            rec("§7 обложка: касание в любом месте показывает меню", "тап по картинке обложки → меню, ещё тап → скрыто", b1 and not b2, f"после 1-го тапа bars={b1}, после 2-го={b2}, точка=({cov['x']:.0f},{cov['y']:.0f})")
+            rec("§7 обложка: касание в любом месте показывает меню", "тап по пустому полю вокруг обложки → меню, ещё тап → скрыто", b1 and not b2, f"после 1-го тапа bars={b1}, после 2-го={b2}, точка=({cov['x']:.0f},{cov['y']:.0f})")
             tap(VW / 2, 8 if VH > 0 else 8)
             rec("§7 обложка", "тап у верхнего края (пустое поле) → меню", bars(), f"bars={bars()}")
         except Exception as e:
@@ -289,7 +290,7 @@ def run_one(DEV):
             side = dict(wbw=pg.evaluate("__qaRoot().querySelectorAll('.verse-panel:not([hidden])').length"), mood=pg.evaluate("!!document.querySelector('.mood-overlay')"), act=active_rows())
             shot(pg, f"{DEV}_menu_shown")
             bb = pg.evaluate("""()=>{const r=s=>{const e=document.querySelector(s); if(!e) return null; const q=e.getBoundingClientRect(); return [Math.round(q.left),Math.round(q.top),Math.round(q.right),Math.round(q.bottom)]};
-                return {back:r('[data-reader-nav=back]'),fwd:r('[data-reader-nav=forward]'),contents:r('[data-reader-action=contents]'),search:r('[data-reader-action=search]'),aa:r('[data-reader-action=aa]'),vw:innerWidth,vh:innerHeight}}""")
+                return {back:r('[data-reader-step=back]'),fwd:r('[data-reader-step=forward]'),contents:r('[data-reader-action=contents]'),search:r('[data-reader-action=search]'),aa:r('[data-reader-action=aa]'),vw:innerWidth,vh:innerHeight}}""")
             tap(pt[0], pt[1]); b2 = bars()
             rec("§1 пустое поле → только меню", "тап по пустому полю: меню вкл/выкл, ни одна функция текста не включилась", b1 and not b2 and side["wbw"] == 0 and not side["mood"] and not side["act"], f"pt={pt} bars {b1}->{b2}; side={side}")
             edge_ok = bb["back"] and bb["back"][0] <= 24 and bb["fwd"] and bb["vw"] - bb["fwd"][2] <= 24 and bb["contents"][0] <= 24 and bb["vw"] - bb["aa"][2] <= 24
@@ -415,7 +416,7 @@ def run_one(DEV):
             # top = offset from the start of the chapter now being read (in the continuous book the
             # absolute scrollTop of a chapter start is its position in the book)
             st = pg.evaluate("({u:location.pathname, top:" + qa.READING_POSITION_JS + ".top, h1:__qaRoot().querySelector('h1, h2')?.textContent})")
-            rec("§9 «Вперёд ›» в конце главы", "V17: кнопка «Вперёд ›» нижней панели (блока в конце главы нет); тап ведёт на начало следующей главы", "Вперёд" in nx["txt"] and pg.locator(".chapter-next").count() == 0 and "daily-deity-schedule" in st["u"] and abs(st["top"]) < 5, f"link='{nx['txt']}', после тапа {st}, смена URL через {nav_dt:.1f}s")
+            rec("§9 «След. глава ›» в конце главы", "V81: карточка «След. глава ›» в конце главы (блока .chapter-next нет); тап ведёт на начало следующей главы", "След. глава" in nx["txt"] and pg.locator(".chapter-next").count() == 0 and "daily-deity-schedule" in st["u"] and abs(st["top"]) < 5, f"link='{nx['txt']}', после тапа {st}, смена URL через {nav_dt:.1f}s")
         except Exception:
             rec("§9 next", "ошибка", False, traceback.format_exc()[-300:])
 
@@ -546,6 +547,7 @@ def run_one(DEV):
                 show_bars()
                 q = el_center("[data-reader-action=contents]"); tap(q["x"], q["y"], 0.6)
                 f = pg.evaluate("""()=>{const out=[]; for(const e of document.querySelectorAll('body *')){ if(!e.offsetParent && getComputedStyle(e).position!=='fixed') continue; const cs=getComputedStyle(e);
+                     if(e.classList.contains('chapter-end-card-title')) continue; /* V81: Vraja Lila msg 7705/7729 — the card's title: 2 lines on a phone, 1 on a desktop, then «…» (her decision) */
                      if((cs.textOverflow==='ellipsis' && e.scrollWidth>e.clientWidth+1) || (cs.webkitLineClamp && cs.webkitLineClamp!=='none' && e.scrollHeight>e.clientHeight+1)) out.push('CLIP '+e.tagName+'.'+e.className.toString().slice(0,40)+': '+e.textContent.slice(0,50));
                      for(const n of e.childNodes){ if(n.nodeType===3 && n.textContent.includes('…') && !e.closest('.app-main article, .mood-quote, .mood-translation')) out.push('TEXT '+e.tagName+': '+n.textContent.trim().slice(0,80));}}
                    return out}""")

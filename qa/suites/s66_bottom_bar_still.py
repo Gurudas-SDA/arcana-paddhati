@@ -40,7 +40,7 @@ SAMPLE = """() => { const b = document.querySelector('.reader-bar-bottom'); cons
   const dimOn = !!d && +getComputedStyle(d).opacity > 0.01;
   const op = (s) => { const e = b.querySelector(s); return e ? +(+getComputedStyle(e).opacity).toFixed(2) : null; };
   return [Math.round(performance.now()), +r.top.toFixed(1), +r.bottom.toFixed(1), +(+cb.opacity).toFixed(3), dimOn && bz <= dz,
-          op('[data-reader-nav=back]'), op('[data-reader-nav=forward]'), !!m]; }"""
+          op('[data-reader-step=back]'), op('[data-reader-step=forward]'), !!m]; }"""
 REC = """(ms) => { window.__bb = []; const s = %s; const t0 = performance.now(); const f = () => { const x = s(); x[0] -= Math.round(t0);
   window.__bb.push(x); if (performance.now() - t0 < ms) requestAnimationFrame(f); }; requestAnimationFrame(f); }""" % SAMPLE
 

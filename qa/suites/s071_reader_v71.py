@@ -147,7 +147,7 @@ def run(p,dev,eng,kw,mode):
        h1 == 'Мангалачарана' and h2 == 0 and not sub and orn == 20 and verses == 28 and wbw == 28, (h1, h2, sub, orn, verses, wbw))
     ck(dev, '6d «Молитва Шри Радхе-Говинде» gone', 'Радхе-Говинде' not in qa.reading_eval(pg, "root => root.innerText"))
     # V17: the next chapter is the bottom bar's «Вперёд ›» (no block at the chapter's end)
-    nxt = pg.evaluate("() => document.querySelector('[data-reader-nav=forward]')?.getAttribute('data-chapter-target') || ''")
+    nxt = pg.evaluate("() => document.querySelector('.chapter-end-card[data-dir=next]')?.getAttribute('data-chapter-target') || ''")
     # A105 (S msg 6152/6239): «Введение» has no own text any more; since V45 (Vraja Lila msg 6178 / 1412) such a section
     # has no page of its own, so the step goes to its first chapter «Эмблема Гаудия-матха»
     import json as _json

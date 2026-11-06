@@ -58,7 +58,7 @@ def chk(d, n, ok, info=""):
 GEO = """root => { const a = document.querySelector('[data-reader-nav=forward]'); if (!a) return null;
   const r = a.getBoundingClientRect(); const bar = document.querySelector('.reader-bar-bottom').getBoundingClientRect();
   return {t: r.top, b: r.bottom, l: r.left, r: r.right, w: r.width, h: r.height, vw: innerWidth, vh: innerHeight,
-    label: a.textContent.replace(/\\s+/g, ' ').trim(), target: a.getAttribute('data-chapter-target'),
+    label: (a.querySelector('.chapter-end-card-label') || a).textContent.replace(/\\s+/g, ' ').trim(), target: a.getAttribute('data-chapter-target'),
     barText: document.querySelector('.reader-bar-bottom').textContent, block: document.querySelectorAll('.chapter-next, .chapter-next-link').length,
     barTop: bar.top, shown: !!document.querySelector('.reader-chrome[data-shown]'),
     fs: parseFloat(getComputedStyle(a).fontSize), color: getComputedStyle(a).color,
@@ -131,8 +131,8 @@ def run(p, dev, eng, o):
             chk(dev, f"{cid}: browser Forward -> {nid} again", pg.url.rstrip("/").endswith(f"/{nid}"), pg.url)
         else:
             bars()
-            act(pg.locator("[data-reader-nav=back]")); pg.wait_for_timeout(700)
-            chk(dev, f"{cid}: «‹ Назад» returns to {cid} (the previous chapter)", pg.url == before, pg.url)
+            act(pg.locator("[data-reader-step=back]")); pg.wait_for_timeout(700)   # V81: the bar's «‹ Вернуться» = a step back along the path
+            chk(dev, f"{cid}: «‹ Вернуться» returns to {cid} (the previous place)", pg.url == before, pg.url)
 
     # last chapter: no «Вперёд ›»; empty part page: to the next one
     pg.goto(f"{BASE}/{LANG}/{LAST}/", wait_until="networkidle"); pg.wait_for_timeout(600)

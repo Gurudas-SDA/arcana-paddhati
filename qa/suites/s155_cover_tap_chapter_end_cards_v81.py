@@ -98,14 +98,14 @@ def run(p, dev, eng, o):
     chk(dev, "cover: after the page opened the fade reappears (overlay gone, page visible)", gone)
 
     # ---- 4. the bottom bar: steps of the path --------------------------------------------------------------------
-    BAR = """() => [...document.querySelectorAll('.reader-bar-bottom [data-reader-nav]')].map(b => ({k: b.getAttribute('data-reader-nav'), off: b.disabled, t: b.textContent.replace(/\\s+/g, ''), c: getComputedStyle(b).color}))"""
+    BAR = """() => [...document.querySelectorAll('.reader-bar-bottom [data-reader-step]')].map(b => ({k: b.getAttribute('data-reader-step'), off: b.disabled, t: b.textContent.replace(/\\s+/g, ''), c: getComputedStyle(b).color}))"""
     pg.wait_for_timeout(500)
     b = {x["k"]: x for x in pg.evaluate(BAR)}
     chk(dev, "bar: after the cover «Вернуться» active, «Вперёд» inactive and pale", bool(b) and not b["back"]["off"] and b["forward"]["off"] and b["back"]["t"] == "‹Вернуться" and b["forward"]["t"] == "Вперёд›", str(b))
-    pg.evaluate("() => document.querySelector('[data-reader-nav=back]').click()"); pg.wait_for_timeout(1200)
+    pg.evaluate("() => document.querySelector('[data-reader-step=back]').click()"); pg.wait_for_timeout(1200)
     b = {x["k"]: x for x in pg.evaluate(BAR)}
     chk(dev, "bar: «Вернуться» goes back to the cover; there «Вернуться» is inactive and pale, «Вперёд» active", pg.url.rstrip("/").endswith(f"/{LANG}") and b["back"]["off"] and not b["forward"]["off"] and b["back"]["c"] != b["forward"]["c"], str((pg.url, b)))
-    pg.evaluate("() => document.querySelector('[data-reader-nav=forward]').click()"); pg.wait_for_timeout(1200)
+    pg.evaluate("() => document.querySelector('[data-reader-step=forward]').click()"); pg.wait_for_timeout(1200)
     chk(dev, "bar: «Вперёд» steps to the first page again", pg.url.rstrip("/").endswith(f"/{LANG}/{FIRST}"), pg.url)
     pg.goto(f"{BASE}/{LANG}/{MID}/", wait_until="networkidle"); pg.wait_for_timeout(900)
     pg.evaluate("() => { try { sessionStorage.clear(); } catch (e) {} }")

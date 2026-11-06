@@ -170,7 +170,7 @@ with sync_playwright() as p:
             top = pg.evaluate("""() => [...document.querySelectorAll('.reader-bar-top .reader-btn svg')].filter(s => s.getBoundingClientRect().width)
                 .map(s => { const r = __wc.pair(getComputedStyle(s).color, __wc.bgOf(s.closest('.reader-btn'))); r.need = 3; r.t = 'icon'; return r; })""")
             check(dev, f"{tag} top-bar icons ≥ 3:1", top and not bad(top), bad(top) or top[:4])
-            fw = pg.evaluate("(() => { const e = document.querySelector('[data-reader-nav=forward]'); return e ? __wc.textOf(e, 4.5) : null; })()")
+            fw = pg.evaluate("(() => { const e = document.querySelector('[data-reader-step=forward]'); return e ? __wc.textOf(e, 4.5) : null; })()")
             check(dev, f"{tag} «Вперёд ›» ≥ 4.5", fw and not bad([fw]), fw)
             st = pg.evaluate("(() => { const e = document.querySelector('.reader-status'); return e ? __wc.textOf(e, 4.5) : null; })()")
             check(dev, f"{tag} status line (chapter · %) ≥ 4.5", st and not bad([st]), st)

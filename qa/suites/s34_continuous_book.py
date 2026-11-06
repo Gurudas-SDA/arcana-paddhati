@@ -129,11 +129,13 @@ def run(browser, device, options, theme):
         if not page.locator(".reader-chrome[data-shown]").count():
             (page.touchscreen.tap if options.get("has_touch") else page.mouse.click)(options["viewport"]["width"] - 6, 400)
             page.wait_for_timeout(500)
-        next_link = page.locator("[data-reader-nav=forward]")
+        # V81 (Vraja Lila msg 7729): «Лента» has no chapter cards; the same jump (a link into the next chapter, handled by the
+        # continuous book) is made through a link placed in the book
         before_scroll = main.evaluate("e => e.scrollTop")
         before_url = page.url
-        next_id = next_link.get_attribute("data-chapter-target")
-        (next_link.tap if options.get("has_touch") else next_link.click)()
+        next_id = page.evaluate("""(c) => { const ids = [...document.querySelectorAll('[data-book-section]')].map(e => e.dataset.bookSection);
+            const n = ids[ids.indexOf(c) + 1]; const a = document.createElement('a'); a.href = location.pathname.replace('/' + c + '/', '/' + n + '/');
+            a.textContent = 'qa'; document.querySelector('[data-continuous-book]').appendChild(a); a.click(); a.remove(); return n; }""", CHAPTER)
         page.wait_for_timeout(1200)
         assert page.url.rstrip("/").endswith("/" + next_id)
         section = page.locator(f"[data-book-section='{next_id}']")

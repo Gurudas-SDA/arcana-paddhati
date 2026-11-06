@@ -69,26 +69,26 @@ def run(p, dev, eng, o, mode):
     mode.start(pg, P); pg.wait_for_timeout(800)
     pg.evaluate("try{localStorage.setItem('ap.readerHintSeen','1'); sessionStorage.removeItem('toc-parts-open')}catch(e){}")
 
-    # (a) cover: tap at the picture centre -> menu bars; again -> hidden
+    # (a) cover (V81, Vraja Lila msg 7729: a tap ON the cover opens the next page — s155): the bars come from a tap on the free
+    # field around it (below the picture); again -> hidden
     pg.goto(COVER, wait_until="networkidle"); pg.wait_for_timeout(1000)
-    b = pg.locator("img.home-cover").bounding_box()
-    tap_pt(b["x"] + b["width"] / 2, b["y"] + b["height"] / 2)
-    chk(dev, "(a) cover: tap image centre -> bars", shown())
+    vwh = pg.viewport_size
+    tap_pt(vwh["width"] / 2, vwh["height"] - 8)
+    chk(dev, "(a) cover: tap on the field below the picture -> bars", shown())
     shot("a-cover-menu")
-    tap_pt(b["x"] + b["width"] / 2, b["y"] + b["height"] * 0.3)
-    chk(dev, "(a) cover: tap image again -> bars hidden", not shown())
-    tap_pt(b["x"] + 10, b["y"] + b["height"] - 10)
-    chk(dev, "(a) cover: tap image corner -> bars", shown())
-    # V45 (Vraja Lila msg 6191, replaces V17's «none on the cover»): on the cover only «Вперёд ›» (to the page
-    # after the cover), no «‹ Назад»
-    chk(dev, "(a) cover: only «Вперёд ›» in the bottom bar (V45)", pg.locator("[data-reader-nav=back]").count() == 0 and pg.locator("[data-reader-nav=forward]").count() == 1)
+    tap_pt(vwh["width"] - 4, vwh["height"] / 2)
+    chk(dev, "(a) cover: tap on the field again -> bars hidden", not shown())
+    tap_pt(vwh["width"] / 2, vwh["height"] - 8)
+    chk(dev, "(a) cover: tap on the field -> bars", shown())
+    # V81 (Vraja Lila msg 7735): the bottom bar always has both «Вернуться» / «Вперёд»; the buttons exist there
+    chk(dev, "(a) cover: «Вернуться» / «Вперёд» both in the bottom bar (V81)", pg.locator("[data-reader-step=back]").count() == 1 and pg.locator("[data-reader-step=forward]").count() == 1)
 
     # (e) bars span the full width: buttons at the screen edges, >= 44x44
     pg.goto(P, wait_until="networkidle"); pg.wait_for_timeout(900)
     show_bars()
     g = pg.evaluate("""() => { const r = s => { const e = document.querySelector(s); const b = e.getBoundingClientRect(); return {l: b.left, r: b.right, w: b.width, h: b.height}; };
       return {vw: innerWidth, c: r('[data-reader-action=contents]'), s: r('[data-reader-action=search]'), aa: r('[data-reader-action=aa]'),
-              p: r('[data-reader-nav=back]'), n: r('[data-reader-nav=forward]')}; }""")
+              p: r('[data-reader-step=back]'), n: r('[data-reader-step=forward]')}; }""")
     vw = g["vw"]
     chk(dev, "(e) «Содержание» at left edge (<=24px)", g["c"]["l"] <= 24, str(g["c"]))
     chk(dev, "(e) «Аа» at right edge (>= vw-24)", g["aa"]["r"] >= vw - 24, f"{g['aa']} vw={vw}")

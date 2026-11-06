@@ -585,6 +585,8 @@ def run_v781(p, dev, eng, o):
         # chapter is the bottom bar's «Вперёд ›» (no block at the chapter's end any more)
         has_next = pg.locator("[data-reader-nav=forward]").count() > 0
         if has_next:
+            # V81: «След. глава ›» is the card at the chapter's end (shown when the reader is at the end)
+            pg.evaluate("() => { const m = document.querySelector('.app-main'); m.dispatchEvent(new Event('wheel')); m.dispatchEvent(new Event('touchmove')); m.scrollTop = m.scrollHeight; }"); pg.wait_for_timeout(900)
             pg.locator("[data-reader-nav=forward]").focus()
             pg.keyboard.press("Enter")
             try:

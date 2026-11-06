@@ -159,7 +159,9 @@ class Contents:
             self.page.wait_for_timeout(180)  # a tap must not merely stop a scroll
             cover=self.page.locator('[data-reader-current] img.home-cover')
             if cover.count():
-                (cover.tap if self.touch else cover.click)()
+                # V81: a tap ON the cover opens the next page (a button); the bars come from a tap on the field below it
+                vw=self.page.viewport_size
+                (self.page.touchscreen.tap if self.touch else self.page.mouse.click)(vw['width']/2,vw['height']-8)
             else:
                 p=qa.reading_eval(self.page, EMPTY_POINT)
                 (self.page.touchscreen.tap if self.touch else self.page.mouse.click)(p['x'],p['y'])

@@ -1157,7 +1157,7 @@ export default function ReaderChrome({
               arm();
               window.history.back();
             }}
-            data-reader-nav="back"
+            data-reader-step="back"
           >
             <span aria-hidden="true" className="reader-history-arrow">‹</span>
             <span>{t(ui, "reader.historyBack")}</span>
@@ -1170,7 +1170,7 @@ export default function ReaderChrome({
               arm();
               window.history.forward();
             }}
-            data-reader-nav="forward"
+            data-reader-step="forward"
           >
             <span>{t(ui, "reader.historyForward")}</span>
             <span aria-hidden="true" className="reader-history-arrow">›</span>
