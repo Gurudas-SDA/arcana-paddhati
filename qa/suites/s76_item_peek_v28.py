@@ -55,7 +55,16 @@ LIGHT = """async ([n, frac, bars]) => {
   await new Promise(r => setTimeout(r, 400));
   if (bars) d.setAttribute('data-reader-bars', ''); else d.removeAttribute('data-reader-bars');
   await new Promise(r => setTimeout(r, 300));
-  const fig = document.querySelector('.app-main .hs-figure'); const fr = fig && fig.getBoundingClientRect();
+  // tehniskais slieksnis Lipikāra, nav S noteikums: the window is measured once its picture has loaded (a loaded CPU
+  //   loads it late and the window then has another height) - waits up to 10 s for it, then lets the page re-place it
+  for (let i = 0; i < 50; i++) {
+    const im = document.querySelector('.hs-peek img');
+    if (!document.querySelector('.hs-peek') || (im && im.complete && im.naturalWidth > 0)) break;
+    await new Promise(r => setTimeout(r, 200));
+  }
+  dispatchEvent(new Event('resize')); m.dispatchEvent(new Event('scroll'));
+  await new Promise(r => setTimeout(r, 300));
+  const fig =document.querySelector('.app-main .hs-figure'); const fr = fig && fig.getBoundingClientRect();
   const figSeen = !!fr && fr.bottom > 0 && fr.top < innerHeight;
   const pk = document.querySelector('.hs-peek'); if (!pk) return {err: 'no window', active: row.hasAttribute('data-active'), figSeen};
   const x = pk.querySelector('.hs-peek-close'); const p = pk.getBoundingClientRect(), c = x.getBoundingClientRect();
@@ -81,6 +90,7 @@ with sync_playwright() as p:
         c.add_init_script("localStorage.setItem('ap.readerHintSeen','1');localStorage.setItem('installDismissed','true');")
         pg = c.new_page()
         pg.goto(f"{BASE}/ru-iast/{PAGE}/", wait_until="networkidle")
+        qa.wait_app_ready(pg)  # the page is hydrated: its reader state no longer rewrites the bars set below
         pg.wait_for_timeout(900)
         for bars in (False, True):
             for frac, where in ((0.3, "row high on the screen"), (0.72, "row low on the screen")):

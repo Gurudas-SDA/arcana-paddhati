@@ -1,0 +1,14 @@
+V81 (06.11.2026): s63, s76, s77 kritumi iphone14 - nestabilitate, ne V81 regresija. Pierādījums (job žurnāli scripts/state/jobs/).
+
+Bez papildslodzes, PIRMAIS mēģinājums (atkārtojums neieskaitīts), 6 gājieni, iphone14:
+  V81 d1a5bf8 (v81-s76a):      s63 krita 3/6, s76 krita 1/6
+  main 899baf9 (v81-s76main2): s63 krita 1/6, s76 krita 1/6   -> krīt arī uz main
+
+Ar mākslīgu slodzi (3 CPU cilpas), V81 out/, 6 gājieni, pirmais mēģinājums (job v81-load1):
+  VECIE testi: s76 krita 3/6 (viens arī atkārtojumā), s63 krita 2/6, s77 krita 1/6   (krita pirms)
+  JAUNIE testi: s76 0/6, s63 0/6, s77 0/6                                            (iet pēc)
+
+Cēlonis: lapas hidratācija pēc ielādes ilgst 2-3,6 s uz noslogota CPU; test (s76) uzliek data-reader-bars / mēra logu pirms hidratācijas
+beigām un pirms loga attēls ielādēts; (s63) mēra 1500 ms no DOMContentLoaded; (s77) kadru sampleris garā kadrā nepieķer 200 ms CSS pāreju.
+Labojumi (S sliekšņi nemainīti: 1500 ms, 100-450 ms, 4/57 px): qa/lib/qa.py wait_app_ready (gaida splash pazušanu), s76 gaida loga attēlu,
+s63 skaita arī no lietotnes "lapa gatava" izsaukuma, s77 pieņem pārlūka CSS transition ierakstu (100-450 ms, beidzās).

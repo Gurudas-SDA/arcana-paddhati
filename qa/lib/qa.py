@@ -158,6 +158,15 @@ def load_portraits(page, timeout_ms=20000):
     return page.evaluate(LOAD_PORTRAITS_JS, timeout_ms)
 
 
+def wait_app_ready(page, timeout_ms=30000):
+    """tehniskais slieksnis Lipikāra, nav S noteikums: wait for the START SCREEN to be gone (components/AppShell.tsx
+    calls it once the page is hydrated and drawn; lib/caSplash.ts removes it, at the latest after 4.7 s) instead of a
+    fixed pause. On a loaded CPU hydration takes seconds; a test that sets reader state (data attributes, scroll)
+    before hydration finishes sees the app overwrite it. Does not wait if the page has no start screen."""
+    page.wait_for_function("() => { const s = document.getElementById('ap-splash'); return !s || s.hidden || !s.isConnected; }",
+                           timeout=timeout_ms)
+
+
 def reading_locator(page, selector):
     return page.locator(READING_SELECTOR).locator(selector)
 
