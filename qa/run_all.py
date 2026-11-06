@@ -202,6 +202,8 @@ SUITES = [
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s150", file="suites/s150_a112c_tulasi_worship.py", title="A112c Tulasi Sundari msg 179/181/183 05.11: nodala «Ежедневное поклонение Туласи» — «предлагают три предмета … по часовой стрелке», pasvārdiskais visām mantrām (ru-iast, en), EN nav stubs",
          devices=None, fast=True, server=False),
+    dict(id="s155", file="suites/s155_tulasi_bullets_a112g.py", title="A112g Tulasi Sundari msg 7688-7697 06.11: «Ежедневное поклонение Туласи» — punkti «•» bez numuriem 1.1)–2.5), izsvītrotie vārdi noņemti, piezīme par rokām paliek (ru-iast, en)",
+         devices=None, fast=True, server=False),
     dict(id="s146", file="suites/s146_a143_tone_arrows.py", title="A143 Satkirti msg 7447–7450 04.11: bultas pie pantiem, kas dziedami citā tonī (Maṅgala-ārati 2,4,6,8 ↑; 5,7,9 →; Vibhāvarī-śeṣa 3,5,7 ↑) + «jaya jaya paurṇamāsī, ābhīra-nāgarī» visās valodās",
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s142", file="suites/s142_mangalacarana_two_slokas_removed.py", title="A140 Satkirti msg 7403 03.11 (A133 «Убрать»): «Мангалачарана» — pranāmā Bhaktiprajñāna Keśava divas lieka šlokas (gaurāśraya-vigrahāya…, prabhupādāntaraṅgāya…) izņemtas visās valodās; šlokas 9–10 paliek",
