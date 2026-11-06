@@ -78,7 +78,11 @@ with tempfile.TemporaryDirectory() as tmp:
     rc5, o5 = run("--root", tmp, "--baseline", base, "--exceptions", exf)
     check("tmp: exception without who -> exit 1 (invalid entry)", rc5 == 1 and "nederīgs" in o5, o5)
 
-check("real exceptions file exists and is a valid empty list", json.load(open(os.path.join(ROOT, "qa", "token_guard_exceptions.json"))).get("exceptions") == [])
+# V81 (Vraja Lila msg 7729): the file was empty at V61; the first real exceptions (exact mockup values with no token) are in it now,
+# so the check is "valid list, every entry has value, file, reason and who" instead of "empty"
+_exc = json.load(open(os.path.join(ROOT, "qa", "token_guard_exceptions.json"))).get("exceptions")
+check("real exceptions file exists and is a valid list (every entry has value, file, reason, who)",
+      isinstance(_exc, list) and all(all(str(e.get(k, "")).strip() for k in ("value", "file", "reason", "who")) for e in _exc), _exc)
 
 n = sum(results)
 print(f"\n{n}/{len(results)} passed")

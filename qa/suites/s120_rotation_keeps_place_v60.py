@@ -40,7 +40,9 @@ def mid_scroll(pg, scroll):
     pg.evaluate("""() => { const m = document.querySelector('.app-main');
       const sec = document.querySelector('[data-reader-current]') || m;
       const start = sec === m ? 0 : m.scrollTop + sec.getBoundingClientRect().top - m.getBoundingClientRect().top;
-      const h = sec === m ? m.scrollHeight - m.clientHeight : sec.scrollHeight - m.clientHeight;
+      // V81: the end-of-chapter cards' spacer is not text; without it the middle is where it was before V81 (the pre-V81 landing place)
+      const sp = (document.querySelector('.chapter-end-cards-space') || {}).offsetHeight || 0;
+      const h = (sec === m ? m.scrollHeight - m.clientHeight : sec.scrollHeight - m.clientHeight) - sp;
       m.scrollTop = start + Math.max(0, h) * 0.5; m.dispatchEvent(new Event('scroll')); }""")
     pg.wait_for_timeout(1200)
 

@@ -2785,7 +2785,7 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
   position: fixed;
   z-index: 25;
   box-sizing: border-box;
-  bottom: calc(57px + env(safe-area-inset-bottom, 0px) + 8px);
+  bottom: calc(57px + env(safe-area-inset-bottom, 0px) + var(--space-8));
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
@@ -2805,11 +2805,11 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
 .chapter-end-cards-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: var(--space-12);
 }
 .chapter-end-card {
   box-sizing: border-box;
-  min-height: 44px;
+  min-height: var(--target);
   padding: 14px;
   border: 1px solid var(--rd-border);
   border-radius: 12px;
@@ -2830,7 +2830,7 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
 }
 .chapter-end-card-label {
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: var(--space-4);
   font-size: 16px;
   font-weight: 400;
   opacity: 0.85;
@@ -2850,7 +2850,7 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
   .chapter-end-cards-row {
     display: flex;
     justify-content: space-between;
-    gap: 48px;
+    gap: var(--space-48);
   }
   .chapter-end-card {
     flex: 0 0 323px;

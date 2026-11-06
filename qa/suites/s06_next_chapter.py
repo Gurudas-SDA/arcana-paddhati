@@ -83,6 +83,9 @@ def run(p, dev, eng, o):
         for _ in range(3):
             qa.scroll_chapter(pg, 1)
             pg.wait_for_timeout(350)
+        # V81: the end-of-chapter cards show only when the reader is at the very end (scrollTop >= scrollHeight - clientHeight - 4);
+        # scroll_chapter(1) stops before the cards' own spacer, so a reader at the end scrolls the last bit too
+        pg.evaluate("() => { const m = document.querySelector('.app-main'); m.scrollTop = m.scrollHeight; m.dispatchEvent(new Event('scroll')); }")
         pg.wait_for_timeout(500)
 
     def shot(n):
