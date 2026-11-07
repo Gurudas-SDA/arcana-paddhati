@@ -1,0 +1,39 @@
+  [FAIL] book.ru-iast.json a/c/d есть «Туласи-арати проводят в 5:20 утра, после манг»
+  [PASS] book.ru-iast.json a/c/d есть «Прочитайте молитву Вринде-деви и сделайте пок»
+  [PASS] book.ru-iast.json a/c/d есть «Начните бхаджан «Джая Радхе»
+  [FAIL] book.ru-iast.json a/c/d есть «Обходите вокруг Туласи не менее четырёх раз.»
+  [FAIL] book.ru-iast.json a/c/d есть «Арати проводят одновременно с парикрамой.»
+  [FAIL] book.ru-iast.json a/c/d есть «⟦дхупа⟧, благовония: 7 кругов вокруг всего де»
+  [FAIL] book.ru-iast.json a/c/d есть «⟦дипа⟧, лампада (фитилёк): корням (стопам) — »
+  [FAIL] book.ru-iast.json a/c/d есть «⟦пушпа⟧, цветок: 3 круга вокруг всего дерева,»
+  [FAIL] book.ru-iast.json b нет «Порядок проведения»
+  [FAIL] book.ru-iast.json b нет «Пранама.»
+  [FAIL] book.ru-iast.json b нет «Бхаджан и парикрама»
+  [FAIL] book.ru-iast.json b нет «Пойте и»
+  [FAIL] book.ru-iast.json b нет «Арати — одновременно»
+  [FAIL] book.ru-iast.json b нет «Предлагают три предмета»
+  [FAIL] book.ru-iast.json b нет «Предметы арати»
+  [FAIL] book.ru-iast.json d нет таблицы paired-list
+  [FAIL] book.ru-iast.json d подзаголовок «Упачары арати…»
+  [PASS] book.ru-iast.json e мантр 7 в разделе
+  [PASS] book.ru-iast.json e нет кириллицы с диакритикой
+  [FAIL] book.json a/c/d есть «Tulasī-ārati is performed at 5:20 a.m., after»
+  [PASS] book.json a/c/d есть «Recite the prayer to Vṛndā-devī and offer obe»
+  [PASS] book.json a/c/d есть «Begin the bhajana “Jaya Rādhe»
+  [FAIL] book.json a/c/d есть «Circumambulate Tulasī at least four times.»
+  [FAIL] book.json a/c/d есть «Ārati is performed simultaneously with the pa»
+  [FAIL] book.json a/c/d есть «⟦dhūpa⟧, incense: 7 circles around the whole »
+  [FAIL] book.json a/c/d есть «⟦dīpa⟧, lamp (wick): to the roots (feet) — 4 »
+  [FAIL] book.json a/c/d есть «⟦puṣpa⟧, flower: 3 circles around the whole t»
+  [FAIL] book.json b нет «Order of the procedure»
+  [FAIL] book.json b нет «Praṇāma. Recite»
+  [FAIL] book.json b нет «Bhajana and parikramā»
+  [FAIL] book.json b нет «Sing and circumambulate»
+  [FAIL] book.json b нет «Ārati — simultaneously»
+  [FAIL] book.json b нет «Three items are offered»
+  [FAIL] book.json b нет «Items of ārati»
+  [FAIL] book.json d нет таблицы paired-list
+  [FAIL] book.json d подзаголовок «Upacāras of ārati…»
+  [PASS] book.json e мантр 7 в разделе
+  [PASS] book.json e в EN нет кириллицы
+8/38 PASS

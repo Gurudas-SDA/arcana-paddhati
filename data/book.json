@@ -2631,19 +2631,11 @@
           "content": [
             {
               "type": "instruction",
-              "content": "Tulasī-ārati is performed after maṅgala-ārati."
+              "content": "Tulasī-ārati is performed at 5:20 a.m., after maṅgala-ārati. Worship of Tulasī, as of the Deities, may be performed only in clean clothes."
             },
             {
               "type": "instruction",
-              "content": "Worship of Tulasī, as of the Deities, may be performed only in clean clothes."
-            },
-            {
-              "type": "subtitle",
-              "content": "Order of the procedure:"
-            },
-            {
-              "type": "instruction",
-              "content": "Praṇāma. Recite the prayer to Vṛndā-devī and offer obeisances:"
+              "content": "Recite the prayer to Vṛndā-devī and offer obeisances:"
             },
             {
               "type": "verse",
@@ -2653,36 +2645,31 @@
             },
             {
               "type": "instruction",
-              "content": "Bhajana and parikramā. Begin the bhajana “Jaya Rādhe, jaya Kṛṣṇa, jaya Vṛndāvana” (“Śrī Vraja-dhāma-mahimāmṛta”; the text is in the section “Ārati”, chapter “Maṅgala-ārati”)."
+              "content": "Begin the bhajana “Jaya Rādhe, jaya Kṛṣṇa, jaya Vṛndāvana” (“Śrī Vraja-dhāma-mahimāmṛta”; the text is in the section “Ārati”, chapter “Maṅgala-ārati”)."
             },
             {
               "type": "instruction",
-              "content": "Sing and circumambulate Tulasī at least four times."
+              "content": "Circumambulate Tulasī at least four times."
             },
             {
               "type": "instruction",
-              "content": "Ārati — simultaneously with the parikramā. Three items are offered: incense, a lamp (wick) and a flower — clockwise."
+              "content": "Ārati is performed simultaneously with the parikramā."
             },
             {
               "type": "subtitle",
-              "content": "Items of ārati and the order of offering them:"
+              "content": "Upacāras of ārati and the order of offering them:"
             },
             {
-              "type": "paired-list",
-              "items": [
-                {
-                  "label": "Incense",
-                  "value": "7 circles around the whole tree, then to Guru and all the devotees"
-                },
-                {
-                  "label": "Lamp (wick)",
-                  "value": "to the roots (feet) — 4 circles, trunk — 2, top — 3, whole tree — 7; then to Guru and all the devotees"
-                },
-                {
-                  "label": "Flower",
-                  "value": "3 circles around the whole tree, then to Guru and all the devotees"
-                }
-              ]
+              "type": "instruction",
+              "content": "⟦dhūpa⟧, incense: 7 circles around the whole tree, then to Guru and all the devotees"
+            },
+            {
+              "type": "instruction",
+              "content": "⟦dīpa⟧, lamp (wick): to the roots (feet) — 4 circles, trunk — 2, top — 3, whole tree — 7; then to Guru and all the devotees"
+            },
+            {
+              "type": "instruction",
+              "content": "⟦puṣpa⟧, flower: 3 circles around the whole tree, then to Guru and all the devotees"
             },
             {
               "type": "instruction",

@@ -42,11 +42,11 @@ for fn, s in S.items():
 
 txt = " ".join(x.get("content", "") for x in blocks(S["book.ru-iast.json"]) if x["type"] in ("list", "instruction"))  # A112g: пункты теперь instruction
 check("ru-iast", "a 1.3 «Предлагают три предмета … по часовой стрелке», без «Поднесите/Подносите»",
-      "Предлагают три предмета" in txt and "по часовой стрелке" in txt and not re.search(r"Поднесите|Подносите", txt), txt[:300])
+      "Арати проводят одновременно с парикрамой." in txt and not re.search(r"Поднесите|Подносите", txt), txt[:300])  # A112h: «Предлагают три предмета… по часовой стрелке» убрано по Туласи (msg 238/240)
 en = S["book.json"]
 et = json.dumps(en, ensure_ascii=False)
 check("en", "c не заглушка", "translation pending" not in et)
-check("en", "c 1.3 «Three items are offered … clockwise»", re.search(r"Three items are offered.*clockwise", et) is not None)
+check("en", "c 1.3 «Ārati is performed simultaneously with the parikramā.» (A112h)", "Ārati is performed simultaneously with the parikramā." in et)
 ve = [x["sanskrit"] for x in blocks(en) if x["type"] == "verse"]
 vr = [x["sanskrit"] for x in blocks(S["book.ru-iast.json"]) if x["type"] == "verse"]
 check("en", "c санскрит = ru-iast", ve == vr, (len(ve), len(vr)))
