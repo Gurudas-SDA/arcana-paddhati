@@ -14,6 +14,7 @@
   i) msg 259/265/267: 3.2 примечание «листья Туласи… Их кладут»; 3.1 три пункта → «Во время арати поётся бхаджан… Обходить Туласи необходимо минимум 4 раза.» (скобка убрана «Арати проводят одновременно с парикрамой»); 3.1/3.2 — стиль как в главах 1, 2, 4: повелительное, без меток «Если омовения не было.», подзаголовок без «:»;
   j) msg 7813: «Во время арати поётся…» остаётся; подпункты остаются; в примечании 3.2 выделены ⟦Шри Гуру⟧ и ⟦Шри Гауранги⟧ (как в главах 1, 2, 4; Шримати Радхарани там не выделяется); «На этом арати Туласи завершается.» / «This completes Tulasī-ārati.» убрано;
   k) msg 7814: подпункты — полные предложения: «Прочитайте пранаму Туласи — …», «Прочитайте молитву вайшнавам:» (EN «Recite the praṇāma to Tulasī — …», «Recite the prayer to the Vaiṣṇavas:»);
+  l) msg 7815: в примечании 3.2 выделено и ⟦Шримати Радхарани⟧ (⟦Śrīmatī Rādhārāṇī⟧);
   e) мантр по-прежнему 7 в разделе; санскрит в ru-iast без кириллицы с диакритикой.
 usage: python s_a112h_tulasi_arati.py
 """
@@ -51,7 +52,7 @@ RU = {
              "Если омовения не было, совершите ⟦манаса-снану⟧ (омовение в уме) и идите собирать Туласи с этим настроением:",
              "Перед срыванием прочитайте ⟦чаяна-мантру⟧ (мантру для сбора листьев):",
              "После сбора прочитайте мантру с просьбой о прощении (⟦апарадха-кшама-прартхана⟧):",
-             "Примечание: листья Туласи не кладут на стопы Шримати Радхарани, ⟦Шри Гуру⟧ и ⟦Шри Гауранги⟧. Их кладут в правую руку."],
+             "Примечание: листья Туласи не кладут на стопы ⟦Шримати Радхарани⟧, ⟦Шри Гуру⟧ и ⟦Шри Гауранги⟧. Их кладут в правую руку."],
     "gone": ["Порядок проведения", "Пранама.", "Бхаджан и парикрама", "Пойте и", "Арати — одновременно", "Предлагают три предмета", "Предметы арати", "Когда бхаджан допет", "обе молитвы", "Полив.", "Гурудев или другой преданный поливает Туласи", "\nпранаму Туласи — ", "\nмолитву вайшнавам:", "Затем сделайте поклон", "Заключительная молитва",
              "Начните бхаджан", "Обходите вокруг", "Арати проводят одновременно", "Листья собирают", "Если омовения не было.", "Перед срыванием.", "После сбора.", "Примечание: Туласи не кладут", "Её кладут", "На этом арати Туласи завершается"],
     "sub": "Упачары арати",
@@ -69,7 +70,7 @@ EN = {
              "If one has not bathed, perform ⟦mānasa-snāna⟧ (bathing in the mind) and go to gather Tulasī in this mood:",
              "Before picking, recite the ⟦cayana-mantra⟧ (the mantra for gathering leaves):",
              "After gathering, recite the mantra begging forgiveness (⟦aparādha-kṣamā-prārthanā⟧):",
-             "Note: Tulasī leaves are not placed on the feet of Śrīmatī Rādhārāṇī, ⟦Śrī Guru⟧ and ⟦Śrī Gaurāṅga⟧. They are placed in the right hand."],
+             "Note: Tulasī leaves are not placed on the feet of ⟦Śrīmatī Rādhārāṇī⟧, ⟦Śrī Guru⟧ and ⟦Śrī Gaurāṅga⟧. They are placed in the right hand."],
     "gone": ["Order of the procedure", "Praṇāma. Recite", "Bhajana and parikramā", "Sing and circumambulate", "Ārati — simultaneously", "Three items are offered", "Items of ārati", "When the bhajana is finished", "both prayers", "Watering.", "Gurudeva or another devotee waters Tulasī", "\npraṇāma to Tulasī — ", "\nprayer to the Vaiṣṇavas:", "Then offer obeisances", "Closing prayer",
              "Begin the bhajana", "Circumambulate Tulasī at least", "Ārati is performed simultaneously", "Leaves are gathered", "If one has not bathed.", "Before picking.", "After gathering.", "Note: Tulasī is not placed", "She is placed", "This completes Tulasī-ārati"],
     "sub": "Upacāras of ārati",
