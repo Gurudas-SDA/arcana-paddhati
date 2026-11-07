@@ -41,7 +41,7 @@ RU = {
              "⟦дипа⟧, лампада (фитилёк): корням (стопам) — 4 круга, стволу — 2, верхушке — 3, всему дереву — 7; затем Гуру и всем преданным",
              "⟦пушпа⟧, цветок: 3 круга вокруг всего дерева, затем Гуру и всем преданным",
              "После бхаджана прочитайте молитвы и поклонитесь:", "молитву вайшнавам:", "пранаму Туласи — ", "Затем, орошая Туласи-деви водой из ⟦панча-патры⟧, пойте:"],
-    "gone": ["Порядок проведения", "Пранама.", "Бхаджан и парикрама", "Пойте и", "Арати — одновременно", "Предлагают три предмета", "Предметы арати", "Когда бхаджан допет", "обе молитвы", "Полив.", "Гурудев или другой преданный"],
+    "gone": ["Порядок проведения", "Пранама.", "Бхаджан и парикрама", "Пойте и", "Арати — одновременно", "Предлагают три предмета", "Предметы арати", "Когда бхаджан допет", "обе молитвы", "Полив.", "Гурудев или другой преданный поливает Туласи"],
     "sub": "Упачары арати",
 }
 EN = {
@@ -52,7 +52,7 @@ EN = {
              "⟦dīpa⟧, lamp (wick): to the roots (feet) — 4 circles, trunk — 2, top — 3, whole tree — 7; then to Guru and all the devotees",
              "⟦puṣpa⟧, flower: 3 circles around the whole tree, then to Guru and all the devotees",
              "After the bhajana, recite the prayers and offer obeisances:", "prayer to the Vaiṣṇavas:", "praṇāma to Tulasī — ", "Then, sprinkling Tulasī-devī with water from the ⟦pañca-pātra⟧, sing:"],
-    "gone": ["Order of the procedure", "Praṇāma. Recite", "Bhajana and parikramā", "Sing and circumambulate", "Ārati — simultaneously", "Three items are offered", "Items of ārati", "When the bhajana is finished", "both prayers", "Watering.", "Gurudeva or another devotee"],
+    "gone": ["Order of the procedure", "Praṇāma. Recite", "Bhajana and parikramā", "Sing and circumambulate", "Ārati — simultaneously", "Three items are offered", "Items of ārati", "When the bhajana is finished", "both prayers", "Watering.", "Gurudeva or another devotee waters Tulasī"],
     "sub": "Upacāras of ārati",
 }
 for fn, T in (("book.ru-iast.json", RU), ("book.json", EN)):

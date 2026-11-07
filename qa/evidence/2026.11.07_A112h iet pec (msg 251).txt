@@ -20,7 +20,7 @@
   [PASS] book.ru-iast.json b нет «Когда бхаджан допет»
   [PASS] book.ru-iast.json b нет «обе молитвы»
   [PASS] book.ru-iast.json b нет «Полив.»
-  [FAIL] book.ru-iast.json b нет «Гурудев или другой преданный»
+  [PASS] book.ru-iast.json b нет «Гурудев или другой преданный поливает Туласи»
   [PASS] book.ru-iast.json d нет таблицы paired-list
   [PASS] book.ru-iast.json d подзаголовок «Упачары арати…»
   [PASS] book.ru-iast.json e мантр 7 в разделе
@@ -47,9 +47,9 @@
   [PASS] book.json b нет «When the bhajana is finished»
   [PASS] book.json b нет «both prayers»
   [PASS] book.json b нет «Watering.»
-  [FAIL] book.json b нет «Gurudeva or another devotee»
+  [PASS] book.json b нет «Gurudeva or another devotee waters Tulasī»
   [PASS] book.json d нет таблицы paired-list
   [PASS] book.json d подзаголовок «Upacāras of ārati…»
   [PASS] book.json e мантр 7 в разделе
   [PASS] book.json e в EN нет кириллицы
-52/54 PASS
+54/54 PASS
