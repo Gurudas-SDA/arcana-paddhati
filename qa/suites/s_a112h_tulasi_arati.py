@@ -8,6 +8,7 @@
   b) нет подзаголовка «Порядок проведения:», слов «Пранама.», «Бхаджан и парикрама.», «Пойте и», тире «Арати — …», предложения «Предлагают три предмета…»;
   c) «Прочитайте молитву Вринде-деви…», «Начните бхаджан», «Обходите вокруг Туласи не менее четырёх раз.», «Арати проводят одновременно с парикрамой.»;
   d) нет таблицы (paired-list) в tulasi-arati; подзаголовок со словом «упачары»; три пункта: дхупа / дипа / пушпа с числами 7; 4-2-3-7; 3 и «затем Гуру и всем преданным»;
+  f) Туласи msg 249: «После бхаджана прочитайте молитвы и поклонитесь:» вместо «Когда бхаджан допет, одновременно прочитайте обе молитвы…», подпункты остаются;
   e) мантр по-прежнему 7 в разделе; санскрит в ru-iast без кириллицы с диакритикой.
 usage: python s_a112h_tulasi_arati.py
 """
@@ -37,8 +38,9 @@ RU = {
              "Обходите вокруг Туласи не менее четырёх раз.", "Арати проводят одновременно с парикрамой.",
              "⟦дхупа⟧, благовония: 7 кругов вокруг всего дерева, затем Гуру и всем преданным",
              "⟦дипа⟧, лампада (фитилёк): корням (стопам) — 4 круга, стволу — 2, верхушке — 3, всему дереву — 7; затем Гуру и всем преданным",
-             "⟦пушпа⟧, цветок: 3 круга вокруг всего дерева, затем Гуру и всем преданным"],
-    "gone": ["Порядок проведения", "Пранама.", "Бхаджан и парикрама", "Пойте и", "Арати — одновременно", "Предлагают три предмета", "Предметы арати"],
+             "⟦пушпа⟧, цветок: 3 круга вокруг всего дерева, затем Гуру и всем преданным",
+             "После бхаджана прочитайте молитвы и поклонитесь:", "молитву вайшнавам:", "пранаму Туласи — "],
+    "gone": ["Порядок проведения", "Пранама.", "Бхаджан и парикрама", "Пойте и", "Арати — одновременно", "Предлагают три предмета", "Предметы арати", "Когда бхаджан допет", "обе молитвы"],
     "sub": "Упачары арати",
 }
 EN = {
@@ -47,8 +49,9 @@ EN = {
              "Circumambulate Tulasī at least four times.", "Ārati is performed simultaneously with the parikramā.",
              "⟦dhūpa⟧, incense: 7 circles around the whole tree, then to Guru and all the devotees",
              "⟦dīpa⟧, lamp (wick): to the roots (feet) — 4 circles, trunk — 2, top — 3, whole tree — 7; then to Guru and all the devotees",
-             "⟦puṣpa⟧, flower: 3 circles around the whole tree, then to Guru and all the devotees"],
-    "gone": ["Order of the procedure", "Praṇāma. Recite", "Bhajana and parikramā", "Sing and circumambulate", "Ārati — simultaneously", "Three items are offered", "Items of ārati"],
+             "⟦puṣpa⟧, flower: 3 circles around the whole tree, then to Guru and all the devotees",
+             "After the bhajana, recite the prayers and offer obeisances:", "prayer to the Vaiṣṇavas:", "praṇāma to Tulasī — "],
+    "gone": ["Order of the procedure", "Praṇāma. Recite", "Bhajana and parikramā", "Sing and circumambulate", "Ārati — simultaneously", "Three items are offered", "Items of ārati", "When the bhajana is finished", "both prayers"],
     "sub": "Upacāras of ārati",
 }
 for fn, T in (("book.ru-iast.json", RU), ("book.json", EN)):
