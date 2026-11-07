@@ -1,0 +1,63 @@
+  [PASS] book.ru-iast.json a/c/d есть «Туласи-арати проводят в 5:20 утра, после манг»
+  [PASS] book.ru-iast.json a/c/d есть «Прочитайте молитву Вринде-деви и сделайте пок»
+  [PASS] book.ru-iast.json a/c/d есть «Начните бхаджан «Джая Радхе»
+  [PASS] book.ru-iast.json a/c/d есть «Обходите вокруг Туласи не менее четырёх раз.»
+  [PASS] book.ru-iast.json a/c/d есть «Арати проводят одновременно с парикрамой.»
+  [PASS] book.ru-iast.json a/c/d есть «⟦дхупа⟧, благовония: 7 кругов вокруг всего де»
+  [PASS] book.ru-iast.json a/c/d есть «⟦дипа⟧, лампада (фитилёк): корням (стопам) — »
+  [PASS] book.ru-iast.json a/c/d есть «⟦пушпа⟧, цветок: 3 круга вокруг всего дерева,»
+  [PASS] book.ru-iast.json a/c/d есть «После бхаджана прочитайте молитвы и поклоните»
+  [PASS] book.ru-iast.json a/c/d есть «молитву вайшнавам:»
+  [PASS] book.ru-iast.json a/c/d есть «пранаму Туласи — »
+  [PASS] book.ru-iast.json a/c/d есть «Затем, орошая Туласи-деви водой из ⟦панча-пат»
+  [FAIL] book.ru-iast.json a/c/d есть «Сделайте поклон и прочитайте завершающую моли»
+  [PASS] book.ru-iast.json a/c/d есть «На этом арати Туласи завершается.»
+  [PASS] book.ru-iast.json b нет «Порядок проведения»
+  [PASS] book.ru-iast.json b нет «Пранама.»
+  [PASS] book.ru-iast.json b нет «Бхаджан и парикрама»
+  [PASS] book.ru-iast.json b нет «Пойте и»
+  [PASS] book.ru-iast.json b нет «Арати — одновременно»
+  [PASS] book.ru-iast.json b нет «Предлагают три предмета»
+  [PASS] book.ru-iast.json b нет «Предметы арати»
+  [PASS] book.ru-iast.json b нет «Когда бхаджан допет»
+  [PASS] book.ru-iast.json b нет «обе молитвы»
+  [PASS] book.ru-iast.json b нет «Полив.»
+  [PASS] book.ru-iast.json b нет «Гурудев или другой преданный поливает Туласи»
+  [FAIL] book.ru-iast.json b нет «Затем сделайте поклон»
+  [FAIL] book.ru-iast.json b нет «Заключительная молитва»
+  [PASS] book.ru-iast.json d нет таблицы paired-list
+  [PASS] book.ru-iast.json d подзаголовок «Упачары арати…»
+  [PASS] book.ru-iast.json e мантр 7 в разделе
+  [PASS] book.ru-iast.json e нет кириллицы с диакритикой
+  [PASS] book.json a/c/d есть «Tulasī-ārati is performed at 5:20 a.m., after»
+  [PASS] book.json a/c/d есть «Recite the prayer to Vṛndā-devī and offer obe»
+  [PASS] book.json a/c/d есть «Begin the bhajana “Jaya Rādhe»
+  [PASS] book.json a/c/d есть «Circumambulate Tulasī at least four times.»
+  [PASS] book.json a/c/d есть «Ārati is performed simultaneously with the pa»
+  [PASS] book.json a/c/d есть «⟦dhūpa⟧, incense: 7 circles around the whole »
+  [PASS] book.json a/c/d есть «⟦dīpa⟧, lamp (wick): to the roots (feet) — 4 »
+  [PASS] book.json a/c/d есть «⟦puṣpa⟧, flower: 3 circles around the whole t»
+  [PASS] book.json a/c/d есть «After the bhajana, recite the prayers and off»
+  [PASS] book.json a/c/d есть «prayer to the Vaiṣṇavas:»
+  [PASS] book.json a/c/d есть «praṇāma to Tulasī — »
+  [PASS] book.json a/c/d есть «Then, sprinkling Tulasī-devī with water from »
+  [FAIL] book.json a/c/d есть «Offer obeisances and recite the concluding pr»
+  [PASS] book.json a/c/d есть «This completes Tulasī-ārati.»
+  [PASS] book.json b нет «Order of the procedure»
+  [PASS] book.json b нет «Praṇāma. Recite»
+  [PASS] book.json b нет «Bhajana and parikramā»
+  [PASS] book.json b нет «Sing and circumambulate»
+  [PASS] book.json b нет «Ārati — simultaneously»
+  [PASS] book.json b нет «Three items are offered»
+  [PASS] book.json b нет «Items of ārati»
+  [PASS] book.json b нет «When the bhajana is finished»
+  [PASS] book.json b нет «both prayers»
+  [PASS] book.json b нет «Watering.»
+  [PASS] book.json b нет «Gurudeva or another devotee waters Tulasī»
+  [FAIL] book.json b нет «Then offer obeisances»
+  [FAIL] book.json b нет «Closing prayer»
+  [PASS] book.json d нет таблицы paired-list
+  [PASS] book.json d подзаголовок «Upacāras of ārati…»
+  [PASS] book.json e мантр 7 в разделе
+  [PASS] book.json e в EN нет кириллицы
+56/62 PASS

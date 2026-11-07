@@ -60,7 +60,7 @@ for fn in GONE:
         check(fn, "e 3-я («cannot even offer tulasī directly to Guru») на втором месте", len(allq) == 2 and "cannot even offer tulasī directly to Guru" in allq[1], allq[-1][:60])
         check(fn, "e 2-й цитаты («feet of Caitanya Mahāprabhu. But in rāgānugā-bhakti») нет", not any("But in rāgānugā-bhakti" in q for q in allq))
 import collections
-EXPECT = {"tulasi-arati": {"instruction": 15, "subtitle": 1, "verse": 4}  # A112h: 2 пункта→1, +3 упачары вместо таблицы, подзаголовок «Порядок проведения:» убран
+EXPECT = {"tulasi-arati": {"instruction": 14, "subtitle": 1, "verse": 4}  # A112h: 2 пункта→1, +3 упачары вместо таблицы, подзаголовок «Порядок проведения:» убран
           ,
           "tulasi-leaves-flowers": {"mood": 1, "instruction": 5, "verse": 3, "text": 1}}
 for fn in GONE:
