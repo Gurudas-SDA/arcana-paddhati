@@ -1,0 +1,10 @@
+V87b — s75 updated for Vraja Lila msg 7789 «5 - вариант B» (07.11.2026)
+Cause (push-v87.log): HEAD 1c342e2 app/globals.css /*@v87*/ block: .reader-panel-backdrop{bottom: bar height}, panel max-height minus bar height
+  -> s75 failed 6 checks (iphone14, pixel7, portrait+landscape): backdrop b = vh-57; panel bottom = vh-57-8.
+Change: s75 check 2 ("fits"/"reaches down") and check 3 (dimming extent) use the real .reader-bar-bottom getBoundingClientRect().top
+  (visible bar), else the screen's bottom (old rule). 8 px and +-1.5 px kept; colour/filter/l/t/r unchanged; other checks untouched.
+Before (old s75, build of 1c342e2): 6 FAIL (iphone14, pixel7, + landscape), see scripts/state/jobs/push-v87.log
+After  (new s75, same build, all 8 devices): 72/72 PASS
+Broken on purpose (temporary copy, style tag .reader-panel-backdrop{bottom:0 !important} after the panel opens; not committed):
+  63/72 PASS, the "dimming ... the whole screen" check FAILs on all 9 devices (b = vh while barTop = vh-57).
+Also on the same build: s158 120/120, s157 112/112.

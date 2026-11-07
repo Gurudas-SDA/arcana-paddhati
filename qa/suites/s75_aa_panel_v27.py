@@ -21,6 +21,10 @@ Checks (each device; phones also turned):
      under the language list — one 60 % dimming over everything, the panel itself above it): a top-bar pixel (its own
      background, left edge, mid height) is 40 % of its colour before the panel opened
      # tehniskais slieksnis Lipikāra, nav S noteikums: each RGB channel within ±6 of 0.4 × before.
+V87b (Vraja Lila msg 7789, 07.11.2026: «5 - вариант B»): with the «Аа» panel open the bottom bar «‹ Вернуться / Вперёд ›» is above the
+dimming and not dimmed; the dimming and the panel end above that bar. This changes checks 2 and 3 only: where the bottom bar is
+visible, the bottom boundary is the bar's real top (getBoundingClientRect, ±1.5 px) instead of the screen's bottom; with no
+visible bottom bar the old rule (down to the screen's bottom) stays. Colour/filter/left/top/right requirements are unchanged.
 usage: python s75_aa_panel_v27.py <base-url>
 """
 import json
@@ -76,6 +80,11 @@ def show_bars(pg):
         pg.wait_for_timeout(450)
 
 
+BAR_BOTTOM_TOP = """() => { const b = document.querySelector('.reader-bar-bottom'); if (!b) return null;
+  const c = getComputedStyle(b), r = b.getBoundingClientRect();
+  if (c.display === 'none' || c.visibility === 'hidden' || parseFloat(c.opacity) < 0.5 || r.height < 1 || r.top >= innerHeight) return null;
+  return r.top; }"""
+
 PANEL = """async () => { const p = document.querySelector('.reader-panel'); if (!p) return null;
   await Promise.all(p.getAnimations().map(a => a.finished.catch(() => null))); const r = p.getBoundingClientRect();
   const lang = p.querySelector('[data-lang-trigger]'), size = p.querySelector('[data-reader-size]');
@@ -114,16 +123,20 @@ with sync_playwright() as p:
         check(dev, "«Язык» is the first function — before «Размер текста»",
               s["langFirst"] and s["langY"] < s["sizeY"], s)
         # 2. not cut while there is room
-        fits = s["top"] + s["sh"] + 8 <= s["vh"] + 0.5
+        bar_top = pg.evaluate(BAR_BOTTOM_TOP)  # V87b: bottom boundary = the bottom bar's top when it is visible
+        limit = s["vh"] if bar_top is None else bar_top
+        s["barTop"] = bar_top
+        fits = s["top"] + s["sh"] + 8 <= limit + 0.5
         if fits:
             check(dev, "the whole content shows (it fits on the screen) — no inner scrolling", s["sh"] <= s["ch"] + 1, s)
         else:
             check(dev, "content taller than the screen: the panel reaches down to the screen's bottom (8 px)",
-                  abs(s["bottom"] - (s["vh"] - 8)) <= 1.5, s)
+                  abs(s["bottom"] - (limit - 8)) <= 1.5, s)
         # 3. dimming behind the panel
         d = pg.evaluate(f"({DIMMING})('.reader-panel-backdrop')")
         check(dev, "panel open: the page behind dimmed black 60 %, no blur, the whole screen",
-              d and d["bg"] == DIM and d["filter"] in ("none", "") and d["l"] <= 0 and d["t"] <= 0 and d["r"] >= d["w"] and d["b"] >= d["h"], d)
+              d and d["bg"] == DIM and d["filter"] in ("none", "") and d["l"] <= 0 and d["t"] <= 0 and d["r"] >= d["w"]
+              and (d["b"] >= d["h"] if bar_top is None else abs(d["b"] - bar_top) <= 1.5), dict(d, barTop=bar_top))
         # 5. V27b: one dimming layer — the page pixel left of the panel / below the list, panel only vs panel + list
         def px(pt):
             import io
