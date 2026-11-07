@@ -41,12 +41,12 @@ for fn, s in S.items():
           [v["sanskrit"][:25] for v in verses if not (v.get("wbw") or "").strip()])
 
 txt = " ".join(x.get("content", "") for x in blocks(S["book.ru-iast.json"]) if x["type"] in ("list", "instruction"))  # A112g: пункты теперь instruction
-check("ru-iast", "a 1.3 «Предлагают три предмета … по часовой стрелке», без «Поднесите/Подносите»",
-      "Арати проводят одновременно с парикрамой." in txt and not re.search(r"Поднесите|Подносите", txt), txt[:300])  # A112h: «Предлагают три предмета… по часовой стрелке» убрано по Туласи (msg 238/240)
+check("ru-iast", "a 1.3 «Во время арати поётся бхаджан…» (A112h msg 265; «Предлагают три предмета…» убрано), без «Поднесите/Подносите»",
+      "Во время арати поётся бхаджан" in txt and not re.search(r"Поднесите|Подносите", txt), txt[:300])  # A112h: «Предлагают три предмета… по часовой стрелке» убрано по Туласи (msg 238/240)
 en = S["book.json"]
 et = json.dumps(en, ensure_ascii=False)
 check("en", "c не заглушка", "translation pending" not in et)
-check("en", "c 1.3 «Ārati is performed simultaneously with the parikramā.» (A112h)", "Ārati is performed simultaneously with the parikramā." in et)
+check("en", "c 1.3 «During ārati, the bhajana … is sung» (A112h msg 265)", "During ārati, the bhajana" in et)
 ve = [x["sanskrit"] for x in blocks(en) if x["type"] == "verse"]
 vr = [x["sanskrit"] for x in blocks(S["book.ru-iast.json"]) if x["type"] == "verse"]
 check("en", "c санскрит = ru-iast", ve == vr, (len(ve), len(vr)))
@@ -56,8 +56,8 @@ check("ru-iast", "d санскрит без кириллицы с диакрит
 # A112g (msg 7688/7689): номера 1.1)…2.5) убраны, пункты = «•» (instruction); проверка e теперь: «Куда класть…» не пункт и нет «2.6»
 nums = [n for x in blocks(S["book.ru-iast.json"]) for n in (x.get("numbers") or [])]
 check("ru-iast", "e нет пункта 2.6 (номеров в разделе больше нет — A112g)", "2.6" not in nums and not nums, nums)
-check("ru-iast", "e «Примечание: Туласи не кладут на стопы…»", any(x["type"] == "text" and x["content"].startswith("Примечание: Туласи не кладут на стопы") for x in blocks(S["book.ru-iast.json"])))
-check("en", "e «Note: Tulasī is not placed on the feet…»", any(x["type"] == "text" and x["content"].startswith("Note: Tulasī is not placed on the feet") for x in blocks(en)))
+check("ru-iast", "e «Примечание: листья Туласи не кладут на стопы…»", any(x["type"] == "text" and x["content"].startswith("Примечание: листья Туласи не кладут на стопы") for x in blocks(S["book.ru-iast.json"])))
+check("en", "e «Note: Tulasī leaves are not placed on the feet…»", any(x["type"] == "text" and x["content"].startswith("Note: Tulasī leaves are not placed on the feet") for x in blocks(en)))
 for fn, s in S.items():
     sub = next(x for x in s["subsections"] if x["id"] == "tulasi-arati")
     vv = [x for x in sub["content"] if x["type"] == "verse" and "vṛndāyai" in x["sanskrit"]]
