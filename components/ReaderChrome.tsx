@@ -54,7 +54,7 @@ import { exitGhost } from "@/lib/exitGhost";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ChapterEndCards from "@/components/ChapterEndCards";
 import { COVER_OPEN_EVENT } from "@/components/CoverButton";
-import { pathStepDistance, usePathSteps } from "@/lib/pathSteps";
+import { noteReplay, pathReplayUrl, pathStepDistance, usePathSteps } from "@/lib/pathSteps";
 import { chapterNeighbours, readingOrder, tocLayout, type TocPart, type TocSection } from "@/lib/book";
 import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
 import {
@@ -73,7 +73,7 @@ import {
 import BookmarkNameDialog from "@/components/BookmarkNameDialog";
 import { captureReadingPlace } from "@/lib/readingPlace";
 import { stripBasePath } from "@/lib/basePath";
-import { isMenuEntry, main as mainEl, pushOverlay, recordScroll } from "@/lib/navHistory";
+import { isMenuEntry, main as mainEl, pushOverlay, pushPlace, recordScroll } from "@/lib/navHistory";
 import { followBookLink, readingHref, readingSection } from "@/lib/readingFlow";
 import { useReadingSubsection } from "@/lib/readingPosition";
 import { searchMarkOn } from "@/lib/searchMark";
@@ -232,12 +232,34 @@ export default function ReaderChrome({
   /** V82 (Vraja Lila 06.11.2026): «‹ Вернуться» / «Вперёд ›» also work with «Содержание» open. The drawer is a history
    *  entry on top of the place, so a bare history.back() would only pop it: the drawer is closed first (its own entries
    *  are popped), then the path step is made. */
+  const replayPlace = (href: string) => {
+    noteReplay();
+    const to = new URL(href, window.location.href);
+    if (followBookLink(to.pathname + to.search + to.hash)) return;
+    if (to.pathname === window.location.pathname) {
+      pushPlace(to.pathname + to.search + to.hash);
+      window.dispatchEvent(new HashChangeEvent("hashchange"));
+      let anchor = "";
+      try { anchor = decodeURIComponent(to.hash.slice(1)); } catch { anchor = ""; }
+      const target = anchor ? document.getElementById(anchor) : null;
+      if (target) target.scrollIntoView({ block: "start" });
+      else mainEl()?.scrollTo({ top: 0 });
+      return;
+    }
+    router.push(stripBasePath(to.pathname) + to.search + to.hash, { scroll: false });
+  };
   const stepPath = (dir: "back" | "forward") => {
     stepSticky.current = true;
     clearTimer();
     setChapterSwitch(true);
     // One step of the path may span several history entries (the contents' entries under a chosen place, V82).
-    const go = () => window.history.go(dir === "back" ? -pathStepDistance("back") : pathStepDistance("forward"));
+    // V84 (Vraja Lila msg 7779/7780): opening a menu / panel threw the browser's «forward» entries away: «Вперёд ›» then opens
+    // the next place of the path again (a new entry in its place) instead of a step the browser cannot make.
+    const go = () => {
+      const again = dir === "forward" ? pathReplayUrl() : null;
+      if (again) replayPlace(again);
+      else window.history.go(dir === "back" ? -pathStepDistance("back") : pathStepDistance("forward"));
+    };
     if (!menuOpen || !onCloseMenu) {
       go();
       return;

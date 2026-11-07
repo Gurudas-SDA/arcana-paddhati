@@ -69,6 +69,7 @@ import {
   setView,
 } from "@/lib/navHistory";
 import { setPendingSearchMark } from "@/lib/searchMark";
+import { noteMenuGap } from "@/lib/pathSteps";
 import { bookTarget, followBookLink, readingHref } from "@/lib/readingFlow";
 import { useReadingSubsection } from "@/lib/readingPosition";
 
@@ -988,13 +989,14 @@ export default function Sidebar({
           (target && main
             ? Math.abs(target.getBoundingClientRect().top - main.getBoundingClientRect().top) > 8
             : false);
-        if (moves) pushPlace(`#${anchor}`);
+        if (moves) { if (onLeave) noteMenuGap(menuDepth()); pushPlace(`#${anchor}`); }
         // The scroll-spy re-reads the hash (also when it is unchanged).
         window.dispatchEvent(new HashChangeEvent("hashchange"));
         target?.scrollIntoView({ block: "start" });
         return !!moves;
       }
       if (main && main.scrollTop > 0) {
+        if (onLeave) noteMenuGap(menuDepth());
         pushPlace(window.location.pathname);
         main.scrollTo({ top: 0 });
         return true;
@@ -1032,7 +1034,7 @@ export default function Sidebar({
         const target = document.getElementById(anchor);
         const main = mainEl();
         const moves = hashId() !== anchor || (target && main ? Math.abs(target.getBoundingClientRect().top - main.getBoundingClientRect().top) > 8 : false);
-        if (moves) pushPlace(`#${anchor}`);
+        if (moves) { if (onLeave) noteMenuGap(menuDepth()); pushPlace(`#${anchor}`); }
         window.dispatchEvent(new HashChangeEvent("hashchange"));
         target?.scrollIntoView({ block: "start" });
         if (onLeave) onLeave();
@@ -1051,6 +1053,7 @@ export default function Sidebar({
     const main = mainEl();
     if (onLeave && main && main.scrollTop > 0) {
       onLeave();
+      noteMenuGap(menuDepth());
       pushPlace(window.location.pathname);
       main.scrollTo({ top: 0 });
     } else {

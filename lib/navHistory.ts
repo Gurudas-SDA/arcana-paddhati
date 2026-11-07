@@ -468,6 +468,13 @@ export function pushPlace(url: string, extra: Data = {}, view: Data = {}): boole
 /** Open an overlay entry on top of the current place (same apKey). It looks
  *  like the entry below (its view), changed by `view` and `drop`. */
 export function pushOverlay(extra: Data, view: Data = {}, drop: string[] = []): boolean {
+  const ok = pushOverlayEntry(extra, view, drop);
+  if (ok) overlayHook.fn?.();
+  return ok;
+}
+/** lib/pathSteps.ts (V84) hears of every overlay pushed: the browser drops its «forward» entries then. */
+export const overlayHook: { fn: (() => void) | null } = { fn: null };
+function pushOverlayEntry(extra: Data, view: Data, drop: string[]): boolean {
   const { apKey } = identity();
   const next: Data = { ...entryView(), ...view };
   for (const k of drop) delete next[k];
