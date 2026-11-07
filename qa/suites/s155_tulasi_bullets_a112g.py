@@ -34,8 +34,8 @@ GONE = {
     "book.json": ["Two prayers again, obeisances", "The text, word-for-word and general translation", "When and how", "When not to", "The lecture texts", "item 1.1"],
 }
 KEEP = {
-    "book.ru-iast.json": ["Примечание: Туласи не кладут на стопы", "Листья собирают после омовения", "Не собирайте листья в", "Когда бхаджан допет", "пранаму Туласи — "],
-    "book.json": ["Note: Tulasī is not placed on the feet", "Leaves are gathered after bathing", "Do not gather leaves on", "When the bhajana is finished", "praṇāma to Tulasī — "],
+    "book.ru-iast.json": ["Примечание: Туласи не кладут на стопы", "Листья собирают после омовения", "Не собирайте листья в", "После бхаджана прочитайте молитвы", "пранаму Туласи — "],
+    "book.json": ["Note: Tulasī is not placed on the feet", "Leaves are gathered after bathing", "Do not gather leaves on", "After the bhajana, recite the prayers", "praṇāma to Tulasī — "],
 }
 for fn in GONE:
     bl = blocks(fn)
