@@ -2869,3 +2869,46 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
   bottom: calc(var(--rd-bottom-bar-h) + env(safe-area-inset-bottom, 0px));
 }
 /*@/v82*/
+
+/*@v87*/
+/* V87 (Vraja Lila msg 7789: «5 - вариант B; 6 - вариант C»).
+   Nr.5 (B): with the «Аа» panel open the bottom bar «‹ Вернуться / Вперёд ›» is above the dimming and not dimmed (the dimming
+   ends above it, like the contents' in V82); the rest of the page stays dimmed, a tap on the dimming closes the panel as before.
+   The panel ends above the bar (components/ReaderChrome.tsx stepPath closes it, then makes the step). */
+.reader-chrome[data-panel] .reader-bar-bottom {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+  z-index: 60;
+}
+.reader-panel-backdrop {
+  bottom: calc(var(--rd-bottom-bar-h, 57px) + env(safe-area-inset-bottom, 0px));
+}
+.reader-panel,
+.reader-panel-out {
+  max-height: calc(100vh - 70px - var(--rd-bottom-bar-h, 57px));
+  max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 70px - var(--rd-bottom-bar-h, 57px));
+}
+/* Nr.6 (C): a phone held sideways (the screen is low): the contents' head, search, tabs and «Обложка» scroll together with
+   the list, so after scrolling the whole menu height is the list. The bottom bar stays visible (V82), the last row scrolls to
+   the end above it; the ✕ is reached by scrolling back. Portrait, iPad and desktop are not touched. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .mobile-menu aside {
+    display: block;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .mobile-menu aside > nav:not([hidden]),
+  .mobile-menu aside .toc-scroll {
+    display: block;
+    flex: none;
+    min-height: auto;
+    overflow: visible;
+  }
+  .mobile-menu aside [data-notes-panel],
+  .mobile-menu aside [data-bookmarks-list] {
+    min-height: calc(100dvh - var(--rd-bottom-bar-h, 57px) - env(safe-area-inset-bottom, 0px));
+    max-height: calc(100dvh - var(--rd-bottom-bar-h, 57px) - env(safe-area-inset-bottom, 0px));
+  }
+}
+/*@/v87*/

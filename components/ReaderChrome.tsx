@@ -260,6 +260,25 @@ export default function ReaderChrome({
       if (again) replayPlace(again);
       else window.history.go(dir === "back" ? -pathStepDistance("back") : pathStepDistance("forward"));
     };
+    // V87 (Vraja Lila msg 7789, Nr.5 B): with the «Аа» panel open the bottom bar is above its dimming: the panel is closed first
+    // (its history entry popped), then the one step is made — the same order as for the contents.
+    if (panelRef.current) {
+      const wasPanelEntry = isPanelEntry();
+      closePanel();
+      if (!wasPanelEntry) {
+        window.setTimeout(go, 0);
+        return;
+      }
+      let doneP = false;
+      const onceP = () => {
+        if (doneP) return;
+        doneP = true;
+        window.setTimeout(go, 0);
+      };
+      window.addEventListener("popstate", onceP, { once: true });
+      window.setTimeout(onceP, 700);
+      return;
+    }
     if (!menuOpen || !onCloseMenu) {
       go();
       return;

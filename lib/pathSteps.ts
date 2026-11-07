@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { currentEntry, overlayHook } from "@/lib/navHistory";
+import { currentEntry, overlayHook, placeKey } from "@/lib/navHistory";
 
 /**
  * V81 (Vraja Lila msg 7706 / 7735): the bottom bar's «‹ Вернуться» / «Вперёд ›» go along the reader's path, i.e. along the
@@ -26,6 +26,9 @@ type Path = {
   /** V84: index of the place that had an overlay (menu, «Аа», «Настроение») pushed on it while a step forward lay ahead:
    *  the browser threw its «forward» entries away, so from this place on «Вперёд ›» is made by opening the place again. */
   cut?: number;
+  /** V87 (Vraja Lila msg 7789, Nr.3 B): reading-place key (navHistory apKey) of every place. An overlay entry (menu, «Аа»)
+   *  shares its place's key, so when the browser's «назад» lands on an overlay the path knows which place lies under it. */
+  keys?: Record<string, string>;
 };
 
 function read(): Path {
@@ -96,7 +99,17 @@ export function noteReplay() {
 export function notePathStep(): { back: boolean; forward: boolean } {
   const p = path();
   const { id, overlay } = currentEntry();
-  if (!overlay) {
+  if (overlay) {
+    // V87 (Nr.3 B): the browser's «назад» landed on the menu / panel entry over an earlier place (the page shown is that
+    // place): the path stands on THAT place, so «Вперёд ›» stays active (it closes the menu and opens the place left).
+    let key = "";
+    try { key = placeKey(); } catch { key = ""; }
+    const under = key ? p.ids.findIndex((x) => p.keys?.[x] === key) : -1;
+    if (under >= 0 && under !== p.at) {
+      p.at = under;
+      save(p);
+    }
+  } else {
     const known = p.ids.indexOf(id);
     if (known >= 0) {
       p.at = known;
@@ -122,8 +135,10 @@ export function notePathStep(): { back: boolean; forward: boolean } {
       }
     }
     p.urls = { ...(p.urls ?? {}), [id]: window.location.pathname + window.location.search + window.location.hash };
+    try { p.keys = { ...(p.keys ?? {}), [id]: placeKey() }; } catch { /* no key: no overlay lookup for this place */ }
     const live = new Set(p.ids);
     for (const k of Object.keys(p.urls)) if (!live.has(k)) delete p.urls[k];
+    for (const k of Object.keys(p.keys ?? {})) if (!live.has(k)) delete p.keys![k];
     save(p);
   }
   // A step forward the browser cannot make needs the place's address; without it the button stays inactive.

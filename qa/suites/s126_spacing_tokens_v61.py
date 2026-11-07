@@ -42,7 +42,8 @@ def now(path):
     # A143 (Satkirti msg 7447–7450): the verse tone-mark rules sit between /*@a143*/ markers (a later addition, like v71)
     # V81 (Vraja Lila msg 7729): the cover button / chapter-end cards CSS sits between /*@v81*/ markers (a later addition, like a143)
     # V82 (Vraja Lila msg 7768): the menu-above-the-bar rule sits between /*@v82*/ markers (a later addition, like v81)
-    return strip(re.sub(r"/\*@v82\*/.*?/\*@/v82\*/", "", re.sub(r"/\*@v81\*/.*?/\*@/v81\*/", "", re.sub(r"/\*@a143\*/.*?/\*@/a143\*/", "", re.sub(r"/\*@v71\*/.*?/\*@/v71\*/", "", re.sub(r"/\*@v61s5\*/.*?/\*@/v61s5\*/", "", re.sub(r"/\*@v61s4\*/.*?/\*@/v61s4\*/", "", re.sub(r"/\*@cover-place\*/.*?/\*@/cover-place\*/", "", open(os.path.join(ROOT, path), encoding="utf-8").read(), flags=re.S), flags=re.S), flags=re.S), flags=re.S), flags=re.S), flags=re.S), flags=re.S))
+    # V87 (Vraja Lila msg 7789): the «Аа»-bar and landscape-menu rules sit between /*@v87*/ markers (a later addition, like v82)
+    return strip(re.sub(r"/\*@v87\*/.*?/\*@/v87\*/", "", re.sub(r"/\*@v82\*/.*?/\*@/v82\*/", "", re.sub(r"/\*@v81\*/.*?/\*@/v81\*/", "", re.sub(r"/\*@a143\*/.*?/\*@/a143\*/", "", re.sub(r"/\*@v71\*/.*?/\*@/v71\*/", "", re.sub(r"/\*@v61s5\*/.*?/\*@/v61s5\*/", "", re.sub(r"/\*@v61s4\*/.*?/\*@/v61s4\*/", "", re.sub(r"/\*@cover-place\*/.*?/\*@/cover-place\*/", "", open(os.path.join(ROOT, path), encoding="utf-8").read(), flags=re.S), flags=re.S), flags=re.S), flags=re.S), flags=re.S), flags=re.S), flags=re.S), flags=re.S))
 
 
 def before(path):
