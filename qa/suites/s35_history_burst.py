@@ -538,8 +538,14 @@ def case_c(browser, dev, options, mode):
         pg.reload(wait_until="networkidle")
         pg.wait_for_timeout(1200)
         here = flow.state()
+        id0 = entry_id(pg)
         press(pg, flow, chapters[-1])   # one more record: the oldest ones go
-        pg.wait_for_timeout(500)
+        # V87c: wait for the STATE (the tap's new history entry exists), not a fixed 500 ms: when the page change is slower than
+        # that, Back runs before the entry is made and goes one entry too far back (the cover) - failed 1 of 8 quiet runs.
+        t_end = time.monotonic() + 6.0
+        while entry_id(pg) == id0 and time.monotonic() < t_end:
+            pg.wait_for_timeout(50)
+        arrive(pg, "highlight", here["url"])
         flow.nav("back")
         got = flow.state()
         bad = [] if (got["url"], got["menu"]) == (here["url"], here["menu"]) else [{"back": show(got), "want": show(here)}]
@@ -572,8 +578,14 @@ def case_d(browser, dev, options, mode):
             lit_ok and refused["history"] == s0["history"] and not errors, f"{show(refused)} {refused['history']} vs {s0['history']} {errors[:2]}")
         pg.wait_for_timeout(1500)
         before = flow.state()
+        id0 = entry_id(pg)
         press(pg, flow, c2)
-        pg.wait_for_timeout(500)
+        # V87c: wait for the STATE (the tap's new history entry exists), not a fixed 500 ms: a slower page change was read as
+        # "no step added" (4 vs 4) and the step then came late (5 vs 4) - 1 of 5 quiet runs, same class as C4.
+        t_end = time.monotonic() + 6.0
+        while entry_id(pg) == id0 and time.monotonic() < t_end:
+            pg.wait_for_timeout(50)
+        arrive(pg, "highlight", before["url"])
         after = flow.state()
         chk(dev, f"{tag}: after the window, the next action adds exactly one step",
             after["history"] == before["history"] + 1 and after["lit"] == ["sec:" + c2], f"{after['history']} vs {before['history']}")

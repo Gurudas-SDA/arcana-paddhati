@@ -1,0 +1,18 @@
+V87c diagnoze 07.11.2026. Klusais serveris (load < 2,5), viens QA process, katrs tests viens pa vienam (rep.py: qa/lib/server.py + suite, QA_FAST=1).
+Gates push-v87b kritušie: s071 pixel7 (menu neatvērās, row Мангалачарана nav), s26 iphone14 (#4, #14), s35 iphone14 (C4 past the 200-record cap).
+
+v87 build (wt-v87/out, b2781d4)         bāze a477efe (v87-builds/base/out)
+ s071 pixel7  : 3/3 iet                  s071 pixel7  : 2/3 (run1 FAIL tas pats: «3 contents» order=[] + EXCEPTION row Мангалачарана, 8 s)
+ s26  iphone14: 3/3 iet                  s26  iphone14: 2/3 (run2 crash TimeoutError .mobile-menu[data-open] [data-toc-toggle=arati] — izvēlne neatvērās)
+ s35  iphone14: 6/8 (run2, x7 FAIL C4)   s35  iphone14: 7/8 (x8 FAIL C4, tas pats teksts: Back aizgāja uz vāku)
+s26 viena palaišana: v87 286/241/273 s, bāze 233/195/232 s; gate fast taimauts 280 s.
+
+Cēlonis: V87 koda nav. Visi trīs kritumi atkārtojas uz bāzes a477efe.
+ s071: pirmais pieskāriens «Содержание» pēc pirmās atveidošanas (pirms hidratācijas) neatver izvēlni; open_contents gaidīja 800 ms nevis stāvokli.
+ s35 C4: pēc press(chapters[-1]) fiksēts 500 ms; ja lapas maiņa ir lēnāka, Back notiek pirms jaunā vēstures ieraksta un aiziet par vienu ierakstu par tālu (vāks).
+ s26 #4/#14 gate-ā: 4 paralēli darbi, palaišana pārsniedza 280 s, atkārtojums ielādēts; uz klusa servera 3/3 (v87) — slodzes dēļ vēlu navigācija (#14 URL vēl nav mainījies lasīšanas brīdī).
+Labojumi (tikai gaidīšana pēc stāvokļa, sliekšņi nemainīti): s071 open_contents (gaida .mobile-menu[data-open], līdz 3 pieskārieniem); s35 C4 (gaida jauno apId + arrive).
+
+Papildus: s35 D «quota refused: after the window, the next action adds exactly one step» (4 vs 4, tad 5 vs 4) krita 1 no 5 klusajām palaišanām ar C4 labojumu — tā pati klase (fiksēti 500 ms pēc pieskāriena); labots tāpat.
+Pēc labojumiem (v87 build, klusais serveris): s071 pixel7 3/3 (+3/3 pirms), s35 iphone14 3/3 (ar abiem labojumiem; ar C4 labojumu 4/5, 1 kritums D — tagad labots), s158 120/120, s157 56/56, s75 36/36 (iphone14+pixel7).
+Nav pārbaudīts: s26 nemainīts (v87 3/3, bāze 2/3 ar to pašu veida kritumu — izvēlne neatvērās — gate-ā krita tikai slodzē, 4 paralēli darbi).

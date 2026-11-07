@@ -70,9 +70,15 @@ def reveal(pg):
 
 
 def open_contents(pg):
-    reveal(pg)
-    tap(pg, pg.locator('[data-reader-action=contents]'))
-    pg.wait_for_timeout(800)
+    # V87c: a tap right after the first paint can land before the page is hydrated (headless WebKit) and open nothing
+    # (3 of 5 quiet-server runs, same on the a477efe build: the menu rows were absent and row() threw). Wait for the STATE
+    # (the menu open), tap again if it is not - up to 3 taps; the 800 ms after an opened menu is unchanged.
+    for _ in range(3):
+        reveal(pg)
+        tap(pg, pg.locator('[data-reader-action=contents]'))
+        pg.wait_for_timeout(800)
+        if pg.evaluate("!!document.querySelector('.mobile-menu[data-open]')"):
+            return
 
 
 def row(pg, text):
