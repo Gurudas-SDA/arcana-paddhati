@@ -316,12 +316,11 @@ def run(browser, dev, opts, mode, mode_ru):
                 n = pg.locator("[data-section-chapters], .section-chapters, .group-contents").count()
                 check(tag, f"B /{gid}/: no «В этом разделе» box", n == 0, n)
         for before, after, between in (BOUNDS if mode == "pages" else []):
-            goto(before)
-            nav = pg.evaluate(NAVC)
-            check(tag, f"B «След. глава ›» from {before} → {after} (over «{between}», not to it)", nav["forward"] == after, nav)
-            goto(after)
-            nav = pg.evaluate(NAVC)
-            check(tag, f"B «‹ Пред. глава» from {after} → {before}", nav["back"] == before, nav)
+            # V88 (Vraja Lila msg 7791/7792): the cards «След. глава ›» / «‹ Пред. глава» are removed - nothing steps over «{between}» any more
+            for pid in (before, after):
+                goto(pid)
+                nav = pg.evaluate(NAVC)
+                check(tag, f"B V88 {pid}: no «След. глава ›» / «‹ Пред. глава» cards (was: {before} → {after})", nav["forward"] is None and nav["back"] is None, nav)
 
         # ---------- E: walk «Вперёд ›» from the cover through the whole book ----------
         goto(None)
@@ -335,26 +334,12 @@ def run(browser, dev, opts, mode, mode_ru):
                     break
             pg.wait_for_timeout(800)
             visited.append(page_id())
-        for _ in range(len(PAGES) + 3 if mode == "pages" else 0):
-            if not press("forward"):
-                break
-            if mode == "scroll" and page_id() != LANG:
-                try:
-                    qa.wait_for_book_chapter(pg, page_id())
-                except Exception:
-                    pass
-            visited.append(page_id())
         if mode == "scroll":
-            visited = PAGES   # V81: no chapter cards in «Лента» (continuous reading) — nothing to walk; the order of the text is F above
-        check(tag, "E a tap on the cover, then «След. глава ›», visits exactly the contents' pages, in order", visited == PAGES,
-              {"visited": visited, "want": PAGES})
-        rep["Вперёд от обложки до конца"] = "все страницы по порядку «Содержания»" if visited == PAGES else {"visited": visited}
-        back = []
-        for _ in range(3 if mode == "pages" else 0):
-            if not press("back"):
-                break
-            back.append(page_id())
-        check(tag, "E «‹ Пред. глава» from the last page goes back through the same pages", mode == "scroll" or back == PAGES[-2:-5:-1], back)
+            visited = PAGES[:1]   # V81: no chapter cards in «Лента» (continuous reading) - the order of the text is F above
+        # V88 (Vraja Lila msg 7791/7792): no «След. глава» cards to walk the book with - a tap on the cover opens the first page
+        check(tag, "E V88 a tap on the cover opens the first page of the contents (the chapter cards are removed)", visited == PAGES[:1],
+              {"visited": visited, "want": PAGES[:1]})
+        rep["Вперёд от обложки до конца"] = "V88: карточек глав нет"
         check(tag, "no page errors", not errors, errors[:3])
     except Exception as error:
         traceback.print_exc()

@@ -770,7 +770,6 @@ function PortraitPages({ section, note, after }: { section: Section; note?: stri
         ))}
       {after}
     </article>
-    <div className="chapter-end-cards-space no-print" aria-hidden="true" />
     </>
   );
 }
@@ -840,8 +839,6 @@ export default function SectionContent({ section, ui, num = null, note, after }:
         subsection can be brought to the top of the screen from the contents.
         After the article: «След. глава ›» stays its last block. */}
     {section.subsections && section.subsections.length > 0 && <ChapterEndSpace />}
-    {/* V81: room for the cards «Пред. глава» / «След. глава» fixed at the chapter's end (components/ChapterEndCards.tsx) */}
-    <div className="chapter-end-cards-space no-print" aria-hidden="true" />
     </>
   );
 }

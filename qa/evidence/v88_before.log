@@ -1,0 +1,113 @@
+== s155_cover_tap_chapter_end_cards_v81.py [pixel7,iphone14,ipad-portrait,desktop]
+FAILED: pixel7 V88 cover: the whole transition (tap -> first page open and overlay gone) takes at most 900 ms 1207.0
+FAILED: pixel7 V88 «upadesha-sara» at the end of the text: no «Пред. глава» / «След. глава» cards {'box': 3, 'nav': 1, 'txt': False}
+FAILED: pixel7 V88 «vigraha-tattva» at the end of the text: no «Пред. глава» / «След. глава» cards {'box': 4, 'nav': 2, 'txt': False}
+FAILED: pixel7 V88 «conclusion» at the end of the text: no «Пред. глава» / «След. глава» cards {'box': 3, 'nav': 1, 'txt': False}
+FAILED: desktop V88 cover: the whole transition (tap -> first page open and overlay gone) takes at most 900 ms 1184.0
+FAILED: desktop V88 «upadesha-sara» at the end of the text: no «Пред. глава» / «След. глава» cards {'box': 3, 'nav': 1, 'txt': False}
+FAILED: desktop V88 «vigraha-tattva» at the end of the text: no «Пред. глава» / «След. глава» cards {'box': 4, 'nav': 2, 'txt': False}
+FAILED: desktop V88 «conclusion» at the end of the text: no «Пред. глава» / «След. глава» cards {'box': 3, 'nav': 1, 'txt': False}
+FAILED: ipad-portrait V88 cover: the whole transition (tap -> first page open and overlay gone) takes at most 900 ms 1408
+FAILED: ipad-portrait V88 «upadesha-sara» at the end of the text: no «Пред. глава» / «След. глава» cards {'box': 3, 'nav': 1, 'txt': False}
+FAILED: ipad-portrait V88 «vigraha-tattva» at the end of the text: no «Пред. глава» / «След. глава» cards {'box': 4, 'nav': 2, 'txt': False}
+FAILED: ipad-portrait V88 «conclusion» at the end of the text: no «Пред. глава» / «След. глава» cards {'box': 3, 'nav': 1, 'txt': False}
+== s06_next_chapter.py [pixel7,iphone14,ipad-portrait,desktop]
+FAILED: desktop V88 mangalacarana: no next/previous chapter control at the chapter end {'nav': 2, 'block': 3, 'txt': False, 'steps': ['back', 'forward']}
+FAILED: desktop V88 vigraha-tattva: no next/previous chapter control at the chapter end {'nav': 2, 'block': 3, 'txt': False, 'steps': ['back', 'forward']}
+FAILED: desktop V88 offering-bhoga: no next/previous chapter control at the chapter end {'nav': 2, 'block': 3, 'txt': False, 'steps': ['back', 'forward']}
+FAILED: desktop V88 main-worship-sixteen-items: no next/previous chapter control at the chapter end {'nav': 2, 'block': 3, 'txt': False, 'steps': ['back', 'forward']}
+FAILED: desktop V88 guru-puja-vyasa-puja: no next/previous chapter control at the chapter end {'nav': 2, 'block': 3, 'txt': False, 'steps': ['back', 'forward']}
+FAILED: desktop V88 parampara: no next/previous chapter control at the chapter end {'nav': 2, 'block': 3, 'txt': False, 'steps': ['back', 'forward']}
+FAILED: desktop V88 major-festivals: no next/previous chapter control at the chapter end {'nav': 2, 'block': 3, 'txt': False, 'steps': ['back', 'forward']}
+FAILED: desktop V88 gaura-arati-songs: no next/previous chapter control at the chapter end {'nav': 2, 'block': 3, 'txt': False, 'steps': ['back', 'forward']}
+FAILED: desktop V88 kartika-bhajans: no next/previous chapter control at the chapter end {'nav': 2, 'block': 3, 'txt': False, 'steps': ['back', 'forward']}
+FAILED: desktop V88 gurudeva-mangalacarana: no next/previous chapter control at the chapter end {'nav': 2, 'block': 3, 'txt': False, 'steps': ['back', 'forward']}
+FAILED: desktop V88 conclusion: no next/previous chapter control at the chapter end {'nav': 1, 'block': 2, 'txt': False, 'steps': ['back', 'forward']}
+FAILED: desktop V88 English page: no «Next chapter ›» either {'nav': 2, 'block': 3, 'txt': False, 'steps': ['back', 'forward']}
+== s69_chapter_nav.py [pixel7,iphone14,ipad-portrait,desktop]
+  [FAIL] pixel7 V88 B/C/D arcana-procedure: no «Пред. глава» / «След. глава» card at the chapter's end {'back': {'l': 12, 'r': 200, 'w': 188, 'sw': 186, 'cw': 186, 't': '‹ Пред. глава\nПоклонение Господу Чайтанье и Шри Шри Радха-Кришне с использованием шестнадцати предметов'}, 'fwd': {'l': 212, 'r': 400, 'w': 188, 'sw': 186, 'cw': 186, 't': 'След. глава ›\nАрчана Шри Гуру'}, 'backInDom': True, 'fwdInDom': True, 'progress': False, 'status': True, 'shown': True, 'vw': 412, 'note': False}
+  [FAIL] pixel7 V88 B/C/D conclusion: no «Пред. глава» / «След. глава» card at the chapter's end {'back': {'l': 12, 'r': 200, 'w': 188, 'sw': 186, 'cw': 186, 't': '‹ Пред. глава\nМангалачарана Гурудева'}, 'fwd': None, 'backInDom': True, 'fwdInDom': False, 'progress': False, 'status': True, 'shown': True, 'vw': 412, 'note': False}
+  [FAIL] iphone14 V88 B/C/D upadesha-sara: no «Пред. глава» / «След. глава» card at the chapter's end {'back': None, 'fwd': {'l': 201, 'r': 378, 'w': 177, 'sw': 175, 'cw': 175, 't': 'След. глава ›\nГуру-парампара'}, 'backInDom': False, 'fwdInDom': True, 'progress': False, 'status': True, 'shown': True, 'vw': 390, 'note': False}
+  [FAIL] iphone14 V88 B/C/D arcana-procedure: no «Пред. глава» / «След. глава» card at the chapter's end {'back': {'l': 12, 'r': 189, 'w': 177, 'sw': 175, 'cw': 175, 't': '‹ Пред. глава\nПоклонение Господу Чайтанье и Шри Шри Радха-Кришне с использованием шестнадцати предметов'}, 'fwd': {'l': 201, 'r': 378, 'w': 177, 'sw': 175, 'cw': 175, 't': 'След. глава ›\nАрчана Шри Гуру'}, 'backInDom': True, 'fwdInDom': True, 'progress': False, 'status': True, 'shown': True, 'vw': 390, 'note': False}
+  [FAIL] iphone14 V88 B/C/D conclusion: no «Пред. глава» / «След. глава» card at the chapter's end {'back': {'l': 12, 'r': 189, 'w': 177, 'sw': 175, 'cw': 175, 't': '‹ Пред. глава\nМангалачарана Гурудева'}, 'fwd': None, 'backInDom': True, 'fwdInDom': False, 'progress': False, 'status': True, 'shown': True, 'vw': 390, 'note': False}
+  [FAIL] ipad-portrait V88 B/C/D upadesha-sara: no «Пред. глава» / «След. глава» card at the chapter's end {'back': None, 'fwd': {'l': 416, 'r': 796, 'w': 380, 'sw': 378, 'cw': 378, 't': 'След. глава ›\nГуру-парампара'}, 'backInDom': False, 'fwdInDom': True, 'progress': False, 'status': True, 'shown': True, 'vw': 820, 'note': False}
+  [FAIL] ipad-portrait V88 B/C/D arcana-procedure: no «Пред. глава» / «След. глава» card at the chapter's end {'back': {'l': 24, 'r': 404, 'w': 380, 'sw': 378, 'cw': 378, 't': '‹ Пред. глава\nПоклонение Господу Чайтанье и Шри Шри Радха-Кришне с использованием шестнадцати предметов'}, 'fwd': {'l': 416, 'r': 796, 'w': 380, 'sw': 378, 'cw': 378, 't': 'След. глава ›\nАрчана Шри Гуру'}, 'backInDom': True, 'fwdInDom': True, 'progress': False, 'status': True, 'shown': True, 'vw': 820, 'note': False}
+  [FAIL] ipad-portrait V88 B/C/D conclusion: no «Пред. глава» / «След. глава» card at the chapter's end {'back': {'l': 24, 'r': 404, 'w': 380, 'sw': 378, 'cw': 378, 't': '‹ Пред. глава\nМангалачарана Гурудева'}, 'fwd': None, 'backInDom': True, 'fwdInDom': False, 'progress': False, 'status': True, 'shown': True, 'vw': 820, 'note': False}
+  [FAIL] desktop V88 B/C/D upadesha-sara: no «Пред. глава» / «След. глава» card at the chapter's end {'back': None, 'fwd': {'l': 924, 'r': 1247, 'w': 323, 'sw': 321, 'cw': 321, 't': 'След. глава ›\nГуру-парампара'}, 'backInDom': False, 'fwdInDom': True, 'progress': False, 'status': True, 'shown': True, 'vw': 1440, 'note': False}
+  [FAIL] desktop V88 B/C/D arcana-procedure: no «Пред. глава» / «След. глава» card at the chapter's end {'back': {'l': 193, 'r': 516, 'w': 323, 'sw': 321, 'cw': 321, 't': '‹ Пред. глава\nПоклонение Господу Чайтанье и Шри Шри Радха-Кришне с использованием шестнадцати предметов'}, 'fwd': {'l': 924, 'r': 1247, 'w': 323, 'sw': 321, 'cw': 321, 't': 'След. глава ›\nАрчана Шри Гуру'}, 'backInDom': True, 'fwdInDom': True, 'progress': False, 'status': True, 'shown': True, 'vw': 1440, 'note': False}
+  [FAIL] desktop V88 B/C/D conclusion: no «Пред. глава» / «След. глава» card at the chapter's end {'back': {'l': 193, 'r': 516, 'w': 323, 'sw': 321, 'cw': 321, 't': '‹ Пред. глава\nМангалачарана Гурудева'}, 'fwd': None, 'backInDom': True, 'fwdInDom': False, 'progress': False, 'status': True, 'shown': True, 'vw': 1440, 'note': False}
+84/96 passed
+== s154_prev_next_chapter_labels_v80.py [pixel7,iphone14,ipad-portrait,desktop]
+40/40 passed
+== s07_path_intro_pictures.py [pixel7,iphone14,ipad-portrait,desktop]
+FAILED: iphone14 B V88 no «След. глава ›» card (removed) 1
+FAILED: iphone14 D V88 offering-bhoga chapter end: no «След. глава» / «Пред. глава» cards http://127.0.0.1:47463/arcana-paddhati/ru-iast/offering-bhoga/
+FAILED: iphone14 D V88 Introduction: no next-chapter control 
+FAILED: iphone14 D V88 Мангалачарана: no next-chapter control (was «Вперёд ›» -> «Введение») 
+FAILED: ipad-portrait B V88 no «След. глава ›» card (removed) 1
+FAILED: ipad-portrait D V88 offering-bhoga chapter end: no «След. глава» / «Пред. глава» cards http://127.0.0.1:47463/arcana-paddhati/ru-iast/offering-bhoga/
+FAILED: ipad-portrait D V88 Introduction: no next-chapter control 
+FAILED: ipad-portrait D V88 Мангалачарана: no next-chapter control (was «Вперёд ›» -> «Введение») 
+FAILED: desktop B V88 no «След. глава ›» card (removed) 1
+FAILED: desktop D V88 offering-bhoga chapter end: no «След. глава» / «Пред. глава» cards http://127.0.0.1:47463/arcana-paddhati/ru-iast/offering-bhoga/
+FAILED: desktop D V88 Introduction: no next-chapter control 
+FAILED: desktop D V88 Мангалачарана: no next-chapter control (was «Вперёд ›» -> «Введение») 
+== s071_reader_v71.py [pixel7,iphone14,ipad-portrait,desktop]
+  [FAIL] pixel7 3 V88 no «След. глава ›» card after Мангалачарана (was: = gaudiya-emblem) [toc=default] gaudiya-emblem
+  [FAIL] iphone14 3 V88 no «След. глава ›» card after Мангалачарана (was: = gaudiya-emblem) [toc=default] gaudiya-emblem
+  [FAIL] ipad-portrait 3 V88 no «След. глава ›» card after Мангалачарана (was: = gaudiya-emblem) [toc=default] gaudiya-emblem
+  [FAIL] desktop 3 V88 no «След. глава ›» card after Мангалачарана (was: = gaudiya-emblem) [toc=default] gaudiya-emblem
+172/176 passed
+== s01_reader_mode.py [pixel7,iphone14,ipad-portrait,desktop]
+  [FAIL] ipad-portrait-en V88 no «Пред. глава» / «След. глава» cards at the chapter's end [toc=default] http://127.0.0.1:47463/arcana-paddhati/arcana-procedure/
+  [FAIL] desktop-ru-iast V88 no «Пред. глава» / «След. глава» cards at the chapter's end [toc=default] http://127.0.0.1:47463/arcana-paddhati/ru-iast/arcana-procedure/
+  [FAIL] desktop-en V88 no «Пред. глава» / «След. глава» cards at the chapter's end [toc=default] http://127.0.0.1:47463/arcana-paddhati/arcana-procedure/
+466/474 passed
+FAILED: iphone14-ru-iast V88 no «Пред. глава» / «След. глава» cards at the chapter's end http://127.0.0.1:47463/arcana-paddhati/ru-iast/arcana-procedure/
+FAILED: iphone14-en V88 no «Пред. глава» / «След. глава» cards at the chapter's end http://127.0.0.1:47463/arcana-paddhati/arcana-procedure/
+FAILED: pixel7-ru-iast V88 no «Пред. глава» / «След. глава» cards at the chapter's end http://127.0.0.1:47463/arcana-paddhati/ru-iast/arcana-procedure/
+FAILED: pixel7-en V88 no «Пред. глава» / «След. глава» cards at the chapter's end http://127.0.0.1:47463/arcana-paddhati/arcana-procedure/
+FAILED: ipad-portrait-ru-iast V88 no «Пред. глава» / «След. глава» cards at the chapter's end http://127.0.0.1:47463/arcana-paddhati/ru-iast/arcana-procedure/
+FAILED: ipad-portrait-en V88 no «Пред. глава» / «След. глава» cards at the chapter's end http://127.0.0.1:47463/arcana-paddhati/arcana-procedure/
+FAILED: desktop-ru-iast V88 no «Пред. глава» / «След. глава» cards at the chapter's end http://127.0.0.1:47463/arcana-paddhati/ru-iast/arcana-procedure/
+FAILED: desktop-en V88 no «Пред. глава» / «След. глава» cards at the chapter's end http://127.0.0.1:47463/arcana-paddhati/arcana-procedure/
+== s10_rules_verifier.py [pixel7,iphone14,ipad-portrait,desktop]
+  [FAIL] pixel7 §2/§9 Parafernalia: часть рисунка → строка (подсветка + прокрутка) | все 18 предметов рисунка | ok 17/18; ошибки=[{'spot': '14', 'n': 1, 'txt': ['14'], 'inview': [False], 'lit': 1, 'bars': False}]
+  [FAIL] pixel7 §2/§9 Parafernalia2: часть рисунка → строка (подсветка + прокрутка) | все 18 предметов рисунка | ok 17/18; ошибки=[{'spot': '15', 'n': 1, 'txt': ['15'], 'inview': [False], 'lit': 1, 'bars': False}]
+  [FAIL] pixel7 §9 «След. глава ›» в конце главы | V88 (Врджа Лила msg 7791/7792): карточек «Пред. глава» / «След. глава» в конце главы больше нет | элементов: 3
+  [FAIL] iphone14 §9 «След. глава ›» в конце главы | V88 (Врджа Лила msg 7791/7792): карточек «Пред. глава» / «След. глава» в конце главы больше нет | элементов: 3
+== s20_offline.py [pixel7,iphone14,ipad-portrait,desktop]
+Traceback (most recent call last):
+playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+== s22_parampara_songs.py [pixel7,iphone14,ipad-portrait,desktop]
+  [FAIL] pixel7 a V88 no next-chapter control after the parampara 2
+  [FAIL] iphone14 a V88 no next-chapter control after the parampara 2
+  [FAIL] ipad-portrait a V88 no next-chapter control after the parampara 2
+  [FAIL] desktop a V88 no next-chapter control after the parampara 2
+64/68 passed
+== s26_ksv_0710_evening.py [pixel7,iphone14,ipad-portrait,desktop]
+  [FAIL] pixel7 10 V88 no next-chapter control on the result page http://127.0.0.1:47463/arcana-paddhati/ru-iast/daily-duties-brahma-muhurta/#morning-prayers
+  [FAIL] pixel7 v7.8.1 checks crashed FileNotFoundError(2, 'No such file or directory')
+  [FAIL] iphone14 10 V88 no next-chapter control on the result page http://127.0.0.1:47463/arcana-paddhati/ru-iast/daily-duties-brahma-muhurta/#morning-prayers
+  [FAIL] iphone14 v7.8.1 checks crashed FileNotFoundError(2, 'No such file or directory')
+  [FAIL] desktop 10 V88 no next-chapter control on the result page http://127.0.0.1:47463/arcana-paddhati/ru-iast/daily-duties-brahma-muhurta/#morning-prayers
+  [FAIL] desktop v7.8.1 checks crashed FileNotFoundError(2, 'No such file or directory')
+s26: 106/112 passed
+== s57_vraja_1020.py [pixel7,iphone14,ipad-portrait,desktop]
+  [FAIL] iphone14 5 V88 no «Next chapter» control (Vraja msg 7791/7792: the cards are removed) 2
+  [FAIL] pixel7 5 V88 no «Next chapter» control (Vraja msg 7791/7792: the cards are removed) 2
+  [FAIL] desktop 5 V88 no «Next chapter» control (Vraja msg 7791/7792: the cards are removed) 2
+== s97_section_row_one_button_v45.py [pixel7,iphone14,ipad-portrait,desktop]
+  [FAIL] iphone14/Страницы B V88 caturmasya-purusottama-masa: no «След. глава ›» / «‹ Пред. глава» cards (was: main-worship-sixteen-items → caturmasya-purusottama-masa) {"back": "main-worship-sixteen-items", "forward": "guru-puja-vyasa-puja"}
+  [FAIL] iphone14/Страницы B V88 major-festivals: no «След. глава ›» / «‹ Пред. глава» cards (was: major-festivals → mangala-arati-songs) {"back": "guru-puja-vyasa-puja", "forward": "mangala-arati-songs"}
+  [FAIL] iphone14/Страницы B V88 mangala-arati-songs: no «След. глава ›» / «‹ Пред. глава» cards (was: major-festivals → mangala-arati-songs) {"back": "major-festivals", "forward": "raja-bhoga-arati"}
+  [FAIL] desktop/Страницы B V88 mangalacarana: no «След. глава ›» / «‹ Пред. глава» cards (was: mangalacarana → gaudiya-emblem) {"back": "jaya-dhvani-front", "forward": "gaudiya-emblem"}
+  [FAIL] desktop/Страницы B V88 gaudiya-emblem: no «След. глава ›» / «‹ Пред. глава» cards (was: mangalacarana → gaudiya-emblem) {"back": "mangalacarana", "forward": "vigraha-tattva"}
+  [FAIL] desktop/Страницы B V88 vigraha-tattva: no «След. глава ›» / «‹ Пред. глава» cards (was: vigraha-tattva → daily-duties-brahma-muhurta) {"back": "gaudiya-emblem", "forward": "daily-duties-brahma-muhurta"}
+  [FAIL] desktop/Страницы B V88 daily-duties-brahma-muhurta: no «След. глава ›» / «‹ Пред. глава» cards (was: vigraha-tattva → daily-duties-brahma-muhurta) {"back": "vigraha-tattva", "forward": "daily-deity-schedule"}
+  [FAIL] desktop/Страницы B V88 main-worship-sixteen-items: no «След. глава ›» / «‹ Пред. глава» cards (was: main-worship-sixteen-items → caturmasya-purusottama-masa) {"back": "prayers-forgiveness", "forward": "caturmasya-purusottama-masa"}
+  [FAIL] desktop/Страницы B V88 caturmasya-purusottama-masa: no «След. глава ›» / «‹ Пред. глава» cards (was: main-worship-sixteen-items → caturmasya-purusottama-masa) {"back": "main-worship-sixteen-items", "forward": "guru-puja-vyasa-puja"}
+  [FAIL] desktop/Страницы B V88 major-festivals: no «След. глава ›» / «‹ Пред. глава» cards (was: major-festivals → mangala-arati-songs) {"back": "guru-puja-vyasa-puja", "forward": "mangala-arati-songs"}
+  [FAIL] desktop/Страницы B V88 mangala-arati-songs: no «След. глава ›» / «‹ Пред. глава» cards (was: major-festivals → mangala-arati-songs) {"back": "major-festivals", "forward": "raja-bhoga-arati"}
+168/184 passed
+DONE

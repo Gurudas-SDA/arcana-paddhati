@@ -158,7 +158,8 @@ def run(p,dev,eng,kw,mode):
     import json as _json
     _intro = next(s for s in _json.load(open(os.path.join(qa.DATA, 'book.ru-iast.json'), encoding='utf-8'))['sections'] if s['id'] == 'introduction')
     _want = 'introduction' if (_intro.get('content') or []) else 'gaudiya-emblem'
-    ck(dev, f'3 «Вперёд ›» after Мангалачарана = Введение (its first chapter when it has no own text) = {_want}', nxt == _want, nxt)
+    # V88: Vraja msg 7791/7792 - the «След. глава» card is removed: no next-chapter control (the old expectation was {_want})
+    ck(dev, f'3 V88 no «След. глава ›» card after Мангалачарана (was: = {_want})', nxt == '', nxt)
     # 8: verse panels closed by default; no carry-over
     # Centering the first chip can move the reading line into Parampara on a
     # tall viewport. Keep the action and its assertion in the chapter opened

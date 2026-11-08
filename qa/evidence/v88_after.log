@@ -1,0 +1,39 @@
+== s155_cover_tap_chapter_end_cards_v81.py [pixel7,iphone14,ipad-portrait,desktop]
+  [FAIL] ipad-portrait V88 cover: the whole transition (tap -> first page open and overlay gone) takes at most 900 ms 1001
+67/68 passed
+FAILED: ipad-portrait V88 cover: the whole transition (tap -> first page open and overlay gone) takes at most 900 ms 1001
+== s06_next_chapter.py [pixel7,iphone14,ipad-portrait,desktop]
+100/100 passed
+== s69_chapter_nav.py [pixel7,iphone14,ipad-portrait,desktop]
+  [FAIL] pixel7 I «‹ Назад» whole on screen None
+  [FAIL] pixel7 I «Вперёд ›» whole on screen None
+  [FAIL] iphone14 I «‹ Назад» whole on screen None
+  [FAIL] iphone14 I «Вперёд ›» whole on screen None
+  [FAIL] ipad-portrait I «‹ Назад» whole on screen None
+  [FAIL] ipad-portrait I «Вперёд ›» whole on screen None
+  [FAIL] desktop I «‹ Назад» whole on screen None
+  [FAIL] desktop I «Вперёд ›» whole on screen None
+88/96 passed
+== s154_prev_next_chapter_labels_v80.py [pixel7,iphone14,ipad-portrait,desktop]
+40/40 passed
+== s07_path_intro_pictures.py [pixel7,iphone14,ipad-portrait,desktop]
+267/267 passed
+== s071_reader_v71.py [pixel7,iphone14,ipad-portrait,desktop]
+176/176 passed
+== s01_reader_mode.py [pixel7,iphone14,ipad-portrait,desktop]
+474/474 passed
+== s10_rules_verifier.py [pixel7,iphone14,ipad-portrait,desktop]
+Error: write EPIPE
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+== s20_offline.py [pixel7,iphone14,ipad-portrait,desktop]
+Traceback (most recent call last):
+playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+== s22_parampara_songs.py [pixel7,iphone14,ipad-portrait,desktop]
+68/68 passed
+== s26_ksv_0710_evening.py [pixel7,iphone14,ipad-portrait,desktop]
+s26: 125/125 passed
+== s57_vraja_1020.py [pixel7,iphone14,ipad-portrait,desktop]
+== s97_section_row_one_button_v45.py [pixel7,iphone14,ipad-portrait,desktop]
+184/184 passed
+DONE

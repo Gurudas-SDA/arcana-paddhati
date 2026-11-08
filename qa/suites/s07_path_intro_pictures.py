@@ -289,11 +289,9 @@ def run(p, dev, eng, o):
 
     # ---------- B: Forward steps forward (system / browser Forward — V17) ----------
     bars()
-    # V81: the next page of the contents is the card «След. глава ›» at the chapter's end (the bar's «Вперёд ›» is the history step)
+    # V88 (Vraja msg 7791/7792): the «След. глава ›» card is removed - no next-chapter control at the chapter's end
     fw = pg.locator(".chapter-end-card[data-dir=next]")
-    chk(dev, "B «След. глава ›» card is a live button (not disabled), to the next page of the contents",
-        fw.count() == 1 and fw.get_attribute("disabled") is None and fw.get_attribute("aria-disabled") is None
-        and fw.get_attribute("data-chapter-target") == "daily-deity-schedule", str(fw.get_attribute("data-chapter-target") if fw.count() else None))
+    chk(dev, "B V88 no «След. глава ›» card (removed)", fw.count() == 0 and pg.locator("[data-reader-nav]").count() == 0, str(fw.count()))
     pg.go_forward(); pg.wait_for_timeout(1000)
     g = lit()
     chk(dev, "B Forward -> Contents as opened, original reading place marked",
@@ -344,38 +342,22 @@ def run(p, dev, eng, o):
     chk(dev, "B no own history note («Вперёд — после Назад») anywhere", pg.locator("[data-reader-nav-note]").count() == 0)
     goto(f"/{L}/offering-bhoga/")
     u0 = pg.url
-    bars(); fw = pg.locator("[data-reader-nav=forward]")
+    bars()
     sel = pg.evaluate("(() => { const b = document.querySelector('.reader-bar-bottom'); const s = getComputedStyle(b); return s.userSelect || s.webkitUserSelect; })()")
     chk(dev, "B bars' text is not selectable (no look-up bar on Android)", sel == "none", str(sel))
-    # next chapter -> previous -> next with the buttons (V17: chapters)
-    # V81: the chapters are the cards «След. глава ›» / «‹ Пред. глава» at the chapter's end
+    # V88 (Vraja msg 7791/7792): no chapter-end cards - nothing to step the chapters with at the chapter's end
     pg.evaluate("() => { const m = document.querySelector('.app-main'); m.scrollTop = m.scrollHeight; }"); pg.wait_for_timeout(700)
-    bar_act("[data-reader-nav=forward]", 1100)
-    u1 = pg.url
-    chk(dev, "D «Вперёд ›» after offering-bhoga -> 7. Мантры почитания чаранамриты", u1.rstrip("/").endswith("/mantras-honouring-caranamrita"), u1)
-    pg.evaluate("() => { const m = document.querySelector('.app-main'); m.scrollTop = m.scrollHeight; }"); pg.wait_for_timeout(700)
-    bar_act("[data-reader-nav=back]", 1000)
-    chk(dev, "B ‹ Пред. глава -> previous chapter", pg.url == u0, pg.url)
-    pg.evaluate("() => { const m = document.querySelector('.app-main'); m.scrollTop = m.scrollHeight; }"); pg.wait_for_timeout(700)
-    bar_act("[data-reader-nav=forward]", 1000)
-    chk(dev, "B «След. глава ›» -> next chapter again (Android case)", pg.url == u1, pg.url)
+    chk(dev, "D V88 offering-bhoga chapter end: no «След. глава» / «Пред. глава» cards", pg.locator("[data-reader-nav], .chapter-end-card").count() == 0, pg.url)
 
     # ---------- D: pages ----------
     goto(f"/{L}/introduction/")
     # V45 (Vraja Lila msg 6178 / 1412): no «В этом разделе» list under a section any more
     links = pg.locator(".group-contents a, [data-section-chapters]")
     chk(dev, "D Introduction page: no «В этом разделе» list (V45)", links.count() == 0, str(links.count()))
-    # V17: the next chapter is the bottom bar's «Вперёд ›» (its target), not a block at the chapter's end
-    nx = pg.locator("[data-reader-nav=forward]")
-    chk(dev, "D Introduction «Вперёд ›» -> «Эмблема Гаудия-матха»", nx.count() == 1 and nx.get_attribute("data-chapter-target") == "gaudiya-emblem", nx.get_attribute("data-chapter-target") if nx.count() else "")
+    # V88: no next-chapter control on the page (Vraja msg 7791/7792)
+    chk(dev, "D V88 Introduction: no next-chapter control", pg.locator("[data-reader-nav=forward]").count() == 0)
     goto(f"/{L}/mangalacarana/")
-    nx = pg.locator("[data-reader-nav=forward]").get_attribute("data-chapter-target")
-    # v7.1: «Вперёд ›» after the Maṅgalācaraṇa = «Введение». Since A105 (S msg 6152 «не во Введении», msg 6239 ŚB 11.3.48
-    # «убираем совсем») «Введение» has no own text, and since V45 a section without own text has no page of its own
-    # (Vraja Lila msg 6178 / 1412): the step then goes to its first chapter, «Эмблема Гаудия-матха».
-    _intro = next(s for s in json.load(open(os.path.join(qa.DATA, f"book.{L}.json"), encoding="utf-8"))["sections"] if s["id"] == "introduction")
-    _want = "introduction" if (_intro.get("content") or []) else "gaudiya-emblem"
-    chk(dev, f"D Мангалачарана «Вперёд ›» -> «Введение» (v7.1; its first chapter when it has no own text) = {_want}", nx == _want, nx)
+    chk(dev, "D V88 Мангалачарана: no next-chapter control (was «Вперёд ›» -> «Введение»)", pg.locator("[data-reader-nav=forward]").count() == 0)
     goto(f"/{L}/vigraha-tattva/")
     h1 = qa.reading_locator(pg, "article h1")
     chk(dev, "D Виграха-таттва page: no chapter number in the title", h1.locator(".heading-num").count() == 0, h1.inner_text())

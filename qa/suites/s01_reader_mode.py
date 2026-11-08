@@ -218,14 +218,8 @@ def run(p, dev, engine, opts, lang, mode):
     check(tag, "no progress slider", pg.locator(".reader-slider, input[type=range]").count() == 0)
     # V81: the chapters are stepped by the cards at the chapter's end («‹ Пред. глава» / «След. глава ›»)
     pg.evaluate(f"{m}.scrollTop = {m}.scrollHeight"); pg.wait_for_timeout(900)
-    act(pg.locator(".chapter-end-card[data-dir=prev]"))
-    pg.wait_for_timeout(1200)
-    check(tag, "«Пред. глава» card = previous chapter", pg.url == prev_ch, pg.url)
-    check(tag, "page after «Назад» starts at its start with the bars out (V17)", shown())
-    pg.evaluate(f"{m}.scrollTop = {m}.scrollHeight"); pg.wait_for_timeout(900)
-    act(pg.locator(".chapter-end-card[data-dir=next]"))
-    pg.wait_for_timeout(1200)
-    check(tag, "«След. глава» card = next chapter", pg.url == other, pg.url)
+    # V88 (Vraja msg 7791/7792): the cards are removed - none at the chapter's end
+    check(tag, "V88 no «Пред. глава» / «След. глава» cards at the chapter's end", pg.locator(".chapter-end-card, [data-reader-nav]").count() == 0, pg.url)
     pg.goto(url, wait_until="networkidle"); pg.wait_for_timeout(800)
     # 11. contents opens and navigates
     show_bars()

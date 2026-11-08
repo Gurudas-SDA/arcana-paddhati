@@ -112,15 +112,28 @@ with sync_playwright() as p:
     # in-app navigation offline (contents -> chapter)
     pg.goto(ORIGIN + '/arcana-paddhati/ru-iast/daily-duties-brahma-muhurta/', wait_until='load')
     pg.wait_for_timeout(800)
-    # V17 (Vraja Lila msg 796): the next chapter is the bottom bar's «Вперёд ›» (the bars are out at the
-    # chapter's start; a tap shows them otherwise)
+    # V88 (Vraja Lila msg 7791/7792): the chapter-end cards are removed - the in-app step offline goes through the contents
     if not pg.locator('.reader-chrome[data-shown]').count():
         pg.mouse.click(8, 400); pg.wait_for_timeout(500)
-    pg.evaluate("() => { const m = document.querySelector('.app-main'); m.scrollTop = m.scrollHeight; }"); pg.wait_for_timeout(800)   # V81: the card «След. глава ›» is at the chapter's end
-    link = pg.locator('[data-reader-nav=forward]')
-    link.first.click()
+    pg.locator('[data-reader-action=contents]').first.click(); pg.wait_for_timeout(800)
+    # V88: the row can lie in a collapsed group - open the groups the way a reader does (a tap on the group's heading), wait for the state, then a REAL tap on the row
+    row = pg.locator('.mobile-menu[data-open] [data-toc-row="sec:daily-deity-schedule"]').first
+    for _ in range(8):
+        if row.is_visible():
+            break
+        g = pg.locator(".mobile-menu[data-open] [data-toc-group-row][aria-expanded=false]").first   # re-queried: the list changes after each opening
+        if not g.count():
+            break
+        g.scroll_into_view_if_needed(); g.click()
+        pg.wait_for_timeout(400)
+    try:
+        row.wait_for(state='visible', timeout=5000)
+    except Exception:
+        print('DBG', pg.evaluate("() => ({groups: [...document.querySelectorAll('.mobile-menu[data-open] [data-toc-group-row]')].map(e => e.getAttribute('data-toc-group-row') + ':' + e.getAttribute('aria-expanded')), links: [...document.querySelectorAll('a[href*=daily-deity-schedule]')].map(a => a.getAttribute('href') + ' rects=' + a.getClientRects().length + ' in=' + !!a.closest('.mobile-menu[data-open]')), url: location.href})"))
+        raise
+    row.scroll_into_view_if_needed(); row.click()
     pg.wait_for_timeout(2500)
-    ck('offline in-app «Вперёд»', 'daily-deity-schedule' in pg.url, pg.url[-50:])
+    ck('offline in-app step (contents -> chapter)', 'daily-deity-schedule' in pg.url, pg.url[-50:])
     c.set_offline(False)
     if qa.fast():
         b.close()

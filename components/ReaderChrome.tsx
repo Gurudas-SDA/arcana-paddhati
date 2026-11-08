@@ -52,7 +52,6 @@ import { useRouter } from "next/navigation";
 import { takeEarlyTap } from "@/lib/earlyTap";
 import { exitGhost } from "@/lib/exitGhost";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import ChapterEndCards from "@/components/ChapterEndCards";
 import { COVER_OPEN_EVENT } from "@/components/CoverButton";
 import { noteReplay, pathReplayUrl, pathStepDistance, usePathSteps } from "@/lib/pathSteps";
 import { chapterNeighbours, readingOrder, tocLayout, type TocPart, type TocSection } from "@/lib/book";
@@ -992,7 +991,7 @@ export default function ReaderChrome({
       if (!nextPage || fadeBusy.current) return;
       fadeBusy.current = true;
       setFade("in");
-      window.setTimeout(() => goChapterRef.current(nextPage), 320);
+      window.setTimeout(() => goChapterRef.current(nextPage), 140);
       // never leave the page darkened
       window.setTimeout(() => {
         fadeBusy.current = false;
@@ -1004,11 +1003,11 @@ export default function ReaderChrome({
   }, [nextPage]);
   useEffect(() => {
     if (isHome || !fadeBusy.current) return;
-    const a = window.setTimeout(() => setFade("out"), 450);
+    const a = window.setTimeout(() => setFade("out"), 100);
     const b = window.setTimeout(() => {
       fadeBusy.current = false;
       setFade("off");
-    }, 900);
+    }, 300);
     return () => {
       window.clearTimeout(a);
       window.clearTimeout(b);
@@ -1230,8 +1229,7 @@ export default function ReaderChrome({
       )}
 
       {/* Bottom bar: «‹ Вернуться» · «Вперёд ›» (V81, Vraja Lila msg 7706 / 7735) — steps along the reader's path (the browser
-          history); with no such step the button is inactive and pale (--rd-faint). The chapters are stepped by the cards at the
-          chapter's end (components/ChapterEndCards.tsx). */}
+          history); with no such step the button is inactive and pale (--rd-faint). (V88: the chapter-end cards are removed.) */}
       <div className="reader-bar reader-bar-bottom" {...barEvents}>
         <div className="reader-bar-inner reader-nav-row">
           <button
@@ -1263,15 +1261,6 @@ export default function ReaderChrome({
         </div>
       </div>
 
-      <ChapterEndCards
-        ui={ui}
-        sections={sections}
-        sectionId={sectionId}
-        prevPage={prevPage}
-        nextPage={nextPage}
-        goChapter={goChapter}
-        suspended={panel || menuShown}
-      />
       {/* The cover → the first page: a fade out and back (V81) */}
       <div className="cover-fade no-print" data-on={fade === "in" ? "" : undefined} aria-hidden="true" />
 

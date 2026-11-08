@@ -408,15 +408,9 @@ def run_one(DEV):
             qa.scroll_chapter(pg, 1.0); wait(0.8)
             # V17 (Vraja Lila msg 796): the next chapter is the bottom bar's «Вперёд ›» (the bars are out at the chapter's end)
             show_bars()
-            nx = pg.evaluate("""()=>{const a=document.querySelector('[data-reader-nav=forward]'); if(!a) return null; const r=a.getBoundingClientRect(); return {txt:a.innerText.replace(/\\s+/g,' ').trim(), target:a.getAttribute('data-chapter-target'), x:r.left+r.width/2, y:r.top+r.height/2, inview:r.bottom<=innerHeight && r.top>=0}}""")
+            nx = pg.evaluate("""()=>document.querySelectorAll('[data-reader-nav], .chapter-end-card, .chapter-end-cards, .chapter-next').length""")
             shot(pg, f"{DEV}_chapter_end")
-            u_before = pg.url; tap(nx["x"], nx["y"], 0.2); t0 = time.time()
-            while pg.url == u_before and time.time() - t0 < 10: time.sleep(0.2)
-            nav_dt = time.time() - t0; wait(1.0)
-            # top = offset from the start of the chapter now being read (in the continuous book the
-            # absolute scrollTop of a chapter start is its position in the book)
-            st = pg.evaluate("({u:location.pathname, top:" + qa.READING_POSITION_JS + ".top, h1:__qaRoot().querySelector('h1, h2')?.textContent})")
-            rec("§9 «След. глава ›» в конце главы", "V81: карточка «След. глава ›» в конце главы (блока .chapter-next нет); тап ведёт на начало следующей главы", "След. глава" in nx["txt"] and pg.locator(".chapter-next").count() == 0 and "daily-deity-schedule" in st["u"] and abs(st["top"]) < 5, f"link='{nx['txt']}', после тапа {st}, смена URL через {nav_dt:.1f}s")
+            rec("§9 «След. глава ›» в конце главы", "V88 (Врджа Лила msg 7791/7792): карточек «Пред. глава» / «След. глава» в конце главы больше нет", nx == 0, f"элементов: {nx}")
         except Exception:
             rec("§9 next", "ошибка", False, traceback.format_exc()[-300:])
 

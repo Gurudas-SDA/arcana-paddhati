@@ -1,0 +1,29 @@
+== s20 pixel7
+rc=1
+Traceback (most recent call last):
+playwright._impl._errors.TimeoutError: Locator.wait_for: Timeout 5000ms exceeded.
+== s20 iphone14
+rc=1
+Traceback (most recent call last):
+playwright._impl._errors.TimeoutError: Locator.wait_for: Timeout 5000ms exceeded.
+== s20 ipad-portrait
+rc=1
+Traceback (most recent call last):
+playwright._impl._errors.TimeoutError: Locator.wait_for: Timeout 5000ms exceeded.
+== s20 desktop
+rc=1
+Traceback (most recent call last):
+playwright._impl._errors.TimeoutError: Locator.wait_for: Timeout 5000ms exceeded.
+== s10 pixel7
+rc=0
+57/57 passed
+== s10 iphone14
+rc=0
+57/57 passed
+== s10 ipad-portrait
+rc=0
+57/57 passed
+== s10 desktop
+rc=0
+57/57 passed
+DONE

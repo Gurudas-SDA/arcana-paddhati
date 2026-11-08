@@ -81,7 +81,7 @@ def run(p, dev, eng, o):
         chk(dev, f"{lang} {mid}: bar «‹ {bk}»", bool(g["b"]) and nrm(g["b"]["t"]) == nrm(f"‹ {bk}"), str(g["b"]))
         chk(dev, f"{lang} {mid}: bar «{fw} ›»", bool(g["f"]) and nrm(g["f"]["t"]) == nrm(f"{fw} ›"), str(g["f"]))
         chk(dev, f"{lang} {mid}: on screen a gap between each arrow and its text (computed)", all(x and x["gap"] is not None and x["gap"] > 0 for x in (g["b"], g["f"])), str(g))
-        chk(dev, f"{lang} {mid}: no chapter buttons «{pv}» / «{nx}» in the bar (they are the cards at the chapter's end, s155)", not any(w in g["bar"] for w in (pv, nx)), g["bar"])
+        chk(dev, f"{lang} {mid}: no chapter buttons «{pv}» / «{nx}» in the bar (V88: the cards at the chapter end are removed too, s155)", not any(w in g["bar"] for w in (pv, nx)), g["bar"])
         chk(dev, f"{lang} {mid}: both buttons inside the screen, >= 44 px, not overlapping",
             all(x and x["l"] >= 0 and x["r"] <= g["vw"] and x["h"] >= 44 - 0.5 for x in (g["b"], g["f"])) and g["b"]["r"] <= g["f"]["l"], str(g))
         g = geo(f"{BASE}/{lang}/" if lang != "en" else f"{BASE}/")

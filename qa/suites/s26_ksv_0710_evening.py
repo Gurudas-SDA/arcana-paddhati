@@ -581,25 +581,8 @@ def run_v781(p, dev, eng, o):
         on = pg.evaluate(HL_STATE)
         res_url = pg.url
         chk(dev, "10 (setup) result opened with the word marked", on["hl"], str(on))
-        # forward step without a pointer (keyboard Enter on «Вперёд ›»). V17 (Vraja Lila msg 796): the next
-        # chapter is the bottom bar's «Вперёд ›» (no block at the chapter's end any more)
-        has_next = pg.locator("[data-reader-nav=forward]").count() > 0
-        if has_next:
-            # V81: «След. глава ›» is the card at the chapter's end (shown when the reader is at the end)
-            pg.evaluate("() => { const m = document.querySelector('.app-main'); m.dispatchEvent(new Event('wheel')); m.dispatchEvent(new Event('touchmove')); m.scrollTop = m.scrollHeight; }"); pg.wait_for_timeout(900)
-            pg.locator("[data-reader-nav=forward]").focus()
-            pg.keyboard.press("Enter")
-            try:
-                pg.wait_for_url(lambda u: u.split("#")[0] != res_url.split("#")[0], timeout=8000)
-            except Exception:
-                pass
-            pg.wait_for_timeout(900)
-            st = pg.evaluate(HL_STATE)
-            chk(dev, "10 «Вперёд ›» to the next chapter (keyboard, no tap) → mark gone on the new page", pg.url != res_url and clean(st), (pg.url[-40:], st))
-            ok, info = first_tap_toggles_bars(pg, tapxy)
-            chk(dev, "10 after «Вперёд ›»: the first tap on the new page is not eaten (menu toggles)", ok, info)
-        else:
-            chk(dev, "10 result page has «Вперёд ›»", False, pg.url)
+        # V88 (Vraja Lila msg 7791/7792): the next-chapter control (card «След. глава ›») is removed - there is no forward chapter step to make
+        chk(dev, "10 V88 no next-chapter control on the result page", pg.locator("[data-reader-nav], .chapter-end-card").count() == 0, pg.url)
         # router.push-like step: a pushState to another chapter's URL from the marked page
         pg.goto(f"{BASE}/{L}/", wait_until="networkidle")
         pg.wait_for_timeout(500)

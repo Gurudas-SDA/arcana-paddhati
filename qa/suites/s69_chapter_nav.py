@@ -1,4 +1,6 @@
-"""V17 — chapter navigation (Vraja Lila msg 796, 20.10.2026 14:15; mock approved «всё верно», msg 5639;
+"""V88 (Vraja Lila msg 7791/7792): the chapter-end cards «Пред. глава» / «След. глава» are REMOVED - the checks B, C, D, K, T (stepping through
+the chapters with the cards) are converted to "there is no card / no next-chapter control" (marked V88); A, E, F, H, I, J, L, M stay.
+V17 — chapter navigation (Vraja Lila msg 796, 20.10.2026 14:15; mock approved «всё верно», msg 5639;
 labels «‹ Назад» / «Вперёд ›», msg 5635; saskarnes īpašnieks, «Стандарты» 0а; nodots-izpildei 20.10 14:15).
 
 Task (verbatim, msg 796 as passed on): «1) нижняя выездная панель: УБРАТЬ строку «где мы / % прочтено»
@@ -177,50 +179,15 @@ def run(browser, device, options, walk):
         page.evaluate(END_JS); page.wait_for_timeout(700)
         b = page.evaluate(BAR_JS)
         check(device, "A the faint status line at the bottom of the page stays (reading mode)", page.locator(".reader-status").count() == 1)
-        check(device, "I «‹ Назад» whole on screen", bool(b["back"]) and b["back"]["l"] >= 0 and b["back"]["r"] <= b["vw"] and b["back"]["sw"] <= b["back"]["cw"] + 1, b["back"])
-        check(device, "I «Вперёд ›» whole on screen", bool(b["fwd"]) and b["fwd"]["l"] >= 0 and b["fwd"]["r"] <= b["vw"] and b["fwd"]["sw"] <= b["fwd"]["cw"] + 1, b["fwd"])
         check(device, "E Pages: no «Next chapter» block at the end of the chapter", page.locator(".chapter-next, .chapter-next-space").count() == 0)
 
-        page.evaluate(WATCH_JS)
-        ok = press("forward")
-        gone = page.evaluate("() => window.__barsGone")
-        st = page.evaluate(SHOWN_JS)
-        check(device, "K Pages «Вперёд ›»: the bars never leave during the switch; the new chapter starts with them out", gone == 0 and st["shown"] and st["bottom"] > 0.9, {"gone": gone, **st})
-        check(device, f"B Pages «Вперёд ›»: {ORDER[mid]} -> {ORDER[mid + 1]}", ok and page_id() == ORDER[mid + 1], page.url)
-        check(device, "B Pages: the next page opens at its top", page.evaluate(TOP_JS) <= 2, page.evaluate(TOP_JS))
-        title_check("Pages «Вперёд ›»", ORDER[mid + 1])
-        ok = press("back")
-        check(device, f"C Pages «‹ Назад»: {ORDER[mid + 1]} -> {ORDER[mid]}", ok and page_id() == ORDER[mid], page.url)
-        check(device, "C Pages: the previous page opens at its top", page.evaluate(TOP_JS) <= 2, page.evaluate(TOP_JS))
-        title_check("Pages «‹ Назад»", ORDER[mid])
-        ok = press("back")
-        check(device, f"C Pages «‹ Назад»: {ORDER[mid]} -> {ORDER[mid - 1]}", ok and page_id() == ORDER[mid - 1], page.url)
-        b = page.evaluate(BAR_JS)
-        check(device, "H no own history note after the buttons", not b["note"], b)
-
-        # D first / last
-        goto(ORDER[0]); page.evaluate(END_JS); page.wait_for_timeout(700)
-        b = page.evaluate(BAR_JS)
-        # V81: the cover is not a «Пред. глава» (the first page has only «След. глава»; the way back is the bar's «Вернуться»)
-        check(device, f"D first page ({ORDER[0]}): no «‹ Пред. глава» card (the cover is not a chapter)", not b["backInDom"], b)
-        check(device, f"D first page: «След. глава ›» present", bool(b["fwd"]), b)
-        goto(ORDER[-1]); page.evaluate(END_JS); page.wait_for_timeout(700)
-        b = page.evaluate(BAR_JS)
-        check(device, f"D last page ({ORDER[-1]}): no «Вперёд ›» at all", not b["fwdInDom"], b)
-        check(device, f"D last page: «‹ Назад» present", bool(b["back"]), b)
-        check(device, "E Pages (last chapter): no «Next chapter» block", page.locator(".chapter-next, .chapter-next-space").count() == 0)
-
-        # B the whole order, page by page
-        start, stop = (0, len(ORDER) - 1) if walk else (ORDER.index("vigraha-tattva"), ORDER.index("daily-duties-brahma-muhurta"))
-        goto(ORDER[start])
-        seen = [page_id()]
-        for _ in range(stop - start):
-            if not press("forward"):
-                break
-            seen.append(page_id())
-        want = ORDER[start:stop + 1]
-        check(device, f"B «Вперёд ›» follows the contents order ({len(want)} pages: {want[0]} … {want[-1]})", seen == want,
-              "" if seen == want else f"seen {seen} want {want}")
+        # V88: Vraja msg 7791/7792 - the cards are gone: B/C/K/T (stepping chapters) -> no chapter control at all, at any chapter's end
+        for pid in (ORDER[0], ORDER[mid], ORDER[-1]):
+            goto(pid); page.evaluate(END_JS); page.wait_for_timeout(700)
+            b = page.evaluate(BAR_JS)
+            check(device, f"V88 B/C/D {pid}: no «Пред. глава» / «След. глава» card at the chapter's end", not b["backInDom"] and not b["fwdInDom"] and page.locator(".chapter-end-card, .chapter-end-cards").count() == 0, b)
+            check(device, f"V88 H {pid}: no own history note", not b["note"], b)
+        check(device, "V88 I: the bar's «Вернуться» / «Вперёд» (history steps) are whole on screen", page.evaluate("""() => [...document.querySelectorAll('.reader-bar-bottom [data-reader-step]')].every(b => { const r = b.getBoundingClientRect(); return r.left >= 0 && r.right <= innerWidth && b.scrollWidth <= b.clientWidth + 1; })"""))
 
         # L / M / F: reading on, scrolling up in the middle, back at the start, the end
         goto("daily-deity-schedule")
@@ -268,7 +235,7 @@ def run(browser, device, options, walk):
             if (!m || !s) return null; const margin = parseFloat(getComputedStyle(s).scrollMarginTop) || 0;
             return {off: Math.round(s.getBoundingClientRect().top - m.getBoundingClientRect().top - margin), url: location.pathname}; }"""
         # V81: «Лента» is continuous reading — no chapter cards (they are at a chapter's end in «Страницы»); the bar's steps stay
-        check(device, "G Scroll: no chapter cards in the continuous book", page.locator(".chapter-end-card").count() == 0 or not page.locator(".chapter-end-cards[data-show]").count(), page.locator(".chapter-end-card").count())
+        check(device, "G Scroll: no chapter cards in the continuous book (V88: none anywhere)", page.locator(".chapter-end-card").count() == 0, page.locator(".chapter-end-card").count())
         check(device, "G Scroll: the bar has «Вернуться» / «Вперёд» (history steps)", page.locator("[data-reader-step=back]").count() == 1 and page.locator("[data-reader-step=forward]").count() == 1)
         page.evaluate("try{localStorage.removeItem('ap.readerLayout')}catch(e){}")
         check(device, "no page errors", not errors, errors[:3])

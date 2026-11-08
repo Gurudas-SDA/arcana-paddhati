@@ -1,0 +1,15 @@
+== s155_cover_tap_chapter_end_cards_v81.py
+rc=0
+68/68 passed
+== s69_chapter_nav.py
+rc=0
+88/88 passed
+== s20_offline.py
+rc=1
+Traceback (most recent call last):
+playwright._impl._errors.TimeoutError: Locator.scroll_into_view_if_needed: Timeout 30000ms exceeded.
+== s57_vraja_1020.py
+rc=0
+== s10_rules_verifier.py
+rc=124
+DONE

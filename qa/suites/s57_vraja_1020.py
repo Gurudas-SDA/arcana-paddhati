@@ -162,13 +162,8 @@ def run(p, dev, eng, o):
     #      gone; the next chapter is the bottom bar's «Вперёд ›» — its band stays inside the screen ----------
     pg.goto(url("", NEXT_PAGE), wait_until="networkidle")
     pg.wait_for_timeout(900)
-    n = pg.evaluate("""()=>{const a=document.querySelector('[data-reader-nav=forward]'); if(!a) return null;
-      const r=a.getBoundingClientRect();
-      return {right:r.right, left:r.left, col:innerWidth, vw:innerWidth, block:document.querySelectorAll('.chapter-next').length}}""")
-    if n is None:
-        chk(dev, "5 «Next chapter» present", False, "no [data-reader-nav=forward]")
-    else:
-        chk(dev, "5 «Next chapter» (bar «Вперёд ›») inside the screen, no block at the chapter's end", n["right"] <= n["col"] + 0.5 and n["left"] >= 0 and n["block"] == 0, str(n))
+    n = pg.evaluate("""()=>document.querySelectorAll('[data-reader-nav=forward], .chapter-next, .chapter-end-card').length""")
+    chk(dev, "5 V88 no «Next chapter» control (Vraja msg 7791/7792: the cards are removed)", n == 0, str(n))
     b.close()
 
 
