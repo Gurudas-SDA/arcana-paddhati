@@ -210,6 +210,8 @@ SUITES = [
          devices=["iphone14", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s142", file="suites/s142_mangalacarana_two_slokas_removed.py", title="A140 Satkirti msg 7403 03.11 (A133 «Убрать»): «Мангалачарана» — pranāmā Bhaktiprajñāna Keśava divas lieka šlokas (gaurāśraya-vigrahāya…, prabhupādāntaraṅgāya…) izņemtas visās valodās; šlokas 9–10 paliek",
          devices=None, fast=True, server=False),
+    dict(id="s159", file="suites/s159_forward_after_back_real_tap_v87e.py", title="V87e Vraja Lila msg 7789 Nr.3 B: pec «nazad» izvelne atvera virs iepriekseja lapas, ISTS tap uz «Vperyod» aizver izvelni un atver pameto lapu, «Vernutsya» atpakal (iphone14, pixel7, ipad, desktop; bez pieskariena lapas videm)",
+         devices=["iphone14", "pixel7", "ipad-portrait", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s156", file="suites/s156_panel_in_menu_v82.py", title="V82 Vraja Lila msg 7768/7769: apaksejais panelis «Vernutsya / Vperyod» paliek redzams un aktivs ar atvertu izvelni (variants A), «Vernutsya» aizver izvelni un dara soli, pec izvelnes izveles «Vernutsya» neatver izvelni, pec soļa josla paliek lidz ritinasanai/klikskim",
          devices=["iphone14", "pixel7", "ipad-portrait", "ipad-landscape", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s155", file="suites/s155_cover_tap_chapter_end_cards_v81.py", title="V81 Vraja Lila msg 7729: apvalka pieskariens atver Epigrafu ar fade (ihsta poga), nodalu beigu kartites Pred. / Sled. glava (16/13 px, 323 px datora, fiksetas virs paneļa, paradas beigas), viena poga nestiepta",

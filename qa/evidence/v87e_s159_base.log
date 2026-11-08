@@ -1,0 +1,14 @@
+BRĪDINĀJUMS: out/ ir vecāks par avotu (scripts/translate/uk_plain.py) — testē VECO būvējumu. Palaid: npm run build
+QA full: 4 darbi, 2 paralēli, serveris http://127.0.0.1:41781/arcana-paddhati (out/)
+  FAIL s159   pixel7                          3 pass   1 fail      14s
+  FAIL s159   iphone14                        3 pass   1 fail      14s
+  OK   s159   desktop                         4 pass   0 fail       5s
+  OK   s159   ipad-portrait                   4 pass   0 fail       7s
+  atkārtoju 2 kritušos darbus vienu reizi …
+  OK   s159   pixel7                       (atkārtoti)   0 fail
+  OK   s159   iphone14                     (atkārtoti)   0 fail
+
+QA full: 16 pass, 0 fail, 0 skip, 0.4 min
+FLAKY (krita, atkārtojumā izgāja — 2):
+  ~ s159 pixel7/ru-iast 3c real tap on «Вернуться»: back to the previous page, menu closed, «Вперёд» active again {"tapped": true, "state": {"page": "upadesha-sara", "hash": "", "menu"
+  ~ s159 iphone14/ru-iast 3c real tap on «Вернуться»: back to the previous page, menu closed, «Вперёд» active again {"tapped": false, "state": {"page": "upadesha-sara", "hash": "", "menu

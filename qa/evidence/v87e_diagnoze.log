@@ -1,0 +1,38 @@
+# V87e 08.11.2026: dzivaja gramata 8e3d038, pixel7 3b. diag.py = show_bars() ar pieskarienu lapas videm (kada bija v87_live.py): pixel7 pushState #vigraha-fourth-form PIRMS klikska, «Vperyod» neaktiva; iphone14 go(-1), go(2) -> upadesha-sara
+pixel7 path before {"ids":["1-0na21u","2-fih7za","7-mib7wj"],"at":2,"urls":{"1-0na21u":"/arcana-paddhati/ru-iast/","2-fih7za":"/arcana-paddhati/ru-iast/vigraha-tattva/","7-mib7wj":"/arcana-paddhati/ru-iast/vigraha-tattva/#vigraha-fourth-form"},"keys":{"1-0na21u":"gukjw8le","2-fih7za":"4i1yhu0q","7-mib7wj":"rsjl8ca5"},"gaps":{"7-mib7wj":3}}
+pixel7 [339, 'pushState', None, 'vigraha-tattva', 3, '{"id":"2-fih7za"}']
+pixel7 [1345, 'pushState', '/arcana-paddhati/ru-iast/upadesha-sara/', 'vigraha-tattva', 4, '{"id":"3-sf4z94","d":1}']
+pixel7 [1392, 'replaceState', None, 'upadesha-sara', 5, '{}']
+pixel7 [3880, 'replaceState', '/arcana-paddhati/ru-iast/vigraha-tattva/', 'vigraha-tattva', 5, '{"id":"3-sf4z94","d":1}']
+pixel7 [3997, 'popstate', '', 'vigraha-tattva', 5, '{"id":"3-sf4z94","d":1}']
+pixel7 [6394, 'pushState', None, 'vigraha-tattva', 5, '{"id":"3-sf4z94","d":1}']
+pixel7 [6933, 'pushState', None, 'vigraha-tattva', 5, '{"id":"5-g16gvp","d":2}']
+pixel7 [7438, 'pushState', '#vigraha-fourth-form', 'vigraha-tattva', 6, '{"id":"6-xpj2sl","d":3}']
+pixel7 ['--click']
+pixel7 path after {"ids":["1-0na21u","2-fih7za","7-mib7wj"],"at":2,"urls":{"1-0na21u":"/arcana-paddhati/ru-iast/","2-fih7za":"/arcana-paddhati/ru-iast/vigraha-tattva/","7-mib7wj":"/arcana-paddhati/ru-iast/vigraha-tattva/#vigraha-fourth-form"},"keys":{"1-0na21u":"gukjw8le","2-fih7za":"4i1yhu0q","7-mib7wj":"rsjl8ca5"},"gaps":{"7-mib7wj":3}} {'page': 'vigraha-tattva', 'menu': False, 'panel': False, 'back': True, 'fwd': False}
+iphone14 path before {"ids":["1-pxz9hg","2-gzjzjq","4-id2zll"],"at":1,"urls":{"1-pxz9hg":"/arcana-paddhati/ru-iast/","2-gzjzjq":"/arcana-paddhati/ru-iast/vigraha-tattva/","4-id2zll":"/arcana-paddhati/ru-iast/upadesha-sara/"},"keys":{"1-pxz9hg":"wgltkjo8","2-gzjzjq":"ds366mcx","4-id2zll":"vvu8uizg"},"gaps":{"4-id2zll":1}}
+iphone14 [368, 'pushState', None, 'vigraha-tattva', 3, '{"id":"2-gzjzjq"}']
+iphone14 [1405, 'pushState', '/arcana-paddhati/ru-iast/upadesha-sara/', 'vigraha-tattva', 4, '{"id":"3-4op7vr","d":1}']
+iphone14 [1454, 'replaceState', None, 'upadesha-sara', 5, '{}']
+iphone14 [3913, 'replaceState', '/arcana-paddhati/ru-iast/vigraha-tattva/', 'vigraha-tattva', 5, '{"id":"3-4op7vr","d":1}']
+iphone14 [3972, 'popstate', '', 'vigraha-tattva', 5, '{"id":"3-4op7vr","d":1}']
+iphone14 ['--click']
+iphone14 [8404, 'go', -1, 'vigraha-tattva', 5, '{"id":"3-4op7vr","d":1}']
+iphone14 [8429, 'replaceState', '/arcana-paddhati/ru-iast/vigraha-tattva/', 'vigraha-tattva', 5, '{"id":"2-gzjzjq"}']
+iphone14 [8430, 'popstate', '', 'vigraha-tattva', 5, '{"id":"2-gzjzjq"}']
+iphone14 [8437, 'go', 2, 'vigraha-tattva', 5, '{"id":"2-gzjzjq"}']
+iphone14 [8450, 'replaceState', '/arcana-paddhati/ru-iast/upadesha-sara/', 'upadesha-sara', 5, '{"id":"4-id2zll"}']
+iphone14 [8476, 'popstate', '', 'upadesha-sara', 5, '{"id":"4-id2zll"}']
+iphone14 path after {"ids":["1-pxz9hg","2-gzjzjq","4-id2zll"],"at":2,"urls":{"1-pxz9hg":"/arcana-paddhati/ru-iast/","2-gzjzjq":"/arcana-paddhati/ru-iast/vigraha-tattva/","4-id2zll":"/arcana-paddhati/ru-iast/upadesha-sara/"},"keys":{"1-pxz9hg":"wgltkjo8","2-gzjzjq":"ds366mcx","4-id2zll":"vvu8uizg"},"gaps":{"4-id2zll":1}} {'page': 'upadesha-sara', 'menu': False, 'panel': False, 'back': True, 'fwd': False}
+
+[exited with code 0]
+
+# diag2.py: noshow = tikai ists tap uz «Vperyod»; show = ar show_bars()
+pixel7 noshow data-shown before: False forward rect {"x":311,"y":865,"width":89,"height":44,"top":865,"right":400,"bottom":909,"left":311} innerH 915
+pixel7 noshow tapped True {'page': 'upadesha-sara', 'menu': False, 'panel': False, 'back': True, 'fwd': False}
+pixel7 show data-shown before: False forward rect {"x":311,"y":865,"width":89,"height":44,"top":865,"right":400,"bottom":909,"left":311} innerH 915
+pixel7 show tapped True {'page': 'vigraha-tattva', 'menu': False, 'panel': False, 'back': True, 'fwd': False}
+iphone14 noshow data-shown before: False forward rect {"x":290,"y":794,"width":88,"height":44,"top":794,"right":378,"bottom":838,"left":290} innerH 844
+iphone14 noshow tapped True {'page': 'upadesha-sara', 'menu': False, 'panel': False, 'back': True, 'fwd': False}
+iphone14 show data-shown before: False forward rect {"x":290,"y":794,"width":88,"height":44,"top":794,"right":378,"bottom":838,"left":290} innerH 844
+iphone14 show tapped True {'page': 'upadesha-sara', 'menu': False, 'panel': False, 'back': True, 'fwd': False}
