@@ -34,8 +34,8 @@ GONE = {
     "book.json": ["Two prayers again, obeisances", "The text, word-for-word and general translation", "When and how", "When not to", "The lecture texts", "item 1.1"],
 }
 KEEP = {
-    "book.ru-iast.json": ["Примечание: листья Туласи не кладут на стопы", "Собирайте листья после омовения", "Не собирайте листья в", "После бхаджана прочитайте молитвы", "пранаму Туласи — "],
-    "book.json": ["Note: Tulasī leaves are not placed on the feet", "Gather leaves after bathing", "Do not gather leaves on", "After the bhajana, recite the prayers", "praṇāma to Tulasī — "],
+    "book.ru-iast.json": ["Примечание: листья Туласи не кладут на стопы", "Собирайте листья после омовения", "Не собирайте листья в", "После бхаджана прочитайте молитвы", "Пранама Туласи — "],
+    "book.json": ["Note: Tulasī leaves are not placed on the feet", "Gather leaves after bathing", "Do not gather leaves on", "After the bhajana, recite the prayers", "Praṇāma to Tulasī — "],
 }
 for fn in GONE:
     bl = blocks(fn)
@@ -48,16 +48,16 @@ for fn in GONE:
     check(fn, "d мантр 7", len([x for x in bl if x["type"] == "verse"]) == 7)
 MD = os.path.join(DATA, "..", "scripts", "moods", "moods.json")
 mj = next(x for x in json.load(open(MD, encoding="utf-8")) if x["target"] == "tulasi-leaves-flowers")
-check("moods.json", "e main CA:5823 + more = [CA:4730:3]", mj["candidate"] == "CA:5823" and [m["candidate"] for m in mj["more"]] == ["CA:4730:3"], [m["candidate"] for m in mj["more"]])
+check("moods.json", "e main CA:5823 + more = [CA:4730:3]", mj["candidate"] == "CA:5823" and [m["candidate"] for m in mj["more"]] == ["CA:4730:3", "CA:7603", "CA:895", "CA:3332"], [m["candidate"] for m in mj["more"]])
 for fn in GONE:
     b = json.load(open(os.path.join(DATA, fn), encoding="utf-8"))
     sub = next(sb for s_ in b["sections"] if s_["id"] == "daily-tulasi-worship" for sb in s_["subsections"] if sb["id"] == "tulasi-leaves-flowers")
     mood = [x for x in sub["content"] if x["type"] == "mood"]
-    check(fn, "e один блок «Настроение», счётчик 2 (1 + more)", len(mood) == 1 and 1 + len(mood[0].get("more", [])) == 2, [len(m.get("more", [])) for m in mood])
+    check(fn, "e один блок «Настроение», счётчик 5 (1 + more; A112l +3 цитаты, L13 ≤ 6)", len(mood) == 1 and 1 + len(mood[0].get("more", [])) == 5, [len(m.get("more", [])) for m in mood])
     if mood:
         allq = [mood[0]["quote"]] + [m["quote"] for m in mood[0].get("more", [])]
         check(fn, "e 1-я цитата (Gaurāṅga … right hand) на месте", "we worship Gaurāṅga Mahāprabhu" in allq[0])
-        check(fn, "e 3-я («cannot even offer tulasī directly to Guru») на втором месте", len(allq) == 2 and "cannot even offer tulasī directly to Guru" in allq[1], allq[-1][:60])
+        check(fn, "e 3-я («cannot even offer tulasī directly to Guru») на втором месте (A112l: новые 7603, 895, 3332 — после неё)", len(allq) == 5 and "cannot even offer tulasī directly to Guru" in allq[1], allq[-1][:60])
         check(fn, "e 2-й цитаты («feet of Caitanya Mahāprabhu. But in rāgānugā-bhakti») нет", not any("But in rāgānugā-bhakti" in q for q in allq))
 import collections
 EXPECT = {"tulasi-arati": {"instruction": 11, "subtitle": 1, "verse": 4}  # A112h: 2 пункта→1, +3 упачары вместо таблицы, подзаголовок «Порядок проведения:» убран

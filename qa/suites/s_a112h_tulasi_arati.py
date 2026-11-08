@@ -15,6 +15,8 @@
   j) msg 7813: «Во время арати поётся…» остаётся; подпункты остаются; в примечании 3.2 выделены ⟦Шри Гуру⟧ и ⟦Шри Гауранги⟧ (как в главах 1, 2, 4; Шримати Радхарани там не выделяется); «На этом арати Туласи завершается.» / «This completes Tulasī-ārati.» убрано;
   k) msg 7814: подпункты — полные предложения: «Прочитайте пранаму Туласи — …», «Прочитайте молитву вайшнавам:» (EN «Recite the praṇāma to Tulasī — …», «Recite the prayer to the Vaiṣṇavas:»);
   l) msg 7815: в примечании 3.2 выделено и ⟦Шримати Радхарани⟧ (⟦Śrīmatī Rādhārāṇī⟧);
+  m) A112k, Туласи msg 7846 (фото) + 7851 «Лампада»: в «Упачарах арати» без «Предложите / Прочитайте»: «Дхупа, благовония: …», «Дипа, лампада (фитилёк): …», «Пушпа, цветок: …», «Пранама Туласи — …», «Молитва вайшнавам:» (EN: «Dhūpa, incense: …», «Dīpa, lamp (wick): …», «Puṣpa, flower: …», «Praṇāma to Tulasī — …», «Prayer to the Vaiṣṇavas:»);
+  n) A112l, Туласи msg 7847–7850: в «Настроение Гурудева» добавлены CA 7603 (02:35:58), CA 895 (01:08:26), CA 3332 (00:09:46); RU-перевод из файла «А112j Цитаты Гурудева…» буквально; всего не больше 6 (L13), главная цитата не тронута;
   e) мантр по-прежнему 7 в разделе; санскрит в ru-iast без кириллицы с диакритикой.
 usage: python s_a112h_tulasi_arati.py
 """
@@ -42,10 +44,10 @@ BHA_RU = "Во время арати поётся бхаджан «Джая Ра
 RU = {
     "have": ["Туласи-арати проводят в 5:20 утра, после мангала-арати. Поклоняться Туласи, как и Божествам, можно только в чистой одежде.",
              "Прочитайте молитву Вринде-деви и сделайте поклоны:", BHA_RU,
-             "Предложите ⟦дхупу⟧, благовония: 7 кругов вокруг всего дерева, затем Гуру и всем преданным.",
-             "Предложите ⟦дипу⟧, лампаду (фитилёк): корням (стопам) — 4 круга, стволу — 2, верхушке — 3, всему дереву — 7; затем Гуру и всем преданным.",
-             "Предложите ⟦пушпу⟧, цветок: 3 круга вокруг всего дерева, затем Гуру и всем преданным.",
-             "После бхаджана прочитайте молитвы и поклонитесь:", "Прочитайте пранаму Туласи — ⟦vṛndāyai tulasī-devyai…⟧.", "Прочитайте молитву вайшнавам:",
+             "⟦Дхупа⟧, благовония: 7 кругов вокруг всего дерева, затем Гуру и всем преданным.",
+             "⟦Дипа⟧, лампада (фитилёк): корням (стопам) — 4 круга, стволу — 2, верхушке — 3, всему дереву — 7; затем Гуру и всем преданным.",
+             "⟦Пушпа⟧, цветок: 3 круга вокруг всего дерева, затем Гуру и всем преданным.",
+             "После бхаджана прочитайте молитвы и поклонитесь:", "Пранама Туласи — ⟦vṛndāyai tulasī-devyai…⟧.", "Молитва вайшнавам:",
              "Затем, орошая Туласи-деви водой из ⟦панча-патры⟧, пойте:", "Сделайте поклон и прочитайте завершающую молитву:",
              # msg 267 — стиль как в главах 1, 2, 4 (повелительное, без «Метка. », условие/время в предложении)
              "Собирайте листья после омовения и в чистой одежде.",
@@ -54,17 +56,18 @@ RU = {
              "После сбора прочитайте мантру с просьбой о прощении (⟦апарадха-кшама-прартхана⟧):",
              "Примечание: листья Туласи не кладут на стопы ⟦Шримати Радхарани⟧, ⟦Шри Гуру⟧ и ⟦Шри Гауранги⟧. Их кладут в правую руку."],
     "gone": ["Порядок проведения", "Пранама.", "Бхаджан и парикрама", "Пойте и", "Арати — одновременно", "Предлагают три предмета", "Предметы арати", "Когда бхаджан допет", "обе молитвы", "Полив.", "Гурудев или другой преданный поливает Туласи", "\nпранаму Туласи — ", "\nмолитву вайшнавам:", "Затем сделайте поклон", "Заключительная молитва",
-             "Начните бхаджан", "Обходите вокруг", "Арати проводят одновременно", "Листья собирают", "Если омовения не было.", "Перед срыванием.", "После сбора.", "Примечание: Туласи не кладут", "Её кладут", "На этом арати Туласи завершается"],
+             "Начните бхаджан", "Обходите вокруг", "Арати проводят одновременно", "Листья собирают", "Если омовения не было.", "Перед срыванием.", "После сбора.", "Примечание: Туласи не кладут", "Её кладут", "На этом арати Туласи завершается",
+             "Предложите", "Прочитайте пранаму", "Прочитайте молитву вайшнавам", "лампаду"],
     "sub": "Упачары арати",
 }
 BHA_EN = "During ārati, the bhajana “Jaya Rādhe, jaya Kṛṣṇa, jaya Vṛndāvana” (“Śrī Vraja-dhāma-mahimāmṛta”; the text is in the section “Ārati”, chapter “Maṅgala-ārati”) is sung. Tulasī must be circumambulated at least 4 times."
 EN = {
     "have": ["Tulasī-ārati is performed at 5:20 a.m., after maṅgala-ārati. Worship of Tulasī, as of the Deities, may be performed only in clean clothes.",
              "Recite the prayer to Vṛndā-devī and offer obeisances:", BHA_EN,
-             "Offer ⟦dhūpa⟧, incense: 7 circles around the whole tree, then to Guru and all the devotees.",
-             "Offer ⟦dīpa⟧, a lamp (wick): to the roots (feet) — 4 circles, trunk — 2, top — 3, whole tree — 7; then to Guru and all the devotees.",
-             "Offer ⟦puṣpa⟧, a flower: 3 circles around the whole tree, then to Guru and all the devotees.",
-             "After the bhajana, recite the prayers and offer obeisances:", "Recite the praṇāma to Tulasī — ⟦vṛndāyai tulasī-devyai…⟧.", "Recite the prayer to the Vaiṣṇavas:",
+             "⟦Dhūpa⟧, incense: 7 circles around the whole tree, then to Guru and all the devotees.",
+             "⟦Dīpa⟧, lamp (wick): to the roots (feet) — 4 circles, trunk — 2, top — 3, whole tree — 7; then to Guru and all the devotees.",
+             "⟦Puṣpa⟧, flower: 3 circles around the whole tree, then to Guru and all the devotees.",
+             "After the bhajana, recite the prayers and offer obeisances:", "Praṇāma to Tulasī — ⟦vṛndāyai tulasī-devyai…⟧.", "Prayer to the Vaiṣṇavas:",
              "Then, sprinkling Tulasī-devī with water from the ⟦pañca-pātra⟧, sing:", "Offer obeisances and recite the concluding prayer:",
              "Gather leaves after bathing and in clean clothes.",
              "If one has not bathed, perform ⟦mānasa-snāna⟧ (bathing in the mind) and go to gather Tulasī in this mood:",
@@ -72,7 +75,8 @@ EN = {
              "After gathering, recite the mantra begging forgiveness (⟦aparādha-kṣamā-prārthanā⟧):",
              "Note: Tulasī leaves are not placed on the feet of ⟦Śrīmatī Rādhārāṇī⟧, ⟦Śrī Guru⟧ and ⟦Śrī Gaurāṅga⟧. They are placed in the right hand."],
     "gone": ["Order of the procedure", "Praṇāma. Recite", "Bhajana and parikramā", "Sing and circumambulate", "Ārati — simultaneously", "Three items are offered", "Items of ārati", "When the bhajana is finished", "both prayers", "Watering.", "Gurudeva or another devotee waters Tulasī", "\npraṇāma to Tulasī — ", "\nprayer to the Vaiṣṇavas:", "Then offer obeisances", "Closing prayer",
-             "Begin the bhajana", "Circumambulate Tulasī at least", "Ārati is performed simultaneously", "Leaves are gathered", "If one has not bathed.", "Before picking.", "After gathering.", "Note: Tulasī is not placed", "She is placed", "This completes Tulasī-ārati"],
+             "Begin the bhajana", "Circumambulate Tulasī at least", "Ārati is performed simultaneously", "Leaves are gathered", "If one has not bathed.", "Before picking.", "After gathering.", "Note: Tulasī is not placed", "She is placed", "This completes Tulasī-ārati",
+             "Offer ⟦", "Recite the praṇāma", "Recite the prayer to the Vaiṣṇavas", "a lamp (wick)"],
     "sub": "Upacāras of ārati",
 }
 for fn, T in (("book.ru-iast.json", RU), ("book.json", EN)):
@@ -93,5 +97,24 @@ for fn, T in (("book.ru-iast.json", RU), ("book.json", EN)):
         check(fn, "e нет кириллицы с диакритикой", not bad, bad)
     else:
         check(fn, "e в EN нет кириллицы", not re.search(r"[а-яА-ЯёЁ]", json.dumps(sb, ensure_ascii=False)))
+# n) A112l: цитаты в «Настроении Гурудева»
+NEW = {"7603": ("02:35:58", "Поэтому, если кто-то будет почитать Вринду Деви и предлагать ее листья", "с этой абхиманой, с этой концепцией.", "So if anyone will honor Vṛndā Devī", "with that abhimāna, with that conception."),
+       "895": ("01:08:26", "Поэтому в следующий раз, увидев Туласи", "в красном платье бандхука, о, и с множеством украшений.", "So next time you see Tulasī", "red bandhuka dress, oh, and many ornaments is standing there."),
+       "3332": ("00:09:46", "Так что служение Туласи в своей жизни", "всё это анукула для бхакти.", "So serving Tulasī in your life", "this is all anukūla for bhakti.")}
+for fn in ("book.ru-iast.json", "book.json"):
+    s, _ = sub(fn)
+    m = next(x for sb2 in s["subsections"] for x in sb2["content"] if x["type"] == "mood")
+    allq = [m] + (m.get("more") or [])
+    check(fn, "n главная цитата «…we worship Gaurāṅga Mahāprabhu» на месте", m["source"]["nr"] == "5823" and m["quote"].startswith("…we worship Gaurāṅga"))
+    check(fn, f"n цитат в блоке {len(allq)} ≤ 6 (L13)", len(allq) <= 6)
+    for nr, (tc, ru0, ru1, en0, en1) in NEW.items():
+        q = next((x for x in allq if x["source"].get("nr") == nr), None)
+        check(fn, f"n CA {nr} есть в «Настроении Гурудева»", q is not None)
+        if q is None:
+            continue
+        check(fn, f"n CA {nr} тайм-код {tc}, ссылка на расшифровку", q["source"].get("timecode") == tc and q["source"].get("transcript_url", "").startswith("https://drive.google.com/file/d/") and q["source"].get("date"))
+        check(fn, f"n CA {nr} EN-цитата буквально", q["quote"].startswith(en0) and q["quote"].endswith(en1), q["quote"][-50:])
+        if fn == "book.ru-iast.json":
+            check(fn, f"n CA {nr} RU-перевод буквально", q["translation"].startswith(ru0) and q["translation"].endswith(ru1), q["translation"][-50:])
 print(f"{sum(res)}/{len(res)} PASS")
 sys.exit(0 if all(res) else 1)
