@@ -150,7 +150,14 @@ def plan(chapters, mode, n):
 
 def did(effect, chapter, before, after):
     row = "sec:" + chapter
-    if after["lit"] != [row] or not after["menu"]:
+    if effect == "open":
+        # V87f: after «open» the mark is the place read - the chapter row OR its first subsection (sub:X#...), as lib/toc.py marks_place
+        # allows (Satkirti 13.10.2026): on iPad portrait the reading line (0.205 x innerHeight = 242 px) lies below the first subsection
+        # heading (231 px), so the app rightly marks the subsection. Diagnosis: scripts/state/mantri_v87f_diag_status.txt
+        lit = after["lit"]
+        if len(lit) != 1 or not after["menu"] or not (lit[0] == row or lit[0].startswith(f"sub:{chapter}#")):
+            return False
+    elif after["lit"] != [row] or not after["menu"]:
         return False
     if effect == "open":
         return chapter in after["open"] and after["url"].endswith(f"/{chapter}/")

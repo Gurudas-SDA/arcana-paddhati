@@ -37,10 +37,15 @@ def check(dev, name, ok, evidence=""):
 
 
 def real_tap(pg, touch, sel):
-    """The tap of a reader: at the element's centre, only if it is the topmost element there."""
-    r = pg.evaluate("""(s) => { const e = document.querySelector(s); if (!e) return null; const b = e.getBoundingClientRect();
-      const x = b.left + b.width / 2, y = b.top + b.height / 2; const t = document.elementFromPoint(x, y);
-      return {x, y, top: !!t && (t === e || e.contains(t))}; }""", sel)
+    """The tap of a reader: at the element's centre, once it is the topmost element there (waits up to 2 s: V87f - the bar can still be animating)."""
+    r = None
+    for _ in range(20):
+        r = pg.evaluate("""(s) => { const e = document.querySelector(s); if (!e) return null; const b = e.getBoundingClientRect();
+          const x = b.left + b.width / 2, y = b.top + b.height / 2; const t = document.elementFromPoint(x, y);
+          return {x, y, top: !!t && (t === e || e.contains(t))}; }""", sel)
+        if r and r["top"]:
+            break
+        pg.wait_for_timeout(100)
     if not r or not r["top"]:
         return False
     if touch:
@@ -99,12 +104,12 @@ def run(browser, dev, opts):
               opened and target and s1["page"] == target and s2["page"] == A and s2["menu"] and s2["fwd"] is True, {"target": target, "afterPick": s1, "afterBack": s2})
         # the reader taps «Вперёд» itself — nothing else is tapped on the page before it
         tapped = real_tap(pg, touch, "[data-reader-step=forward]")
-        s3 = wait_state(pg, f"s.page === {json.dumps(target)} && !s.menu")
+        s3 = wait_state(pg, f"s.page === {json.dumps(target)} && !s.menu && s.fwd === false")  # V87f: the «Вперёд» button's disabled state follows ~100 ms after the page changes
         check(tag, "3b real tap on «Вперёд»: the menu closes and the page left with «назад» opens, not the previous one",
               tapped and s3["page"] == target and not s3["menu"] and s3["hash"] == "" and s3["fwd"] is False, {"tapped": tapped, "state": s3})
         # «Вернуться»: the bars are shown after a step (V82), the button is tapped as it is
         tapped_b = real_tap(pg, touch, "[data-reader-step=back]")
-        s4 = wait_state(pg, f"s.page === {json.dumps(A)} && !s.menu")
+        s4 = wait_state(pg, f"s.page === {json.dumps(A)} && !s.menu && s.fwd === true")
         check(tag, "3c real tap on «Вернуться»: back to the previous page, menu closed, «Вперёд» active again",
               tapped_b and s4["page"] == A and not s4["menu"] and s4["fwd"] is True, {"tapped": tapped_b, "state": s4})
         check(tag, "3 no page errors", not errors, errors[:3])

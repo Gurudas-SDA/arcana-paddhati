@@ -1,0 +1,16 @@
+== BEFORE (HEAD 5f7bbb7 s35) ipad-portrait x3
+  [FAIL] ipad-portrait A 17 actions: every row did its action [toc=default] [(5, 'daily-tulasi-worship', 'open')]
+  [FAIL] ipad-portrait B 40 actions + 20 Back in 10 s: every row did its action [toc=default] [(5, 'daily-tulasi-worship', 'open'), (29, 'daily-tulasi-worship', 'open')]
+32/34 passed
+  [FAIL] ipad-portrait A 17 actions: every row did its action [toc=default] [(5, 'daily-tulasi-worship', 'open')]
+  [FAIL] ipad-portrait B 40 actions + 20 Back in 10 s: every row did its action [toc=default] [(5, 'daily-tulasi-worship', 'open'), (29, 'daily-tulasi-worship', 'open')]
+32/34 passed
+  [FAIL] ipad-portrait A 17 actions: every row did its action [toc=default] [(5, 'daily-tulasi-worship', 'open')]
+  [FAIL] ipad-portrait B 40 actions + 20 Back in 10 s: every row did its action [toc=default] [(5, 'daily-tulasi-worship', 'open'), (29, 'daily-tulasi-worship', 'open')]
+32/34 passed
+== AFTER s35 ipad-portrait x5
+34/34 passed
+34/34 passed
+34/34 passed
+34/34 passed
+34/34 passed
