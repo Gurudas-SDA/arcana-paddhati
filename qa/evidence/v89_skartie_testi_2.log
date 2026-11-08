@@ -1,0 +1,96 @@
+QA full: 56 darbi, 2 paralēli, serveris http://127.0.0.1:43261/arcana-paddhati (out/)
+  OK   s071   pixel7                         44 pass   0 fail     211s
+  OK   s071   iphone14                       44 pass   0 fail     222s
+  OK   s071   ipad-portrait                  44 pass   0 fail     210s
+  OK   s071   desktop                        44 pass   0 fail     201s
+  FAIL s07    pixel7                         65 pass   2 fail      74s
+  FAIL s07    iphone14                       57 pass   2 fail     141s
+  FAIL s07    ipad-portrait                  56 pass   2 fail      77s
+  FAIL s07    desktop                        57 pass   2 fail     100s
+  OK   s23    pixel7                         35 pass   0 fail     264s
+  OK   s23    iphone14                       35 pass   0 fail     272s
+  OK   s23    ipad-portrait                  35 pass   0 fail     268s
+  OK   s23    desktop                        35 pass   0 fail     264s
+  OK   s24    desktop                        24 pass   0 fail     251s
+  OK   s24    desktop                         5 pass   0 fail     234s
+  OK   s24    desktop                         5 pass   0 fail     236s
+  OK   s24    pixel7                         24 pass   0 fail     258s
+  OK   s24    iphone14                       24 pass   0 fail     203s
+  OK   s24    iphone14                        5 pass   0 fail     180s
+  OK   s24    ipad-portrait                  24 pass   0 fail     188s
+  OK   s24    ipad-portrait                   5 pass   0 fail     168s
+  OK   s01    iphone14                      118 pass   0 fail     184s
+  OK   s01    pixel7                        118 pass   0 fail     173s
+  OK   s01    ipad-portrait                 118 pass   0 fail     187s
+  OK   s01    desktop                       120 pass   0 fail     176s
+  FAIL s03    pixel7                         51 pass   1 fail      65s
+  FAIL s03    iphone14                       50 pass   1 fail      63s
+  FAIL s03    ipad-portrait                  50 pass   1 fail      64s
+  FAIL s03    desktop                        51 pass   1 fail      62s
+  FAIL s04    pixel7                         51 pass   1 fail      55s
+  FAIL s04    iphone14                       51 pass   1 fail      62s
+  OK   s04    ipad-portrait                  52 pass   0 fail      72s
+  FAIL s04    desktop                        51 pass   1 fail      64s
+  OK   s25    pixel7                         38 pass   0 fail      68s
+  OK   s25    iphone14                       38 pass   0 fail      84s
+  OK   s25    ipad-portrait                  38 pass   0 fail      94s
+  OK   s25    desktop                        38 pass   0 fail      75s
+  OK   s30    pixel7                         37 pass   0 fail      33s
+  OK   s30    iphone14                       37 pass   0 fail      34s
+  OK   s30    ipad-portrait                  37 pass   0 fail      35s
+  OK   s30    desktop                        37 pass   0 fail      34s
+  FAIL s33    iphone14                        0 pass   7 fail     296s
+  FAIL s33    pixel7                          0 pass   7 fail     277s
+  FAIL s33    desktop                         0 pass   7 fail     278s
+  FAIL s35    pixel7                         23 pass  12 fail     549s
+  FAIL s35    iphone14                       23 pass  12 fail     587s
+  FAIL s35    ipad-portrait                  23 pass  12 fail     595s
+  OK   s155   -                              43 pass   0 fail       0s
+  OK   s160   iphone14                       19 pass   0 fail      73s
+  OK   s160   pixel7                         19 pass   0 fail      68s
+  OK   s160   ipad-portrait                  19 pass   0 fail      70s
+  FAIL s35    desktop                        23 pass  12 fail     552s
+  OK   s160   desktop                        18 pass   0 fail      59s
+  OK   s155   iphone14                       17 pass   0 fail      22s
+  OK   s155   pixel7                         17 pass   0 fail      22s
+  OK   s155   desktop                        17 pass   0 fail      22s
+  OK   s155   ipad-portrait                  17 pass   0 fail      22s
+  atkārtoju 18 kritušos darbus vienu reizi …
+  OK   s07    pixel7                       (atkārtoti)   0 fail
+  OK   s07    iphone14                     (atkārtoti)   0 fail
+  OK   s07    ipad-portrait                (atkārtoti)   0 fail
+  OK   s03    pixel7                       (atkārtoti)   0 fail
+  OK   s07    desktop                      (atkārtoti)   0 fail
+  OK   s03    iphone14                     (atkārtoti)   0 fail
+  OK   s03    ipad-portrait                (atkārtoti)   0 fail
+  OK   s03    desktop                      (atkārtoti)   0 fail
+  FAIL s04    pixel7                       (atkārtoti)   1 fail
+  FAIL s04    desktop                      (atkārtoti)   1 fail
+  FAIL s04    iphone14                     (atkārtoti)   1 fail
+  OK   s33    pixel7                       (atkārtoti)   0 fail
+  FAIL s33    iphone14                     (atkārtoti)   1 fail
+  OK   s33    desktop                      (atkārtoti)   0 fail
+  OK   s35    pixel7                       (atkārtoti)   0 fail
+  OK   s35    iphone14                     (atkārtoti)   0 fail
+  OK   s35    ipad-portrait                (atkārtoti)   0 fail
+  OK   s35    desktop                      (atkārtoti)   0 fail
+
+QA full: 2206 pass, 4 fail, 0 skip, 93.6 min
+FLAKY (krita, atkārtojumā izgāja — 74):
+  ~ s07 pixel7 A chapter collapses without navigation or losing its mark, then reopens on one tap {'menu': True, 'n': 1, 'group': None, 'chapter': 'vigraha-tattva', 'href': No
+  ~ s07 pixel7 B Forward -> Contents as opened, original reading place marked {'menu': True, 'n': 1, 'group': 'temple-worship', 'chapter': None, 'href': None, 'text': 'I.Храмо
+  ~ s07 iphone14 A chapter collapses without navigation or losing its mark, then reopens on one tap {'menu': True, 'n': 1, 'group': None, 'chapter': 'vigraha-tattva', 'href': No
+  ~ s07 iphone14 B Forward -> Contents as opened, original reading place marked {'menu': True, 'n': 1, 'group': 'temple-worship', 'chapter': None, 'href': None, 'text': 'I.Храмо
+  ~ s07 ipad-portrait A chapter collapses without navigation or losing its mark, then reopens on one tap {'menu': True, 'n': 1, 'group': None, 'chapter': 'vigraha-tattva', 'href': No
+  ~ s07 ipad-portrait B Forward -> Contents as opened, original reading place marked {'menu': True, 'n': 1, 'group': 'temple-worship', 'chapter': None, 'href': None, 'text': 'I.Храмо
+  ~ s03 pixel7 (b) 2 part expanded [toc=default] {'url': '/arcana-paddhati/ru-iast/daily-duties-brahma-muhurta/', 'menu': True, 'lit': ['sub:daily-duties-brahma-muhurta#taking
+  ~ s07 desktop A chapter collapses without navigation or losing its mark, then reopens on one tap {'menu': True, 'n': 1, 'group': None, 'chapter': 'vigraha-tattva', 'href': No
+  ~ s07 desktop B Forward -> Contents as opened, original reading place marked {'menu': True, 'n': 1, 'group': 'temple-worship', 'chapter': None, 'href': None, 'text': 'I.Храмо
+  ~ s03 iphone14 (b) 2 part expanded [toc=default] {'url': '/arcana-paddhati/ru-iast/daily-duties-brahma-muhurta/', 'menu': True, 'lit': ['sub:daily-duties-brahma-muhurta#taking
+  FAIL s04 pixel7 (d) Back -> drawer at the same scrollTop (±10px), item in place [toc=default] [1073, 317, 522.75, 1278.75]
+  FAIL s04 iphone14 (d) Back -> drawer at the same scrollTop (±10px), item in place [toc=default] [1080, 332, 487, 1235]
+  FAIL s04 desktop (d) Back -> drawer at the same scrollTop (±10px), item in place [toc=default] [1081, 325, 514.75, 1270.75]
+  FAIL s33 iphone14 one/night: Locator.wait_for: Timeout 30000ms exceeded.
+
+Pārkāptie Satkirti likumi:
+  UI-7.6 ~~В «Содержании» глава с подразделами по первому касанию раскрывает список подразделов, а не открывает страниц  (3 fail)

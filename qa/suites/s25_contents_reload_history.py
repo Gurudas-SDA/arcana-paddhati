@@ -42,17 +42,18 @@ def run(p, dev, eng, o, mode):
     def reload(page,chapter):
         page.reload(wait_until='domcontentloaded');qa.wait_for_book_chapter(page,chapter);page.wait_for_timeout(500)
     # A: collapsed state survives reload, Back and Forward.
-    pg,f=fresh('introduction/');f.contents();s0=f.state();f.tap(f.group('introduction'));s1=f.state()
+    pg,f=fresh('introduction/');pre0=f.state();f.contents();s0=f.state();f.tap(f.group('introduction'));s1=f.state()
     if not mode.one:f.tap(f.group('introduction'))
-    collapsed=f.state();previous=s0 if mode.one else s1
+    # V89: Vraja msg 7859 Nr.3 A - the collapse writes no history entry: Back from the contents goes to the page where they were opened
+    collapsed=f.state();previous=pre0 if mode.one else s1
     chk(dev,'A setup: «Введение» open → collapse, reading place still marked','introduction' in s0['open'] and 'introduction' not in collapsed['open'] and collapsed['lit']==s0['lit'] and marks_place(collapsed) and (mode.one or 'introduction' in s1['open']),str(collapsed))
     reload(pg,'introduction');chk(dev,'A after reload: «Введение» still collapsed, lit, contents open, same URL',same(f.state(),collapsed),str(f.state()))
-    f.nav('back');chk(dev,'A Назад after reload: the step before (open, reading place marked)',same(f.state(),previous),str([f.state(),previous]))
+    f.nav('back');chk(dev,'A Назад after reload: the step before (V89: the collapse is no entry - the page before the contents; reading place marked)',same(f.state(),previous),str([f.state(),previous]))
     f.nav('forward');chk(dev,'A Вперёд: collapsed again',same(f.state(),collapsed));pg.close()
     # B: six steps, then reload in the middle, with the same exact states.
     pg,f=fresh('introduction/');f.contents();states=[f.state()]
     if mode.one:
-        f.tap(f.group('temple-worship'));states.append(f.state())
+        f.tap(f.group('temple-worship'));states[-1]=f.state()  # V89: Vraja msg 7859 Nr.3 A - a group's expansion writes no entry
         ids=pg.locator('#toc-part-temple-worship [data-toc-chapter],#toc-grp-temple-worship [data-toc-chapter]').evaluate_all('es=>es.slice(0,5).map(e=>e.dataset.tocChapter)')
         for id in ids:
             f.tap(f.chapter(id));states.append(f.state())
@@ -60,12 +61,13 @@ def run(p, dev, eng, o, mode):
         for kind,id in [('group','temple-worship'),('chapter','daily-duties-brahma-muhurta'),('chapter','daily-deity-schedule')]:
             loc=f.group(id) if kind=='group' else f.chapter(id)
             for _ in range(2):f.tap(loc);states.append(f.state())
-    chk(dev,'B setup: 6 steps, each a different state',len(states)==7 and len({str({k:s[k] for k in ['url','menu','lit','open']}) for s in states})==7,str(states))
+    nst=len(states)  # V89: 6 states in the default model (the group expansion is no step), 7 in the legacy one
+    chk(dev,'B setup: 5 steps (V89: was 6), each a different state',nst==(6 if mode.one else 7) and len({str({k:s[k] for k in ['url','menu','lit','open']}) for s in states})==nst,str(states))
     for _ in range(3):f.nav('back')
     midpoint=f.state();chapter=midpoint['url'].rstrip('/').split('/')[-1];reload(pg,chapter)
-    chk(dev,'B reload after 3 × Назад: the same URL and open lists, reading place marked',same(midpoint,states[3]) and same(f.state(),states[3]),str([f.state(),states[3]]))
-    f.nav('back');bad=[] if same(f.state(),states[2]) else [(f.state(),states[2])]
-    for k in [3,4,5,6]:
+    chk(dev,'B reload after 3 × Назад: the same URL and open lists, reading place marked',same(midpoint,states[nst-4]) and same(f.state(),states[nst-4]),str([f.state(),states[nst-4]]))
+    f.nav('back');bad=[] if same(f.state(),states[nst-5]) else [(f.state(),states[nst-5])]
+    for k in range(nst-4,nst):
         f.nav('forward')
         if not same(f.state(),states[k]):bad.append((f.state(),states[k]))
     chk(dev,'B Назад, then Вперёд ×4 after the reload: each step as recorded (to the last one)',not bad,str(bad[:2]));pg.close()
@@ -97,11 +99,14 @@ def run(p, dev, eng, o, mode):
             tap=pg.touchscreen.tap if o.get('has_touch') else pg.mouse.click;tap(x,y);tap(x,y)
         pg.wait_for_timeout(450)
     double(f.group('temple-worship'));d1=f.state()
-    chk(dev,'D double tap on a group: expands then collapses, mark stays at the reading place',('temple-worship' in d1['open'])!=mode.one and d1['lit']==(d0['lit'] if mode.one else ['grp:temple-worship']) and d1['url']==d0['url'] and d1['pushes']==d0['pushes']+2,str(d1))
+    chk(dev,'D double tap on a group: expands then collapses, mark stays at the reading place',('temple-worship' in d1['open'])!=mode.one and d1['lit']==(d0['lit'] if mode.one else ['grp:temple-worship']) and d1['url']==d0['url'] and d1['pushes']==d0['pushes']+(0 if mode.one else 2),str(d1))  # V89: Vraja msg 7859 Nr.3 A - no entries for the toggles
+    # V89: Vraja msg 7859 Nr.3 A - the double tap wrote no entry: Back from the contents closes them (the page where they were opened)
     f.nav('back');previous=f.state()
-    chk(dev,'D Назад: preceding action, reading place still marked',previous['lit']==(d0['lit'] if mode.one else ['grp:temple-worship']) and marks_place(previous) and ('temple-worship' in previous['open'])==mode.one and previous['url']==d0['url'],str(previous))
-    f.nav('back');chk(dev,'D Назад: the step before the first tap',same(f.state(),d0))
-    f.nav('forward');f.nav('forward')
+    chk(dev,'D Назад: no entry of the toggles - the contents close (V89: Vraja msg 7859)',(not previous['menu']) if mode.one else previous['lit']==['grp:temple-worship'] and marks_place(previous) and ('temple-worship' in previous['open'])==mode.one and previous['url']==d0['url'],str(previous))
+    if mode.one:f.nav('forward')
+    else:
+        f.nav('back');chk(dev,'D Назад: the step before the first tap',same(f.state(),d0))
+        f.nav('forward');f.nav('forward')
     if mode.one:f.tap(f.group('temple-worship'))
     before_ch=f.state();f.activate(f.chapter('daily-deity-schedule'));d2=f.state();sub='sub:daily-deity-schedule#morning-bhoga-arati';double(f.row(sub));opened=f.state()
     chk(dev,'D double tap on a subsection: opens it',not opened['menu'] and opened['url'].endswith('#morning-bhoga-arati'),str(opened))

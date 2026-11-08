@@ -141,7 +141,7 @@ def run(p, dev, eng, o, mode):
     bad1,bad2,bad3=[],[],[];tested=0
     for gid in groups:
         loc=flow.group(gid);before=flow.state();rid=loc.get_attribute('data-toc-row');flow.tap(loc,right=True);first=flow.state()
-        if not (first['lit']==(before['lit'] if mode.one else [rid]) and first['url']==before['url'] and (gid in first['open'])==mode.one and first['pushes']==before['pushes']+1):bad1.append((gid,first))
+        if not (first['lit']==(before['lit'] if mode.one else [rid]) and first['url']==before['url'] and (gid in first['open'])==mode.one and first['pushes']==before['pushes']+(0 if mode.one else 1)):bad1.append((gid,first))  # V89: Vraja msg 7859 Nr.3 A - expanding a group writes no history entry
         flow.tap(loc,right=True);second=flow.state()
         if not ((gid in second['open'])!=mode.one and second['url']==before['url'] and second['lit']==(before['lit'] if mode.one else [rid])):bad2.append((gid,second))
         if mode.one:flow.tap(loc,right=True)
@@ -173,7 +173,10 @@ def run(p, dev, eng, o, mode):
     states=[flow.state()];flow.contents();states.append(flow.state())
     for kind,id in [('group','temple-worship'),('chapter','daily-duties-brahma-muhurta'),('chapter','daily-deity-schedule')]:
         loc=flow.group(id) if kind=='group' else flow.chapter(id)
-        flow.tap(loc,wait=250);states.append(flow.state())
+        flow.tap(loc,wait=250)
+        # V89: Vraja msg 7859 Nr.3 A - a group's expansion writes no history entry: the snapshot of the entry on top is replaced
+        if kind=='group' and mode.one:states[-1]=flow.state()
+        else:states.append(flow.state())
         if not mode.one:flow.tap(loc,wait=250);states.append(flow.state())
     sub='sub:daily-deity-schedule#morning-bhoga-arati'
     before=flow.state()
@@ -193,7 +196,7 @@ def run(p, dev, eng, o, mode):
         flow.nav('forward');got=flow.state()
         if any(got[k]!=want[k] for k in ['url','menu','open']) or not marks_place(got):bad.append((got,want))
     chk(dev,'3 «Вперёд» replays the same steps (every URL and open list, reading place marked)',not bad,str(bad[:2]))
-    chk(dev,'3 path has only its real actions or legacy taps',len(states)-1==(5 if mode.one else 9))
+    chk(dev,'3 path has only its real actions or legacy taps',len(states)-1==(4 if mode.one else 9))  # V89: was 5 (the group expansion was an entry)
     history_roundtrip(b,o,mode,lambda n,ok,i='':chk(dev,n,ok,i),BASE)
     chk(dev, "no page errors", not errs, str(errs[:3]))
     b.close()

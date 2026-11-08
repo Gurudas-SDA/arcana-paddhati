@@ -107,15 +107,16 @@ def run(p, dev, eng, o, mode):
         pg.evaluate(f"document.querySelector('.app-main').scrollTop={qa.READING_POSITION_JS}.start+1500");pg.wait_for_timeout(400)
         y0=top();states=[flow.state()];flow.contents();states.append(flow.state())
         chk(dev,'(b) 1 contents opens',menu())
-        part=flow.group('festivals-vows');flow.tap(part,wait=350);states.append(flow.state())
+        # V89: Vraja msg 7859 Nr.3 A - expanding / collapsing a section writes no history entry: the snapshot of the entry on top is replaced
+        lit_before=states[-1]['lit'];part=flow.group('festivals-vows');flow.tap(part,wait=350);states[-1]=flow.state()
         # Expanding a group moves nobody, so the mark stays where the reader is.
-        chk(dev,'(b) 2 part expanded','festivals-vows' in flow.state()['open'] and flow.state()['lit']==states[-2]['lit'],str(flow.state()))
+        chk(dev,'(b) 2 part expanded','festivals-vows' in flow.state()['open'] and flow.state()['lit']==lit_before,str(flow.state()))
         chbtn=pg.locator('#toc-part-festivals-vows [data-toc-chapter],#toc-grp-festivals-vows [data-toc-chapter]').first;chid=chbtn.get_attribute('data-toc-chapter')
         flow.tap(chbtn,wait=350);states.append(flow.state())
         chk(dev,'(b) 2a first chapter tap opens top + subsections',chid in flow.state()['open'] and flow.state()['lit']==['sec:'+chid] and flow.state()['url'].endswith('/'+chid+'/') and abs(pg.evaluate(qa.READING_POSITION_JS)['top'])<2)
-        u=flow.state()['url'];flow.tap(flow.chapter(chid),wait=350);states.append(flow.state())
+        u=flow.state()['url'];flow.tap(flow.chapter(chid),wait=350);states[-1]=flow.state()  # V89: Vraja msg 7859
         chk(dev,'(b) 2b second chapter tap collapses without navigating',chid not in flow.state()['open'] and flow.state()['url']==u and flow.state()['lit']==['sec:'+chid])
-        flow.tap(flow.chapter(chid),wait=350);states.append(flow.state())
+        flow.tap(flow.chapter(chid),wait=350);states[-1]=flow.state()  # V89: Vraja msg 7859
         subs=pg.locator(f'#toc-ch-{chid} a');first=subs.first;flow.tap(first,wait=350);states.append(flow.state())
         C=pg.url.split('#')[0]
         chk(dev,'(b) 3 chapter opened (first subsection), menu closed',f'/{chid}/' in C and not menu())
@@ -128,7 +129,7 @@ def run(p, dev, eng, o, mode):
             # invariant (toc.marks_place) instead of compared step by step.
             back_landings.append(all(got[k]==want[k] for k in ['url','menu','open']) and marks_place(got) and pg.url!=COVER)
             chk(dev,f'(b) back{i+1} -> preceding real action, same path and open rows',back_landings[-1],str([got,want]))
-        chk(dev,'(b) back6 -> original page and scroll restored',pg.url==P and not menu() and abs(top()-y0)<40)
+        chk(dev,f'(b) back{len(states)-1} -> original page and scroll restored',pg.url==P and not menu() and abs(top()-y0)<40)
         chk(dev,'(b) never on cover',pg.url!=COVER)
         # Rule 10.2: count writes and retrace every real action. history.length
         # also counts forward entries, which a new push can discard after Back.

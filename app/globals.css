@@ -2761,6 +2761,36 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
   cursor: default;
   background: none;
 }
+/* V89 (Vraja Lila msg 7859, Nr.4 C): while «‹ Вернуться» / «Вперёд ›» is under way a small dot pulses under the pressed button
+   (the buttons themselves keep their colour). */
+.reader-history-btn {
+  position: relative;
+}
+/* a page loaded in the middle of a step (html[data-ap-stepping], app/layout.tsx): its buttons keep their colour until its script takes over */
+html[data-ap-stepping] .reader-history-btn:disabled {
+  color: var(--accent);
+}
+.reader-bar-bottom[data-stepping="back"] [data-reader-step="back"]::after,
+.reader-bar-bottom[data-stepping="forward"] [data-reader-step="forward"]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-4);
+  width: var(--space-4);
+  height: var(--space-4);
+  margin-left: calc(var(--space-4) / -2);
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.5;
+  animation: reader-step-dot 0.5s ease-in-out infinite alternate;
+}
+@keyframes reader-step-dot {
+  from { opacity: 0.25; }
+  to { opacity: 0.7; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reader-bar-bottom[data-stepping] .reader-history-btn::after { animation: none; }
+}
 /*@/v81*/
 
 /*@v82*/

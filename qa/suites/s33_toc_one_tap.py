@@ -91,7 +91,8 @@ def run(browser, device, options, mode, theme):
             tap(locator(), wait=700)
             assert marks_place(state())
             assert locator().get_attribute("aria-expanded") == "true"
-            assert state()["length"] == step_before["length"] + 1
+            # V89: Vraja msg 7859 Nr.3 A - expanding a group writes no history entry; opening a chapter is one (a navigation)
+            assert state()["length"] == step_before["length"] + (0 if locator is group else 1)
         assert state()["url"].endswith(f"/{CHAPTER}/") and state()["scroll"] < 2
         assert chapter().locator("..").locator("button").count() == 1
         before_subsection = state()
@@ -106,19 +107,23 @@ def run(browser, device, options, mode, theme):
             back()
             count += 1
             assert count <= 7
-        # Rule 9.3: cover → 4.2 is four steps, independently of the observed count.
-        assert count == 4
+        # Rule 9.3: cover → 4.2 was four steps, independently of the observed count.
+        # V89: Vraja msg 7859 Nr.3 A - expanding the group is no step any more: three (contents, chapter, subsection)
+        assert count == 3
         assert state()["url"].rstrip("/").endswith("/ru-iast")
 
         contents()
         for locator in (group, chapter):
+            # V89: Vraja msg 7859 Nr.3 A - the group's expansion is no history entry, so it is not undone by closing the contents:
+            # it stays expanded (the reader's hand-made state lasts for the session); tap it only when it is closed
+            if locator is group and group().get_attribute("aria-expanded") == "true":
+                continue
             tap(locator(), wait=700)
         opened = state()
         tap(chapter(), right=True)
         assert CHAPTER not in state()["open"]
-        assert state()["url"] == opened["url"] and state()["length"] == opened["length"] + 1
-        back()
-        assert state()["open"] == opened["open"]
+        # V89: Vraja msg 7859 Nr.3 A - collapsing writes no history entry (was +1, and Back undid the collapse)
+        assert state()["url"] == opened["url"] and state()["length"] == opened["length"]
         tap(close())
         assert not state()["menu"] and state()["url"] == opened["url"] and state()["scroll"] < 2
         contents()

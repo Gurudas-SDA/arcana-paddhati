@@ -526,5 +526,9 @@ export function isMenuEntry(s: State = state()): boolean {
  *  (the contents / search menu, the «Аа» panel, the «Настроение» window) — lib/pathSteps.ts (V81). */
 export function currentEntry(): { id: string; overlay: boolean } {
   const s = state();
-  return { id: entryId(), overlay: !!(s && (s.apMenu || s.apAa || s.moodOverlay)) };
+  // V89 (Vraja Lila msg 7859, Nr.2 B): a place chosen in the contents by the chapter's arrow keeps the menu OPEN on the new
+  // place's own entry (apMenu with apDepth 0: the menu is attached to the navigation, no entry of its own under the place).
+  // That entry IS the place - it is a step of the path, not an overlay on another place.
+  const menuOverlay = !!s?.apMenu && s.apDepth !== 0;
+  return { id: entryId(), overlay: !!(s && (menuOverlay || s.apAa || s.moodOverlay)) };
 }

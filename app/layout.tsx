@@ -89,6 +89,10 @@ export const viewport: Viewport = {
 // Pages of other languages get the right value in the static HTML from
 // scripts/patch-html-lang.mjs (postbuild) and on client-side navigation
 // from AppShell; suppressHydrationWarning covers that difference.
+/** V89 (Vraja Lila msg 7859, Nr.4 C): a page loaded in the middle of a «Вернуться» / «Вперёд» step (lib/pathSteps.ts keeps the step in
+ *  sessionStorage) is marked before its first paint, so the bar's buttons are not grey until the page's script takes the step over. */
+const STEP_MARK_SCRIPT = `try{var r=JSON.parse(sessionStorage.getItem("ap.stepping")||"null");if(r&&Date.now()-r.t<2500)document.documentElement.setAttribute("data-ap-stepping",r.dir)}catch(e){}`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -108,6 +112,7 @@ export default function RootLayout({
             paint: a reload at night never flashes white. */}
         <script dangerouslySetInnerHTML={{ __html: READER_PREFS_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: EARLY_TAP_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: STEP_MARK_SCRIPT }} />
         {/* Cover cards (offline saving): their place reserved before first paint. */}
         <script dangerouslySetInnerHTML={{ __html: HOME_CARDS_SCRIPT }} />
         {/* Start screen (lib/caSplash.ts): Vraja Lila's CA loader + our white layer. */}

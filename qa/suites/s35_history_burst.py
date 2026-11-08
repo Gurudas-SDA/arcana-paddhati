@@ -138,6 +138,12 @@ def quota_errors(pg, errors):
     return [e for e in pg.evaluate("window.__qaQuota") if "QA fault" not in e][:2] + [e for e in errors if "history." in e][:2]
 
 
+# V89 (Vraja msg 7859 Nr.3 A): in the default mode a «collapse» tap writes no history entry - it changes the view of the entry on top.
+# burst() therefore folds each collapse into the entry of the «open» before it (the entry's snapshot = how it looked when left) and
+# leaves only the entry-making steps in `steps`; FLAGS keeps (tap number, chapter, effect, did-its-action) for every tap.
+FLAGS = []
+
+
 def plan(chapters, mode, n):
     """[(chapter, expected effect)] - n row taps cycling through the part's chapters."""
     cycle = ("open", "collapse") if mode.one else ("highlight", "expand", "collapse")
@@ -299,6 +305,9 @@ def burst(pg, flow, steps, pace, edges=None, settle=1200):
     since = pg.evaluate("window.__qaWrites.length")
     states, ids = [flow.state()], [entry_id(pg)]
     broke = None
+    FLAGS.clear()
+    kept, last_open = [], None
+    all_steps = list(steps)
     t0 = time.monotonic()
     for i, (chapter, effect) in enumerate(steps):
         before = pg.evaluate("location.pathname + location.hash")
@@ -310,8 +319,17 @@ def burst(pg, flow, steps, pace, edges=None, settle=1200):
         slot = time.monotonic()
         paced(slot - 0.03, 1, pace)
         arrive(pg, effect, before)
-        states.append(flow.state())
+        now = flow.state()
+        if effect == "collapse" and flow.mode.one and last_open is not None:
+            FLAGS.append((i, chapter, effect, did(effect, chapter, last_open, now)))
+            states[-1] = now  # V89: no entry of its own - the entry on top, as it looked when left
+            continue
+        FLAGS.append((i, chapter, effect, did(effect, chapter, states[-1], now)))
+        last_open = now
+        states.append(now)
         ids.append(entry_id(pg))
+        kept.append((chapter, effect))
+    steps[:] = kept
     seconds = time.monotonic() - t0
     pg.wait_for_timeout(settle)
     return states, ids, seconds, since, broke
@@ -319,7 +337,7 @@ def burst(pg, flow, steps, pace, edges=None, settle=1200):
 
 def burst_checks(dev, pg, errors, tag, steps, states, seconds, since, broke, until=None):
     """The limits every burst must keep; raises when the burst broke off."""
-    n = len(steps)
+    n = len(steps)  # the entry-making steps (V89: the collapses are folded into them)
     w = writes(pg, since, until)
     info(dev, f"{tag}: took {seconds:.1f} s; app {w['app']} (push {w['app_push']}, replace {w['app_replace']}), Next.js {w['next']}")
     chk(dev, f"{tag}: app history writes <= actions", w["app"] <= n, str(w))
@@ -333,7 +351,7 @@ def burst_checks(dev, pg, errors, tag, steps, states, seconds, since, broke, unt
         raise AssertionError(f"burst broke off at action {broke[0]}")
     chk(dev, f"{tag}: one history entry per action", states[-1]["history"] - states[0]["history"] == n,
         str(states[-1]["history"] - states[0]["history"]))
-    bad = [(i + 1, s[0], s[1]) for i, s in enumerate(steps) if not did(s[1], s[0], states[i], states[i + 1])]
+    bad = [(i + 1, c, e) for i, c, e, ok in FLAGS if not ok]
     chk(dev, f"{tag}: every row did its action", not bad, str(bad[:3]))
     return w
 
@@ -343,25 +361,26 @@ def case_a(browser, dev, options, mode):
     tag = f"A {SHORT} actions"
     try:
         chk(dev, f"{tag}: setup - the part's chapters are listed", len(chapters) >= 3, str(chapters))
-        steps = plan(chapters, mode, SHORT)
-        edges = [i % 2 == 1 for i in range(SHORT)]
+        steps = plan(chapters, mode, 2 * SHORT if mode.one else SHORT)  # V89: SHORT entries = SHORT opens, each followed by its collapse
+        edges = [i % 2 == 1 for i in range(len(steps))]
         states, ids, seconds, since, broke = burst(pg, flow, steps, PACE_A, edges)
         burst_checks(dev, pg, errors, tag, steps, states, seconds, since, broke)
-        bad = [(i + 1, s[0], s[1]) for i, s in enumerate(steps) if edges[i] and not did(s[1], s[0], states[i], states[i + 1])]
+        bad = [(i + 1, c, e) for i, c, e, ok in FLAGS if edges[i] and not ok]
         chk(dev, f"{tag}: a tap near the row's right edge does the same as one 60 px in (§11)",
             not bad and any(edges) and not all(edges), str(bad[:3]))
         chk(dev, f"{tag}: apId - every entry has its own id", all(ids) and len(set(ids)) == len(ids), str(ids))
+        nn = len(steps)
         bad = []
-        for i in range(SHORT - 1, -1, -1):
+        for i in range(nn - 1, -1, -1):
             flow.nav("back", native=i % 2 == 1)
             got, want = flow.state(), traced(states[i], steps[i][0], mode)
             if not same(got, want) or entry_id(pg) != ids[i]:
-                bad.append({"press": SHORT - i, "got": show(got), "want": show(want)})
+                bad.append({"press": nn - i, "got": show(got), "want": show(want)})
         chk(dev, f"{tag}: Back x{SHORT} restores every URL and open list, marking the place", not bad, str(bad[:2]))
         bad = []
-        for i in range(1, SHORT + 1):
+        for i in range(1, nn + 1):
             flow.nav("forward", native=i % 2 == 0)
-            got, want = flow.state(), traced(states[i], steps[i][0] if i < SHORT else None, mode)
+            got, want = flow.state(), traced(states[i], steps[i][0] if i < nn else None, mode)
             if not same(got, want) or entry_id(pg) != ids[i]:
                 bad.append({"press": i, "got": show(got), "want": show(want)})
         chk(dev, f"{tag}: Forward x{SHORT} restores every URL and open list, marking the place", not bad, str(bad[:2]))
@@ -381,6 +400,17 @@ def case_a(browser, dev, options, mode):
             set(r) <= {"key", "scroll", "at", "view"} for r in records.values())
         chk(dev, f"{tag}: one record per entry holds its scroll and view (no separate scroll store)", ok,
             str({"legacy": stored and stored["legacy"], "missing": [i for i in ids[1:] if i not in records][:3]}))
+        if mode.one:
+            # V89: Vraja msg 7859 Nr.3 A - a burst of expand / collapse taps (the open chapter's row and the group's arrow) writes nothing
+            since_t = pg.evaluate("window.__qaWrites.length")
+            h0 = pg.evaluate("history.length")
+            for k in range(8):
+                loc = pg.locator(".mobile-menu[data-open] [data-toc-toggle]").first if k % 2 else pg.locator(".mobile-menu[data-open] [data-toc-chapter][aria-current=page]").first
+                flow.tap(loc, right=True, wait=150)
+            pg.wait_for_timeout(600)
+            w = writes(pg, since_t)
+            chk(dev, f"{tag}: 8 quick expand / collapse taps write nothing into the history (V89: Vraja msg 7859)",
+                w["app"] == 0 and pg.evaluate("history.length") == h0, str({"writes": w, "history": [h0, pg.evaluate('history.length')]}))
     except Exception as error:  # noqa: BLE001
         chk(dev, f"{tag}: scenario completed", False, f"{type(error).__name__}: {str(error).splitlines()[0]}")
     finally:
@@ -423,7 +453,7 @@ def case_b_once(browser, dev, options, mode):
     context, pg, flow, errors, chapters = start(browser, options, mode)
     tag = f"B {STRESS} actions + {BACK_BURST} Back in {WINDOW_SECONDS:.0f} s"
     try:
-        steps = plan(chapters, mode, STRESS)
+        steps = plan(chapters, mode, 2 * STRESS if mode.one else STRESS)  # V89: STRESS opens, each followed by its collapse
         t_first = pg.evaluate("performance.now()")
         states, ids, seconds, since, broke = burst(pg, flow, steps, PACE_B, settle=0)
         until = pg.evaluate("window.__qaWrites.length")
@@ -447,7 +477,7 @@ def case_b_once(browser, dev, options, mode):
         burst_checks(dev, pg, errors, tag, steps, states, seconds, since, broke, until)
         w = writes(pg, until)
         info(dev, f"Back burst x{BACK_BURST}: app {w['app']}, Next.js {w['next']}")
-        got, want = settled_state(pg, flow), traced(states[STRESS - BACK_BURST], steps[STRESS - BACK_BURST][0], mode)
+        got, want = settled_state(pg, flow), traced(states[len(steps) - BACK_BURST], steps[len(steps) - BACK_BURST][0], mode)
         chk(dev, f"Back burst x{BACK_BURST}: app adds no history writes", w["app"] == 0, str(w))
         chk(dev, f"Back burst x{BACK_BURST}: lands on the step {BACK_BURST} actions back", same(got, want),
             f"{show(got)} want {show(want)}")
@@ -496,7 +526,7 @@ def case_c(browser, dev, options, mode):
     # C1 storage blocked: records in memory only; within the page every step restores exactly.
     context, pg, flow, errors, chapters = start(browser, options, mode, scripts=(NO_STORAGE,))
     try:
-        steps = plan(chapters, mode, 4)
+        steps = plan(chapters, mode, 8 if mode.one else 4)  # V89: 4 entries = 4 opens, each followed by its collapse
         states, ids, _, _, broke = burst(pg, flow, steps, PACE_A)
         bad = steps_back(pg, flow, states, ids, steps, mode, 4) if not broke else ["broke"]
         chk(dev, f"{tag}: storage blocked - every row acts, Back restores every step, nothing throws",
@@ -508,7 +538,7 @@ def case_c(browser, dev, options, mode):
 
     context, pg, flow, errors, chapters = start(browser, options, mode)
     try:
-        steps = plan(chapters, mode, 4)
+        steps = plan(chapters, mode, 8 if mode.one else 4)  # V89: 4 entries = 4 opens, each followed by its collapse
         states, ids, _, _, broke = burst(pg, flow, steps, PACE_A)
         # C2 reload in the middle: the records come back from sessionStorage.
         flow.nav("back")

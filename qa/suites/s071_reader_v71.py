@@ -311,7 +311,10 @@ def run(p,dev,eng,kw,mode):
     states=[flow.state()];flow.contents();states.append(flow.state())
     for kind,id in [('group','introduction'),('chapter','vigraha-tattva')]:
         loc=flow.group(id) if kind=='group' else flow.chapter(id)
-        flow.tap(loc);states.append(flow.state())
+        flow.tap(loc)
+        # V89: Vraja msg 7859 Nr.3 A - expanding a group writes no history entry: the snapshot of the entry on top is replaced
+        if kind=='group' and mode.one:states[-1]=flow.state()
+        else:states.append(flow.state())
         if not mode.one:flow.tap(loc);states.append(flow.state())
     sub=pg.locator('#toc-ch-vigraha-tattva a').first;rid=sub.get_attribute('data-toc-row')
     if not mode.one:flow.tap(sub);states.append(flow.state())
@@ -320,12 +323,12 @@ def run(p,dev,eng,kw,mode):
         flow.nav('back');back_count+=1;got=flow.state()
         if any(got[k]!=want[k] for k in ['url','menu','open']) or not marks_place(got):bad.append((got,want))
     ck(dev,'17 Back mirrors the forward steps, no repeated step',not bad and not flow.state()['menu'],bad[:2])
-    ck(dev,'17 Back counts exactly the mode actions',back_count==(4 if mode.one else 7),back_count)
+    ck(dev,'17 Back counts exactly the mode actions',back_count==(3 if mode.one else 7),back_count)  # V89: was 4
     bad=[];forward_count=0
     for want in states[1:]:
         flow.nav('forward');forward_count+=1;got=flow.state()
         if any(got[k]!=want[k] for k in ['url','menu','open']) or not marks_place(got):bad.append((got,want))
-    ck(dev,'17 Forward mirrors every URL and open list, marking the reading place',not bad and forward_count==(4 if mode.one else 7),bad[:2])
+    ck(dev,'17 Forward mirrors every URL and open list, marking the reading place',not bad and forward_count==(3 if mode.one else 7),bad[:2])  # V89: Vraja msg 7859, was 4
     history_roundtrip(b,kw,mode,lambda n,ok,i='':ck(dev,n,ok,i),BASE)
     # WebKit reports a link prefetch cut off by the test's own goto() as «… due to access control checks»
     # (same-origin page URL; the test's doing, not the reader's — as in s07/s22, A65 gate 10.10)

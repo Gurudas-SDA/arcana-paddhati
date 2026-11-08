@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState, useSyncExternalStore } from "react";
 import { currentEntry, overlayHook, placeKey } from "@/lib/navHistory";
 
 /**
@@ -146,17 +146,122 @@ export function notePathStep(): { back: boolean; forward: boolean } {
   return { back: p.at > 0, forward };
 }
 
+/** V89 (Vraja Lila msg 7859, Nr.4 C): the last state of the two buttons. The reader's chrome is built again for every page, and its
+ *  buttons started inactive (grey) for ~0.1-0.5 s until the path was read: now a page starts with the state the previous one had. */
+let lastSteps = { back: false, forward: false };
+
+/** V89 (Nr.4 C): «‹ Вернуться» / «Вперёд ›» was pressed and its page has not arrived yet: a short, unobtrusive indicator on the
+ *  pressed button (components/ReaderChrome.tsx, app/globals.css) instead of the grey buttons. */
+let stepping: "back" | "forward" | null = null;
+let steppingTimer: number | undefined;
+let steppingSince = 0;
+/** The buttons' state when the step began: shown (not grey) until the page of the step has arrived. */
+let held = { back: false, forward: false };
+const steppingSubs = new Set<() => void>();
+const STEPPING_STORE = "ap.stepping";
+function setStepping(v: "back" | "forward" | null) {
+  if (stepping === v) return;
+  stepping = v;
+  if (v === null) {
+    try { sessionStorage.removeItem(STEPPING_STORE); } catch { /* storage unavailable */ }
+    document.documentElement.removeAttribute("data-ap-stepping");
+  }
+  steppingSubs.forEach((f) => f());
+}
+export function noteStepping(dir: "back" | "forward") {
+  held = lastSteps;
+  steppingSince = performance.now();
+  // A step across documents (the history entry was made by a full page load) reloads the page: the new page takes the step over.
+  try { sessionStorage.setItem(STEPPING_STORE, JSON.stringify({ dir, held, t: Date.now() })); } catch { /* storage unavailable */ }
+  setStepping(dir);
+  window.clearTimeout(steppingTimer);
+  steppingTimer = window.setTimeout(() => setStepping(null), 2500); // tehniskais slieksnis Lipikāra, nav S noteikums
+}
+/** The step is over `after` ms from now - but the indicator is shown for 700 ms at least (a blink would not be seen). */
+function endStepping(after: number) {
+  if (stepping === null) return;
+  window.clearTimeout(steppingTimer);
+  const shownFor = performance.now() - steppingSince;
+  steppingTimer = window.setTimeout(() => setStepping(null), Math.max(after, 700 - shownFor)); // tehniskais slieksnis Lipikāra
+}
+let steppingRestored = false;
+/** A page loaded in the middle of a step (full document load) goes on with the step's indicator and the buttons' state. */
+function restoreStepping() {
+  if (steppingRestored) return;
+  steppingRestored = true;
+  try {
+    const r = JSON.parse(sessionStorage.getItem(STEPPING_STORE) ?? "null") as { dir: "back" | "forward"; held: { back: boolean; forward: boolean }; t: number } | null;
+    const age = r ? Date.now() - r.t : Infinity;
+    if (!r || age > 2500) return;
+    held = r.held;
+    steppingSince = performance.now() - age;
+    setStepping(r.dir);
+    window.clearTimeout(steppingTimer);
+    steppingTimer = window.setTimeout(() => setStepping(null), 2500 - age);
+  } catch {
+    // storage unavailable: no indicator
+  }
+}
+
+/** The state of the two buttons read from the path without noting anything (a fresh page starts with it, before the first paint). */
+function peekSteps(): { back: boolean; forward: boolean } {
+  const p = path();
+  let at = p.at;
+  try {
+    const id = (window.history.state as { apId?: string } | null)?.apId;
+    const k = id ? p.ids.indexOf(id) : -1;
+    if (k >= 0) at = k;
+  } catch {
+    // history unavailable
+  }
+  return { back: at > 0, forward: at >= 0 && at < p.ids.length - 1 && (!forwardLost(p) || !!p.urls?.[p.ids[at + 1]]) };
+}
+
+/** A «Вернуться» / «Вперёд» step is under way (V89: only such a step brings the highlighted row into view over a restored list offset). */
+export function isStepping(): boolean {
+  return stepping !== null;
+}
+
+/** The two buttons as they are drawn: while a step is under way they keep the state they had (no grey flash). */
+export function stepButtons(steps: { back: boolean; forward: boolean }, under: "back" | "forward" | null) {
+  return under ? held : steps;
+}
+export function useStepping(): "back" | "forward" | null {
+  return useSyncExternalStore(
+    (f) => {
+      steppingSubs.add(f);
+      return () => steppingSubs.delete(f);
+    },
+    () => stepping,
+    () => null,
+  );
+}
+
 /** The two buttons' state for the current place; `key` changes with every page. */
 export function usePathSteps(key: string): { back: boolean; forward: boolean } {
-  const [s, setS] = useState({ back: false, forward: false });
+  const [s, setS] = useState(lastSteps);
+  // V89 (Nr.4 C): a page loaded afresh does not start with grey buttons - before its first paint it takes the path's state (and a step's
+  // indicator) over; the hydration itself renders as the server did.
+  useLayoutEffect(() => {
+    restoreStepping();
+    const n = peekSteps();
+    lastSteps = n;
+    // before the first paint on purpose: the path lives in sessionStorage (an external system), unreadable during hydration
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setS((o) => (o.back === n.back && o.forward === n.forward ? o : n));
+  }, [key]);
   useEffect(() => {
     const upd = () => {
       const n = notePathStep();
+      lastSteps = n;
       setS((o) => (o.back === n.back && o.forward === n.forward ? o : n));
     };
     // The entry of a page made by the router gets its id a tick later (lib/navHistory.ts identity).
-    const timers = [window.setTimeout(upd, 0), window.setTimeout(upd, 120)];
-    const onPop = () => window.setTimeout(upd, 0);
+    const timers = [window.setTimeout(upd, 0), window.setTimeout(upd, 120), window.setTimeout(() => endStepping(150), 120)];
+    const onPop = () => {
+      window.setTimeout(upd, 0);
+      endStepping(1200); // a step within the same page ends here; a step to another page ends when that page has arrived
+    };
     window.addEventListener("popstate", onPop);
     // V84: a jump to a subsection of the same page (menu, search) is a place of the path too.
     window.addEventListener("hashchange", onPop);

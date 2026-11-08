@@ -224,13 +224,18 @@ def history_roundtrip(browser, options, mode, check, base, lang='ru-iast'):
             check(f'history: {kind} tap marks the place being read',
                   (after['lit']==[row_id] if kind=='chapter' else after['lit']==before['lit']) if mode.one
                   else after['lit']==[row_id],str(after))
-            check(f'history: {kind} first tap has exactly one action entry',after['history']==before['history']+1,str(after))
+            # V89: Vraja msg 7859 (Nr.3 A): expanding / collapsing a section in the contents does NOT write an entry into the browser history;
+            # opening a chapter (a navigation) is still one entry.
+            check(f'history: {kind} first tap has exactly one action entry' if kind=='chapter' else f'history: {kind} first tap writes no history entry (V89: Vraja msg 7859)',
+                  after['history']==before['history']+(1 if kind=='chapter' else 0),str(after))
             check(f'history: {kind} first tap expands by mode',(id in after['open'])==mode.one,str(after))
             if kind=='chapter':
                 top=page.evaluate(qa.READING_POSITION_JS)['top']
                 check('history: chapter first tap opens its top, never a subsection',
                       after['url'].endswith('/'+chapter+'/') and '#' not in after['url'] and abs(top)<2 if mode.one else after['url']==before['url'],str(after))
-            states.append(after)
+            # V89: a toggle without an entry changes the view of the entry already on top: its snapshot is replaced, not followed by a new one
+            if kind=='group' and mode.one:states[-1]=after
+            else:states.append(after)
             if not mode.one:
                 flow.tap(loc,right=True,wait=350);after=flow.state();states.append(after)
                 check(f'history: {kind} second tap expands with one entry',id in after['open'] and after['history']==before['history']+2 and after['url']==before['url'],str(after))
@@ -241,7 +246,7 @@ def history_roundtrip(browser, options, mode, check, base, lang='ru-iast'):
             check('history: legacy subsection first tap highlights only',after['lit']==[sub] and after['menu'] and after['url']==before['url'] and after['history']==before['history']+1,str(after))
         before_nav=flow.state()['history'];flow.tap(flow.row(sub),wait=500);target=flow.state();states.append(target)
         check('history: subsection opens in one navigation entry',not target['menu'] and target['url'].endswith('/'+chapter+'/#2-svagata') and target['history']==before_nav+1,str(target))
-        expected=4 if mode.one else 7
+        expected=3 if mode.one else 7  # V89: Vraja msg 7859 Nr.3 A - the group expansion is not an entry any more (was 4)
         check('history: cover to subsection action count',target['history']-start==expected,str(target['history']-start))
         bad=[];back_count=0
         for want in reversed(states[:-1]):
@@ -264,8 +269,10 @@ def history_roundtrip(browser, options, mode, check, base, lang='ru-iast'):
         check('history: second chapter tap collapses without navigating',chapter not in after['open'] and after['url']==before['url'] and after['lit']==['sec:'+chapter],str(after))
         if page.evaluate('!!navigator.userActivation'):
             check('history: every pushState has a user gesture',page.evaluate('window.__qaTocWithoutGesture.length')==0)
-        check('history: collapse pushes only its action entry',after['pushes']-before['pushes']==(1 if mode.one else 2),str(after))
+        # V89: Vraja msg 7859 Nr.3 A - the collapse writes no entry (was: one entry, and Back undid the collapse)
+        check('history: collapse pushes no history entry (V89: Vraja msg 7859)',after['pushes']-before['pushes']==(0 if mode.one else 2),str(after))
         flow.nav('back');after=flow.state()
-        check('history: Back restores the collapsed chapter list',chapter in after['open'] and after['url']==before['url'],str(after))
+        check('history: Back after the collapse goes to the step before the chapter (the contents as opened), not to an undo of the collapse (V89: Vraja msg 7859)',
+              after['menu'] and after['url']==states[1]['url'],str(after))
 
     finally:context.close()

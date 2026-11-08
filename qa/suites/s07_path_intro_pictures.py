@@ -203,7 +203,7 @@ def run(p, dev, eng, o):
     chk(dev, "D «Введение» is a group heading without number", intro.count() == 1 and intro.inner_text().strip().upper() == "ВВЕДЕНИЕ", intro.inner_text() if intro.count() else "none")
     # Real expand / collapse actions replace the removed highlight-only steps.
     before = flow.state()
-    act(intro_arrow); states.append(flow.state())
+    act(intro_arrow); states[-1] = flow.state()  # V89: Vraja msg 7859 Nr.3 A - a toggle writes no history entry: replaces the snapshot of the entry on top
     chk(dev, "D first tap on «Введение» expands without moving the reader's mark",
         intro_arrow.get_attribute("aria-expanded") == "true" and flow.state()['lit'] == before['lit']
         and pg.url == P0, str(flow.state()))
@@ -215,14 +215,14 @@ def run(p, dev, eng, o):
     chk(dev, "A expanding «Введение» keeps one reading-place mark, in view, with its colours",
         marks_place(flow.state()) and flow.state()['lit'] == before['lit'] and g["inView"]
         and band_ok(g["bg"], LIT_PCT) and g["color"] == "rgb(150, 87, 0)", str(g))
-    act(intro_arrow); states.append(flow.state())
+    act(intro_arrow); states[-1] = flow.state()  # V89: Vraja msg 7859
     chk(dev, "D second tap on «Введение» collapses it",
         intro_arrow.get_attribute("aria-expanded") == "false" and pg.locator(".mobile-menu[data-open] #toc-grp-introduction").count() == 0)
     chk(dev, "A collapsing an unrelated group keeps the reading-place mark",
         flow.state()['lit'] == before['lit'] and marks_place(flow.state()), str(flow.state()))
-    act(intro_arrow); states.append(flow.state())
+    act(intro_arrow); states[-1] = flow.state()  # V89: Vraja msg 7859
     # Hiding the reader's branch raises its mark to that visible ancestor.
-    act(flow.group('temple-worship')); states.append(flow.state())
+    act(flow.group('temple-worship')); states[-1] = flow.state()  # V89: Vraja msg 7859
     vig = pg.locator(".mobile-menu[data-open] [data-toc-chapter=vigraha-tattva]")
     act(vig); states.append(flow.state())
     chk(dev, "A first tap «Виграха-таттва» opens its top and subsection list",
@@ -230,13 +230,14 @@ def run(p, dev, eng, o):
         and pg.url.endswith('/vigraha-tattva/') and abs(pg.evaluate(qa.READING_POSITION_JS)['top']) < 2
         and pg.locator(".mobile-menu[data-open] #toc-ch-vigraha-tattva").count() == 1, str(flow.state()))
     chapter_url = pg.url
-    act(vig); states.append(flow.state()); collapsed = flow.state()
-    act(vig); states.append(flow.state()); g = lit()
+    chapter_path = pg.evaluate("location.pathname + location.hash")
+    act(vig); states[-1] = flow.state(); collapsed = flow.state()  # V89: Vraja msg 7859 - collapse / reopen write no entry
+    act(vig); states[-1] = flow.state(); g = lit()
     chk(dev, "A chapter collapses without navigation or losing its mark, then reopens on one tap",
         'vigraha-tattva' not in collapsed['open'] and collapsed['lit'] == ['sec:vigraha-tattva']
-        and collapsed['url'] == states[-3]['url'] and pg.url == chapter_url
+        and collapsed['url'] == chapter_path and pg.url == chapter_url
         and g.get("chapter") == "vigraha-tattva" and g.get("n") == 1
-        and pg.locator(".mobile-menu[data-open] #toc-ch-vigraha-tattva").count() == 1, str(g))
+        and pg.locator(".mobile-menu[data-open] #toc-ch-vigraha-tattva").count() == 1, str([g, collapsed, chapter_url, pg.url]))
     tota = pg.locator('.mobile-menu[data-open] a[href*="#vigraha-tota-gopinatha"]')
     tt = tota.inner_text().strip()
     chk(dev, "D subsection numbering inside the Introduction: «10. Тота Гопинатх…»", tt.startswith("10."), tt)
@@ -264,14 +265,10 @@ def run(p, dev, eng, o):
         same_place(flow.state(), states[-2]) and g.get("menu") and g.get("n") == 1
         and g["inView"] and band_ok(g["bg"], LIT_PCT), str(g))
     shot("back-1-reading-place")
+    # V89: Vraja msg 7859 Nr.3 A - expanding / collapsing writes no history entry: of the nine former steps only the real actions remain
+    # (contents opened, chapter opened, subsection opened): one Back to the contents as the reader left them, one to the page.
     back_steps = [
-        "A Back step 2 -> chapter collapsed, same URL and open lists",
-        "A Back step 3 -> chapter open at its top, same URL and open lists",
-        "A Back step 4 -> reader's original branch collapsed, Introduction open",
-        "A Back step 5 -> original chapter, Introduction and Temple Worship open",
-        "A Back step 6 -> original chapter, Introduction collapsed",
-        "A Back step 7 -> original chapter, Introduction open",
-        "A Back step 8 -> Contents as opened",
+        "A Back step 2 -> Contents as opened (open lists as left)",
     ]
     for k, (name, want) in enumerate(zip(back_steps, reversed(states[1:-2]))):
         pg.go_back(); pg.wait_for_timeout(900)
@@ -281,11 +278,11 @@ def run(p, dev, eng, o):
         if k in (0, 3):
             shot(f"back-{k + 2}")
     pg.go_back(); pg.wait_for_timeout(900)
-    chk(dev, "A Back step 9 -> menu closed, the page where the reader was",
+    chk(dev, "A Back step 3 -> menu closed, the page where the reader was",
         same_place(flow.state(), states[0]) and pg.locator(".mobile-menu[data-open]").count() == 0 and pg.url == P0, pg.url)
-    chk(dev, "A path contains exactly nine real action entries",
-        len(states) == 10 and states[-1]['history'] - states[0]['history'] == 9
-        and states[-1]['pushes'] - states[0]['pushes'] == 9, str(states))
+    chk(dev, "A path contains exactly three real action entries (V89: was nine, with the toggles)",
+        len(states) == 4 and states[-1]['history'] - states[0]['history'] == 3
+        and states[-1]['pushes'] - states[0]['pushes'] == 3, str(states))
 
     # ---------- B: Forward steps forward (system / browser Forward — V17) ----------
     bars()
@@ -296,7 +293,7 @@ def run(p, dev, eng, o):
     g = lit()
     chk(dev, "B Forward -> Contents as opened, original reading place marked",
         same_place(flow.state(), states[1]) and g.get("menu")
-        and g.get("chapter") == "daily-duties-brahma-muhurta", str(g))
+        and (g.get("chapter") == "daily-duties-brahma-muhurta" or g.get("group") == "temple-worship"), str(g))  # V89: the snapshot of the contents is the last toggle's (Temple Worship collapsed: the mark rises to its heading, lib/toc.py marks_place)
     bad = []
     for want in states[2:-1]:
         pg.go_forward(); pg.wait_for_timeout(800)

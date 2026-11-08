@@ -53,7 +53,7 @@ import { takeEarlyTap } from "@/lib/earlyTap";
 import { exitGhost } from "@/lib/exitGhost";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { COVER_OPEN_EVENT } from "@/components/CoverButton";
-import { noteReplay, pathReplayUrl, pathStepDistance, usePathSteps } from "@/lib/pathSteps";
+import { noteReplay, noteStepping, pathReplayUrl, pathStepDistance, stepButtons, usePathSteps, useStepping } from "@/lib/pathSteps";
 import { chapterNeighbours, readingOrder, tocLayout, type TocPart, type TocSection } from "@/lib/book";
 import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
 import {
@@ -248,6 +248,7 @@ export default function ReaderChrome({
     router.push(stripBasePath(to.pathname) + to.search + to.hash, { scroll: false });
   };
   const stepPath = (dir: "back" | "forward") => {
+    noteStepping(dir);
     stepSticky.current = true;
     clearTimer();
     setChapterSwitch(true);
@@ -311,6 +312,9 @@ export default function ReaderChrome({
   const { prev: prevPage, next: nextPage } = chapterNeighbours(order, sectionId, layoutIds);
   /** The steps of the reader's path for the bottom bar (V81). */
   const steps = usePathSteps(`${lang}/${sectionId ?? ""}`);
+  /** V89 (Vraja Lila msg 7859, Nr.4 C): a step is under way - a short indicator on the pressed button, the buttons do not turn grey. */
+  const stepping = useStepping();
+  const btn = stepButtons(steps, stepping);
   /** The cover was tapped: the page darkens, the first page opens, the page comes back (V81). */
   const [fade, setFade] = useState<"off" | "in" | "out">("off");
   const fadeBusy = useRef(false);
@@ -1230,12 +1234,12 @@ export default function ReaderChrome({
 
       {/* Bottom bar: «‹ Вернуться» · «Вперёд ›» (V81, Vraja Lila msg 7706 / 7735) — steps along the reader's path (the browser
           history); with no such step the button is inactive and pale (--rd-faint). (V88: the chapter-end cards are removed.) */}
-      <div className="reader-bar reader-bar-bottom" {...barEvents}>
+      <div className="reader-bar reader-bar-bottom" data-stepping={stepping ?? undefined} {...barEvents}>
         <div className="reader-bar-inner reader-nav-row">
           <button
             type="button"
             className="reader-btn reader-history-btn"
-            disabled={!steps.back}
+            disabled={!btn.back}
             onClick={() => {
               arm();
               stepPath("back");
@@ -1248,7 +1252,7 @@ export default function ReaderChrome({
           <button
             type="button"
             className="reader-btn reader-history-btn"
-            disabled={!steps.forward}
+            disabled={!btn.forward}
             onClick={() => {
               arm();
               stepPath("forward");

@@ -212,6 +212,8 @@ SUITES = [
          devices=None, fast=True, server=False),
     dict(id="s159", file="suites/s159_forward_after_back_real_tap_v87e.py", title="V87e Vraja Lila msg 7789 Nr.3 B: pec «nazad» izvelne atvera virs iepriekseja lapas, ISTS tap uz «Vperyod» aizver izvelni un atver pameto lapu, «Vernutsya» atpakal (iphone14, pixel7, ipad, desktop; bez pieskariena lapas videm)",
          devices=["iphone14", "pixel7", "ipad-portrait", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
+    dict(id="s160", file="suites/s160_menu_path_v89.py", title="V89 Vraja Lila msg 7859 (V85b izvele 1A 2B 3A 4C 5B): izvelne izcel nodalu un apaksnodalu, nodalas izvele ar bultinu ieraksta celaa, sadalas atversana neraksta vesture, pogas nekluust pelekas + īss indikators, lasot ar ritinasanu izvelne rada nodalu un apaksnodalu (iphone14, pixel7, ipad, desktop)",
+         devices=["iphone14", "pixel7", "ipad-portrait", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s156", file="suites/s156_panel_in_menu_v82.py", title="V82 Vraja Lila msg 7768/7769: apaksejais panelis «Vernutsya / Vperyod» paliek redzams un aktivs ar atvertu izvelni (variants A), «Vernutsya» aizver izvelni un dara soli, pec izvelnes izveles «Vernutsya» neatver izvelni, pec soļa josla paliek lidz ritinasanai/klikskim",
          devices=["iphone14", "pixel7", "ipad-portrait", "ipad-landscape", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s155", file="suites/s155_cover_tap_chapter_end_cards_v81.py", title="V81 Vraja Lila msg 7729: apvalka pieskariens atver Epigrafu ar fade (ihsta poga), nodalu beigu kartites Pred. / Sled. glava (16/13 px, 323 px datora, fiksetas virs paneļa, paradas beigas), viena poga nestiepta",

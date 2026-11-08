@@ -64,12 +64,11 @@ import {
   main as mainEl,
   menuDepth,
   patchState,
-  pushOverlay,
   pushPlace,
   setView,
 } from "@/lib/navHistory";
 import { setPendingSearchMark } from "@/lib/searchMark";
-import { noteMenuGap } from "@/lib/pathSteps";
+import { isStepping, noteMenuGap } from "@/lib/pathSteps";
 import { bookTarget, followBookLink, readingHref } from "@/lib/readingFlow";
 import { useReadingSubsection } from "@/lib/readingPosition";
 
@@ -306,14 +305,28 @@ const NAV_SCROLL = "apNav";
 const RESULT_KEY = "apResult";
 
 /** Scroll the contents list so that the highlighted row is fully in view
- *  (centred if it was outside). Only the list moves, never the page. */
+ *  (centred if it was outside). Only the list moves, never the page.
+ *  V89 (Vraja Lila msg 7859, Nr.1 A and Nr.5 B): a highlighted SUBSECTION is shown together with the row of its chapter - when
+ *  the chapter row and the subsection fit in the list at once, both are brought into view (the pair is centred); when they do
+ *  not fit (a long list of subsections), the highlighted subsection alone is centred, as before. */
 function revealLit(nav: HTMLElement | null) {
   if (!nav) return;
   const row = nav.querySelector<HTMLElement>("[data-toc-lit]");
   if (!row) return;
+  const chapter = row.dataset.tocRow?.startsWith("sub:")
+    ? (row.closest("ul")?.closest("li")?.querySelector<HTMLElement>("[data-toc-chapter]") ?? null)
+    : null;
   const n = nav.getBoundingClientRect();
   const r = row.getBoundingClientRect();
-  if (r.top >= n.top && r.bottom <= n.bottom) return;
+  const inView = (b: DOMRect) => b.top >= n.top && b.bottom <= n.bottom;
+  const c = chapter?.getBoundingClientRect();
+  if (inView(r) && (!c || inView(c))) return;
+  if (c && r.bottom - c.top <= n.height) {
+    nav.scrollTop += (c.top + r.bottom) / 2 - (n.top + n.bottom) / 2;
+    return;
+  }
+  // The pair does not fit: the highlighted row alone matters - already in view, the list stays where it is.
+  if (inView(r)) return;
   nav.scrollTop += r.top - n.top - (n.height - r.height) / 2;
 }
 
@@ -438,6 +451,8 @@ export default function Sidebar({
       </span>
     ) : null;
 
+  /** V89: until this time (after a browser step) the page that opens may move the highlight: the list follows it. */
+  const litWindow = useRef(0);
   // Put the list's scroll offset of this menu entry back: on mount (the menu
   // reopened by "back" or a reload) and on "back" between menu steps. Applied
   // a few times while the restored rows (expanded parts / chapters) settle.
@@ -450,6 +465,10 @@ export default function Sidebar({
         // exactly where he was wins over anything else (rule 10). Bringing the
         // place being read into view would move the list under him.
         navRef.current.scrollTop = v;
+        // V89 (Vraja Lila msg 7859, Nr.1 A): ...but when «Вернуться» / «Вперёд» slide the menu out over the offset it was left at,
+        // the highlighted chapter (and subsection) must be in the visible part, as when the contents are opened by hand. The
+        // system / browser «назад» keeps the exact offset (rule 10).
+        if (isStepping()) revealLit(navRef.current);
         return;
       }
       // Nothing recorded: a freshly opened contents comes to the reader, with
@@ -462,11 +481,15 @@ export default function Sidebar({
       requestAnimationFrame(apply);
       timers = [60, 160, 320].map((ms) => window.setTimeout(apply, ms));
     };
+    const onPop = () => {
+      if (isStepping()) litWindow.current = performance.now() + 4000;
+      schedule();
+    };
     schedule();
-    window.addEventListener("popstate", schedule);
+    window.addEventListener("popstate", onPop);
     return () => {
       timers.forEach((id) => window.clearTimeout(id));
-      window.removeEventListener("popstate", schedule);
+      window.removeEventListener("popstate", onPop);
     };
   }, []);
   const selectedId = parsePath(pathname).sectionId;
@@ -476,6 +499,10 @@ export default function Sidebar({
     [selectedSection]
   );
   const [activeSubId, selectSub] = useReadingSubsection(pathname, subIds.join("|"));
+  // V89 (Nr.1 A): the page of a «Вернуться» / «Вперёд» step arrives after the menu slid out: bring the NEW highlight into view too.
+  useLayoutEffect(() => {
+    if (performance.now() < litWindow.current) revealLit(navRef.current);
+  }, [selectedId, activeSubId]);
 
   /**
    * ONE TAP (Satkirti 13.10.2026, «всем управляем стандартом»): a tap on a row
@@ -500,22 +527,10 @@ export default function Sidebar({
       const st = window.history.state as Record<string, unknown> | null;
       if (!isMenuEntry(st)) return;
       saveNavScroll();
-      if (navigating) {
-        // A page is loading (A65): this choice will replace it — no step of its
-        // own in history, so the new page is ONE entry on top of the menu's.
-        setView({ apParts: partsSnapshot() }, [RESULT_KEY, "apExp"]);
-      } else {
-        // One write: the step's entry with its own view.
-        pushOverlay(
-          {
-            // Proposal: a menu attached to a chapter navigation is not stacked
-            // over the previous reading place. Closing it keeps this chapter.
-            apDepth: st?.apDepth === 0 ? 0 : menuDepth(st) + 1,
-          },
-          { apParts: partsSnapshot() },
-          [RESULT_KEY, "apExp"],
-        );
-      }
+      // V89 (Vraja Lila msg 7859, Nr.3 A): expanding / collapsing a section in the contents is NOT a history entry: the open
+      // lists are kept in the menu entry's own view (no write to the browser history, no extra «назад» to close the menu).
+      // (Before V89 a toggle pushed an overlay entry, menu depth +1; a page being loaded already did only this setView.)
+      setView({ apParts: partsSnapshot() }, [RESULT_KEY, "apExp"]);
     } catch {
       // history unavailable: the highlight still shows
     }
@@ -1128,6 +1143,9 @@ export default function Sidebar({
   const onDisclosureTap = (id: string, rowId: string, sectionId?: string) => {
     if (sectionId && !isPartOpen(id)) {
       const open = { ...parseParts(partsSnapshot()), [id]: true };
+      // V89 (Vraja Lila msg 7859, Nr.2 B): the chapter chosen with the arrow is a place of the path; the menu's entries lie under it
+      // (the menu stays open on the new place), so «Вернуться» / «Вперёд» step over them (lib/pathSteps.ts noteMenuGap).
+      const gapDepth = menuDepth();
       if (bookTarget(sectionId)) {
         saveNavScroll();
         let navigated = false;
@@ -1135,6 +1153,7 @@ export default function Sidebar({
         // One write: the chapter's entry carries the expanded contents.
         followBookLink(readingHref(lang, sectionId), (moved) => {
           navigated = moved;
+          if (moved) noteMenuGap(gapDepth);
           if (!moved) step(rowId, open);
         }, () => ({ state: { apMenu: true, apDepth: 0 }, view: view() }));
         setPartsState(open);
@@ -1147,6 +1166,7 @@ export default function Sidebar({
         if (hashId() || (main && main.scrollTop > 0)) {
           saveNavScroll();
           setPartsState(open);
+          noteMenuGap(gapDepth);
           // One write: the chapter top's entry carries the expanded contents.
           pushPlace(`${BASE_PATH}${sectionHref(sectionId)}`, { apMenu: true, apDepth: 0 }, { apParts: partsSnapshot() });
           window.dispatchEvent(new HashChangeEvent("hashchange"));
@@ -1157,6 +1177,7 @@ export default function Sidebar({
       } else {
         saveNavScroll();
         chapterArrival.current = { sectionId, rowId, parts: open, query: searchQuery };
+        noteMenuGap(gapDepth);
         setPartsState(open);
         // A refused push (WebKit's quota) must not become a page error.
         guardRouterPushes();
