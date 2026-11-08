@@ -1,0 +1,12 @@
+# v87d: s26 iphone14 + slodze (s26 pixel7) pret to pasu serveri; secigi v87/base; start 2026-11-07 22:44:42
+| nr | build | rc | ilgums s | FAIL (pardaude, rinda, puse) |
+|---|---|---|---|---|
+| 1 | v87 | 0 | 251 | - (slodze pixel7 FAIL: 0) |
+| 1 | base | 0 | 258 | - (slodze pixel7 FAIL: 0) |
+| 2 | v87 | 0 | 263 | - (slodze pixel7 FAIL: 0) |
+| 2 | base | 0 | 242 | - (slodze pixel7 FAIL: 0) |
+| 3 | v87 | 0 | 261 | - (slodze pixel7 FAIL: 0) |
+| 3 | base | 0 | 226 | - (slodze pixel7 FAIL: 0) |
+| 4 | v87 | 0 | 235 | - (slodze pixel7 FAIL: 0) |
+| 4 | base | 0 | 261 | - (slodze pixel7 FAIL: 0) |
+# beigas 2026-11-07 23:18:10
