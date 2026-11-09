@@ -1,0 +1,7 @@
+  [FAIL] iphone14/day the book's CSS has no ::selection rule (the system selection colour shows) ["::selection", "html[data-reader-theme=\"night\"] ::selection"]
+  [FAIL] iphone14/night the book's CSS has no ::selection rule (the system selection colour shows) ["::selection", "html[data-reader-theme=\"night\"] ::selection"]
+  [FAIL] pixel7/day the book's CSS has no ::selection rule (the system selection colour shows) ["::selection", "html[data-reader-theme=\"night\"] ::selection"]
+  [FAIL] pixel7/night the book's CSS has no ::selection rule (the system selection colour shows) ["::selection", "html[data-reader-theme=\"night\"] ::selection"]
+  [FAIL] desktop/day the book's CSS has no ::selection rule (the system selection colour shows) ["::selection", "html[data-reader-theme=\"night\"] ::selection"]
+  [FAIL] desktop/night the book's CSS has no ::selection rule (the system selection colour shows) ["::selection", "html[data-reader-theme=\"night\"] ::selection"]
+0/6 PASS
