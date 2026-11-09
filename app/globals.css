@@ -2594,6 +2594,8 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
   border: 1px solid var(--line-hairline);
 }
 .hl-color[data-current] .hl-dot, .hl-color[aria-pressed="true"] .hl-dot { outline: var(--ds-focus-w) solid var(--rd-fg); outline-offset: var(--ds-focus-w); }
+.hl-hint { margin: 0; padding: var(--space-4) var(--space-8); font-size: 14px; line-height: 1.35; text-align: center; max-width: calc(var(--space-48) * 6); }
+.hl-color:disabled, .hl-action:disabled { opacity: 0.35; }
 .hl-actions { display: flex; gap: var(--space-4); }
 .hl-action {
   flex: 1;

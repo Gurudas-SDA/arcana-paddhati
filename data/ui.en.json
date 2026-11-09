@@ -150,6 +150,7 @@
   "hl.color.pink": "Pink",
   "hl.note": "Note",
   "hl.copy": "Copy",
+  "hl.cross": "The selection spans several sections: a colour or a note can be made only inside one section. Shorten the selection or tap Copy.",
   "hl.copied": "Copied",
   "hl.edit": "Edit",
   "hl.delete": "Delete",

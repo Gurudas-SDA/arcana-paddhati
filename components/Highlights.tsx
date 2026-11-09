@@ -76,6 +76,8 @@ interface SelInfo {
   /** the last line of the selection (client coordinates when it was taken) */
   rect: { left: number; right: number; top: number; bottom: number };
   inMood: HTMLElement | null;
+  /** V92: the selection runs from one section into another — a note is kept per section, so only «Копировать» works */
+  cross?: boolean;
 }
 
 /** Where a highlight is painted now: the root it was found in and its range (used by taps and the markers). */
@@ -136,7 +138,16 @@ function takeSelection(): SelInfo | null {
     if (!m) return null;
     root = a.closest("[data-book-section]");
     if (root) {
-      if (!root.contains(b)) return null;
+      if (!root.contains(b)) {
+        // V92: extended past the section: keep our menu (copy only) instead of letting it vanish
+        const rs = r.getClientRects();
+        const l = rs.length ? rs[rs.length - 1] : r.getBoundingClientRect();
+        const f0 = rs.length ? rs[0] : l;
+        return {
+          section: root.getAttribute("data-book-section") ?? section ?? "", start: 0, end: 0, quote: s.toString().trim(), before: "", after: "",
+          rect: { left: Math.min(f0.left, l.left), right: l.right, top: f0.top, bottom: l.bottom }, inMood: null, cross: true,
+        };
+      }
       section = root.getAttribute("data-book-section") ?? section;
     } else {
       if (m.querySelector("[data-book-section]")) return null;
@@ -570,7 +581,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
   const colorName = (i: number) => t(ui, COLOR_NAME_KEY(i));
   const cardItem = card ? items.find((h) => h.id === card.id) : undefined;
 
-  const colorButtons = ({ current, onPick, kind }: { current?: number; onPick: (i: number) => void; kind: string }) => (
+  const colorButtons = ({ current, onPick, kind, disabled }: { current?: number; onPick: (i: number) => void; kind: string; disabled?: boolean }) => (
     <div className="hl-colors" role="group">
       {Array.from({ length: COLORS }, (_, i) => (
         <button
@@ -583,6 +594,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
           aria-label={colorName(i)}
           aria-pressed={current === undefined ? undefined : current === i}
           title={colorName(i)}
+          disabled={disabled}
           onClick={() => onPick(i)}
         >
           <span className="hl-dot" style={{ background: `var(--hl-${i + 1}-tone)` }} />
@@ -717,12 +729,14 @@ export default function HighlightsLayer({ ui, lang }: Props) {
             onPointerDown={keepSelection}
             onMouseDown={keepSelection}
           >
-            {colorButtons({ kind: "menu", onPick: (i) => { create(menu.sel, i); closeMenu(); } })}
+            {menu.sel.cross && <p className="hl-hint" data-hl-hint="">{t(ui, "hl.cross")}</p>}
+            {colorButtons({ kind: "menu", disabled: menu.sel.cross, onPick: (i) => { create(menu.sel, i); closeMenu(); } })}
             <div className="hl-actions">
               <button
                 type="button"
                 className="hl-action"
                 data-hl-note=""
+                disabled={menu.sel.cross}
                 onClick={() => {
                   setEditor({ sel: menu.sel, color: 0, note: "", quote: menu.sel.quote, inMood: menu.sel.inMood });
                   setMenu(null);

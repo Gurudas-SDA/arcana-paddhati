@@ -216,6 +216,8 @@ SUITES = [
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["pixel7"]),
     dict(id="s161", file="suites/s161_note_card_v91.py", title="V91 Vraja Lila msg 2841/7933/7934/7940 (variants A3): piezimes kartite sanu panelī rada TIKAI piezimes tekstu (bez nodalas/vietas rindas), piezime bez teksta - iezimetais teksts ka nosaukums, apgriezums lidz 3 rindam ar «…», datums paliek (iphone14, pixel7, desktop)",
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["pixel7"]),
+    dict(id="s163", file="suites/s163_selection_menu_across_sections_v92.py", title="V92 Vraja Lila 09.11 msg 2850/2851: paplasinot iezimejumu uz citu sadalu, piezimju izvelne nepazud — paliek, ar skaidrojumu, krasas un Zametka neaktivas, Kopet strada (iphone14, pixel7, ipad, desktop)",
+         devices=["iphone14", "pixel7", "ipad-portrait", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s160", file="suites/s160_menu_path_v89.py", title="V89 Vraja Lila msg 7859 (V85b izvele 1A 2B 3A 4C 5B): izvelne izcel nodalu un apaksnodalu, nodalas izvele ar bultinu ieraksta celaa, sadalas atversana neraksta vesture, pogas nekluust pelekas + īss indikators, lasot ar ritinasanu izvelne rada nodalu un apaksnodalu (iphone14, pixel7, ipad, desktop)",
          devices=["iphone14", "pixel7", "ipad-portrait", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s156", file="suites/s156_panel_in_menu_v82.py", title="V82 Vraja Lila msg 7768/7769: apaksejais panelis «Vernutsya / Vperyod» paliek redzams un aktivs ar atvertu izvelni (variants A), «Vernutsya» aizver izvelni un dara soli, pec izvelnes izveles «Vernutsya» neatver izvelni, pec soļa josla paliek lidz ritinasanai/klikskim",
