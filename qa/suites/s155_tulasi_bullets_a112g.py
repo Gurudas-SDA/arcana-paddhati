@@ -48,19 +48,19 @@ for fn in GONE:
     check(fn, "d мантр 7", len([x for x in bl if x["type"] == "verse"]) == 7)
 MD = os.path.join(DATA, "..", "scripts", "moods", "moods.json")
 mj = next(x for x in json.load(open(MD, encoding="utf-8")) if x["target"] == "tulasi-leaves-flowers")
-check("moods.json", "e main CA:5823 + more = [CA:4730:3]", mj["candidate"] == "CA:5823" and [m["candidate"] for m in mj["more"]] == ["CA:4730:3", "CA:7603", "CA:895", "CA:3332"], [m["candidate"] for m in mj["more"]])
+check("moods.json", "e main CA:5823 + more = [CA:4730:3]", mj["candidate"] == "CA:5823" and [m["candidate"] for m in mj["more"]] == ["CA:4730:3"], [m["candidate"] for m in mj["more"]])
 for fn in GONE:
     b = json.load(open(os.path.join(DATA, fn), encoding="utf-8"))
     sub = next(sb for s_ in b["sections"] if s_["id"] == "daily-tulasi-worship" for sb in s_["subsections"] if sb["id"] == "tulasi-leaves-flowers")
     mood = [x for x in sub["content"] if x["type"] == "mood"]
-    check(fn, "e один блок «Настроение», счётчик 5 (1 + more; A112l +3 цитаты, L13 ≤ 6)", len(mood) == 1 and 1 + len(mood[0].get("more", [])) == 5, [len(m.get("more", [])) for m in mood])
+    check(fn, "e один блок «Настроение», счётчик 2 (Tulasi Sundari msg 313, 09.11: в сборе листьев 2 цитаты)", len(mood) == 1 and 1 + len(mood[0].get("more", [])) == 2, [len(m.get("more", [])) for m in mood])
     if mood:
         allq = [mood[0]["quote"]] + [m["quote"] for m in mood[0].get("more", [])]
         check(fn, "e 1-я цитата (Gaurāṅga … right hand) на месте", "we worship Gaurāṅga Mahāprabhu" in allq[0])
-        check(fn, "e 3-я («cannot even offer tulasī directly to Guru») на втором месте (A112l: новые 7603, 895, 3332 — после неё)", len(allq) == 5 and "cannot even offer tulasī directly to Guru" in allq[1], allq[-1][:60])
+        check(fn, "e 3-я («cannot even offer tulasī directly to Guru») на втором месте (A112m: новых 7603, 895, 3332 здесь нет)", len(allq) == 2 and "cannot even offer tulasī directly to Guru" in allq[1], allq[-1][:60])
         check(fn, "e 2-й цитаты («feet of Caitanya Mahāprabhu. But in rāgānugā-bhakti») нет", not any("But in rāgānugā-bhakti" in q for q in allq))
 import collections
-EXPECT = {"tulasi-arati": {"instruction": 11, "subtitle": 1, "verse": 4}  # A112h: 2 пункта→1, +3 упачары вместо таблицы, подзаголовок «Порядок проведения:» убран
+EXPECT = {"tulasi-arati": {"mood": 1, "instruction": 11, "subtitle": 1, "verse": 4}  # A112h: 2 пункта→1, +3 упачары вместо таблицы, подзаголовок «Порядок проведения:» убран
           ,
           "tulasi-leaves-flowers": {"mood": 1, "instruction": 5, "verse": 3, "text": 1}}
 for fn in GONE:

@@ -17,6 +17,7 @@
   l) msg 7815: в примечании 3.2 выделено и ⟦Шримати Радхарани⟧ (⟦Śrīmatī Rādhārāṇī⟧);
   m) A112k, Туласи msg 7846 (фото) + 7851 «Лампада»: в «Упачарах арати» без «Предложите / Прочитайте»: «Дхупа, благовония: …», «Дипа, лампада (фитилёк): …», «Пушпа, цветок: …», «Пранама Туласи — …», «Молитва вайшнавам:» (EN: «Dhūpa, incense: …», «Dīpa, lamp (wick): …», «Puṣpa, flower: …», «Praṇāma to Tulasī — …», «Prayer to the Vaiṣṇavas:»);
   n) A112l, Туласи msg 7847–7850: в «Настроение Гурудева» добавлены CA 7603 (02:35:58), CA 895 (01:08:26), CA 3332 (00:09:46); RU-перевод из файла «А112j Цитаты Гурудева…» буквально; всего не больше 6 (L13), главная цитата не тронута;
+  o) A112m, Tulasi Sundari msg 313, 09.11: в сборе листьев 2 цитаты (как до A112l), в Туласи-арати три новые (CA 7603, 895, 3332);
   e) мантр по-прежнему 7 в разделе; санскрит в ru-iast без кириллицы с диакритикой.
 usage: python s_a112h_tulasi_arati.py
 """
@@ -101,15 +102,19 @@ for fn, T in (("book.ru-iast.json", RU), ("book.json", EN)):
 NEW = {"7603": ("02:35:58", "Поэтому, если кто-то будет почитать Вринду Деви и предлагать ее листья", "с этой абхиманой, с этой концепцией.", "So if anyone will honor Vṛndā Devī", "with that abhimāna, with that conception."),
        "895": ("01:08:26", "Поэтому в следующий раз, увидев Туласи", "в красном платье бандхука, о, и с множеством украшений.", "So next time you see Tulasī", "red bandhuka dress, oh, and many ornaments is standing there."),
        "3332": ("00:09:46", "Так что служение Туласи в своей жизни", "всё это анукула для бхакти.", "So serving Tulasī in your life", "this is all anukūla for bhakti.")}
+# A112m (Tulasi Sundari msg 313, 09.11): три новые цитаты — в «Туласи-арати», в «Сборе листьев» осталось 2
 for fn in ("book.ru-iast.json", "book.json"):
-    s, _ = sub(fn)
-    m = next(x for sb2 in s["subsections"] for x in sb2["content"] if x["type"] == "mood")
-    allq = [m] + (m.get("more") or [])
-    check(fn, "n главная цитата «…we worship Gaurāṅga Mahāprabhu» на месте", m["source"]["nr"] == "5823" and m["quote"].startswith("…we worship Gaurāṅga"))
-    check(fn, f"n цитат в блоке {len(allq)} ≤ 6 (L13)", len(allq) <= 6)
+    s, ar = sub(fn)
+    lf = next(x for x in s["subsections"] if x["id"] == "tulasi-leaves-flowers")
+    ml = next(x for x in lf["content"] if x["type"] == "mood")
+    check(fn, "n главная цитата «…we worship Gaurāṅga Mahāprabhu» на месте в «Сборе листьев», всего 2", ml["source"]["nr"] == "5823" and ml["quote"].startswith("…we worship Gaurāṅga") and 1 + len(ml.get("more") or []) == 2)
+    check(fn, "n в «Сборе листьев» нет CA 7603/895/3332", not any(x["source"].get("nr") in NEW for x in [ml] + (ml.get("more") or [])))
+    ms = [x for x in ar["content"] if x["type"] == "mood"]
+    check(fn, "n в «Туласи-арати» один блок «Настроение», 3 цитаты (L13 ≤ 6)", len(ms) == 1 and 1 + len(ms[0].get("more") or []) == 3)
+    allq = [ms[0]] + (ms[0].get("more") or []) if ms else []
     for nr, (tc, ru0, ru1, en0, en1) in NEW.items():
         q = next((x for x in allq if x["source"].get("nr") == nr), None)
-        check(fn, f"n CA {nr} есть в «Настроении Гурудева»", q is not None)
+        check(fn, f"n CA {nr} есть в «Настроении Гурудева» «Туласи-арати»", q is not None)
         if q is None:
             continue
         check(fn, f"n CA {nr} тайм-код {tc}, ссылка на расшифровку", q["source"].get("timecode") == tc and q["source"].get("transcript_url", "").startswith("https://drive.google.com/file/d/") and q["source"].get("date"))
