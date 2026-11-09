@@ -8,6 +8,7 @@
   e) Туласи Сундари (бот msg 211, группа 7699, burtiski): «В настроение гуру оставь только 1 и 3 цитаты» — в «Настроение Гурудева» подглавы «Сбор листьев…» (tulasi-leaves-flowers) остаются 1-я (CA:5823) и 3-я (CA:4730:3, «cannot even offer tulasī directly to Guru»), 2-й (CA:4730:2, «feet of Caitanya Mahāprabhu. But in rāgānugā-bhakti») нет; счётчик = 2 (1 + len(more)); moods.json совпадает (apply_moods не вернёт);
   f) Туласи Сундари (группа 7701, burtiski): «эта глава визуально должна выглядеть как предыдущее разделы. Я про пункты, разделения, точки перед началом и тд» — оформление только существующими типами, как «Распорядок…»/«Пробуждение Господа»: пункты = instruction («•»), подзаголовки = subtitle (разделитель сверху), таблица = paired-list, мантры = verse; свободный text — только «Примечание…» (как «(Физически поместите…)» в waking-the-lord); нет list/numbers; набор типов: 20 + 9 блоков в 3.1 (instruction 13, subtitle 2, paired-list 1, verse 4), в 3.2 (mood 1, instruction 5, verse 3, text 1);
   d) примечание про руки ОСТАЁТСЯ; мантр по-прежнему 7.
+  g) A112n (Туласи Сундари, группа 7975–7977 / бот 316, 318, 09.11, burtiski): «Собирать листья можно после омовения и в чистой одежде. ….. перед тем как начать срывать листья необходимо прочитать чаяна-мантру.» / «Нельзя собирать листья в двадаши и тд. После сбора необходимо прочитать мантру и тд.» / «Не надо в скобках писать (мантру для сбора листьев)» — 4 пункта в её форме (ru-iast), «(мантру для сбора листьев)» нет, остаток пунктов прежний.
 usage: python s155_tulasi_bullets_a112g.py
 """
 import json
@@ -34,7 +35,7 @@ GONE = {
     "book.json": ["Two prayers again, obeisances", "The text, word-for-word and general translation", "When and how", "When not to", "The lecture texts", "item 1.1"],
 }
 KEEP = {
-    "book.ru-iast.json": ["Примечание: листья Туласи не кладут на стопы", "Собирайте листья после омовения", "Не собирайте листья в", "После бхаджана прочитайте молитвы", "Пранама Туласи — "],
+    "book.ru-iast.json": ["Примечание: листья Туласи не кладут на стопы", "Собирать листья можно после омовения", "Нельзя собирать листья в", "После бхаджана прочитайте молитвы", "Пранама Туласи — "],
     "book.json": ["Note: Tulasī leaves are not placed on the feet", "Gather leaves after bathing", "Do not gather leaves on", "After the bhajana, recite the prayers", "Praṇāma to Tulasī — "],
 }
 for fn in GONE:
@@ -71,4 +72,13 @@ for fn in GONE:
         free = [x["content"][:25] for x in sb["content"] if x["type"] == "text"]
         check(fn, f"f {sb['id']}: свободный text только «Примечание/Note»", all(t.startswith(("Примечание", "Note")) for t in free), free)
 print(f"{sum(res)}/{len(res)} PASS")
+# g) A112n
+bl = blocks("book.ru-iast.json")
+ins = [x.get("content", "") for x in bl if x["type"] == "instruction"]
+for want in ["Собирать листья можно после омовения и в чистой одежде.",
+             "Перед тем как начать срывать листья, необходимо прочитать ⟦чаяна-мантру⟧:",
+             "Нельзя собирать листья в ⟦двадаши⟧ и после захода солнца.",
+             "После сбора необходимо прочитать мантру с просьбой о прощении (⟦апарадха-кшама-прартхана⟧):"]:
+    check("book.ru-iast.json", f"g A112n пункт «{want[:40]}…»", want in ins)
+check("book.ru-iast.json", "g нет «(мантру для сбора листьев)»", not any("мантру для сбора листьев" in x for x in ins))
 sys.exit(0 if all(res) else 1)
