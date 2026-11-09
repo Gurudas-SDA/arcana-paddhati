@@ -52,6 +52,9 @@ def before(path):
     t = t.replace(".home-cover-box {\n  position: relative;\n  width: fit-content;", ".home-cover-box {\n  position: relative;")
     # V82 (Vraja Lila msg 7768, variant A, cancels the V35 part): the rule that hid the bottom bar while the contents are open is gone
     t = t.replace(".reader-chrome[data-menu-open] .reader-bar-bottom {\n  transform: translateY(100%);\n  pointer-events: none;\n  z-index: 30;\n}\n", "")
+    # V90 (Vraja Lila msg 7939/7945, variant D): the two ::selection colour rules (day, night) are gone - the system selection colour shows
+    t = t.replace("/* Selection color */\n::selection {\n  background-color: #F5E6C8;\n  color: #2C1810;\n}\n", "")
+    t = t.replace('html[data-reader-theme="night"] ::selection {\n  background-color: #5A4528;\n  color: #fff;\n}\n', "")
     return strip(t)
 
 
