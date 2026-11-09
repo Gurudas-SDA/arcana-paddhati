@@ -86,21 +86,26 @@ def run(p, dev, eng, o):
     # tehniskais slieksnis Lipikāra: slodzē (2 paralēli QA darbi) WebKit iphone14 reizēm 1100-2400 ms, izolēti OK
     # (09.11 push-v90-92b/c/d) -> līdz 2 atkārtoti mērījumi no vāka, skaitās labākais; īsta regresija krīt visos.
     tries = [t_gone]
+    # atkārtojumi — ATSEVIŠĶĀ kontekstā (tīra sessionStorage/vēsture), lai neizmainītu turpmāko pārbaužu ceļa stāvokli
     while (t_gone is None or t_gone > 1000) and len(tries) < 3:
-        pg.goto(f"{BASE}/{LANG}/", wait_until="networkidle"); pg.wait_for_timeout(700)
-        btn = pg.locator(".home-cover-box button.home-cover-btn")
-        t_tap = pg.evaluate("() => performance.now()")
-        btn.tap() if touch else btn.click()
+        ctx2 = br.new_context(service_workers="block", **o)
+        pg2 = ctx2.new_page()
+        pg2.add_init_script("try{localStorage.setItem('ap.readerHintSeen','1')}catch(e){}")
+        pg2.goto(f"{BASE}/{LANG}/", wait_until="networkidle"); pg2.wait_for_timeout(700)
+        btn2 = pg2.locator(".home-cover-box button.home-cover-btn")
+        t_tap2 = pg2.evaluate("() => performance.now()")
+        btn2.tap() if touch else btn2.click()
         t_again = None
         for _ in range(150):
-            if pg.evaluate("() => { const f = document.querySelector('.cover-fade'); return !f || (!f.hasAttribute('data-on') && parseFloat(getComputedStyle(f).opacity) < 0.02); }") and pg.url.rstrip("/").endswith(f"/{LANG}/{FIRST}"):
-                t_again = pg.evaluate("() => performance.now()") - t_tap
+            if pg2.evaluate("() => { const f = document.querySelector('.cover-fade'); return !f || (!f.hasAttribute('data-on') && parseFloat(getComputedStyle(f).opacity) < 0.02); }") and pg2.url.rstrip("/").endswith(f"/{LANG}/{FIRST}"):
+                t_again = pg2.evaluate("() => performance.now()") - t_tap2
                 break
-            pg.wait_for_timeout(20)
+            pg2.wait_for_timeout(20)
+        ctx2.close()
         tries.append(t_again)
         t_gone = min([t for t in tries if t is not None], default=None)
     pg.wait_for_timeout(800)
-    gone =pg.evaluate("() => { const f = document.querySelector('.cover-fade'); return !f || (!f.hasAttribute('data-on') && parseFloat(getComputedStyle(f).opacity) < 0.02); }")
+    gone = pg.evaluate("() => { const f = document.querySelector('.cover-fade'); return !f || (!f.hasAttribute('data-on') && parseFloat(getComputedStyle(f).opacity) < 0.02); }")
     chk(dev, "cover: after the page opened the fade reappears (overlay gone, page visible)", gone)
     chk(dev, "V88 cover: the whole transition (tap -> first page open and overlay gone) takes at most 1000 ms", t_gone is not None and t_gone <= 1000, str(tries))
 
