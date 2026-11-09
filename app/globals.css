@@ -116,11 +116,8 @@ body {
   transition: opacity 300ms ease-in-out;
 }
 
-/* Selection color */
-::selection {
-  background-color: #F5E6C8;
-  color: #2C1810;
-}
+/* Selection color: V90 variant D (Vraja Lila msg 7939/7945) — NO ::selection rule: the system colour of the device
+   (as on iPhone) shows the text being selected; our colour appears only after a colour is chosen (::highlight). */
 
 /* Print: only the section content */
 @media print {
@@ -1913,10 +1910,6 @@ html[data-reader-theme="night"] .home-cover,
 html[data-reader-theme="night"] .home-cover-logo {
   filter: brightness(0.9);
 }
-html[data-reader-theme="night"] ::selection {
-  background-color: #5A4528;
-  color: #fff;
-}
 @media print {
   html[data-reader-theme] body,
   html[data-reader-theme] .app-main {
@@ -2691,7 +2684,7 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
 .notes-file-menu { position: absolute; right: 0; top: 100%; z-index: 5; display: flex; flex-direction: column; min-width: calc(var(--space-48) * 4); background: var(--rd-panel-bg); border: 1px solid var(--line-hairline); border-radius: var(--ds-radius-card); box-shadow: var(--shadow-window); overflow: hidden; }
 .notes-file-menu button { min-height: calc(var(--ds-target) + var(--space-4)); padding: 0 var(--space-16); text-align: left; font-size: 15px; color: var(--rd-fg); background: transparent; border: 0; white-space: nowrap; }
 /* Card height / shortening (Vraja Lila msg 7427 is choosing: ONE variable per kind of line) */
-.note-card { --note-card-lines: var(--card-clamp); --note-tone: var(--ap-gold); border-left-color: transparent; }
+.note-card { --note-card-lines: var(--note-clamp); --note-tone: var(--ap-gold); border-left-color: transparent; }
 .note-card::before {
   content:'';
   position:absolute;
@@ -2705,7 +2698,7 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
   mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='16'%3E%3Cpath d='M6.41 2.30A8.5 8.5 0 0 0 1.5 10V16' fill='none' stroke='black' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 0 0/14px 16px no-repeat,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='16'%3E%3Cpath d='M6.41 13.70A8.5 8.5 0 0 1 1.5 6V0' fill='none' stroke='black' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 0 100%/14px 16px no-repeat,linear-gradient(var(--note-tone),var(--note-tone)) 0 16px/3px calc(100% - 32px) no-repeat
 }
 
-.note-quote, .note-text { display: -webkit-box; -webkit-line-clamp: var(--note-card-lines); -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.note-quote, .note-text { white-space: pre-line; display: -webkit-box; -webkit-line-clamp: var(--note-card-lines); -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
 .note-card[data-note-lost] .note-quote { opacity: .6; }
 /* the editor / file windows of the highlights (classes instead of arbitrary values: the token guard) */
 .hl-btn { min-height: var(--ds-target); }
@@ -2715,7 +2708,7 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
 .hl-modal-card { max-width: calc(var(--space-48) * 7 + var(--space-24)); }
 /* Card height (Vraja Lila msg 7428 «вариант 1»): the name / the quote at most 2 lines, the note at most 2 lines, then «…»; short cards stay short.
    ONE variable for bookmarks and notes: change --card-clamp to change both. */
-:root { --card-clamp: 2; }
+:root { --card-clamp: 2; --note-clamp: 3; }  /* V91 A3 (Vraja Lila msg 7940): a note card — 3 lines, then «…»; bookmarks stay at 2 */
 .card-clamp { display: -webkit-box; -webkit-line-clamp: var(--card-clamp); -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
 /*@/v71*/
 

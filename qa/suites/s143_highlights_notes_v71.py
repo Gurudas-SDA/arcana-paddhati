@@ -7,7 +7,7 @@ Criteria (register V71):
      paints it (CSS Custom Highlight, ::highlight(hl-N)), stores it in localStorage `ap.highlights`, hides the menu, clears the selection;
  (2) «Заметка» opens the editor, «Сохранить» stores the note; both survive a page reload (painted again);
  (3) the side panel has three tabs «Содержание · Закладки · Заметки» that fit the panel (no overflow), header ✕ and search stay;
-     the list has rows with the quote, the note, the place; filters «Все N» / «С заметкой N» (fixed width) and 4 colours work;
+     the list has rows with the note text (V91: no place line; no text - the quote); filters «Все N» / «С заметкой N» (fixed width) and 4 colours work;
      the search field filters the notes (placeholder «Поиск по заметкам»);
  (4) a tap on a row opens the place (the highlight is on the screen); the bin removes it with the toast «Отменить», which brings it back;
  (5) «Сохранить в файл» gives a .json with ONLY notes (no bookmarks) named «Арчана-паддхати — заметки YYYY-MM-DD.json»;
@@ -240,8 +240,8 @@ def run_theme(p, dev, eng, opts, theme):
     pg.wait_for_timeout(1000)
     open_panel(pg, "notes")
     LINES = """(sel) => [...document.querySelectorAll(sel)].map(e => { const cs = getComputedStyle(e); return {lines: Math.round(e.getBoundingClientRect().height / parseFloat(cs.lineHeight)), clamp: cs.webkitLineClamp, text: e.textContent.slice(0, 20)}; })"""
-    nl = pg.evaluate(LINES, "[data-note-row] [data-note-quote], [data-note-row] [data-note-text]")
-    check(tag, "notes: quote and note at most 2 lines each (long ones are cut with «…»)", nl and all(x["lines"] <= 2 and x["clamp"] == "2" for x in nl) and any(x["lines"] == 2 for x in nl), nl)
+    nl = pg.evaluate(LINES, "[data-note-row] [data-note-body]")
+    check(tag, "notes: the note text at most 3 lines (V91 A3, Vraja Lila msg 7940; a long one is cut with «…»)", nl and all(x["lines"] <= 3 and x["clamp"] == "3" for x in nl) and any(x["lines"] == 3 for x in nl), nl)
     nd = pg.evaluate("() => [...document.querySelectorAll('[data-note-date]')].map(e => e.textContent)")
     check(tag, "notes: the date at the bottom is DD.MM.YYYY", nd and all(re.fullmatch(r"\d{2}\.\d{2}\.\d{4}", x) for x in nd), nd)
     pg.evaluate("() => document.querySelector('[data-sidebar-tab=bookmarks]').click()")

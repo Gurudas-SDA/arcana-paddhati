@@ -673,15 +673,6 @@ export default function Sidebar({
       ),
     [allNotes, noteFilter, nq],
   );
-  const notePlace = (h: Highlight) => {
-    const sec = sections.find((x) => x.id === h.section);
-    if (!sec) return h.section;
-    const sub = h.sub ? sec.subsections.find((x) => x.id === h.sub) : undefined;
-    const head = sec.num ? `${sec.num}. ${sec.title}` : sec.title;
-    const where = sub ? (sub.num ? `${sub.num}. ${sub.title}` : sub.title) : "";
-    const extra = h.mood !== undefined ? t(ui, "notes.place.mood", { n: String(h.mood + 1) }) : h.kind === "poslovno" ? t(ui, "notes.place.poslovno") : "";
-    return [head, where, extra].filter(Boolean).join(" · ");
-  };
   const saveNotesFile = async () => {
     setFileMenu(false);
     const all = readHighlights();
@@ -1983,13 +1974,13 @@ export default function Sidebar({
                       }}
                       className="sidebar-link block w-full text-left pl-[var(--ds-target)] pr-[96px] py-3"
                     >
-                      <span className="note-quote block text-sm text-[#2C1810]" data-note-quote="">{h.quote}</span>
-                      {h.note && <span className="note-text block text-sm text-[#5C3D2E]" data-note-text="">{h.note}</span>}
-                      <span className="block text-[11px] text-[#6B5440]" data-note-place="">
-                        {notePlace(h)}
-                        {h.lost ? ` · ${lostLabel}` : ""}
-                        {otherLang ? ` · ${t(ui, "notes.langNote", { lang: h.lang })}` : ""}
-                      </span>
+                      {/* V91 A3 (Vraja Lila msg 7933/7934/7940): ONLY the note's text (3 lines, then «…»); a note without text — the highlighted text is the title; no chapter / place line; the date stays. */}
+                      <span className="note-text block text-sm text-[#2C1810]" data-note-body="">{h.note ? h.note : h.quote}</span>
+                      {(h.lost || otherLang) && (
+                        <span className="block text-[11px] text-[#6B5440]" data-note-status="">
+                          {[h.lost ? lostLabel : "", otherLang ? t(ui, "notes.langNote", { lang: h.lang }) : ""].filter(Boolean).join(" · ")}
+                        </span>
+                      )}
                       <span className="block text-[11px] text-[#6B5440]" data-note-date="">{cardDate(h.created)}</span>
                     </Link>
                     <button
