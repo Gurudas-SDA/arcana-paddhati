@@ -1,0 +1,19 @@
+QA full: 4 darbi, 2 paralēli, serveris http://127.0.0.1:41079/arcana-paddhati (out/)
+  FAIL s26    iphone14                       32 pass   1 fail     200s
+  FAIL s26    pixel7                         36 pass   1 fail     204s
+  FAIL s26    ipad-portrait                  18 pass   1 fail     130s
+  FAIL s26    desktop                        38 pass   1 fail     220s
+  atkārtoju 4 kritušos darbus vienu reizi …
+  FAIL s26    iphone14                     (atkārtoti)   1 fail
+  FAIL s26    pixel7                       (atkārtoti)   1 fail
+  FAIL s26    ipad-portrait                (atkārtoti)   1 fail
+  FAIL s26    desktop                      (atkārtoti)   1 fail
+
+QA full: 124 pass, 4 fail, 0 skip, 13.9 min
+  FAIL s26 iphone14 4 every row type reacts over its full strip, left and right edge (13 rows: cover, grp, sec, sub) [('grp:festivals-vows', 'right', 'fixture not restored by Back', {'url': '/arcana-paddhati/ru-iast/daily-duties-brahma-muhu
+  FAIL s26 pixel7 4 every row type reacts over its full strip, left and right edge (13 rows: cover, grp, sec, sub) [('grp:festivals-vows', 'right', 'fixture not restored by Back', {'url': '/arcana-paddhati/ru-iast/daily-duties-brahma-muhu
+  FAIL s26 ipad-portrait 4 every row type reacts over its full strip, left and right edge (13 rows: cover, grp, sec, sub) [('grp:festivals-vows', 'right', 'fixture not restored by Back', {'url': '/arcana-paddhati/ru-iast/daily-duties-brahma-muhu
+  FAIL s26 desktop 4 every row type reacts over its full strip, left and right edge (13 rows: cover, grp, sec, sub) [('grp:festivals-vows', 'right', 'fixture not restored by Back', {'url': '/arcana-paddhati/ru-iast/daily-duties-brahma-muhu
+
+Pārkāptie Satkirti likumi:
+  UI-11.4 Каждая строка «Содержания» нажимается по всей ширине своей полосы подсветки, включая правый край: отдельной кн  (4 fail)

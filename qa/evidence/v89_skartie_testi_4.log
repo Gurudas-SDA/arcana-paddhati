@@ -1,0 +1,23 @@
+QA full: 8 darbi, 2 paralēli, serveris http://127.0.0.1:58501/arcana-paddhati (out/)
+  OK   s05    pixel7                         31 pass   0 fail      33s
+  OK   s05    iphone14                       31 pass   0 fail      36s
+  OK   s05    ipad-portrait                  31 pass   0 fail      34s
+  OK   s05    desktop                        31 pass   0 fail      32s
+  FAIL s26    iphone14                       32 pass   1 fail     178s
+  FAIL s26    pixel7                         36 pass   1 fail     184s
+  FAIL s26    ipad-portrait                  18 pass   1 fail     107s
+  FAIL s26    desktop                        38 pass   1 fail     189s
+  atkārtoju 4 kritušos darbus vienu reizi …
+  FAIL s26    iphone14                     (atkārtoti)   1 fail
+  FAIL s26    pixel7                       (atkārtoti)   1 fail
+  FAIL s26    ipad-portrait                (atkārtoti)   1 fail
+  FAIL s26    desktop                      (atkārtoti)   1 fail
+
+QA full: 248 pass, 4 fail, 0 skip, 13.5 min
+  FAIL s26 iphone14 4 every row type reacts over its full strip, left and right edge (13 rows: cover, grp, sec, sub) [('sec:upadesha-sara', 'left', 'fixture not restored by Back', {'url': '/arcana-paddhati/ru-iast/daily-duties-brahma-muhurt
+  FAIL s26 pixel7 4 every row type reacts over its full strip, left and right edge (13 rows: cover, grp, sec, sub) [('sec:upadesha-sara', 'left', 'fixture not restored by Back', {'url': '/arcana-paddhati/ru-iast/daily-duties-brahma-muhurt
+  FAIL s26 ipad-portrait 4 every row type reacts over its full strip, left and right edge (13 rows: cover, grp, sec, sub) [('sec:upadesha-sara', 'left', 'fixture not restored by Back', {'url': '/arcana-paddhati/ru-iast/daily-duties-brahma-muhurt
+  FAIL s26 desktop 4 every row type reacts over its full strip, left and right edge (13 rows: cover, grp, sec, sub) [('sec:upadesha-sara', 'left', 'fixture not restored by Back', {'url': '/arcana-paddhati/ru-iast/daily-duties-brahma-muhurt
+
+Pārkāptie Satkirti likumi:
+  UI-11.4 Каждая строка «Содержания» нажимается по всей ширине своей полосы подсветки, включая правый край: отдельной кн  (4 fail)

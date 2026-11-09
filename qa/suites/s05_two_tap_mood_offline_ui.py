@@ -82,8 +82,11 @@ def run(p, dev, eng, o, mode):
     chk(dev,'(2) first tap: default opens chapter top + list; legacy highlights only',first['menu'] and ((VIG in first['open'] and first['url'].endswith('/'+VIG+'/') and abs(pg.evaluate(qa.READING_POSITION_JS)['top'])<2) if mode.one else VIG not in first['open'] and pg.url==EMB),str(first))
     flow.tap(chap(VIG),right=True,wait=350);second=flow.state()
     chk(dev,'(2) second tap on the same chapter: collapses default / expands legacy, no navigation',(VIG in second['open'])!=mode.one and second['url']==first['url'] and second['lit']==['sec:'+VIG],str(second))
-    flow.nav('back',native=True);state=flow.state()
-    chk(dev,'(2) Back -> the preceding chapter state, still lit',(VIG in state['open'])==mode.one and state['lit']==['sec:'+VIG] and state['url']==first['url'],str(state))
+    # V89: Vraja msg 7859/7903 Nr.3 A - the collapse of the chapter's list writes no history entry: there is no "preceding chapter state" step
+    # to go back to (the highlight on the chapter stays, checked above); the first Back goes straight to the contents as opened.
+    if not mode.one:
+        flow.nav('back',native=True);state=flow.state()
+        chk(dev,'(2) Back -> the preceding chapter state, still lit',(VIG in state['open'])==mode.one and state['lit']==['sec:'+VIG] and state['url']==first['url'],str(state))
     flow.nav('back',native=True);state=flow.state()
     chk(dev,'(2) Back -> contents as opened, reading place marked',state['menu'] and pg.url==EMB and (state['open']==before['open'] and marks_place(state) if mode.one else state['lit']==before['lit']),str(state))
     flow.nav('back',native=True)

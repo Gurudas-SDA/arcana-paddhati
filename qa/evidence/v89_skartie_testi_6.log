@@ -1,0 +1,22 @@
+QA full: 4 darbi, 2 paralēli, serveris http://127.0.0.1:55945/arcana-paddhati (out/)
+  FAIL s26    pixel7                         36 pass   1 fail     253s
+  FAIL s26    iphone14                       32 pass   1 fail     265s
+  FAIL s26    ipad-portrait                  18 pass   1 fail     166s
+  FAIL s26    desktop                        38 pass   1 fail     248s
+  atkārtoju 4 kritušos darbus vienu reizi …
+  FAIL s26    iphone14                     (atkārtoti)   3 fail
+  FAIL s26    pixel7                       (atkārtoti)   1 fail
+  OK   s26    ipad-portrait                (atkārtoti)   0 fail
+  OK   s26    desktop                      (atkārtoti)   0 fail
+
+QA full: 124 pass, 4 fail, 0 skip, 16.9 min
+FLAKY (krita, atkārtojumā izgāja — 2):
+  ~ s26 ipad-portrait 4 every row type reacts over its full strip, left and right edge (13 rows: cover, grp, sec, sub) [('grp:home-worship', 'right', 'fixture not restored', {'url': 
+  ~ s26 desktop 4 every row type reacts over its full strip, left and right edge (13 rows: cover, grp, sec, sub) [('grp:home-worship', 'right', 'fixture not restored', {'url': 
+  FAIL s26 pixel7 4 every row type reacts over its full strip, left and right edge (13 rows: cover, grp, sec, sub) [('grp:home-worship', 'right', 'fixture not restored', {'url': '/arcana-paddhati/ru-iast/daily-duties-brahma-muhurta/', 'me
+  FAIL s26 iphone14 4 every row type reacts over its full strip, left and right edge (13 rows: cover, grp, sec, sub) [('grp:home-worship', 'right', 'fixture not restored', {'url': '/arcana-paddhati/ru-iast/daily-duties-brahma-muhurta/', 'me
+  FAIL s26 iphone14 5 part V «Арати»: row present ('.mobile-menu[data-open] [data-toc-toggle=arati]', 'http://127.0.0.1:55945/arcana-paddhati/ru-iast/', 0, '')
+  FAIL s26 iphone14 5 chapter «Картика»: row present ('.mobile-menu[data-open] button[data-toc-chapter=kartika-bhajans]', 'http://127.0.0.1:55945/arcana-paddhati/ru-iast/', 0, '')
+
+Pārkāptie Satkirti likumi:
+  UI-11.4 Каждая строка «Содержания» нажимается по всей ширине своей полосы подсветки, включая правый край: отдельной кн  (2 fail)

@@ -210,6 +210,26 @@ def run(p, dev, eng, o):
                 tap(sel)
 
     prepare_rows()
+    fixture0 = flow.state()
+    start_url = pg.url
+
+    def restore_fixture():
+        pg.goto(start_url, wait_until='networkidle'); pg.wait_for_timeout(500)
+        contents()
+        # The reader's hand-made expanded / collapsed lists last for the session (sessionStorage, on origin/main too: Sidebar PARTS_STORE),
+        # so after the reload they are brought to the fixture with real taps: collapse what is open and not in the fixture, expand what is missing
+        for _ in range(4):
+            cur = flow.state()['open']
+            extra = [x for x in cur if x not in fixture0['open']]
+            missing = [x for x in fixture0['open'] if x not in cur]
+            if not extra and not missing:
+                break
+            for x in extra + missing:
+                sel = (f".mobile-menu[data-open] [data-toc-toggle={x}]" if pg.locator(f".mobile-menu[data-open] [data-toc-toggle={x}]").count()
+                       else f".mobile-menu[data-open] button[data-toc-chapter={x}]")
+                if pg.locator(sel).count():
+                    tap(sel)
+
     bad = []
     for r in sample:
         for side in ("right", "left"):
@@ -274,10 +294,12 @@ def run(p, dev, eng, o):
             if not reacted or q["w"] < q["aw"] * (0.95 if r.startswith("sub:") else 0.6):
                 bad.append((r, side, after, round(q["w"]), round(q["aw"])))
             if r != 'cover':
-                flow.nav('back', native=True)
+                # V89: Vraja msg 7859/7903 Nr.3 A - the fixture is no longer restored with Back (expanding / collapsing writes no history
+                # entry, so the number of Back steps depends on the row): it is rebuilt the same way for every row, independent of the history
+                restore_fixture()
                 restored = flow.state()
-                if any(restored[k] != before[k] for k in ['url', 'menu', 'open']) or not marks_place(restored):
-                    bad.append((r, side, 'fixture not restored by Back', before, restored))
+                if any(restored[k] != fixture0[k] for k in ['url', 'menu', 'open']) or not marks_place(restored):
+                    bad.append((r, side, 'fixture not restored', fixture0, restored))
     chk(dev, f"4 every row type reacts over its full strip, left and right edge ({len(sample)} rows: {', '.join(sorted(kinds))})",
         not bad and {"cover", "grp", "sec", "sub"} <= set(kinds), str(bad[:4]))
     # (no Escape before the next goto: its history.go(-n) would land after the new page loaded)
