@@ -219,7 +219,8 @@ SUITES = [
     dict(id="s164", file="suites/s164_menu_lands_at_start_v93.py", title="V93 Vraja Lila msg 7942/7953/7955: katrs satura raditaja ieraksts (visas nodalas un apaksnodalas, en un ru-iast, Lapas un Lenta) atver TIESI izveletas nodalas/apaksnodalas sakumu (pixel7, s23fe, iphone14, desktop)",
          devices=["pixel7", "s23fe", "iphone14", "desktop"], fast=False),
     dict(id="s165", file="suites/s165_no_horizontal_overflow_v94.py", title="V94 Vraja Lila msg 7952: telefona lapas platums fiksets - ne viena lapa (en, ru-iast; Lapas/Lenta; Aa parasts un lielakais) nav platāka par ekranu un rindkopa nepaplasina .app-main sāņus (pixel7, s23fe, iphone14)",
-         devices=["pixel7", "s23fe", "iphone14"], fast=True, fast_devices=["pixel7"]),
+         devices=["pixel7", "s23fe", "iphone14"], fast=True, fast_devices=["pixel7"],
+         timeout_fast=600),  # tehniskais slieksnis Lipikāra, nav S noteikums: s165 vienai ierīcei ~270 s (s165-post 09.11), QA slodzē > 280 s
     dict(id="s163", file="suites/s163_selection_menu_across_sections_v92.py", title="V92 Vraja Lila 09.11 msg 2850/2851: paplasinot iezimejumu uz citu sadalu, piezimju izvelne nepazud — paliek, ar skaidrojumu, krasas un Zametka neaktivas, Kopet strada (iphone14, pixel7, ipad, desktop)",
          devices=["iphone14", "pixel7", "ipad-portrait", "desktop"], fast=True, fast_devices=["iphone14", "pixel7"]),
     dict(id="s160", file="suites/s160_menu_path_v89.py", title="V89 Vraja Lila msg 7859 (V85b izvele 1A 2B 3A 4C 5B): izvelne izcel nodalu un apaksnodalu, nodalas izvele ar bultinu ieraksta celaa, sadalas atversana neraksta vesture, pogas nekluust pelekas + īss indikators, lasot ar ritinasanu izvelne rada nodalu un apaksnodalu (iphone14, pixel7, ipad, desktop)",
