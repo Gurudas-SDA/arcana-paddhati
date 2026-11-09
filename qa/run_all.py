@@ -455,7 +455,7 @@ def main():
     ap.add_argument("--suites", help="komatiem: lint,s07,s071 …")
     ap.add_argument("--suites-skip", help="komatiem: scenāriji, ko izlaist (pre-push: lint jau palaists)")
     ap.add_argument("--devices", help="komatiem: pixel7,iphone14,ipad-portrait …")
-    ap.add_argument("--jobs", type=int, default=max(2, min(6, (os.cpu_count() or 4) - 2)))
+    ap.add_argument("--jobs", type=int, default=int(os.environ.get("QA_JOBS") or max(2, min(6, (os.cpu_count() or 4) - 2))))  # QA_JOBS=1: iPhone14 laika testi bez paralēlās slodzes (09.11)
     ap.add_argument("--list", action="store_true")
     ap.add_argument("--changed-from", metavar="REF", help="nodaļu režīms, ja pret REF mainīts tikai grāmatas teksts; citādi = --fast")
     a = ap.parse_args()
