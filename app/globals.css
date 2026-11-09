@@ -1129,6 +1129,14 @@ body,
 .reader-article h1[class] { font-size: calc(var(--fs) * 1.75); line-height: 1.25; }
 .reader-article h2[class] { font-size: calc(var(--fs) * 1.375); }
 .reader-article h3[class] { font-size: calc(var(--fs) * 1.125); }
+
+/* V94 (Vraja Lila msg 7952: «ширина не фиксирована, юзер может мотать страницу вбок»): at the largest «Аа» step a long word of a heading
+   («Мангалачарана») is wider than a 360 px phone and made the reading area scroll sideways. A word that does not fit the line breaks (only then);
+   and the reading area never scrolls sideways (the page width is fixed). */
+.reader-article h1,
+.reader-article h2,
+.reader-article h3 { overflow-wrap: break-word; }
+.app-main { overflow-x: clip; }
 /* Standalone mantras have their own voice; centred ślokas and inline names
    keep the book's bold styling. List mantras use their existing indent. */
 .reader-article .mantra-block[class],

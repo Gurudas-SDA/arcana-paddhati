@@ -1,0 +1,17 @@
+  [PASS] s23fe/en/page/zoom1: 0 pages wider than the screen
+  [FAIL] s23fe/en/page/zoom1.35: 1 pages wider than the screen
+  [PASS] s23fe/en/scroll/zoom1: 0 pages wider than the screen
+  [FAIL] s23fe/en/scroll/zoom1.35: 1 pages wider than the screen
+  [PASS] s23fe/ru-iast/page/zoom1: 0 pages wider than the screen
+  [FAIL] s23fe/ru-iast/page/zoom1.35: 7 pages wider than the screen
+  [PASS] s23fe/ru-iast/scroll/zoom1: 0 pages wider than the screen
+  [FAIL] s23fe/ru-iast/scroll/zoom1.35: 1 pages wider than the screen
+  [PASS] pixel7/en/page/zoom1: 0 pages wider than the screen
+  [PASS] pixel7/en/page/zoom1.35: 0 pages wider than the screen
+  [PASS] pixel7/en/scroll/zoom1: 0 pages wider than the screen
+  [PASS] pixel7/en/scroll/zoom1.35: 0 pages wider than the screen
+  [PASS] pixel7/ru-iast/page/zoom1: 0 pages wider than the screen
+  [FAIL] pixel7/ru-iast/page/zoom1.35: 2 pages wider than the screen
+  [PASS] pixel7/ru-iast/scroll/zoom1: 0 pages wider than the screen
+  [FAIL] pixel7/ru-iast/scroll/zoom1.35: 1 pages wider than the screen
+243/264 checks passed
