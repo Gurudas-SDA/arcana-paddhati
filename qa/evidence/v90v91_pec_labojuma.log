@@ -1,0 +1,30 @@
+QA full: 11 darbi, 2 paralēli, serveris http://127.0.0.1:33351/arcana-paddhati (out/)
+  FAIL s162   iphone14                        0 pass   2 fail       1s
+  OK   lint   -                              38 pass   0 fail       4s
+  OK   s162   pixel7                          2 pass   0 fail       8s
+  FAIL s161   iphone14                        0 pass   1 fail       2s
+  OK   s162   desktop                         2 pass   0 fail       7s
+  FAIL s161   pixel7                          9 pass   1 fail      10s
+  FAIL s161   desktop                         9 pass   1 fail      11s
+  FAIL s143   iphone14                        0 pass   3 fail       2s
+  FAIL s143   ipad-portrait                   0 pass   1 fail       2s
+  OK   s143   pixel7                         37 pass   0 fail      34s
+  OK   s143   desktop                       112 pass   0 fail      93s
+  atkārtoju 6 kritušos darbus vienu reizi …
+  FAIL s161   iphone14                     (atkārtoti)   1 fail
+  FAIL s162   iphone14                     (atkārtoti)   2 fail
+  FAIL s161   pixel7                       (atkārtoti)   1 fail
+  FAIL s161   desktop                      (atkārtoti)   1 fail
+  FAIL s143   iphone14                     (atkārtoti)   3 fail
+  FAIL s143   ipad-portrait                (atkārtoti)   1 fail
+
+QA full: 209 pass, 9 fail, 0 skip, 2.2 min
+  FAIL s162 iphone14/day scenario ran to the end "TargetClosedError('BrowserType.launch: Target page, context or browser has been closed\\nBrowser logs:\\n\\n<launching> /home/satkirti/.cache/ms-playwright/webkit-2191/pw_run.sh --inspector-pipe 
+  FAIL s162 iphone14/night scenario ran to the end "TargetClosedError('BrowserType.launch: Target page, context or browser has been closed\\nBrowser logs:\\n\\n<launching> /home/satkirti/.cache/ms-playwright/webkit-2191/pw_run.sh --inspector-pipe 
+  FAIL s161 iphone14 scenario ran to the end "TargetClosedError('BrowserType.launch: Target page, context or browser has been closed\\nBrowser logs:\\n\\n<launching> /home/satkirti/.cache/ms-playwright/webkit-2191/pw_run.sh --inspector-pipe 
+  FAIL s161 pixel7 (3) a short card stays short (1 line) {"id": "n-empty", "text": "Короткое выделение без заметкиместо изменилось07.11.2025", "body": "Короткое выделение без заметки", "clamp": "3", "lines": 2, "place": false, "quote": fal
+  FAIL s161 desktop (3) a short card stays short (1 line) {"id": "n-empty", "text": "Короткое выделение без заметкиместо изменилось07.11.2025", "body": "Короткое выделение без заметки", "clamp": "3", "lines": 2, "place": false, "quote": fal
+  FAIL s143 iphone14/day scenario ran to the end "TargetClosedError('BrowserType.launch: Target page, context or browser has been closed\\nBrowser logs:\\n\\n<launching> /home/satkirti/.cache/ms-playwright/webkit-2191/pw_run.sh --inspector-pipe 
+  FAIL s143 iphone14/sepia scenario ran to the end "TargetClosedError('BrowserType.launch: Target page, context or browser has been closed\\nBrowser logs:\\n\\n<launching> /home/satkirti/.cache/ms-playwright/webkit-2191/pw_run.sh --inspector-pipe 
+  FAIL s143 iphone14/night scenario ran to the end "TargetClosedError('BrowserType.launch: Target page, context or browser has been closed\\nBrowser logs:\\n\\n<launching> /home/satkirti/.cache/ms-playwright/webkit-2191/pw_run.sh --inspector-pipe 
+  FAIL s143 ipad-portrait/day scenario ran to the end "TargetClosedError('BrowserType.launch: Target page, context or browser has been closed\\nBrowser logs:\\n\\n<launching> /home/satkirti/.cache/ms-playwright/webkit-2191/pw_run.sh --inspector-pipe 

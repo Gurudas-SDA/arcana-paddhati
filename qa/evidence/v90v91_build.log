@@ -1,0 +1,285 @@
+
+> arcana-paddhati@0.1.0 prebuild
+> node scripts/build-search-index.mjs
+
+search index: en — 161 entries -> public/search-index.en.json
+search index: ru — retired (-> ru-iast), no index
+search index: ru-iast — 161 entries -> public/search-index.ru-iast.json
+search index: lv — retired (-> en), no index
+search index: de — retired (-> en), no index
+search index: fr — retired (-> en), no index
+search index: es — retired (-> en), no index
+search index: it — retired (-> en), no index
+search index: uk — retired (-> en), no index
+search index: hu — retired (-> en), no index
+search index: pt — retired (-> en), no index
+search index: lt — retired (-> en), no index
+
+> arcana-paddhati@0.1.0 build
+> next build
+
+▲ Next.js 16.2.2 (Turbopack)
+
+  Creating an optimized production build ...
+Found 7 warnings while optimizing generated CSS:
+
+Issue #1:
+[2m│   -webkit-box-decoration-break: clone;[22m
+[2m│ }[22m
+[2m│[22m ::highlight(search-hit) {
+[2m┆[22m             [33m[2m^--[22m 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?[39m
+[2m┆[22m
+[2m│   background-color: var(--ap-band-hit);[22m
+[2m│   color: #1a1a1a;[22m
+
+Issue #2:
+[2m│   color: #F2E9DA;[22m
+[2m│ }[22m
+[2m│[22m html[data-reader-theme="night"] ::highlight(search-hit) {
+[2m┆[22m                                             [33m[2m^--[22m 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?[39m
+[2m┆[22m
+[2m│   background-color: var(--ap-band-hit);[22m
+[2m│   color: #F2E9DA;[22m
+
+Issue #3:
+[2m│   --hs-peek-reserve: calc(262px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px));[22m
+[2m│ }[22m
+[2m│[22m ::highlight(hl-0) {
+[2m┆[22m             [33m[2m^--[22m 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?[39m
+[2m┆[22m
+[2m│   background-color: var(--hl-1-fill);[22m
+[2m│   color: inherit;[22m
+
+Issue #4:
+[2m│   color: inherit;[22m
+[2m│ }[22m
+[2m│[22m ::highlight(hl-1) {
+[2m┆[22m             [33m[2m^--[22m 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?[39m
+[2m┆[22m
+[2m│   background-color: var(--hl-2-fill);[22m
+[2m│   color: inherit;[22m
+
+Issue #5:
+[2m│   color: inherit;[22m
+[2m│ }[22m
+[2m│[22m ::highlight(hl-2) {
+[2m┆[22m             [33m[2m^--[22m 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?[39m
+[2m┆[22m
+[2m│   background-color: var(--hl-3-fill);[22m
+[2m│   color: inherit;[22m
+
+Issue #6:
+[2m│   color: inherit;[22m
+[2m│ }[22m
+[2m│[22m ::highlight(hl-3) {
+[2m┆[22m             [33m[2m^--[22m 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?[39m
+[2m┆[22m
+[2m│   background-color: var(--hl-4-fill);[22m
+[2m│   color: inherit;[22m
+
+Issue #7:
+[2m│   color: inherit;[22m
+[2m│ }[22m
+[2m│[22m ::highlight(hl-flash) {
+[2m┆[22m             [33m[2m^--[22m 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?[39m
+[2m┆[22m
+[2m│   background-color: var(--ap-band-flash);[22m
+[2m│   color: inherit;[22m
+
+Turbopack build encountered 7 warnings:
+./app/globals.css:2:69264
+Parsing CSS source code failed
+  [90m1 |[0m ...
+[31m[1m>[0m [90m2 |[0m ...border-radius:[35m3[0mpx;padding:[35m0[0m [35m1[0mpx}::highlight(search-hit){background-color:[36mvar[0m(--ap-band-h...
+  [90m  |[0m                                                [31m[1m^[0m
+  [90m3 |[0m ...
+
+'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+
+Generated code of PostCSS transform of file content of app/globals.css:
+./app/globals.css:2:69264
+  [90m1 |[0m ...
+[31m[1m>[0m [90m2 |[0m ...border-radius:[35m3[0mpx;padding:[35m0[0m [35m1[0mpx}::highlight(search-hit){background-color:[36mvar[0m(--ap-band-h...
+  [90m  |[0m                                                [31m[1m^[0m
+  [90m3 |[0m ...
+
+Import trace:
+  Client Component Browser:
+    ./app/globals.css [Client Component Browser]
+    ./app/layout.tsx [Server Component]
+
+
+./app/globals.css:2:69462
+Parsing CSS source code failed
+  [90m1 |[0m ...
+[31m[1m>[0m [90m2 |[0m ...a}html[data-reader-theme=night] ::highlight(search-hit){background-color:[36mvar[0m(--ap-band-h...
+  [90m  |[0m                                                [31m[1m^[0m
+  [90m3 |[0m ...
+
+'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+
+Generated code of PostCSS transform of file content of app/globals.css:
+./app/globals.css:2:69462
+  [90m1 |[0m ...
+[31m[1m>[0m [90m2 |[0m ...a}html[data-reader-theme=night] ::highlight(search-hit){background-color:[36mvar[0m(--ap-band-h...
+  [90m  |[0m                                                [31m[1m^[0m
+  [90m3 |[0m ...
+
+Import trace:
+  Client Component Browser:
+    ./app/globals.css [Client Component Browser]
+    ./app/layout.tsx [Server Component]
+
+
+./app/globals.css:2:87151
+Parsing CSS source code failed
+  [90m1 |[0m ...
+[31m[1m>[0m [90m2 |[0m ...nv(safe-area-inset-bottom,[35m0[0mpx))}::highlight(hl-[35m0[0m){background-color:[36mvar[0m(--hl-[35m1[0m-fill);colo...
+  [90m  |[0m                                                [31m[1m^[0m
+  [90m3 |[0m ...
+
+'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+
+Generated code of PostCSS transform of file content of app/globals.css:
+./app/globals.css:2:87151
+  [90m1 |[0m ...
+[31m[1m>[0m [90m2 |[0m ...nv(safe-area-inset-bottom,[35m0[0mpx))}::highlight(hl-[35m0[0m){background-color:[36mvar[0m(--hl-[35m1[0m-fill);colo...
+  [90m  |[0m                                                [31m[1m^[0m
+  [90m3 |[0m ...
+
+Import trace:
+  Client Component Browser:
+    ./app/globals.css [Client Component Browser]
+    ./app/layout.tsx [Server Component]
+
+
+./app/globals.css:2:87217
+Parsing CSS source code failed
+  [90m1 |[0m ...
+[31m[1m>[0m [90m2 |[0m ...:[36mvar[0m(--hl-[35m1[0m-fill);color:inherit}::highlight(hl-[35m1[0m){background-color:[36mvar[0m(--hl-[35m2[0m-fill);colo...
+  [90m  |[0m                                                [31m[1m^[0m
+  [90m3 |[0m ...
+
+'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+
+Generated code of PostCSS transform of file content of app/globals.css:
+./app/globals.css:2:87217
+  [90m1 |[0m ...
+[31m[1m>[0m [90m2 |[0m ...:[36mvar[0m(--hl-[35m1[0m-fill);color:inherit}::highlight(hl-[35m1[0m){background-color:[36mvar[0m(--hl-[35m2[0m-fill);colo...
+  [90m  |[0m                                                [31m[1m^[0m
+  [90m3 |[0m ...
+
+Import trace:
+  Client Component Browser:
+    ./app/globals.css [Client Component Browser]
+    ./app/layout.tsx [Server Component]
+
+
+./app/globals.css:2:87283
+Parsing CSS source code failed
+  [90m1 |[0m ...
+[31m[1m>[0m [90m2 |[0m ...:[36mvar[0m(--hl-[35m2[0m-fill);color:inherit}::highlight(hl-[35m2[0m){background-color:[36mvar[0m(--hl-[35m3[0m-fill);colo...
+  [90m  |[0m                                                [31m[1m^[0m
+  [90m3 |[0m ...
+
+'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+
+Generated code of PostCSS transform of file content of app/globals.css:
+./app/globals.css:2:87283
+  [90m1 |[0m ...
+[31m[1m>[0m [90m2 |[0m ...:[36mvar[0m(--hl-[35m2[0m-fill);color:inherit}::highlight(hl-[35m2[0m){background-color:[36mvar[0m(--hl-[35m3[0m-fill);colo...
+  [90m  |[0m                                                [31m[1m^[0m
+  [90m3 |[0m ...
+
+Import trace:
+  Client Component Browser:
+    ./app/globals.css [Client Component Browser]
+    ./app/layout.tsx [Server Component]
+
+
+./app/globals.css:2:87349
+Parsing CSS source code failed
+  [90m1 |[0m ...
+[31m[1m>[0m [90m2 |[0m ...:[36mvar[0m(--hl-[35m3[0m-fill);color:inherit}::highlight(hl-[35m3[0m){background-color:[36mvar[0m(--hl-[35m4[0m-fill);colo...
+  [90m  |[0m                                                [31m[1m^[0m
+  [90m3 |[0m ...
+
+'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+
+Generated code of PostCSS transform of file content of app/globals.css:
+./app/globals.css:2:87349
+  [90m1 |[0m ...
+[31m[1m>[0m [90m2 |[0m ...:[36mvar[0m(--hl-[35m3[0m-fill);color:inherit}::highlight(hl-[35m3[0m){background-color:[36mvar[0m(--hl-[35m4[0m-fill);colo...
+  [90m  |[0m                                                [31m[1m^[0m
+  [90m3 |[0m ...
+
+Import trace:
+  Client Component Browser:
+    ./app/globals.css [Client Component Browser]
+    ./app/layout.tsx [Server Component]
+
+
+./app/globals.css:2:87415
+Parsing CSS source code failed
+  [90m1 |[0m ...
+[31m[1m>[0m [90m2 |[0m ...:[36mvar[0m(--hl-[35m4[0m-fill);color:inherit}::highlight(hl-flash){background-color:[36mvar[0m(--ap-band-fla...
+  [90m  |[0m                                                [31m[1m^[0m
+  [90m3 |[0m ...
+
+'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+
+Generated code of PostCSS transform of file content of app/globals.css:
+./app/globals.css:2:87415
+  [90m1 |[0m ...
+[31m[1m>[0m [90m2 |[0m ...:[36mvar[0m(--hl-[35m4[0m-fill);color:inherit}::highlight(hl-flash){background-color:[36mvar[0m(--ap-band-fla...
+  [90m  |[0m                                                [31m[1m^[0m
+  [90m3 |[0m ...
+
+Import trace:
+  Client Component Browser:
+    ./app/globals.css [Client Component Browser]
+    ./app/layout.tsx [Server Component]
+
+
+✓ Compiled successfully in 12.7s
+  Running TypeScript ...
+  Finished TypeScript in 14.6s ...
+  Collecting page data using 3 workers ...
+  Generating static pages using 3 workers (0/75) ...
+  Generating static pages using 3 workers (18/75) 
+  Generating static pages using 3 workers (37/75) 
+  Generating static pages using 3 workers (56/75) 
+✓ Generating static pages using 3 workers (75/75) in 7.4s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ● /[slug]
+│ ├ /upadesha-sara
+│ ├ /parampara
+│ ├ /jaya-dhvani-front
+│ └ [+32 more paths]
+├ ● /[slug]/[section]
+│ ├ /ru-iast/upadesha-sara
+│ ├ /ru-iast/parampara
+│ ├ /ru-iast/jaya-dhvani-front
+│ └ [+31 more paths]
+├ ● /[slug]/book
+│ └ /ru-iast/book
+└ ○ /book
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+
+
+> arcana-paddhati@0.1.0 postbuild
+> node scripts/patch-html-lang.mjs && node scripts/retired-lang-redirects.mjs && node scripts/apply-base-path.mjs && node scripts/fix-segment-paths.mjs && node scripts/stable-build-id.mjs && node scripts/build-precache.mjs
+
+html lang: ru-iast — 36 page(s) set to lang="ru"
+retired languages: ru->ru-iast, lv->en, de->en, fr->en, es->en, it->en, uk->en, hu->en, pt->en, lt->en — 360 redirect page(s)
+base path: /arcana-paddhati (production) — static files unchanged
+fix-segment-paths: flattened 0 segment files (already flat)
+stable-build-id: tbhg5TSnOsrE7K5drLsc7 -> 8P4djdONsLB3bx4MDcUT9 in 620 files
+precache: version 4873bb14dfef197c — 734 URLs (70 pages, 466 RSC payloads, 26 static assets, 172 other), 47.5 MB

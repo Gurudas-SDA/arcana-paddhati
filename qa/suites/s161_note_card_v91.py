@@ -30,7 +30,7 @@ SEED = """() => { const o = JSON.parse(localStorage.getItem('ap.highlights')); c
   const mk = (id, quote, note, k) => ({...b, id, quote, note, start: k * 40, end: k * 40 + 30, created: 1762473600000 + k});
   const long = 'Здесь я записал, как проходит утренний обход: сначала омовение Божеств, потом одевание, подношение цветов и гирлянд, затем арати и киртан; нужно уточнить у пуджари порядок подношений и сверить с описанием в этой главе, а также спросить про время омовения зимой и летом.';
   const longq = 'saṁsāra-dāvānala-līḍha-loka-trāṇāya kāruṇya-ghanāghanatvam prāptasya kalyāṇa-guṇārṇavasya vande guroḥ śrī-caraṇāravindam mahāprabhoḥ kīrtana-nṛtya-gīta';
-  o.items = [mk('n-short', 'QQQ-quote-one', 'Пуджари\\nХарибол', 1), mk('n-long', 'QQQ-quote-two', long, 2), mk('n-empty', 'Короткое выделение без заметки', '', 3), mk('n-emptylong', longq, '', 4)];
+  o.items = [mk('n-short', 'QQQ-quote-one', 'Пуджари\\nХарибол', 1), mk('n-long', 'QQQ-quote-two', long, 2), mk('n-empty', 'Харибол', '', 3), mk('n-emptylong', longq, '', 4)];
   o.items.forEach(i => { if (!i.note) delete i.note; });
   localStorage.setItem('ap.highlights', JSON.stringify(o)); }"""
 ROWS = """() => [...document.querySelectorAll('[data-note-row]')].map(r => {
@@ -75,7 +75,7 @@ def run(p, dev, eng, opts):
     check(dev, "(1) no chapter / place line on any card", rows and not any(r["place"] for r in rows.values()), [r["place"] for r in rows.values()])
     check(dev, "(1) a note with text: the card shows the note, not the highlighted text", s.get("body") == "Пуджари\nХарибол" and not s.get("quote") and "QQQ" not in s.get("text", "x") and "QQQ" not in l.get("text", "x"), s)
     check(dev, "(1) «Пуджари / Харибол» keeps its two lines", s.get("lines") == 2, s)
-    check(dev, "(2) a note without text: the highlighted text is the title", e.get("body") == "Короткое выделение без заметки" and el.get("body", "").startswith("saṁsāra-dāvānala"), [e.get("body"), el.get("body")])
+    check(dev, "(2) a note without text: the highlighted text is the title", e.get("body") == "Харибол" and el.get("body", "").startswith("saṁsāra-dāvānala"), [e.get("body"), el.get("body")])
     check(dev, "(3) a long note is cut at 3 lines with «…»", l.get("lines") == 3 and l.get("clamp") == "3", l)
     check(dev, "(3) a long highlighted text of a note without text is cut at 3 lines", el.get("lines") == 3 and el.get("clamp") == "3", el)
     check(dev, "(3) a short card stays short (1 line)", e.get("lines") == 1, e)

@@ -1,0 +1,7 @@
+  [FAIL] iphone14/day scenario ran to the end "TargetClosedError('BrowserType.launch: Target page, context or browser has been closed\\nBrowser logs:\\n\\n<launching> /home/satkirti/.cache/ms-playwright/webkit-2191/pw_run.sh --inspector-pipe --headless --no-startup-window\\n<launched> pid=1016937\\n[pid=1016937][err] /home/satkirti/.cache/ms-playwrig"
+  [FAIL] iphone14/night scenario ran to the end "TargetClosedError('BrowserType.launch: Target page, context or browser has been closed\\nBrowser logs:\\n\\n<launching> /home/satkirti/.cache/ms-playwright/webkit-2191/pw_run.sh --inspector-pipe --headless --no-startup-window\\n<launched> pid=1016946\\n[pid=1016946][err] /home/satkirti/.cache/ms-playwrig"
+  [FAIL] pixel7/day the book's CSS has no ::selection rule (the system selection colour shows) ["::selection", "html[data-reader-theme=\"night\"] ::selection"]
+  [FAIL] pixel7/night the book's CSS has no ::selection rule (the system selection colour shows) ["::selection", "html[data-reader-theme=\"night\"] ::selection"]
+  [FAIL] desktop/day the book's CSS has no ::selection rule (the system selection colour shows) ["::selection", "html[data-reader-theme=\"night\"] ::selection"]
+  [FAIL] desktop/night the book's CSS has no ::selection rule (the system selection colour shows) ["::selection", "html[data-reader-theme=\"night\"] ::selection"]
+0/6 PASS
