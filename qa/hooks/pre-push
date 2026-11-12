@@ -12,6 +12,7 @@
 # Jebkura kļūda → push BLOĶĒTS.
 # Apiet: `git push --no-verify` — AIZLIEGTS bez Satkirti vai Gurudas tiešas ziņas (qa/README.md).
 # Ieslēgt: npm run qa:install-hooks   (git config core.hooksPath qa/hooks)
+case "$LD_LIBRARY_PATH" in *wk-libs*) ;; *) [ -f /home/satkirti/wk-libs/env.sh ] && . /home/satkirti/wk-libs/env.sh ;; esac
 
 ROOT=$(git rev-parse --show-toplevel) || exit 1
 cd "$ROOT" || exit 1
