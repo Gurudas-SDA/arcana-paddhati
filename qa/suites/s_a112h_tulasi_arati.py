@@ -19,6 +19,7 @@
   n) A112l, Туласи msg 7847–7850: в «Настроение Гурудева» добавлены CA 7603 (02:35:58), CA 895 (01:08:26), CA 3332 (00:09:46); RU-перевод из файла «А112j Цитаты Гурудева…» буквально; всего не больше 6 (L13), главная цитата не тронута;
   o) A112m, Tulasi Sundari msg 313, 09.11: в сборе листьев 2 цитаты (как до A112l), в Туласи-арати три новые (CA 7603, 895, 3332);
   p) A112o, Tulasi Sundari msg 326, 10.11: «Поменять: не сделайте поклоны, а: и поклонитесь» — 3.1 «Прочитайте молитву Вринде-деви и поклонитесь:» (старого «…и сделайте поклоны:» нет); EN «…and offer obeisances:» уже соответствует — не менялось;
+  q) Tulasi Sundari msg 344/346, 14.11: дхупа как дипа, но без верхушки: «корням (стопам) — 4 круга, стволу — 2, всему дереву — 7; затем Гуру и всем преданным» (EN: roots (feet) — 4, trunk — 2, whole tree — 7);
   e) мантр по-прежнему 7 в разделе; санскрит в ru-iast без кириллицы с диакритикой.
 usage: python s_a112h_tulasi_arati.py
 """
@@ -46,7 +47,7 @@ BHA_RU = "Во время арати поётся бхаджан «Джая Ра
 RU = {
     "have": ["Туласи-арати проводят в 5:20 утра, после мангала-арати. Поклоняться Туласи, как и Божествам, можно только в чистой одежде.",
              "Прочитайте молитву Вринде-деви и поклонитесь:", BHA_RU,
-             "⟦Дхупа⟧, благовония: 7 кругов вокруг всего дерева, затем Гуру и всем преданным.",
+             "⟦Дхупа⟧, благовония: корням (стопам) — 4 круга, стволу — 2, всему дереву — 7; затем Гуру и всем преданным.",
              "⟦Дипа⟧, лампада (фитилёк): корням (стопам) — 4 круга, стволу — 2, верхушке — 3, всему дереву — 7; затем Гуру и всем преданным.",
              "⟦Пушпа⟧, цветок: 3 круга вокруг всего дерева, затем Гуру и всем преданным.",
              "После бхаджана прочитайте молитвы и поклонитесь:", "Пранама Туласи — ⟦vṛndāyai tulasī-devyai…⟧.", "Молитва вайшнавам:",
@@ -66,7 +67,7 @@ BHA_EN = "During ārati, the bhajana “Jaya Rādhe, jaya Kṛṣṇa, jaya Vṛ
 EN = {
     "have": ["Tulasī-ārati is performed at 5:20 a.m., after maṅgala-ārati. Worship of Tulasī, as of the Deities, may be performed only in clean clothes.",
              "Recite the prayer to Vṛndā-devī and offer obeisances:", BHA_EN,
-             "⟦Dhūpa⟧, incense: 7 circles around the whole tree, then to Guru and all the devotees.",
+             "⟦Dhūpa⟧, incense: to the roots (feet) — 4 circles, trunk — 2, whole tree — 7; then to Guru and all the devotees.",
              "⟦Dīpa⟧, lamp (wick): to the roots (feet) — 4 circles, trunk — 2, top — 3, whole tree — 7; then to Guru and all the devotees.",
              "⟦Puṣpa⟧, flower: 3 circles around the whole tree, then to Guru and all the devotees.",
              "After the bhajana, recite the prayers and offer obeisances:", "Praṇāma to Tulasī — ⟦vṛndāyai tulasī-devyai…⟧.", "Prayer to the Vaiṣṇavas:",
