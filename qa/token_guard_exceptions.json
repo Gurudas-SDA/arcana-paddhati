@@ -1,20 +1,47 @@
 {
  "_": "token_guard izņēmumi (V61 s7, Vraja Lila msg 7207): [{value, file, reason, who=msg Nr.}]; bez reason/who — nederīgs",
  "exceptions": [
-  {"value": "border-radius:0.5rem", "file": "app/globals.css",
+  {
+   "value": "border-radius:0.5rem",
+   "file": "app/globals.css",
    "reason": "V81: the cover button keeps the exact 8px corner of the cover image it wraps; no radius token is 8px (--ds-radius-block 6px, --ds-radius-card 10px), the nearest would change the look",
-   "who": "msg 7729 (mockup 6, msg 7708)"},
-  {"value": "bottom:calc(57px + env(safe-area-inset-bottom, 0px) + var(--space-8))", "file": "app/globals.css",
+   "who": "msg 7729 (mockup 6, msg 7708)"
+  },
+  {
+   "value": "bottom:calc(57px + env(safe-area-inset-bottom, 0px) + var(--space-8))",
+   "file": "app/globals.css",
    "reason": "V81: chapter-end cards sit exactly above the bottom bar (57px bar height, no token for it; --space-48 would move them 9px) + the safe area (0px fallback) + --space-8",
-   "who": "msg 7729 (mockup 6, msg 7708)"},
-  {"value": "padding:14px", "file": "app/globals.css",
+   "who": "msg 7729 (mockup 6, msg 7708)"
+  },
+  {
+   "value": "padding:14px",
+   "file": "app/globals.css",
    "reason": "V81: chapter-end card inner padding of the approved mockup is 14px; the scale has 12 and 16 only",
-   "who": "msg 7729 (mockup 6, msg 7708)"},
-  {"value": "border-radius:12px", "file": "app/globals.css",
+   "who": "msg 7729 (mockup 6, msg 7708)"
+  },
+  {
+   "value": "border-radius:12px",
+   "file": "app/globals.css",
    "reason": "V81: chapter-end card corner of the approved mockup is 12px; radius tokens are 6px, 10px, 16px",
-   "who": "msg 7729 (mockup 6, msg 7708)"},
-  {"value": "width:323px", "file": "app/globals.css",
+   "who": "msg 7729 (mockup 6, msg 7708)"
+  },
+  {
+   "value": "width:323px",
+   "file": "app/globals.css",
    "reason": "V81: on a desktop the chapter-end cards are exactly 323px wide at the text column's edges, as in the approved mockup 4/6 (msg 7705); not a spacing step",
-   "who": "msg 7729 (mockup 6, msg 7705)"}
+   "who": "msg 7729 (mockup 6, msg 7705)"
+  },
+  {
+   "value": "color:#B3261E",
+   "file": "app/globals.css",
+   "reason": "V97: «Сбросить настройки» — reddish text of variant C chosen by Vraja (day #B3261E, night #F2A29B); no warning-red token exists",
+   "who": "msg 8231-8233"
+  },
+  {
+   "value": "color:#F2A29B",
+   "file": "app/globals.css",
+   "reason": "V97: «Сбросить настройки» — reddish text of variant C chosen by Vraja (day #B3261E, night #F2A29B); no warning-red token exists",
+   "who": "msg 8231-8233"
+  }
  ]
 }

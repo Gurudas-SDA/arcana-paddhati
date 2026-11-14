@@ -1578,6 +1578,7 @@ html[data-aa-open] .lang-backdrop.lang-backdrop-out {
 .reader-switch-track[data-on] .reader-switch-knob {
   transform: translateX(16px);
 }
+/*@v97*/
 /* V97: «Сбросить настройки» — separator + compact row (Vraja msg 8231-8233) */
 .reader-reset-sep {
   margin: var(--space-12) 0 var(--space-12);
@@ -1601,6 +1602,7 @@ html[data-reader-theme="night"] .reader-reset {
 .reader-reset svg {
   flex-shrink: 0;
 }
+/*@/v97*/
 
 /* Search (Reader v7.8, Satkirti 07.10.2026): the found word stands out — in the
    results and, after opening one, in the text (CSS Custom Highlight API). */
