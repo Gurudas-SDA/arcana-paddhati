@@ -20,7 +20,7 @@ import qa  # noqa: E402
 from playwright.sync_api import sync_playwright  # noqa: E402
 
 BASE = sys.argv[1].rstrip("/")
-DEV_NAMES = [a for a in sys.argv[2:] if a in qa.DEVICES] or ["pixel7", "s23fe", "iphone14", "desktop"]
+DEV_NAMES = [a for a in sys.argv[2:] if a in qa.DEVICES] or [d[0] for d in qa.devices(["pixel7", "s23fe", "iphone14", "desktop"])]
 ONLY = os.environ.get("S164_ONLY")
 LIMIT = int(os.environ.get("S164_LIMIT", "0"))
 MODES = ["page", "scroll"]
