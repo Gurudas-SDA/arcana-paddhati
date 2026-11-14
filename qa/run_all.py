@@ -192,6 +192,8 @@ SUITES = [
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s105", file="suites/s105_transkripti7.py", title="Satkirti msg 6417 (23.10) «Убрать из книги, но сохрани у себя»: 7 расшифровок-сирот ārā no public/transcripts/ un lib/transcripts.json, atlikušie ieraksti = faili, kopijas arhīvā",
          devices=None, fast=True, server=False),
+    dict(id="s_v97", file="suites/s_v97_reset_settings.py", title="V97 Vraja Lila msg 2947/2949/8231/8232: «Сбросить настройки» — тема white, размер 1, «Листать», переводы выкл., язык и глава не меняются (Страницы + Лента), иконка rotate-cw 18 px",
+         devices=["pixel7"], fast=True, fast_devices=["pixel7"]),
     dict(id="s120", file="suites/s120_rotation_keeps_place_v60.py", title="V60 Vraja 6949 (28.10, Android): ekrāna pagrieziens (portrets->ainava->portrets) lasot bhadžanu patur to pašu nodaļu (URL) un to pašu lasīšanas vietu — «Страницы» + «Лента»",
          devices=["pixel7", "iphone14"], fast=True, fast_devices=["pixel7", "iphone14"]),
     dict(id="s129", file="suites/s129_ui_not_over_images.py", title="V61 s4 fix, Vraja Lila msg 7168 31.10: «элементы UI не перекрывают картины, особенно изображения Божеств» — peek kartē ✕ stāv joslā virs bildes: ✕ ∩ bilde = 0 px (iPhone 14 + dators, diena + nakts), bilde neapgriezta, ✕ bez diska",

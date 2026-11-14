@@ -921,21 +921,29 @@ export default function ReaderChrome({
 
   /** V97: every «Аа» setting back to its default; the reader stays where he is. */
   const resetAllPrefs = () => {
-    setReaderTheme("white");
-    resetReaderSize();
-    setShowAllTranslations(false);
-    setShowAllWbw(false);
-    window.dispatchEvent(new Event("arcana:reset-prefs"));
-    if (layout !== "page") chooseLayout("page");
-  };
-  const resetVariant = (() => {
-    try {
-      const v = new URLSearchParams(window.location.search).get("rv");
-      return v === "b" || v === "c" ? v : "a";
-    } catch {
-      return "a";
+    const rest = () => {
+      setReaderTheme("white");
+      resetReaderSize();
+      setShowAllTranslations(false);
+      setShowAllWbw(false);
+      window.dispatchEvent(new Event("arcana:reset-prefs"));
+    };
+    if (layout === "page") {
+      rest();
+      return;
     }
-  })();
+    // «Лента» -> «Страницы»: the layout goes first, alone, so that the place is kept in the chapter being read (the size and
+    // the folded verses would move the book's text under the reader and the chapter would jump); the rest follows once
+    // the chapter page is shown.
+    chooseLayout("page");
+    const t0 = Date.now();
+    const wait = window.setInterval(() => {
+      if (!document.querySelector("[data-continuous-book]") || Date.now() - t0 > 8000) {
+        window.clearInterval(wait);
+        window.setTimeout(rest, 400);
+      }
+    }, 150);
+  };
 
   /**
    * Leave the «Аа» panel for another step (chapter, language, contents):
@@ -1248,17 +1256,16 @@ export default function ReaderChrome({
                 </button>
               ))}
           </div>
-          {/* V97 (Vraja Lila msg 2947/2949): divider + «Сбросить настройки». 3 design variants for review: ?rv=a|b|c */}
+          {/* V97 (Vraja Lila msg 2947/2949): divider + «Сбросить настройки». compact row, rotate-cw icon (Vraja msg 8231-8233) */}
           <hr className="reader-reset-sep" />
           <button
             type="button"
             className="reader-reset"
-            data-reader-reset={resetVariant}
             onClick={resetAllPrefs}
           >
-            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M3 12a9 9 0 1 0 3-6.7" />
-              <polyline points="3 4 3 10 9 10" />
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-rotate-cw">
+              <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" />
+              <path d="M21 3v5h-5" />
             </svg>
             <span>{t(ui, "reader.resetSettings")}</span>
           </button>
