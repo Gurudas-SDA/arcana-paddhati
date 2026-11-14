@@ -89,6 +89,7 @@ import {
   setReaderLayout,
   setReaderTheme,
   stepReaderSize,
+  resetReaderSize,
   useReaderLayout,
   useReaderSize,
   useReaderTheme,
@@ -918,6 +919,24 @@ export default function ReaderChrome({
     }
   };
 
+  /** V97: every «Аа» setting back to its default; the reader stays where he is. */
+  const resetAllPrefs = () => {
+    setReaderTheme("white");
+    resetReaderSize();
+    setShowAllTranslations(false);
+    setShowAllWbw(false);
+    window.dispatchEvent(new Event("arcana:reset-prefs"));
+    if (layout !== "page") chooseLayout("page");
+  };
+  const resetVariant = (() => {
+    try {
+      const v = new URLSearchParams(window.location.search).get("rv");
+      return v === "b" || v === "c" ? v : "a";
+    } catch {
+      return "a";
+    }
+  })();
+
   /**
    * Leave the «Аа» panel for another step (chapter, language, contents):
    * the panel's history entry stays under the new one, so "back" returns to
@@ -1229,6 +1248,20 @@ export default function ReaderChrome({
                 </button>
               ))}
           </div>
+          {/* V97 (Vraja Lila msg 2947/2949): divider + «Сбросить настройки». 3 design variants for review: ?rv=a|b|c */}
+          <hr className="reader-reset-sep" />
+          <button
+            type="button"
+            className="reader-reset"
+            data-reader-reset={resetVariant}
+            onClick={resetAllPrefs}
+          >
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 12a9 9 0 1 0 3-6.7" />
+              <polyline points="3 4 3 10 9 10" />
+            </svg>
+            <span>{t(ui, "reader.resetSettings")}</span>
+          </button>
         </div>
       )}
 

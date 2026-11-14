@@ -84,6 +84,7 @@
   "group.inThisSection": "In this section",
   "offline.progress": "Saving for offline reading: {n} %",
   "reader.layout": "Reading",
+  "reader.resetSettings": "Reset settings",
   "reader.layout.page": "Pages",
   "reader.layout.scroll": "Scroll",
   "offline.save.loading": "Saving to your phone",

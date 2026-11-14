@@ -79,6 +79,7 @@
   "group.contents": "Įvado turinys",
   "offline.progress": "Išsaugoma skaitymui neprisijungus: {n} %",
   "reader.layout": "Skaitymas",
+  "reader.resetSettings": "Atstatyti nustatymus",
   "reader.layout.page": "Puslapiai",
   "reader.layout.scroll": "Slinkimas",
   "offline.save.loading": "Išsaugoma telefone",

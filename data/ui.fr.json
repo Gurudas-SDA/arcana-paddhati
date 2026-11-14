@@ -79,6 +79,7 @@
   "group.contents": "Contenu de l’introduction",
   "offline.progress": "Sauvegarde pour la lecture hors connexion : {n} %",
   "reader.layout": "Lecture",
+  "reader.resetSettings": "Réinitialiser les réglages",
   "reader.layout.page": "Pages",
   "reader.layout.scroll": "Défilement",
   "offline.save.loading": "Sauvegarde sur votre téléphone",

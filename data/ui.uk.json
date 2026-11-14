@@ -79,6 +79,7 @@
   "group.contents": "Зміст вступу",
   "offline.progress": "Зберігається для читання без інтернету: {n} %",
   "reader.layout": "Читання",
+  "reader.resetSettings": "Скинути налаштування",
   "reader.layout.page": "Сторінки",
   "reader.layout.scroll": "Прокрутка",
   "offline.save.loading": "Зберігається на телефоні",

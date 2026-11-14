@@ -79,6 +79,7 @@
   "group.contents": "Ievada saturs",
   "offline.progress": "Saglabā lasīšanai bezsaistē: {n} %",
   "reader.layout": "Lasīšana",
+  "reader.resetSettings": "Atiestatīt iestatījumus",
   "reader.layout.page": "Lapas",
   "reader.layout.scroll": "Ritināšana",
   "offline.save.loading": "Saglabā tālrunī",

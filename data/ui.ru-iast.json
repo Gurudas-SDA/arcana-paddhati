@@ -84,6 +84,7 @@
   "group.inThisSection": "В этом разделе",
   "offline.progress": "Сохраняется для чтения без интернета: {n} %",
   "reader.layout": "Чтение",
+  "reader.resetSettings": "Сбросить настройки",
   "reader.layout.page": "Страницы",
   "reader.layout.scroll": "Лента",
   "offline.save.loading": "Сохраняется на телефон",

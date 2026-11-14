@@ -1578,6 +1578,53 @@ html[data-aa-open] .lang-backdrop.lang-backdrop-out {
 .reader-switch-track[data-on] .reader-switch-knob {
   transform: translateX(16px);
 }
+/* V97: «Сбросить настройки» — separator + 3 design variants (data-reader-reset = a | b | c) */
+.reader-reset-sep {
+  margin: var(--space-12) 0 var(--space-12);
+  border: 0;
+  border-top: 1px solid var(--rd-border);
+}
+.reader-reset {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: var(--target);
+  font-size: 14px;
+  color: var(--rd-fg);
+  -webkit-tap-highlight-color: transparent;
+}
+/* A: full-width secondary button with ↺, filled soft surface */
+.reader-reset[data-reader-reset="a"] {
+  width: 100%;
+  justify-content: center;
+  border: 1px solid var(--rd-border);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--rd-fg) 6%, transparent);
+  font-weight: 600;
+}
+/* B: centred outline button, accent colour, not full width */
+.reader-reset[data-reader-reset="b"] {
+  margin: 0 auto;
+  padding: 0 var(--space-16, 16px);
+  justify-content: center;
+  border: 1.5px solid var(--accent);
+  border-radius: 9999px;
+  color: var(--accent);
+  font-weight: 600;
+}
+/* C: compact row like the switches above, warning-coloured text, no frame */
+.reader-reset[data-reader-reset="c"] {
+  width: 100%;
+  padding: var(--space-4) 0;
+  color: #B3261E;
+}
+html[data-reader-theme="night"] .reader-reset[data-reader-reset="c"] {
+  color: #F2A29B;
+}
+.reader-reset svg {
+  flex-shrink: 0;
+}
+
 /* Search (Reader v7.8, Satkirti 07.10.2026): the found word stands out — in the
    results and, after opening one, in the text (CSS Custom Highlight API). */
 .search-mark {

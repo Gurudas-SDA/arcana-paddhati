@@ -12,6 +12,12 @@ import Pill from "@/design-system/Pill";
 function usePanel(showAll: boolean): [boolean, () => void] {
   // Per-verse choice, valid only for the global setting it was made under.
   const [override, setOverride] = useState<{ open: boolean; under: boolean } | null>(null);
+  // V97: «Сбросить настройки» folds every verse back to its default state.
+  React.useEffect(() => {
+    const onReset = () => setOverride(null);
+    window.addEventListener("arcana:reset-prefs", onReset);
+    return () => window.removeEventListener("arcana:reset-prefs", onReset);
+  }, []);
   const open = override && override.under === showAll ? override.open : showAll;
   return [open, () => setOverride({ open: !open, under: showAll })];
 }

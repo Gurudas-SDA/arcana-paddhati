@@ -107,6 +107,11 @@ export function setReaderTheme(theme: ReaderTheme) {
   write(THEME_KEY, theme);
 }
 
+/** V97: back to the default size (100 %). */
+export function resetReaderSize() {
+  write(SIZE_KEY, "1");
+}
+
 /** One step smaller (-1) or larger (+1). */
 export function stepReaderSize(dir: -1 | 1) {
   const i = SIZES.indexOf(sizeSnapshot());

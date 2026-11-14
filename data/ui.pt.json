@@ -79,6 +79,7 @@
   "group.contents": "Sumário da introdução",
   "offline.progress": "Salvando para leitura offline: {n} %",
   "reader.layout": "Leitura",
+  "reader.resetSettings": "Repor definições",
   "reader.layout.page": "Páginas",
   "reader.layout.scroll": "Rolagem",
   "offline.save.loading": "Salvando no seu celular",

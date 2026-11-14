@@ -79,6 +79,7 @@
   "group.contents": "Inhalt der Einleitung",
   "offline.progress": "Wird zum Offline-Lesen gespeichert: {n} %",
   "reader.layout": "Lesen",
+  "reader.resetSettings": "Einstellungen zurücksetzen",
   "reader.layout.page": "Seiten",
   "reader.layout.scroll": "Scrollen",
   "offline.save.loading": "Wird auf deinem Smartphone gespeichert",
