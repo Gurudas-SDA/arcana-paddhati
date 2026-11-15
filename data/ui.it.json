@@ -79,7 +79,7 @@
   "group.contents": "Contenuto dell’introduzione",
   "offline.progress": "Salvataggio per la lettura offline: {n} %",
   "reader.layout": "Lettura",
-  "reader.resetSettings": "Ripristina impostazioni",
+  "reader.collapseContents": "Comprimi indice",
   "reader.layout.page": "Pagine",
   "reader.layout.scroll": "Scorrimento",
   "offline.save.loading": "Salvataggio sul telefono",

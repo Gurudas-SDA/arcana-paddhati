@@ -53,6 +53,7 @@ import { takeEarlyTap } from "@/lib/earlyTap";
 import { exitGhost } from "@/lib/exitGhost";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { COVER_OPEN_EVENT } from "@/components/CoverButton";
+import { collapseContents } from "@/components/Sidebar";
 import { noteReplay, noteStepping, pathReplayUrl, pathStepDistance, stepButtons, usePathSteps, useStepping } from "@/lib/pathSteps";
 import { chapterNeighbours, readingOrder, tocLayout, type TocPart, type TocSection } from "@/lib/book";
 import { localeHref, parsePath, t, type UiDict } from "@/lib/i18n";
@@ -89,7 +90,6 @@ import {
   setReaderLayout,
   setReaderTheme,
   stepReaderSize,
-  resetReaderSize,
   useReaderLayout,
   useReaderSize,
   useReaderTheme,
@@ -919,30 +919,11 @@ export default function ReaderChrome({
     }
   };
 
-  /** V97: every «Аа» setting back to its default; the reader stays where he is. */
-  const resetAllPrefs = () => {
-    const rest = () => {
-      setReaderTheme("white");
-      resetReaderSize();
-      setShowAllTranslations(false);
-      setShowAllWbw(false);
-      window.dispatchEvent(new Event("arcana:reset-prefs"));
-    };
-    if (layout === "page") {
-      rest();
-      return;
-    }
-    // «Лента» -> «Страницы»: the layout goes first, alone, so that the place is kept in the chapter being read (the size and
-    // the folded verses would move the book's text under the reader and the chapter would jump); the rest follows once
-    // the chapter page is shown.
-    chooseLayout("page");
-    const t0 = Date.now();
-    const wait = window.setInterval(() => {
-      if (!document.querySelector("[data-continuous-book]") || Date.now() - t0 > 8000) {
-        window.clearInterval(wait);
-        window.setTimeout(rest, 400);
-      }
-    }, 150);
+  /** V98 (Vraja Lila msg 2967/2969): the panel's last button folds the whole contents (every opened part / chapter / section
+   *  / subsection - as at the first opening) and leads to the cover. It changes no setting. */
+  const collapseContentsToCover = () => {
+    collapseContents();
+    fromPanelThen(() => goChapter(null));
   };
 
   /**
@@ -1256,18 +1237,18 @@ export default function ReaderChrome({
                 </button>
               ))}
           </div>
-          {/* V97 (Vraja Lila msg 2947/2949): divider + «Сбросить настройки». compact row, rotate-cw icon (Vraja msg 8231-8233) */}
+          {/* V97/V98 (Vraja Lila msg 2947/2949, 2967/2969): divider + «Свернуть содержание». compact row, rotate-cw icon (Vraja msg 8231-8233) */}
           <hr className="reader-reset-sep" />
           <button
             type="button"
             className="reader-reset"
-            onClick={resetAllPrefs}
+            onClick={collapseContentsToCover}
           >
             <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-rotate-cw">
               <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" />
               <path d="M21 3v5h-5" />
             </svg>
-            <span>{t(ui, "reader.resetSettings")}</span>
+            <span>{t(ui, "reader.collapseContents")}</span>
           </button>
         </div>
       )}

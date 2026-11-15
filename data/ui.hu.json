@@ -79,7 +79,7 @@
   "group.contents": "A bevezetés tartalma",
   "offline.progress": "Mentés offline olvasáshoz: {n} %",
   "reader.layout": "Olvasás",
-  "reader.resetSettings": "Beállítások visszaállítása",
+  "reader.collapseContents": "Tartalom összecsukása",
   "reader.layout.page": "Oldalak",
   "reader.layout.scroll": "Görgetés",
   "offline.save.loading": "Mentés a telefonra",

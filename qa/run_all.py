@@ -192,7 +192,7 @@ SUITES = [
          devices=["iphone14", "pixel7", "desktop"], fast=True, fast_devices=["iphone14", "desktop"]),
     dict(id="s105", file="suites/s105_transkripti7.py", title="Satkirti msg 6417 (23.10) «Убрать из книги, но сохрани у себя»: 7 расшифровок-сирот ārā no public/transcripts/ un lib/transcripts.json, atlikušie ieraksti = faili, kopijas arhīvā",
          devices=None, fast=True, server=False),
-    dict(id="s_v97", file="suites/s_v97_reset_settings.py", title="V97 Vraja Lila msg 2947/2949/8231/8232: «Сбросить настройки» — тема white, размер 1, «Листать», переводы выкл., язык и глава не меняются (Страницы + Лента), иконка rotate-cw 18 px",
+    dict(id="s_v98", file="suites/s_v98_collapse_contents.py", title="V98 Vraja Lila msg 2967/2969: последняя кнопка «Аа» (rotate-cw) = «Свернуть содержание» / «Collapse contents» — ничего не сбрасывает (тема, размер, режим, переводы, язык), сворачивает всё содержание, переходит на обложку (Страницы + Лента), иконка rotate-cw 18 px",
          devices=["pixel7"], fast=True, fast_devices=["pixel7"]),
     dict(id="s120", file="suites/s120_rotation_keeps_place_v60.py", title="V60 Vraja 6949 (28.10, Android): ekrāna pagrieziens (portrets->ainava->portrets) lasot bhadžanu patur to pašu nodaļu (URL) un to pašu lasīšanas vietu — «Страницы» + «Лента»",
          devices=["pixel7", "iphone14"], fast=True, fast_devices=["pixel7", "iphone14"]),

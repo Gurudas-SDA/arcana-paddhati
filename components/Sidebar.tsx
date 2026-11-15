@@ -232,6 +232,12 @@ export function restoreParts(raw: string) {
   setPartsState(parseParts(raw));
 }
 
+/** V98 (Vraja Lila msg 2967/2969): the «Аа» panel's «Свернуть содержание» — every part, chapter and section folded
+ *  (the "*" key = «all closed» until the next arrival at a page, which puts the current part / chapter back). */
+export function collapseContents() {
+  setPartsState({ "*": false });
+}
+
 function setPartsState(state: Record<string, boolean>) {
   partsMemory = JSON.stringify(state);
   try {
@@ -275,14 +281,15 @@ function usePartsOpen(
       // history unavailable: arrival as usual
     }
     const cur = parseParts(partsSnapshot());
-    if (cur[currentPartId] === false) {
+    if (cur[currentPartId] === false || cur["*"] === false) {
       delete cur[currentPartId];
+      delete cur["*"];
       setPartsState(cur);
     }
   }, [selectedId, currentPartId]);
   // Chapters (key "ch:<id>") share the store: the current one is open by default.
   const isOpen = (id: string) =>
-    state[id] ?? (id === currentPartId || (selectedId !== null && id === chapterKey(selectedId)));
+    state[id] ?? (state["*"] === false ? false : id === currentPartId || (selectedId !== null && id === chapterKey(selectedId)));
   const toggle = (id: string) => setPartsState({ ...state, [id]: !isOpen(id) });
   return [isOpen, toggle];
 }
