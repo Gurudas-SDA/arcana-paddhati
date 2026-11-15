@@ -101,14 +101,14 @@ def run_one(DEV):
             if not bars(): rec("helper", "не удалось показать меню тапом", False, f"url={pg.url} pt={empty_point()}")
             return bars()
         def empty_point():
-            # a point whose element is plain page (not NO_TOGGLE) -- right page margin at mid-screen
+            # a point whose element is plain page (not NO_TOGGLE) -- right page margin at mid-screen. x = 1 / innerWidth-1 (tehniskais, nav S noteikums): with the 12 px phone margin (cd93771) the row box starts at x=6 and Chromium touch adjustment snapped a tap at x=5 to the row
             return pg.evaluate("""()=>{
               const NO='a,button,input,[role=button],[role=dialog],img,svg,.hs-text,.hs-hit,.hs-figure,.hs-peek,.mood-toggle,.verse-chips,[data-no-reader-tap],.reader-bar,.reader-status';
-              for (let y=Math.round(innerHeight*0.45); y<innerHeight-70; y+=17) for (const x of [innerWidth-5, 5]) {
+              for (let y=Math.round(innerHeight*0.45); y<innerHeight-70; y+=17) for (const x of [innerWidth-1, 1]) {
                 const e=document.elementFromPoint(x,y);
                 if(e && !e.closest(NO) && e.closest('.app-main') && [[-28,0],[0,-28],[0,28],[-28,-28],[-28,28]].every(([dx,dy])=>{const f=document.elementFromPoint(Math.max(1,x+dx),y+dy); return f && !f.closest(NO)})) return [x,y,e.tagName+'.'+(e.className||'').toString().slice(0,30)];
               }
-              for (let y=Math.round(innerHeight*0.45); y>70; y-=17) for (const x of [innerWidth-5, 5]) {
+              for (let y=Math.round(innerHeight*0.45); y>70; y-=17) for (const x of [innerWidth-1, 1]) {
                 const e=document.elementFromPoint(x,y);
                 if(e && !e.closest(NO) && e.closest('.app-main')) return [x,y,e.tagName+'.'+(e.className||'').toString().slice(0,30)];
               } return [innerWidth-6, Math.round(innerHeight/2), 'fallback'];}""")
