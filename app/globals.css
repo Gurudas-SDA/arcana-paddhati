@@ -2885,45 +2885,29 @@ html[data-ap-stepping] .reader-history-btn:disabled {
    (no font shrinks) so it fits without scrolling. Taller screens are not touched. # tehniskais slieksnis Lipikāra, nav S noteikums: 700 px */
 @media (max-height: 700px) {
   .reader-panel {
-    padding: 6px 12px 8px;
-  }
-  .reader-panel-close {
-    height: 30px;
-    margin-top: -4px;
+    padding: var(--space-4) var(--space-12) var(--space-4);
   }
   .reader-panel-label {
-    margin: 6px 0 3px;
-  }
-  .reader-panel .lang-field {
-    min-height: 40px;
-  }
-  .reader-size-btn {
-    height: 38px;
-    line-height: 38px;
+    margin: var(--space-4) 0 0;
   }
   .reader-size-value {
-    gap: 3px;
-  }
-  .reader-theme-btn {
-    padding: 4px var(--space-4);
     gap: 2px;
   }
-  .reader-swatch {
-    width: 18px;
-    height: 18px;
+  .reader-theme-btn {
+    padding: var(--space-4);
+    gap: 2px;
   }
   .reader-switches {
-    margin-top: 6px;
+    margin-top: var(--space-4);
     gap: 0;
   }
   .reader-switch,
   .reader-reset {
-    min-height: 38px;
     padding-top: 0;
     padding-bottom: 0;
   }
   .reader-reset-sep {
-    margin: 4px 0;
+    margin: var(--space-4) 0;
   }
 }
 /*@/v99*/

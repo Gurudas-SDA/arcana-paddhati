@@ -31,7 +31,7 @@ MEASURE = """() => { const p = document.querySelector('.reader-panel'); const r 
   return {top: r.top, bottom: r.bottom, w: r.width, h: r.height, vh: window.innerHeight,
     scrollH: p.scrollHeight, clientH: p.clientHeight, lastBottom: lr.bottom, lastTop: lr.top,
     fontMin: Math.min(...[...p.querySelectorAll('button span, button, .reader-panel-title, .reader-size-value, .lang-field-value')].map(e => parseFloat(getComputedStyle(e).fontSize))),
-    labs: labs.join('|'), sepM: getComputedStyle(p.querySelector('.reader-reset-sep')).marginTop}; }"""
+    pad: ['Top','Right','Bottom','Left'].map(s => getComputedStyle(p)['padding'+s]).join(' '), labs: labs.join('|'), sepM: getComputedStyle(p.querySelector('.reader-reset-sep')).marginTop}; }"""
 
 
 def check(dev, name, ok, evidence=""):
@@ -72,7 +72,11 @@ def run(p, dev, eng, opts, theme, low):
         check(name, "«Свернуть содержание» works — reader on the cover", pg.evaluate("location.pathname").rstrip("/").endswith(f"/{LANG}"), pg.evaluate("location.pathname"))
     else:
         exp = TALL_EXPECT[dev]
-        ok = abs(m["h"] - exp["h"]) <= 1 and abs(m["w"] - exp["w"]) <= 1 and abs(m["top"] - exp["top"]) <= 1 and m["labs"] == exp["labs"] and m["sepM"] == exp["sepM"]
+        # engine-neutral: the @media block must NOT be active — computed spacing equals the base CSS values exactly (padding 10px 14px 14px,
+        # label margins, separator margin); the height is a Chromium measurement of main, other engines/fonts differ by a few px
+        # tehniskais slieksnis Lipikāra, nav S noteikums: height tolerance ±3 px
+        ok = (abs(m["h"] - exp["h"]) <= 3 and abs(m["w"] - exp["w"]) <= 1 and abs(m["top"] - exp["top"]) <= 1 and m["labs"] == exp["labs"]
+              and m["sepM"] == exp["sepM"] and m["pad"] == "10px 14px 14px 14px")
         check(name, "tall device: window size/spacing identical to main", ok, {"now": m, "main": exp})
     b.close()
 
