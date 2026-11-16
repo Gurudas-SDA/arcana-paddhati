@@ -194,6 +194,8 @@ SUITES = [
          devices=None, fast=True, server=False),
     dict(id="s_v98", file="suites/s_v98_collapse_contents.py", title="V98 Vraja Lila msg 2967/2969: последняя кнопка «Аа» (rotate-cw) = «Свернуть содержание» / «Collapse contents» — ничего не сбрасывает (тема, размер, режим, переводы, язык), сворачивает всё содержание, переходит на обложку (Страницы + Лента), иконка rotate-cw 18 px",
          devices=["pixel7"], fast=True, fast_devices=["pixel7"]),
+    dict(id="s_v99", file="suites/s_v99_compact_aa_short_screens.py", title="V99 Vraja Lila msg 2980: «Аа» — kompaktāks logs TIKAI zemos ekrānos (augstums <= 700 px), ietilpst bez ritināšanas ar pēdējo pogu; augstās ierīcēs (iPhone 14, iPad, dators, Pixel 7) izmēri nemainīti",
+         devices=None, fast=True),
     dict(id="s120", file="suites/s120_rotation_keeps_place_v60.py", title="V60 Vraja 6949 (28.10, Android): ekrāna pagrieziens (portrets->ainava->portrets) lasot bhadžanu patur to pašu nodaļu (URL) un to pašu lasīšanas vietu — «Страницы» + «Лента»",
          devices=["pixel7", "iphone14"], fast=True, fast_devices=["pixel7", "iphone14"]),
     dict(id="s129", file="suites/s129_ui_not_over_images.py", title="V61 s4 fix, Vraja Lila msg 7168 31.10: «элементы UI не перекрывают картины, особенно изображения Божеств» — peek kartē ✕ stāv joslā virs bildes: ✕ ∩ bilde = 0 px (iPhone 14 + dators, diena + nakts), bilde neapgriezta, ✕ bez diska",
