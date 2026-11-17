@@ -214,6 +214,15 @@ def run(p, dev, eng, o):
     start_url = pg.url
 
     def restore_fixture():
+        # A tap that EXPANDS a collapsed chapter's list also opens that chapter (so the url leaves start_url) - when the reload lost
+        # that chapter from the session's open lists. Then the fixture is rebuilt once more from start_url: the open list already holds the
+        # chapter (the tap wrote it), so the second pass needs no such tap. (s26 flake 17.11: v89, v99, V100b pre-push - 'fixture not restored')
+        for _attempt in range(3):
+            restore_fixture_once()
+            if flow.state()['url'] == start_url:
+                break
+
+    def restore_fixture_once():
         pg.goto(start_url, wait_until='networkidle'); pg.wait_for_timeout(500)
         contents()
         # The reader's hand-made expanded / collapsed lists last for the session (sessionStorage, on origin/main too: Sidebar PARTS_STORE),
@@ -235,61 +244,71 @@ def run(p, dev, eng, o):
         for side in ("right", "left"):
             if r == 'cover':
                 prepare_rows()
-            q = pg.evaluate("""async ([r, side]) => {
-                const el = [...document.querySelectorAll('.mobile-menu[data-open] nav [data-toc-row]')].find(e => e.getAttribute('data-toc-row') === r);
-                if (!el) return null;
-                const list = document.querySelector('.mobile-menu[data-open] .toc-scroll');
-                const aside = document.querySelector('.mobile-menu[data-open] aside');
-                const frame = () => new Promise(resolve => requestAnimationFrame(resolve));
-                for (let i = 0; i < 15; i++) {
-                    el.scrollIntoView({block: 'center', behavior: 'instant'}); await frame();
-                    const b = el.getBoundingClientRect(), a = aside.getBoundingClientRect();
-                    // WebKit's overlay scrollbar catches taps without taking
-                    // layout width. Use s35's clearance, then tap near the
-                    // usable right edge. Keep the row width checks unchanged.
-                    const right = list ? list.getBoundingClientRect().right - Math.max(16, list.offsetWidth - list.clientWidth) : a.right;
-                    const x = side === 'right' ? Math.min(b.right, a.right, right) - 6 : (r.startsWith('sub:') ? a.left + 4 : b.left + 4);
-                    const y = b.top + b.height / 2;
-                    if (el.contains(document.elementFromPoint(x, y)))
-                        return {x, y, w: b.width, aw: a.width, exp: el.getAttribute('aria-expanded'), href: el.getAttribute('href')};
-                }
-                return null;
-            }""", [r, side])
+            # A tap that a loaded WebKit drops (the row was scrolled under the finger a frame earlier) shows as «nothing happened» (s26 iphone14
+            # 17.11, sub-row right edge, state unchanged): the row is measured and tapped once more from a rebuilt fixture - a dead edge fails
+            # both times, so the check keeps its strength   # tehniskais slieksnis Lipikāra, nav S noteikums
+            for attempt in (0, 1):
+                q = pg.evaluate("""async ([r, side]) => {
+                    const el = [...document.querySelectorAll('.mobile-menu[data-open] nav [data-toc-row]')].find(e => e.getAttribute('data-toc-row') === r);
+                    if (!el) return null;
+                    const list = document.querySelector('.mobile-menu[data-open] .toc-scroll');
+                    const aside = document.querySelector('.mobile-menu[data-open] aside');
+                    const frame = () => new Promise(resolve => requestAnimationFrame(resolve));
+                    for (let i = 0; i < 15; i++) {
+                        el.scrollIntoView({block: 'center', behavior: 'instant'}); await frame();
+                        const b = el.getBoundingClientRect(), a = aside.getBoundingClientRect();
+                        // WebKit's overlay scrollbar catches taps without taking
+                        // layout width. Use s35's clearance, then tap near the
+                        // usable right edge. Keep the row width checks unchanged.
+                        const right = list ? list.getBoundingClientRect().right - Math.max(16, list.offsetWidth - list.clientWidth) : a.right;
+                        const x = side === 'right' ? Math.min(b.right, a.right, right) - 6 : (r.startsWith('sub:') ? a.left + 4 : b.left + 4);
+                        const y = b.top + b.height / 2;
+                        if (el.contains(document.elementFromPoint(x, y)))
+                            return {x, y, w: b.width, aw: a.width, exp: el.getAttribute('aria-expanded'), href: el.getAttribute('href')};
+                    }
+                    return null;
+                }""", [r, side])
+                if not q:
+                    break
+                before = flow.state()
+                tapxy(q["x"], q["y"], 300)
+                # Wait for the tap's action to finish - a STATE, not 300 ms (as s35, 15.10): chapter by chapter
+                # (Vraja PR 2) a row may open another page, which WebKit under load shows later than 300 ms.
+                if q['exp'] is None:
+                    goal = urlsplit(urljoin(pg.url, q['href']))
+                    moves = unquote(goal.path) + ('#' + unquote(goal.fragment) if goal.fragment else '') != unquote(before['url'])
+                else:
+                    moves = q['exp'] == 'false' and r.startswith('sec:') and not before['url'].endswith('/' + r[4:] + '/')
+                settled(before['url'], moves)
+                after = flow.state()
+                if q['exp'] is None:
+                    want = urlsplit(urljoin(pg.url, q['href']))
+                    target = unquote(want.path) + ('#' + unquote(want.fragment) if want.fragment else '')
+                    reacted = not after['menu'] and unquote(after['url']) == target
+                else:
+                    row = flow.row(r)
+                    reacted = after['menu'] and row.get_attribute('aria-expanded') != q['exp'] and marks_place(after)
+                    if r.startswith('grp:'):
+                        reacted = reacted and after['url'] == before['url']
+                        # An unrelated group never moves the mark. A hidden current
+                        # branch raises it to the nearest visible ancestor.
+                        if before['lit'] != [r] and after['lit'] != [r]:
+                            reacted = reacted and after['lit'] == before['lit']
+                    elif q['exp'] == 'false':
+                        chapter = r[4:]
+                        reacted = reacted and after['url'].endswith('/' + chapter + '/') and marks_chapter_top(pg, after, chapter)
+                        reacted = reacted and abs(pg.evaluate(qa.READING_POSITION_JS)['top']) < 2
+                    else:
+                        reacted = reacted and after['url'] == before['url']
+                        if before['lit'] == [r]:
+                            reacted = reacted and after['lit'] == [r]
+                if reacted and q["w"] >= q["aw"] * (0.95 if r.startswith("sub:") else 0.6):
+                    break
+                if attempt == 0:
+                    prepare_rows() if r == "cover" else restore_fixture()
             if not q:
                 bad.append((r, side, "row not under the edge tap point"))
                 continue
-            before = flow.state()
-            tapxy(q["x"], q["y"], 300)
-            # Wait for the tap's action to finish - a STATE, not 300 ms (as s35, 15.10): chapter by chapter
-            # (Vraja PR 2) a row may open another page, which WebKit under load shows later than 300 ms.
-            if q['exp'] is None:
-                goal = urlsplit(urljoin(pg.url, q['href']))
-                moves = unquote(goal.path) + ('#' + unquote(goal.fragment) if goal.fragment else '') != unquote(before['url'])
-            else:
-                moves = q['exp'] == 'false' and r.startswith('sec:') and not before['url'].endswith('/' + r[4:] + '/')
-            settled(before['url'], moves)
-            after = flow.state()
-            if q['exp'] is None:
-                want = urlsplit(urljoin(pg.url, q['href']))
-                target = unquote(want.path) + ('#' + unquote(want.fragment) if want.fragment else '')
-                reacted = not after['menu'] and unquote(after['url']) == target
-            else:
-                row = flow.row(r)
-                reacted = after['menu'] and row.get_attribute('aria-expanded') != q['exp'] and marks_place(after)
-                if r.startswith('grp:'):
-                    reacted = reacted and after['url'] == before['url']
-                    # An unrelated group never moves the mark. A hidden current
-                    # branch raises it to the nearest visible ancestor.
-                    if before['lit'] != [r] and after['lit'] != [r]:
-                        reacted = reacted and after['lit'] == before['lit']
-                elif q['exp'] == 'false':
-                    chapter = r[4:]
-                    reacted = reacted and after['url'].endswith('/' + chapter + '/') and marks_chapter_top(pg, after, chapter)
-                    reacted = reacted and abs(pg.evaluate(qa.READING_POSITION_JS)['top']) < 2
-                else:
-                    reacted = reacted and after['url'] == before['url']
-                    if before['lit'] == [r]:
-                        reacted = reacted and after['lit'] == [r]
             # Keep the original full-panel width thresholds at both edges.
             if not reacted or q["w"] < q["aw"] * (0.95 if r.startswith("sub:") else 0.6):
                 bad.append((r, side, after, round(q["w"]), round(q["aw"])))
@@ -299,7 +318,7 @@ def run(p, dev, eng, o):
                 restore_fixture()
                 restored = flow.state()
                 if any(restored[k] != fixture0[k] for k in ['url', 'menu', 'open']) or not marks_place(restored):
-                    bad.append((r, side, 'fixture not restored', fixture0, restored))
+                    bad.append((r, side, 'fixture not restored', {k: (fixture0[k], restored[k]) for k in ['url', 'menu', 'open', 'lit'] if restored[k] != fixture0[k]}, 'marks_place', marks_place(restored), restored['lit']))
     chk(dev, f"4 every row type reacts over its full strip, left and right edge ({len(sample)} rows: {', '.join(sorted(kinds))})",
         not bad and {"cover", "grp", "sec", "sub"} <= set(kinds), str(bad[:4]))
     # (no Escape before the next goto: its history.go(-n) would land after the new page loaded)
@@ -515,6 +534,10 @@ def run(p, dev, eng, o):
     b1 = pg.evaluate("document.documentElement.hasAttribute('data-reader-bars')")
     chk(dev, "9 a tap on the portrait still toggles the menu (§10)", b0 != b1, (b0, b1))
 
+    # WebKit reports a link prefetch cut off by the test's own goto() / reload as «… due to access control checks» (same-origin page URL;
+    # the test's doing, not the reader's — as in s071/s07/s22, A65 gate 10.10)
+    host = BASE.split('//', 1)[-1].split('/', 1)[0]
+    errs = [e for e in errs if not (e.rstrip().endswith('due to access control checks.') and host in e)]
     chk(dev, "no page errors", not errs, str(errs[:3]))
     b.close()
 

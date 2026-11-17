@@ -81,7 +81,10 @@ SUITES = [
          fast_devices=["pixel7", "iphone14", "ipad-portrait", "desktop"]),
     dict(id="s26", file="suites/s26_ksv_0710_evening.py", title="v7.8 КСВ 07.10 vakars: «Аа» slēdži+valoda, nekustīgā «Обложка», pilna platuma rindas, autoritināšana, tilakas rindas+galvvidus, īsās mantras bez «пословно», meklēšanas izgaismojums, parampara bez rombiem",
          devices=["pixel7", "iphone14", "ipad-portrait", "ipad-landscape", "desktop", "mac-safari"], fast=True,
-         fast_devices=["pixel7", "iphone14", "ipad-portrait"]),
+         fast_devices=["pixel7", "iphone14", "ipad-portrait"],
+         # s26 telefonā (13 rindu paraugs x 2 malas ar atjaunošanu) ilgst 250-400 s un fast 280 s robeža to nogalina uz noslogota servera
+         # (v99-push, v99-push2, v100b-push, v100b-push2 17.11: TIMEOUT 280 s, atkārtojums 560 s dažreiz krīt uz tā paša soļa); pārbaude nemainīta
+         timeout_fast=900),  # tehniskais slieksnis Lipikāra, nav S noteikums
     dict(id="s27", file="suites/s27_night_sync_safety.py", title="v7.8.3: nakts sinhronizācija nedzēš tulkotu sadaļu bez i18n ieraksta; atomiski faili",
          devices=None, fast=True, server=False),
     dict(id="s28", file="suites/s28_a68_night_0910.py", title="A68 nakts 09.10: sanskrits tikai sanskrits (RU-IAST = EN), avotu rakstība, HU cache pādya-pātra, night_sync exit≠0 pie FAIL",
@@ -547,7 +550,8 @@ def main():
             by_key = {(j[0]["id"], tuple(j[1] or []), j[0].get("toc_mode"), j[0].get("shard")): j for j in jobs}
             with cf.ThreadPoolExecutor(max_workers=min(a.jobs, len(retry))) as ex:
                 futs = {ex.submit(run_job, by_key[(r["suite"], tuple(r["devices"] or []), r.get("toc_mode"), r.get("shard"))], srv.base, a.fast,
-                                  timeout * 2 if a.fast else timeout): r for r in retry}
+                                  max(timeout * 2, by_key[(r["suite"], tuple(r["devices"] or []), r.get("toc_mode"), r.get("shard"))][0].get("timeout_fast", 0))
+                                  if a.fast else timeout): r for r in retry}
                 for f in cf.as_completed(futs):
                     old, new = futs[f], f.result()
                     n_bad = sum(1 for c in new["checks"] if c["status"] == "FAIL")
