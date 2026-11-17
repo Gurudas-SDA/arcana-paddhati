@@ -102,14 +102,14 @@ def run(p, dev, eng, opts):
         st = st2
         pg.screenshot(path=f"/tmp/claude-1001/-home-satkirti-03-Satkirti/a07d1a16-5db1-4409-9080-8abc555630a2/scratchpad/s163_{dev}_nomenu.png")
     check(dev, "(1) inside one section: menu, colours and «Заметка» enabled, no hint",
-          whole(st) and len(st["colors"]) == 4 and not any(st["colors"]) and st["note"] == [False] and st["hint"] is None, st)
+          whole(st) and len(st["colors"]) == 5 and not any(st["colors"]) and st["note"] == [False] and st["hint"] is None, st)
     # (2) extended
     n = pg.evaluate(SEL_EXT)
     st = wait_menu(pg)
     check(dev, "(2) extended into the next section: our menu stays whole on the screen", whole(st), [n, st])
     check(dev, "(2) a hint says why", bool(st and st["hint"]), st)
     check(dev, "(2) colours and «Заметка» are disabled, «Копировать» enabled",
-          bool(st) and len(st["colors"]) == 4 and all(st["colors"]) and st["note"] == [True] and st["copy"] == [False], st)
+          bool(st) and len(st["colors"]) == 5 and all(st["colors"]) and st["note"] == [True] and st["copy"] == [False], st)
     items = pg.evaluate("() => localStorage.getItem('ap.highlights')")
     check(dev, "(2) nothing was stored", not items or '"items":[]' in items.replace(" ", ""), items)
     # (4) shrink back
