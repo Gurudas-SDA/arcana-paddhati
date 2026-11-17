@@ -2590,6 +2590,7 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
 ::highlight(hl-2) { background-color: var(--hl-3-fill); color: inherit; }
 ::highlight(hl-3) { background-color: var(--hl-4-fill); color: inherit; }
 ::highlight(hl-4) { background-color: var(--hl-5-fill); color: inherit; }
+::highlight(hl-nc) { text-decoration: underline dotted var(--hl-nc-tone) 1.5px; background-color: transparent; color: inherit; }
 ::highlight(hl-flash) { background-color: var(--ap-band-flash); color: inherit; }
 /* the selection menu / the card of a highlight: light in day and sepia, dark at night (the colour dots are checked on this very ground) */
 .hl-menu {
@@ -2692,6 +2693,7 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
 }
 /* V100b (Vraja Lila msg 8357, variant B): the room the line keeps for the sign - an empty inline box as wide as the sign, so the sign covers no letter */
 .hl-gap { display: inline-block; width: calc(var(--space-24) + var(--space-4)); height: 1em; vertical-align: text-bottom; pointer-events: none; user-select: none; -webkit-user-select: none; }
+.hl-dot-none { display: flex; align-items: center; justify-content: center; color: var(--rd-fg); background: transparent; }
 .hl-marker[data-hl-nocolor] { border-color: var(--ap-gold); }
 .hl-marker::after { content: ""; position: absolute; inset: calc(var(--space-12) * -1); }
 /* a dot on the «Пословно» button while its closed panel holds a highlight */

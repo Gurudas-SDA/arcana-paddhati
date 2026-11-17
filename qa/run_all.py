@@ -200,6 +200,8 @@ SUITES = [
          devices=["pixel7", "iphone14"], fast=True, fast_devices=["pixel7", "iphone14"]),
     dict(id="s_v100b", file="suites/s_v100b_palette1_orange_note_sign.py", title="V100b Vraja Lila (msg 8357): palete 1 + 5. krāsa oranža; krāsas noņemšana saglabā piezīmi (ikona fragmenta beigās); ikona nepārklāj burtus",
          devices=["pixel7", "iphone14"], fast=True, fast_devices=["pixel7", "iphone14"]),
+    dict(id="s_v100c", file="suites/s_v100c_no_color_variants.py", title="V100c Vraja Lila (msg 8358): piezīme bez krāsas — ikona + punktēta pasvītra; «bez krāsas» izvēle: 1. variants (pārsvītrots aplis) un 2. variants (atkārtots klikšķis); krāsas noņemšana saglabā tekstu",
+         devices=["pixel7", "iphone14"], fast=True, fast_devices=["pixel7", "iphone14"]),
     dict(id="s120", file="suites/s120_rotation_keeps_place_v60.py", title="V60 Vraja 6949 (28.10, Android): ekrāna pagrieziens (portrets->ainava->portrets) lasot bhadžanu patur to pašu nodaļu (URL) un to pašu lasīšanas vietu — «Страницы» + «Лента»",
          devices=["pixel7", "iphone14"], fast=True, fast_devices=["pixel7", "iphone14"]),
     dict(id="s129", file="suites/s129_ui_not_over_images.py", title="V61 s4 fix, Vraja Lila msg 7168 31.10: «элементы UI не перекрывают картины, особенно изображения Божеств» — peek kartē ✕ stāv joslā virs bildes: ✕ ∩ bilde = 0 px (iPhone 14 + dators, diena + nakts), bilde neapgriezta, ✕ bez diska",

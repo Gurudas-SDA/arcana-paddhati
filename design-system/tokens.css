@@ -155,6 +155,7 @@ html[data-reader-theme="night"] {
   --hl-5-tone: #FF8A1F;
   --hl-5-alpha: 0.4;
   --hl-5-fill: color-mix(in srgb, var(--hl-5-tone) calc(var(--hl-5-alpha) * 100%), transparent);
+  --hl-nc-tone: #7A6A5A; /* V100b: the dotted underline of a note without a colour (neutral) */
 }
 html[data-reader-theme="sepia"] {
   --hl-1-tone: #E3B300;
@@ -172,6 +173,7 @@ html[data-reader-theme="sepia"] {
   --hl-5-tone: #F27E10;
   --hl-5-alpha: 0.42;
   --hl-5-fill: color-mix(in srgb, var(--hl-5-tone) calc(var(--hl-5-alpha) * 100%), transparent);
+  --hl-nc-tone: #6B5A44;
 }
 html[data-reader-theme="night"] {
   --hl-1-tone: #F2CF3C;
@@ -189,5 +191,6 @@ html[data-reader-theme="night"] {
   --hl-5-tone: #FF9A3D;
   --hl-5-alpha: 0.34;
   --hl-5-fill: color-mix(in srgb, var(--hl-5-tone) calc(var(--hl-5-alpha) * 100%), transparent);
+  --hl-nc-tone: #B9AB98;
 }
 /*@/v71*/
