@@ -58,7 +58,20 @@ def run(p, dev, eng, opts, theme, low):
     pg.goto(f"{BASE}/{LANG}/{CHAP}/", wait_until="networkidle")
     pg.wait_for_timeout(1000)
     open_panel(pg)
+    # the panel's 160 ms «reader-pop» animation (scale) shifts getBoundingClientRect (top 58-60 instead of 62): wait until it has finished
+    try:
+        pg.wait_for_function("() => document.querySelector('.reader-panel').getAnimations().every(a => a.playState === 'finished')", timeout=8000)
+    except Exception:
+        pass
+    # wait until the panel opening animation is over: 2 consecutive identical top/height measurements (100 ms apart)
     m = pg.evaluate(f"({MEASURE})()")
+    for _ in range(50):
+        pg.wait_for_timeout(100)
+        m2 = pg.evaluate(f"({MEASURE})()")
+        stable = m2["top"] == m["top"] and m2["h"] == m["h"] and m2["bottom"] == m["bottom"]
+        m = m2
+        if stable:
+            break
     name = f"{dev} {theme}"
     if SHOTS:
         pg.screenshot(path=os.path.join(SHOTS, f"{TAG}_{dev}_{theme}.png"))

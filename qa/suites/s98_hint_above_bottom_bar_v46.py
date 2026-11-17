@@ -107,14 +107,23 @@ def run(browser, dev, opts, mode, lang, ch):
     c = browser.new_context(service_workers="block", locale="ru-RU", **opts)
     init = "try{localStorage.removeItem('ap.readerHintSeen');localStorage.setItem('installDismissed','true');"
     init += ("localStorage.setItem('ap.readerLayout','scroll')" if mode == "scroll" else "localStorage.removeItem('ap.readerLayout')")
-    c.add_init_script(init + "}catch(e){}")
+    # pagarināts HINT taimeris TIKAI testā (ģeometrijas pārbaude, ne dzīves ilgums); origin/main lokāli krīt tāpat (5 palaišanas: 1 krišana, tāpat v100b 1/5)
+    # tehniskais slieksnis Lipikāra, nav S noteikums: the hint hides itself 6.8 s after hydration (800 + HINT_MS 6000 in ReaderChrome.tsx);
+    # on a slow WebKit run scenario B is measured later than that (t = 8-10 s) and the hint is gone. This suite checks the hint's
+    # GEOMETRY, not its lifetime -> stretch only that one timer (delay 6800 ms) so that the measurement is not a race with it
+    stretch = ("try{const st=window.setTimeout.bind(window);window.setTimeout=function(f,d){const a=[].slice.call(arguments,2);"
+               "return st.apply(window,[f,d===6800?600000:d].concat(a));};}catch(e){}")
+    c.add_init_script(stretch + init + "}catch(e){}")
     pg = c.new_page()
     errors = []
     pg.on("pageerror", lambda e: errors.append(str(e)))
     tag = f"{dev}/{'Лента' if mode == 'scroll' else 'Страницы'}/{lang or 'en'}"
     try:
-        pg.goto(f"{BASE}/{lang + '/' if lang else ''}{ch}/", wait_until="networkidle")
-        pg.wait_for_selector(".reader-hint", timeout=6000)
+        # tehniskais slieksnis Lipikāra, nav S noteikums: the app's one-time hint lives 6 s after it appears (HINT_MS); under load
+        # `networkidle` alone can take longer than that (WebKit, t = 8-9 s in the flaky runs) and the hint is gone before it is
+        # measured -> wait for the DOM only and for the hint itself, then measure at once
+        pg.goto(f"{BASE}/{lang + '/' if lang else ''}{ch}/", wait_until="domcontentloaded")
+        pg.wait_for_selector(".reader-hint", timeout=20000)
         pg.wait_for_timeout(500)                      # its 220 ms entrance is over
         s = pg.evaluate(GEO)
         at_load = "bar out" if s["shown"] else "bar hidden"
