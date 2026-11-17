@@ -452,6 +452,30 @@ export default function HighlightsLayer({ ui, lang }: Props) {
     const r = menu.sel.rect;
     let top = phone ? r.bottom + 14 : r.top - h - 8;
     if (!phone && top < 8) top = r.bottom + 8;
+    // V101 (Vraja Lila msg 8393/8394, iPhone/iPad Safari): the system bar (Copy · Look Up · Translate) is ABOVE the selection, so the panel goes right
+    // UNDER it (a small gap, the lower selection handle stays free); no room below -> above the selection, higher than the system bar; no room there either -> as in V100.
+    const ios = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    el.toggleAttribute("data-hl-ios", phone && ios);
+    if (phone && ios) {
+      const gap = parseFloat(getComputedStyle(el).marginTop) || 16; // CSS: .hl-menu[data-hl-ios] margin-top = var(--space-16)
+      const SYS_BAR = 56; // tehniskais slieksnis: the system bar's height
+      const vv = window.visualViewport;
+      const visTop = vv ? vv.offsetTop : 0;
+      let visBottom = vv ? vv.offsetTop + vv.height : vh;
+      const bar = document.querySelector(".reader-bar-bottom");
+      if (bar) visBottom = Math.min(visBottom, bar.getBoundingClientRect().top);
+      const below = r.bottom + gap;
+      const above = r.top - gap - SYS_BAR - h;
+      let iosTop = -1;
+      if (below + h <= visBottom - 8) iosTop = below - gap;
+      else if (above >= visTop + 8) iosTop = above - gap;
+      if (iosTop >= 0) {
+        const lx = Math.max(16, Math.min((r.left + r.right) / 2 - w / 2, vw - w - 16));
+        if (Math.abs(lx - menu.x) > 0.5 || Math.abs(iosTop - menu.y) > 0.5) setMenu({ sel: menu.sel, x: lx, y: iosTop });
+        return;
+      }
+      el.removeAttribute("data-hl-ios"); // no room on either side: the V100 placement (no margin)
+    }
     if (phone) {
       // V100 (Vraja Lila, iPhone): the system's own bar (Copy · Look Up · Translate) sits right above or below the selection and covered the
       // colours. On a phone the panel is kept AWAY from the selection: fixed at the bottom of the screen, or at the top when the selection is low.

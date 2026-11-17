@@ -2610,6 +2610,8 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
   -webkit-user-select: none;
   user-select: none;
 }
+/* V101: iPhone/iPad — the gap between the selection and the panel (read by Highlights.tsx) */
+.hl-menu[data-hl-ios] { margin-top: var(--space-16); }
 .hl-menu .hl-colors { display: flex; justify-content: center; gap: 0; }
 .hl-color {
   display: inline-flex;

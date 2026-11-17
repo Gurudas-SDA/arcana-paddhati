@@ -201,6 +201,8 @@ SUITES = [
          devices=None, fast=True),
     dict(id="s_v100", file="suites/s_v100_notes_one_color_ios_menu.py", title="V100 Vraja Lila: viens fragments = viens izcēlums, viena krāsa, viena piezīme (krāsas maiņa aizstāj, vecie dublikāti apvienoti); iPhone: krāsu panelis nepārklājas ar iOS izvēlni (Copy/Look Up)",
          devices=["pixel7", "iphone14"], fast=True, fast_devices=["pixel7", "iphone14"]),
+    dict(id="s_v101", file="suites/s_v101_ios_panel_under_selection.py", title="V101 Vraja Lila msg 8393/8394: iPhone — krāsu panelis tieši zem atlases (nepārklāj atlasi un rokturus); nav vietas — virs atlases, augstāk par sistēmas izvēlni; Android/dators kā V100",
+         devices=["pixel7", "iphone14"], fast=True, fast_devices=["pixel7", "iphone14"]),
     dict(id="s_v100b", file="suites/s_v100b_palette1_orange_note_sign.py", title="V100b Vraja Lila (msg 8357): palete 1 + 5. krāsa oranža; krāsas noņemšana saglabā piezīmi (ikona fragmenta beigās); ikona nepārklāj burtus",
          devices=["pixel7", "iphone14"], fast=True, fast_devices=["pixel7", "iphone14"]),
     dict(id="s_v100c", file="suites/s_v100c_no_color_variants.py", title="V100c Vraja Lila (msg 8358): piezīme bez krāsas — ikona + punktēta pasvītra; «bez krāsas» izvēle: 1. variants (pārsvītrots aplis) un 2. variants (atkārtots klikšķis); krāsas noņemšana saglabā tekstu",
