@@ -90,17 +90,6 @@ interface Resolved {
   range: Range;
 }
 
-/** V100b (Vraja Lila msg 8358): how «без цвета» is chosen. Flag `ap.hlNoColor`: "1" = a struck-through circle before the colours; "2" = the pressed colour
- *  is tapped again to take it off, a new note with text and no colour chosen has none; no flag = the repeated tap works, a new note starts with yellow (as before). */
-function ncVariant(): "1" | "2" | "" {
-  try {
-    const v = localStorage.getItem("ap.hlNoColor");
-    return v === "1" || v === "2" ? v : "";
-  } catch {
-    return "";
-  }
-}
-
 const COLOR_NAME_KEY = (i: number) => `hl.color.${COLOR_KEYS[i]}`;
 
 function currentSection(): string | undefined {
@@ -649,24 +638,6 @@ export default function HighlightsLayer({ ui, lang }: Props) {
 
   const colorButtons = ({ current, onPick, kind, disabled }: { current?: number; onPick: (i: number) => void; kind: string; disabled?: boolean }) => (
     <div className="hl-colors" role="group">
-      {ncVariant() === "1" && (kind === "card" || kind === "editor") && (
-        <button
-          type="button"
-          className="hl-color"
-          data-hl-nocolor-btn=""
-          data-hl-color-kind={kind}
-          data-current={current === NO_COLOR ? "" : undefined}
-          aria-label={t(ui, "hl.color.none")}
-          aria-pressed={current === undefined ? undefined : current === NO_COLOR}
-          title={t(ui, "hl.color.none")}
-          disabled={disabled}
-          onClick={() => onPick(NO_COLOR)}
-        >
-          <span className="hl-dot hl-dot-none">
-            <svg aria-hidden="true" width="100%" height="100%" viewBox="0 0 28 28"><path d="M6 22 22 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" /></svg>
-          </span>
-        </button>
-      )}
       {Array.from({ length: COLORS }, (_, i) => (
         <button
           key={i}
@@ -831,7 +802,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
                 onClick={() => {
                   const old = coveredBy(itemsRef.current, { lang, section: menu.sel.section, mood: menu.sel.mood, start: menu.sel.start, end: menu.sel.end })
                     .sort((a, b) => b.updated - a.updated)[0];
-                  setEditor({ sel: menu.sel, color: old?.color ?? (ncVariant() === "2" ? NO_COLOR : 0), note: old?.note ?? "", quote: menu.sel.quote, inMood: menu.sel.inMood });
+                  setEditor({ sel: menu.sel, color: old?.color ?? NO_COLOR, note: old?.note ?? "", quote: menu.sel.quote, inMood: menu.sel.inMood });
                   setMenu(null);
                 }}
               >
@@ -860,7 +831,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
               className="hl-menu hl-card"
               style={{ top: Math.max(8, Math.min(card.y + 12, window.innerHeight - 240)) }}
             >
-              {colorButtons({ kind: "card", current: cardItem.color, onPick: (i) => (i === NO_COLOR || (cardItem.color === i && ncVariant() !== "1") ? (cardItem.note ? updateHighlight(cardItem.id, { color: NO_COLOR }) : (removeHighlight(cardItem.id, labels), setCard(null))) : updateHighlight(cardItem.id, { color: i })) })}
+              {colorButtons({ kind: "card", current: cardItem.color, onPick: (i) => (cardItem.color === i ? (cardItem.note ? updateHighlight(cardItem.id, { color: NO_COLOR }) : (removeHighlight(cardItem.id, labels), setCard(null))) : updateHighlight(cardItem.id, { color: i })) })}
               <p className="hl-card-note hl-card-note-y" data-hl-card-note="">{cardItem.note || t(ui, "hl.card.noNote")}</p>
               <div className="hl-actions hl-actions-icons">
                 <button type="button" className="hl-icon" data-hl-card-edit="" aria-label={t(ui, "hl.edit")} title={t(ui, "hl.edit")}
@@ -908,7 +879,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
           >
             <h2 className="window-title text-lg font-bold mb-3 hl-t" style={{ fontFamily: "var(--font-book, Georgia, serif)" }}>{t(ui, "hl.editor.title")}</h2>
             {editor.quote.length <= HL_QUOTE_SHOW_MAX && <p className="hl-quote" data-hl-editor-quote="">{editor.quote}</p>}
-            {colorButtons({ kind: "editor", current: editor.color, onPick: (i) => setEditor({ ...editor, color: editor.color === i && ncVariant() !== "1" ? NO_COLOR : i }) })}
+            {colorButtons({ kind: "editor", current: editor.color, onPick: (i) => setEditor({ ...editor, color: editor.color === i ? NO_COLOR : i }) })}
             <label className="block text-sm hl-t-soft mb-1.5 mt-3" htmlFor="hl-note-field">{t(ui, "hl.editor.label")}</label>
             <div className="hl-field-wrap">
               <textarea

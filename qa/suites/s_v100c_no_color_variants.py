@@ -1,6 +1,6 @@
-"""V100c — Vraja Lila msg 8358: a note without a colour = the sign in a circle (variant B) + a light dotted underline under the fragment; two ways to choose «без цвета» (flag `ap.hlNoColor`):
- variant 1: a struck-through circle before the five colours (card and note window) = «без цвета»; variant 2: the pressed colour is tapped again to take it off,
- a new note with text and no colour chosen has none. In both: taking the colour off KEEPS the note (the text); the underline is there; the sign covers no letter.
+"""V100c — Vraja Lila msg 8358/8380: a note without a colour = the sign in a circle (variant B) + a light dotted underline under the fragment.
+ «Без цвета» (variant 2, the only one): a new selection has NO colour active; a colour is chosen = a coloured highlight; the pressed colour is tapped again =
+ the colour is taken off; a note window opened with no colour chosen and a text typed = a note without a colour. Taking the colour off KEEPS the note (the text).
 # tehniskais slieksnis Lipikāra, nav S noteikums: overlap tolerance 0.5 px between the sign's box and a letter's box
 usage: python s_v100c_no_color_variants.py <base-url>
 """
@@ -80,7 +80,7 @@ def pick(pg, args, color):
 UNDER = "() => { const h = CSS.highlights.get('hl-nc'); return h ? h.size : 0; }"
 
 
-def run(p, dev, eng, opts, variant):
+def run(p, dev, eng, opts):
     try:
         b = getattr(p, eng).launch()
     except Exception:
@@ -88,13 +88,25 @@ def run(p, dev, eng, opts, variant):
         opts = {k: v for k, v in opts.items() if k != "user_agent"}
     c = b.new_context(service_workers="block", locale="ru-RU", reduced_motion="reduce", **opts)
     c.add_init_script("try{if(!sessionStorage.getItem('v100cseed')){sessionStorage.setItem('v100cseed','1');localStorage.removeItem('ap.highlights');}"
-                      f"localStorage.setItem('ap.hlNoColor','{variant}');localStorage.setItem('installDismissed','true');localStorage.setItem('ap.readerHintSeen','1');}}catch(e){{}}")
+                      "localStorage.setItem('installDismissed','true');localStorage.setItem('ap.readerHintSeen','1');}catch(e){}")
     pg = c.new_page()
     pg.goto(f"{BASE}/ru-iast/{PAGE}/", wait_until="networkidle")
     pg.wait_for_timeout(1200)
     pg.add_style_tag(content="*,*::before,*::after{animation:none!important;transition:none!important}")
-    tag = f"{dev} v{variant}"
+    tag = dev
     text0 = pg.evaluate(TEXT)
+
+    # a new selection: no colour is active in the menu; choosing one makes a coloured highlight
+    pg.evaluate(SELECT, [4, 1, 7])
+    pg.wait_for_selector("[data-hl-menu]", state="visible", timeout=4000)
+    na = pg.locator("[data-hl-menu] [data-hl-color][aria-pressed='true'], [data-hl-menu] [data-hl-color][data-current]").count()
+    check(tag, "menu on a new selection: NO colour is active", na == 0 and pg.locator("[data-hl-menu] [data-hl-color]").count() == 5, na)
+    pg.locator("[data-hl-menu] [data-hl-color='3']").click()
+    pg.wait_for_timeout(400)
+    its = items(pg)
+    check(tag, "choosing a colour: a coloured highlight, painted", len(its) == 1 and its[0]["color"] == 3 and pg.evaluate(PAINTED) == [0, 0, 0, 1, 0], [its, pg.evaluate(PAINTED)])
+    pg.evaluate("localStorage.removeItem('ap.highlights')"); pg.reload(wait_until="networkidle"); pg.wait_for_timeout(1200)
+    pg.add_style_tag(content="*,*::before,*::after{animation:none!important;transition:none!important}")
 
     # a coloured note, then the colour taken off
     pg.evaluate(SELECT, [0, 1, 7])
@@ -109,12 +121,9 @@ def run(p, dev, eng, opts, variant):
     pg.wait_for_selector("[data-hl-marker]", timeout=4000)
     pg.locator("[data-hl-marker]").first.click()
     pg.wait_for_selector("[data-hl-card]", state="visible", timeout=4000)
-    nbtn = pg.locator("[data-hl-card] [data-hl-nocolor-btn]").count()
-    check(tag, "card: the struck-through circle is there only in variant 1", nbtn == (1 if variant == "1" else 0), nbtn)
-    if variant == "1":
-        pg.locator("[data-hl-card] [data-hl-nocolor-btn]").click()
-    else:
-        pg.locator("[data-hl-card] [data-hl-color='2']").click()  # the same colour again
+    check(tag, "card: the pressed colour is marked", pg.locator("[data-hl-card] [data-hl-color='2'][aria-pressed='true']").count() == 1)
+    check(tag, "card: no struck-through circle (no such button)", pg.locator("[data-hl-nocolor-btn]").count() == 0)
+    pg.locator("[data-hl-card] [data-hl-color='2']").click()  # the same colour again
     pg.wait_for_timeout(500)
     its = items(pg)
     check(tag, "colour off: the note (text) stays, no colour", len(its) == 1 and its[0]["color"] == -1 and its[0]["note"] == "Заметка V100c", its)
@@ -132,11 +141,9 @@ def run(p, dev, eng, opts, variant):
     pg.wait_for_selector("[data-hl-menu]", state="visible", timeout=4000)
     pg.locator("[data-hl-menu] [data-hl-note]").click()
     pg.wait_for_selector("[data-hl-editor] textarea", state="visible", timeout=4000)
-    en = pg.locator("[data-hl-editor] [data-hl-nocolor-btn]").count()
-    check(tag, "note window: the struck-through circle only in variant 1", en == (1 if variant == "1" else 0), en)
+    na = pg.locator("[data-hl-editor] [data-hl-color][aria-pressed='true'], [data-hl-editor] [data-hl-color][data-current]").count()
+    check(tag, "note window on a new selection: NO colour is active", na == 0, na)
     pg.locator("[data-hl-editor] textarea").fill("Новая без цвета")
-    if variant == "1":
-        pg.locator("[data-hl-editor] [data-hl-nocolor-btn]").click()
     pg.locator("[data-hl-editor] [data-hl-save]").click()
     pg.wait_for_timeout(500)
     new = [x for x in items(pg) if x.get("note") == "Новая без цвета"]
@@ -147,11 +154,10 @@ def run(p, dev, eng, opts, variant):
 
 with sync_playwright() as p:
     for dev, eng, opts in DEVICES:
-        for v in ("1", "2"):
-            try:
-                run(p, dev, eng, opts, v)
-            except Exception as e:  # noqa: BLE001
-                check(f"{dev} v{v}", "scenario ran to the end", False, repr(e)[:500])
+        try:
+            run(p, dev, eng, opts)
+        except Exception as e:  # noqa: BLE001
+            check(dev, "scenario ran to the end", False, repr(e)[:500])
 
 print(f"{sum(results)}/{len(results)} PASS")
 sys.exit(0 if results and all(results) else 1)

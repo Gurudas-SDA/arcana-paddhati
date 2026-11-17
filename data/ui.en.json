@@ -150,7 +150,6 @@
   "hl.color.blue": "Blue",
   "hl.color.pink": "Pink",
   "hl.color.orange": "Orange",
-  "hl.color.none": "No colour",
   "hl.note": "Note",
   "hl.copy": "Copy",
   "hl.cross": "The selection spans several sections: a colour or a note can be made only inside one section. Shorten the selection or tap Copy.",
