@@ -97,7 +97,14 @@ def run(p, dev, eng, opts, layout="page"):
                       "{id:'bk2',section:'daily-duties-brahma-muhurta',anchor:null,block:0,lang:'ru-iast',time:6}]}));}"
                       f"localStorage.setItem('installDismissed','true');localStorage.setItem('ap.readerHintSeen','1');localStorage.setItem('ap.readerLayout','{layout}');}}catch(e){{}}")
     pg = open_page(c)
-    quote = pg.evaluate(SELECT, [0, 2, 9])
+    quote = None
+    for _ in range(5):  # the page may not be hydrated yet on a loaded server: select again
+        quote = pg.evaluate(SELECT, [0, 2, 9])
+        try:
+            pg.wait_for_selector("[data-hl-menu]", state="visible", timeout=2500)
+            break
+        except Exception:
+            pg.wait_for_timeout(800)
     pg.wait_for_selector("[data-hl-menu]", state="visible", timeout=4000)
     pg.locator("[data-hl-menu] [data-hl-color='1']").click()
     pg.wait_for_timeout(400)
