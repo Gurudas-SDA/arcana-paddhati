@@ -27,9 +27,11 @@ export const HL_CARD_EVENT = "ap:hl-card";
 /** Try to show the pending highlight again (the list asked a place). */
 export const HL_REVEAL_EVENT = "ap:hl-reveal";
 export const FILE_KIND = "arcana-paddhati-notes";
-export const COLORS = 4;
+export const COLORS = 5;
+/** V100b (Vraja Lila msg 8357): a note without a colour (colour taken off, the note stays; the sign at the end of the fragment shows it). */
+export const NO_COLOR = -1;
 /** The colours' names (the hint and the label for the screen reader), in order. */
-export const COLOR_KEYS = ["yellow", "green", "blue", "pink"] as const;
+export const COLOR_KEYS = ["yellow", "green", "blue", "pink", "orange"] as const;
 const CONTEXT = 32;
 
 export interface Highlight {
@@ -63,7 +65,7 @@ function valid(h: unknown): h is Highlight {
   const x = h as Highlight;
   return !!x && typeof x.id === "string" && typeof x.section === "string" && typeof x.lang === "string" &&
     typeof x.quote === "string" && x.quote.length > 0 && Number.isFinite(x.start) && Number.isFinite(x.end) &&
-    Number.isInteger(x.color) && x.color >= 0 && x.color < COLORS;
+    Number.isInteger(x.color) && x.color < COLORS && (x.color >= 0 || (x.color === NO_COLOR && typeof x.note === "string" && x.note.length > 0));
 }
 
 /** The list order: not placed by hand first (book order is the caller's, here newest first), then the placed ones by `pos`. */
@@ -139,7 +141,9 @@ export function addHighlight(h: Omit<Highlight, "id" | "created" | "updated"> & 
 export function updateHighlight(id: string, patch: Partial<Highlight>) {
   const items = readHighlights();
   if (!items.some((h) => h.id === id)) return;
-  writeHighlights(items.map((h) => (h.id === id ? { ...h, ...patch, updated: Date.now() } : h)));
+  const next = items.map((h) => (h.id === id ? { ...h, ...patch, updated: Date.now() } : h));
+  // V100b: no colour and no note = nothing left to keep (the note stays when only the colour is taken off)
+  writeHighlights(next.filter((h) => !(h.id === id && h.color === NO_COLOR && !h.note)));
 }
 
 /** V100 (Vraja Lila: one fragment = one highlight, one colour, one note): the stored highlights a new selection covers (same chapter, language

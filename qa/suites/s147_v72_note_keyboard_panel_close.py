@@ -122,7 +122,7 @@ def run(p, dev, eng, opts, layout="page"):
         k = pg.evaluate(PARTS)
         names = ["card", "close", "title", "quote", "field", "del", "cancel", "save"]
         bad = [n for n in names if not inside(k[n], k["vvh"], k["iw"])] + [f"color{i}" for i, x in enumerate(k["colors"]) if not inside(x, k["vvh"], k["iw"])]
-        check(dev, "keyboard open: title, quote, colours, field, «Удалить / Отмена / Сохранить» and ✕ are all above the keyboard", not bad and len(k["colors"]) == 4, [bad, k])
+        check(dev, "keyboard open: title, quote, colours, field, «Удалить / Отмена / Сохранить» and ✕ are all above the keyboard", not bad and len(k["colors"]) == 5, [bad, k])
         pg.evaluate(KEYBOARD, 0)
         pg.wait_for_timeout(700)
         back = pg.evaluate(PARTS)

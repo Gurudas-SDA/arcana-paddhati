@@ -31,8 +31,8 @@ BASE = sys.argv[1].rstrip("/")
 DEVICES = qa.devices(["iphone14", "pixel7", "ipad-portrait", "desktop"])
 results = []
 PAGE = "daily-duties-brahma-muhurta"
-PALETTE = {"day": ["#9F6F06", "#45A28A", "#0D7DEC", "#7C2339"], "sepia": ["#9D6C08", "#319476", "#1A4BBA", "#7C2348"],
-           "night": ["#EDB135", "#A7ECD4", "#66B1F6", "#D4466F"]}
+PALETTE = {"day": ["#F5C400", "#3DBE6E", "#25B5D6", "#F0609A", "#FF8A1F"], "sepia": ["#E3B300", "#3DB06A", "#2AA9C9", "#E0558F", "#F27E10"],
+           "night": ["#F2CF3C", "#4CCB84", "#46C3E6", "#F2709F", "#FF9A3D"]}  # V100b: palette 1 + orange (Vraja Lila msg 8357)
 
 
 def check(dev, name, ok, evidence=""):
@@ -102,7 +102,7 @@ def run_theme(p, dev, eng, opts, theme):
         b.close()
         return
     colors = pg.evaluate(BOX, "[data-hl-menu] [data-hl-color]")
-    check(tag, "menu: 4 colour buttons >= 48x44", len(colors) == 4 and all(x["w"] >= 48 and x["h"] >= 44 for x in colors), colors)
+    check(tag, "menu: 5 colour buttons >= 48x44", len(colors) == 5 and all(x["w"] >= 48 and x["h"] >= 44 for x in colors), colors)
     acts = pg.evaluate(BOX, "[data-hl-menu] [data-hl-note], [data-hl-menu] [data-hl-copy]")
     check(tag, "menu: «Заметка» and «Копировать» >= 44 high with a caption", len(acts) == 2 and all(x["h"] >= 44 and x["txt"] for x in acts), acts)
     vp = pg.evaluate("() => [innerWidth, innerHeight]")
@@ -132,7 +132,7 @@ def run_theme(p, dev, eng, opts, theme):
     check(tag, "note stored with the highlight", len(its) == 2 and any(i.get("note") == "Тестовая заметка Арчана" and i.get("quote") == txt2 for i in its), its)
     pg.reload(wait_until="networkidle")
     pg.wait_for_timeout(1500)
-    painted = sum(pg.evaluate(HLSIZE, n) for n in range(4))
+    painted = sum(pg.evaluate(HLSIZE, n) for n in range(5))
     check(tag, "after a reload both highlights are painted again", painted == 2 and len(items(pg)) == 2, [painted, len(items(pg))])
 
     # (3) panel

@@ -1869,8 +1869,8 @@ export default function Sidebar({
                   data-notes-color={i}
                   aria-pressed={noteFilter.color === i}
                   data-current={noteFilter.color === i ? "" : undefined}
-                  aria-label={t(ui, `hl.color.${["yellow", "green", "blue", "pink"][i]}`)}
-                  title={t(ui, `hl.color.${["yellow", "green", "blue", "pink"][i]}`)}
+                  aria-label={t(ui, `hl.color.${["yellow", "green", "blue", "pink", "orange"][i]}`)}
+                  title={t(ui, `hl.color.${["yellow", "green", "blue", "pink", "orange"][i]}`)}
                   onClick={() => setNoteFilter((f) => ({ ...f, color: f.color === i ? null : i }))}
                 >
                   <span className="hl-dot" style={{ background: `var(--hl-${i + 1}-tone)` }} />
@@ -1938,7 +1938,7 @@ export default function Sidebar({
                     data-note-color={h.color}
                     data-note-lost={h.lost ? "" : undefined}
                     data-bookmark-lifted={isLifted ? "" : undefined}
-                    style={{ ...rowStyle, ["--note-tone" as string]: `var(--hl-${h.color + 1}-tone)` }}
+                    style={{ ...rowStyle, ["--note-tone" as string]: h.color >= 0 ? `var(--hl-${h.color + 1}-tone)` : "var(--ap-gold)" }}
                     onPointerDown={(e) => armHold(e, h, false)}
                     onContextMenu={(e) => {
                       if (drag || holdOff.current) e.preventDefault();

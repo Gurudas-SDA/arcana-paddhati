@@ -100,7 +100,7 @@ def run(p, dev, eng, opts):
     pg.evaluate("() => scrollTo(0, 0)")
     long_ = make_note(pg, 0, 20, "")
     check(dev, "long quote (>110 chars): no quote block", len(long_) > 110 and pg.locator("[data-hl-editor-quote]").count() == 0, [len(long_), pg.locator("[data-hl-editor-quote]").count()])
-    check(dev, "long quote: colours and the note field are there", pg.locator("[data-hl-editor] [data-hl-color-kind='editor']").count() == 4 and pg.locator("[data-hl-editor] textarea").is_visible())
+    check(dev, "long quote: colours and the note field are there", pg.locator("[data-hl-editor] [data-hl-color-kind='editor']").count() == 5 and pg.locator("[data-hl-editor] textarea").is_visible())
     pg.locator("[data-hl-editor] [data-hl-save]").click()
     pg.wait_for_timeout(500)
     # popover

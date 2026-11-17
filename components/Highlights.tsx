@@ -21,6 +21,7 @@ import { main as mainEl } from "@/lib/navHistory";
 import WindowClose from "@/components/WindowClose";
 import {
   COLORS,
+  NO_COLOR,
   COLOR_KEYS,
   HL_CARD_EVENT,
   HL_EDIT_EVENT,
@@ -192,7 +193,9 @@ export default function HighlightsLayer({ ui, lang }: Props) {
   const [tst, setTst] = useState<{ text: string; undo?: () => void; undoLabel?: string; key: number } | null>(null);
   const [imp, setImp] = useState<{ file: Import; step: "preview" | "replace" } | null>(null);
   const [impError, setImpError] = useState(false);
-  const [markers, setMarkers] = useState<{ id: string; x: number; y: number }[]>([]);
+  const gapsRef = useRef<Map<string, HTMLElement>>(new Map());
+  const moRef = useRef<MutationObserver | null>(null);
+  const [markers, setMarkers] = useState<{ id: string; x: number; y: number; nc: boolean }[]>([]);
   const resolved = useRef<Resolved[]>([]);
   const itemsRef = useRef<Highlight[]>([]);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -219,11 +222,42 @@ export default function HighlightsLayer({ ui, lang }: Props) {
     };
   }, []);
 
+  // --- the room for a note's sign (V100b, Vraja Lila msg 8357 variant B: «иконка не будет загораживать текст?»)
+  // An empty inline box right after the fragment's last letter, as wide as the sign: the line makes room for it, so the sign never covers a letter.
+  // It holds no text (the book's text, the offsets and the copied text are unchanged).
+  const clearGaps = () => {
+    document.querySelectorAll("[data-hl-gap]").forEach((g) => g.remove());
+    gapsRef.current = new Map();
+    moRef.current?.takeRecords();
+  };
+  const placeGaps = (res: Resolved[]) => {
+    for (const r of res) {
+      if (!r.h.note) continue;
+      try {
+        const at = document.createRange();
+        at.setStart(r.range.endContainer, r.range.endOffset);
+        at.collapse(true);
+        const g = document.createElement("span");
+        g.setAttribute("data-hl-gap", "");
+        g.setAttribute("data-hl-ui", "");
+        g.setAttribute("aria-hidden", "true");
+        g.className = "hl-gap";
+        at.insertNode(g);
+        gapsRef.current.set(r.h.id, g);
+      } catch {
+        // the place cannot hold it: the sign is drawn at the end of the fragment as before
+      }
+    }
+    moRef.current?.takeRecords();
+  };
+
   // --- painting
   const paint = useCallback(() => {
     const reg = registry();
     hasApi.current = !!reg;
     const list = itemsRef.current;
+    // V100b: the room kept in the line for the note's sign is drawn anew every time
+    clearGaps();
     // No highlights at all: nothing to find or draw (the reader pays nothing for the feature until he uses it).
     if (!list.length) {
       if (resolved.current.length && reg) for (let i = 0; i < COLORS; i++) reg.delete(`hl-${i}`);
@@ -250,11 +284,12 @@ export default function HighlightsLayer({ ui, lang }: Props) {
           lostNow.set(h.id, true);
           continue;
         }
-        byColor[h.color].push(r);
+        if (h.color >= 0) byColor[h.color].push(r);
         res.push({ h, root: c.root, range: r });
       }
     }
     resolved.current = res;
+    placeGaps(res);
     if (reg) {
       for (let i = 0; i < COLORS; i++) {
         if (byColor[i].length) reg.set(`hl-${i}`, makeHighlight(byColor[i]));
@@ -278,22 +313,24 @@ export default function HighlightsLayer({ ui, lang }: Props) {
   }, [lang]);
 
   const drawMarkers = () => {
-    const out: { id: string; x: number; y: number }[] = [];
+    const out: { id: string; x: number; y: number; nc: boolean }[] = [];
     const m = mainEl();
     const vh = window.innerHeight;
     for (const r of resolved.current) {
       if (!r.h.note) continue;
+      const gap = gapsRef.current.get(r.h.id);
+      const gr = gap && gap.isConnected ? gap.getBoundingClientRect() : null;
       const rs = r.range.getClientRects();
       if (!rs.length) continue;
-      const last = rs[rs.length - 1];
+      const last = gr && gr.width > 0 ? { top: gr.top, bottom: gr.bottom, height: gr.height, right: gr.left } : rs[rs.length - 1];
       if (last.bottom < 0 || last.top > vh) continue;
       if (m && !r.root.closest(".mood-overlay")) {
         const mr = m.getBoundingClientRect();
         if (last.bottom < mr.top || last.top > mr.bottom) continue;
       }
-      out.push({ id: r.h.id, x: last.right, y: last.top + last.height / 2 });
+      out.push({ id: r.h.id, x: last.right, y: last.top + last.height / 2, nc: r.h.color === NO_COLOR });
     }
-    setMarkers((prev) => (prev.length === out.length && prev.every((p, i) => p.id === out[i].id && Math.abs(p.x - out[i].x) < 1 && Math.abs(p.y - out[i].y) < 1) ? prev : out));
+    setMarkers((prev) => (prev.length === out.length && prev.every((p, i) => p.id === out[i].id && p.nc === out[i].nc && Math.abs(p.x - out[i].x) < 1 && Math.abs(p.y - out[i].y) < 1) ? prev : out));
   };
 
   const revealPending = () => {
@@ -331,6 +368,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
       timer = window.setTimeout(paint, 180);
     };
     const mo = new MutationObserver(later);
+    moRef.current = mo;
     const m = document.querySelector(".app-main");
     if (m) mo.observe(m, { childList: true, subtree: true });
     const bo = new MutationObserver(later);
@@ -641,7 +679,14 @@ export default function HighlightsLayer({ ui, lang }: Props) {
     if (!e) return;
     const note = e.note.trim().slice(0, HL_NOTE_MAX);
     if (e.id) updateHighlight(e.id, { note: note || undefined, color: e.color });
-    else if (e.sel) create(e.sel, e.color, note);
+    else if (e.sel) {
+      if (e.color >= 0 || note) create(e.sel, e.color, note);
+      else {
+        // V100b: no colour and no note = nothing to keep: the marked place is cleared
+        const cov = coveredBy(readHighlights(), { lang, section: e.sel.section, mood: e.sel.mood, start: e.sel.start, end: e.sel.end });
+        if (cov.length) writeHighlights(readHighlights().filter((x) => !cov.some((c) => c.id === x.id)));
+      }
+    }
     setEditor(null);
     setMenu(null);
     try {
@@ -780,7 +825,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
               className="hl-menu hl-card"
               style={{ top: Math.max(8, Math.min(card.y + 12, window.innerHeight - 240)) }}
             >
-              {colorButtons({ kind: "card", current: cardItem.color, onPick: (i) => updateHighlight(cardItem.id, { color: i }) })}
+              {colorButtons({ kind: "card", current: cardItem.color, onPick: (i) => (cardItem.color === i ? (cardItem.note ? updateHighlight(cardItem.id, { color: NO_COLOR }) : (removeHighlight(cardItem.id, labels), setCard(null))) : updateHighlight(cardItem.id, { color: i })) })}
               <p className="hl-card-note hl-card-note-y" data-hl-card-note="">{cardItem.note || t(ui, "hl.card.noNote")}</p>
               <div className="hl-actions hl-actions-icons">
                 <button type="button" className="hl-icon" data-hl-card-edit="" aria-label={t(ui, "hl.edit")} title={t(ui, "hl.edit")}
@@ -807,6 +852,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
           type="button"
           data-hl-ui=""
           data-hl-marker=""
+          data-hl-nocolor={m.nc ? "" : undefined}
           className="hl-marker"
           style={{ left: m.x + 2, top: m.y - 12 }}
           aria-label={t(ui, "hl.note")}
@@ -827,7 +873,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
           >
             <h2 className="window-title text-lg font-bold mb-3 hl-t" style={{ fontFamily: "var(--font-book, Georgia, serif)" }}>{t(ui, "hl.editor.title")}</h2>
             {editor.quote.length <= HL_QUOTE_SHOW_MAX && <p className="hl-quote" data-hl-editor-quote="">{editor.quote}</p>}
-            {colorButtons({ kind: "editor", current: editor.color, onPick: (i) => setEditor({ ...editor, color: i }) })}
+            {colorButtons({ kind: "editor", current: editor.color, onPick: (i) => setEditor({ ...editor, color: editor.color === i ? NO_COLOR : i }) })}
             <label className="block text-sm hl-t-soft mb-1.5 mt-3" htmlFor="hl-note-field">{t(ui, "hl.editor.label")}</label>
             <div className="hl-field-wrap">
               <textarea
