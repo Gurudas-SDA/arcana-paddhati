@@ -105,7 +105,7 @@ def run(p, dev, eng, opts):
     pg.wait_for_timeout(400)
     its = items(pg)
     check(tag, "choosing a colour: a coloured highlight, painted", len(its) == 1 and its[0]["color"] == 3 and pg.evaluate(PAINTED) == [0, 0, 0, 1, 0], [its, pg.evaluate(PAINTED)])
-    pg.evaluate("localStorage.removeItem('ap.highlights')"); pg.reload(wait_until="networkidle"); pg.wait_for_timeout(1200)
+    pg.evaluate("localStorage.removeItem('ap.highlights')"); pg.reload(wait_until="networkidle"); pg.wait_for_timeout(2500)
     pg.add_style_tag(content="*,*::before,*::after{animation:none!important;transition:none!important}")
 
     # a coloured note, then the colour taken off

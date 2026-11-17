@@ -132,7 +132,7 @@ def run_theme(p, dev, eng, opts, theme):
     check(tag, "note stored with the highlight", len(its) == 2 and any(i.get("note") == "Тестовая заметка Арчана" and i.get("quote") == txt2 for i in its), its)
     pg.reload(wait_until="networkidle")
     pg.wait_for_timeout(1500)
-    painted = sum(pg.evaluate(HLSIZE, n) for n in range(5))
+    painted = sum(pg.evaluate(HLSIZE, n) for n in [0, 1, 2, 3, 4, 'nc'])  # V100b: a note without a colour is painted as the dotted underline (hl-nc)
     check(tag, "after a reload both highlights are painted again", painted == 2 and len(items(pg)) == 2, [painted, len(items(pg))])
 
     # (3) panel
@@ -188,7 +188,7 @@ def run_theme(p, dev, eng, opts, theme):
     pg.locator("[data-note-row] [data-note-open]").first.click()
     pg.wait_for_timeout(1500)
     seen = pg.evaluate("() => { const m = document.querySelector('.app-main'); const mr = m.getBoundingClientRect(); const out = [];"
-                       " for (let n = 0; n < 4; n++) { const h = CSS.highlights.get('hl-' + n); if (h) for (const r of h) { const b = r.getBoundingClientRect(); out.push(b.top >= mr.top - 2 && b.bottom <= mr.bottom + 2); } } return out; }")
+                       " for (const n of [0, 1, 2, 3, 4, 'nc']) { const h = CSS.highlights.get('hl-' + n); if (h) for (const r of h) { const b = r.getBoundingClientRect(); out.push(b.top >= mr.top - 2 && b.bottom <= mr.bottom + 2); } } return out; }")
     check(tag, "a tap on a row opens the place: the highlight is on the screen", any(seen), seen)
     open_panel(pg, "notes")
     pg.locator("[data-note-row] [data-note-delete]").first.click()
