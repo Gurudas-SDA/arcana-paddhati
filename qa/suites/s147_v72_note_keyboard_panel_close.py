@@ -35,6 +35,8 @@ def check(dev, name, ok, evidence=""):
 
 
 SELECT = """([n, a, b]) => {
+  // V100b: a note keeps a room of its own in the line (an inline box splits the text node): numbering of the paragraphs' text nodes is taken on the whole text
+  document.querySelectorAll('[data-hl-gap]').forEach(g => g.remove()); document.querySelectorAll('.app-main article p').forEach(p => p.normalize());
   const nodes = [];
   for (const p of document.querySelectorAll('.app-main article p')) {
     if (!p.getClientRects().length || p.closest('button,table,[hidden],.mood-panel')) continue;

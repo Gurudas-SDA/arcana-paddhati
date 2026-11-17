@@ -103,7 +103,10 @@ def run(p, dev, eng, opts):
     check(dev, "long quote: colours and the note field are there", pg.locator("[data-hl-editor] [data-hl-color-kind='editor']").count() == 5 and pg.locator("[data-hl-editor] textarea").is_visible())
     pg.locator("[data-hl-editor] [data-hl-save]").click()
     pg.wait_for_timeout(500)
-    # popover
+    # popover. V100b: a note keeps a room of its own in the line (an inline box, the text node is split there), so the test's node numbering shifts:
+    # bring the first note into view instead of assuming it is on the same screen as the long quote
+    pg.evaluate("() => document.querySelector('[data-hl-gap]').scrollIntoView({block: 'center'})")
+    pg.wait_for_timeout(500)
     pg.wait_for_selector("[data-hl-marker]", timeout=4000)
     pg.locator("[data-hl-marker]").first.click()
     pg.wait_for_selector("[data-hl-card]", timeout=4000)
