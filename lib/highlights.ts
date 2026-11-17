@@ -142,6 +142,53 @@ export function updateHighlight(id: string, patch: Partial<Highlight>) {
   writeHighlights(items.map((h) => (h.id === id ? { ...h, ...patch, updated: Date.now() } : h)));
 }
 
+/** V100 (Vraja Lila: one fragment = one highlight, one colour, one note): the stored highlights a new selection covers (same chapter, language
+ *  and window; the overlap is at least half of the shorter one). */
+// tehniskais slieksnis Lipikāra, nav S noteikums: «covers» = overlap >= 50 % of the shorter stretch
+export function coveredBy(items: Highlight[], h: Pick<Highlight, "lang" | "section" | "mood" | "start" | "end">): Highlight[] {
+  return items.filter((x) => {
+    if (x.lang !== h.lang || x.section !== h.section || (x.mood ?? undefined) !== (h.mood ?? undefined)) return false;
+    const ov = Math.min(x.end, h.end) - Math.max(x.start, h.start);
+    return ov > 0 && ov >= 0.5 * Math.min(x.end - x.start, h.end - h.start);
+  });
+}
+
+/** Add a highlight, or — when the place is already marked — REPLACE the marked one(s): one colour, one note (the new note wins, else the kept one). */
+export function upsertHighlight(h: Omit<Highlight, "id" | "created" | "updated"> & { id?: string }): Highlight {
+  const all = readHighlights();
+  const same = coveredBy(all, h);
+  if (!same.length) return addHighlight(h);
+  const first = [...same].sort((a, b) => a.created - b.created)[0];
+  const keptNote = [...same].sort((a, b) => b.updated - a.updated).find((x) => x.note)?.note;
+  const item: Highlight = {
+    ...first, start: h.start, end: h.end, quote: h.quote, before: h.before, after: h.after, sub: h.sub ?? first.sub, kind: h.kind ?? first.kind,
+    color: h.color, note: h.note || keptNote || undefined, lost: undefined, updated: Date.now(),
+  };
+  const drop = new Set(same.map((x) => x.id));
+  writeHighlights(all.map((x) => (x.id === first.id ? item : x)).filter((x) => x.id === first.id || !drop.has(x.id)));
+  return item;
+}
+
+/** Old duplicates (the same stretch stored several times, one per colour tap) become one: the newest colour, the notes kept. */
+export function dedupeHighlights(items: Highlight[]): Highlight[] {
+  const key = (x: Highlight) => `${x.lang}|${x.section}|${x.mood ?? ""}|${x.start}|${x.end}|${x.quote}`;
+  const groups = new Map<string, Highlight[]>();
+  for (const x of items) groups.set(key(x), [...(groups.get(key(x)) ?? []), x]);
+  const out: Highlight[] = [];
+  for (const x of items) {
+    const g = groups.get(key(x)) as Highlight[];
+    if (g.length === 1) { out.push(x); continue; }
+    if (g[0] !== x) continue;
+    const byNew = [...g].sort((a, b) => b.updated - a.updated);
+    const first = [...g].sort((a, b) => a.created - b.created)[0];
+    const notes: string[] = [];
+    for (const y of byNew) if (y.note && !notes.includes(y.note)) notes.push(y.note);
+    const pos = g.map((y) => y.pos).filter((v): v is number => typeof v === "number");
+    out.push({ ...first, color: byNew[0].color, note: notes.join("\n\n").slice(0, HL_NOTE_MAX) || undefined, updated: byNew[0].updated, pos: pos.length ? Math.min(...pos) : undefined, lost: undefined });
+  }
+  return out;
+}
+
 /** Remove one highlight and show «Выделение убрано · Отменить». */
 export function removeHighlight(id: string, labels: { removed: string; undo: string }) {
   const before = readHighlights();

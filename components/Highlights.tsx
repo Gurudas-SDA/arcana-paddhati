@@ -29,7 +29,9 @@ import {
   HL_NOTE_MAX,
   HL_REVEAL_EVENT,
   HL_TOAST_EVENT,
-  addHighlight,
+  coveredBy,
+  dedupeHighlights,
+  upsertHighlight,
   applyAdd,
   applyReplace,
   clearPendingReveal,
@@ -204,6 +206,10 @@ export default function HighlightsLayer({ ui, lang }: Props) {
   // --- the list follows the storage
   useEffect(() => {
     const read = () => setItems(readHighlights());
+    // V100: old duplicates (one stretch, several colours) become one
+    const all = readHighlights();
+    const merged = dedupeHighlights(all);
+    if (merged.length !== all.length) writeHighlights(merged);
     read();
     window.addEventListener(HL_EVENT, read);
     window.addEventListener("storage", read);
@@ -402,7 +408,12 @@ export default function HighlightsLayer({ ui, lang }: Props) {
     const r = menu.sel.rect;
     let top = phone ? r.bottom + 14 : r.top - h - 8;
     if (!phone && top < 8) top = r.bottom + 8;
-    if (phone && top + h > vh - 8) top = Math.max(8, r.top - h - 14);
+    if (phone) {
+      // V100 (Vraja Lila, iPhone): the system's own bar (Copy · Look Up · Translate) sits right above or below the selection and covered the
+      // colours. On a phone the panel is kept AWAY from the selection: fixed at the bottom of the screen, or at the top when the selection is low.
+      const low = vh - h - 12;
+      top = r.bottom > low - 8 ? 8 : low;
+    }
     top = Math.max(8, Math.min(top, vh - h - 8));
     let left = phone ? (vw - w) / 2 : r.left;
     left = Math.max(8, Math.min(left, vw - w - 8));
@@ -418,7 +429,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
     }
   };
   const create = (sel: SelInfo, color: number, note?: string) => {
-    addHighlight({
+    upsertHighlight({
       lang, section: sel.section, sub: sel.sub, mood: sel.mood, kind: sel.kind,
       start: sel.start, end: sel.end, quote: sel.quote, before: sel.before, after: sel.after, color, note: note || undefined,
     });
@@ -738,7 +749,9 @@ export default function HighlightsLayer({ ui, lang }: Props) {
                 data-hl-note=""
                 disabled={menu.sel.cross}
                 onClick={() => {
-                  setEditor({ sel: menu.sel, color: 0, note: "", quote: menu.sel.quote, inMood: menu.sel.inMood });
+                  const old = coveredBy(itemsRef.current, { lang, section: menu.sel.section, mood: menu.sel.mood, start: menu.sel.start, end: menu.sel.end })
+                    .sort((a, b) => b.updated - a.updated)[0];
+                  setEditor({ sel: menu.sel, color: old?.color ?? 0, note: old?.note ?? "", quote: menu.sel.quote, inMood: menu.sel.inMood });
                   setMenu(null);
                 }}
               >
