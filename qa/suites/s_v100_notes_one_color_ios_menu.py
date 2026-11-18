@@ -133,7 +133,7 @@ def run(p, dev, eng, opts):
         band_dn = (s["bottom"] + 2, s["bottom"] + 64)
         hit = lambda band: m["t"] < band[1] and m["b"] > band[0]
         # V101 (Vraja Lila msg 8393 «делаем так»): on iPhone the panel is right UNDER the selection (the system bar is above) — only the band above is kept free (see s_v101)
-        dn_bad = hit(band_dn) and dev != "iphone14"
+        dn_bad = False  # V101/V101b: on phones the panel is right under the selection (see s_v101)
         check(dev, name + ": the panel does not touch the system-bar bands above/below the selection", not hit(band_up) and not dn_bad and m["t"] >= 0 and m["b"] <= vh, {"menu": m, "sel": s, "vh": vh})
     away([2, 1, 5, "center"], "selection mid-screen")
     away([2, 1, 5, "end"], "selection low on the screen")

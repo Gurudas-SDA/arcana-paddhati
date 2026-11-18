@@ -1,9 +1,10 @@
 """V101 Vraja Lila msg 8393 «делаем так»: на iPhone панель цветов сразу под выделением; нет места — над, выше системного меню; Android/компьютер — как было.
+V101b Vraja Lila msg 8395/8396 «да, конечно рядом… смысл кидать её так низко и далеко»: то же самое на Android (Chrome) и iPad; компьютер (мышь) — как было.
 Vraja 8394 «не будет ли она загораживать выделение»: панель не накрывает ни прямоугольники выделения (все строки), ни нижний маркер выделения.
 Criteria (register V101):
- (1) iPhone, selection mid-page: panel top - selection.bottom is between 14 and 32 px (right under; room for the lower handle); the panel overlaps no selection rect; horizontally centred at the selection, 16 px side margins kept;
- (2) iPhone, selection at the bottom of the screen: the panel is ABOVE the selection, panel.bottom <= selection.top - 48 (the system bar sits right above the selection), no overlap with the rects;
- (3) Android (pixel7) and desktop: placement as in V100 (a phone: fixed at the bottom of the screen / top when the selection is low; desktop: above the selection, left edge at the selection).
+ (1) iPhone/Android/iPad, selection mid-page: panel top - selection.bottom is between 14 and 32 px (right under; room for the lower handle); the panel overlaps no selection rect; horizontally centred at the selection, 16 px side margins kept;
+ (2) iPhone/Android/iPad, selection at the bottom of the screen: the panel is ABOVE the selection, panel.bottom <= selection.top - 48 (the system bar sits right above the selection), no overlap with the rects;
+ (3) Android (pixel7) and iPad (V101b, Vraja 8395/8396): the same two scenarios as on iPhone; desktop (mouse): placement as in V100 (above the selection, left edge at the selection).
 # tehniskais slieksnis Lipikāra, nav S noteikums: gap 14..32 px (handle ~12 px), 48 px system bar reserve, 16 px side margins
 usage: python s_v101_ios_panel_under_selection.py <base-url>
 """
@@ -16,7 +17,7 @@ import qa  # noqa: E402
 from playwright.sync_api import sync_playwright  # noqa: E402
 
 BASE = sys.argv[1].rstrip("/")
-DEVICES = qa.devices(["iphone14", "pixel7"])
+DEVICES = qa.devices(["iphone14", "pixel7", "ipad-portrait"])
 results = []
 PAGE = "daily-duties-brahma-muhurta"
 
@@ -64,7 +65,7 @@ def run(p, dev, eng, opts):
     pg.add_style_tag(content="*,*::before,*::after{animation:none!important;transition:none!important}")
     vw = pg.evaluate("innerWidth")
     vh = pg.evaluate("innerHeight")
-    ios = dev == "iphone14"
+    ios = True  # V101b (Vraja 8395/8396): the same placement on iPhone, Android and iPad
 
     def show(args):
         s = pg.evaluate(SELECT, args)
