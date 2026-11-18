@@ -464,10 +464,22 @@ export default function HighlightsLayer({ ui, lang }: Props) {
       let visBottom = vv ? vv.offsetTop + vv.height : vh;
       const bar = document.querySelector(".reader-bar-bottom");
       if (bar) visBottom = Math.min(visBottom, bar.getBoundingClientRect().top);
-      const below = r.bottom + gap;
-      const above = r.top - gap - SYS_BAR - h;
+      // V102 (Vraja Lila msg 3064/3066 real iPhone + decision msg 8444 «меню над выделением»): iOS's own menu (Copy / Look Up / Translate, ~43 px high) came out BELOW the selection
+      // (16..60 px under it) and covered the colours. The page cannot tell which side iOS picks, so on iOS the panel goes NEAR ABOVE the selection (IOS_ABOVE px over its top; the system
+      // menu usually sits under it then); no room above (top bar / page top) -> UNDER the selection, IOS_CLEAR px from it, clear of the system menu zone below.
+      const ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      const IOS_ABOVE = 16; // tehniskais slieksnis Lipikāra: gap above the selection (upper handle ~8 px), as V101 under it
+      const IOS_CLEAR = 72; // tehniskais slieksnis Lipikāra: fallback under the selection: 16 (handle) + 43 (system menu, measured on Vraja's screenshot) + 13 spare
+      const topBar = document.querySelector(".reader-bar-top");
+      const barBottom = topBar ? topBar.getBoundingClientRect().bottom : 0;
+      const roomTop = Math.max(visTop, barBottom) + 8;
+      const below = r.bottom + (ios ? IOS_CLEAR : gap);
+      const above = ios ? r.top - IOS_ABOVE - h : r.top - gap - SYS_BAR - h;
       let iosTop = -1;
-      if (below + h <= visBottom - 8) iosTop = below - gap;
+      if (ios) {
+        if (above >= roomTop) iosTop = above - gap;
+        else if (below + h <= visBottom - 8) iosTop = below - gap;
+      } else if (below + h <= visBottom - 8) iosTop = below - gap;
       else if (above >= visTop + 8) iosTop = above - gap;
       if (iosTop >= 0) {
         const lx = Math.max(16, Math.min((r.left + r.right) / 2 - w / 2, vw - w - 16));

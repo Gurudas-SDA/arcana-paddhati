@@ -1,4 +1,5 @@
-"""V100 — Vraja Lila: (1) one fragment = one highlight, one colour, one note; (2) iPhone: the system menu (Copy / Look Up) must not cover the colours.
+"""iOS placement changed in V102 (Vraja msg 3069, 18.11): on iOS the panel is 14..30 px above the selection (or, with no room above, 60..90 px under it), clear of the native menu zone under the selection (16..60 px); the old band asserts below stay for Android.
+V100 — Vraja Lila: (1) one fragment = one highlight, one colour, one note; (2) iPhone: the system menu (Copy / Look Up) must not cover the colours.
 Criteria (register V100):
  (1) selecting the same fragment again and choosing another colour REPLACES the colour (still ONE highlight, the note is kept);
      a selection that overlaps a marked stretch by at least half replaces it too; a separate stretch stays a separate highlight;
@@ -134,6 +135,12 @@ def run(p, dev, eng, opts):
         hit = lambda band: m["t"] < band[1] and m["b"] > band[0]
         # V101 (Vraja Lila msg 8393 «делаем так»): on iPhone the panel is right UNDER the selection (the system bar is above) — only the band above is kept free (see s_v101)
         dn_bad = False  # V101/V101b: on phones the panel is right under the selection (see s_v101)
+        if pg.evaluate("/iPhone|iPad|iPod/.test(navigator.userAgent)"):  # V102 (Vraja msg 3069)
+            up = s["top"] - m["b"]; dn = m["t"] - s["bottom"]
+            zone_dn = m["t"] < s["bottom"] + 60 and m["b"] > s["bottom"] + 16
+            ok = (14 <= up <= 30 or 60 <= dn <= 90) and not zone_dn and m["t"] >= 0 and m["b"] <= vh
+            check(dev, name + " (V102 iOS): the panel is 14..30 px above the selection (no room above: 60..90 px under) and clear of the native menu zone under it", ok, {"menu": m, "sel": s, "vh": vh, "up": up, "dn": dn})
+            return
         check(dev, name + ": the panel does not touch the system-bar bands above/below the selection", not hit(band_up) and not dn_bad and m["t"] >= 0 and m["b"] <= vh, {"menu": m, "sel": s, "vh": vh})
     away([2, 1, 5, "center"], "selection mid-screen")
     away([2, 1, 5, "end"], "selection low on the screen")

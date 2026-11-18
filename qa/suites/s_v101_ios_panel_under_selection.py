@@ -1,4 +1,5 @@
-"""V101 Vraja Lila msg 8393 «делаем так»: на iPhone панель цветов сразу под выделением; нет места — над, выше системного меню; Android/компьютер — как было.
+"""iOS placement changed in V102 (Vraja msg 3069, 18.11): on iOS (iPhone, iPad) the panel is 14..30 px ABOVE the selection, clear of the native menu zone UNDER it (16..60 px); the V101 «under the selection» asserts below are kept for Android only.
+V101 Vraja Lila msg 8393 «делаем так»: на iPhone панель цветов сразу под выделением; нет места — над, выше системного меню; Android/компьютер — как было.
 V101b Vraja Lila msg 8395/8396 «да, конечно рядом… смысл кидать её так низко и далеко»: то же самое на Android (Chrome) и iPad; компьютер (мышь) — как было.
 Vraja 8394 «не будет ли она загораживать выделение»: панель не накрывает ни прямоугольники выделения (все строки), ни нижний маркер выделения.
 Criteria (register V101):
@@ -66,6 +67,7 @@ def run(p, dev, eng, opts):
     vw = pg.evaluate("innerWidth")
     vh = pg.evaluate("innerHeight")
     ios = True  # V101b (Vraja 8395/8396): the same placement on iPhone, Android and iPad
+    is_ios = pg.evaluate("/iPhone|iPad|iPod/.test(navigator.userAgent)")  # V102: iOS differs
 
     def show(args):
         s = pg.evaluate(SELECT, args)
@@ -78,8 +80,13 @@ def run(p, dev, eng, opts):
     ev = {"menu": m, "sel": {k: s[k] for k in ("top", "bottom", "left", "right")}, "vh": vh}
     if ios:
         gap = m["t"] - s["bottom"]
-        check(dev, "mid-page: the panel is right under the selection (gap 14..32 px)", 14 <= gap <= 32, ev)
-        check(dev, "mid-page: the panel covers no selection rect and not the lower handle (>= 14 px below)", not overlaps(m, s["rects"]) and m["t"] >= s["bottom"] + 14, ev)
+        if is_ios:  # V102 (Vraja msg 3069)
+            d = s["top"] - m["b"]
+            check(dev, "mid-page (V102 iOS): the panel is NEAR ABOVE the selection (14..30 px)", 14 <= d <= 30, dict(ev, d=d))
+            check(dev, "mid-page (V102 iOS): the panel covers no selection rect and not the native menu zone under the selection (16..60 px)", not overlaps(m, s["rects"]) and not overlaps(m, [{"t": s["bottom"] + 16, "b": s["bottom"] + 60, "l": -1e6, "r": 1e6}]), ev)
+        else:
+            check(dev, "mid-page: the panel is right under the selection (gap 14..32 px)", 14 <= gap <= 32, ev)
+            check(dev, "mid-page: the panel covers no selection rect and not the lower handle (>= 14 px below)", not overlaps(m, s["rects"]) and m["t"] >= s["bottom"] + 14, ev)
         w = m["r"] - m["l"]
         f0, l0 = s["rects"][0], s["rects"][-1]  # the app takes the selection span from the first line's left to the last line's right
         exp = max(16, min((min(f0["l"], l0["l"]) + l0["r"]) / 2 - w / 2, vw - 16 - w))
@@ -93,7 +100,11 @@ def run(p, dev, eng, opts):
     ev = {"menu": m, "sel": {k: s[k] for k in ("top", "bottom", "left", "right")}, "vh": vh}
     check(dev, "low: the selection really is low on the screen", s["bottom"] > vh - 200, ev)
     if ios:
-        check(dev, "low: the panel is ABOVE the selection, above the system bar (panel.bottom <= selection.top - 48)", m["b"] <= s["top"] - 48, ev)
+        if is_ios:  # V102 (Vraja msg 3069)
+            d = s["top"] - m["b"]
+            check(dev, "low (V102 iOS): the panel is NEAR ABOVE the selection (14..30 px)", 14 <= d <= 30, dict(ev, d=d))
+        else:
+            check(dev, "low: the panel is ABOVE the selection, above the system bar (panel.bottom <= selection.top - 48)", m["b"] <= s["top"] - 48, ev)
         check(dev, "low: the panel covers no selection rect", not overlaps(m, s["rects"]), ev)
     else:
         check(dev, "low (V100 unchanged): the panel is at the top of the screen", m["t"] <= 16 and m["b"] <= vh, ev)
