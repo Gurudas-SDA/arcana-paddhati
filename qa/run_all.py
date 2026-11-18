@@ -550,7 +550,8 @@ def main():
         if retry:
             print(f"  atkārtoju {len(retry)} kritušos darbus vienu reizi …", flush=True)
             by_key = {(j[0]["id"], tuple(j[1] or []), j[0].get("toc_mode"), j[0].get("shard")): j for j in jobs}
-            with cf.ThreadPoolExecutor(max_workers=min(a.jobs, len(retry))) as ex:
+            # atkārtojums tajā pašā paralēlajā slodzē nav atkārtojums — L 18.11, v102-push2/3: atkārtojumi pa vienam (pirmais gājiens paliek ar --jobs)
+            with cf.ThreadPoolExecutor(max_workers=1) as ex:
                 futs = {ex.submit(run_job, by_key[(r["suite"], tuple(r["devices"] or []), r.get("toc_mode"), r.get("shard"))], srv.base, a.fast,
                                   max(timeout * 2, by_key[(r["suite"], tuple(r["devices"] or []), r.get("toc_mode"), r.get("shard"))][0].get("timeout_fast", 0))
                                   if a.fast else timeout): r for r in retry}
