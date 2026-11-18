@@ -72,6 +72,9 @@ with sync_playwright() as p:
         # 6: the cover shows «Продолжить» before first paint, no jump
         pg.goto(f"{BASE}/ru-iast/", wait_until="commit")
         pg.wait_for_selector("img.home-cover", state="attached")
+        # tehniskais slieksnis/gaidīšana Lipikāra, nav S noteikums (18.11, s52 iphone14 nestabils arī uz origin/main, 4/10): the first read is taken once the page's own
+        # stylesheets are applied (a read before them gave the cover's height 440 or 490 under load); the check stays exact (first height == height after load)
+        pg.wait_for_function("() => [...document.querySelectorAll('link[rel=stylesheet]')].every(l => l.sheet) && !!document.querySelector('img.home-cover').getBoundingClientRect().height", timeout=15000)
         first = pg.evaluate(COVER)
         pg.wait_for_load_state("networkidle")
         pg.wait_for_timeout(800)
