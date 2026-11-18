@@ -1,4 +1,5 @@
-"""V45 — a section's row in «Содержание» is ONE button; no section pages; the cover's bottom bar has «Вперёд ›»
+"""V103, Vraja msg 3074/8451, 18.11: the cover is NO button — a tap on it does not open «Эпиграф»; the first page opens through «Содержание»; the checks below follow this.
+V45 — a section's row in «Содержание» is ONE button; no section pages; the cover's bottom bar has «Вперёд ›»
 (Vraja Lila msg 6178 / 6185 / 6188 / 6191, 22.10.2026; nodots-izpildei 22.10 17:10 msg 1412 + 1419/1422;
 saskarnes autors, «Стандарты» 0а).
 
@@ -100,6 +101,9 @@ ROW = """(gid) => { const row = document.querySelector(`.mobile-menu[data-open] 
 ROWS_ORDER = """() => [...document.querySelectorAll('.mobile-menu[data-open] nav [data-toc-row]')]
   .map(e => e.dataset.tocRow).filter(r => r.startsWith('grp:') || r.startsWith('sec:')).map(r => r.slice(4))"""
 FEED_ORDER = """() => [...document.querySelectorAll('[data-continuous-book] [data-book-section]')].map(e => e.dataset.bookSection).filter(Boolean)"""
+OPEN_FIRST = """(first) => { const m = document.querySelector('.mobile-menu[data-open] nav'); if (!m) return false;
+  const el = [...m.querySelectorAll('a, [data-toc-row]')].find(e => (e.getAttribute('href') || '').replace(/\\/$/, '').endsWith('/' + first) || (e.dataset.tocRow || '').endsWith(':' + first));
+  if (!el) return false; el.click(); return true; }"""
 SCROLL = """() => Math.round(document.querySelector('.app-main').scrollTop)"""
 
 
@@ -142,7 +146,7 @@ def run(browser, dev, opts, mode, mode_ru):
                 return
             cover = pg.locator("img.home-cover")
             if at_cover() and cover.count():
-                # V81: a tap ON the cover opens the next page; the bars come from the free field below it
+                # V103: a tap on the cover (and anywhere) shows the bars; the free field below the cover is kept here as a stable point
                 vp = pg.viewport_size
                 (pg.touchscreen.tap if touch else pg.mouse.click)(vp["width"] / 2, vp["height"] - 8)
             else:
@@ -208,15 +212,20 @@ def run(browser, dev, opts, mode, mode_ru):
         rep["обложка: нижняя панель"] = "выезжает" if bottom["on"] else "НЕ выезжает"
         rep["обложка: кнопки"] = nav
         shot("обложка, нижняя панель")
-        # the cover is a button (s155): a tap on it opens the page after the cover
-        cvb = pg.locator(".home-cover-btn")
-        (cvb.tap if touch else cvb.click)()
+        # V103: a tap on the cover does not open the page after it; «Содержание» does
+        cbox = pg.locator("img.home-cover").bounding_box()
+        (pg.touchscreen.tap if touch else pg.mouse.click)(cbox["x"] + cbox["width"] / 2, cbox["y"] + cbox["height"] / 2)
+        pg.wait_for_timeout(700)
+        check(tag, "D V103 a tap on the cover does not open «Эпиграф» (still the cover, no cover button)", at_cover() and pg.locator(".home-cover-btn").count() == 0, pg.url)
+        if not state()["menu"]:
+            pg.evaluate("() => document.querySelector('[data-reader-action=contents]').click()"); pg.wait_for_timeout(900)
+        pg.evaluate(OPEN_FIRST, PAGES[0])
         for _ in range(40):
             pg.wait_for_timeout(150)
             if not at_cover():
                 break
         pg.wait_for_timeout(800)
-        check(tag, f"D a tap on the cover opens {PAGES[0]}", page_id() == PAGES[0], pg.url)
+        check(tag, f"D «Содержание» opens {PAGES[0]} (not the cover tap, V103)", page_id() == PAGES[0], pg.url)
         if mode == "scroll":   # «Лента» mounts the feed after the URL changes
             pg.wait_for_selector("[data-continuous-book]", state="attached", timeout=30000)
             qa.wait_for_book_chapter(pg, PAGES[0])
@@ -326,8 +335,10 @@ def run(browser, dev, opts, mode, mode_ru):
         goto(None)
         visited = []
         if mode == "pages":
-            cvb = pg.locator(".home-cover-btn")
-            (cvb.tap if touch else cvb.click)()
+            bars()
+            if not state()["menu"]:
+                pg.evaluate("() => document.querySelector('[data-reader-action=contents]').click()"); pg.wait_for_timeout(900)
+            pg.evaluate(OPEN_FIRST, PAGES[0])
             for _ in range(40):
                 pg.wait_for_timeout(150)
                 if not at_cover():
@@ -337,7 +348,7 @@ def run(browser, dev, opts, mode, mode_ru):
         if mode == "scroll":
             visited = PAGES[:1]   # V81: no chapter cards in «Лента» (continuous reading) - the order of the text is F above
         # V88 (Vraja Lila msg 7791/7792): no «След. глава» cards to walk the book with - a tap on the cover opens the first page
-        check(tag, "E V88 a tap on the cover opens the first page of the contents (the chapter cards are removed)", visited == PAGES[:1],
+        check(tag, "E V88/V103 «Содержание» opens the first page of the contents (the chapter cards are removed)", visited == PAGES[:1],
               {"visited": visited, "want": PAGES[:1]})
         rep["Вперёд от обложки до конца"] = "V88: карточек глав нет"
         check(tag, "no page errors", not errors, errors[:3])

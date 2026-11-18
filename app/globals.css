@@ -2759,41 +2759,9 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
 
 /*@v81*/
 /* V81 (Vraja Lila msg 7706 / 7729 / 7735, mockup 6).
-   (1) The cover is one real button (components/CoverButton.tsx); a tap darkens the page (.cover-fade, the page's own
-       background) and the first page comes back out of it.
+   (1) (removed by V103, Vraja Lila msg 8446: a tap on the cover only shows/hides the bars, as before V81)
    (2) Bottom bar «‹ Вернуться» / «Вперёд ›»: a step along the path that does not exist = inactive and pale (--rd-faint).
    (3) V88 (Vraja Lila msg 7791/7792): the cards «Пред. глава» / «След. глава» at a chapter's end are removed. */
-.home-cover-btn {
-  display: block;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: none;
-  font: inherit;
-  color: inherit;
-  line-height: 0;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  -webkit-tap-highlight-color: transparent;
-}
-.cover-fade {
-  position: fixed;
-  inset: 0;
-  z-index: 80;
-  opacity: 0;
-  pointer-events: none;
-  background: var(--rd-bg);
-  transition: opacity 0.16s ease; /* V88: faster, smooth */
-}
-.cover-fade[data-on] {
-  opacity: 1;
-}
-@media (prefers-reduced-motion: reduce) {
-  .cover-fade {
-    transition: none;
-  }
-}
 .reader-history-btn:disabled {
   color: var(--rd-faint);
   cursor: default;
