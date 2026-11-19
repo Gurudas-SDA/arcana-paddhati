@@ -1,4 +1,5 @@
-"""V102 Vraja Lila msg 3064/3066 (real iPhone, Safari 09:39) + decision msg 8444 «меню над выделением, а не под»: iOS's own menu (Copy / Look Up / Translate) came out BELOW the selection and covered the colour circles.
+"""V104 (Vraja msg 3106-3109, 19.11): the SIDE of the colour panel on iOS now depends on the iOS menu side (one line / several lines) — see s_v104; here only the V102 rules that stay: the panel covers no selection rect and is 14..32 px (free side) or 60..90 px (beyond the menu zone) from the selection.
+V102 Vraja Lila msg 3064/3066 (real iPhone, Safari 09:39) + decision msg 8444 «меню над выделением, а не под»: iOS's own menu (Copy / Look Up / Translate) came out BELOW the selection and covered the colour circles.
 Criteria (register V102):
  (1) iOS, selection mid-page / low: the colour panel is NEAR ABOVE the selection (panel bottom 14..30 px over the selection top), covers no selection rect, and does not touch the system-menu zone BELOW the selection (16..60 px under it);
  (2) iOS, selection at the top of the page (no room above: top bar): the panel goes UNDER the selection, 60..90 px from it, outside the system-menu zone below (16..60 px);
@@ -66,6 +67,12 @@ def run(p, dev, eng, opts):
     check(dev, "the engine really presents itself as iOS (WebKit available)" if dev != "pixel7" else "pixel7 is not iOS", ios == (dev != "pixel7"), {"ios": ios})
 
     def show(args):
+        # tehniskais slieksnis/gaidīšana Lipikāra, nav S noteikums (19.11, V104): the previous selection's panel is cleared first, so the menu read below is the NEW selection's (a stale panel was read on a loaded iPad)
+        pg.evaluate("() => getSelection().removeAllRanges()")
+        try:
+            pg.wait_for_selector("[data-hl-menu]", state="hidden", timeout=2500)
+        except Exception:  # noqa: BLE001
+            pass
         s = pg.evaluate(SELECT, args)
         pg.wait_for_selector("[data-hl-menu]", state="visible", timeout=4000)
         pg.wait_for_timeout(500)
@@ -79,14 +86,9 @@ def run(p, dev, eng, opts):
         ev = {"menu": m, "sel": {k: s[k] for k in ("top", "bottom", "left", "right")}, "vh": vh}
         zb = zone(s["bottom"] + 16, s["bottom"] + 60)  # iOS menu below the selection
         check(dev, f"{name}: the panel covers no selection rect", not overlaps(m, s["rects"]), ev)
-        if ios:
-            check(dev, f"{name}: the iOS system menu BELOW the selection would not cover the panel", not overlaps(m, [zb]), ev)
-            if name == "top":
-                d = m["t"] - s["bottom"]
-                check(dev, "top: no room above -> the panel is UNDER the selection, 60..90 px from it", 60 <= d <= 90, dict(ev, d=d))
-            else:
-                d = s["top"] - m["b"]
-                check(dev, f"{name}: the panel is NEAR ABOVE the selection (14..30 px over its top)", 14 <= d <= 30, dict(ev, d=d))
+        if ios:  # V104: side per s_v104; here: near the selection on either side, never inside a menu zone on BOTH sides (a free side exists)
+            up = s["top"] - m["b"]; dn = m["t"] - s["bottom"]
+            check(dev, f"{name} (V104 iOS): the panel is near the selection (14..32 px or 60..90 px beyond the menu zone), on one side", (14 <= up <= 32) or (60 <= up <= 90) or (14 <= dn <= 32) or (60 <= dn <= 90), dict(ev, up=up, dn=dn))
         else:
             check(dev, f"{name}: Android unchanged (V101: gap 14..32 under, or above)", (14 <= m["t"] - s["bottom"] <= 32) or m["b"] <= s["top"], ev)
     b.close()

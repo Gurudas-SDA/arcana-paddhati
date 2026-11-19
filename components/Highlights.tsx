@@ -473,14 +473,32 @@ export default function HighlightsLayer({ ui, lang }: Props) {
       const topBar = document.querySelector(".reader-bar-top");
       const barBottom = topBar ? topBar.getBoundingClientRect().bottom : 0;
       const roomTop = Math.max(visTop, barBottom) + 8;
-      const below = r.bottom + (ios ? IOS_CLEAR : gap);
-      const above = ios ? r.top - IOS_ABOVE - h : r.top - gap - SYS_BAR - h;
+      // V104 (Vraja Lila msg 3106-3109, real iPhone 19.11): the system menu is not always BELOW the selection. Seen on the device: a one-line selection -> menu under it (5 frames);
+      // a selection over two lines (lower on the page) -> menu OVER it, and the panel 16 px above fell on it. The page cannot ask iOS, so by what was seen: one line -> menu under the
+      // selection, several lines -> menu over it (the other way when it has no room: IOS_ZONE px). The panel goes to the OTHER side, IOS_ABOVE px from the selection; no room there ->
+      // the free side beyond the menu zone (IOS_CLEAR px).
+      let lines = 1;
+      if (ios) {
+        const sel = window.getSelection();
+        const rects = sel && sel.rangeCount ? Array.from(sel.getRangeAt(0).getClientRects()).filter((q) => q.width > 1 && q.height > 1) : [];
+        const mids = rects.map((q) => (q.top + q.bottom) / 2).sort((x, y) => x - y);
+        lines = mids.filter((m, i) => i === 0 || m - mids[i - 1] > 8).length || 1;
+      }
+      const IOS_ZONE = 64; // tehniskais slieksnis Lipikāra: room the system menu needs next to the selection (16 + 43 + spare)
+      const menuBelow = lines === 1 ? r.bottom + IOS_ZONE <= visBottom - 8 : !(r.top - IOS_ZONE >= roomTop);
+      const underAt = (d: number) => r.bottom + d;
+      const aboveAt = (d: number) => r.top - d - h;
       let iosTop = -1;
       if (ios) {
-        if (above >= roomTop) iosTop = above - gap;
-        else if (below + h <= visBottom - 8) iosTop = below - gap;
-      } else if (below + h <= visBottom - 8) iosTop = below - gap;
-      else if (above >= visTop + 8) iosTop = above - gap;
+        if (menuBelow) {
+          if (aboveAt(IOS_ABOVE) >= roomTop) iosTop = aboveAt(IOS_ABOVE) - gap;
+          else if (underAt(IOS_CLEAR) + h <= visBottom - 8) iosTop = underAt(IOS_CLEAR) - gap;
+        } else {
+          if (underAt(IOS_ABOVE) + h <= visBottom - 8) iosTop = underAt(IOS_ABOVE) - gap;
+          else if (aboveAt(IOS_CLEAR) >= roomTop) iosTop = aboveAt(IOS_CLEAR) - gap;
+        }
+      } else if (r.bottom + gap + h <= visBottom - 8) iosTop = r.bottom - 0;
+      else if (r.top - gap - SYS_BAR - h >= visTop + 8) iosTop = r.top - gap - SYS_BAR - h - gap;
       if (iosTop >= 0) {
         const lx = Math.max(16, Math.min((r.left + r.right) / 2 - w / 2, vw - w - 16));
         if (Math.abs(lx - menu.x) > 0.5 || Math.abs(iosTop - menu.y) > 0.5) setMenu({ sel: menu.sel, x: lx, y: iosTop });

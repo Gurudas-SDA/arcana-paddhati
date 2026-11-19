@@ -1,4 +1,5 @@
-"""iOS placement changed in V102 (Vraja msg 3069, 18.11): on iOS (iPhone, iPad) the panel is 14..30 px ABOVE the selection, clear of the native menu zone UNDER it (16..60 px); the V101 «under the selection» asserts below are kept for Android only.
+"""iOS placement changed in V102 and again in V104 (Vraja msg 3106-3109: the side follows the iOS menu side, see s_v104; here the iOS asserts only check the panel is near the selection on one side)
+iOS placement changed in V102 (Vraja msg 3069, 18.11): on iOS (iPhone, iPad) the panel is 14..30 px ABOVE the selection, clear of the native menu zone UNDER it (16..60 px); the V101 «under the selection» asserts below are kept for Android only.
 V101 Vraja Lila msg 8393 «делаем так»: на iPhone панель цветов сразу под выделением; нет места — над, выше системного меню; Android/компьютер — как было.
 V101b Vraja Lila msg 8395/8396 «да, конечно рядом… смысл кидать её так низко и далеко»: то же самое на Android (Chrome) и iPad; компьютер (мышь) — как было.
 Vraja 8394 «не будет ли она загораживать выделение»: панель не накрывает ни прямоугольники выделения (все строки), ни нижний маркер выделения.
@@ -70,6 +71,12 @@ def run(p, dev, eng, opts):
     is_ios = pg.evaluate("/iPhone|iPad|iPod/.test(navigator.userAgent)")  # V102: iOS differs
 
     def show(args):
+        # tehniskais slieksnis/gaidīšana Lipikāra, nav S noteikums (19.11, V104): the previous selection's panel is cleared first, so the menu read below is the NEW selection's (a stale panel was read on a loaded iPad)
+        pg.evaluate("() => getSelection().removeAllRanges()")
+        try:
+            pg.wait_for_selector("[data-hl-menu]", state="hidden", timeout=2500)
+        except Exception:  # noqa: BLE001
+            pass
         s = pg.evaluate(SELECT, args)
         pg.wait_for_selector("[data-hl-menu]", state="visible", timeout=4000)
         pg.wait_for_timeout(500)
@@ -81,9 +88,9 @@ def run(p, dev, eng, opts):
     if ios:
         gap = m["t"] - s["bottom"]
         if is_ios:  # V102 (Vraja msg 3069)
-            d = s["top"] - m["b"]
-            check(dev, "mid-page (V102 iOS): the panel is NEAR ABOVE the selection (14..30 px)", 14 <= d <= 30, dict(ev, d=d))
-            check(dev, "mid-page (V102 iOS): the panel covers no selection rect and not the native menu zone under the selection (16..60 px)", not overlaps(m, s["rects"]) and not overlaps(m, [{"t": s["bottom"] + 16, "b": s["bottom"] + 60, "l": -1e6, "r": 1e6}]), ev)
+            d = s["top"] - m["b"]; dn = m["t"] - s["bottom"]
+            check(dev, "mid-page (V104 iOS): the panel is near the selection on one side (14..32 px)", 14 <= d <= 32 or 14 <= dn <= 32, dict(ev, d=d, dn=dn))
+            check(dev, "mid-page (V104 iOS): the panel covers no selection rect", not overlaps(m, s["rects"]), ev)
         else:
             check(dev, "mid-page: the panel is right under the selection (gap 14..32 px)", 14 <= gap <= 32, ev)
             check(dev, "mid-page: the panel covers no selection rect and not the lower handle (>= 14 px below)", not overlaps(m, s["rects"]) and m["t"] >= s["bottom"] + 14, ev)
@@ -102,7 +109,7 @@ def run(p, dev, eng, opts):
     if ios:
         if is_ios:  # V102 (Vraja msg 3069)
             d = s["top"] - m["b"]
-            check(dev, "low (V102 iOS): the panel is NEAR ABOVE the selection (14..30 px)", 14 <= d <= 30, dict(ev, d=d))
+            check(dev, "low (V104 iOS): no room under -> the panel is above, beyond the menu zone (60..90 px)", 60 <= d <= 90, dict(ev, d=d))
         else:
             check(dev, "low: the panel is ABOVE the selection, above the system bar (panel.bottom <= selection.top - 48)", m["b"] <= s["top"] - 48, ev)
         check(dev, "low: the panel covers no selection rect", not overlaps(m, s["rects"]), ev)

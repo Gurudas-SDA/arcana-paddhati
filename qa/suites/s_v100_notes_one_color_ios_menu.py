@@ -1,4 +1,5 @@
-"""iOS placement changed in V102 (Vraja msg 3069, 18.11): on iOS the panel is 14..30 px above the selection (or, with no room above, 60..90 px under it), clear of the native menu zone under the selection (16..60 px); the old band asserts below stay for Android.
+"""iOS placement changed in V102 and V104 (the side follows the iOS menu side, see s_v104)
+iOS placement changed in V102 (Vraja msg 3069, 18.11): on iOS the panel is 14..30 px above the selection (or, with no room above, 60..90 px under it), clear of the native menu zone under the selection (16..60 px); the old band asserts below stay for Android.
 V100 — Vraja Lila: (1) one fragment = one highlight, one colour, one note; (2) iPhone: the system menu (Copy / Look Up) must not cover the colours.
 Criteria (register V100):
  (1) selecting the same fragment again and choosing another colour REPLACES the colour (still ONE highlight, the note is kept);
@@ -125,6 +126,12 @@ def run(p, dev, eng, opts):
 
     # (2) the panel away from the system bar
     def away(args, name):
+        # tehniskais slieksnis/gaidīšana Lipikāra, nav S noteikums (19.11, V104): the previous selection's panel is cleared first, so the menu read below is the NEW selection's (a stale panel was read on a loaded iPad)
+        pg.evaluate("() => getSelection().removeAllRanges()")
+        try:
+            pg.wait_for_selector("[data-hl-menu]", state="hidden", timeout=2500)
+        except Exception:  # noqa: BLE001
+            pass
         s = pg.evaluate(SELECT, args)
         pg.wait_for_selector("[data-hl-menu]", state="visible", timeout=4000)
         pg.wait_for_timeout(400)
@@ -137,8 +144,7 @@ def run(p, dev, eng, opts):
         dn_bad = False  # V101/V101b: on phones the panel is right under the selection (see s_v101)
         if pg.evaluate("/iPhone|iPad|iPod/.test(navigator.userAgent)"):  # V102 (Vraja msg 3069)
             up = s["top"] - m["b"]; dn = m["t"] - s["bottom"]
-            zone_dn = m["t"] < s["bottom"] + 60 and m["b"] > s["bottom"] + 16
-            ok = (14 <= up <= 30 or 60 <= dn <= 90) and not zone_dn and m["t"] >= 0 and m["b"] <= vh
+            ok = (14 <= up <= 32 or 60 <= up <= 90 or 14 <= dn <= 32 or 60 <= dn <= 90) and m["t"] >= 0 and m["b"] <= vh  # V104: side per s_v104
             check(dev, name + " (V102 iOS): the panel is 14..30 px above the selection (no room above: 60..90 px under) and clear of the native menu zone under it", ok, {"menu": m, "sel": s, "vh": vh, "up": up, "dn": dn})
             return
         check(dev, name + ": the panel does not touch the system-bar bands above/below the selection", not hit(band_up) and not dn_bad and m["t"] >= 0 and m["b"] <= vh, {"menu": m, "sel": s, "vh": vh})
