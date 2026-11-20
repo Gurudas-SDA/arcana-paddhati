@@ -24,7 +24,8 @@ def check(dev, name, ok, evidence=""):
     print(f"  [{'PASS' if ok else 'FAIL'}] {dev} {name} {'' if ok else json.dumps(evidence, ensure_ascii=False)[:700]}", flush=True)
 
 
-SELECT = """([n, a, b, frac]) => {
+SELECT = """async ([n, a, b, frac]) => {
+  const main = document.querySelector('.app-main'); const raf = () => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));  // the reader scrolls inside .app-main, not window
   document.querySelectorAll('[data-hl-gap]').forEach(g => g.remove()); document.querySelectorAll('.app-main article p').forEach(p => p.normalize());
   const nodes = [];
   for (const p of document.querySelectorAll('.app-main article p')) {
@@ -34,16 +35,16 @@ SELECT = """([n, a, b, frac]) => {
   }
   // cause of the earlier misses: a node near the top of the page cannot be scrolled DOWN the screen (scrollY >= 0), so only nodes whose document top >= the wanted screen position are usable
   const vv0 = window.visualViewport; const want = vv0.offsetTop + vv0.height * frac;
-  const usable = nodes.filter(x => x.parentElement.getBoundingClientRect().top + window.scrollY >= want + 4);
+  const usable = nodes.filter(x => x.parentElement.getBoundingClientRect().top - main.getBoundingClientRect().top + main.scrollTop + main.getBoundingClientRect().top >= want + 4);
   const node = usable[n]; if (!node) return {unreachable: true, usable: usable.length, nodes: nodes.length};
   const d = node.data; const ws = [...d.matchAll(/\\S+/g)];
   const s = ws[a].index, e = ws[b - 1].index + ws[b - 1][0].length;
   const r = document.createRange(); r.setStart(node, s); r.setEnd(node, e);
   const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
-  const vv = window.visualViewport; window.scrollBy(0, r.getBoundingClientRect().top - want);
+  const vv = window.visualViewport; main.scrollTop += r.getBoundingClientRect().top - want; main.dispatchEvent(new Event('scroll')); await raf();
   const rs = [...r.getClientRects()].map(q => ({t: q.top, b: q.bottom, l: q.left, r: q.right}));
   const f = rs[0], l = rs[rs.length - 1], bb = r.getBoundingClientRect();
-  return {vvh: vv.height, vvtop: vv.offsetTop, scrollY: window.scrollY, wantTop: want, rects: rs, top: Math.min(...rs.map(q => q.t)), bottom: Math.max(...rs.map(q => q.b)), left: bb.left, right: bb.right}; }"""
+  return {vvh: vv.height, vvtop: vv.offsetTop, scrollY: main.scrollTop, wantTop: want, rects: rs, top: Math.min(...rs.map(q => q.t)), bottom: Math.max(...rs.map(q => q.b)), left: bb.left, right: bb.right}; }"""
 MENU = "() => { const m = document.querySelector('[data-hl-menu]'); const b = m.getBoundingClientRect(); return {t: b.top, b: b.bottom, l: b.left, r: b.right}; }"
 
 
