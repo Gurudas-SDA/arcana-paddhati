@@ -93,9 +93,13 @@ def run(p, dev, eng, opts):
         ("2 lines, lower (65%)", [2, 0, 12, 0.65], 2, "under"),
         ("2 lines, bottom (90%)", [2, 0, 12, 0.90], 2, "beyond-above"),
     )
+    SHOTS = {"1 line, upper (25%)": "1 строка вверху", "1 line, lower-middle (58%)": "1 строка внизу", "2 lines, upper (25%)": "2 строки вверху", "2 lines, lower (65%)": "2 строки внизу"}
     for name, args, want, exp in CASES:
         s, m = show(args)
         n = len(s["rects"])
+        shot = os.environ.get("QA_SHOT_DIR")  # tehniskais: ekrānuzņēmumi pēc pieprasījuma
+        if shot and dev == "iphone14" and name in SHOTS:
+            pg.screenshot(path=os.path.join(shot, f"2026.11.20_V105_iPhone_{SHOTS[name]}.png"))
         ev = {"menu": m, "sel": {k: s[k] for k in ("top", "bottom", "left", "right")}, "rects": n, "vh": vh}
         check(dev, f"{name}: the selection really is {'one line' if want == 1 else 'several lines'}", (n == 1) == (want == 1), ev)
         check(dev, f"{name}: the panel covers no selection rect", not overlaps(m, s["rects"]), ev)
