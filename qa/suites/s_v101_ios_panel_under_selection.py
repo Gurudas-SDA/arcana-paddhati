@@ -1,4 +1,5 @@
-"""iOS placement changed in V102 and again in V104 (Vraja msg 3106-3109: the side follows the iOS menu side, see s_v104; here the iOS asserts only check the panel is near the selection on one side)
+"""V107: pelēkajā zonā panelis 72 px (atlases augša 0.40..0.56 no vizuālā viewport -> >= 60 px no atlases); citur kā bija.
+iOS placement changed in V102 and again in V104 (Vraja msg 3106-3109: the side follows the iOS menu side, see s_v104; here the iOS asserts only check the panel is near the selection on one side)
 iOS placement changed in V102 (Vraja msg 3069, 18.11): on iOS (iPhone, iPad) the panel is 14..30 px ABOVE the selection, clear of the native menu zone UNDER it (16..60 px); the V101 «under the selection» asserts below are kept for Android only.
 V101 Vraja Lila msg 8393 «делаем так»: на iPhone панель цветов сразу под выделением; нет места — над, выше системного меню; Android/компьютер — как было.
 V101b Vraja Lila msg 8395/8396 «да, конечно рядом… смысл кидать её так низко и далеко»: то же самое на Android (Chrome) и iPad; компьютер (мышь) — как было.
@@ -89,7 +90,13 @@ def run(p, dev, eng, opts):
         gap = m["t"] - s["bottom"]
         if is_ios:  # V102 (Vraja msg 3069)
             d = s["top"] - m["b"]; dn = m["t"] - s["bottom"]
-            check(dev, "mid-page (V104 iOS): the panel is near the selection on one side (14..32 px)", 14 <= d <= 32 or 14 <= dn <= 32, dict(ev, d=d, dn=dn))
+            # V107: pelēkajā zonā panelis 72 px (IOS_GREY_LO 0.40 .. IOS_GREY_HI 0.56 no vizuālā viewport; ārpus tās — kā bija)
+            vvt, vvh = pg.evaluate("() => [visualViewport.offsetTop, visualViewport.height]")
+            in_grey = 0.40 <= (s["top"] - vvt) / vvh <= 0.56
+            if in_grey:
+                check(dev, "mid-page (V107 iOS grey zone): the panel is >= 60 px from the selection", d >= 60 or dn >= 60, dict(ev, d=d, dn=dn))
+            else:
+                check(dev, "mid-page (V104 iOS): the panel is near the selection on one side (14..32 px)", 14 <= d <= 32 or 14 <= dn <= 32, dict(ev, d=d, dn=dn))
             check(dev, "mid-page (V104 iOS): the panel covers no selection rect", not overlaps(m, s["rects"]), ev)
         else:
             check(dev, "mid-page: the panel is right under the selection (gap 14..32 px)", 14 <= gap <= 32, ev)
