@@ -1,4 +1,4 @@
-"""V104 Vraja Lila msg 3106-3109 (real iPhone 19.11): a selection over two lines low on the page: iOS's own menu (Copy / Look Up / Translate) came out OVER the selection and fell on the colour panel
+"""V104 (V105 aizstāj rindu skaita likumu: pusi tagad nosaka atlases vieta ekrānā, ne rindu skaits; sk. s_v105)  V104 Vraja Lila msg 3106-3109 (real iPhone 19.11): a selection over two lines low on the page: iOS's own menu (Copy / Look Up / Translate) came out OVER the selection and fell on the colour panel
 (Note / Copy), which V102 put 16 px above the selection. What was seen on the device: one-line selection -> iOS menu UNDER the selection; several lines -> OVER it.
 Criteria (register V104): (1) the panel is next to the selection (14..32 px) on the side opposite to the iOS menu's side (one line: above; several lines: under);
  (2) the iOS menu zone (16..60 px from the selection, on its side) never touches the panel; with no room on the free side the panel goes beyond the menu zone (never inside it);
@@ -25,7 +25,7 @@ def check(dev, name, ok, evidence=""):
     print(f"  [{'PASS' if ok else 'FAIL'}] {dev} {name} {'' if ok else json.dumps(evidence, ensure_ascii=False)[:700]}", flush=True)
 
 
-SELECT = """([n, a, b, block]) => {
+SELECT = """([n, a, b, frac]) => {
   document.querySelectorAll('[data-hl-gap]').forEach(g => g.remove()); document.querySelectorAll('.app-main article p').forEach(p => p.normalize());
   const nodes = [];
   for (const p of document.querySelectorAll('.app-main article p')) {
@@ -34,11 +34,12 @@ SELECT = """([n, a, b, block]) => {
     for (let x = w.nextNode(); x; x = w.nextNode()) if ((x.data.match(/\\S+/g) || []).length >= 14 && x.parentElement.getClientRects().length) nodes.push(x);
   }
   const node = nodes[n]; if (!node) return null;
-  node.parentElement.scrollIntoView({block: block || 'center'});
+  node.parentElement.scrollIntoView({block: 'center'});
   const d = node.data; const ws = [...d.matchAll(/\\S+/g)];
   const s = ws[a].index, e = ws[b - 1].index + ws[b - 1][0].length;
   const r = document.createRange(); r.setStart(node, s); r.setEnd(node, e);
   const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+  const vv = window.visualViewport; window.scrollBy(0, r.getBoundingClientRect().top - (vv.offsetTop + vv.height * frac));
   const rs = [...r.getClientRects()].map(q => ({t: q.top, b: q.bottom, l: q.left, r: q.right}));
   const f = rs[0], l = rs[rs.length - 1], bb = r.getBoundingClientRect();
   return {rects: rs, top: Math.min(...rs.map(q => q.t)), bottom: Math.max(...rs.map(q => q.b)), left: bb.left, right: bb.right}; }"""
@@ -83,27 +84,34 @@ def run(p, dev, eng, opts):
     def zone(t, b_):
         return {"t": t, "b": b_, "l": -1e6, "r": 1e6}
 
-    # (name, selection args, lines wanted, expected: 'under' / 'above' = the panel's side near the selection, 'beyond-above' = no room under)
-    for name, args, want in (("one line, mid", [1, 0, 2, "center"], 1), ("two lines, mid", [1, 0, 12, "center"], 2), ("two lines, lower middle (as frames 3-4)", [2, 0, 12, "center"], 2), ("two lines, at the bottom of the screen", [2, 0, 12, "end"], 2)):
+    # (name, selection args [text node, first word, last word, selection top as a share of the viewport], lines wanted, expected panel side)
+    CASES = (
+        ("1 line, upper (25%)", [1, 0, 2, 0.25], 1, "above"),
+        
+        ("1 line, lower-middle (58%)", [1, 0, 2, 0.58], 1, "under"),
+        ("1 line, bottom (92%)", [1, 0, 2, 0.92], 1, "beyond-above"),
+        ("2 lines, upper (25%)", [2, 0, 12, 0.25], 2, "above"),
+        ("2 lines, lower (65%)", [2, 0, 12, 0.65], 2, "under"),
+        ("2 lines, bottom (90%)", [2, 0, 12, 0.90], 2, "beyond-above"),
+    )
+    for name, args, want, exp in CASES:
         s, m = show(args)
         n = len(s["rects"])
         ev = {"menu": m, "sel": {k: s[k] for k in ("top", "bottom", "left", "right")}, "rects": n, "vh": vh}
         check(dev, f"{name}: the selection really is {'one line' if want == 1 else 'several lines'}", (n == 1) == (want == 1), ev)
+        check(dev, f"{name}: the panel covers no selection rect", not overlaps(m, s["rects"]), ev)
         zb = zone(s["bottom"] + 16, s["bottom"] + 60)
         za = zone(s["top"] - 60, s["top"] - 16)
-        check(dev, f"{name}: the panel covers no selection rect", not overlaps(m, s["rects"]), ev)
-        if want == 1:  # iOS menu under -> panel above, near
+        if exp == "above":  # upper half: iOS menu under -> panel near above
             d = s["top"] - m["b"]
             check(dev, f"{name}: iOS menu UNDER the selection does not touch the panel", not overlaps(m, [zb]), ev)
             check(dev, f"{name}: the panel is near ABOVE the selection (14..32 px)", 14 <= d <= 32, dict(ev, d=d))
-        else:  # iOS menu over -> panel under, near (no room under: above, beyond the menu zone)
-            check(dev, f"{name}: iOS menu OVER the selection does not touch the panel", not overlaps(m, [za]), ev)
+        elif exp == "under":  # lower half: iOS menu over -> panel near under
             d = m["t"] - s["bottom"]
-            room_under = s["bottom"] + 14 + (m["b"] - m["t"]) <= vh - 8
-            if "bottom of the screen" in name:
-                check(dev, f"{name}: no room under -> the panel is above, beyond the menu zone (>= 60 px)", s["top"] - m["b"] >= 60, dict(ev, d=d))
-            else:
-                check(dev, f"{name}: the panel is near UNDER the selection (14..32 px)", 14 <= d <= 32, dict(ev, d=d))
+            check(dev, f"{name}: iOS menu OVER the selection does not touch the panel", not overlaps(m, [za]), ev)
+            check(dev, f"{name}: the panel is near UNDER the selection (14..32 px)", 14 <= d <= 32, dict(ev, d=d))
+        else:  # bottom: menu over, no room under -> panel above, beyond the menu zone
+            check(dev, f"{name}: no room under -> the panel is above, beyond the menu zone (>= 60 px)", s["top"] - m["b"] >= 60, ev)
     b.close()
 
 

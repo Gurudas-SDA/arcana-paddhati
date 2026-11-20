@@ -473,19 +473,11 @@ export default function HighlightsLayer({ ui, lang }: Props) {
       const topBar = document.querySelector(".reader-bar-top");
       const barBottom = topBar ? topBar.getBoundingClientRect().bottom : 0;
       const roomTop = Math.max(visTop, barBottom) + 8;
-      // V104 (Vraja Lila msg 3106-3109, real iPhone 19.11): the system menu is not always BELOW the selection. Seen on the device: a one-line selection -> menu under it (5 frames);
-      // a selection over two lines (lower on the page) -> menu OVER it, and the panel 16 px above fell on it. The page cannot ask iOS, so by what was seen: one line -> menu under the
-      // selection, several lines -> menu over it (the other way when it has no room: IOS_ZONE px). The panel goes to the OTHER side, IOS_ABOVE px from the selection; no room there ->
-      // the free side beyond the menu zone (IOS_CLEAR px).
-      let lines = 1;
-      if (ios) {
-        const sel = window.getSelection();
-        const rects = sel && sel.rangeCount ? Array.from(sel.getRangeAt(0).getClientRects()).filter((q) => q.width > 1 && q.height > 1) : [];
-        const mids = rects.map((q) => (q.top + q.bottom) / 2).sort((x, y) => x - y);
-        lines = mids.filter((m, i) => i === 0 || m - mids[i - 1] > 8).length || 1;
-      }
-      const IOS_ZONE = 64; // tehniskais slieksnis Lipikāra: room the system menu needs next to the selection (16 + 43 + spare)
-      const menuBelow = lines === 1 ? r.bottom + IOS_ZONE <= visBottom - 8 : !(r.top - IOS_ZONE >= roomTop);
+      // V105 (Vraja Lila msg 8549, six real iPhone frames 3122-3127; replaces the V104 «line count» guess): iOS puts its menu UNDER a selection in the upper half of the screen and OVER a
+      // selection in the lower half. The page cannot ask iOS, so the panel goes to the OTHER side, IOS_ABOVE px from the selection; no room there -> the free side beyond the menu
+      // zone (IOS_CLEAR px). Only iOS; Android and desktop are unchanged.
+      const IOS_HALF = 0.5; // V105: pieņēmums no 6 kadriem 3122–3127, precizēs Vrajas jaunie kadri (selection top above this share of the visual viewport -> iOS menu under it)
+      const menuBelow = vv ? r.top - visTop < vv.height * IOS_HALF : r.top < vh * IOS_HALF;
       const underAt = (d: number) => r.bottom + d;
       const aboveAt = (d: number) => r.top - d - h;
       let iosTop = -1;
