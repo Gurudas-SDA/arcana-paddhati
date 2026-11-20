@@ -2591,7 +2591,8 @@ html[data-reader-bars] .hs-peek { --hs-peek-reserve: calc(262px + env(safe-area-
 ::highlight(hl-3) { background-color: var(--hl-4-fill); color: inherit; }
 ::highlight(hl-4) { background-color: var(--hl-5-fill); color: inherit; }
 ::highlight(hl-nc) { text-decoration: underline dotted var(--hl-nc-tone) 1.5px; background-color: transparent; color: inherit; }
-::highlight(hl-flash) { background-color: var(--ap-band-flash); color: inherit; }
+/* V106 (Vraja Lila msg 8544/8545): the arrival cue must not lay a second colour over the note's own colour: a gold underline only, no fill */
+::highlight(hl-flash) { background-color: transparent; text-decoration: underline solid var(--ap-gold) 2px; color: inherit; }
 /* the selection menu / the card of a highlight: light in day and sepia, dark at night (the colour dots are checked on this very ground) */
 .hl-menu {
   position: fixed;
