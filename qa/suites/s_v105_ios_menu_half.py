@@ -93,7 +93,7 @@ def run(p, dev, eng, opts):
     # (name, selection args [text node, first word, last word, selection top as a share of the viewport], lines wanted, expected panel side)
     CASES = (
         ("1 line, upper (25%)", [0, 0, 2, 0.25], 1, "above"),
-        ("1 line, upper-middle (42%)", [0, 0, 2, 0.42], 1, "above"),
+        ("1 line, upper-middle (35%)", [0, 0, 2, 0.35], 1, "above"),
         ("1 line, lower-middle (58%)", [0, 0, 2, 0.58], 1, "under"),
         ("1 line, bottom (92%)", [0, 0, 2, 0.92], 1, "beyond-above"),
         ("2 lines, upper (25%)", [1, 0, 12, 0.25], 2, "above"),

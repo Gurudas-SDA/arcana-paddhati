@@ -478,11 +478,24 @@ export default function HighlightsLayer({ ui, lang }: Props) {
       // zone (IOS_CLEAR px). Only iOS; Android and desktop are unchanged.
       const IOS_HALF = 0.5; // V105: pieņēmums no 19 kadriem (3122–3127, 8550–8562), precizēs Vrajas jaunie kadri (selection top above this share of the visual viewport -> iOS menu under it)
       const menuBelow = vv ? r.top - visTop < vv.height * IOS_HALF : r.top < vh * IOS_HALF;
+      // V107 (Vraja Lila msg 8567-8579, frames 8571/8574: selection top ~446/844 = just under the middle, iOS menu AND our panel both ABOVE -> Note/Copy covered): in the grey zone around the middle
+      // the iOS menu side is not reliable, so the panel goes IOS_CLEAR px from the selection (outside the menu zone 16..60 px on BOTH sides): first under it, else above it.
+      // Coordinates: r (client rects) is in the layout viewport and vv.offsetTop is the visual viewport's offset inside it, so the share is (r.top - visTop) / vv.height (same system); vh is the fallback.
+      const IOS_GREY_LO = 0.4; // V107: 31 kadrs, robeža 0,44–0,53 + rezerve; Vraja 8571/8574
+      const IOS_GREY_HI = 0.56; // V107: 31 kadrs, robeža 0,44–0,53 + rezerve; Vraja 8571/8574
+      const share = vv ? (r.top - visTop) / vv.height : r.top / vh;
+      const grey = share >= IOS_GREY_LO && share <= IOS_GREY_HI;
       const underAt = (d: number) => r.bottom + d;
       const aboveAt = (d: number) => r.top - d - h;
       let iosTop = -1;
       if (ios) {
-        if (menuBelow) {
+        if (grey) {
+          if (underAt(IOS_CLEAR) + h <= visBottom - 8) iosTop = underAt(IOS_CLEAR) - gap;
+          else if (aboveAt(IOS_CLEAR) >= roomTop) iosTop = aboveAt(IOS_CLEAR) - gap;
+        }
+        if (iosTop >= 0) {
+          // grey zone placed
+        } else if (menuBelow) {
           if (aboveAt(IOS_ABOVE) >= roomTop) iosTop = aboveAt(IOS_ABOVE) - gap;
           else if (underAt(IOS_CLEAR) + h <= visBottom - 8) iosTop = underAt(IOS_CLEAR) - gap;
         } else {
