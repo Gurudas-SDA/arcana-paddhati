@@ -33,16 +33,18 @@ SELECT = """([n, a, b, frac]) => {
     const w = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
     for (let x = w.nextNode(); x; x = w.nextNode()) if ((x.data.match(/\\S+/g) || []).length >= 14 && x.parentElement.getClientRects().length) nodes.push(x);
   }
-  const node = nodes[n]; if (!node) return null;
-  node.parentElement.scrollIntoView({block: 'center'});
+  // cause of the earlier misses: a node near the top of the page cannot be scrolled DOWN the screen (scrollY >= 0), so only nodes whose document top >= the wanted screen position are usable
+  const vv0 = window.visualViewport; const want = vv0.offsetTop + vv0.height * frac;
+  const usable = nodes.filter(x => x.parentElement.getBoundingClientRect().top + window.scrollY >= want + 4);
+  const node = usable[n]; if (!node) return {unreachable: true, usable: usable.length, nodes: nodes.length};
   const d = node.data; const ws = [...d.matchAll(/\\S+/g)];
   const s = ws[a].index, e = ws[b - 1].index + ws[b - 1][0].length;
   const r = document.createRange(); r.setStart(node, s); r.setEnd(node, e);
   const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
-  const vv = window.visualViewport; window.scrollBy(0, r.getBoundingClientRect().top - (vv.offsetTop + vv.height * frac));
+  const vv = window.visualViewport; window.scrollBy(0, r.getBoundingClientRect().top - want);
   const rs = [...r.getClientRects()].map(q => ({t: q.top, b: q.bottom, l: q.left, r: q.right}));
   const f = rs[0], l = rs[rs.length - 1], bb = r.getBoundingClientRect();
-  return {rects: rs, top: Math.min(...rs.map(q => q.t)), bottom: Math.max(...rs.map(q => q.b)), left: bb.left, right: bb.right}; }"""
+  return {vvh: vv.height, vvtop: vv.offsetTop, scrollY: window.scrollY, wantTop: want, rects: rs, top: Math.min(...rs.map(q => q.t)), bottom: Math.max(...rs.map(q => q.b)), left: bb.left, right: bb.right}; }"""
 MENU = "() => { const m = document.querySelector('[data-hl-menu]'); const b = m.getBoundingClientRect(); return {t: b.top, b: b.bottom, l: b.left, r: b.right}; }"
 
 
@@ -77,6 +79,10 @@ def run(p, dev, eng, opts):
         except Exception:  # noqa: BLE001
             pass
         s = pg.evaluate(SELECT, args)
+        if s is None or s.get("unreachable"):
+            raise AssertionError(f"placement not reached: no text node can be placed at {args[3]:.0%} of the screen ({s})")
+        if abs(s["top"] - s["wantTop"]) > 6:
+            raise AssertionError(f"placement not reached: wanted selection top {s['wantTop']:.0f}, got {s['top']:.0f} (vv.height {s['vvh']:.0f})")
         pg.wait_for_selector("[data-hl-menu]", state="visible", timeout=4000)
         pg.wait_for_timeout(500)
         return s, pg.evaluate(MENU)
@@ -86,15 +92,16 @@ def run(p, dev, eng, opts):
 
     # (name, selection args [text node, first word, last word, selection top as a share of the viewport], lines wanted, expected panel side)
     CASES = (
-        ("1 line, upper (25%)", [1, 0, 2, 0.25], 1, "above"),
+        ("1 line, upper (25%)", [0, 0, 2, 0.25], 1, "above"),
         
-        ("1 line, lower-middle (58%)", [1, 0, 2, 0.58], 1, "under"),
-        ("1 line, bottom (92%)", [1, 0, 2, 0.92], 1, "beyond-above"),
-        ("2 lines, upper (25%)", [2, 0, 12, 0.25], 2, "above"),
-        ("2 lines, lower (65%)", [2, 0, 12, 0.65], 2, "under"),
-        ("2 lines, bottom (90%)", [2, 0, 12, 0.90], 2, "beyond-above"),
+        ("1 line, lower-middle (58%)", [0, 0, 2, 0.58], 1, "under"),
+        ("1 line, bottom (92%)", [0, 0, 2, 0.92], 1, "beyond-above"),
+        ("2 lines, upper (25%)", [1, 0, 12, 0.25], 2, "above"),
+        ("2 lines, lower (65%)", [1, 0, 12, 0.65], 2, "under"),
+        ("2 lines, bottom (90%)", [1, 0, 12, 0.90], 2, "beyond-above"),
     )
-    for name, args, want, exp in CASES:
+    seen = set()
+    for name, args, want, exp0 in CASES:
         s, m = show(args)
         n = len(s["rects"])
         ev = {"menu": m, "sel": {k: s[k] for k in ("top", "bottom", "left", "right")}, "rects": n, "vh": vh}
@@ -102,6 +109,14 @@ def run(p, dev, eng, opts):
         check(dev, f"{name}: the panel covers no selection rect", not overlaps(m, s["rects"]), ev)
         zb = zone(s["bottom"] + 16, s["bottom"] + 60)
         za = zone(s["top"] - 60, s["top"] - 16)
+        half = s["vvtop"] + s["vvh"] / 2
+        upper = s["top"] < half
+        h = m["b"] - m["t"]
+        room_under = s["bottom"] + 16 + h <= s["vvtop"] + s["vvh"] - 8  # same room test as the code (bottom bar ignored: page has none on this route when it is not shown)
+        exp = "above" if upper else ("under" if room_under else "beyond-above")
+        seen.add((want, exp))
+        if (upper and exp != "above") or (not upper and exp == "above"):
+            check(dev, f"{name}: expectation from the actual top", False, ev)
         if exp == "above":  # upper half: iOS menu under -> panel near above
             d = s["top"] - m["b"]
             check(dev, f"{name}: iOS menu UNDER the selection does not touch the panel", not overlaps(m, [zb]), ev)
@@ -112,6 +127,8 @@ def run(p, dev, eng, opts):
             check(dev, f"{name}: the panel is near UNDER the selection (14..32 px)", 14 <= d <= 32, dict(ev, d=d))
         else:  # bottom: menu over, no room under -> panel above, beyond the menu zone
             check(dev, f"{name}: no room under -> the panel is above, beyond the menu zone (>= 60 px)", s["top"] - m["b"] >= 60, ev)
+    # both halves, 1 and 2 lines, actually reached (computed from the real selection top vs vv.height/2)
+    check(dev, "cases cover upper and lower half with 1 and 2 lines", {(1, "above"), (2, "above")} <= seen and any(w == 1 and e != "above" for w, e in seen) and any(w == 2 and e != "above" for w, e in seen), sorted(seen))
     b.close()
 
 
