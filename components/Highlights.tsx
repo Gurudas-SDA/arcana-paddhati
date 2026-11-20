@@ -476,7 +476,7 @@ export default function HighlightsLayer({ ui, lang }: Props) {
       // V105 (Vraja Lila msg 8549, six real iPhone frames 3122-3127; replaces the V104 «line count» guess): iOS puts its menu UNDER a selection in the upper half of the screen and OVER a
       // selection in the lower half. The page cannot ask iOS, so the panel goes to the OTHER side, IOS_ABOVE px from the selection; no room there -> the free side beyond the menu
       // zone (IOS_CLEAR px). Only iOS; Android and desktop are unchanged.
-      const IOS_HALF = 0.5; // V105: pieņēmums no 6 kadriem 3122–3127, precizēs Vrajas jaunie kadri (selection top above this share of the visual viewport -> iOS menu under it)
+      const IOS_HALF = 0.5; // V105: pieņēmums no 19 kadriem (3122–3127, 8550–8562), precizēs Vrajas jaunie kadri (selection top above this share of the visual viewport -> iOS menu under it)
       const menuBelow = vv ? r.top - visTop < vv.height * IOS_HALF : r.top < vh * IOS_HALF;
       const underAt = (d: number) => r.bottom + d;
       const aboveAt = (d: number) => r.top - d - h;
