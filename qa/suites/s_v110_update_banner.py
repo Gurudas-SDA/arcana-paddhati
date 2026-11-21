@@ -11,7 +11,8 @@ Checks per device (iphone14 / pixel7 / ipad-portrait / desktop):
      seconds, then the strip is gone
   B  a new worker that WAITS (install without skipWaiting): «Доступна новая версия книги» + button «Обновить»;
      the button switches to the new version (reload) and «Книга обновлена» follows
-  C  an install that is interrupted (worker redundant): «Не удалось загрузить новую версию» + «Повторить»;
+  C  an install that is interrupted (worker redundant): «Не удалось загрузить» + «Повторить» in ONE row
+     (V111, Vraja Lila msg 8620: «когда не удалось сократи текст чтобы кнопка умещалась в одном ряду»);
      the button asks the browser again (registration.update) and the update then goes through
 usage: python s_v110_update_banner.py [<base ignored>]    V110_SHOTS=<dir> — also save screenshots (light + night)
 """
@@ -27,6 +28,7 @@ import server as qa_server  # noqa: E402
 from playwright.sync_api import sync_playwright  # noqa: E402
 
 SHOTS = os.environ.get("V110_SHOTS", "")
+SHOT_TAG = os.environ.get("V110_SHOT_TAG", "2026.11.21_V110")
 DEVICES = qa.devices(["iphone14", "pixel7", "ipad-portrait", "desktop"])
 results = []
 
@@ -105,7 +107,7 @@ def shot(pg, dev, name):
     for theme, suf in (("", ""), ("night", " (тёмная тема)")):
         pg.evaluate("t => t ? document.documentElement.setAttribute('data-reader-theme', t) : document.documentElement.removeAttribute('data-reader-theme')", theme)
         pg.wait_for_timeout(250)
-        pg.screenshot(path=os.path.join(SHOTS, f"2026.11.21_V110_{SHOT_NAMES[dev]}_{name}{suf}.png"))
+        pg.screenshot(path=os.path.join(SHOTS, f"{SHOT_TAG}_{SHOT_NAMES[dev]}_{name}{suf}.png"))
     pg.evaluate("document.documentElement.removeAttribute('data-reader-theme')")
 
 
@@ -210,8 +212,13 @@ with sync_playwright() as p:
         # ---- C: an interrupted install ----
         trigger(pg)
         f = wait_phase(pg, "failed", 90)
-        check(dev, "C1 interrupted install: «Не удалось загрузить новую версию» + button «Повторить»",
-              f and f["text"] == "Не удалось загрузить новую версию" and f["button"] == "Повторить", f)
+        check(dev, "C1 interrupted install: «Не удалось загрузить» + button «Повторить»",
+              f and f["text"] == "Не удалось загрузить" and f["button"] == "Повторить", f)
+        row = pg.evaluate("""() => { const t = document.querySelector('.update-banner-text'), b = document.querySelector('[data-update-action=failed]');
+            if (!t || !b) return null; const r1 = t.getBoundingClientRect(), r2 = b.getBoundingClientRect();
+            return {textTop: r1.top, textBottom: r1.bottom, btnTop: r2.top, btnBottom: r2.bottom, textLines: Math.round(r1.height / parseFloat(getComputedStyle(t).lineHeight))}; }""")
+        check(dev, "C1c V111 text and «Повторить» in one row (button not wrapped below the text, text in one line)",
+              row and row["btnTop"] < row["textBottom"] and row["textTop"] < row["btnBottom"] and row["textLines"] <= 1, row)
         if f:
             shot(pg, dev, "Не удалось загрузить — Повторить")
             flags("d", delay=0.02)  # the network is fine again

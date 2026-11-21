@@ -174,7 +174,7 @@
   "update.loading": "Downloading the new version of the book — {n} %",
   "update.ready": "A new version of the book is available",
   "update.apply": "Update",
-  "update.failed": "Could not download the new version",
+  "update.failed": "Download failed",
   "update.retry": "Retry",
   "update.done": "The book has been updated"
 }
