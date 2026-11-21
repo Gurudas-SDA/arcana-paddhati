@@ -2946,3 +2946,50 @@ html[data-ap-stepping] .reader-history-btn:disabled {
 .update-banner-btn:hover { background: var(--rd-hover); }
 @media print { .update-banner { display: none; } }
 /*@/v110*/
+
+/*@v112*/
+/* V112 (Vraja Lila msg 8621): on the cover the «new version» strip stands IN the page under the cards (HomePage.tsx, inline), a
+   --space-8 below them, exactly the cards' width (the same expression as their slots); the fixed strip of the chapters is not shown on
+   the cover. While the strip is there (html[data-update-strip], --update-banner-h = its measured height, components/UpdateBanner.tsx) the
+   cover is shorter by the strip + the gap, the block may come down into the bottom bar's share (padding-bottom --space-8 instead of
+   16 px + 57 - 48 px), and when the bars come out the block rises by the bottom bar's overhang (57 - 48 px), ease-in-out, so its lower
+   edge stays a --space-8 above the bottom bar; it settles back when the bars go. Nothing else changes: no strip = origin as before. */
+html:has(.home-page) .update-banner:not(.update-banner-inline) { display: none; }
+.home-update-slot {
+  box-sizing: border-box;
+  padding-top: var(--space-8);
+  width: min(100%, 874px, calc((100vh - 2rem - var(--home-bars-extra) - var(--reader-pad-bottom) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px)) * 874 / 1240));
+  width: min(100%, 874px, calc((100dvh - 2rem - var(--home-bars-extra) - var(--reader-pad-bottom) - env(safe-area-inset-top, 0px) - var(--install-banner-h, 0px) - var(--home-save-h) - var(--home-resume-h, 0px)) * 874 / 1240));
+  min-width: min(100%, 12rem);
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .home-update-slot { width: min(100%, 26rem); }
+}
+.update-banner.update-banner-inline {
+  position: static;
+  transform: none;
+  width: 100%;
+  z-index: auto;
+}
+html[data-update-strip] {
+  /* top share (bar) + bottom share (--space-8 - 16 px) + the strip + its gap, against the 2rem of the page's own padding */
+  --home-bars-extra: calc(var(--reader-bar-top-h) + var(--update-banner-h, 0px));
+}
+html[data-update-strip] .home-page {
+  padding-bottom: var(--space-8);
+  transition: transform 0.28s ease-in-out;
+}
+html[data-update-strip][data-reader-bars] .home-page {
+  transform: translateY(calc(48px - var(--reader-bar-top-h)));
+}
+@media (max-height: 700px) {
+  html[data-update-strip] {
+    --home-bars-extra: calc(var(--update-banner-h, 0px) + var(--space-8));
+  }
+  html[data-update-strip] .home-page { padding-bottom: var(--space-16); }
+  html[data-update-strip][data-reader-bars] .home-page { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-update-strip] .home-page { transition: none; }
+}
+/*@/v112*/

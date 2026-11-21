@@ -2,6 +2,7 @@ import { preload } from "react-dom";
 import { getUi, uiWithFallback } from "@/lib/content";
 import OfflineSaveCard, { type OfflineSaveLabels } from "@/components/OfflineSaveCard";
 import ResumeCard from "@/components/ResumeCard";
+import UpdateBanner from "@/components/UpdateBanner";
 import CaLogo from "@/components/CaLogo";
 import { t } from "@/lib/i18n";
 import { BASE_PATH } from "@/lib/basePath";
@@ -91,6 +92,8 @@ export default function HomePage({ lang }: { lang: string }) {
       <ResumeCard lang={lang} title={resumeTitle(lang)} />
       {/* Saving for offline (Vraja Lila msg 5318): place reserved before first paint (lib/homeCards.ts). */}
       <OfflineSaveCard labels={saveLabels(lang)} />
+      {/* V112 (Vraja Lila msg 8621): the «new version» strip under the cards, in the page, the cards' width. */}
+      <UpdateBanner ui={ui} inline />
     </div>
   );
 }
