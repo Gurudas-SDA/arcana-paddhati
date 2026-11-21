@@ -271,12 +271,30 @@ async function postProgress(done, total, final, failed = 0, failedKinds = {}) {
   }
 }
 
+// V110 (Vraja Lila msg 8612–8614): the page learns how far the NEW version's core
+// has downloaded («Загружается новая версия книги — N %»). Also to pages the old
+// worker still controls (includeUncontrolled). Throttled like postProgress.
+let lastUpdateProgress = 0;
+async function postUpdateProgress(done, total, final) {
+  const now = Date.now();
+  if (!final && now - lastUpdateProgress < 700) return;
+  lastUpdateProgress = now;
+  try {
+    for (const c of await self.clients.matchAll({ includeUncontrolled: true, type: 'window' })) {
+      c.postMessage({ type: 'sw-update-progress', version: VERSION, done, total, final: !!final });
+    }
+  } catch {
+    // ignore
+  }
+}
+
 async function doPrecache(only) {
   const cache = await caches.open(CACHE_NAME);
   if (await cache.match(COMPLETE_KEY)) {
     // Already whole: tell the page (a page that saw an unfinished download
     // must learn that it is done, without a new download run).
     if (!only) postProgress(0, 0, true);
+    else await postUpdateProgress(1, 1, true);
     return { total: 0, fetched: 0, copied: 0, failed: 0, complete: true };
   }
   let manifest;
@@ -341,9 +359,12 @@ async function doPrecache(only) {
         failedKinds[kind] = (failedKinds[kind] || 0) + 1;
       }
       if (!only) postProgress(have + fetched + copied, scope, false, failed, failedKinds);
+      else postUpdateProgress(have + fetched + copied, scope, false);
     }
   }
+  if (only) postUpdateProgress(have, scope, false);
   await Promise.all(Array.from({ length: CONCURRENCY }, worker));
+  if (only) await postUpdateProgress(have + fetched + copied, scope, true);
   if (only) return { total: scope, fetched, copied, failed, complete: false, core: failed === 0 };
   postProgress(have + fetched + copied, scope, true, failed, failedKinds);
   const complete = failed === 0;
@@ -394,6 +415,11 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'skip-waiting') {
+    // V110: the «Обновить» button of a waiting version.
+    self.skipWaiting();
+    return;
+  }
   if (event.data && event.data.type === 'precache-continue') {
     // A page is open: keep filling the cache (resumable; each message gives
     // the worker a new lifetime for the download).

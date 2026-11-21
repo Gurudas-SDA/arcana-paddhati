@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { flushSync } from "react-dom";
 import Sidebar, { restoreParts } from "@/components/Sidebar";
 import InstallBanner from "@/components/InstallBanner";
+import UpdateBanner from "@/components/UpdateBanner";
 import ReaderChrome from "@/components/ReaderChrome";
 import HighlightsLayer from "@/components/Highlights";
 import type { SearchEntry } from "@/lib/book";
@@ -942,6 +943,8 @@ export default function AppShell({
         {/* Content */}
         {children}
       </main>
+      {/* V110: a new version of the book is downloading / ready (lib/swUpdate.ts). */}
+      <UpdateBanner ui={ui} />
       {/* V71: highlights and notes in the text (components/Highlights.tsx). */}
       <HighlightsLayer ui={ui} lang={lang} />
     </div>

@@ -1,5 +1,6 @@
 "use client";
 import { noteRegistration, startOfflineSync } from "@/lib/offlineProgress";
+import { noteUpdatedInPlace, noteUpdatedReload, startSwUpdate } from "@/lib/swUpdate";
 import React, {
   useState,
   useEffect,
@@ -146,11 +147,17 @@ export default function InstallBanner({ ui }: { ui: UiDict }) {
         });
       }).catch(() => {});
       navigator.serviceWorker.addEventListener("controllerchange", () => {
-        if (!hadController || reloaded || freshAfterUpdate) return;
+        if (!hadController || reloaded) return;
+        if (freshAfterUpdate) {
+          noteUpdatedInPlace();
+          return;
+        }
         reloaded = true;
+        noteUpdatedReload();
         window.location.reload();
       });
       startOfflineSync();
+      startSwUpdate(reg);
     }
 
     // Listen for native install prompt (Chrome / Edge / Android Chrome)

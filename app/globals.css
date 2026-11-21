@@ -2901,3 +2901,48 @@ html[data-ap-stepping] .reader-history-btn:disabled {
   }
 }
 /*@/v99*/
+
+/*@v110*/
+/* V110 (Vraja Lila msg 8612–8614): the «new version of the book» strip — quiet, at the bottom above the
+   reader's bottom bar, the theme's panel colours (light / sepia / night); never over the text of a line the reader
+   is on top of (the bar's height is reserved by --reader-pad-bottom). */
+.update-banner {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(var(--reader-pad-bottom, var(--space-48)) + var(--space-8));
+  z-index: 60;
+  box-sizing: border-box;
+  width: min(calc(100% - var(--space-32)), 460px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4) var(--space-12);
+  padding: var(--space-8) var(--space-12);
+  background: var(--rd-panel-bg);
+  color: var(--rd-fg);
+  border: 1px solid var(--rd-border);
+  border-radius: var(--ds-radius-card, 10px);
+  box-shadow: var(--shadow-window);
+  font-family: var(--font-book, Georgia, serif);
+  font-size: 14px;
+  line-height: 1.3;
+}
+.update-banner-text { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+.update-banner-bar { flex: 1 0 100%; height: 3px; border-radius: 2px; background: var(--rd-hover); overflow: hidden; }
+.update-banner-bar i { display: block; height: 100%; background: var(--ap-gold); transition: width 0.4s ease; }
+.update-banner-btn {
+  flex: 0 0 auto;
+  min-height: var(--space-32);
+  padding: var(--space-4) var(--space-12);
+  border-radius: var(--radius-window);
+  border: 1px solid var(--ap-gold);
+  background: transparent;
+  color: var(--rd-fg);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.update-banner-btn:hover { background: var(--rd-hover); }
+@media print { .update-banner { display: none; } }
+/*@/v110*/

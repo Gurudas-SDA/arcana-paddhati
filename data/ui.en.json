@@ -170,5 +170,11 @@
   "bookmarks.saved": "Bookmarks saved: {n}",
   "bookmarks.loaded": "Bookmarks loaded: {n}",
   "bookmarks.notFound": "not found: {n}",
-  "bookmarks.import.bad": "This is not an «Arcana-paddhati» bookmarks file (or it is damaged)."
+  "bookmarks.import.bad": "This is not an «Arcana-paddhati» bookmarks file (or it is damaged).",
+  "update.loading": "Downloading the new version of the book — {n} %",
+  "update.ready": "A new version of the book is available",
+  "update.apply": "Update",
+  "update.failed": "Could not download the new version",
+  "update.retry": "Retry",
+  "update.done": "The book has been updated"
 }
