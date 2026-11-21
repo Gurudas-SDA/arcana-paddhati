@@ -132,8 +132,8 @@ with sync_playwright() as p:
         pg = c.new_page()
         flags()
         man = json.load(open(os.path.join(qa.OUT, "precache-manifest.json"), encoding="utf-8"))
-        chap = [u for u, g in zip(man["urls"], man["groups"]) if g == "ru-iast" and u.endswith("/") and u.count("/") > 3][3]
-        pg.goto(SRV.origin + chap, wait_until="load")
+        # V113: strip only on the cover, Vraja Lila msg 8643 (the cover is the page the strip is checked on; s_v113_strip_cover_only.py: not inside)
+        pg.goto(SRV.base + "/ru-iast/", wait_until="load")
         try:
             pg.wait_for_function("navigator.serviceWorker.controller !== null", timeout=90000)
         except Exception:
@@ -173,8 +173,8 @@ with sync_playwright() as p:
         check(dev, "A1 «Загружается новая версия книги — N %» shown while the new version downloads", ok_text, texts[:2])
         check(dev, "A2 N grows (>= 2 different values, never goes back)", len(set(seen)) >= 2 and seen == sorted(seen), seen[:12])
         bx = boxes[len(boxes) // 2] if boxes else None
-        check(dev, "A3 strip inside the screen, above the reader's bottom bar",
-              bx and bx["left"] >= 0 and bx["right"] <= bx["vw"] + 0.5 and bx["bottom"] <= bx["vh"] - 48 + 0.5 and bx["top"] > bx["vh"] / 2, bx)
+        # V113: strip only on the cover (Vraja Lila msg 8643) — it stands in the cover page (V112), not fixed above the bottom bar
+        check(dev, "A3 strip inside the screen width (on the cover)", bx and bx["left"] >= 0 and bx["right"] <= bx["vw"] + 0.5 and bx["top"] > 0, bx)
         print(f"     [{dev}] A loading seen after {time.time() - t0:.0f}s", flush=True)
         d = wait_phase(pg, "done", 120)
         check(dev, "A4 after the switch (reload) «Книга обновлена»", d and d["text"] == "Книга обновлена", d and d["text"])

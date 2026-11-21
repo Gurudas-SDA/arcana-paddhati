@@ -2,6 +2,8 @@
 
 // V110 (Vraja Lila msg 8612–8614): a quiet strip at the bottom, above the
 // reader's bottom bar, about a new version of the book (lib/swUpdate.ts).
+// V113 (Vraja Lila msg 8643): the strip is shown ONLY on the cover (HomePage.tsx, `inline`) — the fixed strip of V110
+// in AppShell is gone; the state (loading / ready / failed / done) lives in lib/swUpdate.ts and is seen on return to the cover.
 // V112 (Vraja Lila msg 8621): on the cover the strip stands IN the page under the
 // cards (HomePage.tsx, `inline`), a --space-8 below them, the cards' width; the
 // fixed strip is hidden there (app/globals.css /*@v112*/). The inline strip tells

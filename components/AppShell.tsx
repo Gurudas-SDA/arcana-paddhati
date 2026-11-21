@@ -5,7 +5,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { flushSync } from "react-dom";
 import Sidebar, { restoreParts } from "@/components/Sidebar";
 import InstallBanner from "@/components/InstallBanner";
-import UpdateBanner from "@/components/UpdateBanner";
 import ReaderChrome from "@/components/ReaderChrome";
 import HighlightsLayer from "@/components/Highlights";
 import type { SearchEntry } from "@/lib/book";
@@ -943,8 +942,8 @@ export default function AppShell({
         {/* Content */}
         {children}
       </main>
-      {/* V110: a new version of the book is downloading / ready (lib/swUpdate.ts). */}
-      <UpdateBanner ui={ui} />
+      {/* V113 (Vraja Lila msg 8643): the update strip (V110) is only on the cover (HomePage.tsx, `inline`); inside the
+          book nothing is shown at the bottom. The state lives in lib/swUpdate.ts, not in the strip. */}
       {/* V71: highlights and notes in the text (components/Highlights.tsx). */}
       <HighlightsLayer ui={ui} lang={lang} />
     </div>

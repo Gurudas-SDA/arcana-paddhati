@@ -2993,3 +2993,8 @@ html[data-update-strip][data-reader-bars] .home-page {
   html[data-update-strip] .home-page { transition: none; }
 }
 /*@/v112*/
+
+/*@v113*/
+/* V113 (Vraja Lila msg 8643): the update strip exists only on the cover (inline); a fixed one is never shown. */
+.update-banner:not(.update-banner-inline) { display: none; }
+/*@/v113*/
