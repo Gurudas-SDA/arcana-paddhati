@@ -59,7 +59,7 @@ KEYBOARD = """(kb) => { const vv = window.visualViewport; if (!window.__vvfake) 
 PARTS = """() => { const r = e => { if (!e) return null; const b = e.getBoundingClientRect(); return {t: Math.round(b.top), b: Math.round(b.bottom), l: Math.round(b.left), r: Math.round(b.right)}; };
   const card = document.querySelector('[data-hl-modal=editor] [role=dialog]');
   return {vvh: window.visualViewport.height, iw: innerWidth, card: r(card), close: r(card && card.querySelector('[aria-label]')),
-    title: r(card && card.querySelector('h2')), quote: r(document.querySelector('[data-hl-editor-quote]')),
+    title: r(card && card.querySelector('[data-nw-title]')),
     colors: [...card.querySelectorAll('[data-hl-color]')].map(r), field: r(card.querySelector('textarea')),
     del: r(card.querySelector('[data-hl-editor-delete]')), cancel: r(card.querySelector('[data-hl-cancel]')), save: r(card.querySelector('[data-hl-save]'))}; }"""
 
@@ -129,9 +129,10 @@ def run(p, dev, eng, opts, layout="page"):
         pg.evaluate(KEYBOARD, KB[dev0])
         pg.wait_for_timeout(900)
         k = pg.evaluate(PARTS)
-        names = ["card", "close", "title", "quote", "field", "del", "cancel", "save"]
+        # V109 (Vraja Lila msg 8605/8609): the window has no heading, no quote and no close ✕; the title FIELD instead (was: close, title, quote)
+        names = ["card", "title", "field", "del", "cancel", "save"]
         bad = [n for n in names if not inside(k[n], k["vvh"], k["iw"])] + [f"color{i}" for i, x in enumerate(k["colors"]) if not inside(x, k["vvh"], k["iw"])]
-        check(dev, "keyboard open: title, quote, colours, field, «Удалить / Отмена / Сохранить» and ✕ are all above the keyboard", not bad and len(k["colors"]) == 5, [bad, k])
+        check(dev, "keyboard open: colours, title field, text field, «Удалить / Отмена / Сохранить» are all above the keyboard (V109: no heading / quote / ✕)", not bad and len(k["colors"]) == 5, [bad, k])
         pg.evaluate(KEYBOARD, 0)
         pg.wait_for_timeout(700)
         back = pg.evaluate(PARTS)

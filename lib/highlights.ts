@@ -49,6 +49,8 @@ export interface Highlight {
   after: string;
   color: number;
   note?: string;
+  /** V109: the note's own title (absent = the default: the start of the marked text). */
+  title?: string;
   created: number;
   updated: number;
   /** The reader's own place in the list (as a bookmark's `pos`). */
@@ -351,7 +353,8 @@ export function parseFile(text: string): Import {
         items.push({
           id: h.id, lang: h.lang, section: h.section, sub: typeof h.sub === "string" ? h.sub : undefined, mood: Number.isInteger(h.mood) ? h.mood : undefined,
           start: h.start, end: h.end, quote: h.quote, before: typeof h.before === "string" ? h.before : "", after: typeof h.after === "string" ? h.after : "",
-          color: h.color, note: typeof h.note === "string" && h.note ? h.note.slice(0, HL_NOTE_MAX) : undefined,
+          color: h.color, title: typeof h.title === "string" && h.title.trim() ? h.title.trim().slice(0, 120) : undefined,
+          note: typeof h.note === "string" && h.note ? h.note.slice(0, HL_NOTE_MAX) : undefined,
           created: Number.isFinite(h.created) ? h.created : Date.now(), updated: Number.isFinite(h.updated) ? h.updated : Date.now(),
           pos: Number.isFinite(h.pos) ? h.pos : undefined, lost: undefined, kind: h.kind === "verse" || h.kind === "poslovno" ? h.kind : undefined,
         });
@@ -461,4 +464,14 @@ export function cardDate(ms: number): string {
   const d = new Date(ms);
   const p = (n: number) => String(n).padStart(2, "0");
   return `${p(d.getDate())}.${p(d.getMonth() + 1)}.${d.getFullYear()}`;
+}
+
+/** V109 (technical choice, not a rule): the default title of a note = the start of the marked text, at most 28 signs (one line of the field), cut at a word, then «…». */
+export const DEFAULT_TITLE_MAX = 28;
+export function defaultNoteTitle(quote: string): string {
+  const q = quote.replace(/\s+/g, " ").trim();
+  if (q.length <= DEFAULT_TITLE_MAX) return q;
+  const cut = q.slice(0, DEFAULT_TITLE_MAX);
+  const sp = cut.lastIndexOf(" ");
+  return (sp > 15 ? cut.slice(0, sp) : cut).replace(/[\s,;:.\-—]+$/, "") + "…";
 }

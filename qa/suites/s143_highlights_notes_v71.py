@@ -241,7 +241,8 @@ def run_theme(p, dev, eng, opts, theme):
     open_panel(pg, "notes")
     LINES = """(sel) => [...document.querySelectorAll(sel)].map(e => { const cs = getComputedStyle(e); return {lines: Math.round(e.getBoundingClientRect().height / parseFloat(cs.lineHeight)), clamp: cs.webkitLineClamp, text: e.textContent.slice(0, 20)}; })"""
     nl = pg.evaluate(LINES, "[data-note-row] [data-note-body]")
-    check(tag, "notes: the note text at most 3 lines (V91 A3, Vraja Lila msg 7940; a long one is cut with «…»)", nl and all(x["lines"] <= 3 and x["clamp"] == "3" for x in nl) and any(x["lines"] == 3 for x in nl), nl)
+    # V109 (Vraja Lila msg 8601/8605/8609): the card shows only the title, at most 2 lines then «…» (was: the note text, 3 lines)
+    check(tag, "notes: the card title at most 2 lines (V109 8605; was 3 lines for the note text, V91 A3 msg 7940)", nl and all(x["lines"] <= 2 and x["clamp"] == "2" for x in nl), nl)
     nd = pg.evaluate("() => [...document.querySelectorAll('[data-note-date]')].map(e => e.textContent)")
     check(tag, "notes: the date at the bottom is DD.MM.YYYY", nd and all(re.fullmatch(r"\d{2}\.\d{2}\.\d{4}", x) for x in nd), nd)
     pg.evaluate("() => document.querySelector('[data-sidebar-tab=bookmarks]').click()")

@@ -42,6 +42,78 @@
    "file": "app/globals.css",
    "reason": "V97: «Сбросить настройки» — reddish text of variant C chosen by Vraja (day #B3261E, night #F2A29B); no warning-red token exists",
    "who": "msg 8231-8233"
+  },
+  {
+   "value": "margin:0 0 14px 0",
+   "file": "app/globals.css",
+   "reason": "V109: the note window of the approved variant 5 (title field, placeholders, clear cross, dark hairline, 2-line card title): exact pixel / colour values of the approved snapshots; no token has the same value",
+   "who": "msg 8605/8609 (Vraja Lila, variant 5)"
+  },
+  {
+   "value": "color:#9a8374",
+   "file": "app/globals.css",
+   "reason": "V109: the note window of the approved variant 5 (title field, placeholders, clear cross, dark hairline, 2-line card title): exact pixel / colour values of the approved snapshots; no token has the same value",
+   "who": "msg 8605/8609 (Vraja Lila, variant 5)"
+  },
+  {
+   "value": "color:#2C1810 !important",
+   "file": "app/globals.css",
+   "reason": "V109: the note window of the approved variant 5 (title field, placeholders, clear cross, dark hairline, 2-line card title): exact pixel / colour values of the approved snapshots; no token has the same value",
+   "who": "msg 8605/8609 (Vraja Lila, variant 5)"
+  },
+  {
+   "value": "color:#9a8374 !important",
+   "file": "app/globals.css",
+   "reason": "V109: the note window of the approved variant 5 (title field, placeholders, clear cross, dark hairline, 2-line card title): exact pixel / colour values of the approved snapshots; no token has the same value",
+   "who": "msg 8605/8609 (Vraja Lila, variant 5)"
+  },
+  {
+   "value": "margin:0 0 6px -9px",
+   "file": "app/globals.css",
+   "reason": "V109: the note window of the approved variant 5 (title field, placeholders, clear cross, dark hairline, 2-line card title): exact pixel / colour values of the approved snapshots; no token has the same value",
+   "who": "msg 8605/8609 (Vraja Lila, variant 5)"
+  },
+  {
+   "value": "color:#d9c3ad !important",
+   "file": "app/globals.css",
+   "reason": "V109: the note window of the approved variant 5 (title field, placeholders, clear cross, dark hairline, 2-line card title): exact pixel / colour values of the approved snapshots; no token has the same value",
+   "who": "msg 8605/8609 (Vraja Lila, variant 5)"
+  },
+  {
+   "value": "border:1px solid rgba(255,255,255,.28)",
+   "file": "app/globals.css",
+   "reason": "V109: the note window of the approved variant 5 (title field, placeholders, clear cross, dark hairline, 2-line card title): exact pixel / colour values of the approved snapshots; no token has the same value",
+   "who": "msg 8605/8609 (Vraja Lila, variant 5)"
+  },
+  {
+   "value": "padding:10px 40px 10px 12px",
+   "file": "app/globals.css",
+   "reason": "V109: the note window of the approved variant 5 (title field, placeholders, clear cross, dark hairline, 2-line card title): exact pixel / colour values of the approved snapshots; no token has the same value",
+   "who": "msg 8605/8609 (Vraja Lila, variant 5)"
+  },
+  {
+   "value": "right:2px",
+   "file": "app/globals.css",
+   "reason": "V109: the note window of the approved variant 5 (title field, placeholders, clear cross, dark hairline, 2-line card title): exact pixel / colour values of the approved snapshots; no token has the same value",
+   "who": "msg 8605/8609 (Vraja Lila, variant 5)"
+  },
+  {
+   "value": "height:40px",
+   "file": "app/globals.css",
+   "reason": "V109: the note window of the approved variant 5 (title field, placeholders, clear cross, dark hairline, 2-line card title): exact pixel / colour values of the approved snapshots; no token has the same value",
+   "who": "msg 8605/8609 (Vraja Lila, variant 5)"
+  },
+  {
+   "value": "color:color-mix(in srgb, #5C3D2E 45%, white)",
+   "file": "app/globals.css",
+   "reason": "V109: the note window of the approved variant 5 (title field, placeholders, clear cross, dark hairline, 2-line card title): exact pixel / colour values of the approved snapshots; no token has the same value",
+   "who": "msg 8605/8609 (Vraja Lila, variant 5)"
+  },
+  {
+   "value": "line-height:20px",
+   "file": "app/globals.css",
+   "reason": "V109: the note window of the approved variant 5 (title field, placeholders, clear cross, dark hairline, 2-line card title): exact pixel / colour values of the approved snapshots; no token has the same value",
+   "who": "msg 8605/8609 (Vraja Lila, variant 5)"
   }
  ]
 }

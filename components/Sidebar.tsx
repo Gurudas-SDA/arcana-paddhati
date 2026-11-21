@@ -29,6 +29,7 @@ import {
   fileName,
   cardDate,
   readHighlights,
+  defaultNoteTitle,
   removeHighlight,
   reorderHighlights,
   setPendingReveal,
@@ -1982,7 +1983,8 @@ export default function Sidebar({
                       className="sidebar-link block w-full text-left pl-[var(--ds-target)] pr-[96px] py-3"
                     >
                       {/* V91 A3 (Vraja Lila msg 7933/7934/7940): ONLY the note's text (3 lines, then «…»); a note without text — the highlighted text is the title; no chapter / place line; the date stays. */}
-                      <span className="note-text block text-sm text-[#2C1810]" data-note-body="">{h.note ? h.note : h.quote}</span>
+                      {/* V109 (Vraja Lila msg 8601/8609): the card shows only the title (the reader's own, else the start of the marked text), 2 lines then «…» */}
+                      <span className="nw-card-title block text-sm text-[#2C1810]" data-note-body="">{h.title || defaultNoteTitle(h.quote)}</span>
                       {(h.lost || otherLang) && (
                         <span className="block text-[11px] text-[#6B5440]" data-note-status="">
                           {[h.lost ? lostLabel : "", otherLang ? t(ui, "notes.langNote", { lang: h.lang }) : ""].filter(Boolean).join(" · ")}

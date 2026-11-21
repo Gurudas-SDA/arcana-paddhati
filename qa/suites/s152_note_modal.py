@@ -2,8 +2,8 @@
 «1) под модальным окном можно "мотать" страницу... и нету overlay'a как-то странно работает само модальное окно
 2) если выделенный текс огромен... может есть смысл показать только цвета и окно ввода your note, не показывать наверху в окне тот текст, который был выделен, т.к. если там огромный кусок окошка не хватит
 3) когда заметка сохранена и при нажатии на неё, открывается модальное окно с цветами, заметкой и снизу 3 кнопки... это окно нужно сделать по ширине таким же как модальное окно.... сейчас оно обрублено... и контент внутри окна должен быть отцентрован а кнопки снизу должны быть распространены по ширине»
-Criteria: (1) overlay fills the viewport; wheel/touch under the window does not move the page (scrollY); (2) a long quote is not shown in the
-note window, a short one is; (3) the saved-note popover is as wide as the note window (+-2 px), centred, its 3 buttons fill the width.
+Criteria: (1) overlay fills the viewport; wheel/touch under the window does not move the page (scrollY); (2) the marked text is not shown in the
+note window (V109 8605: neither a long nor a short one; was: a short one is shown); (3) the saved-note popover is as wide as the note window (+-2 px), centred, its 3 buttons fill the width.
 # tehniskais slieksnis Lipikara, nav S noteikums: settle 300-900 ms; long quote = more than 110 characters
 usage: python s152_note_modal.py <base-url>
 """
@@ -80,7 +80,8 @@ def run(p, dev, eng, opts):
     pg.add_style_tag(content="*,*::before,*::after{animation:none!important;transition:none!important}")
     # short quote
     short = make_note(pg, 2, 6, "x")
-    check(dev, "short quote: shown in the note window", pg.locator("[data-hl-editor-quote]").count() == 1 and len(short) <= 110, [short, pg.locator("[data-hl-editor-quote]").count()])
+    # V109 (Vraja Lila msg 8601/8605/8607/8609): the note window no longer shows the marked text at all (title field instead) - was: shown when short
+    check(dev, "short quote: not shown in the note window (V109: colours, title field, note field)", pg.locator("[data-hl-editor-quote]").count() == 0 and len(short) <= 110, [short, pg.locator("[data-hl-editor-quote]").count()])
     vp = pg.evaluate("() => [innerWidth, innerHeight]")
     ov = pg.evaluate(BOX, ".bookmark-name-backdrop")
     check(dev, "overlay exists and covers the viewport", ov and ov["l"] <= 0.5 and ov["t"] <= 0.5 and ov["r"] >= vp[0] - 0.5 and ov["b"] >= vp[1] - 0.5, [ov, vp])

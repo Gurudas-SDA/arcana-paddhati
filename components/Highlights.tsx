@@ -15,6 +15,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { parsePath, t, type UiDict } from "@/lib/i18n";
+import { BOOKMARK_NAME_MAX } from "@/lib/bookmarks";
 import { stripBasePath } from "@/lib/basePath";
 import { SEARCH_SCROLL_ATTR } from "@/lib/searchMark";
 import { main as mainEl } from "@/lib/navHistory";
@@ -28,6 +29,7 @@ import {
   HL_EVENT,
   HL_IMPORT_EVENT,
   HL_NOTE_MAX,
+  defaultNoteTitle,
   HL_REVEAL_EVENT,
   HL_TOAST_EVENT,
   coveredBy,
@@ -531,8 +533,10 @@ export default function HighlightsLayer({ ui, lang }: Props) {
       // no selection API
     }
   };
+  const titleRef = useRef("");
   const create = (sel: SelInfo, color: number, note?: string) => {
     upsertHighlight({
+      title: titleRef.current.trim() || undefined,
       lang, section: sel.section, sub: sel.sub, mood: sel.mood, kind: sel.kind,
       start: sel.start, end: sel.end, quote: sel.quote, before: sel.before, after: sel.after, color, note: note || undefined,
     });
@@ -738,12 +742,25 @@ export default function HighlightsLayer({ ui, lang }: Props) {
     </svg>
   );
 
+  // V109 (Vraja Lila msg 8601/8605/8607/8609): the note window has a title field (default = the start of the marked text; the pale cross clears it)
+  const [noteTitle, setNoteTitle] = useState("");
+  const titleInputRef = useRef<HTMLInputElement | null>(null);
+  useEffect(() => {
+    if (!editor) return;
+    const h = editor.id ? readHighlights().find((x) => x.id === editor.id) : undefined;
+    setNoteTitle(h?.title ?? defaultNoteTitle(editor.quote));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [!!editor]);
+
   // --- the editor's save
   const saveEditor = () => {
     const e = editor;
     if (!e) return;
     const note = e.note.trim().slice(0, HL_NOTE_MAX);
-    if (e.id) updateHighlight(e.id, { note: note || undefined, color: e.color });
+    const tt = noteTitle.trim().slice(0, BOOKMARK_NAME_MAX);
+    // a title equal to the default is not kept as the reader's own
+    titleRef.current = tt && tt !== defaultNoteTitle(e.quote) ? tt : "";
+    if (e.id) updateHighlight(e.id, { note: note || undefined, color: e.color, title: titleRef.current || undefined });
     else if (e.sel) {
       if (e.color >= 0 || note) create(e.sel, e.color, note);
       else {
@@ -825,9 +842,9 @@ export default function HighlightsLayer({ ui, lang }: Props) {
         <div className="bookmark-name-backdrop absolute inset-0" aria-hidden="true" onClick={onClose} />
         <div className={`absolute inset-0 flex justify-center overflow-y-auto overscroll-contain pointer-events-none ${kind === "editor" && vv ? "items-start p-2" : "items-center p-4"}`}
           style={kind === "editor" && vv ? { top: vv.top, bottom: "auto", height: vv.height } : undefined}>
-          <div role="dialog" aria-modal="true" className="window-card window-card-small bg-white w-full hl-modal-card pointer-events-auto my-auto" data-hl-ui=""
+          <div role="dialog" aria-modal="true" className={`window-card window-card-small bg-white w-full hl-modal-card pointer-events-auto my-auto${kind === "editor" ? " nw-card" : ""}`} data-hl-ui=""
             style={kind === "editor" && vv ? { maxHeight: "none" } : undefined}>
-            <WindowClose onClick={onClose} label={t(ui, "reader.close")} />
+            {kind !== "editor" && <WindowClose onClick={onClose} label={t(ui, "reader.close")} />}
             {inner}
           </div>
         </div>
@@ -936,10 +953,16 @@ export default function HighlightsLayer({ ui, lang }: Props) {
               saveEditor();
             }}
           >
-            <h2 className="window-title text-lg font-bold mb-3 hl-t" style={{ fontFamily: "var(--font-book, Georgia, serif)" }}>{t(ui, "hl.editor.title")}</h2>
-            {editor.quote.length <= HL_QUOTE_SHOW_MAX && <p className="hl-quote" data-hl-editor-quote="">{editor.quote}</p>}
             {colorButtons({ kind: "editor", current: editor.color, onPick: (i) => setEditor({ ...editor, color: editor.color === i ? NO_COLOR : i }) })}
-            <label className="block text-sm hl-t-soft mb-1.5 mt-3" htmlFor="hl-note-field">{t(ui, "hl.editor.label")}</label>
+            <div className="nw-title-wrap">
+              <input className="nw-title ds-field" value={noteTitle} onChange={(e) => setNoteTitle(e.target.value)} maxLength={BOOKMARK_NAME_MAX} data-nw-title=""
+                aria-label={t(ui, "hl.editor.titleLabel")} placeholder={t(ui, "hl.editor.titlePlaceholder")} ref={titleInputRef} />
+              {noteTitle && (
+                <button type="button" className="nw-clear" data-nw-clear="" aria-label={t(ui, "hl.editor.titleClear")} onClick={() => { setNoteTitle(""); titleInputRef.current?.focus(); }}>
+                  <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
+                </button>
+              )}
+            </div>
             <div className="hl-field-wrap">
               <textarea
                 id="hl-note-field"
@@ -947,8 +970,9 @@ export default function HighlightsLayer({ ui, lang }: Props) {
                 value={editor.note}
                 maxLength={HL_NOTE_MAX}
                 rows={4}
+                placeholder={t(ui, "hl.editor.label")}
                 onChange={(e) => setEditor({ ...editor, note: e.target.value })}
-                className="hl-field ds-field w-full rounded-lg bg-white px-3 py-2.5 text-base hl-t"
+                className={`hl-field ds-field w-full rounded-lg bg-white px-3 py-2.5 text-base hl-t nw-ta`}
                 data-hl-ui=""
               />
               <span className="hl-counter" data-hl-counter="" aria-hidden="true">{editor.note.length}/{HL_NOTE_MAX}</span>

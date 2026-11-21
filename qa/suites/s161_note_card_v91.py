@@ -1,4 +1,6 @@
-"""V91 — Vraja Lila 09.11 msg 2841/2843/7933/7934/7940 («по заметкам - вариант А ... сделай где видно 3 строчки»), variant A3.
+"""V109 UPDATE (Vraja Lila msg 8601/8605/8609, «в карточке только название, не больше 2 строк, затем «…»»): the card now shows ONLY the title (the reader's own,
+else the start of the marked text, max 28 signs + «…»), clamped at 2 lines; the note's text is no longer on the card. Expectations below changed from V91 (3 lines, note text) accordingly.
+V91 — Vraja Lila 09.11 msg 2841/2843/7933/7934/7940 («по заметкам - вариант А ... сделай где видно 3 строчки»), variant A3.
 Side panel, tab «Заметки», the card of a note:
  (1) shows ONLY the note's text (no chapter / place line; «Пуджари / Харибол» is the note text, its line break stays);
  (2) a note without text: the highlighted text is the card's title (Vraja Lila msg 7933);
@@ -73,11 +75,11 @@ def run(p, dev, eng, opts):
     check(dev, "4 cards", len(rows) == 4, list(rows))
     s, l, e, el = (rows.get(k, {}) for k in ("n-short", "n-long", "n-empty", "n-emptylong"))
     check(dev, "(1) no chapter / place line on any card", rows and not any(r["place"] for r in rows.values()), [r["place"] for r in rows.values()])
-    check(dev, "(1) a note with text: the card shows the note, not the highlighted text", s.get("body") == "Пуджари\nХарибол" and not s.get("quote") and "QQQ" not in s.get("text", "x") and "QQQ" not in l.get("text", "x"), s)
-    check(dev, "(1) «Пуджари / Харибол» keeps its two lines", s.get("lines") == 2, s)
+    check(dev, "(1) V109: a note with text: the card shows the title (default = marked text), NOT the note text", s.get("body") == "QQQ-quote-one" and "Харибол" not in s.get("text", "") and "Здесь я записал" not in l.get("text", ""), s)
+    check(dev, "(1) V109: the title takes one line when short", s.get("lines") == 1, s)
     check(dev, "(2) a note without text: the highlighted text is the title", e.get("body") == "Харибол" and el.get("body", "").startswith("saṁsāra-dāvānala"), [e.get("body"), el.get("body")])
-    check(dev, "(3) a long note is cut at 3 lines with «…»", l.get("lines") == 3 and l.get("clamp") == "3", l)
-    check(dev, "(3) a long highlighted text of a note without text is cut at 3 lines", el.get("lines") == 3 and el.get("clamp") == "3", el)
+    check(dev, "(3) V109: a title is cut at 2 lines (clamp 2)", l.get("clamp") == "2" and l.get("lines") <= 2, l)
+    check(dev, "(3) V109: a long marked text of a note without text: the default title (<= 28 signs + «…»), at most 2 lines", el.get("clamp") == "2" and el.get("lines") <= 2 and el.get("body", "").endswith("…") and len(el.get("body", "")) <= 29, el)
     check(dev, "(3) a short card stays short (1 line)", e.get("lines") == 1, e)
     check(dev, "(4) the date DD.MM.YYYY, the handle, the pencil and the bin stay on every card",
           all(re.fullmatch(r"\d{2}\.\d{2}\.\d{4}", r["date"]) and r["pencil"] and r["bin"] and r["handle"] for r in rows.values()), list(rows.values())[:1])
