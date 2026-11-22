@@ -7,7 +7,7 @@ lands on a contents row and chooses that place) closes the menu and opens the pa
 Why it exists: 08.11.2026 the live check (scripts/state/v87_live.py) reported pixel7 3b as failing; the cause was the check's own
 "show the bars" tap in the middle of the page, which on the Pixel 7 hit the row «#vigraha-fourth-form» of the open contents
 (history.pushState with that hash cut the path off) — the app was right. This suite keeps the REAL reader's tap for 3b on all devices.
-# tehniskais slieksnis Lipikāra, nav S noteikums: waits up to 8000 ms for the settled state.
+# tehniskais slieksnis Lipikāra, nav S noteikums: waits up to 15000 ms for the settled state (CI is slow on iphone14 / ipad-portrait).
 usage: python s159_forward_after_back_real_tap_v87e.py <base-url>
 """
 import json
@@ -37,9 +37,9 @@ def check(dev, name, ok, evidence=""):
 
 
 def real_tap(pg, touch, sel):
-    """The tap of a reader: at the element's centre, once it is the topmost element there (waits up to 2 s: V87f - the bar can still be animating)."""
+    """The tap of a reader: at the element's centre, once it is the topmost element there (waits up to 10 s: V87f - the bar can still be animating; slow CI)."""
     r = None
-    for _ in range(20):
+    for _ in range(100):
         r = pg.evaluate("""(s) => { const e = document.querySelector(s); if (!e) return null; const b = e.getBoundingClientRect();
           const x = b.left + b.width / 2, y = b.top + b.height / 2; const t = document.elementFromPoint(x, y);
           return {x, y, top: !!t && (t === e || e.contains(t))}; }""", sel)
@@ -55,7 +55,7 @@ def real_tap(pg, touch, sel):
     return True
 
 
-def wait_state(pg, cond, timeout=8000):
+def wait_state(pg, cond, timeout=15000):
     """Wait for the state (cond is a JS expression over `s`), then let the page settle for one frame."""
     try:
         pg.wait_for_function("(() => { const s = (" + STATE + ")(); return " + cond + "; })()", timeout=timeout)
@@ -82,17 +82,20 @@ def run(browser, dev, opts):
     try:
         for p in ("", A):
             go(pg, f"{BASE}/{LANG}/{p + '/' if p else ''}")
-        pg.wait_for_timeout(900)
+        pg.wait_for_function("document.readyState === 'complete' && !!document.querySelector('[data-reader-action=contents]')", timeout=15000)
         # the contents open with the bars' own button (reader bars are shown by a tap in the middle of the cover/page: that is
         # the reader's way to the button; the menu then stays open, nothing else is tapped on the page afterwards)
         for _ in range(4):
             if pg.evaluate("!!document.querySelector('.reader-chrome[data-shown]')"):
                 break
             pg.mouse.click(pg.viewport_size["width"] // 2, pg.viewport_size["height"] // 2)
-            pg.wait_for_timeout(450)
+            try:
+                pg.wait_for_selector(".reader-chrome[data-shown]", timeout=3000)
+            except Exception:
+                pass
         opened = real_tap(pg, touch, "[data-reader-action=contents]")
-        pg.wait_for_selector(".mobile-menu[data-open]", timeout=8000)
-        pg.wait_for_timeout(700)
+        pg.wait_for_selector(".mobile-menu[data-open]", timeout=15000)
+        pg.wait_for_selector(".mobile-menu[data-open] aside nav a[href]", state="attached", timeout=15000)
         target = pg.evaluate("""() => { const cur = location.pathname.replace(/\\/$/, '').split('/').pop();
           const a = [...document.querySelectorAll('.mobile-menu[data-open] aside nav a[href]')].find((x) => { const h = x.getAttribute('href');
             const last = h.split('#')[0].replace(/\\/$/, '').split('/').pop(); return !h.includes('#') && last && last !== cur && last !== 'ru-iast' && !x.hasAttribute('data-toc-cover'); });
