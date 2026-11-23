@@ -103,16 +103,19 @@ def run(browser, dev, opts):
         s1 = wait_state(pg, f"s.page === {json.dumps(target)} && !s.menu")
         pg.go_back()
         s2 = wait_state(pg, f"s.page === {json.dumps(A)} && s.menu && s.fwd === true")
+        print("s159diag 3a " + json.dumps({"s1": [s1.get("page"), s1.get("menu"), s1.get("fwd")], "s2": [s2.get("page"), s2.get("menu"), s2.get("fwd")], "ids": pg.evaluate(PATH_IDS)[-60:]}, ensure_ascii=False, separators=(",", ":"))[:190], flush=True)
         check(tag, "3a menu -> other chapter -> browser «назад»: the menu is open over the previous page and «Вперёд» is ACTIVE",
               opened and target and s1["page"] == target and s2["page"] == A and s2["menu"] and s2["fwd"] is True, {"target": target, "afterPick": s1, "afterBack": s2})
         # the reader taps «Вперёд» itself — nothing else is tapped on the page before it
         tapped = real_tap(pg, touch, "[data-reader-step=forward]")
         s3 = wait_state(pg, f"s.page === {json.dumps(target)} && !s.menu && s.fwd === false")  # V87f: the «Вперёд» button's disabled state follows ~100 ms after the page changes
+        print("s159diag 3b " + json.dumps({"s3": [s3.get("page"), s3.get("menu"), s3.get("fwd"), s3.get("hash")], "tap": tapped, "ids": pg.evaluate(PATH_IDS)[-60:]}, ensure_ascii=False, separators=(",", ":"))[:190], flush=True)
         check(tag, "3b real tap on «Вперёд»: the menu closes and the page left with «назад» opens, not the previous one",
               tapped and s3["page"] == target and not s3["menu"] and s3["hash"] == "" and s3["fwd"] is False, {"tapped": tapped, "state": s3})
         # «Вернуться»: the bars are shown after a step (V82), the button is tapped as it is
         tapped_b = real_tap(pg, touch, "[data-reader-step=back]")
         s4 = wait_state(pg, f"s.page === {json.dumps(A)} && !s.menu && s.fwd === true")
+        print("s159diag 3c " + json.dumps({"s4": [s4.get("page"), s4.get("menu"), s4.get("fwd")], "tap": tapped_b, "ids": pg.evaluate(PATH_IDS)[-60:]}, ensure_ascii=False, separators=(",", ":"))[:190], flush=True)
         check(tag, "3c real tap on «Вернуться»: back to the previous page, menu closed, «Вперёд» active again",
               tapped_b and s4["page"] == A and not s4["menu"] and s4["fwd"] is True, {"tapped": tapped_b, "state": s4})
         check(tag, "3 no page errors", not errors, errors[:3])
