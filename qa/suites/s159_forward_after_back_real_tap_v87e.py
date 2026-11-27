@@ -96,11 +96,20 @@ def run(browser, dev, opts):
         opened = real_tap(pg, touch, "[data-reader-action=contents]")
         pg.wait_for_selector(".mobile-menu[data-open]", timeout=15000)
         pg.wait_for_selector(".mobile-menu[data-open] aside nav a[href]", state="attached", timeout=15000)
+        ids0 = pg.evaluate(PATH_IDS)
         target = pg.evaluate("""() => { const cur = location.pathname.replace(/\\/$/, '').split('/').pop();
           const a = [...document.querySelectorAll('.mobile-menu[data-open] aside nav a[href]')].find((x) => { const h = x.getAttribute('href');
             const last = h.split('#')[0].replace(/\\/$/, '').split('/').pop(); return !h.includes('#') && last && last !== cur && last !== 'ru-iast' && !x.hasAttribute('data-toc-cover'); });
           if (!a) return null; const last = a.getAttribute('href').replace(/\\/$/, '').split('/').pop(); a.scrollIntoView(); a.click(); return last; }""")
         s1 = wait_state(pg, f"s.page === {json.dumps(target)} && !s.menu")
+        # tehniskais slieksnis Lipikāra, nav S noteikums (nakts audits 27.11, s159 iphone14 3 dienas): the path (lib/pathSteps.ts) notes the new place
+        # 0-120 ms after the page has arrived; under load the test pressed «назад» before that (path 2 places instead of 3, «Вперёд» inactive
+        # for good). The reader does not press «назад» within 0.1 s of arriving: wait until the place is in the path, then step back.
+        try:
+            pg.wait_for_function(f"(() => {{ const now = {PATH_IDS}; if (!now) return false; const [a, b] = now.split('@'); const [at, n] = b.split('/'); "
+                                 f"return now !== {json.dumps(ids0)} && +at === n - 1; }})()", timeout=15000)
+        except Exception:
+            pass
         pg.go_back()
         s2 = wait_state(pg, f"s.page === {json.dumps(A)} && s.menu && s.fwd === true")
         print("s159diag 3a " + json.dumps({"s1": [s1.get("page"), s1.get("menu"), s1.get("fwd")], "s2": [s2.get("page"), s2.get("menu"), s2.get("fwd")], "ids": pg.evaluate(PATH_IDS)[-60:]}, ensure_ascii=False, separators=(",", ":"))[:190], flush=True)

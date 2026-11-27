@@ -3,7 +3,7 @@
 чтения бхаджана текст сам перескакивает к другой главе»; iPhone does not do it).
 Criteria (register V60): the same chapter (URL) and the same reading place (the same text block at the reading line)
 after the turn and after turning back; «Листать» and «Прокручивать».
-# tehniskais slieksnis Lipikāra, nav S noteikums: same block text; settle 1500 ms + up to 10 s until the block is back; place measured at 20 % of the viewport height.
+# tehniskais slieksnis Lipikāra, nav S noteikums: same block text; settle 3000 ms + scroll offset still for 3 x 500 ms + up to 10 s until the block is back; place measured at 20 % of the viewport height.
 usage: python s120_rotation_keeps_place_v60.py <base-url>
 """
 import json
@@ -51,6 +51,19 @@ def turn(pg):
     v = pg.viewport_size
     pg.set_viewport_size({"width": v["height"], "height": v["width"]})
     pg.wait_for_timeout(1500)
+    # tehniskais slieksnis Lipikāra, nav S noteikums (nakts audits 27.11 P3; iPhone14 CI 25.–26.11): after a turn the app puts the place back for
+    # ~1.3 s (lib/resizeAnchor.ts SETTLE_MS) and only THEN remembers the new place; on a loaded runner the page's timers run later than the
+    # test's 1500 ms, so the next turn came before the new place was remembered and nothing was put back. Wait >= 3000 ms in all since the turn
+    # and until the scroll offset has stood still for 3 samples of 500 ms (up to 10 s more), then go on.
+    pg.wait_for_timeout(1500)
+    last, still = None, 0
+    for _ in range(20):
+        t = pg.evaluate("Math.round(document.querySelector('.app-main').scrollTop)")
+        still = still + 1 if t == last else 0
+        last = t
+        if still >= 3:
+            break
+        pg.wait_for_timeout(500)
 
 
 def settle(pg, text, chap):
